@@ -1,0 +1,43 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: dp-saksbehandling-frontend
+  namespace: teamdagpenger
+  labels:
+    team: teamdagpenger
+    app: dp-saksbehandling-frontend
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "64M"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  image: {{image}}
+  port: 3000
+  liveness:
+    path: "{{base_path}}/api/internal/isalive"
+    initialDelay: 3
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
+  readiness:
+    path: "{{base_path}}/api/internal/isready"
+    initialDelay: 3
+    timeout: 1
+  ingresses:
+    - {{ingress}}
+  env:
+    - name: SELF_URL
+      value: {{ingress}}
+
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+      autoLogin: true
+
+  tokenx:
+    enabled: true
+  accessPolicy:
+    outbound:
+      rules:
+        - application: dp-soknad

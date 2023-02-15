@@ -1,0 +1,48 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc",
+    "prepare": "husky install",
+    "port-forward": "./scripts/local-auth.sh && ./scripts/port-forward.sh"
+  },
+  "prettier": {
+    "printWidth": 100
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --list-different",
+      "eslint --max-warnings 0"
+    ]
+  },
+  "dependencies": {
+    "@navikt/dp-auth": "^0.3.1",
+    "@navikt/ds-css": "^2.1.7",
+    "@navikt/ds-css-internal": "^2.1.7",
+    "@navikt/ds-react": "^2.1.7",
+    "@navikt/ds-react-internal": "^2.1.7",
+    "@remix-run/node": "^1.12.0",
+    "@remix-run/react": "^1.12.0",
+    "@remix-run/serve": "^1.12.0",
+    "husky": "^8.0.3",
+    "isbot": "^3.6.5",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.12.0",
+    "@remix-run/eslint-config": "^1.12.0",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "eslint": "^8.27.0",
+    "typescript": "^4.8.4"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
