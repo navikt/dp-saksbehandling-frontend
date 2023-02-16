@@ -84,7 +84,7 @@ jobs:
         with:
           cdn-team-name: teamdagpenger
           source: ./public
-          destination: '/dp-saksbehandling-frontend/public'
+          destination: '/public'
 
   deploy-dev:
     needs: [ build, upload-cdn ]
