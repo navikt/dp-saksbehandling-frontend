@@ -1,8 +1,9 @@
-import React from "react";
+import { Table } from "@navikt/ds-react";
 import { Header } from "@navikt/ds-react-internal";
 import { Link, useLoaderData } from "@remix-run/react";
-import { Table } from "@navikt/ds-react";
 import { mockHentOppgaver } from "~/models/oppgave.server";
+
+import styles from "~/index.module.css";
 
 export async function loader() {
   const oppgaver = await mockHentOppgaver();
@@ -15,9 +16,10 @@ export default function Index() {
   return (
     <div>
       <Header>
-        <Header.Title as="h1">NAV Dagpenger</Header.Title>
+        <Header.Title as="h1" className={styles.pageHeader}>
+          NAV Dagpenger
+        </Header.Title>
       </Header>
-
       <main>
         <Table size="small">
           <Table.Header>
