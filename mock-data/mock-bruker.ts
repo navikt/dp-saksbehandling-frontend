@@ -1,4 +1,4 @@
-import { IBruker } from "~/models/personalia.server";
+import type { IBruker } from "~/models/bruker.server";
 
 export const mockBruker: IBruker = {
   postAdresse: {

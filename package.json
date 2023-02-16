@@ -5,7 +5,7 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build",
-    "typecheck": "tsc",
+    "type-check": "tsc",
     "prepare": "husky install",
     "port-forward": "./scripts/local-auth.sh && ./scripts/port-forward.sh"
   },
