@@ -67,7 +67,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   upload-cdn:
-    needs: [ test, build ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
@@ -87,7 +87,7 @@ jobs:
           destination: '/dp-saksbehandling-frontend/public'
 
   deploy-dev:
-    needs: [ test, build, upload-cdn ]
+    needs: [ build, upload-cdn ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

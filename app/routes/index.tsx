@@ -11,7 +11,7 @@ export async function loader() {
 
 export default function Index() {
   const oppgaver = useLoaderData<typeof loader>();
-
+  console.log("test");
   return (
     <div>
       <Header>
