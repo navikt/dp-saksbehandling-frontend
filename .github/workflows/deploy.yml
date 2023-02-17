@@ -84,9 +84,7 @@ jobs:
       - uses: actions/cache@v2
         id: restore-build
         with:
-          path: |
-            ./build
-            ./public
+          path: ./public
           key: ${{ github.sha }}
 
       - name: Upload static files
