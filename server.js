@@ -1,6 +1,6 @@
 const path = require("path");
 const { createApp } = require("@remix-run/serve");
-const { serverBuildDirectory } = require("./remix.config");
+const { serverBuildDirectory } = require("./remix.config.js");
 
 const buildPath = path.resolve(process.cwd(), serverBuildDirectory);
 
