@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "@navikt/ds-react-internal";
 import { useLoaderData } from "@remix-run/react";
-import { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
 import { hentBruker, mockHentBruker } from "~/models/bruker.server";
 import { getSession } from "~/utils/auth.utils";
 import { audienceDPSoknad } from "~/utils/api.utils";
@@ -11,7 +11,7 @@ export async function loader({ request }: LoaderArgs) {
   // @ts-ignore
   const session = await getSession(request);
 
-  if (!session) {
+  if (!session || session.expiresIn === 0) {
     console.log("no session");
     return await mockHentBruker();
   }
