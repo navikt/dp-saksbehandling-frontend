@@ -1,6 +1,6 @@
 name: Build and deploy
 
-on: [ push ]
+on: [push]
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
@@ -31,9 +31,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-
   build:
-    needs: [ install ]
+    needs: [install]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -75,11 +74,11 @@ jobs:
           key: ${{ github.sha }}
 
   upload-cdn:
-    needs: [ build ]
+    needs: [build]
     runs-on: ubuntu-latest
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: "read"
+      id-token: "write"
     steps:
       - uses: actions/cache@v3
         id: restore-build
@@ -94,10 +93,10 @@ jobs:
         with:
           cdn-team-name: teamdagpenger
           source: ./public
-          destination: '/dp-saksbehandling-frontend/'
+          destination: "/dp-saksbehandling-frontend/"
 
   deploy-dev:
-    needs: [ build, upload-cdn ]
+    needs: [build, upload-cdn]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
