@@ -6,13 +6,13 @@ ENV PORT=3000 \
     TZ=Europe/Oslo
 
 COPY remix.config.js ./remix.config.js
-COPY server.js ./server.js
-COPY node_modules ./node_modules
+COPY package.json ./package.json
 
 COPY build ./build
 COPY public ./public
+COPY node_modules ./node_modules
 
 EXPOSE 3000
 USER node
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
