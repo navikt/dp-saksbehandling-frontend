@@ -22,22 +22,33 @@ spec:
     path: "{{base_path}}/api/internal/isready"
     initialDelay: 3
     timeout: 1
+  prometheus:
+    enabled: false
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 75
+  resources:
+    limits:
+      cpu: 300m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 128Mi
   ingresses:
     - {{ingress}}
   env:
     - name: SELF_URL
       value: {{ingress}}
-
-  idporten:
-    enabled: true
+  azure:
+    application:
+      tenant: nav.no
+      enabled: true
+      claims:
+        groups:
+          - id: 4edb2ce5-4f0e-4f6f-9b82-b8e75e9dd09e # teamdagpenger
+        extra:
+          - NAVident
     sidecar:
       enabled: true
-      level: Level4
       autoLogin: true
-
-  tokenx:
-    enabled: true
-  accessPolicy:
-    outbound:
-      rules:
-        - application: dp-soknad
