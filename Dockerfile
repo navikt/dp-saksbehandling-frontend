@@ -10,6 +10,7 @@ COPY package.json ./
 
 COPY public ./public
 COPY build ./build
+COPY node_modules ./node_modules
 
 EXPOSE 3000
 USER node
