@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v3
         id: node_modules
         with:
-          path: ~/node_modules
+          path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
 
       - uses: actions/setup-node@v3
@@ -44,7 +44,7 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: ~/node_modules
+          path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
 
       - run: npm run build
@@ -70,8 +70,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/build
-            ~/public
+            ./build
+            ./public
           key: ${{ github.sha }}
 
   upload-cdn:
@@ -85,15 +85,15 @@ jobs:
         id: restore-build
         with:
           path: |
-            ~/build
-            ~/public
+            ./build
+            ./public
           key: ${{ github.sha }}
 
       - name: Upload static files
         uses: navikt/frontend/actions/cdn-upload/v1@main
         with:
           cdn-team-name: teamdagpenger
-          source: ~/public
+          source: ./public
           destination: '/dp-saksbehandling-frontend/'
 
   deploy-dev:
