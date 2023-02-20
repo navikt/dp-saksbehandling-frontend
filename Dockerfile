@@ -15,4 +15,4 @@ COPY node_modules ./node_modules
 EXPOSE 3000
 USER node
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start", "--verbose"]

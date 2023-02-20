@@ -7,6 +7,6 @@ module.exports = {
   publicPath: "/build/",
   future: {
     unstable_cssModules: true,
-    v2_routeConvention: true,
+    //v2_routeConvention: true, fjerner denne enn så lenge da den bare gir et blankt ark
   },
 };
