@@ -1,4 +1,4 @@
-ingress: https://dagpenger.dev.nav.no/saksbehandling
+ingress: https://dagpenger.intern.nav.no/saksbehandling
 dekorator:
   url: https://dekoratoren.dev.nav.no/
   env: dev
