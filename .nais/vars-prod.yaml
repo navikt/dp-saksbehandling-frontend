@@ -1,5 +1,5 @@
 ingress: https://dagpenger.intern.nav.no/saksbehandling
-base_path: "/dagpenger/dialog"
+base_path: "/saksbehandling"
 dekorator:
   url: https://www.nav.no/dekoratoren
   env: prod
