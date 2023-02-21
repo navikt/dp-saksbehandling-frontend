@@ -27,7 +27,7 @@ const startServer = async () => {
   configureServerSettings();
 
   app.get(
-    [`${basePath}/api/internal/isAlive`, `${basePath}/api/internal/isReady`],
+    [`${basePath}/api/internal/isalive`, `${basePath}/api/internal/isready`],
     (_, res: Response) => res.sendStatus(200)
   );
 
