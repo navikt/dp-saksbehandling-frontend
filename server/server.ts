@@ -5,7 +5,7 @@ import type { Response } from "express";
 import { logger, logRequests } from "./logger";
 
 const port = process.env.PORT || 3000;
-const basePath = "";
+const basePath = "/saksbehandling";
 
 const app = express();
 
