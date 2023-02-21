@@ -2,8 +2,12 @@ node_modules
 
 /build
 /public/build
+/server/build
 
 /.cache
+
+#intellij
+*.iml
 /.idea
 
 .env

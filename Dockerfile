@@ -1,18 +1,11 @@
-FROM node:18-alpine AS runtime
-WORKDIR /usr/src/app
+FROM navikt/node-express:16
 
-ENV PORT=3000 \
-    NODE_ENV=production \
-    TZ=Europe/Oslo
+WORKDIR /var
 
-COPY remix.config.js ./remix.config.js
-COPY package.json ./package.json
-
-COPY build ./build
-COPY public ./public
-COPY node_modules ./node_modules
+COPY build/ build/
+COPY server/build server/
+COPY public/build public/build
+COPY node_modules/ node_modules/
 
 EXPOSE 3000
-USER node
-
-CMD ["npm", "run", "start", "--verbose"]
+ENTRYPOINT ["node", "./server/server.js"]
