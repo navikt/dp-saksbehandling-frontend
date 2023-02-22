@@ -1,6 +1,5 @@
-import { json } from "@remix-run/node";
-
 import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { getAzureSession } from "~/utils/auth.utils";
 
 export async function loader({ request }: LoaderArgs) {
@@ -12,12 +11,13 @@ export async function loader({ request }: LoaderArgs) {
     return json({ oops: "no session" });
   }
   try {
+    const oboToken = await session.apiToken("https://graph.microsoft.com/.default");
     const data = await fetch(
       "https://graph.microsoft.com/v1.0/me/?$select=onPremisesSamAccountName,givenName,displayName,mail",
       {
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${session.token}`,
+          Authorization: `Bearer ${oboToken}`,
         },
       }
     );
