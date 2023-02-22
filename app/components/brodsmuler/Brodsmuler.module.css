@@ -1,0 +1,23 @@
+.container {
+  background-color: var(--a-gray-100);
+  border-bottom: 1px solid var(--a-gray-500);
+}
+
+.container ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container li {
+  display: flex;
+  align-items: center;
+  padding: var(--a-spacing-2) var(--a-spacing-2);
+}
+
+.container li:not(:last-child)::after {
+  content: "/";
+  margin-left: var(--a-spacing-6);
+}
