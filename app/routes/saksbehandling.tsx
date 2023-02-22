@@ -10,7 +10,7 @@ export async function loader() {
   return oppgaver;
 }
 
-export default function Index() {
+export default function Saksbehandling() {
   const oppgaver = useLoaderData<typeof loader>();
   console.log("test");
   return (
