@@ -1,11 +1,14 @@
 import { json } from "@remix-run/node";
-// @ts-ignore
-import { getSession } from "@navikt/dp-auth/session";
+
 import type { LoaderArgs } from "@remix-run/node";
+import { getAzureSession } from "~/utils/auth.utils";
+
 const audience = "https://graph.microsoft.com/.default";
 
 export async function loader({ request }: LoaderArgs) {
-  const session = await getSession(request);
+  // getSession vil ha node-fetch htttpIncomming request, remux sin request er av typen fetch request
+  // @ts-ignore
+  const session = await getAzureSession(request);
   if (!session || session.expiresIn === 0) {
     console.log("no session");
     return json({ oops: "no session" });
