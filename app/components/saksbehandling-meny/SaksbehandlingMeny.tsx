@@ -10,8 +10,8 @@ interface IProps {
 export function SaksbehandlingMeny({ bruker }: IProps) {
   return (
     <div className={styles.container}>
-      <Link to={`/saksbehandling/bruker/${bruker.ident}/vedtak`}> Vedtak</Link>
-      <Link to={`/saksbehandling/bruker/${bruker.ident}/meldekort`}> Meldekort</Link>
+      <Link to={`/bruker/${bruker.ident}/vedtak`}> Vedtak</Link>
+      <Link to={`/bruker/${bruker.ident}/meldekort`}> Meldekort</Link>
     </div>
   );
 }
