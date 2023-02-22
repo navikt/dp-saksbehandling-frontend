@@ -1,3 +1,4 @@
-.breadCrumbs {
-  background-color: red;
+.tidslinjeContainer {
+  padding: var(--a-spacing-8);
+  border-bottom: 1px solid var(--a-gray-500);
 }
