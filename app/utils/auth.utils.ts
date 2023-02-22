@@ -1,12 +1,11 @@
-import type { GetSessionWithOboProvider } from "@navikt/dp-auth";
+import type { GetSessionWithOboProvider, GetSessionWithoutOboProvider } from "@navikt/dp-auth";
 import { makeSession } from "@navikt/dp-auth";
 import { idporten, azure } from "@navikt/dp-auth/identity-providers";
 import { tokenX, withInMemoryCache } from "@navikt/dp-auth/obo-providers";
 
 let getSession: GetSessionWithOboProvider;
-const getAzureSession: GetSessionWithOboProvider = makeSession({
+const getAzureSession: GetSessionWithoutOboProvider = makeSession({
   identityProvider: azure,
-  oboProvider: async (token: string, audience: string) => token + audience,
 });
 
 if (process.env.AUTH_PROVIDER == "local") {
