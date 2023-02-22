@@ -1,11 +1,14 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getAzureSession } from "~/utils/auth.utils";
+import type { IncomingMessage } from "http";
 
 export async function loader({ request }: LoaderArgs) {
-  // getSession vil ha node-fetch htttpIncomming request, remux sin request er av typen fetch request
-  // @ts-ignore
-  const session = await getAzureSession(request);
+  // @ts-ignore getSession vil ha node-fetch HttpIncomming request, remux sin request er av typen fetch request
+  const incomingMessage: IncomingMessage = {
+    headers: { authorization: request.headers.get("authorization")! },
+  };
+  const session = await getAzureSession(incomingMessage);
   if (!session || session.expiresIn === 0) {
     console.log("no session");
     return json({ oops: "no session" });
