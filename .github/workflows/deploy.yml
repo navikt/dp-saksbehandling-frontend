@@ -87,6 +87,7 @@ jobs:
             ./build
             ./public
           key: ${{ github.sha }}
+          fail-on-cache-miss: true
 
       - name: Upload static files
         uses: navikt/frontend/actions/cdn-upload/v1@main
