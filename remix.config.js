@@ -3,8 +3,8 @@ const basePath = "/saksbehandling";
 module.exports = {
   ignoredRouteFiles: ["**/.*"],
   // appDirectory: "app",
-  assetsBuildDirectory: "public/build",
-  serverBuildPath: "build/index.js",
+  //assetsBuildDirectory: "public/build",
+  //serverBuildPath: "build/index.js",
   publicPath: `${basePath}/build/`,
   future: {
     unstable_cssModules: true,
