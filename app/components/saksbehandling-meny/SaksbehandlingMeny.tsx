@@ -13,10 +13,10 @@ export function SaksbehandlingMeny({ bruker }: IProps) {
   console.log(location);
   return (
     <div className={styles.container}>
-      <Link to={`/bruker/${bruker.ident}/vedtak`} className={styles.linkItem}>
+      <Link to={`/saksbehandling/bruker/${bruker.ident}/vedtak`} className={styles.linkItem}>
         Vedtak
       </Link>
-      <Link to={`/bruker/${bruker.ident}/meldekort`} className={styles.linkItem}>
+      <Link to={`/saksbehandling/bruker/${bruker.ident}/meldekort`} className={styles.linkItem}>
         Meldekort
       </Link>
     </div>
