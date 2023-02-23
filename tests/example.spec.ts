@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 
+// SlowMo mode for local debug
+// test.use({ launchOptions: { slowMo: 1000 } });
+
 test("has title", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
