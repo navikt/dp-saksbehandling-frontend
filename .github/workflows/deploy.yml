@@ -48,7 +48,7 @@ jobs:
           key: modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
         run: npx playwright test
