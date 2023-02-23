@@ -29,7 +29,7 @@ export default function Saksbehandling() {
 
             return (
               <Table.Row key={index}>
-                <Table.HeaderCell scope="row">{saksbehandler.displayName}</Table.HeaderCell>
+                <Table.HeaderCell scope="row">{saksbehandler.givenName}</Table.HeaderCell>
                 <Table.DataCell>{oppgaveType}</Table.DataCell>
                 <Table.DataCell>
                   <Link to={`bruker/${bruker.ident}/vilkaar`}>{brukerNavn}</Link>
