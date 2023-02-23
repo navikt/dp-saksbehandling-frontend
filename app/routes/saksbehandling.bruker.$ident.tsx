@@ -40,7 +40,7 @@ export default function Bruker() {
         <DagpengerTidslinje />
       </div>
 
-      <SaksbehandlingMeny bruker={bruker} />
+      <SaksbehandlingMeny />
 
       <Outlet />
     </main>

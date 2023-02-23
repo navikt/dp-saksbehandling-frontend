@@ -1,9 +1,13 @@
 import type { GetSessionWithOboProvider } from "@navikt/dp-auth";
 import { makeSession } from "@navikt/dp-auth";
-import { idporten } from "@navikt/dp-auth/identity-providers";
-import { tokenX, withInMemoryCache } from "@navikt/dp-auth/obo-providers";
+import { azure, idporten } from "@navikt/dp-auth/identity-providers";
+import { tokenX, azure as azureOBO, withInMemoryCache } from "@navikt/dp-auth/obo-providers";
 
 let getSession: GetSessionWithOboProvider;
+const getAzureSession: GetSessionWithOboProvider = makeSession({
+  identityProvider: azure,
+  oboProvider: azureOBO,
+});
 
 if (process.env.AUTH_PROVIDER == "local") {
   const staticToken = process.env.LOCAL_TOKEN || "";
@@ -21,4 +25,4 @@ if (process.env.AUTH_PROVIDER == "local") {
   });
 }
 
-export { getSession };
+export { getSession, getAzureSession };

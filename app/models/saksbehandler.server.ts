@@ -1,5 +1,6 @@
 export interface ISaksbehandler {
-  forNavn: string;
-  mellomNavn: string;
-  etterNavn: string;
+  onPremisesSamAccountName: string;
+  givenName: string;
+  displayName: string;
+  mail: string;
 }
