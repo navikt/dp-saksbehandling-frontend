@@ -1,17 +1,19 @@
 import React from "react";
 import styles from "./SaksbehandlingMeny.module.css";
-import { Link } from "@remix-run/react";
-import type { IBruker } from "~/models/bruker.server";
+import { Link, useLocation } from "@remix-run/react";
 
-interface IProps {
-  bruker: IBruker;
-}
+export function SaksbehandlingMeny() {
+  let location = useLocation();
 
-export function SaksbehandlingMeny({ bruker }: IProps) {
+  console.log(location);
   return (
     <div className={styles.container}>
-      <Link to={`/bruker/${bruker.ident}/vedtak`}> Vedtak</Link>
-      <Link to={`/bruker/${bruker.ident}/meldekort`}> Meldekort</Link>
+      <Link to={`vedtak`} className={styles.linkItem}>
+        Vedtak
+      </Link>
+      <Link to={`meldekort`} className={styles.linkItem}>
+        Meldekort
+      </Link>
     </div>
   );
 }

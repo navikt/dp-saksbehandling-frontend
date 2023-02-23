@@ -1,11 +1,12 @@
 /** @type {import('@remix-run/dev').AppConfig} */
-const basePath = "/saksbehandling";
 module.exports = {
   ignoredRouteFiles: ["**/.*"],
   // appDirectory: "app",
-  //assetsBuildDirectory: "public/build",
-  //serverBuildPath: "build/index.js",
-  publicPath: `${basePath}/build/`,
+  // assetsBuildDirectory: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build",
+  // assetsBuildDirectory: "public/build",
+  // serverBuildPath: "build/index.js",
+  publicPath: "/saksbehandling/build/",
+  // publicPath: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build/",
   future: {
     unstable_cssModules: true,
     v2_routeConvention: true,

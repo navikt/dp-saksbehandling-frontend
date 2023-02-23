@@ -1,5 +1,4 @@
 import React from "react";
-import { Header } from "@navikt/ds-react-internal";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import type { LoaderArgs } from "@remix-run/node";
 import type { IBruker } from "~/models/bruker.server";
@@ -32,27 +31,18 @@ export default function Bruker() {
   const bruker = useLoaderData<typeof loader>() as IBruker;
 
   return (
-    <div>
-      <Header>
-        <Header.Title as="h1">NAV Dagpenger</Header.Title>
-        <Header.User name={`${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`} />
-      </Header>
+    <main>
+      {/*<pre>{JSON.stringify(personalia, null, 2)}</pre>*/}
+      <Brodsmuler bruker={bruker} />
+      <DagpengerStatusBruker bruker={bruker} />
 
-      <main>
-        {/*<pre>{JSON.stringify(personalia, null, 2)}</pre>*/}
-        <Brodsmuler bruker={bruker} />
-        <DagpengerStatusBruker bruker={bruker} />
+      <div className={styles.tidslinjeContainer}>
+        <DagpengerTidslinje />
+      </div>
 
-        <div className={styles.tidslinjeContainer}>
-          <DagpengerTidslinje />
-        </div>
+      <SaksbehandlingMeny bruker={bruker} />
 
-        <SaksbehandlingMeny bruker={bruker} />
-
-        <Outlet />
-
-        <div>lol</div>
-      </main>
-    </div>
+      <Outlet />
+    </main>
   );
 }
