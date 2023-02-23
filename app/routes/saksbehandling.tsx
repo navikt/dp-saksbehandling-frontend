@@ -1,11 +1,11 @@
 import { Header } from "@navikt/ds-react-internal";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import styles from "~/index.module.css";
-import { SaksbehandlerUtloggingMeny } from "~/components/saksbehandler/SaksbehandlerUtloggingMeny";
 import { json } from "@remix-run/node";
-import type { LoaderArgs } from "@remix-run/node";
 import { getAzureSession } from "~/utils/auth.utils";
+import { SaksbehandlerMeny } from "~/components/saksbehandler-meny/SaksbehandlerMeny";
+import type { LoaderArgs } from "@remix-run/node";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import styles from "~/index.module.css";
 
 export async function loader({ request }: LoaderArgs) {
   const session = await getAzureSession(request);
@@ -39,7 +39,8 @@ export default function Saksbehandling() {
         <Header.Title as="h1" className={styles.pageHeader}>
           NAV Dagpenger
         </Header.Title>
-        <SaksbehandlerUtloggingMeny saksbehandler={saksbehandler} />
+
+        <SaksbehandlerMeny saksbehandler={saksbehandler} />
       </Header>
 
       <Outlet />

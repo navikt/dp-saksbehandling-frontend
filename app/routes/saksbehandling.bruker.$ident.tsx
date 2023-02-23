@@ -9,7 +9,7 @@ import styles from "~/route-styles/bruker.module.css";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { DagpengerStatusBruker } from "~/components/dagpenger-status-bruker/DagpengerStatusBruker";
 import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
-import { SaksbehandlingMeny } from "~/components/saksbehandling-meny/SaksbehandlingMeny";
+import { BrukerMeny } from "~/components/bruker-meny/BrukerMeny";
 
 export async function loader({ request }: LoaderArgs) {
   // getSession vil ha node-fetch httpIncomingRequest, Remix sin request er av typen fetch request
@@ -40,7 +40,7 @@ export default function Bruker() {
         <DagpengerTidslinje />
       </div>
 
-      <SaksbehandlingMeny />
+      <BrukerMeny />
 
       <Outlet />
     </main>

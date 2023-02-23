@@ -1,5 +1,6 @@
 import { Table } from "@navikt/ds-react";
 import { Link, useLoaderData } from "@remix-run/react";
+import type { IOppgave } from "~/models/oppgave.server";
 import { mockHentOppgaver } from "~/models/oppgave.server";
 
 export async function loader() {
@@ -8,8 +9,8 @@ export async function loader() {
 }
 
 export default function Saksbehandling() {
-  const oppgaver = useLoaderData<typeof loader>();
-  console.log("test");
+  const oppgaver = useLoaderData<typeof loader>() as IOppgave[];
+
   return (
     <main>
       <Table size="small">
@@ -24,15 +25,14 @@ export default function Saksbehandling() {
         <Table.Body>
           {oppgaver.map((oppgave, index) => {
             const { saksbehandler, oppgaveType, bruker } = oppgave;
-            const saksbehandlerNavn = `${saksbehandler.forNavn} ${saksbehandler.mellomNavn} ${saksbehandler.etterNavn}`;
             const brukerNavn = `${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`;
 
             return (
               <Table.Row key={index}>
-                <Table.HeaderCell scope="row">{saksbehandlerNavn}</Table.HeaderCell>
+                <Table.HeaderCell scope="row">{saksbehandler.displayName}</Table.HeaderCell>
                 <Table.DataCell>{oppgaveType}</Table.DataCell>
                 <Table.DataCell>
-                  <Link to={`bruker/${bruker.ident}`}>{brukerNavn}</Link>
+                  <Link to={`bruker/${bruker.ident}/vilkaar`}>{brukerNavn}</Link>
                 </Table.DataCell>
               </Table.Row>
             );
