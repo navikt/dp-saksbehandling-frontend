@@ -11,4 +11,9 @@ module.exports = {
     unstable_cssModules: true,
     v2_routeConvention: true,
   },
+  routes(defineRoutes) {
+    return defineRoutes((route) => {
+      route("/saksbehandling", "root.tsx");
+    });
+  },
 };
