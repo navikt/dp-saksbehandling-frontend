@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SaksbehandlingMeny.module.css";
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 import type { IBruker } from "~/models/bruker.server";
 
 interface IProps {
@@ -8,10 +8,17 @@ interface IProps {
 }
 
 export function SaksbehandlingMeny({ bruker }: IProps) {
+  let location = useLocation();
+
+  console.log(location);
   return (
     <div className={styles.container}>
-      <Link to={`/bruker/${bruker.ident}/vedtak`}> Vedtak</Link>
-      <Link to={`/bruker/${bruker.ident}/meldekort`}> Meldekort</Link>
+      <Link to={`/bruker/${bruker.ident}/vedtak`} className={styles.linkItem}>
+        Vedtak
+      </Link>
+      <Link to={`/bruker/${bruker.ident}/meldekort`} className={styles.linkItem}>
+        Meldekort
+      </Link>
     </div>
   );
 }

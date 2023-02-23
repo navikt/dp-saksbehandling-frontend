@@ -50,8 +50,6 @@ export default function Bruker() {
         <SaksbehandlingMeny bruker={bruker} />
 
         <Outlet />
-
-        <div>lol</div>
       </main>
     </div>
   );
