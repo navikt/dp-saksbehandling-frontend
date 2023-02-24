@@ -2,10 +2,9 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build && run-p build:server",
-    "build:server": "tsc --project server/tsconfig.json",
+    "build": "remix build",
     "dev": "remix dev",
-    "start": "ts-node ./server/server.ts",
+    "start": "remix-serve build",
     "type-check": "tsc",
     "prepare": "husky install",
     "port-forward": "./scripts/local-auth.sh && ./scripts/port-forward.sh"

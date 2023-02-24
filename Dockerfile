@@ -1,11 +1,13 @@
 FROM navikt/node-express:18
 
-WORKDIR /var
+WORKDIR /usr/src/app
 
-COPY build/ build/
-COPY server/build server/
-COPY public/build public/build
-COPY node_modules/ node_modules/
+COPY package.json ./package.json
+COPY package-lock.json ./package-lock.json
+
+COPY build/ ./build
+COPY public/build ./public/build
+COPY node_modules/ ./node_modules
 
 EXPOSE 3000
-ENTRYPOINT ["node", "./server/server.js"]
+CMD ["npm", "run", "start"]
