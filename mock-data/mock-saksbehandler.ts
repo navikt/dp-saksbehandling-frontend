@@ -1,7 +1,8 @@
-import { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
 
 export const mockSaksbehandler: ISaksbehandler = {
-  forNavn: "Frans",
-  mellomNavn: "Kake",
-  etterNavn: "Jaeger",
+  onPremisesSamAccountName: "1234",
+  givenName: "frans kake",
+  displayName: "franz",
+  mail: "fran@kake.jaeger",
 };
