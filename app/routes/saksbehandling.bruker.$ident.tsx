@@ -2,9 +2,7 @@ import React from "react";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import type { LoaderArgs } from "@remix-run/node";
 import type { IBruker } from "~/models/bruker.server";
-import { hentBruker, mockHentBruker } from "~/models/bruker.server";
-import { getSession } from "~/utils/auth.utils";
-import { audienceDPSoknad } from "~/utils/api.utils";
+import { mockHentBruker } from "~/models/bruker.server";
 import styles from "~/route-styles/bruker.module.css";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { DagpengerStatusBruker } from "~/components/dagpenger-status-bruker/DagpengerStatusBruker";
@@ -12,19 +10,9 @@ import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTi
 import { BrukerMeny } from "~/components/bruker-meny/BrukerMeny";
 
 export async function loader({ request }: LoaderArgs) {
-  // getSession vil ha node-fetch httpIncomingRequest, Remix sin request er av typen fetch request
-  // @ts-ignore
-  const session = await getSession(request);
-
-  if (!session || session.expiresIn === 0) {
-    console.log("no session");
-    return await mockHentBruker();
-  }
-
-  const onBehalfOfToken = await session.apiToken(audienceDPSoknad);
-  const response = await hentBruker(onBehalfOfToken);
-
-  return response.json();
+  // vi skal ikke bruke idporten tokens så like greit å bare la det stå som en full mock enn så lenge
+  // todo: fyr opp info om bruker via saksbehandler obo
+  return await mockHentBruker();
 }
 
 export default function Bruker() {
