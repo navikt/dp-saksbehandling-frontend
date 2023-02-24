@@ -33,6 +33,7 @@ const startServer = async () => {
 
   app.use(logRequests);
 
+  app.all(`${basePath}*`, handleRequestWithRemix);
   app.all(`${basePath}`, handleRequestWithRemix);
 
   app.listen(port, () => {

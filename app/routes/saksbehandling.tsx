@@ -5,12 +5,13 @@ import { getAzureSession } from "~/utils/auth.utils";
 import { SaksbehandlerMeny } from "~/components/saksbehandler-meny/SaksbehandlerMeny";
 import type { LoaderArgs } from "@remix-run/node";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import { logger } from "../../server/logger";
 import styles from "~/index.module.css";
 
 export async function loader({ request }: LoaderArgs) {
   const session = await getAzureSession(request);
   if (!session || session.expiresIn === 0) {
-    console.log("no session");
+    logger.debug("no session");
     return json({ oops: "no session" });
   }
   try {
