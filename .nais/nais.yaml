@@ -47,6 +47,7 @@ spec:
       claims:
         groups:
           - id: 4edb2ce5-4f0e-4f6f-9b82-b8e75e9dd09e # teamdagpenger
+          - id: 57b411c7-c876-47db-a4a5-e33cddecdacf # meldeplikt
         extra:
           - NAVident
     sidecar:
