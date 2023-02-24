@@ -1,7 +1,14 @@
 import { Table } from "@navikt/ds-react";
+import type { MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { mockHentOppgaver } from "~/models/oppgave.server";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: "Dagpenger saksbehandling",
+  };
+};
 
 export async function loader() {
   const oppgaver = await mockHentOppgaver();

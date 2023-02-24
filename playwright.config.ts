@@ -10,6 +10,12 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:3000/saksbehandling",
+    timeout: 120 * 1000,
+    reuseExistingServer: !process.env.CI,
+  },
   testDir: "./tests",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -39,6 +45,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    baseURL: "http://localhost:3000/saksbehandling",
   },
 
   /* Configure projects for major browsers */
