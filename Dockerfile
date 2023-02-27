@@ -5,10 +5,10 @@ ENV PORT=3000 \
     NODE_ENV=production \
     TZ=Europe/Oslo
 
+RUN mkdir ./.npm
+
 COPY package.json ./package.json
 COPY package-lock.json ./package-lock.json
-
-COPY .npm/ ./.npm
 COPY node_modules/ ./node_modules
 
 COPY build/ ./build
