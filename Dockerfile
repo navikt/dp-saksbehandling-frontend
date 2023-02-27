@@ -6,8 +6,6 @@ ENV PORT=3000 \
     TZ=Europe/Oslo
 
 
-COPY package.json ./package.json
-COPY package-lock.json ./package-lock.json
 COPY node_modules/ ./node_modules
 
 COPY build/ ./build
@@ -16,5 +14,4 @@ COPY public/build ./public/build
 EXPOSE 3000
 USER node
 
-CMD ["mkdir", "./npm"]
-CMD ["npm", "run", "start", "--loglevel=verbose"]
+CMD ["remix-serve", "build"]
