@@ -8,9 +8,11 @@ ENV PORT=3000 \
 COPY package.json ./package.json
 COPY package-lock.json ./package-lock.json
 
+COPY .npm/ ./.npm
+COPY node_modules/ ./node_modules
+
 COPY build/ ./build
 COPY public/build ./public/build
-COPY node_modules/ ./node_modules
 
 EXPOSE 3000
 USER node
