@@ -3,6 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { mockHentOppgaver } from "~/models/oppgave.server";
+import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 
 export const meta: MetaFunction = () => {
   return {
@@ -11,7 +12,7 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-  const oppgaver = await mockHentOppgaver();
+  const oppgaver = await mockHentOppgaver(mockSaksbehandler);
   return oppgaver;
 }
 
@@ -23,6 +24,7 @@ export default function Saksbehandling() {
       <Table size="small">
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
             <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
             <Table.HeaderCell scope="col">Hendelse</Table.HeaderCell>
             <Table.HeaderCell scope="col">Status</Table.HeaderCell>
@@ -33,19 +35,21 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {oppgaver.map((oppgave, index) => {
-            const { saksbehandler, hendelse, datoOpprettet } = oppgave;
+            const { saksbehandler, hendelse, bruker, datoOpprettet } = oppgave;
             return (
               <Table.Row key={index}>
-                <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
+                <Table.HeaderCell scope="row">
+                  <Link
+                    to={`../bruker/${bruker.ident}/vilkaar`}
+                  >{`${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`}</Link>
+                </Table.HeaderCell>
+                <Table.DataCell>Ny periode</Table.DataCell>
                 <Table.DataCell>{hendelse}</Table.DataCell>
                 <Table.DataCell>Mange varsler</Table.DataCell>
                 <Table.DataCell>{datoOpprettet}</Table.DataCell>
                 <Table.DataCell>
-                  {saksbehandler ? (
-                    saksbehandler.givenName
-                  ) : (
-                    <Link to={`minesaker`}>Tildel meg</Link>
-                  )}
+                  {saksbehandler?.givenName + " "}
+                  <Link to={"../"}>Legg tilbake</Link>
                 </Table.DataCell>
               </Table.Row>
             );
