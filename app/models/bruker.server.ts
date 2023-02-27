@@ -27,15 +27,3 @@ export interface IAdresse {
 export async function mockHentBruker(): Promise<IBruker> {
   return Promise.resolve(mockBruker);
 }
-
-export function hentBruker(onBehalfOfToken: string) {
-  const url = `${process.env.API_BASE_URL}/personalia`;
-  return fetch(url, {
-    method: "Get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
-  });
-}

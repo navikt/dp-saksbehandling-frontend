@@ -7,12 +7,14 @@ import type { LoaderArgs } from "@remix-run/node";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { logger } from "../../server/logger";
 import styles from "~/index.module.css";
+import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 
 export async function loader({ request }: LoaderArgs) {
   const session = await getAzureSession(request);
+  //wonderwall tar seg av session, hvis vi ikke har en session kjører vi uten sidecar og skal være i dev
   if (!session || session.expiresIn === 0) {
-    logger.debug("no session");
-    return json({ oops: "no session" });
+    logger.debug("no session, mocker saksbehandler");
+    return json(mockSaksbehandler);
   }
   try {
     const oboToken = await session.apiToken("https://graph.microsoft.com/.default");
@@ -25,8 +27,8 @@ export async function loader({ request }: LoaderArgs) {
         },
       }
     );
-    const profile = await data.json();
-    return json({ ...profile, expires_in: session.expiresIn }, { status: 200 });
+    const saksbehandler = await data.json();
+    return json({ ...saksbehandler, expires_in: session.expiresIn }, { status: 200 });
   } catch (e) {
     return json({}, { status: 500 });
   }
