@@ -34,26 +34,31 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgaver.map((oppgave, index) => {
-            const { saksbehandler, hendelse, bruker, datoOpprettet } = oppgave;
-            return (
-              <Table.Row key={index}>
-                <Table.HeaderCell scope="row">
-                  <Link
-                    to={`../bruker/${bruker.ident}/vilkaar`}
-                  >{`${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`}</Link>
-                </Table.HeaderCell>
-                <Table.DataCell>Ny periode</Table.DataCell>
-                <Table.DataCell>{hendelse}</Table.DataCell>
-                <Table.DataCell>Mange varsler</Table.DataCell>
-                <Table.DataCell>{datoOpprettet}</Table.DataCell>
-                <Table.DataCell>
-                  {saksbehandler?.givenName + " "}
-                  <Link to={"../"}>Legg tilbake</Link>
-                </Table.DataCell>
-              </Table.Row>
-            );
-          })}
+          {oppgaver
+            .sort((a, b) => {
+              // sorterer slik at eldste havner øverst
+              return Date.parse(a.datoOpprettet) - Date.parse(b.datoOpprettet);
+            })
+            .map((oppgave, index) => {
+              const { saksbehandler, hendelse, bruker, datoOpprettet } = oppgave;
+              return (
+                <Table.Row key={index}>
+                  <Table.HeaderCell scope="row">
+                    <Link
+                      to={`../bruker/${bruker.ident}/vilkaar`}
+                    >{`${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`}</Link>
+                  </Table.HeaderCell>
+                  <Table.DataCell>Ny periode</Table.DataCell>
+                  <Table.DataCell>{hendelse}</Table.DataCell>
+                  <Table.DataCell>Mange varsler</Table.DataCell>
+                  <Table.DataCell>{datoOpprettet}</Table.DataCell>
+                  <Table.DataCell>
+                    {saksbehandler?.givenName + " "}
+                    <Link to={"../"}>Legg tilbake</Link>
+                  </Table.DataCell>
+                </Table.Row>
+              );
+            })}
         </Table.Body>
       </Table>
     </main>

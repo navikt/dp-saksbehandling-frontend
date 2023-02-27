@@ -32,24 +32,29 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgaver.map((oppgave, index) => {
-            const { saksbehandler, hendelse, datoOpprettet } = oppgave;
-            return (
-              <Table.Row key={index}>
-                <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
-                <Table.DataCell>{hendelse}</Table.DataCell>
-                <Table.DataCell>Mange varsler</Table.DataCell>
-                <Table.DataCell>{datoOpprettet}</Table.DataCell>
-                <Table.DataCell>
-                  {saksbehandler ? (
-                    saksbehandler.givenName
-                  ) : (
-                    <Link to={`minesaker`}>Tildel meg</Link>
-                  )}
-                </Table.DataCell>
-              </Table.Row>
-            );
-          })}
+          {oppgaver
+            .sort((a, b) => {
+              // sorterer slik at eldste havner øverst
+              return Date.parse(a.datoOpprettet) - Date.parse(b.datoOpprettet);
+            })
+            .map((oppgave, index) => {
+              const { saksbehandler, hendelse, datoOpprettet } = oppgave;
+              return (
+                <Table.Row key={index}>
+                  <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
+                  <Table.DataCell>{hendelse}</Table.DataCell>
+                  <Table.DataCell>Mange varsler</Table.DataCell>
+                  <Table.DataCell>{datoOpprettet}</Table.DataCell>
+                  <Table.DataCell>
+                    {saksbehandler ? (
+                      saksbehandler.givenName
+                    ) : (
+                      <Link to={`minesaker`}>Tildel meg</Link>
+                    )}
+                  </Table.DataCell>
+                </Table.Row>
+              );
+            })}
         </Table.Body>
       </Table>
     </main>
