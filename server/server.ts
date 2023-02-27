@@ -3,15 +3,10 @@ import compression from "compression";
 import handleRequestWithRemix from "./remix";
 import type { Response } from "express";
 import { logger, logRequests } from "./logger";
-import { ExpressPrometheusMiddleware } from "@matteodisabatino/express-prometheus-middleware";
 const port = process.env.PORT || 3000;
 const basePath = "/saksbehandling";
 
 const app = express();
-
-const prometheusMiddleware = new ExpressPrometheusMiddleware({
-  url: "saksbehandling/api/internal/metrics",
-});
 
 const configureServerSettings = () => {
   // Gzip responser
@@ -25,9 +20,6 @@ const configureServerSettings = () => {
 
   // Cache public-filer (som favicon) i én time
   app.use(express.static("public", { maxAge: "1h" }));
-
-  //prometheus metrics, mulig denne må på en egen server for å ikke være public?
-  app.use(prometheusMiddleware.handler);
 };
 
 const startServer = async () => {
