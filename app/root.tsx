@@ -7,17 +7,25 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Saksbehandling dagpenger",
   viewport: "width=device-width,initial-scale=1",
+  "theme-color": "#ffffff",
+  "msapplication-TileColor": "#da532c",
 });
 
 export function links() {
   return [
     ...(cssBundleHref
       ? [
+          { rel: "stylesheet", href: cssBundleHref },
           { rel: "stylesheet", href: navStyles },
           { rel: "stylesheet", href: navInternalStyles },
-          { rel: "stylesheet", href: cssBundleHref },
+          { rel: "apple-touch-icon", sizes: "180x180", href: "/public/apple-touch-icon.png" },
+          { rel: "icon", type: "image/png", sizes: "32x32", href: "/public/favicon-32x32.png" },
+          { rel: "icon", type: "image/png", sizes: "16x16", href: "/public/favicon-16x16.png" },
+          { rel: "manifest", href: "/public/site.webmanifest" },
+          { rel: "manifest", href: "/public/site.webmanifest" },
+          { rel: "mask-icon", href: "/public/safari-pinned-tab.svg", color: "#5bbad5" },
         ]
       : []),
   ];
