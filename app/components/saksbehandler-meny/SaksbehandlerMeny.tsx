@@ -24,6 +24,9 @@ export function SaksbehandlerMeny({ saksbehandler }: IProps) {
       <Link to={`${basePath}`} className={styles.linkItem}>
         Benken
       </Link>
+      <Link to={`${basePath}/minesaker`} className={styles.linkItem}>
+        Mine Saker
+      </Link>
       <Link to={`${basePath}/admin`} className={styles.linkItem}>
         Admin
       </Link>
