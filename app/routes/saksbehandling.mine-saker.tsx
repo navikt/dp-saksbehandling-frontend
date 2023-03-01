@@ -1,7 +1,7 @@
 import { Table } from "@navikt/ds-react";
 import type { MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
+import { Link, useLoaderData } from "@remix-run/react";
 import { mockHentOppgaver } from "~/models/oppgave.server";
 
 export const meta: MetaFunction = () => {
@@ -23,6 +23,7 @@ export default function Saksbehandling() {
       <Table size="small">
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
             <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
             <Table.HeaderCell scope="col">Hendelse</Table.HeaderCell>
             <Table.HeaderCell scope="col">Status</Table.HeaderCell>
@@ -32,29 +33,25 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgaver
-            .sort((a, b) => {
-              // sorterer slik at eldste havner øverst
-              return Date.parse(a.datoOpprettet) - Date.parse(b.datoOpprettet);
-            })
-            .map((oppgave, index) => {
-              const { saksbehandler, hendelse, datoOpprettet } = oppgave;
-              return (
-                <Table.Row key={index}>
-                  <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
-                  <Table.DataCell>{hendelse}</Table.DataCell>
-                  <Table.DataCell>Mange varsler</Table.DataCell>
-                  <Table.DataCell>{datoOpprettet}</Table.DataCell>
-                  <Table.DataCell>
-                    {saksbehandler ? (
-                      saksbehandler.givenName
-                    ) : (
-                      <Link to={`mine-saker`}>Tildel meg</Link>
-                    )}
-                  </Table.DataCell>
-                </Table.Row>
-              );
-            })}
+          {oppgaver.map((oppgave, index) => {
+            const { saksbehandler, hendelse, person, opprettet } = oppgave;
+            const navn = `${person.forNavn} ${person.mellomNavn} ${person.etterNavn}`;
+            return (
+              <Table.Row key={index}>
+                <Table.HeaderCell scope="row">
+                  <Link to={`../person/${person.ident}/vilkaar`}>{navn}</Link>
+                </Table.HeaderCell>
+                <Table.DataCell>Ny periode</Table.DataCell>
+                <Table.DataCell>{hendelse}</Table.DataCell>
+                <Table.DataCell>Mange varsler</Table.DataCell>
+                <Table.DataCell>{opprettet}</Table.DataCell>
+                <Table.DataCell>
+                  {saksbehandler?.givenName + " "}
+                  <Link to={"../"}>Legg tilbake</Link>
+                </Table.DataCell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
     </main>

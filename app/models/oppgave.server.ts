@@ -1,30 +1,19 @@
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
-import type { IBruker } from "~/models/bruker.server";
+import type { IPerson } from "~/models/person.server";
+import type { IDagpengerPeriode } from "~/models/dagpenger-periode.server";
 import { mockOppgaver } from "../../mock-data/mock-oppgave";
-import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
-
-type HendelsesType = SoknadsType | "Ettersendelse" | "Endring" | "Klage";
-type SoknadsType = "Ordinær" | "Utdanning" | "Gjenopptak";
 
 export interface IOppgave {
-  saksbehandler: ISaksbehandler | null;
-  bruker: IBruker;
-  datoOpprettet: string;
-  hendelse: HendelsesType;
+  id: string;
+  person: IPerson;
+  dagpengerPeriode: IDagpengerPeriode;
+  saksbehandler?: ISaksbehandler;
+  opprettet: string;
 }
 
-export function mockHentOppgaver(saksbehandler?: ISaksbehandler): Promise<IOppgave[]> {
+export function mockHentOppgaver(): Promise<IOppgave[]> {
   const oppgaver: IOppgave[] = [];
 
-  if (saksbehandler) {
-    for (let i = 1; i <= 2; i++) {
-      oppgaver.push({
-        ...mockOppgaver[i],
-        saksbehandler: { ...mockSaksbehandler, givenName: "Mock av innlogget bruker" },
-      });
-    }
-    return Promise.resolve(oppgaver);
-  }
   for (let i = 0; i < mockOppgaver.length; i++) {
     oppgaver.push(mockOppgaver[i]);
   }

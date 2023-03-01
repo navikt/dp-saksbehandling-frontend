@@ -2,7 +2,7 @@ import type { ISaksbehandler } from "~/models/saksbehandler.server";
 
 export const mockSaksbehandler: ISaksbehandler = {
   onPremisesSamAccountName: "1234",
-  givenName: "frans kake",
+  givenName: "Frans Kake Jaeger",
   displayName: "franz",
   mail: "fran@kake.jaeger",
 };

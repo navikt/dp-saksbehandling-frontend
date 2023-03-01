@@ -1,6 +1,6 @@
-import type { IBruker } from "~/models/bruker.server";
+import type { IPerson } from "~/models/person.server";
 
-export const mockBruker: IBruker = {
+export const mockPerson: IPerson = {
   postAdresse: {
     adresselinje1: "Vestfaret 11",
     adresselinje2: "",

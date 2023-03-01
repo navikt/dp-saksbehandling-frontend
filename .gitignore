@@ -9,6 +9,7 @@ node_modules
 #intellij
 *.iml
 /.idea
+/.fleet
 
 .env
 .env.local

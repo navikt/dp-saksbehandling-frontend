@@ -18,13 +18,10 @@ export function SaksbehandlerMeny({ saksbehandler }: IProps) {
         <Search label="Søk alle NAV sine sider" variant="secondary" size={"small"} />
       </form>
 
-      <Link to={`${basePath}/statistikk`} className={styles.linkItem}>
-        Statistikk
-      </Link>
       <Link to={`${basePath}`} className={styles.linkItem}>
         Benken
       </Link>
-      <Link to={`${basePath}/minesaker`} className={styles.linkItem}>
+      <Link to={`${basePath}/mine-saker`} className={styles.linkItem}>
         Mine Saker
       </Link>
       <Link to={`${basePath}/admin`} className={styles.linkItem}>
