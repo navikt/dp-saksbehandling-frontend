@@ -3,6 +3,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import type { LoaderArgs } from "@remix-run/node";
 import type { IPerson } from "~/models/person.server";
 import { mockHentPerson } from "~/models/person.server";
+import styles from "~/route-styles/bruker.module.css";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
 import { BrukerMeny } from "~/components/bruker-meny/BrukerMeny";
