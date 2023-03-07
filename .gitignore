@@ -4,6 +4,8 @@ node_modules
 /public/build
 /server/build
 
+.DS_Store
+
 /.cache
 
 #intellij
@@ -18,3 +20,4 @@ node_modules
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
