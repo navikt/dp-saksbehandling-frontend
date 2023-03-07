@@ -26,7 +26,9 @@ export default function Person() {
             kvote: 420 (rediger) || Sanksjon: null (legg til sanksjon) || Barnetillegg: 0
           </Accordion.Header>
           <Accordion.Content>
-            <DagpengerTidslinje />
+            <div className={styles.tidslinjeContainer}>
+              <DagpengerTidslinje />
+            </div>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion>
