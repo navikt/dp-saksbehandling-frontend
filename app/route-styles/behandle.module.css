@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: calc(100vh - 112px);
+}
+
+.behandle {
+  border: 1px solid var(--a-gray-700);
+  border-top: 0;
+  border-bottom: 0;
+}

@@ -3,5 +3,6 @@ module.exports = {
   extends: ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
   rules: {
     // "sort-imports": "warn",
+    "react/jsx-pascal-case": "off",
   },
 };

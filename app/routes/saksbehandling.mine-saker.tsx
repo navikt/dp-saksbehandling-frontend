@@ -34,15 +34,14 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {oppgaver.map((oppgave, index) => {
-            const { saksbehandler, hendelse, person, opprettet } = oppgave;
+            const { saksbehandler, person, opprettet } = oppgave;
             const navn = `${person.forNavn} ${person.mellomNavn} ${person.etterNavn}`;
             return (
               <Table.Row key={index}>
                 <Table.HeaderCell scope="row">
-                  <Link to={`../person/${person.ident}/vilkaar`}>{navn}</Link>
+                  <Link to={`../person/${person.ident}/oversikt`}>{navn}</Link>
                 </Table.HeaderCell>
                 <Table.DataCell>Ny periode</Table.DataCell>
-                <Table.DataCell>{hendelse}</Table.DataCell>
                 <Table.DataCell>Mange varsler</Table.DataCell>
                 <Table.DataCell>{opprettet}</Table.DataCell>
                 <Table.DataCell>

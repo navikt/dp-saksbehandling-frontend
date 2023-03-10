@@ -1,14 +1,14 @@
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import type { IPerson } from "~/models/person.server";
-import type { IDagpengerPeriode } from "~/models/dagpenger-periode.server";
 import { mockOppgaver } from "../../mock-data/mock-oppgave";
+import type { IHendelse } from "~/models/hendelse.server";
 
 export interface IOppgave {
   id: string;
   person: IPerson;
-  dagpengerPeriode: IDagpengerPeriode;
   saksbehandler?: ISaksbehandler;
   opprettet: string;
+  hendelse: IHendelse;
 }
 
 export function mockHentOppgaver(): Promise<IOppgave[]> {

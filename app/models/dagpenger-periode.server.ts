@@ -1,4 +1,3 @@
-import type { IHendelse } from "~/models/hendelse.server";
 import type { IPerson } from "~/models/person.server";
 import type { IOppgave } from "~/models/oppgave.server";
 
@@ -9,6 +8,5 @@ export interface IDagpengerPeriode {
     fra: string;
     til: string;
   };
-  hendelser: IHendelse[];
   oppgaver: IOppgave[];
 }
