@@ -22,7 +22,7 @@ export default function PersonBehandleVilkaar() {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.faktumContainer}>
         {vilkaar.fakta.map((faktum) => (
           <FaktumComponent key={faktum.id} faktum={faktum} />
         ))}
