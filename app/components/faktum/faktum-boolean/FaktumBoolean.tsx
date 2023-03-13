@@ -5,10 +5,10 @@ import type { IBooleanFaktum } from "~/models/faktum.server";
 
 export function FaktumBoolean({ faktum }: IFaktum<IBooleanFaktum>) {
   return (
-    <>
+    <div>
       <Label as={"p"}>{faktum.beskrivendeId}</Label>
       <BodyShort>{booleanTilBeskrivendeId(faktum)}</BodyShort>
-    </>
+    </div>
   );
 }
 

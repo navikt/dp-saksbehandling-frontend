@@ -42,8 +42,7 @@ export function FaktumComponent(props: IFaktum<Faktum | IGeneratorFaktum>) {
         return <FaktumDato faktum={faktum} />;
 
       case "periode":
-        // return <FaktumPeriode faktum={faktum} />;
-        return <div>FUnker ikke</div>;
+        return <FaktumPeriode faktum={faktum} />;
 
       case "generator":
         return <FaktumGenerator faktum={faktum as IGeneratorFaktum} />;
