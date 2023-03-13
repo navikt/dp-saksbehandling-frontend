@@ -5,6 +5,7 @@
 }
 
 .lenke {
+    display: block;
     padding: 10px;
     margin-left: 10px;
     color: black;
