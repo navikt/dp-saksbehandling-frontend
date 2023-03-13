@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "@remix-run/react";
 import { Button, Detail, Heading } from "@navikt/ds-react";
+import { Link } from "@remix-run/react";
 import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
 import styles from "~/route-styles/person.module.css";
 
@@ -27,7 +26,7 @@ export default function Person() {
           <strong>Avslag</strong>
         </div>
 
-        <Link to={"../behandle"}>
+        <Link to={"../behandle/1"}>
           <Button> Behandle </Button>
         </Link>
       </div>

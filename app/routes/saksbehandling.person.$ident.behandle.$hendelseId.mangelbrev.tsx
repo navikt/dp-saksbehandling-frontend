@@ -1,13 +1,12 @@
-import React from "react";
-import { Form } from "@remix-run/react";
-import styles from "~/route-styles/behandle.module.css";
 import { BodyLong, Button, Heading, Textarea } from "@navikt/ds-react";
+import { Form } from "@remix-run/react";
+import styles from "~/route-styles/mangelbrev.module.css";
 
 export default function SendMangelbrev() {
   return (
     <div className={styles.container}>
-      <Form className={styles.vilkaarVurderingContainer}>
-        <Heading size={"small"} level={"3"}>
+      <Form>
+        <Heading size={"large"} level={"1"}>
           Send mangelbrev
         </Heading>
 

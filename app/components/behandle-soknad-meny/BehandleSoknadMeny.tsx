@@ -9,7 +9,7 @@ export function BehandleSoknadMeny() {
       <ul>
         <li>
           <NavLink
-            to={"send-mangelbrev"}
+            to={"mangelbrev"}
             className={({ isActive }) => {
               return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
             }}
@@ -19,7 +19,7 @@ export function BehandleSoknadMeny() {
         </li>
         <li>
           <NavLink
-            to={"lag-vedtaksbrev"}
+            to={"vedtaksbrev"}
             className={({ isActive }) => {
               return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
             }}

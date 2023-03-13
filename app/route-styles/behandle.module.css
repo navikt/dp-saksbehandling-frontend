@@ -9,3 +9,9 @@
   border-top: 0;
   border-bottom: 0;
 }
+
+.menyContainer {
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--a-border-divider);
+}
