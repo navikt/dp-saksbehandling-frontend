@@ -1,18 +1,39 @@
 import React from "react";
-import { Radio, RadioGroup } from "@navikt/ds-react";
+import { BodyShort, Label } from "@navikt/ds-react";
 import type { IFaktum } from "../Faktum";
 import type { IBooleanFaktum } from "~/models/faktum.server";
 
 export function FaktumBoolean({ faktum }: IFaktum<IBooleanFaktum>) {
   return (
     <>
-      <RadioGroup legend={faktum.beskrivendeId} value={faktum.svar}>
-        {faktum.gyldigeValg?.map((textId) => (
-          <div key={textId}>
-            <Radio value={textId}>{textId}</Radio>
-          </div>
-        ))}
-      </RadioGroup>
+      <Label as={"p"}>{faktum.beskrivendeId}</Label>
+      <BodyShort>{booleanTilBeskrivendeId(faktum)}</BodyShort>
     </>
   );
+}
+
+export function beskrivendeIdTilBoolean(beskrivendeId: string): boolean | undefined {
+  if (beskrivendeId.match(".*.svar.ja")) {
+    return true;
+  }
+
+  if (beskrivendeId.match(".*.svar.nei")) {
+    return false;
+  }
+
+  return undefined;
+}
+
+export function booleanTilBeskrivendeId(faktum: IBooleanFaktum): string | undefined {
+  if (faktum.svar === undefined) {
+    return undefined;
+  }
+
+  return faktum.gyldigeValg.find((valg) => {
+    if (faktum.svar) {
+      return valg.match(".*.svar.ja");
+    }
+
+    return valg.match(".*.svar.nei");
+  });
 }
