@@ -1,10 +1,10 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import type { IBehandleLoader } from "~/routes/saksbehandling.person.$ident.behandle";
+import type { IBehandleLoader } from "~/routes/saksbehandling.person.$ident.behandle.$hendelseId";
 import type { ISanityFaktum, ISanitySvaralternativ } from "../sanity/sanity.types";
 
 export function useSanityTekst() {
   const { sanityTexts } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.behandle"
+    "routes/saksbehandling.person.$ident.behandle.$hendelseId"
   ) as IBehandleLoader;
 
   function hentFaktumTekstMedId(faktumTekstId: string): ISanityFaktum | undefined {
