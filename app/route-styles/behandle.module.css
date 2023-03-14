@@ -11,7 +11,9 @@
 }
 
 .menyContainer {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid var(--a-border-divider);
+  max-height: calc(100vh - 112px);
 }
