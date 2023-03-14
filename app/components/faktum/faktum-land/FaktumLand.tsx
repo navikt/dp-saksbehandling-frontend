@@ -1,14 +1,15 @@
-import React from "react";
-
-import type { IFaktum } from "../Faktum";
+import { BodyShort, Label } from "@navikt/ds-react";
+import { useSanityTekst } from "~/hooks/useSanityTekst";
 import type { ILandFaktum } from "~/models/faktum.server";
 import { getCountryName } from "~/utils/country.utils";
-import { BodyShort, Label } from "@navikt/ds-react";
+import type { IFaktum } from "../Faktum";
 
 export function FaktumLand({ faktum }: IFaktum<ILandFaktum>) {
+  const { hentFaktumTekstMedId } = useSanityTekst();
+
   return (
     <div>
-      <Label as={"p"}>{faktum.beskrivendeId}</Label>
+      <Label as={"p"}>{hentFaktumTekstMedId(faktum.beskrivendeId)?.text}</Label>
       {faktum.svar && <BodyShort>{getCountryName(faktum.svar, "nb")}</BodyShort>}
     </div>
   );

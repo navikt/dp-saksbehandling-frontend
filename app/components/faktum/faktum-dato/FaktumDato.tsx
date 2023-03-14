@@ -1,13 +1,15 @@
 import { BodyShort, Label } from "@navikt/ds-react";
-import type { IFaktum } from "../Faktum";
+import { useSanityTekst } from "~/hooks/useSanityTekst";
 import type { IDatoFaktum } from "~/models/faktum.server";
-import React from "react";
+import type { IFaktum } from "../Faktum";
 
 export function FaktumDato({ faktum }: IFaktum<IDatoFaktum>) {
+  const { hentFaktumTekstMedId, hentSvaralternativTekstMedId } = useSanityTekst();
+
   return (
     <div>
-      <Label as={"p"}>{faktum.beskrivendeId}</Label>
-      <BodyShort>{faktum.svar}</BodyShort>
+      <Label as={"p"}>{hentFaktumTekstMedId(faktum.beskrivendeId)?.text}</Label>
+      {faktum.svar && <BodyShort>{hentSvaralternativTekstMedId(faktum.svar)?.text}</BodyShort>}
     </div>
   );
 }
