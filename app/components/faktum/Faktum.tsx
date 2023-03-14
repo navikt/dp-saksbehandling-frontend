@@ -4,7 +4,7 @@ import { FaktumFlervalg } from "./faktum-flervalg/FaktumFlervalg";
 import { FaktumText } from "./faktum-text/FaktumText";
 import { FaktumNumber } from "./faktum-number/FaktumNumber";
 import { FaktumDato } from "./faktum-dato/FaktumDato";
-import { FaktumPeriode } from "./faktum-periode/FaktumPeriode";
+// import { FaktumPeriode } from "./faktum-periode/FaktumPeriode";
 import { FaktumLand } from "./faktum-land/FaktumLand";
 import { FaktumBoolean } from "./faktum-boolean/FaktumBoolean";
 import { FaktumGenerator } from "./faktum-generator/FaktumGenerator";
@@ -43,7 +43,7 @@ export function FaktumComponent(props: IFaktum<Faktum | IGeneratorFaktum>) {
 
       case "periode":
         // return <FaktumPeriode faktum={faktum} />;
-        return <div>FUnker ikke</div>;
+        return <div>Funker ikke</div>;
 
       case "generator":
         return <FaktumGenerator faktum={faktum as IGeneratorFaktum} />;

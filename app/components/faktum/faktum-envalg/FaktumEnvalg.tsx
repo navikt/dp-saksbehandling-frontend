@@ -1,16 +1,21 @@
-import React from "react";
 import { Radio, RadioGroup } from "@navikt/ds-react";
-import type { IFaktum } from "../Faktum";
+import { useSanityTekst } from "~/hooks/useSanityTekst";
 import type { IEnvalgFaktum } from "~/models/faktum.server";
+import type { IFaktum } from "../Faktum";
 
 export function FaktumEnvalg({ faktum }: IFaktum<IEnvalgFaktum>) {
+  const { hentFaktumTekstMedId, hentSvaralternativTekstMedId } = useSanityTekst();
+
   return (
     <>
-      <RadioGroup legend={faktum.beskrivendeId} value={faktum.svar}>
+      <RadioGroup
+        legend={hentFaktumTekstMedId(faktum.beskrivendeId)?.text}
+        value={faktum.svar && hentSvaralternativTekstMedId(faktum.svar)?.text}
+      >
         {faktum.gyldigeValg.map((textId) => {
           return (
             <Radio key={textId} value={textId}>
-              {textId}
+              {hentSvaralternativTekstMedId(textId)?.text}
             </Radio>
           );
         })}

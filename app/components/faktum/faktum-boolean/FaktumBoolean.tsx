@@ -1,13 +1,19 @@
-import React from "react";
 import { BodyShort, Label } from "@navikt/ds-react";
-import type { IFaktum } from "../Faktum";
+import { useSanityTekst } from "~/hooks/useSanityTekst";
 import type { IBooleanFaktum } from "~/models/faktum.server";
+import type { IFaktum } from "../Faktum";
 
 export function FaktumBoolean({ faktum }: IFaktum<IBooleanFaktum>) {
+  const { hentFaktumTekstMedId, hentSvaralternativTekstMedId } = useSanityTekst();
+
+  const svarTextId = booleanTilBeskrivendeId(faktum);
+  const tittel = hentFaktumTekstMedId(faktum.beskrivendeId)?.text;
+  const svar = svarTextId && hentSvaralternativTekstMedId(svarTextId)?.text;
+
   return (
     <>
-      <Label as={"p"}>{faktum.beskrivendeId}</Label>
-      <BodyShort>{booleanTilBeskrivendeId(faktum)}</BodyShort>
+      <Label as={"p"}>{tittel}</Label>
+      {svarTextId && <BodyShort>{svar}</BodyShort>}
     </>
   );
 }

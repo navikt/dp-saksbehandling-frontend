@@ -1,0 +1,27 @@
+import { useRouteLoaderData } from "@remix-run/react";
+import type { IBehandleLoader } from "~/routes/saksbehandling.person.$ident.behandle";
+import type { ISanityFaktum, ISanitySvaralternativ } from "../sanity/sanity.types";
+
+export function useSanityTekst() {
+  const { sanityTexts } = useRouteLoaderData(
+    "routes/saksbehandling.person.$ident.behandle"
+  ) as IBehandleLoader;
+
+  function hentFaktumTekstMedId(faktumTekstId: string): ISanityFaktum | undefined {
+    const tekst = sanityTexts.fakta.find((faktum) => faktum.textId === faktumTekstId);
+
+    return tekst;
+  }
+
+  function hentSvaralternativTekstMedId(
+    svaralternativeId: string
+  ): ISanitySvaralternativ | undefined {
+    const tekst = sanityTexts?.svaralternativer.find(
+      (svaralternativ) => svaralternativ.textId === svaralternativeId
+    );
+
+    return tekst;
+  }
+
+  return { hentFaktumTekstMedId, hentSvaralternativTekstMedId };
+}
