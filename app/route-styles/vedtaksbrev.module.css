@@ -1,0 +1,7 @@
+.container {
+  padding: var(--a-spacing-8);
+}
+
+.buttonContainer {
+  margin-top: var(--a-spacing-8);
+}

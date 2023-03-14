@@ -1,14 +1,13 @@
-import React from "react";
+import type { Faktum, IGeneratorFaktum } from "~/models/faktum.server";
+import { FaktumBoolean } from "./faktum-boolean/FaktumBoolean";
+import { FaktumDato } from "./faktum-dato/FaktumDato";
 import { FaktumEnvalg } from "./faktum-envalg/FaktumEnvalg";
 import { FaktumFlervalg } from "./faktum-flervalg/FaktumFlervalg";
-import { FaktumText } from "./faktum-text/FaktumText";
-import { FaktumNumber } from "./faktum-number/FaktumNumber";
-import { FaktumDato } from "./faktum-dato/FaktumDato";
-// import { FaktumPeriode } from "./faktum-periode/FaktumPeriode";
-import { FaktumLand } from "./faktum-land/FaktumLand";
-import { FaktumBoolean } from "./faktum-boolean/FaktumBoolean";
 import { FaktumGenerator } from "./faktum-generator/FaktumGenerator";
-import type { Faktum, IGeneratorFaktum } from "~/models/faktum.server";
+import { FaktumLand } from "./faktum-land/FaktumLand";
+import { FaktumNumber } from "./faktum-number/FaktumNumber";
+import { FaktumPeriode } from "./faktum-periode/FaktumPeriode";
+import { FaktumText } from "./faktum-text/FaktumText";
 
 export interface IFaktum<P> {
   faktum: P;
@@ -42,8 +41,7 @@ export function FaktumComponent(props: IFaktum<Faktum | IGeneratorFaktum>) {
         return <FaktumDato faktum={faktum} />;
 
       case "periode":
-        // return <FaktumPeriode faktum={faktum} />;
-        return <div>Funker ikke</div>;
+        return <FaktumPeriode faktum={faktum} />;
 
       case "generator":
         return <FaktumGenerator faktum={faktum as IGeneratorFaktum} />;

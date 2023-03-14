@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 220px 1fr;
   min-height: calc(100vh - 112px);
 }
 
@@ -8,4 +8,12 @@
   border: 1px solid var(--a-gray-700);
   border-top: 0;
   border-bottom: 0;
+}
+
+.menyContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--a-border-divider);
+  max-height: calc(100vh - 112px);
 }
