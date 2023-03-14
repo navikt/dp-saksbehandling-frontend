@@ -1,13 +1,15 @@
-import React from "react";
 import { BodyShort, Label } from "@navikt/ds-react";
-import type { IFaktum } from "../Faktum";
+import { useSanityTekst } from "~/hooks/useSanityTekst";
 import type { IPeriodeFaktum } from "~/models/faktum.server";
+import type { IFaktum } from "../Faktum";
 
 export function FaktumPeriode({ faktum }: IFaktum<IPeriodeFaktum>) {
+  const { hentFaktumTekstMedId } = useSanityTekst();
+
   return (
     <div>
-      <Label as={"p"}>{faktum.beskrivendeId}</Label>
-      {faktum.svar?.fom && <BodyShort>Fra: {faktum.svar.fom}</BodyShort>}
+      <Label as={"p"}>{hentFaktumTekstMedId(faktum.beskrivendeId)?.text}</Label>
+      {faktum.svar?.fom && <BodyShort>Fra: {faktum.svar.fom} </BodyShort>}
       {faktum.svar?.tom && <BodyShort>Til: {faktum.svar.tom}</BodyShort>}
     </div>
   );
