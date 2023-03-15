@@ -1,9 +1,20 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 import navStyles from "@navikt/ds-css/dist/index.css";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
+
+import { createClient } from "@sanity/client";
+import { sanityConfig } from "./sanity/sanity.config";
+import type { ISanityTexts } from "./sanity/sanity.types";
+import { allTextsQuery } from "./sanity/sanity.query";
+
+export interface IRootLoader {
+  sanityTexts: ISanityTexts;
+}
+
+export const sanityClient = createClient(sanityConfig);
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -41,6 +52,17 @@ export function links() {
         ]
       : []),
   ];
+}
+
+export async function loader() {
+  const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+    baseLang: "nb",
+    lang: "nb",
+  });
+
+  return json({
+    sanityTexts,
+  });
 }
 
 export default function App() {
