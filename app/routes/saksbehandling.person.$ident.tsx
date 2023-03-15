@@ -1,20 +1,22 @@
-import React from "react";
-import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
+import { json, type LoaderArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import type { LoaderArgs } from "@remix-run/node";
-import type { IPerson } from "~/models/person.server";
+import { invariant } from "@remix-run/router";
+import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { mockHentPerson } from "~/models/person.server";
 
-export async function loader({ request }: LoaderArgs) {
-  return await mockHentPerson();
+export async function loader({ params }: LoaderArgs) {
+  invariant(params.ident, `params.ident er påkrevd`);
+  const person = await mockHentPerson(params.ident);
+
+  return json({ person });
 }
 
 export default function Person() {
-  const bruker = useLoaderData<typeof loader>() as IPerson;
+  const { person } = useLoaderData<typeof loader>();
 
   return (
     <>
-      <Brodsmuler bruker={bruker} />
+      <Brodsmuler person={person} />
       <main>
         <Outlet />
       </main>

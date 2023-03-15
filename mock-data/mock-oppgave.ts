@@ -1,5 +1,5 @@
 import { mockSaksbehandler } from "./mock-saksbehandler";
-import { mockPerson } from "./mock-person";
+import { personListeMock } from "./mock-person";
 import type { IOppgave } from "~/models/oppgave.server";
 
 const getDateMinusDays = (days: number) => {
@@ -10,42 +10,37 @@ const getDateMinusDays = (days: number) => {
 export const mockOppgaver: IOppgave[] = [
   {
     id: "string",
-    saksbehandler: mockSaksbehandler,
-    person: mockPerson,
+    person: personListeMock[0],
     opprettet: getDateMinusDays(1).toISOString(),
-    hendelse: { type: "Ordinær", id: "1", dato: "01.01.1992" },
+    hendelse: { type: "Ordinær", id: "1", dato: "01.01.2023" },
   },
+
   {
     id: "string",
-    person: mockPerson,
-    opprettet: getDateMinusDays(2).toISOString(),
-    hendelse: { type: "Ordinær", id: "1", dato: "01.01.1992" },
-  },
-  {
-    id: "string",
-    person: mockPerson,
+    person: personListeMock[1],
+    saksbehandler: mockSaksbehandler,
     opprettet: getDateMinusDays(3).toISOString(),
-    hendelse: { type: "Klage", id: "1", dato: "01.01.1992" },
+    hendelse: { type: "Klage", id: "1", dato: "01.01.2023" },
   },
   {
     id: "string",
     saksbehandler: mockSaksbehandler,
-    person: mockPerson,
+    person: personListeMock[2],
     opprettet: getDateMinusDays(4).toISOString(),
-    hendelse: { type: "Ordinær", id: "1", dato: "01.01.1992" },
+    hendelse: { type: "Ordinær", id: "1", dato: "01.01.2023" },
   },
   {
     id: "string",
     saksbehandler: mockSaksbehandler,
-    person: mockPerson,
+    person: personListeMock[3],
     opprettet: getDateMinusDays(5).toISOString(),
-    hendelse: { type: "Klage", id: "1", dato: "01.01.1992" },
+    hendelse: { type: "Klage", id: "1", dato: "01.01.2023" },
   },
   {
     id: "string",
     saksbehandler: mockSaksbehandler,
-    person: mockPerson,
+    person: personListeMock[4],
     opprettet: getDateMinusDays(6).toISOString(),
-    hendelse: { type: "Endring", id: "1", dato: "01.01.1992" },
+    hendelse: { type: "Endring", id: "1", dato: "01.01.2023" },
   },
 ];

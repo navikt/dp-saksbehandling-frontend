@@ -1,15 +1,14 @@
-import React from "react";
-import type { IBruker } from "~/models/bruker.server";
 import { Tag } from "@navikt/ds-react";
-import styles from "./Brodsmuler.module.css";
 import { CopyToClipboard } from "@navikt/ds-react-internal";
+import type { IPerson } from "~/models/person.server";
+import styles from "./Brodsmuler.module.css";
 
 interface IProps {
-  bruker: IBruker;
+  person: IPerson;
 }
 
-export function Brodsmuler({ bruker }: IProps) {
-  const navn = `${bruker.forNavn} ${bruker.mellomNavn} ${bruker.etterNavn}`;
+export function Brodsmuler({ person }: IProps) {
+  const navn = `${person.forNavn} ${person.mellomNavn} ${person.etterNavn}`;
 
   return (
     <div className={styles.container}>
@@ -18,8 +17,8 @@ export function Brodsmuler({ bruker }: IProps) {
           <strong>{navn}</strong>
         </li>
         <li>
-          <CopyToClipboard copyText={bruker.ident} popoverText="Kopierte bruker ident">
-            {bruker.ident}
+          <CopyToClipboard copyText={person.ident} popoverText="Kopierte bruker ident">
+            {person.ident}
           </CopyToClipboard>
         </li>
         <li>

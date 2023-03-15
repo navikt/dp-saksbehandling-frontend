@@ -39,6 +39,7 @@ export default function Saksbehandling() {
                 <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
                 <Table.DataCell>{hendelse.type}</Table.DataCell>
                 <Table.DataCell>Mange varsler</Table.DataCell>
+                <Table.DataCell>{hendelse.dato}</Table.DataCell>
                 <Table.DataCell>
                   {saksbehandler ? (
                     saksbehandler.givenName
