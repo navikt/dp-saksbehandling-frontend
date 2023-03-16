@@ -11,10 +11,10 @@ export function FaktumBoolean({ faktum }: IFaktum<IBooleanFaktum>) {
   const svar = svarTextId && hentSvaralternativTekstMedId(svarTextId)?.text;
 
   return (
-    <>
+    <div>
       <Label as={"p"}>{tittel}</Label>
       {svarTextId && <BodyShort>{svar}</BodyShort>}
-    </>
+    </div>
   );
 }
 
