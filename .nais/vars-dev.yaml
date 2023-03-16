@@ -1,7 +1,3 @@
-ingress: |
-  https://dagpenger.dev.intern.nav.no/saksbehandling
-  https://dagpenger.intern.dev.nav.no/saksbehandling
+ingress: https://dagpenger.dev.intern.nav.no/saksbehandling
 base_path: "/saksbehandling"
-# dev.intern er gammelt regime
-# intern.dev er nye regimet
 
