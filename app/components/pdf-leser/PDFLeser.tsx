@@ -4,7 +4,7 @@ import { Heading, Select } from "@navikt/ds-react";
 import styles from "./PDFLeser.module.css";
 
 export function PDFLeser() {
-  const [fileUrl, setFileUrl] = useState("/sample.pdf");
+  const [fileUrl, setFileUrl] = useState("/test.pdf");
 
   console.log(fileUrl);
 
@@ -20,7 +20,7 @@ export function PDFLeser() {
       </Heading>
 
       <div>
-        <Select className={styles.dropdown} label={"Velg fil"} onChange={setUrl}>
+        <Select className={styles.dropdown} label={"Velg fil"} onChange={setUrl} value={fileUrl}>
           <option value={"/sample.pdf"}>sample.pdf</option>
           <option value={"/test.pdf"}>test.pdf</option>
         </Select>
