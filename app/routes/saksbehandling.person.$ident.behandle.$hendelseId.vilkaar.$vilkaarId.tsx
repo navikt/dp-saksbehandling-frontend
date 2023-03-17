@@ -8,6 +8,7 @@ import { invariant } from "@remix-run/router";
 import styles from "~/route-styles/vilkaar.module.css";
 import { FaktumComponent } from "~/components/faktum/Faktum";
 import { BodyLong, Button, Heading, Textarea } from "@navikt/ds-react";
+import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 
 export async function loader({ params }: LoaderArgs) {
   invariant(params.vilkaarId, `params.vilkaarId er påkrevd`);
@@ -46,7 +47,10 @@ export default function PersonBehandleVilkaar() {
           </div>
         </Form>
       </div>
-      <div>Inline PDF</div>
+
+      <div>
+        <PDFLeser />
+      </div>
     </div>
   );
 }
