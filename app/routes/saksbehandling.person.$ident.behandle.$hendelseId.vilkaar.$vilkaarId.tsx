@@ -1,14 +1,16 @@
-import React from "react";
+import { BodyLong, Button, Heading, Textarea } from "@navikt/ds-react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
-import type { IVilkaar } from "~/models/Vilkaar.server";
-import { mockHentVilkaar } from "~/models/Vilkaar.server";
 import { invariant } from "@remix-run/router";
-import styles from "~/route-styles/vilkaar.module.css";
+
 import { FaktumComponent } from "~/components/faktum/Faktum";
-import { BodyLong, Button, Heading, Textarea } from "@navikt/ds-react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
+
+import type { IVilkaar } from "~/models/vilkaar.server";
+import { mockHentVilkaar } from "~/models/vilkaar.server";
+
+import styles from "~/route-styles/vilkaar.module.css";
 
 export async function loader({ params }: LoaderArgs) {
   invariant(params.vilkaarId, `params.vilkaarId er påkrevd`);
