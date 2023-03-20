@@ -50,7 +50,7 @@ export default function PersonBehandleVilkaar() {
         </Form>
       </div>
 
-      <div>
+      <div className={styles.dokumentContainer}>
         <PDFLeser />
       </div>
     </div>

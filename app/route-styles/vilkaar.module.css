@@ -17,6 +17,14 @@
   background-color: var(--a-gray-50);
 }
 
+.dokumentContainer {
+  height: calc(100vh - 112px);
+  position: sticky;
+  top: 112px;
+  padding: var(--a-spacing-4);
+  border-left: 1px solid var(--a-border-divider);
+}
+
 .buttonContainer {
   display: flex;
   gap: var(--a-spacing-4);
