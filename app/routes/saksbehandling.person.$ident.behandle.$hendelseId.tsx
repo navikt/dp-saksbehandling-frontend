@@ -3,7 +3,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 
 import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 import { VilkaarListeMeny } from "~/components/vilkaar-liste-meny/VilkaarListeMeny";
-import { mockHentVilkaarListe } from "~/models/Vilkaar.server";
+import { mockHentVilkaarListe } from "~/models/vilkaar.server";
 
 import styles from "~/route-styles/behandle.module.css";
 

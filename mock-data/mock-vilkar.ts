@@ -1,4 +1,4 @@
-import type { IVilkaar } from "~/models/Vilkaar.server";
+import type { IVilkaar } from "~/models/vilkaar.server";
 import type { Faktum } from "~/models/faktum.server";
 import type { IGeneratorFaktum } from "~/models/faktum.server";
 

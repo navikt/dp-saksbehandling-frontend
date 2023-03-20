@@ -1,5 +1,5 @@
 import React from "react";
-import type { IVilkaar } from "~/models/Vilkaar.server";
+import type { IVilkaar } from "~/models/vilkaar.server";
 import styles from "./VilkaarListeMeny.module.css";
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";

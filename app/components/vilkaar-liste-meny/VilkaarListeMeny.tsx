@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./VilkaarListeMeny.module.css";
-import type { IVilkaar } from "~/models/Vilkaar.server";
+import type { IVilkaar } from "~/models/vilkaar.server";
 import { VilkaarListeMenyPunkt } from "~/components/vilkaar-liste-meny/VilkaarListeMenyPunkt";
 
 interface IProps {
