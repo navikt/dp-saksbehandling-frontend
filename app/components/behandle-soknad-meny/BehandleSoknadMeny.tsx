@@ -9,6 +9,26 @@ export function BehandleSoknadMeny() {
       <ul>
         <li>
           <NavLink
+            to={"virkningstidspunkt"}
+            className={({ isActive }) => {
+              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+            }}
+          >
+            Sett virkningstidspunkt
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"grunnlagsberegning"}
+            className={({ isActive }) => {
+              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+            }}
+          >
+            Beregn grunnlag
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to={"mangelbrev"}
             className={({ isActive }) => {
               return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
