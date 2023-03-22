@@ -1,5 +1,5 @@
 import { BodyShort, Label } from "@navikt/ds-react";
-import { useSanityTekst } from "~/hooks/useSanityTekst";
+import { useSanityTekst } from "~/context/sanity-content";
 import type { INumberFaktum } from "~/models/faktum.server";
 import type { IFaktum } from "../Faktum";
 

@@ -17,6 +17,7 @@ import { createClient } from "@sanity/client";
 import { sanityConfig } from "./sanity/sanity.config";
 import type { ISanityTexts } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
+import { SanityProvider } from "./context/sanity-content";
 
 export interface IRootLoader {
   sanityTexts: ISanityTexts;
@@ -88,7 +89,7 @@ export async function loader() {
 }
 
 export default function App() {
-  const data = useLoaderData<typeof loader>();
+  const { sanityTexts, env } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -97,16 +98,18 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(data.env)}`,
-          }}
-        />
-        <Scripts />
-        <LiveReload />
+        <SanityProvider initialState={sanityTexts}>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.env = ${JSON.stringify(env)}`,
+            }}
+          />
+          <Scripts />
+          <LiveReload />
+        </SanityProvider>
       </body>
     </html>
   );

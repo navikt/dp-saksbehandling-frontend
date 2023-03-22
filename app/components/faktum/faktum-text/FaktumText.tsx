@@ -2,7 +2,7 @@ import React from "react";
 import { BodyShort, Label } from "@navikt/ds-react";
 import type { IFaktum } from "../Faktum";
 import type { ITekstFaktum } from "~/models/faktum.server";
-import { useSanityTekst } from "~/hooks/useSanityTekst";
+import { useSanityTekst } from "~/context/sanity-content";
 
 export function FaktumText({ faktum }: IFaktum<ITekstFaktum>) {
   const { hentFaktumTekstMedId } = useSanityTekst();
