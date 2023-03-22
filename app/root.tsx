@@ -1,5 +1,13 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "@remix-run/react";
 
 import navStyles from "@navikt/ds-css/dist/index.css";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
@@ -32,26 +40,37 @@ export function links() {
           {
             rel: "apple-touch-icon",
             sizes: "180x180",
-            href: "/apple-touch-icon.png",
+            href: `${getEnv("BASE_PATH")}/apple-touch-icon.png`,
           },
           {
             rel: "icon",
             type: "image/png",
             sizes: "32x32",
-            href: "/favicon-32x32.png",
+            href: `${getEnv("BASE_PATH")}/favicon-32x32.png`,
           },
           {
             rel: "icon",
             type: "image/png",
             sizes: "16x16",
-            href: "/favicon-16x16.png",
+            href: `${getEnv("BASE_PATH")}/favicon-16x16.png`,
           },
-          { rel: "manifest", href: "/site.webmanifest" },
-          { rel: "manifest", href: "/site.webmanifest" },
-          { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" },
+          { rel: "manifest", href: `${getEnv("BASE_PATH")}/site.webmanifest` },
+          { rel: "manifest", href: `${getEnv("BASE_PATH")}/site.webmanifest` },
+          {
+            rel: "mask-icon",
+            href: `${getEnv("BASE_PATH")}/safari-pinned-tab.svg`,
+            color: "#5bbad5",
+          },
         ]
       : []),
   ];
+}
+
+export function getEnv(value: string) {
+  // @ts-ignore
+  const env = typeof window !== "undefined" ? window.env : process.env;
+
+  return env[value];
 }
 
 export async function loader() {
@@ -62,10 +81,15 @@ export async function loader() {
 
   return json({
     sanityTexts,
+    env: {
+      BASE_PATH: process.env.BASE_PATH,
+    },
   });
 }
 
 export default function App() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -75,6 +99,12 @@ export default function App() {
       <body>
         <Outlet />
         <ScrollRestoration />
+        <Scripts />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(data.env)}`,
+          }}
+        />
         <Scripts />
         <LiveReload />
       </body>

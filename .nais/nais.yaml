@@ -41,6 +41,8 @@ spec:
   env:
     - name: SELF_URL
       value: {{ingress}}
+    - name: BASE_PATH
+      value: {{base_path}}
   azure:
     application:
       tenant: nav.no

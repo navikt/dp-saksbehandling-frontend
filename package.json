@@ -8,7 +8,6 @@
     "start": "ts-node ./server/server.ts",
     "type-check": "tsc",
     "prepare": "husky install",
-    "port-forward": "./scripts/local-auth.sh && ./scripts/port-forward.sh",
     "test": "npx playwright test"
   },
   "prettier": {
