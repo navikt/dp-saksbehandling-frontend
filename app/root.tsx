@@ -19,10 +19,6 @@ import type { ISanityTexts } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { SanityProvider } from "./context/sanity-content";
 
-export interface IRootLoader {
-  sanityTexts: ISanityTexts;
-}
-
 export const sanityClient = createClient(sanityConfig);
 
 export const meta: MetaFunction = () => ({
