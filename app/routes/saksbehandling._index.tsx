@@ -1,8 +1,8 @@
-import { Table } from "@navikt/ds-react";
+import { Button, Table } from "@navikt/ds-react";
 import type { MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import type { IOppgave } from "~/models/oppgave.server";
-import { mockHentOppgaver } from "~/models/oppgave.server";
+import { hentBehandlinger } from "~/models/behandling.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -11,41 +11,38 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-  const oppgaver = await mockHentOppgaver();
-  return oppgaver;
+  return json({ behandlinger: await hentBehandlinger() });
 }
 
 export default function Saksbehandling() {
-  const oppgaver = useLoaderData<typeof loader>() as IOppgave[];
+  const { behandlinger } = useLoaderData<typeof loader>();
 
   return (
     <main>
       <Table size="small">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
             <Table.HeaderCell scope="col">Hendelse</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
             <Table.HeaderCell scope="col">Dato opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Tildeling</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Person</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Saksbehandler</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Behandle</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {oppgaver.map((oppgave, index) => {
-            const { saksbehandler, hendelse } = oppgave;
+          {behandlinger?.map((behandling, index) => {
+            const { hendelse, opprettet, person, saksbehandler } = behandling;
             return (
               <Table.Row key={index}>
-                <Table.HeaderCell scope="row">Ny periode</Table.HeaderCell>
                 <Table.DataCell>{hendelse.type}</Table.DataCell>
-                <Table.DataCell>Mange varsler</Table.DataCell>
-                <Table.DataCell>{hendelse.dato}</Table.DataCell>
+                <Table.DataCell>{opprettet}</Table.DataCell>
+                <Table.DataCell>{person}</Table.DataCell>
+                <Table.DataCell>{saksbehandler}</Table.DataCell>
                 <Table.DataCell>
-                  {saksbehandler ? (
-                    saksbehandler.givenName
-                  ) : (
-                    <Link to={`mine-saker`}>Tildel meg</Link>
-                  )}
+                  <Link to={`person/${person}/behandle/${hendelse.id}/steg/1`}>
+                    <Button>Behandle</Button>
+                  </Link>
                 </Table.DataCell>
               </Table.Row>
             );

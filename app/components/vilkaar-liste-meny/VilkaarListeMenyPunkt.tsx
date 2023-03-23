@@ -14,7 +14,7 @@ export function VilkaarListeMenyPunkt(vilkaar: IVilkaar) {
   return (
     <li>
       <NavLink
-        to={`vilkaar/${vilkaar.id}`}
+        to={`steg/${vilkaar.id}`}
         className={({ isActive }) => {
           return isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser;
         }}

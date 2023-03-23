@@ -19,6 +19,17 @@ import type { ISanityTexts } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { SanityProvider } from "./context/sanity-content";
 
+declare global {
+  interface Window {
+    env: IEnv;
+  }
+}
+
+interface IEnv {
+  BASE_PATH: string;
+  DP_BEHANDLING_URL: string;
+}
+
 export const sanityClient = createClient(sanityConfig);
 
 export const meta: MetaFunction = () => ({
@@ -63,11 +74,10 @@ export function links() {
   ];
 }
 
-export function getEnv(value: string) {
-  // @ts-ignore
+export function getEnv(value: keyof IEnv) {
   const env = typeof window !== "undefined" ? window.env : process.env;
 
-  return env[value];
+  return env[value] || "";
 }
 
 export async function loader() {
@@ -80,6 +90,7 @@ export async function loader() {
     sanityTexts,
     env: {
       BASE_PATH: process.env.BASE_PATH,
+      DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
     },
   });
 }

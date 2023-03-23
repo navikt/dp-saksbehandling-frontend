@@ -3,20 +3,18 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { invariant } from "@remix-run/router";
-
 import { FaktumComponent } from "~/components/faktum/Faktum";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-
 import type { IVilkaar } from "~/models/vilkaar.server";
 import { mockHentVilkaar } from "~/models/vilkaar.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
 export async function loader({ params }: LoaderArgs) {
-  invariant(params.vilkaarId, `params.vilkaarId er påkrevd`);
+  invariant(params.stegId, `params.stegId er påkrevd`);
 
-  const vilkaar = await mockHentVilkaar(params.vilkaarId);
-  invariant(vilkaar, `Fant ikke vilkår: ${params.vilkaarId}`);
+  const vilkaar = await mockHentVilkaar(params.stegId);
+  invariant(vilkaar, `Fant ikke vilkår: ${params.stegId}`);
 
   return json(vilkaar);
 }

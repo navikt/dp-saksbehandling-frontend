@@ -901,7 +901,7 @@ export const mockVilkaar: IVilkaar[] = [
   },
   {
     id: "9",
-    navn: "ikke fulle folketrygdeytelser",
+    navn: "Ikke fulle folketrygdeytelser",
     fakta: arbeidsforholdFakta,
     status: "Godkjent",
   },
@@ -913,8 +913,14 @@ export const mockVilkaar: IVilkaar[] = [
   },
   {
     id: "11",
-    navn: "Verneplikt",
-    fakta: arbeidsforholdFakta,
-    status: "Avslag",
+    navn: "Barnetilegg",
+    fakta: reellArbeidsokerFakta,
+    status: "Manuell",
+  },
+  {
+    id: "12",
+    navn: "Utdanning",
+    fakta: reellArbeidsokerFakta,
+    status: "Manuell",
   },
 ];

@@ -43,6 +43,8 @@ spec:
       value: {{ingress}}
     - name: BASE_PATH
       value: {{base_path}}
+    - name: DP_BEHANDLING_URL
+      value: {{dp-behandling_url}}
   azure:
     application:
       tenant: nav.no

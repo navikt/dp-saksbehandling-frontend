@@ -1,8 +1,5 @@
 export interface IHendelse {
   id: string;
-  dato: string;
-  type: HendelseType;
+  tilstand: string;
+  type: string;
 }
-
-type HendelseType = SoknadType | "Ettersendelse" | "Endring" | "Klage" | "Barnetilegg";
-type SoknadType = "Ordinær" | "Utdanning" | "Gjenopptak";

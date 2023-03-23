@@ -31,4 +31,10 @@ export const personListeMock: IPerson[] = [
     mellomNavn: "",
     etterNavn: "KAKAOBØNNE",
   },
+  {
+    ident: "123",
+    forNavn: "FRANKIE",
+    mellomNavn: "",
+    etterNavn: "FRANKERSON",
+  },
 ];
