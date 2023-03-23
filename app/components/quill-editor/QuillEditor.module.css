@@ -1,0 +1,8 @@
+.container {
+  max-width: 1000px;
+  margin: var(--a-spacing-8) 0;
+}
+
+.quillEditor {
+  min-height: 600px;
+}

@@ -1,5 +1,7 @@
-import { Button, Heading, Textarea } from "@navikt/ds-react";
+import { Button, Heading } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
+import { ClientOnly } from "remix-utils";
+import QuillEditor from "~/components/quill-editor/QuillEditor.client";
 import styles from "~/route-styles/vedtaksbrev.module.css";
 
 export default function SendMangelbrev() {
@@ -10,7 +12,7 @@ export default function SendMangelbrev() {
           Lag mangelbrev
         </Heading>
 
-        <Textarea label={""} />
+        <ClientOnly>{() => <QuillEditor />}</ClientOnly>
 
         <div className={styles.buttonContainer}>
           <Button>Lag vedtaksbrev</Button>

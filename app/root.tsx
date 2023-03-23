@@ -11,6 +11,8 @@ import {
 
 import navStyles from "@navikt/ds-css/dist/index.css";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
+import globalCss from "~/global.css";
+import quillCss from "quill/dist/quill.snow.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 
 import { createClient } from "@sanity/client";
@@ -45,6 +47,8 @@ export function links() {
           { rel: "stylesheet", href: cssBundleHref },
           { rel: "stylesheet", href: navStyles },
           { rel: "stylesheet", href: navInternalStyles },
+          { rel: "stylesheet", href: quillCss },
+          { rel: "stylesheet", href: globalCss },
           {
             rel: "apple-touch-icon",
             sizes: "180x180",

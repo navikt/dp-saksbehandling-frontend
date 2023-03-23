@@ -1,5 +1,8 @@
-import { BodyLong, Button, Heading, Textarea } from "@navikt/ds-react";
+import { BodyLong, Button, Heading } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
+import { ClientOnly } from "remix-utils";
+import QuillEditor from "~/components/quill-editor/QuillEditor.client";
+
 import styles from "~/route-styles/mangelbrev.module.css";
 
 export default function SendMangelbrev() {
@@ -12,7 +15,7 @@ export default function SendMangelbrev() {
 
         <BodyLong>Noter grunnlag for at hvilke informasjon som mangler</BodyLong>
 
-        <Textarea label={""} />
+        <ClientOnly>{() => <QuillEditor />}</ClientOnly>
 
         <div className={styles.buttonContainer}>
           <Button>Send mangelbrev</Button>

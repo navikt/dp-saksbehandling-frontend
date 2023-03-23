@@ -42,6 +42,8 @@
     "prom-client": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-quill": "^2.0.0",
+    "remix-utils": "^6.0.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
