@@ -13,7 +13,6 @@ node_modules
 /.idea
 /.fleet
 
-.env
 .env.local
 
 # Playwright
