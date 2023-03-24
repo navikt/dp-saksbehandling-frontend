@@ -1,4 +1,4 @@
-import { BodyLong, Heading } from "@navikt/ds-react";
+import { BodyLong, Heading, UNSAFE_DatePicker } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
 import styles from "~/route-styles/mangelbrev.module.css";
 
@@ -10,7 +10,15 @@ export default function SendMangelbrev() {
           Sett virkningstidspunkt
         </Heading>
 
-        <BodyLong>Todo: implementer en kalender for å velge tidspunkt</BodyLong>
+        <BodyLong spacing>Virknignstidpunk for dagpenger</BodyLong>
+
+        <UNSAFE_DatePicker.Standalone
+          onSelect={console.log}
+          dropdownCaption
+          fromDate={new Date("1 Oct 2020")}
+          toDate={new Date("1 Oct 2024")}
+          disableWeekends
+        />
       </Form>
     </div>
   );
