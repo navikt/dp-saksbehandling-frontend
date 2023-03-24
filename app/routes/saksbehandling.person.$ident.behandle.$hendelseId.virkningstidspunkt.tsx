@@ -10,7 +10,7 @@ export default function SendMangelbrev() {
           Sett virkningstidspunkt
         </Heading>
 
-        <BodyLong spacing>Virknignstidpunk for dagpenger</BodyLong>
+        <BodyLong spacing>Virkningstidspunkt for dagpenger</BodyLong>
 
         <UNSAFE_DatePicker.Standalone
           onSelect={console.log}
