@@ -6,10 +6,7 @@ import styles from "./PDFLeser.module.css";
 export function PDFLeser() {
   const [fileUrl, setFileUrl] = useState("/test.pdf");
 
-  console.log(fileUrl);
-
   function setUrl(event: React.ChangeEvent<HTMLSelectElement>) {
-    console.log(event.currentTarget.value);
     setFileUrl(event.currentTarget.value);
   }
 

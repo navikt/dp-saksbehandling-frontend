@@ -26,7 +26,7 @@ export default function Person() {
           <strong>Avslag</strong>
         </div>
 
-        <Link to="../behandle/12345/vilkaar/1">
+        <Link to="#">
           <Button> Behandle </Button>
         </Link>
       </div>

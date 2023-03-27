@@ -1,26 +1,35 @@
+import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-
-import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
-import { VilkaarListeMeny } from "~/components/vilkaar-liste-meny/VilkaarListeMeny";
-import { mockHentVilkaarListe } from "~/models/vilkaar.server";
-
+import { hentBehandling } from "~/models/behandling.server";
+import { invariant } from "@remix-run/router";
+import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
+import React from "react";
 import styles from "~/route-styles/behandle.module.css";
+import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 
-export async function loader() {
-  const vilkaarListe = await mockHentVilkaarListe();
+export async function loader({ params }: LoaderArgs) {
+  invariant(params.hendelseId, `params.hendelseID er påkrevd`);
+  const behandling = await hentBehandling(params.hendelseId);
+  invariant(behandling, `Fant ikke behandling med id: ${params.hendelseId}`);
 
-  return json({
-    vilkaarListe,
-  });
+  return json({ behandling });
 }
 
 export default function PersonBehandle() {
-  const { vilkaarListe } = useLoaderData<typeof loader>();
+  const { behandling } = useLoaderData<typeof loader>();
+
   return (
     <div className={styles.container}>
       <div className={styles.menyContainer}>
-        <VilkaarListeMeny vilkaarListe={vilkaarListe} />
+        <div className={styles.behandlingStegListe}>
+          <ul>
+            {behandling.steg.map((steg) => (
+              <BehandlingStegMenyPunkt key={steg.uuid} {...steg} />
+            ))}
+          </ul>
+        </div>
+
         <BehandleSoknadMeny />
       </div>
       <Outlet />

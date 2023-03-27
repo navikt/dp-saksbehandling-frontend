@@ -10,7 +10,7 @@ interface IBehandlingStegSvar {
   type: string;
 }
 
-interface IBehandlingSteg {
+export interface IBehandlingSteg {
   uuid: string;
   id: BehandlingStegId;
   type: "Fastsetting" | "Vilkår";
@@ -41,6 +41,14 @@ type BehandlingStegId =
 
 export async function hentBehandlinger(): Promise<IBehandling[] | undefined> {
   const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/oppgaver`);
+
+  if (response.ok) {
+    return await response.json();
+  }
+}
+
+export async function hentBehandling(hendelseId: string): Promise<IBehandling | undefined> {
+  const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/oppgaver/${hendelseId}`);
 
   if (response.ok) {
     return await response.json();

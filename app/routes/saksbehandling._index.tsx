@@ -40,7 +40,7 @@ export default function Saksbehandling() {
                 <Table.DataCell>{person}</Table.DataCell>
                 <Table.DataCell>{saksbehandler}</Table.DataCell>
                 <Table.DataCell>
-                  <Link to={`person/${person}/behandle/${hendelse.id}/steg/1`}>
+                  <Link to={`person/${person}/behandle/${hendelse.id}`}>
                     <Button>Behandle</Button>
                   </Link>
                 </Table.DataCell>

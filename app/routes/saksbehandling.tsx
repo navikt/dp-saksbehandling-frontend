@@ -2,7 +2,7 @@ import { Header } from "@navikt/ds-react-internal";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getAzureSession } from "~/utils/auth.utils";
-import { SaksbehandlerMeny } from "~/components/saksbehandler-meny/SaksbehandlerMeny";
+import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import type { LoaderArgs } from "@remix-run/node";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { logger } from "../../server/logger";
@@ -43,7 +43,7 @@ export default function Saksbehandling() {
           NAV Dagpenger
         </Header.Title>
 
-        <SaksbehandlerMeny saksbehandler={saksbehandler} />
+        <HeaderMeny saksbehandler={saksbehandler} />
       </Header>
 
       <Outlet />

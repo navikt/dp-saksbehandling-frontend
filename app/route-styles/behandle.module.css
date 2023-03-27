@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 300px 1fr;
   min-height: calc(100vh - 112px);
 }
 
@@ -20,4 +20,16 @@
   position: sticky;
   top: 112px;
   z-index: 1;
+}
+
+.behandlingStegListe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-4);
+}
+
+.behandlingStegListe ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
