@@ -1,13 +1,14 @@
 import type { IHendelse } from "~/models/hendelse.server";
 import { getEnv } from "~/root";
 
-interface IBehandlingStegSvar {
+export interface IBehandlingStegSvar {
+  uuid: string;
+  type: string;
+  svar: string | boolean | number;
   begrunnelse: {
     tekst: string;
     kilde: string;
   };
-  svar: string | boolean | number;
-  type: string;
 }
 
 export interface IBehandlingSteg {
@@ -20,6 +21,7 @@ export interface IBehandlingSteg {
 }
 
 export interface IBehandling {
+  uuid: string;
   person: string;
   saksbehandler: string;
   opprettet: string;
@@ -53,4 +55,18 @@ export async function hentBehandling(hendelseId: string): Promise<IBehandling | 
   if (response.ok) {
     return await response.json();
   }
+}
+
+export async function svarBehandlingSteg(behandlingId: string, svar: IBehandlingStegSvar) {
+  const response = await fetch(
+    `${getEnv("DP_BEHANDLING_URL")}/oppgaver/${behandlingId}/steg/${svar.uuid}`,
+    { method: "POST", body: JSON.stringify(svar) }
+  );
+
+  console.log(response.status);
+
+  if (response.ok) {
+    return await response.json();
+  }
+  return undefined;
 }

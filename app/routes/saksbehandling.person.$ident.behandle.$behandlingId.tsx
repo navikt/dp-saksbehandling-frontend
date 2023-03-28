@@ -9,9 +9,9 @@ import styles from "~/route-styles/behandle.module.css";
 import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 
 export async function loader({ params }: LoaderArgs) {
-  invariant(params.hendelseId, `params.hendelseID er påkrevd`);
-  const behandling = await hentBehandling(params.hendelseId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.hendelseId}`);
+  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  const behandling = await hentBehandling(params.behandlingId);
+  invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
 
   return json({ behandling });
 }

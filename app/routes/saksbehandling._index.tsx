@@ -16,13 +16,13 @@ export async function loader() {
 
 export default function Saksbehandling() {
   const { behandlinger } = useLoaderData<typeof loader>();
-
+  console.log(behandlinger);
   return (
     <main>
       <Table size="small">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Hendelse</Table.HeaderCell>
+            <Table.HeaderCell scope="col">uuid</Table.HeaderCell>
             <Table.HeaderCell scope="col">Dato opprettet</Table.HeaderCell>
             <Table.HeaderCell scope="col">Person</Table.HeaderCell>
             <Table.HeaderCell scope="col">Saksbehandler</Table.HeaderCell>
@@ -32,15 +32,15 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {behandlinger?.map((behandling, index) => {
-            const { hendelse, opprettet, person, saksbehandler } = behandling;
+            const { uuid, opprettet, person, saksbehandler } = behandling;
             return (
               <Table.Row key={index}>
-                <Table.DataCell>{hendelse.type}</Table.DataCell>
+                <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>{opprettet}</Table.DataCell>
                 <Table.DataCell>{person}</Table.DataCell>
                 <Table.DataCell>{saksbehandler}</Table.DataCell>
                 <Table.DataCell>
-                  <Link to={`person/${person}/behandle/${hendelse.id}`}>
+                  <Link to={`person/${person}/behandle/${uuid}`}>
                     <Button>Behandle</Button>
                   </Link>
                 </Table.DataCell>
