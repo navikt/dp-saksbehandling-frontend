@@ -45,6 +45,10 @@ spec:
       value: {{base_path}}
     - name: DP_BEHANDLING_URL
       value: {{dp-behandling_url}}
+  accessPolicy:
+    outbound:
+      external:
+        - host: {{dp-behandling_host}}
   azure:
     application:
       tenant: nav.no

@@ -1,3 +1,4 @@
 ingress: "https://dagpenger.intern.dev.nav.no/saksbehandling"
 base_path: "/saksbehandling"
 dp-behandling_url: "https://dp-behandling.intern.dev.nav.no"
+dp-behandling_host: "dp-behandling.intern.dev.nav.no"
