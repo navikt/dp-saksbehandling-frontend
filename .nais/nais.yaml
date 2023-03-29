@@ -49,6 +49,7 @@ spec:
     outbound:
       external:
         - host: {{dp-behandling_host}}
+        - host: graph.microsoft.com
   azure:
     application:
       tenant: nav.no
