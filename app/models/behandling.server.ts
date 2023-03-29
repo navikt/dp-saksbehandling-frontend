@@ -2,7 +2,6 @@ import type { IHendelse } from "~/models/hendelse.server";
 import { getEnv } from "~/root";
 
 export interface IBehandlingStegSvar {
-  uuid: string;
   type: string;
   svar: string | boolean | number;
   begrunnelse: {
@@ -29,7 +28,7 @@ export interface IBehandling {
   steg: IBehandlingSteg[];
 }
 
-type BehandlingStegSvarType = "Int" | "Boolean" | "Localdate";
+type BehandlingStegSvarType = "Int" | "Boolean" | "Localdate" | "tekst";
 
 type BehandlingStegId =
   | "Fødselsdato"
@@ -42,28 +41,35 @@ type BehandlingStegId =
   | "OppfyllerKravTilTaptArbeidstid";
 
 export async function hentBehandlinger(): Promise<IBehandling[] | undefined> {
-  const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/oppgaver`);
+  const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/behandlinger`);
+
+  if (response.ok) {
+    return await response.json();
+  }
+  return undefined;
+}
+
+export async function hentBehandling(behandlingId: string): Promise<IBehandling | undefined> {
+  const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}`);
 
   if (response.ok) {
     return await response.json();
   }
 }
 
-export async function hentBehandling(hendelseId: string): Promise<IBehandling | undefined> {
-  const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/oppgaver/${hendelseId}`);
+export async function svarBehandlingSteg(
+  behandlingId: string,
+  svar: IBehandlingStegSvar,
+  stegId: string
+) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/steg/${stegId}`;
+  const body = JSON.stringify(svar);
 
-  if (response.ok) {
-    return await response.json();
-  }
-}
-
-export async function svarBehandlingSteg(behandlingId: string, svar: IBehandlingStegSvar) {
-  const response = await fetch(
-    `${getEnv("DP_BEHANDLING_URL")}/oppgaver/${behandlingId}/steg/${svar.uuid}`,
-    { method: "POST", body: JSON.stringify(svar) }
-  );
-
-  console.log(response.status);
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: body,
+  });
 
   if (response.ok) {
     return await response.json();

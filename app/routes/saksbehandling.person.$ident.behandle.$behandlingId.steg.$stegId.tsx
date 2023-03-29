@@ -10,6 +10,7 @@ import { invariant } from "@remix-run/router";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  invariant(params.stegId, `params.stegId er påkrevd`);
   const formData = await request.formData();
   const oppfylt = formData.get("oppfylt");
 
@@ -17,7 +18,6 @@ export async function action({ request, params }: ActionArgs) {
   invariant(typeof oppfylt === "string", "oppfylt must be a string");
 
   const svar: IBehandlingStegSvar = {
-    uuid: params.behandlingId,
     type: "Boolean",
     svar: oppfylt === "ja",
     begrunnelse: {
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionArgs) {
     },
   };
 
-  const response = await svarBehandlingSteg(params.behandlingId, svar);
+  const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
 
   return { response };
 }
