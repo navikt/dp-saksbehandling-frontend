@@ -50,6 +50,7 @@ spec:
       external:
         - host: {{dp-behandling_host}}
         - host: graph.microsoft.com
+        - host: rt6o382n.apicdn.sanity.io
   azure:
     application:
       tenant: nav.no
