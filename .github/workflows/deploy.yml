@@ -31,8 +31,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-
-
   build:
     needs: [install]
     runs-on: ubuntu-latest
