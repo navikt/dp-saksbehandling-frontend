@@ -12,6 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - uses: actions/setup-node@v3
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        with:
+          node-version: "18.x"
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+
       - run: npm ci --ignore-scripts
         if: steps.node_modules.outputs.cache-hit != 'true'
         env:
