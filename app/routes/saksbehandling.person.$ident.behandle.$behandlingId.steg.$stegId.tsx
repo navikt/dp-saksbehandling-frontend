@@ -6,7 +6,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { Button, Radio, RadioGroup } from "@navikt/ds-react";
 import type { IBehandlingStegSvar } from "~/models/behandling.server";
 import { svarBehandlingSteg } from "~/models/behandling.server";
-import { invariant } from "@remix-run/router";
+import invariant from "tiny-invariant";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);

@@ -2,9 +2,8 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { hentBehandling } from "~/models/behandling.server";
-import { invariant } from "@remix-run/router";
+import invariant from "tiny-invariant";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
-import React from "react";
 import styles from "~/route-styles/behandle.module.css";
 import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 
