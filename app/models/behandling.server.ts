@@ -74,7 +74,8 @@ export async function svarBehandlingSteg(
   });
 
   if (response.ok) {
-    return await response.json();
+    console.log(response);
+    return response;
   }
   return undefined;
 }

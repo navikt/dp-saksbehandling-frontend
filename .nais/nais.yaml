@@ -31,11 +31,10 @@ spec:
     cpuThresholdPercentage: 75
   resources:
     limits:
-      cpu: 300m
       memory: 512Mi
     requests:
       cpu: 200m
-      memory: 128Mi
+      memory: 512Mi
   ingresses:
     - {{ingress}}
   env:
