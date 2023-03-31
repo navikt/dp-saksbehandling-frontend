@@ -13,9 +13,8 @@
 .menyContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 50px;
   border-right: 1px solid var(--a-border-divider);
-  max-height: calc(100vh - 112px);
 
   position: sticky;
   top: 112px;
@@ -25,7 +24,6 @@
 .behandlingStegListe {
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-4);
 }
 
 .behandlingStegListe ul {

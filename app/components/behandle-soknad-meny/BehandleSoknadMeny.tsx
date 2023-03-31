@@ -1,6 +1,5 @@
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
-import React from "react";
 import styles from "./BehandleSoknadMeny.module.css";
 
 export function BehandleSoknadMeny() {
