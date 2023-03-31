@@ -1,6 +1,7 @@
 import type { IPerson } from "~/models/person.server";
 
 export const personListeMock: IPerson[] = [
+  { ident: "", forNavn: "IKKE IMPLEMENTERT", mellomNavn: "HENTING AV", etterNavn: "NAVN" },
   {
     ident: "27899995630",
     forNavn: "OPPSTEMT",
