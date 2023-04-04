@@ -1,12 +1,13 @@
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation, useRouteLoaderData } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 
 import styles from "~/route-styles/vilkaar.module.css";
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { Button, Radio, RadioGroup } from "@navikt/ds-react";
-import type { IBehandlingStegSvar } from "~/models/behandling.server";
+import type { IBehandling, IBehandlingStegSvar } from "~/models/behandling.server";
 import { svarBehandlingSteg } from "~/models/behandling.server";
 import invariant from "tiny-invariant";
+import { json } from "@remix-run/node";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
@@ -19,7 +20,7 @@ export async function action({ request, params }: ActionArgs) {
 
   const svar: IBehandlingStegSvar = {
     type: "Boolean",
-    svar: oppfylt === "ja",
+    svar: oppfylt,
     begrunnelse: {
       tekst: "Har itte",
       kilde: "Høggern",
@@ -31,26 +32,43 @@ export async function action({ request, params }: ActionArgs) {
   return { response };
 }
 
+export async function loader({ params }: LoaderArgs) {
+  return json({ stegId: params.stegId });
+}
+
 export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
+  const data = useLoaderData<typeof loader>();
+  const { behandling } = useRouteLoaderData(
+    "routes/saksbehandling.person.$ident.behandle.$behandlingId"
+  );
+  const behandling2 = behandling as IBehandling;
+  const steg = behandling2.steg.find((behandlingSteg) => behandlingSteg.uuid == data.stegId);
+  console.log("steg:", steg);
 
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <Form className={styles.vilkaarVurderingContainer} method="post">
-          <RadioGroup
-            name="oppfylt"
-            legend="Oppfylt"
-            // onChange={(val: any) => handleChange(val)}
-            size="small"
-          >
-            <Radio value={"ja"}>Ja</Radio>
-            <Radio value={"nei"}>Nei</Radio>
-          </RadioGroup>
-          <Button type="submit" disabled={isCreating}>
-            {isCreating ? "Lagrer..." : "Lagre"}
-          </Button>
+          {steg && steg.svartype == "Boolean" && (
+            <>
+              <RadioGroup
+                name="oppfylt"
+                legend="Oppfylt"
+                // onChange={(val: any) => handleChange(val)}
+                size="small"
+                value={steg.svar?.svar || ""}
+              >
+                <Radio value={"true"}>Ja</Radio>
+                <Radio value={"false"}>Nei</Radio>
+              </RadioGroup>
+              <Button type="submit" disabled={isCreating}>
+                {isCreating ? "Lagrer..." : "Lagre"}
+              </Button>
+            </>
+          )}
+          {steg && steg.svartype != "Boolean" && <p>IKKE IMPLEMENTERT</p>}
         </Form>
       </div>
 
