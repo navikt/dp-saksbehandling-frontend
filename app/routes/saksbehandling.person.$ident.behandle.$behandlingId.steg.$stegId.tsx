@@ -8,12 +8,13 @@ import type { IBehandling, IBehandlingStegSvar } from "~/models/behandling.serve
 import { svarBehandlingSteg } from "~/models/behandling.server";
 import invariant from "tiny-invariant";
 import { json } from "@remix-run/node";
+import { useState } from "react";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   invariant(params.stegId, `params.stegId er påkrevd`);
   const formData = await request.formData();
-  const oppfylt = formData.get("oppfylt");
+  const oppfylt = formData.get(params.stegId);
 
   invariant(oppfylt, `oppfylt formdata er påkrevd`);
   invariant(typeof oppfylt === "string", "oppfylt must be a string");
@@ -45,7 +46,8 @@ export default function PersonBehandleVilkaar() {
   );
   const behandling2 = behandling as IBehandling;
   const steg = behandling2.steg.find((behandlingSteg) => behandlingSteg.uuid == data.stegId);
-  console.log("steg:", steg);
+  console.log("steg:", steg?.svar?.svar);
+  const [svarValue, setSvarValue] = useState(steg?.svar?.svar || "");
 
   return (
     <div className={styles.container}>
@@ -54,21 +56,21 @@ export default function PersonBehandleVilkaar() {
           {steg && steg.svartype == "Boolean" && (
             <>
               <RadioGroup
-                name="oppfylt"
+                name={steg.uuid}
                 legend="Oppfylt"
-                // onChange={(val: any) => handleChange(val)}
+                onChange={(val: any) => setSvarValue(val)}
                 size="small"
-                value={steg.svar?.svar || ""}
+                value={svarValue}
               >
                 <Radio value={"true"}>Ja</Radio>
                 <Radio value={"false"}>Nei</Radio>
               </RadioGroup>
-              <Button type="submit" disabled={isCreating}>
-                {isCreating ? "Lagrer..." : "Lagre"}
-              </Button>
             </>
           )}
           {steg && steg.svartype != "Boolean" && <p>IKKE IMPLEMENTERT</p>}
+          <Button type="submit" disabled={isCreating}>
+            {isCreating ? "Lagrer..." : "Lagre"}
+          </Button>
         </Form>
       </div>
 
