@@ -3,12 +3,14 @@ import { getEnv } from "~/root";
 
 export interface IBehandlingStegSvar {
   type: string;
-  svar: string | boolean | number;
+  svar: IBehandlingStegSvartype;
   begrunnelse: {
     tekst: string;
     kilde: string;
   };
 }
+
+export type IBehandlingStegSvartype = string | boolean | number | Date;
 
 export interface IBehandlingSteg {
   uuid: string;
@@ -28,7 +30,7 @@ export interface IBehandling {
   steg: IBehandlingSteg[];
 }
 
-type BehandlingStegSvarType = "Int" | "Boolean" | "Localdate" | "tekst";
+type BehandlingStegSvarType = "Int" | "Boolean" | "LocalDate" | "String";
 
 type BehandlingStegId =
   | "Fødselsdato"
@@ -77,5 +79,6 @@ export async function svarBehandlingSteg(
     console.log(response);
     return response;
   }
+
   return undefined;
 }

@@ -1,27 +1,27 @@
-import { Form, useLoaderData, useNavigation, useRouteLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 
-import styles from "~/route-styles/vilkaar.module.css";
+import { Button, Radio, RadioGroup, TextField } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { Button, Radio, RadioGroup } from "@navikt/ds-react";
-import type { IBehandling, IBehandlingStegSvar } from "~/models/behandling.server";
-import { svarBehandlingSteg } from "~/models/behandling.server";
-import invariant from "tiny-invariant";
 import { json } from "@remix-run/node";
 import { useState } from "react";
+import invariant from "tiny-invariant";
+import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
+import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
+import type { IBehandlingStegSvar, IBehandlingStegSvartype } from "~/models/behandling.server";
+
+import styles from "~/route-styles/vilkaar.module.css";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   invariant(params.stegId, `params.stegId er påkrevd`);
   const formData = await request.formData();
-  const oppfylt = formData.get(params.stegId);
-
-  invariant(oppfylt, `oppfylt formdata er påkrevd`);
-  invariant(typeof oppfylt === "string", "oppfylt must be a string");
+  const skjemasvar = formData.get(params.stegId);
+  const svartype = formData.get("svartype");
 
   const svar: IBehandlingStegSvar = {
-    type: "Boolean",
-    svar: oppfylt,
+    type: svartype as string,
+    svar: skjemasvar?.toString() as IBehandlingStegSvartype,
     begrunnelse: {
       tekst: "Har itte",
       kilde: "Høggern",
@@ -34,40 +34,51 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export async function loader({ params }: LoaderArgs) {
-  return json({ stegId: params.stegId });
+  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  const behandling = await hentBehandling(params.behandlingId);
+  invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
+
+  const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
+
+  return json({ steg });
 }
 
 export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-  const data = useLoaderData<typeof loader>();
-  const { behandling } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.behandle.$behandlingId"
-  );
-  const behandling2 = behandling as IBehandling;
-  const steg = behandling2.steg.find((behandlingSteg) => behandlingSteg.uuid == data.stegId);
-  console.log("steg:", steg?.svar?.svar);
-  const [svarValue, setSvarValue] = useState(steg?.svar?.svar || "");
+  const { steg } = useLoaderData<typeof loader>();
+  const [svarValue, setSvarValue] = useState<IBehandlingStegSvartype | undefined>(steg?.svar?.svar);
 
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <Form className={styles.vilkaarVurderingContainer} method="post">
+          <input type="hidden" name="svartype" value={steg?.svartype} />
           {steg && steg.svartype == "Boolean" && (
-            <>
-              <RadioGroup
-                name={steg.uuid}
-                legend="Oppfylt"
-                onChange={(val: any) => setSvarValue(val)}
-                size="small"
-                value={svarValue}
-              >
-                <Radio value={"true"}>Ja</Radio>
-                <Radio value={"false"}>Nei</Radio>
-              </RadioGroup>
-            </>
+            <RadioGroup
+              name={steg.uuid}
+              legend="Oppfylt"
+              onChange={(val) => setSvarValue(val)}
+              size="small"
+              value={svarValue}
+            >
+              <Radio value={"true"}>Ja</Radio>
+              <Radio value={"false"}>Nei</Radio>
+            </RadioGroup>
           )}
-          {steg && steg.svartype != "Boolean" && <p>IKKE IMPLEMENTERT</p>}
+
+          {steg && steg.svartype === "LocalDate" && (
+            <BehandlingStegInputDato steg={steg} onChange={setSvarValue} />
+          )}
+
+          {steg && steg.svartype === "Int" && (
+            <TextField
+              name={steg.uuid}
+              label="Tall:"
+              onChange={(e) => setSvarValue(e.currentTarget.value)}
+              type="number"
+            />
+          )}
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}
           </Button>
