@@ -28,12 +28,12 @@ export function BehandleSoknadMeny() {
         </li>
         <li>
           <NavLink
-            to={"to-trinnskontroll"}
+            to={"ferdigstill"}
             className={({ isActive }) => {
               return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
             }}
           >
-            Send til to-trinnskontroll
+            Ferdigstill
           </NavLink>
         </li>
       </ul>
