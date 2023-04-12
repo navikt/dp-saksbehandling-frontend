@@ -3,7 +3,7 @@ import { getEnv } from "~/root";
 
 export interface IBehandlingStegSvar {
   type: string;
-  svar: IBehandlingStegSvartype;
+  svar?: IBehandlingStegSvartype;
   begrunnelse: {
     tekst: string;
     kilde: string;
