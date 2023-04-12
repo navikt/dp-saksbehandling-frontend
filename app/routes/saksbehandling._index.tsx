@@ -11,12 +11,12 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
+  console.log("Kjører loader() i saksbehandling._index");
   return json({ behandlinger: await hentBehandlinger() });
 }
 
 export default function Saksbehandling() {
   const { behandlinger } = useLoaderData<typeof loader>();
-  console.log(behandlinger);
   return (
     <main>
       <Table size="small">

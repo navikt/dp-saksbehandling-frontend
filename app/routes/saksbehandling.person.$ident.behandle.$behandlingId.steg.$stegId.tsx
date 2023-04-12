@@ -34,6 +34,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export async function loader({ params }: LoaderArgs) {
+  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$behandlingId.steg.$stegId");
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   const behandling = await hentBehandling(params.behandlingId);
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
@@ -47,7 +48,11 @@ export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
-  const [svarValue, setSvarValue] = useState<IBehandlingStegSvartype | undefined>(steg?.svar?.svar);
+  const [svarValue, setSvarValue] = useState<IBehandlingStegSvartype>(steg?.svar?.svar ?? "");
+
+  useEffect(() => {
+    setSvarValue(steg?.svar?.svar || "");
+  }, [steg]);
 
   useEffect(() => {
     setSvarValue(steg?.svar?.svar);

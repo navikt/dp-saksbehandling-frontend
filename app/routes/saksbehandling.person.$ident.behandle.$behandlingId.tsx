@@ -8,6 +8,7 @@ import styles from "~/route-styles/behandle.module.css";
 import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 
 export async function loader({ params }: LoaderArgs) {
+  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$behandlingId");
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   const behandling = await hentBehandling(params.behandlingId);
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);

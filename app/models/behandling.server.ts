@@ -44,7 +44,6 @@ type BehandlingStegId =
 
 export async function hentBehandlinger(): Promise<IBehandling[] | undefined> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger`;
-  console.log("hent behandlinger fra url: ", url);
   const response = await fetch(url);
 
   if (response.ok) {
@@ -76,7 +75,6 @@ export async function svarBehandlingSteg(
   });
 
   if (response.ok) {
-    console.log(response);
     return response;
   }
 

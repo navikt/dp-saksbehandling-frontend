@@ -5,6 +5,7 @@ import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { mockHentPerson } from "~/models/person.server";
 
 export async function loader({ params }: LoaderArgs) {
+  console.log("Kjører loader() i saksbehandling.person.$ident");
   invariant(params.ident, `params.ident er påkrevd`);
   const person = await mockHentPerson(params.ident);
 

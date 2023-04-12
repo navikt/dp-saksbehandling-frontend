@@ -10,6 +10,7 @@ import styles from "~/index.module.css";
 import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 
 export async function loader({ request }: LoaderArgs) {
+  console.log("Kjører loader() i saksbehandling");
   const session = await getAzureSession(request);
   //wonderwall tar seg av session, hvis vi ikke har en session kjører vi uten sidecar og skal være i dev
   if (!session || session.expiresIn === 0) {
