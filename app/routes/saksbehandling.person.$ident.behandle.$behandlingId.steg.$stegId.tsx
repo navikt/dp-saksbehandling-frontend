@@ -54,10 +54,6 @@ export default function PersonBehandleVilkaar() {
     setSvarValue(steg?.svar?.svar || "");
   }, [steg]);
 
-  useEffect(() => {
-    setSvarValue(steg?.svar?.svar);
-  }, [steg?.uuid, steg?.svar?.svar]);
-
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
