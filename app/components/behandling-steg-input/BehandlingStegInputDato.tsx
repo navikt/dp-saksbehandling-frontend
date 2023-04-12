@@ -2,7 +2,7 @@ import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from "@navikt/ds-react";
 import type { IBehandlingSteg } from "~/models/behandling.server";
 
 interface IProps {
-  onChange: (value: Date | undefined) => void;
+  onChange: (value: Date | "") => void;
   steg: IBehandlingSteg;
 }
 
@@ -13,7 +13,7 @@ export function BehandlingStegInputDato({ steg, onChange }: IProps) {
     toDate: new Date("1 Oct 2024"),
     defaultSelected: steg?.svar && steg.svar.svar ? new Date(steg.svar.svar as Date) : undefined,
     onDateChange: (val) => {
-      onChange(val);
+      onChange(val ?? "");
     },
   });
 

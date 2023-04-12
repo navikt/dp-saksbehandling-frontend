@@ -7,8 +7,8 @@ import type { IBehandlingSteg } from "~/models/behandling.server";
 export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
   const kulepunktKlasser = classNames(styles.kulepunkt, {
     [styles.kulepunktUtfort]: behandlingSteg.tilstand === "Utført",
-    [styles.kulepunktIkkeUtfort]:
-      behandlingSteg.tilstand === "IkkeUtført" || behandlingSteg.tilstand === "MåGodkjennes",
+    [styles.kulepunktIkkeUtfort]: behandlingSteg.tilstand === "IkkeUtført",
+    [styles.kulepunktMaaGodkjennes]: behandlingSteg.tilstand === "MåGodkjennes",
   });
 
   return (

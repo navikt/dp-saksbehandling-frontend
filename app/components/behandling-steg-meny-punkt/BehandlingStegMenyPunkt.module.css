@@ -10,6 +10,9 @@
 .kulepunktIkkeUtfort::before {
   background-color: var(--a-orange-400);
 }
+.kulepunktMaaGodkjennes::before {
+  background-color: var(--a-gray-400);
+}
 
 .kulepunkt {
   display: flex;
