@@ -75,8 +75,18 @@ export default function PersonBehandleVilkaar() {
             <TextField
               name={steg.uuid}
               label="Tall:"
+              defaultValue={svarValue as number}
               onChange={(e) => setSvarValue(e.currentTarget.value)}
               type="number"
+            />
+          )}
+
+          {steg && steg.svartype === "String" && (
+            <TextField
+              name={steg.uuid}
+              label="Tekst:"
+              defaultValue={svarValue as string}
+              onChange={(e) => setSvarValue(e.currentTarget.value)}
             />
           )}
           <Button type="submit" disabled={isCreating}>
