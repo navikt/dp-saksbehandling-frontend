@@ -11,7 +11,7 @@ export function BehandlingStegInputDato({ steg, onChange }: IProps) {
     inputFormat: "yyyy-MM-dd",
     fromDate: new Date("Aug 23 2019"),
     toDate: new Date("1 Oct 2024"),
-    defaultSelected: steg?.svar?.svar ? new Date(steg.svar.svar as unknown as Date) : undefined,
+    defaultSelected: steg.svar ? new Date(steg.svar.svar as Date) : undefined,
     onDateChange: (val) => {
       onChange(val);
     },
