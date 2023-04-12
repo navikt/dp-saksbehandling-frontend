@@ -4,11 +4,11 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import { Button, Radio, RadioGroup, TextField } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
 import type { IBehandlingStegSvar, IBehandlingStegSvartype } from "~/models/behandling.server";
+import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -48,6 +48,10 @@ export default function PersonBehandleVilkaar() {
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
   const [svarValue, setSvarValue] = useState<IBehandlingStegSvartype | undefined>(steg?.svar?.svar);
+
+  useEffect(() => {
+    setSvarValue(steg?.svar?.svar);
+  }, [steg?.uuid, steg?.svar?.svar]);
 
   return (
     <div className={styles.container}>
