@@ -82,7 +82,7 @@ export async function loader({ request }: LoaderArgs) {
   });
 
   // Prøver å cache saksbehandler data
-  const headers = { "Cache-Control": "public, s-maxage=60" };
+  const headers = { "Cache-Control": "private, s-maxage=120" };
 
   return json(
     {
