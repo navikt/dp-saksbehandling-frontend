@@ -20,17 +20,7 @@ import { sanityConfig } from "./sanity/sanity.config";
 import type { ISanityTexts } from "./sanity/sanity.types";
 import { allTextsQuery } from "./sanity/sanity.query";
 import { SanityProvider } from "./context/sanity-content";
-
-declare global {
-  interface Window {
-    env: IEnv;
-  }
-}
-
-interface IEnv {
-  BASE_PATH: string;
-  DP_BEHANDLING_URL: string;
-}
+import { getEnv } from "~/utils/env.utils";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -76,12 +66,6 @@ export function links() {
         ]
       : []),
   ];
-}
-
-export function getEnv(value: keyof IEnv) {
-  const env = typeof window !== "undefined" ? window.env : process.env;
-
-  return env[value] || "";
 }
 
 export async function loader() {
