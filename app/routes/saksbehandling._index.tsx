@@ -12,7 +12,9 @@ export const meta: MetaFunction = () => {
 
 export async function loader() {
   console.log("Kjører loader() i saksbehandling._index");
-  return json({ behandlinger: await hentBehandlinger() });
+  const behandlinger = await hentBehandlinger();
+
+  return json({ behandlinger });
 }
 
 export default function Saksbehandling() {

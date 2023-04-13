@@ -1,5 +1,5 @@
 import { Header } from "@navikt/ds-react-internal";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { isRouteErrorResponse, Outlet, useLoaderData, useRouteError } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getAzureSession } from "~/utils/auth.utils";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
@@ -50,4 +50,30 @@ export default function Saksbehandling() {
       <Outlet />
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  let error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
 }

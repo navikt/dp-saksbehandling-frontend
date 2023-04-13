@@ -20,9 +20,6 @@ export async function action({ request, params }: ActionArgs) {
   const skjemasvar = formData.get(params.stegId);
   const svartype = formData.get("svartype");
 
-  console.log("skjemasvar: ", skjemasvar);
-  console.log("typeof skjemasvar: ", typeof skjemasvar);
-
   const svar: IBehandlingStegSvar = {
     type: svartype as string,
     svar: skjemasvar?.toString() as IBehandlingStegSvartype,
@@ -42,7 +39,6 @@ export async function loader({ params }: LoaderArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   const behandling = await hentBehandling(params.behandlingId);
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
-
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
 
   return json({ steg });

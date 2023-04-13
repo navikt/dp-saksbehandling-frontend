@@ -42,22 +42,25 @@ type BehandlingStegId =
   | "FastsattVanligArbeidstid"
   | "OppfyllerKravTilTaptArbeidstid";
 
-export async function hentBehandlinger(): Promise<IBehandling[] | undefined> {
+export async function hentBehandlinger(): Promise<IBehandling[]> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger`;
   const response = await fetch(url);
 
-  if (response.ok) {
-    return await response.json();
+  if (!response.ok) {
+    throw new Response(response.statusText, { status: response.status });
   }
-  return undefined;
+
+  return await response.json();
 }
 
-export async function hentBehandling(behandlingId: string): Promise<IBehandling | undefined> {
+export async function hentBehandling(behandlingId: string): Promise<IBehandling> {
   const response = await fetch(`${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}`);
 
-  if (response.ok) {
-    return await response.json();
+  if (!response.ok) {
+    throw new Response(response.statusText, { status: response.status });
   }
+
+  return await response.json();
 }
 
 export async function svarBehandlingSteg(
