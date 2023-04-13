@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import {
   isRouteErrorResponse,
   Links,
@@ -27,7 +27,6 @@ import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityTexts } from "./sanity/sanity.types";
 import { Alert, Heading } from "@navikt/ds-react";
-import { cache } from "./utils/cache.utils";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -75,30 +74,18 @@ export function links() {
   ];
 }
 
+// Prøver å cache root siden
+export let headers: HeadersFunction = () => {
+  return { "Cache-Control": "private, s-maxage=120" };
+};
+
 export async function loader({ request }: LoaderArgs) {
+  const saksbehandler = await authorizeUser(request);
+
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
     lang: "nb",
   });
-
-  // Hent saksbehandle fra cache
-  if (cache.has("saksbehandlerCache")) {
-    const saksbehandlerCache = cache.get("saksbehandlerCache");
-
-    return json({
-      sanityTexts,
-      saksbehandlerCache,
-      env: {
-        BASE_PATH: process.env.BASE_PATH,
-        DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
-      },
-    });
-  }
-
-  const saksbehandler = await authorizeUser(request);
-
-  // Sett cache med 120 sekunder lever tid
-  cache.set("saksbehandlerCache", saksbehandler, 120);
 
   return json({
     sanityTexts,
