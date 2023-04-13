@@ -1,8 +1,8 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { Brodsmuler } from "../components/brodsmuler/Brodsmuler";
-import { mockHentPerson } from "../models/person.server";
+import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
+import { mockHentPerson } from "~/models/person.server";
 
 export async function loader({ params }: LoaderArgs) {
   console.log("Kjører loader() i saksbehandling.person.$ident");

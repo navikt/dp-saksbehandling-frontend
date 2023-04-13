@@ -1,5 +1,5 @@
-import { createContext, useContext, type PropsWithChildren } from "react";
-import type { ISanityFaktum, ISanitySvaralternativ, ISanityTexts } from "../sanity/sanity.types";
+import { createContext, type PropsWithChildren, useContext } from "react";
+import type { ISanityFaktum, ISanitySvaralternativ, ISanityTexts } from "~/sanity/sanity.types";
 
 export const SanityContext = createContext<ISanityTexts | undefined>(undefined);
 
@@ -20,17 +20,11 @@ function useSanityTekst() {
   }
 
   function hentFaktumTekstMedId(textId: string): ISanityFaktum | undefined {
-    const faktumTekst = context?.fakta.find((faktum) => faktum.textId === textId);
-
-    return faktumTekst;
+    return context?.fakta.find((faktum) => faktum.textId === textId);
   }
 
   function hentSvaralternativTekstMedId(textId: string): ISanitySvaralternativ | undefined {
-    const svarAlternativTekst = context?.svaralternativer.find(
-      (svaralternativ) => svaralternativ.textId === textId
-    );
-
-    return svarAlternativTekst;
+    return context?.svaralternativer.find((svaralternativ) => svaralternativ.textId === textId);
   }
 
   return {

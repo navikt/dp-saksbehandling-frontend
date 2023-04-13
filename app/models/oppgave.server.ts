@@ -1,7 +1,7 @@
-import type { ISaksbehandler } from "./saksbehandler.server";
-import type { IPerson } from "./person.server";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { IPerson } from "~/models/person.server";
 import { mockOppgaver } from "../../mock-data/mock-oppgave";
-import type { IHendelse } from "./hendelse.server";
+import type { IHendelse } from "~/models/hendelse.server";
 
 export interface IOppgave {
   id: string;

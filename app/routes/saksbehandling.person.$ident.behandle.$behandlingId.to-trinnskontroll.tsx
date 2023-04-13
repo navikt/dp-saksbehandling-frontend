@@ -1,6 +1,6 @@
 import { Button, Heading } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
-import styles from "../route-styles/mangelbrev.module.css";
+import styles from "~/route-styles/mangelbrev.module.css";
 
 export default function SendTilToTrinnskontroll() {
   return (

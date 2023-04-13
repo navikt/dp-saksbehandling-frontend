@@ -1,6 +1,6 @@
 import { mockSaksbehandler } from "./mock-saksbehandler";
 import { personListeMock } from "./mock-person";
-import type { IOppgave } from "../app/models/oppgave.server";
+import type { IOppgave } from "~/models/oppgave.server";
 
 const getDateMinusDays = (days: number) => {
   const now = new Date();

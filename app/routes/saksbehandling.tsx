@@ -1,12 +1,12 @@
 import { Header } from "@navikt/ds-react-internal";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
-import { getAzureSession } from "../utils/auth.utils";
-import { HeaderMeny } from "../components/header-meny/HeaderMeny";
+import { getAzureSession } from "~/utils/auth.utils";
+import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import type { LoaderArgs } from "@remix-run/node";
-import type { ISaksbehandler } from "../models/saksbehandler.server";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { logger } from "../../server/logger";
-import styles from "../index.module.css";
+import styles from "~/index.module.css";
 import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 
 export async function loader({ request }: LoaderArgs) {

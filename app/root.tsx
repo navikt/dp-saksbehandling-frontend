@@ -11,7 +11,7 @@ import {
 
 import navStyles from "@navikt/ds-css/dist/index.css";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
-import globalCss from "./global.css";
+import globalCss from "~/global.css";
 import quillCss from "quill/dist/quill.snow.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 

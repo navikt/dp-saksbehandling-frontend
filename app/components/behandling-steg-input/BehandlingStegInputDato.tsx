@@ -1,5 +1,5 @@
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from "@navikt/ds-react";
-import type { IBehandlingSteg } from "../../models/behandling.server";
+import type { IBehandlingSteg } from "~/models/behandling.server";
 
 interface IProps {
   onChange: (value: Date | "") => void;

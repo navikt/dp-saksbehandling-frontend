@@ -1,9 +1,9 @@
 import { BodyLong, Button, Heading } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
 import { ClientOnly } from "remix-utils";
-import QuillEditor from "../components/quill-editor/QuillEditor.client";
+import QuillEditor from "~/components/quill-editor/QuillEditor.client";
 
-import styles from "../route-styles/mangelbrev.module.css";
+import styles from "~/route-styles/mangelbrev.module.css";
 
 export default function SendMangelbrev() {
   return (

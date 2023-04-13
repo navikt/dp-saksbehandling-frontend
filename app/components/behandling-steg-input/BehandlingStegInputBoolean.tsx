@@ -1,6 +1,6 @@
 import React from "react";
 import { Radio, RadioGroup } from "@navikt/ds-react";
-import type { IBehandlingStegSvartype } from "../../models/behandling.server";
+import type { IBehandlingStegSvartype } from "~/models/behandling.server";
 
 interface IProps {
   uuid: string;

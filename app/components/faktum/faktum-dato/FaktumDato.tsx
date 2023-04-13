@@ -1,6 +1,6 @@
 import { BodyShort, Label } from "@navikt/ds-react";
-import { useSanityTekst } from "../context/sanity-content";
-import type { IDatoFaktum } from "../models/faktum.server";
+import { useSanityTekst } from "~/context/sanity-content";
+import type { IDatoFaktum } from "~/models/faktum.server";
 import type { IFaktum } from "../Faktum";
 
 export function FaktumDato({ faktum }: IFaktum<IDatoFaktum>) {
