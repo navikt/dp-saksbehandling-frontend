@@ -1,5 +1,6 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, type LoaderArgs, type MetaFunction } from "@remix-run/node";
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
@@ -7,20 +8,24 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useRouteError,
 } from "@remix-run/react";
 
-import navStyles from "@navikt/ds-css/dist/index.css";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
-import globalCss from "~/global.css";
-import quillCss from "quill/dist/quill.snow.css";
+import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
+import quillCss from "quill/dist/quill.snow.css";
+import globalCss from "~/global.css";
 
 import { createClient } from "@sanity/client";
-import { sanityConfig } from "./sanity/sanity.config";
-import type { ISanityTexts } from "./sanity/sanity.types";
-import { allTextsQuery } from "./sanity/sanity.query";
-import { SanityProvider } from "./context/sanity-content";
 import { getEnv } from "~/utils/env.utils";
+import RootErrorBoundaryView from "./components/error-boundary/RootErrorBoundaryView";
+import { SanityProvider } from "./context/sanity-content";
+import { authorizeUser } from "./models/auth.server";
+import { sanityConfig } from "./sanity/sanity.config";
+import { allTextsQuery } from "./sanity/sanity.query";
+import type { ISanityTexts } from "./sanity/sanity.types";
+import { Alert, Heading } from "@navikt/ds-react";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -68,7 +73,9 @@ export function links() {
   ];
 }
 
-export async function loader() {
+export async function loader({ request }: LoaderArgs) {
+  const saksbehandler = await authorizeUser(request);
+
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
     lang: "nb",
@@ -76,6 +83,7 @@ export async function loader() {
 
   return json({
     sanityTexts,
+    saksbehandler,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
@@ -108,4 +116,46 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    const hasStatusText = error.statusText.length > 0;
+
+    return (
+      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
+        <Alert variant="error">
+          <Heading spacing size="medium" level="1">
+            {error.status} Error {hasStatusText && `: ${error.statusText}`}
+          </Heading>
+          <p>{error.data}</p>
+        </Alert>
+      </RootErrorBoundaryView>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
+        <Alert variant="error">
+          <Heading spacing size="medium" level="1">
+            {error.message}
+          </Heading>
+          <p>{error.message}</p>
+          <p>The stack trace is:</p>
+          <pre>{error.stack}</pre>
+        </Alert>
+      </RootErrorBoundaryView>
+    );
+  } else {
+    return (
+      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
+        <Alert variant="error">
+          <Heading spacing size="medium" level="1">
+            Ukjent feil
+          </Heading>
+        </Alert>
+      </RootErrorBoundaryView>
+    );
+  }
 }
