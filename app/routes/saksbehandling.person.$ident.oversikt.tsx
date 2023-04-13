@@ -1,7 +1,7 @@
 import { Button, Detail, Heading } from "@navikt/ds-react";
 import { Link } from "@remix-run/react";
-import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
-import styles from "~/route-styles/person.module.css";
+import { DagpengerTidslinje } from "../components/dagpenger-tidslinje/DagpengerTidslinje";
+import styles from "../route-styles/person.module.css";
 
 export default function Person() {
   return (

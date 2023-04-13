@@ -1,6 +1,6 @@
 import { Tag } from "@navikt/ds-react";
 import { CopyToClipboard } from "@navikt/ds-react-internal";
-import type { IPerson } from "~/models/person.server";
+import type { IPerson } from "../models/person.server";
 import styles from "./Brodsmuler.module.css";
 
 interface IProps {

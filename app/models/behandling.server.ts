@@ -1,5 +1,5 @@
-import type { IHendelse } from "~/models/hendelse.server";
-import { getEnv } from "~/root";
+import type { IHendelse } from "../models/hendelse.server";
+import { getEnv } from "../root";
 
 export interface IBehandlingStegSvar {
   type: string;

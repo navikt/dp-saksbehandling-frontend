@@ -1,5 +1,5 @@
-import type { IPerson } from "~/models/person.server";
-import type { IOppgave } from "~/models/oppgave.server";
+import type { IPerson } from "./person.server";
+import type { IOppgave } from "./oppgave.server";
 
 export interface IDagpengerPeriode {
   id: string;

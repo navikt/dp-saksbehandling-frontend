@@ -1,4 +1,4 @@
-import type { IGeneratorFaktum } from "~/models/faktum.server";
+import type { IGeneratorFaktum } from "../models/faktum.server";
 import type { IFaktum } from "../Faktum";
 import { FaktumComponent } from "../Faktum";
 import styles from "./FaktumGenerator.module.css";

@@ -1,17 +1,17 @@
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
+import { PDFLeser } from "../components/pdf-leser/PDFLeser";
 
 import { Button, TextField } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
-import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import type { IBehandlingStegSvar, IBehandlingStegSvartype } from "~/models/behandling.server";
-import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
-import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
+import { BehandlingStegInputDato } from "../components/behandling-steg-input/BehandlingStegInputDato";
+import type { IBehandlingStegSvar, IBehandlingStegSvartype } from "../models/behandling.server";
+import { hentBehandling, svarBehandlingSteg } from "../models/behandling.server";
+import { BehandlingStegInputBoolean } from "../components/behandling-steg-input/BehandlingStegInputBoolean";
 
-import styles from "~/route-styles/vilkaar.module.css";
+import styles from "../route-styles/vilkaar.module.css";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);

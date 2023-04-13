@@ -1,4 +1,4 @@
-import type { Faktum, IGeneratorFaktum } from "~/models/faktum.server";
+import type { Faktum, IGeneratorFaktum } from "../models/faktum.server";
 import { FaktumBoolean } from "./faktum-boolean/FaktumBoolean";
 import { FaktumDato } from "./faktum-dato/FaktumDato";
 import { FaktumEnvalg } from "./faktum-envalg/FaktumEnvalg";

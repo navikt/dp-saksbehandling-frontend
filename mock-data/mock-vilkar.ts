@@ -1,6 +1,6 @@
-import type { IVilkaar } from "~/models/vilkaar.server";
-import type { Faktum } from "~/models/faktum.server";
-import type { IGeneratorFaktum } from "~/models/faktum.server";
+import type { IVilkaar } from "../app/models/vilkaar.server";
+import type { Faktum } from "../app/models/faktum.server";
+import type { IGeneratorFaktum } from "../app/models/faktum.server";
 
 const reellArbeidsokerFakta: (Faktum | IGeneratorFaktum)[] = [
   {

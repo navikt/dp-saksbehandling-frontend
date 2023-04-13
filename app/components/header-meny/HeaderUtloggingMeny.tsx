@@ -1,5 +1,5 @@
 import { Dropdown, Header } from "@navikt/ds-react-internal";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { ISaksbehandler } from "../../models/saksbehandler.server";
 import styles from "./HeaderMeny.module.css";
 
 interface IProps {

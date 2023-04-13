@@ -1,4 +1,4 @@
-import type { Faktum, IGeneratorFaktum } from "~/models/faktum.server";
+import type { Faktum, IGeneratorFaktum } from "../models/faktum.server";
 import { mockVilkaar } from "../../mock-data/mock-vilkar";
 
 export type VilkaarStatus = "Godkjent" | "Avslag" | "Manuell";

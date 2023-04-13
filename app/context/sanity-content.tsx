@@ -1,5 +1,5 @@
 import { createContext, useContext, type PropsWithChildren } from "react";
-import type { ISanityFaktum, ISanitySvaralternativ, ISanityTexts } from "~/sanity/sanity.types";
+import type { ISanityFaktum, ISanitySvaralternativ, ISanityTexts } from "../sanity/sanity.types";
 
 export const SanityContext = createContext<ISanityTexts | undefined>(undefined);
 
