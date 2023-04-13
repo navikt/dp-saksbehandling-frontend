@@ -81,14 +81,20 @@ export async function loader({ request }: LoaderArgs) {
     lang: "nb",
   });
 
-  return json({
-    sanityTexts,
-    saksbehandler,
-    env: {
-      BASE_PATH: process.env.BASE_PATH,
-      DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
+  // Prøver å cache saksbehandler data
+  const headers = { "Cache-Control": "public, s-maxage=60" };
+
+  return json(
+    {
+      sanityTexts,
+      saksbehandler,
+      env: {
+        BASE_PATH: process.env.BASE_PATH,
+        DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
+      },
     },
-  });
+    { headers }
+  );
 }
 
 export default function App() {
