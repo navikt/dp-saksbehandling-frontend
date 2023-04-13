@@ -1,4 +1,5 @@
-import { json, type LoaderArgs, type MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { HeadersFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import {
   isRouteErrorResponse,
   Links,
@@ -73,6 +74,11 @@ export function links() {
   ];
 }
 
+// Prøver å cache root siden
+export let headers: HeadersFunction = () => {
+  return { "Cache-Control": "private, s-maxage=120" };
+};
+
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
 
@@ -81,20 +87,14 @@ export async function loader({ request }: LoaderArgs) {
     lang: "nb",
   });
 
-  // Prøver å cache saksbehandler data
-  const headers = { "Cache-Control": "private, s-maxage=120" };
-
-  return json(
-    {
-      sanityTexts,
-      saksbehandler,
-      env: {
-        BASE_PATH: process.env.BASE_PATH,
-        DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
-      },
+  return json({
+    sanityTexts,
+    saksbehandler,
+    env: {
+      BASE_PATH: process.env.BASE_PATH,
+      DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
     },
-    { headers }
-  );
+  });
 }
 
 export default function App() {
