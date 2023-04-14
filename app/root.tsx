@@ -1,7 +1,6 @@
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
-  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
@@ -18,7 +17,6 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import quillCss from "quill/dist/quill.snow.css";
 import globalCss from "~/global.css";
 
-import { Alert, Heading } from "@navikt/ds-react";
 import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import RootErrorBoundaryView from "./components/error-boundary/RootErrorBoundaryView";
@@ -125,41 +123,5 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
 
-  if (isRouteErrorResponse(error)) {
-    const hasStatusText = error.statusText.length > 0;
-
-    return (
-      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
-        <Alert variant="error">
-          <Heading spacing size="medium" level="1">
-            {error.status} Error {hasStatusText && `: ${error.statusText}`}
-          </Heading>
-          <p>{error.data}</p>
-        </Alert>
-      </RootErrorBoundaryView>
-    );
-  } else if (error instanceof Error) {
-    return (
-      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
-        <Alert variant="error">
-          <Heading spacing size="medium" level="1">
-            {error.message}
-          </Heading>
-          <p>{error.message}</p>
-          <p>The stack trace is:</p>
-          <pre>{error.stack}</pre>
-        </Alert>
-      </RootErrorBoundaryView>
-    );
-  } else {
-    return (
-      <RootErrorBoundaryView links={<Links />} meta={<Meta />}>
-        <Alert variant="error">
-          <Heading spacing size="medium" level="1">
-            Ukjent feil
-          </Heading>
-        </Alert>
-      </RootErrorBoundaryView>
-    );
-  }
+  return <RootErrorBoundaryView links={<Links />} meta={<Meta />} error={error} />;
 }
