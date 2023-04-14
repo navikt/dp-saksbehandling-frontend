@@ -30,6 +30,20 @@ export interface IBehandling {
   steg: IBehandlingSteg[];
 }
 
+export interface IFerdigstill {
+  event_name: string;
+  behandlingId: number;
+  virkningsdato: Date;
+  innvilget: true;
+  ident: string;
+  dagpengerettighet: string;
+  dagsats: string;
+  grunnlag: string;
+  stønadsperiode: string;
+  vanligArbeidstidPerDag: string;
+  antallVentedager: string;
+}
+
 type BehandlingStegSvarType = "Int" | "Boolean" | "LocalDate" | "String";
 
 type BehandlingStegId =
@@ -59,6 +73,26 @@ export async function hentBehandling(behandlingId: string): Promise<IBehandling 
     return await response.json();
   }
 }
+
+export async function hentFerdigstill(
+  behandlingId: string,
+  innvilget: boolean
+): Promise<IFerdigstill | undefined> {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/ferdigstill`;
+
+  // Er dette korrekt? Skal dette skrives på en annen måte?
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: innvilget,
+  });
+
+  if (response.ok) {
+    return await response.json();
+  }
+}
+// /behandlinger/${behandlingId}/ferdigstill
+// {innvilget: boolean}
 
 export async function svarBehandlingSteg(
   behandlingId: string,
