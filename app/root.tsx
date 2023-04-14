@@ -74,6 +74,7 @@ export function links() {
   ];
 }
 
+// Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderArgs) {
