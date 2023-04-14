@@ -1,5 +1,5 @@
-import { json } from "@remix-run/node";
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   isRouteErrorResponse,
   Links,
@@ -18,15 +18,15 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import quillCss from "quill/dist/quill.snow.css";
 import globalCss from "~/global.css";
 
+import { Alert, Heading } from "@navikt/ds-react";
 import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import RootErrorBoundaryView from "./components/error-boundary/RootErrorBoundaryView";
 import { SanityProvider } from "./context/sanity-content";
 import { authorizeUser } from "./models/auth.server";
 import { sanityConfig } from "./sanity/sanity.config";
-// import { allTextsQuery } from "./sanity/sanity.query";
-// import type { ISanityTexts } from "./sanity/sanity.types";
-import { Alert, Heading } from "@navikt/ds-react";
+import { allTextsQuery } from "./sanity/sanity.query";
+import type { ISanityTexts } from "./sanity/sanity.types";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -74,26 +74,16 @@ export function links() {
   ];
 }
 
-// Prøver å cache root siden
-// export let headers: HeadersFunction = () => {
-//   return { "Cache-Control": "private, s-maxage=120" };
-// };
-
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
 
-  // const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
-  //   baseLang: "nb",
-  //   lang: "nb",
-  // });
-
-  const sanityObj = {
-    fakta: [{ textId: "", text: "" }],
-    svaralternativer: [{ textId: "", text: "" }],
-  };
+  const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+    baseLang: "nb",
+    lang: "nb",
+  });
 
   return json({
-    sanityTexts: sanityObj,
+    sanityTexts,
     saksbehandler,
     env: {
       BASE_PATH: process.env.BASE_PATH,
