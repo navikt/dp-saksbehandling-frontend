@@ -74,6 +74,8 @@ export function links() {
   ];
 }
 
+export const shouldRevalidate = () => false;
+
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
 
