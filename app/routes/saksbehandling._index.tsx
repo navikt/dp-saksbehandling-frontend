@@ -3,6 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { hentBehandlinger } from "~/models/behandling.server";
+import { hentFormattertDato } from "~/utils/dato.utils";
 
 export const meta: MetaFunction = () => {
   return {
@@ -38,7 +39,7 @@ export default function Saksbehandling() {
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
-                <Table.DataCell>{opprettet}</Table.DataCell>
+                <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{person}</Table.DataCell>
                 <Table.DataCell>{saksbehandler}</Table.DataCell>
                 <Table.DataCell>

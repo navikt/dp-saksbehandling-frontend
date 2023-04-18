@@ -58,7 +58,6 @@ export default function PersonBehandleVilkaar() {
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <Form className={styles.vilkaarVurderingContainer} method="post">
-          {steg?.uuid}
           <input type="hidden" name="svartype" value={steg?.svartype} />
           {steg && steg.svartype == "Boolean" && (
             <BehandlingStegInputBoolean
