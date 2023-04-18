@@ -2,22 +2,22 @@ import type { IHendelse } from "~/models/hendelse.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IBehandlingStegSvar {
-  type: string;
-  svar?: IBehandlingStegSvartype;
-  begrunnelse: {
-    tekst: string;
-    kilde: string;
-  };
+  type: BehandlingStegSvartype;
+  svar?: string;
+  begrunnelse?: IBehandlingStegSvarBegrunnelse;
 }
 
-export type IBehandlingStegSvartype = string | boolean | number | Date;
+export interface IBehandlingStegSvarBegrunnelse {
+  tekst: string;
+  kilde: string;
+}
 
 export interface IBehandlingSteg {
   uuid: string;
   id: BehandlingStegId;
   type: "Fastsetting" | "Vilkår";
   tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
-  svartype: BehandlingStegSvarType;
+  svartype: BehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
 
@@ -30,7 +30,7 @@ export interface IBehandling {
   steg: IBehandlingSteg[];
 }
 
-type BehandlingStegSvarType = "Int" | "Boolean" | "LocalDate" | "String";
+export type BehandlingStegSvartype = "Int" | "Boolean" | "LocalDate" | "String";
 
 type BehandlingStegId =
   | "Fødselsdato"
@@ -71,15 +71,9 @@ export async function svarBehandlingSteg(
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/steg/${stegId}`;
   const body = JSON.stringify(svar);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: body,
   });
-
-  if (response.ok) {
-    return response;
-  }
-
-  return undefined;
 }
