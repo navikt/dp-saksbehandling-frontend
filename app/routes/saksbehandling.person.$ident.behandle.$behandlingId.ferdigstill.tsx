@@ -1,4 +1,4 @@
-import { Button, Heading, Radio, RadioGroup } from "@navikt/ds-react";
+import { Button, Heading, Radio, RadioGroup, Textarea } from "@navikt/ds-react";
 import type { ActionArgs } from "@remix-run/node";
 import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
@@ -14,7 +14,7 @@ export async function action({ request, params }: ActionArgs) {
   const skjemasvar = formData.get(innvilgetName);
   invariant(skjemasvar, `må besvare om innvilget eller ikke!`);
 
-  const response = await svarFerdigstill(params.behandlingId, skjemasvar as string);
+  const response = await svarFerdigstill(params.behandlingId, skjemasvar?.toString());
 
   return { response };
 }
@@ -22,7 +22,8 @@ export async function action({ request, params }: ActionArgs) {
 export default function SendTilFerdigstill() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-  const [svarValue, setSvarValue] = useState<boolean | string>("");
+  const [innvilgetValue, setInnvilgetValue] = useState<boolean | string>("");
+  const [begrunnelsesValue, setBegrunnelsesValue] = useState<string>("");
 
   return (
     <div className={styles.container}>
@@ -34,13 +35,19 @@ export default function SendTilFerdigstill() {
         <RadioGroup
           name={innvilgetName}
           legend="Er kravene oppfylt?"
-          onChange={(value) => setSvarValue(value)}
+          onChange={(value) => setInnvilgetValue(value)}
           size="small"
-          value={svarValue}
+          value={innvilgetValue}
         >
           <Radio value={true}>Ja</Radio>
           <Radio value={false}>Nei</Radio>
         </RadioGroup>
+        <Textarea
+          name="begrunnelse"
+          label={"Begrunnelse"}
+          value={begrunnelsesValue}
+          onChange={(event) => setBegrunnelsesValue(event.currentTarget.value)}
+        ></Textarea>
 
         <div className={styles.buttonContainer}>
           <Button type="submit" disabled={isCreating}>
