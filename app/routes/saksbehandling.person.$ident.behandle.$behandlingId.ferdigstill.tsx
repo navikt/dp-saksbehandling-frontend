@@ -4,17 +4,23 @@ import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { svarFerdigstill } from "~/models/behandling.server";
+import type { IFerdigstill } from "~/models/behandling.server";
 import styles from "~/route-styles/mangelbrev.module.css";
-
-const innvilgetName = "innvilget";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   const formData = await request.formData();
-  const skjemasvar = formData.get(innvilgetName);
-  invariant(skjemasvar, `må besvare om innvilget eller ikke!`);
+  const innvilget = formData.get("innvilget") as string;
+  const begrunnelse = formData.get("begrunnelse") as string;
+  invariant(innvilget, `må besvare om innvilget eller ikke!`);
+  invariant(begrunnelse, `må gi en begrunnelse for innvilget eller ikke`);
 
-  const response = await svarFerdigstill(params.behandlingId, skjemasvar?.toString());
+  const body: IFerdigstill = {
+    innvilget,
+    begrunnelse,
+  };
+
+  const response = await svarFerdigstill(params.behandlingId, body);
 
   return { response };
 }
@@ -33,7 +39,7 @@ export default function SendTilFerdigstill() {
         </Heading>
 
         <RadioGroup
-          name={innvilgetName}
+          name="innvilget"
           legend="Er kravene oppfylt?"
           onChange={(value) => setInnvilgetValue(value)}
           size="small"

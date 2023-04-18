@@ -31,7 +31,8 @@ export interface IBehandling {
 }
 
 export interface IFerdigstill {
-  innvilget: true;
+  innvilget: string;
+  begrunnelse: string;
 }
 
 type BehandlingStegSvarType = "Int" | "Boolean" | "LocalDate" | "String";
@@ -64,14 +65,13 @@ export async function hentBehandling(behandlingId: string): Promise<IBehandling 
   }
 }
 
-export async function svarFerdigstill(behandlingId: string, innvilget: string) {
+export async function svarFerdigstill(behandlingId: string, body: IFerdigstill) {
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/ferdigstill`;
-  const body = JSON.stringify(innvilget);
 
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body,
+    body: JSON.stringify(body),
   });
 
   return response;
