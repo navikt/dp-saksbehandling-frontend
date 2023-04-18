@@ -64,7 +64,7 @@ export async function hentBehandling(behandlingId: string): Promise<IBehandling 
   }
 }
 
-export async function svarFerdigstill(behandlingId: string, innvilget: boolean) {
+export async function svarFerdigstill(behandlingId: string, innvilget: string) {
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/ferdigstill`;
   const body = JSON.stringify(innvilget);
 

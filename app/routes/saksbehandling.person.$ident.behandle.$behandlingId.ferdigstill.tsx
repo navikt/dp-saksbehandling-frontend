@@ -1,45 +1,39 @@
 import { Button, Heading, Radio, RadioGroup } from "@navikt/ds-react";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import type { ActionArgs } from "@remix-run/node";
+import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { svarFerdigstill } from "~/models/behandling.server";
 import styles from "~/route-styles/mangelbrev.module.css";
 
+const innvilgetName = "innvilget";
+
 export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
   const formData = await request.formData();
-  const skjemasvar: boolean | undefined = formData.get("innvilget");
+  const skjemasvar = formData.get(innvilgetName);
+  invariant(skjemasvar, `må besvare om innvilget eller ikke!`);
 
-  const response = await svarFerdigstill(params.behandlingId, skjemasvar);
+  const response = await svarFerdigstill(params.behandlingId, skjemasvar as string);
 
   return { response };
 }
 
-export async function loader({ params }: LoaderArgs) {
-  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$behandlingId.steg.$stegId");
-  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
-  const behandling = await hentBehandling(params.behandlingId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
-
-  const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
-
-  return json({ steg });
-}
-
 export default function SendTilFerdigstill() {
-  const [svarValue, setSvarValue] = useState<boolean | undefined>(undefined);
+  const navigation = useNavigation();
+  const isCreating = Boolean(navigation.state === "submitting");
+  const [svarValue, setSvarValue] = useState<boolean | string>("");
 
   return (
     <div className={styles.container}>
-      <Form>
+      <Form method={"post"}>
         <Heading size={"large"} level={"1"}>
           Ferdigstill
         </Heading>
 
         <RadioGroup
-          name="innvilget"
-          legend="Oppfylt"
+          name={innvilgetName}
+          legend="Er kravene oppfylt?"
           onChange={(value) => setSvarValue(value)}
           size="small"
           value={svarValue}
@@ -49,7 +43,9 @@ export default function SendTilFerdigstill() {
         </RadioGroup>
 
         <div className={styles.buttonContainer}>
-          <Button>Send til ferdigstill</Button>
+          <Button type="submit" disabled={isCreating}>
+            {isCreating ? "Lagrer..." : "Send til ferdigstill"}
+          </Button>
         </div>
       </Form>
     </div>
