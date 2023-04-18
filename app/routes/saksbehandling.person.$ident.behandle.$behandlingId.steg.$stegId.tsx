@@ -64,6 +64,7 @@ export default function PersonBehandleVilkaar() {
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
   const [svarVerdi, setSvarVerdi] = useState<string>(steg?.svar?.svar ?? "");
+  const [begrunnelseTekst, setBegrunnelseTekst] = useState<string>(steg?.begrunnelse?.tekst ?? "");
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
@@ -71,6 +72,7 @@ export default function PersonBehandleVilkaar() {
 
   useEffect(() => {
     setSvarVerdi(steg?.svar?.svar || "");
+    setBegrunnelseTekst(steg?.begrunnelse?.tekst || "");
   }, [steg]);
 
   return (
@@ -85,9 +87,9 @@ export default function PersonBehandleVilkaar() {
           <Textarea
             name="begrunnelse"
             label="Begrunnelse:"
-            defaultValue={""}
-            onChange={(event) => console.log(event.currentTarget.value)}
             resize={true}
+            defaultValue={begrunnelseTekst}
+            onChange={(event) => setBegrunnelseTekst(event.currentTarget.value)}
           />
 
           <Button type="submit" disabled={isCreating}>

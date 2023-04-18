@@ -19,6 +19,7 @@ export interface IBehandlingSteg {
   tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
   svartype: BehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
+  begrunnelse: IBehandlingStegSvarBegrunnelse | null;
 }
 
 export interface IBehandling {
