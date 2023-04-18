@@ -64,7 +64,9 @@ export default function PersonBehandleVilkaar() {
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
   const [svarVerdi, setSvarVerdi] = useState<string>(steg?.svar?.svar ?? "");
-  const [begrunnelseTekst, setBegrunnelseTekst] = useState<string>(steg?.begrunnelse?.tekst ?? "");
+  const [begrunnelseTekst, setBegrunnelseTekst] = useState<string>(
+    steg?.svar?.begrunnelse?.tekst ?? ""
+  );
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
@@ -72,7 +74,7 @@ export default function PersonBehandleVilkaar() {
 
   useEffect(() => {
     setSvarVerdi(steg?.svar?.svar || "");
-    setBegrunnelseTekst(steg?.begrunnelse?.tekst || "");
+    setBegrunnelseTekst(steg?.svar?.begrunnelse?.tekst || "");
   }, [steg]);
 
   return (
