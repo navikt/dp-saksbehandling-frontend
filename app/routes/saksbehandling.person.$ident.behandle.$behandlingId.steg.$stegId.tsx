@@ -7,12 +7,8 @@ import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import type {
-  BehandlingStegSvartype,
-  IBehandlingSteg,
-  IBehandlingStegSvar,
-} from "~/models/behandling.server";
-import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
+import type { BehandlingStegSvartype, IBehandlingSteg } from "~/models/behandling.server";
+import { hentBehandling } from "~/models/behandling.server";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import {
   inputValideringRegler,
@@ -32,13 +28,13 @@ export async function action({ request, params }: ActionArgs) {
   const begrunnelse = validerSkjemaData(formData, "begrunnelse");
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
-  const skjema = {
+  const skjemaDataMedValidering = {
     svar: inputValideringRegler(metaData.svartype, params.stegId),
     begrunnelse: inputValideringRegler("String", "begrunnelse"),
   };
 
-  console.log(await skjema.begrunnelse?.validate(formData));
-  console.log(await skjema.svar?.validate(formData));
+  console.log(await skjemaDataMedValidering.begrunnelse?.validate(formData));
+  console.log(await skjemaDataMedValidering.svar?.validate(formData));
 
   return {};
 
@@ -91,8 +87,6 @@ export default function PersonBehandleVilkaar() {
     setSvarVerdi(steg?.svar?.svar || "");
     setBegrunnelseTekst(steg?.svar?.begrunnelse?.tekst || "");
   }, [steg]);
-
-  console.log(formActiondata);
 
   return (
     <div className={styles.container}>

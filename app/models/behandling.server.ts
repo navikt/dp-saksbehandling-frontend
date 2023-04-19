@@ -1,5 +1,6 @@
 import type { IHendelse } from "~/models/hendelse.server";
 import { getEnv } from "~/utils/env.utils";
+import { z } from "zod";
 
 export interface IBehandlingStegSvar {
   type: BehandlingStegSvartype;

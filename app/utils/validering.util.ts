@@ -1,5 +1,5 @@
 import { withZod } from "@remix-validated-form/with-zod";
-import { BehandlingStegSvartype } from "~/models/behandling.server";
+import type { BehandlingStegSvartype } from "~/models/behandling.server";
 import { z } from "zod";
 
 export function validerSkjemaData(skjemaData: FormData, key: string): string {
@@ -26,6 +26,20 @@ export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T 
 
 export function inputValideringRegler(svartype: BehandlingStegSvartype, inputnavn: string) {
   switch (svartype) {
+    case "Int":
+      return withZod(
+        z.object({
+          [inputnavn]: z.coerce.number(),
+        })
+      );
+
+    case "Boolean":
+      return withZod(
+        z.object({
+          [inputnavn]: z.enum(["true", "false"]),
+        })
+      );
+
     case "String":
       return withZod(
         z.object({
@@ -35,12 +49,14 @@ export function inputValideringRegler(svartype: BehandlingStegSvartype, inputnav
             .min(10, "Name must be at least 10 characters long"),
         })
       );
+
     case "LocalDate":
       return withZod(
         z.object({
-          [inputnavn]: z.date(),
+          [inputnavn]: z.coerce.date(),
         })
       );
+
     default:
       return;
   }
