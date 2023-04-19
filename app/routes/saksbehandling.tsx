@@ -1,8 +1,10 @@
 import { Header } from "@navikt/ds-react-internal";
-import { Outlet } from "@remix-run/react";
+import { Link, Outlet } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import styles from "~/index.module.css";
 import { GetLoaderSaksbehandler } from "~/utils/loader-data.utils";
+
+import styles from "~/index.module.css";
+import { BASE_PATH } from "~/constants";
 
 export default function Saksbehandling() {
   const saksbehandler = GetLoaderSaksbehandler();
@@ -10,9 +12,11 @@ export default function Saksbehandling() {
   return (
     <>
       <Header className={styles.header}>
-        <Header.Title as="h1" className={styles.pageHeader}>
-          NAV Dagpenger
-        </Header.Title>
+        <Link to={BASE_PATH} className={styles.headerLogo}>
+          <Header.Title as="h1" className={styles.pageHeader}>
+            NAV Dagpenger
+          </Header.Title>
+        </Link>
 
         <HeaderMeny saksbehandler={saksbehandler} />
       </Header>

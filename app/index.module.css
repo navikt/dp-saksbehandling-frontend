@@ -4,6 +4,11 @@
   z-index: 10;
 }
 
+.headerLogo {
+  display: flex;
+  text-decoration: none;
+}
+
 .pageHeader {
   white-space: nowrap;
 }

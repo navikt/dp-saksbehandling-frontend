@@ -1,8 +1,8 @@
-import React from "react";
-import styles from "./BehandlingStegMenyPunkt.module.css";
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
 import type { IBehandlingSteg } from "~/models/behandling.server";
+
+import styles from "./BehandlingStegMenyPunkt.module.css";
 
 export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
   const kulepunktKlasser = classNames(styles.kulepunkt, {
