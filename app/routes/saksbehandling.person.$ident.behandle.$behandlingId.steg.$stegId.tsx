@@ -1,4 +1,4 @@
-import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import { Button, Textarea, TextField } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
@@ -7,7 +7,12 @@ import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import type { BehandlingStegSvartype, IBehandlingSteg } from "~/models/behandling.server";
+import type {
+  BehandlingStegSvartype,
+  IBehandlingSteg,
+  IBehandlingStegSvar,
+} from "~/models/behandling.server";
+import { svarBehandlingSteg } from "~/models/behandling.server";
 import { hentBehandling } from "~/models/behandling.server";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import {
@@ -24,7 +29,7 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
 
   const formData = await request.formData();
-  // const skjemasvar = validerSkjemaData(formData, params.stegId);
+  const skjemasvar = validerSkjemaData(formData, params.stegId);
   const begrunnelse = validerSkjemaData(formData, "begrunnelse");
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
@@ -36,20 +41,18 @@ export async function action({ request, params }: ActionArgs) {
   console.log(await skjemaDataMedValidering.begrunnelse?.validate(formData));
   console.log(await skjemaDataMedValidering.svar?.validate(formData));
 
-  return {};
+  const svar: IBehandlingStegSvar = {
+    type: metaData.svartype,
+    svar: skjemasvar,
+    begrunnelse: {
+      tekst: begrunnelse,
+      kilde: "Saksbehandler",
+    },
+  };
 
-  // const svar: IBehandlingStegSvar = {
-  //   type: metaData.svartype,
-  //   svar: skjemasvar,
-  //   begrunnelse: {
-  //     tekst: begrunnelse,
-  //     kilde: "Saksbehandler",
-  //   },
-  // };
+  const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
 
-  // const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
-
-  // return { response };
+  return { response };
 }
 
 export async function loader({ params }: LoaderArgs) {
@@ -60,7 +63,7 @@ export async function loader({ params }: LoaderArgs) {
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
 
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
-  invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
+  invariant(steg, `Fant ikke steg med id: ${params.stegId}`);
 
   return json({ steg });
 }
@@ -71,7 +74,6 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
-  const formActiondata = useActionData();
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
   const [svarVerdi, setSvarVerdi] = useState<string>(steg?.svar?.svar ?? "");
@@ -101,7 +103,7 @@ export default function PersonBehandleVilkaar() {
             name="begrunnelse"
             label="Begrunnelse:"
             resize={true}
-            defaultValue={begrunnelseTekst}
+            value={begrunnelseTekst}
             onChange={(event) => setBegrunnelseTekst(event.currentTarget.value)}
           />
 
@@ -152,7 +154,7 @@ function renderInputType(
         <TextField
           name={steg.uuid}
           label="Tekst:"
-          defaultValue={svarVerdi}
+          value={svarVerdi}
           onChange={(event) => setSvarVerdi(event.currentTarget.value)}
         />
       );

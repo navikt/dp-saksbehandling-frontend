@@ -15,7 +15,7 @@ export function BehandlingStegInputInt(props: IProps) {
       label="Tall:"
       inputMode="decimal"
       name={props.uuid}
-      defaultValue={props.verdi}
+      value={props.verdi}
       onChange={(event) => props.setSvarVerdi(event.currentTarget.value)}
     />
   );
