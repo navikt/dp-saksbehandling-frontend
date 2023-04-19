@@ -1,11 +1,11 @@
 import type { LoaderArgs } from "@remix-run/node";
+import invariant from "tiny-invariant";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { hentBehandling } from "~/models/behandling.server";
-import invariant from "tiny-invariant";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
-import styles from "~/route-styles/behandle.module.css";
 import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
+import styles from "~/route-styles/behandle.module.css";
 
 export async function loader({ params }: LoaderArgs) {
   console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$behandlingId");
