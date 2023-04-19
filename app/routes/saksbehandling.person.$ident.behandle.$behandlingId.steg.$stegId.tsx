@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import { Button, Textarea, TextField } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
@@ -14,32 +14,46 @@ import type {
 } from "~/models/behandling.server";
 import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
+import {
+  inputValideringRegler,
+  validerOgParseMetadata,
+  validerSkjemaData,
+} from "~/utils/validering.util";
+import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 
 import styles from "~/route-styles/vilkaar.module.css";
-import { validerOgParseMetadata, validerSkjemaData } from "~/utils/validering.util";
-import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
 
   const formData = await request.formData();
-  const skjemasvar = validerSkjemaData(formData, params.stegId);
+  // const skjemasvar = validerSkjemaData(formData, params.stegId);
   const begrunnelse = validerSkjemaData(formData, "begrunnelse");
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
-  const svar: IBehandlingStegSvar = {
-    type: metaData.svartype,
-    svar: skjemasvar,
-    begrunnelse: {
-      tekst: begrunnelse,
-      kilde: "Saksbehandler",
-    },
+  const skjema = {
+    svar: inputValideringRegler(metaData.svartype, params.stegId),
+    begrunnelse: inputValideringRegler("String", "begrunnelse"),
   };
 
-  const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
+  console.log(await skjema.begrunnelse?.validate(formData));
+  console.log(await skjema.svar?.validate(formData));
 
-  return { response };
+  return {};
+
+  // const svar: IBehandlingStegSvar = {
+  //   type: metaData.svartype,
+  //   svar: skjemasvar,
+  //   begrunnelse: {
+  //     tekst: begrunnelse,
+  //     kilde: "Saksbehandler",
+  //   },
+  // };
+
+  // const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
+
+  // return { response };
 }
 
 export async function loader({ params }: LoaderArgs) {
@@ -61,6 +75,7 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
+  const formActiondata = useActionData();
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
   const [svarVerdi, setSvarVerdi] = useState<string>(steg?.svar?.svar ?? "");
@@ -76,6 +91,8 @@ export default function PersonBehandleVilkaar() {
     setSvarVerdi(steg?.svar?.svar || "");
     setBegrunnelseTekst(steg?.svar?.begrunnelse?.tekst || "");
   }, [steg]);
+
+  console.log(formActiondata);
 
   return (
     <div className={styles.container}>
