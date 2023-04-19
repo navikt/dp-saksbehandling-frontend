@@ -43,7 +43,7 @@ export function BehandlingStegInput(props: IProps) {
         <TextField
           name={steg.uuid}
           label="Tekst:"
-          defaultValue={svarVerdi}
+          value={svarVerdi}
           onChange={(event) => setSvarVerdi(event.currentTarget.value)}
         />
       );

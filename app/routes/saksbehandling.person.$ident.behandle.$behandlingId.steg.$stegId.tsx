@@ -43,7 +43,7 @@ export async function loader({ params }: LoaderArgs) {
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
 
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
-  invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
+  invariant(steg, `Fant ikke steg med id: ${params.stegId}`);
 
   return json({ steg });
 }
@@ -83,7 +83,7 @@ export default function PersonBehandleVilkaar() {
             name="begrunnelse"
             label="Begrunnelse:"
             resize={true}
-            defaultValue={begrunnelseTekst}
+            value={begrunnelseTekst}
             onChange={(event) => setBegrunnelseTekst(event.currentTarget.value)}
           />
 
