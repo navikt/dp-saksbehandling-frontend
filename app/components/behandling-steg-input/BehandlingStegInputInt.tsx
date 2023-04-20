@@ -1,22 +1,23 @@
 import React from "react";
 import { TextField } from "@navikt/ds-react";
+import { useField } from "remix-validated-form";
+import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 
-interface IProps {
-  uuid: string;
-  legend: string;
-  setSvarVerdi: (verdi: string) => void;
-  verdi?: string;
-}
-
-export function BehandlingStegInputInt(props: IProps) {
+export function BehandlingStegInputInt(props: IInputProps) {
+  const { error, getInputProps } = useField(props.name);
   return (
-    <TextField
-      type="text"
-      label="Tall:"
-      inputMode="decimal"
-      name={props.uuid}
-      value={props.verdi}
-      onChange={(event) => props.setSvarVerdi(event.currentTarget.value)}
-    />
+    <>
+      <TextField
+        type="text"
+        inputMode="decimal"
+        {...getInputProps({
+          id: props.name,
+          label: props.label || props.svartype,
+          value: props.verdi,
+          onChange: (event) => props.setVerdi(event.currentTarget.value),
+        })}
+      />
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </>
   );
 }

@@ -1,53 +1,80 @@
-import { TextField } from "@navikt/ds-react";
-import type { Dispatch, SetStateAction } from "react";
-import type { IBehandlingSteg } from "~/models/behandling.server";
-import { BehandlingStegInputBoolean } from "./BehandlingStegInputBoolean";
-import { BehandlingStegInputDato } from "./BehandlingStegInputDato";
-import { BehandlingStegInputInt } from "./BehandlingStegInputInt";
+import type { BehandlingStegSvartype } from "~/models/behandling.server";
+import { useEffect, useState } from "react";
+import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
+import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
+import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
+import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 
-interface IProps {
-  steg: IBehandlingSteg;
-  svarVerdi: string;
-  setSvarVerdi: Dispatch<SetStateAction<string>>;
+export interface IInputInitialProps {
+  uuid: string;
+  name: string;
+  svartype: BehandlingStegSvartype;
+  verdi?: string;
+  label?: string;
 }
 
-export function BehandlingStegInput(props: IProps) {
-  const { steg, svarVerdi, setSvarVerdi } = props;
+export interface IInputProps {
+  name: string;
+  label: string;
+  verdi: string;
+  svartype: BehandlingStegSvartype;
+  setVerdi: (verdi: string) => void;
+}
 
-  switch (steg.svartype) {
-    case "Int":
-      return (
-        <BehandlingStegInputInt
-          uuid={steg.uuid}
-          legend="Fyll ut"
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
+export function Input(props: IInputInitialProps) {
+  const [verdi, setVerdi] = useState<string>(props.verdi || "");
 
-    case "Boolean":
-      return (
-        <BehandlingStegInputBoolean
-          uuid={steg.uuid}
-          legend={"Oppfylt"}
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
+  useEffect(() => {
+    setVerdi(props.verdi ?? "");
+  }, [props.verdi]);
 
-    case "LocalDate":
-      return <BehandlingStegInputDato steg={steg} onChange={setSvarVerdi} />;
+  return <>{renderInputType()}</>;
 
-    case "String":
-      return (
-        <TextField
-          name={steg.uuid}
-          label="Tekst:"
-          value={svarVerdi}
-          onChange={(event) => setSvarVerdi(event.currentTarget.value)}
-        />
-      );
-    default:
-      throw new Error(`Ukjent svartype ${steg.svartype}`);
+  function renderInputType() {
+    switch (props.svartype) {
+      case "Int":
+        return (
+          <BehandlingStegInputInt
+            name={props.name}
+            svartype={props.svartype}
+            label={props.label || props.svartype}
+            verdi={verdi}
+            setVerdi={setVerdi}
+          />
+        );
+
+      case "Boolean":
+        return (
+          <BehandlingStegInputBoolean
+            name={props.name}
+            svartype={props.svartype}
+            label={props.label || props.svartype}
+            verdi={verdi}
+            setVerdi={setVerdi}
+          />
+        );
+
+      case "LocalDate":
+        return (
+          <BehandlingStegInputDato
+            name={props.name}
+            svartype={props.svartype}
+            label={props.label || props.svartype}
+            verdi={verdi}
+            setVerdi={setVerdi}
+          />
+        );
+
+      case "String":
+        return (
+          <BehandlingStegInputString
+            name={props.name}
+            svartype={props.svartype}
+            label={props.label || props.svartype}
+            verdi={verdi}
+            setVerdi={setVerdi}
+          />
+        );
+    }
   }
 }
