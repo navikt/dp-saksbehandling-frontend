@@ -1,14 +1,18 @@
-import invariant from "tiny-invariant";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/behandling.server";
-import { json } from "@remix-run/node";
 import { Button } from "@navikt/ds-react";
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useLoaderData, useLocation, useNavigation } from "@remix-run/react";
 import { ValidatedForm, validationError } from "remix-validated-form";
-import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
+import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
+import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
+import {
+  type BehandlingStegSvartype,
+  type IBehandlingStegSvar,
+  hentBehandling,
+  svarBehandlingSteg,
+} from "~/models/behandling.server";
+import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -18,6 +22,7 @@ export async function action({ request, params }: ActionArgs) {
 
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
+
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
     formData
   );
@@ -62,9 +67,10 @@ interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
+  const { steg } = useLoaderData<typeof loader>();
+  const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-  const { steg } = useLoaderData<typeof loader>();
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
@@ -73,7 +79,11 @@ export default function PersonBehandleVilkaar() {
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <ValidatedForm validator={hentValideringRegler(steg.svartype, steg.uuid)} method="post">
+        <ValidatedForm
+          validator={hentValideringRegler(steg.svartype, steg.uuid)}
+          method="post"
+          key={location.key}
+        >
           <input type="hidden" name="metadata" value={JSON.stringify(metadata)} />
           <Input
             svartype={steg.svartype}

@@ -1,17 +1,15 @@
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from "@navikt/ds-react";
-import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
+import { addYears, subYears } from "date-fns";
 import { useField } from "remix-validated-form";
+import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 
 export function BehandlingStegInputDato(props: IInputProps) {
   const { error, getInputProps } = useField(props.name);
 
-  // Krasjer fordi props.verdi holder verdien fra forrige behandlingssteg. Funker på hard refresh
-  // const defaultSelected = props.verdi ? new Date(props.verdi) : undefined;
   const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
-    defaultSelected: new Date(),
-    inputFormat: "yyyy-MM-dd",
-    toDate: new Date("1 Oct 2024"),
-    fromDate: new Date("Aug 23 2019"),
+    defaultSelected: props.verdi ? new Date(props.verdi) : undefined,
+    toDate: addYears(new Date(), 100),
+    fromDate: subYears(new Date(), 100),
     onDateChange: (date) => date && props.setVerdi(date?.toISOString()),
   });
 
@@ -21,6 +19,7 @@ export function BehandlingStegInputDato(props: IInputProps) {
         <UNSAFE_DatePicker.Input
           {...getInputProps({
             id: props.name,
+            value: props.verdi,
             label: props.label || props.svartype,
           })}
           {...inputProps}

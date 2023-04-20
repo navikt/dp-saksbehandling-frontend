@@ -1,9 +1,9 @@
-import type { BehandlingStegSvartype } from "~/models/behandling.server";
-import { useEffect, useState } from "react";
-import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
+import { useState } from "react";
+import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
+import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
+import type { BehandlingStegSvartype } from "~/models/behandling.server";
 
 export interface IInputInitialProps {
   uuid: string;
@@ -24,13 +24,7 @@ export interface IInputProps {
 export function Input(props: IInputInitialProps) {
   const [verdi, setVerdi] = useState<string>(props.verdi || "");
 
-  useEffect(() => {
-    setVerdi(props.verdi ?? "");
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.uuid]);
-
-  return <>{renderInputType()}</>;
+  return renderInputType();
 
   function renderInputType() {
     switch (props.svartype) {
