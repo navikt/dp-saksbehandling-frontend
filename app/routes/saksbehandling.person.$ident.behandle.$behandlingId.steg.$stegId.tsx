@@ -1,23 +1,16 @@
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { Button, Textarea, TextField } from "@navikt/ds-react";
+import { Button, Textarea } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import type { Dispatch, SetStateAction } from "react";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
-import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import type {
-  BehandlingStegSvartype,
-  IBehandlingSteg,
-  IBehandlingStegSvar,
-} from "~/models/behandling.server";
+import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
+import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/behandling.server";
 import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
-import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 
+import { BehandlingStegInput } from "~/components/behandling-steg-input/BehandlingStegInput";
 import styles from "~/route-styles/vilkaar.module.css";
 import { validerOgParseMetadata, validerSkjemaData } from "~/utils/validering.util";
-import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -84,7 +77,7 @@ export default function PersonBehandleVilkaar() {
           {steg?.uuid}
           <input type="hidden" name="metadata" value={JSON.stringify(metadata)} />
 
-          {renderInputType(steg, svarVerdi, setSvarVerdi)}
+          <BehandlingStegInput steg={steg} svarVerdi={svarVerdi} setSvarVerdi={setSvarVerdi} />
 
           <Textarea
             name="begrunnelse"
@@ -105,45 +98,4 @@ export default function PersonBehandleVilkaar() {
       </div>
     </div>
   );
-}
-
-function renderInputType(
-  steg: IBehandlingSteg,
-  svarVerdi: string,
-  setSvarVerdi: Dispatch<SetStateAction<string>>
-) {
-  switch (steg.svartype) {
-    case "Int":
-      return (
-        <BehandlingStegInputInt
-          uuid={steg.uuid}
-          legend="Fyll ut"
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
-
-    case "Boolean":
-      return (
-        <BehandlingStegInputBoolean
-          uuid={steg.uuid}
-          legend={"Oppfylt"}
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
-
-    case "LocalDate":
-      return <BehandlingStegInputDato steg={steg} onChange={setSvarVerdi} />;
-
-    case "String":
-      return (
-        <TextField
-          name={steg.uuid}
-          label="Tekst:"
-          defaultValue={svarVerdi}
-          onChange={(event) => setSvarVerdi(event.currentTarget.value)}
-        />
-      );
-  }
 }
