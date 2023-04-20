@@ -1,24 +1,32 @@
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from "@navikt/ds-react";
-import type { IBehandlingSteg } from "~/models/behandling.server";
+import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
+import { useField } from "remix-validated-form";
 
-interface IProps {
-  onChange: (value: string) => void;
-  steg: IBehandlingSteg;
-}
+export function BehandlingStegInputDato(props: IInputProps) {
+  const { error, getInputProps } = useField(props.name);
 
-export function BehandlingStegInputDato({ steg, onChange }: IProps) {
-  const defaultSelected = steg?.svar?.svar ? new Date(steg.svar.svar) : undefined;
+  // Krasjer fordi props.verdi holder verdien fra forrige behandlingssteg. Funker på hard refresh
+  // const defaultSelected = props.verdi ? new Date(props.verdi) : undefined;
   const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
-    defaultSelected,
+    defaultSelected: new Date(),
     inputFormat: "yyyy-MM-dd",
     toDate: new Date("1 Oct 2024"),
     fromDate: new Date("Aug 23 2019"),
-    onDateChange: (date) => date && onChange(date?.toISOString()),
+    onDateChange: (date) => date && props.setVerdi(date?.toISOString()),
   });
 
   return (
-    <UNSAFE_DatePicker {...datepickerProps}>
-      <UNSAFE_DatePicker.Input {...inputProps} label="Velg dato" name={steg.uuid} />
-    </UNSAFE_DatePicker>
+    <>
+      <UNSAFE_DatePicker {...datepickerProps}>
+        <UNSAFE_DatePicker.Input
+          {...getInputProps({
+            id: props.name,
+            label: props.label || props.svartype,
+          })}
+          {...inputProps}
+        />
+      </UNSAFE_DatePicker>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </>
   );
 }

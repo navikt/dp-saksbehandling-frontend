@@ -2,17 +2,6 @@ import { withZod } from "@remix-validated-form/with-zod";
 import type { BehandlingStegSvartype } from "~/models/behandling.server";
 import { z } from "zod";
 
-export function validerSkjemaData(skjemaData: FormData, key: string): string {
-  const inputVerdi = skjemaData.get(key);
-
-  // Alle inputfelt sin value er enten string eller File blob
-  if (typeof inputVerdi !== "string") {
-    throw new Error("input er ikke en string");
-  }
-
-  return inputVerdi;
-}
-
 export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T {
   const inputVerdi = skjemaData.get(key);
 
@@ -24,40 +13,39 @@ export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T 
   return JSON.parse(inputVerdi);
 }
 
-export function inputValideringRegler(svartype: BehandlingStegSvartype, inputnavn: string) {
+export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn: string) {
+  return withZod(
+    z.object({
+      [inputnavn]: hentValideringType(svartype),
+      begrunnelse: z
+        .string()
+        .nonempty("Begrunnelse er påkrevd")
+        .min(10, "Begrunnelse må være minimum 10 tegn"),
+    })
+  );
+}
+
+function hentValideringType(svartype: BehandlingStegSvartype): z.ZodType {
   switch (svartype) {
     case "Int":
-      return withZod(
-        z.object({
-          [inputnavn]: z.coerce.number(),
-        })
-      );
+      return z.coerce.number({
+        required_error: "Du må skrive et tall",
+        invalid_type_error: "Det må være et gyldig tall",
+      });
 
     case "Boolean":
-      return withZod(
-        z.object({
-          [inputnavn]: z.enum(["true", "false"]),
-        })
-      );
+      return z.enum(["true", "false"], {
+        required_error: "Du må velge et svar",
+        invalid_type_error: "Ugyldig svar",
+      });
 
     case "String":
-      return withZod(
-        z.object({
-          [inputnavn]: z
-            .string()
-            .nonempty("Begrunnelse is required")
-            .min(10, "Name must be at least 10 characters long"),
-        })
-      );
+      return z.string().nonempty("Du må fylle ut feltet");
 
     case "LocalDate":
-      return withZod(
-        z.object({
-          [inputnavn]: z.coerce.date(),
-        })
-      );
-
-    default:
-      return;
+      return z.coerce.date({
+        required_error: "Du må fylle ut dato",
+        invalid_type_error: "Det må være en gyldig dato",
+      });
   }
 }

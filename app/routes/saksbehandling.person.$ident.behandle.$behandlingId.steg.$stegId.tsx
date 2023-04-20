@@ -1,26 +1,14 @@
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { Button, Textarea, TextField } from "@navikt/ds-react";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import type { Dispatch, SetStateAction } from "react";
-import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
-import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
-import type {
-  BehandlingStegSvartype,
-  IBehandlingSteg,
-  IBehandlingStegSvar,
-} from "~/models/behandling.server";
-import { svarBehandlingSteg } from "~/models/behandling.server";
-import { hentBehandling } from "~/models/behandling.server";
-import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
-import {
-  inputValideringRegler,
-  validerOgParseMetadata,
-  validerSkjemaData,
-} from "~/utils/validering.util";
-import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/behandling.server";
+import { json } from "@remix-run/node";
+import { Button } from "@navikt/ds-react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
+import { ValidatedForm, validationError } from "remix-validated-form";
+import { hentBehandling, svarBehandlingSteg } from "~/models/behandling.server";
+import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
+import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
+import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -29,23 +17,24 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.behandlingId, `params.behandlingId er påkrevd`);
 
   const formData = await request.formData();
-  const skjemasvar = validerSkjemaData(formData, params.stegId);
-  const begrunnelse = validerSkjemaData(formData, "begrunnelse");
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
+  const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
+    formData
+  );
 
-  const skjemaDataMedValidering = {
-    svar: inputValideringRegler(metaData.svartype, params.stegId),
-    begrunnelse: inputValideringRegler("String", "begrunnelse"),
-  };
-
-  console.log(await skjemaDataMedValidering.begrunnelse?.validate(formData));
-  console.log(await skjemaDataMedValidering.svar?.validate(formData));
+  console.log(validering);
+  // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
+  if (validering.error) {
+    return validationError(validering.error);
+  }
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
-    svar: skjemasvar,
+    svar: validering.data[params.stegId],
     begrunnelse: {
-      tekst: begrunnelse,
+      // Denne kan ikke være undefined fordi valideringen kaster feil over
+      // @ts-ignore
+      tekst: validering.data.begrunnelse,
       kilde: "Saksbehandler",
     },
   };
@@ -63,7 +52,7 @@ export async function loader({ params }: LoaderArgs) {
   invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
 
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
-  invariant(steg, `Fant ikke steg med id: ${params.stegId}`);
+  invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   return json({ steg });
 }
@@ -76,41 +65,28 @@ export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
   const { steg } = useLoaderData<typeof loader>();
-  const [svarVerdi, setSvarVerdi] = useState<string>(steg?.svar?.svar ?? "");
-  const [begrunnelseTekst, setBegrunnelseTekst] = useState<string>(
-    steg?.svar?.begrunnelse?.tekst ?? ""
-  );
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
   };
 
-  useEffect(() => {
-    setSvarVerdi(steg?.svar?.svar || "");
-    setBegrunnelseTekst(steg?.svar?.begrunnelse?.tekst || "");
-  }, [steg]);
-
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <Form className={styles.vilkaarVurderingContainer} method="post">
-          {steg?.uuid}
+        <ValidatedForm validator={hentValideringRegler(steg.svartype, steg.uuid)} method="post">
           <input type="hidden" name="metadata" value={JSON.stringify(metadata)} />
-
-          {renderInputType(steg, svarVerdi, setSvarVerdi)}
-
-          <Textarea
-            name="begrunnelse"
-            label="Begrunnelse:"
-            resize={true}
-            value={begrunnelseTekst}
-            onChange={(event) => setBegrunnelseTekst(event.currentTarget.value)}
+          <Input
+            svartype={steg.svartype}
+            name={steg.uuid}
+            verdi={steg?.svar?.svar}
+            uuid={steg.uuid}
           />
+          <Input svartype={"String"} name={"begrunnelse"} label={"Begrunnelse"} uuid={steg.uuid} />
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}
           </Button>
-        </Form>
+        </ValidatedForm>
       </div>
 
       <div className={styles.dokumentContainer}>
@@ -118,45 +94,4 @@ export default function PersonBehandleVilkaar() {
       </div>
     </div>
   );
-}
-
-function renderInputType(
-  steg: IBehandlingSteg,
-  svarVerdi: string,
-  setSvarVerdi: Dispatch<SetStateAction<string>>
-) {
-  switch (steg.svartype) {
-    case "Int":
-      return (
-        <BehandlingStegInputInt
-          uuid={steg.uuid}
-          legend="Fyll ut"
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
-
-    case "Boolean":
-      return (
-        <BehandlingStegInputBoolean
-          uuid={steg.uuid}
-          legend={"Oppfylt"}
-          setSvarVerdi={setSvarVerdi}
-          verdi={svarVerdi}
-        />
-      );
-
-    case "LocalDate":
-      return <BehandlingStegInputDato steg={steg} onChange={setSvarVerdi} />;
-
-    case "String":
-      return (
-        <TextField
-          name={steg.uuid}
-          label="Tekst:"
-          value={svarVerdi}
-          onChange={(event) => setSvarVerdi(event.currentTarget.value)}
-        />
-      );
-  }
 }
