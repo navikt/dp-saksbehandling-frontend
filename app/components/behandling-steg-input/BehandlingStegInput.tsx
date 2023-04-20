@@ -26,7 +26,9 @@ export function Input(props: IInputInitialProps) {
 
   useEffect(() => {
     setVerdi(props.verdi ?? "");
-  }, [props.verdi]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.uuid]);
 
   return <>{renderInputType()}</>;
 
