@@ -17,7 +17,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
         <Search label="Søk alle NAV sine sider" variant="secondary" size={"small"} />
       </form>
 
-      <Link to={BASE_PATH} className={styles.linkItem}>
+      <Link to={BASE_PATH} className={styles.linkItem} data-testid={"benken-menu-button"}>
         Benken
       </Link>
 
