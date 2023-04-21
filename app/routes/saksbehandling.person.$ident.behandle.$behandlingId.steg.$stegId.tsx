@@ -78,18 +78,13 @@ export default function PersonBehandleVilkaar() {
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <ValidatedForm
+          key={location.key}
           validator={hentValideringRegler(steg.svartype, steg.uuid)}
           method="post"
-          key={location.key}
         >
-          <input type="hidden" name="metadata" value={JSON.stringify(metadata)} />
-          <Input
-            uuid={steg.uuid}
-            name={steg.uuid}
-            verdi={steg?.svar?.svar}
-            svartype={steg.svartype}
-          />
-          <Input svartype="String" name="begrunnelse" label="Begrunnelse" uuid={steg.uuid} />
+          <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
+          <Input name={steg.uuid} svartype={steg.svartype} verdi={steg?.svar?.svar} />
+          <Input name="begrunnelse" svartype="String" label="Begrunnelse" />
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}

@@ -4,22 +4,14 @@ import { BehandlingStegInputDato } from "~/components/behandling-steg-input/Beha
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 import type { BehandlingStegSvartype } from "~/models/behandling.server";
 
-export interface IInputInitialProps {
-  uuid: string;
-  name: string;
-  svartype: BehandlingStegSvartype;
-  verdi?: string;
-  label?: string;
-}
-
 export interface IInputProps {
   name: string;
-  label: string;
-  verdi?: string;
   svartype: BehandlingStegSvartype;
+  label?: string;
+  verdi?: string;
 }
 
-export function Input(props: IInputInitialProps) {
+export function Input(props: IInputProps) {
   return renderInputType();
 
   function renderInputType() {
