@@ -1,13 +1,14 @@
 import { Header } from "@navikt/ds-react-internal";
 import { Link, Outlet } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { GetLoaderSaksbehandler } from "~/utils/loader-data.utils";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import { useMatchesData } from "~/utils/loader-data.utils";
 
-import styles from "~/index.module.css";
 import { BASE_PATH } from "~/constants";
+import styles from "~/index.module.css";
 
 export default function Saksbehandling() {
-  const saksbehandler = GetLoaderSaksbehandler();
+  const data = useMatchesData("root");
 
   return (
     <>
@@ -18,7 +19,7 @@ export default function Saksbehandling() {
           </Header.Title>
         </Link>
 
-        <HeaderMeny saksbehandler={saksbehandler} />
+        <HeaderMeny saksbehandler={data?.saksbehandler as ISaksbehandler} />
       </Header>
 
       <Outlet />

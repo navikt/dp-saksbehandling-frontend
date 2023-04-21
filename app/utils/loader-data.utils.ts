@@ -1,6 +1,5 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
 
 export function useMatchesData(id: string): Record<string, unknown> | undefined {
   const matchingRoutes = useMatches();
@@ -9,10 +8,4 @@ export function useMatchesData(id: string): Record<string, unknown> | undefined 
     [matchingRoutes, id]
   );
   return route?.data;
-}
-
-export function GetLoaderSaksbehandler(): ISaksbehandler {
-  const data = useMatchesData("root");
-
-  return data?.saksbehandler as ISaksbehandler;
 }
