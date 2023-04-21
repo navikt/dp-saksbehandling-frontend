@@ -1,22 +1,116 @@
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
-import type { IPerson } from "~/models/person.server";
-import { mockOppgaver } from "../../mock-data/mock-oppgave";
 import type { IHendelse } from "~/models/hendelse.server";
+import { getEnv } from "~/utils/env.utils";
 
-export interface IOppgave {
-  id: string;
-  person: IPerson;
-  saksbehandler?: ISaksbehandler;
-  opprettet: string;
-  hendelse: IHendelse;
+export interface IBehandlingStegSvar {
+  type: BehandlingStegSvartype;
+  svar?: string;
+  begrunnelse?: IBehandlingStegSvarBegrunnelse;
 }
 
-export function mockHentOppgaver(): Promise<IOppgave[]> {
-  const oppgaver: IOppgave[] = [];
+export interface IBehandlingStegSvarBegrunnelse {
+  tekst: string;
+  kilde: string;
+}
 
-  for (let i = 0; i < mockOppgaver.length; i++) {
-    oppgaver.push(mockOppgaver[i]);
+export interface IBehandlingSteg {
+  uuid: string;
+  id: BehandlingStegId;
+  type: "Fastsetting" | "Vilkår";
+  tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
+  svartype: BehandlingStegSvartype;
+  svar: IBehandlingStegSvar | null;
+}
+
+export interface IOppgave {
+  uuid: string;
+  person: string;
+  opprettet: string;
+  tilstand: OppgaveTilstand;
+  muligeTilstander: OppgaveTilstand[];
+  hendelse: IHendelse;
+  steg: IBehandlingSteg[];
+}
+
+type OppgaveTilstand = "TilBehandling" | "VentPåMangelbrev";
+
+export interface IFerdigstill {
+  innvilget: string;
+  begrunnelse: string;
+}
+
+export type BehandlingStegSvartype = "Int" | "Boolean" | "LocalDate" | "String";
+
+type BehandlingStegId =
+  | "Fødselsdato"
+  | "Alder"
+  | "Vilkår67"
+  | "Virkningstidspunkt"
+  | "Verneplikt"
+  | "KravTilMinsteinntekt"
+  | "FastsattVanligArbeidstid"
+  | "OppfyllerKravTilTaptArbeidstid";
+
+export async function hentOppgaver(): Promise<IOppgave[]> {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
+  const response = await fetch(url);
+
+  console.log(response);
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
   }
 
-  return Promise.resolve(oppgaver);
+  return await response.json();
+}
+
+export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return await response.json();
+}
+
+export async function svarFerdigstill(behandlingId: string, body: IFerdigstill) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/ferdigstill`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}
+
+export async function svarOppgaveSteg(
+  oppgaveId: string,
+  svar: IBehandlingStegSvar,
+  stegId: string
+) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
+  const body = JSON.stringify(svar);
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: body,
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return response;
 }

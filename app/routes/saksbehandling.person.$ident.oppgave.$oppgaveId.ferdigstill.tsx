@@ -3,12 +3,12 @@ import type { ActionArgs } from "@remix-run/node";
 import { Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
 import invariant from "tiny-invariant";
-import { svarFerdigstill } from "~/models/behandling.server";
-import type { IFerdigstill } from "~/models/behandling.server";
+import { svarFerdigstill } from "~/models/oppgave.server";
+import type { IFerdigstill } from "~/models/oppgave.server";
 import styles from "~/route-styles/mangelbrev.module.css";
 
 export async function action({ request, params }: ActionArgs) {
-  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
   const formData = await request.formData();
   const innvilget = formData.get("innvilget") as string;
   const begrunnelse = formData.get("begrunnelse") as string;
@@ -20,7 +20,7 @@ export async function action({ request, params }: ActionArgs) {
     begrunnelse,
   };
 
-  const response = await svarFerdigstill(params.behandlingId, body);
+  const response = await svarFerdigstill(params.oppgaveId, body);
 
   return { response };
 }

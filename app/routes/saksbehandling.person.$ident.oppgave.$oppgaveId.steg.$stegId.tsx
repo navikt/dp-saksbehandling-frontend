@@ -9,16 +9,16 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import {
   type BehandlingStegSvartype,
   type IBehandlingStegSvar,
-  hentBehandling,
-  svarBehandlingSteg,
-} from "~/models/behandling.server";
+  hentOppgave,
+  svarOppgaveSteg,
+} from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
-  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
@@ -27,7 +27,6 @@ export async function action({ request, params }: ActionArgs) {
     formData
   );
 
-  console.log(validering);
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
     return validationError(validering.error);
@@ -42,17 +41,17 @@ export async function action({ request, params }: ActionArgs) {
     },
   };
 
-  const response = await svarBehandlingSteg(params.behandlingId, svar, params.stegId);
+  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId);
 
   return { response };
 }
 
 export async function loader({ params }: LoaderArgs) {
-  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$behandlingId.steg.$stegId");
-  invariant(params.behandlingId, `params.behandlingId er påkrevd`);
+  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$oppgaveId.steg.$stegId");
+  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const behandling = await hentBehandling(params.behandlingId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.behandlingId}`);
+  const behandling = await hentOppgave(params.oppgaveId);
+  invariant(behandling, `Fant ikke behandling med id: ${params.oppgaveId}`);
 
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
