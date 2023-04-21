@@ -1,7 +1,7 @@
 import { withZod } from "@remix-validated-form/with-zod";
 import type { BehandlingStegSvartype } from "~/models/behandling.server";
 import { z } from "zod";
-import { format, formatISO } from "date-fns";
+// import { format, formatISO } from "date-fns";
 
 export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T {
   const inputVerdi = skjemaData.get(key);
@@ -46,17 +46,17 @@ function hentValideringType(svartype: BehandlingStegSvartype): z.ZodType {
     // Fungerer ikke helt på plass enda
     // Vet ikke helt hvordan vi sette eller return feilmelding
     case "LocalDate":
-      return z
-        .preprocess((val) => {
-          const timeStamp = Date.parse(String(val));
-          const dateString = formatISO(new Date(timeStamp), { representation: "date" });
+      return z.coerce.date();
+    // .preprocess((val) => {
+    //   const timeStamp = Date.parse(String(val));
+    //   const dateString = formatISO(new Date(timeStamp), { representation: "date" });
 
-          const date = new Date(dateString);
-          return date;
-        }, z.coerce.date())
-        .transform((val) => {
-          const localDate = format(val, "yyyy-dd-MM");
-          return localDate;
-        });
+    //   const date = new Date(dateString);
+    //   return date;
+    // }, z.coerce.date())
+    // .transform((val) => {
+    //   const localDate = format(val, "yyyy-dd-MM");
+    //   return localDate;
+    // });
   }
 }

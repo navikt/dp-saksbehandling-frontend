@@ -88,9 +88,15 @@ export async function svarBehandlingSteg(
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandlinger/${behandlingId}/steg/${stegId}`;
   const body = JSON.stringify(svar);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: body,
   });
+
+  if (!response.ok) {
+    throw new Response(response.statusText, { status: response.status });
+  }
+
+  return response;
 }

@@ -35,11 +35,11 @@ export async function action({ request, params }: ActionArgs) {
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
-    svar: validering.data[params.stegId],
+    svar: validering.submittedData[params.stegId],
     begrunnelse: {
       // Denne kan ikke være undefined fordi valideringen kaster feil over
       // @ts-ignore
-      tekst: validering.data.begrunnelse,
+      tekst: validering.submittedData.begrunnelse,
       kilde: "Saksbehandler",
     },
   };
