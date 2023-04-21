@@ -2,7 +2,7 @@ import { BehandlingStegInputString } from "~/components/behandling-steg-input/Be
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
-import type { BehandlingStegSvartype } from "~/models/behandling.server";
+import type { BehandlingStegSvartype } from "~/models/oppgave.server";
 
 export interface IInputProps {
   name: string;

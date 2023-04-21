@@ -1,5 +1,5 @@
 import { withZod } from "@remix-validated-form/with-zod";
-import type { BehandlingStegSvartype } from "~/models/behandling.server";
+import type { BehandlingStegSvartype } from "~/models/oppgave.server";
 import { z } from "zod";
 // import { format, formatISO } from "date-fns";
 

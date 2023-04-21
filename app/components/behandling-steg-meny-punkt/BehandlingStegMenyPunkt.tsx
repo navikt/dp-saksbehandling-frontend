@@ -1,6 +1,6 @@
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
-import type { IBehandlingSteg } from "~/models/behandling.server";
+import type { IBehandlingSteg } from "~/models/oppgave.server";
 
 import styles from "./BehandlingStegMenyPunkt.module.css";
 
