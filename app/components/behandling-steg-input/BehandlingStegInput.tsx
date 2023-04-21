@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
@@ -16,14 +15,11 @@ export interface IInputInitialProps {
 export interface IInputProps {
   name: string;
   label: string;
-  verdi: string;
+  verdi?: string;
   svartype: BehandlingStegSvartype;
-  setVerdi: (verdi: string) => void;
 }
 
 export function Input(props: IInputInitialProps) {
-  const [verdi, setVerdi] = useState<string>(props.verdi || "");
-
   return renderInputType();
 
   function renderInputType() {
@@ -34,8 +30,7 @@ export function Input(props: IInputInitialProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
-            verdi={verdi}
-            setVerdi={setVerdi}
+            verdi={props.verdi}
           />
         );
 
@@ -45,8 +40,7 @@ export function Input(props: IInputInitialProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
-            verdi={verdi}
-            setVerdi={setVerdi}
+            verdi={props.verdi}
           />
         );
 
@@ -56,8 +50,7 @@ export function Input(props: IInputInitialProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
-            verdi={verdi}
-            setVerdi={setVerdi}
+            verdi={props.verdi}
           />
         );
 
@@ -67,8 +60,7 @@ export function Input(props: IInputInitialProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
-            verdi={verdi}
-            setVerdi={setVerdi}
+            verdi={props.verdi}
           />
         );
     }

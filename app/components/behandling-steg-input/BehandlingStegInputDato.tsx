@@ -11,7 +11,6 @@ export function BehandlingStegInputDato(props: IInputProps) {
     inputFormat: "yyyy-MM-dd",
     toDate: addYears(new Date(), 100),
     fromDate: subYears(new Date(), 100),
-    onDateChange: (date) => date && props.setVerdi(date.toString()),
     // onDateChange: (date) => date && props.setVerdi(date?.toISOString()), // Beholde denne for å bruke case "LocalDate": med date value casting senere
   });
 
@@ -21,7 +20,6 @@ export function BehandlingStegInputDato(props: IInputProps) {
         <UNSAFE_DatePicker.Input
           {...getInputProps({
             id: props.name,
-            value: props.verdi,
             label: props.label || props.svartype,
           })}
           {...inputProps}

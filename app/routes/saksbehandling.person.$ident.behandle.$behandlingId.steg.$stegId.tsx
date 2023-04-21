@@ -37,8 +37,6 @@ export async function action({ request, params }: ActionArgs) {
     type: metaData.svartype,
     svar: validering.submittedData[params.stegId],
     begrunnelse: {
-      // Denne kan ikke være undefined fordi valideringen kaster feil over
-      // @ts-ignore
       tekst: validering.submittedData.begrunnelse,
       kilde: "Saksbehandler",
     },
@@ -86,12 +84,12 @@ export default function PersonBehandleVilkaar() {
         >
           <input type="hidden" name="metadata" value={JSON.stringify(metadata)} />
           <Input
-            svartype={steg.svartype}
+            uuid={steg.uuid}
             name={steg.uuid}
             verdi={steg?.svar?.svar}
-            uuid={steg.uuid}
+            svartype={steg.svartype}
           />
-          <Input svartype={"String"} name={"begrunnelse"} label={"Begrunnelse"} uuid={steg.uuid} />
+          <Input svartype="String" name="begrunnelse" label="Begrunnelse" uuid={steg.uuid} />
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}

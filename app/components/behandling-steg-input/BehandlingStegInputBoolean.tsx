@@ -10,12 +10,11 @@ export function BehandlingStegInputBoolean(props: IInputProps) {
     <>
       <RadioGroup
         size="small"
+        defaultValue={props.verdi}
         {...getInputProps({
           id: props.name,
           legend: props.svartype,
-          value: props.verdi,
-          onChange: props.setVerdi,
-          children: undefined, // Just to keep typescript happy
+          children: undefined, // Needed to keep typescript happy
         })}
       >
         <Radio value={"true"}>Ja</Radio>

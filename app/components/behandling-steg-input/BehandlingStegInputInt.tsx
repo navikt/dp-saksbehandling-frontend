@@ -10,11 +10,10 @@ export function BehandlingStegInputInt(props: IInputProps) {
       <TextField
         type="text"
         inputMode="decimal"
+        defaultValue={props.verdi}
         {...getInputProps({
           id: props.name,
           label: props.label || props.svartype,
-          value: props.verdi,
-          onChange: (event) => props.setVerdi(event.currentTarget.value),
         })}
       />
       {error && <p style={{ color: "red" }}>{error}</p>}

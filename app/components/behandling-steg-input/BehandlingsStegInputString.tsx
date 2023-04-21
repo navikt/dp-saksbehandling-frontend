@@ -10,11 +10,10 @@ export function BehandlingStegInputString(props: IInputProps) {
     <>
       <TextField
         type="text"
+        defaultValue={props.verdi}
         {...getInputProps({
           id: props.name,
           label: props.label || props.svartype,
-          value: props.verdi,
-          onChange: (event) => props.setVerdi(event.currentTarget.value),
         })}
       />
       {error && <p style={{ color: "red" }}>{error}</p>}
