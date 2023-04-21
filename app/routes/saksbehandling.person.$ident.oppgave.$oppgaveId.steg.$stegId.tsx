@@ -6,12 +6,8 @@ import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import {
-  type BehandlingStegSvartype,
-  type IBehandlingStegSvar,
-  hentOppgave,
-  svarOppgaveSteg,
-} from "~/models/oppgave.server";
+import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
+import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
@@ -47,7 +43,6 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export async function loader({ params }: LoaderArgs) {
-  console.log("Kjører loader() i saksbehandling.person.$ident.behandle.$oppgaveId.steg.$stegId");
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const behandling = await hentOppgave(params.oppgaveId);

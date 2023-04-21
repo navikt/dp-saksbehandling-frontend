@@ -1,8 +1,9 @@
 import { Button, Table } from "@navikt/ds-react";
 import type { MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { hentOppgaver } from "~/models/oppgave.server";
+import { Link } from "@remix-run/react";
+import type { IOppgave } from "~/models/oppgave.server";
+import { hentFormattertDato } from "~/utils/dato.utils";
+import { useMatchesData } from "~/utils/loader-data.utils";
 
 export const meta: MetaFunction = () => {
   return {
@@ -10,17 +11,10 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export async function loader() {
-  console.log("Kjører loader() i saksbehandling._index");
-  const oppgaver = await hentOppgaver();
-
-  console.log("oppgaver");
-
-  return json({ oppgaver });
-}
-
 export default function Saksbehandling() {
-  const { oppgaver } = useLoaderData<typeof loader>();
+  const data = useMatchesData("root");
+  const oppgaver = data?.oppgaver as IOppgave[];
+
   return (
     <main>
       <Table size="small">
@@ -42,7 +36,7 @@ export default function Saksbehandling() {
                 <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>{person}</Table.DataCell>
-                <Table.DataCell>{opprettet}</Table.DataCell>
+                <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>
                   <Link to={`person/${person}/oppgave/${uuid}`}>
                     <Button>Behandle</Button>

@@ -11,20 +11,21 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
-import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
-import navStyles from "@navikt/ds-css/dist/index.css";
-import { cssBundleHref } from "@remix-run/css-bundle";
-import quillCss from "quill/dist/quill.snow.css";
-import globalCss from "~/global.css";
-
 import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
 import { SanityProvider } from "./context/sanity-content";
 import { authorizeUser } from "./models/auth.server";
+import { hentOppgaver } from "./models/oppgave.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityTexts } from "./sanity/sanity.types";
+
+import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
+import navStyles from "@navikt/ds-css/dist/index.css";
+import { cssBundleHref } from "@remix-run/css-bundle";
+import quillCss from "quill/dist/quill.snow.css";
+import globalCss from "~/global.css";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -80,6 +81,7 @@ export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
+  const oppgaver = await hentOppgaver();
 
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
@@ -89,6 +91,7 @@ export async function loader({ request }: LoaderArgs) {
   return json({
     sanityTexts,
     saksbehandler,
+    oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
