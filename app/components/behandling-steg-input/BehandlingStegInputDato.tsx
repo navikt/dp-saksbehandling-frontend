@@ -15,17 +15,15 @@ export function BehandlingStegInputDato(props: IInputProps) {
   });
 
   return (
-    <>
-      <UNSAFE_DatePicker {...datepickerProps}>
-        <UNSAFE_DatePicker.Input
-          {...getInputProps({
-            id: props.name,
-            label: props.label || props.svartype,
-          })}
-          {...inputProps}
-        />
-      </UNSAFE_DatePicker>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
+    <UNSAFE_DatePicker {...datepickerProps}>
+      <UNSAFE_DatePicker.Input
+        error={error}
+        {...getInputProps({
+          id: props.name,
+          label: props.label || props.svartype,
+        })}
+        {...inputProps}
+      />
+    </UNSAFE_DatePicker>
   );
 }

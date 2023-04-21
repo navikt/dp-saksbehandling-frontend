@@ -7,20 +7,18 @@ export function BehandlingStegInputBoolean(props: IInputProps) {
   const { error, getInputProps } = useField(props.name);
 
   return (
-    <>
-      <RadioGroup
-        size="small"
-        defaultValue={props.verdi}
-        {...getInputProps({
-          id: props.name,
-          legend: props.svartype,
-          children: undefined, // Needed to keep typescript happy
-        })}
-      >
-        <Radio value={"true"}>Ja</Radio>
-        <Radio value={"false"}>Nei</Radio>
-      </RadioGroup>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
+    <RadioGroup
+      size="small"
+      error={error}
+      defaultValue={props.verdi}
+      {...getInputProps({
+        id: props.name,
+        legend: props.svartype,
+        children: undefined, // Needed to keep typescript happy
+      })}
+    >
+      <Radio value={"true"}>Ja</Radio>
+      <Radio value={"false"}>Nei</Radio>
+    </RadioGroup>
   );
 }

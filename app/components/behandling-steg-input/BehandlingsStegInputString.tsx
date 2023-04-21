@@ -7,16 +7,14 @@ export function BehandlingStegInputString(props: IInputProps) {
   const { error, getInputProps } = useField(props.name);
 
   return (
-    <>
-      <TextField
-        type="text"
-        defaultValue={props.verdi}
-        {...getInputProps({
-          id: props.name,
-          label: props.label || props.svartype,
-        })}
-      />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
+    <TextField
+      type="text"
+      defaultValue={props.verdi}
+      error={error}
+      {...getInputProps({
+        id: props.name,
+        label: props.label || props.svartype,
+      })}
+    />
   );
 }
