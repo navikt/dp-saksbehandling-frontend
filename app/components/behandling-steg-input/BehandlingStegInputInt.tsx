@@ -13,7 +13,7 @@ export function BehandlingStegInputInt(props: IInputProps) {
       error={error}
       {...getInputProps({
         id: props.name,
-        label: props.label || props.svartype,
+        label: <>{props.label}</>,
       })}
     />
   );

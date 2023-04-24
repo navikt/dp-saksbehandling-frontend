@@ -2,6 +2,7 @@ import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from "@navikt/ds-react";
 import { addYears, subYears } from "date-fns";
 import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
+import React from "react";
 
 export function BehandlingStegInputDato(props: IInputProps) {
   const { error, getInputProps } = useField(props.name);
@@ -20,7 +21,7 @@ export function BehandlingStegInputDato(props: IInputProps) {
         error={error}
         {...getInputProps({
           id: props.name,
-          label: props.label || props.svartype,
+          label: <>{props.label}</>,
         })}
         {...inputProps}
       />

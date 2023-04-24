@@ -20,11 +20,11 @@ export default function Saksbehandling() {
       <Table size="small">
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">uuid</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Person</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Oppgave ID</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Behandle</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Gå til behandling</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -34,9 +34,9 @@ export default function Saksbehandling() {
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
-                <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>{person}</Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
+                <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
                   <Link to={`person/${person}/oppgave/${uuid}`}>
                     <Button>Behandle</Button>

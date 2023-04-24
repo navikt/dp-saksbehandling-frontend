@@ -77,7 +77,12 @@ export default function PersonBehandleVilkaar() {
           method="post"
         >
           <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
-          <Input name={steg.uuid} svartype={steg.svartype} verdi={steg?.svar?.svar} />
+          <Input
+            name={steg.uuid}
+            svartype={steg.svartype}
+            verdi={steg?.svar?.svar}
+            label={steg.id}
+          />
           <Input name="begrunnelse" svartype="String" label="Begrunnelse" />
 
           <Button type="submit" disabled={isCreating}>

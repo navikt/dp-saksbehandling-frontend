@@ -8,12 +8,11 @@ export function BehandlingStegInputBoolean(props: IInputProps) {
 
   return (
     <RadioGroup
-      size="small"
       error={error}
       defaultValue={props.verdi}
       {...getInputProps({
         id: props.name,
-        legend: props.svartype,
+        legend: <>{props.label}</>,
         children: undefined, // Needed to keep typescript happy
       })}
     >

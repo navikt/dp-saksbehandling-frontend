@@ -3,6 +3,7 @@ import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/B
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 import type { BehandlingStegSvartype } from "~/models/oppgave.server";
+import styles from "./BehandlingsStegInput.module.css";
 
 export interface IInputProps {
   name: string;
@@ -12,7 +13,7 @@ export interface IInputProps {
 }
 
 export function Input(props: IInputProps) {
-  return renderInputType();
+  return <div className={styles.container}>{renderInputType()}</div>;
 
   function renderInputType() {
     switch (props.svartype) {
