@@ -1,5 +1,5 @@
 import { Button, Heading } from "@navikt/ds-react";
-import { ActionArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import { ClientOnly } from "remix-utils";
 import invariant from "tiny-invariant";
@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionArgs) {
 export default function SendMangelbrev() {
   return (
     <div className={styles.container}>
-      <Form>
+      <Form method="post">
         <Heading size={"large"} level={"1"}>
           Lag mangelbrev
         </Heading>
