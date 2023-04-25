@@ -3,7 +3,6 @@ import { Link, Outlet } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { useMatchesData } from "~/utils/loader-data.utils";
-
 import { BASE_PATH } from "~/constants";
 import styles from "~/index.module.css";
 

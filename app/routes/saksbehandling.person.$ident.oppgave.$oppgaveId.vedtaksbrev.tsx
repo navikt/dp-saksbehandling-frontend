@@ -9,13 +9,22 @@ import styles from "~/route-styles/vedtaksbrev.module.css";
 import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 
+interface IMetadata {
+  tilstand: string;
+  muligeTilstander: string[];
+}
+
 export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
   const nyTilstand = "Innstilt";
   const formData = await request.formData();
-  const muligeTilstander = formData.get("muligeTilstander");
-  if (typeof muligeTilstander !== "string") {
+  const metadata = formData.get("metadata");
+  if (typeof metadata !== "string") {
     throw new Error("input er ikke en string");
+  }
+  const parsedMetadata: IMetadata = JSON.parse(metadata);
+  if (parsedMetadata) {
+    console.log("hei");
   }
 
   const body = {
