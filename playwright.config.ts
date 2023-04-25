@@ -10,7 +10,8 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 
-const BASE_URL = "http://127.0.0.1:3000/saksbehandling";
+const port = 3000;
+const baseURL = `http://localhost:${port}/saksbehandling`;
 
 export default defineConfig({
   testDir: "./tests",
@@ -20,7 +21,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
-    baseURL: BASE_URL,
+    baseURL: baseURL,
     trace: "on-first-retry",
   },
   projects: [
@@ -30,8 +31,8 @@ export default defineConfig({
     },
   ],
   webServer: {
+    port,
     command: "npm run dev",
-    url: BASE_URL,
     reuseExistingServer: !process.env.CI,
     timeout: 60000,
   },
