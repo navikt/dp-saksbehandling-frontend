@@ -1,6 +1,6 @@
 import { Button, Heading } from "@navikt/ds-react";
 import type { ActionArgs } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
 import { ClientOnly } from "remix-utils";
 import invariant from "tiny-invariant";
 import QuillEditor from "~/components/quill-editor/QuillEditor.client";
@@ -8,6 +8,7 @@ import { endreStatus, hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/vedtaksbrev.module.css";
 import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 
 interface IMetadata {
   tilstand: string;
@@ -23,8 +24,14 @@ export async function action({ request, params }: ActionArgs) {
     throw new Error("input er ikke en string");
   }
   const parsedMetadata: IMetadata = JSON.parse(metadata);
-  if (parsedMetadata) {
-    console.log("hei");
+  if (!parsedMetadata.muligeTilstander.includes(nyTilstand)) {
+    throw new Error(
+      `Kan ikke sende videre til to-trinns behandling, status på oppgaven er: ${
+        parsedMetadata.tilstand
+      } og mulige statusen den kan endres til per nå er kun: ${parsedMetadata.muligeTilstander.join(
+        ", "
+      )}`
+    );
   }
 
   const body = {
@@ -71,4 +78,9 @@ export default function SendMangelbrev() {
       </Form>
     </div>
   );
+}
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }

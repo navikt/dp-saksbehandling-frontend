@@ -25,14 +25,14 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
         </Header>
 
         <div className={styles.container}>
-          <ErrorMessage error={error} />
+          <ErrorMessageComponent error={error} />
         </div>
       </body>
     </html>
   );
 }
 
-function ErrorMessage({ error }: any) {
+export function ErrorMessageComponent({ error }: any) {
   if (isRouteErrorResponse(error)) {
     const hasStatusText = error.statusText.length > 0;
 
