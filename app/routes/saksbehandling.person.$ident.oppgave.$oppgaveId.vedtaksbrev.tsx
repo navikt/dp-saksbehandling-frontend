@@ -15,7 +15,7 @@ export default function SendMangelbrev() {
         <ClientOnly>{() => <QuillEditor />}</ClientOnly>
 
         <div className={styles.buttonContainer}>
-          <Button>Lag vedtaksbrev</Button>
+          <Button>Send til to-trinns kontroll</Button>
         </div>
       </Form>
     </div>

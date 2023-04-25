@@ -26,16 +26,6 @@ export function BehandleSoknadMeny() {
             Lag vedtaksbrev
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="ferdigstill"
-            className={({ isActive }) => {
-              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
-            }}
-          >
-            Ferdigstill
-          </NavLink>
-        </li>
       </ul>
     </div>
   );
