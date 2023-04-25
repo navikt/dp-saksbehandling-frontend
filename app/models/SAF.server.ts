@@ -12,7 +12,7 @@ export async function hentDokumenter(request: Request) {
   }
 
   // try {
-  const oboToken = await session.apiToken("https://graph.microsoft.com/.default");
+  const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
   console.log(oboToken);
   return oboToken;
   // } catch (error: unknown) {

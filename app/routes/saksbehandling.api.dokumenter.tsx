@@ -3,6 +3,6 @@ import { json } from "@remix-run/node";
 import { hentDokumenter } from "~/models/SAF.server";
 
 export async function loader({ request }: LoaderArgs) {
-  const test = hentDokumenter(request);
+  const test = await hentDokumenter(request);
   return json({ test });
 }
