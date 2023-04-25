@@ -129,7 +129,7 @@ jobs:
           key: ${{ github.sha }}
 
   upload-cdn:
-    needs: [build]
+    needs: [build, playwright]
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
