@@ -62,24 +62,21 @@ jobs:
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
-      - name: Cache chromium Browsers for Playwright's Version
-        id: cache-chromium-browsers
+      - name: Cache Chromium browser for Playwright's Version
+        id: cache-chromium-browser
         uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
 
-      - name: Install chromium
-        if: steps.cache-chromium-browsers.outputs.cache-hit != 'true'
+      - name: Install Chromium browser
+        if: steps.cache-chromium-browser.outputs.cache-hit != 'true'
         run: npx playwright install chromium --with-deps
-
-      - name: Start webServer
-        run: npm run dev
-        env:
-          USE_MSW: true
 
       - name: Run Playwright Tests
         run: npm run playwright
+        env:
+          USE_MSW: true
 
       - name: Store Artifacts from Failed Tests
         if: failure()

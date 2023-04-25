@@ -1,6 +1,6 @@
 export const oppgaverResponse = [
   {
-    uuid: "c2e5845f-d139-490a-8925-890269994363",
+    uuid: "msw-c2e5845f-d139-490a-8925-890269994363",
     person: "12345678910",
     opprettet: "2023-04-25",
     hendelse: [],

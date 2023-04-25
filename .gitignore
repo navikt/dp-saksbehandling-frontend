@@ -18,4 +18,5 @@ node_modules
 #Playwright
 /test-results/
 /playwright-report/
+/playwright-report/index.html
 /playwright/.cache/
