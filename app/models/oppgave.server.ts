@@ -54,7 +54,6 @@ export async function hentOppgaver(): Promise<IOppgave[]> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
   const response = await fetch(url);
 
-  console.log(response);
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,
