@@ -15,8 +15,7 @@ node_modules
 
 .env.local
 
-#Playwright
+# Playwright
 /test-results/
 /playwright-report/
-/playwright-report/index.html
 /playwright/.cache/

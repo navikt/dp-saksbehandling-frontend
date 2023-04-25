@@ -24,13 +24,13 @@ This starts your app in development mode, rebuilding assets on file changes.
 Runs the end-to-end tests.
 
 ```sh
-npx playwright test
+npm run playwright
 ```
 
 Starts the interactive UI mode.
 
 ```sh
-npx playwright test --ui
+npm run playwright:ui
 ```
 
 ## Deployment
