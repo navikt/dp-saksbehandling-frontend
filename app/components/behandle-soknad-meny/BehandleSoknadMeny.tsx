@@ -45,6 +45,21 @@ export function BehandleSoknadMeny({ tilstand }: IProps) {
             </li>
           </>
         )}
+
+        {tilstand && tilstand === "Innstilt" && (
+          <>
+            <li>
+              <NavLink
+                to="godkjenne-vedtak"
+                className={({ isActive }) => {
+                  return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+                }}
+              >
+                Vurder saksbehandling/godkjenn vedtak
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );
