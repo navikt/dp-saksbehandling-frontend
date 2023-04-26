@@ -27,12 +27,12 @@ export async function action({ request, params }: ActionArgs) {
 
   const dokumenter = await hentDokumenter(request, params.ident);
 
+  console.log("@@@@@@@@@@@@");
+  console.log(dokumenter);
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
     return validationError(validering.error);
   }
-
-  console.log(dokumenter);
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
