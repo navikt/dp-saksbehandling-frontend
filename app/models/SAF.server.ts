@@ -21,9 +21,10 @@ export async function hentDokumenter(request: Request, ident: string) {
     ident,
     saksbehandler.onPremisesSamAccountName
   );
+
   console.log(dokumenter);
 
-  return oboToken;
+  return dokumenter;
 }
 
 export async function hentDokumentOversikt(
@@ -31,13 +32,12 @@ export async function hentDokumentOversikt(
   fnr: string,
   navUserId: string
 ): Promise<Pick<any, "dokumentoversiktSelvbetjening">> {
-  const STATIC_AKOTRID = fnr;
   const callId = uuidv4();
-  const variables = { fnr: STATIC_AKOTRID };
+  const variables = { fnr };
 
   const query = gql`
     query hentDokumentOversikt($fnr: String!) {
-      dokumentoversiktBruker(brukerId: { id: "12837798289", type: FNR }, foerste: 10) {
+      dokumentoversiktBruker(brukerId: { id: $fnr, type: FNR }, foerste: 10) {
         journalposter {
           journalpostId
           tittel
@@ -72,7 +72,7 @@ export async function hentDokumentOversikt(
       Authorization: `Bearer ${token}`,
       "Nav-User-Id": navUserId,
       "Nav-Callid": callId,
-      "Nav-Consumer-Id": "dp-dagpenger",
+      "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
   });
 
@@ -81,6 +81,6 @@ export async function hentDokumentOversikt(
     return await client.request(query, variables);
   } catch (error) {
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
-    throw error;
+    throw new Response("Feil ved henting av dokumenter", { status: 500 });
   }
 }
