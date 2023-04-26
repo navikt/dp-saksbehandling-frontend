@@ -16,7 +16,6 @@ import styles from "~/route-styles/vilkaar.module.css";
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-  invariant(params.ident, `params.ident er påkrevd`);
 
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
@@ -25,10 +24,6 @@ export async function action({ request, params }: ActionArgs) {
     formData
   );
 
-  const dokumenter = await hentDokumenter(request, params.ident);
-
-  console.log("@@@@@@@@@@@@");
-  console.log(dokumenter);
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
     return validationError(validering.error);
@@ -48,7 +43,7 @@ export async function action({ request, params }: ActionArgs) {
   return { response };
 }
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const behandling = await hentOppgave(params.oppgaveId);
@@ -57,7 +52,13 @@ export async function loader({ params }: LoaderArgs) {
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
-  return json({ steg });
+  invariant(params.ident, `params.ident er påkrevd`);
+  const dokumenter = await hentDokumenter(request, params.ident);
+
+  console.log("@@@@@@@@@@@@");
+  console.log(dokumenter);
+
+  return json({ steg, dokumenter });
 }
 
 interface Metadata {
