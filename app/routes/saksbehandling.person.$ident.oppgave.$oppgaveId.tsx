@@ -33,7 +33,7 @@ export default function PersonBehandle() {
           </ul>
         </div>
 
-        <BehandleSoknadMeny />
+        <BehandleSoknadMeny tilstand={oppgave.tilstand} />
       </div>
       <Outlet />
     </div>
