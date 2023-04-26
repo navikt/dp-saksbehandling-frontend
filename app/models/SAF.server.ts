@@ -2,18 +2,25 @@ import { getAzureSession } from "~/utils/auth.utils";
 import { logger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
+import { authorizeUser } from "./auth.server";
 
-export async function hentDokumenter(request: Request) {
+export async function hentDokumenter(request: Request, ident: string) {
   const session = await getAzureSession(request);
 
   const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
   console.log(oboToken);
 
-  if (!oboToken) {
+  const saksbehandler = await authorizeUser(request);
+
+  if (!oboToken || !saksbehandler) {
     throw new Response("Unauthorized", { status: 401 });
   }
 
-  const dokumenter = await hentDokumentOversikt(oboToken, "lol");
+  const dokumenter = await hentDokumentOversikt(
+    oboToken,
+    ident,
+    saksbehandler.onPremisesSamAccountName
+  );
   console.log(dokumenter);
 
   return oboToken;
@@ -21,15 +28,16 @@ export async function hentDokumenter(request: Request) {
 
 export async function hentDokumentOversikt(
   token: string,
-  fnr: string
+  fnr: string,
+  navUserId: string
 ): Promise<Pick<any, "dokumentoversiktSelvbetjening">> {
-  const STATIC_AKOTRID = "1000034467123";
+  const STATIC_AKOTRID = fnr;
   const callId = uuidv4();
   const variables = { fnr: STATIC_AKOTRID };
 
   const query = gql`
     query hentDokumentOversikt($fnr: String!) {
-      dokumentoversiktBruker(brukerId: { id: "$fnr", type: AKTOERID }) {
+      dokumentoversiktBruker(brukerId: { id: "12837798289", type: FNR }, foerste: 10) {
         journalposter {
           journalpostId
           tittel
@@ -39,6 +47,20 @@ export async function hentDokumentOversikt(
           dokumenter {
             dokumentInfoId
             tittel
+            brevkode
+            dokumentstatus
+            datoFerdigstilt
+            originalJournalpostId
+            skjerming
+            logiskeVedlegg {
+              logiskVedleggId
+              tittel
+            }
+            dokumentvarianter {
+              filnavn
+              saksbehandlerHarTilgang
+              skjerming
+            }
           }
         }
       }
@@ -48,7 +70,7 @@ export async function hentDokumentOversikt(
   const client = new GraphQLClient("https://saf-q1.dev.intern.nav.no/graphiql", {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Nav-User-Id": "TODO",
+      "Nav-User-Id": navUserId,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-dagpenger",
     },

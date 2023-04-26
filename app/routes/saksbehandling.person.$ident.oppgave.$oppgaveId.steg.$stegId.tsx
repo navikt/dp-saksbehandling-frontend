@@ -9,12 +9,14 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
+import { hentDokumenter } from "~/models/SAF.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+  invariant(params.ident, `params.ident er påkrevd`);
 
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
@@ -23,10 +25,14 @@ export async function action({ request, params }: ActionArgs) {
     formData
   );
 
+  const dokumenter = await hentDokumenter(request, params.ident);
+
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
     return validationError(validering.error);
   }
+
+  console.log(dokumenter);
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
