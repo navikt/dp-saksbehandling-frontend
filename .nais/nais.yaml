@@ -50,6 +50,7 @@ spec:
         - host: {{dp-behandling_host}}
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
+        - host: saf.dev-fss-pub.nais.io
         - host: rt6o382n.apicdn.sanity.io
   azure:
     application:
