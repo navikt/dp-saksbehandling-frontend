@@ -3,13 +3,19 @@
   Dette er boilerplate fra Remix.
 */
 
-import { PassThrough } from "stream";
+import type { EntryContext } from "@remix-run/node";
 import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToPipeableStream } from "react-dom/server";
-import type { EntryContext } from "@remix-run/node";
+import { PassThrough } from "stream";
+import { setup, start } from "../mocks/server";
 
 const ABORT_DELAY = 5000;
+
+if (process.env.USE_MSW === "true") {
+  const server = setup();
+  start(server);
+}
 
 const handleRequest = (
   request: Request,
