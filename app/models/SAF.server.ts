@@ -67,7 +67,7 @@ export async function hentDokumentOversikt(
     }
   `;
 
-  const client = new GraphQLClient("https://saf-q1.dev.intern.nav.no/graphiql", {
+  const client = new GraphQLClient("https://saf.dev-fss-pub.nais.io/graphql", {
     headers: {
       Authorization: `Bearer ${token}`,
       "Nav-User-Id": navUserId,
