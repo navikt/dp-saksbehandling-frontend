@@ -1,11 +1,12 @@
-import { Button, Table } from "@navikt/ds-react";
+import { Table } from "@navikt/ds-react";
 import { json } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { hentOppgaver } from "~/models/oppgave.server";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
+import { RemixLink } from "../components/RemixLink";
 
 export async function loader({ params }: LoaderArgs) {
   const oppgaver = await hentOppgaver();
@@ -46,9 +47,9 @@ export default function Saksbehandling() {
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <Link to={`person/${person}/oppgave/${uuid}`}>
-                    <Button>Behandle</Button>
-                  </Link>
+                  <RemixLink to={`person/${person}/oppgave/${uuid}`} as="Button">
+                    Behandle
+                  </RemixLink>
                 </Table.DataCell>
               </Table.Row>
             );
