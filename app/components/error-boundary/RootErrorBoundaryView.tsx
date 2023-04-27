@@ -46,7 +46,7 @@ export function ErrorMessageComponent({ error }: any) {
     );
   } else if (error instanceof Error) {
     return (
-      <Alert variant="error">
+      <Alert className={styles.enableHorisontalScroll} variant="error">
         <Heading spacing size="medium" level="1">
           {error.message}
         </Heading>
