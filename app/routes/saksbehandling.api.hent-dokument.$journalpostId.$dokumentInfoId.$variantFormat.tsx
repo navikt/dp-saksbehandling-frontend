@@ -1,6 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getAzureSession } from "~/utils/auth.utils";
+import { v4 as uuidv4 } from "uuid";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.journalpostId, `params.journalpostId er påkrevd`);
@@ -10,13 +11,17 @@ export async function loader({ params, request }: LoaderArgs) {
   const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
   console.log("Hent dokument fra URL: ", url);
 
+  const audience = `dev-fss:teamdokumenthandtering:safselvbetjening-q1`;
   const session = await getAzureSession(request);
-  const oboToken = await session.apiToken("api://saf-q1.dev.intern.nav.no");
+  const oboToken = await session.apiToken(audience);
 
   console.log(oboToken);
+  const callId = uuidv4();
   const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
+      "Nav-Callid": callId,
+      "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
   });
 
