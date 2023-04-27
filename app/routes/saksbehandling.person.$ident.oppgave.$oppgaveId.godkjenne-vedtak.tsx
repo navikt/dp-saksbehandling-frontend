@@ -1,8 +1,9 @@
 import { Button, Heading } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { endreStatus, hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/mangelbrev.module.css";
 
@@ -71,4 +72,10 @@ export default function SendGodkjennVedtak() {
       </Form>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }
