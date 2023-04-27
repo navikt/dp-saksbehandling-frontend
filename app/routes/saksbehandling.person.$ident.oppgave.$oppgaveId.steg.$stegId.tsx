@@ -9,7 +9,7 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
-import { hentDokumenter } from "~/models/SAF.server";
+import { hentDokumenterMetadata } from "~/models/SAF.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -53,10 +53,7 @@ export async function loader({ params, request }: LoaderArgs) {
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   invariant(params.ident, `params.ident er påkrevd`);
-  const dokumenter = await hentDokumenter(request, params.ident);
-
-  console.log("@@@@@@@@@@@@");
-  console.log(dokumenter);
+  const dokumenter = await hentDokumenterMetadata(request, params.ident);
 
   return json({ steg, dokumenter });
 }
@@ -66,10 +63,12 @@ interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { steg } = useLoaderData<typeof loader>();
+  const { steg, dokumenter } = useLoaderData<typeof loader>();
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
+
+  console.log(dokumenter);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,

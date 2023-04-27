@@ -4,7 +4,11 @@ import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
 
-export async function hentDokumenter(request: Request, ident: string) {
+// export async function hentDokument() {
+//   GET /rest/hentdokument/{journalpostId}/{dokumentInfoId}/{variantFormat}
+// }
+
+export async function hentDokumenterMetadata(request: Request, ident: string) {
   const session = await getAzureSession(request);
 
   const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
