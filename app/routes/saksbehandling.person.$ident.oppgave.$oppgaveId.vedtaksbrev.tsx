@@ -48,15 +48,15 @@ export async function loader({ params }: LoaderArgs) {
 
   const oppgave = await hentOppgave(params.oppgaveId);
   invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
 
-  return json({ oppgave });
+  return json({ metadata });
 }
 
 export default function SendMangelbrev() {
-  const { oppgave } = useLoaderData<typeof loader>();
+  const { metadata } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-  const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
 
   return (
     <div className={styles.container}>
