@@ -9,7 +9,6 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
-import { hentDokumenterMetadata } from "~/models/SAF.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -18,6 +17,7 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
+
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
@@ -53,9 +53,9 @@ export async function loader({ params, request }: LoaderArgs) {
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   invariant(params.ident, `params.ident er påkrevd`);
-  const dokumenter = await hentDokumenterMetadata(request, params.ident);
+  // const dokumenter = await hentDokumenterMetadata(request, params.ident);
 
-  return json({ steg, dokumenter });
+  return json({ steg, dokumenter: [] });
 }
 
 interface Metadata {
@@ -79,9 +79,7 @@ export default function PersonBehandleVilkaar() {
     const dokumentInfoId = "624863374";
     const variantFormat = "ARKIV";
 
-    // const response = await hentDokument(journalpostId, dokumentInfoId, variantFormat);
-
-    const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
+    const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
 
     if (!response.ok) {
