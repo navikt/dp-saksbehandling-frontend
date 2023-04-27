@@ -56,8 +56,6 @@ export default function SendMangelbrev() {
   const { oppgave } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-  console.log("Tilstand: ", oppgave.tilstand);
-  console.log("Mulige tilstander: ", oppgave.muligeTilstander);
   const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
 
   return (
