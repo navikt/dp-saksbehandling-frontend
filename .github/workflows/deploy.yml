@@ -56,18 +56,18 @@ jobs:
         run: npm ci --ignore-scripts
         if: steps.node_modules.outputs.cache-hit != 'true'
 
-      - name: Store Playwright's Version
+      - name: Store Playwright's version
         run: |
           PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
-          echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+          echo "Playwright's version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
-      - name: Cache Chromium browser with Playwright's Version
+      - name: Cache Chromium browser with Playwright's version
         id: cache-chromium-browser
         uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+          key: chromium-with-playwright-version-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Chromium browser
         if: steps.cache-chromium-browser.outputs.cache-hit != 'true'
@@ -78,7 +78,7 @@ jobs:
         env:
           USE_MSW: true
 
-      - name: Store Artifacts from Failed Tests
+      - name: Store artifacts from failed tests
         if: failure()
         uses: actions/upload-artifact@v2
         with:
