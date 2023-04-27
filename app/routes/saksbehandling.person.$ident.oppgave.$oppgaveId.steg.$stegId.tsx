@@ -9,7 +9,7 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
-import { hentDokument, hentDokumenterMetadata } from "~/models/SAF.server";
+import { hentDokumenterMetadata } from "~/models/SAF.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -79,9 +79,21 @@ export default function PersonBehandleVilkaar() {
     const dokumentInfoId = "624863374";
     const variantFormat = "ARKIV";
 
-    const response = await hentDokument(journalpostId, dokumentInfoId, variantFormat);
+    // const response = await hentDokument(journalpostId, dokumentInfoId, variantFormat);
+
+    const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Response(`Feil ved kall til ${url}`, {
+        status: response.status,
+        statusText: response.statusText,
+      });
+    }
 
     console.log(response);
+
+    return await response.json();
   }
 
   return (
