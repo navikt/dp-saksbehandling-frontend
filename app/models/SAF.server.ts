@@ -49,7 +49,7 @@ export async function hentDokumentOversikt(
   token: string,
   fnr: string,
   navUserId: string
-): Promise<Pick<any, "dokumentoversiktSelvbetjening">> {
+): Promise<any[]> {
   const callId = uuidv4();
   const variables = { fnr };
 

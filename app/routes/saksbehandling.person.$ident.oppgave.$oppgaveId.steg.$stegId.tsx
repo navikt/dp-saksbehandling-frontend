@@ -56,10 +56,9 @@ export async function loader({ params, request }: LoaderArgs) {
 
   invariant(params.ident, `params.ident er påkrevd`);
 
-  let dokumenter;
-  if (getEnv("IS_LOCALHOST") === "true") {
-    dokumenter = [];
-  } else {
+  let dokumenter: any[] = [];
+
+  if (getEnv("IS_LOCALHOST") !== "true") {
     dokumenter = await hentDokumenterMetadata(request, params.ident);
   }
 
