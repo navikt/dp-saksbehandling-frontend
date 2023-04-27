@@ -11,6 +11,8 @@ import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
+import { hentDokumenterMetadata } from "~/models/SAF.server";
+import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -53,9 +55,15 @@ export async function loader({ params, request }: LoaderArgs) {
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   invariant(params.ident, `params.ident er påkrevd`);
-  // const dokumenter = await hentDokumenterMetadata(request, params.ident);
 
-  return json({ steg, dokumenter: [] });
+  let dokumenter;
+  if (getEnv("IS_LOCALHOST") === "true") {
+    dokumenter = [];
+  } else {
+    dokumenter = await hentDokumenterMetadata(request, params.ident);
+  }
+
+  return json({ steg, dokumenter });
 }
 
 interface Metadata {
