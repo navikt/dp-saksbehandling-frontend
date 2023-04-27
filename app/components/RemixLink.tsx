@@ -1,21 +1,21 @@
 import { useHref } from "@remix-run/react";
 import type { LinkProps } from "@remix-run/react";
 import React, { forwardRef } from "react";
-import type { Ref } from "react";
+import type { Ref, PropsWithChildren } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 import { Button, Link } from "@navikt/ds-react";
 
 interface IProps extends LinkProps {
   as: "Link" | "Button";
-  children: React.ReactElement | string;
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
 
 function RemixLinkComponent(
-  { onClick, replace = false, state, target, to, as, children }: IProps,
+  props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined
 ) {
+  const { onClick, replace = false, state, target, to, as, children } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -28,6 +28,10 @@ function RemixLinkComponent(
       <Button
         href={href}
         onClick={(event) => {
+          /* Dette er OK å ignorere, den klager på at det er feil type 
+          (Anchor i stedet for Button), og siden vi alltid sender med 
+          as="a" overstyrer vi dette til å være en anchor-tag. Typene 
+          bakover i designsystemet gjenspeiler ikke dette. */
           // @ts-ignore
           onClick?.(event);
           if (!event.defaultPrevented) {
