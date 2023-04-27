@@ -35,7 +35,7 @@ export function BehandleSoknadMeny({ tilstand }: IProps) {
           <>
             <li>
               <NavLink
-                to="to-trinnskontroll"
+                to="godkjenne-vedtak"
                 className={({ isActive }) => {
                   return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
                 }}
