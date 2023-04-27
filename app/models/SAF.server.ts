@@ -9,7 +9,17 @@ export async function hentDokument(
   dokumentInfoId: string,
   variantFormat = "ARKIV"
 ) {
-  // GET / rest / hentdokument / { journalpostId } / { dokumentInfoId } / { variantFormat };
+  const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return await response.json();
 }
 
 export async function hentDokumenterMetadata(request: Request, ident: string) {
