@@ -73,7 +73,7 @@ jobs:
         if: steps.cache-chromium-browser.outputs.cache-hit != 'true'
         run: npx playwright install chromium --with-deps
 
-      - name: Run Playwright Tests
+      - name: Run Playwright tests
         run: npm run playwright
         env:
           USE_MSW: true
