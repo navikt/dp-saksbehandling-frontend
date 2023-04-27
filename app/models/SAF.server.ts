@@ -4,9 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
 
-// export async function hentDokument() {
-//   GET /rest/hentdokument/{journalpostId}/{dokumentInfoId}/{variantFormat}
-// }
+export async function hentDokument(
+  journalpostId: string,
+  dokumentInfoId: string,
+  variantFormat = "ARKIV"
+) {
+  // GET / rest / hentdokument / { journalpostId } / { dokumentInfoId } / { variantFormat };
+}
 
 export async function hentDokumenterMetadata(request: Request, ident: string) {
   const session = await getAzureSession(request);

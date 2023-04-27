@@ -9,7 +9,7 @@ import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
-import { hentDokumenterMetadata } from "~/models/SAF.server";
+import { hentDokument, hentDokumenterMetadata } from "~/models/SAF.server";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -74,6 +74,16 @@ export default function PersonBehandleVilkaar() {
     svartype: steg?.svartype,
   };
 
+  async function handleHentDokument() {
+    const journalpostId = "598116231";
+    const dokumentInfoId = "624863374";
+    const variantFormat = "ARKIV";
+
+    const response = await hentDokument(journalpostId, dokumentInfoId, variantFormat);
+
+    console.log(response);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
@@ -96,6 +106,8 @@ export default function PersonBehandleVilkaar() {
           </Button>
         </ValidatedForm>
       </div>
+
+      <Button onClick={handleHentDokument}>Hent dokument</Button>
 
       <div className={styles.dokumentContainer}>
         <PDFLeser />
