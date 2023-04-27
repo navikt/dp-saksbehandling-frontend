@@ -62,7 +62,7 @@ jobs:
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
-      - name: Cache Chromium browser for Playwright's Version
+      - name: Cache Chromium browser with Playwright's Version
         id: cache-chromium-browser
         uses: actions/cache@v3
         with:
