@@ -124,9 +124,8 @@ export default function PersonBehandleVilkaar() {
         </ValidatedForm>
       </div>
 
-      <Button onClick={handleHentDokument}>Hent dokument</Button>
-
       <div className={styles.dokumentContainer}>
+        <Button onClick={handleHentDokument}>Hent dokument</Button>
         <PDFLeser />
       </div>
     </div>
