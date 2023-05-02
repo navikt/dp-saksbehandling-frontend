@@ -25,7 +25,10 @@ export async function loader({ params, request }: LoaderArgs) {
     },
   });
 
+  console.log("Status text fra SAF: ", response.statusText);
+
   if (!response.ok) {
+    console.log(response.statusText);
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,
       statusText: response.statusText,
