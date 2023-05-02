@@ -8,7 +8,7 @@ export async function loader({ params, request }: LoaderArgs) {
   invariant(params.dokumentInfoId, `params.dokumentInfoId er påkrevd`);
   invariant(params.variantFormat, `params.variantFormat er påkrevd`);
 
-  const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
+  const url = `https://saf.dev-fss-pub.nais.io/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
   console.log("Hent dokument fra URL: ", url);
 
   const audience = `dev-fss:teamdokumenthandtering:saf-q1`;
