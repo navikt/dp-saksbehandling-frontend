@@ -13,6 +13,7 @@ import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering
 import styles from "~/route-styles/vilkaar.module.css";
 import { hentDokumenterMetadata } from "~/models/SAF.server";
 import { getEnv } from "~/utils/env.utils";
+import { useState } from "react";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -71,6 +72,7 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg, dokumenter } = useLoaderData<typeof loader>();
+  const [fileUrl, setFileUrl] = useState<string | undefined>();
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
@@ -96,9 +98,12 @@ export default function PersonBehandleVilkaar() {
       });
     }
 
-    console.log(response);
-
-    return await response.json();
+    const blob = await response.blob();
+    const blobUrl = window.URL.createObjectURL(blob);
+    console.log("blob: ", blob);
+    console.log("blobUrl: ", blobUrl);
+    setFileUrl(blobUrl);
+    window.open(blobUrl);
   }
 
   return (
@@ -126,7 +131,7 @@ export default function PersonBehandleVilkaar() {
 
       <div className={styles.dokumentContainer}>
         <Button onClick={handleHentDokument}>Hent dokument</Button>
-        <PDFLeser />
+        <PDFLeser fileUrl={fileUrl} />
       </div>
     </div>
   );
