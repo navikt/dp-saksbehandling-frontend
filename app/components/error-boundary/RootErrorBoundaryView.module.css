@@ -6,3 +6,7 @@
   display: flex;
   text-decoration: none;
 }
+
+.enableHorisontalScroll {
+  overflow-y: scroll;
+}

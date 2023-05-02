@@ -13,6 +13,7 @@ export interface IVilkaar {
 export async function mockHentVilkaarListe(): Promise<IVilkaar[]> {
   return Promise.resolve(mockVilkaar);
 }
+
 export async function mockHentVilkaar(id: string): Promise<IVilkaar | undefined> {
   const vilkaar = mockVilkaar.find((vilkaar) => vilkaar.id == id);
   return Promise.resolve(vilkaar);

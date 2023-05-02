@@ -25,14 +25,15 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
         </Header>
 
         <div className={styles.container}>
-          <ErrorMessage error={error} />
+          <ErrorMessageComponent error={error} />
         </div>
       </body>
     </html>
   );
 }
 
-function ErrorMessage({ error }: any) {
+export function ErrorMessageComponent({ error }: any) {
+  // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
     const hasStatusText = error.statusText.length > 0;
 
@@ -44,9 +45,12 @@ function ErrorMessage({ error }: any) {
         <p>{error.data}</p>
       </Alert>
     );
-  } else if (error instanceof Error) {
+  }
+
+  // Treffer Uncaught-exceptions, eks. feil ved import, throw new Error()
+  if (error instanceof Error) {
     return (
-      <Alert variant="error">
+      <Alert className={styles.enableHorisontalScroll} variant="error">
         <Heading spacing size="medium" level="1">
           {error.message}
         </Heading>
@@ -55,13 +59,13 @@ function ErrorMessage({ error }: any) {
         <pre>{error.stack}</pre>
       </Alert>
     );
-  } else {
-    return (
-      <Alert variant="error">
-        <Heading spacing size="medium" level="1">
-          Ukjent feil
-        </Heading>
-      </Alert>
-    );
   }
+
+  return (
+    <Alert variant="error">
+      <Heading spacing size="medium" level="1">
+        Ukjent feil
+      </Heading>
+    </Alert>
+  );
 }

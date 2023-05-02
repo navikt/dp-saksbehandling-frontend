@@ -1,9 +1,18 @@
-import { Button, Table } from "@navikt/ds-react";
+import { Table } from "@navikt/ds-react";
+import { json } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import type { LoaderArgs } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { hentOppgaver } from "~/models/oppgave.server";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import { useMatchesData } from "~/utils/loader-data.utils";
+import { RemixLink } from "../components/RemixLink";
+
+export async function loader({ params }: LoaderArgs) {
+  const oppgaver = await hentOppgaver();
+
+  return json(oppgaver);
+}
 
 export const meta: MetaFunction = () => {
   return {
@@ -12,8 +21,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Saksbehandling() {
-  const data = useMatchesData("root");
-  const oppgaver = data?.oppgaver as IOppgave[];
+  const loaderData = useLoaderData<typeof loader>();
+  const oppgaver = loaderData as IOppgave[];
 
   return (
     <main>
@@ -38,9 +47,9 @@ export default function Saksbehandling() {
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <Link to={`person/${person}/oppgave/${uuid}`}>
-                    <Button>Behandle</Button>
-                  </Link>
+                  <RemixLink to={`person/${person}/oppgave/${uuid}`} as="Button">
+                    Behandle
+                  </RemixLink>
                 </Table.DataCell>
               </Table.Row>
             );

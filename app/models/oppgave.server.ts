@@ -34,9 +34,8 @@ export interface IOppgave {
 
 type OppgaveTilstand = "TilBehandling" | "VentPåMangelbrev";
 
-export interface IFerdigstill {
-  innvilget: string;
-  begrunnelse: string;
+export interface INyTilstand {
+  nyTilstand: string;
 }
 
 export type BehandlingStegSvartype = "Int" | "Boolean" | "LocalDate" | "String";
@@ -79,8 +78,8 @@ export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
   return await response.json();
 }
 
-export async function svarFerdigstill(behandlingId: string, body: IFerdigstill) {
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/ferdigstill`;
+export async function endreStatus(behandlingId: string, body: INyTilstand) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/tilstand`;
 
   const response = await fetch(url, {
     method: "POST",
