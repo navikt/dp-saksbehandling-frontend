@@ -33,7 +33,7 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 }
 
 export function ErrorMessageComponent({ error }: any) {
-  // Treffer Response errors, eks. thrown new Response(), 401, 404, 500 errors
+  // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
     const hasStatusText = error.statusText.length > 0;
 
