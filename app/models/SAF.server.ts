@@ -4,25 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
 
-export async function hentDokument(
-  journalpostId: string,
-  dokumentInfoId: string,
-  variantFormat = "ARKIV"
-) {
-  const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
-  }
-
-  return await response.json();
-}
-
-export async function hentDokumenterMetadata(request: Request, ident: string) {
+export async function hentDokumentOversiktMetadata(request: Request, ident: string) {
   const session = await getAzureSession(request);
 
   const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
@@ -34,18 +16,18 @@ export async function hentDokumenterMetadata(request: Request, ident: string) {
     throw new Response("Unauthorized", { status: 401 });
   }
 
-  const dokumenter = await hentDokumentOversikt(
+  const dokumentOversiktMetadata = await hentSAFDokumentOversiktMetadata(
     oboToken,
     ident,
     saksbehandler.onPremisesSamAccountName
   );
 
-  console.log(dokumenter);
+  console.log(dokumentOversiktMetadata);
 
-  return dokumenter;
+  return dokumentOversiktMetadata;
 }
 
-export async function hentDokumentOversikt(
+export async function hentSAFDokumentOversiktMetadata(
   token: string,
   fnr: string,
   navUserId: string

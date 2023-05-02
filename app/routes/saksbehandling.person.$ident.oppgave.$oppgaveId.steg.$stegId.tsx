@@ -8,11 +8,10 @@ import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
+import { useMatchesData } from "~/utils/loader-data.utils";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
-import { hentDokumenterMetadata } from "~/models/SAF.server";
-import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -45,7 +44,7 @@ export async function action({ request, params }: ActionArgs) {
   return { response };
 }
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const behandling = await hentOppgave(params.oppgaveId);
@@ -54,15 +53,7 @@ export async function loader({ params, request }: LoaderArgs) {
   const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
-  invariant(params.ident, `params.ident er påkrevd`);
-
-  let dokumenter: any[] = [];
-
-  if (getEnv("IS_LOCALHOST") !== "true") {
-    dokumenter = await hentDokumenterMetadata(request, params.ident);
-  }
-
-  return json({ steg, dokumenter });
+  return json({ steg });
 }
 
 interface Metadata {
@@ -70,12 +61,15 @@ interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { steg, dokumenter } = useLoaderData<typeof loader>();
+  const { steg } = useLoaderData<typeof loader>();
+  const personIdentLoader = useMatchesData("routes/saksbehandling.person.$ident");
+  const dokumentOversiktMetadata = personIdentLoader?.dokumentOversiktMetadata as any[];
+
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
 
-  console.log(dokumenter);
+  console.log(dokumentOversiktMetadata);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
@@ -88,13 +82,6 @@ export default function PersonBehandleVilkaar() {
 
     const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
-    }
 
     console.log(response);
 
