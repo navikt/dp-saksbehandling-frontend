@@ -11,7 +11,7 @@ export async function loader({ params, request }: LoaderArgs) {
   const url = `https://saf-q1.dev.intern.nav.no/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
   console.log("Hent dokument fra URL: ", url);
 
-  const audience = `dev-fss:teamdokumenthandtering:saf-q1`;
+  const audience = `api://dev-fss:teamdokumenthandtering:saf-q1/.default`;
   const session = await getAzureSession(request);
   const oboToken = await session.apiToken(audience);
 
