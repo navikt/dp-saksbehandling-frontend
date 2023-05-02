@@ -17,6 +17,7 @@ export interface IBehandlingSteg {
   id: BehandlingStegId;
   type: "Fastsetting" | "Vilkår";
   tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
+  journalposter: string[];
   svartype: BehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
