@@ -54,8 +54,11 @@ export async function hentJournalpost(
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
-
-    return await client.request(journalpostGrapqlQuery, { journalpostId });
+    const data = await client.request(journalpostGrapqlQuery, { journalpostId });
+    // TODO Fiks typer på graphql
+    // Graphql returnerer et object med property journalpost som inneholder en journalpost.
+    // @ts-ignore
+    return data.journalpost;
   } catch (error) {
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
     throw new Response("Feil ved henting av dokumenter", { status: 500 });
