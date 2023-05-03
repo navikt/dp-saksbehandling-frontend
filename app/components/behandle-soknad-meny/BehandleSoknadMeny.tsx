@@ -2,7 +2,11 @@ import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
 import styles from "./BehandleSoknadMeny.module.css";
 
-export function BehandleSoknadMeny() {
+interface IProps {
+  tilstand: string;
+}
+
+export function BehandleSoknadMeny({ tilstand }: IProps) {
   return (
     <div className={styles.container}>
       <ul>
@@ -26,16 +30,21 @@ export function BehandleSoknadMeny() {
             Lag vedtaksbrev
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="ferdigstill"
-            className={({ isActive }) => {
-              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
-            }}
-          >
-            Ferdigstill
-          </NavLink>
-        </li>
+
+        {tilstand && tilstand === "Innstilt" && (
+          <>
+            <li>
+              <NavLink
+                to="godkjenne-vedtak"
+                className={({ isActive }) => {
+                  return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+                }}
+              >
+                Vurder saksbehandling
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

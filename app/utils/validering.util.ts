@@ -18,10 +18,8 @@ export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn
   return withZod(
     z.object({
       [inputnavn]: hentValideringType(svartype),
-      begrunnelse: z
-        .string()
-        .nonempty("Begrunnelse er påkrevd")
-        .min(10, "Begrunnelse må være minimum 10 tegn"),
+      begrunnelse: z.string().nonempty("Begrunnelse er påkrevd"),
+      // .min(10, "Begrunnelse må være minimum 10 tegn"),
     })
   );
 }
