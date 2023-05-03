@@ -14,7 +14,7 @@ export function PDFLeser() {
   console.log(journalposter);
 
   const [fileUrl, setFileUrl] = useState(`${getEnv("BASE_PATH")}/test.pdf`);
-  const [journalpostId, setJournalpostId] = useState<string>("");
+  const [journalpostId, setJournalpostId] = useState<string>(journalposter[0].journalpostId ?? "");
   const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
 
   function setUrl(event: React.ChangeEvent<HTMLSelectElement>) {
