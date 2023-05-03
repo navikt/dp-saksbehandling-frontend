@@ -49,10 +49,10 @@ export async function action({ request, params }: ActionArgs) {
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const behandling = await hentOppgave(params.oppgaveId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId);
+  invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
 
-  const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
+  const steg = oppgave.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   invariant(params.ident, `params.ident er påkrevd`);
@@ -72,39 +72,13 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg, dokumenter } = useLoaderData<typeof loader>();
-  const [fileUrl, setFileUrl] = useState<string | undefined>();
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
 
-  console.log(dokumenter);
-
   const metadata: Metadata = {
     svartype: steg?.svartype,
   };
-
-  async function handleHentDokument() {
-    const journalpostId = "598116231";
-    const dokumentInfoId = "624863374";
-    const variantFormat = "ARKIV";
-
-    const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
-    }
-
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-    console.log("blob: ", blob);
-    console.log("blobUrl: ", blobUrl);
-    setFileUrl(blobUrl);
-    window.open(blobUrl);
-  }
 
   return (
     <div className={styles.container}>
@@ -130,8 +104,7 @@ export default function PersonBehandleVilkaar() {
       </div>
 
       <div className={styles.dokumentContainer}>
-        <Button onClick={handleHentDokument}>Hent dokument</Button>
-        <PDFLeser fileUrl={fileUrl} />
+        <PDFLeser />
       </div>
     </div>
   );

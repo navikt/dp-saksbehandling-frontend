@@ -1,5 +1,6 @@
 export interface IHendelse {
-  id: string;
-  tilstand: string;
+  ident: string;
+  søknadId: string;
+  journalpostId: string;
   type: string;
 }
