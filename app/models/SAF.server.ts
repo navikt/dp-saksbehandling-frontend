@@ -22,7 +22,11 @@ export async function hentDokument(
   return await response.json();
 }
 
-export async function hentDokumenterMetadata(request: Request, ident: string) {
+export async function hentDokumenterMetadata(
+  request: Request,
+  ident: string,
+  journalpostIder: string[]
+) {
   const session = await getAzureSession(request);
 
   const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");

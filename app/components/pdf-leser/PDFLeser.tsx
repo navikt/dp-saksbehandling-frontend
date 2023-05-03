@@ -3,8 +3,7 @@ import { Button, Heading, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
 import { getEnv } from "~/utils/env.utils";
-import { useLoaderData, useRouteLoaderData } from "@remix-run/react";
-import type { loader } from "~/routes/saksbehandling.person.$ident.oppgave.$oppgaveId";
+import { useRouteLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 
 export function PDFLeser() {
@@ -64,7 +63,7 @@ export function PDFLeser() {
           <Select
             className={styles.dropdown}
             label={"Velg Journalpost"}
-            onChange={setUrl}
+            onChange={(event) => setJournalpostId(event.currentTarget.value)}
             value={journalpostId}
           >
             {oppgave.journalposter.map((journalpostId) => (

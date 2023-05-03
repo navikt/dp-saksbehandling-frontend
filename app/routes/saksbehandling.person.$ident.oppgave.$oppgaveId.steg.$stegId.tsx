@@ -13,7 +13,6 @@ import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering
 import styles from "~/route-styles/vilkaar.module.css";
 import { hentDokumenterMetadata } from "~/models/SAF.server";
 import { getEnv } from "~/utils/env.utils";
-import { useState } from "react";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -60,7 +59,7 @@ export async function loader({ params, request }: LoaderArgs) {
   let dokumenter: any[] = [];
 
   if (getEnv("IS_LOCALHOST") !== "true") {
-    dokumenter = await hentDokumenterMetadata(request, params.ident);
+    dokumenter = await hentDokumenterMetadata(request, params.ident, oppgave.journalposter);
   }
 
   return json({ steg, dokumenter });
@@ -75,6 +74,8 @@ export default function PersonBehandleVilkaar() {
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
+
+  console.log("SAF: ", dokumenter);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
