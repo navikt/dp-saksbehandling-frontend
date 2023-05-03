@@ -1,5 +1,5 @@
 import { withZod } from "@remix-validated-form/with-zod";
-import type { BehandlingStegSvartype } from "~/models/oppgave.server";
+import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 import { z } from "zod";
 // import { format, formatISO } from "date-fns";
 
@@ -14,7 +14,7 @@ export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T 
   return JSON.parse(inputVerdi);
 }
 
-export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn: string) {
+export function hentValideringRegler(svartype: TBehandlingStegSvartype, inputnavn: string) {
   return withZod(
     z.object({
       [inputnavn]: hentValideringType(svartype),
@@ -23,7 +23,7 @@ export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn
   );
 }
 
-function hentValideringType(svartype: BehandlingStegSvartype): z.ZodType {
+function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
   switch (svartype) {
     case "Int":
       return z.coerce

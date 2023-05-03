@@ -2,13 +2,13 @@ import { BehandlingStegInputString } from "~/components/behandling-steg-input/Be
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
-import type { BehandlingStegSvartype } from "~/models/oppgave.server";
+import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 import styles from "./BehandlingsStegInput.module.css";
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 
 export interface IInputProps {
   name: string;
-  svartype: BehandlingStegSvartype;
+  svartype: TBehandlingStegSvartype;
   label?: string;
   verdi?: string;
 }

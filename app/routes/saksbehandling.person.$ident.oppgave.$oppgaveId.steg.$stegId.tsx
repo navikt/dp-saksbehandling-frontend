@@ -6,7 +6,7 @@ import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
+import type { TBehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
@@ -55,7 +55,7 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 interface Metadata {
-  svartype: BehandlingStegSvartype;
+  svartype: TBehandlingStegSvartype;
 }
 
 export default function PersonBehandleVilkaar() {

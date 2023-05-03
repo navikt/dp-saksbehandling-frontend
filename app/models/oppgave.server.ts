@@ -2,7 +2,7 @@ import type { IHendelse } from "~/models/hendelse.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IBehandlingStegSvar {
-  type: BehandlingStegSvartype;
+  type: TBehandlingStegSvartype;
   svar?: string;
   begrunnelse?: IBehandlingStegSvarBegrunnelse;
 }
@@ -18,10 +18,10 @@ export interface IBehandlingStegSvarBegrunnelse {
 
 export interface IBehandlingSteg {
   uuid: string;
-  id: BehandlingStegId;
+  id: TBehandlingStegId;
   type: "Fastsetting" | "Vilkår";
   tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
-  svartype: BehandlingStegSvartype;
+  svartype: TBehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
 
@@ -29,22 +29,18 @@ export interface IOppgave {
   uuid: string;
   person: string;
   opprettet: string;
-  tilstand: OppgaveTilstand;
+  tilstand: TOppgaveTilstand;
   journalposter: string[];
-  muligeTilstander: OppgaveTilstand[];
+  muligeTilstander: TOppgaveTilstand[];
   hendelse: IHendelse[];
   steg: IBehandlingSteg[];
 }
 
-type OppgaveTilstand = "TilBehandling" | "VentPåMangelbrev";
+type TOppgaveTilstand = "TilBehandling" | "VentPåMangelbrev" | "Vedtak";
 
-export interface INyTilstand {
-  nyTilstand: string;
-}
+export type TBehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
-export type BehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
-
-type BehandlingStegId =
+type TBehandlingStegId =
   | "Virkningsdato"
   | "Rettighetstype"
   | "Fastsatt vanlig arbeidstid"
@@ -81,13 +77,13 @@ export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
   return await response.json();
 }
 
-export async function endreStatus(behandlingId: string, body: INyTilstand) {
+export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTilstand) {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/tilstand`;
 
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ nyTilstand }),
   });
 
   return response;
