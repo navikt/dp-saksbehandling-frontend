@@ -67,7 +67,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+          key: chromium-with-playwright-version-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Chromium browser
         if: steps.cache-chromium-browser.outputs.cache-hit != 'true'
