@@ -26,8 +26,9 @@ export interface IOppgave {
   person: string;
   opprettet: string;
   tilstand: OppgaveTilstand;
+  journalposter: string[];
   muligeTilstander: OppgaveTilstand[];
-  hendelse: IHendelse;
+  hendelse: IHendelse[];
   steg: IBehandlingSteg[];
 }
 
@@ -37,23 +38,21 @@ export interface INyTilstand {
   nyTilstand: string;
 }
 
-export type BehandlingStegSvartype = "Int" | "Boolean" | "LocalDate" | "String";
+export type BehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
 type BehandlingStegId =
-  | "Fødselsdato"
-  | "Alder"
-  | "Vilkår67"
-  | "Virkningstidspunkt"
-  | "Verneplikt"
-  | "KravTilMinsteinntekt"
-  | "FastsattVanligArbeidstid"
-  | "OppfyllerKravTilTaptArbeidstid";
+  | "Virkningsdato"
+  | "Rettighetstype"
+  | "Fastsatt vanlig arbeidstid"
+  | "Grunnlag"
+  | "Dagsats"
+  | "Periode"
+  | "Oppfyller kravene til dagpenger";
 
 export async function hentOppgaver(): Promise<IOppgave[]> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
   const response = await fetch(url);
 
-  console.log(response);
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,

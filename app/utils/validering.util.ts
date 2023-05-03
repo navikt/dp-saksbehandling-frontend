@@ -19,7 +19,6 @@ export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn
     z.object({
       [inputnavn]: hentValideringType(svartype),
       begrunnelse: z.string().nonempty("Begrunnelse er påkrevd"),
-      // .min(10, "Begrunnelse må være minimum 10 tegn"),
     })
   );
 }
@@ -27,10 +26,18 @@ export function hentValideringRegler(svartype: BehandlingStegSvartype, inputnavn
 function hentValideringType(svartype: BehandlingStegSvartype): z.ZodType {
   switch (svartype) {
     case "Int":
-      return z.coerce.number({
-        required_error: "Du må skrive et tall",
-        invalid_type_error: "Det må være et gyldig tall",
-      });
+      return z.coerce
+        .number({
+          required_error: "Du må skrive et tall",
+          invalid_type_error: "Det må være et gyldig heltall",
+        })
+        .int();
+
+    case "Double":
+      return z
+        .string()
+        .nonempty("Du må skrive et tall")
+        .regex(new RegExp("^\\d*(\\.|,)?\\d*$"), "Det må være et gyldig tall"); // Regex for å matche tall med både komma og punktum seperator for desimal
 
     case "Boolean":
       return z.enum(["true", "false"], {

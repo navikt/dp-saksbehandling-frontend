@@ -7,6 +7,7 @@ declare global {
 interface IEnv {
   BASE_PATH: string;
   DP_BEHANDLING_URL: string;
+  IS_LOCALHOST: string;
 }
 
 export function getEnv(value: keyof IEnv) {

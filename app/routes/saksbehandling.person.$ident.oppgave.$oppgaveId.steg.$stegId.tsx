@@ -11,12 +11,15 @@ import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
+import { hentDokumenterMetadata } from "~/models/SAF.server";
+import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
+
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
@@ -42,16 +45,24 @@ export async function action({ request, params }: ActionArgs) {
   return { response };
 }
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const behandling = await hentOppgave(params.oppgaveId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId);
+  invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
 
-  const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
+  const steg = oppgave.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
-  return json({ steg });
+  invariant(params.ident, `params.ident er påkrevd`);
+
+  let dokumenter: any[] = [];
+
+  if (getEnv("IS_LOCALHOST") !== "true") {
+    dokumenter = await hentDokumenterMetadata(request, params.ident, oppgave.journalposter);
+  }
+
+  return json({ steg, dokumenter });
 }
 
 interface Metadata {
@@ -59,10 +70,12 @@ interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { steg } = useLoaderData<typeof loader>();
+  const { steg, dokumenter } = useLoaderData<typeof loader>();
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
+
+  console.log("SAF: ", dokumenter);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,

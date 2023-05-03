@@ -49,15 +49,15 @@ spec:
       external:
         - host: {{dp-behandling_host}}
         - host: graph.microsoft.com
+        - host: login.microsoftonline.com
+        - host: saf.dev-fss-pub.nais.io
         - host: rt6o382n.apicdn.sanity.io
   azure:
     application:
-      tenant: nav.no
+      tenant: trygdeetaten.no
       enabled: true
+      allowAllUsers: true
       claims:
-        groups:
-          - id: 4edb2ce5-4f0e-4f6f-9b82-b8e75e9dd09e # teamdagpenger
-          - id: 57b411c7-c876-47db-a4a5-e33cddecdacf # meldeplikt
         extra:
           - NAVident
     sidecar:

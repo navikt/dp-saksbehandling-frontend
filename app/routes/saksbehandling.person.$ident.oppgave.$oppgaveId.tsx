@@ -20,8 +20,6 @@ export async function loader({ params }: LoaderArgs) {
 export default function PersonBehandle() {
   const { oppgave } = useLoaderData<typeof loader>();
 
-  console.log(oppgave);
-
   return (
     <div className={styles.container}>
       <div className={styles.menyContainer}>

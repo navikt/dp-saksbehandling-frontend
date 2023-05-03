@@ -4,6 +4,7 @@ import { BehandlingStegInputDato } from "~/components/behandling-steg-input/Beha
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 import type { BehandlingStegSvartype } from "~/models/oppgave.server";
 import styles from "./BehandlingsStegInput.module.css";
+import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 
 export interface IInputProps {
   name: string;
@@ -20,6 +21,16 @@ export function Input(props: IInputProps) {
       case "Int":
         return (
           <BehandlingStegInputInt
+            name={props.name}
+            svartype={props.svartype}
+            label={props.label || props.svartype}
+            verdi={props.verdi}
+          />
+        );
+
+      case "Double":
+        return (
+          <BehandlingStegInputDouble
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
