@@ -35,7 +35,6 @@ export async function action({ request, params }: ActionArgs) {
     svar: validering.submittedData[params.stegId],
     begrunnelse: {
       tekst: validering.submittedData.begrunnelse,
-      kilde: "Saksbehandler",
     },
   };
 
@@ -90,7 +89,12 @@ export default function PersonBehandleVilkaar() {
             verdi={steg?.svar?.svar}
             label={steg.id}
           />
-          <Input name="begrunnelse" svartype="String" label="Begrunnelse" />
+          <Input
+            verdi={steg?.svar?.begrunnelse?.tekst}
+            name="begrunnelse"
+            svartype="String"
+            label="Begrunnelse"
+          />
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}

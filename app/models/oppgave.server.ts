@@ -9,7 +9,11 @@ export interface IBehandlingStegSvar {
 
 export interface IBehandlingStegSvarBegrunnelse {
   tekst: string;
-  kilde: string;
+  utført?: string; //dato
+  utførtAv?: {
+    ident: string;
+  };
+  kilde?: string;
 }
 
 export interface IBehandlingSteg {
