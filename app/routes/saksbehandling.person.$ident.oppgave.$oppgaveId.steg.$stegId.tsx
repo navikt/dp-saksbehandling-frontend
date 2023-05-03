@@ -8,7 +8,6 @@ import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { BehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
-import { useMatchesData } from "~/utils/loader-data.utils";
 import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
@@ -61,14 +60,9 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg } = useLoaderData<typeof loader>();
-  const personIdentLoader = useMatchesData("routes/saksbehandling.person.$ident");
-  const dokumentOversiktMetadata = personIdentLoader?.dokumentOversiktMetadata as any[];
-
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
-
-  console.log("SAF: ", dokumentOversiktMetadata);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,

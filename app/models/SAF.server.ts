@@ -3,101 +3,50 @@ import { logger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
+import { getEnv } from "~/utils/env.utils";
+import { mockJournalpost } from "../../mock-data/mock-journalpost";
 
-export async function hentDokumentOversiktMetadata(request: Request, ident: string) {
+export interface IJournalpost {
+  journalpostId: string;
+  tittel: string;
+  dokumenter: IJournalpostDokument[];
+}
+
+interface IJournalpostDokument {
+  dokumentInfoId: string;
+  tittel: string;
+  brevkode: string;
+  originalJournalpostId: string;
+  dokumentvarianter: IJournalpostDokumentvariant[];
+}
+
+interface IJournalpostDokumentvariant {
+  variantformat: string | null;
+  saksbehandlerHarTilgang: boolean;
+  skjerming: string | null;
+}
+
+export async function hentJournalpost(
+  request: Request,
+  journalpostId: string
+): Promise<IJournalpost> {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return mockJournalpost;
+  }
+
   const session = await getAzureSession(request);
-
-  const oboToken = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
-  console.log(oboToken);
-
+  const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
   const saksbehandler = await authorizeUser(request);
 
-  if (!oboToken || !saksbehandler) {
+  if (!token || !saksbehandler) {
     throw new Response("Unauthorized", { status: 401 });
   }
 
-  const dokumentOversiktMetadata = await hentSAFDokumentOversiktMetadata(
-    oboToken,
-    ident,
-    saksbehandler.onPremisesSamAccountName
-  );
-
-  console.log(dokumentOversiktMetadata);
-
-  return dokumentOversiktMetadata;
-}
-
-export async function hentSAFDokumentOversiktMetadata(
-  token: string,
-  fnr: string,
-  navUserId: string
-): Promise<any[]> {
   const callId = uuidv4();
-  const journalpostId = "598116231";
-  const variables = { fnr, journalpostId };
-
-  // const query = gql`
-  //   query hentDokumentOversikt($fnr: String!) {
-  //     dokumentoversiktBruker(brukerId: { id: $fnr, type: FNR }, foerste: 10) {
-  //       journalposter {
-  //         journalpostId
-  //         tittel
-  //         journalposttype
-  //         journalstatus
-  //         tema
-  //         dokumenter {
-  //           dokumentInfoId
-  //           tittel
-  //           brevkode
-  //           dokumentstatus
-  //           datoFerdigstilt
-  //           originalJournalpostId
-  //           skjerming
-  //           logiskeVedlegg {
-  //             logiskVedleggId
-  //             tittel
-  //           }
-  //           dokumentvarianter {
-  //             filnavn
-  //             saksbehandlerHarTilgang
-  //             skjerming
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `;
-  const query = gql`
-    query journalpost($journalpostId: String!) {
-      journalpost(journalpostId: $journalpostId) {
-        journalpostId
-        tittel
-        dokumenter {
-          dokumentInfoId
-          tittel
-          brevkode
-          dokumentstatus
-          datoFerdigstilt
-          originalJournalpostId
-          skjerming
-          logiskeVedlegg {
-            logiskVedleggId
-            tittel
-          }
-          dokumentvarianter {
-            filnavn
-            saksbehandlerHarTilgang
-            skjerming
-          }
-        }
-      }
-    }
-  `;
-
   const client = new GraphQLClient("https://saf.dev-fss-pub.nais.io/graphql", {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Nav-User-Id": navUserId,
+      "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
@@ -106,9 +55,29 @@ export async function hentSAFDokumentOversiktMetadata(
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
 
-    return await client.request(query, variables);
+    return await client.request(journalpostGrapqlQuery, { journalpostId });
   } catch (error) {
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
     throw new Response("Feil ved henting av dokumenter", { status: 500 });
   }
 }
+
+const journalpostGrapqlQuery = gql`
+  query journalpost($journalpostId: String!) {
+    journalpost(journalpostId: $journalpostId) {
+      journalpostId
+      tittel
+      dokumenter {
+        dokumentInfoId
+        tittel
+        brevkode
+        originalJournalpostId
+        dokumentvarianter {
+          variantformat
+          saksbehandlerHarTilgang
+          skjerming
+        }
+      }
+    }
+  }
+`;

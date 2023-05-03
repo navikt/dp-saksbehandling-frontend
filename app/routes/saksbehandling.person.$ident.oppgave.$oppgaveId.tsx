@@ -7,14 +7,22 @@ import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt
 import { hentOppgave } from "~/models/oppgave.server";
 
 import styles from "~/route-styles/behandle.module.css";
+import type { IJournalpost } from "~/models/SAF.server";
+import { hentJournalpost } from "~/models/SAF.server";
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const oppgave = await hentOppgave(params.oppgaveId);
   invariant(oppgave, `Fant ikke oppgave med id: ${params.oppgaveId}`);
 
-  return json({ oppgave });
+  const journalposter: IJournalpost[] = [];
+  for (const journalpostId of oppgave.journalposter) {
+    const data = await hentJournalpost(request, journalpostId);
+    journalposter.push(data);
+  }
+
+  return json({ oppgave, journalposter });
 }
 
 export default function PersonBehandle() {

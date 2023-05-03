@@ -4,26 +4,31 @@ import { Button, Heading, Select } from "@navikt/ds-react";
 import styles from "./PDFLeser.module.css";
 import { getEnv } from "~/utils/env.utils";
 import { useRouteLoaderData } from "@remix-run/react";
-import type { IOppgave } from "~/models/oppgave.server";
+import type { IJournalpost } from "~/models/SAF.server";
 
 export function PDFLeser() {
-  const { oppgave } = useRouteLoaderData(
+  const { journalposter } = useRouteLoaderData(
     "routes/saksbehandling.person.$ident.oppgave.$oppgaveId"
-  ) as { oppgave: IOppgave };
+  ) as { journalposter: IJournalpost[] };
 
-  console.log(oppgave);
+  console.log(journalposter);
 
   const [fileUrl, setFileUrl] = useState(`${getEnv("BASE_PATH")}/test.pdf`);
   const [journalpostId, setJournalpostId] = useState<string>("");
+  const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
 
   function setUrl(event: React.ChangeEvent<HTMLSelectElement>) {
     setFileUrl(event.currentTarget.value);
   }
 
   async function handleHentDokument() {
-    const journalpostId = "598116231";
-    const dokumentInfoId = "624863374";
+    // const journalpostId = "598116231";
+    // const dokumentInfoId = "624863374";
     const variantFormat = "ARKIV";
+
+    if (!journalpostId || !dokumentInfoId) {
+      return;
+    }
 
     const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
@@ -40,8 +45,9 @@ export function PDFLeser() {
     setFileUrl(blobUrl);
   }
 
-  console.log("oppgave.journalposter: ", oppgave.journalposter);
-  console.log("oppgave.journalposter.length: ", oppgave.journalposter.length);
+  const currentActiveJournalpost = journalposter.find(
+    (journalpost) => journalpost.journalpostId === journalpostId
+  );
 
   return (
     <div>
@@ -58,7 +64,7 @@ export function PDFLeser() {
         </Select>
       </div>
 
-      {oppgave.journalposter.length > 0 && (
+      {journalposter.length > 0 && (
         <div>
           <Select
             className={styles.dropdown}
@@ -66,12 +72,27 @@ export function PDFLeser() {
             onChange={(event) => setJournalpostId(event.currentTarget.value)}
             value={journalpostId}
           >
-            {oppgave.journalposter.map((journalpostId) => (
-              <option key={journalpostId} value={journalpostId}>
-                {journalpostId}
+            {journalposter.map((journalpost) => (
+              <option key={journalpost.journalpostId} value={journalpost.journalpostId}>
+                {journalpost.tittel}
               </option>
             ))}
           </Select>
+
+          {currentActiveJournalpost && (
+            <Select
+              className={styles.dropdown}
+              label={"Velg Dokument"}
+              onChange={(event) => setDokumentInfoId(event.currentTarget.value)}
+              value={dokumentInfoId}
+            >
+              {currentActiveJournalpost.dokumenter.map((dokument) => (
+                <option key={dokument.dokumentInfoId} value={dokument.dokumentInfoId}>
+                  {dokument.tittel}
+                </option>
+              ))}
+            </Select>
+          )}
         </div>
       )}
 
