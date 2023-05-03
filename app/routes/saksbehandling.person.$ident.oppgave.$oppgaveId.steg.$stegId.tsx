@@ -47,10 +47,10 @@ export async function action({ request, params }: ActionArgs) {
 export async function loader({ params }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const behandling = await hentOppgave(params.oppgaveId);
-  invariant(behandling, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId);
+  invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
 
-  const steg = behandling.steg.find((steg) => steg.uuid === params.stegId);
+  const steg = oppgave.steg.find((steg) => steg.uuid === params.stegId);
   invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
 
   return json({ steg });
@@ -69,24 +69,11 @@ export default function PersonBehandleVilkaar() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
 
-  console.log(dokumentOversiktMetadata);
+  console.log("SAF: ", dokumentOversiktMetadata);
 
   const metadata: Metadata = {
     svartype: steg?.svartype,
   };
-
-  async function handleHentDokument() {
-    const journalpostId = "598116231";
-    const dokumentInfoId = "624863374";
-    const variantFormat = "ARKIV";
-
-    const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-    const response = await fetch(url);
-
-    console.log(response);
-
-    return await response.json();
-  }
 
   return (
     <div className={styles.container}>
@@ -112,7 +99,6 @@ export default function PersonBehandleVilkaar() {
       </div>
 
       <div className={styles.dokumentContainer}>
-        <Button onClick={handleHentDokument}>Hent dokument</Button>
         <PDFLeser />
       </div>
     </div>

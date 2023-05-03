@@ -15,7 +15,6 @@ export async function loader({ params, request }: LoaderArgs) {
   const session = await getAzureSession(request);
   const oboToken = await session.apiToken(audience);
 
-  // console.log(oboToken);
   const callId = uuidv4();
   const response = await fetch(url, {
     headers: {
@@ -25,11 +24,7 @@ export async function loader({ params, request }: LoaderArgs) {
     },
   });
 
-  console.log("Status text fra SAF: ", response.statusText);
-  console.log("callId", callId);
-
   if (!response.ok) {
-    console.log(response.statusText);
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,
       statusText: response.statusText,
