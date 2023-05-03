@@ -26,7 +26,7 @@ export default function Saksbehandling() {
 
   return (
     <main>
-      <Table size="small">
+      <Table size="small" zebraStripes={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col">Oppgave ID</Table.HeaderCell>

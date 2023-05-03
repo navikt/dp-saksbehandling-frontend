@@ -27,6 +27,8 @@ function RemixLinkComponent(
     return (
       <Button
         href={href}
+        size={"small"}
+        variant={"secondary"}
         onClick={(event) => {
           /* Dette er OK å ignorere, den klager på at det er feil type 
           (Anchor i stedet for Button), og siden vi alltid sender med 
