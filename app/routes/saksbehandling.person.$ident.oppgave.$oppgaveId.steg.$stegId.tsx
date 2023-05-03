@@ -1,4 +1,4 @@
-import { Button } from "@navikt/ds-react";
+import { BodyShort, Button } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, useLocation, useNavigation } from "@remix-run/react";
@@ -95,6 +95,12 @@ export default function PersonBehandleVilkaar() {
             svartype="String"
             label="Begrunnelse"
           />
+          {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && (
+            <BodyShort>
+              Sist endret: {steg.svar.begrunnelse.utført} av:{" "}
+              {steg.svar.begrunnelse.utførtAv?.ident}
+            </BodyShort>
+          )}
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}
