@@ -33,34 +33,61 @@ export async function hentSAFDokumentOversiktMetadata(
   navUserId: string
 ): Promise<any[]> {
   const callId = uuidv4();
-  const variables = { fnr };
+  const journalpostId = "598116231";
+  const variables = { fnr, journalpostId };
 
+  // const query = gql`
+  //   query hentDokumentOversikt($fnr: String!) {
+  //     dokumentoversiktBruker(brukerId: { id: $fnr, type: FNR }, foerste: 10) {
+  //       journalposter {
+  //         journalpostId
+  //         tittel
+  //         journalposttype
+  //         journalstatus
+  //         tema
+  //         dokumenter {
+  //           dokumentInfoId
+  //           tittel
+  //           brevkode
+  //           dokumentstatus
+  //           datoFerdigstilt
+  //           originalJournalpostId
+  //           skjerming
+  //           logiskeVedlegg {
+  //             logiskVedleggId
+  //             tittel
+  //           }
+  //           dokumentvarianter {
+  //             filnavn
+  //             saksbehandlerHarTilgang
+  //             skjerming
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `;
   const query = gql`
-    query hentDokumentOversikt($fnr: String!) {
-      dokumentoversiktBruker(brukerId: { id: $fnr, type: FNR }, foerste: 10) {
-        journalposter {
-          journalpostId
+    query journalpost($journalpostId: String!) {
+      journalpost(journalpostId: $journalpostId) {
+        journalpostId
+        tittel
+        dokumenter {
+          dokumentInfoId
           tittel
-          journalposttype
-          journalstatus
-          tema
-          dokumenter {
-            dokumentInfoId
+          brevkode
+          dokumentstatus
+          datoFerdigstilt
+          originalJournalpostId
+          skjerming
+          logiskeVedlegg {
+            logiskVedleggId
             tittel
-            brevkode
-            dokumentstatus
-            datoFerdigstilt
-            originalJournalpostId
+          }
+          dokumentvarianter {
+            filnavn
+            saksbehandlerHarTilgang
             skjerming
-            logiskeVedlegg {
-              logiskVedleggId
-              tittel
-            }
-            dokumentvarianter {
-              filnavn
-              saksbehandlerHarTilgang
-              skjerming
-            }
           }
         }
       }
@@ -78,6 +105,7 @@ export async function hentSAFDokumentOversiktMetadata(
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
+
     return await client.request(query, variables);
   } catch (error) {
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
