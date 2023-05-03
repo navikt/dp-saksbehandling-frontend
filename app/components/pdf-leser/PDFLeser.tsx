@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Heading, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
-import { getEnv } from "~/utils/env.utils";
 import { useRouteLoaderData } from "@remix-run/react";
 import type { IJournalpost } from "~/models/SAF.server";
 
@@ -13,7 +12,7 @@ export function PDFLeser() {
 
   console.log(journalposter);
 
-  const [fileUrl, setFileUrl] = useState(`${getEnv("BASE_PATH")}/test.pdf`);
+  const [fileUrl, setFileUrl] = useState<string>("");
   const [journalpostId, setJournalpostId] = useState<string>(journalposter[0].journalpostId ?? "");
   const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
 
@@ -22,6 +21,11 @@ export function PDFLeser() {
       hentDokument();
     }
   }, [dokumentInfoId]);
+
+  useEffect(() => {
+    setFileUrl("");
+    setDokumentInfoId("");
+  }, [journalpostId]);
 
   async function hentDokument() {
     // const journalpostId = "598116231";
@@ -79,6 +83,9 @@ export function PDFLeser() {
               onChange={(event) => setDokumentInfoId(event.currentTarget.value)}
               value={dokumentInfoId}
             >
+              <option key={"velg-dokument"} value={""} hidden>
+                Velg dokument
+              </option>
               {currentActiveJournalpost.dokumenter.map((dokument) => (
                 <option key={dokument.dokumentInfoId} value={dokument.dokumentInfoId}>
                   {dokument.tittel}
@@ -89,9 +96,11 @@ export function PDFLeser() {
         </div>
       )}
 
-      <div className={styles.iframeWrapper}>
-        <iframe title={"Pdf leser"} src={fileUrl} className={styles.iframe}></iframe>
-      </div>
+      {fileUrl && (
+        <div className={styles.iframeWrapper}>
+          <iframe title={"Pdf leser"} src={fileUrl} className={styles.iframe}></iframe>
+        </div>
+      )}
     </div>
   );
 }
