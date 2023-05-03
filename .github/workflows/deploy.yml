@@ -75,8 +75,6 @@ jobs:
 
       - name: Run Playwright Tests
         run: npm run playwright
-        env:
-          USE_MSW: true
 
       - name: Store Artifacts from Failed Tests
         if: failure()
