@@ -22,5 +22,5 @@ test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
     .click();
 
   await expect(page).toHaveURL(`
-    http://localhost:3000/saksbehandling/person/${oppgave.person}/oppgave/${oppgave.uuid}`);
+    ${baseURL}/person/${oppgave.person}/oppgave/${oppgave.uuid}`);
 });
