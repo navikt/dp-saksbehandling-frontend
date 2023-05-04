@@ -363,7 +363,7 @@ export const mockOppgaver: IOppgave[] = [
       },
     ],
     journalposter: ["598137389"],
-    tilstand: "TilBehandling",
+    tilstand: "Innstilt",
     steg: [
       {
         uuid: "c54a086d-e4a9-48d1-9068-2fb49c4ce4f8",

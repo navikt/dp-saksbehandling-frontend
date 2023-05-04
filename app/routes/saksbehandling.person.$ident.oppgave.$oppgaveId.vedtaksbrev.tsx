@@ -20,9 +20,11 @@ export async function action({ request, params }: ActionArgs) {
   const nyTilstand = "Innstilt";
   const formData = await request.formData();
   const metadata = formData.get("metadata");
+
   if (typeof metadata !== "string") {
     throw new Error("input er ikke en string");
   }
+
   const parsedMetadata: IMetadata = JSON.parse(metadata);
   if (!parsedMetadata.muligeTilstander.includes(nyTilstand)) {
     throw new Error(
