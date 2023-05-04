@@ -17,7 +17,6 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
-
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
