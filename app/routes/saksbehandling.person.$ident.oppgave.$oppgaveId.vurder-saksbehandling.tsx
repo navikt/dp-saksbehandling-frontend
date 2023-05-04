@@ -38,7 +38,7 @@ export default function VurderSaksbehandling() {
 
       <div className={styles.formContainer}>
         <Form method="post">
-          <input name="ny-tilstand" type="hidden" value="Innstilt" />
+          <input name="ny-tilstand" type="hidden" value="Vedtak" />
 
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Godkjenn vedtak"}
