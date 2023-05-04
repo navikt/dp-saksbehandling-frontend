@@ -36,7 +36,7 @@ export interface IOppgave {
   steg: IBehandlingSteg[];
 }
 
-type TOppgaveTilstand = "TilBehandling" | "VentPåMangelbrev" | "Vedtak";
+type TOppgaveTilstand = "TilBehandling" | "VentPåMangelbrev" | "Vedtak" | "Innstilt";
 
 export type TBehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 

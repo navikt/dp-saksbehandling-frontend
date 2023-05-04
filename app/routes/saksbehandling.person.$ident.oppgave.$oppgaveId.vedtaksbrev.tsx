@@ -34,11 +34,7 @@ export async function action({ request, params }: ActionArgs) {
     );
   }
 
-  const body = {
-    nyTilstand,
-  };
-
-  const response = await endreStatus(params.oppgaveId, body);
+  const response = await endreStatus(params.oppgaveId, nyTilstand);
 
   return { response };
 }
