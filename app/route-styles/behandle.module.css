@@ -11,14 +11,12 @@
 }
 
 .menyContainer {
+  position: sticky;
   display: flex;
   flex-direction: column;
   gap: 50px;
   border-right: 1px solid var(--a-border-divider);
-
-  position: sticky;
   top: 112px;
-  z-index: 1;
 }
 
 .behandlingStegListe {

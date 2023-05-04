@@ -1,10 +1,9 @@
-import React from "react";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { Search } from "@navikt/ds-react";
-import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { Link } from "@remix-run/react";
-import styles from "./HeaderMeny.module.css";
+import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { BASE_PATH } from "~/constants";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import styles from "./HeaderMeny.module.css";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
