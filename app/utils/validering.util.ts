@@ -18,7 +18,7 @@ export function hentValideringRegler(svartype: TBehandlingStegSvartype, inputnav
   return withZod(
     z.object({
       [inputnavn]: hentValideringType(svartype),
-      begrunnelse: z.string().nonempty("Begrunnelse er påkrevd"),
+      begrunnelse: z.string(),
     })
   );
 }
@@ -37,7 +37,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
       return z
         .string()
         .nonempty("Du må skrive et tall")
-        .regex(new RegExp("^\\d*(\\.|,)?\\d*$"), "Det må være et gyldig tall"); // Regex for å matche tall med både komma og punktum seperator for desimal
+        .regex(new RegExp("^\\d*(,)?\\d*$"), "Det må være et gyldig tall"); // Regex for å matche tall med komma seperator for desimal
 
     case "Boolean":
       return z.enum(["true", "false"], {
