@@ -1,49 +1,54 @@
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
 import styles from "./BehandleSoknadMeny.module.css";
+import type { TOppgaveTilstand } from "~/models/oppgave.server";
 
 interface IProps {
-  tilstand: string;
+  tilstand: TOppgaveTilstand;
+  muligetilstander: TOppgaveTilstand[];
 }
 
-export function BehandleSoknadMeny({ tilstand }: IProps) {
+export function BehandleSoknadMeny({ tilstand, muligetilstander }: IProps) {
+  console.log(muligetilstander);
   return (
     <div className={styles.container}>
       <ul>
-        <li>
-          <NavLink
-            to="mangelbrev"
-            className={({ isActive }) => {
-              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
-            }}
-          >
-            Lag mangelbrev
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="vedtaksbrev"
-            className={({ isActive }) => {
-              return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
-            }}
-          >
-            Lag vedtaksbrev
-          </NavLink>
-        </li>
+        {tilstand === "TilBehandling" && (
+          <li>
+            <NavLink
+              to="mangelbrev"
+              className={({ isActive }) => {
+                return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+              }}
+            >
+              Lag mangelbrev
+            </NavLink>
+          </li>
+        )}
+        {tilstand === "TilBehandling" && (
+          <li>
+            <NavLink
+              to="vedtaksbrev"
+              className={({ isActive }) => {
+                return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+              }}
+            >
+              Lag vedtaksbrev
+            </NavLink>
+          </li>
+        )}
 
-        {tilstand && tilstand === "Innstilt" && (
-          <>
-            <li>
-              <NavLink
-                to="godkjenne-vedtak"
-                className={({ isActive }) => {
-                  return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
-                }}
-              >
-                Vurder saksbehandling
-              </NavLink>
-            </li>
-          </>
+        {tilstand === "Innstilt" && (
+          <li>
+            <NavLink
+              to="vurder-saksbehandling"
+              className={({ isActive }) => {
+                return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
+              }}
+            >
+              Vurder saksbehandling
+            </NavLink>
+          </li>
         )}
       </ul>
     </div>

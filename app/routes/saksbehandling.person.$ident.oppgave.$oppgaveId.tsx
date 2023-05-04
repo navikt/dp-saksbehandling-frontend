@@ -44,7 +44,10 @@ export default function PersonBehandle() {
             </ul>
           </div>
 
-          <BehandleSoknadMeny tilstand={oppgave.tilstand} />
+          <BehandleSoknadMeny
+            tilstand={oppgave.tilstand}
+            muligetilstander={oppgave.muligeTilstander}
+          />
         </div>
         <Outlet />
       </div>
