@@ -4,6 +4,12 @@
   min-height: calc(100vh - 112px);
 }
 
+.innstiltBanner {
+  background-color: #ffc0c0;
+  padding: var(--a-spacing-2);
+  border-bottom: 1px solid var(--a-border-divider);
+}
+
 .behandle {
   border: 1px solid var(--a-gray-700);
   border-top: 0;

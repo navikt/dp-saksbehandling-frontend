@@ -29,19 +29,25 @@ export default function PersonBehandle() {
   const { oppgave } = useLoaderData<typeof loader>();
 
   return (
-    <div className={styles.container}>
-      <div className={styles.menyContainer}>
-        <div className={styles.behandlingStegListe}>
-          <ul>
-            {oppgave.steg.map((steg) => (
-              <BehandlingStegMenyPunkt key={steg.uuid} {...steg} />
-            ))}
-          </ul>
-        </div>
+    <>
+      {oppgave.tilstand === "Innstilt" && (
+        <div className={styles.innstiltBanner}>To-trinns kontroll</div>
+      )}
 
-        <BehandleSoknadMeny tilstand={oppgave.tilstand} />
+      <div className={styles.container}>
+        <div className={styles.menyContainer}>
+          <div className={styles.behandlingStegListe}>
+            <ul>
+              {oppgave.steg.map((steg) => (
+                <BehandlingStegMenyPunkt key={steg.uuid} {...steg} />
+              ))}
+            </ul>
+          </div>
+
+          <BehandleSoknadMeny tilstand={oppgave.tilstand} />
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
-    </div>
+    </>
   );
 }
