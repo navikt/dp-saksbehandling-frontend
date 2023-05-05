@@ -95,7 +95,7 @@ export default function PersonBehandleVilkaar() {
           />
           {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
             <BodyShort>
-              Sist endret: {hentFormattertDato(steg.svar.begrunnelse.utført)} av:{" "}
+              Sist endret: {hentFormattertDato(steg.svar.begrunnelse.utført, true)} av:{" "}
               {steg.svar.begrunnelse.utførtAv?.ident}
             </BodyShort>
           )}
