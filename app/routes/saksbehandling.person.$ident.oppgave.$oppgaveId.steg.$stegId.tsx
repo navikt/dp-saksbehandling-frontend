@@ -6,9 +6,14 @@ import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import type { TBehandlingStegSvartype, IBehandlingStegSvar } from "~/models/oppgave.server";
+import type { IBehandlingStegSvar, TBehandlingStegSvartype } from "~/models/oppgave.server";
 import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
-import { hentValideringRegler, validerOgParseMetadata } from "~/utils/validering.util";
+import { hentFormattertDato } from "~/utils/dato.utils";
+import {
+  hentFormattertSvar,
+  hentValideringRegler,
+  validerOgParseMetadata,
+} from "~/utils/validering.util";
 
 import styles from "~/route-styles/vilkaar.module.css";
 
@@ -30,7 +35,7 @@ export async function action({ request, params }: ActionArgs) {
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
-    svar: validering.submittedData[params.stegId],
+    svar: hentFormattertSvar(validering.submittedData[params.stegId], metaData.svartype),
     begrunnelse: {
       tekst: validering.submittedData.begrunnelse,
     },
@@ -88,9 +93,9 @@ export default function PersonBehandleVilkaar() {
             svartype="String"
             label="Begrunnelse"
           />
-          {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && (
+          {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
             <BodyShort>
-              Sist endret: {steg.svar.begrunnelse.utført} av:{" "}
+              Sist endret: {hentFormattertDato(steg.svar.begrunnelse.utført)} av:{" "}
               {steg.svar.begrunnelse.utførtAv?.ident}
             </BodyShort>
           )}

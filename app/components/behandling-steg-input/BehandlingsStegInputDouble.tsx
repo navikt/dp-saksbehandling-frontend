@@ -9,7 +9,7 @@ export function BehandlingStegInputDouble(props: IInputProps) {
     <TextField
       type="text"
       inputMode="decimal"
-      defaultValue={props.verdi}
+      defaultValue={props.verdi?.replace(/\./g, ",")}
       error={error}
       {...getInputProps({
         id: props.name,
