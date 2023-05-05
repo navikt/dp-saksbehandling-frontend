@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  z-index: 20;
 }
 
 .search {
@@ -34,8 +33,4 @@
 
 .user button {
   height: 100%;
-}
-
-.user.navdsi-dropdown__menu {
-  z-index: 30;
 }
