@@ -60,7 +60,7 @@ export async function loader({ params }: LoaderArgs) {
   return json({ metadata });
 }
 
-export default function SendMangelbrev() {
+export default function SendVedtaksbrev() {
   const { metadata } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
@@ -69,7 +69,7 @@ export default function SendMangelbrev() {
     <div className={styles.container}>
       <Form method="post">
         <Heading size={"large"} level={"1"}>
-          Lag mangelbrev
+          Lag vedtaksbrev
         </Heading>
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
         <input name="ny-tilstand" type="hidden" value="Innstilt" />
