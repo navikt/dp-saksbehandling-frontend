@@ -10,6 +10,7 @@ import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { validerOgParseMetadata } from "~/utils/validering.util";
+import { erGyldigTilstand } from "~/utils/type-guards";
 
 interface IMetadata {
   tilstand: string;
@@ -18,15 +19,19 @@ interface IMetadata {
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-  const nyTilstandInnstilt = "Innstilt";
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<IMetadata>(formData, "metadata");
+  const nyTilstand = formData.get("ny-tilstand");
 
+  // Alle inputfelt sin value er enten string eller File blob
+  if (typeof nyTilstand !== "string") {
+    throw new Error("input er ikke en string");
+  }
   console.log(metaData);
 
-  if (!metaData.muligeTilstander.includes(nyTilstandInnstilt)) {
+  if (!metaData.muligeTilstander.includes(nyTilstand)) {
     throw new Response(
-      `Kan ikke sende videre til to-trinns behandling, status på oppgaven er: ${
+      `Kan ikke endre status til ${nyTilstand} , status på oppgaven er: ${
         metaData.tilstand
       } og mulige statusen den kan endres til per nå er kun: ${metaData.muligeTilstander.join(
         ", "
@@ -35,9 +40,14 @@ export async function action({ request, params }: ActionArgs) {
     );
   }
 
-  const response = await endreStatus(params.oppgaveId, nyTilstandInnstilt);
+  if (erGyldigTilstand(nyTilstand)) {
+    const response = await endreStatus(params.oppgaveId, nyTilstand);
+    return { response };
+  }
 
-  return { response };
+  throw new Response(
+    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`
+  );
 }
 
 export async function loader({ params }: LoaderArgs) {
@@ -62,6 +72,7 @@ export default function SendMangelbrev() {
           Lag mangelbrev
         </Heading>
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
+        <input name="ny-tilstand" type="hidden" value="Innstilt" />
 
         <ClientOnly>{() => <QuillEditor />}</ClientOnly>
 
