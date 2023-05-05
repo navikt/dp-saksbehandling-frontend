@@ -13,7 +13,7 @@ export function BehandleSoknadMeny({ tilstand, muligetilstander }: IProps) {
   return (
     <div className={styles.container}>
       <ul>
-        {tilstand === "TilBehandling" && (
+        {(tilstand === "TilBehandling" || tilstand === "VentPåMangelbrev") && (
           <li>
             <NavLink
               to="mangelbrev"
@@ -21,7 +21,7 @@ export function BehandleSoknadMeny({ tilstand, muligetilstander }: IProps) {
                 return isActive ? classNames(styles.lenkeAktiv, styles.lenke) : styles.lenke;
               }}
             >
-              Lag mangelbrev
+              Mangelbrev
             </NavLink>
           </li>
         )}

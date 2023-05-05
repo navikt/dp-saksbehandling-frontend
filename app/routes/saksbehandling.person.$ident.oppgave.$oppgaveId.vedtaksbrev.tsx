@@ -18,12 +18,14 @@ interface IMetadata {
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-  const nyTilstand = "Innstilt";
+  const nyTilstandInnstilt = "Innstilt";
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<IMetadata>(formData, "metadata");
 
-  if (!metaData.muligeTilstander.includes(nyTilstand)) {
-    throw new Error(
+  console.log(metaData);
+
+  if (!metaData.muligeTilstander.includes(nyTilstandInnstilt)) {
+    throw new Response(
       `Kan ikke sende videre til to-trinns behandling, status på oppgaven er: ${
         metaData.tilstand
       } og mulige statusen den kan endres til per nå er kun: ${metaData.muligeTilstander.join(
@@ -32,7 +34,7 @@ export async function action({ request, params }: ActionArgs) {
     );
   }
 
-  const response = await endreStatus(params.oppgaveId, nyTilstand);
+  const response = await endreStatus(params.oppgaveId, nyTilstandInnstilt);
 
   return { response };
 }
