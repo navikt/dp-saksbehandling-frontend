@@ -1,7 +1,6 @@
 import { withZod } from "@remix-validated-form/with-zod";
-import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 import { z } from "zod";
-// import { format, formatISO } from "date-fns";
+import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 
 export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T {
   const inputVerdi = skjemaData.get(key);
@@ -12,6 +11,22 @@ export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T 
   }
 
   return JSON.parse(inputVerdi);
+}
+
+export function hentFormattertSvar(svar: string, svartype: TBehandlingStegSvartype) {
+  switch (svartype) {
+    case "Double": {
+      return svar.replace(/,/g, ".");
+    }
+
+    case "LocalDate": {
+      return svar.split(".").reverse().join("-");
+    }
+
+    default: {
+      return svar;
+    }
+  }
 }
 
 export function hentValideringRegler(svartype: TBehandlingStegSvartype, inputnavn: string) {
@@ -37,7 +52,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
       return z
         .string()
         .nonempty("Du må skrive et tall")
-        .regex(new RegExp("^\\d*(\\.)?\\d*$"), "Det må være et gyldig tall"); // Regex for å matche tall med både komma og punktum seperator for desimal
+        .regex(new RegExp("^\\d*(,)?\\d*$"), "Det må være et gyldig tall"); // Regex for å matche tall med komma seperator
 
     case "Boolean":
       return z.enum(["true", "false"], {
@@ -48,20 +63,10 @@ function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
     case "String":
       return z.string().nonempty("Du må fylle ut feltet");
 
-    // Fungerer ikke helt på plass enda
-    // Vet ikke helt hvordan vi sette eller return feilmelding
     case "LocalDate":
-      return z.coerce.date();
-    // .preprocess((val) => {
-    //   const timeStamp = Date.parse(String(val));
-    //   const dateString = formatISO(new Date(timeStamp), { representation: "date" });
-
-    //   const date = new Date(dateString);
-    //   return date;
-    // }, z.coerce.date())
-    // .transform((val) => {
-    //   const localDate = format(val, "yyyy-dd-MM");
-    //   return localDate;
-    // });
+      return z.string().regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+        "Ugyldig dato"
+      );
   }
 }
