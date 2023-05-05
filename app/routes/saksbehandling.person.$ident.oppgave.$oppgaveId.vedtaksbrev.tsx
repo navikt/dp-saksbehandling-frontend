@@ -30,7 +30,8 @@ export async function action({ request, params }: ActionArgs) {
         metaData.tilstand
       } og mulige statusen den kan endres til per nå er kun: ${metaData.muligeTilstander.join(
         ", "
-      )}`
+      )}`,
+      { status: 400 }
     );
   }
 
