@@ -1,10 +1,13 @@
-export const oppgaverResponse = [
+import type { IOppgave } from "~/models/oppgave.server";
+
+export const oppgaverResponse: IOppgave[] = [
   {
     uuid: "msw-c2e5845f-d139-490a-8925-890269994363",
     person: "12345678910",
     opprettet: "2023-04-25",
     hendelse: [],
     tilstand: "TilBehandling",
+    journalposter: [],
     steg: [
       {
         uuid: "58402b6b-fb74-4dfc-a59c-c06ad2a40934",
@@ -114,6 +117,7 @@ export const oppgaverResponse = [
     opprettet: "2023-04-25",
     hendelse: [],
     tilstand: "TilBehandling",
+    journalposter: [],
     steg: [
       {
         uuid: "8ebee9d8-bdaa-4256-a264-e48ce0cf7775",
@@ -222,6 +226,7 @@ export const oppgaverResponse = [
     opprettet: "2023-04-25",
     hendelse: [],
     tilstand: "Innstilt",
+    journalposter: [],
     steg: [
       {
         uuid: "f509ca93-8882-4212-84e1-7075d8be5b72",
