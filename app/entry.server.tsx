@@ -9,10 +9,11 @@ import { RemixServer } from "@remix-run/react";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
 import { setup, start } from "../mocks/server";
+import { getEnv } from "./utils/env.utils";
 
 const ABORT_DELAY = 5000;
 
-if (process.env.USE_MSW === "true") {
+if (getEnv("USE_MSW") === "true") {
   const server = setup();
   start(server);
 }
