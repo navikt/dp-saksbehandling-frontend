@@ -48,11 +48,6 @@ export function links() {
           { rel: "stylesheet", href: quillCss },
           { rel: "stylesheet", href: globalCss },
           {
-            rel: "apple-touch-icon",
-            sizes: "180x180",
-            href: `${getEnv("BASE_PATH")}/apple-touch-icon.png`,
-          },
-          {
             rel: "icon",
             type: "image/png",
             sizes: "32x32",
@@ -64,12 +59,10 @@ export function links() {
             sizes: "16x16",
             href: `${getEnv("BASE_PATH")}/favicon-16x16.png`,
           },
-          { rel: "manifest", href: `${getEnv("BASE_PATH")}/site.webmanifest` },
-          { rel: "manifest", href: `${getEnv("BASE_PATH")}/site.webmanifest` },
           {
-            rel: "mask-icon",
-            href: `${getEnv("BASE_PATH")}/safari-pinned-tab.svg`,
-            color: "#5bbad5",
+            rel: "icon",
+            type: "image/x-icon",
+            href: `${getEnv("BASE_PATH")}/favicon.ico`,
           },
         ]
       : []),
