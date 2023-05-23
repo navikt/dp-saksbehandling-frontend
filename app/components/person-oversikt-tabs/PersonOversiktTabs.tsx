@@ -9,7 +9,7 @@ const tabsKonfig = [
   },
   {
     url: "rapportering-og-utbetaling",
-    label: "Rapportering og Utbetaling",
+    label: "Rapportering og utbetaling",
   },
   {
     url: "beslutning",
