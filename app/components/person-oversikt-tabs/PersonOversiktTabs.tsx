@@ -1,25 +1,7 @@
 import { NavLink } from "@remix-run/react";
-import styles from "./PersonOversiktTabs.module.css";
 import classNames from "classnames";
 
-const tabsKonfig = [
-  {
-    url: "vilkaar",
-    label: "Vilkår",
-  },
-  {
-    url: "rapportering-og-utbetaling",
-    label: "Rapportering og utbetaling",
-  },
-  {
-    url: "beslutning",
-    label: "Beslutningslogg (Vedtak)",
-  },
-  {
-    url: "dagsats-og-beregning",
-    label: "Dagsats og beregning",
-  },
-];
+import styles from "./PersonOversiktTabs.module.css";
 
 export function PersonOversiktTabs() {
   return (
@@ -40,3 +22,22 @@ export function PersonOversiktTabs() {
     </div>
   );
 }
+
+const tabsKonfig = [
+  {
+    url: "vilkaar",
+    label: "Vilkår",
+  },
+  {
+    url: "rapportering-og-utbetaling",
+    label: "Rapportering og utbetaling",
+  },
+  {
+    url: "beslutning",
+    label: "Beslutningslogg (Vedtak)",
+  },
+  {
+    url: "dagsats-og-beregning",
+    label: "Dagsats og beregning",
+  },
+];

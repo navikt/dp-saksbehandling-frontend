@@ -43,7 +43,11 @@ export default function Saksbehandling() {
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
-                <Table.DataCell>{person}</Table.DataCell>
+                <Table.DataCell>
+                  <RemixLink to={`person/${person}/oversikt`} as="Link">
+                    {person}
+                  </RemixLink>
+                </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
