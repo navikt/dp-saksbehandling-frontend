@@ -25,7 +25,7 @@ export function PersonOversiktTabs() {
 
 const tabsKonfig = [
   {
-    url: "vilkaar",
+    url: "",
     label: "Vilkår",
   },
   {

@@ -1,7 +1,7 @@
 import { PencilIcon } from "@navikt/aksel-icons";
 import { Button, Table, TextField } from "@navikt/ds-react";
 import classNames from "classnames";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import nbLocale from "date-fns/locale/nb";
 
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
@@ -25,8 +25,8 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {dataListe.map((data, index) => (
-            <>
+          {dataListe.map((data) => (
+            <Fragment key={data.id}>
               <Table.Row>
                 <Table.HeaderCell scope="row">
                   {format(new Date(data.fraOmMed), "dd.MM.yyyy")} {" - "}
@@ -59,7 +59,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
               {redigeringsPeriodeId === data.id &&
                 data.dager.map((dag) => {
                   return (
-                    <Table.Row key={index} className={classNames(styles.rediger)}>
+                    <Table.Row key={dag.id} className={classNames(styles.rediger)}>
                       <Table.HeaderCell scope="row">
                         <div className={styles.periodeDagDato}>
                           <div>
@@ -132,7 +132,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                     </Table.Row>
                   );
                 })}
-            </>
+            </Fragment>
           ))}
         </Table.Body>
       </Table>
@@ -209,7 +209,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10db8392ed9b708",
         dato: "2023-01-02",
         arbeidsoker: 1,
         arbeid: 0,
@@ -220,7 +220,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10-b83a2ed9b708",
         dato: "2023-01-03",
         arbeidsoker: 1,
         arbeid: 4.5,
@@ -231,7 +231,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0893ab-11ed-4442-ac10-b8392ed9b708",
         dato: "2023-01-04",
         arbeidsoker: 1,
         arbeid: 0,
@@ -242,7 +242,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac60-b8392ed9b708",
         dato: "2023-01-05",
         arbeidsoker: 1,
         arbeid: 0,
@@ -253,7 +253,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-g1ed-4442-ac10-b8392ed9b708",
         dato: "2023-01-06",
         arbeidsoker: 1,
         arbeid: 0,
@@ -264,7 +264,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "ba0896ab-11ed-4442-ac10-b8392ed9b708",
         dato: "2023-01-07",
         arbeidsoker: 1,
         arbeid: 0,
@@ -275,7 +275,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10-bl392ed9b708",
         dato: "2023-01-08",
         arbeidsoker: 1,
         arbeid: 0,
@@ -286,7 +286,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10-b8c92ed9b708",
         dato: "2023-01-09",
         arbeidsoker: 1,
         arbeid: 0,
@@ -308,7 +308,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10-b83n2ed9b708",
         dato: "2023-01-11",
         arbeidsoker: 1,
         arbeid: 0,
@@ -319,7 +319,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-11ed-4442-ac10-b839yed9b708",
         dato: "2023-01-12",
         arbeidsoker: 1,
         arbeid: 0,
@@ -330,7 +330,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0896ab-1oed-4442-ac10-b8392ed9b708",
         dato: "2023-01-13",
         arbeidsoker: 1,
         arbeid: 0,
@@ -341,7 +341,7 @@ const dataListe: IRapporteringsperiode[] = [
         utbetaling: 1000,
       },
       {
-        id: "be0896ab-11ed-4442-ac10-b8392ed9b708",
+        id: "be0p96ab-11ed-4442-ac10-b8392ed9b708",
         dato: "2023-01-14",
         arbeidsoker: 1,
         arbeid: 0,
@@ -354,7 +354,7 @@ const dataListe: IRapporteringsperiode[] = [
     ],
   },
   {
-    id: "b1210af9-6b1b-446a-a18c-8dbfdd63da6c",
+    id: "b1210af9-6bjb-446a-a18c-8dbfdd63da6c",
     fraOmMed: "2023-01-15",
     tilOmMed: "2023-01-29",
     arbeidsoker: 4,
@@ -368,7 +368,7 @@ const dataListe: IRapporteringsperiode[] = [
     merknader: "Deler av periode",
     dager: [
       {
-        id: "b1210af9-6b1b-446a-a18c-8dbfdd63da6c",
+        id: "b1210af9-6b1b-446a-a18c-8dbfcd63da6c",
         dato: "01.01.2023",
         arbeidsoker: 1,
         arbeid: 4.5,
