@@ -15,3 +15,7 @@
   gap: var(--a-spacing-2);
   grid-template-columns: 30px 1fr;
 }
+
+.periodeDagDato > div:first-child {
+  text-transform: capitalize;
+}
