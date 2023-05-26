@@ -1,5 +1,11 @@
 import { createContext, type PropsWithChildren, useContext } from "react";
-import type { ISanityFaktum, ISanitySvaralternativ, ISanityTexts } from "~/sanity/sanity.types";
+import type {
+  ISanityAppTekst,
+  ISanityFaktum,
+  ISanityInfoside,
+  ISanitySvaralternativ,
+  ISanityTexts,
+} from "~/sanity/sanity.types";
 
 export const SanityContext = createContext<ISanityTexts | undefined>(undefined);
 
@@ -33,4 +39,26 @@ function useSanityTekst() {
   };
 }
 
-export { SanityProvider, useSanityTekst };
+function useSanity() {
+  const context = useContext(SanityContext);
+  if (context === undefined) {
+    throw new Error("useSanity must be used within a SanityProvider");
+  }
+
+  function getAppTekst(textId: string): string {
+    return context?.apptekster.find((apptekst) => apptekst.textId === textId)?.valueText || textId;
+  }
+
+  function getInfosideTekst(slug: string): ISanityInfoside | undefined {
+    return context?.infosider.find((side) => {
+      return side.slug === slug;
+    });
+  }
+
+  return {
+    getAppTekst,
+    getInfosideTekst,
+  };
+}
+
+export { SanityProvider, useSanity, useSanityTekst };
