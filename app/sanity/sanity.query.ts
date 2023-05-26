@@ -1,29 +1,24 @@
 import groq from "groq";
 
-const faktumFields = `{
-  textId,
-  text,
-  description,
-  helpText,
-  errorMessage,
-  unit
-}`;
+const appTextsFields = `{
+    textId,
+    valueText
+  }`;
 
-const svaralternativFields = `{
-  textId,
-  text,
-  alertText,
-}`;
+const infosideFields = `{
+    "slug": slug.current,
+    body
+  }`;
 
-const faktaGroq = `* [_type=="faktum" && __i18n_lang==$baseLang]{
-...coalesce(* [_id==^._id + "__i18n_" + $lang][0]${faktumFields}, ${faktumFields})
-}`;
+const appTextsGroq = `* [_type=="saksbehandlingAppText" && __i18n_lang==$baseLang]{
+    ...coalesce(* [_id==^._id + "__i18n_" + $lang][0]${appTextsFields}, ${appTextsFields})
+    }`;
 
-const svaralternativerGroq = `* [_type=="svaralternativ" && __i18n_lang==$baseLang]{
-...coalesce(* [_id==^._id + "__i18n_" + $lang][0]${svaralternativFields}, ${svaralternativFields})
-}`;
+const infosiderGroq = `* [_type=="saksbehandlingInfoSide"  && __i18n_lang==$baseLang]{
+    ...coalesce(* [_id==^._id + "__i18n_" + $lang][0]${infosideFields}, ${infosideFields})
+    }`;
 
 export const allTextsQuery = groq`{
-  "fakta": ${faktaGroq},
-  "svaralternativer": ${svaralternativerGroq},
+    "apptekster": ${appTextsGroq},
+    "infosider": ${infosiderGroq}
 }`;
