@@ -32,13 +32,9 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                   {format(new Date(data.fraOmMed), "dd.MM.yyyy")} {" - "}
                   {format(new Date(data.tilOmMed), "dd.MM.yyyy")}
                 </Table.HeaderCell>
-                <Table.DataCell>{data.arbeidsoker}</Table.DataCell>
                 <Table.DataCell>{data.arbeid || "-"}</Table.DataCell>
                 <Table.DataCell>{data.syk || "-"}</Table.DataCell>
                 <Table.DataCell>{data.ferie || "-"}</Table.DataCell>
-                <Table.DataCell>{data.utdanning || "-"}</Table.DataCell>
-                <Table.DataCell>{data.dagsats || "-"}</Table.DataCell>
-                <Table.DataCell>{data.utbetaling || "-"}</Table.DataCell>
                 <Table.DataCell>{data.dagerBruktAvDP}</Table.DataCell>
                 <Table.DataCell>{data.merknader}</Table.DataCell>
                 <Table.DataCell>
@@ -77,16 +73,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                       <Table.DataCell>
                         <TextField
                           className={styles.inputFelt}
-                          label="Arbeidsøker"
-                          hideLabel
-                          defaultValue={dag.arbeidsoker || "-"}
-                          size="small"
-                          htmlSize={14}
-                        />
-                      </Table.DataCell>
-                      <Table.DataCell>
-                        <TextField
-                          className={styles.inputFelt}
                           label="Arbeid"
                           hideLabel
                           defaultValue={dag.arbeid || "-"}
@@ -114,18 +100,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                           htmlSize={14}
                         />
                       </Table.DataCell>
-                      <Table.DataCell>
-                        <TextField
-                          className={styles.inputFelt}
-                          label="Utdanning"
-                          hideLabel
-                          defaultValue={dag.utdanning || "-"}
-                          size="small"
-                          htmlSize={14}
-                        />
-                      </Table.DataCell>
-                      <Table.DataCell>{dag.dagsats}</Table.DataCell>
-                      <Table.DataCell>{dag.utbetaling}</Table.DataCell>
                       <Table.DataCell />
                       <Table.DataCell />
                       <Table.DataCell />
@@ -169,14 +143,10 @@ interface IRapporteringDag {
 }
 
 const tabellHeader = [
-  "14. DAGERSPERIODE",
   "ARBEIDSØKER",
   "JOBBET",
   "SYK",
   "FRAVÆR",
-  "UTDANNING",
-  "DAGSATS",
-  "UTBETALING",
   "DAGERBRUKT AV DP",
   "MERKNADER",
   "",
