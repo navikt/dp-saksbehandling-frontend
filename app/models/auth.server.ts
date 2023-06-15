@@ -1,4 +1,4 @@
-import { getAzureSession } from "~/utils/auth.utils";
+import { getAzureSession } from "~/utils/auth.utils.server";
 import { logger } from "../../server/logger";
 import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";

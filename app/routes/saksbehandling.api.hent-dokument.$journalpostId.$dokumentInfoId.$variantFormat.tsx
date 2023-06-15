@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { getAzureSession } from "~/utils/auth.utils";
+import { getAzureSession } from "~/utils/auth.utils.server";
 import { v4 as uuidv4 } from "uuid";
 
 export async function loader({ params, request }: LoaderArgs) {

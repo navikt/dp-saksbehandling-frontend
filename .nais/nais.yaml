@@ -44,14 +44,20 @@ spec:
       value: {{base_path}}
     - name: DP_BEHANDLING_URL
       value: {{dp-behandling_url}}
+    - name: DP_RAPPORTERING_URL
+      value: http://dp-rapportering
   accessPolicy:
     outbound:
       external:
         - host: {{dp-behandling_host}}
+        - host: {{dp-rapportering_host}}
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
         - host: rt6o382n.apicdn.sanity.io
+      rules: 
+        - application: dp-rapportering
+      
   azure:
     application:
       tenant: trygdeetaten.no

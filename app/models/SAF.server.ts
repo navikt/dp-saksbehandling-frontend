@@ -1,4 +1,4 @@
-import { getAzureSession } from "~/utils/auth.utils";
+import { getAzureSession } from "~/utils/auth.utils.server";
 import { logger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
