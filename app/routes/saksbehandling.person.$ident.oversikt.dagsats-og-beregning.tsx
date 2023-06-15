@@ -22,7 +22,7 @@ export default function PersonOversiktDagsatsOgBeregningSide() {
   const isCreating = Boolean(navigation.state === "submitting");
   return (
     <div className={styles.kontainer}>
-      <Heading level="1" size="large">
+      <Heading level="1" size="large" spacing>
         Team Iver ❤️
       </Heading>
       <Form method="post">
