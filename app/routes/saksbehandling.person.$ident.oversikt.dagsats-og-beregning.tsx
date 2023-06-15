@@ -1,8 +1,9 @@
-import { Button, Textarea } from "@navikt/ds-react";
+import { Button, Heading, Textarea } from "@navikt/ds-react";
 import { type ActionArgs } from "@remix-run/node";
 import { Form, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { sendMelding } from "~/models/dagsats-beregning.server";
+import styles from "../route-styles/dagsats-og-beregning.module.css";
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
@@ -10,11 +11,7 @@ export async function action({ request }: ActionArgs) {
 
   invariant(json, `JSON er påkrevd`);
 
-  console.log("Kommer vi hit?");
-
   const data = JSON.parse(json);
-  console.log(data);
-
   const response = await sendMelding(data, request);
 
   return { response };
@@ -24,14 +21,21 @@ export default function PersonOversiktDagsatsOgBeregningSide() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
   return (
-    <>
-      Dagsats og beregning
+    <div className={styles.kontainer}>
+      <Heading level="1" size="large">
+        Team Iver ❤️
+      </Heading>
       <Form method="post">
-        <Textarea label="JSON" id="iver-json" name="iver-json"></Textarea>
+        <Textarea
+          label="JSON"
+          id="iver-json"
+          name="iver-json"
+          className={styles.tekstfelt}
+        ></Textarea>
         <Button type="submit" disabled={isCreating}>
           {isCreating ? "Sender inn..." : "Send inn"}
         </Button>
       </Form>
-    </>
+    </div>
   );
 }

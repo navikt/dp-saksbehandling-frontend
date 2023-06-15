@@ -1,0 +1,8 @@
+.kontainer {
+  margin: var(--a-spacing-12) var(--a-spacing-20) var(--a-spacing-20);
+}
+
+.tekstfelt {
+  max-width: 600px;
+  margin-bottom: var(--a-spacing-4);
+}
