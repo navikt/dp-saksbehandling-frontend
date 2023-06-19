@@ -57,7 +57,7 @@ spec:
         - host: rt6o382n.apicdn.sanity.io
       rules: 
         - application: dp-rapportering
-      
+        - application: dp-iverksett
   azure:
     application:
       tenant: trygdeetaten.no
