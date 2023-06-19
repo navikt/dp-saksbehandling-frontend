@@ -6,3 +6,7 @@
   max-width: 600px;
   margin-bottom: var(--a-spacing-4);
 }
+
+.skjema {
+  margin-bottom: var(--a-spacing-8)
+}

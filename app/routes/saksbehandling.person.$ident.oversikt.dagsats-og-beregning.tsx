@@ -1,31 +1,32 @@
-import { Button, Heading, Textarea } from "@navikt/ds-react";
-import { type ActionArgs } from "@remix-run/node";
-import { Form, useNavigation } from "@remix-run/react";
+import { Alert, Button, Heading, Textarea } from "@navikt/ds-react";
+import { json, type ActionArgs } from "@remix-run/node";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { sendMelding } from "~/models/dagsats-beregning.server";
 import styles from "../route-styles/dagsats-og-beregning.module.css";
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
-  const json = formData.get("iver-json") as string;
+  const jsonInput = formData.get("iver-json") as string;
 
-  invariant(json, `JSON er påkrevd`);
+  invariant(jsonInput, `JSON er påkrevd`);
 
-  const data = JSON.parse(json);
-  const response = await sendMelding(data, request);
+  const response = await sendMelding(jsonInput, request);
 
-  return { response };
+  return json({ successful: response.ok });
 }
 
 export default function PersonOversiktDagsatsOgBeregningSide() {
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
+  const data = useActionData<typeof action>();
+
   return (
     <div className={styles.kontainer}>
       <Heading level="1" size="large" spacing>
         Team Iver ❤️
       </Heading>
-      <Form method="post">
+      <Form method="post" className={styles.skjema}>
         <Textarea
           label="JSON"
           id="iver-json"
@@ -36,6 +37,32 @@ export default function PersonOversiktDagsatsOgBeregningSide() {
           {isCreating ? "Sender inn..." : "Send inn"}
         </Button>
       </Form>
+
+      {data && data.successful && !isCreating && (
+        <Alert variant="success" inline>
+          Det ble sendt inn OK!
+        </Alert>
+      )}
+
+      {data && !data.successful && !isCreating && (
+        <Alert variant="error" inline>
+          Det skjedde en feil :/
+        </Alert>
+      )}
+    </div>
+  );
+}
+
+export function ErrorBoundary({ error }: any) {
+  console.error(error);
+  return (
+    <div className={styles.kontainer}>
+      <Heading level="1" size="large" spacing>
+        Team Iver ❤️
+      </Heading>
+      <Alert variant="error" inline>
+        Noe skjedde som ble virkelig feil!
+      </Alert>
     </div>
   );
 }
