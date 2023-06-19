@@ -45,7 +45,7 @@ spec:
     - name: DP_BEHANDLING_URL
       value: {{dp-behandling_url}}
     - name: DP_RAPPORTERING_URL
-      value: http://dp-rapportering
+      value: {{dp-rapportering_url}}
   accessPolicy:
     outbound:
       external:
