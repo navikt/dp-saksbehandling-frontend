@@ -1,15 +1,14 @@
-import { PencilIcon } from "@navikt/aksel-icons";
-import { Alert, Button, Table, TextField } from "@navikt/ds-react";
-import classNames from "classnames";
-import { Fragment, useState } from "react";
-import nbLocale from "date-fns/locale/nb";
-
+import { Alert, Table } from "@navikt/ds-react";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
-import { format } from "date-fns";
-import { hentRapporteringsperioder } from "~/models/rapporteringsperiode.server";
+import {
+  type IRapporteringsperiode,
+  hentRapporteringsperioder,
+} from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { FormattedDate } from "~/components/FormattedDate";
+import { hentAktivitetOppsummert } from "~/utils/aktivitet.utils";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.ident, `Fant ikke bruker`);
@@ -26,9 +25,6 @@ export async function loader({ params, request }: LoaderArgs) {
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { rapporteringsperioder } = useLoaderData();
 
-  console.log(rapporteringsperioder);
-  const [redigeringsPeriodeId, setRedigeringsPeriodeId] = useState<string | undefined>(undefined);
-
   return (
     <div className={styles.kontainer}>
       {rapporteringsperioder.length === 0 && (
@@ -38,104 +34,35 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
       )}
 
       {rapporteringsperioder.length > 0 && (
-        <Table size="small">
-          <Table.Header>
-            <Table.Row>
-              {tabellHeader.map((header) => {
+        <>
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
+                <Table.HeaderCell>Jobbet</Table.HeaderCell>
+                <Table.HeaderCell>Syk</Table.HeaderCell>
+                <Table.HeaderCell>Fravær</Table.HeaderCell>
+                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
+                <Table.HeaderCell>Merknader</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
                 return (
-                  <Table.HeaderCell key={header} scope="col">
-                    {header}
-                  </Table.HeaderCell>
+                  <Table.Row key={periode.id}>
+                    <Table.DataCell>
+                      <FormattedDate date={periode.fraOgMed} /> -{" "}
+                      <FormattedDate date={periode.tilOgMed} />
+                    </Table.DataCell>
+                    <Table.DataCell>{hentAktivitetOppsummert(periode, "Arbeid")}</Table.DataCell>
+                    <Table.DataCell>{hentAktivitetOppsummert(periode, "Sykdom")}</Table.DataCell>
+                  </Table.Row>
                 );
               })}
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {rapporteringsperioder.map((periode: IRapporteringsperiode) => (
-              <Fragment key={periode.id}>
-                <Table.Row>
-                  <Table.HeaderCell scope="row">
-                    {format(new Date(periode.fraOmMed), "dd.MM.yyyy")} {" - "}
-                    {format(new Date(periode.tilOmMed), "dd.MM.yyyy")}
-                  </Table.HeaderCell>
-                  <Table.DataCell>{periode.arbeid || "-"}</Table.DataCell>
-                  <Table.DataCell>{periode.syk || "-"}</Table.DataCell>
-                  <Table.DataCell>{periode.ferie || "-"}</Table.DataCell>
-                  <Table.DataCell>{periode.dagerBruktAvDP}</Table.DataCell>
-                  <Table.DataCell>{periode.merknader}</Table.DataCell>
-                  <Table.DataCell>
-                    <Button
-                      variant="secondary"
-                      size="xsmall"
-                      icon={<PencilIcon title="a11y-title" fontSize={20} />}
-                      onClick={() =>
-                        setRedigeringsPeriodeId(
-                          redigeringsPeriodeId === periode.id ? undefined : data.id
-                        )
-                      }
-                    >
-                      Rediger
-                    </Button>
-                  </Table.DataCell>
-                </Table.Row>
-                {redigeringsPeriodeId === data.id &&
-                  data.dager.map((dag) => {
-                    return (
-                      <Table.Row key={dag.id} className={classNames(styles.rediger)}>
-                        <Table.HeaderCell scope="row">
-                          <div className={styles.periodeDagDato}>
-                            <div>
-                              {format(new Date(dag.dato), "EEE", {
-                                locale: nbLocale,
-                              })}
-                            </div>
-                            <div>
-                              {format(new Date(dag.dato), "dd.MM.yyyy", {
-                                locale: nbLocale,
-                              })}
-                            </div>
-                          </div>
-                        </Table.HeaderCell>
-                        <Table.DataCell>
-                          <TextField
-                            className={styles.inputFelt}
-                            label="Arbeid"
-                            hideLabel
-                            defaultValue={dag.arbeid || "-"}
-                            size="small"
-                            htmlSize={14}
-                          />
-                        </Table.DataCell>
-                        <Table.DataCell>
-                          <TextField
-                            className={styles.inputFelt}
-                            label="Syk"
-                            hideLabel
-                            defaultValue={dag.syk || "-"}
-                            size="small"
-                            htmlSize={14}
-                          />
-                        </Table.DataCell>
-                        <Table.DataCell>
-                          <TextField
-                            className={styles.inputFelt}
-                            label="Ferie"
-                            hideLabel
-                            defaultValue={dag.ferie || "-"}
-                            size="small"
-                            htmlSize={14}
-                          />
-                        </Table.DataCell>
-                        <Table.DataCell />
-                        <Table.DataCell />
-                        <Table.DataCell />
-                      </Table.Row>
-                    );
-                  })}
-              </Fragment>
-            ))}
-          </Table.Body>
-        </Table>
+            </Table.Body>
+          </Table>
+        </>
       )}
     </div>
   );
@@ -150,13 +77,3 @@ export function ErrorBoundary() {
     </div>
   );
 }
-
-const tabellHeader = [
-  "ARBEIDSØKER",
-  "JOBBET",
-  "SYK",
-  "FRAVÆR",
-  "DAGERBRUKT AV DP",
-  "MERKNADER",
-  "",
-];
