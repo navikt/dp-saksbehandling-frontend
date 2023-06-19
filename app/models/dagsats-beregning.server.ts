@@ -1,4 +1,4 @@
-import { getAzureSession } from "~/utils/auth.utils";
+import { getAzureSession } from "~/utils/auth.utils.server";
 import { v4 as uuidv4 } from "uuid";
 
 export async function sendMelding(json: string, request: Request) {
