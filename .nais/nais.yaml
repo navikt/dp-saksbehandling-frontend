@@ -55,7 +55,7 @@ spec:
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
         - host: rt6o382n.apicdn.sanity.io
-      rules: 
+      rules:
         - application: dp-rapportering
         - application: dp-iverksett
   azure:
