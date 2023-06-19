@@ -50,7 +50,6 @@ spec:
     outbound:
       external:
         - host: {{dp-behandling_host}}
-        - host: {{dp-rapportering_host}}
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
