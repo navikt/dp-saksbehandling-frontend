@@ -1,4 +1,4 @@
-import { Alert, Table } from "@navikt/ds-react";
+import { Alert, Button, Table } from "@navikt/ds-react";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
 import {
   type IRapporteringsperiode,
@@ -8,7 +8,9 @@ import invariant from "tiny-invariant";
 import { type LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
-import { hentAktivitetOppsummert } from "~/utils/aktivitet.utils";
+import { hentAktiviteterITimer } from "~/utils/aktivitet.utils";
+import { PencilIcon } from "@navikt/aksel-icons";
+import { useState } from "react";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.ident, `Fant ikke bruker`);
@@ -24,6 +26,14 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { rapporteringsperioder } = useLoaderData();
+  const [loadingKorringering, setLoadingKorrigering] = useState(false);
+  const [korrigerPeriode, setKorrigerPeriode] = useState("");
+
+  function startKorrigering(id: string) {
+    setLoadingKorrigering(true);
+    setKorrigerPeriode(id);
+    console.log("Nå starter vi korrigeringen");
+  }
 
   return (
     <div className={styles.kontainer}>
@@ -41,7 +51,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                 <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
-                <Table.HeaderCell>Fravær</Table.HeaderCell>
+                <Table.HeaderCell>Ferie</Table.HeaderCell>
                 <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
                 <Table.HeaderCell>Merknader</Table.HeaderCell>
                 <Table.HeaderCell></Table.HeaderCell>
@@ -55,8 +65,22 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                       <FormattedDate date={periode.fraOgMed} /> -{" "}
                       <FormattedDate date={periode.tilOgMed} />
                     </Table.DataCell>
-                    <Table.DataCell>{hentAktivitetOppsummert(periode, "Arbeid")}</Table.DataCell>
-                    <Table.DataCell>{hentAktivitetOppsummert(periode, "Sykdom")}</Table.DataCell>
+                    <Table.DataCell>{hentAktiviteterITimer(periode, "Arbeid")}</Table.DataCell>
+                    <Table.DataCell>{hentAktiviteterITimer(periode, "Sykdom")}</Table.DataCell>
+                    <Table.DataCell>{hentAktiviteterITimer(periode, "Ferie")}</Table.DataCell>
+                    <Table.DataCell>TODO</Table.DataCell>
+                    <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
+                    <Table.DataCell>
+                      <Button
+                        variant="secondary"
+                        size="xsmall"
+                        loading={korrigerPeriode === periode.id && loadingKorringering}
+                        icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                        onClick={() => startKorrigering(periode.id)}
+                      >
+                        Rediger
+                      </Button>
+                    </Table.DataCell>
                   </Table.Row>
                 );
               })}

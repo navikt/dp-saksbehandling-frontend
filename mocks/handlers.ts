@@ -25,7 +25,7 @@ export const handlers = [
 
   // Hent ut rapporteringsperioder
   rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
-    return res(ctx.json(JSON.stringify(mockRapporteringsperioder)));
+    return res(ctx.json(mockRapporteringsperioder));
   }),
 
   // Hent sanity tekster
