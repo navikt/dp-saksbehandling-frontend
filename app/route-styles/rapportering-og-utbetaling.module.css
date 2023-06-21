@@ -1,21 +1,3 @@
 .kontainer {
   margin: var(--a-spacing-12) var(--a-spacing-20) var(--a-spacing-20);
 }
-
-.rediger {
-  background-color: var(--a-surface-selected) !important;
-}
-
-.inputFelt input {
-  width: 70px !important;
-}
-
-.periodeDagDato {
-  display: grid;
-  gap: var(--a-spacing-2);
-  grid-template-columns: 30px 1fr;
-}
-
-.periodeDagDato > div:first-child {
-  text-transform: capitalize;
-}

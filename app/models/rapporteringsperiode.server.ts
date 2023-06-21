@@ -27,6 +27,29 @@ export interface IAktivitet {
   dato: string;
 }
 
+export async function hentRapporteringsperiode(periodeId: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}`;
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Error("Feil ved henting av sesjon");
+  }
+
+  const onBehalfOfToken = await getRapporteringOboToken(session);
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
+
+  return response;
+}
+
 export async function hentRapporteringsperioder(ident: string, request: Request) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/sok`;
 
@@ -46,6 +69,52 @@ export async function hentRapporteringsperioder(ident: string, request: Request)
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
     body: JSON.stringify({ ident }),
+  });
+
+  return response;
+}
+
+export async function lagKorrigeringsperiode(periodeId: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/korrigering`;
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Error("Feil ved henting av sesjon");
+  }
+
+  const onBehalfOfToken = await getRapporteringOboToken(session);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
+
+  return response;
+}
+
+export async function sendKorrigeringsperiode(periodeId: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/korrigering`;
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Error("Feil ved henting av sesjon");
+  }
+
+  const onBehalfOfToken = await getRapporteringOboToken(session);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
   });
 
   return response;

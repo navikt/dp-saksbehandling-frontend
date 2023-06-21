@@ -10,7 +10,7 @@ export let getAzureSession: GetSessionWithOboProvider;
 
 if (process.env.IS_LOCALHOST === "true") {
   getAzureSession = makeSession({
-    identityProvider: async () => process.env.DP_RAPPORTERING_TOKEN || fallbackToken,
+    identityProvider: async () => fallbackToken,
     oboProvider: async (token: string, audience: string) => token + audience,
   });
 } else {

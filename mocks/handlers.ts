@@ -2,6 +2,7 @@ import { rest } from "msw";
 import { oppgaverResponse } from "./api-routes/oppgaverResponse";
 import { sanityResponse } from "./api-routes/sanityResponse";
 import { mockRapporteringsperioder } from "./api-routes/rapporteringsperiodeResponse";
+import { mockKorrigeringsperiode } from "./api-routes/korrigeringsperiodeResponse";
 
 export const handlers = [
   // Hent alle oppgaver
@@ -27,6 +28,30 @@ export const handlers = [
   rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
     return res(ctx.json(mockRapporteringsperioder));
   }),
+
+  // Hent ut en enkelt rapporteringsperiode
+  rest.get(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6`,
+    (req, res, ctx) => {
+      return res(ctx.json(mockRapporteringsperioder[0]));
+    }
+  ),
+
+  // Hent ut en enkelt korrigeringsperiode
+  rest.get(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
+    (req, res, ctx) => {
+      return res(ctx.json(mockKorrigeringsperiode));
+    }
+  ),
+
+  // Hent ut en korrigeringsperiode
+  rest.post(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/korrigering`,
+    (req, res, ctx) => {
+      return res(ctx.json(mockKorrigeringsperiode));
+    }
+  ),
 
   // Hent sanity tekster
   rest.get(
