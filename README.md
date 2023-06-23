@@ -13,7 +13,9 @@ npx playwright install
 
 From your terminal:
 
-Remember to change `.env.example` to `.env` otherwise you'll likely receive this error message.
+Remember to duplicate `.env.example` and change the name to `.env` otherwise you'll likely receive this error message.
+
+Do not delete `.env.example` or `.gitignore` this file under any circumstance as it is vital for running necessary URLs for this application!
 
 ```
 TypeError: Invalid URL
