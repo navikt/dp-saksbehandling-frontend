@@ -55,23 +55,23 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
 
       {rapporteringsperioder.length > 0 && (
         <>
-          {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
-            return (
-              <Form method="post" key={periode.id}>
-                <Table>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
-                      <Table.HeaderCell>Jobbet</Table.HeaderCell>
-                      <Table.HeaderCell>Syk</Table.HeaderCell>
-                      <Table.HeaderCell>Ferie</Table.HeaderCell>
-                      <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
-                      <Table.HeaderCell>Merknader</Table.HeaderCell>
-                      <Table.HeaderCell></Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
-                    <Table.Row>
+          <Form method="post" key={0}>
+            <Table>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
+                  <Table.HeaderCell>Jobbet</Table.HeaderCell>
+                  <Table.HeaderCell>Syk</Table.HeaderCell>
+                  <Table.HeaderCell>Ferie</Table.HeaderCell>
+                  <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
+                  <Table.HeaderCell>Merknader</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
+                  return (
+                    <Table.Row key={periode.id}>
                       <Table.HeaderCell>
                         <FormattedDate date={periode.fraOgMed} /> -{" "}
                         <FormattedDate date={periode.tilOgMed} />
@@ -93,11 +93,11 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                         </Button>
                       </Table.DataCell>
                     </Table.Row>
-                  </Table.Body>
-                </Table>
-              </Form>
-            );
-          })}
+                  );
+                })}
+              </Table.Body>
+            </Table>
+          </Form>
         </>
       )}
     </div>

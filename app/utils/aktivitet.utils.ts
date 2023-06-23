@@ -1,9 +1,8 @@
 import { parse, toSeconds } from "iso8601-duration";
+import { type IAktivitet, type TAktivitetstype } from "~/models/aktivitet.server";
 import type {
-  IAktivitet,
   IRapporteringsperiode,
   IRapporteringsperiodeDag,
-  TAktivitetstype,
 } from "~/models/rapporteringsperiode.server";
 
 function hentAktiviteter(periode: IRapporteringsperiode, typeAktivitet: TAktivitetstype) {
@@ -47,6 +46,6 @@ export function hentAktivitetITimer(dag: IRapporteringsperiodeDag, typeAktivitet
     const tilTimer = sekunderTotalt / 3600;
     return tilTimer;
   } else {
-    return "0";
+    return 0;
   }
 }

@@ -1,5 +1,6 @@
 import { getEnv } from "~/utils/env.utils";
 import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
+import { type IAktivitet, type TAktivitetstype } from "./aktivitet.server";
 
 export interface IRapporteringsperiode {
   id: string;
@@ -16,15 +17,6 @@ export interface IRapporteringsperiodeDag {
   dato: string;
   muligeAktiviteter: TAktivitetstype[];
   aktiviteter: IAktivitet[];
-}
-
-export type TAktivitetstype = "Arbeid" | "Ferie" | "Sykdom";
-
-export interface IAktivitet {
-  id: string;
-  type: TAktivitetstype;
-  timer: string;
-  dato: string;
 }
 
 export async function hentRapporteringsperiode(periodeId: string, request: Request) {
@@ -97,8 +89,8 @@ export async function lagKorrigeringsperiode(periodeId: string, request: Request
   return response;
 }
 
-export async function sendKorrigeringsperiode(periodeId: string, request: Request) {
-  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/korrigering`;
+export async function godkjennKorrigeringsperiode(periodeId: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/godkjenn`;
 
   const session = await getAzureSession(request);
 

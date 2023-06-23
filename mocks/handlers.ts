@@ -53,6 +53,22 @@ export const handlers = [
     }
   ),
 
+  // Lagre en aktivitet
+  rest.post(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66/aktivitet`,
+    (req, res, ctx) => {
+      return res(ctx.status(204));
+    }
+  ),
+
+  // Slett en aktivitet
+  rest.delete(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
+    (req, res, ctx) => {
+      return res(ctx.status(204));
+    }
+  ),
+
   // Hent sanity tekster
   rest.get(
     "https://rt6o382n.apicdn.sanity.io/v2021-06-06/data/query/production",
