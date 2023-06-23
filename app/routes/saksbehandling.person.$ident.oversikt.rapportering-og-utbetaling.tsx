@@ -12,6 +12,8 @@ import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
 import { PencilIcon, PlusIcon } from "@navikt/aksel-icons";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
+import RapporteringsperiodeDetaljer from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
+import RapporteringsperiodeStatus from "~/components/RapporteringsperiodeStatus";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.ident, `Fant ikke bruker`);
@@ -72,49 +74,58 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
 
       {rapporteringsperioder.length > 0 && (
         <>
-          <Form method="post" key={0}>
-            <Table>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
-                  <Table.HeaderCell>Jobbet</Table.HeaderCell>
-                  <Table.HeaderCell>Syk</Table.HeaderCell>
-                  <Table.HeaderCell>Ferie</Table.HeaderCell>
-                  <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
-                  <Table.HeaderCell>Merknader</Table.HeaderCell>
-                  <Table.HeaderCell></Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
-                  return (
-                    <Table.Row key={periode.id}>
-                      <Table.HeaderCell>
-                        <FormattedDate date={periode.fraOgMed} /> -{" "}
-                        <FormattedDate date={periode.tilOgMed} />
-                      </Table.HeaderCell>
-                      <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
-                      <Table.DataCell>{hentAllAktivitetITimer(periode, "Sykdom")}</Table.DataCell>
-                      <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
-                      <Table.DataCell>TODO</Table.DataCell>
-                      <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
-                      <Table.DataCell>
-                        <input type="hidden" value={periode.id} name="periodeId" />
-                        <Button
-                          variant="secondary"
-                          size="xsmall"
-                          icon={<PencilIcon title="a11y-title" fontSize={20} />}
-                          type="submit"
-                        >
-                          Rediger
-                        </Button>
-                      </Table.DataCell>
-                    </Table.Row>
-                  );
-                })}
-              </Table.Body>
-            </Table>
-          </Form>
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell />
+                <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
+                <Table.HeaderCell>Jobbet</Table.HeaderCell>
+                <Table.HeaderCell>Syk</Table.HeaderCell>
+                <Table.HeaderCell>Ferie</Table.HeaderCell>
+                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
+                <Table.HeaderCell>Merknader</Table.HeaderCell>
+                <Table.HeaderCell>Status</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
+                return (
+                  <Table.ExpandableRow
+                    key={periode.id}
+                    content={
+                      <>
+                        <RapporteringsperiodeDetaljer periode={periode} />
+                        <Form method="post" key={0} className="my-6">
+                          <input type="hidden" value={periode.id} name="periodeId" />
+                          <Button
+                            variant="secondary"
+                            size="small"
+                            icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                            type="submit"
+                          >
+                            Korriger
+                          </Button>
+                        </Form>
+                      </>
+                    }
+                  >
+                    <Table.DataCell>
+                      <FormattedDate date={periode.fraOgMed} /> -{" "}
+                      <FormattedDate date={periode.tilOgMed} />
+                    </Table.DataCell>
+                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
+                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Sykdom")}</Table.DataCell>
+                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
+                    <Table.DataCell>TODO</Table.DataCell>
+                    <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
+                    <Table.DataCell>
+                      <RapporteringsperiodeStatus periode={periode} />
+                    </Table.DataCell>
+                  </Table.ExpandableRow>
+                );
+              })}
+            </Table.Body>
+          </Table>
         </>
       )}
       <Form method="post" className="my-6">

@@ -8,7 +8,7 @@ export interface IRapporteringsperiode {
   tilOgMed: string;
   korrigerer?: string;
   korrigertAv?: string;
-  status: "TilUtfylling" | "Innsendt";
+  status: "TilUtfylling" | "Innsendt" | "Godkjent";
   dager: IRapporteringsperiodeDag[];
 }
 
