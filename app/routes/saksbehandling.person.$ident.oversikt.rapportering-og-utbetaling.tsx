@@ -3,13 +3,14 @@ import {
   type IRapporteringsperiode,
   hentRapporteringsperioder,
   lagKorrigeringsperiode,
+  lagRapporteringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
-import { PencilIcon } from "@navikt/aksel-icons";
+import { PencilIcon, PlusIcon } from "@navikt/aksel-icons";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
 
 export async function loader({ params, request }: LoaderArgs) {
@@ -27,18 +28,32 @@ export async function loader({ params, request }: LoaderArgs) {
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
   const periodeId = formData.get("periodeId") as string;
+  const nyPeriode = formData.get("ny-periode") as string;
 
-  invariant(periodeId, "RapporteringsID er obligatorisk");
+  invariant(params.ident, "Brukerens ident må være satt");
 
-  const response = await lagKorrigeringsperiode(periodeId, request);
+  if (periodeId) {
+    const response = await lagKorrigeringsperiode(periodeId, request);
 
-  if (response.ok) {
-    const korrigeringsperiode: IRapporteringsperiode = await response.json();
-    return redirect(
-      `/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}/${korrigeringsperiode.id}`
-    );
+    if (response.ok) {
+      const korrigeringsperiode: IRapporteringsperiode = await response.json();
+      return redirect(
+        `/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}/${korrigeringsperiode.id}`
+      );
+    } else {
+      throw new Error("Klarte ikke lage korrigeringsperiode");
+    }
+  } else if (nyPeriode) {
+    const response = await lagRapporteringsperiode(params.ident, request);
+
+    if (response.ok) {
+      const rapporteringsperiode: IRapporteringsperiode = await response.json();
+      return json({ rapporteringsperiode });
+    } else {
+      throw new Error("Klarte ikke lage en ny rapporteringsperiode");
+    }
   } else {
-    throw new Error("Klarte ikke lage korrigeringsperiode");
+    throw new Error("Det skjedde en feil");
   }
 }
 
@@ -97,6 +112,13 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                 })}
               </Table.Body>
             </Table>
+          </Form>
+
+          <Form method="post" className="my-6">
+            <input type="hidden" name="ny-periode" value="true" />
+            <Button type="submit" icon={<PlusIcon />}>
+              Lag ny rapporteringsperiode
+            </Button>
           </Form>
         </>
       )}

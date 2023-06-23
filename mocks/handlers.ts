@@ -24,6 +24,11 @@ export const handlers = [
     return res(ctx.status(200));
   }),
 
+  // Lag en rapporteringsperiode
+  rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder`, (req, res, ctx) => {
+    return res(ctx.json(mockRapporteringsperioder[0]));
+  }),
+
   // Hent ut rapporteringsperioder
   rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
     return res(ctx.json(mockRapporteringsperioder));

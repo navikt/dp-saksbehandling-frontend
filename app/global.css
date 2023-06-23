@@ -10,3 +10,27 @@
 .ql-container h2 {
   font-size: var(--a-font-size-heading-large);
 }
+
+.my-12 {
+  margin: var(--a-spacing-12) 0;
+}
+
+.my-11 {
+  margin: var(--a-spacing-11) 0;
+}
+
+.my-10 {
+  margin: var(--a-spacing-10) 0;
+}
+
+.my-6 {
+  margin: var(--a-spacing-6) 0;
+}
+
+.my-4 {
+  margin: var(--a-spacing-4) 0;
+}
+
+.my-3 {
+  margin: var(--a-spacing-3) 0;
+}

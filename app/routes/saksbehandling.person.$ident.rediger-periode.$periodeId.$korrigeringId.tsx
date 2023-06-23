@@ -9,6 +9,7 @@ import {
   type IRapporteringsperiode,
   hentRapporteringsperiode,
   type IRapporteringsperiodeDag,
+  godkjennKorrigeringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import { PencilIcon } from "@navikt/aksel-icons";
 import { useState } from "react";
@@ -57,7 +58,13 @@ export async function action({ request, params }: ActionArgs) {
   const dato = formData.get("dato") as string;
 
   if (korrigeringId) {
-    console.log("hei");
+    const response = await godkjennKorrigeringsperiode(periodeId, request);
+
+    if (response.ok) {
+      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
+    } else {
+      throw new Error("Klarte ikke godkjenne korrigeringsperiode");
+    }
   }
 
   if (aktivitetId) {
@@ -66,7 +73,7 @@ export async function action({ request, params }: ActionArgs) {
     if (response.ok) {
       return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
     } else {
-      return json({});
+      throw new Error("Klarte ikke slette aktivitet");
     }
   } else {
     const response = await lagreAktivitet(periodeId, aktivitetstype, timer, dato, request);
@@ -165,9 +172,11 @@ export default function RedigerPeriode() {
               </>
             </Table.Body>
           </Table>
-          <input type="hidden" value={korrigeringsperiode.id} name="korringeringId" />
-          <Textarea label="Begrunnelse" name="begrunnelse"></Textarea>
-          <Button type="submit">Send inn endring</Button>
+          <input type="hidden" value={korrigeringsperiode.id} name="periodeId" />
+          <Textarea label="Begrunnelse" name="begrunnelse" className="my-4"></Textarea>
+          <Button type="submit" className="my-6">
+            Send inn endring
+          </Button>
         </Form>
       )}
 
