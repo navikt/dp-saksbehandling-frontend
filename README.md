@@ -15,8 +15,6 @@ From your terminal:
 
 Remember to duplicate `.env.example` and change the name to `.env` otherwise you'll likely receive this error message.
 
-Do not delete `.env.example` or `.gitignore` this file under any circumstance as it is vital for running necessary URLs for this application!
-
 ```
 TypeError: Invalid URL
     at new NodeError (node:internal/errors:393:5)
@@ -30,6 +28,8 @@ TypeError: Invalid URL
     at hentOppgaver (/Users/beeccy/Projects/dp-saksbehandling-frontend/app/models/oppgave.server.ts:54:26)
     at loader (/Users/beeccy/Projects/dp-saksbehandling-frontend/app/root.tsx:76:26)
 ```
+
+Do not delete `.env.example` or `.gitignore` this file under any circumstance as it is vital for running necessary URLs for this application!
 
 After this is fixed, you can run:
 
