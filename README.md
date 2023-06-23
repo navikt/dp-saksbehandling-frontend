@@ -1,19 +1,10 @@
-# Welcome to Remix!
+# dp-saksbehandling-frontend - Saksbehandlingsflate for Dagpenger
 
-- [Remix Docs](https://remix.run/docs)
+## Komme i gang
 
-## Installation
+Appen er basert på [Remix](https://remix.run/docs)
 
-```sh
-npm install
-npx playwright install
-```
-
-## Development
-
-From your terminal:
-
-Remember to duplicate `.env.example` and change the name to `.env` otherwise you'll likely receive this error message.
+Husk å duplisere `.env.example` og endre navnet til `.env` ellers vil du sannsynligvis få denne feilmeldingen:
 
 ```
 TypeError: Invalid URL
@@ -29,9 +20,31 @@ TypeError: Invalid URL
     at loader (/Users/beeccy/Projects/dp-saksbehandling-frontend/app/root.tsx:76:26)
 ```
 
-Do not delete `.env.example` or `.gitignore` this file under any circumstance as it is vital for running necessary URLs for this application!
+Ikke slett `.env.example` eller legg denne filen inn i `.gitignore` under noen omstendighet da det er nødvendig for å kunne kjøre viktige URLer for denne løsningen!
 
-After this is fixed, you can run:
+Etter dette er på plass, kan du kjøre:
+
+```sh
+npm install
+npm run dev
+```
+
+Dette starter opp applikasjonen i dev miljøet, den bygger automatisk attributer i endrede filer.
+
+# Welcome to Remix!
+
+- [Remix Docs](https://remix.run/docs)
+
+## Installation
+
+```sh
+npm install
+npx playwright install
+```
+
+## Development
+
+From your terminal:
 
 ```sh
 npm run dev
