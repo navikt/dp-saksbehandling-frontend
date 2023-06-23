@@ -46,6 +46,8 @@ export async function action({ request, params }: ActionArgs) {
   } else if (nyPeriode) {
     const response = await lagRapporteringsperiode(params.ident, request);
 
+    console.log("response fra dp-rapportering", response);
+
     if (response.ok) {
       const rapporteringsperiode: IRapporteringsperiode = await response.json();
       return json({ rapporteringsperiode });
