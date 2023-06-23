@@ -113,15 +113,14 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
               </Table.Body>
             </Table>
           </Form>
-
-          <Form method="post" className="my-6">
-            <input type="hidden" name="ny-periode" value="true" />
-            <Button type="submit" icon={<PlusIcon />}>
-              Lag ny rapporteringsperiode
-            </Button>
-          </Form>
         </>
       )}
+      <Form method="post" className="my-6">
+        <input type="hidden" name="ny-periode" value="true" />
+        <Button type="submit" icon={<PlusIcon />}>
+          Lag ny rapporteringsperiode
+        </Button>
+      </Form>
     </div>
   );
 }
