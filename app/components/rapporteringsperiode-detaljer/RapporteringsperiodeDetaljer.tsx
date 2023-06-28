@@ -6,7 +6,7 @@ import {
   type IRapporteringsperiodeDag,
 } from "~/models/rapporteringsperiode.server";
 
-export default function periodeDetaljer(props: { periode: IRapporteringsperiode }) {
+export function RapporteringsperiodeDetaljer(props: { periode: IRapporteringsperiode }) {
   const { periode } = props;
   return (
     <Table size="small">

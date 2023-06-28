@@ -7,13 +7,14 @@ import {
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
 import { PencilIcon, PlusIcon } from "@navikt/aksel-icons";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
-import RapporteringsperiodeDetaljer from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
-import RapporteringsperiodeStatus from "~/components/RapporteringsperiodeStatus";
+import { RapporteringsperiodeDetaljer } from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
+import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-status/RapporteringsperiodeStatus";
+import { RemixLink } from "~/components/RemixLink";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.ident, `Fant ikke bruker`);
@@ -40,7 +41,7 @@ export async function action({ request, params }: ActionArgs) {
     if (response.ok) {
       const korrigeringsperiode: IRapporteringsperiode = await response.json();
       return redirect(
-        `/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}/${korrigeringsperiode.id}`
+        `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
       );
     } else {
       throw new Error("Klarte ikke lage korrigeringsperiode");
@@ -63,6 +64,7 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { rapporteringsperioder } = useLoaderData();
+  const { ident } = useParams();
 
   return (
     <div className={styles.kontainer}>
@@ -95,17 +97,29 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                     content={
                       <>
                         <RapporteringsperiodeDetaljer periode={periode} />
-                        <Form method="post" key={0} className="my-6">
-                          <input type="hidden" value={periode.id} name="periodeId" />
-                          <Button
-                            variant="secondary"
-                            size="small"
-                            icon={<PencilIcon title="a11y-title" fontSize={20} />}
-                            type="submit"
+                        {periode.status === "TilUtfylling" && (
+                          <RemixLink
+                            as="Button"
+                            to={`/saksbehandling/person/${ident}/rediger-periode/${periode.id}`}
+                            className="my-6"
                           >
-                            Korriger
-                          </Button>
-                        </Form>
+                            Rediger
+                          </RemixLink>
+                        )}
+
+                        {periode.status !== "TilUtfylling" && (
+                          <Form method="post" key={0} className="my-6">
+                            <input type="hidden" value={periode.id} name="periodeId" />
+                            <Button
+                              variant="secondary"
+                              size="small"
+                              icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                              type="submit"
+                            >
+                              Korriger
+                            </Button>
+                          </Form>
+                        )}
                       </>
                     }
                   >

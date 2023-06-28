@@ -15,7 +15,7 @@ function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined
 ) {
-  const { onClick, replace = false, state, target, to, as, children } = props;
+  const { onClick, replace = false, state, target, to, as, children, className } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -43,6 +43,7 @@ function RemixLinkComponent(
         }}
         ref={ref}
         as="a"
+        className={className || ""}
       >
         {children}
       </Button>
@@ -59,6 +60,7 @@ function RemixLinkComponent(
         }
       }}
       ref={ref}
+      className={className || ""}
     >
       {children}
     </Link>

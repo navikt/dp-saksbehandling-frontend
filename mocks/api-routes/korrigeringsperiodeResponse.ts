@@ -11,7 +11,7 @@ export const mockKorrigeringsperiode: IRapporteringsperiode = {
     {
       dagIndex: 0,
       dato: "2023-06-19",
-      muligeAktiviteter: ["Arbeid"],
+      muligeAktiviteter: [],
       aktiviteter: [
         {
           id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
@@ -25,14 +25,7 @@ export const mockKorrigeringsperiode: IRapporteringsperiode = {
       dagIndex: 1,
       dato: "2023-06-20",
       muligeAktiviteter: ["Arbeid", "Ferie"],
-      aktiviteter: [
-        {
-          id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-          type: "Ferie",
-          timer: "PT8H0M",
-          dato: "2023-06-20",
-        },
-      ],
+      aktiviteter: [],
     },
     {
       dagIndex: 2,

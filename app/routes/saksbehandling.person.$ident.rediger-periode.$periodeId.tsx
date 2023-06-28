@@ -18,11 +18,9 @@ import { type TAktivitetstype, lagreAktivitet, slettAktivitet } from "~/models/a
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
-  invariant(params.korrigeringId, `Fant ikke korrigeringsperiode`);
-  let rapporteringsperiode, korrigeringsperiode: IRapporteringsperiode;
+  let rapporteringsperiode: IRapporteringsperiode;
 
   const periodeResponse = await hentRapporteringsperiode(params.periodeId, request);
-  const korrigeringResponse = await hentRapporteringsperiode(params.korrigeringId, request);
 
   if (periodeResponse.ok) {
     rapporteringsperiode = await periodeResponse.json();
@@ -30,19 +28,7 @@ export async function loader({ params, request }: LoaderArgs) {
     throw new Error("Feil i uthenting av rapporteringsperioder");
   }
 
-  if (korrigeringResponse.ok) {
-    korrigeringsperiode = await korrigeringResponse.json();
-  } else {
-    throw new Error("Feil i uthenting av rapporteringsperioder");
-  }
-
-  console.log(korrigeringsperiode.korrigertAv);
-
-  if (korrigeringsperiode.korrigertAv !== "") {
-    throw new Error("Periode er allerede korrigert");
-  }
-
-  return json({ rapporteringsperiode, korrigeringsperiode });
+  return json({ rapporteringsperiode });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -51,21 +37,10 @@ export async function action({ request, params }: ActionArgs) {
 
   invariant(periodeId, "RapporteringsID er obligatorisk");
 
-  const korrigeringId = formData.get("korrigeringId") as string;
   const aktivitetId = formData.get("aktivitetId") as string;
   const aktivitetstype = formData.get("aktivitetstype") as TAktivitetstype;
   const timer = formData.get("timer") as string;
   const dato = formData.get("dato") as string;
-
-  if (korrigeringId) {
-    const response = await godkjennKorrigeringsperiode(periodeId, request);
-
-    if (response.ok) {
-      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
-    } else {
-      throw new Error("Klarte ikke godkjenne korrigeringsperiode");
-    }
-  }
 
   if (aktivitetId) {
     const response = await slettAktivitet(periodeId, aktivitetId, request);
@@ -75,7 +50,7 @@ export async function action({ request, params }: ActionArgs) {
     } else {
       throw new Error("Klarte ikke slette aktivitet");
     }
-  } else {
+  } else if (aktivitetstype) {
     const response = await lagreAktivitet(periodeId, aktivitetstype, timer, dato, request);
 
     if (response.ok) {
@@ -83,11 +58,19 @@ export async function action({ request, params }: ActionArgs) {
     } else {
       throw new Error("Klarte ikke lagre aktivitet");
     }
+  } else {
+    const response = await godkjennKorrigeringsperiode(periodeId, request);
+
+    if (response.ok) {
+      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
+    } else {
+      throw new Error("Klarte ikke godkjenne korrigeringsperiode");
+    }
   }
 }
 
 export default function RedigerPeriode() {
-  const { rapporteringsperiode, korrigeringsperiode } = useLoaderData();
+  const { rapporteringsperiode } = useLoaderData();
   const [valgtDag, setValgtDag] = useState<IRapporteringsperiodeDag | undefined>();
   const [modalAapen, setModalAapen] = useState(false);
 
@@ -104,15 +87,15 @@ export default function RedigerPeriode() {
   return (
     <div className={styles.kontainer} id="dp-saksbehandling-frontend">
       <Heading level="1" size="large" spacing>
-        Endre rapportert periode
+        Endre periode
       </Heading>
       {!rapporteringsperiode ||
-        (!korrigeringsperiode && (
+        (!rapporteringsperiode && (
           <Alert variant="info" inline>
             Ingen rapporteringsperiode funnet
           </Alert>
         ))}
-      {rapporteringsperiode && korrigeringsperiode && (
+      {rapporteringsperiode && (
         <Form method="post" key={rapporteringsperiode.id}>
           <Table>
             <Table.Header>
@@ -146,7 +129,7 @@ export default function RedigerPeriode() {
                   <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
                   <Table.DataCell></Table.DataCell>
                 </Table.Row>
-                {korrigeringsperiode.dager.map((dag: IRapporteringsperiodeDag) => (
+                {rapporteringsperiode.dager.map((dag: IRapporteringsperiodeDag) => (
                   <Table.Row key={dag.dato} className={styles.periodeDetaljer}>
                     <Table.HeaderCell>
                       <FormattedDate date={dag.dato} />
@@ -172,7 +155,7 @@ export default function RedigerPeriode() {
               </>
             </Table.Body>
           </Table>
-          <input type="hidden" value={korrigeringsperiode.id} name="periodeId" />
+          <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Textarea label="Begrunnelse" name="begrunnelse" className="my-4"></Textarea>
           <Button type="submit" className="my-6">
             Send inn endring
@@ -181,7 +164,7 @@ export default function RedigerPeriode() {
       )}
 
       <AktivitetModal
-        periodeId={korrigeringsperiode.id}
+        periodeId={rapporteringsperiode.id}
         dag={valgtDag}
         modalAapen={modalAapen}
         lukkModal={lukkModal}
