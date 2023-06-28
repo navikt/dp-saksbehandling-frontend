@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionArgs) {
     const response = await slettAktivitet(periodeId, aktivitetId, request);
 
     if (response.ok) {
-      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
+      return json({ success: true });
     } else {
       throw new Error("Klarte ikke slette aktivitet");
     }
@@ -54,7 +54,7 @@ export async function action({ request, params }: ActionArgs) {
     const response = await lagreAktivitet(periodeId, aktivitetstype, timer, dato, request);
 
     if (response.ok) {
-      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
+      return json({ success: true });
     } else {
       throw new Error("Klarte ikke lagre aktivitet");
     }
