@@ -28,6 +28,8 @@ export async function loader({ params, request }: LoaderArgs) {
     throw new Error("Feil i uthenting av rapporteringsperioder");
   }
 
+  console.log(periodeResponse);
+
   return json({ rapporteringsperiode });
 }
 
