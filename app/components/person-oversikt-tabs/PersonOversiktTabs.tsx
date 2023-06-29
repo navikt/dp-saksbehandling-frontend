@@ -1,9 +1,12 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink, useLocation } from "@remix-run/react";
 import classNames from "classnames";
 
 import styles from "./PersonOversiktTabs.module.css";
 
 export function PersonOversiktTabs() {
+  const location = useLocation();
+  const aktivTab = location.pathname.split("/")[5] || "";
+
   return (
     <div className={styles.kontainer}>
       {tabsKonfig.map((tab) => {
@@ -11,8 +14,8 @@ export function PersonOversiktTabs() {
           <NavLink
             key={tab.url}
             to={tab.url}
-            className={({ isActive }) => {
-              return isActive ? classNames(styles.tabAktiv, styles.tab) : styles.tab;
+            className={() => {
+              return aktivTab === tab.url ? classNames(styles.tabAktiv, styles.tab) : styles.tab;
             }}
           >
             {tab.label}
