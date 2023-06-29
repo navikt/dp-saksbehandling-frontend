@@ -28,8 +28,6 @@ export async function loader({ params, request }: LoaderArgs) {
     throw new Error("Feil i uthenting av rapporteringsperioder");
   }
 
-  console.log(periodeResponse);
-
   return json({ rapporteringsperiode });
 }
 
@@ -66,6 +64,7 @@ export async function action({ request, params }: ActionArgs) {
     if (response.ok) {
       return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
     } else {
+      console.log("Klarte ikke å godkjenne periode", request);
       throw new Error("Klarte ikke godkjenne korrigeringsperiode");
     }
   }
