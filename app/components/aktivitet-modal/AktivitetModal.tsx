@@ -2,7 +2,7 @@ import { TrashIcon } from "@navikt/aksel-icons";
 import { Alert, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useActionData } from "@remix-run/react";
 import classNames from "classnames";
-import { ValidatedForm } from "remix-validated-form";
+import { ValidatedForm, useIsSubmitting } from "remix-validated-form";
 import { validatorAktivitet } from "~/utils/validering.util";
 import { AktivitetRadio } from "../aktivitet-radio/AktivitetRadio";
 import { type IRapporteringsperiodeDag } from "~/models/rapporteringsperiode.server";
@@ -25,6 +25,8 @@ export function AktivitetModal(props: IProps) {
   const { periodeId, dag, modalAapen, lukkModal } = props;
   const actionData = useActionData();
   const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetstype | string>("");
+  const isSubmitting = useIsSubmitting("send-aktivitet");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   function hentSlettKnappTekst() {
     const aktivitet = dag && dag.aktiviteter[0];
@@ -42,10 +44,17 @@ export function AktivitetModal(props: IProps) {
   }, []);
 
   useEffect(() => {
-    if (actionData && actionData.aktivitetSuccess) {
+    if (isSubmitting) {
+      setHasSubmitted(true);
+    }
+  }, [isSubmitting]);
+
+  useEffect(() => {
+    if (actionData && actionData.aktivitetSuccess && hasSubmitted) {
+      setHasSubmitted(false);
       lukkModal();
     }
-  }, [actionData, lukkModal]);
+  }, [actionData, modalAapen, lukkModal, hasSubmitted]);
 
   return (
     <Modal
@@ -90,7 +99,11 @@ export function AktivitetModal(props: IProps) {
         ))}
 
         {dag?.muligeAktiviteter && (
-          <ValidatedForm method="post" validator={validatorAktivitet(valgtAktivitet)}>
+          <ValidatedForm
+            method="post"
+            validator={validatorAktivitet(valgtAktivitet)}
+            id="send-aktivitet"
+          >
             <input type="hidden" name="periodeId" value={periodeId} />
             <input type="hidden" name="dato" value={dag.dato} />
 

@@ -12,7 +12,6 @@ import {
   godkjennKorrigeringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import { PencilIcon } from "@navikt/aksel-icons";
-import { useState } from "react";
 import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
 import { type TAktivitetstype, lagreAktivitet, slettAktivitet } from "~/models/aktivitet.server";
 
