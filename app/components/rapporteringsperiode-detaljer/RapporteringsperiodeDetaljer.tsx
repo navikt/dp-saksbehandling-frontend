@@ -25,7 +25,7 @@ export function RapporteringsperiodeDetaljer(props: { periode: IRapporteringsper
               <FormattedDate date={dag.dato} />
             </Table.HeaderCell>
             <Table.DataCell>{hentAktivitetITimer(dag, "Arbeid") || "-"}</Table.DataCell>
-            <Table.DataCell>{hentAktivitetITimer(dag, "Sykdom") || "-"}</Table.DataCell>
+            <Table.DataCell>{hentAktivitetITimer(dag, "Syk") || "-"}</Table.DataCell>
             <Table.DataCell>{hentAktivitetITimer(dag, "Ferie") || "-"}</Table.DataCell>
           </Table.Row>
         ))}

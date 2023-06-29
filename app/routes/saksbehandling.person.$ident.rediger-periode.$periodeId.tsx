@@ -55,7 +55,7 @@ export async function action({ request, params }: ActionArgs) {
       return json({ aktivitetError: true });
     }
   } else if (aktivitetstype) {
-    const tidsperiode = timerTilDuration(timer);
+    const tidsperiode = timer && timerTilDuration(timer);
     const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
     if (response.ok) {
@@ -163,7 +163,7 @@ export default function RedigerPeriode() {
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Textarea label="Begrunnelse" name="begrunnelse" className="my-4"></Textarea>
           <Button type="submit" className="my-6">
-            Send inn endring
+            Send inn
           </Button>
         </Form>
       )}
