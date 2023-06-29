@@ -10,6 +10,7 @@ interface IEnv {
   DP_RAPPORTERING_URL: string;
   IS_LOCALHOST: string;
   USE_MSW: string;
+  DP_RAPPORTERING_TOKEN: string;
 }
 
 export function getEnv(value: keyof IEnv) {
