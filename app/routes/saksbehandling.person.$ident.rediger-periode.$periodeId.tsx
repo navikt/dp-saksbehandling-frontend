@@ -14,6 +14,7 @@ import {
 import { PencilIcon } from "@navikt/aksel-icons";
 import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
 import { type TAktivitetstype, lagreAktivitet, slettAktivitet } from "~/models/aktivitet.server";
+import { useState } from "react";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
