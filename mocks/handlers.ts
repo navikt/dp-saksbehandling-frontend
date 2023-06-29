@@ -60,7 +60,7 @@ export const handlers = [
 
   // Lagre en aktivitet
   rest.post(
-    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66/aktivitet`,
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet`,
     (req, res, ctx) => {
       return res(ctx.status(204));
     }

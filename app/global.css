@@ -11,6 +11,16 @@
   font-size: var(--a-font-size-heading-large);
 }
 
+.knapperad {
+  display: flex;
+  gap: var(--a-spacing-2);
+  margin-top: var(--a-spacing-8);
+}
+
+.knapperad-hoyrestilt {
+  justify-content: flex-end;
+}
+
 .my-12 {
   margin: var(--a-spacing-12) 0;
 }

@@ -48,17 +48,17 @@ export async function action({ request, params }: ActionArgs) {
     const response = await slettAktivitet(periodeId, aktivitetId, request);
 
     if (response.ok) {
-      return json({ success: true });
+      return json({ aktivitetSuccess: true });
     } else {
-      throw new Error("Klarte ikke slette aktivitet");
+      return json({ aktivitetError: true });
     }
   } else if (aktivitetstype) {
     const response = await lagreAktivitet(periodeId, aktivitetstype, timer, dato, request);
 
     if (response.ok) {
-      return json({ success: true });
+      return json({ aktivitetSuccess: true });
     } else {
-      throw new Error("Klarte ikke lagre aktivitet");
+      return json({ aktivitetError: true });
     }
   } else {
     const response = await godkjennKorrigeringsperiode(periodeId, request);

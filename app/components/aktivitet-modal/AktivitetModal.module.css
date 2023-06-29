@@ -8,12 +8,6 @@
   flex-direction: column;
 }
 
-.knappKontainer {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--a-spacing-2);
-  margin-top: var(--a-spacing-8);
-}
 
 .slettKnapp {
   display: flex;
@@ -52,21 +46,6 @@
 }
 
 @media screen and (min-width: 768px) {
-  .kalender {
-    margin-left: calc(var(--a-spacing-6) * -1);
-    width: calc(var(--a-spacing-12) + 100%);
-  }
-
-  .kalenderUkedag {
-    font-size: var(--a-font-size-medium);
-  }
-
-  .kalenderDato {
-    width: 60px;
-    height: 60px;
-    font-size: var(--a-font-size-large);
-  }
-
   .aktivitetKontainer {
     min-width: 450px;
   }

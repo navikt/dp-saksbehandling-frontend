@@ -41,6 +41,12 @@ export function AktivitetModal(props: IProps) {
     Modal.setAppElement("#dp-saksbehandling-frontend");
   }, []);
 
+  useEffect(() => {
+    if (actionData && actionData.aktivitetSuccess) {
+      lukkModal();
+    }
+  }, [actionData, lukkModal]);
+
   return (
     <Modal
       aria-labelledby="modal-heading"
@@ -59,6 +65,12 @@ export function AktivitetModal(props: IProps) {
           >
             <FormattedDate date={dag?.dato} />
           </Heading>
+        )}
+
+        {actionData?.aktivitetError && (
+          <Alert variant="error" className={styles.feilmelding}>
+            {actionData.aktivitetError}
+          </Alert>
         )}
 
         {dag?.aktiviteter.map((aktivitet) => (
@@ -95,13 +107,7 @@ export function AktivitetModal(props: IProps) {
               <AktivitetTekstfelt name="timer" label="Antall timer:" />
             )}
 
-            {actionData?.error && (
-              <Alert variant="error" className={styles.feilmelding}>
-                {actionData.error}
-              </Alert>
-            )}
-
-            <div className={styles.knappKontainer}>
+            <div className="knapperad knapperad-hoyrestilt">
               <Button type="submit" name="submit">
                 Lagre
               </Button>
