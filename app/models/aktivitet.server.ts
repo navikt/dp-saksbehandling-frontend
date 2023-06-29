@@ -1,7 +1,7 @@
 import { getEnv } from "~/utils/env.utils";
 import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
 
-export type TAktivitetstype = "Arbeid" | "Ferie" | "Sykdom";
+export type TAktivitetstype = "Arbeid" | "Ferie" | "Syk";
 
 export interface IAktivitet {
   id: string;

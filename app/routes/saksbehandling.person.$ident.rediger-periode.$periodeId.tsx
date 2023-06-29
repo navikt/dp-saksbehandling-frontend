@@ -2,7 +2,11 @@ import { Form, useLoaderData } from "@remix-run/react";
 import styles from "../route-styles/rediger-periode.module.css";
 import { Alert, Button, Heading, Table, Textarea } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
-import { hentAktivitetITimer, hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
+import {
+  hentAktivitetITimer,
+  hentAllAktivitetITimer,
+  timerTilDuration,
+} from "~/utils/aktivitet.utils";
 import invariant from "tiny-invariant";
 import { type ActionArgs, json, redirect, type LoaderArgs } from "@remix-run/node";
 import {
@@ -51,7 +55,8 @@ export async function action({ request, params }: ActionArgs) {
       return json({ aktivitetError: true });
     }
   } else if (aktivitetstype) {
-    const response = await lagreAktivitet(periodeId, aktivitetstype, timer, dato, request);
+    const tidsperiode = timerTilDuration(timer);
+    const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
     if (response.ok) {
       return json({ aktivitetSuccess: true });
@@ -64,7 +69,6 @@ export async function action({ request, params }: ActionArgs) {
     if (response.ok) {
       return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
     } else {
-      console.log("Klarte ikke å godkjenne periode", request);
       throw new Error("Klarte ikke godkjenne korrigeringsperiode");
     }
   }
@@ -72,17 +76,17 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function RedigerPeriode() {
   const { rapporteringsperiode } = useLoaderData();
-  const [valgtDag, setValgtDag] = useState<IRapporteringsperiodeDag | undefined>();
+  const [valgtDato, setValgtDato] = useState<string | undefined>();
   const [modalAapen, setModalAapen] = useState(false);
 
   function aapneModal(dag: IRapporteringsperiodeDag) {
     setModalAapen(true);
-    setValgtDag(dag);
+    setValgtDato(dag.dato);
   }
 
   function lukkModal() {
     setModalAapen(false);
-    setValgtDag(undefined);
+    setValgtDato(undefined);
   }
 
   return (
@@ -121,7 +125,7 @@ export default function RedigerPeriode() {
                     {hentAllAktivitetITimer(rapporteringsperiode, "Arbeid")}
                   </Table.DataCell>
                   <Table.DataCell>
-                    {hentAllAktivitetITimer(rapporteringsperiode, "Sykdom")}
+                    {hentAllAktivitetITimer(rapporteringsperiode, "Syk")}
                   </Table.DataCell>
                   <Table.DataCell>
                     {hentAllAktivitetITimer(rapporteringsperiode, "Ferie")}
@@ -136,7 +140,7 @@ export default function RedigerPeriode() {
                       <FormattedDate date={dag.dato} />
                     </Table.HeaderCell>
                     <Table.DataCell>{hentAktivitetITimer(dag, "Arbeid") || "-"}</Table.DataCell>
-                    <Table.DataCell>{hentAktivitetITimer(dag, "Sykdom") || "-"}</Table.DataCell>
+                    <Table.DataCell>{hentAktivitetITimer(dag, "Syk") || "-"}</Table.DataCell>
                     <Table.DataCell>{hentAktivitetITimer(dag, "Ferie") || "-"}</Table.DataCell>
                     <Table.DataCell></Table.DataCell>
                     <Table.DataCell></Table.DataCell>
@@ -165,8 +169,8 @@ export default function RedigerPeriode() {
       )}
 
       <AktivitetModal
-        periodeId={rapporteringsperiode.id}
-        dag={valgtDag}
+        rapporteringsperiode={rapporteringsperiode}
+        dato={valgtDato}
         modalAapen={modalAapen}
         lukkModal={lukkModal}
       />

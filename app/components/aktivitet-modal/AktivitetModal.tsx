@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { ValidatedForm, useIsSubmitting } from "remix-validated-form";
 import { validatorAktivitet } from "~/utils/validering.util";
 import { AktivitetRadio } from "../aktivitet-radio/AktivitetRadio";
-import { type IRapporteringsperiodeDag } from "~/models/rapporteringsperiode.server";
+import { type IRapporteringsperiode } from "~/models/rapporteringsperiode.server";
 import { FormattedDate } from "../FormattedDate";
 import { useEffect, useState } from "react";
 import { type TAktivitetstype } from "~/models/aktivitet.server";
@@ -15,18 +15,20 @@ import { AktivitetTekstfelt } from "../aktivitet-tekstfelt/AktivitetTekstfelt";
 import styles from "./AktivitetModal.module.css";
 
 interface IProps {
-  periodeId: string;
-  dag: IRapporteringsperiodeDag | undefined;
+  rapporteringsperiode: IRapporteringsperiode;
+  dato: string | undefined;
   modalAapen: boolean;
   lukkModal: () => void;
 }
 
 export function AktivitetModal(props: IProps) {
-  const { periodeId, dag, modalAapen, lukkModal } = props;
+  const { rapporteringsperiode, dato, modalAapen, lukkModal } = props;
   const actionData = useActionData();
   const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetstype | string>("");
   const isSubmitting = useIsSubmitting("send-aktivitet");
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const dag = rapporteringsperiode.dager.find((rapporteringsdag) => rapporteringsdag.dato === dato);
 
   function hentSlettKnappTekst() {
     const aktivitet = dag && dag.aktiviteter[0];
@@ -84,7 +86,7 @@ export function AktivitetModal(props: IProps) {
 
         {dag?.aktiviteter.map((aktivitet) => (
           <Form key={aktivitet.id} method="post">
-            <input type="hidden" name="periodeId" defaultValue={periodeId} />
+            <input type="hidden" name="periodeId" defaultValue={rapporteringsperiode.id} />
             <input type="hidden" name="aktivitetId" defaultValue={aktivitet.id} />
             <button
               type="submit"
@@ -104,7 +106,7 @@ export function AktivitetModal(props: IProps) {
             validator={validatorAktivitet(valgtAktivitet)}
             id="send-aktivitet"
           >
-            <input type="hidden" name="periodeId" value={periodeId} />
+            <input type="hidden" name="periodeId" value={rapporteringsperiode.id} />
             <input type="hidden" name="dato" value={dag.dato} />
 
             <div className={styles.aktivitetKontainer}>
