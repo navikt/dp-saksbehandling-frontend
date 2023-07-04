@@ -13,7 +13,7 @@ import {
   type IRapporteringsperiode,
   hentRapporteringsperiode,
   type IRapporteringsperiodeDag,
-  godkjennKorrigeringsperiode,
+  godkjennPeriode,
 } from "~/models/rapporteringsperiode.server";
 import { PencilIcon } from "@navikt/aksel-icons";
 import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
@@ -37,39 +37,51 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
+
+  const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
 
+  invariant(params.ident, "Brukerens ident må være satt");
   invariant(periodeId, "RapporteringsID er obligatorisk");
 
-  const aktivitetId = formData.get("aktivitetId") as string;
-  const aktivitetstype = formData.get("aktivitetstype") as TAktivitetstype;
-  const timer = formData.get("timer") as string;
-  const dato = formData.get("dato") as string;
+  switch (submitKnapp) {
+    case "lagre-aktivitet": {
+      const dato = formData.get("dato") as string;
+      const aktivitetstype = formData.get("aktivitetstype") as TAktivitetstype;
+      const timer = formData.get("timer") as string;
+      const tidsperiode = timer && timerTilDuration(timer);
 
-  if (aktivitetId) {
-    const response = await slettAktivitet(periodeId, aktivitetId, request);
+      const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
-    if (response.ok) {
-      return json({ aktivitetSuccess: true });
-    } else {
-      return json({ aktivitetError: true });
+      if (response.ok) {
+        return json({ aktivitetSuccess: true });
+      } else {
+        return json({ aktivitetError: true });
+      }
     }
-  } else if (aktivitetstype) {
-    const tidsperiode = timer && timerTilDuration(timer);
-    const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
-    if (response.ok) {
-      return json({ aktivitetSuccess: true });
-    } else {
-      return json({ aktivitetError: true });
+    case "slette-aktivitet": {
+      const aktivitetId = formData.get("aktivitetId") as string;
+      const response = await slettAktivitet(periodeId, aktivitetId, request);
+
+      if (response.ok) {
+        return json({ aktivitetSuccess: true });
+      } else {
+        console.log(response);
+        return json({ aktivitetError: true });
+      }
     }
-  } else {
-    const response = await godkjennKorrigeringsperiode(periodeId, request);
 
-    if (response.ok) {
-      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
-    } else {
-      throw new Error("Klarte ikke godkjenne korrigeringsperiode");
+    case "godkjenne-periode": {
+      const response = await godkjennPeriode(periodeId, request);
+
+      if (response.ok) {
+        return redirect(
+          `/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`
+        );
+      } else {
+        throw new Error("Klarte ikke godkjenne korrigeringsperiode");
+      }
     }
   }
 }
@@ -162,7 +174,7 @@ export default function RedigerPeriode() {
           </Table>
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Textarea label="Begrunnelse" name="begrunnelse" className="my-4"></Textarea>
-          <Button type="submit" className="my-6">
+          <Button type="submit" name="submit" value="godkjenne-periode" className="my-6">
             Send inn
           </Button>
         </Form>

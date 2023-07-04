@@ -4,6 +4,7 @@ import {
   hentRapporteringsperioder,
   lagKorrigeringsperiode,
   lagRapporteringsperiode,
+  avgodkjennPeriode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
@@ -30,33 +31,49 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
+  const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
-  const nyPeriode = formData.get("ny-periode") as string;
 
   invariant(params.ident, "Brukerens ident må være satt");
 
-  if (periodeId) {
-    const response = await lagKorrigeringsperiode(periodeId, request);
+  switch (submitKnapp) {
+    case "start-korrigering": {
+      const response = await lagKorrigeringsperiode(periodeId, request);
 
-    if (response.ok) {
-      const korrigeringsperiode: IRapporteringsperiode = await response.json();
-      return redirect(
-        `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
-      );
-    } else {
-      throw new Error("Klarte ikke lage korrigeringsperiode");
+      if (response.ok) {
+        const korrigeringsperiode: IRapporteringsperiode = await response.json();
+        return redirect(
+          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
+        );
+      } else {
+        throw new Error("Klarte ikke starte korrigering");
+      }
     }
-  } else if (nyPeriode) {
-    const response = await lagRapporteringsperiode(params.ident, request);
 
-    if (response.ok) {
-      const rapporteringsperiode: IRapporteringsperiode = await response.json();
-      return json({ rapporteringsperiode });
-    } else {
-      throw new Error("Klarte ikke lage en ny rapporteringsperiode");
+    case "avgodkjenn": {
+      const response = await avgodkjennPeriode(periodeId, request);
+
+      if (response.ok) {
+        return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
+      } else {
+        throw new Error("Klarte ikke avgodkjenne periode");
+      }
     }
-  } else {
-    throw new Error("Det skjedde en feil");
+
+    case "ny-periode": {
+      const response = await lagRapporteringsperiode(params.ident, request);
+
+      if (response.ok) {
+        const rapporteringsperiode: IRapporteringsperiode = await response.json();
+        return json({ rapporteringsperiode });
+      } else {
+        throw new Error("Klarte ikke lage en ny rapporteringsperiode");
+      }
+    }
+
+    default: {
+      throw new Error("Det skjedde en feil");
+    }
   }
 }
 
@@ -105,14 +122,32 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                           </RemixLink>
                         )}
 
-                        {periode.status !== "TilUtfylling" && (
+                        {periode.status === "Godkjent" && (
                           <Form method="post" key={0} className="my-6">
                             <input type="hidden" value={periode.id} name="periodeId" />
                             <Button
+                              type="submit"
                               variant="secondary"
                               size="small"
                               icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                              name="submit"
+                              value="avgodkjenn"
+                            >
+                              Lås opp og rediger
+                            </Button>
+                          </Form>
+                        )}
+
+                        {periode.status === "Innsendt" && (
+                          <Form method="post" key={0} className="my-6">
+                            <input type="hidden" value={periode.id} name="periodeId" />
+                            <Button
                               type="submit"
+                              variant="secondary"
+                              size="small"
+                              icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                              name="submit"
+                              value="start-korrigering"
                             >
                               Korriger
                             </Button>
@@ -126,7 +161,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                       <FormattedDate date={periode.tilOgMed} />
                     </Table.DataCell>
                     <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
-                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Sykdom")}</Table.DataCell>
+                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
                     <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
                     <Table.DataCell>TODO</Table.DataCell>
                     <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>

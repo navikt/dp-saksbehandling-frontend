@@ -54,6 +54,7 @@ export function AktivitetModal(props: IProps) {
   useEffect(() => {
     if (actionData && actionData.aktivitetSuccess && hasSubmitted) {
       setHasSubmitted(false);
+      setValgtAktivitet("");
       lukkModal();
     }
   }, [actionData, modalAapen, lukkModal, hasSubmitted]);
@@ -91,7 +92,7 @@ export function AktivitetModal(props: IProps) {
             <button
               type="submit"
               name="submit"
-              value="slette"
+              value="slette-aktivitet"
               className={classNames(styles.slettKnapp, styles[aktivitet.type])}
             >
               {hentSlettKnappTekst()}
@@ -123,7 +124,7 @@ export function AktivitetModal(props: IProps) {
             )}
 
             <div className="knapperad knapperad-hoyrestilt">
-              <Button type="submit" name="submit">
+              <Button type="submit" name="submit" value="lagre-aktivitet">
                 Lagre
               </Button>
             </div>

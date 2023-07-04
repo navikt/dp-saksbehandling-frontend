@@ -113,7 +113,7 @@ export async function lagKorrigeringsperiode(periodeId: string, request: Request
   return response;
 }
 
-export async function godkjennKorrigeringsperiode(periodeId: string, request: Request) {
+export async function godkjennPeriode(periodeId: string, request: Request) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/godkjenn`;
 
   const session = await getAzureSession(request);
@@ -125,7 +125,30 @@ export async function godkjennKorrigeringsperiode(periodeId: string, request: Re
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
   const response = await fetch(url, {
-    method: "POST",
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
+
+  return response;
+}
+
+export async function avgodkjennPeriode(periodeId: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/avgodkjenn`;
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Error("Feil ved henting av sesjon");
+  }
+
+  const onBehalfOfToken = await getRapporteringOboToken(session);
+
+  const response = await fetch(url, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
