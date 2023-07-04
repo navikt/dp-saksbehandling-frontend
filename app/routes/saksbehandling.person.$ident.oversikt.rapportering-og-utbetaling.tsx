@@ -24,7 +24,6 @@ export async function loader({ params, request }: LoaderArgs) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
   } else {
-    console.log("Klarte ikke hente rapporteringsperioder", response);
     throw new Error("Feil i uthenting av rapporteringsperioder");
   }
 }
@@ -45,13 +44,10 @@ export async function action({ request, params }: ActionArgs) {
         `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
       );
     } else {
-      console.log("Klarte ikke lage korrigeringsperiode", response);
       throw new Error("Klarte ikke lage korrigeringsperiode");
     }
   } else if (nyPeriode) {
     const response = await lagRapporteringsperiode(params.ident, request);
-
-    console.log("response fra dp-rapportering", response);
 
     if (response.ok) {
       const rapporteringsperiode: IRapporteringsperiode = await response.json();

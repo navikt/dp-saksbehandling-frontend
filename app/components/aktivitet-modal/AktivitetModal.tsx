@@ -79,8 +79,8 @@ export function AktivitetModal(props: IProps) {
         )}
 
         {actionData?.aktivitetError && (
-          <Alert variant="error" className={styles.feilmelding}>
-            {actionData.aktivitetError}
+          <Alert variant="error" className="my-3">
+            Det skjedde en feil.
           </Alert>
         )}
 

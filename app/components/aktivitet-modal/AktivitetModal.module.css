@@ -22,10 +22,6 @@
   border-radius: var(--a-spacing-6);
 }
 
-.feilmelding {
-  margin-top: var(--a-spacing-4);
-}
-
 .Arbeid {
   background-color: var(--a-blue-200);
 }

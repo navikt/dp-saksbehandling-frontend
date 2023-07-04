@@ -44,3 +44,7 @@
 .my-3 {
   margin: var(--a-spacing-3) 0;
 }
+
+.my-2 {
+  margin: var(--a-spacing-2) 0;
+}
