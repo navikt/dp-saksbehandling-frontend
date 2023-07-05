@@ -8,7 +8,7 @@ export function DagpengerStatus() {
       <div>
         <Detail>Status</Detail>
         <Heading level="3" size="xsmall">
-          Ordninær søknad om dagpenger
+          Ordinær søknad om dagpenger
         </Heading>
       </div>
       <div>

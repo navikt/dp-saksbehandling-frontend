@@ -1,0 +1,5 @@
+.statustekst {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--a-spacing-1)
+}

@@ -6,10 +6,12 @@ import {
   type IRapporteringsperiodeDag,
 } from "~/models/rapporteringsperiode.server";
 
+import styles from "./RapporteringsperiodeDetaljer.module.css";
+
 export function RapporteringsperiodeDetaljer(props: { periode: IRapporteringsperiode }) {
   const { periode } = props;
   return (
-    <Table size="small">
+    <Table size="small" className={styles.periodeDetaljer}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
