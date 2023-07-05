@@ -5,6 +5,7 @@ import {
   lagKorrigeringsperiode,
   lagRapporteringsperiode,
   avgodkjennPeriode,
+  hentRapporteringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
@@ -16,6 +17,7 @@ import styles from "../route-styles/rapportering-og-utbetaling.module.css";
 import { RapporteringsperiodeDetaljer } from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
 import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-status/RapporteringsperiodeStatus";
 import { RemixLink } from "~/components/RemixLink";
+import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.ident, `Fant ikke bruker`);
@@ -61,13 +63,24 @@ export async function action({ request, params }: ActionArgs) {
     }
 
     case "ny-periode": {
-      const response = await lagRapporteringsperiode(params.ident, request);
+      const response = await lagRapporteringsperiode(periodeId, request);
 
       if (response.ok) {
         const rapporteringsperiode: IRapporteringsperiode = await response.json();
         return json({ rapporteringsperiode });
       } else {
         throw new Error("Klarte ikke lage en ny rapporteringsperiode");
+      }
+    }
+
+    case "hent-historikk": {
+      const response = await hentRapporteringsperiode(periodeId, request);
+
+      if (response.ok) {
+        const historiskPeriode: IRapporteringsperiode = await response.json();
+        return json({ historiskPeriode });
+      } else {
+        throw new Error("Klarte ikke hente opp historisk rapporteringsperiode");
       }
     }
 
@@ -153,6 +166,8 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                             </Button>
                           </Form>
                         )}
+
+                        {periode.korrigerer && <HistoriskRapporteringsperiode periode={periode} />}
                       </>
                     }
                   >
@@ -164,7 +179,9 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                     <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
                     <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
                     <Table.DataCell>TODO</Table.DataCell>
-                    <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
+                    <Table.DataCell>
+                      {periode.korrigerer && "Korrigerer tidligere periode"}
+                    </Table.DataCell>
                     <Table.DataCell>
                       <RapporteringsperiodeStatus periode={periode} />
                     </Table.DataCell>

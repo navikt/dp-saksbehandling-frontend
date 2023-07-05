@@ -189,3 +189,13 @@ export default function RedigerPeriode() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  return (
+    <div className={styles.kontainer}>
+      <Alert variant="error" inline>
+        Noe skjedde feil
+      </Alert>
+    </div>
+  );
+}
