@@ -1,6 +1,6 @@
 import { Form, useLoaderData } from "@remix-run/react";
 import styles from "../route-styles/rediger-periode.module.css";
-import { Alert, Button, Heading, Table, Textarea } from "@navikt/ds-react";
+import { Alert, Button, Heading, Table } from "@navikt/ds-react";
 import { FormattedDate } from "~/components/FormattedDate";
 import {
   hentAktivitetITimer,
@@ -173,7 +173,6 @@ export default function RedigerPeriode() {
             </Table.Body>
           </Table>
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
-          <Textarea label="Begrunnelse" name="begrunnelse" className="my-4"></Textarea>
           <Button type="submit" name="submit" value="godkjenne-periode" className="my-6">
             Send inn
           </Button>
