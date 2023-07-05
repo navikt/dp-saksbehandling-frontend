@@ -149,7 +149,7 @@ export default function RedigerPeriode() {
                 {rapporteringsperiode.dager.map((dag: IRapporteringsperiodeDag) => (
                   <Table.Row key={dag.dato} className={styles.periodeDetaljer}>
                     <Table.HeaderCell>
-                      <FormattedDate date={dag.dato} />
+                      <FormattedDate date={dag.dato} ukedag />
                     </Table.HeaderCell>
                     <Table.DataCell>{hentAktivitetITimer(dag, "Arbeid") || "-"}</Table.DataCell>
                     <Table.DataCell>{hentAktivitetITimer(dag, "Syk") || "-"}</Table.DataCell>

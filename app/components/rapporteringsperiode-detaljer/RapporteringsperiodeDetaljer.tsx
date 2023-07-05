@@ -22,7 +22,7 @@ export function RapporteringsperiodeDetaljer(props: { periode: IRapporteringsper
         {periode.dager.map((dag: IRapporteringsperiodeDag) => (
           <Table.Row key={dag.dato}>
             <Table.HeaderCell>
-              <FormattedDate date={dag.dato} />
+              <FormattedDate date={dag.dato} ukedag />
             </Table.HeaderCell>
             <Table.DataCell>{hentAktivitetITimer(dag, "Arbeid") || "-"}</Table.DataCell>
             <Table.DataCell>{hentAktivitetITimer(dag, "Syk") || "-"}</Table.DataCell>
