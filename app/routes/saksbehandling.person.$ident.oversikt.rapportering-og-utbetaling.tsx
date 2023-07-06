@@ -3,7 +3,6 @@ import {
   type IRapporteringsperiode,
   hentRapporteringsperioder,
   lagKorrigeringsperiode,
-  lagRapporteringsperiode,
   avgodkjennPeriode,
   hentRapporteringsperiode,
 } from "~/models/rapporteringsperiode.server";
@@ -12,7 +11,7 @@ import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/nod
 import { Form, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
-import { PencilIcon, PlusIcon } from "@navikt/aksel-icons";
+import { PencilIcon } from "@navikt/aksel-icons";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
 import { RapporteringsperiodeDetaljer } from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
 import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-status/RapporteringsperiodeStatus";
@@ -59,17 +58,6 @@ export async function action({ request, params }: ActionArgs) {
         return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
       } else {
         throw new Error("Klarte ikke avgodkjenne periode");
-      }
-    }
-
-    case "ny-periode": {
-      const response = await lagRapporteringsperiode(periodeId, request);
-
-      if (response.ok) {
-        const rapporteringsperiode: IRapporteringsperiode = await response.json();
-        return json({ rapporteringsperiode });
-      } else {
-        throw new Error("Klarte ikke lage en ny rapporteringsperiode");
       }
     }
 
@@ -192,12 +180,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
           </Table>
         </>
       )}
-      <Form method="post" className="my-6">
-        <input type="hidden" name="ny-periode" value="true" />
-        <Button type="submit" icon={<PlusIcon />}>
-          Lag ny rapporteringsperiode
-        </Button>
-      </Form>
     </div>
   );
 }

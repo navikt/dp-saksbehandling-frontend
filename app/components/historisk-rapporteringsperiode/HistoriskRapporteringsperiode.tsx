@@ -10,27 +10,30 @@ interface IProps {
 export function HistoriskRapporteringsperiode(props: IProps) {
   const { periode } = props;
   const actionData = useActionData();
+  const historikkHentet = actionData?.historiskPeriode.id === periode.korrigerer;
 
   return (
     <>
-      <Form method="post" className="my-3">
-        <Alert variant="info" className="my-3">
-          Denne perioden korrigerer en annen.
-        </Alert>
+      <Alert variant="info" className="my-3">
+        Denne perioden korrigerer en annen.
+      </Alert>
 
-        <input type="hidden" name="periodeId" value={periode.korrigerer} />
-        <Button type="submit" name="submit" value="hent-historikk">
-          Hent historikk
-        </Button>
-      </Form>
-
-      {actionData?.historiskPeriode.id === periode.korrigerer && (
+      {historikkHentet && (
         <div className="my-6">
           <Heading level="3" size="small" spacing>
             Historisk periode
           </Heading>
           <RapporteringsperiodeDetaljer periode={actionData.historiskPeriode} />
         </div>
+      )}
+
+      {!historikkHentet && (
+        <Form method="post" className="my-3">
+          <input type="hidden" name="periodeId" value={periode.korrigerer} />
+          <Button type="submit" name="submit" value="hent-historikk">
+            Hent historikk
+          </Button>
+        </Form>
       )}
 
       {actionData?.historiskPeriode.korrigerer && (
