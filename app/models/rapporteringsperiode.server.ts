@@ -134,3 +134,25 @@ export async function avgodkjennPeriode(periodeId: string, request: Request) {
 
   return response;
 }
+
+export async function lagRapporteringsperiode(ident: string, fraOgMed: string, request: Request) {
+  const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder`;
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Error("Feil ved henting av sesjon");
+  }
+
+  const onBehalfOfToken = await getRapporteringOboToken(session);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+    body: JSON.stringify({ ident, fraOgMed }),
+  });
+  return response;
+}

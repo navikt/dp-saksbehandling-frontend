@@ -99,3 +99,12 @@ export function validatorAktivitet(aktivitetType: TAktivitetstype | string) {
     ? withZod(aktivitetsvalideringArbeid)
     : withZod(aktivitetsvalideringSykFerie);
 }
+
+export const nyRapporteringsperiodeValidator = withZod(
+  z.object({
+    fraOgMed: z.string().regex(
+      new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+      "Ugyldig dato"
+    ),
+  })
+);
