@@ -59,6 +59,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
       } else {
+        console.dir(response);
         throw new Error("Klarte ikke avgodkjenne periode");
       }
     }
@@ -84,6 +85,7 @@ export async function action({ request, params }: ActionArgs) {
         const rapporteringsperiode: IRapporteringsperiode = await response.json();
         return json({ rapporteringsperiode });
       } else {
+        console.dir(response);
         throw new Error("Klarte ikke lage en ny rapporteringsperiode");
       }
     }

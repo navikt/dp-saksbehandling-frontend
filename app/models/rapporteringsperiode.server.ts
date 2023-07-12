@@ -124,12 +124,13 @@ export async function avgodkjennPeriode(periodeId: string, request: Request) {
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
+    body: JSON.stringify({ begrunnelse: "fordi" }),
   });
 
   return response;
