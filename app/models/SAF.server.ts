@@ -61,7 +61,10 @@ export async function hentJournalpost(
     return data.journalpost;
   } catch (error) {
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
-    throw new Response("Feil ved henting av dokumenter", { status: 500 });
+    throw new Response(
+      "Feil ved henting av dokumenter, (DEV: sannsynligvis er brukeren skjermet og saksbehandler har ikke de riktige tilgangene)",
+      { status: 500 }
+    );
   }
 }
 
