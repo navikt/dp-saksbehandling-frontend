@@ -29,7 +29,7 @@ export const mockJournalpost: IJournalpost = {
     },
     {
       dokumentInfoId: "624863375",
-      tittel: "Tjenestebevis",
+      tittel: "(mockdata) Tjenestebevis",
       brevkode: "T3",
       originalJournalpostId: "598116231",
       dokumentvarianter: [
@@ -42,7 +42,7 @@ export const mockJournalpost: IJournalpost = {
     },
     {
       dokumentInfoId: "624863376",
-      tittel: "Dokumentasjon av andre ytelser",
+      tittel: "(mockdata) Dokumentasjon av andre ytelser",
       brevkode: "K1",
       originalJournalpostId: "598116231",
       dokumentvarianter: [
@@ -55,7 +55,7 @@ export const mockJournalpost: IJournalpost = {
     },
     {
       dokumentInfoId: "624863377",
-      tittel: "Dokumentasjon av sluttdato",
+      tittel: "(mockdata) Dokumentasjon av sluttdato",
       brevkode: "T2",
       originalJournalpostId: "598116231",
       dokumentvarianter: [
@@ -68,7 +68,7 @@ export const mockJournalpost: IJournalpost = {
     },
     {
       dokumentInfoId: "624863378",
-      tittel: "Dokumentasjon av helse og funksjonsnivå",
+      tittel: "(mockdata) Dokumentasjon av helse og funksjonsnivå",
       brevkode: "T9",
       originalJournalpostId: "598116231",
       dokumentvarianter: [

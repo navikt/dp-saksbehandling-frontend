@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Heading, Select } from "@navikt/ds-react";
+import { Alert, Heading, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
 import { useRouteLoaderData } from "@remix-run/react";
@@ -10,7 +10,7 @@ export function PDFLeser() {
     "routes/saksbehandling.person.$ident.oppgave.$oppgaveId"
   ) as { journalposter: IJournalpost[] };
 
-  console.log(journalposter);
+  console.log("journalposter for pdf leser fra saf: ", journalposter);
 
   const [fileUrl, setFileUrl] = useState<string>("");
   const [journalpostId, setJournalpostId] = useState<string>(journalposter[0].journalpostId ?? "");
@@ -75,6 +75,10 @@ export function PDFLeser() {
               </option>
             ))}
           </Select>
+          {currentActiveJournalpost &&
+            currentActiveJournalpost.dokumenter.find((dokument) => {
+              return !dokument.dokumentvarianter[0].saksbehandlerHarTilgang;
+            }) && <Alert variant={"warning"}> AIIII DU HAR IKKE TILGANG</Alert>}
 
           {currentActiveJournalpost && (
             <Select
