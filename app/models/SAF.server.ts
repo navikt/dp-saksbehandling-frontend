@@ -5,6 +5,7 @@ import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
+import { GraphQLError } from "graphql/error";
 
 export interface IJournalpost {
   journalpostId: string;
@@ -59,10 +60,18 @@ export async function hentJournalpost(
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
     return data.journalpost;
-  } catch (error) {
+  } catch (error: unknown) {
+    //todo, error skal være graphql error object med errormessage og extensions med f.eks responsecode, eksempel:
+    //"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],]
     logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
+    if (error instanceof GraphQLError) {
+      throw new Response(
+        `Feil ved henting av dokumenter, message: ${error.message} og statuscode: ${error.extensions.code}`,
+        { status: 500 }
+      );
+    }
     throw new Response(
-      "Feil ved henting av dokumenter, (DEV: sannsynligvis er brukeren skjermet og saksbehandler har ikke de riktige tilgangene)",
+      `Feil ved henting av dokumenter, (DEV: sannsynligvis er brukeren skjermet og saksbehandler har ikke de riktige tilgangene), message: ${error}`,
       { status: 500 }
     );
   }
