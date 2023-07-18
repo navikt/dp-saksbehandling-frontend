@@ -67,7 +67,7 @@ export async function hentJournalpost(
     logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
     if (error instanceof Error) {
       const err = error as GraphQLError;
-      throw new Response(`Jippi en ekte feilmelding. ${err.message} ${err.extensions.code}`, {
+      throw new Response(`Jippi en ekte feilmelding. ${err.message} ${err.extensions}`, {
         status: 500,
       });
     }
