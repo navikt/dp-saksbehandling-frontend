@@ -5,7 +5,6 @@ import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
-import type { GraphQLError } from "graphql/error";
 
 export interface IJournalpost {
   journalpostId: string;
@@ -61,15 +60,16 @@ export async function hentJournalpost(
     // @ts-ignore
     return data.journalpost;
   } catch (error: unknown) {
-    //todo, error skal være graphql error object med errormessage og extensions med f.eks responsecode, eksempel:
-    //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
-    //
     logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
     if (error instanceof Error) {
-      const err = error as GraphQLError;
-      throw new Response(`Jippi en ekte feilmelding. ${err.message} ${err.extensions}`, {
-        status: 500,
-      });
+      //todo: greie å lese errorobjektet som graphql error, eksempel:
+      //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
+      throw new Response(
+        `Feil ved henting av dokumenter, antakeligvis tilgangsproblemer. ${error.message}`,
+        {
+          status: 500,
+        }
+      );
     }
     throw new Response(`Feil ved henting av dokumenter.`, { status: 500 });
   }
