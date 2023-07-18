@@ -64,7 +64,7 @@ export async function hentJournalpost(
     //todo, error skal være graphql error object med errormessage og extensions med f.eks responsecode, eksempel:
     //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
     //
-    logger.warning(`Feil fra SAF med call-id ${callId}: ${error}`);
+    logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
     if (error instanceof Error) {
       const err = error as GraphQLError;
       throw new Response(`Jippi en ekte feilmelding. ${err.message} ${err.extensions.code}`, {
