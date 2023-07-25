@@ -1,24 +1,24 @@
+import { PencilIcon } from "@navikt/aksel-icons";
+import { Alert, Button, Heading, Table, Textarea } from "@navikt/ds-react";
+import { json, redirect, type ActionArgs, type LoaderArgs } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
-import styles from "../route-styles/rediger-periode.module.css";
-import { Alert, Button, Heading, Table } from "@navikt/ds-react";
+import { useState } from "react";
+import invariant from "tiny-invariant";
 import { FormattedDate } from "~/components/FormattedDate";
+import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
+import { lagreAktivitet, slettAktivitet, type TAktivitetstype } from "~/models/aktivitet.server";
+import {
+  godkjennPeriode,
+  hentRapporteringsperiode,
+  type IRapporteringsperiode,
+  type IRapporteringsperiodeDag,
+} from "~/models/rapporteringsperiode.server";
 import {
   hentAktivitetITimer,
   hentAllAktivitetITimer,
   timerTilDuration,
 } from "~/utils/aktivitet.utils";
-import invariant from "tiny-invariant";
-import { type ActionArgs, json, redirect, type LoaderArgs } from "@remix-run/node";
-import {
-  type IRapporteringsperiode,
-  hentRapporteringsperiode,
-  type IRapporteringsperiodeDag,
-  godkjennPeriode,
-} from "~/models/rapporteringsperiode.server";
-import { PencilIcon } from "@navikt/aksel-icons";
-import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
-import { type TAktivitetstype, lagreAktivitet, slettAktivitet } from "~/models/aktivitet.server";
-import { useState } from "react";
+import styles from "../route-styles/rediger-periode.module.css";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
@@ -40,6 +40,7 @@ export async function action({ request, params }: ActionArgs) {
 
   const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
+  const begrunnelse = formData.get("begrunnelse") as string;
 
   invariant(params.ident, "Brukerens ident må være satt");
   invariant(periodeId, "RapporteringsID er obligatorisk");
@@ -73,7 +74,9 @@ export async function action({ request, params }: ActionArgs) {
     }
 
     case "godkjenne-periode": {
-      const response = await godkjennPeriode(periodeId, request);
+      invariant(begrunnelse, "Begrunnelse er obligatorisk");
+
+      const response = await godkjennPeriode(periodeId, begrunnelse, request);
 
       if (response.ok) {
         return redirect(
@@ -172,6 +175,15 @@ export default function RedigerPeriode() {
               </>
             </Table.Body>
           </Table>
+
+          <Textarea
+            defaultValue={"lkjsdklfjskd"}
+            error={""}
+            resize={true}
+            label="begrunnelse"
+            name="begrunnelse"
+          />
+
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Button type="submit" name="submit" value="godkjenne-periode" className="my-6">
             Send inn
