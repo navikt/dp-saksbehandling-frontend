@@ -89,7 +89,7 @@ export async function lagKorrigeringsperiode(periodeId: string, request: Request
   return response;
 }
 
-export async function godkjennPeriode(periodeId: string, request: Request) {
+export async function godkjennPeriode(periodeId: string, begrunnelse: string, request: Request) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/godkjenn`;
 
   const session = await getAzureSession(request);
@@ -101,12 +101,13 @@ export async function godkjennPeriode(periodeId: string, request: Request) {
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
+    body: JSON.stringify({ begrunnelse }),
   });
 
   return response;

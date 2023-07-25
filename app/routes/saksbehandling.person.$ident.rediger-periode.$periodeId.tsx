@@ -1,24 +1,28 @@
-import { Form, useLoaderData } from "@remix-run/react";
-import styles from "../route-styles/rediger-periode.module.css";
+import { PencilIcon } from "@navikt/aksel-icons";
 import { Alert, Button, Heading, Table } from "@navikt/ds-react";
+import { json, redirect, type ActionArgs, type LoaderArgs } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { withZod } from "@remix-validated-form/with-zod";
+import { useState } from "react";
+import { ValidatedForm, validationError } from "remix-validated-form";
+import invariant from "tiny-invariant";
+import { z } from "zod";
 import { FormattedDate } from "~/components/FormattedDate";
+import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
+import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
+import { lagreAktivitet, slettAktivitet, type TAktivitetstype } from "~/models/aktivitet.server";
+import {
+  godkjennPeriode,
+  hentRapporteringsperiode,
+  type IRapporteringsperiode,
+  type IRapporteringsperiodeDag,
+} from "~/models/rapporteringsperiode.server";
 import {
   hentAktivitetITimer,
   hentAllAktivitetITimer,
   timerTilDuration,
 } from "~/utils/aktivitet.utils";
-import invariant from "tiny-invariant";
-import { type ActionArgs, json, redirect, type LoaderArgs } from "@remix-run/node";
-import {
-  type IRapporteringsperiode,
-  hentRapporteringsperiode,
-  type IRapporteringsperiodeDag,
-  godkjennPeriode,
-} from "~/models/rapporteringsperiode.server";
-import { PencilIcon } from "@navikt/aksel-icons";
-import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
-import { type TAktivitetstype, lagreAktivitet, slettAktivitet } from "~/models/aktivitet.server";
-import { useState } from "react";
+import styles from "../route-styles/rediger-periode.module.css";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
@@ -34,6 +38,12 @@ export async function loader({ params, request }: LoaderArgs) {
 
   return json({ rapporteringsperiode });
 }
+
+export const validator = withZod(
+  z.object({
+    begrunnelse: z.string().min(1, { message: "Begrunnelse er påkrevd" }),
+  })
+);
 
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
@@ -53,35 +63,36 @@ export async function action({ request, params }: ActionArgs) {
 
       const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
-      if (response.ok) {
-        return json({ aktivitetSuccess: true });
-      } else {
+      if (!response.ok) {
         return json({ aktivitetError: true });
       }
+
+      return json({ aktivitetSuccess: true });
     }
 
     case "slette-aktivitet": {
       const aktivitetId = formData.get("aktivitetId") as string;
       const response = await slettAktivitet(periodeId, aktivitetId, request);
 
-      if (response.ok) {
-        return json({ aktivitetSuccess: true });
-      } else {
-        console.log(response);
+      if (!response.ok) {
         return json({ aktivitetError: true });
       }
+
+      return json({ aktivitetSuccess: true });
     }
 
     case "godkjenne-periode": {
-      const response = await godkjennPeriode(periodeId, request);
+      const validering = await validator.validate(formData);
 
-      if (response.ok) {
-        return redirect(
-          `/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`
-        );
-      } else {
+      if (validering.error) return validationError(validering.error);
+
+      const response = await godkjennPeriode(periodeId, validering.data.begrunnelse, request);
+
+      if (!response.ok) {
         throw new Error("Klarte ikke godkjenne korrigeringsperiode");
       }
+
+      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
     }
   }
 }
@@ -113,7 +124,7 @@ export default function RedigerPeriode() {
           </Alert>
         ))}
       {rapporteringsperiode && (
-        <Form method="post" key={rapporteringsperiode.id}>
+        <ValidatedForm key={rapporteringsperiode.id} validator={validator} method="post">
           <Table>
             <Table.Header>
               <Table.Row>
@@ -172,11 +183,17 @@ export default function RedigerPeriode() {
               </>
             </Table.Body>
           </Table>
+          <Input
+            className={styles.redigerPeriodeBegrunnelse}
+            name="begrunnelse"
+            label="Begrunnelse"
+            svartype="String"
+          />
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Button type="submit" name="submit" value="godkjenne-periode" className="my-6">
             Send inn
           </Button>
-        </Form>
+        </ValidatedForm>
       )}
 
       <AktivitetModal
