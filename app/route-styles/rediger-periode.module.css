@@ -9,3 +9,7 @@
 .inputFelt input {
   width: 70px !important;
 }
+
+.redigerPeriodeBegrunnelse {
+  margin-top: var(--a-spacing-12);
+}

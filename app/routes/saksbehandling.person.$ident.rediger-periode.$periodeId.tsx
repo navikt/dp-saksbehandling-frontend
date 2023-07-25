@@ -183,7 +183,12 @@ export default function RedigerPeriode() {
               </>
             </Table.Body>
           </Table>
-          <Input name="begrunnelse" label="Begrunnelse" svartype="String" />
+          <Input
+            className={styles.redigerPeriodeBegrunnelse}
+            name="begrunnelse"
+            label="Begrunnelse"
+            svartype="String"
+          />
           <input type="hidden" value={rapporteringsperiode.id} name="periodeId" />
           <Button type="submit" name="submit" value="godkjenne-periode" className="my-6">
             Send inn
