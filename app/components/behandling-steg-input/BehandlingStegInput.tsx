@@ -4,7 +4,8 @@ import { BehandlingStegInputDato } from "~/components/behandling-steg-input/Beha
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
-import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
+import { type TBehandlingStegSvartype } from "~/models/oppgave.server";
+import { BehandlingStegInputRettighetstype } from "./BehandlingStegInputRettighetstype";
 import styles from "./BehandlingsStegInput.module.css";
 
 export interface IInputProps {
@@ -16,6 +17,19 @@ export interface IInputProps {
 }
 
 export function Input(props: IInputProps) {
+  if (props.label === "Rettighetstype") {
+    return (
+      <div className={classNames(styles.container, props.className)}>
+        <BehandlingStegInputRettighetstype
+          name={props.name}
+          svartype={props.svartype}
+          label={props.label || props.svartype}
+          verdi={props.verdi}
+        />
+      </div>
+    );
+  }
+
   return <div className={classNames(styles.container, props.className)}>{renderInputType()}</div>;
 
   function renderInputType() {

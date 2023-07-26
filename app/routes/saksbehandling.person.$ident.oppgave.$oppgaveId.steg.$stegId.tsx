@@ -99,7 +99,6 @@ export default function PersonBehandleVilkaar() {
               {steg.svar.begrunnelse.utførtAv?.ident}
             </BodyShort>
           )}
-
           <Button type="submit" disabled={isCreating}>
             {isCreating ? "Lagrer..." : "Lagre"}
           </Button>
