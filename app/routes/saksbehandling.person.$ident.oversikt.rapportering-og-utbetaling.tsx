@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         const korrigeringsperiode: IRapporteringsperiode = await response.json();
         return redirect(
-          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
+          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`,
         );
       } else {
         throw new Error("Klarte ikke starte korrigering");

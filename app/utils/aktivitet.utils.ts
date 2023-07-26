@@ -29,7 +29,7 @@ export function norskDesimal(tid: string) {
 
 export function hentAllAktivitetITimer(
   periode: IRapporteringsperiode,
-  typeAktivitet: TAktivitetstype
+  typeAktivitet: TAktivitetstype,
 ) {
   const aktuelleAktiviteter: IAktivitet[] = hentAktiviteter(periode, typeAktivitet);
 
@@ -48,7 +48,7 @@ export function hentAllAktivitetITimer(
 
 export function hentAktivitetITimer(dag: IRapporteringsperiodeDag, typeAktivitet: TAktivitetstype) {
   const aktuelleAktiviteter: IAktivitet[] = dag.aktiviteter.filter(
-    (aktivitet) => aktivitet.type === typeAktivitet
+    (aktivitet) => aktivitet.type === typeAktivitet,
   );
 
   const aktiviteterISekunder = aktuelleAktiviteter.map((aktivitet) => {

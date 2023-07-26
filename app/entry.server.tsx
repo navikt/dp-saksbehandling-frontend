@@ -22,7 +22,7 @@ const handleRequest = (
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) => {
   return new Promise((resolve, reject) => {
     let didError = false;
@@ -39,7 +39,7 @@ const handleRequest = (
             new Response(body, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -52,7 +52,7 @@ const handleRequest = (
 
           console.error(error);
         },
-      }
+      },
     );
 
     setTimeout(abort, ABORT_DELAY);

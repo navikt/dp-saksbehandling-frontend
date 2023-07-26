@@ -92,7 +92,7 @@ export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTils
 export async function svarOppgaveSteg(
   oppgaveId: string,
   svar: IBehandlingStegSvar,
-  stegId: string
+  stegId: string,
 ) {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const body = JSON.stringify(svar);

@@ -27,7 +27,7 @@ const startServer = async () => {
 
   app.get(
     [`${basePath}/api/internal/isalive`, `${basePath}/api/internal/isready`],
-    (_, res: Response) => res.sendStatus(200)
+    (_, res: Response) => res.sendStatus(200),
   );
 
   app.use(logRequests);
