@@ -8,7 +8,6 @@ module.exports = {
   publicPath: "/saksbehandling/build/",
   // publicPath: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build/",
   future: {
-    unstable_cssModules: true,
     v2_routeConvention: true,
     v2_errorBoundary: true,
   },
