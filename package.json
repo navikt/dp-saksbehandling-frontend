@@ -21,12 +21,12 @@
     ]
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^3.2.3",
+    "@navikt/aksel-icons": "^4.7.2",
     "@navikt/dp-auth": "^0.3.3",
-    "@navikt/ds-css": "^2.1.7",
-    "@navikt/ds-css-internal": "^2.1.7",
-    "@navikt/ds-react": "^2.1.7",
-    "@navikt/ds-react-internal": "^2.1.7",
+    "@navikt/ds-css": "^4.7.2",
+    "@navikt/ds-css-internal": "^3.4.3",
+    "@navikt/ds-react": "^4.7.2",
+    "@navikt/ds-react-internal": "^3.4.3",
     "@portabletext/types": "^2.0.2",
     "@remix-run/css-bundle": "^1.13.0",
     "@remix-run/node": "^1.12.0",
