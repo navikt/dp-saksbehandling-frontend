@@ -5,8 +5,9 @@ import { BehandlingStegInputInt } from "~/components/behandling-steg-input/Behan
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 import { type TBehandlingStegSvartype } from "~/models/oppgave.server";
-import { BehandlingStegInputRettighetstype } from "./BehandlingStegInputRettighetstype";
+import { BehandlingStegInputSelect } from "./BehandlingStegInputSelect";
 import styles from "./BehandlingsStegInput.module.css";
+import { rettighetstyper } from "~/constants";
 
 export interface IInputProps {
   name: string;
@@ -20,7 +21,9 @@ export function Input(props: IInputProps) {
   if (props.label === "Rettighetstype") {
     return (
       <div className={classNames(styles.container, props.className)}>
-        <BehandlingStegInputRettighetstype
+        <BehandlingStegInputSelect
+          placeholder="Velg rettighetstype"
+          options={rettighetstyper}
           name={props.name}
           svartype={props.svartype}
           label={props.label || props.svartype}
