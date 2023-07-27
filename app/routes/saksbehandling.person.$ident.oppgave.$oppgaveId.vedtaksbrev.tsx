@@ -1,8 +1,6 @@
 import { Button, Heading } from "@navikt/ds-react";
 import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
-import { ClientOnly } from "remix-utils";
 import invariant from "tiny-invariant";
-import QuillEditor from "~/components/quill-editor/QuillEditor.client";
 import { endreStatus, hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/vedtaksbrev.module.css";
 import { json } from "@remix-run/node";
@@ -73,7 +71,7 @@ export default function SendVedtaksbrev() {
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
         <input name="ny-tilstand" type="hidden" value="Innstilt" />
 
-        <ClientOnly>{() => <QuillEditor />}</ClientOnly>
+        <p>Her skulle det vært noe opplastingsfunksjonalitet for et håndskrevet vedtaksbrev?</p>
 
         <div className={styles.buttonContainer}>
           <Button type="submit" disabled={isCreating}>

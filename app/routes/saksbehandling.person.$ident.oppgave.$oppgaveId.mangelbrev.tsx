@@ -1,8 +1,5 @@
 import { BodyLong, Button, Heading } from "@navikt/ds-react";
 import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
-import { ClientOnly } from "remix-utils";
-import QuillEditor from "~/components/quill-editor/QuillEditor.client";
-
 import styles from "~/route-styles/mangelbrev.module.css";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { json } from "@remix-run/node";
@@ -75,7 +72,7 @@ export default function SendMangelbrev() {
 
         <BodyLong>Noter grunnlag for at hvilke informasjon som mangler</BodyLong>
 
-        <ClientOnly>{() => <QuillEditor />}</ClientOnly>
+        <p>Her skulle det vært noe opplastingsfunksjonalitet</p>
 
         <div className={styles.buttonContainer}>
           <Button type="submit" disabled={isCreating}>
