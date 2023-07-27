@@ -66,7 +66,7 @@ export default function SendMangelbrev() {
   const isCreating = Boolean(navigation.state === "submitting");
   return (
     <div className={styles.container}>
-      <Form method={"post"}>
+      <Form method="post">
         <Heading size={"large"} level={"1"}>
           Send mangelbrev
         </Heading>
@@ -83,7 +83,7 @@ export default function SendMangelbrev() {
           </Button>
         </div>
       </Form>
-      <Form method={"post"}>
+      <Form method="POST">
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
         <input name="ny-tilstand" type="hidden" value="TilBehandling" />
 

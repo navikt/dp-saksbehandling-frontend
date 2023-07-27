@@ -1,10 +1,9 @@
 import { Table } from "@navikt/ds-react";
-import { json } from "@remix-run/node";
-import type { MetaFunction } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { hentOppgaver } from "~/models/oppgave.server";
 import type { IOppgave } from "~/models/oppgave.server";
+import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "../components/RemixLink";
 
@@ -13,12 +12,6 @@ export async function loader({ params }: LoaderArgs) {
 
   return json(oppgaver);
 }
-
-export const meta: MetaFunction = () => {
-  return {
-    title: "Dagpenger saksbehandling",
-  };
-};
 
 export default function Saksbehandling() {
   const loaderData = useLoaderData<typeof loader>();
