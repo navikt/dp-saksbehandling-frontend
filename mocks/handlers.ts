@@ -13,7 +13,7 @@ export const handlers = [
   // Hent en oppgave med oppgaveId
   rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId`, (req, res, ctx) => {
     const oppgaveResponse = oppgaverResponse.find(
-      (oppgave) => oppgave.uuid === req.params.oppgaveId
+      (oppgave) => oppgave.uuid === req.params.oppgaveId,
     );
 
     return res(ctx.json(oppgaveResponse));
@@ -39,7 +39,7 @@ export const handlers = [
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6`,
     (req, res, ctx) => {
       return res(ctx.json(mockRapporteringsperioder[0]));
-    }
+    },
   ),
 
   // Hent ut en enkelt korrigeringsperiode
@@ -47,7 +47,7 @@ export const handlers = [
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
     (req, res, ctx) => {
       return res(ctx.json(mockKorrigeringsperiode));
-    }
+    },
   ),
 
   // Hent ut en korrigeringsperiode
@@ -55,7 +55,7 @@ export const handlers = [
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/korrigering`,
     (req, res, ctx) => {
       return res(ctx.json(mockKorrigeringsperiode));
-    }
+    },
   ),
 
   // Lagre en aktivitet
@@ -63,7 +63,7 @@ export const handlers = [
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet`,
     (req, res, ctx) => {
       return res(ctx.status(204));
-    }
+    },
   ),
 
   // Slett en aktivitet
@@ -71,7 +71,7 @@ export const handlers = [
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
     (req, res, ctx) => {
       return res(ctx.status(204));
-    }
+    },
   ),
 
   // Hent sanity tekster
@@ -79,6 +79,6 @@ export const handlers = [
     "https://rt6o382n.apicdn.sanity.io/v2021-06-06/data/query/production",
     (req, res, ctx) => {
       return res(ctx.json(sanityResponse));
-    }
+    },
   ),
 ];

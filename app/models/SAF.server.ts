@@ -28,7 +28,7 @@ interface IJournalpostDokumentvariant {
 
 export async function hentJournalpost(
   request: Request,
-  journalpostId: string
+  journalpostId: string,
 ): Promise<IJournalpost> {
   if (getEnv("IS_LOCALHOST") === "true") {
     return mockJournalpost;
@@ -68,7 +68,7 @@ export async function hentJournalpost(
         `Feil ved henting av dokumenter, antakeligvis tilgangsproblemer. ${error.message}`,
         {
           status: 500,
-        }
+        },
       );
     }
     throw new Response(`Feil ved henting av dokumenter.`, { status: 500 });

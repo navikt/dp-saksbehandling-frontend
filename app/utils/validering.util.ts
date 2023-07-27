@@ -35,7 +35,7 @@ export function hentValideringRegler(svartype: TBehandlingStegSvartype, inputnav
     z.object({
       [inputnavn]: hentValideringType(svartype),
       begrunnelse: z.string(),
-    })
+    }),
   );
 }
 
@@ -67,7 +67,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
     case "LocalDate":
       return z.string().regex(
         new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-        "Ugyldig dato"
+        "Ugyldig dato",
       );
   }
 }
@@ -88,7 +88,7 @@ const aktivitetsvalideringArbeid = z.object({
       })
       .positive({ message: "Det må være mellom 0,5 og 24 timer" })
       .min(0.5, { message: "Det må være mer enn 0,5 timer" })
-      .max(24, { message: "Det må være mellom 0,5 og 24 timer" })
+      .max(24, { message: "Det må være mellom 0,5 og 24 timer" }),
   ),
 });
 
@@ -104,7 +104,7 @@ export const nyRapporteringsperiodeValidator = withZod(
   z.object({
     fraOgMed: z.string().regex(
       new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato"
+      "Ugyldig dato",
     ),
-  })
+  }),
 );

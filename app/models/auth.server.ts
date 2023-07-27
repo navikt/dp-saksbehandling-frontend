@@ -21,7 +21,7 @@ export async function authorizeUser(request: Request): Promise<ISaksbehandler> {
           Accept: "application/json",
           Authorization: `Bearer ${oboToken}`,
         },
-      }
+      },
     );
 
     return await data.json();

@@ -7,7 +7,7 @@ import type { IJournalpost } from "~/models/SAF.server";
 
 export function PDFLeser() {
   const { journalposter } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId"
+    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId",
   ) as { journalposter: IJournalpost[] };
 
   console.log("journalposter for pdf leser fra saf: ", journalposter);
@@ -20,6 +20,8 @@ export function PDFLeser() {
     if (dokumentInfoId) {
       hentDokument();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dokumentInfoId]);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export function PDFLeser() {
   }
 
   const currentActiveJournalpost = journalposter.find(
-    (journalpost) => journalpost.journalpostId === journalpostId
+    (journalpost) => journalpost.journalpostId === journalpostId,
   );
 
   return (

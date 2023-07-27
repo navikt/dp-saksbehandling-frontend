@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionArgs) {
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
-    formData
+    formData,
   );
 
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også

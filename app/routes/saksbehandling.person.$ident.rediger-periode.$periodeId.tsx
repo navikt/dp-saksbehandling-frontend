@@ -42,7 +42,7 @@ export async function loader({ params, request }: LoaderArgs) {
 export const validator = withZod(
   z.object({
     begrunnelse: z.string().min(1, { message: "Begrunnelse er påkrevd" }),
-  })
+  }),
 );
 
 export async function action({ request, params }: ActionArgs) {

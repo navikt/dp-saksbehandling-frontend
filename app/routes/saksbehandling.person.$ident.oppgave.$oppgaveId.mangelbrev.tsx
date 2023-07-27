@@ -35,9 +35,9 @@ export async function action({ request, params }: ActionArgs) {
       `Kan ikke sende videre til tilstand ${nyTilstand}, status på oppgaven er: ${
         metaData.tilstand
       } og mulige statusen den kan endres til per nå er kun: ${metaData.muligeTilstander.join(
-        ", "
+        ", ",
       )}`,
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -47,7 +47,7 @@ export async function action({ request, params }: ActionArgs) {
   }
 
   throw new Response(
-    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`
+    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`,
   );
 }
 
