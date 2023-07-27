@@ -80,7 +80,7 @@ export default function SendMangelbrev() {
           </Button>
         </div>
       </Form>
-      <Form method="POST">
+      <Form method="post">
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
         <input name="ny-tilstand" type="hidden" value="TilBehandling" />
 
