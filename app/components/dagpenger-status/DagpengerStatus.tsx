@@ -8,28 +8,28 @@ export function DagpengerStatus() {
       <div>
         <Detail>Status</Detail>
         <Heading level="3" size="xsmall">
-          Ordinær søknad om dagpenger
+          ?
         </Heading>
       </div>
       <div>
         <Detail>Dagsats</Detail>
-        <strong>Kr 1200</strong>
+        <strong>?</strong>
       </div>
       <div>
         <Detail>Ventetid</Detail>
-        <strong>3 dager</strong>
+        <strong>?</strong>
       </div>
       <div>
         <Detail>Gjenstående kvote</Detail>
-        <strong>210 dager</strong>
+        <strong>?</strong>
       </div>
       <div>
-        <Detail>Saksjon</Detail>
-        <strong>Ingen</strong>
+        <Detail>Sanksjon</Detail>
+        <strong>?</strong>
       </div>
       <div>
         <Detail>Barnetillegg</Detail>
-        <strong>Ingen</strong>
+        <strong>?</strong>
       </div>
     </div>
   );
