@@ -1,7 +1,7 @@
 import { BodyShort, Button } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useLocation, useNavigation } from "@remix-run/react";
+import { useLoaderData, useLocation, useNavigation, useRouteLoaderData } from "@remix-run/react";
 import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
@@ -64,6 +64,8 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg } = useLoaderData<typeof loader>();
+  const data = useRouteLoaderData(`routes/saksbehandling.person.$ident.oppgave.$oppgaveId`);
+  const readonly = data.oppgave.tilstand !== "TilBehandling";
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
@@ -86,12 +88,14 @@ export default function PersonBehandleVilkaar() {
             svartype={steg.svartype}
             verdi={steg?.svar?.svar}
             label={steg.id}
+            readonly={readonly}
           />
           <Input
             verdi={steg?.svar?.begrunnelse?.tekst}
             name="begrunnelse"
             svartype="String"
             label="Begrunnelse"
+            readonly={readonly}
           />
           {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
             <BodyShort>

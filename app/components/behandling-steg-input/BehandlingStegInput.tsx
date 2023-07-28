@@ -15,9 +15,12 @@ export interface IInputProps {
   label?: string;
   verdi?: string;
   className?: string;
+  readonly?: boolean;
 }
 
 export function Input(props: IInputProps) {
+  const { readonly } = props;
+
   if (props.label === "Rettighetstype") {
     return (
       <div className={classNames(styles.container, props.className)}>
@@ -28,6 +31,7 @@ export function Input(props: IInputProps) {
           svartype={props.svartype}
           label={props.label || props.svartype}
           verdi={props.verdi}
+          readonly={readonly}
         />
       </div>
     );
@@ -44,6 +48,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -54,6 +59,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -64,6 +70,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -74,6 +81,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -84,6 +92,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
     }
