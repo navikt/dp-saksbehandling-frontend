@@ -2,8 +2,6 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
-import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
 import { hentOppgave } from "~/models/oppgave.server";
 
 import styles from "~/route-styles/behandle.module.css";
@@ -37,20 +35,6 @@ export default function PersonBehandle() {
       )}
 
       <div className={styles.container}>
-        <div className={styles.menyContainer}>
-          <div className={styles.behandlingStegListe}>
-            <ul>
-              {oppgave.steg.map((steg) => (
-                <BehandlingStegMenyPunkt key={steg.uuid} {...steg} />
-              ))}
-            </ul>
-          </div>
-
-          <BehandleSoknadMeny
-            tilstand={oppgave.tilstand}
-            muligetilstander={oppgave.muligeTilstander}
-          />
-        </div>
         <Outlet />
       </div>
     </>

@@ -14,7 +14,7 @@ export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
   return (
     <li>
       <NavLink
-        to={`steg/${behandlingSteg.uuid}`}
+        to={`${behandlingSteg.uuid}`}
         className={({ isActive }) => {
           return isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser;
         }}

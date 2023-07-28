@@ -19,7 +19,8 @@ export default function Vis() {
           <Heading level="3" size="small">
             {steg.id}
           </Heading>
-          <p>{steg.svar?.svar}</p>,<p>Begrunnelse: {steg.svar?.begrunnelse?.tekst}</p>
+          <p>{steg.svar?.svar}</p>
+          <p>Begrunnelse: {steg.svar?.begrunnelse?.tekst}</p>
         </div>
       ))}
     </div>
