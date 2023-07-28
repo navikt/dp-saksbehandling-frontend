@@ -13,25 +13,25 @@ interface IOptions {
 }
 
 export function BehandlingStegInputSelect(props: IProps) {
-  const { readonly } = props;
-  const { error, getInputProps } = useField(props.name);
+  const { readonly, verdi, name, label, placeholder, options } = props;
+  const { error, getInputProps } = useField(name);
 
   return (
     <Select
       error={error}
-      defaultValue={props.verdi}
-      name={props.name}
+      defaultValue={verdi}
+      name={name}
       readOnly={readonly}
       {...getInputProps({
-        id: props.name,
-        label: <>{props.label}</>,
+        id: name,
+        label: <>{label}</>,
         children: undefined, // Needed to keep typescript happy
       })}
     >
-      <option value="">{props.placeholder}</option>
-      {props.options?.length > 0 && (
+      <option value="">{placeholder}</option>
+      {options?.length > 0 && (
         <>
-          {props.options.map((option) => (
+          {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.text}
             </option>
