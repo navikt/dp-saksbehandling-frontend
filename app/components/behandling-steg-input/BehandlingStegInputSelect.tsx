@@ -13,6 +13,7 @@ interface IOptions {
 }
 
 export function BehandlingStegInputSelect(props: IProps) {
+  const { readonly } = props;
   const { error, getInputProps } = useField(props.name);
 
   return (
@@ -20,6 +21,7 @@ export function BehandlingStegInputSelect(props: IProps) {
       error={error}
       defaultValue={props.verdi}
       name={props.name}
+      readOnly={readonly}
       {...getInputProps({
         id: props.name,
         label: <>{props.label}</>,

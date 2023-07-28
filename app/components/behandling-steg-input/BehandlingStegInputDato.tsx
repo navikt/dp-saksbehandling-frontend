@@ -4,6 +4,7 @@ import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 
 export function BehandlingStegInputDato(props: IInputProps) {
+  const { readonly } = props;
   const { error, getInputProps } = useField(props.name);
 
   const { datepickerProps, inputProps } = useDatepicker({
@@ -16,6 +17,7 @@ export function BehandlingStegInputDato(props: IInputProps) {
     <DatePicker {...datepickerProps}>
       <DatePicker.Input
         error={error}
+        readOnly={readonly}
         {...getInputProps({
           id: props.name,
           label: <>{props.label}</>,

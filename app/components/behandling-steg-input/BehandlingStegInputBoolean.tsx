@@ -4,12 +4,14 @@ import type { IInputProps } from "~/components/behandling-steg-input/BehandlingS
 import { useField } from "remix-validated-form";
 
 export function BehandlingStegInputBoolean(props: IInputProps) {
+  const { readonly } = props;
   const { error, getInputProps } = useField(props.name);
 
   return (
     <RadioGroup
       error={error}
       defaultValue={props.verdi}
+      readOnly={readonly}
       {...getInputProps({
         id: props.name,
         legend: <>{props.label}</>,
