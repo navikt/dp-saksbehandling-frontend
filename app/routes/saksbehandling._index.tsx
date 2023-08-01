@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import { RemixLink } from "../components/RemixLink";
+import { RemixLink } from "~/components/RemixLink";
 
 export async function loader() {
   const oppgaver = await hentOppgaver();
