@@ -14,6 +14,13 @@ export function HeaderMeny({ saksbehandler }: IProps) {
       <Link to={getEnv("BASE_PATH")} className={styles.linkItem} data-testid={"benken-menu-button"}>
         Benken
       </Link>
+      <Link
+        to={`${getEnv("BASE_PATH")}/pdl`}
+        className={styles.linkItem}
+        data-testid={"pdl-menu-button"}
+      >
+        Oppslag PDL TESTSIDE
+      </Link>
 
       <HeaderUtloggingMeny saksbehandler={saksbehandler} />
     </div>
