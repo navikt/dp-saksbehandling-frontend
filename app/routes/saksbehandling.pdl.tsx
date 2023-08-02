@@ -24,7 +24,7 @@ export async function action({ request }: ActionArgs) {
   const saksbehandler = await authorizeUser(request);
   // todo: finne riktig audience for pdl api
   //  const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
-  const token = await session.apiToken("dev-fss:pdl:pdl-api");
+  const token = await session.apiToken("api://dev-fss.pdl.pdl-api/.default");
 
   if (!token || !saksbehandler) {
     throw new Response("Unauthorized", { status: 401 });
