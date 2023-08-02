@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   Links,
@@ -28,14 +28,25 @@ import globalCss from "~/global.css";
 
 export const sanityClient = createClient(sanityConfig);
 
-export function meta() {
-  return {
-    charset: "utf-8",
-    title: "Dagpenger saksbehandling",
-    viewport: "width=device-width,initial-scale=1",
-    description: "Saksbehandlingløsning for dagpenger",
-  };
-}
+export const meta: V2_MetaFunction = () => {
+  return [
+    {
+      charset: "utf-8",
+    },
+    {
+      viewport: "width=device-width,initial-scale=1",
+    },
+    { title: "Dagpenger saksbehandling" },
+    {
+      property: "og:title",
+      content: "Dagpenger saksbehandling",
+    },
+    {
+      name: "description",
+      content: "Saksbehandlingløsning for dagpenger",
+    },
+  ];
+};
 
 export function links() {
   return [

@@ -4,6 +4,7 @@ import type { IInputProps } from "~/components/behandling-steg-input/BehandlingS
 import { useField } from "remix-validated-form";
 
 export function BehandlingStegInputString(props: IInputProps) {
+  const { readonly } = props;
   const { error, getInputProps } = useField(props.name);
 
   return (
@@ -13,6 +14,7 @@ export function BehandlingStegInputString(props: IInputProps) {
           defaultValue={props.verdi}
           error={error}
           resize={true}
+          readOnly={readonly}
           {...getInputProps({
             id: props.name,
             label: <>{props.label}</>,
@@ -23,6 +25,7 @@ export function BehandlingStegInputString(props: IInputProps) {
           type="text"
           defaultValue={props.verdi}
           error={error}
+          readOnly={readonly}
           {...getInputProps({
             id: props.name,
             label: <>{props.label}</>,

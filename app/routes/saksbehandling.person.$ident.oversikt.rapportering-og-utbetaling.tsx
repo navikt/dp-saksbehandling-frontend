@@ -28,6 +28,7 @@ export async function loader({ params, request }: LoaderArgs) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
   } else {
+    console.log("Feil i loader av rapporteringsperioder: ", response);
     throw new Error("Feil i uthenting av rapporteringsperioder");
   }
 }
@@ -46,7 +47,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         const korrigeringsperiode: IRapporteringsperiode = await response.json();
         return redirect(
-          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`
+          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`,
         );
       } else {
         throw new Error("Klarte ikke starte korrigering");
@@ -59,6 +60,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
       } else {
+        console.dir(response);
         throw new Error("Klarte ikke avgodkjenne periode");
       }
     }
@@ -84,6 +86,7 @@ export async function action({ request, params }: ActionArgs) {
         const rapporteringsperiode: IRapporteringsperiode = await response.json();
         return json({ rapporteringsperiode });
       } else {
+        console.dir(response);
         throw new Error("Klarte ikke lage en ny rapporteringsperiode");
       }
     }

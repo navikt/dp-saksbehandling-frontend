@@ -59,10 +59,12 @@ spec:
         - application: dp-iverksett
   azure:
     application:
-      tenant: trygdeetaten.no
+      tenant: {{azure.tenant}}
       enabled: true
-      allowAllUsers: true
       claims:
+        groups:
+          - id: {{azure.grupper.saksbehandler}}
+          - id: {{azure.grupper.beslutter}}
         extra:
           - NAVident
     sidecar:

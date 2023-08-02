@@ -22,7 +22,7 @@ export async function action({ request, params }: ActionArgs) {
   }
 
   throw new Response(
-    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`
+    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`,
   );
 }
 

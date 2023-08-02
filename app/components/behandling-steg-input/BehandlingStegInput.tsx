@@ -1,20 +1,43 @@
-import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
+import classNames from "classnames";
 import { BehandlingStegInputBoolean } from "~/components/behandling-steg-input/BehandlingStegInputBoolean";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegInputInt } from "~/components/behandling-steg-input/BehandlingStegInputInt";
-import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
-import styles from "./BehandlingsStegInput.module.css";
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
+import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
+import { type TBehandlingStegSvartype } from "~/models/oppgave.server";
+import { BehandlingStegInputSelect } from "./BehandlingStegInputSelect";
+import styles from "./BehandlingsStegInput.module.css";
+import { rettighetstyper } from "~/constants";
 
 export interface IInputProps {
   name: string;
   svartype: TBehandlingStegSvartype;
   label?: string;
   verdi?: string;
+  className?: string;
+  readonly?: boolean;
 }
 
 export function Input(props: IInputProps) {
-  return <div className={styles.container}>{renderInputType()}</div>;
+  const { readonly } = props;
+
+  if (props.label === "Rettighetstype") {
+    return (
+      <div className={classNames(styles.container, props.className)}>
+        <BehandlingStegInputSelect
+          placeholder="Velg rettighetstype"
+          options={rettighetstyper}
+          name={props.name}
+          svartype={props.svartype}
+          label={props.label || props.svartype}
+          verdi={props.verdi}
+          readonly={readonly}
+        />
+      </div>
+    );
+  }
+
+  return <div className={classNames(styles.container, props.className)}>{renderInputType()}</div>;
 
   function renderInputType() {
     switch (props.svartype) {
@@ -25,6 +48,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -35,6 +59,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -45,6 +70,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -55,6 +81,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
 
@@ -65,6 +92,7 @@ export function Input(props: IInputProps) {
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
+            readonly={readonly}
           />
         );
     }

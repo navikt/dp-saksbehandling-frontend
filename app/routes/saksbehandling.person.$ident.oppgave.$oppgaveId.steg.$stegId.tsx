@@ -1,7 +1,7 @@
 import { BodyShort, Button } from "@navikt/ds-react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useLocation, useNavigation } from "@remix-run/react";
+import { useLoaderData, useLocation, useNavigation, useRouteLoaderData } from "@remix-run/react";
 import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionArgs) {
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
-    formData
+    formData,
   );
 
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
@@ -64,6 +64,8 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg } = useLoaderData<typeof loader>();
+  const data = useRouteLoaderData(`routes/saksbehandling.person.$ident.oppgave.$oppgaveId`);
+  const readonly = data.oppgave.tilstand !== "TilBehandling";
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
@@ -86,12 +88,14 @@ export default function PersonBehandleVilkaar() {
             svartype={steg.svartype}
             verdi={steg?.svar?.svar}
             label={steg.id}
+            readonly={readonly}
           />
           <Input
             verdi={steg?.svar?.begrunnelse?.tekst}
             name="begrunnelse"
             svartype="String"
             label="Begrunnelse"
+            readonly={readonly}
           />
           {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
             <BodyShort>
@@ -99,10 +103,11 @@ export default function PersonBehandleVilkaar() {
               {steg.svar.begrunnelse.utførtAv?.ident}
             </BodyShort>
           )}
-
-          <Button type="submit" disabled={isCreating}>
-            {isCreating ? "Lagrer..." : "Lagre"}
-          </Button>
+          {!readonly && (
+            <Button type="submit" disabled={isCreating}>
+              {isCreating ? "Lagrer..." : "Lagre"}
+            </Button>
+          )}
         </ValidatedForm>
       </div>
 

@@ -28,7 +28,7 @@ interface IJournalpostDokumentvariant {
 
 export async function hentJournalpost(
   request: Request,
-  journalpostId: string
+  journalpostId: string,
 ): Promise<IJournalpost> {
   if (getEnv("IS_LOCALHOST") === "true") {
     return mockJournalpost;
@@ -59,9 +59,19 @@ export async function hentJournalpost(
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
     return data.journalpost;
-  } catch (error) {
-    logger.error(`Feil fra SAF med call-id ${callId}: ${error}`);
-    throw new Response("Feil ved henting av dokumenter", { status: 500 });
+  } catch (error: unknown) {
+    logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
+    if (error instanceof Error) {
+      //todo: greie å lese errorobjektet som graphql error, eksempel:
+      //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
+      throw new Response(
+        `Feil ved henting av dokumenter, antakeligvis tilgangsproblemer. ${error.message}`,
+        {
+          status: 500,
+        },
+      );
+    }
+    throw new Response(`Feil ved henting av dokumenter.`, { status: 500 });
   }
 }
 

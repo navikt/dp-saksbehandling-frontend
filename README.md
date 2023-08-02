@@ -38,9 +38,11 @@ TypeError: Invalid URL
 Ikke slett `.env.example` eller legg denne filen inn i `.gitignore` da det er nødvendig for oppsettet av løsningen.
 
 ## Henvendelser
+
 Spørsmål knyttet til koden eller prosjektet kan rettes mot:
 
 - André Roaldseth, andre.roaldseth@nav.no
 
 ### For NAV-ansatte
+
 Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.

@@ -18,7 +18,7 @@ export function HeaderUtloggingMeny({ saksbehandler }: IProps) {
         <Dropdown.Menu>
           <Dropdown.Menu.List>
             <Dropdown.Menu.List.Item>
-              <a href={"/oauth2/logout"}>Logg ut</a>
+              <a href={"/saksbehandling/oauth2/logout"}>Logg ut</a>
             </Dropdown.Menu.List.Item>
           </Dropdown.Menu.List>
         </Dropdown.Menu>

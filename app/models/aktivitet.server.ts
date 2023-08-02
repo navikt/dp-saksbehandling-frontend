@@ -15,7 +15,7 @@ export async function lagreAktivitet(
   aktivitetstype: TAktivitetstype,
   timer: string,
   dato: string,
-  request: Request
+  request: Request,
 ) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/aktivitet`;
 
@@ -42,7 +42,7 @@ export async function lagreAktivitet(
 
 export async function slettAktivitet(periodeId: string, aktivitetId: string, request: Request) {
   const url = `${getEnv(
-    "DP_RAPPORTERING_URL"
+    "DP_RAPPORTERING_URL",
   )}/rapporteringsperioder/${periodeId}/aktivitet/${aktivitetId}`;
 
   const session = await getAzureSession(request);
