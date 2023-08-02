@@ -9,7 +9,8 @@
     "type-check": "tsc",
     "prepare": "husky install",
     "playwright": "npx playwright test",
-    "playwright:ui": "npx playwright test --ui"
+    "playwright:ui": "npx playwright test --ui",
+    "test": "vitest"
   },
   "prettier": {
     "printWidth": 100
@@ -68,7 +69,8 @@
     "msw": "^1.2.1",
     "npm-run-all": "^4.1.5",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vitest": "^0.33.0"
   },
   "engines": {
     "node": ">=14"
