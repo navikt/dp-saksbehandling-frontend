@@ -9,14 +9,17 @@ describe("Rapportering og utbetaling", () => {
   afterAll(() => server.close());
   afterEach(() => server.resetHandlers());
 
-  test.fails("loader skal feile hvis bruker ikke er logget på", async () => {
-    const response = await loader({
-      request: new Request("http://test"),
-      params: { ident: "1234" },
-      context: {},
-    });
-
-    expect(response.status).toBe(500);
+  test("loader skal feile hvis bruker ikke er logget på", async () => {
+    try {
+      await loader({
+        request: new Request("http://test"),
+        params: { ident: "1234" },
+        context: {},
+      })
+    } catch(e) {
+      const error = e as Response;
+      expect(error.status).toBe(500)
+    }
   });
 
   test("loader skal hente rapporteringsperioder", async () => {
