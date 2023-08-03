@@ -43,7 +43,7 @@ export async function action({ request }: ActionArgs) {
     }
   `;
   interface Data {
-    Person: { navn: { fornavn: string; mellomnavn: string; etternavn: string } };
+    Person: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] };
   }
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
@@ -61,7 +61,8 @@ export async function action({ request }: ActionArgs) {
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
-    return json({ person: data.Person.navn });
+    console.log("Pdl henting gikk fint, data: ", data.Person.navn[0].fornavn);
+    return json({ person: data.Person.navn[0] });
   } catch (error: unknown) {
     logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
     if (error instanceof Error) {
