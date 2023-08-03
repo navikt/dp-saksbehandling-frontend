@@ -28,7 +28,10 @@ export async function loader({ params, request }: LoaderArgs) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
   } else {
-    throw new Response(null, {status: 500, statusText: "Feil i uthenting av rapporteringsperioder"})
+    throw new Response(null, {
+      status: 500,
+      statusText: "Feil i uthenting av rapporteringsperioder",
+    });
   }
 }
 
@@ -49,7 +52,7 @@ export async function action({ request, params }: ActionArgs) {
           `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`,
         );
       } else {
-        throw new Error("Klarte ikke starte korrigering");
+        throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
       }
     }
 
@@ -59,8 +62,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
       } else {
-        console.dir(response);
-        throw new Error("Klarte ikke avgodkjenne periode");
+        throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
       }
     }
 

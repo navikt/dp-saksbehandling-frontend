@@ -1,68 +1,235 @@
 import { expect, test, describe, beforeAll, afterAll, afterEach } from "vitest";
-import { loader } from "app/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
-import { mockSession } from "./helpers/auth-helper";
+import {
+  loader,
+  action,
+} from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
+import { endSessionMock, mockSession } from "./helpers/auth-helper";
 import { server } from "../../mocks/server";
 import { mockRapporteringsperioder } from "mocks/api-routes/rapporteringsperiodeResponse";
 import { rest } from "msw";
 import { catchErrorResponse } from "./helpers/response-helper";
+import { redirect } from "@remix-run/node";
 
 describe("Rapportering og utbetaling", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
   afterAll(() => server.close());
-  afterEach(() => server.resetHandlers());
-
-  test("loader skal feile hvis bruker ikke er logget på", async () => {
-    const response = await catchErrorResponse(
-      async () =>
-        await loader({
-          request: new Request("http://test"),
-          params: { ident: "1234" },
-          context: {},
-        }),
-    );
-
-    expect(response.status).toBe(500);
+  afterEach(() => {
+    server.resetHandlers();
+    endSessionMock();
   });
 
-  test("loader skal hente rapporteringsperioder", async () => {
-    const mock = mockSession();
+  describe("Loader", () => {
+    test("skal feile hvis bruker ikke er logget på", async () => {
+      const response = await catchErrorResponse(
+        async () =>
+          await loader({
+            request: new Request("http://localhost:3000"),
+            params: { ident: "1234" },
+            context: {},
+          }),
+      );
 
-    const response = await loader({
-      request: new Request("http://test"),
-      params: { ident: "1234" },
-      context: {},
+      expect(response.status).toBe(500);
     });
 
-    const data = await response.json();
+    test("skal hente rapporteringsperioder", async () => {
+      const mock = mockSession();
 
-    expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
-    expect(response.status).toBe(200);
-    expect(data.rapporteringsperioder).toEqual(mockRapporteringsperioder);
+      const response = await loader({
+        request: new Request("http://localhost:3000"),
+        params: { ident: "1234" },
+        context: {},
+      });
+
+      const data = await response.json();
+
+      expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
+      expect(response.status).toBe(200);
+      expect(data.rapporteringsperioder).toEqual(mockRapporteringsperioder);
+    });
+
+    test("skal feile hvis backend-kallet feiler", async () => {
+      server.use(
+        rest.post(
+          `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`,
+          (req, res, ctx) => {
+            return res.once(
+              ctx.status(500),
+              ctx.json({
+                errorMessage: `Server Error`,
+              }),
+            );
+          },
+        ),
+      );
+
+      mockSession();
+
+      const response = await catchErrorResponse(
+        async () =>
+          await loader({
+            request: new Request("http://localhost:3000"),
+            params: { ident: "1234" },
+            context: {},
+          }),
+      );
+
+      expect(response.status).toBe(500);
+    });
   });
 
-  test("loader skal feile hvis backend-kallet feiler", async () => {
-    server.use(
-      rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
-        return res.once(
-          ctx.status(500),
-          ctx.json({
-            errorMessage: `Server Error`,
-          }),
+  describe("Action", () => {
+    describe("Opprett korrigering", () => {
+      test("burde feile hvis bruker ikke er autentisert", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "start-korrigering",
+        });
+
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
+
+        const response = await catchErrorResponse(async () => {
+          await action({ request, params: { ident: "1234" }, context: {} });
+        });
+
+        expect(response.status).toBe(500);
+      });
+
+      test("burde kunne opprette en ny korrigering og redirecte til riktig side", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "start-korrigering",
+        });
+
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
+
+        mockSession();
+
+        const response = await action({ request, params: { ident: "1234" }, context: {} });
+
+        expect(response).toEqual(
+          redirect(
+            `/saksbehandling/person/1234/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
+          ),
         );
-      }),
-    );
+      });
 
-    mockSession();
+      test("burde feile hvis backend feiler", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "start-korrigering",
+        });
 
-    const response = await catchErrorResponse(
-      async () =>
-        await loader({
-          request: new Request("http://test"),
-          params: { ident: "1234" },
-          context: {},
-        }),
-    );
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
 
-    expect(response.status).toBe(500);
+        mockSession();
+
+        server.use(
+          rest.post(
+            `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/korrigering`,
+            (req, res, ctx) => {
+              return res.once(
+                ctx.status(500),
+                ctx.json({
+                  errorMessage: `Server Error`,
+                }),
+              );
+            },
+          ),
+        );
+
+        const response = await catchErrorResponse(async () => {
+          await action({ request, params: { ident: "1234" }, context: {} });
+        });
+
+        expect(response.status).toBe(500);
+      });
+    });
+
+    describe("Avgodkjenn periode", () => {
+      test("burde feile hvis bruker ikke er autentisert", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "avgodkjenn",
+        });
+
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
+
+        const response = await catchErrorResponse(async () => {
+          await action({ request, params: { ident: "1234" }, context: {} });
+        });
+
+        expect(response.status).toBe(500);
+      });
+
+      test("burde kunne avgodkjenne og redirecte til riktig side", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "avgodkjenn",
+        });
+
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
+
+        mockSession();
+
+        const response = await action({ request, params: { ident: "1234" }, context: {} });
+
+        expect(response).toEqual(
+          redirect(
+            "/saksbehandling/person/1234/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          ),
+        );
+      });
+
+      test("burde feile hvis backend feiler", async () => {
+        const body = new URLSearchParams({
+          periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          submit: "avgodkjenn",
+        });
+
+        const request = new Request("http://localhost:3000", {
+          method: "POST",
+          body,
+        });
+
+        server.use(
+          // Avgodkjenn en rapporteringsperiode
+          rest.post(
+            `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/avgodkjenn`,
+            (req, res, ctx) => {
+              return res.once(
+                ctx.status(500),
+                ctx.json({
+                  errorMessage: `Server Error`,
+                }),
+              );
+            },
+          ),
+        );
+
+        mockSession();
+
+        const response = await catchErrorResponse(async () => {
+          await action({ request, params: { ident: "1234" }, context: {} });
+        });
+
+        expect(response.status).toBe(500);
+      });
+    });
   });
 });

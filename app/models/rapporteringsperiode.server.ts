@@ -72,7 +72,7 @@ export async function lagKorrigeringsperiode(periodeId: string, request: Request
   const session = await getAzureSession(request);
 
   if (!session) {
-    throw new Error("Feil ved henting av sesjon");
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
   const onBehalfOfToken = await getRapporteringOboToken(session);
@@ -95,7 +95,7 @@ export async function godkjennPeriode(periodeId: string, begrunnelse: string, re
   const session = await getAzureSession(request);
 
   if (!session) {
-    throw new Error("Feil ved henting av sesjon");
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
   const onBehalfOfToken = await getRapporteringOboToken(session);
@@ -119,7 +119,7 @@ export async function avgodkjennPeriode(periodeId: string, request: Request) {
   const session = await getAzureSession(request);
 
   if (!session) {
-    throw new Error("Feil ved henting av sesjon");
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
   const onBehalfOfToken = await getRapporteringOboToken(session);

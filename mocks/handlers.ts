@@ -58,6 +58,22 @@ export const handlers = [
     },
   ),
 
+  // Godkjenn en rapporteringsperiode
+  rest.post(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/godkjenn`,
+    (req, res, ctx) => {
+      return res(ctx.status(200));
+    },
+  ),
+
+  // Avgodkjenn en rapporteringsperiode
+  rest.post(
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/avgodkjenn`,
+    (req, res, ctx) => {
+      return res(ctx.status(200));
+    },
+  ),
+
   // Lagre en aktivitet
   rest.post(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet`,
