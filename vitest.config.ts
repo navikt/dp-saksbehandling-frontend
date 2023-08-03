@@ -5,6 +5,7 @@ export default defineConfig({
   test: {
     include: ["tests/vitest/**/*.spec.ts"],
     setupFiles: ["tests/vitest/helpers/setup.ts"],
+    watch: false,
     coverage: {
       provider: "v8",
       all: true,

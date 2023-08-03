@@ -23,6 +23,35 @@ IS_LOCALHOST="true"
 DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
 ```
 
+## Tester
+
+Vi har to testrammeverk som vi brukes til ulike formål. 
+
+### Vitest
+Vitest brukes til unit testing av eksempelvis komponenter, loaders og actions.
+
+```
+// Kjør testene som vanlig
+npm run test
+
+// Generer test coverage
+npm run test-coverage
+
+// Kjør testene med watch
+npm run test -- --watch
+```
+
+### Playwright
+Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de ulike delene av løsningen.
+
+```
+// Kjør vanlig playwright i kommandolinjen
+npm run playwright
+
+// Kjør med UI inkludert
+npm run playwright:ui
+```
+
 ## Vanlige problemer med oppsett
 
 Hvis du ikke lager `.env` og kopierer innholdet fra `.env.example` får du sannsynligvis få denne feilmeldingen:
