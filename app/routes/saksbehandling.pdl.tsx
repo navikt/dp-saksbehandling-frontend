@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { logger } from "../../server/logger";
 
 export async function action({ request }: ActionArgs) {
+  //todo: gjøre noe greier/mockz her lokalt?
   const session = await getAzureSession(request);
 
   if (!session) {
@@ -80,7 +81,7 @@ export default function Pdl() {
     <>
       <main className={classNames(styles.container)}>
         <div>
-          <Alert variant={"warning"}>IKKE BRUK DENNE HELT ENDA</Alert>
+          <Alert variant={"warning"}>Ikke bruk denne lokalt</Alert>
           <Form key={"pdl"} method={"POST"}>
             <TextField
               type={"number"}
@@ -88,7 +89,7 @@ export default function Pdl() {
               label={"Personnummer du vil slå opp"}
             ></TextField>
             <br />
-            <Button disabled={true}>Slå opp</Button>
+            <Button>Slå opp</Button>
           </Form>
           <BodyLong>{data?.person.fornavn}</BodyLong>
         </div>
