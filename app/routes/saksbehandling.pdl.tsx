@@ -43,7 +43,7 @@ export async function action({ request }: ActionArgs) {
     }
   `;
   interface Data {
-    Person: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] };
+    hentPerson: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] };
   }
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
@@ -61,7 +61,7 @@ export async function action({ request }: ActionArgs) {
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
-    console.log("Pdl henting gikk fint, data: ", data);
+    console.log("Pdl henting gikk fint, testdata: ", data);
     return json({ ...data });
   } catch (error: unknown) {
     logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
@@ -92,7 +92,7 @@ export default function Pdl() {
             <br />
             <Button>Slå opp</Button>
           </Form>
-          <BodyLong>{data?.Person.navn[0].fornavn}</BodyLong>
+          <BodyLong>{data?.hentPerson.navn[0].fornavn}</BodyLong>
         </div>
       </main>
     </>
