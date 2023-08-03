@@ -31,8 +31,8 @@ export async function action({ request }: ActionArgs) {
     throw new Response("Unauthorized", { status: 401 });
   }
   const personSpoerring = gql`
-    query hentPerson($ident: ID!) {
-      Person(ident: $ident) {
+    query ($ident: ID!) {
+      hentPerson(ident: $ident) {
         navn(historikk: false) {
           fornavn
           mellomnavn
