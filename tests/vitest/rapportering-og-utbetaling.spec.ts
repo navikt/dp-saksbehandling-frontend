@@ -4,6 +4,7 @@ import { mockSession } from "./helpers/auth-helper";
 import { server } from "../../mocks/server";
 import { mockRapporteringsperioder } from "mocks/api-routes/rapporteringsperiodeResponse";
 import { rest } from "msw";
+import { catchErrorResponse } from "./helpers/response-helper";
 
 describe("Rapportering og utbetaling", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
@@ -11,16 +12,16 @@ describe("Rapportering og utbetaling", () => {
   afterEach(() => server.resetHandlers());
 
   test("loader skal feile hvis bruker ikke er logget på", async () => {
-    try {
-      await loader({
-        request: new Request("http://test"),
-        params: { ident: "1234" },
-        context: {},
-      });
-    } catch (e) {
-      const error = e as Response;
-      expect(error.status).toBe(500);
-    }
+    const response = await catchErrorResponse(
+      async () =>
+        await loader({
+          request: new Request("http://test"),
+          params: { ident: "1234" },
+          context: {},
+        }),
+    );
+
+    expect(response.status).toBe(500);
   });
 
   test("loader skal hente rapporteringsperioder", async () => {
@@ -42,7 +43,7 @@ describe("Rapportering og utbetaling", () => {
   test("loader skal feile hvis backend-kallet feiler", async () => {
     server.use(
       rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
-        return res(
+        return res.once(
           ctx.status(500),
           ctx.json({
             errorMessage: `Server Error`,
@@ -53,15 +54,15 @@ describe("Rapportering og utbetaling", () => {
 
     mockSession();
 
-    try {
-      await loader({
-        request: new Request("http://test"),
-        params: { ident: "1234" },
-        context: {},
-      });
-    } catch (e) {
-      const error = e as Response;
-      expect(error.status).toBe(500);
-    }
+    const response = await catchErrorResponse(
+      async () =>
+        await loader({
+          request: new Request("http://test"),
+          params: { ident: "1234" },
+          context: {},
+        }),
+    );
+
+    expect(response.status).toBe(500);
   });
 });
