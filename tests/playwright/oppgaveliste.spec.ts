@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { oppgaverResponse } from "../mocks/api-routes/oppgaverResponse";
+import { oppgaverResponse } from "../../mocks/api-routes/oppgaverResponse";
 
 test("Oppgavelisten har oppgaver listet opp", async ({ page, baseURL }) => {
   await page.goto(baseURL!);

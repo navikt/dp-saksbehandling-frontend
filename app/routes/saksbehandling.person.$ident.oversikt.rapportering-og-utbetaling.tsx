@@ -28,8 +28,7 @@ export async function loader({ params, request }: LoaderArgs) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
   } else {
-    console.log("Feil i loader av rapporteringsperioder: ", response);
-    throw new Error("Feil i uthenting av rapporteringsperioder");
+    throw new Response(null, {status: 500, statusText: "Feil i uthenting av rapporteringsperioder"})
   }
 }
 
