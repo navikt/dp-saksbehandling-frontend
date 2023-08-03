@@ -16,7 +16,7 @@ export async function action({ request }: ActionArgs) {
   if (!session) {
     throw new Error("Feil ved henting av sesjon");
   }
-  const pdlAdresse = "https://pdl-api.dev.intern.nav.no/graphql";
+  const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
   console.log("PDL SUBMIT");
   const formData = await request.formData();
   const ident = formData.get("oppslagsnummer");
@@ -32,7 +32,7 @@ export async function action({ request }: ActionArgs) {
   }
   const personSpoerring = gql`
     query hentPerson($ident: ID!) {
-      hentPerson(ident: $ident) {
+      Person(ident: $ident) {
         navn(historikk: false) {
           fornavn
           mellomnavn
@@ -41,6 +41,9 @@ export async function action({ request }: ActionArgs) {
       }
     }
   `;
+  interface Data {
+    Person: { navn: { fornavn: string; mellomnavn: string; etternavn: string } };
+  }
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
     headers: {
@@ -53,11 +56,11 @@ export async function action({ request }: ActionArgs) {
 
   try {
     logger.info(`Henter pdl informasjon med call-id: ${callId}`);
-    const data = await client.request(personSpoerring, { ident });
+    const data = await client.request<Data>(personSpoerring, { ident });
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
-    return json({ person: data });
+    return json({ person: data.Person.navn });
   } catch (error: unknown) {
     logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
     if (error instanceof Error) {
@@ -87,7 +90,7 @@ export default function Pdl() {
             <br />
             <Button disabled={true}>Slå opp</Button>
           </Form>
-          <BodyLong>{data?.person}</BodyLong>
+          <BodyLong>{data?.person.fornavn}</BodyLong>
         </div>
       </main>
     </>
