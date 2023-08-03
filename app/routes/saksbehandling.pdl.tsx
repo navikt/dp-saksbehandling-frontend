@@ -61,7 +61,6 @@ export async function action({ request }: ActionArgs) {
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
-    console.log("Pdl henting gikk fint, testdata: ", data);
     return json({ ...data });
   } catch (error: unknown) {
     logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
@@ -92,7 +91,9 @@ export default function Pdl() {
             <br />
             <Button>Slå opp</Button>
           </Form>
-          <BodyLong>{data?.hentPerson.navn[0].fornavn}</BodyLong>
+          <BodyLong>
+            Navn: {data?.hentPerson.navn[0].fornavn} {data?.hentPerson.navn[0].etternavn}
+          </BodyLong>
         </div>
       </main>
     </>
