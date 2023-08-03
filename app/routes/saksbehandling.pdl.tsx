@@ -1,5 +1,5 @@
 import { Form, useActionData } from "@remix-run/react";
-import { BodyLong, Button, TextField } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, TextField } from "@navikt/ds-react";
 import styles from "~/route-styles/vilkaar.module.css";
 import classNames from "classnames";
 import { type ActionArgs, json } from "@remix-run/node";
@@ -22,8 +22,9 @@ export async function action({ request }: ActionArgs) {
   const ident = formData.get("oppslagsnummer");
   invariant(ident, "greide ikke lese formdata");
   const saksbehandler = await authorizeUser(request);
-  // todo: finne riktig audience for pdl api
-  //  const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
+
+  //todo: denne kommer til å kresje hardt (til nærmeste errorboundary)
+  // hvis applikasjonen ikke er autorisert å være audience hos pdl api i dev/prod
   const token = await session.apiToken("api://dev-fss.pdl.pdl-api/.default");
 
   if (!token || !saksbehandler) {
@@ -76,6 +77,7 @@ export default function Pdl() {
     <>
       <main className={classNames(styles.container)}>
         <div>
+          <Alert variant={"warning"}>IKKE BRUK DENNE HELT ENDA</Alert>
           <Form key={"pdl"} method={"POST"}>
             <TextField
               type={"number"}
@@ -83,7 +85,7 @@ export default function Pdl() {
               label={"Personnummer du vil slå opp"}
             ></TextField>
             <br />
-            <Button>Slå opp</Button>
+            <Button disabled={true}>Slå opp</Button>
           </Form>
           <BodyLong>{data?.person}</BodyLong>
         </div>
