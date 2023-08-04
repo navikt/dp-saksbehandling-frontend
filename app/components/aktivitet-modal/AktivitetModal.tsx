@@ -1,5 +1,5 @@
 import { TrashIcon } from "@navikt/aksel-icons";
-import { Alert, Button, Heading, Modal } from "@navikt/ds-react";
+import { Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useActionData } from "@remix-run/react";
 import classNames from "classnames";
 import { ValidatedForm, useIsSubmitting } from "remix-validated-form";
@@ -77,12 +77,6 @@ export function AktivitetModal(props: IProps) {
           >
             <FormattedDate date={dag?.dato} />
           </Heading>
-        )}
-
-        {actionData?.aktivitetError && (
-          <Alert variant="error" className="my-3">
-            Det skjedde en feil.
-          </Alert>
         )}
 
         {dag?.aktiviteter.map((aktivitet) => (

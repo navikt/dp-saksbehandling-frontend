@@ -69,7 +69,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         return json({ aktivitetSuccess: true });
       } else {
-        return json({ aktivitetError: true });
+        throw new Response(null, { status: 500, statusText: "Klarte ikke lagre aktivitet" });
       }
     }
 
@@ -77,11 +77,11 @@ export async function action({ request, params }: ActionArgs) {
       const aktivitetId = formData.get("aktivitetId") as string;
       const response = await slettAktivitet(periodeId, aktivitetId, request);
 
-      if (!response.ok) {
-        return json({ aktivitetError: true });
+      if (response.ok) {
+        return json({ aktivitetSuccess: true });
+      } else {
+        throw new Response(null, { status: 500, statusText: "Klarte ikke slette aktivitet" });
       }
-
-      return json({ aktivitetSuccess: true });
     }
 
     case "godkjenne-periode": {

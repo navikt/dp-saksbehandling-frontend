@@ -160,15 +160,16 @@ describe("Rediger rapporteringsperiode", () => {
           ),
         );
 
-        const response = await action({
-          request,
-          params: { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" },
-          context: {},
-        });
+        const response = await catchErrorResponse(
+          async () =>
+            await action({
+              request,
+              params: { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" },
+              context: {},
+            }),
+        );
 
-        const data = await response?.json();
-
-        expect(data && data.aktivitetError).toBeTruthy();
+        expect(response.status).toBe(500);
       });
     });
 
@@ -249,15 +250,16 @@ describe("Rediger rapporteringsperiode", () => {
           ),
         );
 
-        const response = await action({
-          request,
-          params: { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" },
-          context: {},
-        });
+        const response = await catchErrorResponse(
+          async () =>
+            await action({
+              request,
+              params: { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" },
+              context: {},
+            }),
+        );
 
-        const data = await response?.json();
-
-        expect(data && data.aktivitetError).toBeTruthy();
+        expect(response.status).toBe(500);
       });
     });
 
