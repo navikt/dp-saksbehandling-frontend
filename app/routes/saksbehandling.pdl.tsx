@@ -100,7 +100,7 @@ export default function Pdl() {
             <Button>Slå opp</Button>
           </Form>
           <BodyLong>
-            Navn: {data?.hentPerson.navn[0].fornavn} {data?.hentPerson.navn[0].etternavn}
+            Navn: {data?.data.hentPerson.navn[0].fornavn} {data?.data.hentPerson.navn[0].etternavn}
           </BodyLong>
         </div>
       </main>
