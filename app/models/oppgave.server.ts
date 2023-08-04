@@ -1,4 +1,5 @@
 import type { IHendelse } from "~/models/hendelse.server";
+import { getAzureSession, getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IBehandlingStegSvar {
@@ -63,9 +64,24 @@ export async function hentOppgaver(): Promise<IOppgave[]> {
   return await response.json();
 }
 
-export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
+export async function hentOppgave(behandlingId: string, request: Request): Promise<IOppgave> {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getSaksbehandlingOboToken(session);
+
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {

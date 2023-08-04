@@ -48,11 +48,18 @@ export async function action({ request, params }: ActionArgs) {
   );
 }
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const oppgave = await hentOppgave(params.oppgaveId);
-  invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
+
   const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
 
   return json({ metadata });

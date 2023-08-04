@@ -46,14 +46,26 @@ export async function action({ request, params }: ActionArgs) {
   return { response };
 }
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const oppgave = await hentOppgave(params.oppgaveId);
-  invariant(oppgave, `Fant ikke behandling med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
 
   const steg = oppgave.steg.find((steg) => steg.uuid === params.stegId);
-  invariant(steg, `Fant ikke steg med id: ${params.stedId}`);
+
+  if (!steg) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke steg med id: ${params.stegId}`,
+    });
+  }
 
   return json({ steg });
 }
