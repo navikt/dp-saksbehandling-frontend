@@ -9,6 +9,12 @@ import { gql, GraphQLClient } from "graphql-request";
 import { authorizeUser } from "~/models/auth.server";
 import { v4 as uuidv4 } from "uuid";
 import { logger } from "../../server/logger";
+import { useEffect } from "react";
+
+interface Data {
+  errors?: [{ message: string }];
+  data: { hentPerson: { navn?: { fornavn: string; mellomnavn: string; etternavn: string }[] } };
+}
 
 export async function action({ request }: ActionArgs) {
   //todo: gjøre noe greier/mockz her lokalt?
@@ -42,10 +48,7 @@ export async function action({ request }: ActionArgs) {
       }
     }
   `;
-  interface Data {
-    errors?: [{ message: string }];
-    data: { hentPerson: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] } };
-  }
+
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
     headers: {
@@ -59,12 +62,6 @@ export async function action({ request }: ActionArgs) {
   try {
     logger.info(`Henter pdl informasjon med call-id: ${callId}`);
     const data = await client.request<Data>(personSpoerring, { ident });
-    if (data.errors) {
-      throw new Response(null, {
-        status: 500,
-        statusText: `Feil i pdl respons, ${data.errors.length} feil, her er første: ${data.errors[0].message}`,
-      });
-    }
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
@@ -85,6 +82,13 @@ export async function action({ request }: ActionArgs) {
 
 export default function Pdl() {
   const data = useActionData<typeof action>();
+  useEffect(() => {
+    if (data?.errors) {
+      throw new Error(
+        `PDL BLE SINT PÅ DEG, DU HAR ${data.errors.length} FEIL! Første beskjeden er: ${data.errors[0].message}`,
+      );
+    }
+  }, [data]);
   return (
     <>
       <main className={classNames(styles.container)}>
@@ -100,7 +104,10 @@ export default function Pdl() {
             <Button>Slå opp</Button>
           </Form>
           <BodyLong>
-            Navn: {data?.data.hentPerson.navn[0].fornavn} {data?.data.hentPerson.navn[0].etternavn}
+            Navn:{" "}
+            {data?.data.hentPerson.navn?.map((navn) => {
+              return navn.fornavn + navn.etternavn;
+            })}
           </BodyLong>
         </div>
       </main>
