@@ -1,17 +1,18 @@
-import { expect, test, describe, beforeAll, afterAll, afterEach } from "vitest";
-import {
-  loader,
-  action,
-} from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
-import { endSessionMock, mockSession } from "./helpers/auth-helper";
-import { server } from "../../mocks/server";
-import { mockRapporteringsperioder } from "mocks/api-routes/rapporteringsperiodeResponse";
-import { rest } from "msw";
-import { catchErrorResponse } from "./helpers/response-helper";
+// @vitest-environment node
 import { redirect } from "@remix-run/node";
+import { rest } from "msw";
+import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
+import {
+  action,
+  loader,
+} from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
+import { mockRapporteringsperioder } from "../../mocks/api-routes/rapporteringsperiodeResponse";
+import { server } from "../../mocks/server";
+import { endSessionMock, mockSession } from "./helpers/auth-helper";
+import { catchErrorResponse } from "./helpers/response-helper";
 
 describe("Rapportering og utbetaling", () => {
-  beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
+  beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
   afterAll(() => server.close());
   afterEach(() => {
     server.resetHandlers();
@@ -208,7 +209,6 @@ describe("Rapportering og utbetaling", () => {
         });
 
         server.use(
-          // Avgodkjenn en rapporteringsperiode
           rest.post(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/avgodkjenn`,
             (req, res, ctx) => {

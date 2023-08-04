@@ -130,6 +130,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                 return (
                   <Table.ExpandableRow
                     key={periode.id}
+                    data-testid="rapporteringsperiode"
                     content={
                       <>
                         <RapporteringsperiodeDetaljer periode={periode} />
