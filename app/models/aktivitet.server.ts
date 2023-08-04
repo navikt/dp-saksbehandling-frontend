@@ -22,7 +22,7 @@ export async function lagreAktivitet(
   const session = await getAzureSession(request);
 
   if (!session) {
-    throw new Error("Feil ved henting av sesjon");
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
   const onBehalfOfToken = await getRapporteringOboToken(session);
@@ -48,7 +48,7 @@ export async function slettAktivitet(periodeId: string, aktivitetId: string, req
   const session = await getAzureSession(request);
 
   if (!session) {
-    throw new Error("Feil ved henting av sesjon");
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
   const onBehalfOfToken = await getRapporteringOboToken(session);

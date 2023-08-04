@@ -33,7 +33,10 @@ export async function loader({ params, request }: LoaderArgs) {
   if (periodeResponse.ok) {
     rapporteringsperiode = await periodeResponse.json();
   } else {
-    throw new Error("Feil i uthenting av rapporteringsperioder");
+    throw new Response(null, {
+      status: 500,
+      statusText: "Feil i uthenting av rapporteringsperiode",
+    });
   }
 
   return json({ rapporteringsperiode });
@@ -63,11 +66,11 @@ export async function action({ request, params }: ActionArgs) {
 
       const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
-      if (!response.ok) {
+      if (response.ok) {
+        return json({ aktivitetSuccess: true });
+      } else {
         return json({ aktivitetError: true });
       }
-
-      return json({ aktivitetSuccess: true });
     }
 
     case "slette-aktivitet": {
@@ -89,7 +92,10 @@ export async function action({ request, params }: ActionArgs) {
       const response = await godkjennPeriode(periodeId, validering.data.begrunnelse, request);
 
       if (!response.ok) {
-        throw new Error("Klarte ikke godkjenne korrigeringsperiode");
+        throw new Response(null, {
+          status: 500,
+          statusText: "Klarte ikke godkjenne korrigeringsperiode",
+        });
       }
 
       return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);

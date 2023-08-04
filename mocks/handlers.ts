@@ -84,7 +84,7 @@ export const handlers = [
 
   // Slett en aktivitet
   rest.delete(
-    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
+    `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
     (req, res, ctx) => {
       return res(ctx.status(204));
     },
