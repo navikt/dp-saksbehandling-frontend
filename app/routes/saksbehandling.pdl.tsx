@@ -43,7 +43,8 @@ export async function action({ request }: ActionArgs) {
     }
   `;
   interface Data {
-    hentPerson: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] };
+    errors?: [{ message: string }];
+    data: { hentPerson: { navn: { fornavn: string; mellomnavn: string; etternavn: string }[] } };
   }
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
@@ -58,6 +59,12 @@ export async function action({ request }: ActionArgs) {
   try {
     logger.info(`Henter pdl informasjon med call-id: ${callId}`);
     const data = await client.request<Data>(personSpoerring, { ident });
+    if (data.errors) {
+      throw new Response(null, {
+        status: 500,
+        statusText: `Feil i pdl respons, ${data.errors.length} feil, her er første: ${data.errors[0].message}`,
+      });
+    }
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
@@ -67,8 +74,9 @@ export async function action({ request }: ActionArgs) {
     if (error instanceof Error) {
       //todo: greie å lese errorobjektet som graphql error, eksempel:
       //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
-      throw new Response(`Feil ved henting av pdl, debug: ${error.message}`, {
+      throw new Response(null, {
         status: 500,
+        statusText: `Feil ved henting av pdl, debug: ${error.message}`,
       });
     }
     throw new Response(`Feil ved henting av pdl.`, { status: 500 });
