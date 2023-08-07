@@ -6,9 +6,9 @@ import {
   loader,
   action,
 } from "~/routes/saksbehandling.person.$ident.oppgave.$oppgaveId.steg.$stegId";
-import { server } from "../../mocks/server";
-import { endSessionMock, mockSession } from "./helpers/auth-helper";
-import { catchErrorResponse } from "./helpers/response-helper";
+import { server } from "../../../mocks/server";
+import { endSessionMock, mockSession } from "../helpers/auth-helper";
+import { catchErrorResponse } from "../helpers/response-helper";
 
 describe("Stegvisning", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));

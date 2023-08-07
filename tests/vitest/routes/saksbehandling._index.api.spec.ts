@@ -3,9 +3,9 @@ import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { loader } from "~/routes/saksbehandling._index";
-import { server } from "../../mocks/server";
-import { endSessionMock, mockSession } from "./helpers/auth-helper";
-import { catchErrorResponse } from "./helpers/response-helper";
+import { server } from "../../../mocks/server";
+import { endSessionMock, mockSession } from "../helpers/auth-helper";
+import { catchErrorResponse } from "../helpers/response-helper";
 
 describe("Hovedside saksbehandling", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));

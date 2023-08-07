@@ -6,10 +6,10 @@ import {
   action,
   loader,
 } from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
-import { mockRapporteringsperioder } from "../../mocks/api-routes/rapporteringsperiodeResponse";
-import { server } from "../../mocks/server";
-import { endSessionMock, mockSession } from "./helpers/auth-helper";
-import { catchErrorResponse } from "./helpers/response-helper";
+import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
+import { server } from "../../../mocks/server";
+import { endSessionMock, mockSession } from "../helpers/auth-helper";
+import { catchErrorResponse } from "../helpers/response-helper";
 
 describe("Rapportering og utbetaling", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
