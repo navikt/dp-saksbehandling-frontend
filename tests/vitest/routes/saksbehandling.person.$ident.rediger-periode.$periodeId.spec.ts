@@ -2,7 +2,10 @@
 import { redirect } from "@remix-run/node";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
-import { action, loader } from "~/routes/saksbehandling.person.$ident.rediger-periode.$periodeId";
+import {
+  action,
+  loader,
+} from "../../../app/routes/saksbehandling.person.$ident.rediger-periode.$periodeId";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
