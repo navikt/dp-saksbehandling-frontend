@@ -1,5 +1,5 @@
 import type { IHendelse } from "~/models/hendelse.server";
-import { getAzureSession, getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
+import { getAzureSession, getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IBehandlingStegSvar {
@@ -71,7 +71,7 @@ export async function hentOppgave(behandlingId: string, request: Request): Promi
     throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
-  const onBehalfOfToken = await getSaksbehandlingOboToken(session);
+  const onBehalfOfToken = await getBehandlingOboToken(session);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}`;
   const response = await fetch(url, {

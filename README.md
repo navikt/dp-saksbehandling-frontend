@@ -12,15 +12,16 @@ npm run dev
 
 ## Kjøre mot dev-APIer i localhost
 
-For å kjøre requester mot dp-rapportering må vi ha et token, generert med [wonderwalled-idporten](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering). Logg på med en saksbehandlerbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN` til det nylig genererte tokenet. Env-variabelen `IS_LOCALHOST="true"` må også være satt.
+For å kjøre requester mot [dp-rapportering](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering) og [dp-behandling](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling) må vi ha et token per tjeneste, generert med wonderwalled-idporten. Logg på med en saksbehandlerbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN` og `DP_BEHANDLING_TOKEN` til det matchende genererte tokenet. Env-variabelen `IS_LOCALHOST="true"` må også være satt.
 
-Dette tokenet vil vare i en time før du må generere et nytt token.
+Disse tokenene vil vare i en time før du må generere et nytt token.
 
 Eksempel på riktig config:
 
 ```
 IS_LOCALHOST="true"
 DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
+DP_BEHANDLING_TOKEN="annenLangStrengHerFraAccess_token"
 ```
 
 ## Tester
