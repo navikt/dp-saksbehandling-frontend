@@ -1,4 +1,5 @@
 import type { IHendelse } from "~/models/hendelse.server";
+import { getAzureSession, getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IBehandlingStegSvar {
@@ -49,9 +50,24 @@ type TBehandlingStegId =
   | "Periode"
   | "Oppfyller kravene til dagpenger";
 
-export async function hentOppgaver(): Promise<IOppgave[]> {
+export async function hentOppgaver(request: Request): Promise<IOppgave[]> {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {
@@ -63,9 +79,24 @@ export async function hentOppgaver(): Promise<IOppgave[]> {
   return await response.json();
 }
 
-export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
+export async function hentOppgave(behandlingId: string, request: Request): Promise<IOppgave> {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {
@@ -75,6 +106,42 @@ export async function hentOppgave(behandlingId: string): Promise<IOppgave> {
   }
 
   return await response.json();
+}
+
+export async function svarOppgaveSteg(
+  oppgaveId: string,
+  svar: IBehandlingStegSvar,
+  stegId: string,
+  request: Request,
+) {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
+  const body = JSON.stringify(svar);
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+    body: body,
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return response;
 }
 
 export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTilstand) {
@@ -85,30 +152,6 @@ export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTils
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nyTilstand }),
   });
-
-  return response;
-}
-
-export async function svarOppgaveSteg(
-  oppgaveId: string,
-  svar: IBehandlingStegSvar,
-  stegId: string,
-) {
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
-  const body = JSON.stringify(svar);
-
-  const response = await fetch(url, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: body,
-  });
-
-  if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
-  }
 
   return response;
 }

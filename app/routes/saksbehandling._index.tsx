@@ -1,13 +1,13 @@
 import { Table } from "@navikt/ds-react";
-import { json } from "@remix-run/node";
+import { type LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "~/components/RemixLink";
 
-export async function loader() {
-  const oppgaver = await hentOppgaver();
+export async function loader({ request }: LoaderArgs) {
+  const oppgaver = await hentOppgaver(request);
 
   return json(oppgaver);
 }

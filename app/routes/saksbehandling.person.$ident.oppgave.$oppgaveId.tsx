@@ -11,8 +11,14 @@ import { hentJournalpost } from "~/models/SAF.server";
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const oppgave = await hentOppgave(params.oppgaveId);
-  invariant(oppgave, `Fant ikke oppgave med id: ${params.oppgaveId}`);
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
 
   const journalposter: IJournalpost[] = [];
   console.log("journalposter fra oppgaveID (vår backend): ", oppgave.journalposter);

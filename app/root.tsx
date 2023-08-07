@@ -84,7 +84,7 @@ export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
-  const oppgaver = await hentOppgaver();
+  const oppgaver = await hentOppgaver(request);
 
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
