@@ -93,29 +93,29 @@ export async function hentOppgave(behandlingId: string, request: Request): Promi
   return await response.json();
 }
 
-export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTilstand) {
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/tilstand`;
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nyTilstand }),
-  });
-
-  return response;
-}
-
 export async function svarOppgaveSteg(
   oppgaveId: string,
   svar: IBehandlingStegSvar,
   stegId: string,
+  request: Request,
 ) {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const body = JSON.stringify(svar);
 
   const response = await fetch(url, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
     body: body,
   });
 
@@ -125,6 +125,18 @@ export async function svarOppgaveSteg(
       statusText: response.statusText,
     });
   }
+
+  return response;
+}
+
+export async function endreStatus(behandlingId: string, nyTilstand: TOppgaveTilstand) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}/tilstand`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nyTilstand }),
+  });
 
   return response;
 }

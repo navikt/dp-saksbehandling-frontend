@@ -41,9 +41,13 @@ export async function action({ request, params }: ActionArgs) {
     },
   };
 
-  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId);
+  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId, request);
 
-  return { response };
+  if (response.ok) {
+    return json({ response });
+  } else {
+    throw new Response(null, { status: 500, statusText: "Klarte ikke lagre svar på steg" });
+  }
 }
 
 export async function loader({ params, request }: LoaderArgs) {
