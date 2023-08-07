@@ -50,9 +50,24 @@ type TBehandlingStegId =
   | "Periode"
   | "Oppfyller kravene til dagpenger";
 
-export async function hentOppgaver(): Promise<IOppgave[]> {
+export async function hentOppgaver(request: Request): Promise<IOppgave[]> {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {
