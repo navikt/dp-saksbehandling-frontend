@@ -1,6 +1,6 @@
 import { Form, useActionData } from "@remix-run/react";
 import { Alert, BodyLong, Button, TextField } from "@navikt/ds-react";
-import styles from "~/route-styles/vilkaar.module.css";
+import styles from "~/route-styles/stegvisning.module.css";
 import classNames from "classnames";
 import { type ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";

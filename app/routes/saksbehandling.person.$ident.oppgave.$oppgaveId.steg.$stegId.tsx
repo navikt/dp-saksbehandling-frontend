@@ -15,7 +15,7 @@ import {
   validerOgParseMetadata,
 } from "~/utils/validering.util";
 
-import styles from "~/route-styles/vilkaar.module.css";
+import styles from "~/route-styles/stegvisning.module.css";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
