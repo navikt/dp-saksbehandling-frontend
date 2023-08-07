@@ -12,7 +12,14 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       all: true,
-      exclude: ["mocks/**/*", "mock-data/**/*", "tests/**/*", "public/build/**/*", "build/**/*"],
+      exclude: [
+        "mocks/**/*",
+        "mock-data/**/*",
+        "tests/**/*",
+        "public/build/**/*",
+        "build/**/*",
+        "**/*.spec.ts",
+      ],
     },
   },
   resolve: {

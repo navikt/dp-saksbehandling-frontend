@@ -60,7 +60,7 @@ export function hentAktivitetITimer(dag: IRapporteringsperiodeDag, typeAktivitet
     const timer = sekunderTotalt / 3600;
     return norskDesimal(timer.toString());
   } else {
-    return 0;
+    return "0";
   }
 }
 
