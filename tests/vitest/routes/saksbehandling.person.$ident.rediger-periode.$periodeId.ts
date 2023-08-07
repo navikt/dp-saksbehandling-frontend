@@ -3,10 +3,10 @@ import { redirect } from "@remix-run/node";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { action, loader } from "~/routes/saksbehandling.person.$ident.rediger-periode.$periodeId";
-import { mockRapporteringsperioder } from "../../mocks/api-routes/rapporteringsperiodeResponse";
-import { server } from "../../mocks/server";
-import { endSessionMock, mockSession } from "./helpers/auth-helper";
-import { catchErrorResponse } from "./helpers/response-helper";
+import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
+import { server } from "../../../mocks/server";
+import { endSessionMock, mockSession } from "../helpers/auth-helper";
+import { catchErrorResponse } from "../helpers/response-helper";
 
 describe("Rediger rapporteringsperiode", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
@@ -206,7 +206,7 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = await response?.json();
+        const data = (await response?.json()) as { aktivitetSuccess: boolean };
 
         expect(data && data.aktivitetSuccess).toBeTruthy();
       });
