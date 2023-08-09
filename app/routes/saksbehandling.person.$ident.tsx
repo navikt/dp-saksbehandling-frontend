@@ -27,6 +27,10 @@ export async function loader({ request, params }: LoaderArgs) {
 
     return json(personKonvertertPDLPerson);
   } else {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+
     return hentPDL(request, params.ident as string);
   }
 }
