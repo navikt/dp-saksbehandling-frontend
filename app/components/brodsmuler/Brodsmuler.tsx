@@ -1,4 +1,3 @@
-import type { IPerson } from "~/models/person.server";
 import styles from "./Brodsmuler.module.css";
 import { CopyButton } from "@navikt/ds-react";
 import { type HentPersonResponsData } from "~/models/pdl.server";
@@ -9,13 +8,19 @@ interface IProps {
 }
 
 export function Brodsmuler({ data, ident }: IProps) {
-  //const navn = `${person.forNavn} ${person.mellomNavn} ${person.etterNavn}`;
+  let navn;
+
+  if (data.hentPerson.navn) {
+    const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
+
+    navn = `${fornavn} ${mellomnavn} ${etternavn}`;
+  }
 
   return (
     <div className={styles.container}>
       <ul>
         <li>
-          <strong>?{ident}</strong>
+          <strong>{navn}</strong>
         </li>
         <li>
           <CopyButton copyText={ident} text={ident} activeText="Kopierte bruker ident" />
