@@ -43,7 +43,7 @@ export default function Person() {
 
       return setNavn(navn);
     }
-  }, [data.hentPerson]);
+  }, [data?.hentPerson]);
 
   return (
     <>
