@@ -1,5 +1,6 @@
 import { json, type LoaderArgs } from "@remix-run/node";
 import { Outlet, useLoaderData, useParams } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
 import { hentPDL, type IPDLHentPersonRespons } from "~/models/pdl.server";
@@ -33,10 +34,20 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function Person() {
   const { ident } = useParams();
   const { data } = useLoaderData<typeof loader>();
+  const [navn, setNavn] = useState("");
+
+  useEffect(() => {
+    if (data?.hentPerson.navn) {
+      const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
+      const navn: string = `${fornavn} ${mellomnavn} ${etternavn}`;
+
+      setNavn(navn);
+    }
+  }, [data]);
 
   return (
     <>
-      <Brodsmuler data={data} ident={ident} />
+      <Brodsmuler navn={navn} ident={ident} />
       <main>
         <Outlet />
       </main>
