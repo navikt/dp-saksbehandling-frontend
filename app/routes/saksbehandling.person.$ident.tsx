@@ -34,16 +34,17 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function Person() {
   const { ident } = useParams();
   const { data } = useLoaderData<typeof loader>();
+  const { hentPerson } = data;
   const [navn, setNavn] = useState("");
 
   useEffect(() => {
-    if (data?.hentPerson?.navn || data?.hentPerson?.navn?.length > 0) {
-      const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
+    if (hentPerson?.navn || hentPerson?.navn?.length > 0) {
+      const { fornavn, mellomnavn, etternavn } = hentPerson.navn[0];
       const navn: string = `${fornavn} ${mellomnavn} ${etternavn}`;
 
       return setNavn(navn);
     }
-  }, [data?.hentPerson]);
+  }, [hentPerson]);
 
   return (
     <>
