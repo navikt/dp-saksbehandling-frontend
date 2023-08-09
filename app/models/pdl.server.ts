@@ -3,6 +3,7 @@ import { logger } from "server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { authorizeUser } from "./auth.server";
+import { json } from "@remix-run/node";
 
 export interface IPDLHentPersonRespons {
   errors?: [{ message: string }];
