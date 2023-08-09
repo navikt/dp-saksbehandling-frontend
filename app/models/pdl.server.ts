@@ -6,8 +6,18 @@ import { authorizeUser } from "./auth.server";
 
 export interface IPDLHentPersonRespons {
   errors?: [{ message: string }];
-  data: { hentPerson: { navn?: { fornavn: string; mellomnavn: string; etternavn: string }[] } };
+  data: HentPersonResponsData;
 }
+
+export type HentPersonResponsData = {
+  hentPerson: { navn?: Personnavn[] };
+};
+
+export type Personnavn = {
+  fornavn: string;
+  mellomnavn: string;
+  etternavn: string;
+};
 
 export async function hentPDL(request: Request, ident: string) {
   const session = await getAzureSession(request);

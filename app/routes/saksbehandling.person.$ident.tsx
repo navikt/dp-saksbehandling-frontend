@@ -1,25 +1,42 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
+import { hentPDL, type IPDLHentPersonRespons } from "~/models/pdl.server";
 
-import { mockHentPerson } from "~/models/person.server";
+import { type IPerson, mockHentPerson } from "~/models/person.server";
 
 export const shouldRevalidate = () => false;
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ request, params }: LoaderArgs) {
   invariant(params.ident, `params.ident er påkrevd`);
-  const person = await mockHentPerson(params.ident);
 
-  return json({ person });
+  if (process.env.IS_LOCALHOST === "true") {
+    const person: IPerson = await mockHentPerson(params.ident);
+
+    const personKonvertertPDLPerson: IPDLHentPersonRespons = {
+      data: {
+        hentPerson: {
+          navn: [
+            { fornavn: person.forNavn, mellomnavn: person.mellomNavn, etternavn: person.etterNavn },
+          ],
+        },
+      },
+    };
+
+    return json(personKonvertertPDLPerson);
+  } else {
+    return hentPDL(request, params.ident as string);
+  }
 }
 
 export default function Person() {
-  const { person } = useLoaderData<typeof loader>();
+  const { ident } = useParams();
+  const { data } = useLoaderData<typeof loader>();
 
   return (
     <>
-      <Brodsmuler person={person} />
+      <Brodsmuler data={data} ident={ident} />
       <main>
         <Outlet />
       </main>

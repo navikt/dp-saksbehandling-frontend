@@ -5,22 +5,11 @@ import classNames from "classnames";
 import { type ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
-import { hentPDL } from "~/models/pdl.server";
-
-export interface Data {
-  errors?: [{ message: string }];
-  data: { hentPerson: { navn?: Personnavn[] } };
-}
-
-export type Personnavn = {
-  fornavn: string;
-  mellomnavn: string;
-  etternavn: string;
-};
+import { type Personnavn, hentPDL } from "~/models/pdl.server";
 
 export async function action({ request }: ActionArgs) {
   console.log("PDL SUBMIT");
-  const formData = await request.formData();
+  const formData: FormData = await request.formData();
   const ident = formData.get("oppslagsnummer");
   invariant(ident, "greide ikke lese formdata");
 
@@ -36,6 +25,7 @@ export default function Pdl() {
       );
     }
   }, [data]);
+
   return (
     <>
       <main className={classNames(styles.container)}>
