@@ -3,14 +3,14 @@ import { CopyButton } from "@navikt/ds-react";
 import { type HentPersonResponsData } from "~/models/pdl.server";
 
 interface IProps {
-  data: HentPersonResponsData;
+  data: HentPersonResponsData | undefined;
   ident: string;
 }
 
 export function Brodsmuler({ data, ident }: IProps) {
   let navn;
 
-  if (data.hentPerson.navn) {
+  if (data?.hentPerson.navn) {
     const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
 
     navn = `${fornavn} ${mellomnavn} ${etternavn}`;
