@@ -3,7 +3,7 @@ import { CopyButton } from "@navikt/ds-react";
 
 interface IProps {
   navn: string;
-  ident: string;
+  ident: string | undefined;
 }
 
 export function Brodsmuler({ navn, ident }: IProps) {
