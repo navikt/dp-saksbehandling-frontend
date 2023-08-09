@@ -37,12 +37,15 @@ export default function Person() {
   const [navn, setNavn] = useState("");
 
   useEffect(() => {
-    if (data?.hentPerson?.navn || data.hentPerson?.navn?.length > 0) {
-      const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
-      const navn: string = `${fornavn} ${mellomnavn} ${etternavn}`;
-
-      return setNavn(navn);
+    const navn = data?.hentPerson?.navn;
+    if (navn == null || navn.length === 0) {
+      return;
     }
+
+    const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
+    const fulltNavn = `${fornavn} ${mellomnavn ? `${mellomnavn} ` : ""}${etternavn}`;
+
+    setNavn(fulltNavn);
   }, [data]);
 
   return (
