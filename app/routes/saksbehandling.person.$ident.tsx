@@ -33,20 +33,25 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export default function Person() {
   const { ident } = useParams();
-  const { data } = useLoaderData<typeof loader>();
+  const { data, errors } = useLoaderData<typeof loader>();
   const [navn, setNavn] = useState("");
 
   useEffect(() => {
+    if (errors != null && errors.length > 0) {
+      console.error({ errors });
+      return;
+    }
+
     const navn = data?.hentPerson?.navn;
     if (navn == null || navn.length === 0) {
       return;
     }
 
     const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
-    const fulltNavn = `${fornavn} ${mellomnavn ? `${mellomnavn} ` : ""}${etternavn}`;
+    const fulltNavn = `${fornavn} ${mellomnavn == null ? "" : `${mellomnavn} `}${etternavn}`;
 
     setNavn(fulltNavn);
-  }, [data]);
+  }, [errors, data]);
 
   return (
     <>

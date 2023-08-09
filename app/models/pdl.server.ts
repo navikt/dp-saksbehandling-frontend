@@ -16,7 +16,7 @@ export type HentPersonResponsData = {
 
 export type Personnavn = {
   fornavn: string;
-  mellomnavn: string;
+  mellomnavn: string | null;
   etternavn: string;
 };
 
