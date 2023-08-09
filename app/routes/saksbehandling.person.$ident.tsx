@@ -25,11 +25,8 @@ export async function loader({ request, params }: LoaderArgs) {
       },
     };
 
-    console.log("IS_LOCALHOST");
-
     return json(personKonvertertPDLPerson);
   } else {
-    console.log("ELSE");
     return hentPDL(request, params.ident as string);
   }
 }
@@ -46,7 +43,7 @@ export default function Person() {
 
       setNavn(navn);
     }
-  }, [data]);
+  }, [data.hentPerson.navn]);
 
   return (
     <>
