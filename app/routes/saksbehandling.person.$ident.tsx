@@ -3,7 +3,7 @@ import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
-import { hentPDL, type IPDLHentPersonRespons } from "~/models/pdl.server";
+import { hentPDL, type HentPersonResponsData } from "~/models/pdl.server";
 
 import { type IPerson, mockHentPerson } from "~/models/person.server";
 
@@ -15,13 +15,11 @@ export async function loader({ request, params }: LoaderArgs) {
   if (process.env.IS_LOCALHOST === "true") {
     const person: IPerson = await mockHentPerson(params.ident);
 
-    const personKonvertertPDLPerson: IPDLHentPersonRespons = {
-      data: {
-        hentPerson: {
-          navn: [
-            { fornavn: person.forNavn, mellomnavn: person.mellomNavn, etternavn: person.etterNavn },
-          ],
-        },
+    const personKonvertertPDLPerson: HentPersonResponsData = {
+      hentPerson: {
+        navn: [
+          { fornavn: person.forNavn, mellomnavn: person.mellomNavn, etternavn: person.etterNavn },
+        ],
       },
     };
 
@@ -43,12 +41,12 @@ export default function Person() {
   useEffect(() => {
     console.log("useEffect trigger i saksbehandling.person.$ident");
     console.log("data er: ", loaderData);
-    if (!loaderData) {
+    if (!loaderData.hentPerson) {
       return;
     }
 
-    if (loaderData.data.hentPerson?.navn && loaderData.data.hentPerson.navn.length > 0) {
-      const navn = loaderData.data.hentPerson.navn[0];
+    if (loaderData.hentPerson?.navn && loaderData.hentPerson.navn.length > 0) {
+      const navn = loaderData.hentPerson.navn[0];
       const fulltNavn = `${navn.fornavn} ${navn.etternavn}`;
 
       setNavn(fulltNavn);

@@ -60,7 +60,7 @@ export async function hentPDL(request: Request, ident: string) {
 
   try {
     logger.info(`Henter pdl informasjon med call-id: ${callId}`);
-    const data = await client.request<IPDLHentPersonRespons>(personSpoerring, { ident });
+    const data = await client.request<HentPersonResponsData>(personSpoerring, { ident });
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
