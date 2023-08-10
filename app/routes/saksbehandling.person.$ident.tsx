@@ -39,8 +39,6 @@ export default function Person() {
   const [navn, setNavn] = useState("Laster...");
 
   useEffect(() => {
-    console.log("useEffect trigger i saksbehandling.person.$ident");
-    console.log("data er: ", loaderData);
     if (!loaderData.hentPerson) {
       return;
     }
