@@ -11,7 +11,7 @@ export interface IPDLHentPersonRespons {
 }
 
 export type HentPersonResponsData = {
-  hentPerson: { navn: Personnavn[] };
+  hentPerson: { navn: Personnavn[] } | null;
 };
 
 export type Personnavn = {

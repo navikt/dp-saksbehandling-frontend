@@ -38,23 +38,22 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function Person() {
   const { ident } = useParams();
   const { data, errors } = useLoaderData<typeof loader>();
-  const [navn, setNavn] = useState("");
+  const [navn, setNavn] = useState("Laster...");
 
   useEffect(() => {
+    console.log("useEffect trigger i saksbehandling.person.$ident");
+    console.log("data er: ", data);
     if (errors != null && errors.length > 0) {
       console.error({ errors });
       return;
     }
 
-    const navn = data?.hentPerson?.navn;
-    if (navn == null || navn.length === 0) {
-      return;
+    if (data.hentPerson?.navn && data.hentPerson.navn.length > 0) {
+      const navn = data.hentPerson.navn[0];
+      const fulltNavn = `${navn.fornavn} ${navn.etternavn}`;
+
+      setNavn(fulltNavn);
     }
-
-    const { fornavn, mellomnavn, etternavn } = data.hentPerson.navn[0];
-    const fulltNavn = `${fornavn} ${mellomnavn == null ? "" : `${mellomnavn} `}${etternavn}`;
-
-    setNavn(fulltNavn);
   }, [errors, data]);
 
   return (
