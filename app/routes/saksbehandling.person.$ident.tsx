@@ -25,7 +25,7 @@ export async function loader({ request, params }: LoaderArgs) {
       },
     };
 
-    return json(personKonvertertPDLPerson);
+    return json({ ...personKonvertertPDLPerson });
   } else {
     // await new Promise((resolve) => {
     //   setTimeout(resolve, 3000);
@@ -37,24 +37,27 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export default function Person() {
   const { ident } = useParams();
-  const { data, errors } = useLoaderData<typeof loader>();
+  const loaderData = useLoaderData<typeof loader>();
   const [navn, setNavn] = useState("Laster...");
 
   useEffect(() => {
     console.log("useEffect trigger i saksbehandling.person.$ident");
-    console.log("data er: ", data);
-    if (errors != null && errors.length > 0) {
-      console.error({ errors });
+    console.log("data er: ", loaderData);
+    if (!loaderData.data) {
+      return;
+    }
+    if (loaderData.errors != null && loaderData.errors.length > 0) {
+      console.error(loaderData.errors);
       return;
     }
 
-    if (data.hentPerson?.navn && data.hentPerson.navn.length > 0) {
-      const navn = data.hentPerson.navn[0];
+    if (loaderData.data.hentPerson?.navn && loaderData.data.hentPerson.navn.length > 0) {
+      const navn = loaderData.data.hentPerson.navn[0];
       const fulltNavn = `${navn.fornavn} ${navn.etternavn}`;
 
       setNavn(fulltNavn);
     }
-  }, [errors, data]);
+  }, [loaderData]);
 
   return (
     <>
