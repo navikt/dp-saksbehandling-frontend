@@ -3,7 +3,6 @@ import { logger } from "server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { authorizeUser } from "./auth.server";
-import { json } from "@remix-run/node";
 
 export interface IPDLHentPersonRespons {
   errors?: [{ message: string }];
@@ -65,7 +64,7 @@ export async function hentPDL(request: Request, ident: string) {
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
     // @ts-ignore
-    return json({ ...data });
+    return data;
   } catch (error: unknown) {
     logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
     if (error instanceof Error) {

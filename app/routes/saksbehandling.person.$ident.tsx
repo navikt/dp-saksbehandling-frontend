@@ -30,8 +30,8 @@ export async function loader({ request, params }: LoaderArgs) {
     // await new Promise((resolve) => {
     //   setTimeout(resolve, 3000);
     // });
-
-    return hentPDL(request, params.ident as string);
+    const data = await hentPDL(request, params.ident as string);
+    return json({ ...data });
   }
 }
 
@@ -43,11 +43,7 @@ export default function Person() {
   useEffect(() => {
     console.log("useEffect trigger i saksbehandling.person.$ident");
     console.log("data er: ", loaderData);
-    if (!loaderData.data) {
-      return;
-    }
-    if (loaderData.errors != null && loaderData.errors.length > 0) {
-      console.error(loaderData.errors);
+    if (!loaderData) {
       return;
     }
 
