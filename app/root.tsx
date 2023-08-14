@@ -15,7 +15,6 @@ import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
 import { authorizeUser } from "./models/auth.server";
-import { hentOppgaver } from "./models/oppgave.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityTexts } from "./sanity/sanity.types";
@@ -82,7 +81,6 @@ export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
-  const oppgaver = await hentOppgaver(request);
 
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
@@ -92,7 +90,6 @@ export async function loader({ request }: LoaderArgs) {
   return json({
     sanityTexts,
     saksbehandler,
-    oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,

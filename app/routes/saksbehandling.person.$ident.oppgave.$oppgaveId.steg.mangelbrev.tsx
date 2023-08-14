@@ -1,13 +1,13 @@
 import { BodyLong, Button, Heading } from "@navikt/ds-react";
-import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
-import styles from "~/route-styles/mangelbrev.module.css";
-import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { json } from "@remix-run/node";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
+import { Form, useNavigation, useRouteError, useRouteLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { endreStatus, hentOppgave } from "~/models/oppgave.server";
-import { validerOgParseMetadata } from "~/utils/validering.util";
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { endreStatus } from "~/models/oppgave.server";
+import styles from "~/route-styles/mangelbrev.module.css";
 import { erGyldigTilstand } from "~/utils/type-guards";
+import { validerOgParseMetadata } from "~/utils/validering.util";
+import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.person.$ident.oppgave.$oppgaveId";
 
 interface IMetadata {
   tilstand: string;
@@ -48,24 +48,12 @@ export async function action({ request, params }: ActionArgs) {
   );
 }
 
-export async function loader({ params, request }: LoaderArgs) {
-  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-
-  const oppgave = await hentOppgave(params.oppgaveId, request);
-
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
+export default function SendMangelbrev() {
+  const { oppgave } = useRouteLoaderData(
+    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId",
+  ) as ISaksbehandlingsOppgaveLoader;
 
   const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
-
-  return json({ metadata });
-}
-export default function SendMangelbrev() {
-  const { metadata } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
   return (

@@ -80,8 +80,8 @@ interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { steg } = useLoaderData<typeof loader>();
-  const data = useRouteLoaderData(`routes/saksbehandling.person.$ident.oppgave.$oppgaveId`);
-  const readonly = data.oppgave.tilstand !== "TilBehandling";
+  const { oppgave } = useRouteLoaderData(`routes/saksbehandling.person.$ident.oppgave.$oppgaveId`);
+  const readonly = oppgave.tilstand !== "TilBehandling";
   const location = useLocation();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");

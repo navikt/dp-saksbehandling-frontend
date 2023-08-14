@@ -79,7 +79,7 @@ export async function hentOppgaver(request: Request): Promise<IOppgave[]> {
   return await response.json();
 }
 
-export async function hentOppgave(behandlingId: string, request: Request): Promise<IOppgave> {
+export async function hentOppgave(oppgaveId: string, request: Request): Promise<IOppgave> {
   const session = await getAzureSession(request);
 
   if (!session) {
@@ -88,7 +88,7 @@ export async function hentOppgave(behandlingId: string, request: Request): Promi
 
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${behandlingId}`;
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
