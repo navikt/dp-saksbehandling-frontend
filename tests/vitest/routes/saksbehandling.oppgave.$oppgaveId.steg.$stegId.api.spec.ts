@@ -2,10 +2,7 @@
 import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
-import {
-  loader,
-  action,
-} from "~/routes/saksbehandling.person.$ident.oppgave.$oppgaveId.steg.$stegId";
+import { loader, action } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";

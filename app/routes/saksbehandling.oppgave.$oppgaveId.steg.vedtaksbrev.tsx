@@ -13,7 +13,7 @@ import { endreStatus } from "~/models/oppgave.server";
 import styles from "~/route-styles/vedtaksbrev.module.css";
 import { erGyldigTilstand } from "~/utils/type-guards";
 import { validerOgParseMetadata } from "~/utils/validering.util";
-import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.person.$ident.oppgave.$oppgaveId";
+import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.oppgave.$oppgaveId";
 
 interface IMetadata {
   tilstand: string;
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function SendVedtaksbrev() {
   const { oppgave } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId",
+    "routes/saksbehandling.oppgave.$oppgaveId",
   ) as ISaksbehandlingsOppgaveLoader;
   const postData = useActionData<typeof action>();
   const navigation = useNavigation();

@@ -50,7 +50,7 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function SendMangelbrev() {
   const { oppgave } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId",
+    "routes/saksbehandling.oppgave.$oppgaveId",
   ) as ISaksbehandlingsOppgaveLoader;
 
   const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };

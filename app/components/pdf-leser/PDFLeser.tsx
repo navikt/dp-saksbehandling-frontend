@@ -6,9 +6,9 @@ import { useRouteLoaderData } from "@remix-run/react";
 import type { IJournalpost } from "~/models/SAF.server";
 
 export function PDFLeser() {
-  const { journalposter } = useRouteLoaderData(
-    "routes/saksbehandling.person.$ident.oppgave.$oppgaveId",
-  ) as { journalposter: IJournalpost[] };
+  const { journalposter } = useRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId") as {
+    journalposter: IJournalpost[];
+  };
 
   console.log("journalposter for pdf leser fra saf: ", journalposter);
 
