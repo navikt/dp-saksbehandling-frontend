@@ -39,3 +39,13 @@ export async function getBehandlingOboToken(session: SessionWithOboProvider) {
     return oboToken;
   }
 }
+
+export async function getVedtakOboToken(session: SessionWithOboProvider) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_VEDTAK_TOKEN || fallbackToken;
+  } else {
+    const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-vedtak/.default`;
+    const oboToken = await session.apiToken(audience);
+    return oboToken;
+  }
+}

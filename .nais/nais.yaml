@@ -57,6 +57,7 @@ spec:
         - host: rt6o382n.apicdn.sanity.io
       rules:
         - application: dp-rapportering
+        - application: dp-vedtak
         - application: dp-iverksett
   azure:
     application:

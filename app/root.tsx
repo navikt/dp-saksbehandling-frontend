@@ -23,7 +23,6 @@ import type { ISanityTexts } from "./sanity/sanity.types";
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import quillCss from "quill/dist/quill.snow.css";
 import globalCss from "~/global.css";
 
 export const sanityClient = createClient(sanityConfig);
@@ -55,7 +54,6 @@ export function links() {
           { rel: "stylesheet", href: cssBundleHref },
           { rel: "stylesheet", href: navStyles },
           { rel: "stylesheet", href: navInternalStyles },
-          { rel: "stylesheet", href: quillCss },
           { rel: "stylesheet", href: globalCss },
           {
             rel: "icon",
