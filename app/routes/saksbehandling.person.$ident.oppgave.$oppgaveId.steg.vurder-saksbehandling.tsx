@@ -17,7 +17,7 @@ export async function action({ request, params }: ActionArgs) {
   }
 
   if (erGyldigTilstand(nyTilstand)) {
-    const response = await endreStatus(params.oppgaveId, nyTilstand);
+    const response = await endreStatus(params.oppgaveId, nyTilstand, request);
     return { response };
   }
 
