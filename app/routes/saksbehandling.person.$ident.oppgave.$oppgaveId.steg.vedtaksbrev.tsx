@@ -1,5 +1,5 @@
-import { Button, Heading } from "@navikt/ds-react";
-import { Form, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
+import { Alert, Button, Heading } from "@navikt/ds-react";
+import { Form, useActionData, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { endreStatus, hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/vedtaksbrev.module.css";
@@ -24,27 +24,31 @@ export async function action({ request, params }: ActionArgs) {
   if (typeof nyTilstand !== "string") {
     throw new Error("input er ikke en string");
   }
-  console.log(metaData);
 
-  if (!metaData.muligeTilstander.includes(nyTilstand)) {
+  const kanEndreTilstanden =
+    erGyldigTilstand(nyTilstand) && metaData.muligeTilstander.includes(nyTilstand);
+
+  if (kanEndreTilstanden) {
+    const response = await endreStatus(params.oppgaveId, nyTilstand, request);
+
+    if (response.ok) {
+      return json({ endret: true, nyTilstand });
+    } else {
+      throw new Response(
+        `Klarte ikke endre tilstand fra ${metaData.tilstand} til ${nyTilstand}. Backend feilet.`,
+        {
+          status: 500,
+        },
+      );
+    }
+  } else {
     throw new Response(
-      `Kan ikke endre status til ${nyTilstand} , status på oppgaven er: ${
-        metaData.tilstand
-      } og mulige statusen den kan endres til per nå er kun: ${metaData.muligeTilstander.join(
-        ", ",
-      )}`,
-      { status: 400 },
+      `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${params.oppgaveId} og med muligeTilstander ${metaData.muligeTilstander}`,
+      {
+        status: 500,
+      },
     );
   }
-
-  if (erGyldigTilstand(nyTilstand)) {
-    const response = await endreStatus(params.oppgaveId, nyTilstand, request);
-    return { response };
-  }
-
-  throw new Response(
-    `${nyTilstand} er ikke gyldig tilstand for oppgave med oppgaveId: ${nyTilstand}`,
-  );
 }
 
 export async function loader({ params, request }: LoaderArgs) {
@@ -66,15 +70,26 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export default function SendVedtaksbrev() {
   const { metadata } = useLoaderData<typeof loader>();
+  const postData = useActionData<typeof action>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
 
+  const sendtTilToTrinnsKontroll =
+    (postData && postData.endret) || metadata.tilstand === "Innstilt";
+
   return (
     <div className={styles.container}>
+      <Heading size={"large"} level={"1"}>
+        Lag vedtaksbrev
+      </Heading>
+
+      {sendtTilToTrinnsKontroll && (
+        <Alert variant="success" className="my-4">
+          Sendt til to-trinnskontroll
+        </Alert>
+      )}
+
       <Form method="post">
-        <Heading size={"large"} level={"1"}>
-          Lag vedtaksbrev
-        </Heading>
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
         <input name="ny-tilstand" type="hidden" value="Innstilt" />
 
