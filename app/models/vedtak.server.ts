@@ -1,18 +1,19 @@
-import { getAzureSession, getBehandlingOboToken } from "~/utils/auth.utils.server";
+import { getAzureSession, getVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IVedtak {
-  type: string;
+  vedtakId: string;
+  vedtakType: string;
 }
 
-export async function hentVedtak(ident: string, request: Request) {
+export async function hentVedtak(ident: string, request: Request): Promise<IVedtak[]> {
   const session = await getAzureSession(request);
 
   if (!session) {
     throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
   }
 
-  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const onBehalfOfToken = await getVedtakOboToken(session);
 
   const url = `${getEnv("DP_VEDTAK_URL")}/vedtak`;
   const response = await fetch(url, {
@@ -25,5 +26,12 @@ export async function hentVedtak(ident: string, request: Request) {
     body: JSON.stringify({ ident }),
   });
 
-  return response;
+  if (!response.ok) {
+    throw new Response("Feil ved uthenting av vedtak", {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return response.json();
 }
