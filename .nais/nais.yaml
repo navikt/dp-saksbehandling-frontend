@@ -46,6 +46,8 @@ spec:
       value: {{dp-behandling_url}}
     - name: DP_RAPPORTERING_URL
       value: {{dp-rapportering_url}}
+    - name: DP_VEDTAK_URL
+      value: {{dp-vedtak_url}}
   accessPolicy:
     outbound:
       external:
