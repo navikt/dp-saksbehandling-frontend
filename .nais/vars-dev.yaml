@@ -3,7 +3,6 @@ base_path: "/saksbehandling"
 dp-behandling_url: "https://dp-behandling.intern.dev.nav.no"
 dp-behandling_host: "dp-behandling.intern.dev.nav.no"
 dp-rapportering_url: "http://dp-rapportering"
-dp-vedtak_url: "http://dp-vedtak"
 
 azure:
   tenant: trygdeetaten.no

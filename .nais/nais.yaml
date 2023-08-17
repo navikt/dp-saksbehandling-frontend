@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "64M"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
-  image: { { image } }
+  image: {{image}}
   port: 3000
   liveness:
     path: "{{base_path}}/api/internal/isalive"
@@ -36,22 +36,20 @@ spec:
       cpu: 200m
       memory: 512Mi
   ingresses:
-    - { { ingress } }
+    - {{ingress}}
   env:
     - name: SELF_URL
-      value: { { ingress } }
+      value: {{ingress}}
     - name: BASE_PATH
-      value: { { base_path } }
+      value: {{base_path}}
     - name: DP_BEHANDLING_URL
-      value: { { dp-behandling_url } }
+      value: {{dp-behandling_url}}
     - name: DP_RAPPORTERING_URL
-      value: { { dp-rapportering_url } }
-    - name: DP_VEDTAK_URL
-      value: { { dp-vedtak_url } }
+      value: {{dp-rapportering_url}}
   accessPolicy:
     outbound:
       external:
-        - host: { { dp-behandling_host } }
+        - host: {{dp-behandling_host}}
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
@@ -63,12 +61,12 @@ spec:
         - application: dp-iverksett
   azure:
     application:
-      tenant: { { azure.tenant } }
+      tenant: {{azure.tenant}}
       enabled: true
       claims:
         groups:
-          - id: { { azure.grupper.saksbehandler } }
-          - id: { { azure.grupper.beslutter } }
+          - id: {{azure.grupper.saksbehandler}}
+          - id: {{azure.grupper.beslutter}}
         extra:
           - NAVident
     sidecar:
