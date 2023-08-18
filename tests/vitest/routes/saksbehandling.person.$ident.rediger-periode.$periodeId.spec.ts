@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
   action,
   loader,
-} from "../../../app/routes/saksbehandling.person.$ident.rediger-periode.$periodeId";
+} from "../../../app/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
@@ -20,7 +20,7 @@ describe("Rediger rapporteringsperiode", () => {
   });
 
   describe("Loader", () => {
-    const testParams = { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
+    const testParams = { oppgaveId: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
 
     test("skal feile hvis bruker ikke er logget på", async () => {
       const response = await catchErrorResponse(() =>
@@ -88,7 +88,7 @@ describe("Rediger rapporteringsperiode", () => {
         timer: "2",
         submit: "lagre-aktivitet",
       };
-      const testParams = { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
+      const testParams = { oppgaveId: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
@@ -172,7 +172,7 @@ describe("Rediger rapporteringsperiode", () => {
         aktivitetId: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
         submit: "slette-aktivitet",
       };
-      const testParams = { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
+      const testParams = { oppgaveId: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
@@ -256,7 +256,7 @@ describe("Rediger rapporteringsperiode", () => {
         begrunnelse: "Endret etter melding fra bruker",
         submit: "godkjenne-periode",
       };
-      const testParams = { ident: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
+      const testParams = { oppgaveId: "1234", periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6" };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);

@@ -54,7 +54,7 @@ export async function action({ request, params }: ActionArgs) {
   const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
 
-  invariant(params.ident, "Brukerens ident må være satt");
+  invariant(params.oppgaveId, "OppgaveID må være satt");
   invariant(periodeId, "RapporteringsID er obligatorisk");
 
   switch (submitKnapp) {
@@ -98,7 +98,9 @@ export async function action({ request, params }: ActionArgs) {
         });
       }
 
-      return redirect(`/saksbehandling/person/${params.ident}/oversikt/rapportering-og-utbetaling`);
+      return redirect(
+        `/saksbehandling/person/${params.oppgaveId}/oversikt/rapportering-og-utbetaling`,
+      );
     }
   }
 }

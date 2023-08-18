@@ -20,7 +20,7 @@ describe("Rapportering og utbetaling", () => {
   });
 
   describe("Loader", () => {
-    const testParams = { ident: "1234" };
+    const testParams = { oppgaveId: "1234" };
 
     test("skal feile hvis bruker ikke er logget på", async () => {
       const response = await catchErrorResponse(() =>
@@ -85,7 +85,7 @@ describe("Rapportering og utbetaling", () => {
         periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         submit: "start-korrigering",
       };
-      const testParams = { ident: "1234" };
+      const testParams = { oppgaveId: "1234" };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
@@ -158,7 +158,7 @@ describe("Rapportering og utbetaling", () => {
         periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         submit: "avgodkjenn",
       };
-      const testParams = { ident: "1234" };
+      const testParams = { oppgaveId: "1234" };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
