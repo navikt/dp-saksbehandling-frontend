@@ -3,6 +3,7 @@ import { Outlet, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
+import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL, type HentPersonResponsData } from "~/models/pdl.server";
 
 import { type IPerson, mockHentPerson } from "~/models/person.server";
@@ -10,10 +11,18 @@ import { type IPerson, mockHentPerson } from "~/models/person.server";
 export const shouldRevalidate = () => false;
 
 export async function loader({ request, params }: LoaderArgs) {
-  invariant(params.ident, `params.ident er påkrevd`);
+  invariant(params.oppgaveId, "Fant ikke oppgaveId");
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
 
   if (process.env.IS_LOCALHOST === "true") {
-    const person: IPerson = await mockHentPerson(params.ident);
+    const person: IPerson = await mockHentPerson(oppgave.person);
 
     const personKonvertertPDLPerson: HentPersonResponsData = {
       hentPerson: {

@@ -36,7 +36,7 @@ export default function Saksbehandling() {
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${person}/oversikt`} as="Link">
+                  <RemixLink to={`person/${oppgave.uuid}/oversikt`} as="Link">
                     {person}
                   </RemixLink>
                 </Table.DataCell>

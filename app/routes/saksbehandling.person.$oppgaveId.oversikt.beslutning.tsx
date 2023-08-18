@@ -5,10 +5,20 @@ import invariant from "tiny-invariant";
 import { hentVedtak } from "~/models/vedtak.server";
 
 import styles from "../route-styles/beslutning.module.css";
+import { hentOppgave } from "~/models/oppgave.server";
 
 export async function loader({ request, params }: LoaderArgs) {
-  invariant(params.ident, "Fant ikke bruker");
-  const vedtak = await hentVedtak(params.ident, request);
+  invariant(params.oppgaveId, "Fant ikke oppgaveId");
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
+
+  const vedtak = await hentVedtak(oppgave.person, request);
 
   return json(vedtak);
 }

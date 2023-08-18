@@ -4,7 +4,7 @@ import { json } from "@remix-run/node";
 import { unstable_createRemixStub } from "@remix-run/testing";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import PersonOversiktRapporteringOgUtbetalingSide from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
+import PersonOversiktRapporteringOgUtbetalingSide from "~/routes/saksbehandling.person.$oppgaveId.oversikt.rapportering-og-utbetaling";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
 
 describe("Rapportering og utbetaling", () => {

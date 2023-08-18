@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
   action,
   loader,
-} from "~/routes/saksbehandling.person.$ident.oversikt.rapportering-og-utbetaling";
+} from "~/routes/saksbehandling.person.$oppgaveId.oversikt.rapportering-og-utbetaling";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";

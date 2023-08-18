@@ -19,10 +19,20 @@ import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-st
 import { RemixLink } from "~/components/RemixLink";
 import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
 import { NyRapporteringsperiode } from "~/components/ny-rapporteringsperiode/NyRapporteringsperiode";
+import { hentOppgave } from "~/models/oppgave.server";
 
 export async function loader({ params, request }: LoaderArgs) {
-  invariant(params.ident, `Fant ikke bruker`);
-  const response = await hentRapporteringsperioder(params.ident, request);
+  invariant(params.oppgaveId, "Fant ikke oppgaveId");
+  const oppgave = await hentOppgave(params.oppgaveId, request);
+
+  if (!oppgave) {
+    throw new Response(null, {
+      status: 500,
+      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
+    });
+  }
+
+  const response = await hentRapporteringsperioder(oppgave.person, request);
 
   if (response.ok) {
     const rapporteringsperioder = await response.json();
@@ -40,7 +50,7 @@ export async function action({ request, params }: ActionArgs) {
   const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
 
-  invariant(params.ident, "Brukerens ident må være satt");
+  invariant(params.oppgaveId, "OppgaveId må være satt");
 
   switch (submitKnapp) {
     case "start-korrigering": {
@@ -49,7 +59,7 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         const korrigeringsperiode: IRapporteringsperiode = await response.json();
         return redirect(
-          `/saksbehandling/person/${params.ident}/rediger-periode/${korrigeringsperiode.id}`,
+          `/saksbehandling/person/${params.oppgaveId}/rediger-periode/${korrigeringsperiode.id}`,
         );
       } else {
         throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
@@ -60,7 +70,7 @@ export async function action({ request, params }: ActionArgs) {
       const response = await avgodkjennPeriode(periodeId, request);
 
       if (response.ok) {
-        return redirect(`/saksbehandling/person/${params.ident}/rediger-periode/${periodeId}`);
+        return redirect(`/saksbehandling/person/${params.oppgaveId}/rediger-periode/${periodeId}`);
       } else {
         throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
       }
@@ -100,7 +110,7 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { rapporteringsperioder } = useLoaderData();
-  const { ident } = useParams();
+  const { oppgaveId } = useParams();
 
   return (
     <div className={styles.kontainer}>
@@ -137,7 +147,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                         {periode.status === "TilUtfylling" && (
                           <RemixLink
                             as="Button"
-                            to={`/saksbehandling/person/${ident}/rediger-periode/${periode.id}`}
+                            to={`/saksbehandling/person/${oppgaveId}/rediger-periode/${periode.id}`}
                             className="my-6"
                           >
                             Rediger
