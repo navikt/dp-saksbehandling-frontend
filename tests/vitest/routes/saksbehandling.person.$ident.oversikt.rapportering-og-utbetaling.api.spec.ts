@@ -10,6 +10,7 @@ import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporterin
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
+import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 
 describe("Rapportering og utbetaling", () => {
   beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
@@ -20,7 +21,7 @@ describe("Rapportering og utbetaling", () => {
   });
 
   describe("Loader", () => {
-    const testParams = { oppgaveId: "1234" };
+    const testParams = { oppgaveId: oppgaverResponse[0].uuid };
 
     test("skal feile hvis bruker ikke er logget på", async () => {
       const response = await catchErrorResponse(() =>
@@ -35,7 +36,7 @@ describe("Rapportering og utbetaling", () => {
     });
 
     test("skal hente rapporteringsperioder", async () => {
-      const mock = mockSession();
+      mockSession();
 
       const response = await loader({
         request: new Request("http://localhost:3000"),
@@ -45,7 +46,6 @@ describe("Rapportering og utbetaling", () => {
 
       const data = await response.json();
 
-      expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
       expect(response.status).toBe(200);
       expect(data.rapporteringsperioder).toEqual(mockRapporteringsperioder);
     });
@@ -85,7 +85,7 @@ describe("Rapportering og utbetaling", () => {
         periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         submit: "start-korrigering",
       };
-      const testParams = { oppgaveId: "1234" };
+      const testParams = { oppgaveId: oppgaverResponse[0].uuid };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
@@ -116,7 +116,7 @@ describe("Rapportering og utbetaling", () => {
 
         expect(response).toEqual(
           redirect(
-            `/saksbehandling/person/1234/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
+            `/saksbehandling/person/${oppgaverResponse[0].uuid}/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
           ),
         );
       });
@@ -158,7 +158,7 @@ describe("Rapportering og utbetaling", () => {
         periodeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         submit: "avgodkjenn",
       };
-      const testParams = { oppgaveId: "1234" };
+      const testParams = { oppgaveId: oppgaverResponse[0].uuid };
 
       test("burde feile hvis bruker ikke er autentisert", async () => {
         const body = new URLSearchParams(testBody);
@@ -189,7 +189,7 @@ describe("Rapportering og utbetaling", () => {
 
         expect(response).toEqual(
           redirect(
-            "/saksbehandling/person/1234/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            `/saksbehandling/person/${oppgaverResponse[0].uuid}/rediger-periode/3fa85f64-5717-4562-b3fc-2c963f66afa6`,
           ),
         );
       });

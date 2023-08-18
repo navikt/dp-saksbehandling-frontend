@@ -26,6 +26,7 @@ export async function loader({ params, request }: LoaderArgs) {
   const oppgave = await hentOppgave(params.oppgaveId, request);
 
   if (!oppgave) {
+    console.log("Skjer dette da? RIP");
     throw new Response(null, {
       status: 500,
       statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
