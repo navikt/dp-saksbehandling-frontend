@@ -1,13 +1,19 @@
 import { Alert, Button, Heading } from "@navikt/ds-react";
-import { Form, useActionData, useLoaderData, useNavigation, useRouteError } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useRouteError,
+  useRouteLoaderData,
+} from "@remix-run/react";
+import { json, type ActionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { endreStatus, hentOppgave } from "~/models/oppgave.server";
-import styles from "~/route-styles/vedtaksbrev.module.css";
-import { json } from "@remix-run/node";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { validerOgParseMetadata } from "~/utils/validering.util";
+import { endreStatus } from "~/models/oppgave.server";
+import styles from "~/route-styles/vedtaksbrev.module.css";
 import { erGyldigTilstand } from "~/utils/type-guards";
+import { validerOgParseMetadata } from "~/utils/validering.util";
+import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.oppgave.$oppgaveId";
 
 interface IMetadata {
   tilstand: string;
@@ -51,29 +57,15 @@ export async function action({ request, params }: ActionArgs) {
   }
 }
 
-export async function loader({ params, request }: LoaderArgs) {
-  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-
-  const oppgave = await hentOppgave(params.oppgaveId, request);
-
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
-
-  const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
-
-  return json({ metadata });
-}
-
 export default function SendVedtaksbrev() {
-  const { metadata } = useLoaderData<typeof loader>();
+  const { oppgave } = useRouteLoaderData(
+    "routes/saksbehandling.oppgave.$oppgaveId",
+  ) as ISaksbehandlingsOppgaveLoader;
   const postData = useActionData<typeof action>();
   const navigation = useNavigation();
   const isCreating = Boolean(navigation.state === "submitting");
 
+  const metadata = { tilstand: oppgave.tilstand, muligeTilstander: oppgave.muligeTilstander };
   const sendtTilToTrinnsKontroll =
     (postData && postData.endret) || metadata.tilstand === "Innstilt";
 

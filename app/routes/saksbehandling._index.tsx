@@ -43,7 +43,7 @@ export default function Saksbehandling() {
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${person}/oppgave/${uuid}`} as="Button">
+                  <RemixLink to={`oppgave/${uuid}`} as="Button">
                     Behandle
                   </RemixLink>
                 </Table.DataCell>

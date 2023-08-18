@@ -6,7 +6,7 @@ import { type IOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandle.module.css";
 
 export default function PersonBehandle() {
-  const data = useRouteLoaderData(`routes/saksbehandling.person.$ident.oppgave.$oppgaveId`);
+  const data = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`);
   const oppgave: IOppgave = data.oppgave;
 
   return (
