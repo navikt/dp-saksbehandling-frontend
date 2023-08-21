@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
     return json({ ...personKonvertertPDLPerson });
   } else {
-    const data = await hentPDL(request, params.ident as string);
+    const data = await hentPDL(request, oppgave.person);
     return json({ ...data });
   }
 }
