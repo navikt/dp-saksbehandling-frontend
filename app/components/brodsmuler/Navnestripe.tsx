@@ -3,10 +3,10 @@ import { CopyButton } from "@navikt/ds-react";
 
 interface IProps {
   navn: string;
-  ident: string | undefined;
+  ident: string;
 }
 
-export function Brodsmuler({ navn, ident }: IProps) {
+export function Navnestripe({ navn, ident }: IProps) {
   return (
     <div className={styles.container}>
       <ul>

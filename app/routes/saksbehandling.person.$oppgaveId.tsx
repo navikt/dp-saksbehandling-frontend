@@ -1,11 +1,10 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { Outlet, useLoaderData, useParams } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
-import { Brodsmuler } from "~/components/brodsmuler/Brodsmuler";
+import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL, type HentPersonResponsData } from "~/models/pdl.server";
-
 import { type IPerson, mockHentPerson } from "~/models/person.server";
 
 export const shouldRevalidate = () => false;
@@ -32,34 +31,35 @@ export async function loader({ request, params }: LoaderArgs) {
       },
     };
 
-    return json({ ...personKonvertertPDLPerson });
+    return json({ ...personKonvertertPDLPerson, FNR: oppgave.person });
   } else {
     const data = await hentPDL(request, oppgave.person);
-    return json({ ...data });
+    return json({ ...data, FNR: oppgave.person });
   }
 }
 
 export default function Person() {
-  const { ident } = useParams();
   const loaderData = useLoaderData<typeof loader>();
   const [navn, setNavn] = useState("Laster...");
+  const [ident, setIdent] = useState("Laster...");
 
   useEffect(() => {
     if (!loaderData.hentPerson) {
+      setNavn("Klarte ikke laste navn");
       return;
     }
+    loaderData.FNR ? setIdent(loaderData.FNR) : setIdent("Klarte ikke laste ident");
 
     if (loaderData.hentPerson?.navn && loaderData.hentPerson.navn.length > 0) {
       const navn = loaderData.hentPerson.navn[0];
       const fulltNavn = `${navn.fornavn} ${navn.etternavn}`;
-
       setNavn(fulltNavn);
     }
   }, [loaderData]);
 
   return (
     <>
-      <Brodsmuler navn={navn} ident={ident} />
+      <Navnestripe navn={navn} ident={ident} />
       <main>
         <Outlet />
       </main>
