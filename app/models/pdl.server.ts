@@ -24,8 +24,7 @@ export async function hentPDL(request: Request, ident: string) {
   console.log("PDL SUBMIT");
   const saksbehandler = await authorizeUser(request);
 
-  //todo: denne kommer til å kresje hardt (til nærmeste errorboundary)
-  // hvis applikasjonen ikke er autorisert å være audience hos pdl api i dev/prod
+  //todo: spør om tilgang for audience i prod
   const token = await session.apiToken("api://dev-fss.pdl.pdl-api/.default");
 
   if (!token || !saksbehandler) {
@@ -53,5 +52,5 @@ export async function hentPDL(request: Request, ident: string) {
     },
   });
   logger.info(`Henter pdl informasjon med call-id: ${callId}`);
-  return client.request<HentPersonResponsData>(personSpoerring, { ident });
+  return await client.request<HentPersonResponsData>(personSpoerring, { ident });
 }
