@@ -4,11 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { authorizeUser } from "./auth.server";
 
-export interface IPDLHentPersonRespons {
-  errors?: [{ message: string }];
-  data: HentPersonResponsData;
-}
-
 export type HentPersonResponsData = {
   hentPerson: { navn: Personnavn[] } | null;
 };
@@ -57,24 +52,6 @@ export async function hentPDL(request: Request, ident: string) {
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
   });
-
-  try {
-    logger.info(`Henter pdl informasjon med call-id: ${callId}`);
-    const data = await client.request<HentPersonResponsData>(personSpoerring, { ident });
-    // TODO Fiks typer på graphql
-    // Graphql returnerer et object med property journalpost som inneholder en journalpost.
-    // @ts-ignore
-    return data;
-  } catch (error: unknown) {
-    logger.warn(`Feil fra PDL med call-id ${callId}: ${error}`);
-    if (error instanceof Error) {
-      //todo: greie å lese errorobjektet som graphql error, eksempel:
-      //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
-      throw new Response(null, {
-        status: 500,
-        statusText: `Feil ved henting av pdl, debug: ${error.message}`,
-      });
-    }
-    throw new Response(`Feil ved henting av pdl.`, { status: 500 });
-  }
+  logger.info(`Henter pdl informasjon med call-id: ${callId}`);
+  return client.request<HentPersonResponsData>(personSpoerring, { ident });
 }

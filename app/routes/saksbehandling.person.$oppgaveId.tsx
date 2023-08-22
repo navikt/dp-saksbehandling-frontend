@@ -6,9 +6,7 @@ import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL, type HentPersonResponsData } from "~/models/pdl.server";
 import { type IPerson, mockHentPerson } from "~/models/person.server";
-
-export const shouldRevalidate = () => false;
-
+import { logger } from "../../server/logger";
 export async function loader({ request, params }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const oppgave = await hentOppgave(params.oppgaveId, request);
@@ -31,27 +29,37 @@ export async function loader({ request, params }: LoaderArgs) {
       },
     };
 
-    return json({ ...personKonvertertPDLPerson, FNR: oppgave.person });
+    return json({ ...personKonvertertPDLPerson, FNR: oppgave.person, errors: false });
   } else {
-    const data = await hentPDL(request, oppgave.person);
-    return json({ ...data, FNR: oppgave.person });
+    let data;
+    let errors = false;
+    try {
+      data = await hentPDL(request, oppgave.person);
+    } catch (error: unknown) {
+      errors = true;
+      logger.warn(`Feil fra PDL: ${error}`);
+      data = { error: [`Feil ved henting av pdl.`], hentPerson: {} };
+      if (error instanceof Error) {
+        data = { error: [`Feil ved henting av pdl, debug: ${error.message}`], hentPerson: {} };
+      }
+    }
+    return json({ ...data, FNR: oppgave.person, errors: errors });
   }
 }
 
 export default function Person() {
   const loaderData = useLoaderData<typeof loader>();
   const [navn, setNavn] = useState("Laster...");
-  const [ident, setIdent] = useState("Laster...");
 
   useEffect(() => {
-    if (!loaderData.hentPerson) {
+    if (loaderData.errors) {
       setNavn("Klarte ikke laste navn");
       return;
     }
-    loaderData.FNR ? setIdent(loaderData.FNR) : setIdent("Klarte ikke laste ident");
+    const hentPersonData = loaderData.hentPerson as HentPersonResponsData;
 
-    if (loaderData.hentPerson?.navn && loaderData.hentPerson.navn.length > 0) {
-      const navn = loaderData.hentPerson.navn[0];
+    if (hentPersonData.hentPerson?.navn && hentPersonData.hentPerson?.navn.length > 0) {
+      const navn = hentPersonData.hentPerson?.navn[0];
       const fulltNavn = `${navn.fornavn} ${navn.etternavn}`;
       setNavn(fulltNavn);
     }
@@ -59,7 +67,7 @@ export default function Person() {
 
   return (
     <>
-      <Navnestripe navn={navn} ident={ident} />
+      {!loaderData.errors && <Navnestripe navn={navn} ident={loaderData.FNR} />}
       <main>
         <Outlet />
       </main>
