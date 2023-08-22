@@ -5,7 +5,6 @@ import {
   lagKorrigeringsperiode,
   avgodkjennPeriode,
   hentRapporteringsperiode,
-  lagRapporteringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
@@ -18,7 +17,6 @@ import { RapporteringsperiodeDetaljer } from "~/components/rapporteringsperiode-
 import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-status/RapporteringsperiodeStatus";
 import { RemixLink } from "~/components/RemixLink";
 import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
-import { NyRapporteringsperiode } from "~/components/ny-rapporteringsperiode/NyRapporteringsperiode";
 import { hentOppgave } from "~/models/oppgave.server";
 
 export async function loader({ params, request }: LoaderArgs) {
@@ -84,21 +82,6 @@ export async function action({ request, params }: ActionArgs) {
         return json({ historiskPeriode });
       } else {
         throw new Error("Klarte ikke hente opp historisk rapporteringsperiode");
-      }
-    }
-
-    case "ny-periode": {
-      const fraOgMed = formData.get("fraOgMed") as string;
-      const formattertDato = fraOgMed.split(".").reverse().join("-");
-
-      const response = await lagRapporteringsperiode(periodeId, formattertDato, request);
-
-      if (response.ok) {
-        const rapporteringsperiode: IRapporteringsperiode = await response.json();
-        return json({ rapporteringsperiode });
-      } else {
-        console.dir(response);
-        throw new Error("Klarte ikke lage en ny rapporteringsperiode");
       }
     }
 
@@ -211,7 +194,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
           </Table>
         </>
       )}
-      <NyRapporteringsperiode />
     </div>
   );
 }
