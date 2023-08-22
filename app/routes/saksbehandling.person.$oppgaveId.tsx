@@ -31,21 +31,21 @@ export async function loader({ request, params }: LoaderArgs) {
       },
     };
 
-    return json({ ...personKonvertertPDLPerson, FNR: oppgave.person, errors: false });
+    return json({ ...personKonvertertPDLPerson, FNR: oppgave.person, error: false });
   } else {
     let data;
-    let errors = false;
+    let error = false;
     try {
       data = await hentPDL(request, oppgave.person);
-    } catch (error: unknown) {
-      errors = true;
-      logger.warn(`Feil fra PDL: ${error}`);
-      data = { error: [`Feil ved henting av pdl.`], hentPerson: {} };
-      if (error instanceof Error) {
-        data = { error: [`Feil ved henting av pdl, debug: ${error.message}`], hentPerson: {} };
+    } catch (exception: unknown) {
+      error = true;
+      logger.warn(`Feil fra PDL: ${exception}`);
+      data = { errors: [`Feil ved henting av pdl.`], hentPerson: {} };
+      if (exception instanceof Error) {
+        data = { errors: [`Feil ved henting av pdl, debug: ${exception.message}`], hentPerson: {} };
       }
     }
-    return json({ ...data, FNR: oppgave.person, errors: errors });
+    return json({ ...data, FNR: oppgave.person, error: error });
   }
 }
 
@@ -54,7 +54,7 @@ export default function Person() {
   const [navn, setNavn] = useState("Laster...");
 
   useEffect(() => {
-    if (loaderData.errors) {
+    if (loaderData.error) {
       setNavn("Klarte ikke laste navn");
       return;
     }
@@ -69,7 +69,7 @@ export default function Person() {
 
   return (
     <>
-      {!loaderData.errors && <Navnestripe navn={navn} ident={loaderData.FNR} />}
+      {!loaderData.error && <Navnestripe navn={navn} ident={loaderData.FNR} />}
       <main>
         <Outlet />
       </main>
