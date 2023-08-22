@@ -7,6 +7,8 @@ import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL, type HentPersonResponsData } from "~/models/pdl.server";
 import { type IPerson, mockHentPerson } from "~/models/person.server";
 import { logger } from "../../server/logger";
+
+export const shouldRevalidate = () => false;
 export async function loader({ request, params }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const oppgave = await hentOppgave(params.oppgaveId, request);
