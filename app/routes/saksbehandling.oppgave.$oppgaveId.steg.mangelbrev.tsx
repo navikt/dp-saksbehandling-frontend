@@ -7,7 +7,7 @@ import { endreStatus } from "~/models/oppgave.server";
 import styles from "~/route-styles/mangelbrev.module.css";
 import { erGyldigTilstand } from "~/utils/type-guards";
 import { validerOgParseMetadata } from "~/utils/validering.util";
-import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.person.$ident.oppgave.$oppgaveId";
+import { type ISaksbehandlingsOppgaveLoader } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 interface IMetadata {
   tilstand: string;
