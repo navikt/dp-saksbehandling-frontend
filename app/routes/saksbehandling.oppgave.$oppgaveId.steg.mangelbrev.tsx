@@ -25,7 +25,6 @@ export async function action({ request, params }: ActionArgs) {
     throw new Error("input er ikke en string");
   }
   const metaData = validerOgParseMetadata<IMetadata>(formData, "metadata");
-  console.log(metaData);
 
   if (!metaData.muligeTilstander.includes(nyTilstand)) {
     throw new Response(

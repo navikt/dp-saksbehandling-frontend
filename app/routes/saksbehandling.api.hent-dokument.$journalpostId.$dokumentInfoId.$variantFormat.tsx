@@ -9,8 +9,6 @@ export async function loader({ params, request }: LoaderArgs) {
   invariant(params.variantFormat, `params.variantFormat er påkrevd`);
 
   const url = `https://saf.dev-fss-pub.nais.io/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
-  console.log("Hent dokument fra URL: ", url);
-
   const audience = `api://dev-fss.teamdokumenthandtering.saf-q1/.default`;
   const session = await getAzureSession(request);
   const oboToken = await session.apiToken(audience);

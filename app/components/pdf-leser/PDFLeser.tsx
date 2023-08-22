@@ -10,8 +10,6 @@ export function PDFLeser() {
     journalposter: IJournalpost[];
   };
 
-  console.log("journalposter for pdf leser fra saf: ", journalposter);
-
   const [fileUrl, setFileUrl] = useState<string>("");
   const [journalpostId, setJournalpostId] = useState<string>(journalposter[0].journalpostId ?? "");
   const [dokumentInfoId, setDokumentInfoId] = useState<string>("");

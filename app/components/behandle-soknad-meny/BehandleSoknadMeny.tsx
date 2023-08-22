@@ -9,7 +9,6 @@ interface IProps {
 }
 
 export function BehandleSoknadMeny({ tilstand, muligetilstander }: IProps) {
-  console.log(muligetilstander);
   return (
     <div className={styles.container}>
       <ul>

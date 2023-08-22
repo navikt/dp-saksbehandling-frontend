@@ -26,8 +26,6 @@ export async function loader({ params, request }: LoaderArgs) {
   }
 
   const journalposter: IJournalpost[] = [];
-  console.log("journalposter fra oppgaveID (vår backend): ", oppgave.journalposter);
-
   for (const journalpostId of oppgave.journalposter) {
     const data = await hentJournalpost(request, journalpostId);
     journalposter.push(data);
