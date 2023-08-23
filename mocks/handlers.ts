@@ -3,6 +3,7 @@ import { oppgaverResponse } from "./api-routes/oppgaverResponse";
 import { sanityResponse } from "./api-routes/sanityResponse";
 import { mockRapporteringsperioder } from "./api-routes/rapporteringsperiodeResponse";
 import { mockKorrigeringsperiode } from "./api-routes/korrigeringsperiodeResponse";
+import { vedtakResponse } from "./api-routes/vedtakResponse";
 
 export const handlers = [
   // Hent alle oppgaver
@@ -94,6 +95,11 @@ export const handlers = [
       return res(ctx.status(204));
     },
   ),
+
+  // Hent tidligere vedtak
+  rest.post(`${process.env.DP_VEDTAK_URL}/vedtak`, (__, res, ctx) => {
+    return res(ctx.json(vedtakResponse));
+  }),
 
   // Hent sanity tekster
   rest.get(
