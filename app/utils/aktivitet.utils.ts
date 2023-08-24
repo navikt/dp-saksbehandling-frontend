@@ -1,11 +1,11 @@
 import { parse, serialize } from "tinyduration";
-import { type IAktivitet, type TAktivitetstype } from "~/models/aktivitet.server";
+import { type IAktivitet, type TAktivitetType } from "~/models/aktivitet.server";
 import type {
   IRapporteringsperiode,
   IRapporteringsperiodeDag,
 } from "~/models/rapporteringsperiode.server";
 
-function hentAktiviteter(periode: IRapporteringsperiode, typeAktivitet: TAktivitetstype) {
+function hentAktiviteter(periode: IRapporteringsperiode, typeAktivitet: TAktivitetType) {
   return periode.dager
     .map((dag) => {
       return dag.aktiviteter.filter((aktivitet) => aktivitet.type === typeAktivitet);
@@ -29,7 +29,7 @@ export function norskDesimal(tid: string) {
 
 export function hentAllAktivitetITimer(
   periode: IRapporteringsperiode,
-  typeAktivitet: TAktivitetstype,
+  typeAktivitet: TAktivitetType,
 ) {
   const aktuelleAktiviteter: IAktivitet[] = hentAktiviteter(periode, typeAktivitet);
 
@@ -46,7 +46,7 @@ export function hentAllAktivitetITimer(
   }
 }
 
-export function hentAktivitetITimer(dag: IRapporteringsperiodeDag, typeAktivitet: TAktivitetstype) {
+export function hentAktivitetITimer(dag: IRapporteringsperiodeDag, typeAktivitet: TAktivitetType) {
   const aktuelleAktiviteter: IAktivitet[] = dag.aktiviteter.filter(
     (aktivitet) => aktivitet.type === typeAktivitet,
   );

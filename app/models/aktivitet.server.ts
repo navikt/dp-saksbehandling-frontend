@@ -1,18 +1,18 @@
 import { getEnv } from "~/utils/env.utils";
 import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
 
-export type TAktivitetstype = "Arbeid" | "Ferie" | "Syk";
+export type TAktivitetType = "Arbeid" | "Ferie" | "Syk";
 
 export interface IAktivitet {
   id: string;
-  type: TAktivitetstype;
+  type: TAktivitetType;
   timer: string;
   dato: string;
 }
 
 export async function lagreAktivitet(
   periodeId: string,
-  aktivitetstype: TAktivitetstype,
+  aktivitetstype: TAktivitetType,
   timer: string,
   dato: string,
   request: Request,

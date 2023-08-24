@@ -1,16 +1,16 @@
 import { PencilIcon } from "@navikt/aksel-icons";
 import { Alert, Button, Heading, Table } from "@navikt/ds-react";
 import { json, redirect, type ActionArgs, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useActionData, useLoaderData } from "@remix-run/react";
 import { withZod } from "@remix-validated-form/with-zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ValidatedForm, validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 import { FormattedDate } from "~/components/FormattedDate";
 import { AktivitetModal } from "~/components/aktivitet-modal/AktivitetModal";
 import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
-import { lagreAktivitet, slettAktivitet, type TAktivitetstype } from "~/models/aktivitet.server";
+import { lagreAktivitet, slettAktivitet, type TAktivitetType } from "~/models/aktivitet.server";
 import {
   godkjennPeriode,
   hentRapporteringsperiode,
@@ -48,28 +48,33 @@ export const validator = withZod(
   }),
 );
 
+export interface IRedigerPeriodeAction {
+  aktivitetLagret?: boolean;
+  aktivitetError?: boolean;
+}
+
 export async function action({ request, params }: ActionArgs) {
+  const periodeId = params.periodeId;
+  const oppgaveId = params.oppgaveId;
   const formData = await request.formData();
-
   const submitKnapp = formData.get("submit");
-  const periodeId = formData.get("periodeId") as string;
 
-  invariant(params.oppgaveId, "OppgaveID må være satt");
   invariant(periodeId, "RapporteringsID er obligatorisk");
+  invariant(oppgaveId, "OppgaveId er obligatorisk");
 
   switch (submitKnapp) {
     case "lagre-aktivitet": {
       const dato = formData.get("dato") as string;
-      const aktivitetstype = formData.get("aktivitetstype") as TAktivitetstype;
+      const aktivitetstype = formData.get("aktivitetstype") as TAktivitetType;
       const timer = formData.get("timer") as string;
       const tidsperiode = timer && timerTilDuration(timer);
 
       const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
 
       if (response.ok) {
-        return json({ aktivitetSuccess: true });
+        return json({ aktivitetLagret: true });
       } else {
-        throw new Response(null, { status: 500, statusText: "Klarte ikke lagre aktivitet" });
+        return json({ aktivitetError: true });
       }
     }
 
@@ -78,9 +83,9 @@ export async function action({ request, params }: ActionArgs) {
       const response = await slettAktivitet(periodeId, aktivitetId, request);
 
       if (response.ok) {
-        return json({ aktivitetSuccess: true });
+        return json({ aktivitetLagret: true });
       } else {
-        throw new Response(null, { status: 500, statusText: "Klarte ikke slette aktivitet" });
+        return json({ aktivitetError: true });
       }
     }
 
@@ -98,17 +103,23 @@ export async function action({ request, params }: ActionArgs) {
         });
       }
 
-      return redirect(
-        `/saksbehandling/person/${params.oppgaveId}/oversikt/rapportering-og-utbetaling`,
-      );
+      return redirect(`/saksbehandling/person/${oppgaveId}/oversikt/rapportering-og-utbetaling`);
     }
   }
 }
 
 export default function RedigerPeriode() {
   const { rapporteringsperiode } = useLoaderData();
+  const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetType | string>("");
   const [valgtDato, setValgtDato] = useState<string | undefined>();
   const [modalAapen, setModalAapen] = useState(false);
+  const actionData = useActionData() as IRedigerPeriodeAction;
+
+  useEffect(() => {
+    if (actionData?.aktivitetLagret) {
+      lukkModal();
+    }
+  }, [actionData]);
 
   function aapneModal(dag: IRapporteringsperiodeDag) {
     setModalAapen(true);
@@ -118,6 +129,7 @@ export default function RedigerPeriode() {
   function lukkModal() {
     setModalAapen(false);
     setValgtDato(undefined);
+    setValgtAktivitet("");
   }
 
   return (
@@ -207,6 +219,8 @@ export default function RedigerPeriode() {
       <AktivitetModal
         rapporteringsperiode={rapporteringsperiode}
         dato={valgtDato}
+        valgtAktivitet={valgtAktivitet}
+        setValgtAktivitet={setValgtAktivitet}
         modalAapen={modalAapen}
         lukkModal={lukkModal}
       />

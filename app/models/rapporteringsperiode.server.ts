@@ -1,6 +1,6 @@
 import { getEnv } from "~/utils/env.utils";
 import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
-import { type IAktivitet, type TAktivitetstype } from "./aktivitet.server";
+import { type IAktivitet, type TAktivitetType } from "./aktivitet.server";
 
 export interface IRapporteringsperiode {
   id: string;
@@ -15,7 +15,7 @@ export interface IRapporteringsperiode {
 export interface IRapporteringsperiodeDag {
   dagIndex: number;
   dato: string;
-  muligeAktiviteter: TAktivitetstype[];
+  muligeAktiviteter: TAktivitetType[];
   aktiviteter: IAktivitet[];
 }
 

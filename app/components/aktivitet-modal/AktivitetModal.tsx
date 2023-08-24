@@ -1,36 +1,36 @@
-import { TrashIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Modal } from "@navikt/ds-react";
+import { Alert, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useActionData } from "@remix-run/react";
 import classNames from "classnames";
-import { ValidatedForm, useIsSubmitting } from "remix-validated-form";
+import { ValidatedForm } from "remix-validated-form";
 import { validatorAktivitet } from "~/utils/validering.util";
 import { AktivitetRadio } from "../aktivitet-radio/AktivitetRadio";
 import { type IRapporteringsperiode } from "~/models/rapporteringsperiode.server";
 import { FormattedDate } from "../FormattedDate";
-import { useEffect, useState } from "react";
-import { type TAktivitetstype } from "~/models/aktivitet.server";
+import { useEffect } from "react";
+import { type TAktivitetType } from "~/models/aktivitet.server";
 import { hentAktivitetITimer } from "~/utils/aktivitet.utils";
 import { AktivitetTekstfelt } from "../aktivitet-tekstfelt/AktivitetTekstfelt";
+import { type IRedigerPeriodeAction } from "~/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 
 import styles from "./AktivitetModal.module.css";
 
 interface IProps {
   rapporteringsperiode: IRapporteringsperiode;
   dato: string | undefined;
+  valgtAktivitet: string | TAktivitetType;
+  setValgtAktivitet: (aktivitet: string | TAktivitetType) => void;
   modalAapen: boolean;
   lukkModal: () => void;
 }
 
 export function AktivitetModal(props: IProps) {
-  const { rapporteringsperiode, dato, modalAapen, lukkModal } = props;
-  const actionData = useActionData();
-  const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetstype | string>("");
-  const isSubmitting = useIsSubmitting("send-aktivitet");
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const { rapporteringsperiode, dato, valgtAktivitet, setValgtAktivitet, modalAapen, lukkModal } =
+    props;
+  const actionData = useActionData() as IRedigerPeriodeAction;
 
   const dag = rapporteringsperiode.dager.find((rapporteringsdag) => rapporteringsdag.dato === dato);
 
-  function hentSlettKnappTekst() {
+  function hentAktivitetTekst() {
     const aktivitet = dag && dag.aktiviteter[0];
     const timer = dag && aktivitet && hentAktivitetITimer(dag, aktivitet.type);
 
@@ -45,22 +45,9 @@ export function AktivitetModal(props: IProps) {
     Modal.setAppElement("#dp-saksbehandling-frontend");
   }, []);
 
-  useEffect(() => {
-    if (isSubmitting) {
-      setHasSubmitted(true);
-    }
-  }, [isSubmitting]);
-
-  useEffect(() => {
-    if (actionData && actionData.aktivitetSuccess && hasSubmitted) {
-      setHasSubmitted(false);
-      setValgtAktivitet("");
-      lukkModal();
-    }
-  }, [actionData, modalAapen, lukkModal, hasSubmitted]);
-
   return (
     <Modal
+      className={styles.modal}
       aria-labelledby="modal-heading"
       aria-label="Rapporter aktivitet"
       open={modalAapen}
@@ -81,27 +68,21 @@ export function AktivitetModal(props: IProps) {
 
         {dag?.aktiviteter.map((aktivitet) => (
           <Form key={aktivitet.id} method="post">
-            <input type="hidden" name="periodeId" defaultValue={rapporteringsperiode.id} />
             <input type="hidden" name="aktivitetId" defaultValue={aktivitet.id} />
-            <button
-              type="submit"
-              name="submit"
-              value="slette-aktivitet"
-              className={classNames(styles.slettKnapp, styles[aktivitet.type])}
-            >
-              {hentSlettKnappTekst()}
-              <TrashIcon title="a11y-title" fontSize="1.5rem" />
-            </button>
+
+            <div className={classNames(styles.registrertAktivitet, styles[aktivitet.type])}>
+              {hentAktivitetTekst()}
+            </div>
+            <div className={styles.knappKontainer}>
+              <Button type="submit" name="submit" value="slette-aktivitet">
+                Fjern registrering
+              </Button>
+            </div>
           </Form>
         ))}
 
-        {dag?.muligeAktiviteter && (
-          <ValidatedForm
-            method="post"
-            validator={validatorAktivitet(valgtAktivitet)}
-            id="send-aktivitet"
-          >
-            <input type="hidden" name="periodeId" value={rapporteringsperiode.id} />
+        {dag && dag.muligeAktiviteter.length > 0 && (
+          <ValidatedForm method="post" validator={validatorAktivitet(valgtAktivitet)}>
             <input type="hidden" name="dato" value={dag.dato} />
 
             <div className={styles.aktivitetKontainer}>
@@ -115,6 +96,12 @@ export function AktivitetModal(props: IProps) {
 
             {valgtAktivitet === "Arbeid" && (
               <AktivitetTekstfelt name="timer" label="Antall timer:" />
+            )}
+
+            {actionData?.aktivitetError && (
+              <Alert variant="error" className={styles.feilmelding}>
+                Det skjedde en feil.
+              </Alert>
             )}
 
             <div className="knapperad knapperad-hoyrestilt">

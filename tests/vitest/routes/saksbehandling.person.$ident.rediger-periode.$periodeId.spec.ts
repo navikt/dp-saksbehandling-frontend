@@ -3,6 +3,7 @@ import { redirect } from "@remix-run/node";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
+  type IRedigerPeriodeAction,
   action,
   loader,
 } from "../../../app/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
@@ -125,9 +126,9 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = await response?.json();
+        const data = (await response?.json()) as IRedigerPeriodeAction;
 
-        expect(data && data.aktivitetSuccess).toBeTruthy();
+        expect(data && data.aktivitetLagret).toBeTruthy();
       });
 
       test("burde feile hvis backend feiler", async () => {
@@ -154,15 +155,15 @@ describe("Rediger rapporteringsperiode", () => {
           ),
         );
 
-        const response = await catchErrorResponse(() =>
-          action({
-            request,
-            params: testParams,
-            context: {},
-          }),
-        );
+        const response = await action({
+          request,
+          params: testParams,
+          context: {},
+        });
 
-        expect(response.status).toBe(500);
+        const data = (await response?.json()) as IRedigerPeriodeAction;
+
+        expect(data && data.aktivitetError).toBeTruthy();
       });
     });
 
@@ -209,9 +210,9 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = (await response?.json()) as { aktivitetSuccess: boolean };
+        const data = (await response?.json()) as IRedigerPeriodeAction;
 
-        expect(data && data.aktivitetSuccess).toBeTruthy();
+        expect(data && data.aktivitetLagret).toBeTruthy();
       });
 
       test("burde feile hvis backend feiler", async () => {
@@ -238,15 +239,15 @@ describe("Rediger rapporteringsperiode", () => {
           ),
         );
 
-        const response = await catchErrorResponse(() =>
-          action({
-            request,
-            params: testParams,
-            context: {},
-          }),
-        );
+        const response = await action({
+          request,
+          params: testParams,
+          context: {},
+        });
 
-        expect(response.status).toBe(500);
+        const data = (await response?.json()) as IRedigerPeriodeAction;
+
+        expect(data.aktivitetError).toBeTruthy();
       });
     });
 

@@ -1,6 +1,6 @@
 import { withZod } from "@remix-validated-form/with-zod";
 import { z } from "zod";
-import { type TAktivitetstype } from "~/models/aktivitet.server";
+import { type TAktivitetType } from "~/models/aktivitet.server";
 import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 
 export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T {
@@ -94,7 +94,7 @@ const aktivitetsvalideringArbeid = z.object({
 
 const aktivitetsvalideringSykFerie = aktivitetsvalideringArbeid.partial({ timer: true });
 
-export function validatorAktivitet(aktivitetType: TAktivitetstype | string) {
+export function validatorAktivitet(aktivitetType: TAktivitetType | string) {
   return aktivitetType === "Arbeid"
     ? withZod(aktivitetsvalideringArbeid)
     : withZod(aktivitetsvalideringSykFerie);
