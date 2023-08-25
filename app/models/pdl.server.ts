@@ -8,7 +8,7 @@ export type HentPersonResponsData = {
   hentPerson: {
     navn: Personnavn[];
     statsborgerskap: Statsborgerskap[];
-    telefon: Telefon[];
+    telefonnummer: Telefon[];
     bostedsadresse: Bostedsadresse[];
     kontaktadresse: Kontaktadresse[];
     doedsfall: Doedsfall[];
@@ -83,7 +83,7 @@ export async function hentPDL(request: Request, ident: string) {
         statsborgerskap(historikk: false) {
           land
         }
-        telefon {
+        telefonnummer {
           nummer
         }
         bostedsadresse(historikk: false) {
