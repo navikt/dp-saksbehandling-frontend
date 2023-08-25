@@ -5,13 +5,40 @@ import { getAzureSession } from "~/utils/auth.utils.server";
 import { authorizeUser } from "./auth.server";
 
 export type HentPersonResponsData = {
-  hentPerson: { navn: Personnavn[] } | null;
+  hentPerson: {
+    navn: Personnavn[];
+    statsborgerskap: Statsborgerskap;
+    telefon: Telefon;
+    bostedsadresse: Bostedsadresse;
+    kontaktadresse: Kontaktadresse;
+    doedsfall: Doedsfall;
+  } | null;
 };
 
 export type Personnavn = {
   fornavn: string;
   mellomnavn: string | null;
   etternavn: string;
+};
+
+export type Statsborgerskap = {
+  statsborgerskap: string;
+};
+
+export type Telefon = {
+  nummer: string;
+};
+
+export type Bostedsadresse = {
+  vegadresse: Object;
+};
+
+export type Kontaktadresse = {
+  vegadresse: Object;
+};
+
+export type Doedsfall = {
+  doedsdato: Date;
 };
 
 export async function hentPDL(request: Request, ident: string) {
@@ -37,6 +64,21 @@ export async function hentPDL(request: Request, ident: string) {
           fornavn
           mellomnavn
           etternavn
+        }
+        statsborgerskap(historikk: false) {
+          land
+        }
+        telefon {
+          nummer
+        }
+        bostedsadresse(historikk: false) {
+          vegadresse
+        }
+        kontaktadresse(historikk: false) {
+          vegadresse
+        }
+        doedsfall {
+          doedsdato
         }
       }
     }
