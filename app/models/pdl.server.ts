@@ -47,6 +47,7 @@ export type Doedsfall = {
 export type UtflyttingFraNorge = {
   utflyttingsdato?: Date;
 };
+
 export type Sikkerhetstiltak = {
   tiltakstype: string;
 };
