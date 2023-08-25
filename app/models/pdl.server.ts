@@ -33,11 +33,11 @@ export type Telefon = {
 };
 
 export type Bostedsadresse = {
-  vegadresse: Object;
+  vegadresse: VegadresseDetails;
 };
 
 export type Kontaktadresse = {
-  vegadresse: Object;
+  vegadresse: VegadresseDetails;
 };
 
 export type Doedsfall = {
@@ -54,6 +54,12 @@ export type Sikkerhetstiltak = {
 
 export type Foreldreansvar = {
   ansvar?: string;
+};
+
+export type VegadresseDetails = {
+  husnummer: string;
+  adressenavn: string;
+  postnummer: string;
 };
 
 export async function hentPDL(request: Request, ident: string) {
@@ -87,10 +93,18 @@ export async function hentPDL(request: Request, ident: string) {
           nummer
         }
         bostedsadresse(historikk: false) {
-          vegadresse
+          vegadresse {
+            husnummer
+            adressenavn
+            postnummer
+          }
         }
         kontaktadresse(historikk: false) {
-          vegadresse
+          vegadresse {
+            husnummer
+            adressenavn
+            postnummer
+          }
         }
         doedsfall {
           doedsdato
