@@ -7,11 +7,14 @@ import { authorizeUser } from "./auth.server";
 export type HentPersonResponsData = {
   hentPerson: {
     navn: Personnavn[];
-    statsborgerskap: Statsborgerskap;
-    telefon: Telefon;
-    bostedsadresse: Bostedsadresse;
-    kontaktadresse: Kontaktadresse;
-    doedsfall: Doedsfall;
+    statsborgerskap: Statsborgerskap[];
+    telefon: Telefon[];
+    bostedsadresse: Bostedsadresse[];
+    kontaktadresse: Kontaktadresse[];
+    doedsfall: Doedsfall[];
+    utflyttingFraNorge: UtflyttingFraNorge[];
+    sikkerhetstiltak: Sikkerhetstiltak[];
+    foreldreansvar: Foreldreansvar[];
   } | null;
 };
 
@@ -38,7 +41,18 @@ export type Kontaktadresse = {
 };
 
 export type Doedsfall = {
-  doedsdato: Date;
+  doedsdato?: Date;
+};
+
+export type UtflyttingFraNorge = {
+  utflyttingsdato?: Date;
+};
+export type Sikkerhetstiltak = {
+  tiltakstype: string;
+};
+
+export type Foreldreansvar = {
+  ansvar?: string;
 };
 
 export async function hentPDL(request: Request, ident: string) {
@@ -79,6 +93,15 @@ export async function hentPDL(request: Request, ident: string) {
         }
         doedsfall {
           doedsdato
+        }
+        utflyttingFraNorge {
+          utflyttingsdato
+        }
+        sikkerhetstiltak {
+          tiltakstype
+        }
+        foreldreansvar(historikk: false) {
+          ansvar
         }
       }
     }
