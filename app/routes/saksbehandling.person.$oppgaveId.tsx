@@ -5,7 +5,7 @@ import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL } from "~/models/pdl.server";
 import { type IPerson, mockHentPerson } from "~/models/person.server";
-import { logger } from "../../server/logger";
+import { logger, sikkerLogger } from "../../server/logger";
 
 export const shouldRevalidate = () => false;
 export async function loader({ request, params }: LoaderArgs) {
@@ -34,12 +34,14 @@ export async function loader({ request, params }: LoaderArgs) {
         fulltNavn: `${response.hentPerson?.navn[0].fornavn} ${response.hentPerson?.navn[0].etternavn}`,
       };
     } catch (error: unknown) {
-      logger.warn(`Feil fra PDL: ${error}`);
+      logger.warn(`Feil fra PDL, sjekk sikkerlogg`);
+      sikkerLogger.warn(`PDL kall feilet, error: ${error}`);
       data = { errors: [`Feil ved henting av pdl.`], fulltNavn: `` };
       if (error instanceof Error) {
         data = { errors: [`Feil ved henting av pdl, debug: ${error.message}`], fulltNavn: `` };
       }
     }
+    sikkerLogger.info(`Test av sikkerlogg: superhemmelig data her`);
     return json({ ...data, FNR: oppgave.person });
   }
 }
