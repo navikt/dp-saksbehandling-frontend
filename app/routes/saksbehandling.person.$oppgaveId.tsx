@@ -33,6 +33,7 @@ export async function loader({ request, params }: LoaderArgs) {
       data = {
         fulltNavn: `${response.hentPerson?.navn[0].fornavn} ${response.hentPerson?.navn[0].etternavn}`,
       };
+      sikkerLogger.info(`Sikkerlogg debug PDL kall: ${response}`);
     } catch (error: unknown) {
       logger.warn(`Feil fra PDL, sjekk sikkerlogg`);
       sikkerLogger.warn(`PDL kall feilet, error: ${error}`);
@@ -41,7 +42,6 @@ export async function loader({ request, params }: LoaderArgs) {
         data = { errors: [`Feil ved henting av pdl, debug: ${error.message}`], fulltNavn: `` };
       }
     }
-    sikkerLogger.info(`Test av sikkerlogg: superhemmelig data her`);
     return json({ ...data, FNR: oppgave.person });
   }
 }
