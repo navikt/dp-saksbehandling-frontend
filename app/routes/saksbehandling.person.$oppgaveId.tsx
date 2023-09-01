@@ -33,7 +33,8 @@ export async function loader({ request, params }: LoaderArgs) {
       data = {
         fulltNavn: `${response.hentPerson?.navn[0].fornavn} ${response.hentPerson?.navn[0].etternavn}`,
       };
-      sikkerLogger.info(`Sikkerlogg debug PDL kall: ${JSON.stringify(response)}`);
+      const melding = JSON.stringify(response);
+      sikkerLogger.info(`Sikkerlogg debug PDL kall: ${melding}`);
     } catch (error: unknown) {
       logger.warn(`Feil fra PDL, sjekk sikkerlogg`);
       sikkerLogger.warn(`PDL kall feilet, error: ${error}`);
