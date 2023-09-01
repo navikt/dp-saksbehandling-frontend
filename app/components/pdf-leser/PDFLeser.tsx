@@ -11,7 +11,7 @@ export function PDFLeser() {
   };
 
   const [fileUrl, setFileUrl] = useState<string>("");
-  const [journalpostId, setJournalpostId] = useState<string>(journalposter[0].journalpostId ?? "");
+  const [journalpostId, setJournalpostId] = useState<string>(journalposter[0]?.journalpostId ?? "");
   const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
 
   useEffect(() => {
