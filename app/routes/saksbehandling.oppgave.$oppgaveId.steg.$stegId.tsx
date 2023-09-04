@@ -16,6 +16,7 @@ import {
 } from "~/utils/validering.util";
 
 import styles from "~/route-styles/stegvisning.module.css";
+import { hentStegTekst } from "~/tekster/stegTekster";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -90,6 +91,8 @@ export default function PersonBehandleVilkaar() {
     svartype: steg?.svartype,
   };
 
+  const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
@@ -103,14 +106,14 @@ export default function PersonBehandleVilkaar() {
             name={steg.uuid}
             svartype={steg.svartype}
             verdi={steg?.svar?.svar}
-            label={steg.id}
+            label={stegTekst.label}
             readonly={readonly}
           />
           <Input
             verdi={steg?.svar?.begrunnelse?.tekst}
             name="begrunnelse"
             svartype="String"
-            label="Begrunnelse"
+            label={stegTekst.begrunnelse}
             readonly={readonly}
           />
           {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
