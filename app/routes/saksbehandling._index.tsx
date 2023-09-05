@@ -6,15 +6,20 @@ import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "~/components/RemixLink";
 
+interface ISaksbehandlingIndexLoader {
+  nyeOppgaver: IOppgave[];
+}
+
 export async function loader({ request }: LoaderArgs) {
   const oppgaver = await hentOppgaver(request);
+  const nyeOppgaver = oppgaver.filter((oppgave) => oppgave.tilstand !== "Vedtak");
 
-  return json(oppgaver);
+  return json({ nyeOppgaver });
 }
 
 export default function Saksbehandling() {
   const loaderData = useLoaderData<typeof loader>();
-  const oppgaver = loaderData as IOppgave[];
+  const { nyeOppgaver } = loaderData as ISaksbehandlingIndexLoader;
 
   return (
     <main>
@@ -30,7 +35,7 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgaver?.map((oppgave, index) => {
+          {nyeOppgaver?.map((oppgave, index) => {
             const { uuid, tilstand, person, opprettet } = oppgave;
             return (
               <Table.Row key={index}>

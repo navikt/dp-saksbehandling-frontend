@@ -30,7 +30,7 @@ describe("Hovedside saksbehandling", () => {
       expect(response.status).toBe(500);
     });
 
-    test("skal hente ut alle oppgaver i saksbehandlingssystemet", async () => {
+    test("skal hente ut nye oppgaver i saksbehandlingssystemet", async () => {
       const mock = mockSession();
 
       const response = await loader({
@@ -40,10 +40,11 @@ describe("Hovedside saksbehandling", () => {
       });
 
       const data = await response.json();
+      const nyeOppgaver = oppgaverResponse.filter((oppgave) => oppgave.tilstand !== "Vedtak");
 
       expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
       expect(response.status).toBe(200);
-      expect(data).toEqual(oppgaverResponse);
+      expect(data).toEqual({ nyeOppgaver });
     });
 
     test("skal feile hvis backend-kallet feiler", async () => {

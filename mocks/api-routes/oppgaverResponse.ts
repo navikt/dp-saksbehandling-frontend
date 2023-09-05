@@ -220,12 +220,13 @@ export const oppgaverResponse: IOppgave[] = [
     ],
     muligeTilstander: ["VentPåMangelbrev"],
   },
+
   {
-    uuid: "d04cbaea-dc4d-42a9-a5ff-c983ec4870e5",
+    uuid: "d04cbaea-dc4d-42a9-a5ff-c983ec4870e6",
     person: "29889196546",
     opprettet: "2023-04-25",
     hendelse: [],
-    tilstand: "Innstilt",
+    tilstand: "Vedtak",
     journalposter: [],
     steg: [
       {
