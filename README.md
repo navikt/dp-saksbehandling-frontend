@@ -135,3 +135,4 @@ Github token er utdatert.
 12. Kopier `ghp_x...` tokenet og putt det i `.npmrc` filen på maskinen din
 13. Trykk `Configure SSO`
 14. Trykk `Authorize` på `navikt`
+15. Ferdig!
