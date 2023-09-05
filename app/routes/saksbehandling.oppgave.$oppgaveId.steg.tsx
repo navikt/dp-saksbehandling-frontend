@@ -1,5 +1,4 @@
 import { Outlet, useRouteLoaderData } from "@remix-run/react";
-import { BehandleSoknadMeny } from "~/components/behandle-soknad-meny/BehandleSoknadMeny";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
 import { type IOppgave } from "~/models/oppgave.server";
 
@@ -19,11 +18,6 @@ export default function PersonBehandle() {
             ))}
           </ul>
         </div>
-
-        <BehandleSoknadMeny
-          tilstand={oppgave.tilstand}
-          muligetilstander={oppgave.muligeTilstander}
-        />
       </div>
       <Outlet />
     </>
