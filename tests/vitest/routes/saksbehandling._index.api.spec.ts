@@ -30,7 +30,7 @@ describe("Hovedside saksbehandling", () => {
       expect(response.status).toBe(500);
     });
 
-    test("skal hente ut nye oppgaver i saksbehandlingssystemet", async () => {
+    test("skal hente ut oppgaver og viser kun nye oppgaver i benken", async () => {
       const mock = mockSession();
 
       const response = await loader({
