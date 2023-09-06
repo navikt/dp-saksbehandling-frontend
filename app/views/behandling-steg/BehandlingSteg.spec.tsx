@@ -10,90 +10,172 @@ import { type IBehandlingSteg } from "~/models/oppgave.server";
 import { hentStegTekst } from "~/tekster/stegTekster";
 
 describe("BehandlingSteg", () => {
-  const steg: IBehandlingSteg = {
-    uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
-    id: "Grunnlag",
-    type: "Fastsetting",
-    svartype: "Int",
-    tilstand: "IkkeUtført",
-    svar: null,
-  };
+  describe("BehandlingStegGenerell", () => {
+    describe("Lagre tall", () => {
+      const steg: IBehandlingSteg = {
+        uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
+        id: "Grunnlag",
+        type: "Fastsetting",
+        svartype: "Int",
+        tilstand: "IkkeUtført",
+        svar: null,
+      };
+      test("burde vise et tallsteg", async () => {
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+          },
+        ]);
 
-  describe("Lagre tall", () => {
-    test("burde vise et tall-steg", async () => {
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
-        },
-      ]);
+        render(<RemixStub />);
 
-      render(<RemixStub />);
+        const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
 
-      const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
-
-      expect(await screen.findByLabelText(stegTekst.label)).toBeInTheDocument();
-      expect(await screen.findByLabelText(stegTekst.begrunnelse)).toBeInTheDocument();
-    });
-
-    test("burde kunne lagre et tall", async () => {
-      let stegFelt;
-
-      const actionFn = vi.fn(async ({ request }) => {
-        const formData = await request.formData();
-        stegFelt = formData.get(steg.uuid) as string;
-
-        return json({ lagret: true });
+        expect(await screen.findByLabelText(stegTekst.label)).toBeInTheDocument();
+        expect(await screen.findByLabelText(stegTekst.begrunnelse)).toBeInTheDocument();
       });
 
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
-          action: actionFn,
-        },
-      ]);
+      test("burde kunne lagre et tall", async () => {
+        let stegFelt;
 
-      render(<RemixStub />);
+        const actionFn = vi.fn(async ({ request }) => {
+          const formData = await request.formData();
+          stegFelt = formData.get(steg.uuid) as string;
 
-      const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+          return json({ lagret: true });
+        });
 
-      const stegInput = await screen.findByLabelText(stegTekst.label);
-      const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            action: actionFn,
+          },
+        ]);
 
-      await userEvent.type(stegInput, "500");
-      await userEvent.click(lagreKnapp);
+        render(<RemixStub />);
 
-      expect(actionFn).toBeCalledTimes(1);
-      expect(stegFelt).toBe("500");
-    });
+        const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
 
-    test("burde vise feilmelding hvis bruker skriver inn tekst", async () => {
-      const actionFn = vi.fn(async ({ request }) => {
-        // Denne kan være tom, siden vi ikke skal komme hit i denne testen
+        const stegInput = await screen.findByLabelText(stegTekst.label);
+        const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+
+        await userEvent.type(stegInput, "500");
+        await userEvent.click(lagreKnapp);
+
+        expect(actionFn).toBeCalledTimes(1);
+        expect(stegFelt).toBe("500");
       });
 
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
-          action: actionFn,
-        },
-      ]);
+      test("burde vise feilmelding hvis bruker skriver inn tekst", async () => {
+        const actionFn = vi.fn(async ({ request }) => {
+          // Denne kan være tom, siden vi ikke skal komme hit i denne testen
+        });
 
-      render(<RemixStub />);
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            action: actionFn,
+          },
+        ]);
 
-      const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+        render(<RemixStub />);
 
-      const stegInput = await screen.findByLabelText(stegTekst.label);
-      const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+        const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
 
-      await userEvent.type(stegInput, "hei");
-      await userEvent.click(lagreKnapp);
+        const stegInput = await screen.findByLabelText(stegTekst.label);
+        const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
 
-      expect(actionFn).toBeCalledTimes(0);
-      expect(stegInput.getAttribute("aria-invalid")).toBe("true");
-      expect(await screen.findByText("Det må være et gyldig heltall")).toBeInTheDocument();
+        await userEvent.type(stegInput, "hei");
+        await userEvent.click(lagreKnapp);
+
+        expect(actionFn).toBeCalledTimes(0);
+        expect(stegInput.getAttribute("aria-invalid")).toBe("true");
+        expect(await screen.findByText("Det må være et gyldig heltall")).toBeInTheDocument();
+      });
+    });
+
+    describe("Lagre boolsk verdi", () => {
+      const steg: IBehandlingSteg = {
+        uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
+        id: "Oppfyller kravene til dagpenger",
+        type: "Fastsetting",
+        svartype: "Boolean",
+        tilstand: "IkkeUtført",
+        svar: null,
+      };
+      test("burde vise et boolsk steg", async () => {
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+          },
+        ]);
+
+        render(<RemixStub />);
+
+        const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+
+        expect(await screen.findByRole("group", { name: stegTekst.label })).toBeInTheDocument();
+        expect(await screen.findByLabelText(stegTekst.begrunnelse)).toBeInTheDocument();
+      });
+
+      test("burde kunne lagre et boolsk svar", async () => {
+        let stegFelt;
+
+        const actionFn = vi.fn(async ({ request }) => {
+          const formData = await request.formData();
+          stegFelt = formData.get(steg.uuid) as string;
+
+          return json({ lagret: true });
+        });
+
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            action: actionFn,
+          },
+        ]);
+
+        render(<RemixStub />);
+
+        const radioButton = await screen.findByLabelText("Ja");
+        const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+
+        await userEvent.click(radioButton);
+        await userEvent.click(lagreKnapp);
+
+        expect(actionFn).toBeCalledTimes(1);
+        expect(stegFelt).toBe("true");
+      });
+
+      test("burde vise feilmelding hvis bruker submitter uten å velge noe", async () => {
+        const actionFn = vi.fn(async ({ request }) => {
+          // Denne kan være tom, siden vi ikke skal komme hit i denne testen
+        });
+
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            action: actionFn,
+          },
+        ]);
+
+        render(<RemixStub />);
+
+        const radioButton = await screen.findByLabelText("Ja");
+        const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+
+        await userEvent.click(lagreKnapp);
+
+        expect(actionFn).toBeCalledTimes(0);
+        expect(radioButton.getAttribute("aria-invalid")).toBe("true");
+        expect(await screen.findByText("Du må velge et svar")).toBeInTheDocument();
+      });
     });
   });
 });
