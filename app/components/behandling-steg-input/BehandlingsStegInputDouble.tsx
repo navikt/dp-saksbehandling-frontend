@@ -13,6 +13,7 @@ export function BehandlingStegInputDouble(props: IInputProps) {
       defaultValue={props.verdi?.replace(/\./g, ",")}
       error={error}
       readOnly={readonly}
+      className={props.className}
       {...getInputProps({
         id: props.name,
         label: <>{props.label}</>,

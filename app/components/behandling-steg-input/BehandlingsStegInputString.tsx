@@ -15,6 +15,7 @@ export function BehandlingStegInputString(props: IInputProps) {
           error={error}
           resize={true}
           readOnly={readonly}
+          className={props.className}
           {...getInputProps({
             id: props.name,
             label: <>{props.label}</>,
@@ -26,6 +27,7 @@ export function BehandlingStegInputString(props: IInputProps) {
           defaultValue={props.verdi}
           error={error}
           readOnly={readonly}
+          className={props.className}
           {...getInputProps({
             id: props.name,
             label: <>{props.label}</>,
