@@ -39,53 +39,65 @@ export default function PersonOversiktBeslutningSide() {
 
   return (
     <div className={styles.kontainer}>
-      <Table>
-        <Table.Header>
-          <h2>Rammevedtak</h2>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Virkningdato</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {vedtak.rammer.map(({ vedtakId, virkningsdato }) => {
-            return (
-              <Table.Row key={vedtakId}>
-                <Table.DataCell scope="row">
-                  <CopyButton copyText={vedtakId} text={vedtakId} activeText="Kopierte vedtak ID" />
-                </Table.DataCell>
-                <Table.DataCell>{hentFormattertDato(virkningsdato)}</Table.DataCell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+      {vedtak.rammer.length > 0 && (
+        <Table>
+          <Table.Header>
+            <h2>Rammevedtak</h2>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Virkningdato</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {vedtak.rammer.map(({ vedtakId, virkningsdato }) => {
+              return (
+                <Table.Row key={vedtakId}>
+                  <Table.DataCell scope="row">
+                    <CopyButton
+                      copyText={vedtakId}
+                      text={vedtakId}
+                      activeText="Kopierte vedtak ID"
+                    />
+                  </Table.DataCell>
+                  <Table.DataCell>{hentFormattertDato(virkningsdato)}</Table.DataCell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      )}
 
-      <Table>
-        <Table.Header>
-          <h2>Utbetalingsvedtak</h2>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
-            <Table.HeaderCell scope="col">14. dagers periode</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Sum utbetalt</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {vedtak.utbetalinger.map(({ vedtakId, fraOgMed, tilOgMed, sumUtbetalt }) => {
-            return (
-              <Table.Row key={vedtakId}>
-                <Table.DataCell scope="row">
-                  <CopyButton copyText={vedtakId} text={vedtakId} activeText="Kopierte vedtak ID" />
-                </Table.DataCell>
-                <Table.DataCell>{`${hentFormattertDato(fraOgMed)} - ${hentFormattertDato(
-                  tilOgMed,
-                )}`}</Table.DataCell>
-                <Table.DataCell>{`${sumUtbetalt} kr`}</Table.DataCell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+      {vedtak.utbetalinger.length > 0 && (
+        <Table>
+          <Table.Header>
+            <h2>Utbetalingsvedtak</h2>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
+              <Table.HeaderCell scope="col">14. dagers periode</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Sum utbetalt</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {vedtak.utbetalinger.map(({ vedtakId, fraOgMed, tilOgMed, sumUtbetalt }) => {
+              return (
+                <Table.Row key={vedtakId}>
+                  <Table.DataCell scope="row">
+                    <CopyButton
+                      copyText={vedtakId}
+                      text={vedtakId}
+                      activeText="Kopierte vedtak ID"
+                    />
+                  </Table.DataCell>
+                  <Table.DataCell>{`${hentFormattertDato(fraOgMed)} - ${hentFormattertDato(
+                    tilOgMed,
+                  )}`}</Table.DataCell>
+                  <Table.DataCell>{`${sumUtbetalt} kr`}</Table.DataCell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      )}
     </div>
   );
 }
