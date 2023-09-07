@@ -1,22 +1,23 @@
-import { BodyShort, Button } from "@navikt/ds-react";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useLocation, useNavigation, useRouteLoaderData } from "@remix-run/react";
-import { ValidatedForm, validationError } from "remix-validated-form";
+import { useParams, useRouteLoaderData } from "@remix-run/react";
+import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
-import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import type { IBehandlingStegSvar, TBehandlingStegSvartype } from "~/models/oppgave.server";
-import { hentOppgave, svarOppgaveSteg } from "~/models/oppgave.server";
-import { hentFormattertDato } from "~/utils/dato.utils";
+import type {
+  IBehandlingStegSvar,
+  IOppgave,
+  TBehandlingStegSvartype,
+} from "~/models/oppgave.server";
+import { svarOppgaveSteg } from "~/models/oppgave.server";
 import {
   hentFormattertSvar,
   hentValideringRegler,
   validerOgParseMetadata,
 } from "~/utils/validering.util";
+import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 
 import styles from "~/route-styles/stegvisning.module.css";
-import { hentStegTekst } from "~/tekster/stegTekster";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -25,9 +26,11 @@ export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
   const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
 
-  const validering = await hentValideringRegler(metaData.svartype, params.stegId).validate(
-    formData,
-  );
+  const validering = await hentValideringRegler(
+    metaData.svartype,
+    metaData.id,
+    params.stegId,
+  ).validate(formData);
 
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
@@ -51,83 +54,30 @@ export async function action({ request, params }: ActionArgs) {
   }
 }
 
-export async function loader({ params, request }: LoaderArgs) {
-  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+export interface Metadata {
+  svartype: TBehandlingStegSvartype;
+  id: string;
+}
 
-  const oppgave = await hentOppgave(params.oppgaveId, request);
-
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
-
-  const steg = oppgave.steg.find((steg) => steg.uuid === params.stegId);
+export default function PersonBehandleVilkaar() {
+  const { oppgave } = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`) as {
+    oppgave: IOppgave;
+  };
+  const readonly = oppgave.tilstand !== "TilBehandling";
+  const { stegId } = useParams();
+  const steg = oppgave.steg.find((steg) => steg.uuid === stegId);
 
   if (!steg) {
     throw new Response(null, {
       status: 500,
-      statusText: `Fant ikke steg med id: ${params.stegId}`,
+      statusText: `Fant ikke steg med id: ${stegId}`,
     });
   }
-
-  return json({ steg });
-}
-
-interface Metadata {
-  svartype: TBehandlingStegSvartype;
-}
-
-export default function PersonBehandleVilkaar() {
-  const { steg } = useLoaderData<typeof loader>();
-  const { oppgave } = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`);
-  const readonly = oppgave.tilstand !== "TilBehandling";
-  const location = useLocation();
-  const navigation = useNavigation();
-  const isCreating = Boolean(navigation.state === "submitting");
-
-  const metadata: Metadata = {
-    svartype: steg?.svartype,
-  };
-
-  const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
 
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <ValidatedForm
-          key={location.key}
-          validator={hentValideringRegler(steg.svartype, steg.uuid)}
-          method="post"
-        >
-          <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
-          <Input
-            name={steg.uuid}
-            svartype={steg.svartype}
-            verdi={steg?.svar?.svar}
-            label={stegTekst.label}
-            readonly={readonly}
-          />
-          <Input
-            verdi={steg?.svar?.begrunnelse?.tekst}
-            name="begrunnelse"
-            svartype="String"
-            label={stegTekst.begrunnelse}
-            readonly={readonly}
-          />
-          {steg?.svar?.begrunnelse?.kilde === "Saksbehandler" && steg.svar.begrunnelse.utført && (
-            <BodyShort>
-              Sist endret: {hentFormattertDato(steg.svar.begrunnelse.utført, true)} av:{" "}
-              {steg.svar.begrunnelse.utførtAv?.ident}
-            </BodyShort>
-          )}
-          {!readonly && (
-            <Button type="submit" disabled={isCreating}>
-              {isCreating ? "Lagrer..." : "Lagre"}
-            </Button>
-          )}
-        </ValidatedForm>
+        <BehandlingSteg steg={steg} readonly={readonly} />
       </div>
 
       <div className={styles.dokumentContainer}>

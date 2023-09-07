@@ -18,6 +18,7 @@ export function BehandlingStegInputDato(props: IInputProps) {
       <DatePicker.Input
         error={error}
         readOnly={readonly}
+        className={props.className}
         {...getInputProps({
           id: props.name,
           label: <>{props.label}</>,

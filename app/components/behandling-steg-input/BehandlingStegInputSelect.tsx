@@ -1,13 +1,15 @@
 import { Select } from "@navikt/ds-react";
 import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
+import styles from "./BehandlingsStegInput.module.css";
+import classNames from "classnames";
 
 interface IProps extends IInputProps {
   placeholder: string;
   options: IOptions[];
 }
 
-interface IOptions {
+export interface IOptions {
   value: string;
   text: string;
 }
@@ -15,6 +17,7 @@ interface IOptions {
 export function BehandlingStegInputSelect(props: IProps) {
   const { readonly, verdi, name, label, placeholder, options } = props;
   const { error, getInputProps } = useField(name);
+  const cssClassNames = classNames(styles.input, props.className);
 
   return (
     <Select
@@ -22,6 +25,7 @@ export function BehandlingStegInputSelect(props: IProps) {
       defaultValue={verdi}
       name={name}
       readOnly={readonly}
+      className={cssClassNames}
       {...getInputProps({
         id: name,
         label: <>{label}</>,
