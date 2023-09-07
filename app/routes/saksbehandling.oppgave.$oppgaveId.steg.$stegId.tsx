@@ -1,6 +1,6 @@
 import type { ActionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useNavigation, useParams, useRouteLoaderData } from "@remix-run/react";
+import { useParams, useRouteLoaderData } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
@@ -64,8 +64,6 @@ export default function PersonBehandleVilkaar() {
     oppgave: IOppgave;
   };
   const readonly = oppgave.tilstand !== "TilBehandling";
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
   const { stegId } = useParams();
   const steg = oppgave.steg.find((steg) => steg.uuid === stegId);
 
@@ -79,7 +77,7 @@ export default function PersonBehandleVilkaar() {
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <BehandlingSteg steg={steg} readonly={readonly} isSubmitting={isSubmitting} />
+        <BehandlingSteg steg={steg} readonly={readonly} />
       </div>
 
       <div className={styles.dokumentContainer}>

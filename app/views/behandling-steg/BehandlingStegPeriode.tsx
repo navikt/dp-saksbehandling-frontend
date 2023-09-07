@@ -10,9 +10,13 @@ import {
   type IOptions,
 } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
+import { useNavigation } from "@remix-run/react";
 
 export function BehandlingStegPeriode(props: IProps) {
-  const { steg, readonly, isSubmitting } = props;
+  const { steg, readonly } = props;
+
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const metadata: Metadata = {
     svartype: steg.svartype,

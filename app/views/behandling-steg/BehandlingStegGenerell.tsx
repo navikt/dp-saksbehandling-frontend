@@ -6,9 +6,13 @@ import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
 import { type IProps } from "./BehandlingSteg";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
+import { useNavigation } from "@remix-run/react";
 
 export function BehandlingStegGenerell(props: IProps) {
-  const { steg, readonly, isSubmitting } = props;
+  const { steg, readonly } = props;
+
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const metadata: Metadata = {
     svartype: steg.svartype,

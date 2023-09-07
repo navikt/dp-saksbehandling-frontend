@@ -24,7 +24,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
           },
         ]);
 
@@ -49,7 +49,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
             action: actionFn,
           },
         ]);
@@ -76,7 +76,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
             action: actionFn,
           },
         ]);
@@ -95,6 +95,34 @@ describe("BehandlingSteg", () => {
         expect(stegInput.getAttribute("aria-invalid")).toBe("true");
         expect(await screen.findByText("Det må være et gyldig heltall")).toBeInTheDocument();
       });
+
+      test("burde vise feilmelding hvis bruker trykker lagre uten å ha skrevet inn et tall", async () => {
+        const actionFn = vi.fn(async ({ request }) => {
+          // Denne kan være tom, siden vi ikke skal komme hit i denne testen
+        });
+
+        const RemixStub = unstable_createRemixStub([
+          {
+            path: "/",
+            element: <BehandlingSteg steg={steg} readonly={false} />,
+            action: actionFn,
+          },
+        ]);
+
+        render(<RemixStub />);
+
+        const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+
+        const stegInput = await screen.findByLabelText(stegTekst.label);
+        const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
+
+        // Ikke skriv inn noe før vi trykker på lagre
+        await userEvent.click(lagreKnapp);
+
+        expect(actionFn).toBeCalledTimes(0);
+        expect(stegInput.getAttribute("aria-invalid")).toBe("true");
+        expect(await screen.findByText("Du må skrive et positivt tall")).toBeInTheDocument();
+      });
     });
 
     describe("Lagre boolsk verdi", () => {
@@ -110,7 +138,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
           },
         ]);
 
@@ -135,7 +163,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
             action: actionFn,
           },
         ]);
@@ -160,7 +188,7 @@ describe("BehandlingSteg", () => {
         const RemixStub = unstable_createRemixStub([
           {
             path: "/",
-            element: <BehandlingSteg steg={steg} readonly={false} isSubmitting={false} />,
+            element: <BehandlingSteg steg={steg} readonly={false} />,
             action: actionFn,
           },
         ]);
@@ -170,6 +198,7 @@ describe("BehandlingSteg", () => {
         const radioButton = await screen.findByLabelText("Ja");
         const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
 
+        // Ikke velg noe før vi trykker på lagre
         await userEvent.click(lagreKnapp);
 
         expect(actionFn).toBeCalledTimes(0);

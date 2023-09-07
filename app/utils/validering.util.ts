@@ -32,7 +32,7 @@ export function hentFormattertSvar(svar: string, svartype: TBehandlingStegSvarty
 
 export function hentValideringRegler(
   svartype: TBehandlingStegSvartype,
-  id: string,
+  id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
   inputnavn: string,
 ) {
   return withZod(
@@ -52,7 +52,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.Zo
           required_error: "Du må fylle ut en periode",
           invalid_type_error: "Du må fylle ut en gyldig periode",
         })
-        .positive({ message: "Du må skrive et positivt tall" });
+        .positive({ message: "Du må skrive inn et tall" });
     case "Rettighetstype":
       return z.string().nonempty("Du må fylle ut en rettighetstype");
   }

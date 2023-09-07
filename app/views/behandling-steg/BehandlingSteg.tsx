@@ -6,12 +6,10 @@ import { BehandlingStegRettighetstype } from "./BehandlingStegRettighetstype";
 export interface IProps {
   steg: IBehandlingSteg;
   readonly: boolean;
-  isSubmitting: boolean;
 }
 
 export function BehandlingSteg(props: IProps) {
-  const { steg } = props;
-  switch (steg.id) {
+  switch (props.steg.id) {
     case "Periode":
       return <BehandlingStegPeriode {...props} />;
     case "Rettighetstype":
