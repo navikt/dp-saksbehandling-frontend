@@ -9,6 +9,7 @@ import type {
   IOppgave,
   TBehandlingStegSvartype,
 } from "~/models/oppgave.server";
+import type { IJournalpost } from "~/models/SAF.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
 import {
   hentFormattertSvar,
@@ -63,6 +64,10 @@ export default function PersonBehandleVilkaar() {
   const { oppgave } = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`) as {
     oppgave: IOppgave;
   };
+  const { journalposter } = useRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId") as {
+    journalposter: IJournalpost[];
+  };
+
   const readonly = oppgave.tilstand !== "TilBehandling";
   const { stegId } = useParams();
   const steg = oppgave.steg.find((steg) => steg.uuid === stegId);
@@ -80,9 +85,11 @@ export default function PersonBehandleVilkaar() {
         <BehandlingSteg steg={steg} readonly={readonly} />
       </div>
 
-      <div className={styles.dokumentContainer}>
-        <PDFLeser />
-      </div>
+      {journalposter && journalposter.length > 0 && (
+        <div className={styles.dokumentContainer}>
+          <PDFLeser journalposter={journalposter} />
+        </div>
+      )}
     </div>
   );
 }
