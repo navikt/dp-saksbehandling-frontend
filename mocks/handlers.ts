@@ -96,7 +96,7 @@ export const handlers = [
     },
   ),
 
-  // Hent tidligere vedtak
+  // Hent vedtak
   rest.post(`${process.env.DP_VEDTAK_URL}/vedtak`, (__, res, ctx) => {
     return res(ctx.json(vedtakResponse));
   }),
