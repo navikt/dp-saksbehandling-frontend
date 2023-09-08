@@ -1,20 +1,11 @@
 import { Table } from "@navikt/ds-react";
-import { type LoaderArgs, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import type { IOppgave } from "~/models/oppgave.server";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { hentFormattertDato } from "~/utils/dato.utils";
+import { useRouteLoaderData } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
-
-export async function loader({ request }: LoaderArgs) {
-  const oppgaver = await hentOppgaver(request);
-
-  return json(oppgaver);
-}
+import { type IRootLoader } from "~/root";
+import { hentFormattertDato } from "~/utils/dato.utils";
 
 export default function Saksbehandling() {
-  const loaderData = useLoaderData<typeof loader>();
-  const oppgaver = loaderData as IOppgave[];
+  const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
 
   return (
     <main>

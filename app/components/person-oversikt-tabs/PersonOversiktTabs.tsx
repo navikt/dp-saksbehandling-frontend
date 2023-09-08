@@ -28,16 +28,12 @@ export function PersonOversiktTabs() {
 
 const tabsKonfig = [
   {
-    url: "",
-    label: "Vilkår",
-  },
-  {
     url: "rapportering-og-utbetaling",
     label: "Rapportering og utbetaling",
   },
   {
     url: "beslutning",
-    label: "Tidligere vedtak",
+    label: "Vedtak",
   },
   {
     url: "dagsats-og-beregning",

@@ -1,3 +1,5 @@
-export default function PersonOversiktIndex() {
-  return <>Vilkår</>;
+import { redirect } from "@remix-run/node";
+
+export async function loader() {
+  return redirect("rapportering-og-utbetaling");
 }
