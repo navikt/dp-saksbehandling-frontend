@@ -10,11 +10,12 @@ import {
   type IOptions,
 } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
-import { useNavigation } from "@remix-run/react";
+import { useLocation, useNavigation } from "@remix-run/react";
 
 export function BehandlingStegRettighetstype(props: IProps) {
   const { steg, readonly } = props;
 
+  const location = useLocation();
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
 
@@ -34,6 +35,7 @@ export function BehandlingStegRettighetstype(props: IProps) {
 
   return (
     <ValidatedForm
+      key={location.key} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
       validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
       method="post"
     >

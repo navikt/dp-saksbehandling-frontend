@@ -6,11 +6,12 @@ import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
 import { type IProps } from "./BehandlingSteg";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
-import { useNavigation } from "@remix-run/react";
+import { useLocation, useNavigation } from "@remix-run/react";
 
 export function BehandlingStegGenerell(props: IProps) {
   const { steg, readonly } = props;
 
+  const location = useLocation();
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
 
@@ -23,6 +24,7 @@ export function BehandlingStegGenerell(props: IProps) {
 
   return (
     <ValidatedForm
+      key={location.key} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
       validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
       method="post"
     >
