@@ -1,26 +1,42 @@
+import { FaceFrownIcon } from "@navikt/aksel-icons";
 import { BodyShort, Search } from "@navikt/ds-react";
-import { Link, useRouteLoaderData } from "@remix-run/react";
-import { useState } from "react";
+import { useLocation, useRouteLoaderData } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import { type IOppgave } from "~/models/oppgave.server";
 import { type IRootLoader } from "~/root";
+import { RemixLink } from "../RemixLink";
 import styles from "./PersokSok.module.css";
 
 export function PersonSok() {
+  const location = useLocation();
   const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
   const [sokResultat, setSokResultat] = useState<IOppgave[]>([]);
   const [visSokResultat, setVisSokResultat] = useState(false);
   const [sokInput, setSokInput] = useState("");
 
-  function sok(fnr: string) {
-    setSokInput(fnr);
+  useEffect(() => {
+    nullstillSok();
+  }, [location]);
 
-    if (fnr.length === 11) {
+  function sokEnPerson(fnr: string) {
+    if (sokInput.length === 11) {
       setSokResultat(oppgaver.filter((oppgave) => oppgave.person === fnr));
       setVisSokResultat(true);
-    } else {
-      setSokResultat([]);
+    }
+  }
+
+  function nullstillSok() {
+    setSokInput("");
+    setVisSokResultat(false);
+    setSokResultat([]);
+  }
+
+  function onChange(fnr: string) {
+    if (fnr.length < 11) {
       setVisSokResultat(false);
     }
+
+    setSokInput(fnr);
   }
 
   return (
@@ -31,7 +47,9 @@ export function PersonSok() {
         size="small"
         label=""
         variant="secondary"
-        onChange={(fnr: string) => sok(fnr)}
+        onChange={(fnr: string) => onChange(fnr)}
+        onSearchClick={(fnr: string) => sokEnPerson(fnr)}
+        onClear={() => nullstillSok()}
         value={sokInput}
         clearButton
       />
@@ -40,16 +58,31 @@ export function PersonSok() {
         <div className={styles.resultatKontainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
-              {sokResultat.map((oppgave) => {
+              {sokResultat.map(({ person, tilstand, uuid }) => {
                 return (
-                  <Link to="" className={styles.resultat} key={oppgave.uuid}>
-                    {oppgave.person} | {oppgave.tilstand} | {oppgave.opprettet}
-                  </Link>
+                  <div className={styles.resultat} key={uuid}>
+                    <p>
+                      {person}
+                      {" - "}
+                      <span>
+                        {tilstand === "FerdigBehandlet"
+                          ? "Ferdig behandlet"
+                          : "Klar til behandling"}
+                      </span>
+                    </p>
+                    <RemixLink asButton to={`/saksbehandling/person/${uuid}/oversikt`}>
+                      Se detaljer
+                    </RemixLink>
+                  </div>
                 );
               })}
             </ul>
           )}
-          {sokResultat.length === 0 && <BodyShort>Søket ga ingen treff</BodyShort>}
+          {sokResultat.length === 0 && (
+            <BodyShort className={styles.ingenTreff}>
+              Søket ga ingen treff <FaceFrownIcon title="a11y-title" fontSize="1.5rem" />
+            </BodyShort>
+          )}
         </div>
       )}
     </div>

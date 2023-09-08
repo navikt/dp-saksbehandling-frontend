@@ -1,12 +1,13 @@
-import { useHref } from "@remix-run/react";
-import type { LinkProps } from "@remix-run/react";
-import React, { forwardRef } from "react";
-import type { Ref, PropsWithChildren } from "react";
-import { useLinkClickHandler } from "react-router-dom";
 import { Button, Link } from "@navikt/ds-react";
+import type { LinkProps } from "@remix-run/react";
+import { useHref } from "@remix-run/react";
+import type { PropsWithChildren, Ref } from "react";
+import { forwardRef } from "react";
+import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
-  as: "Link" | "Button";
+  asButton?: boolean;
+  icon?: any;
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
@@ -15,7 +16,17 @@ function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined,
 ) {
-  const { onClick, replace = false, state, target, to, as, children, className } = props;
+  const {
+    onClick,
+    replace = false,
+    asButton,
+    state,
+    target,
+    to,
+    children,
+    className,
+    icon,
+  } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -23,9 +34,10 @@ function RemixLinkComponent(
     target,
   });
 
-  if (as === "Button") {
+  if (asButton) {
     return (
       <Button
+        className={className || ""}
         href={href}
         size={"small"}
         variant={"secondary"}
@@ -43,7 +55,7 @@ function RemixLinkComponent(
         }}
         ref={ref}
         as="a"
-        className={className || ""}
+        icon={icon}
       >
         {children}
       </Button>

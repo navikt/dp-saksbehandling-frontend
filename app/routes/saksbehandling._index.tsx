@@ -22,19 +22,17 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {oppgaver?.map((oppgave, index) => {
-            const { uuid, tilstand, person, opprettet } = oppgave;
+            const { uuid, person, opprettet } = oppgave;
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${oppgave.uuid}/oversikt`} as="Link">
-                    {person}
-                  </RemixLink>
+                  <RemixLink to={`person/${oppgave.uuid}/oversikt`}>{person}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
-                <Table.DataCell>{tilstand}</Table.DataCell>
+                <Table.DataCell>Klar for behandling</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}`} as="Button">
+                  <RemixLink to={`oppgave/${uuid}`} asButton>
                     Behandle
                   </RemixLink>
                 </Table.DataCell>
