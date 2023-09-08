@@ -33,6 +33,7 @@ export function PersonSok() {
         variant="secondary"
         onChange={(fnr: string) => sok(fnr)}
         value={sokInput}
+        clearButton
       />
 
       {visSokResultat && (
