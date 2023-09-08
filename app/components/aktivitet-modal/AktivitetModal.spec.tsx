@@ -1,7 +1,6 @@
 // @vitest-environment jsdom
 
 import { json } from "@remix-run/node";
-import { unstable_createRemixStub } from "@remix-run/testing";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
@@ -10,6 +9,7 @@ import { useState } from "react";
 import { type TAktivitetType } from "~/models/aktivitet.server";
 import userEvent from "@testing-library/user-event";
 import { type IRapporteringsperiodeDag } from "~/models/rapporteringsperiode.server";
+import { TestContainer } from "../../../tests/vitest/helpers/TestContainer";
 
 describe("AktivitetModal", () => {
   const dagUtenAktivitet: IRapporteringsperiodeDag = {
@@ -57,14 +57,11 @@ describe("AktivitetModal", () => {
         );
       };
 
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <TestComponent />,
-        },
-      ]);
-
-      render(<RemixStub />);
+      render(
+        <TestContainer>
+          <TestComponent />
+        </TestContainer>,
+      );
 
       expect(
         await screen.findByLabelText(dagUtenAktivitet.muligeAktiviteter[0]),
@@ -103,15 +100,11 @@ describe("AktivitetModal", () => {
         );
       };
 
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <TestComponent />,
-          action: actionFn,
-        },
-      ]);
-
-      render(<RemixStub />);
+      render(
+        <TestContainer action={actionFn}>
+          <TestComponent />
+        </TestContainer>,
+      );
 
       const valgtAktivitet = await screen.findByLabelText(utvalgtAktivitet);
       const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
@@ -147,15 +140,12 @@ describe("AktivitetModal", () => {
           </div>
         );
       };
-      let RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <TestComponent />,
-          action: actionFn,
-        },
-      ]);
 
-      render(<RemixStub />);
+      render(
+        <TestContainer action={actionFn}>
+          <TestComponent />
+        </TestContainer>,
+      );
 
       const valgtAktivitet = await screen.findByLabelText(utvalgtAktivitet);
       const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
@@ -199,15 +189,12 @@ describe("AktivitetModal", () => {
             </div>
           );
         };
-        let RemixStub = unstable_createRemixStub([
-          {
-            path: "/",
-            element: <TestComponent />,
-            action: actionFn,
-          },
-        ]);
 
-        render(<RemixStub />);
+        render(
+          <TestContainer action={actionFn}>
+            <TestComponent />
+          </TestContainer>,
+        );
 
         const valgtAktivitet = await screen.findByLabelText(aktivitetArbeid);
         const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
@@ -247,15 +234,12 @@ describe("AktivitetModal", () => {
             </div>
           );
         };
-        let RemixStub = unstable_createRemixStub([
-          {
-            path: "/",
-            element: <TestComponent />,
-            action: actionFn,
-          },
-        ]);
 
-        render(<RemixStub />);
+        render(
+          <TestContainer action={actionFn}>
+            <TestComponent />
+          </TestContainer>,
+        );
 
         const valgtAktivitet = await screen.findByLabelText(aktivitetArbeid);
         const lagreKnapp = await screen.findByRole("button", { name: "Lagre" });
@@ -290,14 +274,12 @@ describe("AktivitetModal", () => {
           </div>
         );
       };
-      let RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <TestComponent />,
-        },
-      ]);
 
-      render(<RemixStub />);
+      render(
+        <TestContainer>
+          <TestComponent />
+        </TestContainer>,
+      );
 
       const valgtAktivitet = await screen.findByText(dagMedAktivitet.aktiviteter[0].type);
 
@@ -332,15 +314,11 @@ describe("AktivitetModal", () => {
         );
       };
 
-      const RemixStub = unstable_createRemixStub([
-        {
-          path: "/",
-          element: <TestComponent />,
-          action: actionFn,
-        },
-      ]);
-
-      render(<RemixStub />);
+      render(
+        <TestContainer action={actionFn}>
+          <TestComponent />
+        </TestContainer>,
+      );
 
       const valgtAktivitet = await screen.findByText(dagMedAktivitet.aktiviteter[0].type);
 
