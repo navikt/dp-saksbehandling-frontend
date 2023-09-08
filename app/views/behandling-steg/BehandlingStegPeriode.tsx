@@ -50,7 +50,7 @@ export function BehandlingStegPeriode(props: IProps) {
       <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
       <BehandlingStegInputSelect
-        placeholder="Velg periode"
+        placeholder="Velg støndadsperiode"
         options={perioder}
         name={steg.uuid}
         svartype={steg.svartype}

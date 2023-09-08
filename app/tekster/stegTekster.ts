@@ -65,7 +65,7 @@ export const stegTekster: IStegTekst[] = [
   },
   {
     id: "Periode",
-    label: "Periode",
+    label: "Stønadsperiode",
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",
