@@ -1,6 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
 import type { IBehandlingSteg } from "~/models/oppgave.server";
+import { hentStegTekst } from "~/tekster/stegTekster";
 
 import styles from "./BehandlingStegMenyPunkt.module.css";
 
@@ -11,6 +12,7 @@ export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
     [styles.kulepunktMaaGodkjennes]: behandlingSteg.tilstand === "MåGodkjennes",
   });
 
+  const stegLabel = hentStegTekst(behandlingSteg.id)?.label ?? behandlingSteg.id;
   return (
     <li>
       <NavLink
@@ -19,7 +21,7 @@ export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
           return isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser;
         }}
       >
-        {behandlingSteg.id}
+        {stegLabel}
       </NavLink>
     </li>
   );

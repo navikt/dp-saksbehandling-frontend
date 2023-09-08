@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Heading, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
-import { useRouteLoaderData } from "@remix-run/react";
 import type { IJournalpost } from "~/models/SAF.server";
 
-export function PDFLeser() {
-  const { journalposter } = useRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId") as {
-    journalposter: IJournalpost[];
-  };
-
+interface IPDFLeserProps {
+  journalposter: IJournalpost[];
+}
+export function PDFLeser({ journalposter }: IPDFLeserProps) {
   const [fileUrl, setFileUrl] = useState<string>("");
   const [journalpostId, setJournalpostId] = useState<string>(journalposter[0]?.journalpostId ?? "");
   const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
@@ -61,44 +59,42 @@ export function PDFLeser() {
         Dokumenter
       </Heading>
 
-      {journalposter.length > 0 && (
-        <div>
+      <div>
+        <Select
+          className={styles.dropdown}
+          label={"Velg Journalpost"}
+          onChange={(event) => setJournalpostId(event.currentTarget.value)}
+          value={journalpostId}
+        >
+          {journalposter.map((journalpost) => (
+            <option key={journalpost.journalpostId} value={journalpost.journalpostId}>
+              {journalpost.tittel}
+            </option>
+          ))}
+        </Select>
+        {currentActiveJournalpost &&
+          currentActiveJournalpost.dokumenter.find((dokument) => {
+            return !dokument.dokumentvarianter[0].saksbehandlerHarTilgang;
+          }) && <Alert variant={"warning"}> AIIII DU HAR IKKE TILGANG</Alert>}
+
+        {currentActiveJournalpost && (
           <Select
             className={styles.dropdown}
-            label={"Velg Journalpost"}
-            onChange={(event) => setJournalpostId(event.currentTarget.value)}
-            value={journalpostId}
+            label={"Velg Dokument"}
+            onChange={(event) => setDokumentInfoId(event.currentTarget.value)}
+            value={dokumentInfoId}
           >
-            {journalposter.map((journalpost) => (
-              <option key={journalpost.journalpostId} value={journalpost.journalpostId}>
-                {journalpost.tittel}
+            <option key={"velg-dokument"} value={""} hidden>
+              Velg dokument
+            </option>
+            {currentActiveJournalpost.dokumenter.map((dokument) => (
+              <option key={dokument.dokumentInfoId} value={dokument.dokumentInfoId}>
+                {dokument.tittel}
               </option>
             ))}
           </Select>
-          {currentActiveJournalpost &&
-            currentActiveJournalpost.dokumenter.find((dokument) => {
-              return !dokument.dokumentvarianter[0].saksbehandlerHarTilgang;
-            }) && <Alert variant={"warning"}> AIIII DU HAR IKKE TILGANG</Alert>}
-
-          {currentActiveJournalpost && (
-            <Select
-              className={styles.dropdown}
-              label={"Velg Dokument"}
-              onChange={(event) => setDokumentInfoId(event.currentTarget.value)}
-              value={dokumentInfoId}
-            >
-              <option key={"velg-dokument"} value={""} hidden>
-                Velg dokument
-              </option>
-              {currentActiveJournalpost.dokumenter.map((dokument) => (
-                <option key={dokument.dokumentInfoId} value={dokument.dokumentInfoId}>
-                  {dokument.tittel}
-                </option>
-              ))}
-            </Select>
-          )}
-        </div>
-      )}
+        )}
+      </div>
 
       {fileUrl && (
         <div className={styles.iframeWrapper}>

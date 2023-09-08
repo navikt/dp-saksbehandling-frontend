@@ -31,7 +31,7 @@ export default function PersonOversiktBeslutningSide() {
     return (
       <div className={styles.kontainer}>
         <Alert variant="info" inline>
-          Ingen tidligere vedtak funnet for bruker
+          Ingen vedtak funnet for bruker
         </Alert>
       </div>
     );

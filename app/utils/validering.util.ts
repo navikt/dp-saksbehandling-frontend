@@ -30,16 +30,34 @@ export function hentFormattertSvar(svar: string, svartype: TBehandlingStegSvarty
   }
 }
 
-export function hentValideringRegler(svartype: TBehandlingStegSvartype, inputnavn: string) {
+export function hentValideringRegler(
+  svartype: TBehandlingStegSvartype,
+  id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
+  inputnavn: string,
+) {
   return withZod(
     z.object({
-      [inputnavn]: hentValideringType(svartype),
+      [inputnavn]: hentValideringType(svartype, id),
       begrunnelse: z.string(),
     }),
   );
 }
 
-function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
+function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.ZodType {
+  // Sjekker spesialtilfeller først
+  switch (id) {
+    case "Periode":
+      return z.coerce
+        .number({
+          required_error: "Du må fylle ut en periode",
+          invalid_type_error: "Du må fylle ut en gyldig periode",
+        })
+        .positive({ message: "Du må skrive inn et tall" });
+    case "Rettighetstype":
+      return z.string().nonempty("Du må fylle ut en rettighetstype");
+  }
+
+  // Hvis ingen spesialtilfeller treffer, kjører vi på med de generelle typene
   switch (svartype) {
     case "Int":
       return z.coerce
@@ -47,7 +65,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype): z.ZodType {
           required_error: "Du må skrive et tall",
           invalid_type_error: "Det må være et gyldig heltall",
         })
-        .int();
+        .positive({ message: "Du må skrive et positivt tall" });
 
     case "Double":
       return z

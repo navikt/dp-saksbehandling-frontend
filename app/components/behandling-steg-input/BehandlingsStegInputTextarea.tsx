@@ -1,17 +1,16 @@
-import { TextField } from "@navikt/ds-react";
-import { useField } from "remix-validated-form";
+import { Textarea } from "@navikt/ds-react";
 import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
+import { useField } from "remix-validated-form";
 
-export function BehandlingStegInputInt(props: IInputProps) {
+export function BehandlingStegInputTextarea(props: IInputProps) {
   const { readonly } = props;
   const { error, getInputProps } = useField(props.name);
 
   return (
-    <TextField
-      type="text"
-      inputMode="numeric"
+    <Textarea
       defaultValue={props.verdi}
       error={error}
+      resize={true}
       readOnly={readonly}
       className={props.className}
       {...getInputProps({

@@ -38,7 +38,7 @@ export const stegTekster: IStegTekst[] = [
   },
   {
     id: "Fastsatt vanlig arbeidstid",
-    label: "Fastsatt vanlig arbeidstid",
+    label: "Fastsatt ukentlig vanlig arbeidstid",
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",
@@ -65,7 +65,7 @@ export const stegTekster: IStegTekst[] = [
   },
   {
     id: "Periode",
-    label: "Periode",
+    label: "Stønadsperiode",
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",

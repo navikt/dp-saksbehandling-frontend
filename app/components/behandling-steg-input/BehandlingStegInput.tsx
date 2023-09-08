@@ -5,66 +5,55 @@ import { BehandlingStegInputInt } from "~/components/behandling-steg-input/Behan
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 import { type TBehandlingStegSvartype } from "~/models/oppgave.server";
-import { BehandlingStegInputSelect } from "./BehandlingStegInputSelect";
+import { BehandlingStegInputTextarea } from "./BehandlingsStegInputTextarea";
 import styles from "./BehandlingsStegInput.module.css";
-import { rettighetstyper } from "~/constants";
 
 export interface IInputProps {
   name: string;
   svartype: TBehandlingStegSvartype;
   label?: string;
   verdi?: string;
+  textarea?: boolean;
   className?: string;
   readonly?: boolean;
 }
 
 export function Input(props: IInputProps) {
   const { readonly } = props;
+  const cssClassNames = classNames(styles.input, props.className);
 
-  if (props.label === "Rettighetstype") {
-    return (
-      <div className={classNames(styles.container, props.className)}>
-        <BehandlingStegInputSelect
-          placeholder="Velg rettighetstype"
-          options={rettighetstyper}
+  switch (props.svartype) {
+    case "Int":
+      return (
+        <BehandlingStegInputInt
           name={props.name}
           svartype={props.svartype}
           label={props.label || props.svartype}
           verdi={props.verdi}
           readonly={readonly}
+          className={cssClassNames}
         />
-      </div>
-    );
-  }
+      );
 
-  return <div className={classNames(styles.container, props.className)}>{renderInputType()}</div>;
+    case "Double":
+      return (
+        <BehandlingStegInputDouble
+          name={props.name}
+          svartype={props.svartype}
+          label={props.label || props.svartype}
+          verdi={props.verdi}
+          readonly={readonly}
+          className={cssClassNames}
+        />
+      );
 
-  function renderInputType() {
-    switch (props.svartype) {
-      case "Int":
-        return (
-          <BehandlingStegInputInt
-            name={props.name}
-            svartype={props.svartype}
-            label={props.label || props.svartype}
-            verdi={props.verdi}
-            readonly={readonly}
-          />
-        );
-
-      case "Double":
-        return (
-          <BehandlingStegInputDouble
-            name={props.name}
-            svartype={props.svartype}
-            label={props.label || props.svartype}
-            verdi={props.verdi}
-            readonly={readonly}
-          />
-        );
-
-      case "Boolean":
-        return (
+    case "Boolean":
+      return (
+        /* 
+          Standard-stilene på aksel-komponenten for radioknapper
+          overskriver margin-stylingen vår, dermed en ekstra div 
+        */
+        <div className={cssClassNames}>
           <BehandlingStegInputBoolean
             name={props.name}
             svartype={props.svartype}
@@ -72,20 +61,34 @@ export function Input(props: IInputProps) {
             verdi={props.verdi}
             readonly={readonly}
           />
-        );
+        </div>
+      );
 
-      case "LocalDate":
+    case "LocalDate":
+      return (
+        <BehandlingStegInputDato
+          name={props.name}
+          svartype={props.svartype}
+          label={props.label || props.svartype}
+          verdi={props.verdi}
+          readonly={readonly}
+          className={cssClassNames}
+        />
+      );
+
+    case "String":
+      if (props.textarea) {
         return (
-          <BehandlingStegInputDato
+          <BehandlingStegInputTextarea
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
             verdi={props.verdi}
             readonly={readonly}
+            className={cssClassNames}
           />
         );
-
-      case "String":
+      } else {
         return (
           <BehandlingStegInputString
             name={props.name}
@@ -93,8 +96,9 @@ export function Input(props: IInputProps) {
             label={props.label || props.svartype}
             verdi={props.verdi}
             readonly={readonly}
+            className={cssClassNames}
           />
         );
-    }
+      }
   }
 }
