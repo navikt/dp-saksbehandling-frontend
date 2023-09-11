@@ -89,7 +89,7 @@ Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
 5. Bruk [trydgebrukeren](https://nav-it.slack.com/archives/C04RRM5QEAV/p1682666310232779) for å logge inn på de neste tre stegene
 6. Legg inn token fra [dp-rapportering](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering) i `.env`-filen
 7. Legg inn token fra [dp-behandling](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling) i `.env`-filen
-8. [dp-vedtak](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak)
+8. Legg inn token fra [dp-vedtak](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak) i `.env`-filen
 9. `$ npm run dev`
 10. Gå til http://localhost:3000/saksbehandling
 11. Ferdig!
