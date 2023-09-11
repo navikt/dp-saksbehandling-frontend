@@ -71,7 +71,7 @@ export function PersonSok() {
                       </span>
                     </p>
                     <RemixLink asButton to={`/saksbehandling/person/${uuid}/oversikt`}>
-                      Se detaljer
+                      Se oppgaven
                     </RemixLink>
                   </div>
                 );

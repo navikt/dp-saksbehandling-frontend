@@ -15,8 +15,8 @@ export default function Saksbehandling() {
             <Table.HeaderCell scope="col">Oppgave ID</Table.HeaderCell>
             <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Gå til behandling</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+            <Table.HeaderCell scope="col"></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -30,7 +30,7 @@ export default function Saksbehandling() {
                   <RemixLink to={`person/${oppgave.uuid}/oversikt`}>{person}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
-                <Table.DataCell>Klar for behandling</Table.DataCell>
+                <Table.DataCell>Til behandling</Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`oppgave/${uuid}`} asButton>
                     Behandle

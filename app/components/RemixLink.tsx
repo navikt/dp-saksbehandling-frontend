@@ -7,7 +7,6 @@ import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
   asButton?: boolean;
-  icon?: any;
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
@@ -16,17 +15,7 @@ function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined,
 ) {
-  const {
-    onClick,
-    replace = false,
-    asButton,
-    state,
-    target,
-    to,
-    children,
-    className,
-    icon,
-  } = props;
+  const { onClick, replace = false, asButton, state, target, to, children, className } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -55,7 +44,6 @@ function RemixLinkComponent(
         }}
         ref={ref}
         as="a"
-        icon={icon}
       >
         {children}
       </Button>
