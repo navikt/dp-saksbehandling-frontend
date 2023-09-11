@@ -12,18 +12,16 @@ export async function action({ request, params }: ActionArgs) {
 
   const periodeId = params.oppgaveId as string;
 
-  const stansResponse = await stans(periodeId, request);
+  const response = await stans(periodeId, request);
 
-  if (!stansResponse.ok) {
+  if (!response.ok) {
     throw new Response(null, {
       status: 500,
       statusText: "Feil ved stans av oppgave",
     });
   } else {
-    const stans = await stansResponse.json();
-    console.log("stans", stans);
-
-    return redirect(`/saksbehandling/oppgave/${stans.oppgaveId}`);
+    console.log(response);
+    return redirect(`/saksbehandling/oppgave/${response}`);
   }
 }
 
