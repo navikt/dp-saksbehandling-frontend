@@ -183,5 +183,5 @@ export async function stans(oppgaveId: string, request: Request) {
     body: JSON.stringify({ oppgaveId }),
   });
 
-  return response;
+  return await response.json();
 }

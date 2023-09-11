@@ -1,10 +1,9 @@
 import { Button } from "@navikt/ds-react";
-import { type ActionArgs, redirect } from "@remix-run/node";
+import { redirect, type ActionArgs } from "@remix-run/node";
 import { Form, Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { PersonOversiktTabs } from "~/components/person-oversikt-tabs/PersonOversiktTabs";
 import { stans } from "~/models/oppgave.server";
-
 import styles from "~/route-styles/person.module.css";
 
 export async function action({ request, params }: ActionArgs) {
@@ -12,27 +11,23 @@ export async function action({ request, params }: ActionArgs) {
 
   const periodeId = params.oppgaveId as string;
 
-  const response = await stans(periodeId, request);
+  const stansResponse = await stans(periodeId, request);
 
-  if (!response.ok) {
+  if (!stansResponse.ok) {
     throw new Response(null, {
       status: 500,
       statusText: "Feil ved stans av oppgave",
     });
-  } else {
-    const stans = await response.json();
-    console.log("stans json response start");
-    console.log(stans);
-    console.log("stans json response slutt");
-    return redirect(`/saksbehandling/oppgave/${stans.oppgaveId}`);
   }
+
+  return redirect(`/saksbehandling/oppgave/${stansResponse.oppgaveId}`);
 }
 
 export default function PersonOversikt() {
   return (
     <div className={styles.personOversiktKontainer}>
       <Form method="post">
-        <Button>Stans</Button>
+        <Button type="submit">Stans</Button>
       </Form>
       <PersonOversiktTabs />
       <Outlet />
