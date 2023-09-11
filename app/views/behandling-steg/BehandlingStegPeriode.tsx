@@ -2,6 +2,7 @@ import { ValidatedForm } from "remix-validated-form";
 import { type Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { Input } from "../../components/behandling-steg-input/BehandlingStegInput";
+import type { IStegTekst } from "~/tekster/stegTekster";
 import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
 import { type IProps } from "./BehandlingSteg";
@@ -24,7 +25,14 @@ export function BehandlingStegPeriode(props: IProps) {
     id: steg.id,
   };
 
-  const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+  const defaultStegTekst: IStegTekst = {
+    id: steg.id,
+    label: steg.id,
+    begrunnelse: "Begrunnelse",
+    hjelpetekst: { label: "", begrunnelse: "" },
+  };
+
+  const stegTekst = hentStegTekst(steg.id) ?? defaultStegTekst;
 
   const perioder: IOptions[] = [
     {
@@ -57,6 +65,7 @@ export function BehandlingStegPeriode(props: IProps) {
         name={steg.uuid}
         svartype={steg.svartype}
         label={stegTekst.label}
+        description={stegTekst.hjelpetekst.label}
         verdi={steg?.svar?.svar}
         readonly={readonly}
       />
@@ -66,6 +75,7 @@ export function BehandlingStegPeriode(props: IProps) {
         name="begrunnelse"
         svartype="String"
         label={stegTekst.begrunnelse}
+        description={stegTekst.hjelpetekst.begrunnelse}
         readonly={readonly}
         textarea
       />

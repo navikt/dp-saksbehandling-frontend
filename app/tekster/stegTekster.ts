@@ -42,7 +42,8 @@ export const stegTekster: IStegTekst[] = [
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",
-      begrunnelse: "",
+      begrunnelse:
+        "Skriv inn hvilken regel som er anvendt for beregning av vanlig arbeidstid i dagpengeforskriften §11-2.",
     },
   },
   {
@@ -51,7 +52,7 @@ export const stegTekster: IStegTekst[] = [
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",
-      begrunnelse: "",
+      begrunnelse: "Skriv begrunnelse og hjemmel for hvordan dagpengegrunnlaget er fastsatt.",
     },
   },
   {
