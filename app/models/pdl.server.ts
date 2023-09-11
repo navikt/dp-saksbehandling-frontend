@@ -129,6 +129,8 @@ export async function hentPDL(request: Request, ident: string) {
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
+      tema: "DAG",
+      behandlingsnummer: "B286",
     },
   });
   logger.info(`Henter pdl informasjon med call-id: ${callId}`);

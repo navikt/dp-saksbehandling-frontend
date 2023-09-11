@@ -37,10 +37,6 @@ const tabsKonfig = [
   },
   {
     url: "beslutning",
-    label: "Tidligere vedtak",
-  },
-  {
-    url: "dagsats-og-beregning",
-    label: "Dagsats og beregning",
+    label: "Vedtak",
   },
 ];

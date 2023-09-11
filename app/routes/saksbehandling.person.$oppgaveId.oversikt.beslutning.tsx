@@ -1,11 +1,12 @@
 import { type LoaderArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Alert, Table } from "@navikt/ds-react";
+import { Alert, CopyButton, Table } from "@navikt/ds-react";
 import invariant from "tiny-invariant";
 import { hentVedtak } from "~/models/vedtak.server";
 
 import styles from "../route-styles/beslutning.module.css";
 import { hentOppgave } from "~/models/oppgave.server";
+import { hentFormattertDato } from "~/utils/dato.utils";
 
 export async function loader({ request, params }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
@@ -26,11 +27,11 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function PersonOversiktBeslutningSide() {
   const vedtak = useLoaderData<typeof loader>();
 
-  if (vedtak.length === 0) {
+  if (vedtak.rammer.length === 0 && vedtak.utbetalinger.length === 0) {
     return (
       <div className={styles.kontainer}>
         <Alert variant="info" inline>
-          Ingen tidligere vedtak funnet for bruker
+          Ingen vedtak funnet for bruker
         </Alert>
       </div>
     );
@@ -38,24 +39,65 @@ export default function PersonOversiktBeslutningSide() {
 
   return (
     <div className={styles.kontainer}>
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Vedtakstype</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {vedtak.map(({ vedtakId, vedtakType }) => {
-            return (
-              <Table.Row key={vedtakId}>
-                <Table.DataCell scope="row">{vedtakId} </Table.DataCell>
-                <Table.DataCell>{vedtakType}</Table.DataCell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+      {vedtak.rammer.length > 0 && (
+        <Table>
+          <Table.Header>
+            <h2>Rammevedtak</h2>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Virkningdato</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {vedtak.rammer.map(({ vedtakId, virkningsdato }) => {
+              return (
+                <Table.Row key={vedtakId}>
+                  <Table.DataCell scope="row">
+                    <CopyButton
+                      copyText={vedtakId}
+                      text={vedtakId}
+                      activeText="Kopierte vedtak ID"
+                    />
+                  </Table.DataCell>
+                  <Table.DataCell>{hentFormattertDato(virkningsdato)}</Table.DataCell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      )}
+
+      {vedtak.utbetalinger.length > 0 && (
+        <Table>
+          <Table.Header>
+            <h2>Utbetalingsvedtak</h2>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Vedtak ID</Table.HeaderCell>
+              <Table.HeaderCell scope="col">14. dagers periode</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Sum utbetalt</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {vedtak.utbetalinger.map(({ vedtakId, fraOgMed, tilOgMed, sumUtbetalt }) => {
+              return (
+                <Table.Row key={vedtakId}>
+                  <Table.DataCell scope="row">
+                    <CopyButton
+                      copyText={vedtakId}
+                      text={vedtakId}
+                      activeText="Kopierte vedtak ID"
+                    />
+                  </Table.DataCell>
+                  <Table.DataCell>{`${hentFormattertDato(fraOgMed)} - ${hentFormattertDato(
+                    tilOgMed,
+                  )}`}</Table.DataCell>
+                  <Table.DataCell>{`${sumUtbetalt} kr`}</Table.DataCell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      )}
     </div>
   );
 }
