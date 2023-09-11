@@ -130,7 +130,7 @@ Github token er utdatert.
 7. Trykk `Generate new token` --> `Generate new token (classic)`
 8. Skriv noe som `NAV IT` under `Note`
 9. Velg hvor lenge du vil at det skal vare under `Expiration`
-10. Under `Select scope` velg `repo` og `write:packages`
+10. Under `Select scope` velg `repo` og `read:packages`
 11. Trykk `Generate token`
 12. Kopier `ghp_x...` tokenet og putt det i `.npmrc` filen på maskinen din
 13. Trykk `Configure SSO`
