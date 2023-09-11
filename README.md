@@ -110,7 +110,7 @@ npm ERR! A complete log of this run can be found in: /Use
 
 Kjør `$ nvm use` og det burde løse problemet.
 
-### Manglende autentisering
+### Manglende autentisering ved installasjon av @navikt npm pakker
 
 ```
 npm ERR! code E401
