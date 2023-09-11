@@ -20,8 +20,11 @@ export async function action({ request, params }: ActionArgs) {
       statusText: "Feil ved stans av oppgave",
     });
   } else {
-    console.log(response);
-    return redirect(`/saksbehandling/oppgave/${response}`);
+    const stans = await response.json();
+    console.log("stans json response start");
+    console.log(stans);
+    console.log("stans json response slutt");
+    return redirect(`/saksbehandling/oppgave/${stans.oppgaveId}`);
   }
 }
 
