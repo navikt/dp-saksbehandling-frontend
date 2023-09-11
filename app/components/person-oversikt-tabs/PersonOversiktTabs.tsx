@@ -5,28 +5,26 @@ import styles from "./PersonOversiktTabs.module.css";
 
 export function PersonOversiktTabs() {
   const location = useLocation();
-  const aktivTab = location.pathname.split("/")[5] || "";
+  const activeTab = location.pathname.split("/")[5] || "";
 
   return (
-    <div className={styles.kontainer}>
-      {tabsKonfig.map((tab) => {
-        return (
-          <NavLink
-            key={tab.url}
-            to={tab.url}
-            className={() => {
-              return aktivTab === tab.url ? classNames(styles.tabAktiv, styles.tab) : styles.tab;
-            }}
-          >
-            {tab.label}
-          </NavLink>
-        );
-      })}
+    <div className={styles.container}>
+      {tabsConfig.map((tab) => (
+        <NavLink
+          key={tab.url}
+          to={tab.url}
+          className={() =>
+            activeTab === tab.url ? classNames(styles.tabActive, styles.tab) : styles.tab
+          }
+        >
+          {tab.label}
+        </NavLink>
+      ))}
     </div>
   );
 }
 
-const tabsKonfig = [
+const tabsConfig = [
   {
     url: "",
     label: "Vilkår",
@@ -36,7 +34,7 @@ const tabsKonfig = [
     label: "Rapportering og utbetaling",
   },
   {
-    url: "beslutning",
+    url: "vedtak",
     label: "Vedtak",
   },
 ];

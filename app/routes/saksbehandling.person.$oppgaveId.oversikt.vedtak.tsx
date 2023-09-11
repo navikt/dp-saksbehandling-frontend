@@ -29,7 +29,7 @@ export default function PersonOversiktBeslutningSide() {
 
   if (vedtak.rammer.length === 0 && vedtak.utbetalinger.length === 0) {
     return (
-      <div className={styles.kontainer}>
+      <div className={styles.container}>
         <Alert variant="info" inline>
           Ingen vedtak funnet for bruker
         </Alert>
@@ -38,7 +38,7 @@ export default function PersonOversiktBeslutningSide() {
   }
 
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       {vedtak.rammer.length > 0 && (
         <Table>
           <Table.Header>

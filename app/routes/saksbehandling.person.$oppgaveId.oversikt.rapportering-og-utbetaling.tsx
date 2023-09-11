@@ -96,7 +96,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { oppgaveId } = useParams();
 
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       {rapporteringsperioder.length === 0 && (
         <Alert variant="info" inline>
           Ingen rapporteringsperioder funnet for bruker
@@ -199,7 +199,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
 
 export function ErrorBoundary() {
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       <Alert variant="error" inline>
         Noe gikk galt
       </Alert>

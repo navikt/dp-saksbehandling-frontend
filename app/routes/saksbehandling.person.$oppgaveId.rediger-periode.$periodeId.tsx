@@ -133,7 +133,7 @@ export default function RedigerPeriode() {
   }
 
   return (
-    <div className={styles.kontainer} id="dp-saksbehandling-frontend">
+    <div className={styles.container} id="dp-saksbehandling-frontend">
       <Heading level="1" size="large" spacing>
         Endre periode
       </Heading>
@@ -230,7 +230,7 @@ export default function RedigerPeriode() {
 
 export function ErrorBoundary() {
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       <Alert variant="error" inline>
         Noe skjedde feil
       </Alert>
