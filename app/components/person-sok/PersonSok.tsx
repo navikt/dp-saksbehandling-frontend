@@ -1,4 +1,3 @@
-import { FaceFrownIcon } from "@navikt/aksel-icons";
 import { BodyShort, Search } from "@navikt/ds-react";
 import { useLocation, useRouteLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
@@ -71,9 +70,7 @@ export function PersonSok() {
             </ul>
           )}
           {sokResultat.length === 0 && (
-            <BodyShort className={styles.ingenTreff}>
-              Søket ga ingen treff <FaceFrownIcon title="a11y-title" fontSize="1.5rem" />
-            </BodyShort>
+            <BodyShort className={styles.ingenTreff}>Søket ga ingen treff</BodyShort>
           )}
         </div>
       )}
