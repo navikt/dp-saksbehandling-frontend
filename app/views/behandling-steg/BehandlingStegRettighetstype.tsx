@@ -27,9 +27,9 @@ export function BehandlingStegRettighetstype(props: IProps) {
 
   const rettighetstyper: IOptions[] = [
     { value: "Ordinær", text: "Ordinær" },
-    { value: "Permittering", text: "Permittering" },
-    { value: "PermitteringFraFiskeindustrien", text: "Permittering fra fiskeindustrien" },
-    { value: "ForskutterteLønnsgarantimidler", text: "Forskutterte lønnsgarantimidler" },
+    // { value: "Permittering", text: "Permittering" },
+    // { value: "PermitteringFraFiskeindustrien", text: "Permittering fra fiskeindustrien" },
+    // { value: "ForskutterteLønnsgarantimidler", text: "Forskutterte lønnsgarantimidler" },
   ];
 
   const defaultStegTekst: IStegTekst = {
