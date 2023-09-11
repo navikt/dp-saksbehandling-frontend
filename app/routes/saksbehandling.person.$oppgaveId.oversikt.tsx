@@ -12,9 +12,9 @@ export async function action({ request, params }: ActionArgs) {
 
   const periodeId = params.oppgaveId as string;
 
-  const response = await stans(periodeId, request);
+  const stansResponse = await stans(periodeId, request);
 
-  return json({ response });
+  return json({ stansResponse });
 }
 
 export default function PersonOversikt() {
