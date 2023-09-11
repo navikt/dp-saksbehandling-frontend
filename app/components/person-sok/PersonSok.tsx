@@ -25,18 +25,18 @@ export function PersonSok() {
     }
   }
 
-  function nullstillSok() {
-    setSokInput("");
-    setVisSokResultat(false);
-    setSokResultat([]);
-  }
-
   function onChange(fnr: string) {
     if (fnr.length < 11) {
       setVisSokResultat(false);
     }
 
     setSokInput(fnr);
+  }
+
+  function nullstillSok() {
+    setSokInput("");
+    setVisSokResultat(false);
+    setSokResultat([]);
   }
 
   return (
@@ -58,20 +58,12 @@ export function PersonSok() {
         <div className={styles.resultatKontainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
-              {sokResultat.map(({ person, tilstand, uuid }) => {
+              {sokResultat.map(({ person, uuid }) => {
                 return (
                   <div className={styles.resultat} key={uuid}>
-                    <p>
-                      {person}
-                      {" - "}
-                      <span>
-                        {tilstand === "FerdigBehandlet"
-                          ? "Ferdig behandlet"
-                          : "Klar til behandling"}
-                      </span>
-                    </p>
+                    <p>{person}</p>
                     <RemixLink asButton to={`/saksbehandling/person/${uuid}/oversikt`}>
-                      Se oppgaven
+                      Gå til person
                     </RemixLink>
                   </div>
                 );
