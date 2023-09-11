@@ -1,5 +1,5 @@
 import { Button } from "@navikt/ds-react";
-import { type ActionArgs, json } from "@remix-run/node";
+import { type ActionArgs, redirect } from "@remix-run/node";
 import { Form, Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { PersonOversiktTabs } from "~/components/person-oversikt-tabs/PersonOversiktTabs";
@@ -14,14 +14,24 @@ export async function action({ request, params }: ActionArgs) {
 
   const stansResponse = await stans(periodeId, request);
 
-  return json({ stansResponse });
+  if (!stansResponse.ok) {
+    throw new Response(null, {
+      status: 500,
+      statusText: "Feil ved stans av oppgave",
+    });
+  } else {
+    const stans = await stansResponse.json();
+    console.log("stans", stans);
+
+    return redirect(`/saksbehandling/oppgave/${stans.oppgaveId}`);
+  }
 }
 
 export default function PersonOversikt() {
   return (
     <div className={styles.personOversiktKontainer}>
       <Form method="post">
-        <Button>Avbrudd</Button>
+        <Button>Stans</Button>
       </Form>
       <PersonOversiktTabs />
       <Outlet />
