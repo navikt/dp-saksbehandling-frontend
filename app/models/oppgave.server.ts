@@ -166,3 +166,22 @@ export async function endreStatus(
 
   return response;
 }
+
+export async function stans(oppgaveId: string, request: Request) {
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/stans`;
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${onBehalfOfToken}` },
+    body: JSON.stringify({ oppgaveId }),
+  });
+
+  return await response.json();
+}
