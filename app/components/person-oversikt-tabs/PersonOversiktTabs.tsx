@@ -26,10 +26,6 @@ export function PersonOversiktTabs() {
 
 const tabsConfig = [
   {
-    url: "",
-    label: "Vilkår",
-  },
-  {
     url: "rapportering-og-utbetaling",
     label: "Rapportering og utbetaling",
   },
