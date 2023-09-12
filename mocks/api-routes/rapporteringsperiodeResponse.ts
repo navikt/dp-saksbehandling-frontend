@@ -139,8 +139,8 @@ export const mockRapporteringsperioder: IRapporteringsperiode[] = [
         aktiviteter: [
           {
             id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-            type: "Arbeid",
-            timer: "PT2H0M",
+            type: "Syk",
+            timer: "PT24H0M",
             dato: "2023-06-29",
           },
         ],
@@ -152,8 +152,8 @@ export const mockRapporteringsperioder: IRapporteringsperiode[] = [
         aktiviteter: [
           {
             id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-            type: "Arbeid",
-            timer: "PT2H0M",
+            type: "Syk",
+            timer: "PT24H0M",
             dato: "2023-06-30",
           },
         ],
@@ -165,8 +165,8 @@ export const mockRapporteringsperioder: IRapporteringsperiode[] = [
         aktiviteter: [
           {
             id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-            type: "Arbeid",
-            timer: "PT2H0M",
+            type: "Syk",
+            timer: "PT24H0M",
             dato: "2023-07-01",
           },
         ],
@@ -178,8 +178,8 @@ export const mockRapporteringsperioder: IRapporteringsperiode[] = [
         aktiviteter: [
           {
             id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-            type: "Arbeid",
-            timer: "PT2H0M",
+            type: "Ferie",
+            timer: "PT24H0M",
             dato: "2023-07-02",
           },
         ],
@@ -191,8 +191,8 @@ export const mockRapporteringsperioder: IRapporteringsperiode[] = [
         aktiviteter: [
           {
             id: "4a49e571-6384-4eab-9c2e-3f4d48d30b9a",
-            type: "Arbeid",
-            timer: "PT2H0M",
+            type: "Ferie",
+            timer: "PT24H0M",
             dato: "2023-07-03",
           },
         ],

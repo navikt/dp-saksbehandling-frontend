@@ -10,7 +10,7 @@ import invariant from "tiny-invariant";
 import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
-import { hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
+import { hentAllAktivitetIDager, hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
 import { PencilIcon } from "@navikt/aksel-icons";
 import styles from "../route-styles/rapportering-og-utbetaling.module.css";
 import { RapporteringsperiodeDetaljer } from "~/components/rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
@@ -177,8 +177,8 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                     <FormattedDate date={periode.tilOgMed} />
                   </Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
-                  <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
-                  <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
+                  <Table.DataCell>{hentAllAktivitetIDager(periode, "Syk")}</Table.DataCell>
+                  <Table.DataCell>{hentAllAktivitetIDager(periode, "Ferie")}</Table.DataCell>
                   <Table.DataCell>
                     {periode.korrigerer && "Korrigerer tidligere periode"}
                   </Table.DataCell>
