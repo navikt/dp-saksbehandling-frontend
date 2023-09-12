@@ -10,7 +10,6 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
 
   const periodeId = params.oppgaveId as string;
-
   const response = await stansVedtak(periodeId, request);
 
   if (!response.ok) {
@@ -18,9 +17,10 @@ export async function action({ request, params }: ActionArgs) {
       status: 500,
       statusText: "Feil ved stans av oppgave",
     });
+  } else {
+    const data = await response.json();
+    return redirect(`/saksbehandling/oppgave/${data.oppgaveId}`);
   }
-
-  return redirect(`/saksbehandling/oppgave/${response.oppgaveId}`);
 }
 
 export default function PersonOversikt() {

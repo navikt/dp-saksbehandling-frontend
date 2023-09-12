@@ -65,5 +65,5 @@ export async function stansVedtak(oppgaveId: string, request: Request) {
     body: JSON.stringify({ oppgaveId }),
   });
 
-  return await response.json();
+  return response;
 }
