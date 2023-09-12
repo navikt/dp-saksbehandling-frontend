@@ -128,7 +128,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                       <RapporteringsperiodeDetaljer periode={periode} />
                       {periode.status === "TilUtfylling" && (
                         <RemixLink
-                          asButton
+                          as="Button"
                           to={`/saksbehandling/person/${oppgaveId}/rediger-periode/${periode.id}`}
                           className="my-6"
                         >

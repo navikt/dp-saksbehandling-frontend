@@ -6,7 +6,7 @@ import { forwardRef } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
-  asButton?: boolean;
+  as?: "Link" | "Button";
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
@@ -15,7 +15,7 @@ function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined,
 ) {
-  const { onClick, replace = false, asButton, state, target, to, children, className } = props;
+  const { onClick, replace = false, as = "Link", state, target, to, children, className } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -23,7 +23,7 @@ function RemixLinkComponent(
     target,
   });
 
-  if (asButton) {
+  if (as === "Button") {
     return (
       <Button
         className={className || ""}

@@ -61,7 +61,7 @@ export function PersonSok() {
                 return (
                   <div className={styles.resultat} key={uuid}>
                     <BodyShort>{person}</BodyShort>
-                    <RemixLink asButton to={`/saksbehandling/person/${uuid}/oversikt`}>
+                    <RemixLink as="Button" to={`/saksbehandling/person/${uuid}/oversikt`}>
                       Gå til person
                     </RemixLink>
                   </div>
