@@ -25,8 +25,8 @@ export function PersonSok() {
   }
 
   function onChange(fnr: string) {
-    if (fnr.length < 11) {
-      setVisSokResultat(false);
+    if (fnr.length !== 11) {
+      setSokResultat([]);
     }
 
     setSokInput(fnr);
@@ -39,28 +39,28 @@ export function PersonSok() {
   }
 
   return (
-    <div className={styles.sokeKontainer}>
+    <div className={styles.sokeContainer}>
       <Search
         className={styles.sokefelt}
         hideLabel={false}
+        value={sokInput}
         size="small"
         label=""
         variant="secondary"
         onChange={(fnr: string) => onChange(fnr)}
         onSearchClick={(fnr: string) => sokEnPerson(fnr)}
         onClear={() => nullstillSok()}
-        value={sokInput}
         clearButton
       />
 
       {visSokResultat && (
-        <div className={styles.resultatKontainer}>
+        <div className={styles.resultatContainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
               {sokResultat.map(({ person, uuid }) => {
                 return (
                   <div className={styles.resultat} key={uuid}>
-                    <p>{person}</p>
+                    <BodyShort>{person}</BodyShort>
                     <RemixLink asButton to={`/saksbehandling/person/${uuid}/oversikt`}>
                       Gå til person
                     </RemixLink>
