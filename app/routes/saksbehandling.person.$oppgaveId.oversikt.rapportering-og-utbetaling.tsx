@@ -113,7 +113,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
-                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
                 <Table.HeaderCell>Merknader</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
               </Table.Row>
@@ -180,7 +179,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
-                  <Table.DataCell>TODO</Table.DataCell>
                   <Table.DataCell>
                     {periode.korrigerer && "Korrigerer tidligere periode"}
                   </Table.DataCell>

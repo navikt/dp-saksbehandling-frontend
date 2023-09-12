@@ -152,7 +152,6 @@ export default function RedigerPeriode() {
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
-                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
                 <Table.HeaderCell>Merknader</Table.HeaderCell>
                 <Table.HeaderCell></Table.HeaderCell>
               </Table.Row>
@@ -173,7 +172,6 @@ export default function RedigerPeriode() {
                   <Table.DataCell>
                     {hentAllAktivitetITimer(rapporteringsperiode, "Ferie")}
                   </Table.DataCell>
-                  <Table.DataCell>TODO</Table.DataCell>
                   <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
                   <Table.DataCell></Table.DataCell>
                 </Table.Row>
