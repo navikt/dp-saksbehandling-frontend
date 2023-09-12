@@ -35,12 +35,12 @@ export async function loader({ params, request }: LoaderArgs) {
   if (response.ok) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
-  } else {
-    throw new Response(null, {
-      status: 500,
-      statusText: "Feil i uthenting av rapporteringsperioder",
-    });
   }
+
+  throw new Response(null, {
+    status: 500,
+    statusText: "Feil i uthenting av rapporteringsperioder",
+  });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -59,9 +59,9 @@ export async function action({ request, params }: ActionArgs) {
         return redirect(
           `/saksbehandling/person/${params.oppgaveId}/rediger-periode/${korrigeringsperiode.id}`,
         );
-      } else {
-        throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
       }
+
+      throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
     }
 
     case "avgodkjenn": {
@@ -69,9 +69,9 @@ export async function action({ request, params }: ActionArgs) {
 
       if (response.ok) {
         return redirect(`/saksbehandling/person/${params.oppgaveId}/rediger-periode/${periodeId}`);
-      } else {
-        throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
       }
+
+      throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
     }
 
     case "hent-historikk": {
@@ -80,9 +80,9 @@ export async function action({ request, params }: ActionArgs) {
       if (response.ok) {
         const historiskPeriode: IRapporteringsperiode = await response.json();
         return json({ historiskPeriode });
-      } else {
-        throw new Error("Klarte ikke hente opp historisk rapporteringsperiode");
       }
+
+      throw new Error("Klarte ikke hente opp historisk rapporteringsperiode");
     }
 
     default: {
@@ -96,7 +96,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { oppgaveId } = useParams();
 
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       {rapporteringsperioder.length === 0 && (
         <Alert variant="info" inline>
           Ingen rapporteringsperioder funnet for bruker
@@ -113,83 +113,80 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
-                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
                 <Table.HeaderCell>Merknader</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
+
             <Table.Body>
-              {rapporteringsperioder.map((periode: IRapporteringsperiode) => {
-                return (
-                  <Table.ExpandableRow
-                    key={periode.id}
-                    data-testid="rapporteringsperiode"
-                    content={
-                      <>
-                        <RapporteringsperiodeDetaljer periode={periode} />
-                        {periode.status === "TilUtfylling" && (
-                          <RemixLink
-                            to={`/saksbehandling/person/${oppgaveId}/rediger-periode/${periode.id}`}
-                            className="my-6"
-                            asButton
+              {rapporteringsperioder.map((periode: IRapporteringsperiode) => (
+                <Table.ExpandableRow
+                  key={periode.id}
+                  data-testid="rapporteringsperiode"
+                  content={
+                    <>
+                      <RapporteringsperiodeDetaljer periode={periode} />
+                      {periode.status === "TilUtfylling" && (
+                        <RemixLink
+                          asButton
+                          to={`/saksbehandling/person/${oppgaveId}/rediger-periode/${periode.id}`}
+                          className="my-6"
+                        >
+                          Rediger
+                        </RemixLink>
+                      )}
+
+                      {periode.status === "Godkjent" && (
+                        <Form method="post" key={0} className="my-6">
+                          <input type="hidden" value={periode.id} name="periodeId" />
+                          <Button
+                            type="submit"
+                            variant="secondary"
+                            size="small"
+                            icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                            name="submit"
+                            value="avgodkjenn"
                           >
-                            Rediger
-                          </RemixLink>
-                        )}
+                            Lås opp og rediger
+                          </Button>
+                        </Form>
+                      )}
 
-                        {periode.status === "Godkjent" && (
-                          <Form method="post" key={0} className="my-6">
-                            <input type="hidden" value={periode.id} name="periodeId" />
-                            <Button
-                              type="submit"
-                              variant="secondary"
-                              size="small"
-                              icon={<PencilIcon title="a11y-title" fontSize={20} />}
-                              name="submit"
-                              value="avgodkjenn"
-                            >
-                              Lås opp og rediger
-                            </Button>
-                          </Form>
-                        )}
+                      {periode.status === "Innsendt" && (
+                        <Form method="post" key={0} className="my-6">
+                          <input type="hidden" value={periode.id} name="periodeId" />
+                          <Button
+                            type="submit"
+                            variant="secondary"
+                            size="small"
+                            icon={<PencilIcon title="a11y-title" fontSize={20} />}
+                            name="submit"
+                            value="start-korrigering"
+                          >
+                            Korriger
+                          </Button>
+                        </Form>
+                      )}
 
-                        {periode.status === "Innsendt" && (
-                          <Form method="post" key={0} className="my-6">
-                            <input type="hidden" value={periode.id} name="periodeId" />
-                            <Button
-                              type="submit"
-                              variant="secondary"
-                              size="small"
-                              icon={<PencilIcon title="a11y-title" fontSize={20} />}
-                              name="submit"
-                              value="start-korrigering"
-                            >
-                              Korriger
-                            </Button>
-                          </Form>
-                        )}
-
-                        {periode.korrigerer && <HistoriskRapporteringsperiode periode={periode} />}
-                      </>
-                    }
-                  >
-                    <Table.DataCell>
-                      <FormattedDate date={periode.fraOgMed} /> -{" "}
-                      <FormattedDate date={periode.tilOgMed} />
-                    </Table.DataCell>
-                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
-                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
-                    <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
-                    <Table.DataCell>TODO</Table.DataCell>
-                    <Table.DataCell>
-                      {periode.korrigerer && "Korrigerer tidligere periode"}
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <RapporteringsperiodeStatus periode={periode} />
-                    </Table.DataCell>
-                  </Table.ExpandableRow>
-                );
-              })}
+                      {periode.korrigerer && <HistoriskRapporteringsperiode periode={periode} />}
+                    </>
+                  }
+                >
+                  <Table.DataCell>
+                    <FormattedDate date={periode.fraOgMed} /> -{" "}
+                    <FormattedDate date={periode.tilOgMed} />
+                  </Table.DataCell>
+                  <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
+                  <Table.DataCell>{hentAllAktivitetITimer(periode, "Syk")}</Table.DataCell>
+                  <Table.DataCell>{hentAllAktivitetITimer(periode, "Ferie")}</Table.DataCell>
+                  <Table.DataCell>
+                    {periode.korrigerer && "Korrigerer tidligere periode"}
+                  </Table.DataCell>
+                  <Table.DataCell>
+                    <RapporteringsperiodeStatus periode={periode} />
+                  </Table.DataCell>
+                </Table.ExpandableRow>
+              ))}
             </Table.Body>
           </Table>
         </>
@@ -200,9 +197,9 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
 
 export function ErrorBoundary() {
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       <Alert variant="error" inline>
-        Noe skjedde feil
+        Noe gikk galt
       </Alert>
     </div>
   );

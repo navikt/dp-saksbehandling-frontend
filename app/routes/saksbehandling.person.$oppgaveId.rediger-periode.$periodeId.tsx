@@ -133,7 +133,7 @@ export default function RedigerPeriode() {
   }
 
   return (
-    <div className={styles.kontainer} id="dp-saksbehandling-frontend">
+    <div className={styles.container} id="dp-saksbehandling-frontend">
       <Heading level="1" size="large" spacing>
         Endre periode
       </Heading>
@@ -152,7 +152,6 @@ export default function RedigerPeriode() {
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
-                <Table.HeaderCell>Dager brukt av dp</Table.HeaderCell>
                 <Table.HeaderCell>Merknader</Table.HeaderCell>
                 <Table.HeaderCell></Table.HeaderCell>
               </Table.Row>
@@ -173,7 +172,6 @@ export default function RedigerPeriode() {
                   <Table.DataCell>
                     {hentAllAktivitetITimer(rapporteringsperiode, "Ferie")}
                   </Table.DataCell>
-                  <Table.DataCell>TODO</Table.DataCell>
                   <Table.DataCell>Ikke tilgjengelig ennå</Table.DataCell>
                   <Table.DataCell></Table.DataCell>
                 </Table.Row>
@@ -230,7 +228,7 @@ export default function RedigerPeriode() {
 
 export function ErrorBoundary() {
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       <Alert variant="error" inline>
         Noe skjedde feil
       </Alert>

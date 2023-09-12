@@ -15,7 +15,7 @@ export interface IOptions {
 }
 
 export function BehandlingStegInputSelect(props: IProps) {
-  const { readonly, verdi, name, label, placeholder, options } = props;
+  const { readonly, verdi, name, label, description, placeholder, options } = props;
   const { error, getInputProps } = useField(name);
   const cssClassNames = classNames(styles.input, props.className);
 
@@ -29,6 +29,7 @@ export function BehandlingStegInputSelect(props: IProps) {
       {...getInputProps({
         id: name,
         label: <>{label}</>,
+        ...(description && { description: <>{description}</> }),
         children: undefined, // Needed to keep typescript happy
       })}
     >

@@ -2,6 +2,7 @@ import { ValidatedForm } from "remix-validated-form";
 import { type Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { Input } from "../../components/behandling-steg-input/BehandlingStegInput";
+import type { IStegTekst } from "~/tekster/stegTekster";
 import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
 import { type IProps } from "./BehandlingSteg";
@@ -10,11 +11,12 @@ import {
   type IOptions,
 } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
-import { useNavigation } from "@remix-run/react";
+import { useLocation, useNavigation } from "@remix-run/react";
 
 export function BehandlingStegRettighetstype(props: IProps) {
   const { steg, readonly } = props;
 
+  const location = useLocation();
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
 
@@ -25,15 +27,23 @@ export function BehandlingStegRettighetstype(props: IProps) {
 
   const rettighetstyper: IOptions[] = [
     { value: "Ordinær", text: "Ordinær" },
-    { value: "Permittering", text: "Permittering" },
-    { value: "PermitteringFraFiskeindustrien", text: "Permittering fra fiskeindustrien" },
-    { value: "ForskutterteLønnsgarantimidler", text: "Forskutterte lønnsgarantimidler" },
+    // { value: "Permittering", text: "Permittering" },
+    // { value: "PermitteringFraFiskeindustrien", text: "Permittering fra fiskeindustrien" },
+    // { value: "ForskutterteLønnsgarantimidler", text: "Forskutterte lønnsgarantimidler" },
   ];
 
-  const stegTekst = hentStegTekst(steg.id) || { label: steg.id, begrunnelse: "Begrunnelse" };
+  const defaultStegTekst: IStegTekst = {
+    id: steg.id,
+    label: steg.id,
+    begrunnelse: "Begrunnelse",
+    hjelpetekst: { label: "", begrunnelse: "" },
+  };
+
+  const stegTekst = hentStegTekst(steg.id) ?? defaultStegTekst;
 
   return (
     <ValidatedForm
+      key={location.key} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
       validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
       method="post"
     >
@@ -45,6 +55,7 @@ export function BehandlingStegRettighetstype(props: IProps) {
         name={steg.uuid}
         svartype={steg.svartype}
         label={stegTekst.label}
+        description={stegTekst.hjelpetekst.label}
         verdi={steg?.svar?.svar}
         readonly={readonly}
       />
@@ -54,6 +65,7 @@ export function BehandlingStegRettighetstype(props: IProps) {
         name="begrunnelse"
         svartype="String"
         label={stegTekst.begrunnelse}
+        description={stegTekst.hjelpetekst.begrunnelse}
         readonly={readonly}
         textarea
       />

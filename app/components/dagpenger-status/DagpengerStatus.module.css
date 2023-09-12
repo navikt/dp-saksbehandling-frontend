@@ -1,13 +1,13 @@
-.kontainer {
+.container {
   display: grid;
   grid-template-columns: 2fr repeat(5, 1fr);
   margin-bottom: var(--a-spacing-4);
 }
 
-.kontainer h3 {
+.container h3 {
   margin-right: var(--a-spacing-12);
 }
 
-.kontainer a {
+.container a {
   margin-left: auto;
 }

@@ -4,7 +4,7 @@ import styles from "./DagpengerStatus.module.css";
 
 export function DagpengerStatus() {
   return (
-    <div className={styles.kontainer}>
+    <div className={styles.container}>
       <div>
         <Detail>Status</Detail>
         <Heading level="3" size="xsmall">

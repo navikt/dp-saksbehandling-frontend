@@ -3,33 +3,6 @@ import { z } from "zod";
 import { type TAktivitetType } from "~/models/aktivitet.server";
 import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 
-export function validerOgParseMetadata<T>(skjemaData: FormData, key: string): T {
-  const inputVerdi = skjemaData.get(key);
-
-  // Alle inputfelt sin value er enten string eller File blob
-  if (typeof inputVerdi !== "string") {
-    throw new Error("input er ikke en string");
-  }
-
-  return JSON.parse(inputVerdi);
-}
-
-export function hentFormattertSvar(svar: string, svartype: TBehandlingStegSvartype) {
-  switch (svartype) {
-    case "Double": {
-      return svar.replace(/,/g, ".");
-    }
-
-    case "LocalDate": {
-      return svar.split(".").reverse().join("-");
-    }
-
-    default: {
-      return svar;
-    }
-  }
-}
-
 export function hentValideringRegler(
   svartype: TBehandlingStegSvartype,
   id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
@@ -37,13 +10,13 @@ export function hentValideringRegler(
 ) {
   return withZod(
     z.object({
-      [inputnavn]: hentValideringType(svartype, id),
-      begrunnelse: z.string(),
+      [inputnavn]: hentValideringForInput(svartype, id),
+      begrunnelse: hentValideringForBegrunnelse(id),
     }),
   );
 }
 
-function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.ZodType {
+function hentValideringForInput(svartype: TBehandlingStegSvartype, id: string): z.ZodType {
   // Sjekker spesialtilfeller først
   switch (id) {
     case "Periode":
@@ -52,12 +25,23 @@ function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.Zo
           required_error: "Du må fylle ut en periode",
           invalid_type_error: "Du må fylle ut en gyldig periode",
         })
-        .positive({ message: "Du må skrive inn et tall" });
+        .positive({ message: "Du må velge en periode" });
     case "Rettighetstype":
       return z.string().nonempty("Du må fylle ut en rettighetstype");
+    case "Fastsatt vanlig arbeidstid":
+      return z.preprocess(
+        (timer) => String(timer).replace(/,/g, "."),
+        z.coerce
+          .number({
+            required_error: "Du må skrive et tall",
+            invalid_type_error: "Det må være et gyldig tall",
+          })
+          .min(0.5, { message: "Du må skrive et tall" })
+          .step(0.5, { message: "Vanlig arbeidstid må skrives kun med hele og halve timer" }),
+      );
   }
 
-  // Hvis ingen spesialtilfeller treffer, kjører vi på med de generelle typene
+  // Hvis ingen spesialtilfeller treffer kjører vi på med de generelle typene
   switch (svartype) {
     case "Int":
       return z.coerce
@@ -65,7 +49,7 @@ function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.Zo
           required_error: "Du må skrive et tall",
           invalid_type_error: "Det må være et gyldig heltall",
         })
-        .positive({ message: "Du må skrive et positivt tall" });
+        .positive({ message: "Du må skrive inn et tall" });
 
     case "Double":
       return z
@@ -87,6 +71,16 @@ function hentValideringType(svartype: TBehandlingStegSvartype, id: string): z.Zo
         new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
         "Ugyldig dato",
       );
+  }
+}
+
+function hentValideringForBegrunnelse(id: string): z.ZodType {
+  switch (id) {
+    case "Fastsatt vanlig arbeidstid":
+      return z.string().nonempty("Du må fylle ut feltet");
+
+    default:
+      return z.string();
   }
 }
 
@@ -117,12 +111,3 @@ export function validatorAktivitet(aktivitetType: TAktivitetType | string) {
     ? withZod(aktivitetsvalideringArbeid)
     : withZod(aktivitetsvalideringSykFerie);
 }
-
-export const nyRapporteringsperiodeValidator = withZod(
-  z.object({
-    fraOgMed: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato",
-    ),
-  }),
-);

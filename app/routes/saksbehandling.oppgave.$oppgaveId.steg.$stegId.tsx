@@ -11,12 +11,9 @@ import type {
 } from "~/models/oppgave.server";
 import type { IJournalpost } from "~/models/SAF.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
-import {
-  hentFormattertSvar,
-  hentValideringRegler,
-  validerOgParseMetadata,
-} from "~/utils/validering.util";
+import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
+import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 
 import styles from "~/route-styles/stegvisning.module.css";
 
@@ -25,7 +22,7 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
-  const metaData = validerOgParseMetadata<Metadata>(formData, "metadata");
+  const metaData = parseMetadata<Metadata>(formData, "metadata");
 
   const validering = await hentValideringRegler(
     metaData.svartype,

@@ -12,6 +12,7 @@ export interface IInputProps {
   name: string;
   svartype: TBehandlingStegSvartype;
   label?: string;
+  description?: string;
   verdi?: string;
   textarea?: boolean;
   className?: string;
@@ -29,6 +30,7 @@ export function Input(props: IInputProps) {
           name={props.name}
           svartype={props.svartype}
           label={props.label || props.svartype}
+          description={props.description}
           verdi={props.verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -41,6 +43,7 @@ export function Input(props: IInputProps) {
           name={props.name}
           svartype={props.svartype}
           label={props.label || props.svartype}
+          description={props.description}
           verdi={props.verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -58,6 +61,7 @@ export function Input(props: IInputProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
+            description={props.description}
             verdi={props.verdi}
             readonly={readonly}
           />
@@ -70,6 +74,7 @@ export function Input(props: IInputProps) {
           name={props.name}
           svartype={props.svartype}
           label={props.label || props.svartype}
+          description={props.description}
           verdi={props.verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -83,6 +88,7 @@ export function Input(props: IInputProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
+            description={props.description}
             verdi={props.verdi}
             readonly={readonly}
             className={cssClassNames}
@@ -94,6 +100,7 @@ export function Input(props: IInputProps) {
             name={props.name}
             svartype={props.svartype}
             label={props.label || props.svartype}
+            description={props.description}
             verdi={props.verdi}
             readonly={readonly}
             className={cssClassNames}
