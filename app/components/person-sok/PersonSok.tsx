@@ -57,16 +57,14 @@ export function PersonSok() {
         <div className={styles.resultatContainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
-              {sokResultat.map(({ person, uuid }) => {
-                return (
-                  <div className={styles.resultat} key={uuid}>
-                    <BodyShort>{person}</BodyShort>
-                    <RemixLink as="Button" to={`/saksbehandling/person/${uuid}/oversikt`}>
-                      Gå til person
-                    </RemixLink>
-                  </div>
-                );
-              })}
+              {sokResultat.map(({ person, uuid }) => (
+                <div className={styles.resultat} key={uuid}>
+                  <BodyShort>{person}</BodyShort>
+                  <RemixLink as="Button" to={`/saksbehandling/person/${uuid}/oversikt`}>
+                    Gå til person
+                  </RemixLink>
+                </div>
+              ))}
             </ul>
           )}
           {sokResultat.length === 0 && (

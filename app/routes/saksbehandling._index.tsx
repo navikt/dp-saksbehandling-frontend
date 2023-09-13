@@ -1,11 +1,23 @@
 import { Table } from "@navikt/ds-react";
 import { useRouteLoaderData } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
+import { type TOppgaveTilstand } from "~/models/oppgave.server";
 import { type IRootLoader } from "~/root";
 import { hentFormattertDato } from "~/utils/dato.utils";
 
 export default function Saksbehandling() {
   const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
+
+  function hentTilstandTekst(tilstand: TOppgaveTilstand) {
+    switch (tilstand) {
+      case "TilBehandling":
+        return "Til behandlgin";
+      case "FerdigBehandlet":
+        return "Til behandlgin";
+      default:
+        return "";
+    }
+  }
 
   return (
     <main>
@@ -22,7 +34,7 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {oppgaver?.map((oppgave, index) => {
-            const { uuid, person, opprettet } = oppgave;
+            const { uuid, person, opprettet, tilstand } = oppgave;
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
@@ -30,9 +42,9 @@ export default function Saksbehandling() {
                   <RemixLink to={`person/${oppgave.uuid}/oversikt`}>{person}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
-                <Table.DataCell>Til behandling</Table.DataCell>
+                <Table.DataCell>{hentTilstandTekst(tilstand)}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}`} asButton>
+                  <RemixLink to={`oppgave/${uuid}`} as="Button">
                     Behandle
                   </RemixLink>
                 </Table.DataCell>

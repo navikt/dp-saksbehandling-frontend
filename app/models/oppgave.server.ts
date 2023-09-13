@@ -21,7 +21,7 @@ export interface IBehandlingSteg {
   uuid: string;
   id: TBehandlingStegId;
   type: "Fastsetting" | "Vilkår";
-  tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
+  tilstand: TOppgaveTilstand;
   svartype: TBehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
