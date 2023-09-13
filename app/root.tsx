@@ -94,15 +94,12 @@ export async function loader({ request }: LoaderArgs) {
     lang: "nb",
   });
 
-  const alleOppgaver = await hentOppgaver(request);
-  const tilBehandlingsOppgaver = alleOppgaver.filter(
-    (oppgave) => oppgave.tilstand !== "FerdigBehandlet",
-  );
+  const oppgaver = await hentOppgaver(request);
 
   return json({
     sanityTexts,
     saksbehandler,
-    oppgaver: tilBehandlingsOppgaver,
+    oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,

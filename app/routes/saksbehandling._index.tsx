@@ -8,12 +8,16 @@ import { hentFormattertDato } from "~/utils/dato.utils";
 export default function Saksbehandling() {
   const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
 
+  const tilBehandlingsOppgaver = oppgaver.filter(
+    (oppgave) => oppgave.tilstand !== "FerdigBehandlet",
+  );
+
   function hentTilstandTekst(tilstand: TOppgaveTilstand) {
     switch (tilstand) {
       case "TilBehandling":
         return "Til behandling";
       case "FerdigBehandlet":
-        return "Ferdig behandling";
+        return "Ferdig behandlet";
       default:
         return "";
     }
@@ -33,7 +37,7 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgaver?.map((oppgave, index) => {
+          {tilBehandlingsOppgaver?.map((oppgave, index) => {
             const { uuid, person, opprettet, tilstand } = oppgave;
             return (
               <Table.Row key={index}>
