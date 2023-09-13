@@ -1,6 +1,6 @@
 import { Table } from "@navikt/ds-react";
 import { FormattedDate } from "../FormattedDate";
-import { hentAktivitetITimer } from "~/utils/aktivitet.utils";
+import { hentAktivitetIDager, hentAktivitetITimer } from "~/utils/aktivitet.utils";
 import {
   type IRapporteringsperiode,
   type IRapporteringsperiodeDag,
@@ -27,8 +27,8 @@ export function RapporteringsperiodeDetaljer(props: { periode: IRapporteringsper
               <FormattedDate date={dag.dato} ukedag />
             </Table.HeaderCell>
             <Table.DataCell>{hentAktivitetITimer(dag, "Arbeid") || "-"}</Table.DataCell>
-            <Table.DataCell>{hentAktivitetITimer(dag, "Syk") || "-"}</Table.DataCell>
-            <Table.DataCell>{hentAktivitetITimer(dag, "Ferie") || "-"}</Table.DataCell>
+            <Table.DataCell>{hentAktivitetIDager(dag, "Syk") || "-"}</Table.DataCell>
+            <Table.DataCell>{hentAktivitetIDager(dag, "Ferie") || "-"}</Table.DataCell>
           </Table.Row>
         ))}
       </Table.Body>

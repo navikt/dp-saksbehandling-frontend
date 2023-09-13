@@ -1,3 +1,4 @@
+import type { Duration } from "tinyduration";
 import { parse, serialize } from "tinyduration";
 import { type IAktivitet, type TAktivitetType } from "~/models/aktivitet.server";
 import type {
@@ -73,4 +74,23 @@ export function timerTilDuration(tid: string) {
     hours: timer,
     minutes: minutter * 6,
   });
+}
+
+export function hentAktivitetIDager(dag: IRapporteringsperiodeDag, typeAktivitet: TAktivitetType) {
+  const timerAsString = hentAktivitetITimer(dag, typeAktivitet);
+  const timer = Math.floor(parseInt(timerAsString) / 24);
+
+  return norskDesimal(timer.toString());
+}
+
+export function hentAllAktivitetIDager(
+  periode: IRapporteringsperiode,
+  typeAktivitet: TAktivitetType,
+) {
+  const sumAntallTimer = periode.dager.reduce((partialSum, dag) => {
+    const timer = hentAktivitetIDager(dag, typeAktivitet);
+    return partialSum + parseFloat(timer);
+  }, 0);
+
+  return norskDesimal(sumAntallTimer.toString());
 }
