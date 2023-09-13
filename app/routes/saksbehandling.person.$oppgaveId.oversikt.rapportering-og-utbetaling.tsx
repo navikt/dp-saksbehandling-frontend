@@ -18,6 +18,7 @@ import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-st
 import { RemixLink } from "~/components/RemixLink";
 import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
 import { hentOppgave } from "~/models/oppgave.server";
+import { formaterPeriodeTilUkenummer } from "~/utils/dato.utils";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
@@ -110,6 +111,7 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
               <Table.Row>
                 <Table.HeaderCell />
                 <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
+                <Table.HeaderCell>Uke</Table.HeaderCell>
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
@@ -175,6 +177,9 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                   <Table.DataCell>
                     <FormattedDate date={periode.fraOgMed} /> -{" "}
                     <FormattedDate date={periode.tilOgMed} />
+                  </Table.DataCell>
+                  <Table.DataCell>
+                    {formaterPeriodeTilUkenummer(periode.fraOgMed, periode.tilOgMed)}
                   </Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetIDager(periode, "Syk")}</Table.DataCell>
