@@ -1,6 +1,7 @@
 import type { IHendelse } from "~/models/hendelse.server";
-import { getAzureSession, getBehandlingOboToken } from "~/utils/auth.utils.server";
+import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 
 export interface IBehandlingStegSvar {
   type: TBehandlingStegSvartype;
@@ -50,15 +51,8 @@ type TBehandlingStegId =
   | "Periode"
   | "Oppfyller kravene til dagpenger";
 
-export async function hentOppgaver(request: Request): Promise<IOppgave[]> {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
+export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
-
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
   const response = await fetch(url, {
     method: "GET",
@@ -79,13 +73,10 @@ export async function hentOppgaver(request: Request): Promise<IOppgave[]> {
   return await response.json();
 }
 
-export async function hentOppgave(oppgaveId: string, request: Request): Promise<IOppgave> {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
+export async function hentOppgave(
+  oppgaveId: string,
+  session: SessionWithOboProvider,
+): Promise<IOppgave> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}`;
@@ -112,16 +103,10 @@ export async function svarOppgaveSteg(
   oppgaveId: string,
   svar: IBehandlingStegSvar,
   stegId: string,
-  request: Request,
+  session: SessionWithOboProvider,
 ) {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
-  const onBehalfOfToken = await getBehandlingOboToken(session);
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
+  const onBehalfOfToken = await getBehandlingOboToken(session);
   const body = JSON.stringify(svar);
 
   const response = await fetch(url, {
@@ -147,22 +132,14 @@ export async function svarOppgaveSteg(
 export async function endreStatus(
   oppgaveId: string,
   nyTilstand: TOppgaveTilstand,
-  request: Request,
+  session: SessionWithOboProvider,
 ) {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/tilstand`;
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${onBehalfOfToken}` },
     body: JSON.stringify({ nyTilstand }),
   });
-
-  return response;
 }

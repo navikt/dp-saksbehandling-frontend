@@ -69,7 +69,6 @@ export async function hentPDL(request: Request, ident: string) {
     throw new Error("Feil ved henting av sesjon");
   }
   const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
-  console.log("PDL SUBMIT");
   const saksbehandler = await authorizeUser(request);
 
   //todo: spør om tilgang for audience i prod

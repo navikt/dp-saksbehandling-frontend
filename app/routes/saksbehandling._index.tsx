@@ -5,9 +5,16 @@ import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "~/components/RemixLink";
+import { getAzureSession } from "~/utils/auth.utils.server";
 
 export async function loader({ request }: LoaderArgs) {
-  const oppgaver = await hentOppgaver(request);
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const oppgaver = await hentOppgaver(session);
 
   return json(oppgaver);
 }

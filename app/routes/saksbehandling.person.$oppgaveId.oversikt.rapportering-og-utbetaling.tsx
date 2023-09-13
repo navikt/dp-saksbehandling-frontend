@@ -1,13 +1,13 @@
 import { Alert, Button, Table } from "@navikt/ds-react";
 import {
-  type IRapporteringsperiode,
-  hentRapporteringsperioder,
-  lagKorrigeringsperiode,
   avgodkjennPeriode,
   hentRapporteringsperiode,
+  hentRapporteringsperioder,
+  type IRapporteringsperiode,
+  lagKorrigeringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
-import { type LoaderArgs, json, type ActionArgs, redirect } from "@remix-run/node";
+import { type ActionArgs, json, type LoaderArgs, redirect } from "@remix-run/node";
 import { Form, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetIDager, hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
@@ -18,12 +18,17 @@ import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-st
 import { RemixLink } from "~/components/RemixLink";
 import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
 import { hentOppgave } from "~/models/oppgave.server";
-import { formaterPeriodeTilUkenummer } from "~/utils/dato.utils";
+import { getAzureSession } from "~/utils/auth.utils.server";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
-  const oppgave = await hentOppgave(params.oppgaveId, request);
+  const session = await getAzureSession(request);
 
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const oppgave = await hentOppgave(params.oppgaveId, session);
   if (!oppgave) {
     throw new Response(null, {
       status: 500,
@@ -31,8 +36,7 @@ export async function loader({ params, request }: LoaderArgs) {
     });
   }
 
-  const response = await hentRapporteringsperioder(oppgave.person, request);
-
+  const response = await hentRapporteringsperioder(oppgave.person, session);
   if (response.ok) {
     const rapporteringsperioder = await response.json();
     return json({ rapporteringsperioder });
@@ -45,11 +49,10 @@ export async function loader({ params, request }: LoaderArgs) {
 }
 
 export async function action({ request, params }: ActionArgs) {
+  invariant(params.oppgaveId, "OppgaveId må være satt");
   const formData = await request.formData();
   const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
-
-  invariant(params.oppgaveId, "OppgaveId må være satt");
 
   switch (submitKnapp) {
     case "start-korrigering": {
@@ -111,7 +114,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
               <Table.Row>
                 <Table.HeaderCell />
                 <Table.HeaderCell>14. dagers periode</Table.HeaderCell>
-                <Table.HeaderCell>Uke</Table.HeaderCell>
                 <Table.HeaderCell>Jobbet</Table.HeaderCell>
                 <Table.HeaderCell>Syk</Table.HeaderCell>
                 <Table.HeaderCell>Ferie</Table.HeaderCell>
@@ -177,9 +179,6 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                   <Table.DataCell>
                     <FormattedDate date={periode.fraOgMed} /> -{" "}
                     <FormattedDate date={periode.tilOgMed} />
-                  </Table.DataCell>
-                  <Table.DataCell>
-                    {formaterPeriodeTilUkenummer(periode.fraOgMed, periode.tilOgMed)}
                   </Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetITimer(periode, "Arbeid")}</Table.DataCell>
                   <Table.DataCell>{hentAllAktivitetIDager(periode, "Syk")}</Table.DataCell>

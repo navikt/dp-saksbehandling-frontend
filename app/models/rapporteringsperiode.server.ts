@@ -1,6 +1,7 @@
 import { getEnv } from "~/utils/env.utils";
-import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
+import { getRapporteringOboToken } from "~/utils/auth.utils.server";
 import { type IAktivitet, type TAktivitetType } from "./aktivitet.server";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 
 export interface IRapporteringsperiode {
   id: string;
@@ -19,18 +20,11 @@ export interface IRapporteringsperiodeDag {
   aktiviteter: IAktivitet[];
 }
 
-export async function hentRapporteringsperiode(periodeId: string, request: Request) {
+export async function hentRapporteringsperiode(periodeId: string, session: SessionWithOboProvider) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -38,22 +32,13 @@ export async function hentRapporteringsperiode(periodeId: string, request: Reque
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
-
-  return response;
 }
 
-export async function hentRapporteringsperioder(ident: string, request: Request) {
+export async function hentRapporteringsperioder(ident: string, session: SessionWithOboProvider) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/sok`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -62,22 +47,13 @@ export async function hentRapporteringsperioder(ident: string, request: Request)
     },
     body: JSON.stringify({ ident }),
   });
-
-  return response;
 }
 
-export async function lagKorrigeringsperiode(periodeId: string, request: Request) {
+export async function lagKorrigeringsperiode(periodeId: string, session: SessionWithOboProvider) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/korrigering`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,22 +61,17 @@ export async function lagKorrigeringsperiode(periodeId: string, request: Request
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
-
-  return response;
 }
 
-export async function godkjennPeriode(periodeId: string, begrunnelse: string, request: Request) {
+export async function godkjennPeriode(
+  periodeId: string,
+  begrunnelse: string,
+  session: SessionWithOboProvider,
+) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/godkjenn`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -109,22 +80,13 @@ export async function godkjennPeriode(periodeId: string, begrunnelse: string, re
     },
     body: JSON.stringify({ begrunnelse }),
   });
-
-  return response;
 }
 
-export async function avgodkjennPeriode(periodeId: string, request: Request) {
+export async function avgodkjennPeriode(periodeId: string, session: SessionWithOboProvider) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/avgodkjenn`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -133,21 +95,17 @@ export async function avgodkjennPeriode(periodeId: string, request: Request) {
     },
     body: JSON.stringify({ begrunnelse: "fordi" }),
   });
-
-  return response;
 }
 
-export async function lagRapporteringsperiode(ident: string, fraOgMed: string, request: Request) {
+export async function lagRapporteringsperiode(
+  ident: string,
+  fraOgMed: string,
+  session: SessionWithOboProvider,
+) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder`;
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Error("Feil ved henting av sesjon");
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -156,5 +114,4 @@ export async function lagRapporteringsperiode(ident: string, fraOgMed: string, r
     },
     body: JSON.stringify({ ident, fraOgMed }),
   });
-  return response;
 }

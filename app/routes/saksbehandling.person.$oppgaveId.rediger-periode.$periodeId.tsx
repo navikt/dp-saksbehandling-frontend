@@ -23,12 +23,18 @@ import {
   timerTilDuration,
 } from "~/utils/aktivitet.utils";
 import styles from "../route-styles/rediger-periode.module.css";
+import { getAzureSession } from "~/utils/auth.utils.server";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
-  let rapporteringsperiode: IRapporteringsperiode;
+  const session = await getAzureSession(request);
 
-  const periodeResponse = await hentRapporteringsperiode(params.periodeId, request);
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  let rapporteringsperiode: IRapporteringsperiode;
+  const periodeResponse = await hentRapporteringsperiode(params.periodeId, session);
 
   if (periodeResponse.ok) {
     rapporteringsperiode = await periodeResponse.json();

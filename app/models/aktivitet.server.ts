@@ -1,5 +1,6 @@
 import { getEnv } from "~/utils/env.utils";
-import { getAzureSession, getRapporteringOboToken } from "~/utils/auth.utils.server";
+import { getRapporteringOboToken } from "~/utils/auth.utils.server";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 
 export type TAktivitetType = "Arbeid" | "Ferie" | "Syk";
 
@@ -15,19 +16,12 @@ export async function lagreAktivitet(
   aktivitetstype: TAktivitetType,
   timer: string,
   dato: string,
-  request: Request,
+  session: SessionWithOboProvider,
 ) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/aktivitet`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,24 +30,19 @@ export async function lagreAktivitet(
     },
     body: JSON.stringify({ type: aktivitetstype, timer, dato }),
   });
-
-  return response;
 }
 
-export async function slettAktivitet(periodeId: string, aktivitetId: string, request: Request) {
+export async function slettAktivitet(
+  periodeId: string,
+  aktivitetId: string,
+  session: SessionWithOboProvider,
+) {
   const url = `${getEnv(
     "DP_RAPPORTERING_URL",
   )}/rapporteringsperioder/${periodeId}/aktivitet/${aktivitetId}`;
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -61,6 +50,4 @@ export async function slettAktivitet(periodeId: string, aktivitetId: string, req
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
-
-  return response;
 }

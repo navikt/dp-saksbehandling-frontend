@@ -16,10 +16,17 @@ import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 
 import styles from "~/route-styles/stegvisning.module.css";
+import { getAzureSession } from "~/utils/auth.utils.server";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
 
   const formData = await request.formData();
   const metaData = parseMetadata<Metadata>(formData, "metadata");
@@ -43,7 +50,7 @@ export async function action({ request, params }: ActionArgs) {
     },
   };
 
-  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId, request);
+  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId, session);
 
   if (response.ok) {
     return json({ response });

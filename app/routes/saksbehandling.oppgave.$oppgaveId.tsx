@@ -2,11 +2,12 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { type IOppgave, hentOppgave } from "~/models/oppgave.server";
+import { hentOppgave, type IOppgave } from "~/models/oppgave.server";
 
 import styles from "~/route-styles/behandle.module.css";
 import type { IJournalpost } from "~/models/SAF.server";
 import { hentJournalpost } from "~/models/SAF.server";
+import { getAzureSession } from "~/utils/auth.utils.server";
 
 export interface ISaksbehandlingsOppgaveLoader {
   oppgave: IOppgave;
@@ -15,8 +16,13 @@ export interface ISaksbehandlingsOppgaveLoader {
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+  const session = await getAzureSession(request);
 
-  const oppgave = await hentOppgave(params.oppgaveId, request);
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const oppgave = await hentOppgave(params.oppgaveId, session);
 
   if (!oppgave) {
     throw new Response(null, {
