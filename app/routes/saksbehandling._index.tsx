@@ -11,9 +11,9 @@ export default function Saksbehandling() {
   function hentTilstandTekst(tilstand: TOppgaveTilstand) {
     switch (tilstand) {
       case "TilBehandling":
-        return "Til behandlgin";
+        return "Til behandling";
       case "FerdigBehandlet":
-        return "Til behandlgin";
+        return "Ferdig behandling";
       default:
         return "";
     }
