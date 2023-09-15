@@ -17,7 +17,7 @@ describe("BehandlingSteg", () => {
         id: "Grunnlag",
         type: "Fastsetting",
         svartype: "Double",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: null,
       };
 

@@ -17,7 +17,7 @@ describe("BehandlingSteg", () => {
         id: "Oppfyller kravene til dagpenger",
         type: "Fastsetting",
         svartype: "Boolean",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: null,
       };
       test("burde vise et boolsk steg", async () => {

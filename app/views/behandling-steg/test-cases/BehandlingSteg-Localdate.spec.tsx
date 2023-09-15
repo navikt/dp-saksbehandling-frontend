@@ -17,7 +17,7 @@ describe("BehandlingSteg", () => {
         id: "Virkningsdato",
         type: "Fastsetting",
         svartype: "LocalDate",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: null,
       };
 

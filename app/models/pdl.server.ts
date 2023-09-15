@@ -1,8 +1,7 @@
-import { GraphQLClient, gql } from "graphql-request";
+import { gql, GraphQLClient } from "graphql-request";
 import { logger } from "server/logger";
 import { v4 as uuidv4 } from "uuid";
-import { getAzureSession } from "~/utils/auth.utils.server";
-import { authorizeUser } from "./auth.server";
+import { authorizeUser, getSession } from "./auth.server";
 
 export type HentPersonResponsData = {
   hentPerson: {
@@ -63,13 +62,9 @@ export type VegadresseDetails = {
 };
 
 export async function hentPDL(request: Request, ident: string) {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Error("Feil ved henting av sesjon");
-  }
+  const session = await getSession(request);
   const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
-  const saksbehandler = await authorizeUser(request);
+  const saksbehandler = await authorizeUser(session);
 
   //todo: spør om tilgang for audience i prod
   const token = await session.apiToken("api://dev-fss.pdl.pdl-api/.default");

@@ -33,7 +33,7 @@ export default function PersonBehandle() {
 
   return (
     <>
-      {oppgave.tilstand === "Innstilt" && (
+      {oppgave.tilstand === "TilBehandling" && (
         <div className={styles.innstiltBanner}>To-trinns kontroll</div>
       )}
 
