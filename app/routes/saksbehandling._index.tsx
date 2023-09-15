@@ -1,22 +1,27 @@
 import { Table } from "@navikt/ds-react";
-import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import type { IOppgave } from "~/models/oppgave.server";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { hentFormattertDato } from "~/utils/dato.utils";
+import { useRouteLoaderData } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
-import { getSession } from "~/models/auth.server";
-
-export async function loader({ request }: LoaderArgs) {
-  const session = await getSession(request);
-  const oppgaver = await hentOppgaver(session);
-
-  return json(oppgaver);
-}
+import { type TOppgaveTilstand } from "~/models/oppgave.server";
+import { type IRootLoader } from "~/root";
+import { hentFormattertDato } from "~/utils/dato.utils";
 
 export default function Saksbehandling() {
-  const loaderData = useLoaderData<typeof loader>();
-  const oppgaver = loaderData as IOppgave[];
+  const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
+
+  const tilBehandlingsOppgaver = oppgaver.filter(
+    (oppgave) => oppgave.tilstand !== "FerdigBehandlet",
+  );
+
+  function hentTilstandTekst(tilstand: TOppgaveTilstand) {
+    switch (tilstand) {
+      case "TilBehandling":
+        return "Til behandling";
+      case "FerdigBehandlet":
+        return "Ferdig behandlet";
+      default:
+        return "";
+    }
+  }
 
   return (
     <main>
@@ -26,24 +31,22 @@ export default function Saksbehandling() {
             <Table.HeaderCell scope="col">Oppgave ID</Table.HeaderCell>
             <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Gå til behandling</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+            <Table.HeaderCell scope="col"></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {oppgaver?.map((oppgave, index) => {
-            const { uuid, tilstand, person, opprettet } = oppgave;
+          {tilBehandlingsOppgaver?.map((oppgave, index) => {
+            const { uuid, person, opprettet, tilstand } = oppgave;
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${oppgave.uuid}/oversikt`} as="Link">
-                    {person}
-                  </RemixLink>
+                  <RemixLink to={`person/${oppgave.uuid}/oversikt`}>{person}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
-                <Table.DataCell>{tilstand}</Table.DataCell>
+                <Table.DataCell>{hentTilstandTekst(tilstand)}</Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`oppgave/${uuid}`} as="Button">
                     Behandle

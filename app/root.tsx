@@ -23,6 +23,8 @@ import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
+import { type IOppgave, hentOppgaver } from "./models/oppgave.server";
+import { type ISaksbehandler } from "./models/saksbehandler.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -32,7 +34,8 @@ export const meta: V2_MetaFunction = () => {
       charset: "utf-8",
     },
     {
-      viewport: "width=device-width,initial-scale=1",
+      name: "viewport",
+      content: "width=device-width,initial-scale=1",
     },
     { title: "Dagpenger saksbehandling" },
     {
@@ -79,6 +82,11 @@ export function links() {
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
 
+export interface IRootLoader {
+  saksbehandler?: ISaksbehandler;
+  oppgaver: IOppgave[];
+}
+
 export async function loader({ request }: LoaderArgs) {
   const saksbehandler = await authorizeUser(request);
 
@@ -87,9 +95,12 @@ export async function loader({ request }: LoaderArgs) {
     lang: "nb",
   });
 
+  const oppgaver = await hentOppgaver(request);
+
   return json({
     sanityTexts,
     saksbehandler,
+    oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,

@@ -1,11 +1,13 @@
 .container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
-.search {
-  padding: 0 var(--a-spacing-4);
+.searchAndSaksbehandlerContainer {
+  display: flex;
+  flex-direction: row;
 }
 
 .linkItem {

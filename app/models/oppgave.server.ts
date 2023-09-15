@@ -22,7 +22,7 @@ export interface IBehandlingSteg {
   uuid: string;
   id: TBehandlingStegId;
   type: "Fastsetting" | "Vilkår";
-  tilstand: "Utført" | "IkkeUtført" | "MåGodkjennes";
+  tilstand: TOppgaveTilstand;
   svartype: TBehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
@@ -38,7 +38,7 @@ export interface IOppgave {
   steg: IBehandlingSteg[];
 }
 
-export type TOppgaveTilstand = "TilBehandling" | "VentPåMangelbrev" | "Vedtak" | "Innstilt";
+export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
 
 export type TBehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 

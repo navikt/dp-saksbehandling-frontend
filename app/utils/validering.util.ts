@@ -36,7 +36,8 @@ function hentValideringForInput(svartype: TBehandlingStegSvartype, id: string): 
             required_error: "Du må skrive et tall",
             invalid_type_error: "Det må være et gyldig tall",
           })
-          .min(0.5, { message: "Du må skrive et tall" })
+          .min(0, { message: "Du må skrive et tall" })
+          .max(40, { message: "Du må skrive et tall mellom 0 og 40 timer" })
           .step(0.5, { message: "Vanlig arbeidstid må skrives kun med hele og halve timer" }),
       );
   }
