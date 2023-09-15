@@ -1,9 +1,6 @@
-import {
-  getAzureSession,
-  getBehandlingOboToken,
-  getVedtakOboToken,
-} from "~/utils/auth.utils.server";
+import { getBehandlingOboToken, getVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 
 export interface IVedtak {
   rammer: {
@@ -18,16 +15,10 @@ export interface IVedtak {
   }[];
 }
 
-export async function hentVedtak(ident: string, request: Request): Promise<IVedtak> {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
+export async function hentVedtak(ident: string, session: SessionWithOboProvider): Promise<IVedtak> {
+  const url = `${getEnv("DP_VEDTAK_URL")}/vedtak`;
   const onBehalfOfToken = await getVedtakOboToken(session);
 
-  const url = `${getEnv("DP_VEDTAK_URL")}/vedtak`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -48,15 +39,12 @@ export async function hentVedtak(ident: string, request: Request): Promise<IVedt
   return response.json();
 }
 
-export async function stansVedtak(oppgaveId: string, request: Request) {
+export async function stansVedtak(
+  oppgaveId: string,
+  session: SessionWithOboProvider,
+): Promise<{ oppgaveId: string }> {
   // Vi bruker oppgave id for å stanse en vedtak og dermed urlèn er /oppgave
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/stans`;
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
   const response = await fetch(url, {
@@ -65,5 +53,11 @@ export async function stansVedtak(oppgaveId: string, request: Request) {
     body: JSON.stringify({ oppgaveId }),
   });
 
-  return response;
+  if (!response.ok) {
+    throw new Response(null, {
+      status: 500,
+      statusText: "Feil ved stans av oppgave",
+    });
+  }
+  return response.json();
 }

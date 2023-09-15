@@ -1,8 +1,7 @@
-import { getAzureSession } from "~/utils/auth.utils.server";
 import { logger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
-import { authorizeUser } from "./auth.server";
+import { authorizeUser, getSession } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
 
@@ -34,9 +33,9 @@ export async function hentJournalpost(
     return mockJournalpost;
   }
 
-  const session = await getAzureSession(request);
+  const session = await getSession(request);
+  const saksbehandler = await authorizeUser(session);
   const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
-  const saksbehandler = await authorizeUser(request);
 
   if (!token || !saksbehandler) {
     throw new Response("Unauthorized", { status: 401 });

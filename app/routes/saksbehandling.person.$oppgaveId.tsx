@@ -6,18 +6,13 @@ import { hentOppgave } from "~/models/oppgave.server";
 import { hentPDL } from "~/models/pdl.server";
 import { type IPerson, mockHentPerson } from "~/models/person.server";
 import { logger, sikkerLogger } from "../../server/logger";
+import { getSession } from "~/models/auth.server";
 
 export const shouldRevalidate = () => false;
 export async function loader({ request, params }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
-  const oppgave = await hentOppgave(params.oppgaveId, request);
-
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
+  const session = await getSession(request);
+  const oppgave = await hentOppgave(params.oppgaveId, session);
 
   if (process.env.IS_LOCALHOST === "true") {
     const person: IPerson = await mockHentPerson(oppgave.person);

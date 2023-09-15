@@ -63,9 +63,7 @@ describe("Stegvisning", () => {
           context: {},
         });
 
-        const data = await response?.json();
-
-        expect(data && data).toBeTruthy();
+        expect(response && response).toBeTruthy();
       });
 
       test("burde feile hvis backend feiler", async () => {

@@ -2,11 +2,12 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { type IOppgave, hentOppgave } from "~/models/oppgave.server";
+import { hentOppgave, type IOppgave } from "~/models/oppgave.server";
 
 import styles from "~/route-styles/behandle.module.css";
 import type { IJournalpost } from "~/models/SAF.server";
 import { hentJournalpost } from "~/models/SAF.server";
+import { getSession } from "~/models/auth.server";
 
 export interface ISaksbehandlingsOppgaveLoader {
   oppgave: IOppgave;
@@ -15,15 +16,8 @@ export interface ISaksbehandlingsOppgaveLoader {
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-
-  const oppgave = await hentOppgave(params.oppgaveId, request);
-
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
+  const session = await getSession(request);
+  const oppgave = await hentOppgave(params.oppgaveId, session);
 
   const journalposter: IJournalpost[] = [];
   for (const journalpostId of oppgave.journalposter) {
@@ -39,7 +33,7 @@ export default function PersonBehandle() {
 
   return (
     <>
-      {oppgave.tilstand === "Innstilt" && (
+      {oppgave.tilstand === "TilBehandling" && (
         <div className={styles.innstiltBanner}>To-trinns kontroll</div>
       )}
 
