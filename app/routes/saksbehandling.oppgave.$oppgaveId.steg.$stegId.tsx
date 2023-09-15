@@ -61,6 +61,7 @@ export default function PersonBehandleVilkaar() {
   const { oppgave } = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`) as {
     oppgave: IOppgave;
   };
+
   const { journalposter } = useRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId") as {
     journalposter: IJournalpost[];
   };

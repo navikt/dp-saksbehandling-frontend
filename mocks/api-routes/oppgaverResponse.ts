@@ -14,7 +14,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Virkningsdato",
         type: "Fastsetting",
         svartype: "LocalDate",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "LocalDate",
           begrunnelse: {
@@ -28,7 +28,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Rettighetstype",
         type: "Fastsetting",
         svartype: "String",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "String",
           begrunnelse: {
@@ -42,7 +42,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Fastsatt vanlig arbeidstid",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -56,7 +56,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Grunnlag",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -70,7 +70,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Dagsats",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "Utført",
+        tilstand: "TilBehandling",
         svar: {
           svar: "120",
           type: "Int",
@@ -85,7 +85,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Periode",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -99,7 +99,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Oppfyller kravene til dagpenger",
         type: "Vilkår",
         svartype: "Boolean",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Boolean",
           begrunnelse: {
@@ -109,7 +109,7 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["VentPåMangelbrev"],
+    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
   {
     uuid: "1c206443-19ff-49c4-9d8e-ae8db247bf8a",
@@ -124,7 +124,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Virkningsdato",
         type: "Fastsetting",
         svartype: "LocalDate",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "LocalDate",
           begrunnelse: {
@@ -138,7 +138,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Rettighetstype",
         type: "Fastsetting",
         svartype: "String",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "String",
           begrunnelse: {
@@ -152,7 +152,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Fastsatt vanlig arbeidstid",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -166,7 +166,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Grunnlag",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -180,7 +180,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Dagsats",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -194,7 +194,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Periode",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Int",
           begrunnelse: {
@@ -208,7 +208,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Oppfyller kravene til dagpenger",
         type: "Vilkår",
         svartype: "Boolean",
-        tilstand: "IkkeUtført",
+        tilstand: "TilBehandling",
         svar: {
           type: "Boolean",
           begrunnelse: {
@@ -218,14 +218,14 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["VentPåMangelbrev"],
+    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
   {
     uuid: "d04cbaea-dc4d-42a9-a5ff-c983ec4870e5",
     person: "29889196546",
     opprettet: "2023-04-25",
     hendelse: [],
-    tilstand: "Innstilt",
+    tilstand: "FerdigBehandlet",
     journalposter: [],
     steg: [
       {
@@ -233,7 +233,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Virkningsdato",
         type: "Fastsetting",
         svartype: "LocalDate",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "2023-04-13",
           type: "LocalDate",
@@ -248,7 +248,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Rettighetstype",
         type: "Fastsetting",
         svartype: "String",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "ert",
           type: "String",
@@ -263,7 +263,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Fastsatt vanlig arbeidstid",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "34325",
           type: "Int",
@@ -278,7 +278,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Grunnlag",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "345",
           type: "Int",
@@ -293,7 +293,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Dagsats",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "345",
           type: "Int",
@@ -308,7 +308,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Periode",
         type: "Fastsetting",
         svartype: "Int",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "345",
           type: "Int",
@@ -323,7 +323,7 @@ export const oppgaverResponse: IOppgave[] = [
         id: "Oppfyller kravene til dagpenger",
         type: "Vilkår",
         svartype: "Boolean",
-        tilstand: "Utført",
+        tilstand: "FerdigBehandlet",
         svar: {
           svar: "true",
           type: "Boolean",
@@ -334,6 +334,6 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["TilBehandling", "Vedtak"],
+    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
 ];
