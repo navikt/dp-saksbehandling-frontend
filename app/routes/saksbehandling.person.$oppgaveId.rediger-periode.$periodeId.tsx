@@ -62,11 +62,18 @@ export interface IRedigerPeriodeAction {
 export async function action({ request, params }: ActionArgs) {
   const periodeId = params.periodeId;
   const oppgaveId = params.oppgaveId;
-  const formData = await request.formData();
-  const submitKnapp = formData.get("submit");
 
   invariant(periodeId, "RapporteringsID er obligatorisk");
   invariant(oppgaveId, "OppgaveId er obligatorisk");
+
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
+  const formData = await request.formData();
+  const submitKnapp = formData.get("submit");
 
   switch (submitKnapp) {
     case "lagre-aktivitet": {
@@ -75,7 +82,7 @@ export async function action({ request, params }: ActionArgs) {
       const timer = formData.get("timer") as string;
       const tidsperiode = timer && timerTilDuration(timer);
 
-      const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, request);
+      const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, session);
 
       if (response.ok) {
         return json({ aktivitetLagret: true });
@@ -86,7 +93,7 @@ export async function action({ request, params }: ActionArgs) {
 
     case "slette-aktivitet": {
       const aktivitetId = formData.get("aktivitetId") as string;
-      const response = await slettAktivitet(periodeId, aktivitetId, request);
+      const response = await slettAktivitet(periodeId, aktivitetId, session);
 
       if (response.ok) {
         return json({ aktivitetLagret: true });
@@ -100,7 +107,7 @@ export async function action({ request, params }: ActionArgs) {
 
       if (validering.error) return validationError(validering.error);
 
-      const response = await godkjennPeriode(periodeId, validering.data.begrunnelse, request);
+      const response = await godkjennPeriode(periodeId, validering.data.begrunnelse, session);
 
       if (!response.ok) {
         throw new Response(null, {

@@ -50,13 +50,19 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+
   const formData = await request.formData();
   const submitKnapp = formData.get("submit");
   const periodeId = formData.get("periodeId") as string;
 
   switch (submitKnapp) {
     case "start-korrigering": {
-      const response = await lagKorrigeringsperiode(periodeId, request);
+      const response = await lagKorrigeringsperiode(periodeId, session);
 
       if (response.ok) {
         const korrigeringsperiode: IRapporteringsperiode = await response.json();
@@ -69,7 +75,7 @@ export async function action({ request, params }: ActionArgs) {
     }
 
     case "avgodkjenn": {
-      const response = await avgodkjennPeriode(periodeId, request);
+      const response = await avgodkjennPeriode(periodeId, session);
 
       if (response.ok) {
         return redirect(`/saksbehandling/person/${params.oppgaveId}/rediger-periode/${periodeId}`);
@@ -79,7 +85,7 @@ export async function action({ request, params }: ActionArgs) {
     }
 
     case "hent-historikk": {
-      const response = await hentRapporteringsperiode(periodeId, request);
+      const response = await hentRapporteringsperiode(periodeId, session);
 
       if (response.ok) {
         const historiskPeriode: IRapporteringsperiode = await response.json();
