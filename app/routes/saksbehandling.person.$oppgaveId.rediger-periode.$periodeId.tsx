@@ -1,6 +1,6 @@
 import { PencilIcon } from "@navikt/aksel-icons";
 import { Alert, Button, Heading, Table } from "@navikt/ds-react";
-import { json, redirect, type ActionArgs, type LoaderArgs } from "@remix-run/node";
+import { type ActionArgs, json, type LoaderArgs, redirect } from "@remix-run/node";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import { withZod } from "@remix-validated-form/with-zod";
 import { useEffect, useState } from "react";
@@ -14,7 +14,6 @@ import { lagreAktivitet, slettAktivitet, type TAktivitetType } from "~/models/ak
 import {
   godkjennPeriode,
   hentRapporteringsperiode,
-  type IRapporteringsperiode,
   type IRapporteringsperiodeDag,
 } from "~/models/rapporteringsperiode.server";
 import {
@@ -23,27 +22,12 @@ import {
   timerTilDuration,
 } from "~/utils/aktivitet.utils";
 import styles from "../route-styles/rediger-periode.module.css";
-import { getAzureSession } from "~/utils/auth.utils.server";
+import { getSession } from "~/models/auth.server";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
-  let rapporteringsperiode: IRapporteringsperiode;
-  const periodeResponse = await hentRapporteringsperiode(params.periodeId, session);
-
-  if (periodeResponse.ok) {
-    rapporteringsperiode = await periodeResponse.json();
-  } else {
-    throw new Response(null, {
-      status: 500,
-      statusText: "Feil i uthenting av rapporteringsperiode",
-    });
-  }
+  const session = await getSession(request);
+  const rapporteringsperiode = await hentRapporteringsperiode(params.periodeId, session);
 
   return json({ rapporteringsperiode });
 }
@@ -62,16 +46,10 @@ export interface IRedigerPeriodeAction {
 export async function action({ request, params }: ActionArgs) {
   const periodeId = params.periodeId;
   const oppgaveId = params.oppgaveId;
-
   invariant(periodeId, "RapporteringsID er obligatorisk");
   invariant(oppgaveId, "OppgaveId er obligatorisk");
 
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
+  const session = await getSession(request);
   const formData = await request.formData();
   const submitKnapp = formData.get("submit");
 
@@ -107,15 +85,7 @@ export async function action({ request, params }: ActionArgs) {
 
       if (validering.error) return validationError(validering.error);
 
-      const response = await godkjennPeriode(periodeId, validering.data.begrunnelse, session);
-
-      if (!response.ok) {
-        throw new Response(null, {
-          status: 500,
-          statusText: "Klarte ikke godkjenne korrigeringsperiode",
-        });
-      }
-
+      await godkjennPeriode(periodeId, validering.data.begrunnelse, session);
       return redirect(`/saksbehandling/person/${oppgaveId}/oversikt/rapportering-og-utbetaling`);
     }
   }

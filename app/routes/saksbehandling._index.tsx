@@ -1,19 +1,14 @@
 import { Table } from "@navikt/ds-react";
-import { type LoaderArgs, json } from "@remix-run/node";
+import { json, type LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgaver } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "~/components/RemixLink";
-import { getAzureSession } from "~/utils/auth.utils.server";
+import { getSession } from "~/models/auth.server";
 
 export async function loader({ request }: LoaderArgs) {
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
-
+  const session = await getSession(request);
   const oppgaver = await hentOppgaver(session);
 
   return json(oppgaver);

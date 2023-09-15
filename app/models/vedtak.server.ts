@@ -39,14 +39,25 @@ export async function hentVedtak(ident: string, session: SessionWithOboProvider)
   return response.json();
 }
 
-export async function stansVedtak(oppgaveId: string, session: SessionWithOboProvider) {
+export async function stansVedtak(
+  oppgaveId: string,
+  session: SessionWithOboProvider,
+): Promise<{ oppgaveId: string }> {
   // Vi bruker oppgave id for å stanse en vedtak og dermed urlèn er /oppgave
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/stans`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${onBehalfOfToken}` },
     body: JSON.stringify({ oppgaveId }),
   });
+
+  if (!response.ok) {
+    throw new Response(null, {
+      status: 500,
+      statusText: "Feil ved stans av oppgave",
+    });
+  }
+  return response.json();
 }

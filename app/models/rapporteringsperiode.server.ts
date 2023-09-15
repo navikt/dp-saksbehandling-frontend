@@ -20,11 +20,14 @@ export interface IRapporteringsperiodeDag {
   aktiviteter: IAktivitet[];
 }
 
-export async function hentRapporteringsperiode(periodeId: string, session: SessionWithOboProvider) {
+export async function hentRapporteringsperiode(
+  periodeId: string,
+  session: SessionWithOboProvider,
+): Promise<IRapporteringsperiode> {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}`;
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -32,13 +35,25 @@ export async function hentRapporteringsperiode(periodeId: string, session: Sessi
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
+
+  if (!response.ok) {
+    throw new Response("Klarte ikke hente opp historisk rapporteringsperiode", {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return response.json();
 }
 
-export async function hentRapporteringsperioder(ident: string, session: SessionWithOboProvider) {
+export async function hentRapporteringsperioder(
+  ident: string,
+  session: SessionWithOboProvider,
+): Promise<IRapporteringsperiode[]> {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/sok`;
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,13 +62,25 @@ export async function hentRapporteringsperioder(ident: string, session: SessionW
     },
     body: JSON.stringify({ ident }),
   });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return await response.json();
 }
 
-export async function lagKorrigeringsperiode(periodeId: string, session: SessionWithOboProvider) {
+export async function lagKorrigeringsperiode(
+  periodeId: string,
+  session: SessionWithOboProvider,
+): Promise<IRapporteringsperiode> {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/korrigering`;
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -61,6 +88,12 @@ export async function lagKorrigeringsperiode(periodeId: string, session: Session
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
+
+  if (!response.ok) {
+    throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
+  }
+
+  return response.json();
 }
 
 export async function godkjennPeriode(
@@ -71,7 +104,7 @@ export async function godkjennPeriode(
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/godkjenn`;
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,13 +113,22 @@ export async function godkjennPeriode(
     },
     body: JSON.stringify({ begrunnelse }),
   });
+
+  if (!response.ok) {
+    throw new Response(null, {
+      status: 500,
+      statusText: "Klarte ikke godkjenne korrigeringsperiode",
+    });
+  }
+
+  return response;
 }
 
 export async function avgodkjennPeriode(periodeId: string, session: SessionWithOboProvider) {
   const url = `${getEnv("DP_RAPPORTERING_URL")}/rapporteringsperioder/${periodeId}/avgodkjenn`;
   const onBehalfOfToken = await getRapporteringOboToken(session);
 
-  return await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -95,6 +137,12 @@ export async function avgodkjennPeriode(periodeId: string, session: SessionWithO
     },
     body: JSON.stringify({ begrunnelse: "fordi" }),
   });
+
+  if (!response.ok) {
+    throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
+  }
+
+  return response;
 }
 
 export async function lagRapporteringsperiode(

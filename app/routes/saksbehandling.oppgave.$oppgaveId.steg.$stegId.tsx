@@ -1,5 +1,4 @@
 import type { ActionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { useParams, useRouteLoaderData } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
@@ -9,24 +8,19 @@ import type {
   IOppgave,
   TBehandlingStegSvartype,
 } from "~/models/oppgave.server";
-import type { IJournalpost } from "~/models/SAF.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
+import type { IJournalpost } from "~/models/SAF.server";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 
 import styles from "~/route-styles/stegvisning.module.css";
-import { getAzureSession } from "~/utils/auth.utils.server";
+import { getSession } from "~/models/auth.server";
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
+  const session = await getSession(request);
 
   const formData = await request.formData();
   const metaData = parseMetadata<Metadata>(formData, "metadata");
@@ -50,13 +44,7 @@ export async function action({ request, params }: ActionArgs) {
     },
   };
 
-  const response = await svarOppgaveSteg(params.oppgaveId, svar, params.stegId, session);
-
-  if (response.ok) {
-    return json({ response });
-  } else {
-    throw new Response(null, { status: 500, statusText: "Klarte ikke lagre svar på steg" });
-  }
+  return await svarOppgaveSteg(params.oppgaveId, svar, params.stegId, session);
 }
 
 export interface Metadata {
@@ -65,10 +53,10 @@ export interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { oppgave } = useRouteLoaderData(`routes/saksbehandling.oppgave.$oppgaveId`) as {
+  const { oppgave, journalposter } = useRouteLoaderData(
+    `routes/saksbehandling.oppgave.$oppgaveId`,
+  ) as {
     oppgave: IOppgave;
-  };
-  const { journalposter } = useRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId") as {
     journalposter: IJournalpost[];
   };
 

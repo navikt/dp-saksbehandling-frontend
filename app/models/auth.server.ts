@@ -29,3 +29,12 @@ export async function authorizeUser(request: Request): Promise<ISaksbehandler> {
     throw new Response("Unauthorized", { status: 401 });
   }
 }
+
+export async function getSession(request: Request) {
+  const session = await getAzureSession(request);
+
+  if (!session) {
+    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
+  }
+  return session;
+}

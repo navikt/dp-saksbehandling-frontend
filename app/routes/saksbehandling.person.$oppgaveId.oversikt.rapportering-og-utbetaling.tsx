@@ -18,43 +18,21 @@ import { RapporteringsperiodeStatus } from "~/components/rapporteringsperiode-st
 import { RemixLink } from "~/components/RemixLink";
 import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteringsperiode/HistoriskRapporteringsperiode";
 import { hentOppgave } from "~/models/oppgave.server";
-import { getAzureSession } from "~/utils/auth.utils.server";
+import { getSession } from "~/models/auth.server";
 
 export async function loader({ params, request }: LoaderArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
+  const session = await getSession(request);
 
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  if (!oppgave) {
-    throw new Response(null, {
-      status: 500,
-      statusText: `Fant ikke oppgave med id: ${params.oppgaveId}`,
-    });
-  }
+  const rapporteringsperioder = await hentRapporteringsperioder(oppgave.person, session);
 
-  const response = await hentRapporteringsperioder(oppgave.person, session);
-  if (response.ok) {
-    const rapporteringsperioder = await response.json();
-    return json({ rapporteringsperioder });
-  }
-
-  throw new Response(null, {
-    status: 500,
-    statusText: "Feil i uthenting av rapporteringsperioder",
-  });
+  return json({ rapporteringsperioder });
 }
 
 export async function action({ request, params }: ActionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
-  const session = await getAzureSession(request);
-
-  if (!session) {
-    throw new Response(null, { status: 500, statusText: "Feil ved henting av sesjon" });
-  }
+  const session = await getSession(request);
 
   const formData = await request.formData();
   const submitKnapp = formData.get("submit");
@@ -62,37 +40,20 @@ export async function action({ request, params }: ActionArgs) {
 
   switch (submitKnapp) {
     case "start-korrigering": {
-      const response = await lagKorrigeringsperiode(periodeId, session);
-
-      if (response.ok) {
-        const korrigeringsperiode: IRapporteringsperiode = await response.json();
-        return redirect(
-          `/saksbehandling/person/${params.oppgaveId}/rediger-periode/${korrigeringsperiode.id}`,
-        );
-      }
-
-      throw new Response(null, { status: 500, statusText: "Klarte ikke starte korrigering" });
+      const korrigeringsperiode = await lagKorrigeringsperiode(periodeId, session);
+      return redirect(
+        `/saksbehandling/person/${params.oppgaveId}/rediger-periode/${korrigeringsperiode.id}`,
+      );
     }
 
     case "avgodkjenn": {
-      const response = await avgodkjennPeriode(periodeId, session);
-
-      if (response.ok) {
-        return redirect(`/saksbehandling/person/${params.oppgaveId}/rediger-periode/${periodeId}`);
-      }
-
-      throw new Response(null, { status: 500, statusText: "Klarte ikke avgodkjenne periode" });
+      await avgodkjennPeriode(periodeId, session);
+      return redirect(`/saksbehandling/person/${params.oppgaveId}/rediger-periode/${periodeId}`);
     }
 
     case "hent-historikk": {
-      const response = await hentRapporteringsperiode(periodeId, session);
-
-      if (response.ok) {
-        const historiskPeriode: IRapporteringsperiode = await response.json();
-        return json({ historiskPeriode });
-      }
-
-      throw new Error("Klarte ikke hente opp historisk rapporteringsperiode");
+      const historiskPeriode = await hentRapporteringsperiode(periodeId, session);
+      return json({ historiskPeriode });
     }
 
     default: {
