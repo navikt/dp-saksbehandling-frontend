@@ -1,4 +1,5 @@
 // @vitest-environment node
+
 import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
