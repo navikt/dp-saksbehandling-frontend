@@ -36,7 +36,7 @@ export default function PersonBehandle() {
 
   return (
     <>
-      {forslagTilVedtak?.tilstand === "Utført" && (
+      {forslagTilVedtak?.tilstand === "Utført" && oppgave.tilstand === "TilBehandling" && (
         <div className={styles.innstiltBanner}>To-trinns kontroll</div>
       )}
 
