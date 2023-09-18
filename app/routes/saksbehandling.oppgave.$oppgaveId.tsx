@@ -15,11 +15,13 @@ export interface ISaksbehandlingsOppgaveLoader {
 }
 
 export async function loader({ params, request }: LoaderArgs) {
-  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
 
   const journalposter: IJournalpost[] = [];
+
   for (const journalpostId of oppgave.journalposter) {
     const data = await hentJournalpost(request, journalpostId);
     journalposter.push(data);
@@ -30,10 +32,11 @@ export async function loader({ params, request }: LoaderArgs) {
 
 export default function PersonBehandle() {
   const { oppgave } = useLoaderData<typeof loader>();
+  const forslagTilVedtak = oppgave.steg.find((steg) => steg.id === "Forslag til vedtak");
 
   return (
     <>
-      {oppgave.tilstand === "TilBehandling" && (
+      {forslagTilVedtak?.tilstand === "Utført" && (
         <div className={styles.innstiltBanner}>To-trinns kontroll</div>
       )}
 

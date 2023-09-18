@@ -3,12 +3,16 @@
   border-left: 5px solid var(--a-blue-400);
 }
 
-.kulepunktBehandlet::before {
+.kulepunktUtfort::before {
   background-color: var(--a-green-400);
 }
 
-.kulepunktTilBehandling::before {
+.kulepunktIkkeUtfort::before {
   background-color: var(--a-orange-400);
+}
+
+.kulepunktMaaGodkjennes::before {
+  background-color: var(--a-gray-400);
 }
 
 .kulepunkt {

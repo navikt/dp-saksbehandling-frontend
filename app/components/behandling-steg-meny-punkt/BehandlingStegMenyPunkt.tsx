@@ -7,11 +7,13 @@ import styles from "./BehandlingStegMenyPunkt.module.css";
 
 export function BehandlingStegMenyPunkt(behandlingSteg: IBehandlingSteg) {
   const kulepunktKlasser = classNames(styles.kulepunkt, {
-    [styles.kulepunktBehandlet]: behandlingSteg.tilstand === "FerdigBehandlet",
-    [styles.kulepunktTilBehandlet]: behandlingSteg.tilstand === "TilBehandling",
+    [styles.kulepunktUtfort]: behandlingSteg.tilstand === "Utført",
+    [styles.kulepunktIkkeUtfort]: behandlingSteg.tilstand === "IkkeUtført",
+    [styles.kulepunktMaaGodkjennes]: behandlingSteg.tilstand === "MåGodkjennes",
   });
 
   const stegLabel = hentStegTekst(behandlingSteg.id)?.label ?? behandlingSteg.id;
+
   return (
     <li>
       <NavLink

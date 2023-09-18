@@ -1,14 +1,6 @@
-export type IStegId =
-  | "Virkningsdato"
-  | "Rettighetstype"
-  | "Fastsatt vanlig arbeidstid"
-  | "Grunnlag"
-  | "Dagsats"
-  | "Periode"
-  | "Oppfyller kravene til dagpenger";
-
+import { type TBehandlingStegId } from "~/models/oppgave.server";
 export interface IStegTekst {
-  id: IStegId;
+  id: TBehandlingStegId;
   label: string;
   begrunnelse: string;
   hjelpetekst: {
@@ -84,6 +76,6 @@ export const stegTekster: IStegTekst[] = [
   },
 ];
 
-export function hentStegTekst(id: IStegId) {
+export function hentStegTekst(id: TBehandlingStegId) {
   return stegTekster.find((steg) => steg.id === id);
 }

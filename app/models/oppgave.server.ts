@@ -22,7 +22,7 @@ export interface IBehandlingSteg {
   uuid: string;
   id: TBehandlingStegId;
   type: "Fastsetting" | "Vilkår";
-  tilstand: TOppgaveTilstand;
+  tilstand: TBehandlingTilstand;
   svartype: TBehandlingStegSvartype;
   svar: IBehandlingStegSvar | null;
 }
@@ -39,16 +39,17 @@ export interface IOppgave {
 }
 
 export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
-
+export type TBehandlingTilstand = "Utført" | "IkkeUtført" | "MåGodkjennes";
 export type TBehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
-
-type TBehandlingStegId =
+export type TBehandlingStegId =
   | "Virkningsdato"
   | "Rettighetstype"
   | "Fastsatt vanlig arbeidstid"
   | "Grunnlag"
   | "Dagsats"
   | "Periode"
+  | "Forslag til vedtak"
+  | "Fatt vedtak"
   | "Oppfyller kravene til dagpenger";
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {

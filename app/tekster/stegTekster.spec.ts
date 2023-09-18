@@ -1,10 +1,11 @@
-import { describe, it, expect } from "vitest";
-import type { IStegId, IStegTekst } from "./stegTekster";
+import { describe, expect, it } from "vitest";
+import { type TBehandlingStegId } from "~/models/oppgave.server";
+import { type IStegTekst } from "./stegTekster";
 import { hentStegTekst, stegTekster } from "./stegTekster";
 
 describe("stegTekster[]", () => {
   it("skal inneholde alle nødvendige steg-tekster", () => {
-    const forventedeIds: IStegId[] = [
+    const forventedeIds: TBehandlingStegId[] = [
       "Virkningsdato",
       "Rettighetstype",
       "Fastsatt vanlig arbeidstid",
@@ -36,7 +37,7 @@ describe("hentStegTekst()", () => {
   });
 
   it("skal returnere undefined for en ugyldig ID", () => {
-    const resultat = hentStegTekst("UgyldigId" as IStegId);
+    const resultat = hentStegTekst("UgyldigId" as TBehandlingStegId);
     expect(resultat).toBeUndefined();
   });
 });

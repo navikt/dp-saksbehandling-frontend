@@ -17,7 +17,7 @@ describe("BehandlingSteg", () => {
         id: "Grunnlag",
         type: "Fastsetting",
         svartype: "String",
-        tilstand: "TilBehandling",
+        tilstand: "IkkeUtført",
         svar: null,
       };
       test("burde vise et tekststeg", async () => {

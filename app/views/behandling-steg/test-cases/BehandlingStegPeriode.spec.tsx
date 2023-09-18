@@ -17,7 +17,7 @@ describe("BehandlingSteg", () => {
         id: "Periode",
         type: "Fastsetting",
         svartype: "String",
-        tilstand: "TilBehandling",
+        tilstand: "IkkeUtført",
         svar: null,
       };
       test("burde vise nedtrekkslisten", async () => {
