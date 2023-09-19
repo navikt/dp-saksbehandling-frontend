@@ -176,7 +176,7 @@ export default function RedigerPeriode() {
                         type="button"
                         onClick={() => aapneModal(dag)}
                       >
-                        Rediger
+                        TRYK HER Rediger
                       </Button>
                     </Table.DataCell>
                   </Table.Row>

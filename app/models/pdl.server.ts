@@ -1,7 +1,23 @@
 import { gql, GraphQLClient } from "graphql-request";
 import { logger } from "server/logger";
 import { v4 as uuidv4 } from "uuid";
-import { authorizeUser, getSession } from "./auth.server";
+import { getSaksbehandler } from "./auth.server";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getPDLOboToken } from "~/utils/auth.utils.server";
+import { mockPerson } from "../../mock-data/mock-person";
+
+export interface IPerson {
+  ident: string;
+  forNavn: string;
+  mellomNavn: string | null;
+  etterNavn: string;
+  telefon: string;
+  kontaktadresse: VegadresseDetails;
+  bostedadresse: VegadresseDetails;
+  statsborgerskap: string;
+  utflyttingFraNorge?: Date;
+  antallBarn: number;
+}
 
 export type HentPersonResponsData = {
   hentPerson: {
@@ -61,17 +77,15 @@ export type VegadresseDetails = {
   postnummer: string;
 };
 
-export async function hentPDL(request: Request, ident: string) {
-  const session = await getSession(request);
+export async function mockHentPerson(): Promise<IPerson> {
+  return Promise.resolve(mockPerson);
+}
+
+export async function hentPersonalia(session: SessionWithOboProvider, ident: string) {
+  const saksbehandler = await getSaksbehandler(session);
+  const onBehalfOfToken = await getPDLOboToken(session);
   const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
-  const saksbehandler = await authorizeUser(session);
 
-  //todo: spør om tilgang for audience i prod
-  const token = await session.apiToken("api://dev-fss.pdl.pdl-api/.default");
-
-  if (!token || !saksbehandler) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
   const personSpoerring = gql`
     query ($ident: ID!) {
       hentPerson(ident: $ident) {
@@ -119,7 +133,7 @@ export async function hentPDL(request: Request, ident: string) {
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${onBehalfOfToken}`,
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",

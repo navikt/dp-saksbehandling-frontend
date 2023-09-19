@@ -25,8 +25,7 @@ export async function getRapporteringOboToken(session: SessionWithOboProvider) {
     return process.env.DP_RAPPORTERING_TOKEN || fallbackToken;
   } else {
     const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-rapportering/.default`;
-    const oboToken = await session.apiToken(audience);
-    return oboToken;
+    return await session.apiToken(audience);
   }
 }
 
@@ -35,8 +34,7 @@ export async function getBehandlingOboToken(session: SessionWithOboProvider) {
     return process.env.DP_BEHANDLING_TOKEN || fallbackToken;
   } else {
     const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-behandling/.default`;
-    const oboToken = await session.apiToken(audience);
-    return oboToken;
+    return await session.apiToken(audience);
   }
 }
 
@@ -45,7 +43,12 @@ export async function getVedtakOboToken(session: SessionWithOboProvider) {
     return process.env.DP_VEDTAK_TOKEN || fallbackToken;
   } else {
     const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-vedtak/.default`;
-    const oboToken = await session.apiToken(audience);
-    return oboToken;
+    return await session.apiToken(audience);
   }
+}
+
+export async function getPDLOboToken(session: SessionWithOboProvider) {
+  // TODO Bytt ut dev-fss med NAIS_CLUSTER_NAME?
+  const audience = `api://dev-fss.pdl.pdl-api/.default`;
+  return await session.apiToken(audience);
 }

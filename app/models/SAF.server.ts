@@ -1,7 +1,7 @@
 import { logger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
-import { authorizeUser, getSession } from "./auth.server";
+import { getSaksbehandler, getSession } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
 
@@ -34,7 +34,7 @@ export async function hentJournalpost(
   }
 
   const session = await getSession(request);
-  const saksbehandler = await authorizeUser(session);
+  const saksbehandler = await getSaksbehandler(session);
   const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
 
   if (!token || !saksbehandler) {

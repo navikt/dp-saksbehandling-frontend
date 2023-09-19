@@ -1,4 +1,4 @@
-import styles from "./Brodsmuler.module.css";
+import styles from "./Navnestripe.module.css";
 import { CopyButton } from "@navikt/ds-react";
 
 interface IProps {

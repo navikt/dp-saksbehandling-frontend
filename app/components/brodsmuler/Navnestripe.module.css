@@ -1,6 +1,6 @@
 .container {
-  background-color: var(--a-gray-100);
-  border-bottom: 1px solid var(--a-border-divider);
+  background-color: var(--a-gray-50);
+  box-shadow: var(--a-shadow-xsmall);
   position: sticky;
   top: 48px;
   z-index: 90;

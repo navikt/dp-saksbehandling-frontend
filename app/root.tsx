@@ -14,7 +14,7 @@ import {
 import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import { authorizeUser, getSession } from "./models/auth.server";
+import { getSaksbehandler, getSession } from "./models/auth.server";
 import { sanityConfig } from "./sanity/sanity.config";
 import { allTextsQuery } from "./sanity/sanity.query";
 import type { ISanityTexts } from "./sanity/sanity.types";
@@ -89,7 +89,7 @@ export interface IRootLoader {
 
 export async function loader({ request }: LoaderArgs) {
   const session = await getSession(request);
-  const saksbehandler = await authorizeUser(session);
+  const saksbehandler = await getSaksbehandler(session);
 
   const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
     baseLang: "nb",
