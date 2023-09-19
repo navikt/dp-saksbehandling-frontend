@@ -59,5 +59,6 @@ export async function stansVedtak(
       statusText: "Feil ved stans av oppgave",
     });
   }
+
   return response.json();
 }

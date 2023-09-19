@@ -12,9 +12,9 @@ export async function action({ request, params }: ActionArgs) {
   const session = await getSession(request);
 
   const periodeId = params.oppgaveId as string;
-  const oppgaveId = await stansVedtak(periodeId, session);
+  const response = await stansVedtak(periodeId, session);
 
-  return redirect(`/saksbehandling/oppgave/${oppgaveId}`);
+  return redirect(`/saksbehandling/oppgave/${response.oppgaveId}`);
 }
 
 export default function PersonOversikt() {
