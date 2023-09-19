@@ -31,7 +31,7 @@ describe("Root til applikasjonen", () => {
       expect(response.status).toBe(500);
     });
 
-    test.skip("skal feile hvis backend-kallet feiler", async () => {
+    test("skal feile hvis backend-kallet feiler", async () => {
       server.use(
         rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, (req, res, ctx) => {
           return res.once(
@@ -56,7 +56,7 @@ describe("Root til applikasjonen", () => {
       expect(response.status).toBe(500);
     });
 
-    test.skip("skal hente ut alle oppgaver i saksbehandlingssystemet", async () => {
+    test("skal hente ut alle oppgaver i saksbehandlingssystemet", async () => {
       const mock = mockSession();
 
       const response = await loader({
@@ -69,7 +69,7 @@ describe("Root til applikasjonen", () => {
 
       expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
       expect(response.status).toBe(200);
-      expect(data).toEqual(oppgaverResponse);
+      expect(data.oppgaver).toEqual(oppgaverResponse);
     });
   });
 });
