@@ -4,8 +4,14 @@ import { sanityResponse } from "./api-routes/sanityResponse";
 import { mockRapporteringsperioder } from "./api-routes/rapporteringsperiodeResponse";
 import { mockKorrigeringsperiode } from "./api-routes/korrigeringsperiodeResponse";
 import { vedtakResponse } from "./api-routes/vedtakResponse";
+import { mockSaksbehandler } from "mock-data/mock-saksbehandler";
 
 export const handlers = [
+  // Hent saksbehandler
+  rest.get("https://graph.microsoft.com/v1.0/me/", (req, res, ctx) => {
+    return res(ctx.json(mockSaksbehandler));
+  }),
+
   // Hent alle oppgaver
   rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, (req, res, ctx) => {
     return res(ctx.json(oppgaverResponse));
