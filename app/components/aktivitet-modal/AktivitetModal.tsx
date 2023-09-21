@@ -6,7 +6,6 @@ import { validatorAktivitet } from "~/utils/validering.util";
 import { AktivitetRadio } from "../aktivitet-radio/AktivitetRadio";
 import { type IRapporteringsperiode } from "~/models/rapporteringsperiode.server";
 import { FormattedDate } from "../FormattedDate";
-import { useEffect } from "react";
 import { type TAktivitetType } from "~/models/aktivitet.server";
 import { hentAktivitetITimer } from "~/utils/aktivitet.utils";
 import { AktivitetTekstfelt } from "../aktivitet-tekstfelt/AktivitetTekstfelt";
@@ -41,10 +40,6 @@ export function AktivitetModal(props: IProps) {
     return `${aktivitet?.type}`;
   }
 
-  useEffect(() => {
-    Modal.setAppElement("#dp-saksbehandling-frontend");
-  }, []);
-
   return (
     <Modal
       className={styles.modal}
@@ -53,7 +48,7 @@ export function AktivitetModal(props: IProps) {
       open={modalAapen}
       onClose={() => lukkModal()}
     >
-      <Modal.Content>
+      <Modal.Body>
         {dag && (
           <Heading
             spacing
@@ -111,7 +106,7 @@ export function AktivitetModal(props: IProps) {
             </div>
           </ValidatedForm>
         )}
-      </Modal.Content>
+      </Modal.Body>
     </Modal>
   );
 }

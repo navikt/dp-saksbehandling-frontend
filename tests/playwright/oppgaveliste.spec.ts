@@ -18,7 +18,7 @@ test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
   await page
     .getByRole("row")
     .filter({ has: page.getByText(oppgave.uuid, { exact: false }) })
-    .getByRole("link", { name: "Behandle" })
+    .getByRole("button", { name: "Behandle" })
     .click();
 
   await expect(page).toHaveURL(`

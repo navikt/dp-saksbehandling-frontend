@@ -1,41 +1,21 @@
-import type { IPerson } from "~/models/person.server";
+import type { IPerson } from "~/models/pdl.server";
 
-export const personListeMock: IPerson[] = [
-  { ident: "", forNavn: "NAVN", mellomNavn: "", etterNavn: "NAVNESEN" },
-  {
-    ident: "27899995630",
-    forNavn: "OPPSTEMT",
-    mellomNavn: "",
-    etterNavn: "LØRDAG",
+export const mockPerson: IPerson = {
+  antallBarn: 0,
+  bostedadresse: {
+    husnummer: "111",
+    adressenavn: "Apalveien",
+    postnummer: "1337",
   },
-  {
-    ident: "18826998055",
-    forNavn: "AVANSERT",
-    mellomNavn: "",
-    etterNavn: "KOLONI",
+  forNavn: "Donald",
+  mellomNavn: null,
+  etterNavn: "Duck",
+  ident: "12345678910",
+  kontaktadresse: {
+    husnummer: "111",
+    adressenavn: "Apalveien",
+    postnummer: "1337",
   },
-  {
-    ident: "27854695768",
-    forNavn: "FINTFØLENDE",
-    mellomNavn: "HYLLE",
-    etterNavn: "AVHENDING",
-  },
-  {
-    ident: "18846299145",
-    forNavn: "BARMHJERTIG",
-    mellomNavn: "",
-    etterNavn: "SAK",
-  },
-  {
-    ident: "11847097681",
-    forNavn: "DIREKTE",
-    mellomNavn: "",
-    etterNavn: "KAKAOBØNNE",
-  },
-  {
-    ident: "123",
-    forNavn: "FRANKIE",
-    mellomNavn: "",
-    etterNavn: "FRANKERSON",
-  },
-];
+  statsborgerskap: "Norge",
+  telefon: "90010200",
+};

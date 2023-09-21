@@ -4,7 +4,7 @@ import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 
-export async function authorizeUser(session: SessionWithOboProvider): Promise<ISaksbehandler> {
+export async function getSaksbehandler(session: SessionWithOboProvider): Promise<ISaksbehandler> {
   // Wonderwall tar seg av session, hvis vi ikke har en session kjører vi uten sidecar og skal være i dev
   if (!session || session.expiresIn === 0) {
     logger.debug("no session, mocker saksbehandler");
