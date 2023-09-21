@@ -8,8 +8,9 @@
     "start": "ts-node ./server/server.ts",
     "type-check": "tsc --project tsconfig.json",
     "prepare": "husky install",
-    "playwright": "DEBUG=pw:api npx playwright test",
+    "playwright": "npx playwright test",
     "playwright:ui": "npx playwright test --ui",
+    "playwright:verbose": "DEBUG=pw:api npx playwright test",
     "test": "vitest",
     "test-coverage": "vitest --coverage"
   },
@@ -20,7 +21,8 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --list-different",
       "eslint --max-warnings 0",
-      "bash -c 'npm run type-check'"
+      "bash -c 'npm run type-check'",
+      "bash -c 'npm run playwright'"
     ]
   },
   "dependencies": {
