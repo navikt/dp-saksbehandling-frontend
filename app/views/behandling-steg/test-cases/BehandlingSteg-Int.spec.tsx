@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-
+import "@testing-library/jest-dom";
 import { json } from "@remix-run/node";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";

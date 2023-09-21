@@ -1,4 +1,4 @@
-import { json, type LoaderArgs } from "@remix-run/node";
+import { json, type LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Alert, CopyButton, Table } from "@navikt/ds-react";
 import invariant from "tiny-invariant";
@@ -9,7 +9,7 @@ import { hentFormattertDato } from "~/utils/dato.utils";
 import styles from "../route-styles/vedtak.module.css";
 import { getSession } from "~/models/auth.server";
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);

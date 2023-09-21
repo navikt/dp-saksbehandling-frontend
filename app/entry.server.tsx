@@ -4,12 +4,12 @@
 */
 
 import type { EntryContext } from "@remix-run/node";
-import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
 import { setup, start } from "../mocks/server";
 import { getEnv } from "./utils/env.utils";
+import { createReadableStreamFromReadable } from "@remix-run/node";
 
 const ABORT_DELAY = 5000;
 
@@ -18,12 +18,12 @@ if (getEnv("USE_MSW") === "true") {
   start(server);
 }
 
-const handleRequest = (
+export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext,
-) => {
+) {
   return new Promise((resolve, reject) => {
     let didError = false;
 
@@ -32,11 +32,12 @@ const handleRequest = (
       {
         onShellReady: () => {
           const body = new PassThrough();
+          const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
-            new Response(body, {
+            new Response(stream, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
             }),
@@ -57,6 +58,4 @@ const handleRequest = (
 
     setTimeout(abort, ABORT_DELAY);
   });
-};
-
-export default handleRequest;
+}

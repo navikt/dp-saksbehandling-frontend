@@ -7,8 +7,8 @@ import {
   lagKorrigeringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
-import { type ActionArgs, json, type LoaderArgs, redirect } from "@remix-run/node";
-import { Form, useLoaderData, useParams } from "@remix-run/react";
+import { type ActionFunctionArgs, json, type LoaderFunctionArgs, redirect } from "@remix-run/node";
+import { Form, useActionData, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetIDager, hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
 import { PencilIcon } from "@navikt/aksel-icons";
@@ -20,17 +20,16 @@ import { HistoriskRapporteringsperiode } from "~/components/historisk-rapporteri
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
-
   const oppgave = await hentOppgave(params.oppgaveId, session);
   const rapporteringsperioder = await hentRapporteringsperioder(oppgave.person, session);
 
   return json({ rapporteringsperioder });
 }
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
   const session = await getSession(request);
 
@@ -63,7 +62,8 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
-  const { rapporteringsperioder } = useLoaderData();
+  const { rapporteringsperioder } = useLoaderData<typeof loader>();
+  const actionData = useActionData<any>();
   const { oppgaveId } = useParams();
 
   return (
@@ -139,7 +139,12 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                         </Form>
                       )}
 
-                      {periode.korrigerer && <HistoriskRapporteringsperiode periode={periode} />}
+                      {periode.korrigerer && (
+                        <HistoriskRapporteringsperiode
+                          periode={periode}
+                          historiskPeriode={actionData?.historiskPeriode}
+                        />
+                      )}
                     </>
                   }
                 >

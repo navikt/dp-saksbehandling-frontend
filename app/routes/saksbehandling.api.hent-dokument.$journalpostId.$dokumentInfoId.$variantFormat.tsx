@@ -1,9 +1,9 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { v4 as uuidv4 } from "uuid";
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.journalpostId, `params.journalpostId er påkrevd`);
   invariant(params.dokumentInfoId, `params.dokumentInfoId er påkrevd`);
   invariant(params.variantFormat, `params.variantFormat er påkrevd`);

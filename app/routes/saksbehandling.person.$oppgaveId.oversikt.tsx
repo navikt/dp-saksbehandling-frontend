@@ -1,5 +1,5 @@
 import { Button } from "@navikt/ds-react";
-import { type ActionArgs, redirect } from "@remix-run/node";
+import { type ActionFunctionArgs, redirect } from "@remix-run/node";
 import { Form, Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { PersonOversiktTabs } from "~/components/person-oversikt-tabs/PersonOversiktTabs";
@@ -7,7 +7,7 @@ import { stansVedtak } from "~/models/vedtak.server";
 import styles from "~/route-styles/person.module.css";
 import { getSession } from "~/models/auth.server";
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
   const session = await getSession(request);
 

@@ -1,6 +1,6 @@
 import { PencilIcon } from "@navikt/aksel-icons";
 import { Alert, Button, Heading, Table } from "@navikt/ds-react";
-import { type ActionArgs, json, type LoaderArgs, redirect } from "@remix-run/node";
+import { type ActionFunctionArgs, json, type LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import { withZod } from "@remix-validated-form/with-zod";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ import {
 import styles from "../route-styles/rediger-periode.module.css";
 import { getSession } from "~/models/auth.server";
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
   const session = await getSession(request);
   const rapporteringsperiode = await hentRapporteringsperiode(params.periodeId, session);
@@ -43,7 +43,7 @@ export interface IRedigerPeriodeAction {
   aktivitetError?: boolean;
 }
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const periodeId = params.periodeId;
   const oppgaveId = params.oppgaveId;
   invariant(periodeId, "RapporteringsID er obligatorisk");
@@ -92,7 +92,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function RedigerPeriode() {
-  const { rapporteringsperiode } = useLoaderData();
+  const { rapporteringsperiode } = useLoaderData<typeof loader>();
   const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetType | string>("");
   const [valgtDato, setValgtDato] = useState<string | undefined>();
   const [modalAapen, setModalAapen] = useState(false);

@@ -1,4 +1,4 @@
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 import { useParams, useRouteLoaderData } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
@@ -17,7 +17,7 @@ import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 import styles from "~/route-styles/stegvisning.module.css";
 import { getSession } from "~/models/auth.server";
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
   const session = await getSession(request);
