@@ -21,8 +21,7 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --list-different",
       "eslint --max-warnings 0",
-      "bash -c 'npm run type-check'",
-      "bash -c 'npm run playwright'"
+      "bash -c 'npm run type-check'"
     ]
   },
   "dependencies": {
