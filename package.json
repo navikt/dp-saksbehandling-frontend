@@ -8,7 +8,7 @@
     "start": "ts-node ./server/server.ts",
     "type-check": "tsc --project tsconfig.json",
     "prepare": "husky install",
-    "playwright": "npx playwright test",
+    "playwright": "DEBUG=pw:api npx playwright test",
     "playwright:ui": "npx playwright test --ui",
     "test": "vitest",
     "test-coverage": "vitest --coverage"
