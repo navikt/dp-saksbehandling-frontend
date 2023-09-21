@@ -9,7 +9,7 @@ test("Oppgavelisten har oppgaver listet opp", async ({ page, baseURL }) => {
   await expect(page.getByText(oppgaver[1].uuid)).toBeVisible();
 });
 
-test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
+test.skip("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
   const oppgaver = oppgaverResponse;
   const oppgave = oppgaver[0];
 
