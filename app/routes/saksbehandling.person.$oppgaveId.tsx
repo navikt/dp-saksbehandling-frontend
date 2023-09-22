@@ -25,7 +25,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   try {
     const responseData = await hentPersonalia(session, oppgave.person);
-    sikkerLogger.info(`PDL response: ${responseData}`);
+    sikkerLogger.info(`PDL response: ${JSON.stringify(responseData)}`);
 
     if (!responseData.hentPerson) {
       return json({ error: "Klarte ikke hente personalia", person: null });
