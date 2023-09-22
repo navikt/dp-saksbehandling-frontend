@@ -44,7 +44,7 @@ export type Statsborgerskap = {
 };
 
 export type Telefon = {
-  nummer: string;
+  nummer?: string;
 };
 
 export type Bostedsadresse = {
