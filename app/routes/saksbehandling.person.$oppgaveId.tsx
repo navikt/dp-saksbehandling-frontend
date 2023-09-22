@@ -46,7 +46,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       bostedadresse: personData?.bostedsadresse && personData?.bostedsadresse[0]?.vegadresse,
       statsborgerskap: personData.statsborgerskap[0].land,
       utflyttingFraNorge:
-        personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0].utflyttingsdato,
+        personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0]?.utflyttingsdato,
       antallBarn: 0,
     };
 
