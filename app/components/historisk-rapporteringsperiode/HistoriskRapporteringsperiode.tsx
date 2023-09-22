@@ -1,16 +1,16 @@
 import { Alert, Button, Heading } from "@navikt/ds-react";
-import { Form, useActionData } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 import { type IRapporteringsperiode } from "~/models/rapporteringsperiode.server";
 import { RapporteringsperiodeDetaljer } from "../rapporteringsperiode-detaljer/RapporteringsperiodeDetaljer";
 
 interface IProps {
   periode: IRapporteringsperiode;
+  historiskPeriode?: IRapporteringsperiode;
 }
 
 export function HistoriskRapporteringsperiode(props: IProps) {
   const { periode } = props;
-  const actionData = useActionData();
-  const historikkHentet = actionData?.historiskPeriode.id === periode.korrigerer;
+  const historikkHentet = props.historiskPeriode?.id === periode.korrigerer;
 
   return (
     <>
@@ -23,7 +23,9 @@ export function HistoriskRapporteringsperiode(props: IProps) {
           <Heading level="3" size="small" spacing>
             Historisk periode
           </Heading>
-          <RapporteringsperiodeDetaljer periode={actionData.historiskPeriode} />
+          {props.historiskPeriode && (
+            <RapporteringsperiodeDetaljer periode={props.historiskPeriode} />
+          )}
         </div>
       )}
 
@@ -36,7 +38,7 @@ export function HistoriskRapporteringsperiode(props: IProps) {
         </Form>
       )}
 
-      {actionData?.historiskPeriode.korrigerer && (
+      {props.historiskPeriode?.korrigerer && (
         <Alert variant="warning" className="my-3">
           Det finnes flere historiske perioder som ikke vises her.
         </Alert>

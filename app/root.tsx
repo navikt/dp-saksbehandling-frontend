@@ -1,5 +1,6 @@
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/react";
 import {
   Links,
   LiveReload,
@@ -23,12 +24,12 @@ import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
-import { type IOppgave, hentOppgaver } from "./models/oppgave.server";
+import { hentOppgaver, type IOppgave } from "./models/oppgave.server";
 import { type ISaksbehandler } from "./models/saksbehandler.server";
 
 export const sanityClient = createClient(sanityConfig);
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     {
       charset: "utf-8",
@@ -87,7 +88,7 @@ export interface IRootLoader {
   oppgaver: IOppgave[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request);
   const saksbehandler = await getSaksbehandler(session);
 

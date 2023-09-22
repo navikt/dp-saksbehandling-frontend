@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
@@ -12,7 +12,7 @@ import { Personalia } from "~/components/personalia/Personalia";
 
 export const shouldRevalidate = () => false;
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
