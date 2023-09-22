@@ -51,7 +51,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
     return json({ person, error: null });
   } catch (error: unknown) {
-    sikkerLogger.info(`PDL kall catch error stringify: ${JSON.stringify(error)}`);
     sikkerLogger.info(`PDL kall catch error: ${error}`);
     return json({ person: null, error: `Feil ved henting av personalia fra PDL` });
   }

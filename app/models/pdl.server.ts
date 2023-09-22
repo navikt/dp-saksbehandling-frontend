@@ -12,8 +12,8 @@ export interface IPerson {
   mellomNavn: string | null;
   etterNavn: string;
   telefon: string;
-  kontaktadresse: VegadresseDetails;
-  bostedadresse: VegadresseDetails;
+  kontaktadresse?: VegadresseDetails;
+  bostedadresse?: VegadresseDetails;
   statsborgerskap: string;
   utflyttingFraNorge?: Date;
   antallBarn: number;
@@ -48,11 +48,11 @@ export type Telefon = {
 };
 
 export type Bostedsadresse = {
-  vegadresse: VegadresseDetails;
+  vegadresse?: VegadresseDetails;
 };
 
 export type Kontaktadresse = {
-  vegadresse: VegadresseDetails;
+  vegadresse?: VegadresseDetails;
 };
 
 export type Doedsfall = {
