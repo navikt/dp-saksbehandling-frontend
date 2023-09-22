@@ -24,8 +24,8 @@ export type HentPersonResponsData = {
     navn: Personnavn[];
     statsborgerskap: Statsborgerskap[];
     telefonnummer: Telefon[];
-    bostedsadresse: Bostedsadresse[];
-    kontaktadresse: Kontaktadresse[];
+    bostedsadresse?: Bostedsadresse[];
+    kontaktadresse?: Kontaktadresse[];
     doedsfall: Doedsfall[];
     utflyttingFraNorge: UtflyttingFraNorge[];
     sikkerhetstiltak: Sikkerhetstiltak[];
@@ -40,7 +40,7 @@ export type Personnavn = {
 };
 
 export type Statsborgerskap = {
-  statsborgerskap: string;
+  land: string;
 };
 
 export type Telefon = {

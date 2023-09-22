@@ -42,9 +42,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       mellomNavn: personData.navn[0].mellomnavn,
       etterNavn: personData.navn[0].etternavn,
       telefon: personData.telefonnummer[0]?.nummer || "Har ikke nummer",
-      kontaktadresse: personData.kontaktadresse[0].vegadresse,
-      bostedadresse: personData.bostedsadresse[0].vegadresse,
-      statsborgerskap: personData.statsborgerskap[0].statsborgerskap,
+      kontaktadresse: personData?.kontaktadresse && personData?.kontaktadresse[0]?.vegadresse,
+      bostedadresse: personData?.bostedsadresse && personData?.bostedsadresse[0]?.vegadresse,
+      statsborgerskap: personData.statsborgerskap[0].land,
       utflyttingFraNorge: personData.utflyttingFraNorge[0].utflyttingsdato,
       antallBarn: 0,
     };
