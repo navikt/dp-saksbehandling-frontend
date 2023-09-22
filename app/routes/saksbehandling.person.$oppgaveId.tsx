@@ -9,6 +9,7 @@ import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
 import { getSession } from "~/models/auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { Personalia } from "~/components/personalia/Personalia";
+import { sikkerLogger } from "../../server/logger";
 
 export const shouldRevalidate = () => false;
 
@@ -23,21 +24,25 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   try {
-    const { hentPerson } = await hentPersonalia(session, oppgave.person);
-    if (!hentPerson) {
+    const responseData = await hentPersonalia(session, oppgave.person);
+    sikkerLogger.info(`PDL response: ${responseData}`);
+
+    if (!responseData.hentPerson) {
       return json({ error: "Klarte ikke hente personalia", person: null });
     }
 
+    const personData = responseData.hentPerson;
+
     const person: IPerson = {
       ident: oppgave.person,
-      forNavn: hentPerson.navn[0].fornavn,
-      mellomNavn: hentPerson.navn[0].mellomnavn,
-      etterNavn: hentPerson.navn[0].etternavn,
-      telefon: hentPerson.telefonnummer[0].nummer,
-      kontaktadresse: hentPerson.kontaktadresse[0].vegadresse,
-      bostedadresse: hentPerson.bostedsadresse[0].vegadresse,
-      statsborgerskap: hentPerson.statsborgerskap[0].statsborgerskap,
-      utflyttingFraNorge: hentPerson.utflyttingFraNorge[0].utflyttingsdato,
+      forNavn: personData.navn[0].fornavn,
+      mellomNavn: personData.navn[0].mellomnavn,
+      etterNavn: personData.navn[0].etternavn,
+      telefon: personData.telefonnummer[0].nummer,
+      kontaktadresse: personData.kontaktadresse[0].vegadresse,
+      bostedadresse: personData.bostedsadresse[0].vegadresse,
+      statsborgerskap: personData.statsborgerskap[0].statsborgerskap,
+      utflyttingFraNorge: personData.utflyttingFraNorge[0].utflyttingsdato,
       antallBarn: 0,
     };
 
