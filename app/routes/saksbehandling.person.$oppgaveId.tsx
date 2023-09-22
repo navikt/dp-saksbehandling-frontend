@@ -26,10 +26,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   try {
     const responseData = await hentPersonalia(session, oppgave.person);
     sikkerLogger.info(`PDL response: ${JSON.stringify(responseData)}`);
+    sikkerLogger.info(`responseData.hentPerson: ${responseData.hentPerson}`);
 
     if (!responseData.hentPerson) {
       return json({ error: "Klarte ikke hente personalia", person: null });
     }
+
+    // {"hentPerson":{"navn":[{"fornavn":"SPETTETE","mellomnavn":null,"etternavn":"PUSEKATT"}],"statsborgerskap":[{"land":"NOR"}],"telefonnummer":[],"bostedsadresse":[{"vegadresse":{"husnummer":"53","adressenavn":"Junkerveien","postnummer":"8076"}}],"kontaktadresse":[],"doedsfall":[],"utflyttingFraNorge":[],"sikkerhetstiltak":[],"foreldreansvar":[{"ansvar":"felles"}]}}
 
     const personData = responseData.hentPerson;
 
@@ -48,6 +51,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
     return json({ person, error: null });
   } catch (error: unknown) {
+    sikkerLogger.info(`PDL kall catch error stringify: ${JSON.stringify(error)}`);
+    sikkerLogger.info(`PDL kall catch error: ${error}`);
     return json({ person: null, error: `Feil ved henting av personalia fra PDL` });
   }
 }
