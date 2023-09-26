@@ -6,11 +6,11 @@ import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
 export function hentValideringRegler(
   svartype: TBehandlingStegSvartype,
   id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
-  inputnavn: string,
+  stegId: string,
 ) {
   return withZod(
     z.object({
-      [inputnavn]: hentValideringForInput(svartype, id),
+      [stegId]: hentValideringForInput(svartype, id),
       begrunnelse: hentValideringForBegrunnelse(id),
     }),
   );
