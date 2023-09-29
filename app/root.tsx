@@ -24,8 +24,7 @@ import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
-import { hentOppgaver, type IOppgave } from "./models/oppgave.server";
-import { type ISaksbehandler } from "./models/saksbehandler.server";
+import { hentOppgaver } from "./models/oppgave.server";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -82,11 +81,6 @@ export function links() {
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
-
-export interface IRootLoader {
-  saksbehandler?: ISaksbehandler;
-  oppgaver: IOppgave[];
-}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request);

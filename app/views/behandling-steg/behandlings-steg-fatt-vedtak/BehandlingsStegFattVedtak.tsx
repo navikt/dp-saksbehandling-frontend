@@ -1,23 +1,19 @@
 import React from "react";
 import { Button, Heading } from "@navikt/ds-react";
-import { Form, useNavigation, useRouteLoaderData } from "@remix-run/react";
-import type { ISaksbehandlingsOppgaveLoader } from "~/routes/saksbehandling.oppgave.$oppgaveId";
+import { Form, useNavigation } from "@remix-run/react";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import styles from "./BehandlingStegFattVedtak.module.css";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export function BehandlingsStegFattVedtak(props: IProps) {
   const { steg, readonly } = props;
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
-  const routeData = useRouteLoaderData<ISaksbehandlingsOppgaveLoader>(
-    "routes/saksbehandling.oppgave.$oppgaveId",
-  );
+  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
 
-  const oppgave = routeData?.oppgave;
   const forslagTilVedtakSteg = oppgave?.steg.find((steg) => steg.id === "Forslag til vedtak");
-
   const fattVedtakMetadata: Metadata = {
     svartype: steg.svartype,
     id: steg.id,

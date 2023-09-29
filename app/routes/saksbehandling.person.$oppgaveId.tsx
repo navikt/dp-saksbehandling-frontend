@@ -32,10 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       return json({ error: "Klarte ikke hente personalia", person: null });
     }
 
-    // {"hentPerson":{"navn":[{"fornavn":"SPETTETE","mellomnavn":null,"etternavn":"PUSEKATT"}],"statsborgerskap":[{"land":"NOR"}],"telefonnummer":[],"bostedsadresse":[{"vegadresse":{"husnummer":"53","adressenavn":"Junkerveien","postnummer":"8076"}}],"kontaktadresse":[],"doedsfall":[],"utflyttingFraNorge":[],"sikkerhetstiltak":[],"foreldreansvar":[{"ansvar":"felles"}]}}
-
     const personData = responseData.hentPerson;
-
     const person: IPerson = {
       ident: oppgave.person,
       forNavn: personData.navn[0].fornavn,

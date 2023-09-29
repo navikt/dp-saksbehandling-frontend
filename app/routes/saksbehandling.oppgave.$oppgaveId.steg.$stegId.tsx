@@ -1,21 +1,17 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { useParams, useRouteLoaderData } from "@remix-run/react";
+import { useParams } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import type {
-  IBehandlingStegSvar,
-  IOppgave,
-  TBehandlingStegSvartype,
-} from "~/models/oppgave.server";
+import type { IBehandlingStegSvar, TBehandlingStegSvartype } from "~/models/oppgave.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
-import type { IJournalpost } from "~/models/SAF.server";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 
 import styles from "~/route-styles/stegvisning.module.css";
 import { getSession } from "~/models/auth.server";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -53,12 +49,9 @@ export interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { oppgave, journalposter } = useRouteLoaderData(
-    `routes/saksbehandling.oppgave.$oppgaveId`,
-  ) as {
-    oppgave: IOppgave;
-    journalposter: IJournalpost[];
-  };
+  const { oppgave, journalposter } = useTypedRouteLoaderData(
+    "routes/saksbehandling.oppgave.$oppgaveId",
+  );
 
   const readonly = oppgave.tilstand !== "TilBehandling";
   const { stegId } = useParams();

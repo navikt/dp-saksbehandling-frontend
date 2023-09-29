@@ -1,14 +1,14 @@
 import { BodyShort, Search } from "@navikt/ds-react";
-import { useLocation, useRouteLoaderData } from "@remix-run/react";
+import { useLocation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { type IOppgave } from "~/models/oppgave.server";
-import { type IRootLoader } from "~/root";
 import { RemixLink } from "../RemixLink";
 import styles from "./PersokSok.module.css";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export function PersonSok() {
   const location = useLocation();
-  const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
+  const { oppgaver } = useTypedRouteLoaderData("root");
   const [sokResultat, setSokResultat] = useState<IOppgave[]>([]);
   const [visSokResultat, setVisSokResultat] = useState(false);
   const [sokInput, setSokInput] = useState("");

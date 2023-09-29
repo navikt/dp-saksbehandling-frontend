@@ -1,12 +1,11 @@
 import { Table } from "@navikt/ds-react";
-import { useRouteLoaderData } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
 import { type TOppgaveTilstand } from "~/models/oppgave.server";
-import { type IRootLoader } from "~/root";
 import { hentFormattertDato } from "~/utils/dato.utils";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export default function Saksbehandling() {
-  const { oppgaver } = useRouteLoaderData("root") as IRootLoader;
+  const { oppgaver } = useTypedRouteLoaderData("root");
 
   const tilBehandlingsOppgaver = oppgaver.filter(
     (oppgave) => oppgave.tilstand !== "FerdigBehandlet",

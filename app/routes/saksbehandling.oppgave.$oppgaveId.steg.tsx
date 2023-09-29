@@ -1,12 +1,10 @@
-import { Outlet, useRouteLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
-import { type ISaksbehandlingsOppgaveLoader } from "./saksbehandling.oppgave.$oppgaveId";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 import styles from "~/route-styles/behandle.module.css";
 
 export default function PersonBehandle() {
-  const { oppgave } = useRouteLoaderData(
-    `routes/saksbehandling.oppgave.$oppgaveId`,
-  ) as ISaksbehandlingsOppgaveLoader;
+  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
 
   return (
     <>

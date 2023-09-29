@@ -2,17 +2,12 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { hentOppgave, type IOppgave } from "~/models/oppgave.server";
+import { hentOppgave } from "~/models/oppgave.server";
 
 import styles from "~/route-styles/behandle.module.css";
 import type { IJournalpost } from "~/models/SAF.server";
 import { hentJournalpost } from "~/models/SAF.server";
 import { getSession } from "~/models/auth.server";
-
-export interface ISaksbehandlingsOppgaveLoader {
-  oppgave: IOppgave;
-  journalposter: IJournalpost[];
-}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
