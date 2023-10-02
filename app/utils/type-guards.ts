@@ -16,5 +16,13 @@ type Loaders = {
 };
 
 export function useTypedRouteLoaderData<T extends keyof Loaders>(route: T) {
-  return useRouteLoaderData(route) as SerializeFrom<Loaders[T]>;
+  const routeData = useRouteLoaderData(route) as SerializeFrom<Loaders[T]>;
+
+  if (!routeData) {
+    throw new Error(
+      "Route data is not loaded. You might be trying to accessing data from a sub route that has not yet loaded",
+    );
+  }
+
+  return routeData;
 }
