@@ -1,7 +1,6 @@
 import type { TOppgaveTilstand } from "~/models/oppgave.server";
 import type { loader as rootLoader } from "~/root";
 import type { loader as oppgaveLoader } from "~/routes/saksbehandling.oppgave.$oppgaveId";
-import type { SerializeFrom } from "@remix-run/node";
 import { useRouteLoaderData } from "@remix-run/react";
 
 export function erGyldigTilstand(tilstand: string): tilstand is TOppgaveTilstand {
@@ -16,7 +15,7 @@ type Loaders = {
 };
 
 export function useTypedRouteLoaderData<T extends keyof Loaders>(route: T) {
-  const routeData = useRouteLoaderData(route) as SerializeFrom<Loaders[T]>;
+  const routeData = useRouteLoaderData<Loaders[T]>(route);
 
   if (!routeData) {
     throw new Error(
