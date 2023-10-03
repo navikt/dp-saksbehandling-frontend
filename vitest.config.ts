@@ -13,7 +13,6 @@ export default defineConfig({
       provider: "istanbul",
       all: true,
       include: ["app/**/*"],
-      exclude: ["**/*.test.ts"],
     },
   },
   resolve: {
