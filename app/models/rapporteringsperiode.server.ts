@@ -1,7 +1,8 @@
-import { getEnv } from "~/utils/env.utils";
-import { getRapporteringOboToken } from "~/utils/auth.utils.server";
-import { type IAktivitet, type TAktivitetType } from "./aktivitet.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getRapporteringOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
+import { getHeader } from "~/utils/fetch.utils";
+import type { IAktivitet, TAktivitetType } from "./aktivitet.server";
 
 export interface IRapporteringsperiode {
   id: string;
@@ -29,11 +30,7 @@ export async function hentRapporteringsperiode(
 
   const response = await fetch(url, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
   });
 
   if (!response.ok) {
@@ -55,11 +52,7 @@ export async function hentRapporteringsperioder(
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
     body: JSON.stringify({ ident }),
   });
 
@@ -82,11 +75,7 @@ export async function lagKorrigeringsperiode(
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
   });
 
   if (!response.ok) {
@@ -106,11 +95,7 @@ export async function godkjennPeriode(
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
     body: JSON.stringify({ begrunnelse }),
   });
 
@@ -130,11 +115,7 @@ export async function avgodkjennPeriode(periodeId: string, session: SessionWithO
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
     body: JSON.stringify({ begrunnelse: "fordi" }),
   });
 
@@ -155,11 +136,7 @@ export async function lagRapporteringsperiode(
 
   return await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
     body: JSON.stringify({ ident, fraOgMed }),
   });
 }

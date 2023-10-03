@@ -1,6 +1,7 @@
-import { getEnv } from "~/utils/env.utils";
-import { getRapporteringOboToken } from "~/utils/auth.utils.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getRapporteringOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
+import { getHeader } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 
 export type TAktivitetType = "Arbeid" | "Ferie" | "Syk";
@@ -24,11 +25,7 @@ export async function lagreAktivitet(
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
     body: JSON.stringify({ type: aktivitetstype, timer, dato }),
   });
 
@@ -54,11 +51,7 @@ export async function slettAktivitet(
 
   const response = await fetch(url, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeader(onBehalfOfToken),
   });
 
   if (!response.ok) {
