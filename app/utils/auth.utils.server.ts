@@ -47,6 +47,15 @@ export async function getVedtakOboToken(session: SessionWithOboProvider) {
   }
 }
 
+export async function getArbeidssokerOboToken(session: SessionWithOboProvider) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_VEDTAK_TOKEN || fallbackToken;
+  } else {
+    const audience = "api://dev-fss.teamdokumenthandtering.saf-q1/.default";
+    return await session.apiToken(audience);
+  }
+}
+
 export async function getPDLOboToken(session: SessionWithOboProvider) {
   // TODO Bytt ut dev-fss med NAIS_CLUSTER_NAME?
   const audience = `api://dev-fss.pdl.pdl-api/.default`;
