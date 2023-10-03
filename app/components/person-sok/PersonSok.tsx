@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { type IOppgave } from "~/models/oppgave.server";
 import { RemixLink } from "../RemixLink";
 import styles from "./PersokSok.module.css";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function PersonSok() {
   const location = useLocation();

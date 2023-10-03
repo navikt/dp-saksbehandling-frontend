@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { useParams } from "@remix-run/react";
+import { useActionData, useParams } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
@@ -8,10 +8,10 @@ import { svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
-
-import styles from "~/route-styles/stegvisning.module.css";
 import { getSession } from "~/models/auth.server";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { Alert } from "@navikt/ds-react";
+import styles from "~/route-styles/stegvisning.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -52,6 +52,7 @@ export default function PersonBehandleVilkaar() {
   const { oppgave, journalposter } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId",
   );
+  const actionResponse = useActionData<typeof action>();
 
   const readonly = oppgave.tilstand !== "TilBehandling";
   const { stegId } = useParams();
@@ -68,6 +69,12 @@ export default function PersonBehandleVilkaar() {
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <BehandlingSteg steg={steg} readonly={readonly} />
+
+        {actionResponse?.status === "error" && (
+          <Alert
+            variant={"error"}
+          >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
+        )}
       </div>
 
       {journalposter && journalposter.length > 0 && (

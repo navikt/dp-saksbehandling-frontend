@@ -2,6 +2,7 @@ import type { IHendelse } from "~/models/hendelse.server";
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import type { INetworkResponse } from "~/utils/types";
 
 export interface IBehandlingStegSvar {
   type: TBehandlingStegSvartype;
@@ -105,7 +106,7 @@ export async function svarOppgaveSteg(
   svar: IBehandlingStegSvar,
   stegId: string,
   session: SessionWithOboProvider,
-) {
+): Promise<INetworkResponse> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const body = JSON.stringify(svar);
@@ -121,13 +122,13 @@ export async function svarOppgaveSteg(
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    return {
+      status: "error",
+      error: { statusCode: response.status, statusText: response.statusText },
+    };
   }
 
-  return response;
+  return { status: "success" };
 }
 
 export async function endreStatus(

@@ -9,9 +9,9 @@ import { FormattedDate } from "../FormattedDate";
 import { type TAktivitetType } from "~/models/aktivitet.server";
 import { hentAktivitetITimer } from "~/utils/aktivitet.utils";
 import { AktivitetTekstfelt } from "../aktivitet-tekstfelt/AktivitetTekstfelt";
-import { type IRedigerPeriodeAction } from "~/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 
 import styles from "./AktivitetModal.module.css";
+import type { action } from "~/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 
 interface IProps {
   rapporteringsperiode: IRapporteringsperiode;
@@ -25,8 +25,7 @@ interface IProps {
 export function AktivitetModal(props: IProps) {
   const { rapporteringsperiode, dato, valgtAktivitet, setValgtAktivitet, modalAapen, lukkModal } =
     props;
-  const actionData = useActionData() as IRedigerPeriodeAction;
-
+  const actionResponse = useActionData<typeof action>();
   const dag = rapporteringsperiode.dager.find((rapporteringsdag) => rapporteringsdag.dato === dato);
 
   function hentAktivitetTekst() {
@@ -93,7 +92,7 @@ export function AktivitetModal(props: IProps) {
               <AktivitetTekstfelt name="timer" label="Antall timer:" />
             )}
 
-            {actionData?.aktivitetError && (
+            {actionResponse?.status === "error" && (
               <Alert variant="error" className={styles.feilmelding}>
                 Det skjedde en feil.
               </Alert>

@@ -3,9 +3,8 @@ import { Link, Outlet } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getEnv } from "~/utils/env.utils";
 import { useSanity } from "~/hooks/useSanity";
-
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/index.module.css";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export default function Saksbehandling() {
   const { saksbehandler } = useTypedRouteLoaderData("root");

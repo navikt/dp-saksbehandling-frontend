@@ -1,6 +1,6 @@
 import { Outlet } from "@remix-run/react";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/behandle.module.css";
 
 export default function PersonBehandle() {

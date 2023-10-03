@@ -1,5 +1,5 @@
 import type { ISanityInfoside } from "~/sanity/sanity.types";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function useSanity() {
   const { sanityTexts } = useTypedRouteLoaderData("root");

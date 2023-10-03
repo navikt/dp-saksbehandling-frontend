@@ -38,11 +38,6 @@ export const validator = withZod(
   }),
 );
 
-export interface IRedigerPeriodeAction {
-  aktivitetLagret?: boolean;
-  aktivitetError?: boolean;
-}
-
 export async function action({ request, params }: ActionFunctionArgs) {
   const periodeId = params.periodeId;
   const oppgaveId = params.oppgaveId;
@@ -60,30 +55,20 @@ export async function action({ request, params }: ActionFunctionArgs) {
       const timer = formData.get("timer") as string;
       const tidsperiode = timer && timerTilDuration(timer);
 
-      const response = await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, session);
-
-      if (response.ok) {
-        return json({ aktivitetLagret: true });
-      } else {
-        return json({ aktivitetError: true });
-      }
+      return await lagreAktivitet(periodeId, aktivitetstype, tidsperiode, dato, session);
     }
 
     case "slette-aktivitet": {
       const aktivitetId = formData.get("aktivitetId") as string;
-      const response = await slettAktivitet(periodeId, aktivitetId, session);
-
-      if (response.ok) {
-        return json({ aktivitetLagret: true });
-      } else {
-        return json({ aktivitetError: true });
-      }
+      return await slettAktivitet(periodeId, aktivitetId, session);
     }
 
     case "godkjenne-periode": {
       const validering = await validator.validate(formData);
 
-      if (validering.error) return validationError(validering.error);
+      if (validering.error) {
+        return validationError(validering.error);
+      }
 
       await godkjennPeriode(periodeId, validering.data.begrunnelse, session);
       return redirect(`/saksbehandling/person/${oppgaveId}/oversikt/rapportering-og-utbetaling`);
@@ -96,13 +81,13 @@ export default function RedigerPeriode() {
   const [valgtAktivitet, setValgtAktivitet] = useState<TAktivitetType | string>("");
   const [valgtDato, setValgtDato] = useState<string | undefined>();
   const [modalAapen, setModalAapen] = useState(false);
-  const actionData = useActionData() as IRedigerPeriodeAction;
+  const actionResponse = useActionData<typeof action>();
 
   useEffect(() => {
-    if (actionData?.aktivitetLagret) {
+    if (actionResponse?.status === "success") {
       lukkModal();
     }
-  }, [actionData]);
+  }, [actionResponse]);
 
   function aapneModal(dag: IRapporteringsperiodeDag) {
     setModalAapen(true);
@@ -120,6 +105,7 @@ export default function RedigerPeriode() {
       <Heading level="1" size="large" spacing>
         Endre periode
       </Heading>
+
       {!rapporteringsperiode ||
         (!rapporteringsperiode && (
           <Alert variant="info" inline>
