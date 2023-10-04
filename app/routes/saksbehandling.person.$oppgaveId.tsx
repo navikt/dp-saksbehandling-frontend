@@ -18,12 +18,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const ident = oppgave.person;
-  // const personArbeidssokerStatus = await hentPersonArbeidssokerStatus(session, ident);
+  const personArbeidssokerStatus = await hentPersonArbeidssokerStatus(session, oppgave.person);
 
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
-    return json({ error: null, person: mockPerson });
+    return json({ error: null, person: mockPerson, personArbeidssokerStatus });
   }
 
   try {
@@ -32,7 +31,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     sikkerLogger.info(`responseData.hentPerson: ${responseData.hentPerson}`);
 
     if (!responseData.hentPerson) {
-      return json({ error: "Klarte ikke hente personalia", person: null });
+      return json({
+        error: "Klarte ikke hente personalia",
+        person: null,
+        personArbeidssokerStatus: null,
+      });
     }
 
     const personData = responseData.hentPerson;
@@ -50,10 +53,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       antallBarn: 0,
     };
 
-    return json({ person, error: null });
+    return json({ person, error: null, personArbeidssokerStatus });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
-    return json({ person: null, error: `Feil ved henting av personalia fra PDL` });
+    return json({
+      person: null,
+      error: `Feil ved henting av personalia fra PDL`,
+      personArbeidssokerStatus: undefined,
+    });
   }
 }
 

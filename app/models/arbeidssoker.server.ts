@@ -6,16 +6,18 @@ import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
 
 // Duplisert fra https://github.com/navikt/dp-dagpenger/blob/main/src/pages/api/arbeidssoker/perioder.ts
 
-export type Arbeidssøkerperiode = {
+export interface IArbeidssokerperiode {
   fraOgMedDato: string;
   tilOgMedDato: string;
-};
+}
 
 export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
   ident: string,
-): Promise<Arbeidssøkerperiode[]> {
+): Promise<IArbeidssokerperiode> {
   const callId = uuid();
+
+  return { fraOgMedDato: "2023-10-01", tilOgMedDato: "2023-10-03" };
 
   // Vil trenge den senere
   // const saksbehandler = await getSaksbehandler(session);
@@ -40,6 +42,6 @@ export async function hentPersonArbeidssokerStatus(
     });
   }
 
-  const perioder: Arbeidssøkerperiode[] = await response.json();
+  const perioder: IArbeidssokerperiode = await response.json();
   return perioder;
 }

@@ -3,14 +3,21 @@ import type { TimelinePeriodProps } from "@navikt/ds-react-internal";
 import { Timeline } from "@navikt/ds-react-internal";
 
 import styles from "./DagpengerTidslinje.module.css";
+import type { IArbeidssokerperiode } from "~/models/arbeidssoker.server";
 
-export function DagpengerTidslinje() {
+interface IProps {
+  arbeidssokerStatus: IArbeidssokerperiode;
+}
+
+export function DagpengerTidslinje(props: IProps) {
+  const { arbeidssokerStatus } = props;
+
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
       <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
         <Timeline.Period
-          start={arbeidssokerPeriode.start}
-          end={arbeidssokerPeriode.end}
+          start={new Date(arbeidssokerStatus?.fraOgMedDato)}
+          end={new Date(arbeidssokerStatus?.tilOgMedDato)}
           status={arbeidssokerPeriode.status}
           icon={arbeidssokerPeriode.icon}
         />
