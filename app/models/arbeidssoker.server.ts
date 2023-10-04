@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid";
 import { formatISO } from "date-fns";
 import { getArbeidssokerOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { SessionWithOboProvider } from "@navikt/dp-auth/index/";
+import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
 
 // Duplisert fra https://github.com/navikt/dp-dagpenger/blob/main/src/pages/api/arbeidssoker/perioder.ts
 
