@@ -123,7 +123,10 @@ describe("AktivitetModal", () => {
       const actionFn = vi.fn(async ({ request }) => {
         return json({
           status: "error",
-          error: { statusCode: 500, statusText: "Server error" },
+          error: {
+            statusCode: 500,
+            statusText: "Det skjedde en feil.",
+          },
         });
       });
 

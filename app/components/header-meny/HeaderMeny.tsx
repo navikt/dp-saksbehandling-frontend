@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { ISaksbehandler } from "~/models/auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { PersonSok } from "../person-sok/PersonSok";
 import styles from "./HeaderMeny.module.css";

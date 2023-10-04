@@ -1,7 +1,7 @@
-import type { IHendelse } from "~/models/hendelse.server";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 
 export interface IBehandlingStegSvar {
@@ -37,6 +37,13 @@ export interface IOppgave {
   muligeTilstander: TOppgaveTilstand[];
   hendelse: IHendelse[];
   steg: IBehandlingSteg[];
+}
+
+export interface IHendelse {
+  ident: string;
+  søknadId: string;
+  journalpostId: string;
+  type: string;
 }
 
 export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
@@ -113,11 +120,7 @@ export async function svarOppgaveSteg(
 
   const response = await fetch(url, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeaders(onBehalfOfToken),
     body: body,
   });
 
@@ -141,7 +144,7 @@ export async function endreStatus(
 
   return await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${onBehalfOfToken}` },
+    headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ nyTilstand }),
   });
 }
