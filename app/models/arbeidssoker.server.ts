@@ -13,7 +13,7 @@ export type Arbeidssøkerperiode = {
 
 export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
-  personnummer: string,
+  ident: string,
 ): Promise<Arbeidssøkerperiode[]> {
   const callId = uuid();
 

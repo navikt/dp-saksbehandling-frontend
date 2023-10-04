@@ -10,15 +10,16 @@ import { getSession } from "~/models/auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { Personalia } from "~/components/personalia/Personalia";
 import { sikkerLogger } from "../../server/logger";
+import { hentPersonArbeidssokerStatus } from "~/models/arbeidssoker.server";
 
 export const shouldRevalidate = () => false;
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
-  // Hent hentPersonArbeidssokerStatus her???????
-
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
+  const ident = oppgave.person;
+  const personArbeidssokerStatus = await hentPersonArbeidssokerStatus(session, ident);
 
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
