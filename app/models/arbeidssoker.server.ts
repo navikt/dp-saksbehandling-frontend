@@ -25,7 +25,7 @@ export async function hentPersonArbeidssokerStatus(
     const onBehalfOfToken = getArbeidssokerOboToken(session);
 
     const today = formatISO(new Date(), { representation: "date" });
-    const url = `${getEnv(VEILARBPROXY_URL)}/api/arbeidssoker/perioder/niva3?fraOgMed=${today}`;
+    const url = `${getEnv("VEILARBPROXY_URL")}/api/arbeidssoker/perioder/niva3?fraOgMed=${today}`;
 
     const response = await fetch(url, {
       headers: {
