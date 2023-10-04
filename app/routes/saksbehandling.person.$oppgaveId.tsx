@@ -14,6 +14,8 @@ import { sikkerLogger } from "../../server/logger";
 export const shouldRevalidate = () => false;
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
+  // Hent hentPersonArbeidssokerStatus her???????
+
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
