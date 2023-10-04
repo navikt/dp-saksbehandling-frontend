@@ -1,12 +1,8 @@
 import { v4 as uuid } from "uuid";
 import { formatISO } from "date-fns";
 import { logger } from "server/logger";
-import { getSaksbehandler, getSession } from "./auth.server";
-import {
-  getArbeidssokerOboToken,
-  getBehandlingOboToken,
-  getVedtakOboToken,
-} from "~/utils/auth.utils.server";
+import { getSaksbehandler } from "./auth.server";
+import { getArbeidssokerOboToken } from "~/utils/auth.utils.server";
 import { json } from "@remix-run/node";
 import { getEnv } from "~/utils/env.utils";
 import { SessionWithOboProvider } from "@navikt/dp-auth/index/";
@@ -18,14 +14,15 @@ export type Arbeidssøkerperiode = {
   tilOgMedDato: string;
 };
 
-export async function perioderHandler(
+export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
+  personnummer: string,
 ): Promise<Arbeidssøkerperiode[]> {
   const callId = uuid();
 
   try {
     const saksbehandler = await getSaksbehandler(session);
-    const token = getArbeidssokerOboToken(session);
+    const onBehalfOfToken = getArbeidssokerOboToken(session);
 
     const today = formatISO(new Date(), { representation: "date" });
     const url = `${getEnv(VEILARBPROXY_URL)}/api/arbeidssoker/perioder/niva3?fraOgMed=${today}`;
