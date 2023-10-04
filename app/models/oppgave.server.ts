@@ -1,7 +1,7 @@
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeader } from "~/utils/fetch.utils";
+import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 
 export interface IBehandlingStegSvar {
@@ -120,7 +120,7 @@ export async function svarOppgaveSteg(
 
   const response = await fetch(url, {
     method: "PUT",
-    headers: getHeader(onBehalfOfToken),
+    headers: getHeaders(onBehalfOfToken),
     body: body,
   });
 
@@ -144,7 +144,7 @@ export async function endreStatus(
 
   return await fetch(url, {
     method: "POST",
-    headers: getHeader(onBehalfOfToken),
+    headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ nyTilstand }),
   });
 }

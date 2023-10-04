@@ -1,6 +1,6 @@
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getAzureSession } from "~/utils/auth.utils.server";
-import { getHeader } from "~/utils/fetch.utils";
+import { getHeaders } from "~/utils/fetch.utils";
 import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
 import { logger } from "../../server/logger";
 
@@ -24,7 +24,7 @@ export async function getSaksbehandler(session: SessionWithOboProvider): Promise
       "https://graph.microsoft.com/v1.0/me/?$select=onPremisesSamAccountName,givenName,displayName,mail";
 
     const data = await fetch(url, {
-      headers: getHeader(onBehalfOfToken),
+      headers: getHeaders(onBehalfOfToken),
     });
 
     return await data.json();

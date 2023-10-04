@@ -1,7 +1,7 @@
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getBehandlingOboToken, getVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeader } from "~/utils/fetch.utils";
+import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IVedtak {
   rammer: {
@@ -22,7 +22,7 @@ export async function hentVedtak(ident: string, session: SessionWithOboProvider)
 
   const response = await fetch(url, {
     method: "POST",
-    headers: getHeader(onBehalfOfToken),
+    headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ ident }),
   });
 
@@ -46,7 +46,7 @@ export async function stansVedtak(
 
   const response = await fetch(url, {
     method: "POST",
-    headers: getHeader(onBehalfOfToken),
+    headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ oppgaveId }),
   });
 
