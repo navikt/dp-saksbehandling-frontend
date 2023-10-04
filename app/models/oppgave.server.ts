@@ -1,7 +1,8 @@
-import type { IHendelse } from "~/models/hendelse.server";
+import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getHeaders } from "~/utils/fetch.utils";
+import type { INetworkResponse } from "~/utils/types";
 
 export interface IBehandlingStegSvar {
   type: TBehandlingStegSvartype;
@@ -36,6 +37,13 @@ export interface IOppgave {
   muligeTilstander: TOppgaveTilstand[];
   hendelse: IHendelse[];
   steg: IBehandlingSteg[];
+}
+
+export interface IHendelse {
+  ident: string;
+  søknadId: string;
+  journalpostId: string;
+  type: string;
 }
 
 export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
@@ -105,29 +113,25 @@ export async function svarOppgaveSteg(
   svar: IBehandlingStegSvar,
   stegId: string,
   session: SessionWithOboProvider,
-) {
+): Promise<INetworkResponse> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const body = JSON.stringify(svar);
 
   const response = await fetch(url, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeaders(onBehalfOfToken),
     body: body,
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    return {
+      status: "error",
+      error: { statusCode: response.status, statusText: response.statusText },
+    };
   }
 
-  return response;
+  return { status: "success" };
 }
 
 export async function endreStatus(
@@ -140,7 +144,7 @@ export async function endreStatus(
 
   return await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${onBehalfOfToken}` },
+    headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ nyTilstand }),
   });
 }

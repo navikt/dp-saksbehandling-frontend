@@ -7,7 +7,8 @@ import {
   lagKorrigeringsperiode,
 } from "~/models/rapporteringsperiode.server";
 import invariant from "tiny-invariant";
-import { type ActionFunctionArgs, json, type LoaderFunctionArgs, redirect } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useLoaderData, useParams } from "@remix-run/react";
 import { FormattedDate } from "~/components/FormattedDate";
 import { hentAllAktivitetIDager, hentAllAktivitetITimer } from "~/utils/aktivitet.utils";
@@ -52,7 +53,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     case "hent-historikk": {
       const historiskPeriode = await hentRapporteringsperiode(periodeId, session);
-      return json({ historiskPeriode });
+
+      return json({
+        data: historiskPeriode,
+        status: "success",
+      });
     }
 
     default: {
@@ -63,7 +68,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function PersonOversiktRapporteringOgUtbetalingSide() {
   const { rapporteringsperioder } = useLoaderData<typeof loader>();
-  const actionData = useActionData<any>();
+  const actionResponse = useActionData<typeof action>();
   const { oppgaveId } = useParams();
 
   return (
@@ -139,10 +144,10 @@ export default function PersonOversiktRapporteringOgUtbetalingSide() {
                         </Form>
                       )}
 
-                      {periode.korrigerer && (
+                      {periode.korrigerer && actionResponse?.status === "success" && (
                         <HistoriskRapporteringsperiode
                           periode={periode}
-                          historiskPeriode={actionData?.historiskPeriode}
+                          historiskPeriode={actionResponse.data}
                         />
                       )}
                     </>

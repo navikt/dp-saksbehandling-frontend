@@ -90,15 +90,13 @@ describe("Stegvisning", () => {
           ),
         );
 
-        const response = await catchErrorResponse(() =>
-          action({
-            request,
-            params: testParams,
-            context: {},
-          }),
-        );
+        const response = await action({
+          request,
+          params: testParams,
+          context: {},
+        });
 
-        expect(response.status).toBe(500);
+        expect(response?.status).toBe("error");
       });
     });
   });

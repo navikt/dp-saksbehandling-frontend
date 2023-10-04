@@ -1,8 +1,15 @@
-import { getAzureSession } from "~/utils/auth.utils.server";
-import { logger } from "../../server/logger";
-import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import { getAzureSession } from "~/utils/auth.utils.server";
+import { getHeaders } from "~/utils/fetch.utils";
+import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
+import { logger } from "../../server/logger";
+
+export interface ISaksbehandler {
+  onPremisesSamAccountName: string;
+  givenName: string;
+  displayName: string;
+  mail: string;
+}
 
 export async function getSaksbehandler(session: SessionWithOboProvider): Promise<ISaksbehandler> {
   // Wonderwall tar seg av session, hvis vi ikke har en session kjører vi uten sidecar og skal være i dev
@@ -12,16 +19,13 @@ export async function getSaksbehandler(session: SessionWithOboProvider): Promise
   }
 
   try {
-    const oboToken = await session.apiToken("https://graph.microsoft.com/.default");
-    const data = await fetch(
-      "https://graph.microsoft.com/v1.0/me/?$select=onPremisesSamAccountName,givenName,displayName,mail",
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${oboToken}`,
-        },
-      },
-    );
+    const onBehalfOfToken = await session.apiToken("https://graph.microsoft.com/.default");
+    const url =
+      "https://graph.microsoft.com/v1.0/me/?$select=onPremisesSamAccountName,givenName,displayName,mail";
+
+    const data = await fetch(url, {
+      headers: getHeaders(onBehalfOfToken),
+    });
 
     return await data.json();
   } catch (e) {

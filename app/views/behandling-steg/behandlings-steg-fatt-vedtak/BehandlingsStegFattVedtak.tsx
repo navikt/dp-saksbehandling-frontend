@@ -4,8 +4,8 @@ import { Form, useNavigation } from "@remix-run/react";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "./BehandlingStegFattVedtak.module.css";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export function BehandlingsStegFattVedtak(props: IProps) {
   const { steg, readonly } = props;

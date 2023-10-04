@@ -121,7 +121,13 @@ describe("AktivitetModal", () => {
 
     test("burde vise feilmelding hvis det er feil i backenden når vi lagrer aktivitet", async () => {
       const actionFn = vi.fn(async ({ request }) => {
-        return json({ aktivitetError: true });
+        return json({
+          status: "error",
+          error: {
+            statusCode: 500,
+            statusText: "Det skjedde en feil.",
+          },
+        });
       });
 
       const TestComponent = () => {

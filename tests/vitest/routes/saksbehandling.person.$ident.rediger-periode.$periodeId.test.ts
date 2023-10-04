@@ -3,10 +3,9 @@ import { redirect } from "@remix-run/node";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
-  type IRedigerPeriodeAction,
   action,
   loader,
-} from "../../../app/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
+} from "~/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
@@ -126,9 +125,7 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = (await response?.json()) as IRedigerPeriodeAction;
-
-        expect(data && data.aktivitetLagret).toBeTruthy();
+        expect(response?.status).toBe("success");
       });
 
       test("burde feile hvis backend feiler", async () => {
@@ -161,9 +158,7 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = (await response?.json()) as IRedigerPeriodeAction;
-
-        expect(data && data.aktivitetError).toBeTruthy();
+        expect(response?.status).toBe("error");
       });
     });
 
@@ -210,9 +205,7 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = (await response?.json()) as IRedigerPeriodeAction;
-
-        expect(data && data.aktivitetLagret).toBeTruthy();
+        expect(response?.status).toBe("success");
       });
 
       test("burde feile hvis backend feiler", async () => {
@@ -245,9 +238,7 @@ describe("Rediger rapporteringsperiode", () => {
           context: {},
         });
 
-        const data = (await response?.json()) as IRedigerPeriodeAction;
-
-        expect(data.aktivitetError).toBeTruthy();
+        expect(response?.status).toBe("error");
       });
     });
 

@@ -2,7 +2,7 @@ import { Table } from "@navikt/ds-react";
 import { RemixLink } from "~/components/RemixLink";
 import { type TOppgaveTilstand } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("root");
