@@ -50,6 +50,8 @@ spec:
       value: {{dp-rapportering_url}}
     - name: DP_VEDTAK_URL
       value: {{dp-vedtak_url}}
+    - name: VEILARBPROXY_URL
+      value: {{veilarbproxyUrl}}
   accessPolicy:
     outbound:
       external:

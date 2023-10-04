@@ -23,7 +23,7 @@ export function DagpengerTidslinje(props: IProps) {
         />
       </Timeline.Row>
 
-      <Timeline.Row
+      {/* <Timeline.Row
         label="DAGPENGERPERIODE (SAK)"
         icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
       >
@@ -47,7 +47,7 @@ export function DagpengerTidslinje(props: IProps) {
             icon={periode.icon}
           />
         ))}
-      </Timeline.Row>
+      </Timeline.Row> */}
     </Timeline>
   );
 }

@@ -13,18 +13,20 @@ export interface IArbeidssokerperiode {
 
 export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
-  ident: string,
+  fnr: string,
 ): Promise<IArbeidssokerperiode> {
   const callId = uuid();
-
-  return { fraOgMedDato: "2023-10-01", tilOgMedDato: "2023-10-03" };
-
-  // Vil trenge den senere
-  // const saksbehandler = await getSaksbehandler(session);
   const onBehalfOfToken = getArbeidssokerOboToken(session);
 
-  const today = formatISO(new Date(), { representation: "date" });
-  const url = `${getEnv("VEILARBPROXY_URL")}/api/arbeidssoker/perioder/niva3?fraOgMed=${today}`;
+  const fomDato = formatISO(new Date("2022-01-01"), { representation: "date" });
+  const tomDato = formatISO(new Date(), { representation: "date" });
+
+  const url = `${getEnv(
+    "VEILARBPROXY_URL",
+  )}/api/arbeidssoker/perioder/fnr=${fnr}&fraOgMed=${fomDato}&tilOgMed${tomDato}`;
+
+  // Fjern den når ting funker
+  return { fraOgMedDato: "2023-10-01", tilOgMedDato: "2023-10-03" };
 
   const response = await fetch(url, {
     headers: {
@@ -42,6 +44,5 @@ export async function hentPersonArbeidssokerStatus(
     });
   }
 
-  const perioder: IArbeidssokerperiode = await response.json();
-  return perioder;
+  return await response.json();
 }
