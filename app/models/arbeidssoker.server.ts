@@ -1,9 +1,8 @@
 import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
 import { formatISO } from "date-fns";
 import { v4 as uuid } from "uuid";
-import { getBehandlingOboToken } from "~/utils/auth.utils.server";
+import { getArbeidsokerOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IArbeidssokerperiode {
   fraOgMedDato: string;
@@ -13,9 +12,9 @@ export interface IArbeidssokerperiode {
 export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
   fnr: string,
-): Promise<IArbeidssokerperiode> {
+): Promise<IArbeidssokerperiode | any> {
   const callId = uuid();
-  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const onBehalfOfToken = await getArbeidsokerOboToken(session);
 
   const fomDato = formatISO(new Date("2022-01-01"), { representation: "date" });
   const tomDato = formatISO(new Date(), { representation: "date" });
@@ -33,21 +32,24 @@ export async function hentPersonArbeidssokerStatus(
     method: "POST",
     headers: {
       Authorization: `Bearer ${onBehalfOfToken}`,
-      "Downstream-Authorization": `Bearer ${onBehalfOfToken}`,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
       "Nav-Call-Id": callId,
     },
-    // headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ fnr }),
   });
 
   if (!response.ok) {
-    throw new Response(null, {
-      status: response.status,
-      // status: 500,
-      statusText: "Feil ved å hente ut arbeidssøkerperioder",
-    });
+    // throw new Response(null, {
+    //   status: response.status,
+    //   statusText: "Feil ved å hente ut arbeidssøkerperioder",
+    // });
+
+    console.log("Feil ved å hente ut arbeidssøkerperioder");
+
+    return;
   }
+
+  console.log(await response.json());
 
   return await response.json();
 }

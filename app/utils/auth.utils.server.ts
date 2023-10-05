@@ -52,3 +52,12 @@ export async function getPDLOboToken(session: SessionWithOboProvider) {
   const audience = `api://dev-fss.pdl.pdl-api/.default`;
   return await session.apiToken(audience);
 }
+
+export async function getArbeidsokerOboToken(session: SessionWithOboProvider) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_BEHANDLING_TOKEN || fallbackToken;
+  } else {
+    const audience = `api://${process.env.NAIS_CLUSTER_NAME}.paw.veilarbregistrering/.default`;
+    return await session.apiToken(audience);
+  }
+}
