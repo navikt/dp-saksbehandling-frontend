@@ -22,7 +22,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
-    return json({ error: null, person: mockPerson, personArbeidssokerStatus });
+    return json({
+      error: null,
+      person: mockPerson,
+      // personArbeidssokerStatus: undefined
+    });
   }
 
   try {
@@ -34,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       return json({
         error: "Klarte ikke hente personalia",
         person: null,
-        personArbeidssokerStatus: null,
+        // personArbeidssokerStatus: null,
       });
     }
 
@@ -53,13 +57,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       antallBarn: 0,
     };
 
-    return json({ person, error: null, personArbeidssokerStatus });
+    return json({ person, error: null, personArbeidssokerStatus: undefined });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
     return json({
       person: null,
       error: `Feil ved henting av personalia fra PDL`,
-      personArbeidssokerStatus: undefined,
+      // personArbeidssokerStatus: undefined,
     });
   }
 }

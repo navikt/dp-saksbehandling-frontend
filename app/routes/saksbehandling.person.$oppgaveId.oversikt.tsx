@@ -20,13 +20,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personArbeidssokerStatus } = useTypedRouteLoaderData(
-    "routes/saksbehandling.person.$oppgaveId",
-  );
+  // const { personArbeidssokerStatus } = useTypedRouteLoaderData(
+  //   "routes/saksbehandling.person.$oppgaveId",
+  // );
 
   return (
     <div className={styles.personOversiktKontainer}>
-      <DagpengerTidslinje arbeidssokerStatus={personArbeidssokerStatus} />
+      {/* <DagpengerTidslinje arbeidssokerStatus={personArbeidssokerStatus} /> */}
       <Form method="post" className={styles.stans}>
         <Button type="submit">Stans</Button>
       </Form>
