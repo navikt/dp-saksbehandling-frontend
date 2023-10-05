@@ -65,6 +65,8 @@ spec:
         - application: dp-rapportering
         - application: dp-vedtak
         - application: dp-iverksett
+        - application: veilarbregistrering
+          namespace: paw
   azure:
     application:
       tenant: {{azure.tenant}}

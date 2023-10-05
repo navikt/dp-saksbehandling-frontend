@@ -3,7 +3,7 @@ base_path: "/saksbehandling"
 dp-behandling_url: "http://dp-behandling"
 dp-rapportering_url: "http://dp-rapportering"
 dp-vedtak_url: "http://dp-vedtak"
-veilarbproxyUrl: http://veilarbregistrering" # Arbeidsøkersstatus fra team PAW
+veilarbproxyUrl: http://veilarbregistrering.paw.svc.cluster.local/veilarbregistrering
 
 azure:
   tenant: trygdeetaten.no
