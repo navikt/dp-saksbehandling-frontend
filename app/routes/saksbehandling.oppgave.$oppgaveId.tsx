@@ -16,13 +16,19 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(params.oppgaveId, session);
 
   const journalposter: IJournalpost[] = [];
+  let journalpostError = false;
 
   for (const journalpostId of oppgave.journalposter) {
-    const data = await hentJournalpost(request, journalpostId);
-    journalposter.push(data);
+    const response = await hentJournalpost(request, journalpostId);
+
+    if (response.status === "success" && response.data) {
+      journalposter.push(response.data);
+    } else {
+      journalpostError = true;
+    }
   }
 
-  return json({ oppgave, journalposter });
+  return json({ oppgave, journalposter, journalpostError });
 }
 
 export default function PersonBehandle() {

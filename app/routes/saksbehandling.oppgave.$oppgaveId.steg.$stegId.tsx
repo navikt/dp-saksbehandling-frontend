@@ -49,7 +49,7 @@ export interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { oppgave, journalposter } = useTypedRouteLoaderData(
+  const { oppgave, journalposter, journalpostError } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId",
   );
   const actionResponse = useActionData<typeof action>();
@@ -80,6 +80,14 @@ export default function PersonBehandleVilkaar() {
       {journalposter && journalposter.length > 0 && (
         <div className={styles.dokumentContainer}>
           <PDFLeser journalposter={journalposter} />
+        </div>
+      )}
+
+      {journalpostError && (
+        <div className={styles.dokumentContainer}>
+          <Alert variant="error" className="my-4">
+            En feil oppsto når vi skulle hente ut dokumentene.
+          </Alert>
         </div>
       )}
     </div>
