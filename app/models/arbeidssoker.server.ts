@@ -34,6 +34,7 @@ export async function hentPersonArbeidssokerStatus(
       Authorization: `Bearer ${onBehalfOfToken}`,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
       "Nav-Call-Id": callId,
+      Accept: "application/json",
     },
     body: JSON.stringify({ fnr }),
   });
