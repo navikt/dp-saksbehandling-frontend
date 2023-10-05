@@ -20,6 +20,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(params.oppgaveId, session);
   const personArbeidssokerStatus = await hentPersonArbeidssokerStatus(session, oppgave.person);
 
+  console.log("personArbeidssokerStatus: ", personArbeidssokerStatus);
+
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
     return json({

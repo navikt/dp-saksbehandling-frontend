@@ -39,17 +39,15 @@ export async function hentPersonArbeidssokerStatus(
   });
 
   if (!response.ok) {
+    console.log("Feil ved å hente ut arbeidssøkerperioder");
+
     // throw new Response(null, {
     //   status: response.status,
     //   statusText: "Feil ved å hente ut arbeidssøkerperioder",
     // });
 
-    console.log("Feil ved å hente ut arbeidssøkerperioder");
-
     return;
   }
-
-  console.log(await response.json());
 
   return await response.json();
 }
