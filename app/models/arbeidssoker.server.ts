@@ -6,13 +6,13 @@ import { getEnv } from "~/utils/env.utils";
 
 export interface IArbeidssokerperiode {
   fraOgMedDato: string;
-  tilOgMedDato: string;
+  tilOgMedDato: string | null;
 }
 
 export async function hentPersonArbeidssokerStatus(
   session: SessionWithOboProvider,
   fnr: string,
-): Promise<IArbeidssokerperiode | any> {
+): Promise<IArbeidssokerperiode[]> {
   const callId = uuid();
   const onBehalfOfToken = await getArbeidsokerOboToken(session);
 
@@ -23,10 +23,10 @@ export async function hentPersonArbeidssokerStatus(
     "VEILARBPROXY_URL",
   )}/veilarbregistrering/api/arbeidssoker/perioder?fraOgMed=${fomDato}&tilOgMed=${tomDato}`;
 
-  // Fjern den når ting funker
-  // return { fraOgMedDato: "2023-10-01", tilOgMedDato: "2023-10-03" };
-  // console.log(url);
-  // console.log(JSON.stringify({ fnr }));
+  // Den her må vi se mer på, sjekk om det er mulig å lage wonderwall token som de andre backend endepunk
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return [{ fraOgMedDato: "2023-08-18", tilOgMedDato: null }];
+  }
 
   const response = await fetch(url, {
     method: "POST",
@@ -41,14 +41,10 @@ export async function hentPersonArbeidssokerStatus(
   });
 
   if (!response.ok) {
-    console.log("Feil ved å hente ut arbeidssøkerperioder");
-
-    // throw new Response(null, {
-    //   status: response.status,
-    //   statusText: "Feil ved å hente ut arbeidssøkerperioder",
-    // });
-
-    return;
+    throw new Response(null, {
+      status: response.status,
+      statusText: "Feil ved å hente ut arbeidssøkerperioder",
+    });
   }
 
   return await response.json();
