@@ -25,7 +25,11 @@ export async function hentPersonArbeidssokerStatus(
 
   // Den her må vi se mer på, sjekk om det er mulig å lage wonderwall token som de andre backend endepunk
   if (getEnv("IS_LOCALHOST") === "true") {
-    return [{ fraOgMedDato: "2023-08-18", tilOgMedDato: null }];
+    return [
+      { fraOgMedDato: "2023-08-01", tilOgMedDato: "2023-08-20" },
+      { fraOgMedDato: "2023-09-01", tilOgMedDato: "2023-09-20" },
+      { fraOgMedDato: "2023-10-01", tilOgMedDato: null },
+    ];
   }
 
   const response = await fetch(url, {

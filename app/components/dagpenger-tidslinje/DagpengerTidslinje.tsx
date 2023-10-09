@@ -11,29 +11,23 @@ interface IProps {
 export function DagpengerTidslinje(props: IProps) {
   const { arbeidssokerStatus } = props;
 
-  console.log("arbeidssokerStatus", arbeidssokerStatus);
-  console.log("arbeidssokerStatus length", arbeidssokerStatus.length);
-
   if (arbeidssokerStatus.length === 0) {
     return <></>;
   }
 
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
-      {arbeidssokerStatus.map((periode) => (
-        <Timeline.Row
-          key={periode.fraOgMedDato}
-          label="ARBEIDSØKER"
-          icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
-        >
+      <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
+        {arbeidssokerStatus?.map((periode) => (
           <Timeline.Period
+            key={periode.fraOgMedDato}
             start={new Date(periode.fraOgMedDato)}
-            end={periode.tilOgMedDato ? new Date(periode.fraOgMedDato) : new Date()}
+            end={periode.tilOgMedDato ? new Date(periode.tilOgMedDato) : new Date()}
             status="info"
             icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
           />
-        </Timeline.Row>
-      ))}
+        ))}
+      </Timeline.Row>
       {/* <Timeline.Row
         label="DAGPENGERPERIODE (SAK)"
         icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
