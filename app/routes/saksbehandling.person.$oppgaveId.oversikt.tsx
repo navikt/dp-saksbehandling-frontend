@@ -7,7 +7,7 @@ import { stansVedtak } from "~/models/vedtak.server";
 import styles from "~/route-styles/person.module.css";
 import { getSession } from "~/models/auth.server";
 // import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
-// import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
@@ -20,9 +20,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  // const { personArbeidssokerStatus } = useTypedRouteLoaderData(
-  //   "routes/saksbehandling.person.$oppgaveId",
-  // );
+  const { personArbeidssokerStatus } = useTypedRouteLoaderData(
+    "routes/saksbehandling.person.$oppgaveId",
+  );
+
+  console.log("🔥 personArbeidssokerStatus: ", personArbeidssokerStatus);
 
   return (
     <div className={styles.personOversiktKontainer}>
