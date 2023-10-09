@@ -1,4 +1,4 @@
-import { BriefcaseIcon } from "@navikt/aksel-icons";
+// import { BriefcaseIcon } from "@navikt/aksel-icons";
 import { Timeline } from "@navikt/ds-react-internal";
 import type { IArbeidssokerperiode } from "~/models/arbeidssoker.server";
 
@@ -11,9 +11,12 @@ interface IProps {
 export function DagpengerTidslinje(props: IProps) {
   const { arbeidssokerStatus } = props;
 
+  console.log("arbeidssokerStatus", arbeidssokerStatus);
+  console.log("arbeidssokerStatus length", arbeidssokerStatus.length);
+
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
-      {arbeidssokerStatus &&
+      {/* {arbeidssokerStatus &&
         arbeidssokerStatus.length > 0 &&
         arbeidssokerStatus.map((periode) => (
           <Timeline.Row
@@ -28,7 +31,7 @@ export function DagpengerTidslinje(props: IProps) {
               icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
             />
           </Timeline.Row>
-        ))}
+        ))} */}
       {/* <Timeline.Row
         label="DAGPENGERPERIODE (SAK)"
         icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
