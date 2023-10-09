@@ -13,7 +13,8 @@ export function DagpengerTidslinje(props: IProps) {
 
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
-      {arbeidssokerStatus.length > 0 &&
+      {arbeidssokerStatus &&
+        arbeidssokerStatus.length > 0 &&
         arbeidssokerStatus.map((periode) => (
           <Timeline.Row
             key={periode.fraOgMedDato}
