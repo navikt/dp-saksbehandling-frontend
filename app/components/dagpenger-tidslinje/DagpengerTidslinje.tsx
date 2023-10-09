@@ -11,6 +11,8 @@ interface IProps {
 export function DagpengerTidslinje(props: IProps) {
   const { arbeidssokerStatus } = props;
 
+  console.log("arbeidssokerStatus: ", arbeidssokerStatus);
+
   if (arbeidssokerStatus.length === 0) {
     return <></>;
   }
