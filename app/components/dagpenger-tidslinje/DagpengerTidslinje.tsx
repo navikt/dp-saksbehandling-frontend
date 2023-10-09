@@ -13,7 +13,7 @@ export function DagpengerTidslinje(props: IProps) {
 
   console.log("arbeidssokerStatus: ", arbeidssokerStatus);
 
-  if (arbeidssokerStatus.length === 0) {
+  if (arbeidssokerStatus && arbeidssokerStatus.length === 0) {
     return <></>;
   }
 
