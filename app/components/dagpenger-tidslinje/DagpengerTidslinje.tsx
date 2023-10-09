@@ -1,4 +1,4 @@
-// import { BriefcaseIcon } from "@navikt/aksel-icons";
+import { BriefcaseIcon } from "@navikt/aksel-icons";
 import { Timeline } from "@navikt/ds-react-internal";
 import type { IArbeidssokerperiode } from "~/models/arbeidssoker.server";
 
@@ -14,24 +14,26 @@ export function DagpengerTidslinje(props: IProps) {
   console.log("arbeidssokerStatus", arbeidssokerStatus);
   console.log("arbeidssokerStatus length", arbeidssokerStatus.length);
 
+  if (arbeidssokerStatus.length === 0) {
+    return <></>;
+  }
+
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
-      {/* {arbeidssokerStatus &&
-        arbeidssokerStatus.length > 0 &&
-        arbeidssokerStatus.map((periode) => (
-          <Timeline.Row
-            key={periode.fraOgMedDato}
-            label="ARBEIDSØKER"
+      {arbeidssokerStatus.map((periode) => (
+        <Timeline.Row
+          key={periode.fraOgMedDato}
+          label="ARBEIDSØKER"
+          icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
+        >
+          <Timeline.Period
+            start={new Date(periode.fraOgMedDato)}
+            end={periode.tilOgMedDato ? new Date(periode.fraOgMedDato) : new Date()}
+            status="info"
             icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
-          >
-            <Timeline.Period
-              start={new Date(periode.fraOgMedDato)}
-              end={periode.tilOgMedDato ? new Date(periode.fraOgMedDato) : new Date()}
-              status="info"
-              icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
-            />
-          </Timeline.Row>
-        ))} */}
+          />
+        </Timeline.Row>
+      ))}
       {/* <Timeline.Row
         label="DAGPENGERPERIODE (SAK)"
         icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}

@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return json({
       error: null,
       person: mockPerson,
-      personArbeidssokerStatus: [{ fraOgMedDato: "2023-08-18", tilOgMedDato: null }],
+      personArbeidssokerStatus,
     });
   }
 
