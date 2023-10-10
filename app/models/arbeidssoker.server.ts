@@ -16,6 +16,8 @@ export async function hentPersonArbeidssokerStatus(
   const callId = uuid();
   const onBehalfOfToken = await getArbeidsokerOboToken(session);
 
+  console.log("veiarbeidOboToken: ", onBehalfOfToken);
+
   const fomDato = formatISO(new Date("2022-01-01"), { representation: "date" });
   const tomDato = formatISO(new Date(), { representation: "date" });
 
