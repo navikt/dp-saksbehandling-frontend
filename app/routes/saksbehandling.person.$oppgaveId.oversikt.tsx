@@ -10,8 +10,7 @@ import { getSession } from "~/models/auth.server";
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
   const session = await getSession(request);
-
-  const periodeId = params.oppgaveId as string;
+  const periodeId = params.oppgaveId;
   const response = await stansVedtak(periodeId, session);
 
   return redirect(`/saksbehandling/oppgave/${response.oppgaveId}`);
