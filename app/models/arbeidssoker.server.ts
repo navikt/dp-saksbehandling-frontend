@@ -1,7 +1,7 @@
 import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
 import { formatISO } from "date-fns";
 import { v4 as uuid } from "uuid";
-import { getArbeidsokerOboToken } from "~/utils/auth.utils.server";
+import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
 export interface IArbeidssokerperiode {
@@ -14,9 +14,7 @@ export async function hentPersonArbeidssokerStatus(
   fnr: string,
 ): Promise<IArbeidssokerperiode[]> {
   const callId = uuid();
-  const onBehalfOfToken = await getArbeidsokerOboToken(session);
-
-  console.log("veiarbeidOboToken: ", onBehalfOfToken);
+  const onBehalfOfToken = await getVeilarbregistreringOboToken(session);
 
   const fomDato = formatISO(new Date("2022-01-01"), { representation: "date" });
   const tomDato = formatISO(new Date(), { representation: "date" });

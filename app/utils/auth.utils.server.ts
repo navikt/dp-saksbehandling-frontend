@@ -53,7 +53,7 @@ export async function getPDLOboToken(session: SessionWithOboProvider) {
   return await session.apiToken(audience);
 }
 
-export async function getArbeidsokerOboToken(session: SessionWithOboProvider) {
+export async function getVeilarbregistreringOboToken(session: SessionWithOboProvider) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.DP_BEHANDLING_TOKEN || fallbackToken;
   } else {
