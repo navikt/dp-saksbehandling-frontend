@@ -29,7 +29,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return json({ journalposter, arbeidsforhold });
 }
 
-// Disse dataene skal aldri hentes på nytt når man driver å behandler oppgaven. Kallet til journalpost+arbeids
+// Disse dataene skal aldri hentes på nytt når man driver å behandler oppgaven. Kallet til journalpost+arbeidsforhold trengs dermed bare å gjøres en gang
 export function shouldRevalidate() {
   return false;
 }
