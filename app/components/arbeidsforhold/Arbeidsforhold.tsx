@@ -6,6 +6,7 @@ interface IProps {
 
 export function Arbeidsforhold(props: IProps) {
   const { arbeidsforhold } = props;
+  console.log(`arbeidsforhold: ${JSON.stringify(arbeidsforhold)}`);
 
   return (
     <>
@@ -13,15 +14,16 @@ export function Arbeidsforhold(props: IProps) {
         Arbeidsforhold
       </Heading>
       <ul>
-        {arbeidsforhold.map((forhold: any) => {
-          const orgnr = forhold.arbeidssted.identer[0].ident;
+        {Object.keys(arbeidsforhold).length > 0 &&
+          arbeidsforhold.map((forhold: any) => {
+            const orgnr = forhold.arbeidssted.identer[0].ident;
 
-          return (
-            <li key={forhold.id}>
-              Orgnummer: {orgnr}, ansettelsesdato: {forhold.ansettelsesperiode.startdato}{" "}
-            </li>
-          );
-        })}
+            return (
+              <li key={forhold.id}>
+                Orgnummer: {orgnr}, ansettelsesdato: {forhold.ansettelsesperiode.startdato}{" "}
+              </li>
+            );
+          })}
       </ul>
       <span>Heia!</span>
     </>
