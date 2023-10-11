@@ -21,10 +21,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     }
     return Promise.all(promises);
   };
-  const arbeidsforholdPromise = hentArbeidsforhold(oppgave.person);
   const [journalposter, arbeidsforhold] = await Promise.all([
     journalposterPromise(),
-    arbeidsforholdPromise,
+    hentArbeidsforhold(oppgave.person),
   ]);
   return json({ journalposter, arbeidsforhold });
 }
