@@ -1,8 +1,8 @@
 import { Select } from "@navikt/ds-react";
+import classNames from "classnames";
 import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 import styles from "./BehandlingsStegInput.module.css";
-import classNames from "classnames";
 
 interface IProps extends IInputProps {
   placeholder: string;
@@ -15,9 +15,9 @@ export interface IOptions {
 }
 
 export function BehandlingStegInputSelect(props: IProps) {
-  const { readonly, verdi, name, label, description, placeholder, options } = props;
+  const { className, readonly, verdi, name, label, description, placeholder, options } = props;
   const { error, getInputProps } = useField(name);
-  const cssClassNames = classNames(styles.input, props.className);
+  const cssClassNames = classNames(styles.input, className);
 
   return (
     <Select

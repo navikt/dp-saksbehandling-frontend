@@ -5,8 +5,8 @@ import { BehandlingStegInputInt } from "~/components/behandling-steg-input/Behan
 import { BehandlingStegInputDouble } from "~/components/behandling-steg-input/BehandlingsStegInputDouble";
 import { BehandlingStegInputString } from "~/components/behandling-steg-input/BehandlingsStegInputString";
 import { type TBehandlingStegSvartype } from "~/models/oppgave.server";
-import { BehandlingStegInputTextarea } from "./BehandlingsStegInputTextarea";
 import styles from "./BehandlingsStegInput.module.css";
+import { BehandlingStegInputTextarea } from "./BehandlingsStegInputTextarea";
 
 export interface IInputProps {
   name: string;

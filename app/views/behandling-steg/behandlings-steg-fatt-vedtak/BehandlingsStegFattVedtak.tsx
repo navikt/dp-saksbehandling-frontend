@@ -1,10 +1,9 @@
-import React from "react";
 import { Button, Heading } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
-import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
-import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
+import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import styles from "./BehandlingStegFattVedtak.module.css";
 
 export function BehandlingsStegFattVedtak(props: IProps) {
@@ -35,7 +34,7 @@ export function BehandlingsStegFattVedtak(props: IProps) {
       <div className={styles.buttonContainer}>
         <Form method="post">
           <input name="metadata" type="hidden" value={JSON.stringify(fattVedtakMetadata)} />
-          <input name={props.steg.uuid} type="hidden" value={"true"} />
+          <input name={steg.uuid} type="hidden" value={"true"} />
           <input name={"begrunnelse"} type="hidden" value={""} />
 
           <Button type="submit" disabled={readonly}>

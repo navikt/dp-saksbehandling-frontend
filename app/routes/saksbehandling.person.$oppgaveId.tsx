@@ -3,12 +3,12 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
+import { Personalia } from "~/components/personalia/Personalia";
+import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import type { IPerson } from "~/models/pdl.server";
 import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
-import { getSession } from "~/models/auth.server";
 import { getEnv } from "~/utils/env.utils";
-import { Personalia } from "~/components/personalia/Personalia";
 import { sikkerLogger } from "../../server/logger";
 
 export const shouldRevalidate = () => false;

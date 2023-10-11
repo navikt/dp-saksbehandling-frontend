@@ -5,19 +5,20 @@ interface IProps {
 }
 
 export function FormattedDate(props: IProps) {
+  const { kort, ukedag, date } = props;
   const locale = "no-NO";
 
   let options: Intl.DateTimeFormatOptions = {
     year: "numeric",
-    month: props.kort ? "2-digit" : "long",
-    day: props.kort ? "2-digit" : "numeric",
+    month: kort ? "2-digit" : "long",
+    day: kort ? "2-digit" : "numeric",
   };
 
-  if (props.ukedag) {
+  if (ukedag) {
     options.weekday = "long";
   }
 
-  const formattedDate = new Date(props.date).toLocaleDateString(locale, options);
+  const formattedDate = new Date(date).toLocaleDateString(locale, options);
 
   return <>{formattedDate}</>;
 }
