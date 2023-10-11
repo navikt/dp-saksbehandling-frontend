@@ -62,7 +62,6 @@ spec:
         - application: dp-behandling
         - application: dp-rapportering
         - application: dp-vedtak
-        - application: dp-iverksett
   azure:
     application:
       tenant: {{azure.tenant}}

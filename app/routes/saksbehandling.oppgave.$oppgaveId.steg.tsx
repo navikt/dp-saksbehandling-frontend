@@ -8,6 +8,7 @@ import { hentOppgave } from "~/models/oppgave.server";
 import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
 import { hentJournalpost, type IJournalpost } from "~/models/SAF.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { sikkerLogger } from "../../server/logger";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -24,6 +25,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       });
     }),
   ]);
+  sikkerLogger.debug(`Hentet journalposter: ${JSON.stringify(journalposter)}`);
   return json({ journalposter, arbeidsforhold });
 }
 
