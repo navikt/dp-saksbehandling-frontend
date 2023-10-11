@@ -7,7 +7,6 @@ interface IProps {
 export function Arbeidsforhold(props: IProps) {
   const { arbeidsforhold } = props;
 
-  console.log("twsr", arbeidsforhold);
   return (
     <>
       <Heading size="small" level="3">

@@ -50,8 +50,9 @@ export interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { oppgave, journalposter, arbeidsforhold } = useTypedRouteLoaderData(
-    "routes/saksbehandling.oppgave.$oppgaveId",
+  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
+  const { journalposter, arbeidsforhold } = useTypedRouteLoaderData(
+    "routes/saksbehandling.oppgave.$oppgaveId.steg",
   );
   const actionResponse = useActionData<typeof action>();
 
