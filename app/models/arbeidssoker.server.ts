@@ -4,15 +4,19 @@ import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 
+export interface IArbeidssokerStatus {
+  arbeidssokerperioder: IArbeidssokerperiode[];
+}
+
 export interface IArbeidssokerperiode {
   fraOgMedDato: string;
   tilOgMedDato: string | null;
 }
 
-export async function hentPersonArbeidssokerStatus(
+export async function hentArbeidssokerStatus(
   session: SessionWithOboProvider,
   fnr: string,
-): Promise<IArbeidssokerperiode[]> {
+): Promise<IArbeidssokerStatus> {
   const callId = uuid();
   const onBehalfOfToken = await getVeilarbregistreringOboToken(session);
 
@@ -22,15 +26,6 @@ export async function hentPersonArbeidssokerStatus(
   const url = `${getEnv(
     "VEILARBPROXY_URL",
   )}/veilarbregistrering/api/arbeidssoker/perioder?fraOgMed=${fomDato}&tilOgMed=${tomDato}`;
-
-  // Den her må vi se mer på, sjekk om det er mulig å lage wonderwall token som de andre backend endepunk
-  if (getEnv("IS_LOCALHOST") === "true") {
-    return [
-      { fraOgMedDato: "2023-08-01", tilOgMedDato: "2023-08-20" },
-      { fraOgMedDato: "2023-09-01", tilOgMedDato: "2023-09-20" },
-      { fraOgMedDato: "2023-10-01", tilOgMedDato: null },
-    ];
-  }
 
   const response = await fetch(url, {
     method: "POST",

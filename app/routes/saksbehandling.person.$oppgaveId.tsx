@@ -3,14 +3,15 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
+import { Personalia } from "~/components/personalia/Personalia";
+import type { IArbeidssokerStatus } from "~/models/arbeidssoker.server";
+import { hentArbeidssokerStatus } from "~/models/arbeidssoker.server";
+import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import type { IPerson } from "~/models/pdl.server";
 import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
-import { getSession } from "~/models/auth.server";
 import { getEnv } from "~/utils/env.utils";
-import { Personalia } from "~/components/personalia/Personalia";
 import { sikkerLogger } from "../../server/logger";
-import { hentPersonArbeidssokerStatus } from "~/models/arbeidssoker.server";
 
 export const shouldRevalidate = () => false;
 
@@ -19,14 +20,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const personArbeidssokerStatus = await hentPersonArbeidssokerStatus(session, oppgave.person);
+  const arbeidssokerStatus = await hentArbeidssokerStatus(session, oppgave.person);
 
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
     return json({
       error: null,
       person: mockPerson,
-      personArbeidssokerStatus,
+      arbeidssokerStatus,
     });
   }
 
@@ -39,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       return json({
         error: "Klarte ikke hente personalia",
         person: null,
-        personArbeidssokerStatus: [],
+        arbeidssokerStatus: { arbeidssokerperioder: [] } as IArbeidssokerStatus,
       });
     }
 
@@ -58,13 +59,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       antallBarn: 0,
     };
 
-    return json({ person, error: null, personArbeidssokerStatus: personArbeidssokerStatus });
+    return json({ error: null, person, arbeidssokerStatus });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
     return json({
-      person: null,
       error: `Feil ved henting av personalia fra PDL`,
-      personArbeidssokerStatus: [],
+      person: null,
+      arbeidssokerStatus: { arbeidssokerperioder: [] } as IArbeidssokerStatus,
     });
   }
 }

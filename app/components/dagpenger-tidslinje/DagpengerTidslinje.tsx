@@ -5,22 +5,16 @@ import type { IArbeidssokerperiode } from "~/models/arbeidssoker.server";
 import styles from "./DagpengerTidslinje.module.css";
 
 interface IProps {
-  arbeidssokerStatus: IArbeidssokerperiode[];
+  arbeidssokerperioder: IArbeidssokerperiode[];
 }
 
 export function DagpengerTidslinje(props: IProps) {
-  const { arbeidssokerStatus } = props;
-
-  console.log("arbeidssokerStatus: ", arbeidssokerStatus);
-
-  if (arbeidssokerStatus && arbeidssokerStatus.length === 0) {
-    return <></>;
-  }
+  const { arbeidssokerperioder } = props;
 
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
       <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
-        {arbeidssokerStatus?.map((periode) => (
+        {arbeidssokerperioder?.map((periode) => (
           <Timeline.Period
             key={periode.fraOgMedDato}
             start={new Date(periode.fraOgMedDato)}

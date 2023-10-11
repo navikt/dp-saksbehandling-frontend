@@ -55,7 +55,7 @@ export async function getPDLOboToken(session: SessionWithOboProvider) {
 
 export async function getVeilarbregistreringOboToken(session: SessionWithOboProvider) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_BEHANDLING_TOKEN || fallbackToken;
+    return process.env.VEIARBPROXY_TOKEN || fallbackToken;
   } else {
     const audience = `api://${process.env.NAIS_CLUSTER_NAME}.paw.veilarbregistrering/.default`;
     return await session.apiToken(audience);
