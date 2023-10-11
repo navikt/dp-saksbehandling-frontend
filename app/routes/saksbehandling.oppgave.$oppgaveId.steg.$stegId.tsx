@@ -54,8 +54,6 @@ export default function PersonBehandleVilkaar() {
   const { journalposter, arbeidsforhold } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId.steg",
   );
-
-  console.log(`Journalposter: ${JSON.stringify(journalposter)}`);
   const actionResponse = useActionData<typeof action>();
 
   const readonly = oppgave.tilstand !== "TilBehandling";

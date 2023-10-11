@@ -6,7 +6,6 @@ interface IProps {
 
 export function Arbeidsforhold(props: IProps) {
   const { arbeidsforhold } = props;
-  console.log(`arbeidsforhold: ${JSON.stringify(arbeidsforhold)}`);
 
   return (
     <>

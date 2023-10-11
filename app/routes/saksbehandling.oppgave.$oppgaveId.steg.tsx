@@ -14,17 +14,18 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const journalposter: IJournalpost[] = [];
-  const [arbeidsforhold] = await Promise.all([
-    hentArbeidsforhold(oppgave.person),
-    oppgave.journalposter.map((journalpostId) => {
-      console.log(`henter journalpost: ${journalpostId}`);
-      return hentJournalpost(request, journalpostId).then((data) => {
-        journalposter.push(data);
-      });
-    }),
+  const journalposterPromise = () => {
+    const promises: Promise<IJournalpost>[] = [];
+    for (const journalpostId of oppgave.journalposter) {
+      promises.push(hentJournalpost(request, journalpostId));
+    }
+    return Promise.all(promises);
+  };
+  const arbeidsforholdPromise = hentArbeidsforhold(oppgave.person);
+  const [journalposter, arbeidsforhold] = await Promise.all([
+    journalposterPromise(),
+    arbeidsforholdPromise,
   ]);
-
   return json({ journalposter, arbeidsforhold });
 }
 
