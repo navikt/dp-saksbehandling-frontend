@@ -14,17 +14,20 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const arbeidsforhold = await hentArbeidsforhold(oppgave.person);
-
   const journalposter: IJournalpost[] = [];
-
-  for (const journalpostId of oppgave.journalposter) {
-    const data = await hentJournalpost(request, journalpostId);
-    journalposter.push(data);
-  }
-  console.log(`henter arbeidsforhold for ${params.oppgaveId}`);
+  const [arbeidsforhold] = await Promise.all([
+    hentArbeidsforhold(oppgave.person),
+    oppgave.journalposter.map((journalpostId) => {
+      console.log(`henter journalpost: ${journalpostId}`);
+      return hentJournalpost(request, journalpostId).then((data) => {
+        journalposter.push(data);
+      });
+    }),
+  ]);
   return json({ journalposter, arbeidsforhold });
 }
+
+// Disse dataene skal aldri hentes på nytt når man driver å behandler oppgaven. Kallet til journalpost+arbeids
 export function shouldRevalidate() {
   return false;
 }

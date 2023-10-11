@@ -2,11 +2,11 @@ import type { IJournalpost } from "~/models/SAF.server";
 
 export const mockJournalpost: IJournalpost = {
   journalpostId: "598116231",
-  tittel: "Søknad om dagpenger (ikke permittert)",
+  tittel: "(mockdata)Søknad om dagpenger (ikke permittert)",
   dokumenter: [
     {
       dokumentInfoId: "624863374",
-      tittel: "Søknad om dagpenger (ikke permittert)",
+      tittel: "(mockdata) Søknad om dagpenger (ikke permittert)",
       brevkode: "NAV 04-01.03",
       originalJournalpostId: "598116231",
       dokumentvarianter: [
