@@ -8,12 +8,14 @@ import styles from "~/route-styles/behandle.module.css";
 import type { IJournalpost } from "~/models/SAF.server";
 import { hentJournalpost } from "~/models/SAF.server";
 import { getSession } from "~/models/auth.server";
+import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
+  const arbeidsforhold = await hentArbeidsforhold(oppgave.person);
 
   const journalposter: IJournalpost[] = [];
 
@@ -22,7 +24,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     journalposter.push(data);
   }
 
-  return json({ oppgave, journalposter });
+  return json({ oppgave, journalposter, arbeidsforhold });
 }
 
 export default function PersonBehandle() {

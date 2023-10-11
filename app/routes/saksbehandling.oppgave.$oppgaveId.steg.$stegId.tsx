@@ -12,6 +12,7 @@ import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/route-styles/stegvisning.module.css";
+import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegId, `params.stegId er påkrevd`);
@@ -49,7 +50,7 @@ export interface Metadata {
 }
 
 export default function PersonBehandleVilkaar() {
-  const { oppgave, journalposter } = useTypedRouteLoaderData(
+  const { oppgave, journalposter, arbeidsforhold } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId",
   );
   const actionResponse = useActionData<typeof action>();
@@ -75,6 +76,8 @@ export default function PersonBehandleVilkaar() {
             variant={"error"}
           >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
+
+        {arbeidsforhold && <Arbeidsforhold arbeidsforhold={arbeidsforhold} />}
       </div>
 
       {journalposter && journalposter.length > 0 && (
