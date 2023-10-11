@@ -20,18 +20,18 @@ export interface IInputProps {
 }
 
 export function Input(props: IInputProps) {
-  const { readonly } = props;
-  const cssClassNames = classNames(styles.input, props.className);
+  const { className, svartype, name, label, description, verdi, readonly, textarea } = props;
+  const cssClassNames = classNames(styles.input, className);
 
-  switch (props.svartype) {
+  switch (svartype) {
     case "Int":
       return (
         <BehandlingStegInputInt
-          name={props.name}
-          svartype={props.svartype}
-          label={props.label || props.svartype}
-          description={props.description}
-          verdi={props.verdi}
+          name={name}
+          svartype={svartype}
+          label={label || svartype}
+          description={description}
+          verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
         />
@@ -40,11 +40,11 @@ export function Input(props: IInputProps) {
     case "Double":
       return (
         <BehandlingStegInputDouble
-          name={props.name}
-          svartype={props.svartype}
-          label={props.label || props.svartype}
-          description={props.description}
-          verdi={props.verdi}
+          name={name}
+          svartype={svartype}
+          label={label || svartype}
+          description={description}
+          verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
         />
@@ -58,11 +58,11 @@ export function Input(props: IInputProps) {
         */
         <div className={cssClassNames}>
           <BehandlingStegInputBoolean
-            name={props.name}
-            svartype={props.svartype}
-            label={props.label || props.svartype}
-            description={props.description}
-            verdi={props.verdi}
+            name={name}
+            svartype={svartype}
+            label={label || svartype}
+            description={description}
+            verdi={verdi}
             readonly={readonly}
           />
         </div>
@@ -71,25 +71,25 @@ export function Input(props: IInputProps) {
     case "LocalDate":
       return (
         <BehandlingStegInputDato
-          name={props.name}
-          svartype={props.svartype}
-          label={props.label || props.svartype}
-          description={props.description}
-          verdi={props.verdi}
+          name={name}
+          svartype={svartype}
+          label={label || svartype}
+          description={description}
+          verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
         />
       );
 
     case "String":
-      if (props.textarea) {
+      if (textarea) {
         return (
           <BehandlingStegInputTextarea
-            name={props.name}
-            svartype={props.svartype}
-            label={props.label || props.svartype}
-            description={props.description}
-            verdi={props.verdi}
+            name={name}
+            svartype={svartype}
+            label={label || svartype}
+            description={description}
+            verdi={verdi}
             readonly={readonly}
             className={cssClassNames}
           />
@@ -97,11 +97,11 @@ export function Input(props: IInputProps) {
       } else {
         return (
           <BehandlingStegInputString
-            name={props.name}
-            svartype={props.svartype}
-            label={props.label || props.svartype}
-            description={props.description}
-            verdi={props.verdi}
+            name={name}
+            svartype={svartype}
+            label={label || svartype}
+            description={description}
+            verdi={verdi}
             readonly={readonly}
             className={cssClassNames}
           />
