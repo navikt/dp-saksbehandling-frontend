@@ -1,5 +1,5 @@
 import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
-import { formatISO } from "date-fns";
+import { formatISO, subYears } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
@@ -20,7 +20,8 @@ export async function hentArbeidssokerStatus(
   const callId = uuid();
   const onBehalfOfToken = await getVeilarbregistreringOboToken(session);
 
-  const fomDato = formatISO(new Date("2022-01-01"), { representation: "date" });
+  // Et år tilbake i tid
+  const fomDato = formatISO(subYears(new Date(), 1), { representation: "date" });
   const tomDato = formatISO(new Date(), { representation: "date" });
 
   const url = `${getEnv(
