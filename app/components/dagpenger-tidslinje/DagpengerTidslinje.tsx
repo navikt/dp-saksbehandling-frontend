@@ -1,20 +1,27 @@
 import { BriefcaseIcon } from "@navikt/aksel-icons";
+import { Alert } from "@navikt/ds-react";
 import { Timeline } from "@navikt/ds-react-internal";
-import type { IArbeidssokerperiode } from "~/models/arbeidssoker.server";
-
+import type { IArbeidssokerStatus } from "~/models/arbeidssoker.server";
+import type { INetworkResponse } from "~/utils/types";
 import styles from "./DagpengerTidslinje.module.css";
 
 interface IProps {
-  arbeidssokerperioder: IArbeidssokerperiode[];
+  arbeidssokerStatus: INetworkResponse<IArbeidssokerStatus>;
 }
 
 export function DagpengerTidslinje(props: IProps) {
-  const { arbeidssokerperioder } = props;
+  const { arbeidssokerStatus } = props;
+
+  if (arbeidssokerStatus.status === "error") {
+    return (
+      <Alert variant="error">{`${arbeidssokerStatus.error.statusCode}: ${arbeidssokerStatus.error.statusText}`}</Alert>
+    );
+  }
 
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
       <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
-        {arbeidssokerperioder?.map((periode) => (
+        {arbeidssokerStatus.data?.arbeidssokerperioder.map((periode) => (
           <Timeline.Period
             key={periode.fraOgMedDato}
             start={new Date(periode.fraOgMedDato)}

@@ -27,7 +27,7 @@ export default function PersonOversikt() {
       <Form method="post" className={styles.stans}>
         <Button type="submit">Stans</Button>
       </Form>
-      <DagpengerTidslinje arbeidssokerperioder={arbeidssokerStatus.arbeidssokerperioder} />
+      <DagpengerTidslinje arbeidssokerStatus={arbeidssokerStatus} />
       <PersonOversiktTabs />
       <Outlet />
     </div>

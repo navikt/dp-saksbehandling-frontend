@@ -3,6 +3,7 @@ import { formatISO, subYears } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import type { INetworkResponse } from "~/utils/types";
 
 export interface IArbeidssokerStatus {
   arbeidssokerperioder: IArbeidssokerperiode[];
@@ -16,7 +17,7 @@ export interface IArbeidssokerperiode {
 export async function hentArbeidssokerStatus(
   session: SessionWithOboProvider,
   fnr: string,
-): Promise<IArbeidssokerStatus> {
+): Promise<INetworkResponse<IArbeidssokerStatus>> {
   const callId = uuid();
   const onBehalfOfToken = await getVeilarbregistreringOboToken(session);
 
@@ -41,11 +42,13 @@ export async function hentArbeidssokerStatus(
   });
 
   if (!response.ok) {
-    throw new Response(null, {
-      status: response.status,
-      statusText: "Feil ved å hente ut arbeidssøkerperioder",
-    });
+    return {
+      status: "error",
+      error: { statusCode: response.status, statusText: response.statusText },
+    };
   }
 
-  return await response.json();
+  const data: IArbeidssokerStatus = await response.json();
+
+  return { status: "success", data };
 }

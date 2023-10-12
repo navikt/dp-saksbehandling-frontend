@@ -4,7 +4,6 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { Personalia } from "~/components/personalia/Personalia";
-import type { IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { hentArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
@@ -40,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       return json({
         error: "Klarte ikke hente personalia",
         person: null,
-        arbeidssokerStatus: { arbeidssokerperioder: [] } as IArbeidssokerStatus,
+        arbeidssokerStatus,
       });
     }
 
@@ -65,7 +64,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return json({
       error: `Feil ved henting av personalia fra PDL`,
       person: null,
-      arbeidssokerStatus: { arbeidssokerperioder: [] } as IArbeidssokerStatus,
+      arbeidssokerStatus,
     });
   }
 }
