@@ -91,11 +91,7 @@ export async function hentOppgave(
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const response = await fetch(url, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeaders(onBehalfOfToken),
   });
 
   if (!response.ok) {
