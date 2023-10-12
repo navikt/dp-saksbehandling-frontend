@@ -26,7 +26,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const [journalposter, arbeidsforhold] = await Promise.all([
     hentJournalposter(),
-    hentArbeidsforhold(oppgave.person),
+    hentArbeidsforhold(session, oppgave.person),
   ]);
 
   return json({ journalposter, arbeidsforhold });
