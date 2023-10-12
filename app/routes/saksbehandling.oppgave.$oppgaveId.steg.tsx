@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
-import { hentJournalpost, type IJournalpost } from "~/models/SAF.server";
+import { hentJournalpost } from "~/models/SAF.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -14,17 +14,21 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const journalposterPromise = () => {
-    const promises: Promise<IJournalpost>[] = [];
-    for (const journalpostId of oppgave.journalposter) {
-      promises.push(hentJournalpost(request, journalpostId));
-    }
+
+  function hentJournalposter() {
+    const promises = oppgave.journalposter.map((journalpostId) =>
+      hentJournalpost(request, journalpostId),
+    );
+
+    // Ingen await her, denne skal resolves senere i neste Promise.all
     return Promise.all(promises);
-  };
+  }
+
   const [journalposter, arbeidsforhold] = await Promise.all([
-    journalposterPromise(),
+    hentJournalposter(),
     hentArbeidsforhold(oppgave.person),
   ]);
+
   return json({ journalposter, arbeidsforhold });
 }
 
