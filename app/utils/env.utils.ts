@@ -15,7 +15,7 @@ interface IEnv {
   DP_RAPPORTERING_TOKEN: string;
   DP_BEHANDLING_TOKEN: string;
   DP_VEDTAK_TOKEN: string;
-  VEIARBPROXY_TOKEN: string;
+  VEILARBPROXY_TOKEN: string;
 }
 
 export function getEnv(value: keyof IEnv) {
