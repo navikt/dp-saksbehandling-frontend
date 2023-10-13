@@ -28,10 +28,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   for (const journalpostId of oppgave.journalposter) {
     const response = await hentJournalpost(request, journalpostId);
 
-    if (response.status === "error") {
-      journalposter.errors = true;
-    }
-
     if (response.status === "success" && response.data) {
       journalposter.data.push(response.data);
     } else {
