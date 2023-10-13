@@ -1,7 +1,7 @@
 import type { GetSessionWithOboProvider, SessionWithOboProvider } from "@navikt/dp-auth";
 import { makeSession } from "@navikt/dp-auth";
 import { azure } from "@navikt/dp-auth/identity-providers";
-import { azure as azureOBO } from "@navikt/dp-auth/obo-providers";
+import { azure as azureOBO, withInMemoryCache } from "@navikt/dp-auth/obo-providers";
 
 const fallbackToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
@@ -16,7 +16,7 @@ if (process.env.IS_LOCALHOST === "true") {
 } else {
   getAzureSession = makeSession({
     identityProvider: azure,
-    oboProvider: azureOBO,
+    oboProvider: withInMemoryCache(azureOBO),
   });
 }
 
