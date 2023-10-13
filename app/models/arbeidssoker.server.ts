@@ -44,7 +44,10 @@ export async function hentArbeidssokerStatus(
   if (!response.ok) {
     return {
       status: "error",
-      error: { statusCode: response.status, statusText: response.statusText },
+      error: {
+        statusCode: response.status,
+        statusText: "Feil ved uthenting av arbeidssøkerstatus",
+      },
     };
   }
 
