@@ -18,7 +18,7 @@ export function DagpengerTidslinje(props: IProps) {
     );
   }
 
-  if (arbeidssokerperioder.length === 0) {
+  if (arbeidssokerStatus.data?.arbeidssokerperioder.length === 0) {
     return <></>;
   }
 
