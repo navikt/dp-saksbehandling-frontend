@@ -7,7 +7,7 @@ import { stansVedtak } from "~/models/vedtak.server";
 import styles from "~/route-styles/person.module.css";
 import { getSession } from "~/models/auth.server";
 import { DagpengerTidslinje } from "~/components/dagpenger-tidslinje/DagpengerTidslinje";
-import { useTypedRouteLoaderData } from "~/utils/type-guards";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "OppgaveId må være satt");
