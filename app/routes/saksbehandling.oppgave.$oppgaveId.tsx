@@ -9,26 +9,37 @@ import type { IJournalpost } from "~/models/SAF.server";
 import { hentJournalpost } from "~/models/SAF.server";
 import { getSession } from "~/models/auth.server";
 
+interface IJournalposter {
+  data: IJournalpost[];
+  errors: boolean;
+}
+
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
 
-  const journalposter: IJournalpost[] = [];
-  let journalpostError = false;
+  const journalposter: IJournalposter = {
+    data: [],
+    errors: false,
+  };
 
   for (const journalpostId of oppgave.journalposter) {
     const response = await hentJournalpost(request, journalpostId);
 
+    if (response.status === "error") {
+      journalposter.errors = true;
+    }
+
     if (response.status === "success" && response.data) {
-      journalposter.push(response.data);
+      journalposter.data.push(response.data);
     } else {
-      journalpostError = true;
+      journalposter.errors = true;
     }
   }
 
-  return json({ oppgave, journalposter, journalpostError });
+  return json({ oppgave, journalposter });
 }
 
 export default function PersonBehandle() {

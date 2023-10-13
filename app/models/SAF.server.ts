@@ -1,4 +1,4 @@
-import { logger } from "../../server/logger";
+import { logger, sikkerLogger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { getSaksbehandler, getSession } from "./auth.server";
@@ -68,6 +68,7 @@ export async function hentJournalpost(
   } catch (error: unknown) {
     logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
 
     return {
       status: "error",
