@@ -18,6 +18,10 @@ export function DagpengerTidslinje(props: IProps) {
     );
   }
 
+  if (arbeidssokerperioder.length === 0) {
+    return <></>;
+  }
+
   return (
     <Timeline className={styles.dagpengerTidslinjeKontainer}>
       <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
