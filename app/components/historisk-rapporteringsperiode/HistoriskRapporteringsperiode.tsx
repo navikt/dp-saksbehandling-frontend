@@ -9,8 +9,8 @@ interface IProps {
 }
 
 export function HistoriskRapporteringsperiode(props: IProps) {
-  const { periode } = props;
-  const historikkHentet = props.historiskPeriode?.id === periode.korrigerer;
+  const { historiskPeriode, periode } = props;
+  const historikkHentet = historiskPeriode?.id === periode.korrigerer;
 
   return (
     <>
@@ -23,9 +23,7 @@ export function HistoriskRapporteringsperiode(props: IProps) {
           <Heading level="3" size="small" spacing>
             Historisk periode
           </Heading>
-          {props.historiskPeriode && (
-            <RapporteringsperiodeDetaljer periode={props.historiskPeriode} />
-          )}
+          {historiskPeriode && <RapporteringsperiodeDetaljer periode={historiskPeriode} />}
         </div>
       )}
 
@@ -38,7 +36,7 @@ export function HistoriskRapporteringsperiode(props: IProps) {
         </Form>
       )}
 
-      {props.historiskPeriode?.korrigerer && (
+      {historiskPeriode?.korrigerer && (
         <Alert variant="warning" className="my-3">
           Det finnes flere historiske perioder som ikke vises her.
         </Alert>

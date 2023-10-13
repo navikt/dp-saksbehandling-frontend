@@ -1,9 +1,9 @@
 import { type IBehandlingSteg } from "~/models/oppgave.server";
+import { BehandlingStegForslagTilVedtak } from "~/views/behandling-steg/behandling-steg-forslag-til-vedtak/BehandlingStegForslagTilVedtak";
+import { BehandlingsStegFattVedtak } from "~/views/behandling-steg/behandlings-steg-fatt-vedtak/BehandlingsStegFattVedtak";
 import { BehandlingStegGenerell } from "./BehandlingStegGenerell";
 import { BehandlingStegPeriode } from "./BehandlingStegPeriode";
 import { BehandlingStegRettighetstype } from "./BehandlingStegRettighetstype";
-import { BehandlingStegForslagTilVedtak } from "~/views/behandling-steg/behandling-steg-forslag-til-vedtak/BehandlingStegForslagTilVedtak";
-import { BehandlingsStegFattVedtak } from "~/views/behandling-steg/behandlings-steg-fatt-vedtak/BehandlingsStegFattVedtak";
 
 export interface IProps {
   steg: IBehandlingSteg;
@@ -11,7 +11,9 @@ export interface IProps {
 }
 
 export function BehandlingSteg(props: IProps) {
-  switch (props.steg.id) {
+  const { steg } = props;
+
+  switch (steg.id) {
     case "Periode":
       return <BehandlingStegPeriode {...props} />;
 

@@ -1,20 +1,20 @@
 import { Textarea } from "@navikt/ds-react";
-import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { useField } from "remix-validated-form";
+import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 
 export function BehandlingStegInputTextarea(props: IInputProps) {
-  const { readonly, label, description } = props;
-  const { error, getInputProps } = useField(props.name);
+  const { name, verdi, readonly, className, label, description } = props;
+  const { error, getInputProps } = useField(name);
 
   return (
     <Textarea
-      defaultValue={props.verdi}
+      defaultValue={verdi}
       error={error}
       resize={true}
       readOnly={readonly}
-      className={props.className}
+      className={className}
       {...getInputProps({
-        id: props.name,
+        id: name,
         label: <>{label}</>,
         ...(description && { description: <>{description}</> }),
         description: <>{description}</>,

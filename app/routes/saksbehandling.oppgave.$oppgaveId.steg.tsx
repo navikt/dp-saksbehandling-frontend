@@ -6,8 +6,13 @@ import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
-import { hentJournalpost } from "~/models/SAF.server";
+import { hentJournalpost, type IJournalpost } from "~/models/SAF.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
+interface IJournalposter {
+  data: IJournalpost[];
+  errors: boolean;
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -24,10 +29,23 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return Promise.all(promises);
   }
 
-  const [journalposter, arbeidsforhold] = await Promise.all([
+  const [journalpostResponses, arbeidsforhold] = await Promise.all([
     hentJournalposter(),
     hentArbeidsforhold(session, oppgave.person),
   ]);
+
+  const journalposter: IJournalposter = {
+    data: [],
+    errors: false,
+  };
+
+  for (const response of journalpostResponses) {
+    if (response.status === "success" && response.data) {
+      journalposter.data.push(response.data);
+    } else {
+      journalposter.errors = true;
+    }
+  }
 
   return json({ journalposter, arbeidsforhold });
 }

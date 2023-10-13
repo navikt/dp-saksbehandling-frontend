@@ -11,21 +11,22 @@ export interface IProps {
 }
 
 export function AktivitetRadio(props: IProps) {
-  const { error, getInputProps } = useField(props.name);
+  const { name, verdi, label, onChange, muligeAktiviteter } = props;
+  const { error, getInputProps } = useField(name);
 
   const inputProps: { type: string; value: string } = getInputProps({
     type: "radio",
-    value: props.verdi || "",
+    value: verdi || "",
   });
 
   return (
     <RadioGroup
-      legend={props.label}
+      legend={label}
       error={!inputProps.value ? error : undefined}
       {...inputProps}
-      onChange={props.onChange}
+      onChange={onChange}
     >
-      {props.muligeAktiviteter.map((aktivitet) => (
+      {muligeAktiviteter.map((aktivitet) => (
         <Radio key={aktivitet} value={aktivitet}>
           {aktivitet}
         </Radio>

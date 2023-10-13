@@ -1,9 +1,10 @@
-import { logger } from "../../server/logger";
+import { logger, sikkerLogger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { getSaksbehandler, getSession } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
+import { type INetworkResponse } from "~/utils/types";
 
 export interface IJournalpost {
   journalpostId: string;
@@ -28,9 +29,12 @@ interface IJournalpostDokumentvariant {
 export async function hentJournalpost(
   request: Request,
   journalpostId: string,
-): Promise<IJournalpost> {
+): Promise<INetworkResponse<IJournalpost>> {
   if (getEnv("IS_LOCALHOST") === "true") {
-    return mockJournalpost;
+    return {
+      status: "success",
+      data: mockJournalpost,
+    };
   }
 
   const session = await getSession(request);
@@ -53,24 +57,26 @@ export async function hentJournalpost(
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
-    const data = await client.request(journalpostGrapqlQuery, { journalpostId });
+    const response = await client.request(journalpostGrapqlQuery, { journalpostId });
     // TODO Fiks typer på graphql
     // Graphql returnerer et object med property journalpost som inneholder en journalpost.
-    // @ts-ignore
-    return data.journalpost;
+    return {
+      status: "success",
+      // @ts-ignore
+      data: response.journalpost,
+    };
   } catch (error: unknown) {
     logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
-    if (error instanceof Error) {
-      //todo: greie å lese errorobjektet som graphql error, eksempel:
-      //Error: tekst: {"response":{"errors":[{"message":"Tilgang til ressurs (journalpost/dokument) ble avvist.","extensions":{"code":"forbidden","classification":"ExecutionAborted"}}],"data":"xxx"}}
-      throw new Response(
-        `Feil ved henting av dokumenter, antakeligvis tilgangsproblemer. ${error.message}`,
-        {
-          status: 500,
-        },
-      );
-    }
-    throw new Response(`Feil ved henting av dokumenter.`, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
+
+    return {
+      status: "error",
+      error: {
+        statusCode: 500,
+        statusText: errorMessage,
+      },
+    };
   }
 }
 

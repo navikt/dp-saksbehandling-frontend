@@ -8,16 +8,17 @@ export interface IProps {
 }
 
 export function AktivitetTekstfelt(props: IProps) {
-  const { error, getInputProps } = useField(props.name);
+  const { name, verdi, label } = props;
+  const { error, getInputProps } = useField(name);
   return (
     <TextField
       type="text"
       inputMode="numeric"
-      defaultValue={props.verdi}
+      defaultValue={verdi}
       error={error}
       {...getInputProps({
-        id: props.name,
-        label: <>{props.label}</>,
+        id: name,
+        label: <>{label}</>,
       })}
     />
   );

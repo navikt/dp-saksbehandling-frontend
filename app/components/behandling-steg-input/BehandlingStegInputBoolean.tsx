@@ -1,20 +1,19 @@
-import React from "react";
 import { Radio, RadioGroup } from "@navikt/ds-react";
-import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 import { useField } from "remix-validated-form";
+import type { IInputProps } from "~/components/behandling-steg-input/BehandlingStegInput";
 
 export function BehandlingStegInputBoolean(props: IInputProps) {
-  const { readonly } = props;
-  const { error, getInputProps } = useField(props.name);
+  const { name, verdi, readonly, label } = props;
+  const { error, getInputProps } = useField(name);
 
   return (
     <RadioGroup
       error={error}
-      defaultValue={props.verdi}
+      defaultValue={verdi}
       readOnly={readonly}
       {...getInputProps({
-        id: props.name,
-        legend: <>{props.label}</>,
+        id: name,
+        legend: <>{label}</>,
         children: undefined, // Needed to keep typescript happy
       })}
     >
