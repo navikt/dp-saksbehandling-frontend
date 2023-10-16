@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
-
 # Regular Colors
 Green='\033[0;32m'        # Green
 Yellow='\033[0;33m'       # Yellow
@@ -63,10 +61,6 @@ function init() {
       generateEnvWithOboToken "$env" "$url" "$cookie"
   done
 
-  # Updating generated env's to .env file
-  echo -e "\n"
-  echo -e "${Cyan}🚀 Updating .env file ..."
-
   # Try to use this data to update env file instead of echo this
   # echo ${envList[@]}
 }
@@ -79,13 +73,13 @@ function generateEnvWithOboToken() {
   url=$2 | tr -d '"'
   cookie=$3
 
-  echo -e "${Cyan}🤖 Generating ${Yellow}${env}"
 
   # Store access token in variable
   accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
 
-  # Update envList array
-  envList+=("$env=$accessToken")
+  echo -e "✅ ${env}=${accessToken}"
+  # sed -i~ '/^${env}=/s/=.*/="${accessToken}"/' .env
+  # echo -e "✅ ${Yellow}${env} ${Cyan} updated"
 }
 
 # Start script
