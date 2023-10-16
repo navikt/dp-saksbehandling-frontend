@@ -8,9 +8,6 @@ BPurple='\033[1;35m'      # Purple bold
 BCyan='\033[1;36m'        # Cyan bold
 UGreen='\033[4;32m'       # Green underline
 
-# tokgen-generator json configuration file
-configFile='token-generator.config.json'
-
 # Env file 
 envFile='.env'
 
@@ -37,9 +34,9 @@ function init() {
 
 function handleWonderwalledAzure() {
   # First wonderwalled-azure url from json config
-  url=$(jq '.' $configFile | jq '.wonderwalledAzure | .[0].url' | tr -d '"')
+  url=$(jq '.' token-generator.config.json | jq '.wonderwalledAzure | .[0].url' | tr -d '"')
   
-  # Show link to wonderwall to user
+  # Show link to wonderwalledAzure to user
   echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
@@ -48,9 +45,8 @@ function handleWonderwalledAzure() {
   read wonderwalledAzureCookie
   echo -e "\n"
 
-
   # Loop through wonderwalledAzure configs and create environment variable
-  for config in $(jq -r '.wonderwalledAzure | .[] | @base64' $configFile);
+  for config in $(jq -r '.wonderwalledAzure | .[] | @base64' token-generator.config.json);
     do
       _jq() {
         echo ${config} | base64 --decode | jq -r ${1}
@@ -61,13 +57,15 @@ function handleWonderwalledAzure() {
 
       generateAndUpdateEnvFile "$env" "$url" "$wonderwalledAzureCookie"
   done
+
+  echo -e "\n"
 }
 
 function handleAzureTokenGenerator() {
   # First azure-token-generator url from json config
-  url=$(jq '.' $configFile | jq '.azureTokenGenerator | .[0].url' | tr -d '"')
+  url=$(jq '.' token-generator.config.json | jq '.azureTokenGenerator | .[0].url' | tr -d '"')
   
-  # Show link to wonderwall to user
+  # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
@@ -77,7 +75,7 @@ function handleAzureTokenGenerator() {
   echo -e "\n"
 
   # Loop through wonderwalledAzure configs and create environment variable
-  for config in $(jq -r '.azureTokenGenerator | .[] | @base64' $config);
+  for config in $(jq -r '.azureTokenGenerator | .[] | @base64' token-generator.config.json);
     do
       _jq() {
         echo ${config} | base64 --decode | jq -r ${1}
@@ -88,6 +86,8 @@ function handleAzureTokenGenerator() {
 
       generateAndUpdateEnvFile "$env" "$url" "$azureTokenGeneratorCookie"
   done
+
+  echo -e "\n"
 }
 
 
