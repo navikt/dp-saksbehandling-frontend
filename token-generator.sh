@@ -3,9 +3,8 @@
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 Cyan='\033[0;36m'         # Cyan
 Red='\033[0;31m'          # Red
-BYellow='\033[1;33m'      # Yellow bold
+Yellow='\033[0;33m'       # Yellow
 BPurple='\033[1;35m'      # Purple bold
-BCyan='\033[1;36m'        # Cyan bold
 UGreen='\033[4;32m'       # Green underline
 
 # Env file 
@@ -20,7 +19,7 @@ function verifyJQ() {
 # Main script
 function init() {
   # Welcome text
-  echo -e "${BCyan}::: ${BPurple}dp-saksbehandling-frontend obo-token generator ${BCyan}::: \n"
+  echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend obo-token generator ${Cyan}::: \n"
 
   # Check if jq package is installed 
   verifyJQ
@@ -41,7 +40,7 @@ function handleWonderwalledAzure() {
   
   # Show link to wonderwalledAzure to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
-  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie from ${BYellow}DevTools > Application > Cookies"
+  echo -e "${Cyan}Find and copy ${Yellow}io.nais.wonderwall.session ${Cyan}cookie from ${Yellow}DevTools > Application > Cookies"
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste in cookie: "
@@ -70,7 +69,7 @@ function handleAzureTokenGenerator() {
   
   # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
-  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie from ${BYellow}DevTools > Application > Cookies"
+  echo -e "${Cyan}Find and copy ${Yellow}io.nais.wonderwall.session ${Cyan}cookie from ${Yellow}DevTools > Application > Cookies"
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste in cookie: "
@@ -106,7 +105,7 @@ function generateAndUpdateEnvFile() {
   accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
 
   if [ -z $accessToken ]; then
-    echo -e "❌ ${BYellow}${env} ${Red} error"
+    echo -e "❌ ${Yellow}${env} ${Red} error"
   else
      # Full generated env string
     generatedEnv="${env}=${accessToken}"
@@ -114,7 +113,7 @@ function generateAndUpdateEnvFile() {
     # Update generated env string to env file
     printf '%s\n' H ",g/^${env}.*/s//${generatedEnv}/" wq | ed -s "$envFile"
 
-    echo -e "✅ ${BYellow}${env} ${Cyan}updated"
+    echo -e "✅ ${Yellow}${env} ${Cyan}updated"
   fi
 }
 
