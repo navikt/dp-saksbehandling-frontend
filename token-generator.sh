@@ -44,7 +44,7 @@ function handleWonderwalledAzure() {
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
   # Ask for wonderwall cookie,
-  echo -e "${Cyan}Paste inn cookie: "
+  echo -e "${Cyan}Paste in cookie: "
   read wonderwalledAzureCookie
   echo -e "\n"
 
@@ -73,7 +73,7 @@ function handleAzureTokenGenerator() {
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
   # Ask for wonderwall cookie,
-  echo -e "${Cyan}Paste inn cookie: "
+  echo -e "${Cyan}Paste in cookie: "
   read azureTokenGeneratorCookie
   echo -e "\n"
 
@@ -120,6 +120,3 @@ function generateAndUpdateEnvFile() {
 
 # Start script
 init
-
-
-
