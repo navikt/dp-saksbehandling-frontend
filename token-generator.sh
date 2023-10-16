@@ -9,7 +9,7 @@ BCyan='\033[1;36m'        # Cyan bold
 UGreen='\033[4;32m'       # Green underline
 
 # tokgen-generator json configuration file
-config='token-generator.config.json'
+configFile='token-generator.config.json'
 
 # Env file 
 envFile='.env'
@@ -28,8 +28,16 @@ function init() {
   # Check if jq package is installed 
   verifyJQ
 
-  # First url from json config
-  url=$(jq '.' $config | jq '.[0].url' | tr -d '"')
+  # Generate wonderwalled-azure token
+  handleWonderwalledAzure
+
+  # Generate azure-token-generator token
+  handleAzureTokenGenerator
+}
+
+function handleWonderwalledAzure() {
+  # First wonderwalled-azure url from json config
+  url=$(jq '.' $configFile | jq '.wonderwalledAzure | .[0].url' | tr -d '"')
   
   # Show link to wonderwall to user
   echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
@@ -37,12 +45,12 @@ function init() {
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste inn cookie: "
-  read cookie
+  read wonderwalledAzureCookie
   echo -e "\n"
 
 
-  # Loop through configs and create environment variable
-  for config in $(jq -r '.[] | @base64' $config);
+  # Loop through wonderwalledAzure configs and create environment variable
+  for config in $(jq -r '.wonderwalledAzure | .[] | @base64' $configFile);
     do
       _jq() {
         echo ${config} | base64 --decode | jq -r ${1}
@@ -51,16 +59,41 @@ function init() {
       env=$(_jq '.env')
       url=$(_jq '.url')
 
-      generateEnvWithOboToken "$env" "$url" "$cookie"
+      generateAndUpdateEnvFile "$env" "$url" "$wonderwalledAzureCookie"
   done
-
-  # Try to use this data to update env file instead of echo this
-  # echo ${envList[@]}
 }
+
+function handleAzureTokenGenerator() {
+  # First azure-token-generator url from json config
+  url=$(jq '.' $configFile | jq '.azureTokenGenerator | .[0].url' | tr -d '"')
+  
+  # Show link to wonderwall to user
+  echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
+  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
+
+  # Ask for wonderwall cookie,
+  echo -e "${Cyan}Paste inn cookie: "
+  read azureTokenGeneratorCookie
+  echo -e "\n"
+
+  # Loop through wonderwalledAzure configs and create environment variable
+  for config in $(jq -r '.azureTokenGenerator | .[] | @base64' $config);
+    do
+      _jq() {
+        echo ${config} | base64 --decode | jq -r ${1}
+      }
+
+      env=$(_jq '.env')
+      url=$(_jq '.url')
+
+      generateAndUpdateEnvFile "$env" "$url" "$azureTokenGeneratorCookie"
+  done
+}
+
 
 # This function make curl request with `-b` flag to send cookie with the request
 # | jq ".access_token" returns oboToken string
-function generateEnvWithOboToken() {
+function generateAndUpdateEnvFile() {
   # function parameters
   env=$1
   url=$2 | tr -d '"'
@@ -70,7 +103,7 @@ function generateEnvWithOboToken() {
   accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
 
   if [ -z $accessToken ]; then
-    echo -e "❌ ${BYellow}${env} ${Red}error"
+    echo -e "❌ ${BYellow}${env} ${Red} error"
   else
      # Full generated env string
     generatedEnv="${env}=${accessToken}"
