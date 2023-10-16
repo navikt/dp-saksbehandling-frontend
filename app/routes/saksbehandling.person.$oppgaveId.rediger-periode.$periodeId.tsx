@@ -26,6 +26,7 @@ import { getSession } from "~/models/auth.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.periodeId, `Fant ikke rapporteringsperiode`);
+
   const session = await getSession(request);
   const rapporteringsperiode = await hentRapporteringsperiode(params.periodeId, session);
 

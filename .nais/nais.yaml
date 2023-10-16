@@ -50,6 +50,8 @@ spec:
       value: {{dp-rapportering_url}}
     - name: DP_VEDTAK_URL
       value: {{dp-vedtak_url}}
+    - name: VEILARBPROXY_URL
+      value: {{veilarbproxyUrl}}
   accessPolicy:
     outbound:
       external:
@@ -63,6 +65,8 @@ spec:
         - application: dp-rapportering
         - application: dp-vedtak
         - application: dp-iverksett
+        - application: veilarbregistrering
+          namespace: paw
   azure:
     application:
       tenant: {{azure.tenant}}

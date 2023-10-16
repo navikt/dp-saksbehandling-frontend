@@ -23,6 +23,7 @@ import { getSession } from "~/models/auth.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
+
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
   const rapporteringsperioder = await hentRapporteringsperioder(oppgave.person, session);

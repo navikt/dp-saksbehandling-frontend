@@ -11,6 +11,7 @@ import { getSession } from "~/models/auth.server";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
+
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
   const vedtak = await hentVedtak(oppgave.person, session);
