@@ -41,7 +41,7 @@ function handleWonderwalledAzure() {
   
   # Show link to wonderwalledAzure to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
-  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
+  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie from ${BYellow}DevTools > Application > Cookies"
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste in cookie: "
@@ -70,7 +70,7 @@ function handleAzureTokenGenerator() {
   
   # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
-  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
+  echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie from ${BYellow}DevTools > Application > Cookies"
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste in cookie: "
