@@ -19,8 +19,8 @@ UGreen='\033[4;32m'       # Green
 # tokgen-generator json configuration file
 config='token-generator.config.json'
 
-# Store generated env to something later
-declare -a envList
+# Env file
+envFile='.env'
 
 # Check if user has `jq` installed
 # https://formulae.brew.sh/formula/jq
@@ -46,7 +46,6 @@ function init() {
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste inn cookie: "
   read cookie
-
 
   # Loop through configs and create environment variable
   for config in $(jq -r '.[] | @base64' $config);
@@ -77,9 +76,13 @@ function generateEnvWithOboToken() {
   # Store access token in variable
   accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
 
+  # Full generated env string
+  generatedEnv="${env}=${accessToken}"
+
+  # Update env file
+  printf '%s\n' H ",g/^${env}.*/s//${generatedEnv}/" wq | ed -s "$envFile"
+
   echo -e "✅ ${env}=${accessToken}"
-  # sed -i~ '/^${env}=/s/=.*/="${accessToken}"/' .env
-  # echo -e "✅ ${Yellow}${env} ${Cyan} updated"
 }
 
 # Start script
