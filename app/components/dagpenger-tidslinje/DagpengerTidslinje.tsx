@@ -13,8 +13,20 @@ export function DagpengerTidslinje(props: IProps) {
   const { arbeidssokerStatus } = props;
 
   if (arbeidssokerStatus.status === "error") {
+    if (arbeidssokerStatus.error.statusCode === 401) {
+      return (
+        <Alert
+          variant="error"
+          className="my-2"
+        >{`${arbeidssokerStatus.error.statusCode}: Denne bruker har ikke tilgang til å hente arbeidssøker status. Mangler Gosys-Nasjonal-gruppen rollen.`}</Alert>
+      );
+    }
+
     return (
-      <Alert variant="error">{`${arbeidssokerStatus.error.statusCode}: ${arbeidssokerStatus.error.statusText}`}</Alert>
+      <Alert
+        variant="error"
+        className="my-2"
+      >{`${arbeidssokerStatus.error.statusCode}: ${arbeidssokerStatus.error.statusText}`}</Alert>
     );
   }
 
