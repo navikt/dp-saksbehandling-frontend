@@ -11,6 +11,9 @@ UGreen='\033[4;32m'       # Green underline
 # Env file 
 envFile='.env'
 
+# json config 
+jsonConfig='token-generator.config.json'
+
 # Check if user has `jq` installed
 # https://formulae.brew.sh/formula/jq
 function verifyJQ() {
@@ -26,47 +29,22 @@ function init() {
   verifyJQ
 
   # Generate wonderwalled-azure token
-  handleWonderwalledAzure
+  startTokenGenerator "wonderwalledAzure"
 
   # Generate azure-token-generator token
-  handleAzureTokenGenerator
+  startTokenGenerator "azureTokenGenerator"
 
+  # Finished
   sleep 1
   echo -e "🌈 ${Purple}You're good to go! Restart your dev-server."
 }
 
-function handleWonderwalledAzure() {
-  # First wonderwalled-azure url from json config
-  url=$(jq '.' token-generator.config.json | jq '.wonderwalledAzure | .[0].url' | tr -d '"')
-  
-  # Show link to wonderwalledAzure to user
-  echo -e "${Cyan}Visit: ${UGreen}${url}\n"
-  echo -e "${Cyan}Find and copy ${Yellow}io.nais.wonderwall.session ${Cyan}cookie from ${Yellow}DevTools > Application > Cookies"
+function startTokenGenerator() {
+  # Function parameter. wonderwalledAzure or azureTokenGenerator
+  tokenType=$1
 
-  # Ask for wonderwall cookie,
-  echo -e "${Cyan}Paste in cookie: "
-  read wonderwalledAzureCookie
-  echo -e "\n"
-
-  # Loop through wonderwalledAzure configs and create environment variable
-  for config in $(jq -r '.wonderwalledAzure | .[] | @base64' token-generator.config.json);
-    do
-      _jq() {
-        echo ${config} | base64 --decode | jq -r ${1}
-      }
-
-      env=$(_jq '.env')
-      url=$(_jq '.url')
-
-      generateAndUpdateEnvFile "$env" "$url" "$wonderwalledAzureCookie"
-  done
-
-  echo -e "\n"
-}
-
-function handleAzureTokenGenerator() {
   # First azure-token-generator url from json config
-  url=$(jq '.' token-generator.config.json | jq '.azureTokenGenerator | .[0].url' | tr -d '"')
+  url=$(jq '.' $jsonConfig | jq '.'\"$tokenType\"' | .[0].url' | tr -d '"')
   
   # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
@@ -74,11 +52,13 @@ function handleAzureTokenGenerator() {
 
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste in cookie: "
-  read azureTokenGeneratorCookie
+  read cookie
   echo -e "\n"
 
+  configArray=$(jq -r '.'\"$tokenType\"' | .[] | @base64' $jsonConfig)
+
   # Loop through wonderwalledAzure configs and create environment variable
-  for config in $(jq -r '.azureTokenGenerator | .[] | @base64' token-generator.config.json);
+  for config in $configArray;
     do
       _jq() {
         echo ${config} | base64 --decode | jq -r ${1}
@@ -87,7 +67,7 @@ function handleAzureTokenGenerator() {
       env=$(_jq '.env')
       url=$(_jq '.url')
 
-      generateAndUpdateEnvFile "$env" "$url" "$azureTokenGeneratorCookie"
+      generateAndUpdateEnvFile "$env" "$url" "$cookie"
   done
 
   echo -e "\n"
