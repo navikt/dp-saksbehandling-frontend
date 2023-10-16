@@ -4,6 +4,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { Personalia } from "~/components/personalia/Personalia";
+import { hentArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import type { IPerson } from "~/models/pdl.server";
@@ -15,12 +16,18 @@ export const shouldRevalidate = () => false;
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
+
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
+  const arbeidssokerStatus = await hentArbeidssokerStatus(session, oppgave.person);
 
   if (getEnv("IS_LOCALHOST") === "true") {
     const mockPerson = await mockHentPerson();
-    return json({ error: null, person: mockPerson });
+    return json({
+      error: null,
+      person: mockPerson,
+      arbeidssokerStatus,
+    });
   }
 
   try {
@@ -29,7 +36,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     sikkerLogger.info(`responseData.hentPerson: ${responseData.hentPerson}`);
 
     if (!responseData.hentPerson) {
-      return json({ error: "Klarte ikke hente personalia", person: null });
+      return json({
+        error: "Klarte ikke hente personalia",
+        person: null,
+        arbeidssokerStatus,
+      });
     }
 
     const personData = responseData.hentPerson;
@@ -47,10 +58,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       antallBarn: 0,
     };
 
-    return json({ person, error: null });
+    return json({ error: null, person, arbeidssokerStatus });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
-    return json({ person: null, error: `Feil ved henting av personalia fra PDL` });
+    return json({
+      error: `Feil ved henting av personalia fra PDL`,
+      person: null,
+      arbeidssokerStatus,
+    });
   }
 }
 

@@ -71,13 +71,11 @@ export default function PersonBehandleVilkaar() {
         <BehandlingSteg steg={steg} readonly={readonly} />
 
         {actionResponse?.status === "error" && (
-          <Alert
-            variant={"error"}
-          >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
+          <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
       </div>
 
-      {journalposter && journalposter.data.length > 0 && (
+      {journalposter?.data?.length > 0 && (
         <div className={styles.dokumentContainer}>
           <PDFLeser journalposter={journalposter.data} />
         </div>
