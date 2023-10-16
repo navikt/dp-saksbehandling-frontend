@@ -3,6 +3,7 @@
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 Cyan='\033[0;36m'         # Cyan
 Red='\033[0;31m'          # Red
+Purple='\033[0;35m'       # Purple
 Yellow='\033[0;33m'       # Yellow
 BPurple='\033[1;35m'      # Purple bold
 UGreen='\033[4;32m'       # Green underline
@@ -19,7 +20,7 @@ function verifyJQ() {
 # Main script
 function init() {
   # Welcome text
-  echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend obo-token generator ${Cyan}::: \n"
+  echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend token generator ${Cyan}::: \n"
 
   # Check if jq package is installed 
   verifyJQ
@@ -31,7 +32,7 @@ function init() {
   handleAzureTokenGenerator
 
   sleep 1
-  echo -e "🌈 ${BPurple}You're good to go! Restart your dev-server."
+  echo -e "🌈 ${Purple}You're good to go! Restart your dev-server."
 }
 
 function handleWonderwalledAzure() {
