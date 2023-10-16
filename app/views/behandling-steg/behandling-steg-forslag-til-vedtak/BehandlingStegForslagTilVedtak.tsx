@@ -1,9 +1,8 @@
-import React from "react";
 import { Button, Heading } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
-import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import { hentFormattertDato } from "~/utils/dato.utils";
+import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 
 export function BehandlingStegForslagTilVedtak(props: IProps) {
   const { steg, readonly } = props;
@@ -18,7 +17,7 @@ export function BehandlingStegForslagTilVedtak(props: IProps) {
   return (
     <Form method="post">
       <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
-      <input name={props.steg.uuid} type="hidden" value={"true"} />
+      <input name={steg.uuid} type="hidden" value={"true"} />
       <input name={"begrunnelse"} type="hidden" value={""} />
       <Heading size="medium">Forslag til vedtak</Heading>
 

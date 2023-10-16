@@ -75,9 +75,17 @@ export default function PersonBehandleVilkaar() {
         )}
       </div>
 
-      {journalposter?.length > 0 && (
+      {journalposter?.data?.length > 0 && (
         <div className={styles.dokumentContainer}>
-          <PDFLeser journalposter={journalposter} />
+          <PDFLeser journalposter={journalposter.data} />
+        </div>
+      )}
+
+      {journalposter.errors && (
+        <div className={styles.dokumentContainer}>
+          <Alert variant="error" className="my-4">
+            En feil oppsto når vi skulle hente ut dokumentene.
+          </Alert>
         </div>
       )}
     </div>
