@@ -30,6 +30,9 @@ function init() {
 
   # Generate azure-token-generator token
   handleAzureTokenGenerator
+
+  sleep 1
+  echo -e "🌈 ${BPurple}You're good to go! Restart your dev-server."
 }
 
 function handleWonderwalledAzure() {
@@ -37,7 +40,7 @@ function handleWonderwalledAzure() {
   url=$(jq '.' token-generator.config.json | jq '.wonderwalledAzure | .[0].url' | tr -d '"')
   
   # Show link to wonderwalledAzure to user
-  echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
+  echo -e "${Cyan}Visit: ${UGreen}${url}\n"
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
   # Ask for wonderwall cookie,
@@ -66,7 +69,7 @@ function handleAzureTokenGenerator() {
   url=$(jq '.' token-generator.config.json | jq '.azureTokenGenerator | .[0].url' | tr -d '"')
   
   # Show link to azureTokenGenerator to user
-  echo -e "${Cyan}Sign in to: ${UGreen}${url}\n"
+  echo -e "${Cyan}Visit: ${UGreen}${url}\n"
   echo -e "${Cyan}Find and copy ${BYellow}io.nais.wonderwall.session ${Cyan}cookie"
 
   # Ask for wonderwall cookie,
