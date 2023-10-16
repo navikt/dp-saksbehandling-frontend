@@ -1,25 +1,17 @@
 #!/usr/bin/env bash
 
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
-# Regular Colors
-Green='\033[0;32m'        # Green
-Yellow='\033[0;33m'       # Yellow
-Purple='\033[0;35m'       # Purple
 Cyan='\033[0;36m'         # Cyan
-
-# Bold
-BGreen='\033[1;32m'       # Green
-BYellow='\033[1;33m'      # Yellow
-BPurple='\033[1;35m'      # Purple
-BCyan='\033[1;36m'        # Cyan
-
-# Underline
-UGreen='\033[4;32m'       # Green
+Red='\033[0;31m'          # Red
+BYellow='\033[1;33m'      # Yellow bold
+BPurple='\033[1;35m'      # Purple bold
+BCyan='\033[1;36m'        # Cyan bold
+UGreen='\033[4;32m'       # Green underline
 
 # tokgen-generator json configuration file
 config='token-generator.config.json'
 
-# Env file
+# Env file 
 envFile='.env'
 
 # Check if user has `jq` installed
@@ -46,6 +38,8 @@ function init() {
   # Ask for wonderwall cookie,
   echo -e "${Cyan}Paste inn cookie: "
   read cookie
+  echo -e "\n"
+
 
   # Loop through configs and create environment variable
   for config in $(jq -r '.[] | @base64' $config);
@@ -72,17 +66,20 @@ function generateEnvWithOboToken() {
   url=$2 | tr -d '"'
   cookie=$3
 
-
   # Store access token in variable
   accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
 
-  # Full generated env string
-  generatedEnv="${env}=${accessToken}"
+  if [ -z $accessToken ]; then
+    echo -e "❌ ${BYellow}${env} ${Red}error"
+  else
+     # Full generated env string
+    generatedEnv="${env}=${accessToken}"
 
-  # Update env file
-  printf '%s\n' H ",g/^${env}.*/s//${generatedEnv}/" wq | ed -s "$envFile"
+    # Update generated env string to env file
+    printf '%s\n' H ",g/^${env}.*/s//${generatedEnv}/" wq | ed -s "$envFile"
 
-  echo -e "✅ ${env}=${accessToken}"
+    echo -e "✅ ${BYellow}${env} ${Cyan}updated"
+  fi
 }
 
 # Start script
