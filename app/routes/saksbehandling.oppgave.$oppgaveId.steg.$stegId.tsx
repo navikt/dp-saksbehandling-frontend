@@ -76,7 +76,9 @@ export default function PersonBehandleVilkaar() {
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
 
-        {arbeidsforhold && <Arbeidsforhold arbeidsforhold={arbeidsforhold} />}
+        {arbeidsforhold.status === "success" && (
+          <Arbeidsforhold arbeidsforhold={arbeidsforhold.data || []} />
+        )}
       </div>
 
       {journalposter?.data?.length > 0 && (
