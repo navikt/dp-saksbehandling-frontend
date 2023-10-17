@@ -146,6 +146,7 @@ jobs:
           key: ${{ github.sha }}
 
   upload-cdn:
+    if: github.ref == 'refs/heads/main'
     needs: [build, test, playwright]
     runs-on: ubuntu-latest
     permissions:
@@ -169,6 +170,7 @@ jobs:
           destination: "/dp-saksbehandling-frontend/"
 
   deploy-dev:
+    if: github.ref == 'refs/heads/main'
     needs: [build, test, upload-cdn]
     runs-on: ubuntu-latest
     steps:
