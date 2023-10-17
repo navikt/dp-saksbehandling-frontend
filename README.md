@@ -7,23 +7,28 @@ Appen er basert på [Remix](https://remix.run/docs)
 ```sh
 npm install
 cp .env.example .env
+npm run generate-token
 npm run dev
 ```
 
-## Kjøre mot dev-APIer i localhost
+## Token generering mot dev-APIer i localhost
 
-For å kjøre requester mot [dp-rapportering](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering), [dp-behandling](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling), [dp-vedtak](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak), [veilarbregistrering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering) må vi ha et token per tjeneste, generert med wonderwalled-idporten. Logg på med en saksbehandlerbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN`, `DP_BEHANDLING_TOKEN`, `DP_VEDTAK_TOKEN` til det matchende genererte tokenet. Env-variabelen `IS_LOCALHOST="true"` må også være satt.
+For å generere ny token kjør:
 
-Disse tokenene vil vare i en time før du må generere et nytt token.
+```sh
+npm run generate-token
+```
 
-Eksempel på riktig config:
+Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og vil se f.eks slik ut.
 
 ```
-IS_LOCALHOST="true"
 DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
 DP_BEHANDLING_TOKEN="annenLangStrengHerFraAccess_token"
 DP_VEDTAK_TOKEN="enTredjeLangStrengHerFraAccess_token"
+VEILARBPROXY_TOKEN="enTredjeLangStrengHerFraAccess_token"
 ```
+
+Disse tokenene vil vare i en time før du må generere et nytt token.
 
 ## Tester
 
@@ -86,14 +91,10 @@ Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
 2. `$ git pull`
 3. `$ nvm use`
 4. `$ npm install`
-5. Bruk [trydgebrukeren](https://nav-it.slack.com/archives/C04RRM5QEAV/p1682666310232779) for å logge inn på de neste tre stegene
-6. Legg inn token fra [dp-rapportering](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering) i `.env`-filen
-7. Legg inn token fra [dp-behandling](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling) i `.env`-filen
-8. Legg inn token fra [dp-vedtak](https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak) i `.env`-filen
-9. Legg inn token fra [veilarbregistrering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering) i `.env`-filen
-10. `$ npm run dev`
-11. Gå til http://localhost:3000/saksbehandling
-12. Ferdig!
+5. `$ npm run generate-token`
+6. `$ npm run dev`
+7. Gå til http://localhost:3000/saksbehandling
+8. Ferdig!
 
 ## Potensielle errorer
 

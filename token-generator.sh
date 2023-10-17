@@ -16,35 +16,29 @@ jsonConfig='token-generator.config.json'
 
 # Check if user has `jq` installed
 # https://formulae.brew.sh/formula/jq
-function verifyJQ() {
+verifyJQ() {
   brew list jq > /dev/null 2>&1 || brew install jq 
 }
 
 # Main script
-function init() {
+init() {
   # Welcome text
   echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend token generator ${Cyan}::: \n"
 
   # Check if jq package is installed 
   verifyJQ
 
-  # Generate wonderwalled-azure token
-  startTokenGenerator "wonderwalledAzure"
-
   # Generate azure-token-generator token
-  startTokenGenerator "azureTokenGenerator"
+  startTokenGenerator
 
   # Finished
   sleep 1
   echo -e "🌈 ${Purple}You're good to go! Restart your dev-server."
 }
 
-function startTokenGenerator() {
-  # Function parameter. wonderwalledAzure or azureTokenGenerator
-  tokenType=$1
-
+startTokenGenerator() {
   # First azure-token-generator url from json config
-  url=$(jq '.' $jsonConfig | jq '.'\"$tokenType\"' | .[0].url' | tr -d '"')
+  url=$(jq '.' $jsonConfig | jq '.[0].url' | tr -d '"')
   
   # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
@@ -55,7 +49,7 @@ function startTokenGenerator() {
   read cookie
   echo -e "\n"
 
-  configArray=$(jq -r '.'\"$tokenType\"' | .[] | @base64' $jsonConfig)
+  configArray=$(jq -r '.[] | @base64' $jsonConfig)
 
   # Loop through wonderwalledAzure configs and create environment variable
   for config in $configArray;
@@ -76,7 +70,7 @@ function startTokenGenerator() {
 
 # This function make curl request with `-b` flag to send cookie with the request
 # | jq ".access_token" returns oboToken string
-function generateAndUpdateEnvFile() {
+generateAndUpdateEnvFile() {
   # function parameters
   env=$1
   url=$2 | tr -d '"'

@@ -1,22 +1,18 @@
-{
-  "wonderwalledAzure": [
-    {
-      "env": "DP_RAPPORTERING_TOKEN",
-      "url": "https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering"
-    },
-    {
-      "env": "DP_BEHANDLING_TOKEN",
-      "url": "https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling"
-    },
-    {
-      "env": "DP_VEDTAK_TOKEN",
-      "url": "https://wonderwalled-azure.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak"
-    }
-  ],
-  "azureTokenGenerator": [
-    {
-      "env": "VEILARBPROXY_TOKEN",
-      "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering"
-    }
-  ]
-}
+[
+  {
+    "env": "VEILARBPROXY_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering"
+  },
+  {
+    "env": "DP_RAPPORTERING_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering"
+  },
+  {
+    "env": "DP_BEHANDLING_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling"
+  },
+  {
+    "env": "DP_VEDTAK_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak"
+  }
+]
