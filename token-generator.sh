@@ -51,7 +51,7 @@ startTokenGenerator() {
 
   configArray=$(jq -r '.[] | @base64' $jsonConfig)
 
-  # Loop through configs and create environment variable
+  # Loop through config list and create environment variable
   for config in $configArray;
     do
       _jq() {
@@ -82,7 +82,7 @@ generateAndUpdateEnvFile() {
   if [ -z $accessToken ]; then
     echo -e "❌ ${Yellow}${env} ${Red} error"
   else
-     # Full generated env string
+    # Fully generated env string
     generatedEnv="${env}=${accessToken}"
 
     # Update generated env string to env file
