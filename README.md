@@ -21,7 +21,7 @@ For å generere ny token kjør:
 npm run generate-token
 ```
 
-Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og vil se f.eks slik ut.
+Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og `.env` filen vil se f.eks slik ut.
 
 ```
 IS_LOCALHOST="true"
