@@ -12,7 +12,8 @@
     "playwright:ui": "npx playwright test --ui",
     "playwright:verbose": "DEBUG=pw:api npx playwright test",
     "test": "vitest",
-    "test-coverage": "vitest --coverage"
+    "test-coverage": "vitest --coverage",
+    "generate-token": "chmod +x ./token-generator.sh && ./token-generator.sh"
   },
   "prettier": {
     "printWidth": 100
