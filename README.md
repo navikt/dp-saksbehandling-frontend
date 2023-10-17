@@ -25,7 +25,7 @@ Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og 
 DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
 DP_BEHANDLING_TOKEN="annenLangStrengHerFraAccess_token"
 DP_VEDTAK_TOKEN="enTredjeLangStrengHerFraAccess_token"
-VEILARBPROXY_TOKEN="enTredjeLangStrengHerFraAccess_token"
+VEILARBPROXY_TOKEN="enFjerdeLangStrengHerFraAccess_token"
 ```
 
 Disse tokenene vil vare i en time før du må generere et nytt token.
