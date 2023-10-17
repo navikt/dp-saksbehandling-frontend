@@ -51,7 +51,7 @@ startTokenGenerator() {
 
   configArray=$(jq -r '.[] | @base64' $jsonConfig)
 
-  # Loop through wonderwalledAzure configs and create environment variable
+  # Loop through configs and create environment variable
   for config in $configArray;
     do
       _jq() {
@@ -69,7 +69,7 @@ startTokenGenerator() {
 
 
 # This function make curl request with `-b` flag to send cookie with the request
-# | jq ".access_token" returns oboToken string
+# | jq ".access_token" returns access_token string
 generateAndUpdateEnvFile() {
   # function parameters
   env=$1
