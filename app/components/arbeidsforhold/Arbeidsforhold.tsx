@@ -23,6 +23,7 @@ export function Arbeidsforhold(props: IProps) {
             const yrke = forhold.ansettelsesdetaljer[0].yrke?.beskrivelse;
             const startdato = forhold.ansettelsesperiode.startdato;
             const sluttdato = forhold.ansettelsesperiode.sluttdato;
+            const sluttaarsak = forhold.ansettelsesperiode.sluttaarsak?.beskrivelse;
 
             return (
               <Box padding="2" background="surface-alt-3-subtle" key={orgnr}>
@@ -39,6 +40,12 @@ export function Arbeidsforhold(props: IProps) {
                     <>
                       <dt>Sluttdato</dt>
                       <dd>{sluttdato}</dd>
+                      {sluttaarsak && (
+                        <>
+                          <dt>Sluttårsak</dt>
+                          <dd>{sluttaarsak}</dd>
+                        </>
+                      )}
                     </>
                   )}
                 </dl>
