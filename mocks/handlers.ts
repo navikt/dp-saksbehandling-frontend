@@ -5,6 +5,7 @@ import { mockRapporteringsperioder } from "./api-routes/rapporteringsperiodeResp
 import { mockKorrigeringsperiode } from "./api-routes/korrigeringsperiodeResponse";
 import { vedtakResponse } from "./api-routes/vedtakResponse";
 import { mockSaksbehandler } from "mock-data/mock-saksbehandler";
+import { arbeidsforholdResponse } from "./api-routes/arbeidsforholdResponse";
 
 export const handlers = [
   // Hent saksbehandler
@@ -105,6 +106,11 @@ export const handlers = [
   // Hent vedtak
   rest.post(`${process.env.DP_VEDTAK_URL}/vedtak`, (__, res, ctx) => {
     return res(ctx.json(vedtakResponse));
+  }),
+
+  // Hent arbeidsforhold
+  rest.post(`${process.env.DP_BEHANDLING_URL}/arbeidsforhold`, (__, res, ctx) => {
+    return res(ctx.json(arbeidsforholdResponse));
   }),
 
   // Hent sanity tekster
