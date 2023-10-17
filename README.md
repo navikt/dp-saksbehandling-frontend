@@ -11,7 +11,9 @@ npm run generate-token
 npm run dev
 ```
 
-## Token generering mot dev-APIer i localhost
+## Kjøre mot dev-APIer i localhost
+
+Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og Env-variabelen `IS_LOCALHOST="true"` må også være satt.
 
 For å generere ny token kjør:
 
@@ -22,6 +24,7 @@ npm run generate-token
 Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og vil se f.eks slik ut.
 
 ```
+IS_LOCALHOST="true"
 DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
 DP_BEHANDLING_TOKEN="annenLangStrengHerFraAccess_token"
 DP_VEDTAK_TOKEN="enTredjeLangStrengHerFraAccess_token"
