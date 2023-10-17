@@ -8,8 +8,6 @@ interface IProps {
 export function Arbeidsforhold(props: IProps) {
   const { arbeidsforhold } = props;
 
-  console.log(arbeidsforhold);
-
   return (
     <>
       <Heading size="small" level="3">
@@ -25,8 +23,6 @@ export function Arbeidsforhold(props: IProps) {
             const yrke = forhold.ansettelsesdetaljer[0].yrke?.beskrivelse;
             const startdato = forhold.ansettelsesperiode.startdato;
             const sluttdato = forhold.ansettelsesperiode.sluttdato;
-
-            console.log(forhold);
 
             return (
               <Box padding="2" background="surface-alt-3-subtle" key={orgnr}>
