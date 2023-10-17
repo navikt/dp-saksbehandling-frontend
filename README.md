@@ -15,7 +15,7 @@ npm run dev
 
 Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og Env-variabelen `IS_LOCALHOST="true"` må også være satt.
 
-For å generere ny token kjør:
+For å generere nye tokens, kjør:
 
 ```sh
 npm run generate-token
