@@ -4,13 +4,14 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
 import { Personalia } from "~/components/personalia/Personalia";
-import { hentArbeidssokerStatus } from "~/models/arbeidssoker.server";
+import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import type { IPerson } from "~/models/pdl.server";
 import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
 import { getEnv } from "~/utils/env.utils";
 import { sikkerLogger } from "../../server/logger";
+import type { INetworkResponse } from "~/utils/types";
 
 export const shouldRevalidate = () => false;
 
@@ -19,23 +20,29 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const arbeidssokerStatus = await hentArbeidssokerStatus(session, oppgave.person);
-
-  if (getEnv("IS_LOCALHOST") === "true") {
-    const mockPerson = await mockHentPerson();
-    return json({
-      error: null,
-      person: mockPerson,
-      arbeidssokerStatus,
-    });
-  }
+  const arbeidssokerStatusPromise = hentArbeidssokerStatus(session, oppgave.person);
 
   try {
-    const responseData = await hentPersonalia(session, oppgave.person);
-    sikkerLogger.info(`PDL response: ${JSON.stringify(responseData)}`);
-    sikkerLogger.info(`responseData.hentPerson: ${responseData.hentPerson}`);
+    if (getEnv("IS_LOCALHOST") === "true") {
+      const [arbeidssokerStatus, mockPerson] = await Promise.all([
+        arbeidssokerStatusPromise,
+        mockHentPerson(),
+      ]);
+      return json({
+        error: null,
+        person: mockPerson,
+        arbeidssokerStatus,
+      });
+    }
+    const personaliaPromise = hentPersonalia(session, oppgave.person);
+    const [personalia, arbeidssokerStatus] = await Promise.all([
+      personaliaPromise,
+      arbeidssokerStatusPromise,
+    ]);
+    sikkerLogger.info(`PDL response: ${JSON.stringify(personalia)}`);
+    sikkerLogger.info(`responseData.hentPerson: ${personalia.hentPerson}`);
 
-    if (!responseData.hentPerson) {
+    if (!personalia.hentPerson) {
       return json({
         error: "Klarte ikke hente personalia",
         person: null,
@@ -43,7 +50,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       });
     }
 
-    const personData = responseData.hentPerson;
+    const personData = personalia.hentPerson;
     const person: IPerson = {
       ident: oppgave.person,
       forNavn: personData.navn[0].fornavn,
@@ -61,10 +68,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return json({ error: null, person, arbeidssokerStatus });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
+    const arbeidssokerStatusError: INetworkResponse<IArbeidssokerStatus> = {
+      status: "error",
+      error: {
+        statusCode: 500,
+        statusText: "noe gikk galt :shrug:",
+      },
+    };
     return json({
       error: `Feil ved henting av personalia fra PDL`,
       person: null,
-      arbeidssokerStatus,
+      arbeidssokerStatus: arbeidssokerStatusError,
     });
   }
 }
