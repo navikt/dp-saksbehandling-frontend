@@ -68,7 +68,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
       const validering = await validator.validate(formData);
 
       if (validering.error) {
-        return validationError(validering.error);
+        validationError(validering.error);
+
+        return;
       }
 
       await godkjennPeriode(periodeId, validering.data.begrunnelse, session);

@@ -29,7 +29,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {
-    return validationError(validering.error);
+    validationError(validering.error);
+
+    return;
   }
 
   const svar: IBehandlingStegSvar = {
