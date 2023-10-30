@@ -1,4 +1,5 @@
 import { type Faro, getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
+import { TracingInstrumentation } from "@grafana/faro-web-tracing";
 
 let faro: Faro | null = null;
 
@@ -20,6 +21,7 @@ export function getFaro(): Faro | null {
       ...getWebInstrumentations({
         captureConsole: true,
       }),
+      new TracingInstrumentation(),
     ],
   });
   return faro;
