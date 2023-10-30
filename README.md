@@ -57,6 +57,11 @@ npm run test -- --watch
 Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de ulike delene av løsningen.
 
 ```
+//Hvis du ikke har playwright fra før
+npx install playwright
+```
+
+```
 // Kjør vanlig playwright i kommandolinjen
 npm run playwright
 
