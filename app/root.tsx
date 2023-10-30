@@ -100,9 +100,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
-      DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
-      DP_RAPPORTERING_URL: process.env.DP_RAPPORTERING_URL,
-      DP_VEDTAK_URL: process.env.DP_VEDTAK_URL,
     },
   });
 }
