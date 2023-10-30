@@ -17,6 +17,13 @@ if (getEnv("USE_MSW") === "true") {
   const server = setup();
   start(server);
 }
+const csp = {
+  "img-src": ["'self'", "data:"],
+  "connect-src": ["'self'", "*.nav.no"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
+};
+const cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(
+  " ",
+)};`;
 
 export default function handleRequest(
   request: Request,
@@ -35,7 +42,7 @@ export default function handleRequest(
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
-
+          responseHeaders.set("Content-Security-Policy", cspString);
           resolve(
             new Response(stream, {
               headers: responseHeaders,

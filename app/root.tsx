@@ -25,6 +25,7 @@ import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
 import { hentOppgaver } from "./models/oppgave.server";
+import { initInstrumentation } from "~/utils/faro";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -99,13 +100,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
-      DP_BEHANDLING_URL: process.env.DP_BEHANDLING_URL,
-      DP_RAPPORTERING_URL: process.env.DP_RAPPORTERING_URL,
-      DP_VEDTAK_URL: process.env.DP_VEDTAK_URL,
     },
   });
 }
-
+initInstrumentation();
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
 
