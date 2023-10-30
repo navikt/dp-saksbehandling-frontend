@@ -146,6 +146,7 @@ jobs:
           key: ${{ github.sha }}
 
   deploy-dev:
+    if: github.ref == 'refs/heads/main'
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
