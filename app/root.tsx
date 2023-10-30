@@ -25,6 +25,7 @@ import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
 import { hentOppgaver } from "./models/oppgave.server";
+import { initInstrumentation } from "~/utils/faro";
 
 export const sanityClient = createClient(sanityConfig);
 
@@ -105,7 +106,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     },
   });
 }
-
+initInstrumentation();
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
 
