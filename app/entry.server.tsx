@@ -18,16 +18,12 @@ if (getEnv("USE_MSW") === "true") {
   start(server);
 }
 const csp = {
-  "script-src-elem": ["'self'"],
   "img-src": ["'self'", "data:"],
   "connect-src": ["'self'", "*.nav.no"],
-  "Access-Control-Allow-Origin": ["*.nav.no"],
 };
 const cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(
   " ",
-)}; script-src-elemen ${csp["script-src-elem"].join(" ")}; Access-Control-Allow-Origin ${csp[
-  "Access-Control-Allow-Origin"
-].join(" ")};`;
+)};`;
 
 export default function handleRequest(
   request: Request,
@@ -47,7 +43,6 @@ export default function handleRequest(
 
           responseHeaders.set("Content-Type", "text/html");
           responseHeaders.set("Content-Security-Policy", cspString);
-
           resolve(
             new Response(stream, {
               headers: responseHeaders,
