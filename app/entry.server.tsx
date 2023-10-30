@@ -19,7 +19,7 @@ if (getEnv("USE_MSW") === "true") {
 }
 const csp = {
   "img-src": ["'self'", "data:"],
-  "connect-src": ["'self'", "*.nav.no"],
+  "connect-src": ["'self'", "*.nav.no"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
 };
 const cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(
   " ",
