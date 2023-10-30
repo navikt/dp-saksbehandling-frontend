@@ -146,7 +146,7 @@ jobs:
           key: ${{ github.sha }}
 
   deploy-dev:
-    needs: [build, test, upload-cdn]
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
