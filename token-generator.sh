@@ -97,7 +97,7 @@ generateAndUpdateEnvFile() {
   cookie=$3
 
   # Add env key if not exits
-  # Example: DP_SOKNAD_TOKEN=""
+  # Example: DP_BEHANDLING_TOKEN
   if grep -q "$env" "$envFile"; then
     # env already exits, continue script
     :
