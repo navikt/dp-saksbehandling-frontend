@@ -14,6 +14,22 @@ envFile='.env'
 # json config 
 jsonConfig='token-generator.config.json'
 
+# Main script
+init() {
+  # Welcome text
+  echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend token generator ${Cyan}::: \n"
+
+  # Check if jq package is installed 
+  verifyJQ
+
+  # Generate azure-token-generator token
+  startTokenGenerator
+
+  # Finished
+  sleep 1
+  echo -e "🌈 ${Purple}You're good to go! Restart your dev-server."
+}
+
 # Check if user has `jq` installed
 # https://formulae.brew.sh/formula/jq
 verifyJQ() {
@@ -39,22 +55,7 @@ verifyJQ() {
   fi
 }
 
-# Main script
-init() {
-  # Welcome text
-  echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend token generator ${Cyan}::: \n"
-
-  # Check if jq package is installed 
-  verifyJQ
-
-  # Generate azure-token-generator token
-  startTokenGenerator
-
-  # Finished
-  sleep 1
-  echo -e "🌈 ${Purple}You're good to go! Restart your dev-server."
-}
-
+# Start token generation process
 startTokenGenerator() {
   # First azure-token-generator url from json config
   url=$(jq '.' $jsonConfig | jq '.[0].url' | tr -d '"')
