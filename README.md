@@ -33,7 +33,7 @@ VEILARBPROXY_TOKEN="enFjerdeLangStrengHerFraAccess_token"
 
 Disse tokenene vil vare i en time før du må generere et nytt token.
 
-## Manuelt oppdatering av lokalt tokenX tokens
+## Manuelt oppdatering av lokalt Azure tokens
 
 Logg på med en testbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN`, `DP_BEHANDLING_TOKEN`, `DP_VEDTAK_TOKEN` , `VEILARBPROXY_TOKEN` til det matchende genererte tokenet.
 
