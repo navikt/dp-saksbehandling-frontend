@@ -33,6 +33,15 @@ VEILARBPROXY_TOKEN="enFjerdeLangStrengHerFraAccess_token"
 
 Disse tokenene vil vare i en time før du må generere et nytt token.
 
+## Manuelt oppdatering av lokalt tokenX tokens
+
+Logg på med en testbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN`, `DP_BEHANDLING_TOKEN`, `DP_VEDTAK_TOKEN` , `VEILARBPROXY_TOKEN` til det matchende genererte tokenet.
+
+[dp-rapportering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering),
+[dp-behandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling),
+[dp-vedtak](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak),
+[veilarbregistrering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering),
+
 ## Tester
 
 Vi har to testrammeverk som vi brukes til ulike formål.
