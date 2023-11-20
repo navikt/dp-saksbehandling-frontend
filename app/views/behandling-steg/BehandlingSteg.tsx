@@ -1,9 +1,10 @@
 import { type IBehandlingSteg } from "~/models/oppgave.server";
 import { BehandlingStegForslagTilVedtak } from "~/views/behandling-steg/behandling-steg-forslag-til-vedtak/BehandlingStegForslagTilVedtak";
-import { BehandlingsStegFattVedtak } from "~/views/behandling-steg/behandlings-steg-fatt-vedtak/BehandlingsStegFattVedtak";
+import { BehandlingStegFattVedtak } from "~/views/behandling-steg/behandling-steg-fatt-vedtak/BehandlingStegFattVedtak";
 import { BehandlingStegGenerell } from "./BehandlingStegGenerell";
 import { BehandlingStegPeriode } from "./BehandlingStegPeriode";
 import { BehandlingStegRettighetstype } from "./BehandlingStegRettighetstype";
+import { BehandlingStegMinsteinntekt } from "~/views/behandling-steg/behandling-steg-minsteinntekt/BehandlingStegMinsteinntekt";
 
 export interface IProps {
   steg: IBehandlingSteg;
@@ -24,7 +25,10 @@ export function BehandlingSteg(props: IProps) {
       return <BehandlingStegForslagTilVedtak {...props} />;
 
     case "Fatt vedtak":
-      return <BehandlingsStegFattVedtak {...props} />;
+      return <BehandlingStegFattVedtak {...props} />;
+
+    case "Oppfyller kravene til dagpenger":
+      return <BehandlingStegMinsteinntekt {...props} />;
 
     default:
       return <BehandlingStegGenerell {...props} />;
