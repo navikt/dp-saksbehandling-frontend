@@ -58,7 +58,8 @@ export type TBehandlingStegId =
   | "Periode"
   | "Forslag til vedtak"
   | "Fatt vedtak"
-  | "Oppfyller kravene til dagpenger";
+  | "Oppfyller kravene til dagpenger"
+  | "Oppfyller krav til minsteinntekt";
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
