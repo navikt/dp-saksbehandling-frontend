@@ -14,7 +14,7 @@ describe("BehandlingSteg", () => {
     describe("Lagre boolsk verdi", () => {
       const steg: IBehandlingSteg = {
         uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
-        id: "Oppfyller kravene til dagpenger",
+        id: "Oppfyller krav til minsteinntekt",
         type: "Fastsetting",
         svartype: "Boolean",
         tilstand: "IkkeUtført",

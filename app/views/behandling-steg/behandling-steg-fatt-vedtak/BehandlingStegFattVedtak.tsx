@@ -6,7 +6,7 @@ import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$
 import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import styles from "./BehandlingStegFattVedtak.module.css";
 
-export function BehandlingsStegFattVedtak(props: IProps) {
+export function BehandlingStegFattVedtak(props: IProps) {
   const { steg, readonly } = props;
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
