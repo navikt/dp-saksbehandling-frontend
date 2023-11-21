@@ -85,14 +85,15 @@ export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request);
-  const saksbehandler = await getSaksbehandler(session);
 
-  const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
-    baseLang: "nb",
-    lang: "nb",
-  });
-
-  const oppgaver = await hentOppgaver(session);
+  const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
+    getSaksbehandler(session),
+    sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+      baseLang: "nb",
+      lang: "nb",
+    }),
+    hentOppgaver(session),
+  ]);
 
   return json({
     sanityTexts,

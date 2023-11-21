@@ -39,8 +39,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       personaliaPromise,
       arbeidssokerStatusPromise,
     ]);
-    sikkerLogger.info(`PDL response: ${JSON.stringify(personalia)}`);
-    sikkerLogger.info(`responseData.hentPerson: ${personalia.hentPerson}`);
 
     if (!personalia.hentPerson) {
       return json({
