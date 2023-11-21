@@ -37,7 +37,7 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {tilBehandlingsOppgaver?.map((oppgave, index) => {
-            const { uuid, person, opprettet, tilstand } = oppgave;
+            const { uuid, person, opprettet, tilstand, steg } = oppgave;
             return (
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
@@ -47,7 +47,7 @@ export default function Saksbehandling() {
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{hentTilstandTekst(tilstand)}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}`} as="Button">
+                  <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} as="Button">
                     Behandle
                   </RemixLink>
                 </Table.DataCell>
