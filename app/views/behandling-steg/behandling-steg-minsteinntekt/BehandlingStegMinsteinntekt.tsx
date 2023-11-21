@@ -86,7 +86,7 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
       {!manuellBehandling && (
         <>
           <Button type={"button"} onClick={() => setManuellBehandling(true)}>
-            Dette stemmer ikke
+            Behandle manuelt
           </Button>
           <Button
             type={"button"}
