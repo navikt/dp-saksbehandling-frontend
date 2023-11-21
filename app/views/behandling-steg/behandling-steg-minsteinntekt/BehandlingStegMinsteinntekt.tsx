@@ -46,13 +46,6 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
         />
         <div>
           <BehandlingStegInputDato
-            name={"soeknadsdato"}
-            label={"Søknadsdato (hardkodet)"}
-            verdi={"12.02.2023"}
-            readonly={true}
-            svartype={"LocalDate"}
-          />
-          <BehandlingStegInputDato
             name={"virkningsdato"}
             label={"Virkningsdato (hardkodet)"}
             verdi={"12.06.2023"}

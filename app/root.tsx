@@ -80,9 +80,6 @@ export function links() {
   ];
 }
 
-// Hindrer loader til å kjøre på nytt etter action funksjon
-export const shouldRevalidate = () => false;
-
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request);
 
@@ -104,6 +101,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     },
   });
 }
+
+// Hindrer loader til å kjøre på nytt etter action funksjon
+export const shouldRevalidate = () => false;
+
 initInstrumentation();
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
