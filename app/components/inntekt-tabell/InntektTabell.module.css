@@ -1,0 +1,16 @@
+.inntektPeriode {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inntektPeriodeDate {
+  text-transform: capitalize;
+}
+
+.checkmark {
+  color: var(--a-green-500);
+}
+
+.error {
+  color: var(--a-red-500);
+}

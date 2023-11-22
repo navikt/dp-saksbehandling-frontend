@@ -35,3 +35,7 @@
 .my-2 {
   margin: var(--a-spacing-2) 0;
 }
+
+.inntektTabell .navds-table__expanded-row-content {
+  background-color: var(--a-gray-50);
+}
