@@ -21,9 +21,12 @@ const csp = {
   "img-src": ["'self'", "data:"],
   "connect-src": ["'self'", "*.nav.no"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
 };
-const cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(
-  " ",
-)};`;
+let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
+
+if (getEnv("IS_LOCALHOST")) {
+  cspString =
+    "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';";
+}
 
 export default function handleRequest(
   request: Request,

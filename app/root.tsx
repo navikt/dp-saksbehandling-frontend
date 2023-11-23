@@ -98,6 +98,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
+      IS_LOCALHOST: process.env.IS_LOCALHOST,
     },
   });
 }
