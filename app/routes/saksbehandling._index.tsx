@@ -42,7 +42,9 @@ export default function Saksbehandling() {
               <Table.Row key={index}>
                 <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${oppgave.uuid}/oversikt`}>{person}</RemixLink>
+                  <RemixLink to={`person/${oppgave.uuid}/oversikt/rapportering-og-utbetaling/`}>
+                    {person}
+                  </RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
                 <Table.DataCell>{hentTilstandTekst(tilstand)}</Table.DataCell>
