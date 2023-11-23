@@ -40,10 +40,13 @@ export interface IOppgave {
 }
 
 export interface IHendelse {
-  ident: string;
+  kontekstmap: IKontekstmap;
+  konteksttype: "SøknadInnsendtHendelse";
+}
+export interface IKontekstmap {
+  meldingsreferanseId: string;
+  referanseId: string;
   søknadId: string;
-  journalpostId: string;
-  type: string;
 }
 
 export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";

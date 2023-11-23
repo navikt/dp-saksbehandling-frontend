@@ -27,7 +27,7 @@ export default function Saksbehandling() {
       <Table zebraStripes={true}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Oppgave ID</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Oppgave Type</Table.HeaderCell>
             <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
             <Table.HeaderCell scope="col">Status</Table.HeaderCell>
@@ -37,12 +37,20 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {tilBehandlingsOppgaver?.map((oppgave, index) => {
-            const { uuid, person, opprettet, tilstand, steg } = oppgave;
+            const { hendelse, uuid, person, opprettet, tilstand, steg } = oppgave;
             return (
               <Table.Row key={index}>
-                <Table.DataCell>{uuid}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${oppgave.uuid}/oversikt/rapportering-og-utbetaling/`}>
+                  {hendelse.some(function (enkelthendelse) {
+                    return enkelthendelse.konteksttype === "SøknadInnsendtHendelse";
+                  }) ? (
+                    <>Søknadsbehandling</>
+                  ) : (
+                    <>Ukjent behandlingstype</>
+                  )}
+                </Table.DataCell>
+                <Table.DataCell>
+                  <RemixLink to={`person/${uuid}/oversikt/rapportering-og-utbetaling/`}>
                     {person}
                   </RemixLink>
                 </Table.DataCell>
