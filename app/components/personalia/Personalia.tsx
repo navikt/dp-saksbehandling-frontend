@@ -17,7 +17,11 @@ export function Personalia(person: IPerson) {
         <BodyShort size={"small"} textColor={"subtle"}>
           Kontaktadresse
         </BodyShort>
-        <BodyShort>{`${person.kontaktadresse?.adressenavn} ${person.kontaktadresse?.husnummer} ${person.kontaktadresse?.postnummer}`}</BodyShort>
+        <BodyShort>
+          {person.kontaktadresse?.utenlandskAdresse
+            ? `${person.kontaktadresse?.utenlandskAdresse.adressenavnNummer} ${person.kontaktadresse?.utenlandskAdresse.bygningEtasjeLeilighet} ${person.kontaktadresse?.utenlandskAdresse.postkode}  ${person.kontaktadresse?.utenlandskAdresse.landkode}`
+            : `${person.kontaktadresse?.adressenavn} ${person.kontaktadresse?.husnummer} ${person.kontaktadresse?.postnummer}`}
+        </BodyShort>
       </div>
 
       <div>

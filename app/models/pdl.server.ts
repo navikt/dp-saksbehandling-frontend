@@ -75,6 +75,16 @@ export type VegadresseDetails = {
   husnummer: string;
   adressenavn: string;
   postnummer: string;
+  utenlandskAdresse?: UtenlandskAdresseDetails;
+};
+export type UtenlandskAdresseDetails = {
+  adressenavnNummer: string;
+  bygningEtasjeLeilighet: string;
+  postboksNummerNavn: string;
+  postkode: string;
+  bySted: string;
+  regionDistriktOmraade: string;
+  landkode: string;
 };
 
 export async function mockHentPerson(): Promise<IPerson> {

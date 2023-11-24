@@ -56,6 +56,11 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
               svartype={"LocalDate"}
             />
           </ValidatedForm>
+          <BodyLong>
+            Gjeldende grunnbeløp på virkningstidspunkt: <br />
+            1.5G: TALL TALL TALL <br />
+            3G: TALL TALL TALL
+          </BodyLong>
 
           <InntektTabell inntekter={minsteinntektMockdata.inntekter} />
           <BehandlingStegLagretAv steg={steg} />
