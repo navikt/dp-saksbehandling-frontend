@@ -54,6 +54,7 @@ export type Bostedsadresse = {
 export type Kontaktadresse = {
   vegadresse?: VegadresseDetails;
   utenlandskAdresse?: UtenlandskAdresseDetails;
+  utenlandskAdresseIFrittFormat?: utlandskAdresseIFrittFormatDetails;
 };
 
 export type Doedsfall = {
@@ -84,6 +85,15 @@ export type UtenlandskAdresseDetails = {
   postkode: string;
   bySted: string;
   regionDistriktOmraade: string;
+  landkode: string;
+};
+
+export type utlandskAdresseIFrittFormatDetails = {
+  adresselinje1: string;
+  adresselinje2: string;
+  adresselinje3: string;
+  postkode: string;
+  byEllerStedsnavn: string;
   landkode: string;
 };
 
@@ -130,6 +140,14 @@ export async function hentPersonalia(session: SessionWithOboProvider, ident: str
             postkode
             bySted
             regionDistriktOmraade
+            landkode
+          }
+          utenlandskAdresseIFrittFormat {
+            adresselinje1
+            adresselinje2
+            adresselinje3
+            postkode
+            byEllerStedsnavn
             landkode
           }
         }
