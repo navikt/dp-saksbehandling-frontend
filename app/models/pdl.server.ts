@@ -123,6 +123,15 @@ export async function hentPersonalia(session: SessionWithOboProvider, ident: str
             adressenavn
             postnummer
           }
+          utenlandskAdresse {
+            adressenavnNummer
+            bygningEtasjeLeilighet
+            postboksNummerNavn
+            postkode
+            bySted
+            regionDistriktOmraade
+            landkode
+          }
         }
         doedsfall {
           doedsdato
