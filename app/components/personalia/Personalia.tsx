@@ -12,17 +12,18 @@ export function Personalia(person: IPerson) {
         </BodyShort>
         <BodyShort>{person.telefon}</BodyShort>
       </div>
-
-      <div>
-        <BodyShort size={"small"} textColor={"subtle"}>
-          Kontaktadresse
-        </BodyShort>
-        <BodyShort>
-          {person.kontaktadresse?.utenlandskAdresse
-            ? `${person.kontaktadresse?.utenlandskAdresse.adressenavnNummer} ${person.kontaktadresse?.utenlandskAdresse.bygningEtasjeLeilighet} ${person.kontaktadresse?.utenlandskAdresse.postkode}  ${person.kontaktadresse?.utenlandskAdresse.landkode}`
-            : `${person.kontaktadresse?.vegadresse?.adressenavn} ${person.kontaktadresse?.vegadresse?.husnummer} ${person.kontaktadresse?.vegadresse?.postnummer}`}
-        </BodyShort>
-      </div>
+      {person.kontaktadresse && (
+        <div>
+          <BodyShort size={"small"} textColor={"subtle"}>
+            Kontaktadresse
+          </BodyShort>
+          <BodyShort>
+            {person.kontaktadresse?.utenlandskAdresse
+              ? `${person.kontaktadresse?.utenlandskAdresse.adressenavnNummer} ${person.kontaktadresse?.utenlandskAdresse.bygningEtasjeLeilighet} ${person.kontaktadresse?.utenlandskAdresse.postkode}  ${person.kontaktadresse?.utenlandskAdresse.landkode}`
+              : `${person.kontaktadresse?.vegadresse?.adressenavn} ${person.kontaktadresse?.vegadresse?.husnummer} ${person.kontaktadresse?.vegadresse?.postnummer}`}
+          </BodyShort>
+        </div>
+      )}
 
       <div>
         <BodyShort size={"small"} textColor={"subtle"}>

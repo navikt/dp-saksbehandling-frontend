@@ -57,9 +57,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       etterNavn: personData.navn[0].etternavn,
       telefon: personData.telefonnummer[0]?.nummer || "Har ikke nummer",
       kontaktadresse:
-        personData?.kontaktadresse &&
-        (personData?.kontaktadresse[0].utenlandskAdresse ||
-          personData?.kontaktadresse[0].vegadresse)
+        personData?.kontaktadresse && personData.kontaktadresse[0]
           ? personData.kontaktadresse[0]
           : undefined,
       statsborgerskap: personData.statsborgerskap[0].land,
