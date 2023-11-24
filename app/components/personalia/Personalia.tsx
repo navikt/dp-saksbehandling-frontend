@@ -20,7 +20,7 @@ export function Personalia(person: IPerson) {
         <BodyShort>
           {person.kontaktadresse?.utenlandskAdresse
             ? `${person.kontaktadresse?.utenlandskAdresse.adressenavnNummer} ${person.kontaktadresse?.utenlandskAdresse.bygningEtasjeLeilighet} ${person.kontaktadresse?.utenlandskAdresse.postkode}  ${person.kontaktadresse?.utenlandskAdresse.landkode}`
-            : `${person.kontaktadresse?.adressenavn} ${person.kontaktadresse?.husnummer} ${person.kontaktadresse?.postnummer}`}
+            : `${person.kontaktadresse?.vegadresse?.adressenavn} ${person.kontaktadresse?.vegadresse?.husnummer} ${person.kontaktadresse?.vegadresse?.postnummer}`}
         </BodyShort>
       </div>
 

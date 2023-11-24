@@ -12,9 +12,7 @@ export const mockPerson: IPerson = {
   etterNavn: "Duck",
   ident: "12345678910",
   kontaktadresse: {
-    husnummer: "111",
-    adressenavn: "Apalveien",
-    postnummer: "1337",
+    vegadresse: { husnummer: "111", adressenavn: "Apalveien", postnummer: "1337" },
   },
   statsborgerskap: "Norge",
   telefon: "90010200",

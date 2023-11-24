@@ -12,7 +12,7 @@ export interface IPerson {
   mellomNavn: string | null;
   etterNavn: string;
   telefon: string;
-  kontaktadresse?: VegadresseDetails;
+  kontaktadresse?: Kontaktadresse;
   bostedadresse?: VegadresseDetails;
   statsborgerskap: string;
   utflyttingFraNorge?: string;
@@ -53,6 +53,7 @@ export type Bostedsadresse = {
 
 export type Kontaktadresse = {
   vegadresse?: VegadresseDetails;
+  utenlandskAdresse?: UtenlandskAdresseDetails;
 };
 
 export type Doedsfall = {
@@ -75,7 +76,6 @@ export type VegadresseDetails = {
   husnummer: string;
   adressenavn: string;
   postnummer: string;
-  utenlandskAdresse?: UtenlandskAdresseDetails;
 };
 export type UtenlandskAdresseDetails = {
   adressenavnNummer: string;
