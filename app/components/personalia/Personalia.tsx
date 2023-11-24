@@ -37,13 +37,14 @@ export function Personalia(person: IPerson) {
         </BodyShort>
         <BodyShort>{person.utflyttingFraNorge ? person.utflyttingFraNorge : "-"}</BodyShort>
       </div>
-
-      <div>
-        <BodyShort size={"small"} textColor={"subtle"}>
-          Antall barn
-        </BodyShort>
-        <BodyShort>{person.antallBarn}</BodyShort>
-      </div>
+      {person.antallBarn && (
+        <div>
+          <BodyShort size={"small"} textColor={"subtle"}>
+            Antall barn
+          </BodyShort>
+          <BodyShort>{person.antallBarn}</BodyShort>
+        </div>
+      )}
     </div>
   );
 }

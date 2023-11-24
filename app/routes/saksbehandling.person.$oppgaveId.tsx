@@ -49,18 +49,22 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     }
 
     const personData = personalia.hentPerson;
+    //antall barn får man ikke hentet fra pdl via saksbehandlertoken, må bruke en annen tjeneste isåfall
     const person: IPerson = {
       ident: oppgave.person,
       forNavn: personData.navn[0].fornavn,
       mellomNavn: personData.navn[0].mellomnavn,
       etterNavn: personData.navn[0].etternavn,
       telefon: personData.telefonnummer[0]?.nummer || "Har ikke nummer",
-      kontaktadresse: personData?.kontaktadresse && personData?.kontaktadresse[0],
-      bostedadresse: personData?.bostedsadresse && personData?.bostedsadresse[0]?.vegadresse,
+      kontaktadresse:
+        personData?.kontaktadresse &&
+        (personData?.kontaktadresse[0].utenlandskAdresse ||
+          personData?.kontaktadresse[0].vegadresse)
+          ? personData.kontaktadresse[0]
+          : undefined,
       statsborgerskap: personData.statsborgerskap[0].land,
       utflyttingFraNorge:
         personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0]?.utflyttingsdato,
-      antallBarn: 0,
     };
     sikkerLogger.info(`PDL respons kontaktadresse: ${personalia.hentPerson.kontaktadresse}`);
 

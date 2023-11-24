@@ -16,7 +16,7 @@ export interface IPerson {
   bostedadresse?: VegadresseDetails;
   statsborgerskap: string;
   utflyttingFraNorge?: string;
-  antallBarn: number;
+  antallBarn?: number;
 }
 
 export type HentPersonResponsData = {
