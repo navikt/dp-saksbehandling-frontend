@@ -4,16 +4,16 @@ import { BodyShort } from "@navikt/ds-react";
 import type { IPerson, Kontaktadresse } from "~/models/pdl.server";
 
 function visAdresse(kontaktadresse: Kontaktadresse) {
-  switch (kontaktadresse) {
-    case kontaktadresse.vegadresse:
-      return `${kontaktadresse.vegadresse?.adressenavn} ${kontaktadresse.vegadresse?.husnummer} ${kontaktadresse.vegadresse?.postnummer}`;
-    case kontaktadresse.utenlandskAdresse:
-      return `${kontaktadresse.utenlandskAdresse?.adressenavnNummer} ${kontaktadresse.utenlandskAdresse?.bygningEtasjeLeilighet} ${kontaktadresse.utenlandskAdresse?.postkode}  ${kontaktadresse.utenlandskAdresse?.landkode}`;
-    case kontaktadresse.utenlandskAdresseIFrittFormat:
-      return `${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.postkode}  ${kontaktadresse.utenlandskAdresseIFrittFormat?.landkode}`;
-    default:
-      return "-";
+  if (kontaktadresse.vegadresse) {
+    return `${kontaktadresse.vegadresse?.adressenavn} ${kontaktadresse.vegadresse?.husnummer} ${kontaktadresse.vegadresse?.postnummer}`;
   }
+  if (kontaktadresse.utenlandskAdresse) {
+    return `${kontaktadresse.utenlandskAdresse?.adressenavnNummer} ${kontaktadresse.utenlandskAdresse?.bygningEtasjeLeilighet} ${kontaktadresse.utenlandskAdresse?.postkode}  ${kontaktadresse.utenlandskAdresse?.landkode}`;
+  }
+  if (kontaktadresse.utenlandskAdresseIFrittFormat) {
+    return `${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.postkode}  ${kontaktadresse.utenlandskAdresseIFrittFormat?.landkode}`;
+  }
+  return "-";
 }
 
 export function Personalia(person: IPerson) {
