@@ -15,7 +15,7 @@ export interface IPerson {
   kontaktadresse?: VegadresseDetails;
   bostedadresse?: VegadresseDetails;
   statsborgerskap: string;
-  utflyttingFraNorge?: Date;
+  utflyttingFraNorge?: string;
   antallBarn: number;
 }
 
@@ -60,7 +60,7 @@ export type Doedsfall = {
 };
 
 export type UtflyttingFraNorge = {
-  utflyttingsdato?: Date;
+  utflyttingsdato?: string;
 };
 
 export type Sikkerhetstiltak = {

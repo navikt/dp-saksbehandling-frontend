@@ -31,9 +31,7 @@ export function Personalia(person: IPerson) {
         <BodyShort size={"small"} textColor={"subtle"}>
           Utflytting fra Norge
         </BodyShort>
-        <BodyShort>
-          {person.utflyttingFraNorge ? person.utflyttingFraNorge.toDateString() : "-"}
-        </BodyShort>
+        <BodyShort>{person.utflyttingFraNorge ? person.utflyttingFraNorge : "-"}</BodyShort>
       </div>
 
       <div>
