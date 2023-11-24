@@ -5,8 +5,8 @@ test("Oppgavelisten har oppgaver listet opp", async ({ page, baseURL }) => {
   await page.goto(baseURL!);
   const oppgaver = oppgaverResponse;
 
-  await expect(page.getByText(oppgaver[0].uuid)).toBeVisible();
-  await expect(page.getByText(oppgaver[1].uuid)).toBeVisible();
+  await expect(page.getByText(oppgaver[0].person)).toBeVisible();
+  await expect(page.getByText(oppgaver[1].person)).toBeVisible();
 });
 
 test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
@@ -17,7 +17,7 @@ test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
 
   await page
     .getByRole("row")
-    .filter({ has: page.getByText(oppgave.uuid, { exact: false }) })
+    .filter({ has: page.getByText(oppgave.person, { exact: false }) })
     .getByRole("button", { name: "Behandle" })
     .click();
 
