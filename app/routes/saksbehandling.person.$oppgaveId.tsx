@@ -62,6 +62,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0]?.utflyttingsdato,
       antallBarn: 0,
     };
+    sikkerLogger.info("PDL respons kontaktadresse: ", personalia.hentPerson.kontaktadresse);
 
     return json({ error: null, person, arbeidssokerStatus });
   } catch (error: unknown) {
