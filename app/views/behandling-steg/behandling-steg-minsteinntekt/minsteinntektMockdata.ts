@@ -12,7 +12,7 @@ export interface IInntekt {
   oppfyllerKrav: boolean;
 }
 
-interface IMinsteinntekstData {
+export interface IMinsteinntekstData {
   regel: "ordinaer" | "verneplikt";
   virkningsdato: string;
   vilkaarOppfylt: boolean;

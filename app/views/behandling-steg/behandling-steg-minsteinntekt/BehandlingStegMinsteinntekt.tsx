@@ -1,19 +1,38 @@
 import { type IProps } from "~/views/behandling-steg/BehandlingSteg";
-import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingStegInputSelect } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { ValidatedForm } from "remix-validated-form";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
-import { useState } from "react";
-import { minsteinntektMockdata } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
+import { useEffect, useState } from "react";
+import type { IMinsteinntekstData } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
 import { InntektTabell } from "~/components/inntekt-tabell/InntektTabell";
 import { BehandlingStegGenerell } from "~/views/behandling-steg/BehandlingStegGenerell";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
+async function getMinsteinntekt(oppgaveId: string): Promise<IMinsteinntekstData | undefined> {
+  const response = await fetch(`/saksbehandling/api/hent-minsteinntekt/${oppgaveId}`);
+
+  if (!response.ok) {
+    return undefined;
+  }
+
+  return await response.json();
+}
 
 export function BehandlingStegMinsteinntekt(props: IProps) {
   const { steg } = props;
+  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const [manuellBehandling, setManuellBehandling] = useState(() => false);
+  const [minsteInntekt, setMinsteInntekt] = useState<IMinsteinntekstData | undefined>();
+
+  useEffect(() => {
+    (async () => {
+      setMinsteInntekt(await getMinsteinntekt(oppgave.uuid));
+    })();
+  }, [oppgave.uuid]);
 
   const metadata: Metadata = {
     svartype: steg.svartype,
@@ -29,7 +48,9 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
         månedene, eller 3 ganger grunnbeløpet siste 36 månedene.
       </BodyLong>
 
-      {!manuellBehandling && (
+      {!minsteInntekt && <Loader />}
+
+      {!manuellBehandling && minsteInntekt && (
         <>
           <ValidatedForm
             key={"readonly-greier, trenger egentlig ikke validatedform"} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
@@ -40,18 +61,18 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
 
             <BehandlingStegInputSelect
               placeholder="Regel brukt"
-              options={[{ text: "Ordinær", value: minsteinntektMockdata.regel }]}
+              options={[{ text: "Ordinær", value: minsteInntekt.regel }]}
               name={"Bruk uuid til koblingen mot utregning"}
               svartype={"String"}
               label={"Regel"}
-              verdi={minsteinntektMockdata.regel}
+              verdi={minsteInntekt.regel}
               readonly={true}
             />
 
             <BehandlingStegInputDato
               name={"virkningsdato"}
               label={"Virkningsdato (hardkodet)"}
-              verdi={minsteinntektMockdata.virkningsdato}
+              verdi={minsteInntekt.virkningsdato}
               readonly={true}
               svartype={"LocalDate"}
             />
@@ -62,14 +83,14 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
             3G: TALL TALL TALL
           </BodyLong>
 
-          <InntektTabell inntekter={minsteinntektMockdata.inntekter} />
+          <InntektTabell inntekter={minsteInntekt.inntekter} />
           <BehandlingStegLagretAv steg={steg} />
 
-          {minsteinntektMockdata.vilkaarOppfylt && (
+          {minsteInntekt.vilkaarOppfylt && (
             <Alert variant={"success"}>Vilkåret om minste arbeidsinntekt er oppfylt</Alert>
           )}
 
-          {!minsteinntektMockdata.vilkaarOppfylt && (
+          {!minsteInntekt.vilkaarOppfylt && (
             <Alert variant={"error"}>Vilkåret om minste arbeidsinntekt er ikke oppfylt</Alert>
           )}
 
