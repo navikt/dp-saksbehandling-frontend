@@ -2,7 +2,7 @@ import { Button, Heading } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
+import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
 import styles from "./BehandlingStegFattVedtak.module.css";
 
@@ -25,7 +25,7 @@ export function BehandlingStegFattVedtak(props: IProps) {
   const forslagTilVedtakStegMetadata: Metadata = {
     svartype: forslagTilVedtakSteg.svartype,
     id: forslagTilVedtakSteg.id,
-    stegId: forslagTilVedtakSteg.uuid,
+    stegUuid: forslagTilVedtakSteg.uuid,
   };
 
   return (

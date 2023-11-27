@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
-import { action } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
+import { action } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";

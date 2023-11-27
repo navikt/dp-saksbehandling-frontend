@@ -15,15 +15,15 @@ import styles from "~/route-styles/stegvisning.module.css";
 import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  invariant(params.stegId, `params.stegId er påkrevd`);
+  invariant(params.stegUuid, `params.stegUuid er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const session = await getSession(request);
   const formData = await request.formData();
   const metaData = parseMetadata<Metadata>(formData, "metadata");
-  const stegId = metaData.stegId || params.stegId;
+  const stegUuid = params.stegUuid;
 
-  const validering = await hentValideringRegler(metaData.svartype, metaData.id, stegId).validate(
+  const validering = await hentValideringRegler(metaData.svartype, metaData.id, stegUuid).validate(
     formData,
   );
 
@@ -36,19 +36,19 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const svar: IBehandlingStegSvar = {
     type: metaData.svartype,
-    svar: hentFormattertSvar(validering.submittedData[stegId], metaData.svartype),
+    svar: hentFormattertSvar(validering.submittedData[stegUuid], metaData.svartype),
     begrunnelse: {
       tekst: validering.submittedData.begrunnelse,
     },
   };
 
-  return await svarOppgaveSteg(params.oppgaveId, svar, stegId, session);
+  return await svarOppgaveSteg(params.oppgaveId, svar, stegUuid, session);
 }
 
 export interface Metadata {
   svartype: TBehandlingStegSvartype;
   id: string;
-  stegId?: string;
+  stegUuid?: string;
 }
 
 export default function PersonBehandleVilkaar() {
@@ -59,13 +59,13 @@ export default function PersonBehandleVilkaar() {
   const actionResponse = useActionData<typeof action>();
 
   const readonly = oppgave.tilstand !== "TilBehandling";
-  const { stegId } = useParams();
-  const steg = oppgave.steg.find((steg) => steg.uuid === stegId);
+  const { stegUuid } = useParams();
+  const steg = oppgave.steg.find((steg) => steg.uuid === stegUuid);
 
   if (!steg) {
     throw new Response(null, {
       status: 500,
-      statusText: `Fant ikke steg med id: ${stegId}`,
+      statusText: `Fant ikke steg med id: ${stegUuid}`,
     });
   }
 

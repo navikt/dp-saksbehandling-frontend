@@ -3,7 +3,7 @@ import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { BehandlingStegInputSelect } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { ValidatedForm } from "remix-validated-form";
-import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegId";
+import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useEffect, useState } from "react";
