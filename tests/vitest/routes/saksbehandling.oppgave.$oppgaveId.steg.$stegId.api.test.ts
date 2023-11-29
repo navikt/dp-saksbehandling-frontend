@@ -24,7 +24,7 @@ describe("Stegvisning", () => {
     const testParams = {
       ident: "1234",
       oppgaveId: "msw-c2e5845f-d139-490a-8925-890269994363",
-      stegId: "58402b6b-fb74-4dfc-a59c-c06ad2a40934",
+      stegUuid: "58402b6b-fb74-4dfc-a59c-c06ad2a40934",
     };
 
     describe("Lagre svar på steg", () => {
