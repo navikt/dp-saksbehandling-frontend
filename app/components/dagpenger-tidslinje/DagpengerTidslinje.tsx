@@ -2,23 +2,24 @@ import { BriefcaseIcon } from "@navikt/aksel-icons";
 import { Alert } from "@navikt/ds-react";
 import { Timeline } from "@navikt/ds-react-internal";
 import type { IArbeidssokerStatus } from "~/models/arbeidssoker.server";
-import type { INetworkResponse } from "~/utils/types";
 import styles from "./DagpengerTidslinje.module.css";
+import type { INetworkResponse } from "~/utils/types";
+import { isNetworkResponseSuccess } from "~/utils/type-guards";
 
 interface IProps {
-  arbeidssokerStatus: INetworkResponse<IArbeidssokerStatus>;
+  arbeidssokerStatusResponse: INetworkResponse<IArbeidssokerStatus>;
 }
 
 export function DagpengerTidslinje(props: IProps) {
-  const { arbeidssokerStatus } = props;
+  const { arbeidssokerStatusResponse } = props;
 
-  if (arbeidssokerStatus.status === "error") {
-    if (arbeidssokerStatus.error.statusCode === 401) {
+  if (arbeidssokerStatusResponse.status === "error") {
+    if (arbeidssokerStatusResponse.error.statusCode === 401) {
       return (
         <Alert
           variant="error"
           className="my-2"
-        >{`${arbeidssokerStatus.error.statusCode}: Denne bruker har ikke tilgang til å hente arbeidssøker status. Mangler Gosys-Nasjonal-gruppen rollen.`}</Alert>
+        >{`${arbeidssokerStatusResponse.error.statusCode}: Denne bruker har ikke tilgang til å hente arbeidssøker status. Mangler Gosys-Nasjonal-gruppen rollen.`}</Alert>
       );
     }
 
@@ -26,28 +27,29 @@ export function DagpengerTidslinje(props: IProps) {
       <Alert
         variant="error"
         className="my-2"
-      >{`${arbeidssokerStatus.error.statusCode}: ${arbeidssokerStatus.error.statusText}`}</Alert>
+      >{`${arbeidssokerStatusResponse.error.statusCode}: ${arbeidssokerStatusResponse.error.statusText}`}</Alert>
     );
   }
 
-  if (arbeidssokerStatus.data?.arbeidssokerperioder.length === 0) {
-    return <></>;
-  }
+  if (isNetworkResponseSuccess(arbeidssokerStatusResponse)) {
+    if (arbeidssokerStatusResponse.data?.arbeidssokerperioder.length === 0) {
+      return <></>;
+    }
 
-  return (
-    <Timeline className={styles.dagpengerTidslinjeKontainer}>
-      <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
-        {arbeidssokerStatus.data?.arbeidssokerperioder.map((periode) => (
-          <Timeline.Period
-            key={periode.fraOgMedDato}
-            start={new Date(periode.fraOgMedDato)}
-            end={periode.tilOgMedDato ? new Date(periode.tilOgMedDato) : new Date()}
-            status="info"
-            icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
-          />
-        ))}
-      </Timeline.Row>
-      {/* <Timeline.Row
+    return (
+      <Timeline className={styles.dagpengerTidslinjeKontainer}>
+        <Timeline.Row label="ARBEIDSØKER" icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}>
+          {arbeidssokerStatusResponse.data?.arbeidssokerperioder.map((periode) => (
+            <Timeline.Period
+              key={periode.fraOgMedDato}
+              start={new Date(periode.fraOgMedDato)}
+              end={periode.tilOgMedDato ? new Date(periode.tilOgMedDato) : new Date()}
+              status="info"
+              icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
+            />
+          ))}
+        </Timeline.Row>
+        {/* <Timeline.Row
         label="DAGPENGERPERIODE (SAK)"
         icon={<BriefcaseIcon aria-hidden fontSize="1.5rem" />}
       >
@@ -72,8 +74,9 @@ export function DagpengerTidslinje(props: IProps) {
           />
         ))}
       </Timeline.Row> */}
-    </Timeline>
-  );
+      </Timeline>
+    );
+  }
 }
 
 // const arbeidssokerPeriode: TimelinePeriodProps = {

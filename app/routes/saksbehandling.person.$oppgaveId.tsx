@@ -24,18 +24,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   try {
     if (getEnv("IS_LOCALHOST") === "true") {
-      const [arbeidssokerStatus, mockPerson] = await Promise.all([
+      const [arbeidssokerStatusResponse, mockPerson] = await Promise.all([
         arbeidssokerStatusPromise,
         mockHentPerson(),
       ]);
       return json({
         error: null,
         person: mockPerson,
-        arbeidssokerStatus,
+        arbeidssokerStatusResponse: arbeidssokerStatusResponse,
       });
     }
     const personaliaPromise = hentPersonalia(session, oppgave.person);
-    const [personalia, arbeidssokerStatus] = await Promise.all([
+    const [personalia, arbeidssokerStatusResponse] = await Promise.all([
       personaliaPromise,
       arbeidssokerStatusPromise,
     ]);
@@ -44,7 +44,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       return json({
         error: "Klarte ikke hente personalia",
         person: null,
-        arbeidssokerStatus,
+        arbeidssokerStatusResponse: arbeidssokerStatusResponse,
       });
     }
 
@@ -64,7 +64,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       utflyttingFraNorge:
         personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0]?.utflyttingsdato,
     };
-    return json({ error: null, person, arbeidssokerStatus });
+    return json({ error: null, person, arbeidssokerStatusResponse: arbeidssokerStatusResponse });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
     const arbeidssokerStatusError: INetworkResponse<IArbeidssokerStatus> = {
@@ -77,7 +77,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return json({
       error: `Feil ved henting av personalia fra PDL`,
       person: null,
-      arbeidssokerStatus: arbeidssokerStatusError,
+      arbeidssokerStatusResponse: arbeidssokerStatusError,
     });
   }
 }

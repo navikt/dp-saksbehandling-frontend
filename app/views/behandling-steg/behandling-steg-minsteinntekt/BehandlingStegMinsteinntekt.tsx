@@ -11,12 +11,17 @@ import type { IMinsteinntekstData } from "~/views/behandling-steg/behandling-ste
 import { InntektTabell } from "~/components/inntekt-tabell/InntektTabell";
 import { BehandlingStegGenerell } from "~/views/behandling-steg/BehandlingStegGenerell";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { INetworkResponse } from "~/utils/types";
+import { isNetworkResponseWaiting, isNetworkResponseSuccess } from "~/utils/type-guards";
 
-async function getMinsteinntekt(oppgaveId: string): Promise<IMinsteinntekstData | undefined> {
+async function getMinsteinntekt(oppgaveId: string): Promise<INetworkResponse> {
   const response = await fetch(`/saksbehandling/api/hent-minsteinntekt/${oppgaveId}`);
 
   if (!response.ok) {
-    return undefined;
+    return {
+      status: "error",
+      error: { statusCode: response.status, statusText: response.statusText },
+    };
   }
 
   return await response.json();
@@ -26,12 +31,16 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
   const { steg } = props;
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const [manuellBehandling, setManuellBehandling] = useState(() => false);
-  const [minsteInntekt, setMinsteInntekt] = useState<IMinsteinntekstData | undefined>();
+  const [minsteInntektResponse, setMinsteInntektResponse] = useState<
+    INetworkResponse<IMinsteinntekstData | void> | undefined
+  >();
 
+  async function oppdaterMinsteInntektResponse(oppgaveId: string) {
+    setMinsteInntektResponse(undefined);
+    setMinsteInntektResponse(await getMinsteinntekt(oppgaveId));
+  }
   useEffect(() => {
-    (async () => {
-      setMinsteInntekt(await getMinsteinntekt(oppgave.uuid));
-    })();
+    oppdaterMinsteInntektResponse(oppgave.uuid);
   }, [oppgave.uuid]);
 
   const metadata: Metadata = {
@@ -48,65 +57,81 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
         månedene, eller 3 ganger grunnbeløpet siste 36 månedene.
       </BodyLong>
 
-      {!minsteInntekt && <Loader />}
+      {!minsteInntektResponse && <Loader />}
 
-      {!manuellBehandling && minsteInntekt && (
+      {!manuellBehandling && isNetworkResponseWaiting(minsteInntektResponse) && (
         <>
-          <ValidatedForm
-            key={"readonly-greier, trenger egentlig ikke validatedform"} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
-            validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
-            method="post"
-          >
-            <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
-
-            <BehandlingStegInputSelect
-              placeholder="Regel brukt"
-              options={[{ text: "Ordinær", value: minsteInntekt.regel }]}
-              name={"Bruk uuid til koblingen mot utregning"}
-              svartype={"String"}
-              label={"Regel"}
-              verdi={minsteInntekt.regel}
-              readonly={true}
-            />
-
-            <BehandlingStegInputDato
-              name={"virkningsdato"}
-              label={"Virkningsdato (hardkodet)"}
-              verdi={minsteInntekt.virkningsdato}
-              readonly={true}
-              svartype={"LocalDate"}
-            />
-          </ValidatedForm>
-          <BodyLong>
-            Gjeldende grunnbeløp på virkningstidspunkt: <br />
-            1.5G: TALL TALL TALL <br />
-            3G: TALL TALL TALL
-          </BodyLong>
-
-          <InntektTabell inntekter={minsteInntekt.inntekter} />
-          <BehandlingStegLagretAv steg={steg} />
-
-          {minsteInntekt.vilkaarOppfylt && (
-            <Alert variant={"success"}>Vilkåret om minste arbeidsinntekt er oppfylt</Alert>
-          )}
-
-          {!minsteInntekt.vilkaarOppfylt && (
-            <Alert variant={"error"}>Vilkåret om minste arbeidsinntekt er ikke oppfylt</Alert>
-          )}
-
-          <div className={"knapperad"}>
-            <Button
-              variant="primary"
-              onClick={() => console.log("BEEP BOP! Bruker maskinell beregning!")}
-            >
-              Dette stemmer!
-            </Button>
-            <Button variant="secondary" onClick={() => setManuellBehandling(true)}>
-              Register manuelt i stedet
-            </Button>
-          </div>
+          <Alert variant={"warning"}>
+            Systemet beregner fortsatt forslag til minsteinntektsvurdering
+          </Alert>
+          <Button variant="secondary" onClick={() => oppdaterMinsteInntektResponse(oppgave.uuid)}>
+            Se om forslaget er klart
+          </Button>
+          <Button variant="secondary" onClick={() => setManuellBehandling(true)}>
+            Register manuelt i stedet
+          </Button>
         </>
       )}
+
+      {!manuellBehandling &&
+        isNetworkResponseSuccess<IMinsteinntekstData>(minsteInntektResponse) &&
+        minsteInntektResponse.data && (
+          <>
+            <ValidatedForm
+              key={"readonly-greier, trenger egentlig ikke validatedform"} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
+              validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
+              method="post"
+            >
+              <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
+
+              <BehandlingStegInputSelect
+                placeholder="Regel brukt"
+                options={[{ text: "Ordinær", value: minsteInntektResponse.data.regel }]}
+                name={"Bruk uuid til koblingen mot utregning"}
+                svartype={"String"}
+                label={"Regel"}
+                verdi={minsteInntektResponse.data.regel}
+                readonly={true}
+              />
+
+              <BehandlingStegInputDato
+                name={"virkningsdato"}
+                label={"Virkningsdato (hardkodet)"}
+                verdi={minsteInntektResponse.data.virkningsdato}
+                readonly={true}
+                svartype={"LocalDate"}
+              />
+            </ValidatedForm>
+            <BodyLong>
+              Gjeldende grunnbeløp på virkningstidspunkt: <br />
+              1.5G: TALL TALL TALL <br />
+              3G: TALL TALL TALL
+            </BodyLong>
+
+            <InntektTabell inntekter={minsteInntektResponse.data.inntekter} />
+            <BehandlingStegLagretAv steg={steg} />
+
+            {minsteInntektResponse.data.vilkaarOppfylt && (
+              <Alert variant={"success"}>Vilkåret om minste arbeidsinntekt er oppfylt</Alert>
+            )}
+
+            {!minsteInntektResponse.data.vilkaarOppfylt && (
+              <Alert variant={"error"}>Vilkåret om minste arbeidsinntekt er ikke oppfylt</Alert>
+            )}
+
+            <div className={"knapperad"}>
+              <Button
+                variant="primary"
+                onClick={() => console.log("BEEP BOP! Bruker maskinell beregning!")}
+              >
+                Dette stemmer!
+              </Button>
+              <Button variant="secondary" onClick={() => setManuellBehandling(true)}>
+                Register manuelt i stedet
+              </Button>
+            </div>
+          </>
+        )}
 
       {manuellBehandling && (
         <>
