@@ -103,9 +103,9 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
               />
             </ValidatedForm>
             <BodyLong>
-              Gjeldende grunnbeløp på virkningstidspunkt: <br />
-              1.5G: TALL TALL TALL <br />
-              3G: TALL TALL TALL
+              Grunnbeløp brukt i forslaget: <br />
+              1.5G: ${minsteInntektResponse.data.grunnbeloep * 1.5} <br />
+              3G: ${minsteInntektResponse.data.grunnbeloep * 3}
             </BodyLong>
 
             <InntektTabell inntekter={minsteInntektResponse.data.inntekter} />

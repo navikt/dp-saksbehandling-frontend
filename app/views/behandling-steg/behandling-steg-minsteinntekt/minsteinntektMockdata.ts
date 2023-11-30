@@ -16,13 +16,15 @@ export interface IMinsteinntekstData {
   regel: "ordinaer" | "verneplikt";
   virkningsdato: string;
   vilkaarOppfylt: boolean;
+  grunnbeloep: number;
   inntektId: string;
   inntekter: IInntekt[];
 }
 
 export const minsteinntektMockdata: IMinsteinntekstData = {
-  virkningsdato: "06.12.2023",
+  virkningsdato: "2023-12-06",
   vilkaarOppfylt: true,
+  grunnbeloep: 105000,
   inntektId: "en-uuid-referanse-til-inntektsdata",
   regel: "ordinaer",
   inntekter: [
