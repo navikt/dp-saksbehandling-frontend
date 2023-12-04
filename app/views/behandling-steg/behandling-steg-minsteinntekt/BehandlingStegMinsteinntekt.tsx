@@ -1,7 +1,6 @@
 import { type IProps } from "~/views/behandling-steg/BehandlingSteg";
-import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, Heading, Link, Loader } from "@navikt/ds-react";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { BehandlingStegInputSelect } from "~/components/behandling-steg-input/BehandlingStegInputSelect";
 import { ValidatedForm } from "remix-validated-form";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
@@ -77,22 +76,17 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
         isNetworkResponseSuccess<IMinsteinntekstData>(minsteInntektResponse) &&
         minsteInntektResponse.data && (
           <>
+            <BodyLong>
+              I første omgang mangler man både informasjon om inntektsmåneder, regler anvendt,
+              grunnbeløp brukt osv. Det bør være en god diskusjon rundt hva man faktisk trenger og
+              ønsker herfra. :)
+            </BodyLong>
             <ValidatedForm
               key={"readonly-greier, trenger egentlig ikke validatedform"} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
               validator={hentValideringRegler(steg.svartype, steg.id, steg.uuid)}
               method="post"
             >
               <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
-
-              <BehandlingStegInputSelect
-                placeholder="Regel brukt"
-                options={[{ text: "Ordinær", value: minsteInntektResponse.data.regel }]}
-                name={"Bruk uuid til koblingen mot utregning"}
-                svartype={"String"}
-                label={"Regel"}
-                verdi={minsteInntektResponse.data.regel}
-                readonly={true}
-              />
 
               <BehandlingStegInputDato
                 name={"virkningsdato"}
@@ -102,13 +96,11 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
                 svartype={"LocalDate"}
               />
             </ValidatedForm>
-            <BodyLong>
-              Grunnbeløp brukt i forslaget: <br />
-              1.5G: ${minsteInntektResponse.data.grunnbeloep * 1.5} <br />
-              3G: ${minsteInntektResponse.data.grunnbeloep * 3}
-            </BodyLong>
 
-            <InntektTabell inntekter={minsteInntektResponse.data.inntekter} />
+            <InntektTabell inntekter={minsteInntektResponse.data.inntektPerioder} />
+            <Link href={`#dummy-lenke-til-redigering/${minsteInntektResponse.data.inntektId}`}>
+              Endre opplysninger om inntekt
+            </Link>
             <BehandlingStegLagretAv steg={steg} />
 
             {minsteInntektResponse.data.vilkaarOppfylt && (

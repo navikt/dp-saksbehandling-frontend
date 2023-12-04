@@ -13,6 +13,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/route-styles/stegvisning.module.css";
 import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
+import { isNetworkResponseSuccess } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -78,7 +79,7 @@ export default function PersonBehandleVilkaar() {
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
 
-        {arbeidsforhold.status === "success" && (
+        {isNetworkResponseSuccess(arbeidsforhold) && (
           <Arbeidsforhold arbeidsforhold={arbeidsforhold.data || []} />
         )}
       </div>

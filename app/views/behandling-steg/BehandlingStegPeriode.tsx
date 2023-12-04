@@ -1,7 +1,7 @@
 import { ValidatedForm } from "remix-validated-form";
 import { type Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { Input } from "../../components/behandling-steg-input/BehandlingStegInput";
+import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import type { IStegTekst } from "~/tekster/stegTekster";
 import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
