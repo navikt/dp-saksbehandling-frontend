@@ -123,7 +123,7 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
 
               <BehandlingStegInputDato
                 name={"virkningsdato"}
-                label={"Virkningsdato (hardkodet)"}
+                label={"Virkningstidspunkt brukt"}
                 verdi={minsteInntektResponse.data.virkningsdato}
                 readonly={true}
                 svartype={"LocalDate"}
@@ -133,14 +133,12 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
               grunnbeloepResponse.data?.grunnbeloep && (
                 <>
                   <BodyShort>
-                    Grunnbeløp på virkningstidspuniktet:{" "}
-                    {grunnbeloepResponse.data.grunnbeloep.toLocaleString("no-nb")}
+                    1.5 G på virkningstidspunktet:{" "}
+                    {(grunnbeloepResponse.data.grunnbeloep * 1.5).toLocaleString("no-nb")}
                   </BodyShort>
                   <BodyShort>
-                    1.5 G: {(grunnbeloepResponse.data.grunnbeloep * 1.5).toLocaleString("no-nb")}
-                  </BodyShort>
-                  <BodyShort>
-                    3 G: {(grunnbeloepResponse.data.grunnbeloep * 3).toLocaleString("no-nb")}
+                    3 G på virkningstidspunktet:{" "}
+                    {(grunnbeloepResponse.data.grunnbeloep * 3).toLocaleString("no-nb")}
                   </BodyShort>
                 </>
               )}
