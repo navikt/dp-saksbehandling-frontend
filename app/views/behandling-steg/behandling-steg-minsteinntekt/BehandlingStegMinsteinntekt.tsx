@@ -1,5 +1,5 @@
 import { type IProps } from "~/views/behandling-steg/BehandlingSteg";
-import { Alert, BodyLong, Button, Heading, Link, Loader } from "@navikt/ds-react";
+import { Alert, BodyLong, BodyShort, Button, Heading, Link, Loader } from "@navikt/ds-react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { ValidatedForm } from "remix-validated-form";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
@@ -26,6 +26,30 @@ async function getMinsteinntekt(oppgaveId: string): Promise<INetworkResponse> {
   return await response.json();
 }
 
+async function getGrunnbeloep(dato: string): Promise<INetworkResponse> {
+  //iso 8601
+  const response = await fetch(`https://g.nav.no/api/v1/grunnbeloep?${dato}`);
+
+  if (!response.ok) {
+    return {
+      status: "error",
+      error: { statusCode: response.status, statusText: response.statusText },
+    };
+  }
+
+  return { status: "success", data: await response.json() };
+}
+
+interface IGrunnbeloep {
+  //{"dato":"2023-05-01","grunnbeloep":118620,"grunnbeloepPerMaaned":9885,"gjennomsnittPerAar":116239,"omregningsfaktor":1.064076,"virkningstidspunktForMinsteinntekt":"2023-05-26"}
+  dato: string;
+  grunnbeloep: number;
+  grunnbeloepPerMaaned: number;
+  gjennomsnittPerAar: number;
+  inntektPomregningsfaktorerioder: number;
+  virkningstidspunktForMinsteinntekt: string;
+}
+
 export function BehandlingStegMinsteinntekt(props: IProps) {
   const { steg } = props;
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
@@ -33,10 +57,19 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
   const [minsteInntektResponse, setMinsteInntektResponse] = useState<
     INetworkResponse<IMinsteinntekstData | void> | undefined
   >();
+  //midlertidig hack for å se om vi ønsker å vise grunnbeløp i vurderingen, bør følge med i datagrunnlag til vurderingsreferansen på minsteinntekt
+  const [grunnbeloepResponse, setGrunnbeloepResponse] = useState<
+    INetworkResponse<IGrunnbeloep | void> | undefined
+  >();
 
   async function oppdaterMinsteInntektResponse(oppgaveId: string) {
     setMinsteInntektResponse(undefined);
-    setMinsteInntektResponse(await getMinsteinntekt(oppgaveId));
+    const response: INetworkResponse<IMinsteinntekstData | void> =
+      await getMinsteinntekt(oppgaveId);
+    setMinsteInntektResponse(response);
+    if (isNetworkResponseSuccess<IMinsteinntekstData>(response) && response.data) {
+      setGrunnbeloepResponse(await getGrunnbeloep(response.data.virkningsdato));
+    }
   }
   useEffect(() => {
     oppdaterMinsteInntektResponse(oppgave.uuid);
@@ -96,6 +129,21 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
                 svartype={"LocalDate"}
               />
             </ValidatedForm>
+            {isNetworkResponseSuccess<IGrunnbeloep>(grunnbeloepResponse) &&
+              grunnbeloepResponse.data?.grunnbeloep && (
+                <>
+                  <BodyShort>
+                    Grunnbeløp på virkningstidspuniktet:{" "}
+                    {grunnbeloepResponse.data.grunnbeloep.toLocaleString("no-nb")}
+                  </BodyShort>
+                  <BodyShort>
+                    1.5 G: {(grunnbeloepResponse.data.grunnbeloep * 1.5).toLocaleString("no-nb")}
+                  </BodyShort>
+                  <BodyShort>
+                    3 G: {(grunnbeloepResponse.data.grunnbeloep * 3).toLocaleString("no-nb")}
+                  </BodyShort>
+                </>
+              )}
 
             <InntektTabell inntekter={minsteInntektResponse.data.inntektPerioder} />
             <Link href={`#dummy-lenke-til-redigering/${minsteInntektResponse.data.inntektId}`}>
