@@ -1,28 +1,29 @@
 import type { INetworkResponse } from "~/utils/types";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import type { IMinsteinntekstData } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
-import { minsteinntektMockdata } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
+import { getBehandlingOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
 
 export async function hentMinsteinntekt(
   session: SessionWithOboProvider,
-  fnr: string,
+  oppgaveId: string,
 ): Promise<INetworkResponse<IMinsteinntekstData>> {
   //gir en 50/50 sjangse på å returnere waiting eller faktisk behandlingsstøtte
-  const random = Math.floor(Math.random() * 2);
+  /*  const random = Math.floor(Math.random() * 2);
   if (random === 1) {
     return { status: "success", data: minsteinntektMockdata };
   }
-  return { status: "waiting" };
+  return { status: "waiting" };*/
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/vurdering/minsteinntekt`;
 
-  /*  const url = `${getEnv("DP_BEHANDLING_URL")}/arbeidsforhold`;
   const response = await fetch(url, {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
-    body: JSON.stringify({ ident: fnr }),
   });
   if (!response.ok) {
     return {
@@ -31,5 +32,5 @@ export async function hentMinsteinntekt(
     };
   }
 
-  return { status: "success", data: await response.json() };*/
+  return { status: "success", data: await response.json() };
 }

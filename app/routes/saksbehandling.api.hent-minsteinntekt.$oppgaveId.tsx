@@ -7,5 +7,5 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
   const session = await getSession(request);
 
-  return hentMinsteinntekt(session, "mock fnr");
+  return hentMinsteinntekt(session, params.oppgaveId);
 }
