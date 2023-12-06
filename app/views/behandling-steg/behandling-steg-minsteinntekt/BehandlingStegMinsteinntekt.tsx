@@ -144,7 +144,7 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
               )}
 
             <InntektTabell inntekter={minsteInntektResponse.data.inntektPerioder} />
-            <Link href={`#dummy-lenke-til-redigering/${minsteInntektResponse.data.inntektId}`}>
+            <Link href={`#dummy-lenke-til-redigering/${minsteInntektResponse.data.inntektsId}`}>
               Endre opplysninger om inntekt
             </Link>
             <BehandlingStegLagretAv steg={steg} />
