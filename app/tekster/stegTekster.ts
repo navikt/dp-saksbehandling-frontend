@@ -67,7 +67,7 @@ export const stegTekster: IStegTekst[] = [
   },
   {
     id: "Oppfyller kravene til dagpenger",
-    label: "Oppfyller kravene til dagpenger",
+    label: "Minste arbeidsinntekt",
     begrunnelse: "Begrunnelse",
     hjelpetekst: {
       label: "",
