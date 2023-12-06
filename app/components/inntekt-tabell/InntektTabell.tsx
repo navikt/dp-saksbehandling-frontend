@@ -1,11 +1,13 @@
 import React from "react";
-import { BodyShort, Table } from "@navikt/ds-react";
+import { Heading, Table } from "@navikt/ds-react";
 import type { IInntekt } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
 
 export function InntektTabell(props: { inntekter: IInntekt[] }) {
   return (
     <div>
-      <BodyShort>Inntektsopplysninger</BodyShort>
+      <Heading level="2" size={"medium"}>
+        Inntektsopplysninger fra A-inntekt
+      </Heading>
       <Table>
         <Table.Header>
           <Table.Row>
