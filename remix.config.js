@@ -5,7 +5,8 @@ module.exports = {
   // assetsBuildDirectory: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build",
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
-  publicPath: "/saksbehandling/build/",
-  // publicPath: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build/",
+  publicPath:
+    process.env.PUBLIC_PATH || "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/",
+  //publicPath: "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/public/build/",
   serverModuleFormat: "cjs",
 };

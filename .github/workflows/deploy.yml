@@ -145,9 +145,32 @@ jobs:
             ./public
           key: ${{ github.sha }}
 
+  upload-cdn:
+    needs: [ build, test ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: |
+            ./build
+            ./public
+          key: ${{ github.sha }}
+          fail-on-cache-miss: true
+
+      - name: Upload static files
+        uses: navikt/frontend/actions/cdn-upload/v1@main
+        with:
+          cdn-team-name: teamdagpenger
+          source: ./public
+          destination: "/dp-saksbehandling-frontend/"
+
   deploy-dev:
     if: github.ref == 'refs/heads/main'
-    needs: [build, test]
+    needs: [build, test, upload-cdn]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

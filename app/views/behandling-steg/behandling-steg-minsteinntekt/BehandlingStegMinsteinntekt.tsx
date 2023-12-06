@@ -130,7 +130,7 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
               />
             </ValidatedForm>
             {isNetworkResponseSuccess<IGrunnbeloep>(grunnbeloepResponse) &&
-              grunnbeloepResponse.data?.grunnbeloep && (
+              grunnbeloepResponse.data && (
                 <>
                   <BodyShort>
                     1.5 G på virkningstidspunktet:{" "}
