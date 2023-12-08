@@ -2,7 +2,7 @@ import type { ISanityInfoside } from "~/sanity/sanity.types";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function useSanity() {
-  const { sanityTexts } = useTypedRouteLoaderData("root");
+  const { sanityTexts } = useTypedRouteLoaderData("routes/saksbehandling");
 
   function hentAppTekstMedId(textId: string): string {
     return (

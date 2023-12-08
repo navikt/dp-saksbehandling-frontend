@@ -2,11 +2,11 @@ FROM gcr.io/distroless/nodejs20-debian11
 
 WORKDIR /var
 
-COPY build/ build/
-COPY server/build server/
-COPY public/ public/
 COPY node_modules/ node_modules/
+
+COPY build/ build/
+COPY public/ public/
 
 EXPOSE 3000
 
-CMD ["./server/server.js"]
+CMD ["npm", "start"]

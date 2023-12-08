@@ -2,11 +2,12 @@
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { action } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
-import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
+import { startMockServer } from "../../../mocks/server";
 
 describe("Stegvisning", () => {
+  const server = startMockServer();
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
   afterAll(() => server.close());
   afterEach(() => {

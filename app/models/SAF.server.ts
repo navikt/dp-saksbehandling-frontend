@@ -1,10 +1,10 @@
-import { logger, sikkerLogger } from "../../server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { gql, GraphQLClient } from "graphql-request";
 import { getSaksbehandler, getSession } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
 import { type INetworkResponse } from "~/utils/types";
+import { logger, sikkerLogger } from "~/utils/logger.utils";
 
 export interface IJournalpost {
   journalpostId: string;

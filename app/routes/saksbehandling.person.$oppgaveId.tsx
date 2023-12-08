@@ -10,8 +10,8 @@ import { hentOppgave } from "~/models/oppgave.server";
 import type { IPerson } from "~/models/pdl.server";
 import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
 import { getEnv } from "~/utils/env.utils";
-import { sikkerLogger } from "../../server/logger";
 import type { INetworkResponse } from "~/utils/types";
+import { sikkerLogger } from "~/utils/logger.utils";
 
 export const shouldRevalidate = () => false;
 

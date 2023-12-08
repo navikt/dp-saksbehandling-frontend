@@ -3,12 +3,14 @@
 import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 import { rest } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
-import { loader } from "~/root";
-import { server } from "../../../mocks/server";
+
+import { startMockServer } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
+import { loader } from "~/routes/saksbehandling";
 
 describe("Root til applikasjonen", () => {
+  const server = startMockServer();
   beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
   afterAll(() => server.close());
   afterEach(() => {

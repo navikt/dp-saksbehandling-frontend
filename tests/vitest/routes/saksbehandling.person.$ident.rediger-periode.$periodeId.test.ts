@@ -7,11 +7,12 @@ import {
   loader,
 } from "~/routes/saksbehandling.person.$oppgaveId.rediger-periode.$periodeId";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
-import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
+import { startMockServer } from "../../../mocks/server";
 
 describe("Rediger rapporteringsperiode", () => {
+  const server = startMockServer();
   beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
   afterAll(() => server.close());
   afterEach(() => {

@@ -1,27 +1,29 @@
-/*
-  Entry-point for Remix på serversiden.
-  Dette er boilerplate fra Remix.
-*/
+/**
+ * By default, Remix will handle generating the HTTP Response for you.
+ * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
+ * For more information, see https://remix.run/docs/en/main/file-conventions/entry.server
+ */
+
+import { PassThrough } from "node:stream";
 
 import type { EntryContext } from "@remix-run/node";
-import { RemixServer } from "@remix-run/react";
-import { renderToPipeableStream } from "react-dom/server";
-import { PassThrough } from "stream";
-import { setup, start } from "../mocks/server";
-import { getEnv } from "./utils/env.utils";
 import { createReadableStreamFromReadable } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
+import isbot from "isbot";
+import { renderToPipeableStream } from "react-dom/server";
+import { getEnv } from "~/utils/env.utils";
+import { startMockServer } from "../mocks/server";
 
-const ABORT_DELAY = 5000;
-
-if (getEnv("USE_MSW") === "true") {
-  const server = setup();
-  start(server);
-}
+const ABORT_DELAY = 5_000;
 const csp = {
   "img-src": ["'self'", "data:"],
   "connect-src": ["'self'", "*.nav.no"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
 };
 let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
+
+if (getEnv("USE_MSW") === "true") {
+  startMockServer();
+}
 
 if (getEnv("IS_LOCALHOST")) {
   cspString =
@@ -34,34 +36,80 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  return new Promise((resolve, reject) => {
-    let didError = false;
+  return isbot(request.headers.get("user-agent"))
+    ? handleBotRequest(request, responseStatusCode, responseHeaders, remixContext)
+    : handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext);
+}
 
-    const { pipe, abort } = renderToPipeableStream(
-      <RemixServer context={remixContext} url={request.url} />,
+function handleBotRequest(
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) {
+  return new Promise((resolve, reject) => {
+    const { abort, pipe } = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
       {
-        onShellReady: () => {
+        onAllReady() {
           const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
           responseHeaders.set("Content-Security-Policy", cspString);
+
           resolve(
-            new Response(stream, {
+            new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
-              status: didError ? 500 : responseStatusCode,
+              status: responseStatusCode,
             }),
           );
 
           pipe(body);
         },
-        onShellError: (err: unknown) => {
-          reject(err);
+        onShellError(error: unknown) {
+          reject(error);
         },
-        onError: (error: unknown) => {
-          didError = true;
-
+        onError(error: unknown) {
+          responseStatusCode = 500;
           console.error(error);
+        },
+      },
+    );
+
+    setTimeout(abort, ABORT_DELAY);
+  });
+}
+
+function handleBrowserRequest(
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
+) {
+  return new Promise((resolve, reject) => {
+    const { abort, pipe } = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
+      {
+        onShellReady() {
+          const body = new PassThrough();
+
+          responseHeaders.set("Content-Type", "text/html");
+
+          resolve(
+            new Response(createReadableStreamFromReadable(body), {
+              headers: responseHeaders,
+              status: responseStatusCode,
+            }),
+          );
+
+          pipe(body);
+        },
+        onShellError(error: unknown) {
+          reject(error);
+        },
+        onError(error: unknown) {
+          console.error(error);
+          responseStatusCode = 500;
         },
       },
     );

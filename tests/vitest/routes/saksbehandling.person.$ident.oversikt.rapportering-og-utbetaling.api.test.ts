@@ -7,12 +7,13 @@ import {
   loader,
 } from "~/routes/saksbehandling.person.$oppgaveId.oversikt.rapportering-og-utbetaling";
 import { mockRapporteringsperioder } from "../../../mocks/api-routes/rapporteringsperiodeResponse";
-import { server } from "../../../mocks/server";
+import { startMockServer } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
 import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 
 describe("Rapportering og utbetaling", () => {
+  const server = startMockServer();
   beforeAll(() => server.listen({ onUnhandledRequest: "bypass" }));
   afterAll(() => server.close());
   afterEach(() => {
