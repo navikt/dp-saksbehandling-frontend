@@ -11,10 +11,7 @@ import { allTextsQuery } from "~/sanity/sanity.query";
 import { hentOppgaver } from "~/models/oppgave.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { createClient } from "@sanity/client/src/index.browser";
-import { sanityConfig } from "~/sanity/sanity.config";
-
-export const sanityClient = createClient(sanityConfig);
+import { sanityClient } from "~/utils/sanity.utils";
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
