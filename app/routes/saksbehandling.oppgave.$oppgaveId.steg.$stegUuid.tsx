@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { useActionData, useParams } from "@remix-run/react";
+import { Await, useActionData, useParams } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
@@ -14,6 +14,10 @@ import { Alert } from "@navikt/ds-react";
 import styles from "~/route-styles/stegvisning.module.css";
 import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
+import { Suspense } from "react";
+import type { IArbeidsforhold } from "~/models/arbeidsforhold.server";
+import type { IJournalpost } from "~/models/SAF.server";
+import type { INetworkResponse } from "~/utils/types";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -54,7 +58,7 @@ export interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
-  const { journalposter, arbeidsforhold } = useTypedRouteLoaderData(
+  const { journalposterPromises, arbeidsforholdPromise } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId.steg",
   );
   const actionResponse = useActionData<typeof action>();
@@ -78,25 +82,66 @@ export default function PersonBehandleVilkaar() {
         {actionResponse?.status === "error" && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
-
-        {isNetworkResponseSuccess(arbeidsforhold) && (
-          <Arbeidsforhold arbeidsforhold={arbeidsforhold.data || []} />
-        )}
+        <Suspense fallback={<div>Henter arbeidsforhold</div>}>
+          <Await
+            resolve={arbeidsforholdPromise}
+            errorElement={<div>Greide ikke laste inn arbeidsforhold 😬</div>}
+          >
+            {(arbeidsforhold) => {
+              if (isNetworkResponseSuccess<IArbeidsforhold[]>(arbeidsforhold)) {
+                return <Arbeidsforhold arbeidsforhold={arbeidsforhold.data || []} />;
+              }
+            }}
+          </Await>
+        </Suspense>
       </div>
 
-      {journalposter?.data?.length > 0 && (
-        <div className={styles.dokumentContainer}>
-          <PDFLeser journalposter={journalposter.data} />
-        </div>
-      )}
-
-      {journalposter.errors && (
-        <div className={styles.dokumentContainer}>
-          <Alert variant="error" className="my-4">
-            En feil oppsto når vi skulle hente ut dokumentene.
-          </Alert>
-        </div>
-      )}
+      <Suspense fallback={<div>Henter arbeidsforhold</div>}>
+        <Await
+          resolve={journalposterPromises}
+          errorElement={<div>Greide ikke laste inn journalposter 😬</div>}
+        >
+          {(journalpromises) => {
+            const journalposter = lagJournalpostData(journalpromises);
+            return (
+              <>
+                {journalposter?.data?.length > 0 && (
+                  <div className={styles.dokumentContainer}>
+                    <PDFLeser journalposter={journalposter.data} />
+                  </div>
+                )}
+                {journalposter.errors && (
+                  <div className={styles.dokumentContainer}>
+                    <Alert variant="error" className="my-4">
+                      En feil oppsto når vi skulle hente ut dokumentene.
+                    </Alert>
+                  </div>
+                )}
+              </>
+            );
+          }}
+        </Await>
+      </Suspense>
     </div>
   );
+}
+
+interface IJournalposter {
+  data: IJournalpost[];
+  errors: boolean;
+}
+function lagJournalpostData(journalpostResponses: INetworkResponse<IJournalpost>[]) {
+  const journalposter: IJournalposter = {
+    data: [],
+    errors: false,
+  };
+
+  for (const response of journalpostResponses) {
+    if (isNetworkResponseSuccess(response) && response.data) {
+      journalposter.data.push(response.data);
+    } else {
+      journalposter.errors = true;
+    }
+  }
+  return journalposter;
 }

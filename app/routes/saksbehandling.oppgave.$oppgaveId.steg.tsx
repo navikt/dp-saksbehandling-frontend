@@ -1,18 +1,13 @@
 import { Outlet } from "@remix-run/react";
 import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
 import styles from "~/route-styles/behandle.module.css";
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import { defer, type LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
-import { hentJournalpost, type IJournalpost } from "~/models/SAF.server";
+import { hentJournalpost } from "~/models/SAF.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-
-interface IJournalposter {
-  data: IJournalpost[];
-  errors: boolean;
-}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -28,26 +23,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     // Ingen await her, denne skal resolves senere i neste Promise.all
     return Promise.all(promises);
   }
-
-  const [journalpostResponses, arbeidsforhold] = await Promise.all([
-    hentJournalposter(),
-    hentArbeidsforhold(session, oppgave.person),
-  ]);
-
-  const journalposter: IJournalposter = {
-    data: [],
-    errors: false,
-  };
-
-  for (const response of journalpostResponses) {
-    if (response.status === "success" && response.data) {
-      journalposter.data.push(response.data);
-    } else {
-      journalposter.errors = true;
-    }
-  }
-
-  return json({ journalposter, arbeidsforhold });
+  return defer({
+    journalposterPromises: hentJournalposter(),
+    arbeidsforholdPromise: hentArbeidsforhold(session, oppgave.person),
+  });
 }
 
 // Disse dataene skal aldri hentes på nytt når man driver å behandler oppgaven. Kallet til journalpost+arbeidsforhold trengs dermed bare å gjøres en gang
