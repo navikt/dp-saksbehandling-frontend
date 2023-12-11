@@ -8,8 +8,8 @@ import { broadcastDevReady, installGlobals } from "@remix-run/node";
 import compression from "compression";
 import type { RequestHandler, Response } from "express";
 import express from "express";
-import morgan from "morgan";
 import sourceMapSupport from "source-map-support";
+import { logRequests } from "~/utils/logger.utils";
 
 sourceMapSupport.install();
 installGlobals();
@@ -35,12 +35,12 @@ async function run() {
   // Everything else (like favicon.ico) is cached for an hour.
   app.use(`${BASE_PATH}`, express.static("public", { maxAge: "1h" }));
 
-  app.use(morgan("tiny"));
-
   app.get(
     [`${BASE_PATH}/api/internal/isalive`, `${BASE_PATH}/api/internal/isready`],
     (_, res: Response) => res.sendStatus(200),
   );
+
+  app.use(logRequests);
 
   app.all(`${BASE_PATH}(/*)?`, async (...args) => {
     const handler =
