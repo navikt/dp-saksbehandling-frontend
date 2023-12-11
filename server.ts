@@ -9,7 +9,7 @@ import compression from "compression";
 import type { RequestHandler, Response } from "express";
 import express from "express";
 import sourceMapSupport from "source-map-support";
-import { logRequests } from "~/utils/logger.utils";
+import morgan from "morgan";
 
 sourceMapSupport.install();
 installGlobals();
@@ -40,7 +40,7 @@ async function run() {
     (_, res: Response) => res.sendStatus(200),
   );
 
-  app.use(logRequests);
+  app.use(morgan("tiny"));
 
   app.all(`${BASE_PATH}(/*)?`, async (...args) => {
     const handler =
