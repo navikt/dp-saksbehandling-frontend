@@ -3,6 +3,7 @@ FROM gcr.io/distroless/nodejs20-debian11
 WORKDIR /var
 
 COPY node_modules/ node_modules/
+COPY package.json package.json
 
 COPY build/ build/
 COPY public/ public/
