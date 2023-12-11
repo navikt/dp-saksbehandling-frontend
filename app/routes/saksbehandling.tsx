@@ -4,7 +4,6 @@ import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getEnv } from "~/utils/env.utils";
 import { useSanity } from "~/hooks/useSanity";
 import styles from "~/index.module.css";
-import { initFaro } from "~/utils/faro";
 import { getSaksbehandler, getSession } from "~/models/auth.server";
 import type { ISanityTexts } from "~/sanity/sanity.types";
 import { allTextsQuery } from "~/sanity/sanity.query";
@@ -36,8 +35,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  initFaro();
-
   const { saksbehandler } = useLoaderData<typeof loader>();
   const { hentAppTekstMedId } = useSanity();
 

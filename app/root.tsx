@@ -17,6 +17,7 @@ import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
+import { initFaro } from "~/utils/faro";
 
 export const meta: MetaFunction = () => {
   return [
@@ -83,6 +84,7 @@ export const shouldRevalidate = () => false;
 
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
+  initFaro();
 
   return (
     <html lang="en">
