@@ -21,23 +21,32 @@ export async function hentArbeidsforhold(
   logger.info("henter arbeidsforhold");
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const url = `${getEnv("DP_BEHANDLING_URL")}/arbeidsforhold`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
-    body: JSON.stringify({ ident: fnr }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${onBehalfOfToken}`,
+      },
+      body: JSON.stringify({ ident: fnr }),
+    });
 
-  if (!response.ok) {
-    logger.warn(`Greide ikke hente arbeidsforhold: ${response.statusText}`);
+    if (!response.ok) {
+      logger.warn(`Greide ikke hente arbeidsforhold: ${response.statusText}`);
+      return {
+        status: "error",
+        error: { statusCode: response.status, statusText: response.statusText },
+      };
+    }
+
+    return { status: "success", data: await response.json() };
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    logger.warn(`Greide ikke hente arbeidsforhold: ${error} - ${errorMessage}`);
     return {
       status: "error",
-      error: { statusCode: response.status, statusText: response.statusText },
+      error: { statusCode: 500, statusText: errorMessage },
     };
   }
-
-  return { status: "success", data: await response.json() };
 }
