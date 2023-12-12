@@ -22,11 +22,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const journalposterPromises = hentJournalposter();
-  const arbeidsforholdPromise = hentArbeidsforhold(session, oppgave.person);
+  const arbeidsforholdResponse = await hentArbeidsforhold(session, oppgave.person);
 
   return defer({
     journalposterPromises,
-    arbeidsforholdPromise,
+    arbeidsforholdPromise: arbeidsforholdResponse,
   });
 }
 
