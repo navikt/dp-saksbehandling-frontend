@@ -53,7 +53,7 @@ spec:
     - name: VEILARBPROXY_URL
       value: {{veilarbproxyUrl}}
     - name: IS_LOCALHOST
-      value: true
+      value: "true"
   accessPolicy:
     outbound:
       external:
