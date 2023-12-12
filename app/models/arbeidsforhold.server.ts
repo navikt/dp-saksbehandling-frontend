@@ -39,5 +39,9 @@ export async function hentArbeidsforhold(
     };
   }
 
-  return { status: "success", data: await response.json() };
+  logger.info("Arbeidsforhold RESPONSE OK");
+  const data = await response.json();
+  logger.info("Arbeidsforhold JSON OK");
+
+  return { status: "success", data };
 }
