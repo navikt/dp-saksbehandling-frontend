@@ -5,7 +5,7 @@ import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export default function Saksbehandling() {
-  const { oppgaver } = useTypedRouteLoaderData("root");
+  const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
 
   const tilBehandlingsOppgaver = oppgaver.filter(
     (oppgave) => oppgave.tilstand !== "FerdigBehandlet",
