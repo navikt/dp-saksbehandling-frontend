@@ -21,27 +21,46 @@ export async function hentArbeidsforhold(
   logger.info("henter arbeidsforhold");
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const url = `${getEnv("DP_BEHANDLING_URL")}/arbeidsforhold`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
-    body: JSON.stringify({ ident: fnr }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${onBehalfOfToken}`,
+      },
+      body: JSON.stringify({ ident: fnr }),
+    });
 
-  if (!response.ok) {
-    logger.warn(`Greide ikke hente arbeidsforhold: ${response.statusText}`);
+    if (!response.ok) {
+      logger.warn(`Greide ikke hente arbeidsforhold: ${response.statusText}`);
+      return {
+        status: "error",
+        error: { statusCode: response.status, statusText: response.statusText },
+      };
+    }
+
+    logger.info("Arbeidsforhold RESPONSE OK");
+    const data = await response.json();
+    logger.info("Arbeidsforhold JSON OK");
+
+    return { status: "success", data };
+  } catch (error: unknown) {
+    let errorMessage = "Arbeidsforhold gikk rett på trynet";
+
+    if (typeof error === "string") {
+      logger.error(error);
+      errorMessage = error;
+    } else if (error instanceof Error) {
+      logger.error(JSON.stringify(error));
+      errorMessage = error.message;
+    } else {
+      logger.error("Arbeidsforhold gikk rett på trynet");
+    }
+
     return {
       status: "error",
-      error: { statusCode: response.status, statusText: response.statusText },
+      error: { statusCode: 500, statusText: errorMessage },
     };
   }
-
-  logger.info("Arbeidsforhold RESPONSE OK");
-  const data = await response.json();
-  logger.info("Arbeidsforhold JSON OK");
-
-  return { status: "success", data };
 }
