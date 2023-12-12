@@ -16,16 +16,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(params.oppgaveId, session);
 
   function hentJournalposter() {
-    const promises = oppgave.journalposter.map((journalpostId) =>
-      hentJournalpost(request, journalpostId),
+    return Promise.all(
+      oppgave.journalposter.map((journalpostId) => hentJournalpost(request, journalpostId)),
     );
-
-    // Ingen await her, denne skal resolves senere i neste Promise.all
-    return Promise.all(promises);
   }
+
+  const journalposterPromises = hentJournalposter();
+  const arbeidsforholdPromise = hentArbeidsforhold(session, oppgave.person);
+
   return defer({
-    journalposterPromises: hentJournalposter(),
-    arbeidsforholdPromise: hentArbeidsforhold(session, oppgave.person),
+    journalposterPromises,
+    arbeidsforholdPromise,
   });
 }
 
