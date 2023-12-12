@@ -52,8 +52,6 @@ spec:
       value: {{dp-vedtak_url}}
     - name: VEILARBPROXY_URL
       value: {{veilarbproxyUrl}}
-    - name: IS_LOCALHOST
-      value: "true"
   accessPolicy:
     outbound:
       external:

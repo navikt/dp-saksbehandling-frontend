@@ -25,7 +25,7 @@ if (getEnv("USE_MSW") === "true") {
   startMockServer();
 }
 
-if (getEnv("IS_LOCALHOST")) {
+if (true) {
   cspString =
     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';";
 }
