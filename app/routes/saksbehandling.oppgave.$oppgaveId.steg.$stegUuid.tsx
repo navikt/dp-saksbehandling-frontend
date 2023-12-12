@@ -73,12 +73,10 @@ export default function PersonBehandleVilkaar() {
       statusText: `Fant ikke steg med id: ${stegUuid}`,
     });
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
         <BehandlingSteg steg={steg} readonly={readonly} />
-
         {actionResponse?.status === "error" && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
