@@ -106,9 +106,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
 
-initInstrumentation();
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
+  initInstrumentation();
 
   return (
     <html lang="en">
