@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs20-debian11
+FROM node:20
 
 ENV NODE_ENV production
 WORKDIR /var
