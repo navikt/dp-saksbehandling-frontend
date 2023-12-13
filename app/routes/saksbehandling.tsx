@@ -1,13 +1,41 @@
 import { Header } from "@navikt/ds-react-internal";
-import { Link, Outlet } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getEnv } from "~/utils/env.utils";
 import { useSanity } from "~/hooks/useSanity";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/index.module.css";
+import { getSaksbehandler, getSession } from "~/models/auth.server";
+import type { ISanityTexts } from "~/sanity/sanity.types";
+import { allTextsQuery } from "~/sanity/sanity.query";
+import { hentOppgaver } from "~/models/oppgave.server";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { sanityClient } from "~/utils/sanity.utils";
+
+// Hindrer loader til å kjøre på nytt etter action funksjon
+export const shouldRevalidate = () => false;
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const session = await getSession(request);
+
+  const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
+    getSaksbehandler(session),
+    sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+      baseLang: "nb",
+      lang: "nb",
+    }),
+    hentOppgaver(session),
+  ]);
+
+  return json({
+    sanityTexts,
+    saksbehandler,
+    oppgaver,
+  });
+}
 
 export default function Saksbehandling() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
+  const { saksbehandler } = useLoaderData<typeof loader>();
   const { hentAppTekstMedId } = useSanity();
 
   return (
@@ -21,7 +49,6 @@ export default function Saksbehandling() {
 
         <HeaderMeny saksbehandler={saksbehandler} />
       </Header>
-
       <Outlet />
     </>
   );

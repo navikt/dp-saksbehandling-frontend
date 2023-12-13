@@ -1,10 +1,10 @@
 import { gql, GraphQLClient } from "graphql-request";
-import { logger } from "server/logger";
 import { v4 as uuidv4 } from "uuid";
 import { getSaksbehandler } from "./auth.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getPDLOboToken } from "~/utils/auth.utils.server";
 import { mockPerson } from "../../mock-data/mock-person";
+import { logger } from "~/utils/logger.utils";
 
 export interface IPerson {
   ident: string;

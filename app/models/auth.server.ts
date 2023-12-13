@@ -2,7 +2,7 @@ import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { getHeaders } from "~/utils/fetch.utils";
 import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
-import { logger } from "../../server/logger";
+import { logger } from "~/utils/logger.utils";
 
 export interface ISaksbehandler {
   onPremisesSamAccountName: string;

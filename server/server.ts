@@ -19,7 +19,7 @@ const configureServerSettings = () => {
   app.use(`${basePath}/build`, express.static("public/build", { immutable: true, maxAge: "1y" }));
 
   // Cache public-filer (som favicon) i én time
-  app.use(`${basePath}`, express.static("public", { maxAge: "1h" }));
+  app.use(`${basePath}`, express.static("public", { maxAge: "1w" }));
 };
 
 const startServer = async () => {

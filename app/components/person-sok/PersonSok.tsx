@@ -8,7 +8,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function PersonSok() {
   const location = useLocation();
-  const { oppgaver } = useTypedRouteLoaderData("root");
+  const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
   const [sokResultat, setSokResultat] = useState<IOppgave[]>([]);
   const [visSokResultat, setVisSokResultat] = useState(false);
   const [sokInput, setSokInput] = useState("");

@@ -1,4 +1,3 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/react";
 import {
@@ -11,23 +10,14 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-
-import { createClient } from "@sanity/client";
 import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import { getSaksbehandler, getSession } from "./models/auth.server";
-import { sanityConfig } from "./sanity/sanity.config";
-import { allTextsQuery } from "./sanity/sanity.query";
-import type { ISanityTexts } from "./sanity/sanity.types";
 
 import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
-import { hentOppgaver } from "./models/oppgave.server";
-import { initInstrumentation } from "~/utils/faro";
-
-export const sanityClient = createClient(sanityConfig);
+import { initFaro } from "~/utils/faro";
 
 export const meta: MetaFunction = () => {
   return [
@@ -80,22 +70,8 @@ export function links() {
   ];
 }
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await getSession(request);
-
-  const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
-    getSaksbehandler(session),
-    sanityClient.fetch<ISanityTexts>(allTextsQuery, {
-      baseLang: "nb",
-      lang: "nb",
-    }),
-    hentOppgaver(session),
-  ]);
-
+export async function loader() {
   return json({
-    sanityTexts,
-    saksbehandler,
-    oppgaver,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
@@ -106,9 +82,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
 
-initInstrumentation();
 export default function App() {
   const { env } = useLoaderData<typeof loader>();
+  initFaro();
 
   return (
     <html lang="en">
