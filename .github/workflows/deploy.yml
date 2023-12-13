@@ -169,6 +169,7 @@ jobs:
           destination: "/dp-saksbehandling-frontend/"
 
   deploy-dev:
+    if: github.ref == 'refs/heads/main'
     needs: [build, test, upload-cdn]
     runs-on: ubuntu-latest
     steps:
