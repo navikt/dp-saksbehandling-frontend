@@ -65,8 +65,13 @@ export type TBehandlingStegId =
   | "Oppfyller krav til minsteinntekt";
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
+  console.time("getBehandlingOboToken");
   const onBehalfOfToken = await getBehandlingOboToken(session);
+  console.timeEnd("getBehandlingOboToken");
+
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
+
+  console.time("fetchOppgaver");
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -75,6 +80,7 @@ export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOp
       Authorization: `Bearer ${onBehalfOfToken}`,
     },
   });
+  console.timeEnd("fetchOppgaver");
 
   if (!response.ok) {
     throw new Response(`Feil ved kall til ${url}`, {

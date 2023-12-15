@@ -16,16 +16,33 @@ import { sanityClient } from "~/utils/sanity.utils";
 export const shouldRevalidate = () => false;
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  console.time("getSession");
   const session = await getSession(request);
+  console.timeEnd("getSession");
 
-  const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
-    getSaksbehandler(session),
-    sanityClient.fetch<ISanityTexts>(allTextsQuery, {
-      baseLang: "nb",
-      lang: "nb",
-    }),
-    hentOppgaver(session),
-  ]);
+  console.time("getSaksbehandler");
+  const saksbehandler = await getSaksbehandler(session);
+  console.timeEnd("getSaksbehandler");
+
+  console.time("hentOppgaver");
+  const oppgaver = await hentOppgaver(session);
+  console.timeEnd("hentOppgaver");
+
+  console.time("sanityClientFetch");
+  const sanityTexts = await sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+    baseLang: "nb",
+    lang: "nb",
+  });
+  console.timeEnd("sanityClientFetch");
+
+  // const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
+  //   getSaksbehandler(session),
+  //   sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+  //     baseLang: "nb",
+  //     lang: "nb",
+  //   }),
+  //   hentOppgaver(session),
+  // ]);
 
   return json({
     sanityTexts,
