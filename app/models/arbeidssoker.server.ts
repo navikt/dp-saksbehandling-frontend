@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import type { INetworkResponse } from "~/utils/types";
+import { uuidv4 } from "@mswjs/interceptors/lib/utils/uuid";
 
 export interface IArbeidssokerStatus {
   arbeidssokerperioder: IArbeidssokerperiode[];
@@ -12,6 +13,7 @@ export interface IArbeidssokerStatus {
 export interface IArbeidssokerperiode {
   fraOgMedDato: string;
   tilOgMedDato: string | null;
+  id: string;
 }
 
 export async function hentArbeidssokerStatus(
@@ -51,7 +53,16 @@ export async function hentArbeidssokerStatus(
     };
   }
 
-  const data: IArbeidssokerStatus = await response.json();
+  const responseJSON: IArbeidssokerStatus = await response.json();
+  const data = {
+    arbeidssokerperioder: responseJSON.arbeidssokerperioder.map((periode) => {
+      return {
+        fraOgMedDato: periode.fraOgMedDato,
+        tilOgMedDato: periode.tilOgMedDato,
+        id: uuidv4(),
+      };
+    }),
+  };
 
   return { status: "success", data };
 }
