@@ -1,6 +1,6 @@
-import { Dropdown, Header } from "@navikt/ds-react-internal";
 import type { ISaksbehandler } from "~/models/auth.server";
 import styles from "./HeaderMeny.module.css";
+import { Dropdown, InternalHeader } from "@navikt/ds-react";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
@@ -10,7 +10,7 @@ export function HeaderUtloggingMeny({ saksbehandler }: IProps) {
   return (
     <div className={styles.user}>
       <Dropdown>
-        <Header.UserButton
+        <InternalHeader.UserButton
           name={saksbehandler.givenName}
           description={saksbehandler.onPremisesSamAccountName}
           as={Dropdown.Toggle}

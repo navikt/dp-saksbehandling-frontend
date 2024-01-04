@@ -12,8 +12,6 @@ import {
 } from "@remix-run/react";
 import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-
-import navInternalStyles from "@navikt/ds-css-internal/dist/index.css";
 import navStyles from "@navikt/ds-css/dist/index.css";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
@@ -46,7 +44,6 @@ export function links() {
       ? [
           { rel: "stylesheet", href: cssBundleHref },
           { rel: "stylesheet", href: navStyles },
-          { rel: "stylesheet", href: navInternalStyles },
           { rel: "stylesheet", href: globalCss },
           {
             rel: "icon",

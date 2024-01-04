@@ -1,4 +1,3 @@
-import { Header } from "@navikt/ds-react-internal";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getEnv } from "~/utils/env.utils";
@@ -11,6 +10,7 @@ import { hentOppgaver } from "~/models/oppgave.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { sanityClient } from "~/utils/sanity.utils";
+import { InternalHeader } from "@navikt/ds-react";
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
@@ -40,15 +40,15 @@ export default function Saksbehandling() {
 
   return (
     <>
-      <Header className={styles.header}>
+      <InternalHeader className={styles.header}>
         <Link to={getEnv("BASE_PATH")} className={styles.headerLogo}>
-          <Header.Title as="h1" className={styles.pageHeader}>
+          <InternalHeader.Title as="h1" className={styles.pageHeader}>
             {hentAppTekstMedId("side-header")}
-          </Header.Title>
+          </InternalHeader.Title>
         </Link>
 
         <HeaderMeny saksbehandler={saksbehandler} />
-      </Header>
+      </InternalHeader>
       <Outlet />
     </>
   );
