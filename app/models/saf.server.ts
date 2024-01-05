@@ -1,35 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-import { gql, GraphQLClient } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import { getSaksbehandler, getSession } from "./auth.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mock-data/mock-journalpost";
 import { type INetworkResponse } from "~/utils/types";
 import { logger, sikkerLogger } from "~/utils/logger.utils";
-
-export interface IJournalpost {
-  journalpostId: string;
-  tittel: string;
-  dokumenter: IJournalpostDokument[];
-}
-
-interface IJournalpostDokument {
-  dokumentInfoId: string;
-  tittel: string;
-  brevkode: string;
-  originalJournalpostId: string;
-  dokumentvarianter: IJournalpostDokumentvariant[];
-}
-
-interface IJournalpostDokumentvariant {
-  variantformat: string | null;
-  saksbehandlerHarTilgang: boolean;
-  skjerming: string | null;
-}
+import { graphql } from "../../graphql/generated/saf";
+import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 
 export async function hentJournalpost(
   request: Request,
   journalpostId: string,
-): Promise<INetworkResponse<IJournalpost>> {
+): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
   if (getEnv("IS_LOCALHOST") === "true") {
     return {
       status: "success",
@@ -57,16 +39,13 @@ export async function hentJournalpost(
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
-    const response = await client.request(journalpostGrapqlQuery, { journalpostId });
-    // TODO Fiks typer på graphql
-    // Graphql returnerer et object med property journalpost som inneholder en journalpost.
+    const response = await client.request(journalpostQuery, { journalpostId });
+
     return {
       status: "success",
-      // @ts-ignore
       data: response.journalpost,
     };
   } catch (error: unknown) {
-    logger.warn(`Feil fra SAF med call-id ${callId}: ${error}`);
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
     sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
 
@@ -80,7 +59,7 @@ export async function hentJournalpost(
   }
 }
 
-const journalpostGrapqlQuery = gql`
+const journalpostQuery = graphql(`
   query journalpost($journalpostId: String!) {
     journalpost(journalpostId: $journalpostId) {
       journalpostId
@@ -98,4 +77,4 @@ const journalpostGrapqlQuery = gql`
       }
     }
   }
-`;
+`);

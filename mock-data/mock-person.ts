@@ -1,19 +1,37 @@
-import type { IPerson } from "~/models/pdl.server";
+import type { HentPersonQuery, Vegadresse } from "../graphql/generated/pdl/graphql";
 
-export const mockPerson: IPerson = {
-  antallBarn: 0,
-  bostedadresse: {
-    husnummer: "111",
-    adressenavn: "Apalveien",
-    postnummer: "1337",
-  },
-  forNavn: "Donald",
-  mellomNavn: null,
-  etterNavn: "Duck",
-  ident: "12345678910",
-  kontaktadresse: {
-    vegadresse: { husnummer: "111", adressenavn: "Apalveien", postnummer: "1337" },
-  },
-  statsborgerskap: "Norge",
-  telefon: "90010200",
+const vegadresse: Vegadresse = {
+  husnummer: "111",
+  adressenavn: "Apalveien",
+  postnummer: "1337",
+};
+
+export const mockPerson: HentPersonQuery["hentPerson"] = {
+  doedsfall: [],
+  foreldreansvar: [],
+  sikkerhetstiltak: [],
+  utflyttingFraNorge: [],
+  statsborgerskap: [
+    {
+      land: "Norge",
+    },
+  ],
+  bostedsadresse: [
+    {
+      vegadresse: vegadresse,
+    },
+  ],
+  navn: [
+    {
+      fornavn: "Donald",
+      mellomnavn: null,
+      etternavn: "Duck",
+    },
+  ],
+  kontaktadresse: [
+    {
+      vegadresse: vegadresse,
+    },
+  ],
+  telefonnummer: [{ nummer: "90010200" }],
 };

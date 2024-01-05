@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
-import { hentJournalpost } from "~/models/SAF.server";
+import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {

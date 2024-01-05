@@ -7,11 +7,11 @@ import { Personalia } from "~/components/personalia/Personalia";
 import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
-import type { IPerson } from "~/models/pdl.server";
-import { hentPersonalia, mockHentPerson } from "~/models/pdl.server";
+import { hentPersonalia } from "~/models/pdl.server";
 import { getEnv } from "~/utils/env.utils";
 import type { INetworkResponse } from "~/utils/types";
 import { sikkerLogger } from "~/utils/logger.utils";
+import { mockPerson } from "../../mock-data/mock-person";
 
 export const shouldRevalidate = () => false;
 
@@ -24,16 +24,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   try {
     if (getEnv("IS_LOCALHOST") === "true") {
-      const [arbeidssokerStatusResponse, mockPerson] = await Promise.all([
-        arbeidssokerStatusPromise,
-        mockHentPerson(),
-      ]);
       return json({
         error: null,
         person: mockPerson,
-        arbeidssokerStatusResponse: arbeidssokerStatusResponse,
+        arbeidssokerStatusResponse: await arbeidssokerStatusPromise,
       });
     }
+
     const personaliaPromise = hentPersonalia(session, oppgave.person);
     const [personalia, arbeidssokerStatusResponse] = await Promise.all([
       personaliaPromise,
@@ -48,23 +45,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       });
     }
 
-    const personData = personalia.hentPerson;
-    //antall barn får man ikke hentet fra pdl via saksbehandlertoken, må bruke en annen tjeneste isåfall
-    const person: IPerson = {
-      ident: oppgave.person,
-      forNavn: personData.navn[0].fornavn,
-      mellomNavn: personData.navn[0].mellomnavn,
-      etterNavn: personData.navn[0].etternavn,
-      telefon: personData.telefonnummer[0]?.nummer || "Har ikke nummer",
-      kontaktadresse:
-        personData?.kontaktadresse && personData.kontaktadresse[0]
-          ? personData.kontaktadresse[0]
-          : undefined,
-      statsborgerskap: personData.statsborgerskap[0].land,
-      utflyttingFraNorge:
-        personData?.utflyttingFraNorge && personData.utflyttingFraNorge[0]?.utflyttingsdato,
-    };
-    return json({ error: null, person, arbeidssokerStatusResponse: arbeidssokerStatusResponse });
+    return json({
+      error: null,
+      person: personalia.hentPerson,
+      arbeidssokerStatusResponse: arbeidssokerStatusResponse,
+    });
   } catch (error: unknown) {
     sikkerLogger.info(`PDL kall catch error: ${error}`);
     const arbeidssokerStatusError: INetworkResponse<IArbeidssokerStatus> = {
@@ -84,15 +69,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function Person() {
   const { person, error } = useLoaderData<typeof loader>();
-  const fulltNavn = `${person?.forNavn} ${person?.mellomNavn ?? ""} ${person?.etterNavn}`;
+  const fulltNavn = `${person?.navn[0].fornavn} ${person?.navn[0].mellomnavn ?? ""} ${person
+    ?.navn[0].etternavn}`;
 
   return (
     <>
       {error && <div>{error}</div>}
-      {person && <Navnestripe navn={fulltNavn} ident={person.ident} />}
-
-      {/*TODO Finn ut av typefeil mellom typeof loader og IPerson */}
-      {person && <Personalia {...(person as IPerson)} />}
+      {person && <Navnestripe navn={fulltNavn} ident={"person.ident"} />}
+      {person && <Personalia {...person} />}
       <main>
         <Outlet />
       </main>

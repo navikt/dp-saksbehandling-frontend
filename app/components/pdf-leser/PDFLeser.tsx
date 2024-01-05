@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Alert, Heading, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
-import type { IJournalpost } from "~/models/SAF.server";
+import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 
 interface IPDFLeserProps {
-  journalposter: IJournalpost[];
+  journalposter: JournalpostQuery["journalpost"][];
 }
+
 export function PDFLeser({ journalposter }: IPDFLeserProps) {
   const [fileUrl, setFileUrl] = useState<string>("");
   const [journalpostId, setJournalpostId] = useState<string>(journalposter[0]?.journalpostId ?? "");
@@ -50,7 +51,7 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
   }
 
   const currentActiveJournalpost = journalposter.find(
-    (journalpost) => journalpost.journalpostId === journalpostId,
+    (journalpost) => journalpost?.journalpostId === journalpostId,
   );
 
   return (
@@ -67,14 +68,15 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
           value={journalpostId}
         >
           {journalposter.map((journalpost) => (
-            <option key={journalpost.journalpostId} value={journalpost.journalpostId}>
-              {journalpost.tittel}
+            <option key={journalpost?.journalpostId} value={journalpost?.journalpostId}>
+              {journalpost?.tittel}
             </option>
           ))}
         </Select>
+
         {currentActiveJournalpost &&
-          currentActiveJournalpost.dokumenter.find((dokument) => {
-            return !dokument.dokumentvarianter[0].saksbehandlerHarTilgang;
+          currentActiveJournalpost.dokumenter?.find((dokument) => {
+            return !dokument?.dokumentvarianter[0]?.saksbehandlerHarTilgang;
           }) && <Alert variant={"warning"}> AIIII DU HAR IKKE TILGANG</Alert>}
 
         {currentActiveJournalpost && (
@@ -87,9 +89,10 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
             <option key={"velg-dokument"} value={""} hidden>
               Velg dokument
             </option>
-            {currentActiveJournalpost.dokumenter.map((dokument) => (
-              <option key={dokument.dokumentInfoId} value={dokument.dokumentInfoId}>
-                {dokument.tittel}
+
+            {currentActiveJournalpost.dokumenter?.map((dokument) => (
+              <option key={dokument?.dokumentInfoId} value={dokument?.dokumentInfoId}>
+                {dokument?.tittel}
               </option>
             ))}
           </Select>

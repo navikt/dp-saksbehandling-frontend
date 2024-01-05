@@ -1,6 +1,7 @@
-import type { IJournalpost } from "~/models/SAF.server";
+import type { JournalpostQuery } from "../graphql/generated/saf/graphql";
+import { Variantformat } from "../graphql/generated/saf/graphql";
 
-export const mockJournalpost: IJournalpost = {
+export const mockJournalpost: JournalpostQuery["journalpost"] = {
   journalpostId: "598116231",
   tittel: "(mockdata)Søknad om dagpenger (ikke permittert)",
   dokumenter: [
@@ -11,17 +12,17 @@ export const mockJournalpost: IJournalpost = {
       originalJournalpostId: "598116231",
       dokumentvarianter: [
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
@@ -34,7 +35,7 @@ export const mockJournalpost: IJournalpost = {
       originalJournalpostId: "598116231",
       dokumentvarianter: [
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
@@ -47,7 +48,7 @@ export const mockJournalpost: IJournalpost = {
       originalJournalpostId: "598116231",
       dokumentvarianter: [
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
@@ -60,7 +61,7 @@ export const mockJournalpost: IJournalpost = {
       originalJournalpostId: "598116231",
       dokumentvarianter: [
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },
@@ -73,7 +74,7 @@ export const mockJournalpost: IJournalpost = {
       originalJournalpostId: "598116231",
       dokumentvarianter: [
         {
-          variantformat: "ARKIV",
+          variantformat: Variantformat.Arkiv,
           saksbehandlerHarTilgang: true,
           skjerming: null,
         },

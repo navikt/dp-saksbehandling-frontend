@@ -1,36 +1,31 @@
 import React from "react";
 import styles from "./Personalia.module.css";
 import { BodyShort } from "@navikt/ds-react";
-import type { IPerson, Kontaktadresse } from "~/models/pdl.server";
+import type { HentPersonQuery } from "../../../graphql/generated/pdl/graphql";
 
-function visAdresse(kontaktadresse: Kontaktadresse) {
-  if (kontaktadresse.vegadresse) {
-    return `${kontaktadresse.vegadresse?.adressenavn} ${kontaktadresse.vegadresse?.husnummer} ${kontaktadresse.vegadresse?.postnummer}`;
+function visAdresse(person: HentPersonQuery["hentPerson"]) {
+  if (person?.kontaktadresse[0].vegadresse) {
+    return `${person.kontaktadresse[0].vegadresse?.adressenavn} ${person.kontaktadresse[0].vegadresse?.husnummer} ${person.kontaktadresse[0].vegadresse?.postnummer}`;
   }
-  if (kontaktadresse.utenlandskAdresse) {
-    return `${kontaktadresse.utenlandskAdresse?.adressenavnNummer} ${kontaktadresse.utenlandskAdresse?.bygningEtasjeLeilighet} ${kontaktadresse.utenlandskAdresse?.postkode}  ${kontaktadresse.utenlandskAdresse?.landkode}`;
-  }
-  if (kontaktadresse.utenlandskAdresseIFrittFormat) {
-    return `${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.adresselinje1} ${kontaktadresse.utenlandskAdresseIFrittFormat?.postkode}  ${kontaktadresse.utenlandskAdresseIFrittFormat?.landkode}`;
-  }
+
   return "-";
 }
 
-export function Personalia(person: IPerson) {
+export function Personalia(person: HentPersonQuery["hentPerson"]) {
   return (
     <div className={styles.container}>
       <div>
         <BodyShort size={"small"} textColor={"subtle"}>
           Telefon
         </BodyShort>
-        <BodyShort>{person.telefon}</BodyShort>
+        <BodyShort>{person?.telefonnummer.map((tlf) => tlf.nummer)}</BodyShort>
       </div>
-      {person.kontaktadresse && (
+      {person?.kontaktadresse[0] && (
         <div>
           <BodyShort size={"small"} textColor={"subtle"}>
             Kontaktadresse
           </BodyShort>
-          <BodyShort>{visAdresse(person.kontaktadresse)}</BodyShort>
+          <BodyShort>{visAdresse(person)}</BodyShort>
         </div>
       )}
 
@@ -38,23 +33,24 @@ export function Personalia(person: IPerson) {
         <BodyShort size={"small"} textColor={"subtle"}>
           Statsborgerskap
         </BodyShort>
-        <BodyShort>{person.statsborgerskap}</BodyShort>
+        <BodyShort>{person?.statsborgerskap[0].land}</BodyShort>
       </div>
 
       <div>
         <BodyShort size={"small"} textColor={"subtle"}>
           Utflytting fra Norge
         </BodyShort>
-        <BodyShort>{person.utflyttingFraNorge ? person.utflyttingFraNorge : "-"}</BodyShort>
+        <BodyShort>
+          {person?.utflyttingFraNorge ? person.utflyttingFraNorge[0].utflyttingsdato : "-"}
+        </BodyShort>
       </div>
-      {person.antallBarn && (
-        <div>
-          <BodyShort size={"small"} textColor={"subtle"}>
-            Antall barn
-          </BodyShort>
-          <BodyShort>{person.antallBarn}</BodyShort>
-        </div>
-      )}
+
+      <div>
+        <BodyShort size={"small"} textColor={"subtle"}>
+          Antall barn
+        </BodyShort>
+        <BodyShort>{0}</BodyShort>
+      </div>
     </div>
   );
 }

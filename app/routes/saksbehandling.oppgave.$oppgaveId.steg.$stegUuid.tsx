@@ -16,8 +16,8 @@ import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { Suspense } from "react";
 import type { IArbeidsforhold } from "~/models/arbeidsforhold.server";
-import type { IJournalpost } from "~/models/SAF.server";
 import type { INetworkResponse } from "~/utils/types";
+import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -125,10 +125,12 @@ export default function PersonBehandleVilkaar() {
 }
 
 interface IJournalposter {
-  data: IJournalpost[];
+  data: JournalpostQuery["journalpost"][];
   errors: boolean;
 }
-function lagJournalpostData(journalpostResponses: INetworkResponse<IJournalpost>[]) {
+function lagJournalpostData(
+  journalpostResponses: INetworkResponse<JournalpostQuery["journalpost"]>[],
+): IJournalposter {
   const journalposter: IJournalposter = {
     data: [],
     errors: false,

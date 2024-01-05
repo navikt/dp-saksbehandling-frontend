@@ -1,113 +1,17 @@
-import { gql, GraphQLClient } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
 import { getSaksbehandler } from "./auth.server";
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getPDLOboToken } from "~/utils/auth.utils.server";
-import { mockPerson } from "../../mock-data/mock-person";
 import { logger } from "~/utils/logger.utils";
-
-export interface IPerson {
-  ident: string;
-  forNavn: string;
-  mellomNavn: string | null;
-  etterNavn: string;
-  telefon: string;
-  kontaktadresse?: Kontaktadresse;
-  bostedadresse?: VegadresseDetails;
-  statsborgerskap: string;
-  utflyttingFraNorge?: string;
-  antallBarn?: number;
-}
-
-export type HentPersonResponsData = {
-  hentPerson: {
-    navn: Personnavn[];
-    statsborgerskap: Statsborgerskap[];
-    telefonnummer: Telefon[];
-    bostedsadresse?: Bostedsadresse[];
-    kontaktadresse?: Kontaktadresse[];
-    doedsfall: Doedsfall[];
-    utflyttingFraNorge: UtflyttingFraNorge[];
-    sikkerhetstiltak: Sikkerhetstiltak[];
-    foreldreansvar: Foreldreansvar[];
-  } | null;
-};
-
-export type Personnavn = {
-  fornavn: string;
-  mellomnavn: string | null;
-  etternavn: string;
-};
-
-export type Statsborgerskap = {
-  land: string;
-};
-
-export type Telefon = {
-  nummer?: string;
-};
-
-export type Bostedsadresse = {
-  vegadresse?: VegadresseDetails;
-};
-
-export type Kontaktadresse = {
-  vegadresse?: VegadresseDetails;
-  utenlandskAdresse?: UtenlandskAdresseDetails;
-  utenlandskAdresseIFrittFormat?: utlandskAdresseIFrittFormatDetails;
-};
-
-export type Doedsfall = {
-  doedsdato?: Date;
-};
-
-export type UtflyttingFraNorge = {
-  utflyttingsdato?: string;
-};
-
-export type Sikkerhetstiltak = {
-  tiltakstype: string;
-};
-
-export type Foreldreansvar = {
-  ansvar?: string;
-};
-
-export type VegadresseDetails = {
-  husnummer: string;
-  adressenavn: string;
-  postnummer: string;
-};
-export type UtenlandskAdresseDetails = {
-  adressenavnNummer: string;
-  bygningEtasjeLeilighet: string;
-  postboksNummerNavn: string;
-  postkode: string;
-  bySted: string;
-  regionDistriktOmraade: string;
-  landkode: string;
-};
-
-export type utlandskAdresseIFrittFormatDetails = {
-  adresselinje1: string;
-  adresselinje2: string;
-  adresselinje3: string;
-  postkode: string;
-  byEllerStedsnavn: string;
-  landkode: string;
-};
-
-export async function mockHentPerson(): Promise<IPerson> {
-  return Promise.resolve(mockPerson);
-}
+import { graphql } from "../../graphql/generated/pdl";
 
 export async function hentPersonalia(session: SessionWithOboProvider, ident: string) {
   const saksbehandler = await getSaksbehandler(session);
   const onBehalfOfToken = await getPDLOboToken(session);
-  const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
 
-  const personSpoerring = gql`
-    query ($ident: ID!) {
+  const hentPersonQuery = graphql(`
+    query hentPerson($ident: ID!) {
       hentPerson(ident: $ident) {
         navn(historikk: false) {
           fornavn
@@ -165,8 +69,9 @@ export async function hentPersonalia(session: SessionWithOboProvider, ident: str
         }
       }
     }
-  `;
+  `);
 
+  const pdlAdresse = "https://pdl-api.dev-fss-pub.nais.io/graphql";
   const callId = uuidv4();
   const client = new GraphQLClient(pdlAdresse, {
     headers: {
@@ -179,5 +84,6 @@ export async function hentPersonalia(session: SessionWithOboProvider, ident: str
     },
   });
   logger.info(`Henter pdl informasjon med call-id: ${callId}`);
-  return await client.request<HentPersonResponsData>(personSpoerring, { ident });
+
+  return await client.request(hentPersonQuery, { ident });
 }
