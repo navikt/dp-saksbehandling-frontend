@@ -1,15 +1,15 @@
 import { format, getISOWeek } from "date-fns";
-import nbLocale from "date-fns/locale/nb";
+import { nb } from "date-fns/locale";
 
 export function hentFormattertDato(dato: string, medKlokkeslett?: boolean) {
   if (medKlokkeslett) {
     return format(new Date(dato), "d. MMMM yyyy, HH:mm", {
-      locale: nbLocale,
+      locale: nb,
     });
   }
 
   return format(new Date(dato), "d. MMMM yyyy", {
-    locale: nbLocale,
+    locale: nb,
   });
 }
 
