@@ -1,4 +1,4 @@
-import { type IProps } from "~/views/behandling-steg/BehandlingSteg";
+import { type IBehandlingStegProps } from "~/views/behandling-steg/BehandlingSteg";
 import { Alert, BodyLong, BodyShort, Button, Heading, Link, Loader } from "@navikt/ds-react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { ValidatedForm } from "remix-validated-form";
@@ -6,12 +6,12 @@ import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$
 import { BehandlingStegInputDato } from "~/components/behandling-steg-input/BehandlingStegInputDato";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useEffect, useState } from "react";
-import type { IMinsteinntekstData } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
+import type { IMinsteinntektData } from "~/views/behandling-steg/behandling-steg-minsteinntekt/minsteinntektMockdata";
 import { InntektTabell } from "~/components/inntekt-tabell/InntektTabell";
 import { BehandlingStegGenerell } from "~/views/behandling-steg/BehandlingStegGenerell";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { INetworkResponse } from "~/utils/types";
-import { isNetworkResponseWaiting, isNetworkResponseSuccess } from "~/utils/type-guards";
+import { isNetworkResponseSuccess, isNetworkResponseWaiting } from "~/utils/type-guards";
 
 async function getMinsteinntekt(oppgaveId: string): Promise<INetworkResponse> {
   const response = await fetch(`/saksbehandling/api/hent-minsteinntekt/${oppgaveId}`);
@@ -50,12 +50,12 @@ interface IGrunnbeloep {
   virkningstidspunktForMinsteinntekt: string;
 }
 
-export function BehandlingStegMinsteinntekt(props: IProps) {
+export function BehandlingStegMinsteinntekt(props: IBehandlingStegProps) {
   const { steg } = props;
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const [manuellBehandling, setManuellBehandling] = useState(() => false);
   const [minsteInntektResponse, setMinsteInntektResponse] = useState<
-    INetworkResponse<IMinsteinntekstData | void> | undefined
+    INetworkResponse<IMinsteinntektData | void> | undefined
   >();
   //midlertidig hack for å se om vi ønsker å vise grunnbeløp i vurderingen, bør følge med i datagrunnlag til vurderingsreferansen på minsteinntekt
   const [grunnbeloepResponse, setGrunnbeloepResponse] = useState<
@@ -64,10 +64,9 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
 
   async function oppdaterMinsteInntektResponse(oppgaveId: string) {
     setMinsteInntektResponse(undefined);
-    const response: INetworkResponse<IMinsteinntekstData | void> =
-      await getMinsteinntekt(oppgaveId);
+    const response: INetworkResponse<IMinsteinntektData | void> = await getMinsteinntekt(oppgaveId);
     setMinsteInntektResponse(response);
-    if (isNetworkResponseSuccess<IMinsteinntekstData>(response) && response.data) {
+    if (isNetworkResponseSuccess<IMinsteinntektData>(response) && response.data) {
       setGrunnbeloepResponse(await getGrunnbeloep(response.data.virkningsdato));
     }
   }
@@ -106,7 +105,7 @@ export function BehandlingStegMinsteinntekt(props: IProps) {
       )}
 
       {!manuellBehandling &&
-        isNetworkResponseSuccess<IMinsteinntekstData>(minsteInntektResponse) &&
+        isNetworkResponseSuccess<IMinsteinntektData>(minsteInntektResponse) &&
         minsteInntektResponse.data && (
           <>
             <BodyLong>

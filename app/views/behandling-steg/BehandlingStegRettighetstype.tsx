@@ -1,11 +1,11 @@
 import { ValidatedForm } from "remix-validated-form";
 import { type Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { Input } from "../../components/behandling-steg-input/BehandlingStegInput";
+import { Input } from "~/components/behandling-steg-input/BehandlingStegInput";
 import type { IStegTekst } from "~/tekster/stegTekster";
 import { hentStegTekst } from "~/tekster/stegTekster";
 import { Button } from "@navikt/ds-react";
-import { type IProps } from "./BehandlingSteg";
+import { type IBehandlingStegProps } from "./BehandlingSteg";
 import {
   BehandlingStegInputSelect,
   type IOptions,
@@ -13,7 +13,7 @@ import {
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useLocation, useNavigation } from "@remix-run/react";
 
-export function BehandlingStegRettighetstype(props: IProps) {
+export function BehandlingStegRettighetstype(props: IBehandlingStegProps) {
   const { steg, readonly } = props;
 
   const location = useLocation();

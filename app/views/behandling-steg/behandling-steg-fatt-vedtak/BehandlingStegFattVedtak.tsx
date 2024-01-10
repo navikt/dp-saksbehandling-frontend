@@ -3,10 +3,10 @@ import { Form, useNavigation } from "@remix-run/react";
 import { BehandlingStegLagretAv } from "~/components/behandling-steg-lagret-av/BehandlingStegLagretAv";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
-import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
+import type { IBehandlingStegProps } from "~/views/behandling-steg/BehandlingSteg";
 import styles from "./BehandlingStegFattVedtak.module.css";
 
-export function BehandlingStegFattVedtak(props: IProps) {
+export function BehandlingStegFattVedtak(props: IBehandlingStegProps) {
   const { steg, readonly } = props;
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");

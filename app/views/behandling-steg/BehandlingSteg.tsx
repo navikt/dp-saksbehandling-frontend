@@ -5,13 +5,14 @@ import { BehandlingStegGenerell } from "./BehandlingStegGenerell";
 import { BehandlingStegPeriode } from "./BehandlingStegPeriode";
 import { BehandlingStegRettighetstype } from "./BehandlingStegRettighetstype";
 import { BehandlingStegMinsteinntekt } from "~/views/behandling-steg/behandling-steg-minsteinntekt/BehandlingStegMinsteinntekt";
+import { BehandlingStegTaptArbeidstid } from "~/views/behandling-steg/behandling-steg-tapt-arbeidstid/BehandlingStegTaptArbeidstid";
 
-export interface IProps {
+export interface IBehandlingStegProps {
   steg: IBehandlingSteg;
   readonly: boolean;
 }
 
-export function BehandlingSteg(props: IProps) {
+export function BehandlingSteg(props: IBehandlingStegProps) {
   const { steg } = props;
 
   switch (steg.id) {
@@ -29,6 +30,9 @@ export function BehandlingSteg(props: IProps) {
 
     case "Oppfyller kravene til dagpenger":
       return <BehandlingStegMinsteinntekt {...props} />;
+
+    case "Fastsatt vanlig arbeidstid":
+      return <BehandlingStegTaptArbeidstid {...props} />;
 
     default:
       return <BehandlingStegGenerell {...props} />;

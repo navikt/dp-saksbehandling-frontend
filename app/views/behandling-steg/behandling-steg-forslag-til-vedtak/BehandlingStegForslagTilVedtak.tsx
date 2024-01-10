@@ -2,9 +2,9 @@ import { Button, Heading } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import type { Metadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import type { IProps } from "~/views/behandling-steg/BehandlingSteg";
+import type { IBehandlingStegProps } from "~/views/behandling-steg/BehandlingSteg";
 
-export function BehandlingStegForslagTilVedtak(props: IProps) {
+export function BehandlingStegForslagTilVedtak(props: IBehandlingStegProps) {
   const { steg, readonly } = props;
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");

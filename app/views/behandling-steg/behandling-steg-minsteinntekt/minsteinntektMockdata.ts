@@ -5,7 +5,7 @@ export interface IInntekt {
   inntekt: number;
 }
 
-export interface IMinsteinntekstData {
+export interface IMinsteinntektData {
   uuid: string;
   virkningsdato: string;
   vilkaarOppfylt: boolean;
@@ -13,7 +13,7 @@ export interface IMinsteinntekstData {
   inntektPerioder: IInntekt[];
 }
 
-export const minsteinntektMockdata: IMinsteinntekstData = {
+export const minsteinntektMockdata: IMinsteinntektData = {
   uuid: "mock-minsteinntekt-uuid",
   virkningsdato: "2023-12-06",
   vilkaarOppfylt: true,

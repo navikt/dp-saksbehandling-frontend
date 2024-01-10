@@ -12,10 +12,8 @@ import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Alert } from "@navikt/ds-react";
 import styles from "~/route-styles/stegvisning.module.css";
-import { Arbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { Suspense } from "react";
-import type { IArbeidsforhold } from "~/models/arbeidsforhold.server";
 import type { INetworkResponse } from "~/utils/types";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 
@@ -58,7 +56,7 @@ export interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
-  const { journalposterPromises, arbeidsforholdPromise } = useTypedRouteLoaderData(
+  const { journalposterPromises } = useTypedRouteLoaderData(
     "routes/saksbehandling.oppgave.$oppgaveId.steg",
   );
   const actionResponse = useActionData<typeof action>();
@@ -80,18 +78,6 @@ export default function PersonBehandleVilkaar() {
         {actionResponse?.status === "error" && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
-        <Suspense fallback={<div>Henter arbeidsforhold</div>}>
-          <Await
-            resolve={arbeidsforholdPromise}
-            errorElement={<div>Greide ikke laste inn arbeidsforhold 😬</div>}
-          >
-            {(arbeidsforhold) => {
-              if (isNetworkResponseSuccess<IArbeidsforhold[]>(arbeidsforhold)) {
-                return <Arbeidsforhold arbeidsforhold={arbeidsforhold.data || []} />;
-              }
-            }}
-          </Await>
-        </Suspense>
       </div>
 
       <Suspense fallback={<div>Henter arbeidsforhold</div>}>
