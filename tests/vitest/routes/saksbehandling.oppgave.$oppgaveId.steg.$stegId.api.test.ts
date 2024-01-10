@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { action } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
 import { server } from "../../../mocks/server";
@@ -77,17 +77,11 @@ describe("Stegvisning", () => {
         mockSession();
 
         server.use(
-          rest.put(
-            `${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/steg/:stegId`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
-            },
-          ),
+          http.put(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/steg/:stegId`, () => {
+            return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+              status: 500,
+            });
+          }),
         );
 
         const response = await action({

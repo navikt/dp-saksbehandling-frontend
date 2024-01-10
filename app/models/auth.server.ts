@@ -1,8 +1,6 @@
 import type { SessionWithOboProvider } from "@navikt/dp-auth";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { getHeaders } from "~/utils/fetch.utils";
-import { mockSaksbehandler } from "../../mock-data/mock-saksbehandler";
-import { logger } from "~/utils/logger.utils";
 
 export interface ISaksbehandler {
   onPremisesSamAccountName: string;
@@ -12,12 +10,6 @@ export interface ISaksbehandler {
 }
 
 export async function getSaksbehandler(session: SessionWithOboProvider): Promise<ISaksbehandler> {
-  // Wonderwall tar seg av session, hvis vi ikke har en session kjører vi uten sidecar og skal være i dev
-  if (!session || session.expiresIn === 0) {
-    logger.debug("no session, mocker saksbehandler");
-    return mockSaksbehandler;
-  }
-
   try {
     const onBehalfOfToken = await session.apiToken("https://graph.microsoft.com/.default");
     const url =

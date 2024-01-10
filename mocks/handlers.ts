@@ -1,123 +1,131 @@
-import { rest } from "msw";
-import { oppgaverResponse } from "./api-routes/oppgaverResponse";
+import { http, HttpResponse } from "msw";
+import { mockSaksbehandler } from "mock-data/mock-saksbehandler";
 import { sanityResponse } from "./api-routes/sanityResponse";
+import { oppgaverResponse } from "./api-routes/oppgaverResponse";
 import { mockRapporteringsperioder } from "./api-routes/rapporteringsperiodeResponse";
 import { mockKorrigeringsperiode } from "./api-routes/korrigeringsperiodeResponse";
 import { vedtakResponse } from "./api-routes/vedtakResponse";
-import { mockSaksbehandler } from "mock-data/mock-saksbehandler";
 import { arbeidsforholdResponse } from "./api-routes/arbeidsforholdResponse";
 
 export const handlers = [
   // Hent saksbehandler
-  rest.get("https://graph.microsoft.com/v1.0/me/", (req, res, ctx) => {
-    return res(ctx.json(mockSaksbehandler));
+  http.get("https://graph.microsoft.com/v1.0/me/", () => {
+    return HttpResponse.json(mockSaksbehandler);
   }),
 
   // Hent alle oppgaver
-  rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, (req, res, ctx) => {
-    return res(ctx.json(oppgaverResponse));
+  http.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, () => {
+    return HttpResponse.json(oppgaverResponse);
   }),
 
   // Hent en oppgave med oppgaveId
-  rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId`, (req, res, ctx) => {
-    const oppgaveResponse = oppgaverResponse.find(
-      (oppgave) => oppgave.uuid === req.params.oppgaveId,
-    );
+  http.get(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId`, ({ params }) => {
+    const { oppgaveId } = params;
+    const oppgaveResponse = oppgaverResponse.find((oppgave) => oppgave.uuid === oppgaveId);
 
-    return res(ctx.json(oppgaveResponse));
+    return HttpResponse.json(oppgaveResponse);
   }),
 
   // Svar på et oppgave steg med oppgaveId og stegId
-  rest.put(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/steg/:stegId`, (req, res, ctx) => {
-    return res(ctx.status(200));
+  http.put(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/steg/:stegId`, () => {
+    return new HttpResponse(null, {
+      status: 200,
+    });
   }),
 
   // Endre status
-  rest.post(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/tilstand`, (req, res, ctx) => {
-    return res(ctx.status(200));
+  http.post(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/tilstand`, () => {
+    return new HttpResponse(null, {
+      status: 200,
+    });
   }),
 
   // Lag en rapporteringsperiode
-  rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder`, (req, res, ctx) => {
-    return res(ctx.json(mockRapporteringsperioder[0]));
-  }),
-
-  // Hent ut rapporteringsperioder
-  rest.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, (req, res, ctx) => {
-    return res(ctx.json(mockRapporteringsperioder));
+  http.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder`, () => {
+    return HttpResponse.json(mockRapporteringsperioder[0]);
   }),
 
   // Hent ut en enkelt rapporteringsperiode
-  rest.get(
+  http.get(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6`,
-    (req, res, ctx) => {
-      return res(ctx.json(mockRapporteringsperioder[0]));
+    () => {
+      return HttpResponse.json(mockRapporteringsperioder[0]);
     },
   ),
 
+  // Hent ut rapporteringsperioder
+  http.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, () => {
+    return HttpResponse.json(mockRapporteringsperioder);
+  }),
+
   // Hent ut en enkelt korrigeringsperiode
-  rest.get(
+  http.get(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa66`,
-    (req, res, ctx) => {
-      return res(ctx.json(mockKorrigeringsperiode));
+    () => {
+      return HttpResponse.json(mockKorrigeringsperiode);
     },
   ),
 
   // Hent ut en korrigeringsperiode
-  rest.post(
+  http.post(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/korrigering`,
-    (req, res, ctx) => {
-      return res(ctx.json(mockKorrigeringsperiode));
+    () => {
+      return HttpResponse.json(mockKorrigeringsperiode);
     },
   ),
 
   // Godkjenn en rapporteringsperiode
-  rest.post(
+  http.post(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/godkjenn`,
-    (req, res, ctx) => {
-      return res(ctx.status(200));
+    () => {
+      return new HttpResponse(null, {
+        status: 200,
+      });
     },
   ),
 
   // Avgodkjenn en rapporteringsperiode
-  rest.post(
+  http.post(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/avgodkjenn`,
-    (req, res, ctx) => {
-      return res(ctx.status(200));
+    () => {
+      return new HttpResponse(null, {
+        status: 200,
+      });
     },
   ),
 
   // Lagre en aktivitet
-  rest.post(
+  http.post(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet`,
-    (req, res, ctx) => {
-      return res(ctx.status(204));
+    () => {
+      return new HttpResponse(null, {
+        status: 204,
+      });
     },
   ),
 
   // Slett en aktivitet
-  rest.delete(
+  http.delete(
     `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
-    (req, res, ctx) => {
-      return res(ctx.status(204));
+    () => {
+      return new HttpResponse(null, {
+        status: 204,
+      });
     },
   ),
 
   // Hent vedtak
-  rest.post(`${process.env.DP_VEDTAK_URL}/vedtak`, (__, res, ctx) => {
-    return res(ctx.json(vedtakResponse));
+  http.post(`${process.env.DP_VEDTAK_URL}/vedtak`, () => {
+    return HttpResponse.json(vedtakResponse);
   }),
 
   // Hent arbeidsforhold
-  rest.post(`${process.env.DP_BEHANDLING_URL}/arbeidsforhold`, (__, res, ctx) => {
-    return res(ctx.json(arbeidsforholdResponse));
+  http.post(`${process.env.DP_BEHANDLING_URL}/arbeidsforhold`, () => {
+    return HttpResponse.json(arbeidsforholdResponse);
   }),
 
   // Hent sanity tekster
-  rest.get(
-    "https://rt6o382n.apicdn.sanity.io/v2021-06-06/data/query/production",
-    (req, res, ctx) => {
-      return res(ctx.json(sanityResponse));
-    },
-  ),
+  http.get("https://rt6o382n.apicdn.sanity.io/v2021-06-06/data/query/production", () => {
+    return HttpResponse.json(sanityResponse);
+  }),
 ];

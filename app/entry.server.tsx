@@ -4,18 +4,18 @@
 */
 
 import type { EntryContext } from "@remix-run/node";
+import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
-import { setup, start } from "../mocks/server";
+import { setup, startMockServer } from "../mocks/server";
 import { getEnv } from "./utils/env.utils";
-import { createReadableStreamFromReadable } from "@remix-run/node";
 
 const ABORT_DELAY = 5000;
 
 if (getEnv("USE_MSW") === "true") {
   const server = setup();
-  start(server);
+  startMockServer(server);
 }
 const csp = {
   "img-src": ["'self'", "data:"],

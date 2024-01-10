@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { redirect } from "@remix-run/node";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
   action,
@@ -52,17 +52,11 @@ describe("Rapportering og utbetaling", () => {
 
     test("skal feile hvis backend-kallet feiler", async () => {
       server.use(
-        rest.post(
-          `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`,
-          (req, res, ctx) => {
-            return res.once(
-              ctx.status(500),
-              ctx.json({
-                errorMessage: `Server Error`,
-              }),
-            );
-          },
-        ),
+        http.post(`${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/sok`, () => {
+          return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+            status: 500,
+          });
+        }),
       );
 
       mockSession();
@@ -132,15 +126,12 @@ describe("Rapportering og utbetaling", () => {
         mockSession();
 
         server.use(
-          rest.post(
+          http.post(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/korrigering`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
+            () => {
+              return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+                status: 500,
+              });
             },
           ),
         );
@@ -203,15 +194,12 @@ describe("Rapportering og utbetaling", () => {
         });
 
         server.use(
-          rest.post(
+          http.post(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/avgodkjenn`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
+            () => {
+              return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+                status: 500,
+              });
             },
           ),
         );

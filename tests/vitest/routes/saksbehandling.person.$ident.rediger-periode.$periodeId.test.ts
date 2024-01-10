@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { redirect } from "@remix-run/node";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import {
   action,
@@ -52,15 +52,12 @@ describe("Rediger rapporteringsperiode", () => {
 
     test("skal feile hvis backend-kallet feiler", async () => {
       server.use(
-        rest.get(
+        http.get(
           `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6`,
-          (req, res, ctx) => {
-            return res.once(
-              ctx.status(500),
-              ctx.json({
-                errorMessage: `Server Error`,
-              }),
-            );
+          () => {
+            return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+              status: 500,
+            });
           },
         ),
       );
@@ -139,15 +136,12 @@ describe("Rediger rapporteringsperiode", () => {
         mockSession();
 
         server.use(
-          rest.post(
+          http.post(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
+            () => {
+              return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+                status: 500,
+              });
             },
           ),
         );
@@ -219,15 +213,12 @@ describe("Rediger rapporteringsperiode", () => {
         mockSession();
 
         server.use(
-          rest.delete(
+          http.delete(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/aktivitet/4a49e571-6384-4eab-9c2e-3f4d48d30b9a`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
+            () => {
+              return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+                status: 500,
+              });
             },
           ),
         );
@@ -299,15 +290,12 @@ describe("Rediger rapporteringsperiode", () => {
         });
 
         server.use(
-          rest.post(
+          http.post(
             `${process.env.DP_RAPPORTERING_URL}/rapporteringsperioder/3fa85f64-5717-4562-b3fc-2c963f66afa6/godkjenn`,
-            (req, res, ctx) => {
-              return res.once(
-                ctx.status(500),
-                ctx.json({
-                  errorMessage: `Server Error`,
-                }),
-              );
+            () => {
+              return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+                status: 500,
+              });
             },
           ),
         );

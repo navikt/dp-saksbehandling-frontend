@@ -1,16 +1,18 @@
-import type { SetupServerApi } from "msw/node";
+import type { SetupServer } from "msw/node";
 import { setupServer } from "msw/node";
 import { handlers } from "./handlers";
 
 export const server = setupServer(...handlers);
 
-export const setup = () => setupServer(...handlers) as SetupServerApi;
+export function setup() {
+  return setupServer(...handlers);
+}
 
-export const start = (server: SetupServerApi) => {
+export function startMockServer(server: SetupServer) {
   server.listen({ onUnhandledRequest: "bypass" });
 
   process.once("SIGINT", () => server.close());
   process.once("SIGTERM", () => server.close());
 
-  console.info("🔶 Mock server");
-};
+  console.info("🔶 Mock server kjører");
+}

@@ -4,7 +4,6 @@ import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import type { INetworkResponse } from "~/utils/types";
-import { uuidv4 } from "@mswjs/interceptors/lib/utils/uuid";
 
 export interface IArbeidssokerStatus {
   arbeidssokerperioder: IArbeidssokerperiode[];
@@ -59,7 +58,7 @@ export async function hentArbeidssokerStatus(
       return {
         fraOgMedDato: periode.fraOgMedDato,
         tilOgMedDato: periode.tilOgMedDato,
-        id: uuidv4(),
+        id: uuid(),
       };
     }),
   };

@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { server } from "../../../mocks/server";
 import { endSessionMock, mockSession } from "../helpers/auth-helper";
@@ -33,13 +33,10 @@ describe("Root til applikasjonen", () => {
 
     test("skal feile hvis backend-kallet feiler", async () => {
       server.use(
-        rest.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, (req, res, ctx) => {
-          return res.once(
-            ctx.status(500),
-            ctx.json({
-              errorMessage: `Server Error`,
-            }),
-          );
+        http.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, () => {
+          return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
+            status: 500,
+          });
         }),
       );
 
