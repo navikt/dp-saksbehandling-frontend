@@ -14,5 +14,5 @@ export function startMockServer(server: SetupServer) {
   process.once("SIGINT", () => server.close());
   process.once("SIGTERM", () => server.close());
 
-  console.info("🔶 Mock server kjører");
+  console.info("🔶 Mock api kjører");
 }

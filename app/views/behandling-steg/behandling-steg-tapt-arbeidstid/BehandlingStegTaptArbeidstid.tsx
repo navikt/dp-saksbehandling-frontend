@@ -3,7 +3,12 @@ import type { IBehandlingStegProps } from "../BehandlingSteg";
 import { Alert, BodyShort, DatePicker, Heading, Select, useDatepicker } from "@navikt/ds-react";
 import { InfoCard } from "~/components/info-card/InfoCard";
 import { TextFieldWithSuffix } from "~/components/text-field-with-suffix/TextFieldWithSuffix";
-import { mockTaptArberidstid } from "~/views/behandling-steg/behandling-steg-tapt-arbeidstid/taptArbeidstidMockdata";
+import {
+  mockArbeidsforholdAareg,
+  mockArbeidsforholdSoknad,
+  mockTaptArberidstid,
+} from "~/views/behandling-steg/behandling-steg-tapt-arbeidstid/taptArbeidstidMockdata";
+import { ArbeidsforholdList } from "~/components/arbeidsforhold/ArbeidsforholdList";
 
 export interface ITaptArberidstidData {
   regel: { valg: string[]; valgt: string };
@@ -94,6 +99,11 @@ export function BehandlingStegTaptArbeidstid(props: IBehandlingStegProps) {
       ) : (
         <Alert variant={"error"}>Vilkåret om tapt arbeidstid på minimum 50% er ikke oppfylt</Alert>
       )}
+
+      <ArbeidsforholdList
+        arbeidsforholdSoknad={mockArbeidsforholdAareg}
+        arbeidsforholdAAreg={mockArbeidsforholdSoknad}
+      />
     </div>
   );
 }

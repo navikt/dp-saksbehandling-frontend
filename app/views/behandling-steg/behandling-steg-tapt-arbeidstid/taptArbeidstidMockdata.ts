@@ -1,4 +1,5 @@
 import type { ITaptArberidstidData } from "~/views/behandling-steg/behandling-steg-tapt-arbeidstid/BehandlingStegTaptArbeidstid";
+import type { IArbeidsforhold2 } from "~/components/arbeidsforhold/ArbeidsforholdList";
 
 export const mockTaptArberidstid: ITaptArberidstidData = {
   regel: {
@@ -13,3 +14,41 @@ export const mockTaptArberidstid: ITaptArberidstidData = {
   taptArbeidstidProsent: 100,
   oppfylt: true,
 };
+
+export const mockArbeidsforholdAareg: IArbeidsforhold2[] = [
+  {
+    navn: "Arbeidsgiver AS",
+    stillingsprosent: 100,
+    arbeidstimerUke: 37.5,
+    land: "Sverige",
+    startDato: "12.12.2022",
+    sluttDato: "21.06.2023",
+  },
+  {
+    navn: "Forrige jobben Min AS",
+    stillingsprosent: 50,
+    arbeidstimerUke: 18.75,
+    land: "Norge",
+    startDato: "01.2.2021",
+    sluttDato: "12.12.2022",
+  },
+];
+
+export const mockArbeidsforholdSoknad: IArbeidsforhold2[] = [
+  {
+    navn: "Arbeidsgiver AS",
+    stillingsprosent: 100,
+    arbeidstimerUke: 37.5,
+    land: "Sverige",
+    startDato: "12.12.2022",
+    sluttDato: "21.06.2023",
+  },
+  {
+    navn: "Forrige jobben Min AS",
+    stillingsprosent: 50,
+    arbeidstimerUke: 18.75,
+    land: "Norge",
+    startDato: "01.2.2021",
+    sluttDato: "12.12.2022",
+  },
+];

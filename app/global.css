@@ -36,6 +36,10 @@
   margin: var(--a-spacing-2) 0;
 }
 
+.mb-4 {
+  margin-bottom: var(--a-spacing-4);
+}
+
 .inntektTabell .navds-table__expanded-row-content {
   background-color: var(--a-gray-50);
 }
