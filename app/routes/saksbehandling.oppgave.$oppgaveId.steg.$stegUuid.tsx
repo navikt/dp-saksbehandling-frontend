@@ -1,8 +1,7 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { Await, useActionData, useParams } from "@remix-run/react";
+import { useActionData, useParams } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
 import type { IBehandlingStegSvar, TBehandlingStegSvartype } from "~/models/oppgave.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler } from "~/utils/validering.util";
@@ -10,12 +9,11 @@ import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
 import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
 import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { Alert } from "@navikt/ds-react";
+import { Alert, Tabs } from "@navikt/ds-react";
+import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
+import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import styles from "~/route-styles/stegvisning.module.css";
-import { isNetworkResponseSuccess } from "~/utils/type-guards";
-import { Suspense } from "react";
-import type { INetworkResponse } from "~/utils/types";
-import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
+import { BehandligStegDatoer } from "~/components/behandling-steg-datoer/BehandligStegDatoer";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -56,9 +54,6 @@ export interface Metadata {
 
 export default function PersonBehandleVilkaar() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
-  const { journalposterPromises } = useTypedRouteLoaderData(
-    "routes/saksbehandling.oppgave.$oppgaveId.steg",
-  );
   const actionResponse = useActionData<typeof action>();
 
   const readonly = oppgave.tilstand !== "TilBehandling";
@@ -80,54 +75,18 @@ export default function PersonBehandleVilkaar() {
         )}
       </div>
 
-      <Suspense fallback={<div>Henter arbeidsforhold</div>}>
-        <Await
-          resolve={journalposterPromises}
-          errorElement={<div>Greide ikke laste inn journalposter 😬</div>}
-        >
-          {(journalpromises) => {
-            const journalposter = lagJournalpostData(journalpromises);
-            return (
-              <>
-                {journalposter?.data?.length > 0 && (
-                  <div className={styles.dokumentContainer}>
-                    <PDFLeser journalposter={journalposter.data} />
-                  </div>
-                )}
-                {journalposter.errors && (
-                  <div className={styles.dokumentContainer}>
-                    <Alert variant="error" className="my-4">
-                      En feil oppsto når vi skulle hente ut dokumentene.
-                    </Alert>
-                  </div>
-                )}
-              </>
-            );
-          }}
-        </Await>
-      </Suspense>
+      <Tabs defaultValue="datoer" className={styles.tabsContainer}>
+        <Tabs.List>
+          <Tabs.Tab value="datoer" label="Datoer" icon={<DatabaseIcon title="Datoer" />} />
+          <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
+        </Tabs.List>
+        <Tabs.Panel className={styles.tabPanel} value="datoer">
+          <BehandligStegDatoer />
+        </Tabs.Panel>
+        <Tabs.Panel className={styles.tabPanel} value="dokumenter">
+          <DokumentOversikt />
+        </Tabs.Panel>
+      </Tabs>
     </div>
   );
-}
-
-interface IJournalposter {
-  data: JournalpostQuery["journalpost"][];
-  errors: boolean;
-}
-function lagJournalpostData(
-  journalpostResponses: INetworkResponse<JournalpostQuery["journalpost"]>[],
-): IJournalposter {
-  const journalposter: IJournalposter = {
-    data: [],
-    errors: false,
-  };
-
-  for (const response of journalpostResponses) {
-    if (isNetworkResponseSuccess(response) && response.data) {
-      journalposter.data.push(response.data);
-    } else {
-      journalposter.errors = true;
-    }
-  }
-  return journalposter;
 }
