@@ -77,7 +77,7 @@ describe("BehandlingSteg", () => {
         await userEvent.click(lagreKnapp);
 
         expect(actionFn).toBeCalledTimes(0);
-        expect(radioButton.getAttribute("aria-invalid")).toBe("true");
+        expect(radioButton.getAttribute("aria-describedby")).toContain("fieldset-error");
         expect(await screen.findByText("Du må velge et svar")).toBeInTheDocument();
       });
     });
