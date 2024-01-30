@@ -9,6 +9,10 @@ export interface IBehandlingStegSvar {
   svar?: string;
   begrunnelse?: IBehandlingStegSvarBegrunnelse;
 }
+export interface IBehandlingStegVurdering {
+  id: string;
+  begrunnelse?: IBehandlingStegSvarBegrunnelse;
+}
 
 export interface IBehandlingStegSvarBegrunnelse {
   tekst: string;
@@ -25,6 +29,7 @@ export interface IBehandlingSteg {
   type: "Fastsetting" | "Vilkår";
   tilstand: TBehandlingTilstand;
   svartype: TBehandlingStegSvartype;
+  vurderinger?: IBehandlingStegVurdering[]; // forslag til hvordan manuelle vurderinger på steder hvor regelmotor er usikker på faktagrunnlagene
   svar: IBehandlingStegSvar | null;
 }
 
@@ -34,7 +39,6 @@ export interface IOppgave {
   opprettet: string;
   tilstand: TOppgaveTilstand;
   journalposter: string[];
-  muligeTilstander: TOppgaveTilstand[];
   hendelse: IHendelse[];
   steg: IBehandlingSteg[];
 }
@@ -62,7 +66,21 @@ export type TBehandlingStegId =
   | "Forslag til vedtak"
   | "Fatt vedtak"
   | "Oppfyller kravene til dagpenger"
-  | "Oppfyller krav til minsteinntekt";
+  | "Oppfyller krav til minsteinntekt"
+  //Her starter "nye" behandlingssteg
+  | "Ikke over 67 år"
+  | "Mangler dokumentasjon"
+  | "Utdanning"
+  | "Reell arbeidsøker"
+  | "Ikke utestengt"
+  | "Lovvalg"
+  | "Medlem"
+  | "Opphold i Norge"
+  | "Registrert som arbeidsøker"
+  | "Minste arbeidsinntekt"
+  | "Tapt arbeidsinntekt"
+  | "Tapt arbeidstid"
+  | "Ikke fulle folketrygdytelser";
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);

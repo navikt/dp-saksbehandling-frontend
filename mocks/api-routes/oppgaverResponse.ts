@@ -1,5 +1,249 @@
 import type { IOppgave } from "~/models/oppgave.server";
 
+export const masterMenyMock: IOppgave = {
+  uuid: "msw-ny-mastermeny",
+  person: "12345678910",
+  opprettet: "2024-01-01",
+  hendelse: [
+    {
+      konteksttype: "SøknadInnsendtHendelse",
+      kontekstmap: {
+        søknadId: "f10d577d-3235-416a-a240-3c5b0e676c05",
+        referanseId: "637577152",
+        meldingsreferanseId: "6357a3bd-2978-45ba-b2f1-350eacdb7ea4",
+      },
+    },
+  ],
+  tilstand: "TilBehandling",
+  journalposter: [],
+  steg: [
+    {
+      uuid: "msw-ikke-over-67",
+      id: "Ikke over 67 år",
+      type: "Vilkår",
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        type: "Boolean",
+        svar: "true",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-mangler-dokumentasjon",
+      id: "Mangler dokumentasjon",
+      type: "Fastsetting",
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        type: "Boolean",
+        svar: "false",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Trenger ikke å vente på at bruker sender inn dokumentasjon i denne mocken",
+        },
+      },
+    },
+    {
+      uuid: "msw-utdanning",
+      id: "Utdanning",
+      type: "Vilkår",
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        type: "Boolean",
+        svar: "true",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-reell-arbeidsoker",
+      id: "Reell arbeidsøker",
+      type: "Vilkår",
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        type: "Boolean",
+        svar: "true",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Søker har fylt -riktig- i spørsmålene i søknadsdialogen",
+        },
+      },
+    },
+    {
+      uuid: "msw-ikke-utestengt",
+      id: "Ikke utestengt",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-lovvalg",
+      id: "Lovvalg",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-medlem",
+      id: "Medlem",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-opphold-i-norge",
+      id: "Opphold i Norge",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-arbeidsoker",
+      id: "Registrert som arbeidsøker",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-minste-arbeidsinntekt",
+      id: "Minste arbeidsinntekt",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "IkkeUtført",
+      vurderinger: [
+        {
+          id: "Svangerskapsrelaterte sykepenger",
+          begrunnelse: {
+            tekst:
+              "Vi kan se at bruker har hatt {disse opplysningene for sykepenger}. Sjekk om det er svangerskapsrelaterte sykepenger som må isåfall må føres manuelt i inntektsopplysningene",
+          },
+        },
+        {
+          id: "eøs inntekter",
+          begrunnelse: {
+            tekst:
+              "Bruker har opplyst at hen har jobbet i eøs. Sjekk dokumentasjon om dette er inntekter som er relevant for dagpengesøknaden",
+          },
+        },
+        {
+          id: "inntekter neste måned",
+          begrunnelse: {
+            tekst:
+              "Det er indikasjoner på at bruker vil få inntekter neste måned, gjør en vurdering på om dette er relevant for avslag på minsteinntekt",
+          },
+        },
+        {
+          id: "jobbet utenfor norge",
+          begrunnelse: {
+            tekst:
+              "Bruker har opplyst at hen har jobbet utenfor norge. Sjekk dokumentasjon om dette er inntekter som er relevant for dagpengesøknaden",
+          },
+        },
+      ],
+      svar: {
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "",
+          tekst: "",
+        },
+      },
+    },
+    {
+      uuid: "msw-tapt-arbeidsinntekt",
+      id: "Tapt arbeidsinntekt",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-tapt-arbeidstid",
+      id: "Tapt arbeidstid",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+    {
+      uuid: "msw-ikke-fulle-folketrygdytelser",
+      id: "Ikke fulle folketrygdytelser",
+      type: "Vilkår", //er dette vilkår eller fastsettelse?
+      svartype: "Boolean",
+      tilstand: "Utført",
+      svar: {
+        svar: "true",
+        type: "Boolean",
+        begrunnelse: {
+          kilde: "Regelmotor",
+          tekst: "Begrunnelse på hvorfor regelmotor mener person oppfyller kravet",
+        },
+      },
+    },
+  ],
+};
+
 export const oppgaverResponse: IOppgave[] = [
   {
     uuid: "msw-c2e5845f-d139-490a-8925-890269994363",
@@ -109,7 +353,6 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
   {
     uuid: "1c206443-19ff-49c4-9d8e-ae8db247bf8a",
@@ -218,7 +461,6 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
   {
     uuid: "d04cbaea-dc4d-42a9-a5ff-c983ec4870e5",
@@ -334,6 +576,5 @@ export const oppgaverResponse: IOppgave[] = [
         },
       },
     ],
-    muligeTilstander: ["TilBehandling", "FerdigBehandlet"],
   },
 ];
