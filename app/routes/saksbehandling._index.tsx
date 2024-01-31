@@ -3,6 +3,7 @@ import { RemixLink } from "~/components/RemixLink";
 import { type TOppgaveTilstand } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "~/route-styles/saksbehandling-index.module.css";
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
@@ -41,14 +42,19 @@ export default function Saksbehandling() {
             return (
               <Table.Row key={index}>
                 <Table.DataCell>
-                  {emneknagger &&
-                    emneknagger.map((knagg, i) => {
-                      return (
-                        <Tag variant="info" key={i}>
-                          {knagg}
-                        </Tag>
-                      );
-                    })}
+                  {emneknagger && (
+                    <ul className={styles.emneknaggListe}>
+                      {emneknagger.map((knagg, i) => {
+                        return (
+                          <li key={i} className={styles.emneknagg}>
+                            <Tag size="xsmall" variant="info">
+                              {knagg}
+                            </Tag>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`person/${uuid}/oversikt/rapportering-og-utbetaling/`}>

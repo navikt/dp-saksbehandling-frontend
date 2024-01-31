@@ -14,6 +14,7 @@ export const masterMenyMock: IOppgave = {
       },
     },
   ],
+  emneknagger: ["Søknadsbehandling", "Mulig avslag minsteinntekt"],
   tilstand: "TilBehandling",
   journalposter: [],
   steg: [
