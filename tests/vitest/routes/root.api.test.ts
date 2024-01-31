@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import { oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
+import { masterMenyMock, oppgaverResponse } from "mocks/api-routes/oppgaverResponse";
 import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { server } from "../../../mocks/server";
@@ -66,7 +66,7 @@ describe("Root til applikasjonen", () => {
 
       expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
       expect(response.status).toBe(200);
-      expect(data.oppgaver).toEqual(oppgaverResponse);
+      expect(data.oppgaver).toEqual([masterMenyMock, ...oppgaverResponse]);
     });
   });
 });
