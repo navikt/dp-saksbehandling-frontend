@@ -37,6 +37,7 @@ export interface IOppgave {
   uuid: string;
   person: string;
   opprettet: string;
+  emneknagger?: string[];
   tilstand: TOppgaveTilstand;
   journalposter: string[];
   hendelse: IHendelse[];

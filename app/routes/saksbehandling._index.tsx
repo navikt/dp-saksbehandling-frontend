@@ -1,4 +1,4 @@
-import { Table } from "@navikt/ds-react";
+import { Table, Tag } from "@navikt/ds-react";
 import { RemixLink } from "~/components/RemixLink";
 import { type TOppgaveTilstand } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
@@ -37,17 +37,18 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {tilBehandlingsOppgaver?.map((oppgave, index) => {
-            const { hendelse, uuid, person, opprettet, tilstand, steg } = oppgave;
+            const { uuid, person, opprettet, tilstand, steg, emneknagger } = oppgave;
             return (
               <Table.Row key={index}>
                 <Table.DataCell>
-                  {hendelse.some(function (enkelthendelse) {
-                    return enkelthendelse.konteksttype === "SøknadInnsendtHendelse";
-                  }) ? (
-                    <>Søknadsbehandling</>
-                  ) : (
-                    <>Ukjent behandlingstype</>
-                  )}
+                  {emneknagger &&
+                    emneknagger.map((knagg, i) => {
+                      return (
+                        <Tag variant="info" key={i}>
+                          {knagg}
+                        </Tag>
+                      );
+                    })}
                 </Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`person/${uuid}/oversikt/rapportering-og-utbetaling/`}>
