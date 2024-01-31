@@ -1,6 +1,6 @@
 import React from "react";
+import type { TextFieldProps } from "@navikt/ds-react";
 import { TextField } from "@navikt/ds-react";
-import type { TextFieldProps } from "@navikt/ds-react/src/form/TextField";
 import classnames from "classnames";
 import styles from "./TextFieldWithSuffix.module.css";
 
