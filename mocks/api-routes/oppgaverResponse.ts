@@ -2,7 +2,7 @@ import type { IOppgave } from "~/models/oppgave.server";
 
 export const masterMenyMock: IOppgave = {
   uuid: "msw-ny-mastermeny",
-  person: "12345678910",
+  person: "msw-personmock",
   opprettet: "2024-01-01",
   hendelse: [
     {
