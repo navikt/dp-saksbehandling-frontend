@@ -94,6 +94,7 @@
     "node": ">=20"
   },
   "optionalDependencies": {
+    "@esbuild/linux-x64": "^0.20.0",
     "@rollup/rollup-linux-x64-gnu": "^4.9.6"
   }
 }
