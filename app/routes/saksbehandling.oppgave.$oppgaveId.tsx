@@ -5,10 +5,12 @@ import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 import styles from "~/route-styles/behandle.module.css";
+import { masterMenyMock } from "mocks/api-routes/oppgaverResponse";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const session = await getSession(request);
+  if (params.oppgaveId === masterMenyMock.uuid) return json({ oppgave: masterMenyMock }); // ønsker en hardkodet oppgave i test
   const oppgave = await hentOppgave(params.oppgaveId, session);
 
   return json({ oppgave });

@@ -3,7 +3,6 @@ import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
-import { masterMenyMock } from "mocks/api-routes/oppgaverResponse";
 
 export interface IBehandlingStegSvar {
   type: TBehandlingStegSvartype;
@@ -110,8 +109,6 @@ export async function hentOppgave(
   session: SessionWithOboProvider,
 ): Promise<IOppgave> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
-
-  if (oppgaveId == masterMenyMock.uuid) return masterMenyMock; //ønsker å ha en hardkodet oppgave i dev enn så lenge
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const response = await fetch(url, {
