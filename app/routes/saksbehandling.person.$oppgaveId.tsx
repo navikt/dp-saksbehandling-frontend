@@ -3,15 +3,13 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Navnestripe } from "~/components/navnestripe/Navnestripe";
-import { Personalia } from "~/components/personalia/Personalia";
 import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPersonalia } from "~/models/pdl.server";
-import { getEnv } from "~/utils/env.utils";
 import type { INetworkResponse } from "~/utils/types";
 import { sikkerLogger } from "~/utils/logger.utils";
-import { mockPerson } from "../../mocks/data/mock-person";
+import { Personalia } from "~/components/personalia/Personalia";
 
 export const shouldRevalidate = () => false;
 
@@ -23,14 +21,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const arbeidssokerStatusPromise = hentArbeidssokerStatus(session, oppgave.personIdent);
 
   try {
-    if (getEnv("IS_LOCALHOST") === "true") {
-      return json({
-        error: null,
-        person: mockPerson,
-        arbeidssokerStatusResponse: await arbeidssokerStatusPromise,
-      });
-    }
-
     const personaliaPromise = hentPersonalia(session, oppgave.personIdent);
     const [personalia, arbeidssokerStatusResponse] = await Promise.all([
       personaliaPromise,

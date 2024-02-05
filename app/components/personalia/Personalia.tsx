@@ -4,7 +4,7 @@ import { BodyShort } from "@navikt/ds-react";
 import type { HentPersonQuery } from "../../../graphql/generated/pdl/graphql";
 
 function visAdresse(person: HentPersonQuery["hentPerson"]) {
-  if (person?.kontaktadresse[0].vegadresse) {
+  if (person?.kontaktadresse[0]?.vegadresse) {
     return `${person.kontaktadresse[0].vegadresse?.adressenavn} ${person.kontaktadresse[0].vegadresse?.husnummer} ${person.kontaktadresse[0].vegadresse?.postnummer}`;
   }
 
@@ -33,7 +33,7 @@ export function Personalia(person: HentPersonQuery["hentPerson"]) {
         <BodyShort size={"small"} textColor={"subtle"}>
           Statsborgerskap
         </BodyShort>
-        <BodyShort>{person?.statsborgerskap[0].land}</BodyShort>
+        <BodyShort>{person?.statsborgerskap[0]?.land}</BodyShort>
       </div>
 
       <div>
@@ -41,7 +41,7 @@ export function Personalia(person: HentPersonQuery["hentPerson"]) {
           Utflytting fra Norge
         </BodyShort>
         <BodyShort>
-          {person?.utflyttingFraNorge ? person.utflyttingFraNorge[0].utflyttingsdato : "-"}
+          {person?.utflyttingFraNorge ? person.utflyttingFraNorge[0]?.utflyttingsdato : "-"}
         </BodyShort>
       </div>
 

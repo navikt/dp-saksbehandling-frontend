@@ -1,6 +1,12 @@
 import type { SetupServer } from "msw/node";
 import { setupServer } from "msw/node";
-import { mswHandlers } from "./msw-handlers";
+// import { mswHandlers } from "./msw-handlers";
+import { mockDpBehandling } from "./mock-dp-behandling";
+import { mockSanityServer } from "./mock-sanity-server";
+import { mockAzure } from "./mock-azure";
+import { mockPdl } from "./mock-pdl";
+
+const mswHandlers = [...mockAzure, ...mockDpBehandling, ...mockPdl, ...mockSanityServer];
 
 export const mockServer = setupServer(...mswHandlers);
 

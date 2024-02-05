@@ -1,14 +1,7 @@
 import { http, HttpResponse } from "msw";
-import { mockSaksbehandler } from "./data/mock-saksbehandler";
-import { mockSanity } from "./data/mock-sanity";
 import { mockOppgaver } from "./data/mock-oppgaver";
 
-export const mswHandlers = [
-  // Hent saksbehandler
-  http.get("https://graph.microsoft.com/v1.0/me/", () => {
-    return HttpResponse.json(mockSaksbehandler);
-  }),
-
+export const mockDpBehandling = [
   // Hent alle oppgaver
   http.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, () => {
     return HttpResponse.json(mockOppgaver);
@@ -33,10 +26,5 @@ export const mswHandlers = [
     return new HttpResponse(null, {
       status: 201,
     });
-  }),
-
-  // Hent sanity tekster
-  http.get("https://rt6o382n.apicdn.sanity.io/v2021-06-06/data/query/production", () => {
-    return HttpResponse.json(mockSanity);
   }),
 ];

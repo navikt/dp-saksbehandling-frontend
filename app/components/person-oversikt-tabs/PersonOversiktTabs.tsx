@@ -26,11 +26,11 @@ export function PersonOversiktTabs() {
 
 const tabsConfig = [
   {
-    url: "rapportering-og-utbetaling",
+    url: "#1",
     label: "Rapportering og utbetaling",
   },
   {
-    url: "vedtak",
+    url: "#2",
     label: "Vedtak",
   },
 ];

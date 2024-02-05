@@ -26,9 +26,7 @@ export default function Saksbehandling() {
               <Table.Row key={oppgave.uuid}>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${uuid}/oversikt/rapportering-og-utbetaling/`}>
-                    {personIdent}
-                  </RemixLink>
+                  <RemixLink to={`person/${uuid}/oversikt`}>{personIdent}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
                 <Table.DataCell>
