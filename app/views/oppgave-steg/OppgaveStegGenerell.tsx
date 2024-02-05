@@ -4,7 +4,7 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { Button } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
 import { useLocation, useNavigation } from "@remix-run/react";
-import { OppgaveStegInput } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import { OpplysningInput } from "~/components/oppgave-steg-input/OpplysningInput";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
   const { steg } = props;
@@ -26,15 +26,7 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
       <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
       {steg.opplysninger.map((opplysning) => (
-        <div key={opplysning.opplysningNavn}>
-          <OppgaveStegInput
-            name={opplysning.opplysningNavn}
-            svartype={opplysning.opplysningType}
-            verdi={opplysning.svar?.verdi}
-            label={opplysning.opplysningNavn}
-            description={"Noe beksrivelse"}
-          />
-        </div>
+        <OpplysningInput {...opplysning} key={opplysning.opplysningNavn} />
       ))}
 
       <Button type="submit" disabled={isSubmitting}>

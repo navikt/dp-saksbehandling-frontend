@@ -18,8 +18,19 @@ export function OppgaveStegMenyPunkt(behandlingSteg: IOppgaveSteg) {
           isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser
         }
       >
-        {behandlingSteg.stegNavn}
+        {TektstForStegNavn(behandlingSteg.stegNavn)}
       </NavLink>
     </li>
   );
+}
+
+function TektstForStegNavn(stegNavn: string) {
+  switch (stegNavn) {
+    case "gjenopptak-eller-lukket-sak-8uker":
+      return "Gjenopptak eller lukket sak";
+    case "minste-arbeidsinntekt":
+      return "Minste arbeidsinntekt";
+    default:
+      return stegNavn;
+  }
 }
