@@ -1,4 +1,3 @@
-import type { ISanityInfoside } from "~/sanity/sanity.types";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function useSanity() {
@@ -10,14 +9,7 @@ export function useSanity() {
     );
   }
 
-  function hentInfosideTekstMedId(slug: string): ISanityInfoside | undefined {
-    return sanityTexts?.infosider.find((side) => {
-      return side.slug === slug;
-    });
-  }
-
   return {
     hentAppTekstMedId,
-    hentInfosideTekstMedId,
   };
 }
