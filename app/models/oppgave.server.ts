@@ -4,84 +4,36 @@ import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 
-export interface IBehandlingStegSvar {
-  type: TBehandlingStegSvartype;
-  svar?: string;
-  begrunnelse?: IBehandlingStegSvarBegrunnelse;
+export interface IOpplysningSvar {
+  type: IOpplysningType;
+  verdi: string;
 }
-export interface IBehandlingStegVurdering {
-  id: string;
-  begrunnelse?: IBehandlingStegSvarBegrunnelse;
-}
-
-export interface IBehandlingStegSvarBegrunnelse {
-  tekst: string;
-  utført?: string; //dato
-  utførtAv?: {
-    ident: string;
-  };
-  kilde?: string;
+export interface IOppgaveStegOpplysning {
+  opplysningNavn: string;
+  opplysningType: IOpplysningType;
+  svar: IOpplysningSvar | null;
 }
 
-export interface IBehandlingSteg {
+export interface IOppgaveSteg {
   uuid: string;
-  id: TBehandlingStegId;
-  type: "Fastsetting" | "Vilkår";
-  tilstand: TBehandlingTilstand;
-  svartype: TBehandlingStegSvartype;
-  vurderinger?: IBehandlingStegVurdering[]; // forslag til hvordan manuelle vurderinger på steder hvor regelmotor er usikker på faktagrunnlagene
-  svar: IBehandlingStegSvar | null;
+  stegNavn: string;
+  tilstand: IOppgaveStegTilstand;
+  opplysninger: IOppgaveStegOpplysning[];
 }
 
 export interface IOppgave {
   uuid: string;
-  person: string;
-  opprettet: string;
-  emneknagger?: string[];
-  tilstand: TOppgaveTilstand;
-  journalposter: string[];
-  hendelse: IHendelse[];
-  steg: IBehandlingSteg[];
+  personIdent: string;
+  datoOpprettet: string;
+  tilstand: IOppgaveTilstand;
+  journalpostIDer: string[];
+  emneknagger: string[];
+  steg: IOppgaveSteg[];
 }
 
-export interface IHendelse {
-  kontekstmap: IKontekstmap;
-  konteksttype: "SøknadInnsendtHendelse";
-}
-export interface IKontekstmap {
-  meldingsreferanseId: string;
-  referanseId: string;
-  søknadId: string;
-}
-
-export type TOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
-export type TBehandlingTilstand = "Utført" | "IkkeUtført" | "MåGodkjennes";
-export type TBehandlingStegSvartype = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
-export type TBehandlingStegId =
-  | "Virkningsdato"
-  | "Rettighetstype"
-  | "Fastsatt vanlig arbeidstid"
-  | "Grunnlag"
-  | "Dagsats"
-  | "Periode"
-  | "Forslag til vedtak"
-  | "Fatt vedtak"
-  | "Oppfyller kravene til dagpenger"
-  | "Oppfyller krav til minsteinntekt"
-  //Her starter "nye" behandlingssteg
-  | "Ikke over 67 år"
-  | "Mangler dokumentasjon"
-  | "Utdanning"
-  | "Reell arbeidsøker"
-  | "Ikke utestengt"
-  | "Lovvalg"
-  | "Medlem"
-  | "Opphold i Norge"
-  | "Registrert som arbeidsøker"
-  | "Minste arbeidsinntekt"
-  | "Tapt arbeidsinntekt"
-  | "Tapt arbeidstid"
-  | "Ikke fulle folketrygdytelser";
+export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
+export type IOppgaveStegTilstand = "Groenn" | "Gul" | "Roed";
+export type IOpplysningType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
@@ -129,13 +81,13 @@ export async function hentOppgave(
 
 export async function svarOppgaveSteg(
   oppgaveId: string,
-  svar: IBehandlingStegSvar,
   stegId: string,
+  opplysninger: IOppgaveStegOpplysning[],
   session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
-  const body = JSON.stringify(svar);
+  const body = JSON.stringify(opplysninger);
 
   const response = await fetch(url, {
     method: "PUT",
@@ -151,19 +103,4 @@ export async function svarOppgaveSteg(
   }
 
   return { status: "success" };
-}
-
-export async function endreStatus(
-  oppgaveId: string,
-  nyTilstand: TOppgaveTilstand,
-  session: SessionWithOboProvider,
-) {
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/tilstand`;
-  const onBehalfOfToken = await getBehandlingOboToken(session);
-
-  return await fetch(url, {
-    method: "POST",
-    headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ nyTilstand }),
-  });
 }

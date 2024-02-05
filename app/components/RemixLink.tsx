@@ -1,3 +1,4 @@
+import type { ButtonProps } from "@navikt/ds-react";
 import { Button, Link } from "@navikt/ds-react";
 import type { LinkProps } from "@remix-run/react";
 import { useHref } from "@remix-run/react";
@@ -6,7 +7,7 @@ import { forwardRef } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
-  as?: "Link" | "Button";
+  asButtonVariant?: ButtonProps["variant"];
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
@@ -15,7 +16,16 @@ function RemixLinkComponent(
   props: PropsWithChildren<IProps>,
   ref: Ref<HTMLAnchorElement> | undefined,
 ) {
-  const { onClick, replace = false, as = "Link", state, target, to, children, className } = props;
+  const {
+    onClick,
+    replace = false,
+    asButtonVariant,
+    state,
+    target,
+    to,
+    children,
+    className,
+  } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
     replace,
@@ -23,13 +33,13 @@ function RemixLinkComponent(
     target,
   });
 
-  if (as === "Button") {
+  if (asButtonVariant) {
     return (
       <Button
         className={className || ""}
         href={href}
         size={"small"}
-        variant={"secondary"}
+        variant={asButtonVariant}
         onClick={(event) => {
           /* Dette er OK å ignorere, den klager på at det er feil type 
           (Anchor i stedet for Button), og siden vi alltid sender med 

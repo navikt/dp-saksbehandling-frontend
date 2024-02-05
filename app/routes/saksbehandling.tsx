@@ -11,7 +11,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { sanityClient } from "~/utils/sanity.utils";
 import { InternalHeader } from "@navikt/ds-react";
-import { masterMenyMock } from "mocks/api-routes/oppgaverResponse";
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
@@ -28,12 +27,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     hentOppgaver(session),
   ]);
 
-  const oppgaverMedMock = [masterMenyMock, ...oppgaver];
-
   return json({
     sanityTexts,
     saksbehandler,
-    oppgaver: oppgaverMedMock,
+    oppgaver,
   });
 }
 

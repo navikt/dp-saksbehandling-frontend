@@ -1,20 +1,34 @@
-.arbeidsforhold {
-    list-style: none;
+.container {
+  background-color: var(--a-gray-200);
+  /*margin: var(--a-spacing-8) 0;*/
+  padding: var(--a-spacing-4);
 }
 
-.arbeidsforhold dt:before {
-  content: "";
-  display: block;
+.arbeidslistTable.arbeidslistTable {
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+  margin-bottom: var(--a-spacing-8);
 }
 
-.arbeidsforhold dt, .arbeidsforhold dd {
-  display: inline;
+.arbeidslistTable thead th {
+  border: none;
 }
 
-.arbeidsforhold dt {
-    font-weight: bold;
+.arbeidslistItem {
+  background-color: var(--a-white);
+  height: 46px;
 }
 
-.arbeidsforhold dd {
-    margin-inline-start: 20px;
+.arbeidslistItem td {
+  border: none;
+}
+
+.arbeidslistItem td:first-child {
+  border-top-left-radius: var(--a-border-radius-xlarge);
+  border-bottom-left-radius: var(--a-border-radius-xlarge);
+}
+
+.arbeidslistItem td:last-child {
+  border-top-right-radius: var(--a-border-radius-xlarge);
+  border-bottom-right-radius: var(--a-border-radius-xlarge);
 }

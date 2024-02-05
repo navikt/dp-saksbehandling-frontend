@@ -1,48 +1,20 @@
 import { withZod } from "@remix-validated-form/with-zod";
 import { z } from "zod";
-import { type TAktivitetType } from "~/models/aktivitet.server";
-import type { TBehandlingStegSvartype } from "~/models/oppgave.server";
+import type { IOpplysningType } from "~/models/oppgave.server";
 
 export function hentValideringRegler(
-  svartype: TBehandlingStegSvartype,
+  svartype: IOpplysningType,
   id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
   stegId: string,
 ) {
   return withZod(
     z.object({
       [stegId]: hentValideringForInput(svartype, id),
-      begrunnelse: hentValideringForBegrunnelse(id),
     }),
   );
 }
 
-function hentValideringForInput(svartype: TBehandlingStegSvartype, id: string): z.ZodType {
-  // Sjekker spesialtilfeller først
-  switch (id) {
-    case "Periode":
-      return z.coerce
-        .number({
-          required_error: "Du må fylle ut en periode",
-          invalid_type_error: "Du må fylle ut en gyldig periode",
-        })
-        .positive({ message: "Du må velge en periode" });
-    case "Rettighetstype":
-      return z.string().nonempty("Du må fylle ut en rettighetstype");
-    case "Fastsatt vanlig arbeidstid":
-      return z.preprocess(
-        (timer) => String(timer).replace(/,/g, "."),
-        z.coerce
-          .number({
-            required_error: "Du må skrive et tall",
-            invalid_type_error: "Det må være et gyldig tall",
-          })
-          .min(0, { message: "Du må skrive et tall" })
-          .max(40, { message: "Du må skrive et tall mellom 0 og 40 timer" })
-          .step(0.5, { message: "Vanlig arbeidstid må skrives kun med hele og halve timer" }),
-      );
-  }
-
-  // Hvis ingen spesialtilfeller treffer kjører vi på med de generelle typene
+function hentValideringForInput(svartype: IOpplysningType, id: string): z.ZodType {
   switch (svartype) {
     case "Int":
       return z.coerce
@@ -73,42 +45,4 @@ function hentValideringForInput(svartype: TBehandlingStegSvartype, id: string): 
         "Ugyldig dato",
       );
   }
-}
-
-function hentValideringForBegrunnelse(id: string): z.ZodType {
-  switch (id) {
-    case "Fastsatt vanlig arbeidstid":
-      return z.string().nonempty("Du må fylle ut feltet");
-
-    default:
-      return z.string();
-  }
-}
-
-const aktivitetsvalideringArbeid = z.object({
-  aktivitetstype: z.enum(["Arbeid", "Syk", "Ferie"], {
-    errorMap: () => ({ message: "Du må velge et aktivitet" }),
-  }),
-  dato: z.coerce.date({
-    invalid_type_error: "Ugyldig dato",
-  }),
-  timer: z.preprocess(
-    (timer) => String(timer).replace(/,/g, "."),
-    z.coerce
-      .number({
-        required_error: "Du må skrive et tall",
-        invalid_type_error: "Det må være et gyldig tall",
-      })
-      .positive({ message: "Det må være mellom 0,5 og 24 timer" })
-      .min(0.5, { message: "Det må være mer enn 0,5 timer" })
-      .max(24, { message: "Det må være mellom 0,5 og 24 timer" }),
-  ),
-});
-
-const aktivitetsvalideringSykFerie = aktivitetsvalideringArbeid.partial({ timer: true });
-
-export function validatorAktivitet(aktivitetType: TAktivitetType | string) {
-  return aktivitetType === "Arbeid"
-    ? withZod(aktivitetsvalideringArbeid)
-    : withZod(aktivitetsvalideringSykFerie);
 }

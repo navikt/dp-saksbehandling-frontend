@@ -1,23 +1,20 @@
 import { expect, test } from "@playwright/test";
-import { oppgaverResponse } from "../../mocks/api-routes/oppgaverResponse";
+import { mockOppgaver } from "../../mocks/data/mock-oppgaver";
 
 test("Oppgavelisten har oppgaver listet opp", async ({ page, baseURL }) => {
   await page.goto(baseURL!);
-  const oppgaver = oppgaverResponse;
 
-  await expect(page.getByText(oppgaver[0].person)).toBeVisible();
-  await expect(page.getByText(oppgaver[1].person)).toBeVisible();
+  await expect(page.getByText(mockOppgaver[0].personIdent)).toBeVisible();
+  await expect(page.getByText(mockOppgaver[1].personIdent)).toBeVisible();
 });
 
 test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
-  const oppgaver = oppgaverResponse;
-  const oppgave = oppgaver[0];
+  const oppgave = mockOppgaver[0];
 
   await page.goto(baseURL!);
-
   await page
     .getByRole("row")
-    .filter({ has: page.getByText(oppgave.person, { exact: false }) })
+    .filter({ has: page.getByText(oppgave.personIdent, { exact: false }) })
     .getByRole("button", { name: "Behandle" })
     .click();
 
