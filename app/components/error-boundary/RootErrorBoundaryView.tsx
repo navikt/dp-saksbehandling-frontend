@@ -2,6 +2,7 @@ import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
 import { isRouteErrorResponse, Link } from "@remix-run/react";
 import { getEnv } from "~/utils/env.utils";
 import styles from "./RootErrorBoundaryView.module.css";
+import type { JSX } from "react";
 
 interface IProps {
   meta: JSX.Element;

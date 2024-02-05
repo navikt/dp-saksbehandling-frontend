@@ -8,13 +8,13 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToPipeableStream } from "react-dom/server";
 import { PassThrough } from "stream";
-import { setup, startMockServer } from "../mocks/server";
+import { setupMockServer, startMockServer } from "../mocks/mock-server";
 import { getEnv } from "./utils/env.utils";
 
 const ABORT_DELAY = 5000;
 
 if (getEnv("USE_MSW") === "true") {
-  const server = setup();
+  const server = setupMockServer();
   startMockServer(server);
 }
 const csp = {

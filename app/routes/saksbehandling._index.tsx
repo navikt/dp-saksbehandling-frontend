@@ -1,63 +1,45 @@
-import { Table } from "@navikt/ds-react";
+import { Table, Tag } from "@navikt/ds-react";
 import { RemixLink } from "~/components/RemixLink";
-import { type TOppgaveTilstand } from "~/models/oppgave.server";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
 
-  const tilBehandlingsOppgaver = oppgaver.filter(
-    (oppgave) => oppgave.tilstand !== "FerdigBehandlet",
-  );
-
-  function hentTilstandTekst(tilstand: TOppgaveTilstand) {
-    switch (tilstand) {
-      case "TilBehandling":
-        return "Til behandling";
-      case "FerdigBehandlet":
-        return "Ferdig behandlet";
-      default:
-        return "";
-    }
-  }
-
   return (
     <main>
       <Table zebraStripes={true}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Oppgave Type</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
             <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Emneknagger</Table.HeaderCell>
             <Table.HeaderCell scope="col"></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {tilBehandlingsOppgaver?.map((oppgave, index) => {
-            const { hendelse, uuid, person, opprettet, tilstand, steg } = oppgave;
+          {oppgaver?.map((oppgave) => {
+            const { uuid, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
             return (
-              <Table.Row key={index}>
-                <Table.DataCell>
-                  {hendelse.some(function (enkelthendelse) {
-                    return enkelthendelse.konteksttype === "SøknadInnsendtHendelse";
-                  }) ? (
-                    <>Søknadsbehandling</>
-                  ) : (
-                    <>Ukjent behandlingstype</>
-                  )}
-                </Table.DataCell>
+              <Table.Row key={oppgave.uuid}>
+                <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`person/${uuid}/oversikt/rapportering-og-utbetaling/`}>
-                    {person}
+                    {personIdent}
                   </RemixLink>
                 </Table.DataCell>
-                <Table.DataCell>{hentFormattertDato(opprettet)}</Table.DataCell>
-                <Table.DataCell>{hentTilstandTekst(tilstand)}</Table.DataCell>
+                <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} as="Button">
+                  {emneknagger.map((emneknagg) => (
+                    <Tag key={emneknagg} size={"xsmall"} variant="alt2-filled">
+                      {emneknagg}
+                    </Tag>
+                  ))}
+                </Table.DataCell>
+                <Table.DataCell>
+                  <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} asButtonVariant="primary">
                     Behandle
                   </RemixLink>
                 </Table.DataCell>

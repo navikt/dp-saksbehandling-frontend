@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
@@ -14,17 +14,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return json({ oppgave });
 }
 
-export default function PersonBehandle() {
-  const { oppgave } = useLoaderData<typeof loader>();
-  const forslagTilVedtak = oppgave.steg.find((steg) => steg.id === "Forslag til vedtak");
+export default function Oppgave() {
   return (
-    <>
-      {forslagTilVedtak?.tilstand === "Utført" && oppgave.tilstand === "TilBehandling" && (
-        <div className={styles.innstiltBanner}>To-trinns kontroll</div>
-      )}
-      <div className={styles.container}>
-        <Outlet />
-      </div>
-    </>
+    <div className={styles.container}>
+      <Outlet />
+    </div>
   );
 }

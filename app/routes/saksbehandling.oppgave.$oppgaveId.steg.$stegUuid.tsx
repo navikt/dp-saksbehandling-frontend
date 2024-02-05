@@ -2,18 +2,18 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { useActionData, useParams } from "@remix-run/react";
 import { validationError } from "remix-validated-form";
 import invariant from "tiny-invariant";
-import type { IBehandlingStegSvar, TBehandlingStegSvartype } from "~/models/oppgave.server";
+import type { IOpplysningType } from "~/models/oppgave.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { BehandlingSteg } from "~/views/behandling-steg/BehandlingSteg";
-import { hentFormattertSvar, parseMetadata } from "~/utils/steg.utils";
+import { OppgaveSteg } from "~/views/oppgave-steg/OppgaveSteg";
+import { parseMetadata } from "~/utils/steg.utils";
 import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Alert, Tabs } from "@navikt/ds-react";
 import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import styles from "~/route-styles/stegvisning.module.css";
-import { BehandligStegDatoer } from "~/components/behandling-steg-datoer/BehandligStegDatoer";
+import { OppgaveStegDatoer } from "~/components/oppgave-steg-datoer/OppgaveStegDatoer";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -24,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const metaData = parseMetadata<Metadata>(formData, "metadata");
   const stegUuid = params.stegUuid;
 
-  const validering = await hentValideringRegler(metaData.svartype, metaData.id, stegUuid).validate(
+  const validering = await hentValideringRegler("Boolean", metaData.id, stegUuid).validate(
     formData,
   );
 
@@ -35,20 +35,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return;
   }
 
-  const svar: IBehandlingStegSvar = {
-    type: metaData.svartype,
-    svar: hentFormattertSvar(validering.submittedData[stegUuid], metaData.svartype),
-    begrunnelse: {
-      tekst: validering.submittedData.begrunnelse,
-    },
-  };
-
-  return await svarOppgaveSteg(params.oppgaveId, svar, stegUuid, session);
+  return await svarOppgaveSteg(params.oppgaveId, stegUuid, [], session);
 }
 
 export interface Metadata {
-  svartype: TBehandlingStegSvartype;
   id: string;
+  svartype?: IOpplysningType;
   stegUuid?: string;
 }
 
@@ -56,7 +48,6 @@ export default function PersonBehandleVilkaar() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const actionResponse = useActionData<typeof action>();
 
-  const readonly = oppgave.tilstand !== "TilBehandling";
   const { stegUuid } = useParams();
   const steg = oppgave.steg.find((steg) => steg.uuid === stegUuid);
 
@@ -69,7 +60,7 @@ export default function PersonBehandleVilkaar() {
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <BehandlingSteg steg={steg} readonly={readonly} />
+        <OppgaveSteg steg={steg} />
         {actionResponse?.status === "error" && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
@@ -81,7 +72,7 @@ export default function PersonBehandleVilkaar() {
           <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
         </Tabs.List>
         <Tabs.Panel className={styles.tabPanel} value="datoer">
-          <BehandligStegDatoer />
+          <OppgaveStegDatoer />
         </Tabs.Panel>
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">
           <DokumentOversikt />

@@ -19,7 +19,7 @@ export function PersonSok() {
 
   function sokEnPerson(fnr: string) {
     if (sokInput.length === 11) {
-      setSokResultat(oppgaver.filter((oppgave) => oppgave.person === fnr));
+      setSokResultat(oppgaver.filter((oppgave) => oppgave.personIdent === fnr));
       setVisSokResultat(true);
     }
   }
@@ -57,10 +57,13 @@ export function PersonSok() {
         <div className={styles.resultatContainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
-              {sokResultat.map(({ person, uuid }) => (
+              {sokResultat.map(({ personIdent, uuid }) => (
                 <div className={styles.resultat} key={uuid}>
-                  <BodyShort>{person}</BodyShort>
-                  <RemixLink as="Button" to={`/saksbehandling/person/${uuid}/oversikt`}>
+                  <BodyShort>{personIdent}</BodyShort>
+                  <RemixLink
+                    asButtonVariant="primary"
+                    to={`/saksbehandling/person/${uuid}/oversikt`}
+                  >
                     Gå til person
                   </RemixLink>
                 </div>

@@ -1,11 +1,10 @@
 import { Outlet } from "@remix-run/react";
-import { BehandlingStegMenyPunkt } from "~/components/behandling-steg-meny-punkt/BehandlingStegMenyPunkt";
+import { OppgaveStegMenyPunkt } from "~/components/oppgave-steg-meny-punkt/OppgaveStegMenyPunkt";
 import styles from "~/route-styles/behandle.module.css";
 import { defer, type LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
-import { hentArbeidsforhold } from "~/models/arbeidsforhold.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
@@ -17,16 +16,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   function hentJournalposter() {
     return Promise.all(
-      oppgave.journalposter.map((journalpostId) => hentJournalpost(request, journalpostId)),
+      oppgave.journalpostIDer.map((journalpostId) => hentJournalpost(request, journalpostId)),
     );
   }
 
   const journalposterPromises = hentJournalposter();
-  const arbeidsforholdResponse = await hentArbeidsforhold(session, oppgave.person);
 
   return defer({
     journalposterPromises,
-    arbeidsforholdPromise: arbeidsforholdResponse,
   });
 }
 
@@ -43,7 +40,7 @@ export default function PersonBehandleStegMeny() {
         <div className={styles.behandlingStegListe}>
           <ul>
             {oppgave.steg.map((steg) => (
-              <BehandlingStegMenyPunkt key={steg.uuid} {...steg} />
+              <OppgaveStegMenyPunkt key={steg.uuid} {...steg} />
             ))}
           </ul>
         </div>

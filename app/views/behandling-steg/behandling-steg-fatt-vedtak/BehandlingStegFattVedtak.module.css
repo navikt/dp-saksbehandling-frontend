@@ -1,7 +1,0 @@
-.buttonContainer {
-  display: flex;
-}
-
-.buttonContainer button {
-  margin-right: var(--a-spacing-4);
-}

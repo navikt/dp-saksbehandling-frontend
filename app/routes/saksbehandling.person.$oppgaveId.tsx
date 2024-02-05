@@ -2,7 +2,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { Navnestripe } from "~/components/brodsmuler/Navnestripe";
+import { Navnestripe } from "~/components/navnestripe/Navnestripe";
 import { Personalia } from "~/components/personalia/Personalia";
 import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
@@ -11,7 +11,7 @@ import { hentPersonalia } from "~/models/pdl.server";
 import { getEnv } from "~/utils/env.utils";
 import type { INetworkResponse } from "~/utils/types";
 import { sikkerLogger } from "~/utils/logger.utils";
-import { mockPerson } from "../../mock-data/mock-person";
+import { mockPerson } from "../../mocks/data/mock-person";
 
 export const shouldRevalidate = () => false;
 
@@ -20,7 +20,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const session = await getSession(request);
   const oppgave = await hentOppgave(params.oppgaveId, session);
-  const arbeidssokerStatusPromise = hentArbeidssokerStatus(session, oppgave.person);
+  const arbeidssokerStatusPromise = hentArbeidssokerStatus(session, oppgave.personIdent);
 
   try {
     if (getEnv("IS_LOCALHOST") === "true") {
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       });
     }
 
-    const personaliaPromise = hentPersonalia(session, oppgave.person);
+    const personaliaPromise = hentPersonalia(session, oppgave.personIdent);
     const [personalia, arbeidssokerStatusResponse] = await Promise.all([
       personaliaPromise,
       arbeidssokerStatusPromise,
@@ -69,8 +69,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function Person() {
   const { person, error } = useLoaderData<typeof loader>();
-  const fulltNavn = `${person?.navn[0].fornavn} ${person?.navn[0].mellomnavn ?? ""} ${person
-    ?.navn[0].etternavn}`;
+  const fulltNavn = `${person?.navn[0].fornavn} ${person?.navn[0].mellomnavn ?? ""} ${
+    person?.navn[0].etternavn
+  }`;
 
   return (
     <>

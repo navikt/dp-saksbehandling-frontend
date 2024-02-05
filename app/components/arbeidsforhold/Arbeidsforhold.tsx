@@ -1,59 +1,139 @@
-import { Box, Heading, VStack } from "@navikt/ds-react";
+import React from "react";
+import { Bleed, BodyShort, Heading, Table } from "@navikt/ds-react";
+import { InfoCard } from "~/components/info-card/InfoCard";
 import styles from "./Arbeidsforhold.module.css";
-import type { IArbeidsforhold } from "~/models/arbeidsforhold.server";
 
 interface IProps {
-  arbeidsforhold: IArbeidsforhold[];
+  arbeidsforholdSoknad: IArbeidsforhold[];
+  arbeidsforholdAAreg: IArbeidsforhold[];
+}
+export interface IArbeidsforhold {
+  navn: string;
+  land: string;
+  arbeidstimerUke: number;
+  startDato: string;
+  sluttDato: string;
+  stillingsprosent: number;
 }
 
 export function Arbeidsforhold(props: IProps) {
-  const { arbeidsforhold } = props;
-
   return (
-    <>
-      <Heading size="small" level="3">
-        Arbeidsforhold
-      </Heading>
-      <VStack gap="4" className={styles.arbeidsforhold}>
-        {Object.keys(arbeidsforhold).length > 0 &&
-          arbeidsforhold.map(
-            ({
-              orgnr,
-              ansettelsestype,
-              yrke,
-              startdato,
-              sluttdato,
-              sluttaarsak,
-            }: IArbeidsforhold) => {
-              return (
-                <Box padding="2" background="surface-alt-3-subtle" key={orgnr}>
-                  <dl>
-                    <dt>Orgnummer</dt>
-                    <dd>{orgnr}</dd>
-                    <dt>Ansettelsesform</dt>
-                    <dd>{ansettelsestype}</dd>
-                    <dt>Yrke</dt>
-                    <dd>{yrke}</dd>
-                    <dt>Startdato</dt>
-                    <dd>{startdato}</dd>
-                    {sluttdato && (
-                      <>
-                        <dt>Sluttdato</dt>
-                        <dd>{sluttdato}</dd>
-                        {sluttaarsak && (
-                          <>
-                            <dt>Sluttårsak</dt>
-                            <dd>{sluttaarsak}</dd>
-                          </>
-                        )}
-                      </>
-                    )}
-                  </dl>
-                </Box>
-              );
-            },
-          )}
-      </VStack>
-    </>
+    <div className="my-4">
+      <Bleed marginInline="4" asChild>
+        <div className={styles.container}>
+          <Heading size="small" className="my-4">
+            Arbeidsforhold registert i Aa-registeret:{" "}
+          </Heading>
+
+          <Table size="small" className={styles.arbeidslistTable}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Navn
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    land
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Stillingsprosent
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Timer pr.uke
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Fra
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Til
+                  </BodyShort>
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {props.arbeidsforholdAAreg.map((arbeidsforhold) => (
+                <ArbeidsforholdItem key={arbeidsforhold.navn} {...arbeidsforhold} />
+              ))}
+            </Table.Body>
+          </Table>
+
+          <Heading size="small" className="my-4">
+            Rapporterte arbeidsforhold i søknad:
+          </Heading>
+
+          <Table size="small" className={styles.arbeidslistTable}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Navn
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    land
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Stillingsprosent
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Timer pr.uke
+                  </BodyShort>{" "}
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Fra
+                  </BodyShort>
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">
+                  <BodyShort textColor="subtle" size="small">
+                    Til
+                  </BodyShort>
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {props.arbeidsforholdSoknad.map((arbeidsforhold) => (
+                <ArbeidsforholdItem key={arbeidsforhold.navn} {...arbeidsforhold} />
+              ))}
+            </Table.Body>
+          </Table>
+
+          <InfoCard>
+            <BodyShort weight="semibold">Forslag til fastsatt vanlig arbeidstid</BodyShort>
+            <BodyShort>Baser på data: 37,5 timer pr. uke</BodyShort>
+          </InfoCard>
+        </div>
+      </Bleed>
+    </div>
+  );
+}
+
+export function ArbeidsforholdItem(arbeidsforhold: IArbeidsforhold) {
+  return (
+    <Table.Row className={styles.arbeidslistItem}>
+      <Table.DataCell>
+        <BodyShort weight="semibold">{arbeidsforhold.navn}</BodyShort>
+      </Table.DataCell>
+      <Table.DataCell>{arbeidsforhold.land}</Table.DataCell>
+      <Table.DataCell>{arbeidsforhold.stillingsprosent}</Table.DataCell>
+      <Table.DataCell>{arbeidsforhold.arbeidstimerUke}</Table.DataCell>
+      <Table.DataCell>{arbeidsforhold.startDato}</Table.DataCell>
+      <Table.DataCell>{arbeidsforhold.sluttDato}</Table.DataCell>
+    </Table.Row>
   );
 }
