@@ -11,7 +11,7 @@ export function OppgaveSteg(props: IOppgaveStegProps) {
   const { steg } = props;
 
   switch (steg.stegNavn) {
-    case "Fastsatt vanlig arbeidstid":
+    case "Tapt arbeidstid":
       return <OppgaveStegTaptArbeidstid {...props} />;
 
     default:
