@@ -26,7 +26,7 @@ export interface IOppgave {
   personIdent: string;
   datoOpprettet: string;
   tilstand: IOppgaveTilstand;
-  journalpostIDer: string[];
+  journalpostIder: string[];
   emneknagger: string[];
   steg: IOppgaveSteg[];
 }

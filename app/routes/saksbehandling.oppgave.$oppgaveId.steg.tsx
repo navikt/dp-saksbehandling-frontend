@@ -16,7 +16,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   function hentJournalposter() {
     return Promise.all(
-      oppgave.journalpostIDer.map((journalpostId) => hentJournalpost(request, journalpostId)),
+      oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
     );
   }
 

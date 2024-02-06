@@ -6,7 +6,7 @@ export const masterMenyMock: IOppgave = {
   datoOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Kul emneknagg her"],
-  journalpostIDer: [],
+  journalpostIder: [],
   steg: [
     {
       uuid: "msw-ikke-over-67",
@@ -128,7 +128,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   datoOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
   tilstand: "TilBehandling",
-  journalpostIDer: [],
+  journalpostIder: [],
   steg: [
     {
       uuid: "sjalabaris",
