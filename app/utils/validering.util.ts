@@ -1,21 +1,21 @@
-import { withZod } from "@remix-validated-form/with-zod";
 import { z } from "zod";
-import type { IOpplysningType } from "~/models/oppgave.server";
+import type { IOppgaveStegOpplysning, IOpplysningType } from "~/models/oppgave.server";
+import { withZod } from "@remix-validated-form/with-zod";
 
-export function hentValideringRegler(
-  svartype: IOpplysningType,
-  id: string, // ID = stegets navn, eksempelvis "Periode". Det er med i strukturen vi får fra backend.
-  stegId: string,
-) {
-  return withZod(
-    z.object({
-      [stegId]: hentValideringForInput(svartype, id),
-    }),
-  );
+export function hentValideringRegler(opplysninger: IOppgaveStegOpplysning[]) {
+  const zodValideringsregler: Record<string, z.ZodType> = {};
+
+  for (const opplysning of opplysninger) {
+    zodValideringsregler[opplysning.opplysningNavn] = hentValideringForInput(
+      opplysning.opplysningType,
+    );
+  }
+
+  return withZod(z.object(zodValideringsregler));
 }
 
-function hentValideringForInput(svartype: IOpplysningType, id: string): z.ZodType {
-  switch (svartype) {
+function hentValideringForInput(opplysningType: IOpplysningType): z.ZodType {
+  switch (opplysningType) {
     case "Int":
       return z.coerce
         .number({

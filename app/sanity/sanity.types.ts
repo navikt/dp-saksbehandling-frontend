@@ -12,5 +12,4 @@ export interface ISanityInfoside {
 
 export interface ISanityTexts {
   apptekster: ISanityAppTekst[];
-  infosider: ISanityInfoside[];
 }
