@@ -26,9 +26,9 @@ export function OppgaveStegMenyPunkt(behandlingSteg: IOppgaveSteg) {
 
 function TektstForStegNavn(stegNavn: string) {
   switch (stegNavn) {
-    case "gjenopptak-eller-lukket-sak-8uker":
+    case "Gjenopptak / 8 uker":
       return "Gjenopptak eller lukket sak";
-    case "minste-arbeidsinntekt":
+    case "Minste arbeidsinntekt":
       return "Minste arbeidsinntekt";
     default:
       return stegNavn;

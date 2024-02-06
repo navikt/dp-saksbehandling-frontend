@@ -30,34 +30,34 @@ interface IOpplysningTekst {
 
 const opplysningTekster: IOpplysningTekst[] = [
   {
-    name: "inntekt-eos-arbeids",
+    name: "EØS-arbeid",
     label: "EØS-arbeid",
     description:
       "Sjekk om det er inntekter fra arbeid i EØS som ikke har blitt tatt med i grunnlaget.",
   },
   {
-    name: "jobb-utenfor-norge",
+    name: "Jobb utenfor Norge",
     label: "Jobb utenfor Norge",
     description: "Sjekk om det er inntekter utenfor Norge.",
   },
   {
-    name: "svangerskap-sykepenger",
+    name: "Svangerskapsrelaterte sykepenger",
     label: "Svangerskapsrelaterte sykepenger",
     description: "Sjekk om det er svangerskapsrelaterte sykepenger.",
   },
   {
-    name: "mulig-gjenopptak",
+    name: "Mulig gjenopptak",
     label: "Mulig gjenopptak",
     description: "Sjekk om det er grunnlag for et gjenopptak for denne personen.",
   },
   {
-    name: "lukket-sak-siste-8uker",
+    name: "Har hatt lukkede saker siste 8 uker",
     label: "Har hatt lukkede saker siste 8 uker",
     description:
       "Sjekk om søker har fått avslag om dagpenger nylig. Skal i så fall ikke få automatisk behandling.",
   },
   {
-    name: "inntekt-neste-mnd",
+    name: "Det er inntekt neste kalendermåned",
     label: "Det er inntekt neste kalendermåned",
     description:
       "Sjekk om det er inntekter neste kalendermåned som kan påvirke utfallet for avslag på minsteinntekt.",

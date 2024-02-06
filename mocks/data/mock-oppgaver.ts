@@ -132,11 +132,11 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   steg: [
     {
       uuid: "sjalabaris",
-      stegNavn: "gjenopptak-eller-lukket-sak-8uker",
+      stegNavn: "Gjenopptak / 8 uker",
       tilstand: "Groenn",
       opplysninger: [
         {
-          opplysningNavn: "mulig-gjenopptak",
+          opplysningNavn: "Mulig gjenopptak",
           opplysningType: "Boolean",
           svar: {
             type: "Boolean",
@@ -144,7 +144,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           },
         },
         {
-          opplysningNavn: "lukket-sak-siste-8uker",
+          opplysningNavn: "Har hatt lukkede saker siste 8 uker",
           opplysningType: "Boolean",
           svar: null,
         },
@@ -152,26 +152,26 @@ export const minsteinntektAvslagOppgave: IOppgave = {
     },
     {
       uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
-      stegNavn: "minste-arbeidsinntekt",
+      stegNavn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
         {
-          opplysningNavn: "inntekt-eos-arbeids",
+          opplysningNavn: "EØS-arbeid",
           opplysningType: "Boolean",
           svar: null,
         },
         {
-          opplysningNavn: "jobb-utenfor-norge",
+          opplysningNavn: "Jobb utenfor Norge",
           opplysningType: "Boolean",
           svar: null,
         },
         {
-          opplysningNavn: "svangerskap-sykepenger",
+          opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
           svar: null,
         },
         {
-          opplysningNavn: "inntekt-neste-mnd",
+          opplysningNavn: "Det er inntekt neste kalendermåned",
           opplysningType: "Boolean",
           svar: null,
         },
