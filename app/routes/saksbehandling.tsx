@@ -1,7 +1,6 @@
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getEnv } from "~/utils/env.utils";
-import { useSanity } from "~/hooks/useSanity";
 import styles from "~/index.module.css";
 import { getSaksbehandler, getSession } from "~/models/auth.server";
 import { hentOppgaver } from "~/models/oppgave.server";
@@ -38,14 +37,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { saksbehandler } = useLoaderData<typeof loader>();
-  const { hentAppTekstMedId } = useSanity();
 
   return (
     <>
       <InternalHeader className={styles.header}>
         <Link to={getEnv("BASE_PATH")} className={styles.headerLogo}>
           <InternalHeader.Title as="h1" className={styles.pageHeader}>
-            {hentAppTekstMedId("side-header")}
+            NAV Dagpenger
           </InternalHeader.Title>
         </Link>
 
