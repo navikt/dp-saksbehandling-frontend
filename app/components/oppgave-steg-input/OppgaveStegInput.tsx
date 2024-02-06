@@ -17,10 +17,15 @@ export interface IInputProps {
   textarea?: boolean;
   className?: string;
   readonly?: boolean;
+  options?: {
+    trueText?: string;
+    falseText?: string;
+  };
 }
 
 export function OppgaveStegInput(props: IInputProps) {
-  const { className, svartype, name, label, description, verdi, readonly, textarea } = props;
+  const { className, svartype, name, label, description, verdi, readonly, textarea, options } =
+    props;
   const cssClassNames = classNames(styles.input, className);
 
   switch (svartype) {
@@ -59,6 +64,7 @@ export function OppgaveStegInput(props: IInputProps) {
           description={description}
           verdi={verdi}
           readonly={readonly}
+          options={options}
         />
       );
 
