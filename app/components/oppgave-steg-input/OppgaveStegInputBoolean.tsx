@@ -17,6 +17,7 @@ export function OppgaveStegInputBoolean(props: IInputProps) {
         legend: <>{label}</>,
         children: undefined, // Needed to keep typescript happy
       })}
+      size={"small"}
     >
       <Radio value={"true"}>{options?.trueText || "Ja"}</Radio>
       <Radio value={"false"}>{options?.falseText || "Nei"}</Radio>

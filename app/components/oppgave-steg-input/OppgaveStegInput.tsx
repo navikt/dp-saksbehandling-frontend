@@ -57,15 +57,17 @@ export function OppgaveStegInput(props: IInputProps) {
 
     case "Boolean":
       return (
-        <OppgaveStegInputBoolean
-          name={name}
-          svartype={svartype}
-          label={label || svartype}
-          description={description}
-          verdi={verdi}
-          readonly={readonly}
-          options={options}
-        />
+        <div className={cssClassNames}>
+          <OppgaveStegInputBoolean
+            name={name}
+            svartype={svartype}
+            label={label || svartype}
+            description={description}
+            verdi={verdi}
+            readonly={readonly}
+            options={options}
+          />
+        </div>
       );
 
     case "LocalDate":
