@@ -3,7 +3,7 @@ import { RemixLink } from "~/components/RemixLink";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-export default function AvsluttetSaksbehandling() {
+export default function SaksbehandlingOppgaverBehandlet() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
   const lukkedeSaker = oppgaver.filter((oppgave) => oppgave.tilstand === "FerdigBehandlet");
 
