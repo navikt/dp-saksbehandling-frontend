@@ -1,7 +1,7 @@
-import type { IOppgaveStegOpplysning } from "~/models/oppgave.server";
+import type { IOpplysning } from "~/models/oppgave.server";
 import { OppgaveStegInput } from "~/components/oppgave-steg-input/OppgaveStegInput";
 
-export function OpplysningInput(props: IOppgaveStegOpplysning) {
+export function OpplysningInput(props: IOpplysning) {
   const { opplysningNavn, opplysningType, svar } = props;
   const tekst = TekstForOpplysning(opplysningNavn);
   return (

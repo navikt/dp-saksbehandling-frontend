@@ -1,7 +1,7 @@
 import React from "react";
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 
-export function OppgaveStegDatoer() {
+export function OppgaveOpplysninger() {
   const soknadsDato = useDatepicker({
     fromDate: new Date("2023"),
     onDateChange: console.log,

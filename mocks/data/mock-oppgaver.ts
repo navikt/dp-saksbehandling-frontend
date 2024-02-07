@@ -71,7 +71,6 @@ export const masterMenyMock: IOppgave = {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
           svar: {
-            type: "Boolean",
             verdi: "true",
           },
         },
@@ -79,7 +78,6 @@ export const masterMenyMock: IOppgave = {
           opplysningNavn: "eøs inntekter",
           opplysningType: "Boolean",
           svar: {
-            type: "Boolean",
             verdi: "true",
           },
         },
@@ -87,7 +85,6 @@ export const masterMenyMock: IOppgave = {
           opplysningNavn: "inntekter neste måned",
           opplysningType: "Boolean",
           svar: {
-            type: "Boolean",
             verdi: "true",
           },
         },
@@ -95,7 +92,6 @@ export const masterMenyMock: IOppgave = {
           opplysningNavn: "jobbet utenfor norge",
           opplysningType: "Boolean",
           svar: {
-            type: "Boolean",
             verdi: "true",
           },
         },
@@ -120,6 +116,29 @@ export const masterMenyMock: IOppgave = {
       opplysninger: [],
     },
   ],
+  opplysninger: [
+    {
+      opplysningNavn: "soknaddato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
+    },
+    {
+      opplysningNavn: "virkningsdato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
+    },
+    {
+      opplysningNavn: "beregningsdato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
+    },
+  ],
 };
 
 export const minsteinntektAvslagOppgave: IOppgave = {
@@ -139,7 +158,6 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Mulig gjenopptak",
           opplysningType: "Boolean",
           svar: {
-            type: "Boolean",
             verdi: "true",
           },
         },
@@ -204,6 +222,29 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       //     inntekt: 1200000,
       //   },
       // ],
+    },
+  ],
+  opplysninger: [
+    {
+      opplysningNavn: "soknaddato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
+    },
+    {
+      opplysningNavn: "virkningsdato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
+    },
+    {
+      opplysningNavn: "beregningsdato",
+      opplysningType: "LocalDate",
+      svar: {
+        verdi: "true",
+      },
     },
   ],
 };

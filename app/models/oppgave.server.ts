@@ -5,10 +5,9 @@ import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 
 export interface IOpplysningSvar {
-  type: IOpplysningType;
   verdi: string;
 }
-export interface IOppgaveStegOpplysning {
+export interface IOpplysning {
   opplysningNavn: string;
   opplysningType: IOpplysningType;
   svar: IOpplysningSvar | null;
@@ -18,7 +17,7 @@ export interface IOppgaveSteg {
   uuid: string;
   stegNavn: string;
   tilstand: IOppgaveStegTilstand;
-  opplysninger: IOppgaveStegOpplysning[];
+  opplysninger: IOpplysning[];
 }
 
 export interface IOppgave {
@@ -29,6 +28,7 @@ export interface IOppgave {
   journalpostIder: string[];
   emneknagger: string[];
   steg: IOppgaveSteg[];
+  opplysninger: IOpplysning[];
 }
 
 export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
@@ -82,7 +82,7 @@ export async function hentOppgave(
 export async function svarOppgaveSteg(
   oppgaveId: string,
   stegId: string,
-  opplysninger: IOppgaveStegOpplysning[],
+  opplysninger: IOpplysning[],
   session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
   const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;

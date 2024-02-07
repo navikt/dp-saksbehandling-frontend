@@ -8,6 +8,8 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { InternalHeader } from "@navikt/ds-react";
 import type { ISanityTexts } from "~/sanity/sanity.types";
+import { sanityClient } from "~/utils/sanity.utils";
+import { allTextsQuery } from "~/sanity/sanity.query";
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
@@ -17,13 +19,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const [saksbehandler, sanityTexts, oppgaver] = await Promise.all([
     getSaksbehandler(session),
-    // Feil med MSW mocking
-    // sanityClient.fetch<ISanityTexts>(allTextsQuery, {
-    //   baseLang: "nb",
-    //   lang: "nb",
-    // }),
-    new Promise<ISanityTexts>((resolve) => {
-      resolve({ apptekster: [] });
+    sanityClient.fetch<ISanityTexts>(allTextsQuery, {
+      baseLang: "nb",
+      lang: "nb",
     }),
     hentOppgaver(session),
   ]);

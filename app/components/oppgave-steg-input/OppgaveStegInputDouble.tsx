@@ -13,6 +13,7 @@ export function OppgaveStegInputDouble(props: IInputProps) {
       error={error}
       readOnly={readonly}
       className={className}
+      size="small"
       {...getInputProps({
         id: name,
         label: <>{label}</>,

@@ -26,7 +26,9 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
       <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
       {steg.opplysninger.map((opplysning) => (
-        <OpplysningInput {...opplysning} key={opplysning.opplysningNavn} />
+        <div className="mb-6" key={opplysning.opplysningNavn}>
+          <OpplysningInput {...opplysning} />
+        </div>
       ))}
 
       <Button type="submit" disabled={isSubmitting}>

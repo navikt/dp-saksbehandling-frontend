@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { useActionData, useParams } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import type { IOppgaveStegOpplysning } from "~/models/oppgave.server";
+import type { IOpplysning } from "~/models/oppgave.server";
 import { svarOppgaveSteg } from "~/models/oppgave.server";
 import { OppgaveSteg } from "~/views/oppgave-steg/OppgaveSteg";
 import { getSession } from "~/models/auth.server";
@@ -10,7 +10,7 @@ import { Alert, Tabs } from "@navikt/ds-react";
 import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import styles from "~/route-styles/stegvisning.module.css";
-import { OppgaveStegDatoer } from "~/components/oppgave-steg-datoer/OppgaveStegDatoer";
+import { OppgaveOpplysninger } from "~/components/oppgave-opplysninger/OppgaveOpplysninger";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { parseMetadata } from "~/utils/steg.utils";
 import { validationError } from "remix-validated-form";
@@ -36,7 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export interface SkjemaMetadata {
-  opplysninger: IOppgaveStegOpplysning[];
+  opplysninger: IOpplysning[];
 }
 
 export default function PersonBehandleVilkaar() {
@@ -63,13 +63,17 @@ export default function PersonBehandleVilkaar() {
         )}
       </div>
 
-      <Tabs defaultValue="datoer" className={styles.tabsContainer}>
+      <Tabs defaultValue="opplysninger" className={styles.tabsContainer}>
         <Tabs.List>
-          <Tabs.Tab value="datoer" label="Datoer" icon={<DatabaseIcon title="Datoer" />} />
+          <Tabs.Tab
+            value="opplysninger"
+            label="Opplysninger"
+            icon={<DatabaseIcon title="Opplysninger" />}
+          />
           <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
         </Tabs.List>
-        <Tabs.Panel className={styles.tabPanel} value="datoer">
-          <OppgaveStegDatoer />
+        <Tabs.Panel className={styles.tabPanel} value="opplysninger">
+          <OppgaveOpplysninger />
         </Tabs.Panel>
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">
           <DokumentOversikt />

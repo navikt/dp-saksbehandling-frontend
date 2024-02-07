@@ -13,6 +13,7 @@ export function OppgaveStegInputTextarea(props: IInputProps) {
       resize={true}
       readOnly={readonly}
       className={className}
+      size="small"
       {...getInputProps({
         id: name,
         label: <>{label}</>,

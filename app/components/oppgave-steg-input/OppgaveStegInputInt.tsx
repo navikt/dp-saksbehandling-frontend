@@ -13,6 +13,7 @@ export function OppgaveStegInputInt(props: IInputProps) {
       defaultValue={verdi}
       error={error}
       readOnly={readonly}
+      size="small"
       className={className}
       {...getInputProps({
         id: name,

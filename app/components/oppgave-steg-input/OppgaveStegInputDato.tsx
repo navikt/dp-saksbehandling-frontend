@@ -19,6 +19,7 @@ export function OppgaveStegInputDato(props: IInputProps) {
         error={error}
         readOnly={readonly}
         className={className}
+        size="small"
         {...getInputProps({
           id: name,
           label: <>{label}</>,

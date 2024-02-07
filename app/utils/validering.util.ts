@@ -1,8 +1,8 @@
 import { z } from "zod";
-import type { IOppgaveStegOpplysning, IOpplysningType } from "~/models/oppgave.server";
+import type { IOpplysning, IOpplysningType } from "~/models/oppgave.server";
 import { withZod } from "@remix-validated-form/with-zod";
 
-export function hentValideringRegler(opplysninger: IOppgaveStegOpplysning[]) {
+export function hentValideringRegler(opplysninger: IOpplysning[]) {
   const zodValideringsregler: Record<string, z.ZodType> = {};
 
   for (const opplysning of opplysninger) {

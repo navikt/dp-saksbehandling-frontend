@@ -12,12 +12,12 @@ export function OppgaveStegInputBoolean(props: IInputProps) {
       defaultValue={verdi}
       readOnly={readonly}
       description={description}
+      size="small"
       {...getInputProps({
         id: name,
         legend: <>{label}</>,
         children: undefined, // Needed to keep typescript happy
       })}
-      size={"small"}
     >
       <Radio value={"true"}>{options?.trueText || "Ja"}</Radio>
       <Radio value={"false"}>{options?.falseText || "Nei"}</Radio>
