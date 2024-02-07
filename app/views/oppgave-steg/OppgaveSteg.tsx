@@ -5,6 +5,7 @@ import { OppgaveStegTaptArbeidstid } from "~/views/oppgave-steg-tapt-arbeidstid/
 
 export interface IOppgaveStegProps {
   steg: IOppgaveSteg;
+  readonly?: boolean;
 }
 
 export function OppgaveSteg(props: IOppgaveStegProps) {

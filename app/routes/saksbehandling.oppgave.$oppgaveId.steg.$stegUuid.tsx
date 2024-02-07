@@ -56,7 +56,7 @@ export default function PersonBehandleVilkaar() {
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <OppgaveSteg steg={steg} />
+        <OppgaveSteg steg={steg} readonly={oppgave.tilstand === "FerdigBehandlet"} />
 
         {isNetworkResponseError(actionResponse) && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>

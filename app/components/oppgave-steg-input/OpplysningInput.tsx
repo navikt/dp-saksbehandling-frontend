@@ -1,8 +1,8 @@
 import type { IOpplysning } from "~/models/oppgave.server";
 import { OppgaveStegInput } from "~/components/oppgave-steg-input/OppgaveStegInput";
 
-export function OpplysningInput(props: IOpplysning) {
-  const { opplysningNavn, opplysningType, svar } = props;
+export function OpplysningInput(props: { opplysning: IOpplysning; readonly: boolean | undefined }) {
+  const { opplysningNavn, opplysningType, svar } = props.opplysning;
   const tekst = TekstForOpplysning(opplysningNavn);
   return (
     <OppgaveStegInput
@@ -12,6 +12,7 @@ export function OpplysningInput(props: IOpplysning) {
       label={tekst.label}
       description={tekst.description}
       options={tekst.options}
+      readonly={props.readonly}
     />
   );
 }

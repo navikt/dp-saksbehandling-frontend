@@ -3,9 +3,9 @@ import { RemixLink } from "~/components/RemixLink";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-export default function Saksbehandling() {
+export default function AvsluttetSaksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
-  const åpneSaker = oppgaver.filter((oppgave) => oppgave.tilstand != "FerdigBehandlet");
+  const lukkedeSaker = oppgaver.filter((oppgave) => oppgave.tilstand === "FerdigBehandlet");
 
   return (
     <main>
@@ -21,13 +21,15 @@ export default function Saksbehandling() {
         </Table.Header>
 
         <Table.Body>
-          {åpneSaker?.map((oppgave) => {
+          {lukkedeSaker?.map((oppgave) => {
             const { uuid, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
             return (
               <Table.Row key={oppgave.uuid}>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${uuid}/oversikt`}>{personIdent}</RemixLink>
+                  <RemixLink to={`/saksbehandling/person/${uuid}/oversikt`}>
+                    {personIdent}
+                  </RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
                 <Table.DataCell>
@@ -38,7 +40,10 @@ export default function Saksbehandling() {
                   ))}
                 </Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} asButtonVariant="primary">
+                  <RemixLink
+                    to={`/saksbehandling/oppgave/${uuid}/steg/${steg[0].uuid}`}
+                    asButtonVariant="primary"
+                  >
                     Behandle
                   </RemixLink>
                 </Table.DataCell>

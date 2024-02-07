@@ -12,9 +12,22 @@ interface IProps {
 export function HeaderMeny({ saksbehandler }: IProps) {
   return (
     <div className={styles.container}>
-      <Link to={getEnv("BASE_PATH")} className={styles.linkItem} data-testid={"benken-menu-button"}>
-        Oppgaver til behandling
-      </Link>
+      <div>
+        <Link
+          to={getEnv("BASE_PATH")}
+          className={styles.linkItem}
+          data-testid={"benken-menu-button"}
+        >
+          Oppgaver til behandling
+        </Link>
+        <Link
+          to={`${getEnv("BASE_PATH")}/saker-avsluttet`}
+          className={styles.linkItem}
+          data-testid={"benken-avsluttet-menu-button"}
+        >
+          Ferdige oppgaver
+        </Link>
+      </div>
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
         <HeaderUtloggingMeny saksbehandler={saksbehandler} />

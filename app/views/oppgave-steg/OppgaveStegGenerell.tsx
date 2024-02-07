@@ -7,7 +7,7 @@ import { OpplysningInput } from "~/components/oppgave-steg-input/OpplysningInput
 import { hentValideringRegler } from "~/utils/validering.util";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
-  const { steg } = props;
+  const { steg, readonly } = props;
 
   const location = useLocation();
   const navigation = useNavigation();
@@ -27,7 +27,7 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
 
       {steg.opplysninger.map((opplysning) => (
         <div className="mb-6" key={opplysning.opplysningNavn}>
-          <OpplysningInput {...opplysning} />
+          <OpplysningInput opplysning={opplysning} readonly={readonly} />
         </div>
       ))}
 
