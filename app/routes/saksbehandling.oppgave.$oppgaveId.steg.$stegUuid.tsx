@@ -39,7 +39,7 @@ export interface SkjemaMetadata {
   opplysninger: IOpplysning[];
 }
 
-export default function PersonBehandleVilkaar() {
+export default function OppgaveStegView() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const actionResponse = useActionData<typeof action>();
 

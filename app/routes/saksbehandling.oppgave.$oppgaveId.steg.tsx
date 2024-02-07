@@ -1,12 +1,13 @@
 import { Outlet } from "@remix-run/react";
 import { OppgaveStegMenyPunkt } from "~/components/oppgave-steg-meny-punkt/OppgaveStegMenyPunkt";
-import styles from "~/route-styles/behandle.module.css";
+import styles from "~/route-styles/oppgave.module.css";
 import { defer, type LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { Button } from "@navikt/ds-react";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -27,24 +28,28 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   });
 }
 
-// Disse dataene skal aldri hentes på nytt når man driver å behandler oppgaven. Kallet til journalpost+arbeidsforhold trengs dermed bare å gjøres en gang
-export function shouldRevalidate() {
-  return false;
-}
-export default function PersonBehandleStegMeny() {
+export default function OppgaveStegView() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
 
   return (
     <>
-      <div className={styles.menyContainer}>
-        <div className={styles.behandlingStegListe}>
-          <ul>
-            {oppgave.steg.map((steg) => (
-              <OppgaveStegMenyPunkt key={steg.uuid} {...steg} />
-            ))}
-          </ul>
+      <div className={styles.oppgaveStegContainer}>
+        <ul>
+          {oppgave.steg.map((steg) => (
+            <OppgaveStegMenyPunkt key={steg.uuid} {...steg} />
+          ))}
+        </ul>
+
+        <div className={styles.buttonContainer}>
+          <Button variant="primary" size="small">
+            Send til automatisk avslag
+          </Button>
+          <Button variant="secondary" size="small">
+            Send til vanlig saksflyt i Arena
+          </Button>
         </div>
       </div>
+
       <Outlet />
     </>
   );

@@ -4,7 +4,8 @@ import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
-import styles from "~/route-styles/behandle.module.css";
+import styles from "~/route-styles/oppgave.module.css";
+import { Navnestripe } from "~/components/navnestripe/Navnestripe";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -16,8 +17,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   return (
-    <div className={styles.container}>
-      <Outlet />
-    </div>
+    <>
+      <Navnestripe navn={"Donald Duck"} ident={"12345678910"} />
+      <div className={styles.container}>
+        <Outlet />
+      </div>
+    </>
   );
 }

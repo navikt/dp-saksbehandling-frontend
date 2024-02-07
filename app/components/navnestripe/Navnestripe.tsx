@@ -1,5 +1,6 @@
+import { PersonEnvelopeIcon } from "@navikt/aksel-icons";
 import styles from "./Navnestripe.module.css";
-import { CopyButton } from "@navikt/ds-react";
+import { BodyShort, CopyButton } from "@navikt/ds-react";
 
 interface IProps {
   navn: string;
@@ -11,10 +12,18 @@ export function Navnestripe({ navn, ident }: IProps) {
     <div className={styles.container}>
       <ul>
         <li>
-          <strong>{navn}</strong>
+          <PersonEnvelopeIcon fontSize="1.5rem" />
+          <BodyShort size="small" weight="semibold">
+            {navn}
+          </BodyShort>
         </li>
         <li>
-          <CopyButton copyText={ident} text={ident} activeText="Kopierte bruker ident" />
+          <CopyButton
+            copyText={ident}
+            text={ident}
+            activeText="Kopierte personnummer"
+            size="xsmall"
+          />
         </li>
       </ul>
     </div>
