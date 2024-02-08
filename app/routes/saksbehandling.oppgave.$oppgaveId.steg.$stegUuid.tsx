@@ -15,6 +15,7 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { parseMetadata } from "~/utils/steg.utils";
 import { validationError } from "remix-validated-form";
 import { isNetworkResponseError } from "~/utils/type-guards";
+import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.stegUuid, `params.stegUuid er påkrevd`);
@@ -56,7 +57,7 @@ export default function OppgaveStegView() {
   return (
     <div className={styles.container}>
       <div className={styles.faktumContainer}>
-        <OppgaveSteg steg={steg} readonly={oppgave.tilstand === "FerdigBehandlet"} />
+        <OppgaveSteg steg={steg} readonly={oppgaveErFerdigBehandlet(oppgave)} />
 
         {isNetworkResponseError(actionResponse) && (
           <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>

@@ -8,6 +8,7 @@ import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Button } from "@navikt/ds-react";
+import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -40,14 +41,16 @@ export default function OppgaveStegView() {
           ))}
         </ul>
 
-        <div className={styles.buttonContainer}>
-          <Button variant="primary" size="small">
-            Send til automatisk avslag
-          </Button>
-          <Button variant="secondary" size="small">
-            Send til vanlig saksflyt i Arena
-          </Button>
-        </div>
+        {!oppgaveErFerdigBehandlet(oppgave) && (
+          <div className={styles.buttonContainer}>
+            <Button variant="primary" size="small">
+              Send til automatisk avslag
+            </Button>
+            <Button variant="secondary" size="small">
+              Send til vanlig saksflyt i Arena
+            </Button>
+          </div>
+        )}
       </div>
 
       <Outlet />

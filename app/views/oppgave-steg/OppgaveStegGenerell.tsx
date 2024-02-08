@@ -31,9 +31,11 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
         </div>
       ))}
 
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Lagrer..." : "Lagre"}
-      </Button>
+      {readonly && (
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Lagrer..." : "Lagre"}
+        </Button>
+      )}
     </ValidatedForm>
   );
 }

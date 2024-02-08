@@ -2,10 +2,11 @@ import { Table, Tag } from "@navikt/ds-react";
 import { RemixLink } from "~/components/RemixLink";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
-  const åpneSaker = oppgaver.filter((oppgave) => oppgave.tilstand != "FerdigBehandlet");
+  const åpneSaker = oppgaver.filter((oppgave) => !oppgaveErFerdigBehandlet(oppgave));
 
   return (
     <main>
