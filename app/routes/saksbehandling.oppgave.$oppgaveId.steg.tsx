@@ -1,14 +1,32 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useFetcher } from "@remix-run/react";
 import { OppgaveStegMenyPunkt } from "~/components/oppgave-steg-meny-punkt/OppgaveStegMenyPunkt";
 import styles from "~/route-styles/oppgave.module.css";
-import { defer, type LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { defer } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
-import { hentOppgave } from "~/models/oppgave.server";
+import { avslagOppgave, hentOppgave, lukkOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { Button } from "@navikt/ds-react";
+import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { parseSkjemadata } from "~/utils/steg.utils";
+import { useEffect, useState } from "react";
 import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+
+  const session = await getSession(request);
+  const formData = await request.formData();
+  const skjemadata = parseSkjemadata<ISkjemadata>(formData, "variant");
+
+  switch (skjemadata.variant) {
+    case "lukk":
+      return await lukkOppgave(params.oppgaveId, session);
+    case "avslag":
+      return await avslagOppgave(params.oppgaveId, session);
+  }
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -29,8 +47,22 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   });
 }
 
+interface ISkjemadata {
+  variant: IOppgaveTilstand;
+}
+
+type IOppgaveTilstand = "avslag" | "lukk";
+
 export default function OppgaveStegView() {
+  const fetcher = useFetcher<typeof action>();
+  const [aktivModalId, setAktivModalId] = useState<IOppgaveTilstand | undefined>();
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
+
+  useEffect(() => {
+    if (fetcher.data?.status === "success") {
+      setAktivModalId(undefined);
+    }
+  }, [fetcher.data]);
 
   return (
     <>
@@ -42,17 +74,76 @@ export default function OppgaveStegView() {
         </ul>
 
         {!oppgaveErFerdigBehandlet(oppgave) && (
-          <div className={styles.buttonContainer}>
-            <Button variant="primary" size="small">
-              Send til automatisk avslag
-            </Button>
-            <Button variant="secondary" size="small">
-              Send til vanlig saksflyt i Arena
-            </Button>
-          </div>
+        <div className={styles.buttonContainerColumn}>
+          <Button
+            type="button"
+            variant="primary"
+            size="small"
+            onClick={() => setAktivModalId("avslag")}
+          >
+            Send til automatisk avslag
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            size="small"
+            onClick={() => setAktivModalId("lukk")}
+          >
+            Send til vanlig saksflyt i Arena
+          </Button>
+        </div>
         )}
-      </div>
 
+        <Modal
+          open={!!aktivModalId}
+          width="small"
+          closeOnBackdropClick={true}
+          onClose={() => setAktivModalId(undefined)}
+          header={{
+            heading: "Er du sikker?",
+            size: "small",
+            closeButton: false,
+          }}
+        >
+          <Modal.Body>
+            <BodyLong>
+              Endre oppgave tilstand til: <strong>{aktivModalId}</strong>
+            </BodyLong>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <fetcher.Form method="post">
+              {aktivModalId === "lukk" && (
+                <Button
+                  type="submit"
+                  variant="primary"
+                  name="variant"
+                  className="mr-4"
+                  value={JSON.stringify({ variant: "lukk" })}
+                >
+                  Ja, jeg er sikker
+                </Button>
+              )}
+
+              {aktivModalId === "avslag" && (
+                <Button
+                  type="submit"
+                  variant="primary"
+                  name="variant"
+                  className="mr-4"
+                  value={JSON.stringify({ variant: "avslag" })}
+                >
+                  Ja, jeg er sikker
+                </Button>
+              )}
+
+              <Button type="button" variant="secondary" onClick={() => setAktivModalId(undefined)}>
+                Avbryt
+              </Button>
+            </fetcher.Form>
+          </Modal.Footer>
+        </Modal>
+      </div>
       <Outlet />
     </>
   );

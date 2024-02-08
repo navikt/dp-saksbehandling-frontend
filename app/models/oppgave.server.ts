@@ -79,6 +79,50 @@ export async function hentOppgave(
   return await response.json();
 }
 
+export async function lukkOppgave(
+  oppgaveId: string,
+  session: SessionWithOboProvider,
+): Promise<INetworkResponse> {
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/lukk`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return { status: "success" };
+}
+
+export async function avslagOppgave(
+  oppgaveId: string,
+  session: SessionWithOboProvider,
+): Promise<INetworkResponse> {
+  const onBehalfOfToken = await getBehandlingOboToken(session);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/avslag`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return { status: "success" };
+}
+
 export async function svarOppgaveSteg(
   oppgaveId: string,
   stegId: string,

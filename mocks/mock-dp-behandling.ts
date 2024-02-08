@@ -27,4 +27,18 @@ export const mockDpBehandling = [
       status: 201,
     });
   }),
+
+  // Lukk en oppgave for å fortsette saksbehandling i Arena
+  http.put(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/lukk`, () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
+
+  // Gi avslag på en oppgave
+  http.put(`${process.env.DP_BEHANDLING_URL}/oppgave/:oppgaveId/avslag`, () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
 ];

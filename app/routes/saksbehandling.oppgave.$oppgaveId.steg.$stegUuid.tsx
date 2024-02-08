@@ -12,7 +12,7 @@ import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversik
 import styles from "~/route-styles/stegvisning.module.css";
 import { OppgaveOpplysninger } from "~/components/oppgave-opplysninger/OppgaveOpplysninger";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { parseMetadata } from "~/utils/steg.utils";
+import { parseSkjemadata } from "~/utils/steg.utils";
 import { validationError } from "remix-validated-form";
 import { isNetworkResponseError } from "~/utils/type-guards";
 import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
@@ -23,10 +23,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const session = await getSession(request);
   const formData = await request.formData();
-  const metaData = parseMetadata<SkjemaMetadata>(formData, "metadata");
+  const skjemadata = parseSkjemadata<SkjemaMetadata>(formData, "metadata");
   const stegUuid = params.stegUuid;
 
-  const validering = await hentValideringRegler(metaData.opplysninger).validate(formData);
+  const validering = await hentValideringRegler(skjemadata.opplysninger).validate(formData);
 
   // Skjema valideres i client side, men hvis javascript er disabled så må vi kjøre validering i server side også
   if (validering.error) {

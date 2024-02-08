@@ -1,10 +1,10 @@
-export function parseMetadata<T>(skjemaData: FormData, key: string): T {
-  const inputVerdi = skjemaData.get(key);
+export function parseSkjemadata<T>(skjemadata: FormData, key: string): T {
+  const skjemaVerdi = skjemadata.get(key);
 
-  // Alle inputfelt sin value er enten string eller File blob
-  if (typeof inputVerdi !== "string") {
+  // SkjemaVerdi sin value er enten string eller File blob
+  if (typeof skjemaVerdi !== "string") {
     throw new Error("input er ikke en string");
   }
 
-  return JSON.parse(inputVerdi);
+  return JSON.parse(skjemaVerdi);
 }
