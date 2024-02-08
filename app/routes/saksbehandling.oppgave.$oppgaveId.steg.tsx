@@ -11,7 +11,6 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { parseSkjemadata } from "~/utils/steg.utils";
 import { useEffect, useState } from "react";
-import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
@@ -73,25 +72,25 @@ export default function OppgaveStegView() {
           ))}
         </ul>
 
-        {!oppgaveErFerdigBehandlet(oppgave) && (
-        <div className={styles.buttonContainerColumn}>
-          <Button
-            type="button"
-            variant="primary"
-            size="small"
-            onClick={() => setAktivModalId("avslag")}
-          >
-            Send til automatisk avslag
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            size="small"
-            onClick={() => setAktivModalId("lukk")}
-          >
-            Send til vanlig saksflyt i Arena
-          </Button>
-        </div>
+        {oppgave.tilstand !== "FerdigBehandlet" && (
+          <div className={styles.buttonContainerColumn}>
+            <Button
+              type="button"
+              variant="primary"
+              size="small"
+              onClick={() => setAktivModalId("avslag")}
+            >
+              Send til automatisk avslag
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              onClick={() => setAktivModalId("lukk")}
+            >
+              Send til vanlig saksflyt i Arena
+            </Button>
+          </div>
         )}
 
         <Modal
