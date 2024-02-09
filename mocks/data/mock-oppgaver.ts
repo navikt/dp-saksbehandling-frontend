@@ -5,7 +5,7 @@ export const masterMenyMock: IOppgave = {
   personIdent: "msw-personmock",
   datoOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
-  emneknagger: ["Kul emneknagg her"],
+  emneknagger: ["Konkurs Statoil"],
   journalpostIder: [],
   steg: [
     {

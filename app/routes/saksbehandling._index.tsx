@@ -6,30 +6,26 @@ import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppga
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
-  const åpneSaker = oppgaver.filter((oppgave) => !oppgaveErFerdigBehandlet(oppgave));
+  const aapneSaker = oppgaver.filter((oppgave) => !oppgaveErFerdigBehandlet(oppgave));
 
   return (
     <main>
       <Table zebraStripes={true}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Tilstand</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Emneknagger</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Oppgave</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
             <Table.HeaderCell scope="col"></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {åpneSaker?.map((oppgave) => {
+          {aapneSaker?.map((oppgave) => {
             const { uuid, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
             return (
               <Table.Row key={oppgave.uuid}>
-                <Table.DataCell>{tilstand}</Table.DataCell>
-                <Table.DataCell>
-                  <RemixLink to={`person/${uuid}/oversikt`}>{personIdent}</RemixLink>
-                </Table.DataCell>
                 <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
                 <Table.DataCell>
                   {emneknagger.map((emneknagg) => (
@@ -37,6 +33,10 @@ export default function Saksbehandling() {
                       {emneknagg}
                     </Tag>
                   ))}
+                </Table.DataCell>
+                <Table.DataCell>{tilstand}</Table.DataCell>
+                <Table.DataCell>
+                  <RemixLink to={`person/${uuid}/oversikt`}>{personIdent}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>
                   <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} asButtonVariant="primary">
