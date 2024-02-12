@@ -1,4 +1,4 @@
-import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import type { SessionWithOboProvider } from "@navikt/oasis";
 import { getAzureSession } from "~/utils/auth.utils.server";
 import { getHeaders } from "~/utils/fetch.utils";
 

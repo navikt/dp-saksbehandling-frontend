@@ -1,4 +1,4 @@
-import { type SessionWithOboProvider } from "@navikt/dp-auth/index/";
+import { type SessionWithOboProvider } from "@navikt/oasis/index/";
 import { formatISO, subYears } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";

@@ -1,8 +1,8 @@
-import type { GetSessionWithOboProvider, SessionWithOboProvider } from "@navikt/dp-auth";
-import { makeSession } from "@navikt/dp-auth";
-import { azure } from "@navikt/dp-auth/identity-providers";
-import { azure as azureOBO, withInMemoryCache } from "@navikt/dp-auth/obo-providers";
-import { withPrometheus } from "@navikt/dp-auth/obo-providers/withPrometheus";
+import type { GetSessionWithOboProvider, SessionWithOboProvider } from "@navikt/oasis";
+import { makeSession } from "@navikt/oasis";
+import { azure } from "@navikt/oasis/identity-providers";
+import { azure as azureOBO, withInMemoryCache } from "@navikt/oasis/obo-providers";
+import { withPrometheus } from "@navikt/oasis/obo-providers/withPrometheus";
 
 const fallbackToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";

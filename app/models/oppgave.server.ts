@@ -1,4 +1,4 @@
-import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import type { SessionWithOboProvider } from "@navikt/oasis";
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";

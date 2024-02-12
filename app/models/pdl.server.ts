@@ -1,7 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
 import { getSaksbehandler } from "./auth.server";
-import type { SessionWithOboProvider } from "@navikt/dp-auth";
+import type { SessionWithOboProvider } from "@navikt/oasis";
 import { getPDLOboToken } from "~/utils/auth.utils.server";
 import { logger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/pdl";
