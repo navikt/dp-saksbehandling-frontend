@@ -44,8 +44,8 @@ spec:
       value: {{ingress}}
     - name: BASE_PATH
       value: {{base_path}}
-    - name: DP_BEHANDLING_URL
-      value: {{dp-behandling_url}}
+    - name: DP_SAKSBEHANDLING_URL
+      value: {{dp-saksbehandling_url}}
     - name: DP_RAPPORTERING_URL
       value: {{dp-rapportering_url}}
     - name: DP_VEDTAK_URL
@@ -61,7 +61,7 @@ spec:
         - host: pdl-api.dev-fss-pub.nais.io
         - host: rt6o382n.apicdn.sanity.io
       rules:
-        - application: dp-behandling
+        - application: dp-saksbehandling
         - application: dp-rapportering
         - application: dp-vedtak
         - application: veilarbregistrering

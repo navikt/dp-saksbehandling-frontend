@@ -33,7 +33,7 @@ describe("Root til applikasjonen", () => {
 
     test("skal feile hvis backend-kallet feiler", async () => {
       mockServer.use(
-        http.get(`${process.env.DP_BEHANDLING_URL}/oppgave`, () => {
+        http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, () => {
           return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
             status: 500,
           });

@@ -37,7 +37,7 @@ export type IOpplysningType = "Int" | "Double" | "Boolean" | "LocalDate" | "Stri
 
 export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -63,7 +63,7 @@ export async function hentOppgave(
 ): Promise<IOppgave> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const response = await fetch(url, {
     method: "GET",
     headers: getHeaders(onBehalfOfToken),
@@ -85,7 +85,7 @@ export async function lukkOppgave(
 ): Promise<INetworkResponse> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/lukk`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/lukk`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
@@ -107,7 +107,7 @@ export async function avslagOppgave(
 ): Promise<INetworkResponse> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/avslag`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/avslag`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
@@ -129,7 +129,7 @@ export async function svarOppgaveSteg(
   opplysninger: IOpplysning[],
   session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
-  const url = `${getEnv("DP_BEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const body = JSON.stringify(opplysninger);
 
