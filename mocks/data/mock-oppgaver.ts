@@ -174,16 +174,6 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       tilstand: "Groenn",
       opplysninger: [
         {
-          opplysningNavn: "EØS-arbeid",
-          opplysningType: "Boolean",
-          svar: null,
-        },
-        {
-          opplysningNavn: "Jobb utenfor Norge",
-          opplysningType: "Boolean",
-          svar: null,
-        },
-        {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
           svar: null,
@@ -280,16 +270,6 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
       stegNavn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
-        {
-          opplysningNavn: "EØS-arbeid",
-          opplysningType: "Boolean",
-          svar: null,
-        },
-        {
-          opplysningNavn: "Jobb utenfor Norge",
-          opplysningType: "Boolean",
-          svar: null,
-        },
         {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
