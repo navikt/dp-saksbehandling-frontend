@@ -1,7 +1,7 @@
 import type { IOppgave } from "~/models/oppgave.server";
 
 export const masterMenyMock: IOppgave = {
-  uuid: "msw-ny-mastermeny",
+  oppgaveId: "msw-ny-mastermeny",
   personIdent: "msw-personmock",
   datoOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
@@ -142,7 +142,7 @@ export const masterMenyMock: IOppgave = {
 };
 
 export const minsteinntektAvslagOppgave: IOppgave = {
-  uuid: "msw-minsteinntekt-avslag-oppgave",
+  oppgaveId: "msw-minsteinntekt-avslag-oppgave",
   personIdent: "12345678910",
   datoOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
@@ -239,7 +239,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   ],
 };
 export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
-  uuid: "msw-ferdig-minsteinntekt-avslag-oppgave",
+  oppgaveId: "msw-ferdig-minsteinntekt-avslag-oppgave",
   personIdent: "12345678910",
   datoOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],

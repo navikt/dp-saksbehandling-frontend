@@ -21,7 +21,7 @@ export interface IOppgaveSteg {
 }
 
 export interface IOppgave {
-  uuid: string;
+  oppgaveId: string;
   personIdent: string;
   datoOpprettet: string;
   tilstand: IOppgaveTilstand;

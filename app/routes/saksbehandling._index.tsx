@@ -23,9 +23,9 @@ export default function Saksbehandling() {
 
         <Table.Body>
           {aapneSaker?.map((oppgave) => {
-            const { uuid, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
+            const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
             return (
-              <Table.Row key={oppgave.uuid}>
+              <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
                 <Table.DataCell>
                   {emneknagger.map((emneknagg) => (
@@ -36,10 +36,13 @@ export default function Saksbehandling() {
                 </Table.DataCell>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`person/${uuid}/oversikt`}>{personIdent}</RemixLink>
+                  <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`oppgave/${uuid}/steg/${steg[0].uuid}`} asButtonVariant="primary">
+                  <RemixLink
+                    to={`oppgave/${oppgaveId}/steg/${steg[0].uuid}`}
+                    asButtonVariant="primary"
+                  >
                     Behandle
                   </RemixLink>
                 </Table.DataCell>

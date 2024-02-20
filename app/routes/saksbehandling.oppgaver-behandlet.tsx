@@ -23,12 +23,12 @@ export default function SaksbehandlingOppgaverBehandlet() {
 
         <Table.Body>
           {lukkedeSaker?.map((oppgave) => {
-            const { uuid, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
+            const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
             return (
-              <Table.Row key={oppgave.uuid}>
+              <Table.Row key={oppgaveId}>
                 <Table.DataCell>{tilstand}</Table.DataCell>
                 <Table.DataCell>
-                  <RemixLink to={`/saksbehandling/person/${uuid}/oversikt`}>
+                  <RemixLink to={`/saksbehandling/person/${oppgaveId}/oversikt`}>
                     {personIdent}
                   </RemixLink>
                 </Table.DataCell>
@@ -42,7 +42,7 @@ export default function SaksbehandlingOppgaverBehandlet() {
                 </Table.DataCell>
                 <Table.DataCell>
                   <RemixLink
-                    to={`/saksbehandling/oppgave/${uuid}/steg/${steg[0].uuid}`}
+                    to={`/saksbehandling/oppgave/${oppgaveId}/steg/${steg[0].uuid}`}
                     asButtonVariant="primary"
                   >
                     Behandle

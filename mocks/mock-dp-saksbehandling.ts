@@ -10,7 +10,7 @@ export const mockDpSaksbehandling = [
   // Hent en oppgave med oppgaveId
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`, ({ params }) => {
     const { oppgaveId } = params;
-    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.uuid === oppgaveId);
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
       return HttpResponse.json(mockOppgave);

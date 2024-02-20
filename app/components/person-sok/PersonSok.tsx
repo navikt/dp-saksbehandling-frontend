@@ -57,12 +57,12 @@ export function PersonSok() {
         <div className={styles.resultatContainer}>
           {sokResultat.length > 0 && (
             <ul className={styles.resultatListe}>
-              {sokResultat.map(({ personIdent, uuid }) => (
-                <div className={styles.resultat} key={uuid}>
+              {sokResultat.map(({ personIdent, oppgaveId }) => (
+                <div className={styles.resultat} key={oppgaveId}>
                   <BodyShort>{personIdent}</BodyShort>
                   <RemixLink
                     asButtonVariant="primary"
-                    to={`/saksbehandling/person/${uuid}/oversikt`}
+                    to={`/saksbehandling/person/${oppgaveId}/oversikt`}
                   >
                     Gå til person
                   </RemixLink>
