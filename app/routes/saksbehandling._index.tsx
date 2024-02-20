@@ -1,58 +1,36 @@
-import { Table, Tag } from "@navikt/ds-react";
-import { RemixLink } from "~/components/RemixLink";
-import { hentFormattertDato } from "~/utils/dato.utils";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
+import styles from "~/route-styles/saksbehandling-index.module.css";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { getSession } from "~/models/auth.server";
+import { hentOppgaver } from "~/models/oppgave.server";
+import { mockOppgaveFilter } from "../../mocks/data/mock-filter";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveFilter } from "~/components/oppgave-filter/OppgaveFilter";
+import { OppgaveLagretFilter } from "~/components/oppgave-lagret-filter/OppgaveLagretFilter";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+
+  const session = await getSession(request);
+  const oppgaver = await hentOppgaver(session, url.search);
+
+  return json({ oppgaver, oppgaveFilter: mockOppgaveFilter });
+}
 
 export default function Saksbehandling() {
-  const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
-  const aapneSaker = oppgaver.filter((oppgave) => !oppgaveErFerdigBehandlet(oppgave));
-
   return (
-    <main>
-      <Table zebraStripes={true}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Opprettet</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Oppgave</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Personnummer</Table.HeaderCell>
-            <Table.HeaderCell scope="col"></Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+    <main className={styles.container}>
+      <div className={styles.filterMeny}>
+        <OppgaveFilter />
+      </div>
 
-        <Table.Body>
-          {aapneSaker?.map((oppgave) => {
-            const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
-            return (
-              <Table.Row key={oppgave.oppgaveId}>
-                <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
-                <Table.DataCell>
-                  {emneknagger.map((emneknagg) => (
-                    <Tag key={emneknagg} size={"xsmall"} variant="alt2-filled">
-                      {emneknagg}
-                    </Tag>
-                  ))}
-                </Table.DataCell>
-                <Table.DataCell>{tilstand}</Table.DataCell>
-                <Table.DataCell>
-                  <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
-                </Table.DataCell>
-                <Table.DataCell>
-                  {steg[0] && (
-                    <RemixLink
-                      to={`oppgave/${oppgaveId}/steg/${steg[0].uuid}`}
-                      asButtonVariant="primary"
-                    >
-                      Behandle
-                    </RemixLink>
-                  )}
-                </Table.DataCell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+      <div className={styles.lagretFilter}>
+        <OppgaveLagretFilter />
+      </div>
+
+      <div className={styles.oppgaveListe}>
+        <OppgaveListe />
+      </div>
     </main>
   );
 }

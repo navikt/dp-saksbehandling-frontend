@@ -35,9 +35,13 @@ export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
 export type IOppgaveStegTilstand = "Groenn" | "Gul" | "Roed";
 export type IOpplysningType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
-export async function hentOppgaver(session: SessionWithOboProvider): Promise<IOppgave[]> {
+export async function hentOppgaver(
+  session: SessionWithOboProvider,
+  urlParams?: string,
+): Promise<IOppgave[]> {
   const onBehalfOfToken = await getBehandlingOboToken(session);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
+
   const response = await fetch(url, {
     method: "GET",
     headers: {
