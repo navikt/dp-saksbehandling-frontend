@@ -39,7 +39,7 @@ export default function Saksbehandling() {
                   <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
                 </Table.DataCell>
                 <Table.DataCell>
-                  {steg && (
+                  {steg[0] && (
                     <RemixLink
                       to={`oppgave/${oppgaveId}/steg/${steg[0].uuid}`}
                       asButtonVariant="primary"
