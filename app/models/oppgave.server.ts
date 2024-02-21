@@ -25,10 +25,10 @@ export interface IOppgave {
   personIdent: string;
   datoOpprettet: string;
   tilstand: IOppgaveTilstand;
-  journalpostIder: string[];
   emneknagger: string[];
-  steg: IOppgaveSteg[];
-  opplysninger: IOpplysning[];
+  journalpostIder: string[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
+  steg: IOppgaveSteg[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
+  opplysninger: IOpplysning[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
 }
 
 export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";

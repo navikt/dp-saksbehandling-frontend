@@ -23,7 +23,7 @@ export function OppgaveListe() {
 
       <Table.Body>
         {aapneSaker?.map((oppgave) => {
-          const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
+          const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger } = oppgave;
           return (
             <Table.Row key={oppgave.oppgaveId}>
               <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
@@ -39,10 +39,7 @@ export function OppgaveListe() {
                 <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
               </Table.DataCell>
               <Table.DataCell>
-                <RemixLink
-                  to={`oppgave/${oppgaveId}/steg/${steg[0].uuid}`}
-                  asButtonVariant="primary"
-                >
+                <RemixLink to={`oppgave/${oppgaveId}`} asButtonVariant="primary">
                   Behandle
                 </RemixLink>
               </Table.DataCell>
