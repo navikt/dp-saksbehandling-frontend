@@ -8,113 +8,113 @@ export const masterMenyMock: IOppgave = {
   emneknagger: ["Konkurs Statoil"],
   journalpostIder: [],
   steg: [
-    //   {
-    //     uuid: "msw-ikke-over-67",
-    //     stegNavn: "Ikke over 67 år",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-mangler-dokumentasjon",
-    //     stegNavn: "Mangler dokumentasjon",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-utdanning",
-    //     stegNavn: "Utdanning",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-reell-arbeidsoker",
-    //     stegNavn: "Reell arbeidsøker",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-ikke-utestengt",
-    //     stegNavn: "Ikke utestengt",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-lovvalg",
-    //     stegNavn: "Lovvalg",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-medlem",
-    //     stegNavn: "Medlem",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-opphold-i-norge",
-    //     stegNavn: "Opphold i Norge",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-arbeidsoker",
-    //     stegNavn: "Registrert som arbeidsøker",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-minste-arbeidsinntekt",
-    //     stegNavn: "Minste arbeidsinntekt",
-    //     tilstand: "Groenn",
-    //     opplysninger: [
-    //       {
-    //         opplysningNavn: "Svangerskapsrelaterte sykepenger",
-    //         opplysningType: "Boolean",
-    //         svar: {
-    //           verdi: "true",
-    //         },
-    //       },
-    //       {
-    //         opplysningNavn: "eøs inntekter",
-    //         opplysningType: "Boolean",
-    //         svar: {
-    //           verdi: "true",
-    //         },
-    //       },
-    //       {
-    //         opplysningNavn: "inntekter neste måned",
-    //         opplysningType: "Boolean",
-    //         svar: {
-    //           verdi: "true",
-    //         },
-    //       },
-    //       {
-    //         opplysningNavn: "jobbet utenfor norge",
-    //         opplysningType: "Boolean",
-    //         svar: {
-    //           verdi: "true",
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     uuid: "msw-tapt-arbeidsinntekt",
-    //     stegNavn: "Tapt arbeidsinntekt",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-tapt-arbeidstid",
-    //     stegNavn: "Tapt arbeidstid",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
-    //   {
-    //     uuid: "msw-ikke-fulle-folketrygdytelser",
-    //     stegNavn: "Ikke fulle folketrygdytelser",
-    //     tilstand: "Groenn",
-    //     opplysninger: [],
-    //   },
+    {
+      uuid: "msw-ikke-over-67",
+      stegNavn: "Ikke over 67 år",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-mangler-dokumentasjon",
+      stegNavn: "Mangler dokumentasjon",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-utdanning",
+      stegNavn: "Utdanning",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-reell-arbeidsoker",
+      stegNavn: "Reell arbeidsøker",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-ikke-utestengt",
+      stegNavn: "Ikke utestengt",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-lovvalg",
+      stegNavn: "Lovvalg",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-medlem",
+      stegNavn: "Medlem",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-opphold-i-norge",
+      stegNavn: "Opphold i Norge",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-arbeidsoker",
+      stegNavn: "Registrert som arbeidsøker",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-minste-arbeidsinntekt",
+      stegNavn: "Minste arbeidsinntekt",
+      tilstand: "Groenn",
+      opplysninger: [
+        {
+          opplysningNavn: "Svangerskapsrelaterte sykepenger",
+          opplysningType: "Boolean",
+          svar: {
+            verdi: "true",
+          },
+        },
+        {
+          opplysningNavn: "eøs inntekter",
+          opplysningType: "Boolean",
+          svar: {
+            verdi: "true",
+          },
+        },
+        {
+          opplysningNavn: "inntekter neste måned",
+          opplysningType: "Boolean",
+          svar: {
+            verdi: "true",
+          },
+        },
+        {
+          opplysningNavn: "jobbet utenfor norge",
+          opplysningType: "Boolean",
+          svar: {
+            verdi: "true",
+          },
+        },
+      ],
+    },
+    {
+      uuid: "msw-tapt-arbeidsinntekt",
+      stegNavn: "Tapt arbeidsinntekt",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-tapt-arbeidstid",
+      stegNavn: "Tapt arbeidstid",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
+    {
+      uuid: "msw-ikke-fulle-folketrygdytelser",
+      stegNavn: "Ikke fulle folketrygdytelser",
+      tilstand: "Groenn",
+      opplysninger: [],
+    },
   ],
   opplysninger: [
     {
