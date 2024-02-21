@@ -3,7 +3,7 @@ import { Checkbox, CheckboxGroup } from "@navikt/ds-react";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 import type { IOppgaveFilter } from "../../../mocks/data/mock-filter";
 import type { loader } from "~/routes/saksbehandling._index";
-import styles from "./OppgaveFIlter.module.css";
+import styles from "./OppgaveFilter.module.css";
 import { oppgaveFilterText } from "~/components/oppgave-filter/OppgaveFilterText";
 
 interface IProps {}
