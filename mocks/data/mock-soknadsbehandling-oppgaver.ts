@@ -3,7 +3,7 @@ import type { IOppgaveSteg, IOppgave } from "~/models/oppgave.server";
 export const generiskSoknadMock: IOppgave = {
   oppgaveId: "msw-generisk-soknad",
   personIdent: "msw-personmock",
-  datoOpprettet: "2024-01-01",
+  tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Søknadsbehandling"],
   journalpostIder: [],
