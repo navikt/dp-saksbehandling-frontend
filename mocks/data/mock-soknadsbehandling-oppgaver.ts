@@ -1,4 +1,4 @@
-import type { IOppgaveSteg, IOppgave } from "~/models/oppgave.server";
+import type { IOppgave, IOppgaveSteg } from "~/models/oppgave.server";
 
 export const generiskSoknadMock: IOppgave = {
   oppgaveId: "msw-generisk-soknad",
