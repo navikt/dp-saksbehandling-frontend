@@ -1,5 +1,4 @@
 import { json } from "@remix-run/node";
-import type { MetaFunction } from "@remix-run/react";
 import {
   Links,
   LiveReload,
@@ -17,7 +16,7 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import globalCss from "~/global.css";
 import { initFaro } from "~/utils/faro";
 
-export const meta: MetaFunction = () => {
+export function meta() {
   return [
     {
       charset: "utf-8",
@@ -36,7 +35,7 @@ export const meta: MetaFunction = () => {
       content: "Saksbehandlingløsning for dagpenger",
     },
   ];
-};
+}
 
 export function links() {
   return [
@@ -98,7 +97,6 @@ export default function App() {
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
-        <Scripts />
         <LiveReload />
       </body>
     </html>

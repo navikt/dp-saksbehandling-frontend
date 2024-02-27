@@ -14,7 +14,6 @@ export interface IOpplysning {
 }
 
 export interface IOppgaveSteg {
-  uuid: string;
   stegNavn: string;
   tilstand: IOppgaveStegTilstand;
   opplysninger: IOpplysning[];
@@ -127,13 +126,12 @@ export async function avslagOppgave(
   return { status: "success" };
 }
 
-export async function svarOppgaveSteg(
+export async function svarOppgaveOpplysning(
   oppgaveId: string,
-  stegId: string,
   opplysninger: IOpplysning[],
   session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/steg/${stegId}`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const onBehalfOfToken = await getBehandlingOboToken(session);
   const body = JSON.stringify(opplysninger);
 

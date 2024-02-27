@@ -17,7 +17,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   // dp-saksbehandling returnerer tomt array for steg frem til regelmotor har klargjort opplysninger som må bekreftes
   if (oppgave.steg.length > 0 && !request.url.includes("/steg")) {
-    throw redirect(`steg/${oppgave.steg[0].uuid}`);
+    throw redirect(`steg/${oppgave.steg[0].stegNavn}`);
   }
 
   return json({ oppgave });

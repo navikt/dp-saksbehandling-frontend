@@ -13,7 +13,7 @@ export function OppgaveStegMenyPunkt(behandlingSteg: IOppgaveSteg) {
   return (
     <li>
       <NavLink
-        to={`${behandlingSteg.uuid}`}
+        to={`${behandlingSteg.stegNavn}`}
         className={({ isActive }) =>
           isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser
         }

@@ -9,61 +9,51 @@ export const masterMenyMock: IOppgave = {
   journalpostIder: [],
   steg: [
     {
-      uuid: "msw-ikke-over-67",
       stegNavn: "Ikke over 67 år",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-mangler-dokumentasjon",
       stegNavn: "Mangler dokumentasjon",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-utdanning",
       stegNavn: "Utdanning",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-reell-arbeidsoker",
       stegNavn: "Reell arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-ikke-utestengt",
       stegNavn: "Ikke utestengt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-lovvalg",
       stegNavn: "Lovvalg",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-medlem",
       stegNavn: "Medlem",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-opphold-i-norge",
       stegNavn: "Opphold i Norge",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-arbeidsoker",
       stegNavn: "Registrert som arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-minste-arbeidsinntekt",
       stegNavn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
@@ -98,19 +88,16 @@ export const masterMenyMock: IOppgave = {
       ],
     },
     {
-      uuid: "msw-tapt-arbeidsinntekt",
       stegNavn: "Tapt arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-tapt-arbeidstid",
       stegNavn: "Tapt arbeidstid",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      uuid: "msw-ikke-fulle-folketrygdytelser",
       stegNavn: "Ikke fulle folketrygdytelser",
       tilstand: "Groenn",
       opplysninger: [],
@@ -150,7 +137,6 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   journalpostIder: [],
   steg: [
     {
-      uuid: "sjalabaris",
       stegNavn: "Gjenopptak / 8 uker",
       tilstand: "Groenn",
       opplysninger: [
@@ -169,7 +155,6 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       ],
     },
     {
-      uuid: "962305f9-3ec5-482c-9d59-558c7653749a",
       stegNavn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
@@ -247,7 +232,6 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
   journalpostIder: [],
   steg: [
     {
-      uuid: "msw-avsluttet-sjalabaris",
       stegNavn: "Gjenopptak / 8 uker",
       tilstand: "Groenn",
       opplysninger: [
@@ -266,7 +250,6 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
       ],
     },
     {
-      uuid: "msw-avsluttet-962305f9-3ec5-482c-9d59-558c7653749a",
       stegNavn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [

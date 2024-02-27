@@ -1,5 +1,5 @@
 import { ValidatedForm } from "remix-validated-form";
-import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUuid";
+import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegNavn";
 import { Button } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
 import { useLocation, useNavigation } from "@remix-run/react";

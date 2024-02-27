@@ -2,7 +2,7 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { useActionData, useParams } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { IOpplysning } from "~/models/oppgave.server";
-import { svarOppgaveSteg } from "~/models/oppgave.server";
+import { svarOppgaveOpplysning } from "~/models/oppgave.server";
 import { OppgaveSteg } from "~/views/oppgave-steg/OppgaveSteg";
 import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -18,13 +18,11 @@ import { isNetworkResponseError } from "~/utils/type-guards";
 import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  invariant(params.stegUuid, `params.stegUuid er påkrevd`);
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const session = await getSession(request);
   const formData = await request.formData();
   const skjemadata = parseSkjemadata<SkjemaMetadata>(formData, "metadata");
-  const stegUuid = params.stegUuid;
 
   const validering = await hentValideringRegler(skjemadata.opplysninger).validate(formData);
 
@@ -33,7 +31,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validering.error);
   }
 
-  return await svarOppgaveSteg(params.oppgaveId, stegUuid, [], session);
+  return await svarOppgaveOpplysning(params.oppgaveId, [], session);
 }
 
 export interface SkjemaMetadata {
@@ -44,13 +42,13 @@ export default function OppgaveStegView() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const actionResponse = useActionData<typeof action>();
 
-  const { stegUuid } = useParams();
-  const steg = oppgave.steg.find((steg) => steg.uuid === stegUuid);
+  const { stegNavn } = useParams();
+  const steg = oppgave.steg.find((steg) => steg.stegNavn === stegNavn);
 
   if (!steg) {
     throw new Response(null, {
       status: 500,
-      statusText: `Fant ikke steg med id: ${stegUuid}`,
+      statusText: `Fant ikke steg med navn: ${stegNavn}`,
     });
   }
 

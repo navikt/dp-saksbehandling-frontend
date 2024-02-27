@@ -19,5 +19,5 @@ test("Man kan gå videre til en oppgave ", async ({ page, baseURL }) => {
     .click();
 
   await expect(page).toHaveURL(`
-    ${baseURL}/oppgave/${oppgave.oppgaveId}/steg/${oppgave.steg[0].uuid}`);
+    ${baseURL}/oppgave/${oppgave.oppgaveId}/steg/${oppgave.steg[0].stegNavn}`);
 });

@@ -17,6 +17,7 @@ if (getEnv("USE_MSW") === "true") {
   const server = setupMockServer();
   startMockServer(server);
 }
+
 const csp = {
   "img-src": ["'self'", "data:"],
   "connect-src": ["'self'", "*.nav.no"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
