@@ -22,7 +22,7 @@ export interface IOppgaveSteg {
 export interface IOppgave {
   oppgaveId: string;
   personIdent: string;
-  datoOpprettet: string;
+  tidspunktOpprettet: string;
   tilstand: IOppgaveTilstand;
   emneknagger: string[];
   journalpostIder: string[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId

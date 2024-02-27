@@ -23,10 +23,10 @@ export function OppgaveListe() {
 
       <Table.Body>
         {aapneSaker?.map((oppgave) => {
-          const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger } = oppgave;
+          const { oppgaveId, personIdent, tidspunktOpprettet, tilstand, emneknagger } = oppgave;
           return (
             <Table.Row key={oppgave.oppgaveId}>
-              <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
+              <Table.DataCell>{hentFormattertDato(tidspunktOpprettet)}</Table.DataCell>
               <Table.DataCell>
                 {emneknagger.map((emneknagg) => (
                   <Tag key={emneknagg} size={"xsmall"} variant="alt2-filled">

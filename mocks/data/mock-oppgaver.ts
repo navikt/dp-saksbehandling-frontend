@@ -4,7 +4,7 @@ import { soknadMedAlderskravMock } from "mocks/data/mock-soknadsbehandling-oppga
 export const masterMenyMock: IOppgave = {
   oppgaveId: "msw-ny-mastermeny",
   personIdent: "msw-personmock",
-  datoOpprettet: "2024-01-01",
+  tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Konkurs Statoil"],
   journalpostIder: [],
@@ -132,7 +132,7 @@ export const masterMenyMock: IOppgave = {
 export const minsteinntektAvslagOppgave: IOppgave = {
   oppgaveId: "msw-minsteinntekt-avslag-oppgave",
   personIdent: "12345678910",
-  datoOpprettet: "2023-04-25",
+  tidspunktOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
   tilstand: "TilBehandling",
   journalpostIder: [],
@@ -227,7 +227,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
 export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
   oppgaveId: "msw-ferdig-minsteinntekt-avslag-oppgave",
   personIdent: "12345678910",
-  datoOpprettet: "2023-04-25",
+  tidspunktOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
   tilstand: "FerdigBehandlet",
   journalpostIder: [],

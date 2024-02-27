@@ -23,7 +23,8 @@ export default function SaksbehandlingOppgaverBehandlet() {
 
         <Table.Body>
           {lukkedeSaker?.map((oppgave) => {
-            const { oppgaveId, personIdent, datoOpprettet, tilstand, emneknagger, steg } = oppgave;
+            const { oppgaveId, personIdent, tidspunktOpprettet, tilstand, emneknagger, steg } =
+              oppgave;
             return (
               <Table.Row key={oppgaveId}>
                 <Table.DataCell>{tilstand}</Table.DataCell>
@@ -32,7 +33,7 @@ export default function SaksbehandlingOppgaverBehandlet() {
                     {personIdent}
                   </RemixLink>
                 </Table.DataCell>
-                <Table.DataCell>{hentFormattertDato(datoOpprettet)}</Table.DataCell>
+                <Table.DataCell>{hentFormattertDato(tidspunktOpprettet)}</Table.DataCell>
                 <Table.DataCell>
                   {emneknagger.map((emneknagg) => (
                     <Tag key={emneknagg} size={"xsmall"} variant="alt2-filled">
