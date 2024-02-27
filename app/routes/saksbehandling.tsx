@@ -10,6 +10,7 @@ import { InternalHeader } from "@navikt/ds-react";
 import type { ISanityTexts } from "~/sanity/sanity.types";
 import { sanityClient } from "~/utils/sanity.utils";
 import { allTextsQuery } from "~/sanity/sanity.query";
+import { soknadMedAlderskravMock } from "mocks/data/mock-soknadsbehandling-oppgaver";
 
 // Hindrer loader til å kjøre på nytt etter action funksjon
 export const shouldRevalidate = () => false;
@@ -35,6 +36,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { saksbehandler } = useLoaderData<typeof loader>();
+
+  console.log(soknadMedAlderskravMock);
 
   return (
     <>
