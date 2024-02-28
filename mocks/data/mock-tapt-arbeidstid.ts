@@ -1,4 +1,4 @@
-import type { ITaptArberidstidData } from "~/views/oppgave-steg-tapt-arbeidstid/OppgaveStegTaptArbeidstid";
+import type { ITaptArberidstidData } from "~/components/oppgave-steg-tapt-arbeidstid/OppgaveStegTaptArbeidstid";
 import type { IArbeidsforhold } from "~/components/arbeidsforhold/Arbeidsforhold";
 
 export const mockTaptArberidstid: ITaptArberidstidData = {

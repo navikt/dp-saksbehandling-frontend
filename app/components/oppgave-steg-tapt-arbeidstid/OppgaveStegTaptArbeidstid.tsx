@@ -1,5 +1,4 @@
 import React from "react";
-import type { IOppgaveStegProps } from "../oppgave-steg/OppgaveSteg";
 import { Alert, BodyShort, DatePicker, Heading, Select, useDatepicker } from "@navikt/ds-react";
 import { InfoCard } from "~/components/info-card/InfoCard";
 import { TextFieldWithSuffix } from "~/components/text-field-with-suffix/TextFieldWithSuffix";
@@ -19,7 +18,7 @@ export interface ITaptArberidstidData {
   oppfylt: boolean;
 }
 
-export function OppgaveStegTaptArbeidstid(props: IOppgaveStegProps) {
+export function OppgaveStegTaptArbeidstid() {
   const { datepickerProps, inputProps } = useDatepicker({
     onDateChange: console.log,
   });

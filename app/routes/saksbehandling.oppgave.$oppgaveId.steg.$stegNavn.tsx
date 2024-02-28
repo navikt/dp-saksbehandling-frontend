@@ -3,7 +3,7 @@ import { useActionData, useParams } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { IOpplysning } from "~/models/oppgave.server";
 import { svarOppgaveOpplysning } from "~/models/oppgave.server";
-import { OppgaveSteg } from "~/views/oppgave-steg/OppgaveSteg";
+import { OppgaveSteg } from "~/components/oppgave-steg/OppgaveSteg";
 import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Alert, Tabs } from "@navikt/ds-react";

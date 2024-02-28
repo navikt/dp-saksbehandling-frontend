@@ -1,7 +1,8 @@
 import { type IOppgaveSteg } from "~/models/oppgave.server";
 import { OppgaveStegGenerell } from "./OppgaveStegGenerell";
 
-import { OppgaveStegTaptArbeidstid } from "~/views/oppgave-steg-tapt-arbeidstid/OppgaveStegTaptArbeidstid";
+import { OppgaveStegTaptArbeidstid } from "~/components/oppgave-steg-tapt-arbeidstid/OppgaveStegTaptArbeidstid";
+import { OppgaveStegAlder } from "~/components/oppgave-steg-alder/OppgaveStegAlder";
 
 export interface IOppgaveStegProps {
   steg: IOppgaveSteg;
@@ -13,7 +14,10 @@ export function OppgaveSteg(props: IOppgaveStegProps) {
 
   switch (steg.stegNavn) {
     case "Tapt arbeidstid":
-      return <OppgaveStegTaptArbeidstid {...props} />;
+      return <OppgaveStegTaptArbeidstid />;
+
+    case "Ikke over 67 år":
+      return <OppgaveStegAlder />;
 
     default:
       return <OppgaveStegGenerell {...props} />;
