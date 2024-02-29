@@ -144,3 +144,38 @@ export const soknadMedAlderskravMock = {
   oppgaveId: "msw-soknad-med-alder-oppfylt",
   steg: [...byttUtSteg(generiskSoknadMock.steg, [aldersKravOppfyltEksempel])],
 };
+
+//todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
+const reellArbeidssokerOppfyltEksempel: IOppgaveSteg = {
+  stegNavn: "Reell arbeidsøker",
+  tilstand: "Groenn",
+  opplysninger: [],
+};
+
+export const soknadMedReellArbeidssokerAltJaMock = {
+  ...generiskSoknadMock,
+  oppgaveId: "msw-soknad-med-arbeidssoker-alt-ja",
+  personIdent: "msw-reell-arbeidssoker-alle-ja",
+  steg: [...byttUtSteg(generiskSoknadMock.steg, [reellArbeidssokerOppfyltEksempel])],
+};
+
+//todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
+const reellArbeidssokerFritakEksempel: IOppgaveSteg = {
+  stegNavn: "Reell arbeidsøker",
+  tilstand: "Groenn",
+  opplysninger: [
+    {
+      opplysningNavn: "Fritak fra å ta jobb i hele Norge",
+      opplysningType: "Boolean",
+      svar: {
+        verdi: "True",
+      },
+    },
+  ],
+};
+export const soknadMedReellArbeidssokerFritakMock = {
+  ...generiskSoknadMock,
+  oppgaveId: "msw-soknad-med-arbeidssoker-fritak",
+  personIdent: "msw-reell-arbeidssoker-fritak",
+  steg: [...byttUtSteg(generiskSoknadMock.steg, [reellArbeidssokerFritakEksempel])],
+};

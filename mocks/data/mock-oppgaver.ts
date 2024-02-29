@@ -1,5 +1,9 @@
 import type { IOppgave } from "~/models/oppgave.server";
-import { soknadMedAlderskravMock } from "mocks/data/mock-soknadsbehandling-oppgaver";
+import {
+  soknadMedAlderskravMock,
+  soknadMedReellArbeidssokerAltJaMock,
+  soknadMedReellArbeidssokerFritakMock,
+} from "mocks/data/mock-soknadsbehandling-oppgaver";
 
 export const masterMenyMock: IOppgave = {
   oppgaveId: "msw-ny-mastermeny",
@@ -325,4 +329,6 @@ export const mockOppgaver: IOppgave[] = [
   minsteinntektAvslagOppgave,
   ferdigBehandletMinsteinntektAvslagOppgave,
   soknadMedAlderskravMock,
+  soknadMedReellArbeidssokerAltJaMock,
+  soknadMedReellArbeidssokerFritakMock,
 ];
