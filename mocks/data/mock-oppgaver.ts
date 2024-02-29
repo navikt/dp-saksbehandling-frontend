@@ -65,6 +65,7 @@ export const masterMenyMock: IOppgave = {
         {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -72,6 +73,7 @@ export const masterMenyMock: IOppgave = {
         {
           opplysningNavn: "eøs inntekter",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -79,6 +81,7 @@ export const masterMenyMock: IOppgave = {
         {
           opplysningNavn: "inntekter neste måned",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -86,6 +89,7 @@ export const masterMenyMock: IOppgave = {
         {
           opplysningNavn: "jobbet utenfor norge",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -112,6 +116,7 @@ export const masterMenyMock: IOppgave = {
     {
       opplysningNavn: "soknaddato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -119,6 +124,7 @@ export const masterMenyMock: IOppgave = {
     {
       opplysningNavn: "virkningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -126,6 +132,7 @@ export const masterMenyMock: IOppgave = {
     {
       opplysningNavn: "beregningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -148,6 +155,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Mulig gjenopptak",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -155,6 +163,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Har hatt lukkede saker siste 8 uker",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
       ],
@@ -166,11 +175,13 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
         {
           opplysningNavn: "Det er inntekt neste kalendermåned",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
       ],
@@ -208,6 +219,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "soknaddato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -215,6 +227,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "virkningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -222,6 +235,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "beregningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -243,6 +257,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Mulig gjenopptak",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: {
             verdi: "true",
           },
@@ -250,6 +265,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Har hatt lukkede saker siste 8 uker",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
       ],
@@ -261,11 +277,13 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
         {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
         {
           opplysningNavn: "Det er inntekt neste kalendermåned",
           opplysningType: "Boolean",
+          status: "Faktum",
           svar: null,
         },
       ],
@@ -303,6 +321,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "soknaddato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -310,6 +329,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "virkningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },
@@ -317,6 +337,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
     {
       opplysningNavn: "beregningsdato",
       opplysningType: "LocalDate",
+      status: "Faktum",
       svar: {
         verdi: "true",
       },

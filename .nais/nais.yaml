@@ -59,7 +59,6 @@ spec:
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
-        - host: rt6o382n.apicdn.sanity.io
       rules:
         - application: dp-saksbehandling
         - application: dp-rapportering

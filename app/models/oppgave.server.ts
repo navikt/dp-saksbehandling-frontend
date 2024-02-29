@@ -9,6 +9,7 @@ export interface IOpplysningSvar {
 }
 export interface IOpplysning {
   opplysningNavn: string;
+  status?: "Faktum" | "Hypotese";
   opplysningType: IOpplysningType;
   svar: IOpplysningSvar | null;
 }
