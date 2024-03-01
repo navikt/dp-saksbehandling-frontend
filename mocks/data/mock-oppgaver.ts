@@ -149,7 +149,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   journalpostIder: [],
   steg: [
     {
-      stegNavn: "Gjenopptak / 8 uker",
+      stegNavn: "Gjenopptak og 8 uker",
       tilstand: "Groenn",
       opplysninger: [
         {
