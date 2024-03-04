@@ -9,8 +9,8 @@ export interface IOpplysningSvar {
 }
 export interface IOpplysning {
   opplysningNavn: string;
-  status?: "Faktum" | "Hypotese";
-  opplysningType: IOpplysningType;
+  status: "Faktum" | "Hypotese";
+  dataType: IDataType;
   svar: IOpplysningSvar | null;
 }
 
@@ -33,7 +33,7 @@ export interface IOppgave {
 
 export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
 export type IOppgaveStegTilstand = "Groenn" | "Gul" | "Roed";
-export type IOpplysningType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
+export type IDataType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
 export async function hentOppgaver(
   session: SessionWithOboProvider,

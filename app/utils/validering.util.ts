@@ -1,20 +1,18 @@
 import { z } from "zod";
-import type { IOpplysning, IOpplysningType } from "~/models/oppgave.server";
+import type { IDataType, IOpplysning } from "~/models/oppgave.server";
 import { withZod } from "@remix-validated-form/with-zod";
 
 export function hentValideringRegler(opplysninger: IOpplysning[]) {
   const zodValideringsregler: Record<string, z.ZodType> = {};
 
   for (const opplysning of opplysninger) {
-    zodValideringsregler[opplysning.opplysningNavn] = hentValideringForInput(
-      opplysning.opplysningType,
-    );
+    zodValideringsregler[opplysning.opplysningNavn] = hentValideringForInput(opplysning.dataType);
   }
 
   return withZod(z.object(zodValideringsregler));
 }
 
-function hentValideringForInput(opplysningType: IOpplysningType): z.ZodType {
+function hentValideringForInput(opplysningType: IDataType): z.ZodType {
   switch (opplysningType) {
     case "Int":
       return z.coerce

@@ -5,12 +5,12 @@ import { OppgaveStegInputDouble } from "~/components/oppgave-steg-input/OppgaveS
 import { OppgaveStegInputInt } from "~/components/oppgave-steg-input/OppgaveStegInputInt";
 import { OppgaveStegInputString } from "~/components/oppgave-steg-input/OppgaveStegInputString";
 import { OppgaveStegInputTextarea } from "~/components/oppgave-steg-input/OppgaveStegInputTextarea";
-import { type IOpplysningType } from "~/models/oppgave.server";
+import { type IDataType } from "~/models/oppgave.server";
 import styles from "./OppgaveStegInput.module.css";
 
 export interface IInputProps {
   name: string;
-  svartype: IOpplysningType;
+  svartype: IDataType;
   label?: string;
   description?: string;
   verdi?: string;

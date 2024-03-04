@@ -77,7 +77,7 @@ export const generiskSoknadMock: IOppgave = {
   opplysninger: [
     {
       opplysningNavn: "soknaddato",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Faktum",
       svar: {
         verdi: "true",
@@ -85,7 +85,7 @@ export const generiskSoknadMock: IOppgave = {
     },
     {
       opplysningNavn: "virkningsdato",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Hypotese",
       svar: {
         verdi: "true",
@@ -93,7 +93,7 @@ export const generiskSoknadMock: IOppgave = {
     },
     {
       opplysningNavn: "beregningsdato",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Hypotese",
       svar: {
         verdi: "true",
@@ -108,7 +108,7 @@ const aldersKravOppfyltEksempel: IOppgaveSteg = {
   opplysninger: [
     {
       opplysningNavn: "Foedselsdato",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Faktum",
       svar: {
         verdi: "1976-10-19",
@@ -116,7 +116,7 @@ const aldersKravOppfyltEksempel: IOppgaveSteg = {
     },
     {
       opplysningNavn: "Siste mulige dag alderskravet er oppfylt",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Faktum",
       svar: {
         verdi: "2043-10-31",
@@ -124,7 +124,7 @@ const aldersKravOppfyltEksempel: IOppgaveSteg = {
     },
     {
       opplysningNavn: "Virkningsdato",
-      opplysningType: "LocalDate",
+      dataType: "LocalDate",
       status: "Faktum",
       svar: {
         verdi: "2023-05-12",
@@ -172,7 +172,7 @@ const reellArbeidssokerFritakEksempel: IOppgaveSteg = {
   opplysninger: [
     {
       opplysningNavn: "Fritak fra å ta jobb i hele Norge",
-      opplysningType: "Boolean",
+      dataType: "Boolean",
       status: "Hypotese",
       svar: {
         verdi: "True",
