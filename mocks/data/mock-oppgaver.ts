@@ -7,7 +7,7 @@ import {
 
 export const masterMenyMock: IOppgave = {
   oppgaveId: "msw-ny-mastermeny",
-  personIdent: "msw-personmock",
+  personIdent: "msw-personmock-statoil",
   tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Konkurs Statoil"],
