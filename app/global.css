@@ -39,12 +39,13 @@
 .kompakt-tabell .navds-fieldset > :not(:first-child):not(:empty) {
   margin-top: 0;
 }
-.kompakt-tabell .navds-fieldset .navds-radio-buttons {
+
+.kompakt-tabell .navds-radio-buttons {
   display: flex;
   gap: var(--a-spacing-2);
 }
 
-.kompakt-tabell .navds-table__header-cell,
-.navds-table__data-cell {
+.kompakt-tabell .navds-table__data-cell,
+.kompakt-tabell .navds-table__header-cell {
   padding: 0;
 }
