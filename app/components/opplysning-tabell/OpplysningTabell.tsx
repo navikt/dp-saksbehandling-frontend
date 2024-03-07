@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import { OpplysningInput } from "~/components/opplysning-input/OpplysningInput";
 import type { IOpplysning } from "~/models/oppgave.server";
+import { ExclamationmarkTriangleFillIcon } from "@navikt/aksel-icons";
+import styles from "./OpplysningTabell.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -33,7 +35,15 @@ function OpplysningTabellLinje(opplysning: IOpplysning) {
           skjult={!kanEndre}
         />
 
-        {!kanEndre && <div>{opplysning.svar?.verdi}</div>}
+        {!kanEndre && (
+          <div className={styles.tableCellOpplysningVerdi}>
+            {opplysning.svar?.verdi ? (
+              opplysning.svar.verdi
+            ) : (
+              <ExclamationmarkTriangleFillIcon title="" fontSize="1.5rem" color="#C77300FF" />
+            )}
+          </div>
+        )}
       </Table.DataCell>
       <Table.DataCell>
         <Button

@@ -90,9 +90,7 @@ export const masterMenyMock: IOppgave = {
           opplysningNavn: "jobbet utenfor norge",
           dataType: "Boolean",
           status: "Faktum",
-          svar: {
-            verdi: "true",
-          },
+          svar: null,
         },
       ],
     },
