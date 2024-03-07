@@ -4,7 +4,7 @@ import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
 
 export function OppgaveStegInputDato(props: IInputProps) {
-  const { readonly, name, verdi, className, label } = props;
+  const { readonly, name, verdi, className } = props;
   const { error, getInputProps } = useField(name);
 
   const { datepickerProps, inputProps } = useDatepicker({
@@ -20,11 +20,8 @@ export function OppgaveStegInputDato(props: IInputProps) {
         readOnly={readonly}
         className={className}
         size="small"
-        {...getInputProps({
-          id: name,
-          label: <>{label}</>,
-        })}
         {...inputProps}
+        {...getInputProps()}
       />
     </DatePicker>
   );

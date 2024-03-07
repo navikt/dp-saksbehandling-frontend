@@ -1,3 +1,7 @@
+.-mx-4 {
+  margin: 0 calc(var(--a-spacing-4) * -1);
+}
+
 .my-2 {
   margin: var(--a-spacing-2) 0;
 }
@@ -14,6 +18,14 @@
   margin-right: var(--a-spacing-4);
 }
 
+.mt-4 {
+  margin-top: var(--a-spacing-4);
+}
+
+.mt-8 {
+  margin-top: var(--a-spacing-8);
+}
+
 .inntektTabell .navds-table__expanded-row-content {
   background-color: var(--a-gray-50);
 }
@@ -21,4 +33,18 @@
 /* Overskriv Aksel defaults */
 .navds-modal__footer.navds-modal__footer {
   flex-flow: row wrap;
+}
+
+/* Ekstra kompakt Aksel tabell */
+.kompakt-tabell .navds-fieldset > :not(:first-child):not(:empty) {
+  margin-top: 0;
+}
+.kompakt-tabell .navds-fieldset .navds-radio-buttons {
+  display: flex;
+  gap: var(--a-spacing-2);
+}
+
+.kompakt-tabell .navds-table__header-cell,
+.navds-table__data-cell {
+  padding: 0;
 }

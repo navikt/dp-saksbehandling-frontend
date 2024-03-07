@@ -54,7 +54,7 @@ export default function OppgaveStegView() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.faktumContainer}>
+      <div className={styles.stegContainer}>
         <OppgaveSteg steg={steg} readonly={oppgaveErFerdigBehandlet(oppgave)} />
 
         {isNetworkResponseError(actionResponse) && (
@@ -71,9 +71,11 @@ export default function OppgaveStegView() {
           />
           <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
         </Tabs.List>
+
         <Tabs.Panel className={styles.tabPanel} value="opplysninger">
           <OppgaveOpplysninger />
         </Tabs.Panel>
+
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">
           <DokumentOversikt />
         </Tabs.Panel>

@@ -4,28 +4,19 @@ import { OppgaveStegInputDato } from "~/components/oppgave-steg-input/OppgaveSte
 import { OppgaveStegInputDouble } from "~/components/oppgave-steg-input/OppgaveStegInputDouble";
 import { OppgaveStegInputInt } from "~/components/oppgave-steg-input/OppgaveStegInputInt";
 import { OppgaveStegInputString } from "~/components/oppgave-steg-input/OppgaveStegInputString";
-import { OppgaveStegInputTextarea } from "~/components/oppgave-steg-input/OppgaveStegInputTextarea";
 import { type IDataType } from "~/models/oppgave.server";
 import styles from "./OppgaveStegInput.module.css";
 
 export interface IInputProps {
   name: string;
   svartype: IDataType;
-  label?: string;
-  description?: string;
   verdi?: string;
-  textarea?: boolean;
   className?: string;
   readonly?: boolean;
-  options?: {
-    trueText?: string;
-    falseText?: string;
-  };
 }
 
 export function OppgaveStegInput(props: IInputProps) {
-  const { className, svartype, name, label, description, verdi, readonly, textarea, options } =
-    props;
+  const { className, svartype, name, verdi, readonly } = props;
   const cssClassNames = classNames(styles.input, className);
 
   switch (svartype) {
@@ -34,8 +25,6 @@ export function OppgaveStegInput(props: IInputProps) {
         <OppgaveStegInputInt
           name={name}
           svartype={svartype}
-          label={label || svartype}
-          description={description}
           verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -47,8 +36,6 @@ export function OppgaveStegInput(props: IInputProps) {
         <OppgaveStegInputDouble
           name={name}
           svartype={svartype}
-          label={label || svartype}
-          description={description}
           verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -61,11 +48,8 @@ export function OppgaveStegInput(props: IInputProps) {
           <OppgaveStegInputBoolean
             name={name}
             svartype={svartype}
-            label={label || svartype}
-            description={description}
             verdi={verdi}
             readonly={readonly}
-            options={options}
           />
         </div>
       );
@@ -75,8 +59,6 @@ export function OppgaveStegInput(props: IInputProps) {
         <OppgaveStegInputDato
           name={name}
           svartype={svartype}
-          label={label || svartype}
-          description={description}
           verdi={verdi}
           readonly={readonly}
           className={cssClassNames}
@@ -84,30 +66,14 @@ export function OppgaveStegInput(props: IInputProps) {
       );
 
     case "String":
-      if (textarea) {
-        return (
-          <OppgaveStegInputTextarea
-            name={name}
-            svartype={svartype}
-            label={label || svartype}
-            description={description}
-            verdi={verdi}
-            readonly={readonly}
-            className={cssClassNames}
-          />
-        );
-      } else {
-        return (
-          <OppgaveStegInputString
-            name={name}
-            svartype={svartype}
-            label={label || svartype}
-            description={description}
-            verdi={verdi}
-            readonly={readonly}
-            className={cssClassNames}
-          />
-        );
-      }
+      return (
+        <OppgaveStegInputString
+          name={name}
+          svartype={svartype}
+          verdi={verdi}
+          readonly={readonly}
+          className={cssClassNames}
+        />
+      );
   }
 }

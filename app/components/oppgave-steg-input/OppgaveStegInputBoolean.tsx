@@ -3,7 +3,7 @@ import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
 
 export function OppgaveStegInputBoolean(props: IInputProps) {
-  const { name, verdi, readonly, label, description, options } = props;
+  const { name, verdi, readonly } = props;
   const { error, getInputProps } = useField(name);
 
   return (
@@ -11,16 +11,11 @@ export function OppgaveStegInputBoolean(props: IInputProps) {
       error={error}
       defaultValue={verdi}
       readOnly={readonly}
-      description={description}
       size="small"
-      {...getInputProps({
-        id: name,
-        legend: <>{label}</>,
-        children: undefined, // Needed to keep typescript happy
-      })}
+      {...getInputProps()}
     >
-      <Radio value={"true"}>{options?.trueText || "Ja"}</Radio>
-      <Radio value={"false"}>{options?.falseText || "Nei"}</Radio>
+      <Radio value={"true"}>{"Ja"}</Radio>
+      <Radio value={"false"}>{"Nei"}</Radio>
     </RadioGroup>
   );
 }
