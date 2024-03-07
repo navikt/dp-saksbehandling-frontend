@@ -18,15 +18,15 @@ export function OppgaveOpplysninger() {
   return (
     <div>
       <DatePicker wrapperClassName="my-4" {...soknadsDato.datepickerProps}>
-        <DatePicker.Input {...soknadsDato.inputProps} label="Søkandsdato" />
+        <DatePicker.Input size="small" {...soknadsDato.inputProps} label="Søkandsdato" />
       </DatePicker>
 
       <DatePicker wrapperClassName="my-4" {...beregningsdato.datepickerProps}>
-        <DatePicker.Input {...beregningsdato.inputProps} label="Beregningsdato" />
+        <DatePicker.Input size="small" {...beregningsdato.inputProps} label="Beregningsdato" />
       </DatePicker>
 
       <DatePicker wrapperClassName="my-4" {...virkningsdato.datepickerProps}>
-        <DatePicker.Input {...virkningsdato.inputProps} label="Virkningsdato" />
+        <DatePicker.Input size="small" {...virkningsdato.inputProps} label="Virkningsdato" />
       </DatePicker>
     </div>
   );
