@@ -1,16 +1,16 @@
-import { TextField } from "@navikt/ds-react";
+import { Textarea } from "@navikt/ds-react";
 import { useField } from "remix-validated-form";
-import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
-export function OppgaveStegInputDouble(props: IInputProps) {
+export function OpplysningInputTextarea(props: IInputProps) {
   const { name, verdi, readonly, className } = props;
   const { error, getInputProps } = useField(name);
+
   return (
-    <TextField
-      type="text"
-      inputMode="decimal"
-      defaultValue={verdi?.replace(/\./g, ",")}
+    <Textarea
+      defaultValue={verdi}
       error={error}
+      resize={true}
       readOnly={readonly}
       className={className}
       size="small"

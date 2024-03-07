@@ -1,16 +1,16 @@
-import { Textarea } from "@navikt/ds-react";
+import { TextField } from "@navikt/ds-react";
 import { useField } from "remix-validated-form";
-import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
-export function OppgaveStegInputTextarea(props: IInputProps) {
+export function OpplysningInputString(props: IInputProps) {
   const { name, verdi, readonly, className } = props;
   const { error, getInputProps } = useField(name);
 
   return (
-    <Textarea
+    <TextField
+      type="text"
       defaultValue={verdi}
       error={error}
-      resize={true}
       readOnly={readonly}
       className={className}
       size="small"

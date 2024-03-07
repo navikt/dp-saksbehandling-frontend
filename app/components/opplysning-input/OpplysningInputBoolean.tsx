@@ -1,8 +1,8 @@
 import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useField } from "remix-validated-form";
-import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
-export function OppgaveStegInputBoolean(props: IInputProps) {
+export function OpplysningInputBoolean(props: IInputProps) {
   const { name, verdi, readonly } = props;
   const { error, getInputProps } = useField(name);
 

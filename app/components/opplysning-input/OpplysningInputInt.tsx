@@ -1,8 +1,8 @@
 import { TextField } from "@navikt/ds-react";
 import { useField } from "remix-validated-form";
-import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
-export function OppgaveStegInputInt(props: IInputProps) {
+export function OpplysningInputInt(props: IInputProps) {
   const { name, readonly, verdi, className } = props;
   const { error, getInputProps } = useField(name);
 

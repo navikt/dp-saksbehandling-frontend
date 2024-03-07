@@ -1,10 +1,10 @@
 import { ValidatedForm } from "remix-validated-form";
 import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegNavn";
-import { Alert, BodyLong, Button, Heading, Table } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
 import { useLocation, useNavigation } from "@remix-run/react";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { OppgaveStegInput } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
   const { steg, readonly } = props;
@@ -40,27 +40,7 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
       >
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
-        <Table className="kompakt-tabell">
-          <Table.Body>
-            {steg.opplysninger.map((opplysning) => (
-              <Table.Row key={opplysning.opplysningNavn}>
-                <Table.DataCell scope="row">{opplysning.opplysningNavn}</Table.DataCell>
-                <Table.DataCell>
-                  <OppgaveStegInput
-                    name={opplysning.opplysningNavn}
-                    svartype={opplysning.dataType}
-                    verdi={opplysning.svar?.verdi}
-                  />
-                </Table.DataCell>
-                <Table.DataCell>
-                  <Button variant="tertiary" type="button" size="xsmall">
-                    Endre
-                  </Button>
-                </Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <OpplysningTabell opplysninger={steg.opplysninger} />
 
         {!readonly && (
           <Button className="mt-4" type="submit" disabled={isSubmitting}>

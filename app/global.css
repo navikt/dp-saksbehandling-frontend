@@ -40,6 +40,10 @@
   margin-top: 0;
 }
 
+.kompakt-tabell .navds-table__row {
+  height: 33px;
+}
+
 .kompakt-tabell .navds-radio-buttons {
   display: flex;
   gap: var(--a-spacing-2);

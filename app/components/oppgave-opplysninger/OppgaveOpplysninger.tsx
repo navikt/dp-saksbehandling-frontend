@@ -1,33 +1,47 @@
 import React from "react";
-import { DatePicker, useDatepicker } from "@navikt/ds-react";
+import type { IOpplysning } from "~/models/oppgave.server";
+import { ValidatedForm } from "remix-validated-form";
+import { hentValideringRegler } from "~/utils/validering.util";
+import { Button } from "@navikt/ds-react";
+import { useLocation, useNavigation } from "@remix-run/react";
+import { OpplysningInput } from "~/components/opplysning-input/OpplysningInput";
+import type { SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegNavn";
 
-export function OppgaveOpplysninger() {
-  const soknadsDato = useDatepicker({
-    fromDate: new Date("2023"),
-    onDateChange: console.log,
-  });
-  const beregningsdato = useDatepicker({
-    fromDate: new Date("2023"),
-    onDateChange: console.log,
-  });
-  const virkningsdato = useDatepicker({
-    fromDate: new Date("2023"),
-    onDateChange: console.log,
-  });
+interface IProps {
+  opplysninger: IOpplysning[];
+}
+
+export function OppgaveOpplysninger({ opplysninger }: IProps) {
+  const location = useLocation();
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
+
+  const metadata: SkjemaMetadata = {
+    opplysninger,
+  };
 
   return (
-    <div>
-      <DatePicker wrapperClassName="my-4" {...soknadsDato.datepickerProps}>
-        <DatePicker.Input size="small" {...soknadsDato.inputProps} label="Søkandsdato" />
-      </DatePicker>
+    <ValidatedForm
+      key={location.key} // Keyen gjør at React refresher alt. Uten den kan svaret noen ganger bli igjen når neste steg vises.
+      validator={hentValideringRegler(opplysninger)}
+      method="post"
+    >
+      <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
-      <DatePicker wrapperClassName="my-4" {...beregningsdato.datepickerProps}>
-        <DatePicker.Input size="small" {...beregningsdato.inputProps} label="Beregningsdato" />
-      </DatePicker>
+      {opplysninger.map((opplysning) => (
+        <OpplysningInput
+          className="mt-4"
+          key={opplysning.opplysningNavn}
+          name={opplysning.opplysningNavn}
+          label={opplysning.opplysningNavn}
+          svartype={opplysning.dataType}
+          verdi={opplysning.svar?.verdi}
+        />
+      ))}
 
-      <DatePicker wrapperClassName="my-4" {...virkningsdato.datepickerProps}>
-        <DatePicker.Input size="small" {...virkningsdato.inputProps} label="Virkningsdato" />
-      </DatePicker>
-    </div>
+      <Button className="mt-4" type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Lagrer..." : "Lagre"}
+      </Button>
+    </ValidatedForm>
   );
 }

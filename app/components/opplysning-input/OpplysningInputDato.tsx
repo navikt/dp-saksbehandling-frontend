@@ -1,10 +1,10 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { addYears, subYears } from "date-fns";
 import { useField } from "remix-validated-form";
-import type { IInputProps } from "~/components/oppgave-steg-input/OppgaveStegInput";
+import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
-export function OppgaveStegInputDato(props: IInputProps) {
-  const { readonly, name, verdi, className } = props;
+export function OpplysningInputDato(props: IInputProps) {
+  const { readonly, name, verdi, className, label } = props;
   const { error, getInputProps } = useField(name);
 
   const { datepickerProps, inputProps } = useDatepicker({
@@ -16,12 +16,12 @@ export function OppgaveStegInputDato(props: IInputProps) {
   return (
     <DatePicker {...datepickerProps}>
       <DatePicker.Input
+        size="small"
         error={error}
         readOnly={readonly}
         className={className}
-        size="small"
         {...inputProps}
-        {...getInputProps()}
+        {...getInputProps({ label })}
       />
     </DatePicker>
   );
