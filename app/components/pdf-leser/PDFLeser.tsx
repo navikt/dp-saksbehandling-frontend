@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Alert, Heading, Select } from "@navikt/ds-react";
+import { useRef, useState } from "react";
+import { Button, Heading, List, Loader, Modal, Select } from "@navikt/ds-react";
 
 import styles from "./PDFLeser.module.css";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
@@ -9,33 +9,22 @@ interface IPDFLeserProps {
 }
 
 export function PDFLeser({ journalposter }: IPDFLeserProps) {
-  const [fileUrl, setFileUrl] = useState<string>("");
-  const [journalpostId, setJournalpostId] = useState<string>(journalposter[0]?.journalpostId ?? "");
-  const [dokumentInfoId, setDokumentInfoId] = useState<string>("");
+  const filModalRef = useRef<HTMLDialogElement>(null);
+  const [valgtFilUrl, setValgtFilUrl] = useState<string>("");
+  const [valgtJournalpost, setValgtJournalpost] = useState<
+    JournalpostQuery["journalpost"] | undefined
+  >(journalposter[0]);
 
-  useEffect(() => {
-    if (dokumentInfoId) {
-      hentDokument();
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dokumentInfoId]);
-
-  useEffect(() => {
-    setFileUrl("");
-    setDokumentInfoId("");
-  }, [journalpostId]);
-
-  async function hentDokument() {
-    // const journalpostId = "598116231";
+  async function hentDokument(dokumentInfoId: string) {
+    // const valgtJournalpost = "598116231";
     // const dokumentInfoId = "624863374";
     const variantFormat = "ARKIV";
 
-    if (!journalpostId || !dokumentInfoId) {
+    if (!valgtJournalpost || !dokumentInfoId) {
       return;
     }
 
-    const url = `/saksbehandling/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
+    const url = `/saksbehandling/api/hent-dokument/${valgtJournalpost.journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -47,12 +36,15 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
 
     const blob = await response.blob();
     const blobUrl = window.URL.createObjectURL(blob);
-    setFileUrl(blobUrl);
+    setValgtFilUrl(blobUrl);
   }
 
-  const currentActiveJournalpost = journalposter.find(
-    (journalpost) => journalpost?.journalpostId === journalpostId,
-  );
+  function velgJournalpost(journalpostId: string) {
+    const valgtJournalpost = journalposter.find(
+      (journalpost) => journalpost?.journalpostId === journalpostId,
+    );
+    setValgtJournalpost(valgtJournalpost);
+  }
 
   return (
     <div>
@@ -60,50 +52,66 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
         Dokumenter
       </Heading>
 
-      <div>
-        <Select
-          className={styles.dropdown}
-          label={"Velg Journalpost"}
-          onChange={(event) => setJournalpostId(event.currentTarget.value)}
-          value={journalpostId}
-        >
-          {journalposter.map((journalpost) => (
-            <option key={journalpost?.journalpostId} value={journalpost?.journalpostId}>
-              {journalpost?.tittel}
-            </option>
+      <Select
+        className={styles.dropdown}
+        label={"Velg Journalpost"}
+        onChange={(event) => velgJournalpost(event.currentTarget.value)}
+        value={valgtJournalpost?.journalpostId}
+      >
+        {journalposter.map((journalpost) => (
+          <option key={journalpost?.journalpostId} value={journalpost?.journalpostId}>
+            {journalpost?.tittel}
+          </option>
+        ))}
+      </Select>
+
+      {valgtJournalpost && (
+        <List as="ul" size="small" title="Filer">
+          {valgtJournalpost.dokumenter?.map((dokument) => (
+            <List.Item key={dokument?.dokumentInfoId}>
+              {dokument && (
+                <Button
+                  type="button"
+                  size="xsmall"
+                  variant="tertiary"
+                  onClick={() => {
+                    filModalRef.current?.showModal();
+                    hentDokument(dokument.dokumentInfoId);
+                  }}
+                >
+                  {dokument.tittel}
+                </Button>
+              )}
+            </List.Item>
           ))}
-        </Select>
-
-        {currentActiveJournalpost &&
-          currentActiveJournalpost.dokumenter?.find((dokument) => {
-            return !dokument?.dokumentvarianter[0]?.saksbehandlerHarTilgang;
-          }) && <Alert variant={"warning"}> AIIII DU HAR IKKE TILGANG</Alert>}
-
-        {currentActiveJournalpost && (
-          <Select
-            className={styles.dropdown}
-            label={"Velg Dokument"}
-            onChange={(event) => setDokumentInfoId(event.currentTarget.value)}
-            value={dokumentInfoId}
-          >
-            <option key={"velg-dokument"} value={""} hidden>
-              Velg dokument
-            </option>
-
-            {currentActiveJournalpost.dokumenter?.map((dokument) => (
-              <option key={dokument?.dokumentInfoId} value={dokument?.dokumentInfoId}>
-                {dokument?.tittel}
-              </option>
-            ))}
-          </Select>
-        )}
-      </div>
-
-      {fileUrl && (
-        <div className={styles.iframeWrapper}>
-          <iframe title={"Pdf leser"} src={fileUrl} className={styles.iframe}></iframe>
-        </div>
+        </List>
       )}
+
+      <Modal
+        className={styles.pdfModal}
+        ref={filModalRef}
+        closeOnBackdropClick
+        header={{
+          heading: "",
+          size: "small",
+          closeButton: true,
+        }}
+      >
+        <Modal.Body>
+          {!valgtFilUrl && (
+            <div className={styles.loaderContainer}>
+              <Loader size="3xlarge" title="Henter dokument..." />
+              Henter dokument...
+            </div>
+          )}
+
+          {valgtFilUrl && (
+            <div className={styles.iframeWrapper}>
+              <iframe title={"Pdf leser"} src={valgtFilUrl} className={styles.iframe}></iframe>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
