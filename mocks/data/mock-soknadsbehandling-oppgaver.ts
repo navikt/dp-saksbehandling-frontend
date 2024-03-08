@@ -6,7 +6,7 @@ export const generiskSoknadMock: IOppgave = {
   tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Søknadsbehandling"],
-  journalpostIder: [],
+  journalpostIder: ["123456789"],
   steg: [
     {
       stegNavn: "Alder",

@@ -26,7 +26,7 @@ let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img
 
 if (getEnv("IS_LOCALHOST")) {
   cspString =
-    "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';";
+    "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * blob: 'unsafe-inline'; img-src * 'self' blob: data:; 'unsafe-inline'; frame-src * data: blob:; style-src * 'unsafe-inline';";
 }
 
 export default function handleRequest(

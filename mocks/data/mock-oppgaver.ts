@@ -11,7 +11,7 @@ export const masterMenyMock: IOppgave = {
   tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",
   emneknagger: ["Konkurs Statoil"],
-  journalpostIder: [],
+  journalpostIder: ["123456789"],
   steg: [
     {
       stegNavn: "Ikke over 67 år",
@@ -144,7 +144,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   tidspunktOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
   tilstand: "TilBehandling",
-  journalpostIder: [],
+  journalpostIder: ["123456789"],
   steg: [
     {
       stegNavn: "Gjenopptak og 8 uker",
@@ -246,7 +246,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
   tidspunktOpprettet: "2023-04-25",
   emneknagger: ["Mulig avslag minsteinntekt"],
   tilstand: "FerdigBehandlet",
-  journalpostIder: [],
+  journalpostIder: ["123456789"],
   steg: [
     {
       stegNavn: "Gjenopptak / 8 uker",
