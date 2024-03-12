@@ -60,7 +60,10 @@ export default function OppgaveStegView() {
         <OppgaveSteg steg={steg} readonly={oppgaveErFerdigBehandlet(oppgave)} />
 
         {isNetworkResponseError(actionResponse) && (
-          <Alert variant="error">{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
+          <Alert
+            className="my-4"
+            variant="error"
+          >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
         )}
       </div>
 
