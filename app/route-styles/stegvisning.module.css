@@ -5,11 +5,21 @@
 
 .stegContainer {
   padding: var(--a-spacing-4);
-  background-color: #fafafa;
+  box-shadow: var(--a-shadow-xsmall);
+
+  position: relative;
+  z-index: 10;
+  min-height: calc(100vh - 48px);
 }
 
 .tabsContainer {
-  border-left: 1px solid var(--a-border-divider);
+  position: sticky;
+  top: 48px;
+  height: 100%;
+  max-height: calc(100vh - 48px);
+
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .tabPanel {

@@ -6,7 +6,6 @@ import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 import styles from "~/route-styles/oppgave.module.css";
-import { Navnestripe } from "~/components/navnestripe/Navnestripe";
 import { Alert } from "@navikt/ds-react";
 import { redirect } from "@remix-run/router";
 
@@ -27,8 +26,6 @@ export default function Oppgave() {
   const { oppgave } = useLoaderData<typeof loader>();
   return (
     <>
-      <Navnestripe navn={"Donald Duck"} ident={"12345678910"} />
-
       {oppgaveErFerdigBehandlet(oppgave) && (
         <Alert fullWidth={true} variant={"info"}>
           Ferdig behandlet: Ukjent utfall

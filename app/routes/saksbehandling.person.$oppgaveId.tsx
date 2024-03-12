@@ -2,7 +2,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { Navnestripe } from "~/components/navnestripe/Navnestripe";
 import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
 import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
@@ -59,14 +58,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function Person() {
   const { person, error } = useLoaderData<typeof loader>();
-  const fulltNavn = `${person?.navn[0].fornavn} ${person?.navn[0].mellomnavn ?? ""} ${
-    person?.navn[0].etternavn
-  }`;
 
   return (
     <>
       {error && <div>{error}</div>}
-      {person && <Navnestripe navn={fulltNavn} ident={"person.ident"} />}
       {person && <Personalia {...person} />}
       <main>
         <Outlet />

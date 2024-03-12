@@ -52,6 +52,8 @@ export default function OppgaveStegView() {
     });
   }
 
+  const mockPerson = { navn: "Donald Duck", ident: "12345678910" };
+
   return (
     <div className={styles.container}>
       <div className={styles.stegContainer}>
@@ -73,7 +75,7 @@ export default function OppgaveStegView() {
         </Tabs.List>
 
         <Tabs.Panel className={styles.tabPanel} value="opplysninger">
-          <OppgaveOpplysninger opplysninger={mockOppgaveOpplysninger} />
+          <OppgaveOpplysninger opplysninger={mockOppgaveOpplysninger} person={mockPerson} />
         </Tabs.Panel>
 
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">
