@@ -11,10 +11,10 @@ export interface IInputProps {
   name: string;
   svartype: IDataType;
   label?: string;
-  skjult?: boolean;
   verdi?: string;
-  className?: string;
+  skjult?: boolean;
   readonly?: boolean;
+  className?: string;
 }
 
 export function OpplysningInput(props: IInputProps) {
@@ -50,16 +50,15 @@ export function OpplysningInput(props: IInputProps) {
 
     case "Boolean":
       return (
-        <div className={cssClassNames}>
-          <OpplysningInputBoolean
-            name={name}
-            verdi={verdi}
-            label={label}
-            skjult={skjult}
-            svartype={svartype}
-            readonly={readonly}
-          />
-        </div>
+        <OpplysningInputBoolean
+          name={name}
+          verdi={verdi}
+          label={label}
+          skjult={skjult}
+          svartype={svartype}
+          readonly={readonly}
+          className={cssClassNames}
+        />
       );
 
     case "LocalDate":

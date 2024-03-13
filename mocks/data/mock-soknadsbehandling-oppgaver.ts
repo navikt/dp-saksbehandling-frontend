@@ -2,6 +2,7 @@ import type { IOppgave, IOppgaveSteg } from "~/models/oppgave.server";
 
 export const generiskSoknadMock: IOppgave = {
   oppgaveId: "msw-generisk-soknad",
+  behandlingId: "msw-generisk-behandling-id",
   personIdent: "msw-personmock",
   tidspunktOpprettet: "2024-01-01",
   tilstand: "TilBehandling",

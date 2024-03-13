@@ -9,11 +9,11 @@ export function OpplysningInputInt(props: IInputProps) {
   return (
     <TextField
       type="text"
-      inputMode="numeric"
-      defaultValue={verdi}
-      error={error}
-      readOnly={readonly}
       size="small"
+      error={error}
+      inputMode="numeric"
+      readOnly={readonly}
+      defaultValue={verdi}
       className={className}
       {...getInputProps()}
     />

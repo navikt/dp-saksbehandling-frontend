@@ -8,12 +8,12 @@ export function OpplysningInputTextarea(props: IInputProps) {
 
   return (
     <Textarea
-      defaultValue={verdi}
+      size="small"
       error={error}
       resize={true}
       readOnly={readonly}
+      defaultValue={verdi}
       className={className}
-      size="small"
       {...getInputProps()}
     />
   );

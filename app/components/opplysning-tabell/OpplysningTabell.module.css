@@ -1,3 +1,15 @@
 .tableCellOpplysningVerdi {
   display: flex;
 }
+
+.table tr td:nth-child(1) {
+  margin-left: var(--a-spacing-2);
+}
+
+.table tr td:nth-child(2) {
+  width: 150px;
+}
+
+.table tr td:nth-child(3) {
+  width: 70px;
+}

@@ -22,6 +22,7 @@ export interface IOppgaveSteg {
 
 export interface IOppgave {
   oppgaveId: string;
+  behandlingId: string;
   personIdent: string;
   tidspunktOpprettet: string;
   tilstand: IOppgaveTilstand;
@@ -31,7 +32,7 @@ export interface IOppgave {
   opplysninger: IOpplysning[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
 }
 
-export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet";
+export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet" | "KLAR_TIL_BEHANDLING";
 export type IOppgaveStegTilstand = "Groenn" | "Gul" | "Roed";
 export type IDataType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 

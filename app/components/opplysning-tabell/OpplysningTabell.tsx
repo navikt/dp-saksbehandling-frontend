@@ -4,6 +4,7 @@ import { OpplysningInput } from "~/components/opplysning-input/OpplysningInput";
 import type { IOpplysning } from "~/models/oppgave.server";
 import { ExclamationmarkTriangleFillIcon } from "@navikt/aksel-icons";
 import styles from "./OpplysningTabell.module.css";
+import classnames from "classnames";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -11,7 +12,7 @@ interface IProps {
 
 export function OpplysningTabell(props: IProps) {
   return (
-    <Table className="kompakt-tabell">
+    <Table className={classnames("kompakt-tabell", styles.table)}>
       <Table.Body>
         {props.opplysninger.map((opplysning) => (
           <OpplysningTabellLinje key={opplysning.opplysningNavn} {...opplysning} />

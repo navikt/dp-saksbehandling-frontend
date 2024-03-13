@@ -7,13 +7,13 @@ export function OpplysningInputDouble(props: IInputProps) {
   const { error, getInputProps } = useField(name);
   return (
     <TextField
+      size="small"
       type="text"
-      inputMode="decimal"
-      defaultValue={verdi?.replace(/\./g, ",")}
       error={error}
+      inputMode="decimal"
       readOnly={readonly}
       className={className}
-      size="small"
+      defaultValue={verdi?.replace(/\./g, ",")}
       {...getInputProps()}
     />
   );

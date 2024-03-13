@@ -8,12 +8,12 @@ export function OpplysningInputString(props: IInputProps) {
 
   return (
     <TextField
+      size="small"
       type="text"
-      defaultValue={verdi}
       error={error}
       readOnly={readonly}
+      defaultValue={verdi}
       className={className}
-      size="small"
       {...getInputProps()}
     />
   );

@@ -3,15 +3,16 @@ import { useField } from "remix-validated-form";
 import type { IInputProps } from "~/components/opplysning-input/OpplysningInput";
 
 export function OpplysningInputBoolean(props: IInputProps) {
-  const { name, verdi, readonly } = props;
+  const { name, verdi, readonly, className } = props;
   const { error, getInputProps } = useField(name);
 
   return (
     <RadioGroup
-      error={error}
-      defaultValue={verdi}
-      readOnly={readonly}
       size="small"
+      error={error}
+      readOnly={readonly}
+      defaultValue={verdi}
+      className={className}
       {...getInputProps()}
     >
       <Radio value={"true"}>{"Ja"}</Radio>
