@@ -20,14 +20,8 @@ export function HeaderMeny({ saksbehandler }: IProps) {
         >
           Oppgaver til behandling
         </Link>
-        <Link
-          to={`${getEnv("BASE_PATH")}/oppgaver-behandlet`}
-          className={styles.linkItem}
-          data-testid={"benken-behandlet-menu-button"}
-        >
-          Behandlede oppgaver
-        </Link>
       </div>
+
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
         <HeaderUtloggingMeny saksbehandler={saksbehandler} />

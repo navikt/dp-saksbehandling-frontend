@@ -9,7 +9,7 @@ export interface IOpplysningSvar {
 }
 export interface IOpplysning {
   opplysningNavn: string;
-  status: "Faktum" | "Hypotese";
+  status: "FAKTUM" | "HYPOTESE";
   dataType: IDataType;
   svar: IOpplysningSvar | null;
 }
@@ -32,9 +32,9 @@ export interface IOppgave {
   opplysninger: IOpplysning[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
 }
 
-export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet" | "KLAR_TIL_BEHANDLING";
-export type IStegTilstand = "Groenn" | "Gul" | "Roed";
-export type IDataType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
+export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";
+export type IStegTilstand = "OPPFYLT" | "IKKE_OPPFYLT" | "MANUELL_BEHANDLING";
+export type IDataType = "INT" | "DOUBLE" | "BOOLEAN" | "LOCALDATE" | "STRING";
 
 export async function hentOppgaver(
   session: SessionWithOboProvider,

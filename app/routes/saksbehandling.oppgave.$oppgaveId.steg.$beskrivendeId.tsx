@@ -15,7 +15,6 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { parseSkjemadata } from "~/utils/steg.utils";
 import { validationError } from "remix-validated-form";
 import { isNetworkResponseError } from "~/utils/type-guards";
-import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
@@ -57,7 +56,7 @@ export default function OppgaveStegView() {
   return (
     <div className={styles.container}>
       <div className={styles.stegContainer}>
-        <OppgaveSteg steg={steg} readonly={oppgaveErFerdigBehandlet(oppgave)} />
+        <OppgaveSteg steg={steg} />
 
         {isNetworkResponseError(actionResponse) && (
           <Alert
@@ -92,24 +91,24 @@ export default function OppgaveStegView() {
 const mockOppgaveOpplysninger: IOpplysning[] = [
   {
     opplysningNavn: "Faktisk søknadsdato",
-    dataType: "LocalDate",
-    status: "Faktum",
+    dataType: "LOCALDATE",
+    status: "FAKTUM",
     svar: {
       verdi: "2024-02-11",
     },
   },
   {
     opplysningNavn: "Søknadsdato",
-    dataType: "LocalDate",
-    status: "Faktum",
+    dataType: "LOCALDATE",
+    status: "FAKTUM",
     svar: {
       verdi: "2024-02-11",
     },
   },
   {
     opplysningNavn: "Virkningsdato",
-    dataType: "LocalDate",
-    status: "Faktum",
+    dataType: "LOCALDATE",
+    status: "FAKTUM",
     svar: {
       verdi: "2024-02-14",
     },

@@ -10,128 +10,128 @@ export const masterMenyMock: IOppgave = {
   behandlingId: "msw-behandling-id-1",
   personIdent: "msw-personmock-statoil",
   tidspunktOpprettet: "2024-01-01",
-  tilstand: "TilBehandling",
+  tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Konkurs Statoil"],
   journalpostIder: ["123456789"],
   steg: [
     {
       beskrivendeId: "Ikke over 67 år",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Mangler dokumentasjon",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Utdanning",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Reell arbeidsøker",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Ikke utestengt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Lovvalg",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Medlem",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Opphold i Norge",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Registrert som arbeidsøker",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Minste arbeidsinntekt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [
         {
           opplysningNavn: "Svangerskapsrelaterte sykepenger",
-          dataType: "Boolean",
-          status: "Faktum",
+          dataType: "BOOLEAN",
+          status: "FAKTUM",
           svar: {
             verdi: "true",
           },
         },
         {
           opplysningNavn: "eøs inntekter",
-          dataType: "Boolean",
-          status: "Faktum",
+          dataType: "BOOLEAN",
+          status: "FAKTUM",
           svar: {
             verdi: "true",
           },
         },
         {
           opplysningNavn: "inntekter neste måned",
-          dataType: "Boolean",
-          status: "Faktum",
+          dataType: "BOOLEAN",
+          status: "FAKTUM",
           svar: {
             verdi: "true",
           },
         },
         {
           opplysningNavn: "jobbet utenfor norge",
-          dataType: "Boolean",
-          status: "Faktum",
+          dataType: "BOOLEAN",
+          status: "FAKTUM",
           svar: null,
         },
       ],
     },
     {
       beskrivendeId: "Tapt arbeidsinntekt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Tapt arbeidstid",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Ikke fulle folketrygdytelser",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
   ],
   opplysninger: [
     {
       opplysningNavn: "soknaddato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "true",
       },
     },
     {
       opplysningNavn: "virkningsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "true",
       },
     },
     {
       opplysningNavn: "beregningsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "true",
       },
@@ -148,289 +148,185 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   tilstand: "KLAR_TIL_BEHANDLING",
   steg: [
     {
-      beskrivendeId: "steg-minsteinntekt",
+      beskrivendeId: "steg.minsteinntekt",
       opplysninger: [
         {
           opplysningNavn: "Minsteinntekt",
-          status: "Hypotese",
-          dataType: "Boolean",
+          status: "HYPOTESE",
+          dataType: "BOOLEAN",
           svar: {
             verdi: "false",
           },
         },
         {
           opplysningNavn: "Inntekt er over kravet for siste 12 mnd",
-          status: "Hypotese",
-          dataType: "Boolean",
+          status: "HYPOTESE",
+          dataType: "BOOLEAN",
           svar: {
             verdi: "false",
           },
         },
         {
           opplysningNavn: "InntektSiste12Mnd",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "0.0",
           },
         },
         {
           opplysningNavn: "Inntektskrav for siste 12 mnd",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "177930.0",
           },
         },
         {
           opplysningNavn: "Antall G for krav til 12 mnd inntekt",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "1.5",
           },
         },
         {
           opplysningNavn: "Virkningsdato",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
           },
         },
         {
           opplysningNavn: "Fødselsdato",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
           },
         },
         {
           opplysningNavn: "Søknadstidspunkt",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
           },
         },
         {
           opplysningNavn: "Grunnbeløp",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "118620.0",
           },
         },
         {
           opplysningNavn: "Inntekt er over kravet for siste 36 mnd",
-          status: "Hypotese",
-          dataType: "Boolean",
+          status: "HYPOTESE",
+          dataType: "BOOLEAN",
           svar: {
             verdi: "false",
           },
         },
         {
           opplysningNavn: "InntektSiste36Mnd",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "0.0",
           },
         },
         {
           opplysningNavn: "Inntektskrav for siste 36 mnd",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "355860.0",
           },
         },
         {
           opplysningNavn: "Antall G for krav til 36 mnd inntekt",
-          status: "Hypotese",
-          dataType: "Double",
+          status: "HYPOTESE",
+          dataType: "DOUBLE",
           svar: {
             verdi: "3.0",
           },
         },
       ],
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
     },
     {
-      beskrivendeId: "steg-alder",
+      beskrivendeId: "steg.alder",
       opplysninger: [
         {
           opplysningNavn: "Oppfyller kravet til alder",
-          status: "Hypotese",
-          dataType: "Boolean",
+          status: "HYPOTESE",
+          dataType: "BOOLEAN",
           svar: {
             verdi: "true",
           },
         },
         {
           opplysningNavn: "Virkningsdato",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
           },
         },
         {
           opplysningNavn: "Fødselsdato",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
           },
         },
         {
           opplysningNavn: "Søknadstidspunkt",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
           },
         },
         {
           opplysningNavn: "Siste mulige dag bruker kan oppfylle alderskrav",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
           },
         },
         {
           opplysningNavn: "Dato søker når maks alder",
-          status: "Hypotese",
-          dataType: "LocalDate",
+          status: "HYPOTESE",
+          dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
           },
         },
         {
           opplysningNavn: "Aldersgrense",
-          status: "Hypotese",
-          dataType: "Int",
+          status: "HYPOTESE",
+          dataType: "INT",
           svar: {
             verdi: "67",
           },
         },
       ],
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
     },
   ],
   journalpostIder: [],
   opplysninger: [],
 };
-export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
-  oppgaveId: "msw-ferdig-minsteinntekt-avslag-oppgave",
-  behandlingId: "msw-behandling-id",
-  personIdent: "12345678910",
-  tidspunktOpprettet: "2023-04-25",
-  emneknagger: ["Mulig avslag minsteinntekt"],
-  tilstand: "FerdigBehandlet",
-  journalpostIder: ["123456789"],
-  steg: [
-    {
-      beskrivendeId: "Gjenopptak / 8 uker",
-      tilstand: "Groenn",
-      opplysninger: [
-        {
-          opplysningNavn: "Mulig gjenopptak",
-          dataType: "Boolean",
-          status: "Faktum",
-          svar: {
-            verdi: "true",
-          },
-        },
-        {
-          opplysningNavn: "Har hatt lukkede saker siste 8 uker",
-          dataType: "Boolean",
-          status: "Faktum",
-          svar: null,
-        },
-      ],
-    },
-    {
-      beskrivendeId: "Minste arbeidsinntekt",
-      tilstand: "Groenn",
-      opplysninger: [
-        {
-          opplysningNavn: "Svangerskapsrelaterte sykepenger",
-          dataType: "Boolean",
-          status: "Faktum",
-          svar: null,
-        },
-        {
-          opplysningNavn: "Det er inntekt neste kalendermåned",
-          dataType: "Boolean",
-          status: "Faktum",
-          svar: null,
-        },
-      ],
-      // inntektsopplysninger: [
-      //   {
-      //     id: "siste-12",
-      //     fraDato: "01.01.2023",
-      //     tilDato: "01.01.2024",
-      //     inntekt: 450000,
-      //     inntektPeriode: [
-      //       {
-      //         arbeidsgiver: "Kokkemannen mega mat",
-      //         fraDato: "01.01.2023",
-      //         tilDato: "01.02.2023",
-      //         inntekt: 37500,
-      //       },
-      //       {
-      //         arbeidsgiver: "Kokkemannen mega mat",
-      //         fraDato: "01.02.2023",
-      //         tilDato: "01.03.2023",
-      //         inntekt: 37500,
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: "siste-36",
-      //     fraDato: "01.01.2021",
-      //     tilDato: "01.01.2024",
-      //     inntekt: 1200000,
-      //   },
-      // ],
-    },
-  ],
-  opplysninger: [
-    {
-      opplysningNavn: "soknaddato",
-      dataType: "LocalDate",
-      status: "Faktum",
-      svar: {
-        verdi: "true",
-      },
-    },
-    {
-      opplysningNavn: "virkningsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
-      svar: {
-        verdi: "true",
-      },
-    },
-    {
-      opplysningNavn: "beregningsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
-      svar: {
-        verdi: "true",
-      },
-    },
-  ],
-};
 
 export const mockOppgaver: IOppgave[] = [
   masterMenyMock,
   minsteinntektAvslagOppgave,
-  ferdigBehandletMinsteinntektAvslagOppgave,
   soknadMedAlderskravMock,
   soknadMedReellArbeidssokerAltJaMock,
   soknadMedReellArbeidssokerFritakMock,

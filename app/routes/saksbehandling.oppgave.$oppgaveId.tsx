@@ -2,7 +2,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import type { IOppgave } from "~/models/oppgave.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -26,12 +25,6 @@ export default function Oppgave() {
   const { oppgave } = useLoaderData<typeof loader>();
   return (
     <>
-      {oppgaveErFerdigBehandlet(oppgave) && (
-        <Alert fullWidth={true} variant={"info"}>
-          Ferdig behandlet: Ukjent utfall
-        </Alert>
-      )}
-
       {oppgave.steg.length === 0 && (
         <Alert fullWidth={true} variant={"warning"}>
           Regelmotor jobber med å opprette steg
@@ -43,7 +36,4 @@ export default function Oppgave() {
       </div>
     </>
   );
-}
-export function oppgaveErFerdigBehandlet(oppgave: IOppgave) {
-  return oppgave.tilstand === "FerdigBehandlet";
 }

@@ -11,7 +11,7 @@
   background-color: var(--a-orange-400);
 }
 
-.kulepunktMaaRoed::before {
+.kulepunktRoed::before {
   background-color: var(--a-red-400);
 }
 

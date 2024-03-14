@@ -5,97 +5,97 @@ export const generiskSoknadMock: IOppgave = {
   behandlingId: "msw-generisk-behandling-id",
   personIdent: "msw-personmock",
   tidspunktOpprettet: "2024-01-01",
-  tilstand: "TilBehandling",
+  tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Søknadsbehandling"],
   journalpostIder: ["123456789"],
   steg: [
     {
       beskrivendeId: "Alder",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Mangler dokumentasjon",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Utdanning",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Reell arbeidsøker",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Ikke utestengt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Lovvalg",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Medlem",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Opphold i Norge",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Registrert som arbeidsøker",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Minste arbeidsinntekt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Tapt arbeidsinntekt",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Tapt arbeidstid",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
     {
       beskrivendeId: "Ikke fulle folketrygdytelser",
-      tilstand: "Groenn",
+      tilstand: "MANUELL_BEHANDLING",
       opplysninger: [],
     },
   ],
   opplysninger: [
     {
       opplysningNavn: "soknaddato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "true",
       },
     },
     {
       opplysningNavn: "virkningsdato",
-      dataType: "LocalDate",
-      status: "Hypotese",
+      dataType: "LOCALDATE",
+      status: "HYPOTESE",
       svar: {
         verdi: "true",
       },
     },
     {
       opplysningNavn: "beregningsdato",
-      dataType: "LocalDate",
-      status: "Hypotese",
+      dataType: "LOCALDATE",
+      status: "HYPOTESE",
       svar: {
         verdi: "true",
       },
@@ -105,28 +105,28 @@ export const generiskSoknadMock: IOppgave = {
 
 const aldersKravOppfyltEksempel: ISteg = {
   beskrivendeId: "Alder",
-  tilstand: "Groenn",
+  tilstand: "MANUELL_BEHANDLING",
   opplysninger: [
     {
       opplysningNavn: "Foedselsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "1976-10-19",
       },
     },
     {
       opplysningNavn: "Siste mulige dag alderskravet er oppfylt",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "2043-10-31",
       },
     },
     {
       opplysningNavn: "Virkningsdato",
-      dataType: "LocalDate",
-      status: "Faktum",
+      dataType: "LOCALDATE",
+      status: "FAKTUM",
       svar: {
         verdi: "2023-05-12",
       },
@@ -152,7 +152,7 @@ export const soknadMedAlderskravMock = {
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
 const reellArbeidssokerOppfyltEksempel: ISteg = {
   beskrivendeId: "Reell arbeidsøker",
-  tilstand: "Groenn",
+  tilstand: "MANUELL_BEHANDLING",
   opplysninger: [],
 };
 
@@ -166,12 +166,12 @@ export const soknadMedReellArbeidssokerAltJaMock = {
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
 const reellArbeidssokerFritakEksempel: ISteg = {
   beskrivendeId: "Reell arbeidsøker",
-  tilstand: "Groenn",
+  tilstand: "MANUELL_BEHANDLING",
   opplysninger: [
     {
       opplysningNavn: "Fritak fra å ta jobb i hele Norge",
-      dataType: "Boolean",
-      status: "Hypotese",
+      dataType: "BOOLEAN",
+      status: "HYPOTESE",
       svar: {
         verdi: "True",
       },

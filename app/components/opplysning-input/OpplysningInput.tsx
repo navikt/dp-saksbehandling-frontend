@@ -22,7 +22,7 @@ export function OpplysningInput(props: IInputProps) {
   const cssClassNames = classNames(styles.input, className, { [styles.skjult]: skjult });
 
   switch (svartype) {
-    case "Int":
+    case "INT":
       return (
         <OpplysningInputInt
           name={name}
@@ -35,7 +35,7 @@ export function OpplysningInput(props: IInputProps) {
         />
       );
 
-    case "Double":
+    case "DOUBLE":
       return (
         <OpplysningInputDouble
           name={name}
@@ -48,7 +48,7 @@ export function OpplysningInput(props: IInputProps) {
         />
       );
 
-    case "Boolean":
+    case "BOOLEAN":
       return (
         <OpplysningInputBoolean
           name={name}
@@ -61,7 +61,7 @@ export function OpplysningInput(props: IInputProps) {
         />
       );
 
-    case "LocalDate":
+    case "LOCALDATE":
       return (
         <OpplysningInputDato
           name={name}
@@ -74,7 +74,7 @@ export function OpplysningInput(props: IInputProps) {
         />
       );
 
-    case "String":
+    case "STRING":
       return (
         <OpplysningInputString
           name={name}

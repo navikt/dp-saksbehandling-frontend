@@ -8,9 +8,9 @@ export function OppgaveStegMenyPunkt(steg: ISteg) {
   const stegTekst = useStegTekst(steg.beskrivendeId);
 
   const kulepunktKlasser = classNames(styles.kulepunkt, {
-    [styles.kulepunktGroenn]: steg.tilstand === "Groenn",
-    [styles.kulepunktGul]: steg.tilstand === "Gul",
-    [styles.kulepunktMaaRoed]: steg.tilstand === "Roed",
+    [styles.kulepunktGroenn]: steg.tilstand === "OPPFYLT",
+    [styles.kulepunktRoed]: steg.tilstand === "IKKE_OPPFYLT",
+    [styles.kulepunktGul]: steg.tilstand === "MANUELL_BEHANDLING",
   });
 
   return (

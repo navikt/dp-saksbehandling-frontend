@@ -2,12 +2,10 @@ import { Table, Tag } from "@navikt/ds-react";
 import React from "react";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "../RemixLink";
-import { oppgaveErFerdigBehandlet } from "~/routes/saksbehandling.oppgave.$oppgaveId";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function OppgaveListe() {
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
-  const aapneSaker = oppgaver.filter((oppgave) => !oppgaveErFerdigBehandlet(oppgave));
 
   return (
     <Table zebraStripes={true}>
@@ -22,7 +20,7 @@ export function OppgaveListe() {
       </Table.Header>
 
       <Table.Body>
-        {aapneSaker?.map((oppgave) => {
+        {oppgaver?.map((oppgave) => {
           const { oppgaveId, personIdent, tidspunktOpprettet, tilstand, emneknagger } = oppgave;
           return (
             <Table.Row key={oppgave.oppgaveId}>

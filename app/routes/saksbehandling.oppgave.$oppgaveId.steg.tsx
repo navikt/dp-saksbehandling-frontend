@@ -72,26 +72,24 @@ export default function OppgaveStegView() {
           ))}
         </ul>
 
-        {oppgave.tilstand !== "FerdigBehandlet" && (
-          <div className={styles.buttonContainerColumn}>
-            <Button
-              type="button"
-              variant="primary"
-              size="small"
-              onClick={() => setAktivModalId("avslag")}
-            >
-              Send til automatisk avslag
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              size="small"
-              onClick={() => setAktivModalId("lukk")}
-            >
-              Send til vanlig saksflyt i Arena
-            </Button>
-          </div>
-        )}
+        <div className={styles.buttonContainerColumn}>
+          <Button
+            type="button"
+            variant="primary"
+            size="small"
+            onClick={() => setAktivModalId("avslag")}
+          >
+            Send til automatisk avslag
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            size="small"
+            onClick={() => setAktivModalId("lukk")}
+          >
+            Send til vanlig saksflyt i Arena
+          </Button>
+        </div>
 
         <Modal
           open={!!aktivModalId}
