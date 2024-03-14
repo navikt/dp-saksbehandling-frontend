@@ -1,18 +1,18 @@
-import { type IOppgaveSteg } from "~/models/oppgave.server";
+import { type ISteg } from "~/models/oppgave.server";
 import { OppgaveStegGenerell } from "./OppgaveStegGenerell";
 
 import { OppgaveStegTaptArbeidstid } from "~/components/oppgave-steg-tapt-arbeidstid/OppgaveStegTaptArbeidstid";
 import { OppgaveStegAlder } from "~/components/oppgave-steg-alder/OppgaveStegAlder";
 
 export interface IOppgaveStegProps {
-  steg: IOppgaveSteg;
+  steg: ISteg;
   readonly?: boolean;
 }
 
 export function OppgaveSteg(props: IOppgaveStegProps) {
   const { steg } = props;
 
-  switch (steg.stegNavn) {
+  switch (steg.urn) {
     case "Tapt arbeidstid":
       return <OppgaveStegTaptArbeidstid />;
 

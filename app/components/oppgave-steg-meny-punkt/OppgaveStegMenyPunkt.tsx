@@ -1,9 +1,9 @@
 import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
-import type { IOppgaveSteg } from "~/models/oppgave.server";
+import type { ISteg } from "~/models/oppgave.server";
 import styles from "./OppgaveStegMenyPunkt.module.css";
 
-export function OppgaveStegMenyPunkt(behandlingSteg: IOppgaveSteg) {
+export function OppgaveStegMenyPunkt(behandlingSteg: ISteg) {
   const kulepunktKlasser = classNames(styles.kulepunkt, {
     [styles.kulepunktGroenn]: behandlingSteg.tilstand === "Groenn",
     [styles.kulepunktGul]: behandlingSteg.tilstand === "Gul",
@@ -13,24 +13,13 @@ export function OppgaveStegMenyPunkt(behandlingSteg: IOppgaveSteg) {
   return (
     <li>
       <NavLink
-        to={`${behandlingSteg.stegNavn}`}
+        to={`${behandlingSteg.urn}`}
         className={({ isActive }) =>
           isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser
         }
       >
-        {TektstForStegNavn(behandlingSteg.stegNavn)}
+        {behandlingSteg.urn}
       </NavLink>
     </li>
   );
-}
-
-function TektstForStegNavn(stegNavn: string) {
-  switch (stegNavn) {
-    case "Gjenopptak / 8 uker":
-      return "Gjenopptak eller lukket sak";
-    case "Minste arbeidsinntekt":
-      return "Minste arbeidsinntekt";
-    default:
-      return stegNavn;
-  }
 }

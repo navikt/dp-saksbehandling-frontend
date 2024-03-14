@@ -43,7 +43,7 @@ export default function SaksbehandlingOppgaverBehandlet() {
                 </Table.DataCell>
                 <Table.DataCell>
                   <RemixLink
-                    to={`/saksbehandling/oppgave/${oppgaveId}/steg/${steg[0].stegNavn}`}
+                    to={`/saksbehandling/oppgave/${oppgaveId}/steg/${steg[0].urn}`}
                     asButtonVariant="primary"
                   >
                     Behandle

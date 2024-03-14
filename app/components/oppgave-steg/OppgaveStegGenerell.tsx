@@ -1,13 +1,15 @@
 import { ValidatedForm } from "remix-validated-form";
-import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegNavn";
-import { Alert, BodyLong, Button, Heading } from "@navikt/ds-react";
+import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUrn";
+import { BodyLong, Button, Heading } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
 import { useLocation, useNavigation } from "@remix-run/react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
+import { useStegTekst } from "~/hooks/useStegTekst";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
   const { steg, readonly } = props;
+  const stegTekst = useStegTekst(steg.urn);
 
   const location = useLocation();
   const navigation = useNavigation();
@@ -19,18 +21,8 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
 
   return (
     <>
-      <Heading size="large">{steg.stegNavn}</Heading>
-
-      <BodyLong>
-        For å ha rett til dagpenger må medlemmet være reell arbeidssøker. Som reell arbeidssøker
-        regnes den som er arbeidsfør og er villig til å ta ethvert arbeid, hvor som helst i Norge,
-        uavhengig av om det er heltid eller deltid, og delta på arbeidsmarkedstiltak.
-      </BodyLong>
-
-      <Alert className="-mx-4" variant="warning" size="small" fullWidth={true}>
-        Det er søkt om å være deltidssøker - Sjekk om det er grunnlag og bekreft om dette skal
-        godkjennes
-      </Alert>
+      <Heading size="large">{stegTekst?.tittel}</Heading>
+      <BodyLong>{stegTekst?.beskrivelse}</BodyLong>
 
       <ValidatedForm
         className="mt-8"

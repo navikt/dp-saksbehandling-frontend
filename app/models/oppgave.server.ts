@@ -14,9 +14,9 @@ export interface IOpplysning {
   svar: IOpplysningSvar | null;
 }
 
-export interface IOppgaveSteg {
-  stegNavn: string;
-  tilstand: IOppgaveStegTilstand;
+export interface ISteg {
+  urn: string;
+  tilstand: IStegTilstand;
   opplysninger: IOpplysning[];
 }
 
@@ -28,12 +28,12 @@ export interface IOppgave {
   tilstand: IOppgaveTilstand;
   emneknagger: string[];
   journalpostIder: string[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
-  steg: IOppgaveSteg[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
+  steg: ISteg[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
   opplysninger: IOpplysning[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
 }
 
 export type IOppgaveTilstand = "TilBehandling" | "FerdigBehandlet" | "KLAR_TIL_BEHANDLING";
-export type IOppgaveStegTilstand = "Groenn" | "Gul" | "Roed";
+export type IStegTilstand = "Groenn" | "Gul" | "Roed";
 export type IDataType = "Int" | "Double" | "Boolean" | "LocalDate" | "String";
 
 export async function hentOppgaver(

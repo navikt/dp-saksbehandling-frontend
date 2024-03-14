@@ -1,4 +1,4 @@
-import type { IOppgave, IOppgaveSteg } from "~/models/oppgave.server";
+import type { IOppgave, ISteg } from "~/models/oppgave.server";
 
 export const generiskSoknadMock: IOppgave = {
   oppgaveId: "msw-generisk-soknad",
@@ -10,67 +10,67 @@ export const generiskSoknadMock: IOppgave = {
   journalpostIder: ["123456789"],
   steg: [
     {
-      stegNavn: "Alder",
+      urn: "Alder",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Mangler dokumentasjon",
+      urn: "Mangler dokumentasjon",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Utdanning",
+      urn: "Utdanning",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Reell arbeidsøker",
+      urn: "Reell arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Ikke utestengt",
+      urn: "Ikke utestengt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Lovvalg",
+      urn: "Lovvalg",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Medlem",
+      urn: "Medlem",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Opphold i Norge",
+      urn: "Opphold i Norge",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Registrert som arbeidsøker",
+      urn: "Registrert som arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Minste arbeidsinntekt",
+      urn: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Tapt arbeidsinntekt",
+      urn: "Tapt arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Tapt arbeidstid",
+      urn: "Tapt arbeidstid",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      stegNavn: "Ikke fulle folketrygdytelser",
+      urn: "Ikke fulle folketrygdytelser",
       tilstand: "Groenn",
       opplysninger: [],
     },
@@ -103,8 +103,8 @@ export const generiskSoknadMock: IOppgave = {
   ],
 };
 
-const aldersKravOppfyltEksempel: IOppgaveSteg = {
-  stegNavn: "Alder",
+const aldersKravOppfyltEksempel: ISteg = {
+  urn: "Alder",
   tilstand: "Groenn",
   opplysninger: [
     {
@@ -134,15 +134,11 @@ const aldersKravOppfyltEksempel: IOppgaveSteg = {
   ],
 };
 
-function byttUtSteg(
-  steg: IOppgaveSteg[],
-  listeAvStegSomSkalByttesUt: IOppgaveSteg[],
-): IOppgaveSteg[] {
+function byttUtSteg(steg: ISteg[], listeAvStegSomSkalByttesUt: ISteg[]): ISteg[] {
   return steg.map(
     (steg) =>
-      listeAvStegSomSkalByttesUt.find(
-        (stegSomSkalByttes) => stegSomSkalByttes.stegNavn === steg.stegNavn,
-      ) || steg,
+      listeAvStegSomSkalByttesUt.find((stegSomSkalByttes) => stegSomSkalByttes.urn === steg.urn) ||
+      steg,
   );
 }
 
@@ -153,8 +149,8 @@ export const soknadMedAlderskravMock = {
 };
 
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
-const reellArbeidssokerOppfyltEksempel: IOppgaveSteg = {
-  stegNavn: "Reell arbeidsøker",
+const reellArbeidssokerOppfyltEksempel: ISteg = {
+  urn: "Reell arbeidsøker",
   tilstand: "Groenn",
   opplysninger: [],
 };
@@ -167,8 +163,8 @@ export const soknadMedReellArbeidssokerAltJaMock = {
 };
 
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
-const reellArbeidssokerFritakEksempel: IOppgaveSteg = {
-  stegNavn: "Reell arbeidsøker",
+const reellArbeidssokerFritakEksempel: ISteg = {
+  urn: "Reell arbeidsøker",
   tilstand: "Groenn",
   opplysninger: [
     {
