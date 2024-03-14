@@ -68,7 +68,7 @@ export default function OppgaveStegView() {
       <div className={styles.oppgaveStegContainer}>
         <ul>
           {oppgave.steg.map((steg) => (
-            <OppgaveStegMenyPunkt key={steg.urn} {...steg} />
+            <OppgaveStegMenyPunkt key={steg.beskrivendeId} {...steg} />
           ))}
         </ul>
 

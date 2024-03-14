@@ -10,67 +10,67 @@ export const generiskSoknadMock: IOppgave = {
   journalpostIder: ["123456789"],
   steg: [
     {
-      urn: "Alder",
+      beskrivendeId: "Alder",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Mangler dokumentasjon",
+      beskrivendeId: "Mangler dokumentasjon",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Utdanning",
+      beskrivendeId: "Utdanning",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Reell arbeidsøker",
+      beskrivendeId: "Reell arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Ikke utestengt",
+      beskrivendeId: "Ikke utestengt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Lovvalg",
+      beskrivendeId: "Lovvalg",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Medlem",
+      beskrivendeId: "Medlem",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Opphold i Norge",
+      beskrivendeId: "Opphold i Norge",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Registrert som arbeidsøker",
+      beskrivendeId: "Registrert som arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Minste arbeidsinntekt",
+      beskrivendeId: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Tapt arbeidsinntekt",
+      beskrivendeId: "Tapt arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Tapt arbeidstid",
+      beskrivendeId: "Tapt arbeidstid",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Ikke fulle folketrygdytelser",
+      beskrivendeId: "Ikke fulle folketrygdytelser",
       tilstand: "Groenn",
       opplysninger: [],
     },
@@ -104,7 +104,7 @@ export const generiskSoknadMock: IOppgave = {
 };
 
 const aldersKravOppfyltEksempel: ISteg = {
-  urn: "Alder",
+  beskrivendeId: "Alder",
   tilstand: "Groenn",
   opplysninger: [
     {
@@ -137,8 +137,9 @@ const aldersKravOppfyltEksempel: ISteg = {
 function byttUtSteg(steg: ISteg[], listeAvStegSomSkalByttesUt: ISteg[]): ISteg[] {
   return steg.map(
     (steg) =>
-      listeAvStegSomSkalByttesUt.find((stegSomSkalByttes) => stegSomSkalByttes.urn === steg.urn) ||
-      steg,
+      listeAvStegSomSkalByttesUt.find(
+        (stegSomSkalByttes) => stegSomSkalByttes.beskrivendeId === steg.beskrivendeId,
+      ) || steg,
   );
 }
 
@@ -150,7 +151,7 @@ export const soknadMedAlderskravMock = {
 
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
 const reellArbeidssokerOppfyltEksempel: ISteg = {
-  urn: "Reell arbeidsøker",
+  beskrivendeId: "Reell arbeidsøker",
   tilstand: "Groenn",
   opplysninger: [],
 };
@@ -164,7 +165,7 @@ export const soknadMedReellArbeidssokerAltJaMock = {
 
 //todo: hvor putter vi informasjon fra registre hvis det ikke skal være opplysninger vi bekrefter?
 const reellArbeidssokerFritakEksempel: ISteg = {
-  urn: "Reell arbeidsøker",
+  beskrivendeId: "Reell arbeidsøker",
   tilstand: "Groenn",
   opplysninger: [
     {

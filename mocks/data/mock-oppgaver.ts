@@ -15,52 +15,52 @@ export const masterMenyMock: IOppgave = {
   journalpostIder: ["123456789"],
   steg: [
     {
-      urn: "Ikke over 67 år",
+      beskrivendeId: "Ikke over 67 år",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Mangler dokumentasjon",
+      beskrivendeId: "Mangler dokumentasjon",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Utdanning",
+      beskrivendeId: "Utdanning",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Reell arbeidsøker",
+      beskrivendeId: "Reell arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Ikke utestengt",
+      beskrivendeId: "Ikke utestengt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Lovvalg",
+      beskrivendeId: "Lovvalg",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Medlem",
+      beskrivendeId: "Medlem",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Opphold i Norge",
+      beskrivendeId: "Opphold i Norge",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Registrert som arbeidsøker",
+      beskrivendeId: "Registrert som arbeidsøker",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Minste arbeidsinntekt",
+      beskrivendeId: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
         {
@@ -96,17 +96,17 @@ export const masterMenyMock: IOppgave = {
       ],
     },
     {
-      urn: "Tapt arbeidsinntekt",
+      beskrivendeId: "Tapt arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Tapt arbeidstid",
+      beskrivendeId: "Tapt arbeidstid",
       tilstand: "Groenn",
       opplysninger: [],
     },
     {
-      urn: "Ikke fulle folketrygdytelser",
+      beskrivendeId: "Ikke fulle folketrygdytelser",
       tilstand: "Groenn",
       opplysninger: [],
     },
@@ -148,7 +148,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   tilstand: "KLAR_TIL_BEHANDLING",
   steg: [
     {
-      urn: "urn:steg:minsteinntekt",
+      beskrivendeId: "steg-minsteinntekt",
       opplysninger: [
         {
           opplysningNavn: "Minsteinntekt",
@@ -258,7 +258,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       tilstand: "Groenn",
     },
     {
-      urn: "urn:steg:alder",
+      beskrivendeId: "steg-alder",
       opplysninger: [
         {
           opplysningNavn: "Oppfyller kravet til alder",
@@ -333,7 +333,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
   journalpostIder: ["123456789"],
   steg: [
     {
-      urn: "Gjenopptak / 8 uker",
+      beskrivendeId: "Gjenopptak / 8 uker",
       tilstand: "Groenn",
       opplysninger: [
         {
@@ -353,7 +353,7 @@ export const ferdigBehandletMinsteinntektAvslagOppgave: IOppgave = {
       ],
     },
     {
-      urn: "Minste arbeidsinntekt",
+      beskrivendeId: "Minste arbeidsinntekt",
       tilstand: "Groenn",
       opplysninger: [
         {

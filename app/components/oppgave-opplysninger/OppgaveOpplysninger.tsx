@@ -5,7 +5,7 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { Button } from "@navikt/ds-react";
 import { useLocation, useNavigation } from "@remix-run/react";
 import { OpplysningInput } from "~/components/opplysning-input/OpplysningInput";
-import type { SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUrn";
+import type { SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$beskrivendeId";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 
 interface IProps {

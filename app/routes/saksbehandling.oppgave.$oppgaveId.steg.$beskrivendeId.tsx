@@ -42,13 +42,13 @@ export default function OppgaveStegView() {
   const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const actionResponse = useActionData<typeof action>();
 
-  const { stegUrn } = useParams();
-  const steg = oppgave.steg.find((steg) => steg.urn === stegUrn);
+  const { beskrivendeId } = useParams();
+  const steg = oppgave.steg.find((steg) => steg.beskrivendeId === beskrivendeId);
 
   if (!steg) {
     throw new Response(null, {
       status: 500,
-      statusText: `Fant ikke steg med navn: ${stegUrn}`,
+      statusText: `Fant ikke steg med navn: ${beskrivendeId}`,
     });
   }
 

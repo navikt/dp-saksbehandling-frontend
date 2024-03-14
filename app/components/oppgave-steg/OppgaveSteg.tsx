@@ -12,7 +12,7 @@ export interface IOppgaveStegProps {
 export function OppgaveSteg(props: IOppgaveStegProps) {
   const { steg } = props;
 
-  switch (steg.urn) {
+  switch (steg.beskrivendeId) {
     case "Tapt arbeidstid":
       return <OppgaveStegTaptArbeidstid />;
 

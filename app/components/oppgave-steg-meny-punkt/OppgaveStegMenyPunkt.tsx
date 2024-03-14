@@ -2,23 +2,26 @@ import { NavLink } from "@remix-run/react";
 import classNames from "classnames";
 import type { ISteg } from "~/models/oppgave.server";
 import styles from "./OppgaveStegMenyPunkt.module.css";
+import { useStegTekst } from "~/hooks/useStegTekst";
 
-export function OppgaveStegMenyPunkt(behandlingSteg: ISteg) {
+export function OppgaveStegMenyPunkt(steg: ISteg) {
+  const stegTekst = useStegTekst(steg.beskrivendeId);
+
   const kulepunktKlasser = classNames(styles.kulepunkt, {
-    [styles.kulepunktGroenn]: behandlingSteg.tilstand === "Groenn",
-    [styles.kulepunktGul]: behandlingSteg.tilstand === "Gul",
-    [styles.kulepunktMaaRoed]: behandlingSteg.tilstand === "Roed",
+    [styles.kulepunktGroenn]: steg.tilstand === "Groenn",
+    [styles.kulepunktGul]: steg.tilstand === "Gul",
+    [styles.kulepunktMaaRoed]: steg.tilstand === "Roed",
   });
 
   return (
     <li>
       <NavLink
-        to={`${behandlingSteg.urn}`}
+        to={`${steg.beskrivendeId}`}
         className={({ isActive }) =>
           isActive ? classNames(styles.kulepunktActive, kulepunktKlasser) : kulepunktKlasser
         }
       >
-        {behandlingSteg.urn}
+        {stegTekst.tittel}
       </NavLink>
     </li>
   );

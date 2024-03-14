@@ -15,7 +15,7 @@ export interface IOpplysning {
 }
 
 export interface ISteg {
-  urn: string;
+  beskrivendeId: string;
   tilstand: IStegTilstand;
   opplysninger: IOpplysning[];
 }

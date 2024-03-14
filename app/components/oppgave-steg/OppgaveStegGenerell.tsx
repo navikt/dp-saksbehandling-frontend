@@ -1,5 +1,5 @@
 import { ValidatedForm } from "remix-validated-form";
-import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$stegUrn";
+import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$beskrivendeId";
 import { BodyLong, Button, Heading } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
 import { useLocation, useNavigation } from "@remix-run/react";
@@ -9,7 +9,7 @@ import { useStegTekst } from "~/hooks/useStegTekst";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
   const { steg, readonly } = props;
-  const stegTekst = useStegTekst(steg.urn);
+  const stegTekst = useStegTekst(steg.beskrivendeId);
 
   const location = useLocation();
   const navigation = useNavigation();
