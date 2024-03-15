@@ -1,5 +1,5 @@
-import React from "react";
-import { Table } from "@navikt/ds-react";
+import React, { useState } from "react";
+import { Button, Table } from "@navikt/ds-react";
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import type { IOpplysning } from "~/models/oppgave.server";
 import styles from "./OpplysningTabell.module.css";
@@ -22,26 +22,26 @@ export function OpplysningTabell(props: IProps) {
 }
 
 function OpplysningTabellLinje(opplysning: IOpplysning) {
-  // const [kanEndre, setKanEndre] = useState(false);
+  const [redigerOpplysning, setredigerOpplysning] = useState(false);
 
   return (
     <Table.Row key={opplysning.opplysningNavn}>
       <Table.DataCell scope="row">{opplysning.opplysningNavn}</Table.DataCell>
       <Table.DataCell>
-        <Opplysning opplysning={opplysning} readonly={true} />
+        <Opplysning opplysning={opplysning} readonly={!redigerOpplysning} />
       </Table.DataCell>
 
       <Table.DataCell>
-        {/*{opplysning.status === "HYPOTESE" && (*/}
-        {/*  <Button*/}
-        {/*    variant="tertiary"*/}
-        {/*    type="button"*/}
-        {/*    size="xsmall"*/}
-        {/*    onClick={() => setKanEndre(!kanEndre)}*/}
-        {/*  >*/}
-        {/*    {kanEndre ? "Lukk" : "Endre"}*/}
-        {/*  </Button>*/}
-        {/*)}*/}
+        {opplysning.redigerbar && (
+          <Button
+            variant="tertiary"
+            type="button"
+            size="xsmall"
+            onClick={() => setredigerOpplysning(!redigerOpplysning)}
+          >
+            {redigerOpplysning ? "Lukk" : "Endre"}
+          </Button>
+        )}
       </Table.DataCell>
     </Table.Row>
   );

@@ -11,6 +11,7 @@ export interface IOpplysning {
   opplysningNavn: string;
   status: "FAKTUM" | "HYPOTESE";
   dataType: IDataType;
+  redigerbar: boolean;
   svar: IOpplysningSvar | null;
 }
 

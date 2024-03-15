@@ -8,11 +8,11 @@ export function OpplysningTextarea({ opplysning, readonly, className }: IOpplysn
 
   return (
     <div className={className}>
-      {readonly && opplysning.svar?.verdi && (
+      {!opplysning.redigerbar && opplysning.svar?.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.svar?.verdi} </div>
       )}
 
-      {!readonly && (
+      {opplysning.redigerbar && (
         <Textarea
           size="small"
           error={error}

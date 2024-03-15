@@ -8,11 +8,11 @@ export function OpplysningString({ opplysning, readonly, className }: IOpplysnin
 
   return (
     <div className={className}>
-      {readonly && opplysning.svar?.verdi && (
+      {!opplysning.redigerbar && opplysning.svar?.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.svar?.verdi} år</div>
       )}
 
-      {!readonly && (
+      {opplysning.redigerbar && (
         <TextField
           size="small"
           type="text"

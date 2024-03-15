@@ -16,11 +16,11 @@ export function OpplysningDato({ opplysning, readonly, label, className }: IOppl
 
   return (
     <div className={className}>
-      {readonly && opplysning.svar?.verdi && (
+      {!opplysning.redigerbar && opplysning.svar?.verdi && (
         <div className={styles.opplysningVerdi}>{formaterNorskDato(opplysning.svar.verdi)}</div>
       )}
 
-      {!readonly && (
+      {opplysning.redigerbar && (
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             size="small"

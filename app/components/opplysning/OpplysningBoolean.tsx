@@ -8,13 +8,13 @@ export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysni
 
   return (
     <div className={className}>
-      {readonly && opplysning.svar?.verdi && (
+      {!opplysning.redigerbar && opplysning.svar?.verdi && (
         <div className={styles.opplysningVerdi}>
           {opplysning.svar.verdi === "true" ? "Ja" : "Nei"}
         </div>
       )}
 
-      {!readonly && (
+      {opplysning.redigerbar && (
         <RadioGroup
           size="small"
           error={error}
