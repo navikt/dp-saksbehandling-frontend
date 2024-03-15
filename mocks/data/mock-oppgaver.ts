@@ -160,7 +160,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Inntekt er over kravet for siste 12 mnd",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "BOOLEAN",
           svar: {
             verdi: "false",
@@ -176,7 +176,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Inntektskrav for siste 12 mnd",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "DOUBLE",
           svar: {
             verdi: "177930.0",
@@ -184,7 +184,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Antall G for krav til 12 mnd inntekt",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "DOUBLE",
           svar: {
             verdi: "1.5",
@@ -200,7 +200,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Fødselsdato",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
@@ -216,7 +216,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Grunnbeløp",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "DOUBLE",
           svar: {
             verdi: "118620.0",
@@ -224,7 +224,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Inntekt er over kravet for siste 36 mnd",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "BOOLEAN",
           svar: {
             verdi: "false",
@@ -240,7 +240,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Inntektskrav for siste 36 mnd",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "DOUBLE",
           svar: {
             verdi: "355860.0",
@@ -248,7 +248,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Antall G for krav til 36 mnd inntekt",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "DOUBLE",
           svar: {
             verdi: "3.0",
@@ -262,7 +262,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       opplysninger: [
         {
           opplysningNavn: "Oppfyller kravet til alder",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "BOOLEAN",
           svar: {
             verdi: "true",
@@ -278,7 +278,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Fødselsdato",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
@@ -294,7 +294,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Siste mulige dag bruker kan oppfylle alderskrav",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
@@ -302,7 +302,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Dato søker når maks alder",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
@@ -310,7 +310,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
         },
         {
           opplysningNavn: "Aldersgrense",
-          status: "HYPOTESE",
+          status: "FAKTUM",
           dataType: "INT",
           svar: {
             verdi: "67",
@@ -320,7 +320,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
       tilstand: "MANUELL_BEHANDLING",
     },
   ],
-  journalpostIder: [],
+  journalpostIder: ["123"],
   opplysninger: [],
 };
 

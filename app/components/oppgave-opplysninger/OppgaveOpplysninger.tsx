@@ -2,9 +2,8 @@ import React from "react";
 import type { IOpplysning } from "~/models/oppgave.server";
 import { ValidatedForm } from "remix-validated-form";
 import { hentValideringRegler } from "~/utils/validering.util";
-import { Button } from "@navikt/ds-react";
-import { useLocation, useNavigation } from "@remix-run/react";
-import { OpplysningInput } from "~/components/opplysning-input/OpplysningInput";
+import { useLocation } from "@remix-run/react";
+import { Opplysning } from "~/components/opplysning/Opplysning";
 import type { SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$beskrivendeId";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 
@@ -18,8 +17,6 @@ interface IProps {
 
 export function OppgaveOpplysninger({ opplysninger, person }: IProps) {
   const location = useLocation();
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const metadata: SkjemaMetadata = {
     opplysninger,
@@ -37,19 +34,14 @@ export function OppgaveOpplysninger({ opplysninger, person }: IProps) {
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
         {opplysninger.map((opplysning) => (
-          <OpplysningInput
-            className="mt-4"
+          <Opplysning
             key={opplysning.opplysningNavn}
-            name={opplysning.opplysningNavn}
+            className="mt-4"
             label={opplysning.opplysningNavn}
-            svartype={opplysning.dataType}
-            verdi={opplysning.svar?.verdi}
+            opplysning={opplysning}
+            readonly={false}
           />
         ))}
-
-        <Button className="mt-4" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Lagrer..." : "Lagre"}
-        </Button>
       </ValidatedForm>
     </>
   );

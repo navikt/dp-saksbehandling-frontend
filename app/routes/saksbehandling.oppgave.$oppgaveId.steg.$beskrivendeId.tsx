@@ -77,7 +77,7 @@ export default function OppgaveStegView() {
         </Tabs.List>
 
         <Tabs.Panel className={styles.tabPanel} value="opplysninger">
-          <OppgaveOpplysninger opplysninger={mockOppgaveOpplysninger} person={mockPerson} />
+          <OppgaveOpplysninger opplysninger={[]} person={mockPerson} />
         </Tabs.Panel>
 
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">
@@ -87,30 +87,3 @@ export default function OppgaveStegView() {
     </div>
   );
 }
-
-const mockOppgaveOpplysninger: IOpplysning[] = [
-  {
-    opplysningNavn: "Faktisk søknadsdato",
-    dataType: "LOCALDATE",
-    status: "FAKTUM",
-    svar: {
-      verdi: "2024-02-11",
-    },
-  },
-  {
-    opplysningNavn: "Søknadsdato",
-    dataType: "LOCALDATE",
-    status: "FAKTUM",
-    svar: {
-      verdi: "2024-02-11",
-    },
-  },
-  {
-    opplysningNavn: "Virkningsdato",
-    dataType: "LOCALDATE",
-    status: "FAKTUM",
-    svar: {
-      verdi: "2024-02-14",
-    },
-  },
-];

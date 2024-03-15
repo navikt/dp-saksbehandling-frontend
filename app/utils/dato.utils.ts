@@ -12,3 +12,9 @@ export function hentFormattertDato(dato: string, medKlokkeslett?: boolean) {
     locale: nb,
   });
 }
+
+export function formaterNorskDato(dato: string) {
+  return format(new Date(dato), "dd.MM.yyyy", {
+    locale: nb,
+  });
+}

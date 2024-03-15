@@ -1,19 +1,16 @@
 import { ValidatedForm } from "remix-validated-form";
 import { type SkjemaMetadata } from "~/routes/saksbehandling.oppgave.$oppgaveId.steg.$beskrivendeId";
-import { BodyLong, Button, Heading } from "@navikt/ds-react";
+import { BodyLong, Heading } from "@navikt/ds-react";
 import { type IOppgaveStegProps } from "./OppgaveSteg";
-import { useLocation, useNavigation } from "@remix-run/react";
+import { useLocation } from "@remix-run/react";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { useStegTekst } from "~/hooks/useStegTekst";
 
 export function OppgaveStegGenerell(props: IOppgaveStegProps) {
-  const { steg, readonly } = props;
+  const { steg } = props;
   const stegTekst = useStegTekst(steg.beskrivendeId);
-
   const location = useLocation();
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const metadata: SkjemaMetadata = {
     opplysninger: steg.opplysninger,
@@ -33,12 +30,6 @@ export function OppgaveStegGenerell(props: IOppgaveStegProps) {
         <input name="metadata" type="hidden" value={JSON.stringify(metadata)} />
 
         <OpplysningTabell opplysninger={steg.opplysninger} />
-
-        {!readonly && (
-          <Button className="mt-4" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Lagrer..." : "Lagre"}
-          </Button>
-        )}
       </ValidatedForm>
     </>
   );

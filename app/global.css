@@ -44,13 +44,37 @@
   height: 40px;
 }
 
+/* Align radio horisontalt istedet for verticalt */
 .kompakt-tabell .navds-radio-buttons {
   display: flex;
   gap: var(--a-spacing-2);
 }
 
+/* Flytt lås for read-only til horisontal linje for tekst/date input felt */
 .kompakt-tabell .navds-form-field {
-  gap: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Flytt lås for read-only til horisontal linje for radio input felt */
+.kompakt-tabell .navds-radio-group {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  /*margin-left: var(--a-spacing-2);*/
+}
+
+/* Flytt lås for read-only til horisontal linje for radio input felt og gi min width for å aligne med felter som ikke er read-only*/
+.kompakt-tabell .navds-fieldset__legend {
+  float: right;
+  align-self: center;
+  margin-left: var(--a-spacing-9);
+}
+
+.kompakt-tabell .navds-text-field__input {
+  max-width: 130px;
 }
 
 .kompakt-tabell .navds-table__data-cell,
