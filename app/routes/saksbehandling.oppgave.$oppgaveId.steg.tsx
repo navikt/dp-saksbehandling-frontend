@@ -8,9 +8,12 @@ import { getSession } from "~/models/auth.server";
 import { avslagOppgave, hentOppgave, lukkOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, Modal, Tabs } from "@navikt/ds-react";
 import { parseSkjemadata } from "~/utils/steg.utils";
 import { useEffect, useState } from "react";
+import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
+import { OppgaveOpplysninger } from "~/components/oppgave-opplysninger/OppgaveOpplysninger";
+import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
@@ -64,14 +67,23 @@ export default function OppgaveStegView() {
   }, [fetcher.data]);
 
   return (
-    <>
-      <div className={styles.oppgaveStegContainer}>
+    <div className={styles.container}>
+      <div className={styles.stegMeny}>
         <ul>
           {oppgave.steg.map((steg) => (
             <OppgaveStegMenyPunkt key={steg.beskrivendeId} {...steg} />
           ))}
-        </ul>
 
+          {/*// TMP for å vise rådata fra dp-behandling*/}
+          {oppgave.behandling && (
+            <OppgaveStegMenyPunkt
+              key={oppgave.behandling.behandlingId}
+              beskrivendeId={"behandling"}
+              tilstand="MANUELL_BEHANDLING"
+              opplysninger={[]}
+            />
+          )}
+        </ul>
         <div className={styles.buttonContainerColumn}>
           <Button
             type="button"
@@ -90,7 +102,6 @@ export default function OppgaveStegView() {
             Send til vanlig saksflyt i Arena
           </Button>
         </div>
-
         <Modal
           open={!!aktivModalId}
           width="small"
@@ -141,7 +152,30 @@ export default function OppgaveStegView() {
           </Modal.Footer>
         </Modal>
       </div>
+
       <Outlet />
-    </>
+
+      <Tabs defaultValue="opplysninger" className={styles.tabsContainer}>
+        <Tabs.List>
+          <Tabs.Tab
+            value="opplysninger"
+            label="Opplysninger"
+            icon={<DatabaseIcon title="Opplysninger" />}
+          />
+          <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
+        </Tabs.List>
+
+        <Tabs.Panel className={styles.tabPanel} value="opplysninger">
+          <OppgaveOpplysninger
+            opplysninger={[]}
+            person={{ navn: "Donald Duck", ident: "12345678910" }}
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel className={styles.tabPanel} value="dokumenter">
+          <DokumentOversikt />
+        </Tabs.Panel>
+      </Tabs>
+    </div>
   );
 }

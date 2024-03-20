@@ -13,4 +13,9 @@ export const stegTekster: { [key: string]: IStegTekst } = {
     beskrivelse:
       "Hatt en brutto arbeidsinntekt som minst svarer til 1,5 ganger grunnbeløpet siste 12 månedene, eller 3 ganger grunnbeløpet siste 36 månedene.",
   },
+  // TMP for å vise rådata fra dp-behandling
+  behandling: {
+    tittel: "RAW Behandling",
+    beskrivelse: "Rådata fra dp-behandling",
+  },
 };

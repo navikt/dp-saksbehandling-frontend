@@ -7,6 +7,7 @@ import type { INetworkResponse } from "~/utils/types";
 export interface IOpplysningSvar {
   verdi: string;
 }
+
 export interface IOpplysning {
   opplysningNavn: string;
   status: "FAKTUM" | "HYPOTESE";
@@ -21,6 +22,32 @@ export interface ISteg {
   opplysninger: IOpplysning[];
 }
 
+interface IBehandlingOpplysning {
+  id: string;
+  opplysningstype: string;
+  verdi: string;
+  status: "Hypotese" | "Faktum";
+  gyldigFraOgMed: string;
+  gyldigTilOgMed: string;
+  datatype: string;
+  redigerbar: boolean;
+  kilde: {
+    id: string;
+  };
+  utledetAv: {
+    opplysningstype: string;
+    regel: {
+      navn: string;
+    };
+    opplysninger: IBehandlingOpplysning[];
+  };
+}
+
+interface IBehandling {
+  behandlingId: string;
+  opplysning: IBehandlingOpplysning[];
+}
+
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
@@ -28,9 +55,10 @@ export interface IOppgave {
   tidspunktOpprettet: string;
   tilstand: IOppgaveTilstand;
   emneknagger: string[];
-  journalpostIder: string[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
-  steg: ISteg[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
-  opplysninger: IOpplysning[]; // Har ikke før regelmotor er ferdig. tomt array frem til GET på oppgave/oppgaveId
+  journalpostIder: string[];
+  steg: ISteg[];
+  opplysninger: IOpplysning[];
+  behandling?: IBehandling;
 }
 
 export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";

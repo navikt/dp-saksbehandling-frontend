@@ -1,10 +1,10 @@
 .container {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  min-height: calc(100vh - 93px);
+  grid-template-columns: 300px 1fr 450px;
+  min-height: calc(100vh - 48px);
 }
 
-.oppgaveStegContainer {
+.stegMeny {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,7 +18,7 @@
   scrollbar-width: none;
 }
 
-.oppgaveStegContainer ul {
+.stegMeny ul {
   list-style: none;
   padding: 0;
   margin: 0;

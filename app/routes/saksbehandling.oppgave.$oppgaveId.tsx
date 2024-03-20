@@ -4,7 +4,6 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
-import styles from "~/route-styles/oppgave.module.css";
 import { Alert } from "@navikt/ds-react";
 import { redirect } from "@remix-run/router";
 
@@ -31,9 +30,7 @@ export default function Oppgave() {
         </Alert>
       )}
 
-      <div className={styles.container}>
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }

@@ -6,11 +6,8 @@ import { svarOppgaveOpplysning } from "~/models/oppgave.server";
 import { OppgaveSteg } from "~/components/oppgave-steg/OppgaveSteg";
 import { getSession } from "~/models/auth.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { Alert, Tabs } from "@navikt/ds-react";
-import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
-import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
+import { Alert } from "@navikt/ds-react";
 import styles from "~/route-styles/stegvisning.module.css";
-import { OppgaveOpplysninger } from "~/components/oppgave-opplysninger/OppgaveOpplysninger";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { parseSkjemadata } from "~/utils/steg.utils";
 import { validationError } from "remix-validated-form";
@@ -51,39 +48,16 @@ export default function OppgaveStegView() {
     });
   }
 
-  const mockPerson = { navn: "Donald Duck", ident: "12345678910" };
-
   return (
-    <div className={styles.container}>
-      <div className={styles.stegContainer}>
-        <OppgaveSteg steg={steg} />
+    <div className={styles.stegContainer}>
+      <OppgaveSteg steg={steg} />
 
-        {isNetworkResponseError(actionResponse) && (
-          <Alert
-            className="my-4"
-            variant="error"
-          >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
-        )}
-      </div>
-
-      <Tabs defaultValue="opplysninger" className={styles.tabsContainer}>
-        <Tabs.List>
-          <Tabs.Tab
-            value="opplysninger"
-            label="Opplysninger"
-            icon={<DatabaseIcon title="Opplysninger" />}
-          />
-          <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
-        </Tabs.List>
-
-        <Tabs.Panel className={styles.tabPanel} value="opplysninger">
-          <OppgaveOpplysninger opplysninger={[]} person={mockPerson} />
-        </Tabs.Panel>
-
-        <Tabs.Panel className={styles.tabPanel} value="dokumenter">
-          <DokumentOversikt />
-        </Tabs.Panel>
-      </Tabs>
+      {isNetworkResponseError(actionResponse) && (
+        <Alert
+          className="my-4"
+          variant="error"
+        >{`${actionResponse.error.statusCode} ${actionResponse.error.statusText}`}</Alert>
+      )}
     </div>
   );
 }
