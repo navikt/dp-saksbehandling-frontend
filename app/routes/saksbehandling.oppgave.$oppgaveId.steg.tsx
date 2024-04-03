@@ -166,10 +166,7 @@ export default function OppgaveStegView() {
         </Tabs.List>
 
         <Tabs.Panel className={styles.tabPanel} value="opplysninger">
-          <OppgaveOpplysninger
-            opplysninger={[]}
-            person={{ navn: "Donald Duck", ident: "12345678910" }}
-          />
+          <OppgaveOpplysninger opplysninger={[]} person={oppgave.person} />
         </Tabs.Panel>
 
         <Tabs.Panel className={styles.tabPanel} value="dokumenter">

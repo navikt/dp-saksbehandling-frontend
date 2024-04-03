@@ -1,12 +1,10 @@
 import { BodyShort, CopyButton } from "@navikt/ds-react";
 import { SilhouetteFillIcon } from "@navikt/aksel-icons";
 import styles from "./PersonBoks.module.css";
+import type { IPerson } from "~/models/oppgave.server";
 
 interface IProps {
-  person: {
-    navn: string;
-    ident: string;
-  };
+  person: IPerson;
 }
 
 export function PersonBoks({ person }: IProps) {
@@ -18,15 +16,12 @@ export function PersonBoks({ person }: IProps) {
           <SilhouetteFillIcon title="" fontSize="1.5rem" color="white" />
         </span>
         <BodyShort size="small" weight="semibold">
-          {person.navn}
+          {`${person.fornavn} ${person.mellomnavn} ${person.etternavn}`}
         </BodyShort>
       </div>
 
       <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
         Personnummer: {person.ident} <CopyButton copyText={person.ident} size="xsmall" />
-      </BodyShort>
-      <BodyShort size="small" textColor="subtle">
-        Aktør-ID: {person.ident}
       </BodyShort>
     </div>
   );

@@ -6,10 +6,18 @@ import {
 } from "mocks/data/mock-soknadsbehandling-oppgaver";
 import { mockBehandling } from "./mock-behandling";
 
+export const mockPerson = {
+  fornavn: "Donald",
+  mellomnavn: "Dægg",
+  etternavn: "Duck",
+  ident: "12345678910",
+};
+
 export const masterMenyMock: IOppgave = {
   oppgaveId: "msw-ny-mastermeny",
   behandlingId: "msw-behandling-id-1",
   personIdent: "msw-personmock-statoil",
+  person: mockPerson,
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Konkurs Statoil"],
@@ -151,6 +159,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10999",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
+  person: mockPerson,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling"],
   tilstand: "KLAR_TIL_BEHANDLING",

@@ -48,6 +48,7 @@ export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
   personIdent: string;
+  person: IPerson;
   tidspunktOpprettet: string;
   tilstand: IOppgaveTilstand;
   emneknagger: string[];
@@ -55,6 +56,13 @@ export interface IOppgave {
   steg: ISteg[];
   opplysninger: IOpplysning[];
   behandling?: IBehandling;
+}
+
+export interface IPerson {
+  ident: string;
+  fornavn: string;
+  etternavn: string;
+  mellomnavn: string;
 }
 
 export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";

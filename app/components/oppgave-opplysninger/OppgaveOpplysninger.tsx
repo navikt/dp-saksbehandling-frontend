@@ -1,5 +1,5 @@
 import React from "react";
-import type { IOpplysning } from "~/models/oppgave.server";
+import type { IOpplysning, IPerson } from "~/models/oppgave.server";
 import { ValidatedForm } from "remix-validated-form";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { useLocation } from "@remix-run/react";
@@ -9,10 +9,7 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 
 interface IProps {
   opplysninger: IOpplysning[];
-  person: {
-    ident: string;
-    navn: string;
-  };
+  person: IPerson;
 }
 
 export function OppgaveOpplysninger({ opplysninger, person }: IProps) {

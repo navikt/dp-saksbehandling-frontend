@@ -1,9 +1,11 @@
 import type { IOppgave, ISteg } from "~/models/oppgave.server";
+import { mockPerson } from "./mock-oppgaver";
 
 export const generiskSoknadMock: IOppgave = {
   oppgaveId: "msw-generisk-soknad",
   behandlingId: "msw-generisk-behandling-id",
   personIdent: "msw-personmock",
+  person: mockPerson,
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Søknadsbehandling"],
