@@ -62,7 +62,7 @@ export interface IPerson {
   ident: string;
   fornavn: string;
   etternavn: string;
-  mellomnavn: string;
+  mellomnavn?: string;
 }
 
 export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";

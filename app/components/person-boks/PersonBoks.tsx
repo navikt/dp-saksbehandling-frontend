@@ -16,7 +16,7 @@ export function PersonBoks({ person }: IProps) {
           <SilhouetteFillIcon title="" fontSize="1.5rem" color="white" />
         </span>
         <BodyShort size="small" weight="semibold">
-          {`${person.fornavn} ${person.mellomnavn} ${person.etternavn}`}
+          {`${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`}
         </BodyShort>
       </div>
 

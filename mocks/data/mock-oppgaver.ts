@@ -1,4 +1,4 @@
-import type { IOppgave } from "~/models/oppgave.server";
+import type { IOppgave, IPerson } from "~/models/oppgave.server";
 import {
   soknadMedAlderskravMock,
   soknadMedReellArbeidssokerAltJaMock,
@@ -6,7 +6,7 @@ import {
 } from "mocks/data/mock-soknadsbehandling-oppgaver";
 import { mockBehandling } from "./mock-behandling";
 
-export const mockPerson = {
+export const mockPerson: IPerson = {
   fornavn: "Donald",
   mellomnavn: "Dægg",
   etternavn: "Duck",
