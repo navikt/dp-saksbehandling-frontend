@@ -2,12 +2,9 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import type { IBehandlingOpplysning } from "~/models/oppgave.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 import styles from "~/route-styles/stegvisning.module.css";
-import { Table } from "@navikt/ds-react";
-import classnames from "classnames";
 import React from "react";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -25,62 +22,65 @@ export default function Behandling() {
     return <div>Mangler behandling data fra dp-behandling</div>;
   }
 
-  const opplysningKeys = Object.keys(oppgave.behandling.opplysning[0]);
+  // const opplysningKeys = Object.keys(oppgave.behandling.opplysning[0]);
 
   return (
     <div className={styles.stegContainer}>
-      <Table className={classnames("kompakt-tabell", styles.table)}>
-        <Table.Header>
-          <Table.Row>
-            {opplysningKeys.map((key) => (
-              <Table.HeaderCell scope="col" key={key}>
-                {key}
-              </Table.HeaderCell>
-            ))}
-          </Table.Row>
-        </Table.Header>
+      <div>
+        <pre>{JSON.stringify(oppgave.behandling, null, 2)}</pre>
+      </div>
+      {/*<Table className={classnames("kompakt-tabell", styles.table)}>*/}
+      {/*  <Table.Header>*/}
+      {/*    <Table.Row>*/}
+      {/*      {opplysningKeys.map((key) => (*/}
+      {/*        <Table.HeaderCell scope="col" key={key}>*/}
+      {/*          {key}*/}
+      {/*        </Table.HeaderCell>*/}
+      {/*      ))}*/}
+      {/*    </Table.Row>*/}
+      {/*  </Table.Header>*/}
 
-        <Table.Body>
-          {oppgave.behandling.opplysning.map((opplysning) => (
-            <Table.Row key={opplysning.id}>
-              {Object.entries(opplysning).map(([key, value]) => (
-                <Table.DataCell key={key}>
-                  {BehandlingOpplysning(key as keyof IBehandlingOpplysning, value)}
-                </Table.DataCell>
-              ))}
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+      {/*  <Table.Body>*/}
+      {/*    {oppgave.behandling.opplysning.map((opplysning) => (*/}
+      {/*      <Table.Row key={opplysning.id}>*/}
+      {/*        {Object.entries(opplysning).map(([key, value]) => (*/}
+      {/*          <Table.DataCell key={key}>*/}
+      {/*            {BehandlingOpplysning(key as keyof IBehandlingOpplysning, value)}*/}
+      {/*          </Table.DataCell>*/}
+      {/*        ))}*/}
+      {/*      </Table.Row>*/}
+      {/*    ))}*/}
+      {/*  </Table.Body>*/}
+      {/*</Table>*/}
     </div>
   );
 }
 
-function BehandlingOpplysning<T extends keyof IBehandlingOpplysning>(
-  key: T,
-  value: IBehandlingOpplysning[T],
-) {
-  switch (key) {
-    case "id":
-      return <>{value}</>;
-    case "opplysningstype":
-      return <>{value}</>;
-    case "verdi":
-      return <>{value}</>;
-    case "status":
-      return <>{value}</>;
-    case "gyldigFraOgMed":
-      return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
-    case "gyldigTilOgMed":
-      return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
-    case "datatype":
-      return <>{value}</>;
-    case "redigerbar":
-      return <>{value}</>;
-    case "utledetAv":
-      return undefined;
-
-    default:
-      return <>{value}</>;
-  }
-}
+// function BehandlingOpplysning<T extends keyof IBehandlingOpplysning>(
+//   key: T,
+//   value: IBehandlingOpplysning[T],
+// ) {
+//   switch (key) {
+//     case "id":
+//       return <>{value}</>;
+//     case "opplysningstype":
+//       return <>{value}</>;
+//     case "verdi":
+//       return <>{value}</>;
+//     case "status":
+//       return <>{value}</>;
+//     case "gyldigFraOgMed":
+//       return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
+//     case "gyldigTilOgMed":
+//       return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
+//     case "datatype":
+//       return <>{value}</>;
+//     case "redigerbar":
+//       return <>{value}</>;
+//     case "utledetAv":
+//       return undefined;
+//
+//     default:
+//       return <>{value}</>;
+//   }
+// }
