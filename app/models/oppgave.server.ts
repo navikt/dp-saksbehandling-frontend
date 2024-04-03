@@ -22,20 +22,16 @@ export interface ISteg {
   opplysninger: IOpplysning[];
 }
 
-interface IBehandlingOpplysning {
+export interface IBehandlingOpplysning {
   id: string;
   opplysningstype: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
-  gyldigFraOgMed: string;
-  gyldigTilOgMed: string;
+  gyldigFraOgMed: string | null;
+  gyldigTilOgMed: string | null;
   datatype: string;
-  redigerbar: boolean;
-  kilde: {
-    id: string;
-  };
-  utledetAv: {
-    opplysningstype: string;
+  redigerbar?: boolean;
+  utledetAv?: {
     regel: {
       navn: string;
     };
@@ -43,7 +39,7 @@ interface IBehandlingOpplysning {
   };
 }
 
-interface IBehandling {
+export interface IBehandling {
   behandlingId: string;
   opplysning: IBehandlingOpplysning[];
 }

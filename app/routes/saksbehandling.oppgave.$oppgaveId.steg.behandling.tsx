@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import type { IBehandlingOpplysning } from "~/models/oppgave.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
 import styles from "~/route-styles/stegvisning.module.css";
@@ -42,9 +43,9 @@ export default function Behandling() {
         <Table.Body>
           {oppgave.behandling.opplysning.map((opplysning) => (
             <Table.Row key={opplysning.id}>
-              {Object.values(opplysning).map((value, index) => (
-                <Table.DataCell key={index}>
-                  {typeof value === "object" && value !== null ? JSON.stringify(value) : value}
+              {Object.entries(opplysning).map(([key, value]) => (
+                <Table.DataCell key={key}>
+                  {BehandlingOpplysning(key as keyof IBehandlingOpplysning, value)}
                 </Table.DataCell>
               ))}
             </Table.Row>
@@ -53,4 +54,33 @@ export default function Behandling() {
       </Table>
     </div>
   );
+}
+
+function BehandlingOpplysning<T extends keyof IBehandlingOpplysning>(
+  key: T,
+  value: IBehandlingOpplysning[T],
+) {
+  switch (key) {
+    case "id":
+      return <>{value}</>;
+    case "opplysningstype":
+      return <>{value}</>;
+    case "verdi":
+      return <>{value}</>;
+    case "status":
+      return <>{value}</>;
+    case "gyldigFraOgMed":
+      return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
+    case "gyldigTilOgMed":
+      return <>{value ? <>{new Date(value as string).toLocaleString("no-NO")}</> : "Uendelig"}</>;
+    case "datatype":
+      return <>{value}</>;
+    case "redigerbar":
+      return <>{value}</>;
+    case "utledetAv":
+      return undefined;
+
+    default:
+      return <>{value}</>;
+  }
 }

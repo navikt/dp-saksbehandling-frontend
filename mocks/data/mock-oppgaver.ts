@@ -4,6 +4,7 @@ import {
   soknadMedReellArbeidssokerAltJaMock,
   soknadMedReellArbeidssokerFritakMock,
 } from "mocks/data/mock-soknadsbehandling-oppgaver";
+import { mockBehandling } from "./mock-behandling";
 
 export const masterMenyMock: IOppgave = {
   oppgaveId: "msw-ny-mastermeny",
@@ -349,31 +350,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   ],
   journalpostIder: ["123"],
   opplysninger: [],
-  behandling: {
-    behandlingId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    opplysning: [
-      {
-        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        opplysningstype: "string",
-        verdi: "string",
-        status: "Hypotese",
-        gyldigFraOgMed: "2024-03-19T14:09:51.160Z",
-        gyldigTilOgMed: "2024-03-19T14:09:51.160Z",
-        datatype: "string",
-        redigerbar: true,
-        kilde: {
-          id: "dp-inntekt",
-        },
-        utledetAv: {
-          opplysningstype: "string",
-          regel: {
-            navn: "string",
-          },
-          opplysninger: [],
-        },
-      },
-    ],
-  },
+  behandling: mockBehandling,
 };
 
 export const mockOppgaver: IOppgave[] = [

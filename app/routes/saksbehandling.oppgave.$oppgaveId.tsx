@@ -1,10 +1,9 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { getSession } from "~/models/auth.server";
-import { Alert } from "@navikt/ds-react";
 import { redirect } from "@remix-run/router";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -14,22 +13,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   // dp-saksbehandling returnerer tomt array for steg frem til regelmotor har klargjort opplysninger som må bekreftes
   if (oppgave.steg.length > 0 && !request.url.includes("/steg")) {
-    throw redirect(`steg/${oppgave.steg[0].beskrivendeId}`);
+    throw redirect(`steg`);
   }
 
   return json({ oppgave });
 }
 
 export default function Oppgave() {
-  const { oppgave } = useLoaderData<typeof loader>();
   return (
     <>
-      {oppgave.steg.length === 0 && (
-        <Alert fullWidth={true} variant={"warning"}>
-          Regelmotor jobber med å opprette steg
-        </Alert>
-      )}
-
       <Outlet />
     </>
   );

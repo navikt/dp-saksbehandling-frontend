@@ -70,9 +70,9 @@ export default function OppgaveStegView() {
     <div className={styles.container}>
       <div className={styles.stegMeny}>
         <ul>
-          {oppgave.steg.map((steg) => (
-            <OppgaveStegMenyPunkt key={steg.beskrivendeId} {...steg} />
-          ))}
+          {/*{oppgave.steg.map((steg) => (*/}
+          {/*  <OppgaveStegMenyPunkt key={steg.beskrivendeId} {...steg} />*/}
+          {/*))}*/}
 
           {/*// TMP for å vise rådata fra dp-behandling*/}
           {oppgave.behandling && (
