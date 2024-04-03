@@ -37,7 +37,7 @@ export function OppgaveListe() {
                 <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
               </Table.DataCell>
               <Table.DataCell>
-                <RemixLink to={`oppgave/${oppgaveId}`} asButtonVariant="primary">
+                <RemixLink to={`oppgave/${oppgaveId}/steg/behandling`} asButtonVariant="primary">
                   Behandle
                 </RemixLink>
               </Table.DataCell>
