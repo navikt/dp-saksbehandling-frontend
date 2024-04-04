@@ -30,7 +30,7 @@ export default function Behandling() {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-            <Table.HeaderCell scope="col">datatype</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Datatype</Table.HeaderCell>
             <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
