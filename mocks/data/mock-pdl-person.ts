@@ -6,7 +6,7 @@ const vegadresse: Vegadresse = {
   postnummer: "1337",
 };
 
-export const mockPerson: HentPersonQuery["hentPerson"] = {
+export const mockPdlPerson: HentPersonQuery["hentPerson"] = {
   doedsfall: [],
   foreldreansvar: [],
   sikkerhetstiltak: [],

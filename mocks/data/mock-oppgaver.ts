@@ -7,6 +7,10 @@ import {
 import { mockBehandling } from "./mock-behandling";
 
 export const mockPerson: IPerson = {
+  alder: 74,
+  fodselsdato: "12.01.1954",
+  kjonn: "MANN",
+  statsborgerskap: "",
   fornavn: "Donald",
   mellomnavn: "Dægg",
   etternavn: "Duck",
@@ -77,6 +81,7 @@ export const masterMenyMock: IOppgave = {
           dataType: "BOOLEAN",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           svar: {
             verdi: "true",
           },
@@ -86,6 +91,7 @@ export const masterMenyMock: IOppgave = {
           dataType: "BOOLEAN",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           svar: {
             verdi: "true",
           },
@@ -95,6 +101,7 @@ export const masterMenyMock: IOppgave = {
           dataType: "BOOLEAN",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           svar: {
             verdi: "true",
           },
@@ -104,6 +111,7 @@ export const masterMenyMock: IOppgave = {
           dataType: "BOOLEAN",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           svar: null,
         },
       ],
@@ -130,6 +138,7 @@ export const masterMenyMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -139,6 +148,7 @@ export const masterMenyMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -148,6 +158,7 @@ export const masterMenyMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -171,6 +182,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Minsteinntekt",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "BOOLEAN",
           svar: {
             verdi: "false",
@@ -180,6 +192,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Inntekt er over kravet for siste 12 mnd",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "BOOLEAN",
           svar: {
             verdi: "false",
@@ -189,6 +202,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "InntektSiste12Mnd",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "0.0",
@@ -198,6 +212,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Inntektskrav for siste 12 mnd",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "177930.0",
@@ -207,6 +222,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Antall G for krav til 12 mnd inntekt",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "1.5",
@@ -216,6 +232,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Virkningsdato",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
@@ -225,6 +242,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Fødselsdato",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
@@ -234,6 +252,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Søknadstidspunkt",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
@@ -243,6 +262,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Grunnbeløp",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "118620.0",
@@ -252,6 +272,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Inntekt er over kravet for siste 36 mnd",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "BOOLEAN",
           svar: {
             verdi: "false",
@@ -261,6 +282,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "InntektSiste36Mnd",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "0.0",
@@ -270,6 +292,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Inntektskrav for siste 36 mnd",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "355860.0",
@@ -279,6 +302,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Antall G for krav til 36 mnd inntekt",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "DOUBLE",
           svar: {
             verdi: "3.0",
@@ -294,6 +318,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Oppfyller kravet til alder",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "BOOLEAN",
           svar: {
             verdi: "true",
@@ -303,6 +328,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Virkningsdato",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
@@ -312,6 +338,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Fødselsdato",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "1999-03-31",
@@ -321,6 +348,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Søknadstidspunkt",
           status: "HYPOTESE",
           redigerbar: true,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2024-02-19",
@@ -330,6 +358,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Siste mulige dag bruker kan oppfylle alderskrav",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
@@ -339,6 +368,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Dato søker når maks alder",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "LOCALDATE",
           svar: {
             verdi: "2066-03-31",
@@ -348,6 +378,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
           opplysningNavn: "Aldersgrense",
           status: "FAKTUM",
           redigerbar: false,
+          kilde: null,
           dataType: "INT",
           svar: {
             verdi: "67",

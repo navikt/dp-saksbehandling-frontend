@@ -14,6 +14,14 @@ export interface IOpplysning {
   dataType: IDataType;
   redigerbar: boolean;
   svar: IOpplysningSvar | null;
+  kilde: IKilde | null;
+}
+
+export interface IKilde {
+  type: string;
+  registrert: string;
+  ident: string;
+  meldingId: string;
 }
 
 export interface ISteg {
@@ -24,7 +32,7 @@ export interface ISteg {
 
 export interface IBehandlingOpplysning {
   id: string;
-  opplysningstype: string;
+  navn: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
   gyldigFraOgMed: string | null;
@@ -55,7 +63,7 @@ export interface IOppgave {
   journalpostIder: string[];
   steg: ISteg[];
   opplysninger: IOpplysning[];
-  behandling?: IBehandling;
+  behandling?: IBehandling; // Rådata fra dp-behandling
 }
 
 export interface IPerson {
@@ -63,6 +71,10 @@ export interface IPerson {
   fornavn: string;
   etternavn: string;
   mellomnavn?: string;
+  kjonn: "MANN" | "KVINNE" | "UKJENT";
+  fodselsdato: string;
+  alder: number;
+  statsborgerskap: string;
 }
 
 export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";

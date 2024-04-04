@@ -1,11 +1,11 @@
 import { graphql, HttpResponse } from "msw";
-import { mockPerson } from "./data/mock-person";
+import { mockPdlPerson } from "./data/mock-pdl-person";
 
 export const mockPdl = [
   graphql.query("hentPerson", () => {
     return HttpResponse.json({
       data: {
-        hentPerson: mockPerson,
+        hentPerson: mockPdlPerson,
       },
     });
   }),

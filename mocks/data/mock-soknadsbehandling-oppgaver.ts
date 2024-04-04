@@ -83,6 +83,7 @@ export const generiskSoknadMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -92,6 +93,7 @@ export const generiskSoknadMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "HYPOTESE",
       redigerbar: true,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -101,6 +103,7 @@ export const generiskSoknadMock: IOppgave = {
       dataType: "LOCALDATE",
       status: "HYPOTESE",
       redigerbar: true,
+      kilde: null,
       svar: {
         verdi: "true",
       },
@@ -117,6 +120,7 @@ const aldersKravOppfyltEksempel: ISteg = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "1976-10-19",
       },
@@ -126,6 +130,7 @@ const aldersKravOppfyltEksempel: ISteg = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "2043-10-31",
       },
@@ -135,6 +140,7 @@ const aldersKravOppfyltEksempel: ISteg = {
       dataType: "LOCALDATE",
       status: "FAKTUM",
       redigerbar: false,
+      kilde: null,
       svar: {
         verdi: "2023-05-12",
       },
@@ -181,6 +187,7 @@ const reellArbeidssokerFritakEksempel: ISteg = {
       dataType: "BOOLEAN",
       status: "HYPOTESE",
       redigerbar: true,
+      kilde: null,
       svar: {
         verdi: "True",
       },
