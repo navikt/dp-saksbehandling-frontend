@@ -26,7 +26,19 @@ export function PersonBoks({ person }: IProps) {
       </div>
 
       <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
-        Personnummer: {person.ident} <CopyButton copyText={person.ident} size="xsmall" />
+        Personnummer: <b>{person.ident}</b> <CopyButton copyText={person.ident} size="xsmall" />
+      </BodyShort>
+
+      <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        Alder: <b>{person.alder}</b>
+      </BodyShort>
+
+      <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        Kjønn: <b>{person.kjonn}</b>
+      </BodyShort>
+
+      <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        Statsborgerskap: <b>{person.statsborgerskap}</b>
       </BodyShort>
     </div>
   );

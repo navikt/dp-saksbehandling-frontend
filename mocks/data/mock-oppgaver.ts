@@ -10,7 +10,7 @@ export const mockPerson: IPerson = {
   alder: 74,
   fodselsdato: "12.01.1954",
   kjonn: "MANN",
-  statsborgerskap: "",
+  statsborgerskap: "Norsk",
   fornavn: "Donald",
   mellomnavn: "Dægg",
   etternavn: "Duck",
