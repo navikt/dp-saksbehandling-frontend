@@ -39,7 +39,7 @@ export async function hentBehandling(
   behandlingId: string,
   session: SessionWithOboProvider,
 ): Promise<IBehandling> {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(session);
+  const onBehalfOfToken = await getBehandlingOboToken(session);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}`;
   const response = await fetch(url, {
