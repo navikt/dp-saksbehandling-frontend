@@ -1,46 +1,5 @@
 .container {
   display: grid;
-  grid-template-columns: 300px 1fr 450px;
+  grid-template-columns: 1fr 1fr;
   min-height: calc(100vh - 48px);
-}
-
-.stegMeny {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  position: sticky;
-  top: 48px;
-  height: 100%;
-  max-height: calc(100vh - 48px);
-
-  overflow-y: scroll;
-  scrollbar-width: none;
-}
-
-.stegMeny ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tabsContainer {
-  position: sticky;
-  top: 48px;
-  height: 100%;
-  max-height: calc(100vh - 48px);
-
-  overflow-y: scroll;
-  scrollbar-width: none;
-}
-
-.tabPanel {
-  padding: var(--a-spacing-4);
-}
-
-.buttonContainerColumn {
-  display: flex;
-  flex-direction: column;
-  gap: var(--a-spacing-2);
-  padding: var(--a-spacing-4);
 }

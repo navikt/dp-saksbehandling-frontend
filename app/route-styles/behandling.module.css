@@ -1,0 +1,11 @@
+.container {
+  padding: var(--a-spacing-4);
+  box-shadow: var(--a-shadow-large);
+  z-index: 10;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: var(--a-spacing-2);
+  margin-top: var(--a-spacing-4);
+}

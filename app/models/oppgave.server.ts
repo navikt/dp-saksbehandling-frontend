@@ -24,12 +24,6 @@ export interface IKilde {
   meldingId: string;
 }
 
-export interface ISteg {
-  beskrivendeId: string;
-  tilstand: IStegTilstand;
-  opplysninger: IOpplysning[];
-}
-
 export interface IBehandlingOpplysning {
   id: string;
   navn: string;
@@ -54,16 +48,14 @@ export interface IBehandling {
 
 export interface IOppgave {
   oppgaveId: string;
+  behandling?: IBehandling; // Rådata fra dp-behandling
   behandlingId: string;
   personIdent: string;
   person: IPerson;
   tidspunktOpprettet: string;
+  journalpostIder: string[];
   tilstand: IOppgaveTilstand;
   emneknagger: string[];
-  journalpostIder: string[];
-  steg: ISteg[];
-  opplysninger: IOpplysning[];
-  behandling?: IBehandling; // Rådata fra dp-behandling
 }
 
 export interface IPerson {

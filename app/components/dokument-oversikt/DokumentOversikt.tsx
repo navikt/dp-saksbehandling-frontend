@@ -10,7 +10,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function DokumentOversikt() {
   const { journalposterPromises } = useTypedRouteLoaderData(
-    "routes/saksbehandling.oppgave.$oppgaveId.steg",
+    "routes/saksbehandling.oppgave.$oppgaveId",
   );
 
   return (

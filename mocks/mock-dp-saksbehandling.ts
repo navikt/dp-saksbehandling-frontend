@@ -21,13 +21,6 @@ export const mockDpSaksbehandling = [
     });
   }),
 
-  // Svar på et oppgave steg med oppgaveId og stegId
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/steg/:stegId`, () => {
-    return new HttpResponse(null, {
-      status: 201,
-    });
-  }),
-
   // Lukk en oppgave for å fortsette saksbehandling i Arena
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/lukk`, () => {
     return new HttpResponse(null, {
