@@ -15,6 +15,7 @@ import { parseSkjemadata } from "~/utils/steg.utils";
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
   personIdent: string;
+  behandlingId: string;
 }
 
 export type IFerdigstillValg = "godkjenn" | "avbryt";
@@ -28,10 +29,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   switch (skjemadata.ferdigstillValg) {
     case "avbryt":
-      return await avbrytBehandling(params.oppgaveId, skjemadata.personIdent, session);
+      return await avbrytBehandling(skjemadata.behandlingId, skjemadata.personIdent, session);
 
     case "godkjenn":
-      return await godkjennBehandling(params.oppgaveId, skjemadata.personIdent, session);
+      return await godkjennBehandling(skjemadata.behandlingId, skjemadata.personIdent, session);
   }
 }
 

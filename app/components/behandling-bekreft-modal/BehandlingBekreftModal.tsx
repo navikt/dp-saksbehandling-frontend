@@ -46,6 +46,7 @@ export function BehandlingBekreftModal(props: IProps) {
             value={JSON.stringify({
               ferdigstillValg: aktivModalId,
               personIdent: oppgave.personIdent,
+              behandlingId: oppgave.behandlingId,
             })}
           >
             Ja, jeg er sikker
