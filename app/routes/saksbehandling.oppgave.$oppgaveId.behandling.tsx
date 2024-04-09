@@ -1,52 +1,58 @@
-import { useFetcher } from "@remix-run/react";
-
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import classnames from "classnames";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
-import type { ActionFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getSession } from "~/models/auth.server";
-import { parseSkjemadata } from "~/utils/steg.utils";
-import { avslagOppgave, lukkOppgave } from "~/models/oppgave.server";
+import { hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandling.module.css";
+import { avbrytBehandling, godkjennBehandling, hentBehandling } from "~/models/behandling.server";
+import { parseSkjemadata } from "~/utils/steg.utils";
 
 interface ISkjemadata {
-  variant: IModalTilstand;
+  ferdigstillValg: IFerdigstillValg;
+  personIdent: string;
 }
 
-export type IModalTilstand = "avslag" | "lukk";
+export type IFerdigstillValg = "godkjenn" | "avbryt";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const session = await getSession(request);
   const formData = await request.formData();
-  const skjemadata = parseSkjemadata<ISkjemadata>(formData, "variant");
+  const skjemadata = parseSkjemadata<ISkjemadata>(formData, "skjemadata");
 
-  switch (skjemadata.variant) {
-    case "lukk":
-      return await lukkOppgave(params.oppgaveId, session);
-    case "avslag":
-      return await avslagOppgave(params.oppgaveId, session);
+  switch (skjemadata.ferdigstillValg) {
+    case "avbryt":
+      return await avbrytBehandling(params.oppgaveId, skjemadata.personIdent, session);
+
+    case "godkjenn":
+      return await godkjennBehandling(params.oppgaveId, skjemadata.personIdent, session);
   }
 }
 
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  const session = await getSession(request);
+  const oppgave = await hentOppgave(params.oppgaveId, session);
+  const behandling = await hentBehandling(oppgave.behandlingId, session);
+  return json({ behandling, oppgave });
+}
+
 export default function Behandling() {
-  const fetcher = useFetcher<typeof action>();
-  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
-  const [aktivModalId, setAktivModalId] = useState<IModalTilstand | undefined>();
+  const fetcher = useFetcher<typeof action>({ key: "ferdigstill-behandling" });
+  const { behandling } = useLoaderData<typeof loader>();
+  const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
 
   useEffect(() => {
     if (fetcher.data?.status === "success") {
       setAktivModalId(undefined);
     }
   }, [fetcher.data]);
-
-  if (!oppgave.behandling) {
-    return <div>Mangler behandling data fra dp-behandling</div>;
-  }
 
   return (
     <div className={styles.container}>
@@ -60,7 +66,7 @@ export default function Behandling() {
         </Table.Header>
 
         <Table.Body>
-          {oppgave.behandling.opplysning.map((opplysning) => (
+          {behandling.opplysning.map((opplysning) => (
             <Table.Row key={opplysning.id}>
               <Table.DataCell>{opplysning.navn}</Table.DataCell>
               <Table.DataCell>{opplysning.datatype}</Table.DataCell>
@@ -75,7 +81,7 @@ export default function Behandling() {
           type="button"
           variant="primary"
           size="small"
-          onClick={() => setAktivModalId("avslag")}
+          onClick={() => setAktivModalId("godkjenn")}
         >
           Send til automatisk avslag
         </Button>
@@ -83,7 +89,7 @@ export default function Behandling() {
           type="button"
           variant="secondary"
           size="small"
-          onClick={() => setAktivModalId("lukk")}
+          onClick={() => setAktivModalId("avbryt")}
         >
           Send til vanlig saksflyt i Arena
         </Button>

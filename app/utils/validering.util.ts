@@ -1,18 +1,18 @@
 import { z } from "zod";
-import type { IDataType, IOpplysning } from "~/models/oppgave.server";
 import { withZod } from "@remix-validated-form/with-zod";
+import type { IOpplysning } from "~/models/behandling.server";
 
 export function hentValideringRegler(opplysninger: IOpplysning[]) {
   const zodValideringsregler: Record<string, z.ZodType> = {};
 
   for (const opplysning of opplysninger) {
-    zodValideringsregler[opplysning.opplysningNavn] = hentValideringForInput(opplysning.dataType);
+    zodValideringsregler[opplysning.navn] = hentValideringForInput(opplysning.datatype);
   }
 
   return withZod(z.object(zodValideringsregler));
 }
 
-function hentValideringForInput(opplysningType: IDataType): z.ZodType {
+function hentValideringForInput(opplysningType: string): z.ZodType {
   switch (opplysningType) {
     case "INT":
       return z.coerce
@@ -42,5 +42,8 @@ function hentValideringForInput(opplysningType: IDataType): z.ZodType {
         new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
         "Ugyldig dato",
       );
+
+    default:
+      return z.string();
   }
 }

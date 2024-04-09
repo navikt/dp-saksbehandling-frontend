@@ -44,6 +44,8 @@ spec:
       value: {{ingress}}
     - name: BASE_PATH
       value: {{base_path}}
+    - name: DP_BEHANDLING_URL
+      value: {{dp-behandling_url}}
     - name: DP_SAKSBEHANDLING_URL
       value: {{dp-saksbehandling_url}}
     - name: DP_RAPPORTERING_URL

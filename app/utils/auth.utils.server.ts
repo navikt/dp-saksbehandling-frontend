@@ -30,11 +30,20 @@ export async function getRapporteringOboToken(session: SessionWithOboProvider) {
   }
 }
 
-export async function getBehandlingOboToken(session: SessionWithOboProvider) {
+export async function getSaksbehandlingOboToken(session: SessionWithOboProvider) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.DP_SAKSBEHANDLING_TOKEN || fallbackToken;
   } else {
     const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-saksbehandling/.default`;
+    return await session.apiToken(audience);
+  }
+}
+
+export async function getBehandlingOboToken(session: SessionWithOboProvider) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_BEHANDLING_TOKEN || fallbackToken;
+  } else {
+    const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-behandling/.default`;
     return await session.apiToken(audience);
   }
 }

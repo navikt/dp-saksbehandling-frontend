@@ -4,12 +4,12 @@ import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import styles from "./Opplysning.module.css";
 
 export function OpplysningString({ opplysning, readonly, className }: IOpplysningProps) {
-  const { error, getInputProps } = useField(opplysning.opplysningNavn);
+  const { error, getInputProps } = useField(opplysning.navn);
 
   return (
     <div className={className}>
-      {!opplysning.redigerbar && opplysning.svar?.verdi && (
-        <div className={styles.opplysningVerdi}>{opplysning.svar?.verdi} år</div>
+      {!opplysning.redigerbar && opplysning.verdi && (
+        <div className={styles.opplysningVerdi}>{opplysning.verdi} år</div>
       )}
 
       {opplysning.redigerbar && (
@@ -18,7 +18,7 @@ export function OpplysningString({ opplysning, readonly, className }: IOpplysnin
           type="text"
           error={error}
           readOnly={readonly}
-          defaultValue={opplysning.svar?.verdi}
+          defaultValue={opplysning.verdi}
           {...getInputProps()}
         />
       )}

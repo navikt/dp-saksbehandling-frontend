@@ -6,6 +6,7 @@ declare global {
 
 interface IEnv {
   BASE_PATH: string;
+  DP_BEHANDLING_URL: string;
   DP_SAKSBEHANDLING_URL: string;
   DP_RAPPORTERING_URL: string;
   DP_VEDTAK_URL: string;

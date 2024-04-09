@@ -4,14 +4,12 @@ import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import styles from "./Opplysning.module.css";
 
 export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysningProps) {
-  const { error, getInputProps } = useField(opplysning.opplysningNavn);
+  const { error, getInputProps } = useField(opplysning.navn);
 
   return (
     <div className={className}>
-      {!opplysning.redigerbar && opplysning.svar?.verdi && (
-        <div className={styles.opplysningVerdi}>
-          {opplysning.svar.verdi === "true" ? "Ja" : "Nei"}
-        </div>
+      {!opplysning.redigerbar && opplysning.verdi && (
+        <div className={styles.opplysningVerdi}>{opplysning.verdi === "true" ? "Ja" : "Nei"}</div>
       )}
 
       {opplysning.redigerbar && (
@@ -19,7 +17,7 @@ export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysni
           size="small"
           error={error}
           readOnly={readonly}
-          defaultValue={opplysning.svar?.verdi}
+          defaultValue={opplysning.verdi}
           {...getInputProps()}
         >
           <Radio value={"true"}>{"Ja"}</Radio>

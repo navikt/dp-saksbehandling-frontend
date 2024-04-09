@@ -3,7 +3,7 @@ import { OpplysningDato } from "~/components/opplysning/OpplysningDato";
 import { OpplysningDouble } from "~/components/opplysning/OpplysningDouble";
 import { OpplysningInt } from "~/components/opplysning/OpplysningInt";
 import { OpplysningString } from "~/components/opplysning/OpplysningString";
-import type { IOpplysning } from "~/models/oppgave.server";
+import type { IOpplysning } from "~/models/behandling.server";
 
 export interface IOpplysningProps {
   opplysning: IOpplysning;
@@ -13,7 +13,7 @@ export interface IOpplysningProps {
 }
 
 export function Opplysning({ opplysning, readonly, label, className }: IOpplysningProps) {
-  switch (opplysning.dataType) {
+  switch (opplysning.datatype) {
     case "INT":
       return (
         <OpplysningInt

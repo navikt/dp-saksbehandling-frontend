@@ -3,8 +3,10 @@ import React from "react";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { RemixLink } from "../RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useNavigation } from "@remix-run/react";
 
 export function OppgaveListe() {
+  const { state } = useNavigation();
   const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
 
   return (
@@ -37,7 +39,11 @@ export function OppgaveListe() {
                 <RemixLink to={`person/${oppgaveId}/oversikt`}>{personIdent}</RemixLink>
               </Table.DataCell>
               <Table.DataCell>
-                <RemixLink to={`oppgave/${oppgaveId}/behandling`} asButtonVariant="primary">
+                <RemixLink
+                  to={`oppgave/${oppgaveId}/behandling`}
+                  asButtonVariant="primary"
+                  loading={state !== "idle"}
+                >
                   Behandle
                 </RemixLink>
               </Table.DataCell>

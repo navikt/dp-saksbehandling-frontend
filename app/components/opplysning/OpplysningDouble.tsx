@@ -5,14 +5,14 @@ import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import styles from "./Opplysning.module.css";
 
 export function OpplysningDouble({ opplysning, readonly, className }: IOpplysningProps) {
-  const { error, getInputProps } = useField(opplysning.opplysningNavn);
-  const enhet = opplysning.opplysningNavn.match("\\sG\\s") ? "G" : "kr";
+  const { error, getInputProps } = useField(opplysning.navn);
+  const enhet = opplysning.navn.match("\\sG\\s") ? "G" : "kr";
 
   return (
     <div className={className}>
-      {!opplysning.redigerbar && opplysning.svar?.verdi && (
+      {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>
-          {formaterTallMedTusenSeperator(opplysning.svar.verdi)} {enhet}
+          {formaterTallMedTusenSeperator(opplysning.verdi)} {enhet}
         </div>
       )}
 
@@ -24,9 +24,7 @@ export function OpplysningDouble({ opplysning, readonly, className }: IOpplysnin
           inputMode="decimal"
           readOnly={readonly}
           defaultValue={
-            opplysning.svar?.verdi
-              ? formaterTallMedTusenSeperator(opplysning.svar.verdi)
-              : undefined
+            opplysning.verdi ? formaterTallMedTusenSeperator(opplysning.verdi) : undefined
           }
           {...getInputProps()}
         />

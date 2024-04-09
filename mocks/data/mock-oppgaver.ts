@@ -1,7 +1,5 @@
 import type { IOppgave, IPerson } from "~/models/oppgave.server";
 
-import { mockBehandling } from "./mock-behandling";
-
 export const mockPerson: IPerson = {
   alder: 74,
   fodselsdato: "12.01.1954",
@@ -33,7 +31,6 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   emneknagger: ["Søknadsbehandling"],
   tilstand: "KLAR_TIL_BEHANDLING",
   journalpostIder: ["123"],
-  behandling: mockBehandling,
 };
 
 export const mockOppgaver: IOppgave[] = [masterMenyMock, minsteinntektAvslagOppgave];

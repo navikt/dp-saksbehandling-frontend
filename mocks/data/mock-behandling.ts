@@ -1,7 +1,14 @@
-import type { IBehandling } from "~/models/oppgave.server";
+import type { IBehandling, IKilde } from "~/models/behandling.server";
 
+const kilde: IKilde = {
+  type: "",
+  registrert: "",
+  ident: "",
+  meldingId: "",
+};
 export const mockBehandling: IBehandling = {
   behandlingId: "018dc0e6-0be3-7f17-b410-08f2072ffcb1",
+  tilstand: "UnderOpprettelse",
   opplysning: [
     {
       id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -11,6 +18,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: "2024-03-21T11:24:08.331818Z",
       datatype: "LocalDate",
+      kilde: kilde,
     },
     {
       id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186a",
@@ -20,6 +28,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "LocalDate",
+      kilde: kilde,
     },
     {
       id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186b",
@@ -29,6 +38,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "LocalDate",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "SisteAv",
@@ -42,6 +52,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
           },
           {
             id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -51,6 +62,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
           },
         ],
       },
@@ -63,6 +75,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "int",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Oppslag",
@@ -76,6 +89,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteAv",
@@ -89,6 +103,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -98,6 +113,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
               ],
             },
@@ -113,6 +129,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Oppslag",
@@ -126,6 +143,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteAv",
@@ -139,6 +157,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -148,6 +167,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
               ],
             },
@@ -163,6 +183,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Oppslag",
@@ -176,6 +197,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteAv",
@@ -189,6 +211,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -198,6 +221,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
               ],
             },
@@ -213,6 +237,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Oppslag",
@@ -226,6 +251,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteAv",
@@ -239,6 +265,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -248,6 +275,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
               ],
             },
@@ -263,6 +291,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "LocalDate",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "LeggTilÅr",
@@ -276,6 +305,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
           },
           {
             id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186c",
@@ -285,6 +315,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "int",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Oppslag",
@@ -298,6 +329,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -311,6 +343,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -320,6 +353,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -338,6 +372,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Multiplikasjon",
@@ -351,6 +386,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Oppslag",
@@ -364,6 +400,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -377,6 +414,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -386,6 +424,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -401,6 +440,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Oppslag",
@@ -414,6 +454,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -427,6 +468,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -436,6 +478,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -454,6 +497,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Multiplikasjon",
@@ -467,6 +511,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Oppslag",
@@ -480,6 +525,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -493,6 +539,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -502,6 +549,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -517,6 +565,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Oppslag",
@@ -530,6 +579,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -543,6 +593,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -552,6 +603,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -570,6 +622,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "LocalDate",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "SisteDagIMåned",
@@ -583,6 +636,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "LeggTilÅr",
@@ -596,6 +650,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186c",
@@ -605,6 +660,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "int",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Oppslag",
@@ -618,6 +674,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "SisteAv",
@@ -631,6 +688,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -640,6 +698,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                           ],
                         },
@@ -661,6 +720,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "boolean",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "FørEllerLik",
@@ -674,6 +734,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteAv",
@@ -687,6 +748,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -696,6 +758,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                 },
               ],
             },
@@ -708,6 +771,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "LocalDate",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "SisteDagIMåned",
@@ -721,6 +785,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "LeggTilÅr",
@@ -734,6 +799,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186c",
@@ -743,6 +809,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "int",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Oppslag",
@@ -756,6 +823,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "SisteAv",
@@ -769,6 +837,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                   {
                                     id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -778,6 +847,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                 ],
                               },
@@ -802,6 +872,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
     },
     {
       id: "018dc0e6-11eb-7b02-8f56-071d747cb862",
@@ -811,6 +882,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "boolean",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "StørreEnnEllerLik",
@@ -824,6 +896,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
           },
           {
             id: "018dc0e6-0d54-79b8-962a-360720ab2611",
@@ -833,6 +906,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Multiplikasjon",
@@ -846,6 +920,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Oppslag",
@@ -859,6 +934,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "SisteAv",
@@ -872,6 +948,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -881,6 +958,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                           ],
                         },
@@ -896,6 +974,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Oppslag",
@@ -909,6 +988,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "SisteAv",
@@ -922,6 +1002,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -931,6 +1012,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                           ],
                         },
@@ -952,6 +1034,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "double",
+      kilde: kilde,
     },
     {
       id: "018dc0e6-14ab-7b49-8f76-e5499dd81bd5",
@@ -961,6 +1044,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "boolean",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "StørreEnnEllerLik",
@@ -974,6 +1058,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
           },
           {
             id: "018dc0e6-0d54-79b8-962a-360720ab2612",
@@ -983,6 +1068,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "double",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "Multiplikasjon",
@@ -996,6 +1082,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Oppslag",
@@ -1009,6 +1096,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "SisteAv",
@@ -1022,6 +1110,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1031,6 +1120,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                           ],
                         },
@@ -1046,6 +1136,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Oppslag",
@@ -1059,6 +1150,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "SisteAv",
@@ -1072,6 +1164,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1081,6 +1174,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                           ],
                         },
@@ -1102,6 +1196,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "boolean",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "EnAv",
@@ -1115,6 +1210,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "boolean",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "StørreEnnEllerLik",
@@ -1128,6 +1224,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d54-79b8-962a-360720ab2611",
@@ -1137,6 +1234,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Multiplikasjon",
@@ -1150,6 +1248,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Oppslag",
@@ -1163,6 +1262,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "SisteAv",
@@ -1176,6 +1276,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                   {
                                     id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1185,6 +1286,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                 ],
                               },
@@ -1200,6 +1302,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Oppslag",
@@ -1213,6 +1316,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "SisteAv",
@@ -1226,6 +1330,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                   {
                                     id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1235,6 +1340,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                 ],
                               },
@@ -1256,6 +1362,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "boolean",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "StørreEnnEllerLik",
@@ -1269,6 +1376,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                 },
                 {
                   id: "018dc0e6-0d54-79b8-962a-360720ab2612",
@@ -1278,6 +1386,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "double",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "Multiplikasjon",
@@ -1291,6 +1400,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Oppslag",
@@ -1304,6 +1414,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "SisteAv",
@@ -1317,6 +1428,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                   {
                                     id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1326,6 +1438,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                 ],
                               },
@@ -1341,6 +1454,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Oppslag",
@@ -1354,6 +1468,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "SisteAv",
@@ -1367,6 +1482,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                   {
                                     id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1376,6 +1492,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                   },
                                 ],
                               },
@@ -1400,6 +1517,7 @@ export const mockBehandling: IBehandling = {
       gyldigFraOgMed: null,
       gyldigTilOgMed: null,
       datatype: "boolean",
+      kilde: kilde,
       utledetAv: {
         regel: {
           navn: "Alle",
@@ -1413,6 +1531,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "boolean",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "FørEllerLik",
@@ -1426,6 +1545,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteAv",
@@ -1439,6 +1559,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1448,6 +1569,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                       },
                     ],
                   },
@@ -1460,6 +1582,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "LocalDate",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "SisteDagIMåned",
@@ -1473,6 +1596,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "LocalDate",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "LeggTilÅr",
@@ -1486,6 +1610,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "LocalDate",
+                              kilde: kilde,
                             },
                             {
                               id: "018dc0e6-0d4f-7eb1-8035-f3c666f4186c",
@@ -1495,6 +1620,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "int",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "Oppslag",
@@ -1508,6 +1634,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                     utledetAv: {
                                       regel: {
                                         navn: "SisteAv",
@@ -1521,6 +1648,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                         {
                                           id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1530,6 +1658,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                       ],
                                     },
@@ -1554,6 +1683,7 @@ export const mockBehandling: IBehandling = {
             gyldigFraOgMed: null,
             gyldigTilOgMed: null,
             datatype: "boolean",
+            kilde: kilde,
             utledetAv: {
               regel: {
                 navn: "EnAv",
@@ -1567,6 +1697,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "boolean",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "StørreEnnEllerLik",
@@ -1580,6 +1711,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d54-79b8-962a-360720ab2611",
@@ -1589,6 +1721,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Multiplikasjon",
@@ -1602,6 +1735,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "double",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "Oppslag",
@@ -1615,6 +1749,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                     utledetAv: {
                                       regel: {
                                         navn: "SisteAv",
@@ -1628,6 +1763,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                         {
                                           id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1637,6 +1773,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                       ],
                                     },
@@ -1652,6 +1789,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "double",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "Oppslag",
@@ -1665,6 +1803,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                     utledetAv: {
                                       regel: {
                                         navn: "SisteAv",
@@ -1678,6 +1817,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                         {
                                           id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1687,6 +1827,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                       ],
                                     },
@@ -1708,6 +1849,7 @@ export const mockBehandling: IBehandling = {
                   gyldigFraOgMed: null,
                   gyldigTilOgMed: null,
                   datatype: "boolean",
+                  kilde: kilde,
                   utledetAv: {
                     regel: {
                       navn: "StørreEnnEllerLik",
@@ -1721,6 +1863,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                       },
                       {
                         id: "018dc0e6-0d54-79b8-962a-360720ab2612",
@@ -1730,6 +1873,7 @@ export const mockBehandling: IBehandling = {
                         gyldigFraOgMed: null,
                         gyldigTilOgMed: null,
                         datatype: "double",
+                        kilde: kilde,
                         utledetAv: {
                           regel: {
                             navn: "Multiplikasjon",
@@ -1743,6 +1887,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "double",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "Oppslag",
@@ -1756,6 +1901,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                     utledetAv: {
                                       regel: {
                                         navn: "SisteAv",
@@ -1769,6 +1915,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                         {
                                           id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1778,6 +1925,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                       ],
                                     },
@@ -1793,6 +1941,7 @@ export const mockBehandling: IBehandling = {
                               gyldigFraOgMed: null,
                               gyldigTilOgMed: null,
                               datatype: "double",
+                              kilde: kilde,
                               utledetAv: {
                                 regel: {
                                   navn: "Oppslag",
@@ -1806,6 +1955,7 @@ export const mockBehandling: IBehandling = {
                                     gyldigFraOgMed: null,
                                     gyldigTilOgMed: null,
                                     datatype: "LocalDate",
+                                    kilde: kilde,
                                     utledetAv: {
                                       regel: {
                                         navn: "SisteAv",
@@ -1819,6 +1969,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                         {
                                           id: "018dc0e6-0d4b-7f11-a881-1377d9b38a2a",
@@ -1828,6 +1979,7 @@ export const mockBehandling: IBehandling = {
                                           gyldigFraOgMed: null,
                                           gyldigTilOgMed: null,
                                           datatype: "LocalDate",
+                                          kilde: kilde,
                                         },
                                       ],
                                     },

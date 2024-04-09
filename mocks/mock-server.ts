@@ -4,8 +4,15 @@ import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
 import { mockAzure } from "./mock-azure";
 import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
+import { mockDpBehandling } from "./mock-dp-behandling";
 
-const mswHandlers = [...mockAzure, ...mockDpSaksbehandling, ...mockPdl, ...mockSaf];
+const mswHandlers = [
+  ...mockAzure,
+  ...mockDpBehandling,
+  ...mockDpSaksbehandling,
+  ...mockPdl,
+  ...mockSaf,
+];
 
 export const mockServer = setupServer(...mswHandlers);
 

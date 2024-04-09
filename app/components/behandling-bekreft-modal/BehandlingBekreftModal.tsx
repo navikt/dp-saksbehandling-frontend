@@ -1,15 +1,20 @@
 import type { Dispatch, SetStateAction } from "react";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
-import type { action, IModalTilstand } from "~/routes/saksbehandling.oppgave.$oppgaveId.behandling";
+import type {
+  action,
+  IFerdigstillValg,
+} from "~/routes/saksbehandling.oppgave.$oppgaveId.behandling";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
-  aktivModalId?: IModalTilstand;
-  setAktivModalId: Dispatch<SetStateAction<IModalTilstand | undefined>>;
+  aktivModalId?: IFerdigstillValg;
+  setAktivModalId: Dispatch<SetStateAction<IFerdigstillValg | undefined>>;
 }
 
 export function BehandlingBekreftModal(props: IProps) {
-  const fetcher = useFetcher<typeof action>();
+  const fetcher = useFetcher<typeof action>({ key: "ferdigstill-behandling" });
+  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
   const { aktivModalId, setAktivModalId } = props;
 
   return (
@@ -26,37 +31,32 @@ export function BehandlingBekreftModal(props: IProps) {
     >
       <Modal.Body>
         <BodyLong>
-          Endre oppgave tilstand til: <strong>{aktivModalId}</strong>
+          <strong className="capitalize">{aktivModalId}</strong> behandlig
         </BodyLong>
       </Modal.Body>
 
       <Modal.Footer>
         <fetcher.Form method="post">
-          {aktivModalId === "lukk" && (
-            <Button
-              type="submit"
-              variant="primary"
-              name="variant"
-              className="mr-4"
-              value={JSON.stringify({ variant: "lukk" })}
-            >
-              Ja, jeg er sikker
-            </Button>
-          )}
+          <Button
+            type="submit"
+            variant="primary"
+            name="skjemadata"
+            className="mr-4"
+            loading={fetcher.state !== "idle"}
+            value={JSON.stringify({
+              ferdigstillValg: aktivModalId,
+              personIdent: oppgave.personIdent,
+            })}
+          >
+            Ja, jeg er sikker
+          </Button>
 
-          {aktivModalId === "avslag" && (
-            <Button
-              type="submit"
-              variant="primary"
-              name="variant"
-              className="mr-4"
-              value={JSON.stringify({ variant: "avslag" })}
-            >
-              Ja, jeg er sikker
-            </Button>
-          )}
-
-          <Button type="button" variant="secondary" onClick={() => setAktivModalId(undefined)}>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setAktivModalId(undefined)}
+            loading={fetcher.state !== "idle"}
+          >
             Avbryt
           </Button>
         </fetcher.Form>

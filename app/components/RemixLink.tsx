@@ -8,6 +8,7 @@ import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
+  loading?: boolean;
 }
 
 export const RemixLink = forwardRef(RemixLinkComponent);
@@ -25,6 +26,7 @@ function RemixLinkComponent(
     to,
     children,
     className,
+    loading,
   } = props;
   const href = useHref(to);
   const handleClick = useLinkClickHandler(to, {
@@ -40,6 +42,7 @@ function RemixLinkComponent(
         href={href}
         size={"small"}
         variant={asButtonVariant}
+        loading={loading}
         onClick={(event) => {
           /* Dette er OK å ignorere, den klager på at det er feil type 
           (Anchor i stedet for Button), og siden vi alltid sender med 

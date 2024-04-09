@@ -26,6 +26,10 @@
   margin-top: var(--a-spacing-8);
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .inntektTabell .navds-table__expanded-row-content {
   background-color: var(--a-gray-50);
 }
