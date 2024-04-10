@@ -1,6 +1,6 @@
 name: Build and deploy
 
-on: [push]
+on: [ push ]
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
@@ -32,7 +32,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
   test:
-    needs: [install]
+    needs: [ install ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
       - run: npm run test
 
   playwright:
-    needs: [install]
+    needs: [ install ]
     timeout-minutes: 2
     runs-on: ubuntu-latest
     steps:
@@ -102,7 +102,7 @@ jobs:
           retention-days: 7
 
   build:
-    needs: [install]
+    needs: [ install ]
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -172,7 +172,7 @@ jobs:
 
   deploy-dev:
     if: github.ref == 'refs/heads/main'
-    needs: [build, test, upload-cdn]
+    needs: [ build, test, upload-cdn ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -182,4 +182,18 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais.yaml
           VARS: .nais/vars-dev.yaml
+          PRINT_PAYLOAD: true
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    needs: [ build, test, upload-cdn ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/nais.yaml
+          VARS: .nais/vars-prod.yaml
           PRINT_PAYLOAD: true
