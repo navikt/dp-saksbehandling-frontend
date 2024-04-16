@@ -67,8 +67,6 @@ export function links() {
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
 
-  console.log(saksbehandler);
-
   return json({
     saksbehandler: saksbehandler,
     env: {

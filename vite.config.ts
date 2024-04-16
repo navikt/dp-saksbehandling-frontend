@@ -7,7 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 installGlobals();
 
 export default defineConfig({
-  base: "/",
+  base: "/saksbehandling",
   plugins: [
     remix({
       basename: "/saksbehandling",
