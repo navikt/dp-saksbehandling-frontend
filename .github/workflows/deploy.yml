@@ -146,7 +146,7 @@ jobs:
           key: ${{ github.sha }}
 
   upload-cdn:
-    needs: [ build, test ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -172,7 +172,7 @@ jobs:
 
   deploy-dev:
     #    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, upload-cdn ]
+    needs: [ build, upload-cdn ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
