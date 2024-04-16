@@ -156,7 +156,6 @@ jobs:
         with:
           path: |
             ./build
-            ./public
           key: ${{ github.sha }}
           fail-on-cache-miss: true
 
