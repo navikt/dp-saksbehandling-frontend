@@ -1,8 +1,7 @@
-FROM gcr.io/distroless/nodejs20-debian11
-
-WORKDIR /var
+FROM node:20-alpine
 
 COPY build/ build/
+COPY ./package.json ./
 COPY node_modules/ node_modules/
 
-CMD ["npm run start"]
+CMD ["npm", "run" ,"start"]
