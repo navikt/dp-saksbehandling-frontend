@@ -1,4 +1,4 @@
-import type { ISaksbehandler } from "~/models/auth.server";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import styles from "./HeaderMeny.module.css";
 import { Dropdown, InternalHeader } from "@navikt/ds-react";
 

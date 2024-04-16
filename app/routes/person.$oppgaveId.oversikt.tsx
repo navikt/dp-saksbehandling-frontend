@@ -5,9 +5,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/person.module.css";
 
 export default function PersonOversikt() {
-  const { arbeidssokerStatusResponse } = useTypedRouteLoaderData(
-    "routes/saksbehandling.person.$oppgaveId",
-  );
+  const { arbeidssokerStatusResponse } = useTypedRouteLoaderData("routes/person.$oppgaveId");
 
   return (
     <div className={styles.personOversiktKontainer}>

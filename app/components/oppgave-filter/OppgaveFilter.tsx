@@ -1,16 +1,16 @@
 import React from "react";
 import { Checkbox, CheckboxGroup } from "@navikt/ds-react";
-import { useLoaderData, useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "@remix-run/react";
 import type { IOppgaveFilter } from "../../../mocks/data/mock-filter";
-import type { loader } from "~/routes/saksbehandling._index";
 import styles from "./OppgaveFilter.module.css";
 import { oppgaveFilterText } from "~/components/oppgave-filter/OppgaveFilterText";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {}
 
 export function OppgaveFilter(props: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { oppgaveFilter } = useLoaderData<typeof loader>();
+  const { oppgaveFilter } = useTypedRouteLoaderData("routes/_index");
   let aktiveFilter = parseUrlParamsToOppgaveFilter(searchParams);
 
   function oppdaterUrlSearchParams() {
@@ -63,6 +63,7 @@ export function OppgaveFilter(props: IProps) {
     }
     return false;
   }
+
   return (
     <>
       <CheckboxGroup

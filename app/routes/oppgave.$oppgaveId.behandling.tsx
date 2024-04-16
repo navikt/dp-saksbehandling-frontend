@@ -6,7 +6,6 @@ import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/Be
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandling.module.css";
 import { avbrytBehandling, godkjennBehandling, hentBehandling } from "~/models/behandling.server";
@@ -23,24 +22,22 @@ export type IFerdigstillValg = "godkjenn" | "avbryt";
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
-  const session = await getSession(request);
   const formData = await request.formData();
   const skjemadata = parseSkjemadata<ISkjemadata>(formData, "skjemadata");
 
   switch (skjemadata.ferdigstillValg) {
     case "avbryt":
-      return await avbrytBehandling(skjemadata.behandlingId, skjemadata.personIdent, session);
+      return await avbrytBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
 
     case "godkjenn":
-      return await godkjennBehandling(skjemadata.behandlingId, skjemadata.personIdent, session);
+      return await godkjennBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
   }
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const session = await getSession(request);
-  const oppgave = await hentOppgave(params.oppgaveId, session);
-  const behandling = await hentBehandling(oppgave.behandlingId, session);
+  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const behandling = await hentBehandling(request, oppgave.behandlingId);
   return json({ behandling, oppgave });
 }
 

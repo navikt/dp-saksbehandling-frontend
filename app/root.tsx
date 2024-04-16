@@ -1,7 +1,8 @@
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
+  Link,
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -9,12 +10,14 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { getEnv } from "~/utils/env.utils";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import navStyles from "@navikt/ds-css/dist/index.css";
-import { cssBundleHref } from "@remix-run/css-bundle";
-import globalCss from "~/global.css";
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import globalCss from "~/global.css?url";
 import { initFaro } from "~/utils/faro";
+import { InternalHeader } from "@navikt/ds-react";
+import styles from "~/route-styles/index.module.css";
+import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
+import { getSaksbehandler } from "~/models/saksbehandler.server";
 
 export function meta() {
   return [
@@ -39,35 +42,35 @@ export function meta() {
 
 export function links() {
   return [
-    ...(cssBundleHref
-      ? [
-          { rel: "stylesheet", href: cssBundleHref },
-          { rel: "stylesheet", href: navStyles },
-          { rel: "stylesheet", href: globalCss },
-          {
-            rel: "icon",
-            type: "image/png",
-            sizes: "32x32",
-            href: `${getEnv("BASE_PATH")}/favicon-32x32.png`,
-          },
-          {
-            rel: "icon",
-            type: "image/png",
-            sizes: "16x16",
-            href: `${getEnv("BASE_PATH")}/favicon-16x16.png`,
-          },
-          {
-            rel: "icon",
-            type: "image/x-icon",
-            href: `${getEnv("BASE_PATH")}/favicon.ico`,
-          },
-        ]
-      : []),
+    { rel: "stylesheet", href: navStyles },
+    { rel: "stylesheet", href: globalCss },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: `/favicon-32x32.png`,
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      href: `/favicon-16x16.png`,
+    },
+    {
+      rel: "icon",
+      type: "image/x-icon",
+      href: `/favicon.ico`,
+    },
   ];
 }
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
+  const saksbehandler = await getSaksbehandler(request);
+
+  console.log(saksbehandler);
+
   return json({
+    saksbehandler: saksbehandler,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
@@ -75,11 +78,8 @@ export async function loader() {
   });
 }
 
-// Hindrer loader til å kjøre på nytt etter action funksjon
-export const shouldRevalidate = () => false;
-
 export default function App() {
-  const { env } = useLoaderData<typeof loader>();
+  const { env, saksbehandler } = useLoaderData<typeof loader>();
   initFaro();
 
   return (
@@ -89,6 +89,15 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <InternalHeader className={styles.header}>
+          <Link to={"/"} className={styles.headerLogo}>
+            <InternalHeader.Title as="h1" className={styles.pageHeader}>
+              NAV Dagpenger
+            </InternalHeader.Title>
+          </Link>
+
+          <HeaderMeny saksbehandler={saksbehandler} />
+        </InternalHeader>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -97,7 +106,6 @@ export default function App() {
             __html: `window.env = ${JSON.stringify(env)}`,
           }}
         />
-        <LiveReload />
       </body>
     </html>
   );

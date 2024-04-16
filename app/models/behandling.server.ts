@@ -1,5 +1,4 @@
-import type { SessionWithOboProvider } from "@navikt/oasis/index.d.ts/";
-import { getBehandlingOboToken, getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
+import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
@@ -35,11 +34,8 @@ export interface IKilde {
   meldingId: string;
 }
 
-export async function hentBehandling(
-  behandlingId: string,
-  session: SessionWithOboProvider,
-): Promise<IBehandling> {
-  const onBehalfOfToken = await getBehandlingOboToken(session);
+export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}`;
   const response = await fetch(url, {
@@ -58,11 +54,11 @@ export async function hentBehandling(
 }
 
 export async function avbrytBehandling(
+  request: Request,
   behandlingId: string,
   personIdent: string,
-  session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
-  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avbryt`;
   const response = await fetch(url, {
@@ -82,11 +78,11 @@ export async function avbrytBehandling(
 }
 
 export async function godkjennBehandling(
+  request: Request,
   behandlingId: string,
   personIdent: string,
-  session: SessionWithOboProvider,
 ): Promise<INetworkResponse> {
-  const onBehalfOfToken = await getBehandlingOboToken(session);
+  const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/godkjenn`;
   const response = await fetch(url, {

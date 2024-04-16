@@ -3,9 +3,8 @@
 import { http, HttpResponse } from "msw";
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "vitest";
 import { mockServer } from "../../../mocks/mock-server";
-import { endSessionMock, mockSession } from "../helpers/auth-helper";
 import { catchErrorResponse } from "../helpers/response-helper";
-import { loader } from "~/routes/saksbehandling";
+import { loader } from "~/routes/_index";
 import { mockOppgaver } from "../../../mocks/data/mock-oppgaver";
 
 describe("Root til applikasjonen", () => {
@@ -13,7 +12,6 @@ describe("Root til applikasjonen", () => {
   afterAll(() => mockServer.close());
   afterEach(() => {
     mockServer.resetHandlers();
-    endSessionMock();
   });
 
   describe("Loader", () => {
@@ -40,8 +38,6 @@ describe("Root til applikasjonen", () => {
         }),
       );
 
-      mockSession();
-
       const response = await catchErrorResponse(() =>
         loader({
           request: new Request("http://localhost:3000"),
@@ -54,8 +50,6 @@ describe("Root til applikasjonen", () => {
     });
 
     test("skal hente ut alle oppgaver i saksbehandlingssystemet", async () => {
-      const mock = mockSession();
-
       const response = await loader({
         request: new Request("http://localhost:3000"),
         params: testParams,
@@ -64,7 +58,6 @@ describe("Root til applikasjonen", () => {
 
       const data = await response.json();
 
-      expect(mock.getAzureSession).toHaveBeenCalledTimes(1);
       expect(response.status).toBe(200);
       expect(data.oppgaver).toEqual(mockOppgaver);
     });

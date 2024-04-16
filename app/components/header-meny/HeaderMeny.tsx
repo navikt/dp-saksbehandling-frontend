@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
-import type { ISaksbehandler } from "~/models/auth.server";
-import { getEnv } from "~/utils/env.utils";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { PersonSok } from "../person-sok/PersonSok";
 import styles from "./HeaderMeny.module.css";
 
@@ -13,11 +12,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
   return (
     <div className={styles.container}>
       <div>
-        <Link
-          to={getEnv("BASE_PATH")}
-          className={styles.linkItem}
-          data-testid={"benken-menu-button"}
-        >
+        <Link to={"/"} className={styles.linkItem} data-testid={"benken-menu-button"}>
           Oppgaver til behandling
         </Link>
       </div>

@@ -1,4 +1,3 @@
-import type { SessionWithOboProvider } from "@navikt/oasis";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
@@ -28,11 +27,9 @@ export interface IPerson {
 export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";
 export type IDataType = "INT" | "DOUBLE" | "BOOLEAN" | "LOCALDATE" | "STRING";
 
-export async function hentOppgaver(
-  session: SessionWithOboProvider,
-  urlParams?: string,
-): Promise<IOppgave[]> {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(session);
+export async function hentOppgaver(request: Request, urlParams?: string): Promise<IOppgave[]> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
 
   const response = await fetch(url, {
@@ -54,11 +51,8 @@ export async function hentOppgaver(
   return await response.json();
 }
 
-export async function hentOppgave(
-  oppgaveId: string,
-  session: SessionWithOboProvider,
-): Promise<IOppgave> {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(session);
+export async function hentOppgave(request: Request, oppgaveId: string): Promise<IOppgave> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}`;
   const response = await fetch(url, {

@@ -1,10 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
-import type {
-  action,
-  IFerdigstillValg,
-} from "~/routes/saksbehandling.oppgave.$oppgaveId.behandling";
+import type { action, IFerdigstillValg } from "~/routes/oppgave.$oppgaveId.behandling";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
@@ -14,7 +11,7 @@ interface IProps {
 
 export function BehandlingBekreftModal(props: IProps) {
   const fetcher = useFetcher<typeof action>({ key: "ferdigstill-behandling" });
-  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { aktivModalId, setAktivModalId } = props;
 
   return (

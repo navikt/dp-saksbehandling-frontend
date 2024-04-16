@@ -1,3 +1,18 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerLogo {
+  display: flex;
+  text-decoration: none;
+}
+
+.pageHeader {
+  white-space: nowrap;
+}
+
 .container {
   display: grid;
   grid-template-columns: 250px auto;

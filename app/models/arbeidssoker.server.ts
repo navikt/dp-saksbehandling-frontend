@@ -1,4 +1,3 @@
-import { type SessionWithOboProvider } from "@navikt/oasis/index/";
 import { formatISO, subYears } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { getVeilarbregistreringOboToken } from "~/utils/auth.utils.server";
@@ -16,11 +15,11 @@ export interface IArbeidssokerperiode {
 }
 
 export async function hentArbeidssokerStatus(
-  session: SessionWithOboProvider,
+  request: Request,
   fnr: string,
 ): Promise<INetworkResponse<IArbeidssokerStatus>> {
   const callId = uuid();
-  const onBehalfOfToken = await getVeilarbregistreringOboToken(session);
+  const onBehalfOfToken = await getVeilarbregistreringOboToken(request);
 
   // Et år tilbake i tid
   const fomDato = formatISO(subYears(new Date(), 1), { representation: "date" });

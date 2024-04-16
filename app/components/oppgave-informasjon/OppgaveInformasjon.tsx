@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export function OppgaveInformasjon(props: IProps) {
-  const { oppgave } = useTypedRouteLoaderData("routes/saksbehandling.oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <Tabs defaultValue="informasjon" className={styles.container}>

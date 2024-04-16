@@ -1,12 +1,12 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import type { loader as saksbehandlingLoader } from "~/routes/saksbehandling";
-import type { loader as oppgaveLoader } from "~/routes/saksbehandling.oppgave.$oppgaveId";
-import type { loader as personLoader } from "~/routes/saksbehandling.person.$oppgaveId";
+import type { loader as indexLoader } from "~/routes/_index";
+import type { loader as personLoader } from "~/routes/person.$oppgaveId";
+import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
 
 type Loaders = {
-  "routes/saksbehandling": typeof saksbehandlingLoader;
-  "routes/saksbehandling.oppgave.$oppgaveId": typeof oppgaveLoader;
-  "routes/saksbehandling.person.$oppgaveId": typeof personLoader;
+  "routes/_index": typeof indexLoader;
+  "routes/person.$oppgaveId": typeof personLoader;
+  "routes/oppgave.$oppgaveId": typeof oppgaveLoader;
 };
 
 export function useTypedRouteLoaderData<T extends keyof Loaders>(route: T) {
