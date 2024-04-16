@@ -3,15 +3,13 @@ import { defer } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
-import { getSession } from "~/models/auth.server";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const session = await getSession(request);
-  const oppgave = await hentOppgave(params.oppgaveId, session);
+  const oppgave = await hentOppgave(request, params.oppgaveId);
 
   function hentJournalposter() {
     return Promise.all(

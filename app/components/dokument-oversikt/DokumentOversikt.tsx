@@ -9,9 +9,7 @@ import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function DokumentOversikt() {
-  const { journalposterPromises } = useTypedRouteLoaderData(
-    "routes/saksbehandling.oppgave.$oppgaveId",
-  );
+  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <Suspense fallback={<div>Henter arbeidsforhold</div>}>

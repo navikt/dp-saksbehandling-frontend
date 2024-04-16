@@ -1,14 +1,13 @@
 import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
-import { getSaksbehandler } from "./auth.server";
-import type { SessionWithOboProvider } from "@navikt/oasis";
+import { getSaksbehandler } from "./saksbehandler.server";
 import { getPDLOboToken } from "~/utils/auth.utils.server";
 import { logger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/pdl";
 
-export async function hentPersonalia(session: SessionWithOboProvider, ident: string) {
-  const saksbehandler = await getSaksbehandler(session);
-  const onBehalfOfToken = await getPDLOboToken(session);
+export async function hentPersonalia(request: Request, ident: string) {
+  const saksbehandler = await getSaksbehandler(request);
+  const onBehalfOfToken = await getPDLOboToken(request);
 
   const hentPersonQuery = graphql(`
     query hentPerson($ident: ID!) {

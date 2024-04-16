@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { getAzureSession } from "~/utils/auth.utils.server";
 import { v4 as uuidv4 } from "uuid";
+import { getSAFOboToken } from "~/utils/auth.utils.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.journalpostId, `params.journalpostId er påkrevd`);
@@ -9,9 +9,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.variantFormat, `params.variantFormat er påkrevd`);
 
   const url = `https://saf.dev-fss-pub.nais.io/rest/hentdokument/${params.journalpostId}/${params.dokumentInfoId}/${params.variantFormat}`;
-  const audience = `api://dev-fss.teamdokumenthandtering.saf-q1/.default`;
-  const session = await getAzureSession(request);
-  const oboToken = await session.apiToken(audience);
+  const oboToken = await getSAFOboToken(request);
 
   const callId = uuidv4();
   const response = await fetch(url, {

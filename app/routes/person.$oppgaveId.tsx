@@ -3,7 +3,6 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbeidssoker.server";
-import { getSession } from "~/models/auth.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPersonalia } from "~/models/pdl.server";
 import type { INetworkResponse } from "~/utils/types";
@@ -15,12 +14,11 @@ export const shouldRevalidate = () => false;
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "Fant ikke oppgaveId");
 
-  const session = await getSession(request);
-  const oppgave = await hentOppgave(params.oppgaveId, session);
-  const arbeidssokerStatusPromise = hentArbeidssokerStatus(session, oppgave.personIdent);
+  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const arbeidssokerStatusPromise = hentArbeidssokerStatus(request, oppgave.personIdent);
 
   try {
-    const personaliaPromise = hentPersonalia(session, oppgave.personIdent);
+    const personaliaPromise = hentPersonalia(request, oppgave.personIdent);
     const [personalia, arbeidssokerStatusResponse] = await Promise.all([
       personaliaPromise,
       arbeidssokerStatusPromise,

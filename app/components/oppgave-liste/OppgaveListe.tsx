@@ -7,7 +7,7 @@ import { useNavigation } from "@remix-run/react";
 
 export function OppgaveListe() {
   const { state } = useNavigation();
-  const { oppgaver } = useTypedRouteLoaderData("routes/saksbehandling");
+  const { oppgaver } = useTypedRouteLoaderData("routes/_index");
 
   return (
     <Table zebraStripes={true}>
@@ -40,7 +40,7 @@ export function OppgaveListe() {
               </Table.DataCell>
               <Table.DataCell>
                 <RemixLink
-                  to={`oppgave/${oppgaveId}/behandling`}
+                  to={`/oppgave/${oppgaveId}/behandling`}
                   asButtonVariant="primary"
                   loading={state !== "idle"}
                 >

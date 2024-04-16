@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
 import { GraphQLClient } from "graphql-request";
-import { getSaksbehandler, getSession } from "./auth.server";
+import { getSaksbehandler } from "./saksbehandler.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mocks/data/mock-journalpost";
 import { type INetworkResponse } from "~/utils/types";
 import { logger, sikkerLogger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
+import { getSAFOboToken } from "~/utils/auth.utils.server";
 
 export async function hentJournalpost(
   request: Request,
@@ -19,18 +20,13 @@ export async function hentJournalpost(
     };
   }
 
-  const session = await getSession(request);
-  const saksbehandler = await getSaksbehandler(session);
-  const token = await session.apiToken("api://dev-fss.teamdokumenthandtering.saf-q1/.default");
-
-  if (!token || !saksbehandler) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
+  const oboToken = await getSAFOboToken(request);
+  const saksbehandler = await getSaksbehandler(request);
 
   const callId = uuidv4();
   const client = new GraphQLClient("https://saf.dev-fss-pub.nais.io/graphql", {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${oboToken}`,
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",

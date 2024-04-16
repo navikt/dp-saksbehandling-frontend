@@ -1,4 +1,4 @@
-import type { ISaksbehandler } from "~/models/auth.server";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
 
 export const mockSaksbehandler: ISaksbehandler = {
   onPremisesSamAccountName: "1234",

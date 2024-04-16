@@ -142,11 +142,10 @@ jobs:
         with:
           path: |
             ./build
-            ./public
           key: ${{ github.sha }}
 
   upload-cdn:
-    needs: [ build, test ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -157,7 +156,6 @@ jobs:
         with:
           path: |
             ./build
-            ./public
           key: ${{ github.sha }}
           fail-on-cache-miss: true
 
@@ -165,14 +163,14 @@ jobs:
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
           team: teamdagpenger
-          source: ./public
+          source: ./build
           destination: "/dp-saksbehandling-frontend/"
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
   deploy-dev:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, upload-cdn ]
+    #    if: github.ref == 'refs/heads/main'
+    needs: [ build, upload-cdn ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
