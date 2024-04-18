@@ -30,15 +30,19 @@ export function OppgaveListe() {
       >
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader scope="col" sortKey="opprettet" sortable={true}>
+            <Table.ColumnHeader scope="col" sortKey="tidspunktOpprettet" sortable={true}>
               <Detail>Opprettet</Detail>
             </Table.ColumnHeader>
 
-            <Table.ColumnHeader scope="col" sortKey="oppgavetype" sortable={true}>
+            <Table.ColumnHeader scope="col">
               <Detail>Oppgavetype</Detail>
             </Table.ColumnHeader>
 
-            <Table.ColumnHeader scope="col" sortKey="status" sortable={true}>
+            <Table.ColumnHeader scope="col">
+              <Detail>Emne</Detail>
+            </Table.ColumnHeader>
+
+            <Table.ColumnHeader scope="col">
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
@@ -57,6 +61,9 @@ export function OppgaveListe() {
                   <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
                 </Table.DataCell>
 
+                <Table.DataCell>
+                  <Detail>Søknad</Detail>
+                </Table.DataCell>
                 <Table.DataCell>
                   {emneknagger.map((emneknagg) => (
                     <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
