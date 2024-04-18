@@ -28,7 +28,7 @@ export const minsteinntektAvslagOppgave: IOppgave = {
   personIdent: "12837798289",
   person: mockPerson,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling"],
+  emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "KLAR_TIL_BEHANDLING",
   journalpostIder: ["123"],
 };

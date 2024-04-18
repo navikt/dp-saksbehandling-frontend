@@ -11,14 +11,13 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import globalCss from "~/global.css?url";
-import { initFaro } from "~/utils/faro";
 import { InternalHeader } from "@navikt/ds-react";
-import styles from "~/route-styles/index.module.css";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getSaksbehandler } from "~/models/saksbehandler.server";
 import { getEnv } from "~/utils/env.utils";
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import globalCss from "~/global.css?url";
+import styles from "~/route-styles/root.module.css";
 
 export function meta() {
   return [
@@ -79,7 +78,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function App() {
   const { env, saksbehandler } = useLoaderData<typeof loader>();
-  initFaro();
+  // initFaro();
 
   return (
     <html lang="en">

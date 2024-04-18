@@ -3,9 +3,8 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import styles from "~/route-styles/index.module.css";
 import { mockOppgaveFilter } from "../../mocks/data/mock-filter";
-import { OppgaveFilter } from "~/components/oppgave-filter/OppgaveFilter";
-import { OppgaveLagretFilter } from "~/components/oppgave-lagret-filter/OppgaveLagretFilter";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveListeMeny } from "~/components/oppgave-liste-meny/OppgaveListeMeny";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -18,18 +17,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   return (
-    <main className={styles.container}>
-      <div className={styles.filterMeny}>
-        <OppgaveFilter />
-      </div>
+    <div className={styles.container}>
+      <aside className={styles.leftColumn}>
+        <OppgaveListeMeny />
+      </aside>
 
-      <div className={styles.lagretFilter}>
-        <OppgaveLagretFilter />
-      </div>
-
-      <div className={styles.oppgaveListe}>
+      <main>
         <OppgaveListe />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

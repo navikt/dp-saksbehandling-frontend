@@ -18,6 +18,10 @@
   margin-right: var(--a-spacing-4);
 }
 
+.mr-2 {
+  margin-right: var(--a-spacing-2);
+}
+
 .mt-4 {
   margin-top: var(--a-spacing-4);
 }
@@ -84,4 +88,8 @@
 .kompakt-tabell .navds-table__data-cell,
 .kompakt-tabell .navds-table__header-cell {
   padding: 0;
+}
+
+.kompakt-checkbox.navds-fieldset > :not(:first-child):not(:empty) {
+  margin-top: 0;
 }

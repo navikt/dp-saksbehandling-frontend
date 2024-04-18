@@ -1,44 +1,18 @@
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.headerLogo {
-  display: flex;
-  text-decoration: none;
-}
-
-.pageHeader {
-  white-space: nowrap;
-}
-
 .container {
   display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-rows: auto;
-}
+  grid-template-columns: 285px auto;
 
-.filterMeny {
-  grid-column: 1 / 2;
-  grid-row: 1 / span 3;
-
+  background-color: #f2f2f2;
+  height: calc(100vh - 48px);
   padding: var(--a-spacing-4);
 }
 
-.lagretFilter {
-  grid-column: 2 / 3;
-  background-color: var(--a-blue-100);
+.leftColumn {
+  background-color: var(--a-white);
+  box-shadow: var(--a-shadow-xsmall);
 
-  margin-top: var(--a-spacing-4);
-  padding: var(--a-spacing-4);
-  border-radius: var(--a-border-radius-large);
-}
-
-.lagretFilter button {
-  margin-right: var(--a-spacing-2);
-}
-
-.oppgaveListe {
-  grid-column: 2 / 3;
+  margin-top: calc(var(--a-spacing-4) * -1);
+  margin-left: calc(var(--a-spacing-4) * -1);
+  margin-bottom: calc(var(--a-spacing-4) * -1);
+  margin-right: var(--a-spacing-4);
 }

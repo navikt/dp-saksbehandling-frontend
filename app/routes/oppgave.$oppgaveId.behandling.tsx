@@ -1,12 +1,12 @@
-import { useFetcher, useLoaderData } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { useLoaderData } from "@remix-run/react";
+import { useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import classnames from "classnames";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { hentOppgave } from "~/models/oppgave.server";
+import { tildelOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandling.module.css";
 import { avbrytBehandling, godkjennBehandling, hentBehandling } from "~/models/behandling.server";
 import { parseSkjemadata } from "~/utils/steg.utils";
@@ -25,32 +25,35 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
   const skjemadata = parseSkjemadata<ISkjemadata>(formData, "skjemadata");
 
+  let response;
+
   switch (skjemadata.ferdigstillValg) {
     case "avbryt":
-      return await avbrytBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      response = await avbrytBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      break;
 
     case "godkjenn":
-      return await godkjennBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      response = await godkjennBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      break;
   }
+
+  if (response.status === "success") {
+    return redirect(`/`);
+  }
+
+  return response;
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const oppgave = await tildelOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   return json({ behandling, oppgave });
 }
 
 export default function Behandling() {
-  const fetcher = useFetcher<typeof action>({ key: "ferdigstill-behandling" });
   const { behandling } = useLoaderData<typeof loader>();
   const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
-
-  useEffect(() => {
-    if (fetcher.data?.status === "success") {
-      setAktivModalId(undefined);
-    }
-  }, [fetcher.data]);
 
   return (
     <div className={styles.container}>

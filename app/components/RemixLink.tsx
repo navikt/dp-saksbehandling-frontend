@@ -8,6 +8,7 @@ import { useLinkClickHandler } from "react-router-dom";
 
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
+  size?: ButtonProps["size"];
   loading?: boolean;
 }
 
@@ -21,6 +22,7 @@ function RemixLinkComponent(
     onClick,
     replace = false,
     asButtonVariant,
+    size,
     state,
     target,
     to,
@@ -40,7 +42,7 @@ function RemixLinkComponent(
       <Button
         className={className || ""}
         href={href}
-        size={"small"}
+        size={size}
         variant={asButtonVariant}
         loading={loading}
         onClick={(event) => {

@@ -1,14 +1,14 @@
 import React from "react";
-import { Checkbox, CheckboxGroup } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
 import type { IOppgaveFilter } from "../../../mocks/data/mock-filter";
-import styles from "./OppgaveFilter.module.css";
-import { oppgaveFilterText } from "~/components/oppgave-filter/OppgaveFilterText";
+import { oppgaveFilterText } from "~/components/oppgave-filter-type/OppgaveFilterText";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "./OppgaveFilterType.module.css";
 
 interface IProps {}
 
-export function OppgaveFilter(props: IProps) {
+export function OppgaveFilterType(props: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { oppgaveFilter } = useTypedRouteLoaderData("routes/_index");
   let aktiveFilter = parseUrlParamsToOppgaveFilter(searchParams);
@@ -67,8 +67,9 @@ export function OppgaveFilter(props: IProps) {
   return (
     <>
       <CheckboxGroup
+        className="kompakt-checkbox"
         size="small"
-        legend="Filter"
+        legend={<Detail textColor="subtle">Oppgavetype</Detail>}
         onChange={(verdi) => toggleOppgaveFilter(verdi)}
         defaultValue={hentAktiveOppgaveFilter()}
       >

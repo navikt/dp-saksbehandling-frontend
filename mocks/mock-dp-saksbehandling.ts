@@ -21,6 +21,24 @@ export const mockDpSaksbehandling = [
     });
   }),
 
+  // Tildel en oppgave med oppgaveId
+  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`, ({ params }) => {
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
+      return HttpResponse.json(mockOppgave);
+    }
+
+    // return new HttpResponse("Oppgaven er allerede tatt til behandling", {
+    //   status: 423,
+    // });
+
+    return new HttpResponse(null, {
+      status: 404,
+    });
+  }),
+
   // Lukk en oppgave for å fortsette saksbehandling i Arena
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/lukk`, () => {
     return new HttpResponse(null, {

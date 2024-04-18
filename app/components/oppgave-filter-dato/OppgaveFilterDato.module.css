@@ -1,0 +1,7 @@
+.datepicker {
+  gap: 0;
+}
+
+.datepicker:nth-child(1) {
+  margin-bottom: var(--a-spacing-2);
+}
