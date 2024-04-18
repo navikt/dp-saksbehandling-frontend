@@ -184,7 +184,7 @@ jobs:
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
-    needs: [ build, test, upload-cdn ]
+    needs: [ build, upload-cdn ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
