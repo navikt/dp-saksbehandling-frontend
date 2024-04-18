@@ -65,7 +65,9 @@ export function OppgaveListe() {
                   ))}
                 </Table.DataCell>
 
-                <Table.DataCell>{getTilstandText(tilstand)}</Table.DataCell>
+                <Table.DataCell>
+                  <Detail>{getTilstandText(tilstand)}</Detail>
+                </Table.DataCell>
 
                 <Table.DataCell>
                   <OppgaveListeValg oppgave={oppgave} />
