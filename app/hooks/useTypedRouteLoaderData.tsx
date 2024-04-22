@@ -1,9 +1,11 @@
 import { useRouteLoaderData } from "@remix-run/react";
+import type { loader as rootLoader } from "~/root";
 import type { loader as indexLoader } from "~/routes/_index";
 import type { loader as personLoader } from "~/routes/person.$oppgaveId";
 import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
 
 type Loaders = {
+  root: typeof rootLoader;
   "routes/_index": typeof indexLoader;
   "routes/person.$oppgaveId": typeof personLoader;
   "routes/oppgave.$oppgaveId": typeof oppgaveLoader;

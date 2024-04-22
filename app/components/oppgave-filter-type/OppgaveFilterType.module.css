@@ -1,9 +1,0 @@
-/* Increased specificity to override Aksel component */
-.emneknaggCheckbox.emneknaggCheckbox {
-  margin: 0 0 0 var(--a-spacing-3);
-}
-
-/* Override for Aksel component*/
-.emneknaggCheckbox.emneknaggCheckbox > :not(:first-child):not(:empty) {
-  margin-top: 0;
-}

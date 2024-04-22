@@ -5,8 +5,12 @@ import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterDato } from "../oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { Form, useSubmit } from "@remix-run/react";
+import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 
 export function OppgaveListeMeny() {
+  const submit = useSubmit();
   return (
     <Tabs defaultValue="filter" size="small">
       <Tabs.List>
@@ -19,9 +23,13 @@ export function OppgaveListeMeny() {
       </Tabs.List>
 
       <Tabs.Panel value="filter" className={styles.tabPanel}>
-        <OppgaveFilterDato />
-        <OppgaveFilterType />
-        <OppgaveFilterStatus />
+        <Form onChange={(event) => submit(event.currentTarget)}>
+          <OppgaveFilterMineOppgaver />
+          <OppgaveFilterDato />
+          <OppgaveFilterStatus />
+          <OppgaveFilterEmneknagger />
+          <OppgaveFilterType />
+        </Form>
       </Tabs.Panel>
       <Tabs.Panel value="statistikk" className={styles.tabPanel}>
         Statistikk

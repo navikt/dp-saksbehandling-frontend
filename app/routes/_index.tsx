@@ -1,10 +1,9 @@
 import { hentOppgaver } from "~/models/oppgave.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import styles from "~/route-styles/index.module.css";
-import { mockOppgaveFilter } from "../../mocks/data/mock-filter";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveListeMeny } from "~/components/oppgave-liste-meny/OppgaveListeMeny";
+import styles from "~/route-styles/index.module.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -12,7 +11,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // const token = hentToken(request);
   const oppgaver = await hentOppgaver(request, url.search);
 
-  return json({ oppgaver, oppgaveFilter: mockOppgaveFilter });
+  return json({ oppgaver });
 }
 
 export default function Saksbehandling() {

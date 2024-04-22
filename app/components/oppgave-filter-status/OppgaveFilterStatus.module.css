@@ -1,3 +1,0 @@
-.checkboxGroup .navds-fieldset > :not(:first-child):not(:empty) {
-  margin-top: 0;
-}

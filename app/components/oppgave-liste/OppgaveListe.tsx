@@ -67,7 +67,7 @@ export function OppgaveListe() {
                 <Table.DataCell>
                   {emneknagger.map((emneknagg) => (
                     <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
-                      {emneknagg}
+                      <Detail>{emneknagg}</Detail>
                     </Tag>
                   ))}
                 </Table.DataCell>
