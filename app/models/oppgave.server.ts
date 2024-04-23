@@ -115,7 +115,7 @@ export async function leggTilbakeOppgave(
 ): Promise<INetworkResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/tildel`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/leggTilbake`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
