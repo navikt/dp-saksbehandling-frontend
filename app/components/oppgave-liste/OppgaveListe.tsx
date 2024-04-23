@@ -13,7 +13,10 @@ import type { action } from "~/routes/_index";
 export function OppgaveListe() {
   const fetcher = useFetcher<typeof action>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_index");
-  const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver);
+  const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
+    orderBy: "tidspunktOpprettet",
+    direction: "ascending",
+  });
 
   return (
     <>

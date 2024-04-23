@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { SortState } from "@navikt/ds-react";
 
-export function useTableSort<T>(data: T[]) {
-  const [sortState, setSortState] = useState<SortState | undefined>();
+export function useTableSort<T>(data: T[], initialSortState?: SortState) {
+  const [sortState, setSortState] = useState<SortState | undefined>(initialSortState);
   const sortedData = data.slice().sort((a, b) => {
     if (sortState) {
       return sortState.direction === "ascending"
