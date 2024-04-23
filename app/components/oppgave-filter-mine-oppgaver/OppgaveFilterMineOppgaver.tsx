@@ -4,13 +4,13 @@ import { useSearchParams } from "@remix-run/react";
 
 export function OppgaveFilterMineOppgaver() {
   const [searchParams] = useSearchParams();
-  const mineOppgaver = searchParams.get("mine");
+  const mineOppgaver = searchParams.get("mineOppgaver");
 
   return (
     <div>
       <Detail textColor="subtle">Status</Detail>
       <CheckboxGroup legend="" size="small" className={"kompakt-checkbox"}>
-        <Checkbox name="mine" value={"true"} defaultChecked={mineOppgaver === "true"}>
+        <Checkbox name="mineOppgaver" value={"true"} defaultChecked={mineOppgaver === "true"}>
           Se kun mine oppgaver
         </Checkbox>
       </CheckboxGroup>
