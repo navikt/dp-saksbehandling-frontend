@@ -3,11 +3,15 @@ import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import classnames from "classnames";
 import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
+
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
+import { useFetcher } from "@remix-run/react";
+import type { action } from "~/routes/_index";
 
 export function OppgaveListe() {
+  const fetcher = useFetcher<typeof action>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_index");
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver);
 
@@ -15,10 +19,11 @@ export function OppgaveListe() {
     <>
       <div className={styles.oppgaveListeMeta}>
         <Detail textColor="subtle">Antall oppgaver {oppgaver.length}</Detail>
-
-        <Button variant="primary" size="small">
-          Tildel neste oppgave
-        </Button>
+        <fetcher.Form method="post">
+          <Button variant="primary" size="small" loading={fetcher.state !== "idle"}>
+            Tildel neste oppgave
+          </Button>
+        </fetcher.Form>
       </div>
 
       <Table

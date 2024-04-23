@@ -70,6 +70,25 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
   return await response.json();
 }
 
+export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return await response.json();
+}
+
 export async function tildelOppgave(request: Request, oppgaveId: string): Promise<IOppgave> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 

@@ -1,6 +1,6 @@
-import { hentOppgaver } from "~/models/oppgave.server";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { hentNesteOppgave, hentOppgaver } from "~/models/oppgave.server";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveListeMeny } from "~/components/oppgave-liste-meny/OppgaveListeMeny";
 import styles from "~/route-styles/index.module.css";
@@ -12,6 +12,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const oppgaver = await hentOppgaver(request, url.search);
 
   return json({ oppgaver });
+}
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  const oppgave = await hentNesteOppgave(request);
+  return redirect(`/oppgave/${oppgave.oppgaveId}/behandling`);
 }
 
 export default function Saksbehandling() {

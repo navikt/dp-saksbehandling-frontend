@@ -7,6 +7,11 @@ export const mockDpSaksbehandling = [
     return HttpResponse.json(mockOppgaver);
   }),
 
+  // Hent neste oppgave og tildel denne til saksbehandler
+  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/neste`, () => {
+    return HttpResponse.json(mockOppgaver[0]);
+  }),
+
   // Hent en oppgave med oppgaveId
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`, ({ params }) => {
     const { oppgaveId } = params;
