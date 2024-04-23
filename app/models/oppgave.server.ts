@@ -1,6 +1,7 @@
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
+import type { INetworkResponse } from "~/utils/types";
 
 export interface IOppgave {
   oppgaveId: string;
@@ -106,4 +107,26 @@ export async function tildelOppgave(request: Request, oppgaveId: string): Promis
   }
 
   return await response.json();
+}
+
+export async function leggTilbakeOppgave(
+  request: Request,
+  oppgaveId: string,
+): Promise<INetworkResponse> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/tildel`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  return { status: "success" };
 }
