@@ -5,20 +5,20 @@ const emneknagger = ["EØS", "Minsteinntekt"];
 
 export function OppgaveFilterEmneknagger() {
   const [searchParams] = useSearchParams();
-  const tilstand = searchParams.getAll("tilstand");
+  const tilstand = searchParams.getAll("emneknagg");
 
   return (
     <div>
       <Detail textColor="subtle">Emneknagger</Detail>
       <CheckboxGroup legend="" size="small" className={"kompakt-checkbox"}>
-        {emneknagger.map((status) => (
+        {emneknagger.map((emneknagg) => (
           <Checkbox
-            key={status}
-            name="tilstand"
-            value={status}
-            defaultChecked={tilstand.includes(status)}
+            key={emneknagg}
+            name="emneknagg"
+            value={emneknagg}
+            defaultChecked={tilstand.includes(emneknagg)}
           >
-            {status}
+            {emneknagg}
           </Checkbox>
         ))}
       </CheckboxGroup>
