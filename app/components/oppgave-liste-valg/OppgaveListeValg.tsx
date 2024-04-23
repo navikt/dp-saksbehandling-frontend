@@ -3,6 +3,7 @@ import type { IOppgave } from "~/models/oppgave.server";
 import { Button, Popover } from "@navikt/ds-react";
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { RemixLink } from "~/components/RemixLink";
+import styles from "./OppgaveListeValg.module.css";
 
 export function OppgaveListeValg(props: { oppgave: IOppgave }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -26,13 +27,20 @@ export function OppgaveListeValg(props: { oppgave: IOppgave }) {
         arrow={false}
         placement="bottom"
       >
-        <Popover.Content>
+        <Popover.Content className={styles.container}>
           <RemixLink
             to={`/oppgave/${props.oppgave.oppgaveId}/behandling`}
             asButtonVariant="primary"
             size="xsmall"
           >
             Tildel oppgave
+          </RemixLink>
+          <RemixLink
+            to={`/oppgave/${props.oppgave.oppgaveId}`}
+            asButtonVariant="primary"
+            size="xsmall"
+          >
+            Se oppgave
           </RemixLink>
         </Popover.Content>
       </Popover>
