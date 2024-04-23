@@ -3,7 +3,6 @@ import styles from "./OppgaveListeMeny.module.css";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
-import { OppgaveFilterDato } from "../oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
 import { Form, useSubmit } from "@remix-run/react";
@@ -25,7 +24,6 @@ export function OppgaveListeMeny() {
       <Tabs.Panel value="filter" className={styles.tabPanel}>
         <Form onChange={(event) => submit(event.currentTarget)}>
           <OppgaveFilterMineOppgaver />
-          <OppgaveFilterDato />
           <OppgaveFilterStatus />
           <OppgaveFilterEmneknagger />
           <OppgaveFilterType />
