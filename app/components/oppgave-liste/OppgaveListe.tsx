@@ -90,12 +90,12 @@ export function OppgaveListe() {
                   {!loading && (
                     <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
                   )}
-                  {loading && <Skeleton variant="text" width={110} height={43} />}
+                  {loading && <Skeleton variant="text" width={110} height={35} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
                   {!loading && <Detail>Søknad</Detail>}
-                  {loading && <Skeleton variant="text" width={80} height={43} />}
+                  {loading && <Skeleton variant="text" width={80} height={35} />}
                 </Table.DataCell>
                 <Table.DataCell>
                   {!loading &&
@@ -104,22 +104,22 @@ export function OppgaveListe() {
                         <Detail>{emneknagg}</Detail>
                       </Tag>
                     ))}
-                  {loading && <Skeleton variant="text" width={200} height={43} />}
+                  {loading && <Skeleton variant="text" width={200} height={35} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
                   {!loading && <Detail>{getTilstandText(tilstand)}</Detail>}
-                  {loading && <Skeleton variant="text" width={150} height={43} />}
+                  {loading && <Skeleton variant="text" width={150} height={35} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
                   {!loading && <Detail>{oppgave.saksbehandlerIdent}</Detail>}
-                  {loading && <Skeleton variant="text" width={100} height={43} />}
+                  {loading && <Skeleton variant="text" width={100} height={35} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
                   {!loading && <OppgaveListeValg oppgave={oppgave} />}
-                  {loading && <Skeleton variant="text" width={50} height={43} />}
+                  {loading && <Skeleton variant="text" width={20} height={35} />}
                 </Table.DataCell>
               </Table.Row>
             );
