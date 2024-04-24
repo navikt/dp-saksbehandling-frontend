@@ -45,7 +45,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Legg oppgave med oppgaveId tilbake i køen
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/leggTilbake`, ({ params }) => {
+  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`, ({ params }) => {
     const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 

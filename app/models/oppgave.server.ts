@@ -7,6 +7,7 @@ export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
   personIdent: string;
+  saksbehandlerIdent?: string;
   person: IPerson;
   tidspunktOpprettet: string;
   journalpostIder: string[];
@@ -26,12 +27,10 @@ export interface IPerson {
 }
 
 export type IOppgaveTilstand =
-  | "KLAR_TIL_BEHANDLING"
   | "OPPRETTET"
+  | "KLAR_TIL_BEHANDLING"
   | "UNDER_BEHANDLING"
   | "FERDIG_BEHANDLET";
-
-export type IDataType = "INT" | "DOUBLE" | "BOOLEAN" | "LOCALDATE" | "STRING";
 
 export async function hentOppgaver(request: Request, urlParams?: string): Promise<IOppgave[]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
@@ -120,7 +119,7 @@ export async function leggTilbakeOppgave(
 ): Promise<INetworkResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/leggTilbake`;
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/legg-tilbake`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
