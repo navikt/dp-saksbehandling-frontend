@@ -78,12 +78,7 @@ export function OppgaveListe() {
         <Table.Body>
           {sortedData.length === 0 && (
             <Table.Row>
-              <Table.DataCell>Fant ingen oppgaver</Table.DataCell>
-              <Table.DataCell />
-              <Table.DataCell />
-              <Table.DataCell />
-              <Table.DataCell />
-              <Table.DataCell />
+              <Table.DataCell colSpan={6}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
