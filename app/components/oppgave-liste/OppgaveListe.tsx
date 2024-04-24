@@ -1,4 +1,4 @@
-import { Button, Detail, Table, Tag } from "@navikt/ds-react";
+import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import classnames from "classnames";
@@ -7,28 +7,33 @@ import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useNavigation } from "@remix-run/react";
 import type { action } from "~/routes/_index";
 
 export function OppgaveListe() {
+  const { state } = useNavigation();
   const fetcher = useFetcher<typeof action>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_index");
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
   });
+  const loading = state !== "idle";
 
   return (
     <>
       <div className={styles.oppgaveListeMeta}>
-        <Detail textColor="subtle">Antall oppgaver {oppgaver.length}</Detail>
+        <Detail textColor="subtle">
+          {!loading && `Antall oppgaver ${oppgaver.length}`}
+          {loading && "Laster oppgaver..."}
+        </Detail>
         <fetcher.Form method="post">
           <Button
             variant="primary"
             size="small"
             name="aksjon"
             value="tildel-neste-oppave"
-            loading={fetcher.state !== "idle"}
+            loading={state !== "idle"}
           >
             Tildel neste oppgave
           </Button>
@@ -71,35 +76,55 @@ export function OppgaveListe() {
         </Table.Header>
 
         <Table.Body>
+          {sortedData.length === 0 && (
+            <Table.Row>
+              <Table.DataCell>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell />
+              <Table.DataCell />
+              <Table.DataCell />
+              <Table.DataCell />
+            </Table.Row>
+          )}
+
           {sortedData?.map((oppgave) => {
             const { tidspunktOpprettet, tilstand, emneknagger } = oppgave;
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
-                  <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
+                  {!loading && (
+                    <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
+                  )}
+                  {loading && <Skeleton variant="text" width={110} height={43} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <Detail>Søknad</Detail>
+                  {!loading && <Detail>Søknad</Detail>}
+                  {loading && <Skeleton variant="text" width={80} height={43} />}
                 </Table.DataCell>
                 <Table.DataCell>
-                  {emneknagger.map((emneknagg) => (
-                    <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
-                      <Detail>{emneknagg}</Detail>
-                    </Tag>
-                  ))}
-                </Table.DataCell>
-
-                <Table.DataCell>
-                  <Detail>{getTilstandText(tilstand)}</Detail>
-                </Table.DataCell>
-
-                <Table.DataCell>
-                  <Detail>{oppgave.saksbehandlerIdent}</Detail>
+                  {!loading &&
+                    emneknagger.map((emneknagg) => (
+                      <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
+                        <Detail>{emneknagg}</Detail>
+                      </Tag>
+                    ))}
+                  {loading && <Skeleton variant="text" width={200} height={43} />}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <OppgaveListeValg oppgave={oppgave} />
+                  {!loading && <Detail>{getTilstandText(tilstand)}</Detail>}
+                  {loading && <Skeleton variant="text" width={150} height={43} />}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {!loading && <Detail>{oppgave.saksbehandlerIdent}</Detail>}
+                  {loading && <Skeleton variant="text" width={100} height={43} />}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {!loading && <OppgaveListeValg oppgave={oppgave} />}
+                  {loading && <Skeleton variant="text" width={50} height={43} />}
                 </Table.DataCell>
               </Table.Row>
             );

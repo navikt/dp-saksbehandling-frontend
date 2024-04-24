@@ -7,8 +7,6 @@ import styles from "~/route-styles/index.module.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-
-  // const token = hentToken(request);
   const oppgaver = await hentOppgaver(request, url.search);
 
   return json({ oppgaver });
