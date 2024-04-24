@@ -11,10 +11,10 @@ export const mockPerson: IPerson = {
   ident: "12345678910",
 };
 
-export const masterMenyMock: IOppgave = {
-  oppgaveId: "msw-ny-mastermeny",
-  behandlingId: "msw-behandling-id-1",
-  personIdent: "msw-personmock-statoil",
+export const klarTilBehandlingOppgave: IOppgave = {
+  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10789",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  personIdent: "12837798289",
   person: mockPerson,
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
@@ -22,15 +22,31 @@ export const masterMenyMock: IOppgave = {
   journalpostIder: ["123456789"],
 };
 
-export const minsteinntektAvslagOppgave: IOppgave = {
+export const underBehandlingOppgave: IOppgave = {
+  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10456",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  personIdent: "12837798289",
+  person: mockPerson,
+  saksbehandlerIdent: "ident123",
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Søknadsbehandling", "EØS"],
+  tilstand: "UNDER_BEHANDLING",
+  journalpostIder: ["123"],
+};
+export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10999",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
+  saksbehandlerIdent: "ident123",
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS"],
-  tilstand: "KLAR_TIL_BEHANDLING",
+  tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["123"],
 };
 
-export const mockOppgaver: IOppgave[] = [masterMenyMock, minsteinntektAvslagOppgave];
+export const mockOppgaver: IOppgave[] = [
+  klarTilBehandlingOppgave,
+  underBehandlingOppgave,
+  ferdigBehandletOppgave,
+];

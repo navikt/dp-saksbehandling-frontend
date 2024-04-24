@@ -9,7 +9,7 @@ import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandling.module.css";
 import { avbrytBehandling, godkjennBehandling, hentBehandling } from "~/models/behandling.server";
-import { parseSkjemadata } from "~/utils/steg.utils";
+import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
   const formData = await request.formData();
-  const skjemadata = parseSkjemadata<ISkjemadata>(formData, "skjemadata");
+  const skjemadata = parseJsonSkjemaVerdi<ISkjemadata>(formData, "skjemadata");
 
   let response;
 

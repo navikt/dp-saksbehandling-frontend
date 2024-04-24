@@ -1,4 +1,4 @@
-import { hentNesteOppgave, hentOppgaver } from "~/models/oppgave.server";
+import { hentNesteOppgave, hentOppgaver, leggTilbakeOppgave } from "~/models/oppgave.server";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -14,9 +14,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({ oppgaver });
 }
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  const oppgave = await hentNesteOppgave(request);
-  return redirect(`/oppgave/${oppgave.oppgaveId}/behandling`);
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const aksjon = formData.get("aksjon");
+
+  switch (aksjon) {
+    case "legg-tilbake":
+      const oppgaveId = formData.get("oppgaveId") as string;
+      if (!oppgaveId) {
+        throw new Error("Mangler oppgaveId");
+      }
+      return await leggTilbakeOppgave(request, oppgaveId);
+
+    case "tildel-neste-oppave":
+      const oppgave = await hentNesteOppgave(request);
+      return redirect(`/oppgave/${oppgave.oppgaveId}/behandling`);
+
+    default:
+  }
 }
 
 export default function Saksbehandling() {

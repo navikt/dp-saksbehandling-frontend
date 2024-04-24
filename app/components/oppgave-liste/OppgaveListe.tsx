@@ -23,7 +23,13 @@ export function OppgaveListe() {
       <div className={styles.oppgaveListeMeta}>
         <Detail textColor="subtle">Antall oppgaver {oppgaver.length}</Detail>
         <fetcher.Form method="post">
-          <Button variant="primary" size="small" loading={fetcher.state !== "idle"}>
+          <Button
+            variant="primary"
+            size="small"
+            name="aksjon"
+            value="tildel-neste-oppave"
+            loading={fetcher.state !== "idle"}
+          >
             Tildel neste oppgave
           </Button>
         </fetcher.Form>
@@ -98,6 +104,12 @@ export function OppgaveListe() {
 
 export function getTilstandText(tilstand: IOppgaveTilstand) {
   switch (tilstand) {
+    case "OPPRETTET":
+      return "Opprettet";
+    case "UNDER_BEHANDLING":
+      return "Under behandling";
+    case "FERDIG_BEHANDLET":
+      return "Ferdig behandlet";
     case "KLAR_TIL_BEHANDLING":
       return "Klar til behandling";
 

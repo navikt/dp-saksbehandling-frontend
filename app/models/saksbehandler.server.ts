@@ -2,7 +2,7 @@ import { getHeaders } from "~/utils/fetch.utils";
 import { getMicrosoftOboToken } from "~/utils/auth.utils.server";
 
 export interface ISaksbehandler {
-  onPremisesSamAccountName: string;
+  onPremisesSamAccountName: string; // Dette er saksbehandlerIdent
   givenName: string;
   displayName: string;
   mail: string;
