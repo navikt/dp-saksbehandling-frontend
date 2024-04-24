@@ -60,7 +60,7 @@ export function OppgaveListe() {
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
-            <Table.ColumnHeader scope="col">
+            <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent" sortable={true}>
               <Detail>Saksbehandler</Detail>
             </Table.ColumnHeader>
 
@@ -120,14 +120,5 @@ export function getTilstandText(tilstand: IOppgaveTilstand) {
       return "Ferdig behandlet";
     case "KLAR_TIL_BEHANDLING":
       return "Klar til behandling";
-
-    case "FERDIG_BEHANDLET":
-      return "Ferdig Behandlet";
-
-    case "UNDER_BEHANDLING":
-      return "Tildelt saksbehandler";
-
-    case "OPPRETTET":
-      return "Ikke klar til behandling";
   }
 }
