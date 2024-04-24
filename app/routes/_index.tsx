@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
     case "tildel-neste-oppave":
       const oppgave = await hentNesteOppgave(request);
-      return redirect(`/oppgave/${oppgave.oppgaveId}/behandling`);
+      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
 
     default:
   }
