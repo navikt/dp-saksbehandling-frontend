@@ -60,6 +60,10 @@ export function OppgaveListe() {
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
+            <Table.ColumnHeader scope="col">
+              <Detail>Saksbehandler</Detail>
+            </Table.ColumnHeader>
+
             <Table.ColumnHeader scope="col" textSize="small">
               <Detail>Valg</Detail>
             </Table.ColumnHeader>
@@ -88,6 +92,10 @@ export function OppgaveListe() {
 
                 <Table.DataCell>
                   <Detail>{getTilstandText(tilstand)}</Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <Detail>{oppgave.saksbehandlerIdent}</Detail>
                 </Table.DataCell>
 
                 <Table.DataCell>
