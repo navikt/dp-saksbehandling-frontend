@@ -25,7 +25,12 @@ export interface IPerson {
   statsborgerskap: string;
 }
 
-export type IOppgaveTilstand = "KLAR_TIL_BEHANDLING";
+export type IOppgaveTilstand =
+  | "KLAR_TIL_BEHANDLING"
+  | "OPPRETTET"
+  | "UNDER_BEHANDLING"
+  | "FERDIG_BEHANDLET";
+
 export type IDataType = "INT" | "DOUBLE" | "BOOLEAN" | "LOCALDATE" | "STRING";
 
 export async function hentOppgaver(request: Request, urlParams?: string): Promise<IOppgave[]> {

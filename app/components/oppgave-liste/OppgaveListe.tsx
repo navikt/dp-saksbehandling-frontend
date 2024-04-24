@@ -100,5 +100,14 @@ export function getTilstandText(tilstand: IOppgaveTilstand) {
   switch (tilstand) {
     case "KLAR_TIL_BEHANDLING":
       return "Klar til behandling";
+
+    case "FERDIG_BEHANDLET":
+      return "Ferdig Behandlet";
+
+    case "UNDER_BEHANDLING":
+      return "Tildelt saksbehandler";
+
+    case "OPPRETTET":
+      return "Ikke klar til behandling";
   }
 }
