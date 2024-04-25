@@ -1,13 +1,13 @@
 import { DatePicker, Detail, useDatepicker } from "@navikt/ds-react";
-import { useSearchParams, useSubmit } from "@remix-run/react";
+import { useSearchParams } from "@remix-run/react";
 import { nb } from "date-fns/locale";
 import { format } from "date-fns";
+import styles from "./OppgaveFilterDato.module.css";
 
 interface IProps {}
 
 export function OppgaveFilterDato(props: IProps) {
-  const [searchParams] = useSearchParams();
-  const submit = useSubmit();
+  const [searchParams, setSearchParams] = useSearchParams();
   const tom = searchParams.get("tom");
   const fom = searchParams.get("fom");
   const tomDato = tom ? new Date(tom) : undefined;
@@ -15,9 +15,9 @@ export function OppgaveFilterDato(props: IProps) {
 
   const fraDato = useDatepicker({
     defaultSelected: fomDato,
-    toDate: fomDato,
+    toDate: tomDato,
     onDateChange: (date) => {
-      submitDates(date, "fom");
+      updateSearchParams("fom", date ? format(date, "yyyy-MM-dd", { locale: nb }) : "");
     },
   });
 
@@ -25,30 +25,21 @@ export function OppgaveFilterDato(props: IProps) {
     defaultSelected: tomDato,
     fromDate: fomDato,
     onDateChange: (date) => {
-      submitDates(date, "tom");
+      updateSearchParams("tom", date ? format(date, "yyyy-MM-dd", { locale: nb }) : "");
     },
   });
 
-  function submitDates(date: Date | undefined, key: "fom" | "tom") {
-    const formData = new FormData();
-
-    if (date) {
-      formData.append(key, format(date, "yyyy-MM-dd", { locale: nb }));
+  function updateSearchParams(key: string, value: string) {
+    if (value) {
+      searchParams.set(key, value);
+    } else {
+      searchParams.delete(key);
     }
-
-    if (key === "tom" && fom) {
-      formData.append("fom", fom);
-    }
-
-    if (key === "fom" && tom) {
-      formData.append("tom", tom);
-    }
-
-    submit(formData);
+    setSearchParams(searchParams);
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <Detail textColor="subtle">Fra</Detail>
       <DatePicker {...fraDato.datepickerProps}>
         <DatePicker.Input label="" size="small" name="fom" {...fraDato.inputProps} />

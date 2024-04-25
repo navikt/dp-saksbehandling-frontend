@@ -4,8 +4,17 @@ import { useSearchParams } from "@remix-run/react";
 const emneknagger = ["EØS", "Minsteinntekt"];
 
 export function OppgaveFilterEmneknagger() {
-  const [searchParams] = useSearchParams();
-  const tilstand = searchParams.getAll("emneknagg");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const emneknaggerParams = searchParams.getAll("emneknagg");
+
+  function updateSearchParams(key: string, value: string, checked: boolean) {
+    if (!checked) {
+      searchParams.delete(key, value);
+    } else {
+      searchParams.append(key, value);
+    }
+    setSearchParams(searchParams);
+  }
 
   return (
     <div>
@@ -16,7 +25,14 @@ export function OppgaveFilterEmneknagger() {
             key={emneknagg}
             name="emneknagg"
             value={emneknagg}
-            defaultChecked={tilstand.includes(emneknagg)}
+            defaultChecked={emneknaggerParams.includes(emneknagg)}
+            onChange={(event) =>
+              updateSearchParams(
+                "emneknagg",
+                event.currentTarget.value,
+                event.currentTarget.checked,
+              )
+            }
           >
             {emneknagg}
           </Checkbox>

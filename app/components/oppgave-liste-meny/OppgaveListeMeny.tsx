@@ -1,15 +1,13 @@
-import React from "react";
-import styles from "./OppgaveListeMeny.module.css";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { OppgaveFilterStatus } from "../oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveFilterMineOppgaver } from "../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { OppgaveFilterEmneknagger } from "../oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { Form, useSubmit } from "@remix-run/react";
-import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
+import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
+import styles from "./OppgaveListeMeny.module.css";
 
 export function OppgaveListeMeny() {
-  const submit = useSubmit();
   return (
     <Tabs defaultValue="filter" size="small">
       <Tabs.List>
@@ -22,13 +20,13 @@ export function OppgaveListeMeny() {
       </Tabs.List>
 
       <Tabs.Panel value="filter" className={styles.tabPanel}>
-        <Form onChange={(event) => submit(event.currentTarget)}>
-          <OppgaveFilterMineOppgaver />
-          <OppgaveFilterStatus />
-          <OppgaveFilterEmneknagger />
-          <OppgaveFilterType />
-        </Form>
+        <OppgaveFilterMineOppgaver />
+        <OppgaveFilterDato />
+        <OppgaveFilterStatus />
+        <OppgaveFilterEmneknagger />
+        <OppgaveFilterType />
       </Tabs.Panel>
+
       <Tabs.Panel value="statistikk" className={styles.tabPanel}>
         Statistikk
       </Tabs.Panel>

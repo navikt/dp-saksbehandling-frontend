@@ -10,8 +10,17 @@ const statuser = [
 ];
 
 export function OppgaveFilterStatus(props: IProps) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const tilstand = searchParams.getAll("tilstand");
+
+  function updateSearchParams(key: string, value: string, checked: boolean) {
+    if (!checked) {
+      searchParams.delete(key, value);
+    } else {
+      searchParams.append(key, value);
+    }
+    setSearchParams(searchParams);
+  }
 
   return (
     <div>
@@ -23,6 +32,9 @@ export function OppgaveFilterStatus(props: IProps) {
             key={status.id}
             value={status.id}
             defaultChecked={tilstand.includes(status.id)}
+            onChange={(event) =>
+              updateSearchParams("tilstand", event.currentTarget.value, event.currentTarget.checked)
+            }
           >
             {status.tekst}
           </Checkbox>

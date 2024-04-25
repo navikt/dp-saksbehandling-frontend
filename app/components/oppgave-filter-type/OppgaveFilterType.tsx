@@ -5,8 +5,17 @@ import { useSearchParams } from "@remix-run/react";
 const oppgavetyper = ["Søknad", "Klage & Anke"];
 
 export function OppgaveFilterType() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const oppgavetype = searchParams.getAll("oppgavetype");
+
+  function updateSearchParams(key: string, value: string, checked: boolean) {
+    if (!checked) {
+      searchParams.delete(key, value);
+    } else {
+      searchParams.append(key, value);
+    }
+    setSearchParams(searchParams);
+  }
 
   return (
     <div>
@@ -18,6 +27,13 @@ export function OppgaveFilterType() {
             name="oppgavetype"
             value={type}
             defaultChecked={oppgavetype.includes(type)}
+            onChange={(event) =>
+              updateSearchParams(
+                "oppgavetype",
+                event.currentTarget.value,
+                event.currentTarget.checked,
+              )
+            }
           >
             {type}
           </Checkbox>
