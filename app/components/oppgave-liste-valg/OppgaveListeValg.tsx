@@ -29,18 +29,19 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
         icon={<MenuElipsisHorizontalIcon />}
       />
       <Popover
+        className={styles.popover}
         open={openState}
         onClose={() => setOpenState(false)}
         anchorEl={buttonRef.current}
         offset={0}
         arrow={false}
-        placement="bottom"
+        placement="left-start"
       >
         <Popover.Content className={styles.container}>
           {kanTildeleOppgave && (
             <RemixLink
               to={`/oppgave/${oppgave.oppgaveId}/behandle`}
-              asButtonVariant="primary"
+              asButtonVariant="tertiary-neutral"
               size="xsmall"
             >
               {minOppgave ? "Behandle oppgave" : "Tildel oppgave"}
@@ -48,7 +49,11 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
           )}
 
           {!kanTildeleOppgave && (
-            <RemixLink to={`/oppgave/${oppgave.oppgaveId}`} asButtonVariant="primary" size="xsmall">
+            <RemixLink
+              to={`/oppgave/${oppgave.oppgaveId}`}
+              asButtonVariant="tertiary-neutral"
+              size="xsmall"
+            >
               Se oppgave
             </RemixLink>
           )}
@@ -57,8 +62,8 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
             <fetcher.Form method="post">
               <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
               <Button
-                variant="secondary"
-                size="small"
+                variant="tertiary-neutral"
+                size="xsmall"
                 name="aksjon"
                 value="legg-tilbake"
                 loading={fetcher.state !== "idle"}
