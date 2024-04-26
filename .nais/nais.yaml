@@ -52,6 +52,16 @@ spec:
       value: {{dp-rapportering_url}}
     - name: VEILARBPROXY_URL
       value: {{veilarbproxyUrl}}
+    - name: OTEL_METRICS_EXPORTER
+      value: otlp
+    - name: OTEL_LOGS_EXPORTER
+      value: otlp
+    - name: OTEL_TRACES_EXPORTER
+      value: otlp
+    - name: OTEL_EXPORTER_METRICS_ENABLED
+      value: "true"
+    - name: OTEL_METRICS_EXEMPLAR_FILTER
+      value: ALWAYS_ON
   accessPolicy:
     outbound:
       external:
@@ -85,4 +95,5 @@ spec:
         - id: elastic
     autoInstrumentation:
       enabled: true
-      runtime: nodejs
+      runtime: sdk
+
