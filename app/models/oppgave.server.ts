@@ -2,6 +2,7 @@ import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
+import { logger } from "~/utils/logger2.utils";
 
 export interface IOppgave {
   oppgaveId: string;
@@ -85,6 +86,7 @@ export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
   });
 
   if (!response.ok) {
+    logger.warn(`${response.status} - ${response.statusText}`);
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,
       statusText: response.statusText,
