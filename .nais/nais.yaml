@@ -79,6 +79,10 @@ spec:
       enabled: true
       autoLogin: true
   observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
     autoInstrumentation:
       enabled: true
       runtime: nodejs

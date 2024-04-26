@@ -18,7 +18,6 @@ import { getEnv } from "~/utils/env.utils";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import globalCss from "~/global.css?url";
 import styles from "~/route-styles/root.module.css";
-import { logger } from "./utils/logger2.utils";
 
 export function meta() {
   return [
@@ -66,7 +65,6 @@ export function links() {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  logger.info(request.url);
   const saksbehandler = await getSaksbehandler(request);
 
   return json({
