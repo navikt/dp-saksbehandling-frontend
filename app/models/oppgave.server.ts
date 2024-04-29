@@ -78,11 +78,13 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
 
 export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const requestUrl = new URL(request.url);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ queryParams: requestUrl.search }),
   });
 
   if (!response.ok) {
