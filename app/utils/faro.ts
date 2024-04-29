@@ -1,6 +1,7 @@
-import { type Faro, initializeFaro } from "@grafana/faro-web-sdk";
+import { type Faro, getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
 import { getEnv } from "~/utils/env.utils";
 import nais from "../../nais.js";
+import { TracingInstrumentation } from "@grafana/faro-web-tracing";
 
 let faro: Faro | null = null;
 
@@ -16,5 +17,6 @@ export function initFaro() {
       name: "dp-saksbehandling-frontend", // required
       version: "1.0.0", // optional; useful in Grafana to get diff between versions
     },
+    instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
   });
 }
