@@ -72,6 +72,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
+      NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
     },
   });
 }

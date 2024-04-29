@@ -14,4 +14,9 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  build: {
+    rollupOptions: {
+      external: ["./nais.js"],
+    },
+  },
 });
