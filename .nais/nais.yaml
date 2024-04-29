@@ -95,6 +95,8 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: sdk
+    tracing:
+      enabled: true
     logging:
       destinations:
         - id: loki
