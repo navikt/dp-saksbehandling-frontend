@@ -51,8 +51,6 @@ spec:
       value: {{veilarbproxyUrl}}
     - name: OTEL_METRICS_EXPORTER
       value: otlp
-    - name: OTEL_LOGS_EXPORTER
-      value: otlp
     - name: OTEL_TRACES_EXPORTER
       value: otlp
     - name: OTEL_EXPORTER_METRICS_ENABLED
