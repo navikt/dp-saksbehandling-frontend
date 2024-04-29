@@ -6,7 +6,6 @@ import { hentArbeidssokerStatus, type IArbeidssokerStatus } from "~/models/arbei
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentPersonalia } from "~/models/pdl.server";
 import type { INetworkResponse } from "~/utils/types";
-import { sikkerLogger } from "~/utils/logger.utils";
 import { Personalia } from "~/components/personalia/Personalia";
 
 export const shouldRevalidate = () => false;
@@ -38,7 +37,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       arbeidssokerStatusResponse: arbeidssokerStatusResponse,
     });
   } catch (error: unknown) {
-    sikkerLogger.info(`PDL kall catch error: ${error}`);
+    //sikkerLogger.info(`PDL kall catch error: ${error}`);
     const arbeidssokerStatusError: INetworkResponse<IArbeidssokerStatus> = {
       status: "error",
       error: {

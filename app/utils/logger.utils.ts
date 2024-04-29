@@ -1,5 +1,5 @@
 import type { Logger, LoggerOptions } from "pino";
-import { destination, pino } from "pino";
+import { pino } from "pino";
 import { ecsFormat } from "@elastic/ecs-pino-format";
 import { getEnv } from "~/utils/env.utils";
 
@@ -22,7 +22,7 @@ const prodConfig: LoggerOptions = {
 
 export const logger: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);
 
-const logDestination = getEnv("IS_LOCALHOST") ? "./secure.log" : "/secure-logs/secure.log";
+/*const logDestination = getEnv("IS_LOCALHOST") ? "./secure.log" : "/secure-logs/secure.log";
 export const sikkerLogger: Logger = pino(
   {
     formatters: {
@@ -30,4 +30,4 @@ export const sikkerLogger: Logger = pino(
     },
   },
   destination(logDestination),
-);
+);*/

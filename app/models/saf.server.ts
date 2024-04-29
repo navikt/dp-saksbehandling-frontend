@@ -4,7 +4,7 @@ import { getSaksbehandler } from "./saksbehandler.server";
 import { getEnv } from "~/utils/env.utils";
 import { mockJournalpost } from "../../mocks/data/mock-journalpost";
 import { type INetworkResponse } from "~/utils/types";
-import { logger, sikkerLogger } from "~/utils/logger.utils";
+import { logger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
@@ -43,7 +43,7 @@ export async function hentJournalpost(
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
+    //sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
 
     return {
       status: "error",
