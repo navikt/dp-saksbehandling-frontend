@@ -47,7 +47,6 @@
     "groq": "^3.39.1",
     "isbot": "^5.1.5",
     "pino": "^9.0.0",
-    "prom-client": "^15.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remix-validated-form": "^5.1.5",
