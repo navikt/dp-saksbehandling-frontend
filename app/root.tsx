@@ -79,7 +79,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function App() {
   const { env, saksbehandler } = useLoaderData<typeof loader>();
-  // initFaro();
 
   return (
     <html lang="en">
