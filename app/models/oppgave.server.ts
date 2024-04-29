@@ -2,7 +2,8 @@ import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
-import { logger } from "~/utils/logger2.utils";
+import { logger2 } from "~/utils/logger2.utils";
+import { logger, sikkerLogger } from "~/utils/logger.utils";
 
 export interface IOppgave {
   oppgaveId: string;
@@ -86,7 +87,9 @@ export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
   });
 
   if (!response.ok) {
-    logger.warn(`${response.status} - ${response.statusText}`);
+    sikkerLogger.warn(`winston sikkerlogget: ${response.status} - ${response.statusText}`);
+    logger.warn(`winston logget: ${response.status} - ${response.statusText}`);
+    logger2.warn(`pino logget: ${response.status} - ${response.statusText}`);
     throw new Response(`Feil ved kall til ${url}`, {
       status: response.status,
       statusText: response.statusText,

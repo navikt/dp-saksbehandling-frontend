@@ -14,4 +14,4 @@ const devConfig: LoggerOptions = {
 
 const prodConfig: LoggerOptions = { ...ecsFormat() };
 
-export const logger: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);
+export const logger2: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);

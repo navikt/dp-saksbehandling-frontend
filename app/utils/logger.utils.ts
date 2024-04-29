@@ -29,7 +29,7 @@ export const logRequests: RequestHandler = (request, res, next) => {
   const url = request.url;
 
   if (process.env.NODE_ENV === "development") {
-    logger.info(`${method} ${url}`);
+    logger.warn(`${method} ${url}`);
   }
 
   next();
