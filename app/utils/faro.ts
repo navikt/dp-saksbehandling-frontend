@@ -9,9 +9,9 @@ export function initFaro() {
     return;
   }
   const collectorUrl =
-    window.location.hostname.indexOf("intern.nav.no")! - 1
-      ? "https://telemetry.nav.no/collect"
-      : "https://telemetry.ekstern.dev.nav.no/collect";
+    window.location.hostname.indexOf("dev")! - 1
+      ? "https://telemetry.ekstern.dev.nav.no/collect"
+      : "https://telemetry.nav.no/collect";
   faro = initializeFaro({
     url: collectorUrl,
     paused: !!getEnv("IS_LOCALHOST"),
