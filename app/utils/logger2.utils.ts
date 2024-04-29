@@ -3,12 +3,7 @@ import { pino } from "pino";
 import { ecsFormat } from "@elastic/ecs-pino-format";
 import { getEnv } from "~/utils/env.utils";
 
-const commonConfig: LoggerOptions = {
-  ...ecsFormat,
-};
-
 const devConfig: LoggerOptions = {
-  ...commonConfig,
   transport: {
     target: "pino-pretty",
     options: {
@@ -17,6 +12,6 @@ const devConfig: LoggerOptions = {
   },
 };
 
-const prodConfig: LoggerOptions = { ...commonConfig };
+const prodConfig: LoggerOptions = { ...ecsFormat() };
 
 export const logger: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);
