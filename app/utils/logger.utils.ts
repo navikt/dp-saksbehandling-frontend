@@ -1,36 +1,32 @@
-import type { RequestHandler } from "express";
-import winston from "winston";
-import fs from "fs";
+import type { Logger, LoggerOptions } from "pino";
+import { destination, pino } from "pino";
+import { ecsFormat } from "@elastic/ecs-pino-format";
+import { getEnv } from "~/utils/env.utils";
 
-const sikkerLogPath = () =>
-  fs.existsSync("/secure-logs/") ? "/secure-logs/secure.log" : "./secure.log";
-
-export const logger = winston.createLogger({
-  format: process.env.NODE_ENV === "development" ? winston.format.simple() : winston.format.json(),
-  transports: new winston.transports.Console(),
-});
-
-export const sikkerLogger = winston.createLogger({
-  format: process.env.NODE_ENV === "development" ? winston.format.simple() : winston.format.json(),
-  transports:
-    process.env.NODE_ENV === "development"
-      ? new winston.transports.Console()
-      : [
-          new winston.transports.File({
-            filename: sikkerLogPath(),
-            maxsize: 5242880,
-            maxFiles: 10,
-          }),
-        ],
-});
-
-export const logRequests: RequestHandler = (request, res, next) => {
-  const method = request.method;
-  const url = request.url;
-
-  if (process.env.NODE_ENV === "development") {
-    logger.warn(`${method} ${url}`);
-  }
-
-  next();
+const devConfig: LoggerOptions = {
+  transport: {
+    target: "pino-pretty",
+    options: {
+      colorize: true,
+    },
+  },
 };
+
+const prodConfig: LoggerOptions = {
+  ...ecsFormat(),
+  timestamp: false,
+  formatters: {
+    level: (label) => ({ level: label }),
+  },
+};
+
+export const logger: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);
+
+export const sikkerLogger: Logger = pino(
+  {
+    formatters: {
+      level: (label) => ({ level: label }),
+    },
+  },
+  destination(getEnv("IS_LOCALHOST") ? "./secure.log" : "/secure-logs/secure.log"),
+);

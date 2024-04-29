@@ -2,7 +2,7 @@ import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
-import { logger2 } from "~/utils/logger2.utils";
+import { handleErrorResponse } from "~/utils/error-response.server";
 
 export interface IOppgave {
   oppgaveId: string;
@@ -48,10 +48,7 @@ export async function hentOppgaver(request: Request, urlParams?: string): Promis
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return await response.json();
@@ -67,10 +64,7 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return await response.json();
@@ -88,11 +82,7 @@ export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
   });
 
   if (!response.ok) {
-    logger2.warn(`pino logget: ${response.status} - ${response.statusText}`);
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return await response.json();
@@ -108,10 +98,7 @@ export async function tildelOppgave(request: Request, oppgaveId: string): Promis
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return await response.json();
@@ -130,10 +117,7 @@ export async function leggTilbakeOppgave(
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return { status: "success" };

@@ -2,6 +2,7 @@ import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
+import { handleErrorResponse } from "~/utils/error-response.server";
 
 export interface IBehandling {
   behandlingId: string;
@@ -44,10 +45,7 @@ export async function hentBehandling(request: Request, behandlingId: string): Pr
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return await response.json();
@@ -68,10 +66,7 @@ export async function avbrytBehandling(
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return { status: "success" };
@@ -92,10 +87,7 @@ export async function godkjennBehandling(
   });
 
   if (!response.ok) {
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: response.status,
-      statusText: response.statusText,
-    });
+    handleErrorResponse(response);
   }
 
   return { status: "success" };
