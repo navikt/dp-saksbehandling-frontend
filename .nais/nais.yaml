@@ -22,9 +22,6 @@ spec:
     path: "{{base_path}}/api/internal/isready"
     initialDelay: 3
     timeout: 1
-  frontend:
-    generatedConfig:
-      mountPath: /usr/share/nginx/html/js/nais.js
   replicas:
     min: 1
     max: 2
