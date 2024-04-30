@@ -2,7 +2,17 @@ import React from "react";
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
 
-const oppgavetyper = ["Søknad", "Klage & Anke"];
+const oppgavetyper = [
+  "Søknad",
+  "Feilutbetaling",
+  "Klage",
+  "Meldekort",
+  "To-trinns kontroll",
+  "Endret arbeidsituasjon",
+  "Søknad om utdanning",
+  "Søknad om etablering av egen virksomhet",
+  "Samordning",
+];
 
 export function OppgaveFilterType() {
   const [searchParams, setSearchParams] = useSearchParams();

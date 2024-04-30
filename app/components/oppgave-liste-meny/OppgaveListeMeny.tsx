@@ -9,7 +9,7 @@ import styles from "./OppgaveListeMeny.module.css";
 
 export function OppgaveListeMeny() {
   return (
-    <Tabs defaultValue="filter" size="small">
+    <Tabs defaultValue="filter" size="small" className={styles.stickyTabs}>
       <Tabs.List>
         <Tabs.Tab value="filter" label="Filter" icon={<FunnelIcon title="filter" aria-hidden />} />
         <Tabs.Tab
@@ -23,8 +23,8 @@ export function OppgaveListeMeny() {
         <OppgaveFilterMineOppgaver />
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
-        <OppgaveFilterEmneknagger />
         <OppgaveFilterType />
+        <OppgaveFilterEmneknagger />
       </Tabs.Panel>
 
       <Tabs.Panel value="statistikk" className={styles.tabPanel}>

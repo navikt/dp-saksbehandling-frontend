@@ -1,7 +1,17 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
 
-const emneknagger = ["EØS", "Minsteinntekt"];
+const emneknagger = [
+  "Ordniær",
+  "Permitering",
+  "Gjenopptak",
+  "Verneplikt",
+  "Fiskeindustri",
+  "Lønnsgaranti",
+  "EØS",
+  "Utland",
+  "Innvilget annen ytelse",
+];
 
 export function OppgaveFilterEmneknagger() {
   const [searchParams, setSearchParams] = useSearchParams();

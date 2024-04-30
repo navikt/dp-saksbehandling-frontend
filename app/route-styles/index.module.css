@@ -3,8 +3,9 @@
   grid-template-columns: 285px auto;
 
   background-color: #f2f2f2;
-  height: calc(100vh - 48px);
   padding: var(--a-spacing-4);
+  min-height: calc(100vh - 48px);
+  height: 100%;
 }
 
 .leftColumn {
