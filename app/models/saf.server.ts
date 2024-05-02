@@ -43,7 +43,6 @@ export async function hentJournalpost(
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    //sikkerLogger.warn(`SAF kall catch error: ${error} - ${errorMessage}`);
 
     return {
       status: "error",

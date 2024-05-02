@@ -37,7 +37,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       arbeidssokerStatusResponse: arbeidssokerStatusResponse,
     });
   } catch (error: unknown) {
-    //sikkerLogger.info(`PDL kall catch error: ${error}`);
     const arbeidssokerStatusError: INetworkResponse<IArbeidssokerStatus> = {
       status: "error",
       error: {
