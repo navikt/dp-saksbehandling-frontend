@@ -8,6 +8,9 @@ installGlobals();
 
 export default defineConfig({
   base: "/saksbehandling/",
+  server: {
+    port: 3000,
+  },
   plugins: [
     remix({
       basename: "/saksbehandling/",
