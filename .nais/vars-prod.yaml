@@ -1,4 +1,4 @@
-ingress: "https://dagpenger.intern.nav.no/saksbehandling"
+ingress: "https://dagpenger.ansatt.nav.no/saksbehandling"
 base_path: "/saksbehandling"
 dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
