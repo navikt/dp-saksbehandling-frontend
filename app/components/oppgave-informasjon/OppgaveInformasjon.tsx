@@ -19,7 +19,9 @@ function LenkeListe(props: { ident: string }) {
     if (url === "") return <></>;
     return (
       <BodyShort>
-        <Link href={url}>{tekst}</Link>
+        <Link href={url} target="_blank">
+          {tekst} (åpner i ny fane)
+        </Link>
       </BodyShort>
     );
   }
