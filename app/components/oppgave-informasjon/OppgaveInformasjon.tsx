@@ -7,7 +7,7 @@ import type { IPerson } from "~/models/oppgave.server";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useFetcher } from "@remix-run/react";
-import type { action } from "~/routes/_index";
+import type { action } from "~/routes/_oppgaver._index";
 
 interface IProps {
   person: IPerson;

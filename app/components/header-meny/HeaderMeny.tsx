@@ -1,8 +1,9 @@
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { PersonSok } from "../person-sok/PersonSok";
 import styles from "./HeaderMeny.module.css";
+import classnames from "classnames";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
@@ -11,10 +12,32 @@ interface IProps {
 export function HeaderMeny({ saksbehandler }: IProps) {
   return (
     <div className={styles.container}>
-      <div>
-        <Link to={"/"} className={styles.linkItem} data-testid={"benken-menu-button"}>
+      <div className={styles.linkContainer}>
+        <NavLink
+          to={"/mine-oppgaver"}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Mine oppgaver
+        </NavLink>
+
+        <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
           Oppgaver til behandling
-        </Link>
+        </NavLink>
+        <NavLink
+          to={"/alle-oppgaver"}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Alle oppgaver
+        </NavLink>
       </div>
 
       <div className={styles.searchAndSaksbehandlerContainer}>
