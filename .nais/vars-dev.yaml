@@ -4,6 +4,13 @@ dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
 dp-rapportering_url: "http://dp-rapportering"
 veilarbproxyUrl: http://veilarbregistrering.paw.svc.cluster.local
+arbeid_inntekt_url: "https://arbeid-og-inntekt-q2.dev.adeo.no/"
+gosys_url:
+modia_url:
+meldekort_url:
+inntektredigering_url:
+grisen_url:
+dagpenger_norge_url:
 
 azure:
   tenant: trygdeetaten.no

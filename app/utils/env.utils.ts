@@ -17,6 +17,13 @@ interface IEnv {
   DP_SAKSBEHANDLING_TOKEN: string;
   DP_VEDTAK_TOKEN: string;
   VEILARBPROXY_TOKEN: string;
+  ARBEID_INNTEKT_URL: string;
+  GOSYS_URL: string;
+  MODIA_URL: string;
+  MELDEKORT_URL: string;
+  INNTEKTREDIGERING_URL: string;
+  GRISEN_URL: string;
+  DAGPENGER_NORGE_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {

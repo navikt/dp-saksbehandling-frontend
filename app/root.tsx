@@ -73,6 +73,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
+      ARBEID_INNTEKT_URL: process.env.ARBEID_INNTEKT_URL,
+      GOSYS_URL: process.env.GOSYS_URL,
+      MODIA_URL: process.env.MODIA_URL,
+      MELDEKORT_URL: process.env.MELDEKORT_URL,
+      INNTEKTREDIGERING_URL: process.env.INNTEKTREDIGERING_URL,
+      GRISEN_URL: process.env.GRISEN_URL,
+      DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
     },
   });
 }

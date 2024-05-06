@@ -1,13 +1,18 @@
 .container {
-  position: sticky;
-  top: 48px;
-  height: 100%;
-  max-height: calc(100vh - 48px);
+    position: sticky;
+    top: 48px;
+    height: 100%;
+    max-height: calc(100vh - 48px);
 
-  overflow-y: scroll;
-  scrollbar-width: none;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .tabPanel {
-  padding: var(--a-spacing-4);
+    padding: var(--a-spacing-4);
+}
+
+.lenkeListe {
+    padding: var(--a-spacing-4);
+    gap: var(--a-spacing-2);
 }

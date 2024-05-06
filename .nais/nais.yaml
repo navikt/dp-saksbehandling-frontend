@@ -47,6 +47,20 @@ spec:
       value: {{dp-rapportering_url}}
     - name: VEILARBPROXY_URL
       value: {{veilarbproxyUrl}}
+    - name: ARBEID_INNTEKT_URL
+      value: {{arbeid_inntekt_url}}
+    - name: GOSYS_URL
+      value: {{veilarbproxyUrl}}
+    - name: MODIA_URL
+      value: {{veilarbproxyUrl}}
+    - name: MELDEKORT_URL
+      value: {{veilarbproxyUrl}}
+    - name: INNTEKTREDIGERING_URL
+      value: {{veilarbproxyUrl}}
+    - name: GRISEN_URL
+      value: {{veilarbproxyUrl}}
+    - name: DAGPENGER_NORGE_URL
+      value: {{veilarbproxyUrl}}
     - name: OTEL_METRICS_EXPORTER
       value: otlp
     - name: OTEL_TRACES_EXPORTER
