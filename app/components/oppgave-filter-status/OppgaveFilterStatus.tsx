@@ -5,7 +5,7 @@ interface IProps {}
 
 const statuser = [
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
-  { id: "UNDER_BEHANDLING", tekst: "Under Behandling" },
+  { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },
 ];
 
