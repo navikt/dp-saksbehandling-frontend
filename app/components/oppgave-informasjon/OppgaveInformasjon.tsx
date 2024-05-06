@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./OppgaveInformasjon.module.css";
-import { BodyShort, Button, Tabs } from "@navikt/ds-react";
+import { BodyShort, Button, Link, Tabs } from "@navikt/ds-react";
 import { CogIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import type { IPerson } from "~/models/oppgave.server";
@@ -9,7 +9,6 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useFetcher } from "@remix-run/react";
 import type { action } from "~/routes/_oppgaver._index";
 import { getEnv } from "~/utils/env.utils";
-import { RemixLink } from "~/components/RemixLink";
 
 interface IProps {
   person: IPerson;
@@ -20,7 +19,7 @@ function LenkeListe(props: { ident: string }) {
     if (url === "") return <></>;
     return (
       <BodyShort>
-        <RemixLink to={url}>{tekst}</RemixLink>
+        <Link href={url}>{tekst}</Link>
       </BodyShort>
     );
   }
