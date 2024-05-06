@@ -4,13 +4,13 @@ dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
 dp-rapportering_url: "http://dp-rapportering"
 veilarbproxyUrl: http://veilarbregistrering.paw.svc.cluster.local
-arbeid_inntekt_url: "https://arbeid-og-inntekt.adeo.no/"
-gosys_url: "https://gosys.intern.nav.no/gosys/bruker"
-modia_url:
-meldekort_url:
-inntektredigering_url:
-grisen_url:
-dagpenger_norge_url:
+arbeid_inntekt_url: "https://arbeid-og-inntekt.nais.adeo.no/"
+gosys_url: "https://gosys.intern.nav.no/gosys/bruker/brukeroversikt.jsf"
+modia_url: ""
+meldekort_url: ""
+inntektredigering_url: ""
+grisen_url: "https://navno.sharepoint.com/:x:/r/sites/44/NAYDP/_layouts/15/Doc.aspx?sourcedoc=%7B91BEA3C7-B531-4509-BD57-194AEBA31314%7D&file=GRISEN-2022-30.06.22.xlsx&action=default&mobileredirect=true"
+dagpenger_norge_url: "https://navno.sharepoint.com/:u:/r/sites/44/NAYDP/SitePages/CollabHome.aspx?csf=1&web=1&e=kfxUeP"
 
 azure:
   tenant: nav.no
