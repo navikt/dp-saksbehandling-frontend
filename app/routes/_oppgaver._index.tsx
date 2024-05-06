@@ -1,4 +1,3 @@
-import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -9,19 +8,9 @@ import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilte
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { useFetcher, useNavigation } from "@remix-run/react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url);
-
-  if (!url.searchParams.has("tilstand")) {
-    url.searchParams.set("tilstand", "KLAR_TIL_BEHANDLING");
-    throw redirect(url.toString());
-  }
-
-  return {};
-}
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -41,6 +30,17 @@ export async function action({ request }: ActionFunctionArgs) {
 
     default:
   }
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+
+  if (!url.searchParams.has("tilstand")) {
+    url.searchParams.set("tilstand", "KLAR_TIL_BEHANDLING");
+    throw redirect(url.toString());
+  }
+
+  return {};
 }
 
 export default function Saksbehandling() {

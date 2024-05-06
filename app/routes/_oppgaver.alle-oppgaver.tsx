@@ -5,8 +5,31 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilte
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const aksjon = formData.get("aksjon");
+
+  switch (aksjon) {
+    case "legg-tilbake":
+      const oppgaveId = formData.get("oppgaveId") as string;
+      if (!oppgaveId) {
+        throw new Error("Mangler oppgaveId");
+      }
+      return await leggTilbakeOppgave(request, oppgaveId);
+
+    case "tildel-neste-oppave":
+      const oppgave = await hentNesteOppgave(request);
+      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
+
+    default:
+  }
+}
 
 export default function Saksbehandling() {
   return (

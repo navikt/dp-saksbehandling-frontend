@@ -5,10 +5,31 @@ import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const aksjon = formData.get("aksjon");
+
+  switch (aksjon) {
+    case "legg-tilbake":
+      const oppgaveId = formData.get("oppgaveId") as string;
+      if (!oppgaveId) {
+        throw new Error("Mangler oppgaveId");
+      }
+      return await leggTilbakeOppgave(request, oppgaveId);
+
+    case "tildel-neste-oppave":
+      const oppgave = await hentNesteOppgave(request);
+      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
+
+    default:
+  }
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
