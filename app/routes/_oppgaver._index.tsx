@@ -1,13 +1,12 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { Button, Detail, Tabs } from "@navikt/ds-react";
+import { Button, Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { useFetcher, useNavigation } from "@remix-run/react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
@@ -44,10 +43,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   const fetcher = useFetcher<typeof action>();
   const { state } = useNavigation();
-  const loading = state !== "idle";
 
   return (
     <div className={styles.container}>
@@ -80,10 +77,6 @@ export default function Saksbehandling() {
 
       <main>
         <div className={styles.oppgaveListeMeta}>
-          <Detail textColor="subtle">
-            {!loading && `Antall oppgaver ${oppgaver.length}`}
-            {loading && "Laster oppgaver..."}
-          </Detail>
           <fetcher.Form method="post">
             <Button
               variant="primary"
