@@ -1,15 +1,15 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
+import type { IOppgaveTilstandType } from "~/models/oppgave.server";
 
-interface IProps {}
-
-const statuser = [
+const statuser: { id: IOppgaveTilstandType; tekst: string }[] = [
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
   { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },
+  { id: "PAA_VENT", tekst: "På vent" },
 ];
 
-export function OppgaveFilterStatus(props: IProps) {
+export function OppgaveFilterStatus() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tilstand = searchParams.getAll("tilstand");
 
