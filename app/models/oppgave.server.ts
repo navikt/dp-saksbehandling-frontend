@@ -28,7 +28,30 @@ export interface IPerson {
 }
 
 export type IOppgaveTilstand =
-  | "OPPRETTET"
+  | IOppgaveTilstandKlarTilBehandling
+  | IOppgaveTilstandPaaVent
+  | IOppgaveTilstandUnderBehandling
+  | IOppgaveTilstandFerdigBehandlet;
+
+interface IOppgaveTilstandKlarTilBehandling {
+  type: "KLAR_TIL_BEHANDLING";
+}
+
+interface IOppgaveTilstandUnderBehandling {
+  type: "UNDER_BEHANDLING";
+}
+
+interface IOppgaveTilstandPaaVent {
+  type: "PAA_VENT";
+  utsattTil: string;
+}
+
+interface IOppgaveTilstandFerdigBehandlet {
+  type: "FERDIG_BEHANDLET";
+}
+
+export type IOppgaveTilstandType =
+  | "PAA_VENT"
   | "KLAR_TIL_BEHANDLING"
   | "UNDER_BEHANDLING"
   | "FERDIG_BEHANDLET";
