@@ -64,7 +64,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
               <Button
                 variant="tertiary-neutral"
                 size="xsmall"
-                name="aksjon"
+                name="_action"
                 value="legg-tilbake"
                 loading={fetcher.state !== "idle"}
               >

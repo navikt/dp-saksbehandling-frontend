@@ -1,47 +1,13 @@
-import React from "react";
-import styles from "./OppgaveInformasjon.module.css";
-import { BodyShort, Button, Link, Tabs } from "@navikt/ds-react";
+import { Tabs } from "@navikt/ds-react";
 import { CogIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
-import type { IPerson } from "~/models/oppgave.server";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useFetcher } from "@remix-run/react";
-import type { action } from "~/routes/_oppgaver._index";
-import { getEnv } from "~/utils/env.utils";
+import { OppgaveMer } from "~/components/oppgave-mer/OppgaveMer";
+import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
+import styles from "./OppgaveInformasjon.module.css";
 
-interface IProps {
-  person: IPerson;
-}
-
-function LenkeListe(props: { ident: string }) {
-  function lagLenkeHvisFinnes(url: string, tekst: string) {
-    if (url === "") return <></>;
-    return (
-      <BodyShort>
-        <Link href={url} target="_blank">
-          {tekst} (åpner i ny fane)
-        </Link>
-      </BodyShort>
-    );
-  }
-
-  return (
-    <div className={styles.lenkeListe}>
-      <BodyShort>Lenker:</BodyShort>
-      {lagLenkeHvisFinnes(getEnv("ARBEID_INNTEKT_URL"), "Inntekt og arbeidsforhold")}
-      {lagLenkeHvisFinnes(getEnv("GOSYS_URL"), "GOSYS")}
-      {lagLenkeHvisFinnes(getEnv("MODIA_URL"), "MODIA")}
-      {lagLenkeHvisFinnes(getEnv("MELDEKORT_URL"), "Rapporteringer")}
-      {lagLenkeHvisFinnes(getEnv("INNTEKTREDIGERING_URL"), "Rediger inntektsinformasjon")}
-      {lagLenkeHvisFinnes(getEnv("GRISEN_URL"), "GRISEN")}
-      {lagLenkeHvisFinnes(getEnv("DAGPENGER_NORGE_URL"), "Dagpenger Norge")}
-    </div>
-  );
-}
-
-export function OppgaveInformasjon(props: IProps) {
-  const fetcher = useFetcher<typeof action>();
+export function OppgaveInformasjon() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
@@ -58,19 +24,15 @@ export function OppgaveInformasjon(props: IProps) {
 
       <Tabs.Panel value="informasjon">
         <PersonBoks person={oppgave.person} />
-        <LenkeListe ident={oppgave.person.ident} />
+        <OppgaveLenker />
       </Tabs.Panel>
 
-      <Tabs.Panel className={styles.tabPanel} value="dokumenter">
+      <Tabs.Panel value="dokumenter">
         <DokumentOversikt />
       </Tabs.Panel>
 
-      <Tabs.Panel className={styles.tabPanel} value="mer">
-        <fetcher.Form method="post">
-          <Button variant="secondary" size="small" loading={fetcher.state !== "idle"}>
-            Legg oppgave tilbake i køen
-          </Button>
-        </fetcher.Form>
+      <Tabs.Panel value="mer">
+        <OppgaveMer />
       </Tabs.Panel>
     </Tabs>
   );

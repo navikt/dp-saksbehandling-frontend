@@ -13,9 +13,9 @@ import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.c
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const aksjon = formData.get("aksjon");
+  const action = formData.get("_action");
 
-  switch (aksjon) {
+  switch (action) {
     case "legg-tilbake":
       const oppgaveId = formData.get("oppgaveId") as string;
       if (!oppgaveId) {

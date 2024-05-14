@@ -1,8 +1,8 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer, redirect } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { hentOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
+import { hentOppgave, leggTilbakeOppgave, utsettOppgave } from "~/models/oppgave.server";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -24,22 +24,41 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export async function action({ params, request }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-  const response = await leggTilbakeOppgave(request, params.oppgaveId);
+  const formData = await request.formData();
+  const action = formData.get("_action");
 
-  if (response.status === "success") {
-    return redirect("/");
+  switch (action) {
+    case "legg-tilbake-oppgave":
+      const leggTilbakeResponse = await leggTilbakeOppgave(request, params.oppgaveId);
+
+      if (leggTilbakeResponse.status === "success") {
+        return redirect("/");
+      }
+      break;
+
+    case "utsett-oppgave":
+      const utsettTilDato = formData.get("utsettTilDato");
+      const utsettResponse = await utsettOppgave(
+        request,
+        params.oppgaveId,
+        utsettTilDato as string,
+      );
+
+      if (utsettResponse.status === "success") {
+        return redirect("/");
+      }
+
+      break;
   }
 
   throw new Error("Noe gikk galt");
 }
 
 export default function Oppgave() {
-  const { oppgave } = useLoaderData<typeof loader>();
-
   return (
     <div className={styles.container}>
       <Outlet />
-      <OppgaveInformasjon person={oppgave.person} />
+      <OppgaveInformasjon />
     </div>
   );
 }

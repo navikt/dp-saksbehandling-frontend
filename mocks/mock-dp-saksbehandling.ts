@@ -64,6 +64,22 @@ export const mockDpSaksbehandling = [
     });
   }),
 
+  // Utsett oppgave med oppgaveId
+  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`, ({ params }) => {
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    }
+
+    return new HttpResponse(null, {
+      status: 404,
+    });
+  }),
+
   // Lukk en oppgave for å fortsette saksbehandling i Arena
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/lukk`, () => {
     return new HttpResponse(null, {

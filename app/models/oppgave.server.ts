@@ -145,3 +145,24 @@ export async function leggTilbakeOppgave(
 
   return { status: "success" };
 }
+
+export async function utsettOppgave(
+  request: Request,
+  oppgaveId: string,
+  utsettTilDato: string,
+): Promise<INetworkResponse> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/utsett`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ utsettTil: utsettTilDato }),
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return { status: "success" };
+}

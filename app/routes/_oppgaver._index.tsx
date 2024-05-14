@@ -13,9 +13,9 @@ import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.c
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const aksjon = formData.get("aksjon");
+  const action = formData.get("_action");
 
-  switch (aksjon) {
+  switch (action) {
     case "legg-tilbake":
       const oppgaveId = formData.get("oppgaveId") as string;
       if (!oppgaveId) {
@@ -81,9 +81,10 @@ export default function Saksbehandling() {
             <Button
               variant="primary"
               size="small"
-              name="aksjon"
+              name="_action"
               value="tildel-neste-oppave"
               loading={state !== "idle"}
+              disabled={state !== "idle"}
             >
               Tildel neste oppgave
             </Button>

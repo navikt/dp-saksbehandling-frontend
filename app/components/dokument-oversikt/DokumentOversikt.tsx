@@ -20,23 +20,19 @@ export function DokumentOversikt() {
         {(journalpromises) => {
           const journalposter = lagJournalpostData(journalpromises);
           return (
-            <>
+            <div className={styles.dokumentContainer}>
               {journalposter?.data?.length > 0 ? (
-                <div className={styles.dokumentContainer}>
-                  <PDFLeser journalposter={journalposter.data} />
-                </div>
+                <PDFLeser journalposter={journalposter.data} />
               ) : (
                 <div> Ingen dokumenter tilgjengelig</div>
               )}
 
               {journalposter.errors && (
-                <div className={styles.dokumentContainer}>
-                  <Alert variant="error" className="my-4">
-                    En feil oppsto når vi skulle hente ut dokumentene.
-                  </Alert>
-                </div>
+                <Alert variant="error" className="my-4">
+                  En feil oppsto når vi skulle hente ut dokumentene.
+                </Alert>
               )}
-            </>
+            </div>
           );
         }}
       </Await>
