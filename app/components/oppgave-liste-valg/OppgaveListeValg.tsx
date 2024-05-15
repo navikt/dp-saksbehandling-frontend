@@ -15,8 +15,8 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
 
   const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
   const kanTildeleOppgave =
-    oppgave.tilstand.type === "KLAR_TIL_BEHANDLING" ||
-    (oppgave.tilstand.type === "UNDER_BEHANDLING" && minOppgave);
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave);
 
   return (
     <>
@@ -58,7 +58,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
             </RemixLink>
           )}
 
-          {minOppgave && oppgave.tilstand.type !== "FERDIG_BEHANDLET" && (
+          {minOppgave && oppgave.tilstand !== "FERDIG_BEHANDLET" && (
             <fetcher.Form method="post">
               <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
               <Button

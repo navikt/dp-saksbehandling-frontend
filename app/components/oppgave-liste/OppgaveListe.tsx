@@ -2,7 +2,7 @@ import { Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import classnames from "classnames";
-import type { IOppgave, IOppgaveTilstandType } from "~/models/oppgave.server";
+import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import styles from "./OppgaveListe.module.css";
@@ -92,7 +92,7 @@ export function OppgaveListe() {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {!loading && <Detail>{getTilstandText(tilstand.type)}</Detail>}
+                  {!loading && <Detail>{getTilstandText(tilstand)}</Detail>}
                   {loading && <Skeleton variant="text" width={150} height={35} />}
                 </Table.DataCell>
 
@@ -114,10 +114,10 @@ export function OppgaveListe() {
   );
 }
 
-export function getTilstandText(tilstand: IOppgaveTilstandType) {
+export function getTilstandText(tilstand: IOppgaveTilstand) {
   switch (tilstand) {
-    case "PAA_VENT":
-      return "På vent";
+    case "OPPRETTET":
+      return "Opprettet";
     case "UNDER_BEHANDLING":
       return "Under behandling";
     case "FERDIG_BEHANDLET":
