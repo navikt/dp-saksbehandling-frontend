@@ -1,8 +1,8 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
-import type { IOppgaveTilstandType } from "~/models/oppgave.server";
+import type { IOppgaveTilstand } from "~/models/oppgave.server";
 
-const statuser: { id: IOppgaveTilstandType; tekst: string }[] = [
+const statuser: { id: IOppgaveTilstand; tekst: string }[] = [
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
   { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },

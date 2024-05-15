@@ -116,8 +116,8 @@ export function OppgaveListe() {
 
 export function getTilstandText(tilstand: IOppgaveTilstand) {
   switch (tilstand) {
-    case "OPPRETTET":
-      return "Opprettet";
+    case "PAA_VENT":
+      return "På vent";
     case "UNDER_BEHANDLING":
       return "Under behandling";
     case "FERDIG_BEHANDLET":

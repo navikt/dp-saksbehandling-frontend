@@ -56,9 +56,22 @@ export const ferdigBehandletOppgave: IOppgave = {
   journalpostIder: ["123"],
 };
 
+export const paaVentOppgave: IOppgave = {
+  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10741",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  personIdent: "12837798289",
+  person: mockPerson,
+  saksbehandlerIdent: "ident123",
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Søknadsbehandling", "EØS"],
+  tilstand: "PAA_VENT",
+  journalpostIder: ["123"],
+};
+
 export const mockOppgaver: IOppgave[] = [
   klarTilBehandlingOppgave,
   underBehandlingMinOppgave,
   underBehandlingAnnenSaksbehandlerOppgave,
   ferdigBehandletOppgave,
+  paaVentOppgave,
 ];

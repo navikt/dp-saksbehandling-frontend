@@ -13,6 +13,7 @@ export interface IOppgave {
   tidspunktOpprettet: string;
   journalpostIder: string[];
   tilstand: IOppgaveTilstand;
+  utsettTilDato?: string;
   emneknagger: string[];
 }
 
@@ -28,7 +29,7 @@ export interface IPerson {
 }
 
 export type IOppgaveTilstand =
-  | "OPPRETTET"
+  | "PAA_VENT"
   | "KLAR_TIL_BEHANDLING"
   | "UNDER_BEHANDLING"
   | "FERDIG_BEHANDLET";
@@ -134,7 +135,7 @@ export async function utsettOppgave(
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ utsettTil: utsettTilDato }),
+    body: JSON.stringify({ utsettTilDato }),
   });
 
   if (!response.ok) {
