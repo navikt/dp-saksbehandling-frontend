@@ -2,8 +2,8 @@ import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
 
 const emneknagger = [
-  "Ordniær",
-  "Permitering",
+  "ordinær",
+  "Permittering",
   "Gjenopptak",
   "Verneplikt",
   "Fiskeindustri",
