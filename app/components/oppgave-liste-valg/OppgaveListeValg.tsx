@@ -14,8 +14,9 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
   const [openState, setOpenState] = useState(false);
 
   const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
-  const kanTildeleOppgave =
+  const kanTildeleOgBehandleOppgave =
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave);
 
   return (
@@ -38,7 +39,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
         placement="left-start"
       >
         <Popover.Content className={styles.container}>
-          {kanTildeleOppgave && (
+          {kanTildeleOgBehandleOppgave && (
             <RemixLink
               to={`/oppgave/${oppgave.oppgaveId}/behandle`}
               asButtonVariant="tertiary-neutral"
@@ -48,7 +49,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
             </RemixLink>
           )}
 
-          {!kanTildeleOppgave && (
+          {!kanTildeleOgBehandleOppgave && (
             <RemixLink
               to={`/oppgave/${oppgave.oppgaveId}`}
               asButtonVariant="tertiary-neutral"
