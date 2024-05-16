@@ -128,6 +128,7 @@ export async function utsettOppgave(
   request: Request,
   oppgaveId: string,
   utsettTilDato: string,
+  beholdOppgave: boolean,
 ): Promise<INetworkResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
@@ -135,7 +136,7 @@ export async function utsettOppgave(
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ utsettTilDato }),
+    body: JSON.stringify({ utsettTilDato, beholdOppgave }),
   });
 
   if (!response.ok) {

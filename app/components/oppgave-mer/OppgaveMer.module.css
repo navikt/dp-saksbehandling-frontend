@@ -9,3 +9,7 @@
 .container button {
   width: fit-content;
 }
+
+.modal button {
+  margin-top: var(--a-spacing-2);
+}

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import { add, format } from "date-fns";
-import { Button, DatePicker, Modal } from "@navikt/ds-react";
+import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
 import styles from "./OppgaveMer.module.css";
 
@@ -28,7 +28,12 @@ export function OppgaveMer() {
         Utsett oppgave
       </Button>
 
-      <Modal ref={ref} header={{ heading: "Utsett oppgave" }} closeOnBackdropClick>
+      <Modal
+        ref={ref}
+        className={styles.modal}
+        header={{ heading: "Utsett oppgave" }}
+        closeOnBackdropClick
+      >
         <Modal.Body>
           <fetcher.Form method="post">
             <DatePicker.Standalone
@@ -43,6 +48,10 @@ export function OppgaveMer() {
               name="utsettTilDato"
               value={utsattTilDato ? format(utsattTilDato, "yyyy-MM-dd", { locale: nb }) : ""}
             />
+
+            <Checkbox name="beholdOppgave" size="small">
+              Behold oppgave
+            </Checkbox>
 
             <Button
               size="small"

@@ -38,10 +38,13 @@ export async function action({ params, request }: ActionFunctionArgs) {
 
     case "utsett-oppgave":
       const utsettTilDato = formData.get("utsettTilDato");
+      const beholdOppgave = formData.has("beholdOppgave");
+
       const utsettResponse = await utsettOppgave(
         request,
         params.oppgaveId,
         utsettTilDato as string,
+        beholdOppgave,
       );
 
       if (utsettResponse.status === "success") {
