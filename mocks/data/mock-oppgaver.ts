@@ -63,6 +63,7 @@ export const paaVentOppgave: IOppgave = {
   person: mockPerson,
   saksbehandlerIdent: "ident123",
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  utsettTilDato: "2024-05-18",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "PAA_VENT",
   journalpostIder: ["123"],

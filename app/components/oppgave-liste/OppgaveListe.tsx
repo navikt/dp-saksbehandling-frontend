@@ -8,6 +8,7 @@ import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeVa
 import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
 import { useNavigation } from "@remix-run/react";
+import { differenceInCalendarDays } from "date-fns";
 
 export function OppgaveListe() {
   const { state } = useNavigation();
@@ -67,7 +68,11 @@ export function OppgaveListe() {
           )}
 
           {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand, emneknagger } = oppgave;
+            const { tidspunktOpprettet, tilstand, emneknagger, utsettTilDato } = oppgave;
+            const dagerIgjenTilUtsattDato = utsettTilDato
+              ? differenceInCalendarDays(utsettTilDato, new Date())
+              : undefined;
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -82,12 +87,20 @@ export function OppgaveListe() {
                   {loading && <Skeleton variant="text" width={80} height={35} />}
                 </Table.DataCell>
                 <Table.DataCell>
-                  {!loading &&
-                    emneknagger.map((emneknagg) => (
-                      <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
-                        <Detail>{emneknagg}</Detail>
-                      </Tag>
-                    ))}
+                  {!loading && (
+                    <>
+                      {emneknagger.map((emneknagg) => (
+                        <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
+                          <Detail>{emneknagg}</Detail>
+                        </Tag>
+                      ))}
+                      {utsettTilDato && (
+                        <Tag className="mr-2" size={"xsmall"} variant="alt2">
+                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                        </Tag>
+                      )}
+                    </>
+                  )}
                   {loading && <Skeleton variant="text" width={200} height={35} />}
                 </Table.DataCell>
 
