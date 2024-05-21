@@ -1,6 +1,5 @@
 import { Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import classnames from "classnames";
 import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 
@@ -10,10 +9,13 @@ import { useTableSort } from "~/hooks/useTableSort";
 import { useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
 
-export function OppgaveListe() {
+interface IProps {
+  oppgaver: IOppgave[];
+}
+
+export function OppgaveListe({ oppgaver }: IProps) {
   const { state } = useNavigation();
   const loading = state !== "idle";
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",

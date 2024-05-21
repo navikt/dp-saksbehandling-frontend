@@ -10,6 +10,7 @@ import { redirect } from "@remix-run/node";
 import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -32,6 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Saksbehandling() {
+  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
       <aside className={styles.leftColumn}>
@@ -59,7 +61,7 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe />
+        <OppgaveListe oppgaver={oppgaver} />
       </main>
     </div>
   );

@@ -10,6 +10,7 @@ import { useFetcher, useNavigation } from "@remix-run/react";
 import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -43,8 +44,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const fetcher = useFetcher<typeof action>();
   const { state } = useNavigation();
+  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const fetcher = useFetcher<typeof action>();
 
   return (
     <div className={styles.container}>
@@ -90,7 +92,7 @@ export default function Saksbehandling() {
             </Button>
           </fetcher.Form>
         </div>
-        <OppgaveListe />
+        <OppgaveListe oppgaver={oppgaver} />
       </main>
     </div>
   );

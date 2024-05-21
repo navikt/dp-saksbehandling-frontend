@@ -6,10 +6,12 @@ import { hentOppgave, leggTilbakeOppgave, utsettOppgave } from "~/models/oppgave
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
+import { hentOppgaverForPerson } from "~/models/person.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+  const oppgaverForPerson = hentOppgaverForPerson(request, oppgave.person.ident);
 
   function hentJournalposter() {
     return Promise.all(
@@ -19,7 +21,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const journalposterPromises = hentJournalposter();
 
-  return defer({ oppgave, journalposterPromises });
+  return defer({ oppgave, oppgaverForPerson, journalposterPromises });
 }
 
 export async function action({ params, request }: ActionFunctionArgs) {

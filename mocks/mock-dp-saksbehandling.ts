@@ -93,4 +93,9 @@ export const mockDpSaksbehandling = [
       status: 204,
     });
   }),
+
+  // Hent alle oppgaver til en person
+  http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async () => {
+    return HttpResponse.json(mockOppgaver);
+  }),
 ];
