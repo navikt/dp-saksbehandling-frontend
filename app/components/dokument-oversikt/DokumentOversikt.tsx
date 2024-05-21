@@ -1,48 +1,26 @@
-import React, { Suspense } from "react";
+import React from "react";
 import styles from "./DokumentOversikt.module.css";
-import { Await } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { Alert, Loader } from "@navikt/ds-react";
+import { Alert } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import type { INetworkResponse } from "~/utils/types";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function DokumentOversikt() {
-  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { journalposter } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const dokumenter = lagJournalpostData(journalposter);
 
   return (
-    <Suspense
-      fallback={
-        <div>
-          Henter arbeidsforhold <Loader />
-        </div>
-      }
-    >
-      <Await
-        resolve={journalposterPromises}
-        errorElement={
-          <Alert variant="error" className="my-4">
-            Vi klarte ikke å hente journalposter fra SAF 📥
-          </Alert>
-        }
-      >
-        {(journalpromises) => {
-          const journalposter = lagJournalpostData(journalpromises);
-          return (
-            <div className={styles.dokumentContainer}>
-              {journalposter?.data?.length > 0 && <PDFLeser journalposter={journalposter.data} />}
+    <div className={styles.dokumentContainer}>
+      {dokumenter?.data?.length > 0 && <PDFLeser journalposter={dokumenter.data} />}
 
-              {journalposter.errors && (
-                <Alert variant="error" className="my-4">
-                  En feil oppsto når vi skulle hente ut dokumentene 🤖
-                </Alert>
-              )}
-            </div>
-          );
-        }}
-      </Await>
-    </Suspense>
+      {dokumenter.errors && (
+        <Alert variant="error" className="my-4">
+          En feil oppsto når vi skulle hente ut dokumentene 🤖
+        </Alert>
+      )}
+    </div>
   );
 }
 
@@ -60,7 +38,6 @@ function lagJournalpostData(
   };
 
   for (const response of journalpostResponses) {
-    console.log("Response: ", response);
     if (isNetworkResponseSuccess(response) && response.data) {
       journalposter.data.push(response.data);
     } else {
