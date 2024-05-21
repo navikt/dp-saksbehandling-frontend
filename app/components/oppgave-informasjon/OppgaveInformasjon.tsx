@@ -1,4 +1,4 @@
-import { Tabs } from "@navikt/ds-react";
+import { Loader, Tabs } from "@navikt/ds-react";
 import { CogIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
@@ -6,7 +6,8 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveMer } from "~/components/oppgave-mer/OppgaveMer";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import styles from "./OppgaveInformasjon.module.css";
-import React from "react";
+import { Await } from "@remix-run/react";
+import React, { Suspense } from "react";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 
 export function OppgaveInformasjon() {
@@ -27,7 +28,24 @@ export function OppgaveInformasjon() {
       <Tabs.Panel value="informasjon">
         <PersonBoks person={oppgave.person} />
         <OppgaveLenker />
-        <OppgaveListe oppgaver={oppgaverForPerson} />
+        <Suspense
+          fallback={
+            <div>
+              Henter oppgaver for person <Loader />
+            </div>
+          }
+        >
+          <Await
+            resolve={oppgaverForPerson}
+            errorElement={<div>Vi klarte ikke hente oppgaver for person 😬</div>}
+          >
+            {(oppgaver) => (
+              <div>
+                <OppgaveListe oppgaver={oppgaver} />
+              </div>
+            )}
+          </Await>
+        </Suspense>
       </Tabs.Panel>
 
       <Tabs.Panel value="dokumenter">

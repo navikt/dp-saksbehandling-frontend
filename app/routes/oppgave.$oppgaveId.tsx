@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { defer, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave, leggTilbakeOppgave, utsettOppgave } from "~/models/oppgave.server";
@@ -11,7 +11,7 @@ import { hentOppgaverForPerson } from "~/models/person.server";
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const oppgaverForPerson = hentOppgaverForPerson(request, oppgave.person.ident);
 
   function hentJournalposter() {
     return Promise.all(
@@ -19,9 +19,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     );
   }
 
-  const journalposter = await hentJournalposter();
+  const journalposterPromises = hentJournalposter();
 
-  return json({ oppgave, oppgaverForPerson, journalposter });
+  return defer({ oppgave, oppgaverForPerson, journalposterPromises });
 }
 
 export async function action({ params, request }: ActionFunctionArgs) {
