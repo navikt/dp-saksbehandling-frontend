@@ -1,5 +1,6 @@
 import { getHeaders } from "~/utils/fetch.utils";
 import { getMicrosoftOboToken } from "~/utils/auth.utils.server";
+import { logger } from "~/utils/logger.utils";
 
 export interface ISaksbehandler {
   onPremisesSamAccountName: string; // Dette er saksbehandlerIdent
@@ -9,6 +10,7 @@ export interface ISaksbehandler {
 }
 
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
+  logger.info("Hent saksbehandler");
   try {
     const oboToken = await getMicrosoftOboToken(request);
 

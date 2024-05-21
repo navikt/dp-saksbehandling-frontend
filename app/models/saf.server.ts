@@ -11,6 +11,7 @@ export async function hentJournalpost(
   request: Request,
   journalpostId: string,
 ): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
+  logger.info("Hent journalpost med id: ", journalpostId);
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
