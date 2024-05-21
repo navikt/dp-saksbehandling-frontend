@@ -54,6 +54,7 @@ function lagJournalpostData(
   };
 
   for (const response of journalpostResponses) {
+    console.log("Response: ", response);
     if (isNetworkResponseSuccess(response) && response.data) {
       journalposter.data.push(response.data);
     } else {
