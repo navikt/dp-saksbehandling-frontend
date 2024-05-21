@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import styles from "./DokumentOversikt.module.css";
 import { Await } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { Alert } from "@navikt/ds-react";
+import { Alert, Loader } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import type { INetworkResponse } from "~/utils/types";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
@@ -12,24 +12,30 @@ export function DokumentOversikt() {
   const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <Suspense fallback={<div>Henter arbeidsforhold</div>}>
+    <Suspense
+      fallback={
+        <div>
+          Henter arbeidsforhold <Loader />
+        </div>
+      }
+    >
       <Await
         resolve={journalposterPromises}
-        errorElement={<div>Greide ikke laste inn journalposter 😬</div>}
+        errorElement={
+          <Alert variant="error" className="my-4">
+            Vi klarte ikke å hente journalposter fra SAF 📥
+          </Alert>
+        }
       >
         {(journalpromises) => {
           const journalposter = lagJournalpostData(journalpromises);
           return (
             <div className={styles.dokumentContainer}>
-              {journalposter?.data?.length > 0 ? (
-                <PDFLeser journalposter={journalposter.data} />
-              ) : (
-                <div> Ingen dokumenter tilgjengelig</div>
-              )}
+              {journalposter?.data?.length > 0 && <PDFLeser journalposter={journalposter.data} />}
 
               {journalposter.errors && (
                 <Alert variant="error" className="my-4">
-                  En feil oppsto når vi skulle hente ut dokumentene.
+                  En feil oppsto når vi skulle hente ut dokumentene 🤖
                 </Alert>
               )}
             </div>

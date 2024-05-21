@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { GraphQLClient } from "graphql-request";
 import { getSaksbehandler } from "./saksbehandler.server";
-import { getEnv } from "~/utils/env.utils";
-import { mockJournalpost } from "../../mocks/data/mock-journalpost";
 import { type INetworkResponse } from "~/utils/types";
 import { logger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/saf";
@@ -13,13 +11,6 @@ export async function hentJournalpost(
   request: Request,
   journalpostId: string,
 ): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
-  if (getEnv("IS_LOCALHOST") === "true") {
-    return {
-      status: "success",
-      data: mockJournalpost,
-    };
-  }
-
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
@@ -43,6 +34,7 @@ export async function hentJournalpost(
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    logger.info(`${errorMessage}`);
 
     return {
       status: "error",

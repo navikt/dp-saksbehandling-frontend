@@ -1,8 +1,17 @@
 import fs from "node:fs";
 import path from "node:path";
-import { http, HttpResponse } from "msw";
+import { graphql, http, HttpResponse } from "msw";
+import { mockJournalpost } from "./data/mock-journalpost";
 
 export const mockSaf = [
+  graphql.query("journalpost", () => {
+    return HttpResponse.json({
+      data: {
+        journalpost: mockJournalpost,
+      },
+    });
+  }),
+
   http.get(
     `https://saf.dev-fss-pub.nais.io/rest/hentdokument/:journalpostId/:dokumentInfoId/:variantFormat`,
     () => {
