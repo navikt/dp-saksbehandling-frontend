@@ -14,6 +14,14 @@ export function HeaderMeny({ saksbehandler }: IProps) {
     <div className={styles.container}>
       <div className={styles.linkContainer}>
         <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Oppgaver til behandling
+        </NavLink>
+        <NavLink
           to={"/mine-oppgaver"}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
@@ -22,14 +30,6 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           Mine oppgaver
         </NavLink>
 
-        <NavLink
-          to={"/"}
-          className={({ isActive }) =>
-            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
-          }
-        >
-          Oppgaver til behandling
-        </NavLink>
         <NavLink
           to={"/alle-oppgaver"}
           className={({ isActive }) =>

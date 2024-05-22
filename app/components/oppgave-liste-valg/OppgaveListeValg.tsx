@@ -45,7 +45,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
               asButtonVariant="tertiary-neutral"
               size="xsmall"
             >
-              {minOppgave ? "Behandle oppgave" : "Tildel oppgave"}
+              Behandle oppgave
             </RemixLink>
           )}
 

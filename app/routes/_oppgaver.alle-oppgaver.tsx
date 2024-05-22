@@ -11,6 +11,7 @@ import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -52,6 +53,7 @@ export default function Saksbehandling() {
           </Tabs.List>
 
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
+            <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
             <OppgaveFilterStatus />
             <OppgaveFilterType />

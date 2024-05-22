@@ -11,6 +11,7 @@ import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -34,13 +35,22 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
+  const paramsToAppend = [
+    { key: "mineOppgaver", value: "true" },
+    { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+    { key: "tilstand", value: "UNDER_BEHANDLING" },
+  ];
 
-  if (!url.searchParams.has("mineOppgaver")) {
-    url.searchParams.set("mineOppgaver", "true");
-    throw redirect(url.toString());
+  let appended = false;
+  for (const { key, value } of paramsToAppend) {
+    appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
   }
 
-  return {};
+  if (appended) {
+    return redirect(url.toString());
+  }
+
+  return null;
 }
 
 export default function Saksbehandling() {

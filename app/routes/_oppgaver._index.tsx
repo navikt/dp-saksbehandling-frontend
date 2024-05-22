@@ -11,6 +11,7 @@ import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -35,12 +36,17 @@ export async function action({ request }: ActionFunctionArgs) {
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
-  if (!url.searchParams.has("tilstand")) {
-    url.searchParams.set("tilstand", "KLAR_TIL_BEHANDLING");
-    throw redirect(url.toString());
+  const appended = appendSearchParamIfNotExists(
+    url.searchParams,
+    "tilstand",
+    "KLAR_TIL_BEHANDLING",
+  );
+
+  if (appended) {
+    return redirect(url.toString());
   }
 
-  return {};
+  return null;
 }
 
 export default function Saksbehandling() {
@@ -88,7 +94,7 @@ export default function Saksbehandling() {
               loading={state !== "idle"}
               disabled={state !== "idle"}
             >
-              Tildel neste oppgave
+              Neste oppgave
             </Button>
           </fetcher.Form>
         </div>
