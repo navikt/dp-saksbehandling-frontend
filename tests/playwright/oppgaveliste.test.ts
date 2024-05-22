@@ -6,7 +6,9 @@ test("Bruker kan navigere til mine oppgaver", async ({ page, baseURL }) => {
   const mineOppgaverLenke = page.getByRole("link", { name: "Mine oppgaver" });
   await mineOppgaverLenke.click();
 
-  await expect(page).toHaveURL(`${baseURL}mine-oppgaver?mineOppgaver=true`);
+  await expect(page).toHaveURL(
+    `${baseURL}mine-oppgaver?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING`,
+  );
 });
 
 test("Bruker kan navigere til alle oppgaver", async ({ page, baseURL }) => {
