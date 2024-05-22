@@ -42,7 +42,7 @@ export async function getSAFOboToken(request: Request) {
     return process.env.SAF_TOKEN as string;
   }
 
-  const audience = `api://dev-fss.teamdokumenthandtering.saf-q1/.default/.default`;
+  const audience = `api://dev-fss.teamdokumenthandtering.saf-q1/.default`;
   return await getOnBehalfOfToken(request, audience);
 }
 
