@@ -1,22 +1,10 @@
-import { useLoaderData } from "@remix-run/react";
 import { Table } from "@navikt/ds-react";
 import classnames from "classnames";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import invariant from "tiny-invariant";
-import { hentOppgave } from "~/models/oppgave.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/behandling.module.css";
-import { hentBehandling } from "~/models/behandling.server";
-
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, oppgave.behandlingId);
-  return json({ behandling, oppgave });
-}
 
 export default function Behandling() {
-  const { behandling } = useLoaderData<typeof loader>();
+  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <div className={styles.container}>

@@ -1,15 +1,14 @@
-import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import classnames from "classnames";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { tildelOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/behandling.module.css";
-import { avbrytBehandling, godkjennBehandling, hentBehandling } from "~/models/behandling.server";
+import { avbrytBehandling, godkjennBehandling } from "~/models/behandling.server";
 import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -44,15 +43,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return response;
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await tildelOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, oppgave.behandlingId);
-  return json({ behandling, oppgave });
-}
-
 export default function Behandling() {
-  const { behandling } = useLoaderData<typeof loader>();
+  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
 
   return (

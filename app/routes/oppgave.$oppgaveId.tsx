@@ -7,10 +7,12 @@ import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInfo
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { hentOppgaverForPerson } from "~/models/person.server";
+import { hentBehandling } from "~/models/behandling.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+  const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = hentOppgaverForPerson(request, oppgave.person.ident);
 
   function hentJournalposter() {
@@ -21,7 +23,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const journalposterPromises = hentJournalposter();
 
-  return defer({ oppgave, oppgaverForPerson, journalposterPromises });
+  return defer({ oppgave, behandling, oppgaverForPerson, journalposterPromises });
 }
 
 export async function action({ params, request }: ActionFunctionArgs) {

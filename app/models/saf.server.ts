@@ -11,7 +11,7 @@ export async function hentJournalpost(
   request: Request,
   journalpostId: string,
 ): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
-  logger.info("Hent journalpost med id: ", journalpostId);
+  logger.info(`Hent journalpost med id: ${journalpostId}`);
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
@@ -29,12 +29,14 @@ export async function hentJournalpost(
     logger.info(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(journalpostQuery, { journalpostId });
 
+    logger.info(`Hentet journalpost ${JSON.stringify(response.journalpost)}`);
     return {
       status: "success",
       data: response.journalpost,
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+
     logger.info(`${errorMessage}`);
 
     return {
