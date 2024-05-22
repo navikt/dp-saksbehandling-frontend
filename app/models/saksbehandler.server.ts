@@ -10,7 +10,6 @@ export interface ISaksbehandler {
 }
 
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
-  logger.info("Hent saksbehandler");
   try {
     const oboToken = await getMicrosoftOboToken(request);
 
@@ -23,6 +22,7 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
 
     return await data.json();
   } catch (e) {
+    logger.warn(`Klarte ikke hente saksbehandler status: 401`);
     throw new Response("Unauthorized", { status: 401 });
   }
 }

@@ -32,8 +32,7 @@ export async function getPDLOboToken(request: Request) {
     return process.env.PDL_TOKEN as string;
   }
 
-  // TODO Bytt ut dev-fss med NAIS_CLUSTER_NAME?
-  const audience = `api://dev-fss.pdl.pdl-api/.default`;
+  const audience = `${process.env.SAF_AUDIENCE}`;
   return await getOnBehalfOfToken(request, audience);
 }
 
@@ -42,7 +41,7 @@ export async function getSAFOboToken(request: Request) {
     return process.env.SAF_TOKEN as string;
   }
 
-  const audience = `api://dev-fss.teamdokumenthandtering.saf-q1/.default`;
+  const audience = `${process.env.SAF_AUDIENCE}`;
   return await getOnBehalfOfToken(request, audience);
 }
 

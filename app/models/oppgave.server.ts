@@ -3,7 +3,6 @@ import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import type { INetworkResponse } from "~/utils/types";
 import { handleErrorResponse } from "~/utils/error-response.server";
-import { logger } from "~/utils/logger.utils";
 
 export interface IOppgave {
   oppgaveId: string;
@@ -38,7 +37,6 @@ export type IOppgaveTilstand =
 export async function hentOppgaver(request: Request, urlParams?: string): Promise<IOppgave[]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
-  logger.info("Henter oppgaver ", url);
 
   const response = await fetch(url, {
     method: "GET",

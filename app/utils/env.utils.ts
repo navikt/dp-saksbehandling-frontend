@@ -11,6 +11,7 @@ interface IEnv {
   DP_RAPPORTERING_URL: string;
   DP_VEDTAK_URL: string;
   VEILARBPROXY_URL: string;
+  SAF_URL: string;
   IS_LOCALHOST: string;
   USE_MSW: string;
   DP_RAPPORTERING_TOKEN: string;

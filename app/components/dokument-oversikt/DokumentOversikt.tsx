@@ -7,7 +7,6 @@ import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import type { INetworkResponse } from "~/utils/types";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { logger } from "~/utils/logger.utils";
 
 export function DokumentOversikt() {
   const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
@@ -55,7 +54,6 @@ interface IJournalposter {
 function lagJournalpostData(
   journalpostResponses: INetworkResponse<JournalpostQuery["journalpost"]>[],
 ): IJournalposter {
-  logger.info("journalpostResponses", journalpostResponses);
   const journalposter: IJournalposter = {
     data: [],
     errors: false,

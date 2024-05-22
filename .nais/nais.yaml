@@ -47,6 +47,8 @@ spec:
       value: {{dp-rapportering_url}}
     - name: VEILARBPROXY_URL
       value: {{veilarbproxyUrl}}
+    - name: SAF_URL
+      value: {{saf_url}}
     - name: ARBEID_INNTEKT_URL
       value: {{arbeid_inntekt_url}}
     - name: GOSYS_URL
@@ -60,7 +62,12 @@ spec:
     - name: GRISEN_URL
       value: {{grisen_url}}
     - name: DAGPENGER_NORGE_URL
-      value: {{dagpenger_norge_url}}
+      value: {{dagpenger-norge_url}}
+    - name: SAF_AUDIENCE
+      value: {{saf_audience}}
+    - name: PDL_AUDIENCE
+      value: {{PDL_audience}}
+
     - name: OTEL_METRICS_EXPORTER
       value: otlp
     - name: OTEL_TRACES_EXPORTER
@@ -75,6 +82,7 @@ spec:
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io
+        - host: saf.prod-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
       rules:
         - application: dp-saksbehandling

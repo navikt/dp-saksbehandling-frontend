@@ -6,17 +6,17 @@ import { logger } from "~/utils/logger.utils";
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
 
 export async function hentJournalpost(
   request: Request,
   journalpostId: string,
 ): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
-  logger.info(`Hent journalpost med id: ${journalpostId}`);
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
   const callId = uuidv4();
-  const client = new GraphQLClient("https://saf.dev-fss-pub.nais.io/graphql", {
+  const client = new GraphQLClient(getEnv("SAF_URL"), {
     headers: {
       Authorization: `Bearer ${oboToken}`,
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
@@ -29,15 +29,13 @@ export async function hentJournalpost(
     logger.info(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(journalpostQuery, { journalpostId });
 
-    logger.info(`Hentet journalpost ${JSON.stringify(response.journalpost)}`);
     return {
       status: "success",
       data: response.journalpost,
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-
-    logger.info(`${errorMessage}`);
+    logger.info(errorMessage);
 
     return {
       status: "error",
