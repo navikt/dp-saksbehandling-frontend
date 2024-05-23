@@ -1,3 +1,14 @@
+.buttonContainer {
+  display: flex;
+  margin-bottom: var(--a-spacing-2);
+}
+
+.buttonContainer p {
+  margin-left: auto;
+  align-self: flex-end;
+  margin-right: var(--a-spacing-2);
+}
+
 .oppgaveListe {
   box-shadow: var(--a-shadow-xsmall);
   border-collapse: separate;

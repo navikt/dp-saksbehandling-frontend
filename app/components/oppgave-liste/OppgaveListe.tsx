@@ -1,4 +1,4 @@
-import { Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
+import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { hentFormattertDato } from "~/utils/dato.utils";
 import classnames from "classnames";
 import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
@@ -6,15 +6,18 @@ import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
-import { useNavigation } from "@remix-run/react";
+import { useFetcher, useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
+import type { action } from "~/routes/_oppgaver._index";
 
 interface IProps {
   oppgaver: IOppgave[];
+  nesteOppgaveKnapp?: boolean;
 }
 
-export function OppgaveListe({ oppgaver }: IProps) {
+export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
   const { state } = useNavigation();
+  const fetcher = useFetcher<typeof action>();
   const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
@@ -23,10 +26,26 @@ export function OppgaveListe({ oppgaver }: IProps) {
 
   return (
     <>
-      <Detail textColor="subtle">
-        {!loading && `Antall oppgaver ${oppgaver.length}`}
-        {loading && "Laster oppgaver..."}
-      </Detail>
+      <div className={styles.buttonContainer}>
+        {nesteOppgaveKnapp && (
+          <fetcher.Form method="post">
+            <Button
+              variant="primary"
+              size="small"
+              name="_action"
+              value="tildel-neste-oppave"
+              loading={state !== "idle"}
+              disabled={state !== "idle"}
+            >
+              Neste oppgave
+            </Button>
+          </fetcher.Form>
+        )}
+        <Detail textColor="subtle">
+          {!loading && `Antall oppgaver ${oppgaver.length}`}
+          {loading && "Laster oppgaver..."}
+        </Detail>
+      </div>
       <Table
         zebraStripes={true}
         sort={sortState}
