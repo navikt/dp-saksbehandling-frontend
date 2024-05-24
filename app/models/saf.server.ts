@@ -16,7 +16,7 @@ export async function hentJournalpost(
   const saksbehandler = await getSaksbehandler(request);
 
   const callId = uuidv4();
-  const client = new GraphQLClient(getEnv("SAF_URL"), {
+  const client = new GraphQLClient(`${getEnv("SAF_URL")}/graphql`, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,

@@ -5,7 +5,7 @@ dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
 dp-rapportering_url: "http://dp-rapportering"
 veilarbproxyUrl: http://veilarbregistrering.paw.svc.cluster.local
-saf_url: "https://saf.dev-fss-pub.nais.io/graphql"
+saf_url: "https://saf.dev-fss-pub.nais.io"
 
 saf_audience: "api://dev-fss.teamdokumenthandtering.saf-q1/.default"
 pdl_audience: "api://dev-fss.pdl.pdl-api/.default"
