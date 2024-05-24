@@ -19,19 +19,19 @@ export interface IOpplysning {
   gyldigTilOgMed: string | null;
   datatype: string;
   redigerbar?: boolean;
-  kilde: IKilde;
-  utledetAv?: {
+  kilde: IKilde | null;
+  utledetAv: {
     regel: {
       navn: string;
     };
     opplysninger: IOpplysning[];
-  };
+  } | null;
 }
 
 export interface IKilde {
   type: string;
   registrert: string;
-  ident: string;
+  ident: string | null;
   meldingId: string;
 }
 

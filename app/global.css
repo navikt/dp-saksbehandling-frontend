@@ -78,7 +78,7 @@
 .kompakt-tabell .navds-fieldset__legend {
   float: right;
   align-self: center;
-  margin-left: var(--a-spacing-9);
+  margin-left: var(--a-spacing-4);
 }
 
 .kompakt-tabell .navds-text-field__input {

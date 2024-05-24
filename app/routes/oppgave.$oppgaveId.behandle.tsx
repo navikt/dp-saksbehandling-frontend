@@ -9,6 +9,9 @@ import styles from "~/route-styles/behandling.module.css";
 import { avbrytBehandling, godkjennBehandling } from "~/models/behandling.server";
 import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { Opplysning } from "~/components/opplysning/Opplysning";
+import { ValidatedForm } from "remix-validated-form";
+import { hentValideringRegler } from "~/utils/validering.util";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -49,25 +52,27 @@ export default function Behandling() {
 
   return (
     <div className={styles.container}>
-      <Table className={classnames("kompakt-tabell", styles.table)}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Datatype</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {behandling.opplysning.map((opplysning) => (
-            <Table.Row key={opplysning.id}>
-              <Table.DataCell>{opplysning.navn}</Table.DataCell>
-              <Table.DataCell>{opplysning.datatype}</Table.DataCell>
-              <Table.DataCell>{opplysning.verdi}</Table.DataCell>
+      <ValidatedForm validator={hentValideringRegler(behandling.opplysning)} method="post">
+        <Table className={classnames("kompakt-tabell", styles.table)} zebraStripes={false}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+          </Table.Header>
+
+          <Table.Body>
+            {behandling.opplysning.map((opplysning) => (
+              <Table.Row key={opplysning.id}>
+                <Table.DataCell>{opplysning.navn}</Table.DataCell>
+                <Table.DataCell className={styles.tabellVerdi}>
+                  <Opplysning opplysning={opplysning} readonly={true} />
+                </Table.DataCell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </ValidatedForm>
 
       <div className={styles.buttonContainer}>
         <Button

@@ -4,6 +4,7 @@ import { OpplysningDouble } from "~/components/opplysning/OpplysningDouble";
 import { OpplysningInt } from "~/components/opplysning/OpplysningInt";
 import { OpplysningString } from "~/components/opplysning/OpplysningString";
 import type { IOpplysning } from "~/models/behandling.server";
+import styles from "./Opplysning.module.css";
 
 export interface IOpplysningProps {
   opplysning: IOpplysning;
@@ -14,7 +15,7 @@ export interface IOpplysningProps {
 
 export function Opplysning({ opplysning, readonly, label, className }: IOpplysningProps) {
   switch (opplysning.datatype) {
-    case "INT":
+    case "heltall":
       return (
         <OpplysningInt
           label={label}
@@ -24,7 +25,7 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
         />
       );
 
-    case "DOUBLE":
+    case "desimaltall":
       return (
         <OpplysningDouble
           label={label}
@@ -34,7 +35,7 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
         />
       );
 
-    case "BOOLEAN":
+    case "boolsk":
       return (
         <OpplysningBoolean
           label={label}
@@ -44,7 +45,7 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
         />
       );
 
-    case "LOCALDATE":
+    case "dato":
       return (
         <OpplysningDato
           label={label}
@@ -63,5 +64,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
           className={className}
         />
       );
+
+    default:
+      return <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>;
   }
 }
