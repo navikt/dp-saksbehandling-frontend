@@ -8,7 +8,7 @@ import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
 import { useFetcher, useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
-import type { action } from "~/routes/_oppgaver._index";
+import type { action } from "~/routes/_oppgaver.hent-neste-oppgave";
 
 interface IProps {
   oppgaver: IOppgave[];
@@ -17,7 +17,7 @@ interface IProps {
 
 export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
   const { state } = useNavigation();
-  const fetcher = useFetcher<typeof action>();
+  const fetcher = useFetcher<typeof action>({ key: "hent-neste-oppgave" });
   const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
@@ -28,12 +28,10 @@ export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
     <>
       <div className={styles.buttonContainer}>
         {nesteOppgaveKnapp && (
-          <fetcher.Form method="post">
+          <fetcher.Form method="post" action="hent-neste-oppgave">
             <Button
               variant="primary"
               size="small"
-              name="_action"
-              value="tildel-neste-oppave"
               loading={state !== "idle"}
               disabled={state !== "idle"}
             >

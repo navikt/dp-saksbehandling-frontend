@@ -9,7 +9,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
+import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
@@ -24,10 +24,6 @@ export async function action({ request }: ActionFunctionArgs) {
         throw new Error("Mangler oppgaveId");
       }
       return await leggTilbakeOppgave(request, oppgaveId);
-
-    case "tildel-neste-oppave":
-      const oppgave = await hentNesteOppgave(request);
-      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
 
     default:
   }

@@ -6,8 +6,7 @@ import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilte
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
+import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -24,10 +23,6 @@ export async function action({ request }: ActionFunctionArgs) {
         throw new Error("Mangler oppgaveId");
       }
       return await leggTilbakeOppgave(request, oppgaveId);
-
-    case "tildel-neste-oppave":
-      const oppgave = await hentNesteOppgave(request);
-      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
 
     default:
   }

@@ -1,22 +1,18 @@
-export type INetworkResponse<T = void> =
-  | INetworkResponseSuccess<T>
-  | INetworkResponseError
-  | INetworkResponseLoading;
+export type INetworkResponse<T = void> = INetworkResponseSuccess<T> | INetworkResponseError;
 
-export interface INetworkResponseSuccess<T> {
-  status: "success";
-  id?: string;
-  data?: T;
-}
+export type INetworkResponseSuccess<T> = T extends void
+  ? { status: "success"; data?: T }
+  : { status: "success"; data: T };
+
 export interface INetworkResponseError {
   status: "error";
-  error: {
-    statusCode: number;
-    statusText: string;
-  };
-  id?: string;
+  error: IHttpProblem;
 }
 
-export interface INetworkResponseLoading {
-  status: "waiting";
+export interface IHttpProblem {
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  instance: string;
 }

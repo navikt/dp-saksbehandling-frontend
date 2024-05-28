@@ -2,16 +2,18 @@ import { Loader, Tabs } from "@navikt/ds-react";
 import { CogIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveMer } from "~/components/oppgave-mer/OppgaveMer";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import styles from "./OppgaveInformasjon.module.css";
 import { Await } from "@remix-run/react";
 import React, { Suspense } from "react";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function OppgaveInformasjon() {
-  const { oppgave, oppgaverForPerson } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, oppgaverForPersonPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId",
+  );
 
   return (
     <Tabs defaultValue="informasjon" className={styles.container}>
@@ -36,7 +38,7 @@ export function OppgaveInformasjon() {
           }
         >
           <Await
-            resolve={oppgaverForPerson}
+            resolve={oppgaverForPersonPromise}
             errorElement={<div>Vi klarte ikke hente oppgaver for person 😬</div>}
           >
             {(oppgaver) => (

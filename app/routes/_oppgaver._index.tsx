@@ -6,11 +6,15 @@ import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import { hentNesteOppgave, leggTilbakeOppgave } from "~/models/oppgave.server";
+import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
+import { useFetcher } from "@remix-run/react";
+import { useEffect } from "react";
+import type { action as hentNesteOppgaveAction } from "~/routes/_oppgaver.hent-neste-oppgave";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -23,10 +27,6 @@ export async function action({ request }: ActionFunctionArgs) {
         throw new Error("Mangler oppgaveId");
       }
       return await leggTilbakeOppgave(request, oppgaveId);
-
-    case "tildel-neste-oppave":
-      const oppgave = await hentNesteOppgave(request);
-      return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
 
     default:
   }
@@ -49,7 +49,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
+  const { addAlert } = useGlobalAlerts();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>({ key: "hent-neste-oppgave" });
+
+  useEffect(() => {
+    if (nesteFetcher.data?.alert) {
+      addAlert({
+        variant: "success",
+        title: "Ingen flere oppgaver 🎉",
+        body: "Alle oppgaver med dette søket er ferdig behandlet",
+      });
+    }
+  }, [nesteFetcher.data, addAlert]);
 
   return (
     <div className={styles.container}>

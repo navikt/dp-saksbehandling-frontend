@@ -18,6 +18,8 @@ import { getEnv } from "~/utils/env.utils";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import globalCss from "~/global.css?url";
 import styles from "~/route-styles/root.module.css";
+import { AlertProvider } from "~/context/alert-context";
+import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 
 export function meta() {
   return [
@@ -103,7 +105,12 @@ export default function App() {
 
           <HeaderMeny saksbehandler={saksbehandler} />
         </InternalHeader>
-        <Outlet />
+
+        <AlertProvider>
+          <GlobalAlerts />
+          <Outlet />
+        </AlertProvider>
+
         <ScrollRestoration />
         <Scripts />
         <script

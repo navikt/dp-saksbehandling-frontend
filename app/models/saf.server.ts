@@ -16,7 +16,8 @@ export async function hentJournalpost(
   const saksbehandler = await getSaksbehandler(request);
 
   const callId = uuidv4();
-  const client = new GraphQLClient(`${getEnv("SAF_URL")}/graphql`, {
+  const url = `${getEnv("SAF_URL")}/graphql`;
+  const client = new GraphQLClient(url, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
@@ -40,8 +41,11 @@ export async function hentJournalpost(
     return {
       status: "error",
       error: {
-        statusCode: 500,
-        statusText: errorMessage,
+        type: "Ukjent feil",
+        status: 500,
+        title: errorMessage,
+        detail: url,
+        instance: "/saksbehandling/hentJournalpost",
       },
     };
   }

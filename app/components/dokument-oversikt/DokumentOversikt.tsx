@@ -15,7 +15,7 @@ export function DokumentOversikt() {
     <Suspense
       fallback={
         <div>
-          Henter arbeidsforhold <Loader />
+          Henter journalposter <Loader />
         </div>
       }
     >

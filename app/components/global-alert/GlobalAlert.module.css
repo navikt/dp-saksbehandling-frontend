@@ -1,0 +1,26 @@
+.container {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.alert {
+  border: none;
+  opacity: 0;
+  animation-duration: 250ms;
+  animation-name: fadeIn;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

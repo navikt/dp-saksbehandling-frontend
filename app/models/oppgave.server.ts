@@ -70,22 +70,16 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
   return await response.json();
 }
 
-export async function hentNesteOppgave(request: Request): Promise<IOppgave> {
+export async function hentNesteOppgave(request: Request): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const requestUrl = new URL(request.url);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ queryParams: requestUrl.search }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
 export async function tildelOppgave(request: Request, oppgaveId: string): Promise<IOppgave> {

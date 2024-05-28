@@ -3,17 +3,18 @@ import { defer, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave, leggTilbakeOppgave, utsettOppgave } from "~/models/oppgave.server";
-import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentBehandling } from "~/models/behandling.server";
+import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+
   const behandling = await hentBehandling(request, oppgave.behandlingId);
-  const oppgaverForPerson = hentOppgaverForPerson(request, oppgave.person.ident);
+  const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
   function hentJournalposter() {
     return Promise.all(
@@ -22,8 +23,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const journalposterPromises = hentJournalposter();
-
-  return defer({ oppgave, behandling, oppgaverForPerson, journalposterPromises });
+  return defer({
+    oppgave,
+    behandling,
+    oppgaverForPersonPromise,
+    journalposterPromises,
+  });
 }
 
 export async function action({ params, request }: ActionFunctionArgs) {
