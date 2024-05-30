@@ -1,17 +1,18 @@
-import { useState } from "react";
-import { Button, Table } from "@navikt/ds-react";
-import classnames from "classnames";
+import { useEffect, useState } from "react";
+import { Button } from "@navikt/ds-react";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import styles from "~/route-styles/behandling.module.css";
+import styles from "~/route-styles/oppgave.module.css";
 import { avbrytBehandling, godkjennBehandling } from "~/models/behandling.server";
 import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
+import { tildelOppgave } from "~/models/oppgave.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { Opplysning } from "~/components/opplysning/Opplysning";
-import { ValidatedForm } from "remix-validated-form";
-import { hentValideringRegler } from "~/utils/validering.util";
+import { useLoaderData } from "@remix-run/react";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
+import type { IAlertResponse } from "~/context/alert-context";
+import { handleTildelOppgaveMessages } from "~/components/alert-messages/handleAlertMessages";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -21,6 +22,21 @@ interface ISkjemadata {
 
 export type IFerdigstillValg = "godkjenn" | "avbryt";
 
+export async function loader({ request, params }: LoaderFunctionArgs) {
+  invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
+  const response = await tildelOppgave(request, params.oppgaveId);
+
+  if (response.ok) {
+    return null;
+  }
+
+  return json<IAlertResponse>({
+    alert: true,
+    httpCode: response.status,
+    message: response.statusText,
+  });
+}
+
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
 
@@ -28,7 +44,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const skjemadata = parseJsonSkjemaVerdi<ISkjemadata>(formData, "skjemadata");
 
   let response;
-
   switch (skjemadata.ferdigstillValg) {
     case "avbryt":
       response = await avbrytBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
@@ -47,53 +62,44 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Behandling() {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { addAlert } = useGlobalAlerts();
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
+  const loaderData = useLoaderData<typeof loader>();
+
+  useEffect(() => {
+    if (loaderData?.alert) {
+      handleTildelOppgaveMessages(loaderData.httpCode, loaderData.message, addAlert);
+    }
+    // Skal bare kjøre på mount
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={styles.container}>
-      <ValidatedForm validator={hentValideringRegler(behandling.opplysning)} method="post">
-        <Table className={classnames("kompakt-tabell", styles.table)} zebraStripes={false}>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-              <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+    <>
+      {oppgave.tilstand === "UNDER_BEHANDLING" && (
+        <>
+          <div className={styles.buttonContainer}>
+            <Button
+              type="button"
+              variant="primary"
+              size="small"
+              onClick={() => setAktivModalId("godkjenn")}
+            >
+              Send til automatisk avslag
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              onClick={() => setAktivModalId("avbryt")}
+            >
+              Send til vanlig saksflyt i Arena
+            </Button>
+          </div>
 
-          <Table.Body>
-            {behandling.opplysning.map((opplysning) => (
-              <Table.Row key={opplysning.id}>
-                <Table.DataCell>{opplysning.navn}</Table.DataCell>
-                <Table.DataCell className={styles.tabellVerdi}>
-                  <Opplysning opplysning={opplysning} readonly={true} />
-                </Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </ValidatedForm>
-
-      <div className={styles.buttonContainer}>
-        <Button
-          type="button"
-          variant="primary"
-          size="small"
-          onClick={() => setAktivModalId("godkjenn")}
-        >
-          Send til automatisk avslag
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="small"
-          onClick={() => setAktivModalId("avbryt")}
-        >
-          Send til vanlig saksflyt i Arena
-        </Button>
-      </div>
-
-      <BehandlingBekreftModal aktivModalId={aktivModalId} setAktivModalId={setAktivModalId} />
-    </div>
+          <BehandlingBekreftModal aktivModalId={aktivModalId} setAktivModalId={setAktivModalId} />
+        </>
+      )}
+    </>
   );
 }

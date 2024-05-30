@@ -1,14 +1,17 @@
 import { http, HttpResponse } from "msw";
 import { mockOppgaver } from "./data/mock-oppgaver";
+import { logger } from "~/utils/logger.utils";
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, () => {
+    logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave`);
     return HttpResponse.json(mockOppgaver);
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/neste`, () => {
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/neste`);
     // return HttpResponse.json(
     //   {
     //     type: "",
@@ -25,6 +28,7 @@ export const mockDpSaksbehandling = [
 
   // Hent en oppgave med oppgaveId
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`, ({ params }) => {
+    logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`);
     const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
@@ -39,6 +43,8 @@ export const mockDpSaksbehandling = [
 
   // Tildel en oppgave med oppgaveId
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`, ({ params }) => {
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`);
+
     const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
@@ -46,17 +52,18 @@ export const mockDpSaksbehandling = [
       return HttpResponse.json(mockOppgave);
     }
 
-    // return new HttpResponse("Oppgaven er allerede tatt til behandling", {
-    //   status: 423,
-    // });
-
-    return new HttpResponse(null, {
-      status: 404,
+    return new HttpResponse("Oppgaven er allerede tatt til behandling", {
+      status: 423,
     });
+
+    // return new HttpResponse(null, {
+    //   status: 404,
+    // });
   }),
 
   // Legg oppgave med oppgaveId tilbake i køen
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`, ({ params }) => {
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`);
     const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
@@ -73,6 +80,7 @@ export const mockDpSaksbehandling = [
 
   // Utsett oppgave med oppgaveId
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`, ({ params }) => {
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`);
     const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
@@ -87,22 +95,9 @@ export const mockDpSaksbehandling = [
     });
   }),
 
-  // Lukk en oppgave for å fortsette saksbehandling i Arena
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/lukk`, () => {
-    return new HttpResponse(null, {
-      status: 204,
-    });
-  }),
-
-  // Gi avslag på en oppgave
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/avslag`, () => {
-    return new HttpResponse(null, {
-      status: 204,
-    });
-  }),
-
   // Hent alle oppgaver til en person
   http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async () => {
+    logger.info(`[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`);
     return HttpResponse.json(mockOppgaver);
   }),
 ];

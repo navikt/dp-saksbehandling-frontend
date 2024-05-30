@@ -1,7 +1,6 @@
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
-import type { INetworkResponse } from "~/utils/types";
 import { handleErrorResponse } from "~/utils/error-response.server";
 
 export interface IOppgave {
@@ -82,39 +81,24 @@ export async function hentNesteOppgave(request: Request): Promise<Response> {
   });
 }
 
-export async function tildelOppgave(request: Request, oppgaveId: string): Promise<IOppgave> {
+export async function tildelOppgave(request: Request, oppgaveId: string): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/tildel`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
-export async function leggTilbakeOppgave(
-  request: Request,
-  oppgaveId: string,
-): Promise<INetworkResponse> {
+export async function leggTilbakeOppgave(request: Request, oppgaveId: string): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/legg-tilbake`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return { status: "success" };
 }
 
 export async function utsettOppgave(
@@ -122,19 +106,13 @@ export async function utsettOppgave(
   oppgaveId: string,
   utsettTilDato: string,
   beholdOppgave: boolean,
-): Promise<INetworkResponse> {
+): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/utsett`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ utsettTilDato, beholdOppgave }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return { status: "success" };
 }

@@ -1,48 +1,34 @@
-import React, { useState } from "react";
-import { Button, Table } from "@navikt/ds-react";
-import { Opplysning } from "~/components/opplysning/Opplysning";
+import React from "react";
+import { Table } from "@navikt/ds-react";
 import styles from "./OpplysningTabell.module.css";
 import classnames from "classnames";
 import type { IOpplysning } from "~/models/behandling.server";
+import { OpplysningTabellLinje } from "~/components/opplysning-tabell/OpplysningTabellLinje";
 
 interface IProps {
   opplysninger: IOpplysning[];
+  readonly: boolean;
 }
 
 export function OpplysningTabell(props: IProps) {
   return (
     <Table className={classnames("kompakt-tabell", styles.table)}>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
+          <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
+          {!props.readonly && <Table.HeaderCell scope="col">Endre</Table.HeaderCell>}
+        </Table.Row>
+      </Table.Header>
       <Table.Body>
         {props.opplysninger.map((opplysning) => (
-          <OpplysningTabellLinje key={opplysning.navn} {...opplysning} />
+          <OpplysningTabellLinje
+            key={opplysning.navn}
+            opplysning={opplysning}
+            readonly={props.readonly}
+          />
         ))}
       </Table.Body>
     </Table>
-  );
-}
-
-function OpplysningTabellLinje(opplysning: IOpplysning) {
-  const [redigerOpplysning, setredigerOpplysning] = useState(false);
-
-  return (
-    <Table.Row key={opplysning.navn}>
-      <Table.DataCell scope="row">{opplysning.navn}</Table.DataCell>
-      <Table.DataCell>
-        <Opplysning opplysning={opplysning} readonly={!redigerOpplysning} />
-      </Table.DataCell>
-
-      <Table.DataCell>
-        {opplysning.redigerbar && (
-          <Button
-            variant="tertiary"
-            type="button"
-            size="xsmall"
-            onClick={() => setredigerOpplysning(!redigerOpplysning)}
-          >
-            {redigerOpplysning ? "Lukk" : "Endre"}
-          </Button>
-        )}
-      </Table.DataCell>
-    </Table.Row>
   );
 }

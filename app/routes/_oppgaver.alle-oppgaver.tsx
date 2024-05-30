@@ -5,28 +5,10 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilte
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const action = formData.get("_action");
-
-  switch (action) {
-    case "legg-tilbake":
-      const oppgaveId = formData.get("oppgaveId") as string;
-      if (!oppgaveId) {
-        throw new Error("Mangler oppgaveId");
-      }
-      return await leggTilbakeOppgave(request, oppgaveId);
-
-    default:
-  }
-}
 
 export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");

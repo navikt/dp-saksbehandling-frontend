@@ -1,14 +1,20 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { createContext, useState } from "react";
 import type { AlertProps } from "@navikt/ds-react";
 import type { IHttpProblem } from "~/utils/types";
 
 export type IAlert = IAlertMessage | IAlertHTTPProblem;
 
+export interface IAlertResponse {
+  alert: boolean;
+  httpCode: number;
+  message: string;
+}
+
 export interface IAlertMessage {
   variant: AlertProps["variant"];
   title: string;
-  body: string;
+  body?: string | ReactNode;
 }
 
 export interface IAlertHTTPProblem {

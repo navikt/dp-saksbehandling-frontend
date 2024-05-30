@@ -30,7 +30,7 @@ export function GlobalAlerts() {
           {isAlertMessage(alert) && (
             <>
               <Heading size="small">{alert.title}</Heading>
-              <BodyLong>{alert.body}</BodyLong>
+              {typeof alert.body === "string" ? <BodyLong>{alert.body}</BodyLong> : alert.body}
             </>
           )}
         </Alert>
