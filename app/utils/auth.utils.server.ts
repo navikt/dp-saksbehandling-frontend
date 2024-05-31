@@ -45,15 +45,6 @@ export async function getSAFOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getVeilarbregistreringOboToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.VEILARBPROXY_TOKEN as string;
-  }
-
-  const audience = `api://${process.env.NAIS_CLUSTER_NAME}.paw.veilarbregistrering/.default`;
-  return await getOnBehalfOfToken(request, audience);
-}
-
 export async function getOnBehalfOfToken(request: Request, audience: string) {
   const token = getToken(request);
 

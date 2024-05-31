@@ -6,9 +6,5 @@
   {
     "env": "DP_BEHANDLING_TOKEN",
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling"
-  },
-  {
-    "env": "VEILARBPROXY_TOKEN",
-    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering"
   }
 ]

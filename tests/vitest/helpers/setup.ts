@@ -8,11 +8,8 @@ afterEach(() => {
 });
 
 vi.stubEnv("DP_SAKSBEHANDLING_URL", "https://dp-saksbehandling.intern.dev.nav.no");
-vi.stubEnv("DP_RAPPORTERING_URL", "https://dp-rapportering.intern.dev.nav.no");
 
 if (typeof window !== "undefined") {
   window.env = window.env || {};
-
   window.env.DP_SAKSBEHANDLING_URL = "https://dp-saksbehandling.intern.dev.nav.no";
-  window.env.DP_RAPPORTERING_URL = "https://dp-rapportering.intern.dev.nav.no";
 }

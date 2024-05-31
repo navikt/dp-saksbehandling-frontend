@@ -13,7 +13,8 @@ npm run dev
 
 ## Kjøre mot dev-APIer i localhost
 
-Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og Env-variabelen `IS_LOCALHOST="true"` må også være satt.
+Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og
+Env-variabelen `USE_MSW="false"` må også være satt.
 
 For å generere nye tokens, kjør:
 
@@ -24,23 +25,21 @@ npm run generate-token
 Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og `.env` filen vil se f.eks slik ut.
 
 ```
-IS_LOCALHOST="true"
-DP_RAPPORTERING_TOKEN="langStrengHerFraAccess_token"
+USE_MSW="false"
 DP_SAKSBEHANDLING_TOKEN="annenLangStrengHerFraAccess_token"
-DP_VEDTAK_TOKEN="enTredjeLangStrengHerFraAccess_token"
-VEILARBPROXY_TOKEN="enFjerdeLangStrengHerFraAccess_token"
+DP_BEHANDLING_TOKEN="enTredjeLangStrengHerFraAccess_token"
 ```
 
 Disse tokenene vil vare i en time før du må generere et nytt token.
 
 ## Manuelt oppdatering av lokalt Azure tokens
 
-Logg på med en testbruker. Hent ut verdien fra `access_token`, rediger `.env` og endre `DP_RAPPORTERING_TOKEN`, `DP_SAKSBEHANDLING_TOKEN`, `DP_VEDTAK_TOKEN` , `VEILARBPROXY_TOKEN` til det matchende genererte tokenet.
+Logg på med en testbruker. Hent ut verdien fra `access_token`, rediger `.env` og
+endre `DP_SAKSBEHANDLING_TOKEN`, `DP_BEHANDLING_TOKEN` til det
+matchende genererte tokenet.
 
-[dp-rapportering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-rapportering),
 [dp-saksbehandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-saksbehandling),
-[dp-vedtak](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-vedtak),
-[veilarbregistrering](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.paw.veilarbregistrering),
+[dp-behandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling),
 
 ## Tester
 
@@ -63,7 +62,8 @@ npm run test -- --watch
 
 ### Playwright
 
-Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de ulike delene av løsningen.
+Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de
+ulike delene av løsningen.
 
 ```
 //Hvis du ikke har playwright fra før
