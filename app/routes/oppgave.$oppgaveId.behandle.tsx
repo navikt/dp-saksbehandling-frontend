@@ -60,7 +60,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (response.status === "success") {
     const session = await getSession(request.headers.get("Cookie"));
-    session.flash("alertMessage", alertMessage);
     session.flash("alert", { variant: "success", title: alertMessage });
 
     return redirect(`/`, {

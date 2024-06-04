@@ -17,8 +17,6 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = session.get("alert");
 
   if (!url.search) {
     const appended = appendSearchParamIfNotExists(
@@ -28,13 +26,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     );
 
     if (appended) {
-      return redirect(url.toString(), {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
-      });
+      return redirect(url.toString());
     }
   }
+
+  const session = await getSession(request.headers.get("Cookie"));
+  const alert = session.get("alert");
 
   if (alert) {
     return json(
