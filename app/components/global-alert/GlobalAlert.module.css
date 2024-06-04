@@ -1,26 +1,64 @@
 .container {
   position: absolute;
-  top: 48px;
-  left: 0;
-  width: 100%;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
   z-index: 100;
 }
 
 .alert {
   border: none;
+  border-radius: var(--a-border-radius-xlarge);
+  margin-bottom: var(--a-spacing-2);
+
   opacity: 0;
+  animation-duration: 3000ms;
+  animation-name: fadeInOut;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.alertFadeIn {
   animation-duration: 250ms;
   animation-name: fadeIn;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
 }
 
+.alertFadeInOut {
+  animation-duration: 3000ms;
+  animation-name: fadeInOut;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+/* Aksel override */
+.alert > div {
+  max-width: 100%;
+}
+
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
   }
-
-  to {
+  100% {
     opacity: 1;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

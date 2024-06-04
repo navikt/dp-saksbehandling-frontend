@@ -13,6 +13,7 @@ import { useLoaderData } from "@remix-run/react";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import type { IAlertResponse } from "~/context/alert-context";
 import { handleTildelOppgaveMessages } from "~/components/alert-messages/handleAlertMessages";
+import { commitSession, getSession } from "~/sessions";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -44,18 +45,29 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const skjemadata = parseJsonSkjemaVerdi<ISkjemadata>(formData, "skjemadata");
 
   let response;
+  let alertMessage: string;
   switch (skjemadata.ferdigstillValg) {
     case "avbryt":
       response = await avbrytBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      alertMessage = `Søknad er sendt til arena for videre behandling`;
       break;
 
     case "godkjenn":
       response = await godkjennBehandling(request, skjemadata.behandlingId, skjemadata.personIdent);
+      alertMessage = `Søknad er sendt til automatisk avslag`;
       break;
   }
 
   if (response.status === "success") {
-    return redirect(`/`);
+    const session = await getSession(request.headers.get("Cookie"));
+    session.flash("alertMessage", alertMessage);
+    session.flash("alert", { variant: "success", title: alertMessage });
+
+    return redirect(`/`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
   }
 
   return response;

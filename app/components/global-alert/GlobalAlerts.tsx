@@ -3,6 +3,7 @@ import { Alert, BodyLong, Detail, Heading } from "@navikt/ds-react";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { isAlertHTTPProblem, isAlertMessage } from "~/utils/type-guards";
 import styles from "./GlobalAlert.module.css";
+import classnames from "classnames";
 
 export function GlobalAlerts() {
   const { alerts, removeAlert } = useGlobalAlerts();
@@ -11,7 +12,10 @@ export function GlobalAlerts() {
     <div className={styles.container}>
       {alerts.map((alert, index) => (
         <Alert
-          className={styles.alert}
+          className={classnames(styles.alert, {
+            [styles.alertFadeInOut]: alert.variant === "success",
+            [styles.alertFadeIn]: alert.variant !== "success",
+          })}
           key={index}
           variant={alert.variant}
           closeButton={true}

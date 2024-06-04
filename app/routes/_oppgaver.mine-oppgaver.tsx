@@ -14,19 +14,22 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const paramsToAppend = [
-    { key: "mineOppgaver", value: "true" },
-    { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
-    { key: "tilstand", value: "UNDER_BEHANDLING" },
-  ];
 
-  let appended = false;
-  for (const { key, value } of paramsToAppend) {
-    appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
-  }
+  if (!url.search) {
+    const paramsToAppend = [
+      { key: "mineOppgaver", value: "true" },
+      { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+      { key: "tilstand", value: "UNDER_BEHANDLING" },
+    ];
 
-  if (appended) {
-    return redirect(url.toString());
+    let appended = false;
+    for (const { key, value } of paramsToAppend) {
+      appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
+    }
+
+    if (appended) {
+      return redirect(url.toString());
+    }
   }
 
   return null;

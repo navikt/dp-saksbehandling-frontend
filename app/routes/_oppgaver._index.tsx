@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
@@ -9,26 +9,61 @@ import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagge
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { commitSession, getSession } from "~/sessions";
+import { useLoaderData } from "@remix-run/react";
+import { useEffect } from "react";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
+  const session = await getSession(request.headers.get("Cookie"));
+  const alert = session.get("alert");
 
-  const appended = appendSearchParamIfNotExists(
-    url.searchParams,
-    "tilstand",
-    "KLAR_TIL_BEHANDLING",
-  );
+  if (!url.search) {
+    const appended = appendSearchParamIfNotExists(
+      url.searchParams,
+      "tilstand",
+      "KLAR_TIL_BEHANDLING",
+    );
 
-  if (appended) {
-    return redirect(url.toString());
+    if (appended) {
+      return redirect(url.toString(), {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
+    }
+  }
+
+  if (alert) {
+    return json(
+      { alert },
+      {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      },
+    );
   }
 
   return null;
 }
 
 export default function Saksbehandling() {
+  const { addAlert } = useGlobalAlerts();
+  const loaderData = useLoaderData<typeof loader>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+
+  useEffect(() => {
+    if (loaderData?.alert) {
+      addAlert({
+        variant: loaderData.alert.variant,
+        title: loaderData.alert.title,
+      });
+    }
+    // addAlert i dependency array fører til uendelig loop
+  }, [loaderData?.alert]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.container}>
