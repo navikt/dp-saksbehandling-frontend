@@ -1,25 +1,11 @@
-import type { PropsWithChildren, ReactNode } from "react";
-import { createContext, useState } from "react";
+import type { PropsWithChildren } from "react";
+import { createContext, useCallback, useState } from "react";
 import type { AlertProps } from "@navikt/ds-react";
-import type { IHttpProblem } from "~/utils/types";
 
-export type IAlert = IAlertMessage | IAlertHTTPProblem;
-
-export interface IAlertResponse {
-  alert: boolean;
-  httpCode: number;
-  message: string;
-}
-
-export interface IAlertMessage {
+export interface IAlert {
   variant: AlertProps["variant"];
   title: string;
-  body?: string | ReactNode;
-}
-
-export interface IAlertHTTPProblem {
-  variant: AlertProps["variant"];
-  problem: IHttpProblem;
+  body?: string;
 }
 
 export interface AlertContextType {
@@ -33,17 +19,17 @@ export const AlertContext = createContext<AlertContextType | undefined>(undefine
 export function AlertProvider({ children }: PropsWithChildren) {
   const [alerts, setAlerts] = useState<IAlert[]>([]);
 
-  function removeAlert(index: number) {
+  const removeAlert = useCallback((index: number) => {
     setAlerts((prevAlerts) => {
       const newAlerts = [...prevAlerts];
       newAlerts.splice(index, 1);
       return newAlerts;
     });
-  }
+  }, []);
 
-  function addAlert(alert: IAlert) {
+  const addAlert = useCallback((alert: IAlert) => {
     setAlerts((prevAlerts) => [...prevAlerts, alert]);
-  }
+  }, []);
 
   return (
     <AlertContext.Provider value={{ alerts, addAlert, removeAlert }}>

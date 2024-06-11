@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@navikt/ds-react";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import invariant from "tiny-invariant";
-import styles from "~/route-styles/oppgave.module.css";
 import { avbrytBehandling, godkjennBehandling } from "~/models/behandling.server";
 import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
 import { tildelOppgave } from "~/models/oppgave.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useLoaderData } from "@remix-run/react";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import type { IAlertResponse } from "~/context/alert-context";
-import { handleTildelOppgaveMessages } from "~/components/alert-messages/handleAlertMessages";
 import { commitSession, getSession } from "~/sessions";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { getAlertMessage } from "~/utils/alert-message.utils";
+import invariant from "tiny-invariant";
+import styles from "~/route-styles/oppgave.module.css";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -31,10 +30,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return null;
   }
 
-  return json<IAlertResponse>({
-    alert: true,
-    httpCode: response.status,
-    message: response.statusText,
+  const alert = getAlertMessage({ name: "tildel-oppgave", httpCode: response.status });
+  return json({
+    alert,
   });
 }
 
@@ -73,17 +71,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Behandling() {
-  const { addAlert } = useGlobalAlerts();
+  const loaderData = useLoaderData<typeof loader>();
+  useHandleAlertMessages(loaderData?.alert);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
-  const loaderData = useLoaderData<typeof loader>();
-
-  useEffect(() => {
-    if (loaderData?.alert) {
-      handleTildelOppgaveMessages(loaderData.httpCode, loaderData.message, addAlert);
-    }
-    // Skal bare kjøre på mount
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

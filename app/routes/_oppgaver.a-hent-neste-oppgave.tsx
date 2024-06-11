@@ -2,24 +2,19 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import type { IOppgave } from "~/models/oppgave.server";
 import { hentNesteOppgave } from "~/models/oppgave.server";
-import { handleErrorResponse } from "~/utils/error-response.server";
-import type { IAlertResponse } from "~/context/alert-context";
+import { logger } from "~/utils/logger.utils";
+import { getAlertMessage } from "~/utils/alert-message.utils";
 
 export async function action({ request }: ActionFunctionArgs) {
-  const oppgaveResponse = await hentNesteOppgave(request);
+  const response = await hentNesteOppgave(request);
 
-  if (oppgaveResponse.ok) {
-    const oppgave = (await oppgaveResponse.json()) as IOppgave;
+  if (response.ok) {
+    const oppgave = (await response.json()) as IOppgave;
     return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
   }
 
-  if (!oppgaveResponse.ok && oppgaveResponse.status === 404) {
-    return json<IAlertResponse>({
-      alert: true,
-      httpCode: oppgaveResponse.status,
-      message: oppgaveResponse.statusText,
-    });
-  }
+  logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
+  const alert = getAlertMessage({ name: "hent-neste-oppgave", httpCode: response.status });
 
-  handleErrorResponse(oppgaveResponse);
+  return json(alert);
 }

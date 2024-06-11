@@ -11,9 +11,8 @@ import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.c
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { commitSession, getSession } from "~/sessions";
 import { useLoaderData } from "@remix-run/react";
-import { useEffect } from "react";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -48,19 +47,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const { addAlert } = useGlobalAlerts();
   const loaderData = useLoaderData<typeof loader>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
-
-  useEffect(() => {
-    if (loaderData?.alert) {
-      addAlert({
-        variant: loaderData.alert.variant,
-        title: loaderData.alert.title,
-      });
-    }
-    // addAlert i dependency array fører til uendelig loop
-  }, [loaderData?.alert]); // eslint-disable-line react-hooks/exhaustive-deps
+  useHandleAlertMessages(loaderData?.alert);
 
   return (
     <div className={styles.container}>

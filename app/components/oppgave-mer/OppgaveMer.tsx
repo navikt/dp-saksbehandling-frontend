@@ -1,48 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
-import styles from "./OppgaveMer.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { action as utsettAction } from "~/routes/_oppgaver.a-utsett-oppgave";
 import type { action as leggTilbakeAction } from "~/routes/_oppgaver.a-legg-tilbake-oppgave";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import {
-  handleLeggTilbakeOppgaveMessages,
-  handleUtsettOppgaveMessages,
-} from "~/components/alert-messages/handleAlertMessages";
+import styles from "./OppgaveMer.module.css";
+
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export function OppgaveMer() {
-  const { addAlert } = useGlobalAlerts();
   const utsettOppgaveFetcher = useFetcher<typeof utsettAction>();
   const leggTilbakeOppgaveFetcher = useFetcher<typeof leggTilbakeAction>();
+  useHandleAlertMessages(utsettOppgaveFetcher.data);
+  useHandleAlertMessages(leggTilbakeOppgaveFetcher.data);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const ref = useRef<HTMLDialogElement>(null);
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
-
-  useEffect(() => {
-    if (utsettOppgaveFetcher.data?.alert) {
-      handleUtsettOppgaveMessages(
-        utsettOppgaveFetcher.data.httpCode,
-        utsettOppgaveFetcher.data.message,
-        addAlert,
-      );
-      ref.current?.close();
-    }
-    // addAlert i dependency array fører til uendelig loop
-  }, [utsettOppgaveFetcher.data]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (leggTilbakeOppgaveFetcher.data?.alert) {
-      handleLeggTilbakeOppgaveMessages(
-        leggTilbakeOppgaveFetcher.data.httpCode,
-        leggTilbakeOppgaveFetcher.data.message,
-        addAlert,
-      );
-    }
-    // addAlert i dependency array fører til uendelig loop
-  }, [leggTilbakeOppgaveFetcher.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.container}>

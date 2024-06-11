@@ -2,8 +2,7 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { utsettOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
-import type { IAlertResponse } from "~/context/alert-context";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { getAlertMessage } from "~/utils/alert-message.utils";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -15,21 +14,12 @@ export async function action({ request }: ActionFunctionArgs) {
     throw new Error("Mangler oppgaveId");
   }
 
-  const utsettResponse = await utsettOppgave(request, oppgaveId, utsettTilDato, beholdOppgave);
+  const response = await utsettOppgave(request, oppgaveId, utsettTilDato, beholdOppgave);
 
-  if (utsettResponse.ok) {
-    return json<IAlertResponse>({
-      alert: true,
-      httpCode: utsettResponse.status,
-      message: `Oppgave utsatt til ${formaterNorskDato(utsettTilDato)}`,
-    });
+  if (!response.ok) {
+    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
   }
 
-  logger.warn(`${utsettResponse.status} - Feil ved kall til ${utsettResponse.url}`);
-
-  return json<IAlertResponse>({
-    alert: true,
-    httpCode: utsettResponse.status,
-    message: utsettResponse.statusText,
-  });
+  const alert = getAlertMessage({ name: "utsett-oppgave", httpCode: response.status });
+  return json(alert);
 }

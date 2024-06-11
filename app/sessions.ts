@@ -1,9 +1,8 @@
 import { createCookieSessionStorage } from "@remix-run/node";
-import type { IAlertMessage } from "~/context/alert-context"; // or cloudflare/deno
+import type { IAlert } from "./context/alert-context";
 
 type SessionFlashData = {
-  alertMessage: string;
-  alert: IAlertMessage;
+  alert: IAlert;
 };
 
 const { getSession, commitSession, destroySession } = createCookieSessionStorage<SessionFlashData>({

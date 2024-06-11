@@ -9,9 +9,7 @@ import { useTableSort } from "~/hooks/useTableSort";
 import { useFetcher, useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
 import type { action as hentNesteOppgaveAction } from "~/routes/_oppgaver.a-hent-neste-oppgave";
-import { useEffect } from "react";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import { handleNesteOppgaveMessages } from "~/components/alert-messages/handleAlertMessages";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 interface IProps {
   oppgaver: IOppgave[];
@@ -19,21 +17,14 @@ interface IProps {
 }
 
 export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
-  const { addAlert } = useGlobalAlerts();
   const { state } = useNavigation();
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
+  useHandleAlertMessages(nesteFetcher.data);
   const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
   });
-
-  useEffect(() => {
-    if (nesteFetcher.data?.alert) {
-      handleNesteOppgaveMessages(nesteFetcher.data.httpCode, nesteFetcher.data.message, addAlert);
-    }
-    // addAlert i dependency array fører til uendelig loop
-  }, [nesteFetcher.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

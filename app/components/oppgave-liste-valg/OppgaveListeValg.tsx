@@ -1,19 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { IOppgave } from "~/models/oppgave.server";
 import { Button, Popover } from "@navikt/ds-react";
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { RemixLink } from "~/components/RemixLink";
-import styles from "./OppgaveListeValg.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useFetcher } from "@remix-run/react";
-import type { action } from "~/routes/_oppgaver.a-legg-tilbake-oppgave";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import { handleLeggTilbakeOppgaveMessages } from "~/components/alert-messages/handleAlertMessages";
+import type { action as leggTilbakeAction } from "~/routes/_oppgaver.a-legg-tilbake-oppgave";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import styles from "./OppgaveListeValg.module.css";
 
 export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
-  const fetcher = useFetcher<typeof action>();
+  const leggTilbakeFetcher = useFetcher<typeof leggTilbakeAction>();
+  useHandleAlertMessages(leggTilbakeFetcher.data);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { addAlert } = useGlobalAlerts();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);
 
@@ -22,12 +21,6 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
     oppgave.tilstand === "PAA_VENT" ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave);
-
-  useEffect(() => {
-    if (fetcher.data?.alert)
-      handleLeggTilbakeOppgaveMessages(fetcher.data.httpCode, fetcher.data.message, addAlert);
-    // addAlert i dependency array fører til uendelig loop
-  }, [fetcher.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -70,12 +63,16 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
           )}
 
           {minOppgave && oppgave.tilstand !== "FERDIG_BEHANDLET" && (
-            <fetcher.Form method="post" action="/a-legg-tilbake-oppgave">
+            <leggTilbakeFetcher.Form method="post" action="/a-legg-tilbake-oppgave">
               <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
-              <Button variant="tertiary-neutral" size="xsmall" loading={fetcher.state !== "idle"}>
+              <Button
+                variant="tertiary-neutral"
+                size="xsmall"
+                loading={leggTilbakeFetcher.state !== "idle"}
+              >
                 Legg oppgave tilbake i køen
               </Button>
-            </fetcher.Form>
+            </leggTilbakeFetcher.Form>
           )}
         </Popover.Content>
       </Popover>
