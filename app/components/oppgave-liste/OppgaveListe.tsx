@@ -8,7 +8,7 @@ import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
 import { useFetcher, useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
-import type { action as hentNesteOppgaveAction } from "~/routes/_oppgaver.a-hent-neste-oppgave";
+import type { action as hentNesteOppgaveAction } from "~/routes/_oppgaver.action-hent-neste-oppgave";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 interface IProps {
@@ -30,7 +30,7 @@ export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
     <>
       <div className={styles.buttonContainer}>
         {nesteOppgaveKnapp && (
-          <nesteFetcher.Form method="post" action="/a-hent-neste-oppgave">
+          <nesteFetcher.Form method="post" action="/action-hent-neste-oppgave">
             <Button
               variant="primary"
               size="small"

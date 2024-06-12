@@ -2,17 +2,14 @@ import { useState } from "react";
 import { Button } from "@navikt/ds-react";
 import { BehandlingBekreftModal } from "~/components/behandling-bekreft-modal/BehandlingBekreftModal";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { avbrytBehandling, godkjennBehandling } from "~/models/behandling.server";
 import { parseJsonSkjemaVerdi } from "~/utils/steg.utils";
-import { tildelOppgave } from "~/models/oppgave.server";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useLoaderData } from "@remix-run/react";
+import { hentOppgave } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { getAlertMessage } from "~/utils/alert-message.utils";
 import invariant from "tiny-invariant";
 import styles from "~/route-styles/oppgave.module.css";
+import { getSaksbehandler } from "~/models/saksbehandler.server";
 
 interface ISkjemadata {
   ferdigstillValg: IFerdigstillValg;
@@ -24,16 +21,21 @@ export type IFerdigstillValg = "godkjenn" | "avbryt";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-  const response = await tildelOppgave(request, params.oppgaveId);
 
-  if (response.ok) {
-    return null;
+  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const saksbehandler = await getSaksbehandler(request);
+
+  const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
+  const kanTildeleOgBehandleOppgave =
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave);
+
+  if (!kanTildeleOgBehandleOppgave) {
+    return redirect(`/oppgave/${oppgave.oppgaveId}`);
   }
 
-  const alert = getAlertMessage({ name: "tildel-oppgave", httpCode: response.status });
-  return json({
-    alert,
-  });
+  return null;
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -71,37 +73,30 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Behandling() {
-  const loaderData = useLoaderData<typeof loader>();
-  useHandleAlertMessages(loaderData?.alert);
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivModalId, setAktivModalId] = useState<IFerdigstillValg | undefined>();
 
   return (
     <>
-      {oppgave.tilstand === "UNDER_BEHANDLING" && (
-        <>
-          <div className={styles.buttonContainer}>
-            <Button
-              type="button"
-              variant="primary"
-              size="small"
-              onClick={() => setAktivModalId("godkjenn")}
-            >
-              Send til automatisk avslag
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              size="small"
-              onClick={() => setAktivModalId("avbryt")}
-            >
-              Send til vanlig saksflyt i Arena
-            </Button>
-          </div>
+      <div className={styles.buttonContainer}>
+        <Button
+          type="button"
+          variant="primary"
+          size="small"
+          onClick={() => setAktivModalId("godkjenn")}
+        >
+          Send til automatisk avslag
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          size="small"
+          onClick={() => setAktivModalId("avbryt")}
+        >
+          Send til vanlig saksflyt i Arena
+        </Button>
+      </div>
 
-          <BehandlingBekreftModal aktivModalId={aktivModalId} setAktivModalId={setAktivModalId} />
-        </>
-      )}
+      <BehandlingBekreftModal aktivModalId={aktivModalId} setAktivModalId={setAktivModalId} />
     </>
   );
 }

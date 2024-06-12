@@ -15,7 +15,6 @@ import { ValidatedForm } from "remix-validated-form";
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 

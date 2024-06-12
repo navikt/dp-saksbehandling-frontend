@@ -4,8 +4,8 @@ import { add, format } from "date-fns";
 import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { action as utsettAction } from "~/routes/_oppgaver.a-utsett-oppgave";
-import type { action as leggTilbakeAction } from "~/routes/_oppgaver.a-legg-tilbake-oppgave";
+import type { action as utsettAction } from "~/routes/_oppgaver.action-utsett-oppgave";
+import type { action as leggTilbakeAction } from "~/routes/_oppgaver.action-legg-tilbake-oppgave";
 import styles from "./OppgaveMer.module.css";
 
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -23,7 +23,7 @@ export function OppgaveMer() {
     <div className={styles.container}>
       {oppgave.tilstand !== "FERDIG_BEHANDLET" && (
         <>
-          <leggTilbakeOppgaveFetcher.Form method="post" action="/a-legg-tilbake-oppgave">
+          <leggTilbakeOppgaveFetcher.Form method="post" action="/action-legg-tilbake-oppgave">
             <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
             <Button
               size="small"
@@ -45,7 +45,7 @@ export function OppgaveMer() {
             closeOnBackdropClick
           >
             <Modal.Body>
-              <utsettOppgaveFetcher.Form method="post" action="/a-utsett-oppgave">
+              <utsettOppgaveFetcher.Form method="post" action="/action-utsett-oppgave">
                 <DatePicker.Standalone
                   onSelect={(dato) => setUtsattTilDato(dato)}
                   fromDate={new Date()}
