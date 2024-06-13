@@ -4,8 +4,8 @@ import { add, format } from "date-fns";
 import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { action as utsettAction } from "~/routes/_oppgaver.action-utsett-oppgave";
-import type { action as leggTilbakeAction } from "~/routes/_oppgaver.action-legg-tilbake-oppgave";
+import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
+import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
 import styles from "./OppgaveMer.module.css";
 
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";

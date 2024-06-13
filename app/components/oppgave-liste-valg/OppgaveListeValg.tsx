@@ -5,8 +5,8 @@ import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useFetcher } from "@remix-run/react";
-import type { action as leggTilbakeAction } from "~/routes/_oppgaver.action-legg-tilbake-oppgave";
-import type { action as tildelOppgaveAction } from "~/routes/_oppgaver.action-tildel-oppgave";
+import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
+import type { action as tildelOppgaveAction } from "~/routes/action-tildel-oppgave";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "./OppgaveListeValg.module.css";
 

@@ -8,7 +8,7 @@ import styles from "./OppgaveListe.module.css";
 import { useTableSort } from "~/hooks/useTableSort";
 import { useFetcher, useNavigation } from "@remix-run/react";
 import { differenceInCalendarDays } from "date-fns";
-import type { action as hentNesteOppgaveAction } from "~/routes/_oppgaver.action-hent-neste-oppgave";
+import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 interface IProps {
