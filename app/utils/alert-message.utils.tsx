@@ -1,4 +1,11 @@
 import type { IAlert } from "~/context/alert-context";
+import {
+  alleredeTildeltAlert,
+  getLeggTilbakeErrorAlert,
+  getNesteOppgaveError,
+  leggTilbakeSuccessAlert,
+  tomtForOppgaverAlert,
+} from "~/tekst/alert-tekster";
 
 interface IAlertType {
   name:
@@ -43,17 +50,10 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 export function handleLeggTilbakeOppgaveMessages(httpCode: number): IAlert {
   switch (httpCode) {
     case 204:
-      return {
-        variant: "success",
-        title: "Oppgave lagt tilbake i køen 📥",
-      };
+      return leggTilbakeSuccessAlert;
 
     default:
-      return {
-        variant: "error",
-        title: "Kunne ikke legge oppgaven tilbake i køen ",
-        body: `Ukjent feil: ${httpCode} `,
-      };
+      return getLeggTilbakeErrorAlert(httpCode);
   }
 }
 
@@ -77,29 +77,17 @@ export function handleUtsettOppgaveMessages(httpCode: number): IAlert {
 export function handleNesteOppgaveMessages(httpCode: number): IAlert {
   switch (httpCode) {
     case 404:
-      return {
-        variant: "success",
-        title: "Ingen flere oppgaver 🎉",
-        body: "Alle oppgaver med dette søket er ferdig behandlet",
-      };
+      return tomtForOppgaverAlert;
 
     default:
-      return {
-        variant: "error",
-        title: "Kunne ikke hente neste oppgave ",
-        body: `Ukjent feil: ${httpCode}`,
-      };
+      return getNesteOppgaveError(httpCode);
   }
 }
 
 export function handleTildelOppgaveMessages(httpCode: number): IAlert {
   switch (httpCode) {
     case 423:
-      return {
-        variant: "warning",
-        title: "Kunne ikke tildele oppgaven 🙅",
-        body: "Oppgaven er allerede tildelt noen andre",
-      };
+      return alleredeTildeltAlert;
 
     default:
       return {
