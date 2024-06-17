@@ -1,23 +1,18 @@
-import { useRef, useState } from "react";
-import { Button, Heading, List, Loader, Modal, Select } from "@navikt/ds-react";
-
-import styles from "./PDFLeser.module.css";
+import { useState } from "react";
+import { Button, List, Select } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
+import styles from "./JournalpostOversikt.module.css";
 
-interface IPDFLeserProps {
+interface IProps {
   journalposter: JournalpostQuery["journalpost"][];
 }
 
-export function PDFLeser({ journalposter }: IPDFLeserProps) {
-  const filModalRef = useRef<HTMLDialogElement>(null);
-  const [valgtFilUrl, setValgtFilUrl] = useState<string>("");
+export function JournalpostOversikt({ journalposter }: IProps) {
   const [valgtJournalpost, setValgtJournalpost] = useState<
     JournalpostQuery["journalpost"] | undefined
   >(journalposter[0]);
 
-  async function hentDokument(dokumentInfoId: string) {
-    // const valgtJournalpost = "598116231";
-    // const dokumentInfoId = "624863374";
+  async function aapneDokument(dokumentInfoId: string) {
     const variantFormat = "ARKIV";
 
     if (!valgtJournalpost || !dokumentInfoId) {
@@ -36,7 +31,8 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
 
     const blob = await response.blob();
     const blobUrl = window.URL.createObjectURL(blob);
-    setValgtFilUrl(blobUrl);
+
+    window.open(blobUrl, "_blank");
   }
 
   function velgJournalpost(journalpostId: string) {
@@ -47,11 +43,7 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
   }
 
   return (
-    <div>
-      <Heading size={"medium"} level={"3"}>
-        Dokumenter
-      </Heading>
-
+    <>
       <Select
         className={styles.dropdown}
         label={"Velg Journalpost"}
@@ -74,10 +66,7 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
                   type="button"
                   size="xsmall"
                   variant="tertiary"
-                  onClick={() => {
-                    filModalRef.current?.showModal();
-                    hentDokument(dokument.dokumentInfoId);
-                  }}
+                  onClick={() => aapneDokument(dokument.dokumentInfoId)}
                 >
                   {dokument.tittel}
                 </Button>
@@ -86,32 +75,6 @@ export function PDFLeser({ journalposter }: IPDFLeserProps) {
           ))}
         </List>
       )}
-
-      <Modal
-        className={styles.pdfModal}
-        ref={filModalRef}
-        closeOnBackdropClick
-        header={{
-          heading: "",
-          size: "small",
-          closeButton: true,
-        }}
-      >
-        <Modal.Body>
-          {!valgtFilUrl && (
-            <div className={styles.loaderContainer}>
-              <Loader size="3xlarge" title="Henter dokument..." />
-              Henter dokument...
-            </div>
-          )}
-
-          {valgtFilUrl && (
-            <div className={styles.iframeWrapper}>
-              <iframe title={"Pdf leser"} src={valgtFilUrl} className={styles.iframe}></iframe>
-            </div>
-          )}
-        </Modal.Body>
-      </Modal>
-    </div>
+    </>
   );
 }
