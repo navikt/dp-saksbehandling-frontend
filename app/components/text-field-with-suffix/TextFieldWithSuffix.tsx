@@ -1,4 +1,3 @@
-import React from "react";
 import type { TextFieldProps } from "@navikt/ds-react";
 import { TextField } from "@navikt/ds-react";
 import classnames from "classnames";

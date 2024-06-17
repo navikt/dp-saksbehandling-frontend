@@ -1,9 +1,8 @@
-import React from "react";
 import { Table } from "@navikt/ds-react";
-import styles from "./OpplysningTabell.module.css";
-import classnames from "classnames";
 import type { IOpplysning } from "~/models/behandling.server";
 import { OpplysningTabellLinje } from "~/components/opplysning-tabell/OpplysningTabellLinje";
+import classnames from "classnames";
+import styles from "./OpplysningTabell.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];

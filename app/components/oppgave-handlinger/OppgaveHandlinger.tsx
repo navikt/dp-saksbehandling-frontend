@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
@@ -6,11 +6,11 @@ import { nb } from "date-fns/locale";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
 import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
-import styles from "./OppgaveMer.module.css";
+import styles from "./OppgaveHandlinger.module.css";
 
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
-export function OppgaveMer() {
+export function OppgaveHandlinger() {
   const utsettOppgaveFetcher = useFetcher<typeof utsettAction>();
   const leggTilbakeOppgaveFetcher = useFetcher<typeof leggTilbakeAction>();
   useHandleAlertMessages(utsettOppgaveFetcher.data);
@@ -18,6 +18,12 @@ export function OppgaveMer() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const ref = useRef<HTMLDialogElement>(null);
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
+
+  useEffect(() => {
+    if (utsettOppgaveFetcher.data) {
+      ref.current?.close();
+    }
+  }, [utsettOppgaveFetcher.data]);
 
   return (
     <div className={styles.container}>

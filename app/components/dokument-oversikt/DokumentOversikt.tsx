@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import styles from "./DokumentOversikt.module.css";
 import { Await } from "@remix-run/react";
 import { PDFLeser } from "~/components/pdf-leser/PDFLeser";

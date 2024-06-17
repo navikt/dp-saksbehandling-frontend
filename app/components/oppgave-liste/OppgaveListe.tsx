@@ -1,25 +1,27 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { hentFormattertDato } from "~/utils/dato.utils";
-import classnames from "classnames";
 import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
-
-import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
-import styles from "./OppgaveListe.module.css";
-import { useTableSort } from "~/hooks/useTableSort";
-import { useFetcher, useNavigation } from "@remix-run/react";
-import { differenceInCalendarDays } from "date-fns";
 import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
+import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { useTableSort } from "~/hooks/useTableSort";
+import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
+import { differenceInCalendarDays } from "date-fns";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import classnames from "classnames";
+import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: IOppgave[];
-  nesteOppgaveKnapp?: boolean;
+  visNesteOppgaveKnapp?: boolean;
+  visAntallOppgaver?: boolean;
 }
 
-export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
+export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver }: IProps) {
   const { state } = useNavigation();
+  const location = useLocation();
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
   useHandleAlertMessages(nesteFetcher.data);
+
   const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
@@ -28,9 +30,13 @@ export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
 
   return (
     <>
-      <div className={styles.buttonContainer}>
-        {nesteOppgaveKnapp && (
-          <nesteFetcher.Form method="post" action="/action-hent-neste-oppgave">
+      <div className={styles.oppgaveListeInfo}>
+        {visNesteOppgaveKnapp && (
+          <nesteFetcher.Form
+            method="post"
+            action="/action-hent-neste-oppgave"
+            className={styles.nesteKnapp}
+          >
             <Button
               variant="primary"
               size="small"
@@ -41,11 +47,15 @@ export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
             </Button>
           </nesteFetcher.Form>
         )}
-        <Detail textColor="subtle">
-          {!loading && `Antall oppgaver ${oppgaver.length}`}
-          {loading && "Laster oppgaver..."}
-        </Detail>
+
+        {visAntallOppgaver && (
+          <Detail textColor="subtle" className={styles.antallOppgaver}>
+            {!loading && `Antall oppgaver ${oppgaver.length}`}
+            {loading && "Laster oppgaver..."}
+          </Detail>
+        )}
       </div>
+
       <Table
         zebraStripes={true}
         sort={sortState}
@@ -90,13 +100,19 @@ export function OppgaveListe({ oppgaver, nesteOppgaveKnapp }: IProps) {
 
           {sortedData?.map((oppgave) => {
             const { tidspunktOpprettet, tilstand, emneknagger, utsettTilDato } = oppgave;
+            const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
             const dagerIgjenTilUtsattDato = utsettTilDato
               ? differenceInCalendarDays(utsettTilDato, new Date())
               : undefined;
 
             return (
-              <Table.Row key={oppgave.oppgaveId}>
-                <Table.DataCell>
+              <Table.Row
+                key={oppgave.oppgaveId}
+                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
+              >
+                <Table.DataCell
+                  className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                >
                   {!loading && (
                     <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
                   )}
