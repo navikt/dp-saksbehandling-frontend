@@ -1,4 +1,8 @@
 .container {
+  position: sticky;
+  top: 48px;
+  z-index: 1;
+
   display: flex;
   gap: var(--a-spacing-12);
   padding: var(--a-spacing-4);

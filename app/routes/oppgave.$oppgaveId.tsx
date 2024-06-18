@@ -64,7 +64,7 @@ export default function Oppgave() {
         <Tabs defaultValue="behandling">
           <div className={styles.tabMeny}>
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Oversikt" onClick={() => navigate("")} />
+              <Tabs.Tab value="behandling" label="Oversikt" onClick={() => navigate("behandle")} />
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
