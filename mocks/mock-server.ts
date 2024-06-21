@@ -5,8 +5,10 @@ import { mockAzure } from "./mock-azure";
 import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
 import { mockDpBehandling } from "./mock-dp-behandling";
+import { mockSanity } from "./mock-sanity";
 
 const mswHandlers = [
+  ...mockSanity,
   ...mockAzure,
   ...mockDpBehandling,
   ...mockDpSaksbehandling,
