@@ -1,7 +1,6 @@
 import { getHeaders } from "~/utils/fetch.utils";
 import { getMicrosoftOboToken } from "~/utils/auth.utils.server";
 import { logger } from "~/utils/logger.utils";
-import { cache } from "~/utils/cache.utils";
 
 export interface ISaksbehandler {
   onPremisesSamAccountName: string; // Dette er saksbehandlerIdent
@@ -11,12 +10,6 @@ export interface ISaksbehandler {
 }
 
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
-  const saksbehandler = cache.get<ISaksbehandler>("saksbehandler");
-
-  if (saksbehandler !== undefined) {
-    return saksbehandler;
-  }
-
   try {
     const oboToken = await getMicrosoftOboToken(request);
 
@@ -27,10 +20,7 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
       headers: getHeaders(oboToken),
     });
 
-    const saksbehandler = await data.json();
-    // cache saksbehandler for 1 timer
-    cache.set<ISaksbehandler>("saksbehandler", saksbehandler, 60 * 60 * 1);
-    return saksbehandler;
+    return await data.json();
   } catch (e) {
     logger.warn(`Klarte ikke hente saksbehandler status: 401`);
     throw new Response("Unauthorized", { status: 401 });

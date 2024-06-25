@@ -1,4 +1,4 @@
-import { Select } from "@navikt/ds-react";
+import { Select, Textarea } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { SanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
 import { useLoaderData } from "@remix-run/react";
@@ -32,6 +32,9 @@ export function MeldingOmVedtak() {
             </option>
           ))}
         </Select>
+
+        {/*<PortableTextEditor onChange={(change) => console.log(change)} schemaType={[]} />*/}
+        <Textarea label={"Fritekst"} />
       </div>
 
       <div className={styles.preview}>
