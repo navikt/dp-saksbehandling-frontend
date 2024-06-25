@@ -6,7 +6,9 @@ import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 
 export async function action({ request }: ActionFunctionArgs) {
+  console.time("hent-neste-oppgave");
   const response = await hentNesteOppgave(request);
+  console.timeEnd("hent-neste-oppgave");
 
   if (response.ok) {
     const oppgave = (await response.json()) as IOppgave;

@@ -12,8 +12,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!oppgaveId) {
     throw new Error("Mangler oppgaveId");
   }
-
+  console.time("tildel-oppgave");
   const response = await tildelOppgave(request, oppgaveId);
+  console.timeEnd("tildel-oppgave");
 
   if (response.ok) {
     const oppgave = (await response.json()) as IOppgave;

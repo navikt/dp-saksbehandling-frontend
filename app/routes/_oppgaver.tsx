@@ -5,7 +5,9 @@ import { Outlet } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
+  console.time("oppgaver loader: hentOppgaver");
   const oppgaver = await hentOppgaver(request, url.search);
+  console.timeEnd("oppgaver loader: hentOppgaver");
 
   return json({ oppgaver });
 }

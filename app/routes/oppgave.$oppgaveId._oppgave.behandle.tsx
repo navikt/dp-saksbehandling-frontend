@@ -21,9 +21,12 @@ export type IFerdigstillValg = "godkjenn" | "avbryt";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, `params.oppgaveId er påkrevd`);
-
+  console.time("behandle loader: hentOppgave");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+  console.timeEnd("behandle loader: hentOppgave");
+  console.time("behandle loader: getSaksbehandler");
   const saksbehandler = await getSaksbehandler(request);
+  console.timeEnd("behandle loader: getSaksbehandler");
 
   const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
   const kanTildeleOgBehandleOppgave =
