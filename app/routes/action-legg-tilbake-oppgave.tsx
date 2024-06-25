@@ -11,9 +11,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!oppgaveId) {
     throw new Error("Mangler oppgaveId");
   }
-  console.time("legg-tilbake-oppgave");
+
   const response = await leggTilbakeOppgave(request, oppgaveId);
-  console.timeEnd("legg-tilbake-oppgave");
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);

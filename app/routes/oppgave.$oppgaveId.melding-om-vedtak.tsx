@@ -6,9 +6,7 @@ import { brevMalQuery } from "~/sanity/sanity-queries";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 
 export async function loader() {
-  console.time("melding-om-vedtak loader: sanity fetch");
   const sanityTexts = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
-  console.timeEnd("melding-om-vedtak loader: sanity fetch");
 
   return json({ sanityTexts });
 }
