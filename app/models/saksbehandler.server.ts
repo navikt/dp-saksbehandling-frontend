@@ -28,8 +28,8 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
     });
 
     const saksbehandler = await data.json();
-    // cache saksbehandler for 12 timer
-    cache.set<ISaksbehandler>("saksbehandler", saksbehandler, 60 * 60 * 12);
+    // cache saksbehandler for 1 timer
+    cache.set<ISaksbehandler>("saksbehandler", saksbehandler, 60 * 60 * 1);
     return saksbehandler;
   } catch (e) {
     logger.warn(`Klarte ikke hente saksbehandler status: 401`);
