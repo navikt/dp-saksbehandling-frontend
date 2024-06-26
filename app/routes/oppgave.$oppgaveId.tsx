@@ -48,7 +48,6 @@ export default function Oppgave() {
         </ValidatedForm>
         <Outlet />
       </div>
-
       <OppgaveInformasjon />
     </div>
   );

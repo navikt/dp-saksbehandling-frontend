@@ -13,3 +13,21 @@
 .table tr td:nth-child(3) {
   width: 70px;
 }
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.content {
+  width: 100%;
+}
+
+.sidebar {
+  width: 284px;
+  border-right: 1px solid #C6C2BF;
+}
+
+.kategoriHeader {
+  padding: 0 1em;
+}

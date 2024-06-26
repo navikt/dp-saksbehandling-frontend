@@ -1,9 +1,8 @@
 import React from "react";
-import { Table } from "@navikt/ds-react";
 import styles from "./OpplysningTabell.module.css";
-import classnames from "classnames";
 import type { IOpplysning } from "~/models/behandling.server";
-import { OpplysningTabellLinje } from "~/components/opplysning-tabell/OpplysningTabellLinje";
+import { OpplysningTabellSidebar } from "./OpplysningTabellSidebar";
+import { OpplysningTabellContent } from "./OpplysningTabellContent";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -11,24 +10,20 @@ interface IProps {
 }
 
 export function OpplysningTabell(props: IProps) {
+  const [selectedKategori, setSelectedKategori] = React.useState("virkningstidspunkt");
+
   return (
-    <Table className={classnames("kompakt-tabell", styles.table)}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-          <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
-          {!props.readonly && <Table.HeaderCell scope="col">Endre</Table.HeaderCell>}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {props.opplysninger.map((opplysning) => (
-          <OpplysningTabellLinje
-            key={opplysning.navn}
-            opplysning={opplysning}
-            readonly={props.readonly}
-          />
-        ))}
-      </Table.Body>
-    </Table>
+    <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <OpplysningTabellSidebar kategori={selectedKategori} onChange={setSelectedKategori} />
+      </div>
+      <div className={styles.content}>
+        <OpplysningTabellContent
+          componentType={selectedKategori}
+          opplysninger={props.opplysninger}
+          readonly={props.readonly}
+        />
+      </div>
+    </div>
   );
 }
