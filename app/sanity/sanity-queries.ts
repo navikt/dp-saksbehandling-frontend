@@ -1,14 +1,21 @@
 export const brevMalQuery = `*[_type == "brevMal"]{
-...,
-  brevBlokker[]->{
   ...,
-    innhold[]{
+  brevBlokker[]->{
     ...,
-      markDefs[]{
+    innhold[]{
       ...,
-        _type == "behandlingOpplysningReference" => {
-          "reference": reference->{
-          ...
+      _type == "block" => {
+        ...,
+        children[]{
+          ...,
+          _type == "opplysningReference" => {
+            ...,
+            "behandlingOpplysning": @->{
+              ...
+            }
+          },
+          _type == "fritekst" => {
+            ...
           }
         }
       }

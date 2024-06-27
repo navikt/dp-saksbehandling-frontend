@@ -1,4 +1,4 @@
-import { Select, Textarea } from "@navikt/ds-react";
+import { Select } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { SanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
 import { useLoaderData } from "@remix-run/react";
@@ -7,6 +7,7 @@ import styles from "./MeldingOmVedtak.module.css";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 import type { ISanityBrevMal } from "~/sanity/sanity-types";
+import { FritekstEditor } from "~/components/fritekt-editor/FritekstEditor";
 
 export function MeldingOmVedtak() {
   const { sanityTexts } = useLoaderData<typeof loader>();
@@ -33,8 +34,7 @@ export function MeldingOmVedtak() {
           ))}
         </Select>
 
-        {/*<PortableTextEditor onChange={(change) => console.log(change)} schemaType={[]} />*/}
-        <Textarea label={"Fritekst"} />
+        <FritekstEditor />
       </div>
 
       <div className={styles.preview}>

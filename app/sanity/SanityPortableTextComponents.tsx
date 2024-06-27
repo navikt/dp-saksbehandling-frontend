@@ -1,20 +1,36 @@
 import type { PortableTextComponents } from "@portabletext/react";
 import type { PropsWithChildren } from "react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 
 export const SanityPortableTextComponents: PortableTextComponents = {
-  marks: {
-    behandlingOpplysningReference: ({ value, children }) => (
-      <BehandlingOpplysningReference value={value}>{children}</BehandlingOpplysningReference>
-    ),
+  types: {
+    opplysningReference: ({ value }) => <BehandlingOpplysningReference value={value} />,
+    fritekst: (value) => <Fritekst value={value} />,
   },
 };
 
-export function BehandlingOpplysningReference(props: PropsWithChildren<{ value: any }>) {
+function Fritekst(props: PropsWithChildren<{ value: any }>) {
+  const { fritekst } = useMeldingOmVedtakTekst();
+  const paragrafer = fritekst.split(/\n+/);
+  return (
+    <>
+      {paragrafer.map((paragraf, index) => (
+        <p key={index}>{paragraf}</p>
+      ))}
+    </>
+  );
+}
+
+function BehandlingOpplysningReference(props: PropsWithChildren<{ value: any }>) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const opplysning = behandling.opplysning.find(
-    (o) => `opplysning.${o.navn}` === props.value.reference.textId,
+    (o) => o.navn === props.value?.behandlingOpplysning?.textId,
   );
 
-  return <span>{opplysning?.verdi}</span>;
+  if (!opplysning) {
+    throw new Error(`Opplysning for "${props.value?.behandlingOpplysning?.textId}" ikke funnet`);
+  }
+
+  return <span>{opplysning.verdi}</span>;
 }
