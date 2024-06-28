@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import styles from "./DokumentOversikt.module.css";
 import { Await } from "@remix-run/react";
-import { PDFLeser } from "~/components/pdf-leser/PDFLeser";
-import { Alert, Loader } from "@navikt/ds-react";
+import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
+import { Alert, Heading, Loader } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import type { INetworkResponse } from "~/utils/types";
 import { isNetworkResponseSuccess } from "~/utils/type-guards";
@@ -12,37 +12,45 @@ export function DokumentOversikt() {
   const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <Suspense
-      fallback={
-        <div>
-          Henter journalposter <Loader />
-        </div>
-      }
-    >
-      <Await
-        resolve={journalposterPromises}
-        errorElement={
-          <Alert variant="error" className="my-4">
-            Vi klarte ikke å hente journalposter fra SAF 📥
-          </Alert>
+    <div className={styles.dokumentContainer}>
+      <Heading size={"medium"} level={"3"}>
+        Dokumenter
+      </Heading>
+
+      <Suspense
+        fallback={
+          <div>
+            Henter journalposter <Loader />
+          </div>
         }
       >
-        {(journalpromises) => {
-          const journalposter = lagJournalpostData(journalpromises);
-          return (
-            <div className={styles.dokumentContainer}>
-              {journalposter?.data?.length > 0 && <PDFLeser journalposter={journalposter.data} />}
+        <Await
+          resolve={journalposterPromises}
+          errorElement={
+            <Alert variant="error" className="my-4">
+              Vi klarte ikke å hente journalposter fra SAF 📥
+            </Alert>
+          }
+        >
+          {(journalpromises) => {
+            const journalposter = lagJournalpostData(journalpromises);
+            return (
+              <>
+                {journalposter?.data?.length > 0 && (
+                  <JournalpostOversikt journalposter={journalposter.data} />
+                )}
 
-              {journalposter.errors && (
-                <Alert variant="error" className="my-4">
-                  En feil oppsto når vi skulle hente ut dokumentene 🤖
-                </Alert>
-              )}
-            </div>
-          );
-        }}
-      </Await>
-    </Suspense>
+                {journalposter.errors && (
+                  <Alert variant="error" className="my-4">
+                    En feil oppsto når vi skulle hente ut dokumentene 🤖
+                  </Alert>
+                )}
+              </>
+            );
+          }}
+        </Await>
+      </Suspense>
+    </div>
   );
 }
 

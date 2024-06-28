@@ -77,7 +77,7 @@ export default function Behandling() {
 
   return (
     <>
-      <div className={styles.buttonContainer}>
+      <div className={styles.behandlingKnapper}>
         <Button
           type="button"
           variant="primary"

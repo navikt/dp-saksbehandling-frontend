@@ -81,7 +81,7 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe oppgaver={oppgaver} nesteOppgaveKnapp={true} />
+        <OppgaveListe oppgaver={oppgaver} visNesteOppgaveKnapp={true} visAntallOppgaver={true} />
       </main>
     </div>
   );

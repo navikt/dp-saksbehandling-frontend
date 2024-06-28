@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./OpplysningTabell.module.css";
-import type { IOpplysning } from "~/models/behandling.server";
 import { OpplysningTabellSidebar } from "./OpplysningTabellSidebar";
 import { OpplysningTabellContent } from "./OpplysningTabellContent";
+import type { IOpplysning } from "~/models/behandling.server";
+import styles from "./OpplysningTabell.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];

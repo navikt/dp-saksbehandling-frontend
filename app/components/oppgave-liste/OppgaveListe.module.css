@@ -1,12 +1,16 @@
-.buttonContainer {
+.oppgaveListeInfo {
   display: flex;
+}
+
+.nesteKnapp {
   margin-bottom: var(--a-spacing-2);
 }
 
-.buttonContainer p {
+.antallOppgaver {
   margin-left: auto;
   align-self: flex-end;
   margin-right: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-2);
 }
 
 .oppgaveListe {
@@ -14,6 +18,16 @@
   border-collapse: separate;
   border-spacing: 0;
   border-radius: var(--a-border-radius-medium);
+}
+
+.oppgaveListe .valgtOppgaveBackground.valgtOppgaveBackground {
+  background-color: var(--a-blue-50);
+}
+
+.valgtOppgaveBorder {
+  border-left: 10px solid var(--a-border-action-selected);
+  border-top-left-radius: var(--a-border-radius-small);
+  border-bottom-left-radius: var(--a-border-radius-small);
 }
 
 .oppgaveListe.oppgaveListe th {

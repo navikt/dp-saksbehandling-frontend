@@ -1,0 +1,16 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--a-spacing-4);
+  padding: var(--a-spacing-4);
+}
+
+.preview {
+  width: 210mm; /* A4 bredde */
+  height: 297mm; /* A4 høyde */
+  padding: 20mm;
+  box-shadow: var(--a-shadow-xsmall);
+  background-color: white;
+  overflow: scroll;
+  page-break-after: always;
+}

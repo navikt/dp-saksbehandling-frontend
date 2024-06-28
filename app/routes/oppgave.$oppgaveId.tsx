@@ -1,16 +1,17 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Await, Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
-import styles from "~/route-styles/oppgave.module.css";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentBehandling } from "~/models/behandling.server";
-import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
-import { hentValideringRegler } from "~/utils/validering.util";
-import { ValidatedForm } from "remix-validated-form";
+import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { Suspense } from "react";
+import { Loader, Tabs } from "@navikt/ds-react";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import styles from "~/route-styles/oppgave.module.css";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -34,21 +35,47 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { behandling } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+  const { oppgave, oppgaverForPersonPromise } = useLoaderData<typeof loader>();
 
   return (
     <div className={styles.container}>
-      <div className={styles.opplysninger}>
-        <ValidatedForm
-          validator={hentValideringRegler(behandling.opplysning)}
-          method="post"
-          className={styles.behandling}
+      <PersonBoks person={oppgave.person} />
+      <Suspense
+        fallback={
+          <div>
+            Henter oppgaver for person <Loader />
+          </div>
+        }
+      >
+        <Await
+          resolve={oppgaverForPersonPromise}
+          errorElement={<div>Vi klarte ikke hente oppgaver for person 😬</div>}
         >
-          <OpplysningTabell readonly={true} opplysninger={behandling.opplysning} />
-        </ValidatedForm>
-        <Outlet />
+          {(oppgaver) => (
+            <div>
+              <OppgaveListe oppgaver={oppgaver} />
+            </div>
+          )}
+        </Await>
+      </Suspense>
+      <div className={styles.behandlingBox}>
+        <Tabs defaultValue="behandling">
+          <div className={styles.tabMeny}>
+            <Tabs.List>
+              <Tabs.Tab value="behandling" label="Oversikt" onClick={() => navigate("behandle")} />
+              <Tabs.Tab
+                value="melding-om-vedtak"
+                label="Melding om vedtak"
+                onClick={() => navigate("melding-om-vedtak")}
+              />
+            </Tabs.List>
+            <OppgaveHandlinger />
+          </div>
+
+          <Outlet />
+        </Tabs>
       </div>
-      <OppgaveInformasjon />
     </div>
   );
 }

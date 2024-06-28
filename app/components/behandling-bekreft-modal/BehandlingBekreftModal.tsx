@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
-import type { action, IFerdigstillValg } from "~/routes/oppgave.$oppgaveId.behandle";
+import type { action, IFerdigstillValg } from "~/routes/oppgave.$oppgaveId._oppgave.behandle";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {

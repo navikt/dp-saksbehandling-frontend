@@ -1,5 +1,5 @@
 import type { IOpplysning } from "~/models/behandling.server";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import { Opplysning } from "~/components/opplysning/Opplysning";
 

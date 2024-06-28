@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from "react";
-import React from "react";
 import classnames from "classnames";
 import styles from "./InfoCard.module.css";
 
