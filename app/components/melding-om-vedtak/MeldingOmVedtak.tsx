@@ -31,7 +31,7 @@ export function MeldingOmVedtak() {
         components: getSanityPortableTextComponents(behandling, fritekst, true),
       }),
     )
-    .join();
+    .join("");
 
   return (
     <div className={styles.container}>
