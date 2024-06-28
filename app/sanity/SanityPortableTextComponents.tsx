@@ -1,18 +1,49 @@
 import type { PortableTextComponents } from "@portabletext/react";
 import type { PropsWithChildren } from "react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import type { IBehandling } from "~/models/behandling.server";
+import { renderToString } from "react-dom/server";
+import type { PortableTextHtmlComponents } from "@portabletext/to-html";
 
-export const SanityPortableTextComponents: PortableTextComponents = {
-  types: {
-    opplysningReference: ({ value }) => <BehandlingOpplysningReference value={value} />,
-    fritekst: (value) => <Fritekst value={value} />,
-  },
-};
+export function getSanityPortableTextComponents(
+  behandling: IBehandling,
+  fritekst: string,
+  asHtmlString: true,
+): PortableTextHtmlComponents;
 
-function Fritekst(props: PropsWithChildren<{ value: any }>) {
-  const { fritekst } = useMeldingOmVedtakTekst();
-  const paragrafer = fritekst.split(/\n+/);
+export function getSanityPortableTextComponents(
+  behandling: IBehandling,
+  fritekst: string,
+  asHtmlString: false,
+): PortableTextComponents;
+
+export function getSanityPortableTextComponents(
+  behandling: IBehandling,
+  fritekst: string,
+  asHtmlString: boolean,
+): PortableTextComponents | PortableTextHtmlComponents {
+  if (asHtmlString) {
+    return {
+      types: {
+        opplysningReference: ({ value }: any) =>
+          renderToString(<BehandlingOpplysningReference value={value} behandling={behandling} />),
+        fritekst: ({ value }: any) =>
+          renderToString(<Fritekst value={value} fritekst={fritekst} />),
+      },
+    };
+  }
+
+  return {
+    types: {
+      opplysningReference: ({ value }: any) => (
+        <BehandlingOpplysningReference value={value} behandling={behandling} />
+      ),
+      fritekst: ({ value }: any) => <Fritekst value={value} fritekst={fritekst} />,
+    },
+  };
+}
+
+function Fritekst(props: PropsWithChildren<{ value: any; fritekst: string }>) {
+  const paragrafer = props.fritekst.split(/\n+/);
   return (
     <>
       {paragrafer.map((paragraf, index) => (
@@ -22,9 +53,10 @@ function Fritekst(props: PropsWithChildren<{ value: any }>) {
   );
 }
 
-function BehandlingOpplysningReference(props: PropsWithChildren<{ value: any }>) {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const opplysning = behandling.opplysning.find(
+function BehandlingOpplysningReference(
+  props: PropsWithChildren<{ value: any; behandling: IBehandling }>,
+) {
+  const opplysning = props.behandling.opplysning.find(
     (o) => o.navn === props.value?.behandlingOpplysning?.textId,
   );
 

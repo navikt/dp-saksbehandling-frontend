@@ -1,6 +1,7 @@
 import type { IAlert } from "~/context/alert-context";
 import {
   alleredeTildeltAlert,
+  brevMottattAlert,
   getLeggTilbakeErrorAlert,
   getNesteOppgaveError,
   leggTilbakeSuccessAlert,
@@ -13,7 +14,8 @@ interface IAlertType {
     | "legg-tilbake-oppgave"
     | "utsett-oppgave"
     | "tildel-oppgave"
-    | "ukjent-feil";
+    | "ukjent-feil"
+    | "send-brev";
   httpCode: number;
 }
 
@@ -30,6 +32,9 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "tildel-oppgave":
       return handleTildelOppgaveMessages(alertResponse.httpCode);
+
+    case "send-brev":
+      return handleSendBrevMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -93,6 +98,20 @@ export function handleTildelOppgaveMessages(httpCode: number): IAlert {
       return {
         variant: "warning",
         title: "Kunne ikke tildele oppgaven 🙅",
+        body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleSendBrevMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 202:
+      return brevMottattAlert;
+
+    default:
+      return {
+        variant: "warning",
+        title: "Klarte ikke generere brev",
         body: `Ukjent feil: ${httpCode}`,
       };
   }

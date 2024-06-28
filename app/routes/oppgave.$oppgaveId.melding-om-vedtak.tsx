@@ -2,7 +2,7 @@ import { Alert, BodyShort, Button, Heading, Tabs } from "@navikt/ds-react";
 import { sanityClient } from "~/sanity/sanity-client";
 import type { ISanityBrevMal } from "~/sanity/sanity-types";
 import { json } from "@remix-run/node";
-import { brevMalQuery } from "~/sanity/sanity-queries";
+import { hentAlleBrevmaler } from "~/sanity/sanity-queries";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { useNavigate, useRouteError } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
@@ -10,9 +10,9 @@ import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import styles from "../route-styles/melding-om-vedtak.module.css";
 
 export async function loader() {
-  const sanityTexts = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
+  const brevMal = await sanityClient.fetch<ISanityBrevMal[]>(hentAlleBrevmaler);
 
-  return json({ sanityTexts });
+  return json({ brevMal });
 }
 
 export default function Oppgave() {

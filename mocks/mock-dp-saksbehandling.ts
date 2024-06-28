@@ -100,4 +100,13 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`);
     return HttpResponse.json(mockOppgaver);
   }),
+
+  // Send brev for oppgave
+  http.post(`${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`, async () => {
+    logger.info(`[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`);
+
+    return new HttpResponse(null, {
+      status: 202,
+    });
+  }),
 ];
