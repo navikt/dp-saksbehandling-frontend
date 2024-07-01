@@ -6,7 +6,6 @@ import { hentAlleBrevmaler } from "~/sanity/sanity-queries";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { useNavigate, useRouteError } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
-import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import styles from "../route-styles/melding-om-vedtak.module.css";
 
 export async function loader() {
@@ -18,9 +17,7 @@ export async function loader() {
 export default function Oppgave() {
   return (
     <Tabs.Panel value="melding-om-vedtak">
-      <MeldingOmVedtakProvider>
-        <MeldingOmVedtak />
-      </MeldingOmVedtakProvider>
+      <MeldingOmVedtak />
     </Tabs.Panel>
   );
 }

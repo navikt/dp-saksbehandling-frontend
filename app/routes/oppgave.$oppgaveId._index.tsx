@@ -5,20 +5,21 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { Outlet } from "@remix-run/react";
+import { Tabs } from "@navikt/ds-react";
 
 export default function Oppgave() {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <div className={styles.behandling}>
-      <div className={styles.opplysninger}>
-        <ValidatedForm validator={hentValideringRegler(behandling.opplysning)} method="post">
-          <OpplysningTabell readonly={true} opplysninger={behandling.opplysning} />
-        </ValidatedForm>
-        <Outlet />
-      </div>
+    <Tabs.Panel value="behandling" className={styles.behandling}>
+      <ValidatedForm
+        validator={hentValideringRegler(behandling.opplysning)}
+        method="post"
+        className={styles.opplysninger}
+      >
+        <OpplysningTabell readonly={true} opplysninger={behandling.opplysning} />
+      </ValidatedForm>
       <OppgaveInformasjon />
-    </div>
+    </Tabs.Panel>
   );
 }
