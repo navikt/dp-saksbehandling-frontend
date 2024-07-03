@@ -12,6 +12,7 @@ import { Loader, Tabs } from "@navikt/ds-react";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import styles from "~/route-styles/oppgave.module.css";
+import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -63,10 +64,22 @@ export default function Oppgave() {
         <Tabs defaultValue="behandling">
           <div className={styles.tabMeny}>
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Oversikt" onClick={() => navigate("behandle")} />
+              <Tabs.Tab
+                value="oversikt"
+                label="Behandlingsoversikt"
+                icon={<TasklistIcon />}
+                onClick={() => navigate("oversikt")}
+              />
+              <Tabs.Tab
+                value="behandling"
+                label="Redigere opplysninger"
+                icon={<DocPencilIcon />}
+                onClick={() => navigate("behandle")}
+              />
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
+                icon={<TasklistSendIcon />}
                 onClick={() => navigate("melding-om-vedtak")}
               />
             </Tabs.List>

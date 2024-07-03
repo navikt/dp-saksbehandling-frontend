@@ -1,0 +1,7 @@
+.container {
+    max-width: 971px;
+    padding: 0 2em 2em 2em;
+}
+.success {
+    background-color: #CDE7D8;
+}
