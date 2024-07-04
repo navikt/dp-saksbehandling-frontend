@@ -74,6 +74,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
+      GCP_ENV: process.env.GCP_ENV,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
       ARBEID_INNTEKT_URL: process.env.ARBEID_INNTEKT_URL,
       GOSYS_URL: process.env.GOSYS_URL,

@@ -39,6 +39,8 @@ spec:
       value: {{ingress}}
     - name: BASE_PATH
       value: {{base_path}}
+    - name: GCP_ENV
+      value: {{gcp_env}}
     - name: DP_BEHANDLING_URL
       value: {{dp-behandling_url}}
     - name: DP_SAKSBEHANDLING_URL

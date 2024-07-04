@@ -1,6 +1,8 @@
 import type { IAlert } from "~/context/alert-context";
 import {
   alleredeTildeltAlert,
+  behandlingAvbruttAlert,
+  behandlingGodkjentAlert,
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
   getNesteOppgaveError,
@@ -15,7 +17,9 @@ interface IAlertType {
     | "utsett-oppgave"
     | "tildel-oppgave"
     | "ukjent-feil"
-    | "send-brev";
+    | "send-brev"
+    | "godkjenn-behandling"
+    | "avbryt-behandling";
   httpCode: number;
 }
 
@@ -35,6 +39,12 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "send-brev":
       return handleSendBrevMessages(alertResponse.httpCode);
+
+    case "godkjenn-behandling":
+      return handleGodkjennBehandlingMessages(alertResponse.httpCode);
+
+    case "avbryt-behandling":
+      return handleAvbrytBehandlingMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -112,6 +122,34 @@ export function handleSendBrevMessages(httpCode: number): IAlert {
       return {
         variant: "warning",
         title: "Klarte ikke generere brev",
+        body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleGodkjennBehandlingMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return behandlingGodkjentAlert;
+
+    default:
+      return {
+        variant: "warning",
+        title: "Kunne ikke godkjenn behandling",
+        body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleAvbrytBehandlingMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return behandlingAvbruttAlert;
+
+    default:
+      return {
+        variant: "warning",
+        title: "Fikk ikke sendt behandling til Arena",
         body: `Ukjent feil: ${httpCode}`,
       };
   }
