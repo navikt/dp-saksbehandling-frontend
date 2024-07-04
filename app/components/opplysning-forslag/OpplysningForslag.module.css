@@ -2,6 +2,9 @@
     max-width: 971px;
     padding: 0 2em 2em 2em;
 }
-.success {
+.approved {
     background-color: #CDE7D8;
+}
+.denied {
+    background-color: rgba(195, 0, 0, 0.05);
 }
