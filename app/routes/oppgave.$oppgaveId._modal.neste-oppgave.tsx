@@ -2,7 +2,6 @@ import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
-import { CoffeeLoader } from "~/components/coffee-loader/CoffeeLoader";
 import { commitSession, getSession } from "~/sessions";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -60,13 +59,8 @@ export default function NesteOppgave() {
       </Modal.Header>
 
       <Modal.Body className={styles.modalBody}>
-        {navigation.state !== "loading" && (
-          <>
-            <KonfettiKanon />
-            <BodyShort>{alert?.title}</BodyShort>
-          </>
-        )}
-        {navigation.state === "loading" && <CoffeeLoader />}
+        <KonfettiKanon />
+        <BodyShort>{alert?.title}</BodyShort>
       </Modal.Body>
 
       <Modal.Footer>

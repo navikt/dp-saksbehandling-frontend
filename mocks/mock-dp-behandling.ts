@@ -22,13 +22,13 @@ export const mockDpBehandling = [
 
   http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/avbryt`, () => {
     return new HttpResponse(null, {
-      status: 204,
+      status: 201,
     });
   }),
 
   http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/godkjenn`, () => {
     return new HttpResponse(null, {
-      status: 204,
+      status: 201,
     });
   }),
 ];
