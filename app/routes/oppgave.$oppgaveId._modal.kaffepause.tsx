@@ -54,7 +54,7 @@ export default function Kaffepause() {
 
       <Modal.Footer>
         <Button size="small" type="button" variant="primary" onClick={() => navigate(-1)}>
-          {isLoading ? "Nok kaffe" : "Nok katt og kaffe"}
+          {!imageSrc ? "Nok kaffe" : "Nok katt og kaffe"}
         </Button>
 
         {imageSrc && (
