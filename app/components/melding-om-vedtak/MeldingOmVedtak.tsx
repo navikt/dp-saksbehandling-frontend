@@ -1,23 +1,37 @@
-import { Select, Textarea } from "@navikt/ds-react";
-import { PortableText } from "@portabletext/react";
-import { SanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
-import { useLoaderData } from "@remix-run/react";
+import { Button, Select } from "@navikt/ds-react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
 import styles from "./MeldingOmVedtak.module.css";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
-import type { ISanityBrevMal } from "~/sanity/sanity-types";
+import { FritekstEditor } from "~/components/fritekt-editor/FritekstEditor";
+import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import { toHTML } from "@portabletext/to-html";
+import { getSanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
+import type { action as sendBrevAction } from "~/routes/action-send-brev";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export function MeldingOmVedtak() {
-  const { sanityTexts } = useLoaderData<typeof loader>();
-  const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
+  const { brevMal } = useLoaderData<typeof loader>();
+  const { behandling, oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { valgtBrevMal, setValgtBrevMal, fritekst } = useMeldingOmVedtakTekst();
+
+  const sendBrevFetcher = useFetcher<typeof sendBrevAction>();
+  useHandleAlertMessages(sendBrevFetcher.data);
 
   function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const selectedBrevMal = sanityTexts.find(
-      (brevMal) => brevMal.textId === event.currentTarget.value,
-    );
+    const selectedBrevMal = brevMal.find((brevMal) => brevMal.textId === event.currentTarget.value);
     setValgtBrevMal(selectedBrevMal);
   }
+
+  const brevHtml = valgtBrevMal?.brevBlokker
+    .map((blokk) =>
+      toHTML(blokk.innhold, {
+        components: getSanityPortableTextComponents(behandling, fritekst, true),
+      }),
+    )
+    .join("");
 
   return (
     <div className={styles.container}>
@@ -26,26 +40,39 @@ export function MeldingOmVedtak() {
           <option value="" hidden={true}>
             Velg brevmal
           </option>
-          {sanityTexts.map((brevMal) => (
+
+          {brevMal.map((brevMal) => (
             <option key={brevMal.textId} value={brevMal.textId}>
               {brevMal.textId}
             </option>
           ))}
         </Select>
 
-        {/*<PortableTextEditor onChange={(change) => console.log(change)} schemaType={[]} />*/}
-        <Textarea label={"Fritekst"} />
+        <FritekstEditor />
+
+        <sendBrevFetcher.Form method="post" action="/action-send-brev">
+          <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
+          <input hidden={true} readOnly={true} name="brevHtml" value={brevHtml || ""} />
+
+          <Button
+            className="mt-4"
+            variant="primary"
+            size="small"
+            loading={sendBrevFetcher.state !== "idle"}
+            disabled={!brevHtml}
+          >
+            Send brev
+          </Button>
+        </sendBrevFetcher.Form>
       </div>
 
-      <div className={styles.preview}>
-        {valgtBrevMal?.brevBlokker.map((brevBlokk) => (
-          <PortableText
-            key={brevBlokk.textId}
-            value={brevBlokk.innhold}
-            components={SanityPortableTextComponents}
-          />
-        ))}
-      </div>
+      {valgtBrevMal && (
+        <MeldingOmVedtakPreview
+          brevMal={valgtBrevMal}
+          behandling={behandling}
+          fritekst={fritekst}
+        />
+      )}
     </div>
   );
 }

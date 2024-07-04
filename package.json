@@ -36,6 +36,7 @@
     "@navikt/oasis": "^3.2.3",
     "@opentelemetry/sdk-node": "^0.52.1",
     "@portabletext/react": "^3.1.0",
+    "@portabletext/to-html": "^2.0.13",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",

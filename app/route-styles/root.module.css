@@ -6,16 +6,7 @@
 
 .headerLogo {
   display: flex;
-  background: linear-gradient(
-    to bottom,
-    #ff0018 16.67%,
-    #ffa52c 16.67% 33.34%,
-    #ffff41 33.34% 50.01%,
-    #008018 50.01% 66.68%,
-    #0000f9 66.68% 83.35%,
-    #86007d 83.35%
-  );
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  text-decoration: none;
 }
 
 .pageHeader {

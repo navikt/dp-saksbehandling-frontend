@@ -1,18 +1,21 @@
 import type { Dispatch, SetStateAction } from "react";
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
-import type { action, IFerdigstillValg } from "~/routes/oppgave.$oppgaveId._oppgave.behandle";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { action as godkjennBehandlingAction } from "~/routes/action-godkjenn-behandling";
+import type { action as avbrytBehandlingAction } from "~/routes/action-avbryt-behandling";
 
 interface IProps {
-  aktivModalId?: IFerdigstillValg;
-  setAktivModalId: Dispatch<SetStateAction<IFerdigstillValg | undefined>>;
+  aktivModalId?: IBehandlingValg;
+  setAktivModalId: Dispatch<SetStateAction<IBehandlingValg | undefined>>;
 }
 
-export function BehandlingBekreftModal(props: IProps) {
-  const fetcher = useFetcher<typeof action>({ key: "ferdigstill-behandling" });
+export type IBehandlingValg = "godkjenn-behandling" | "avbryt-behandling";
+
+export function BehandlingBekreftModal({ aktivModalId, setAktivModalId }: IProps) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { aktivModalId, setAktivModalId } = props;
+  const godkjennBehandlingFetcher = useFetcher<typeof godkjennBehandlingAction>();
+  const avbrytBehandlingFetcher = useFetcher<typeof avbrytBehandlingAction>();
 
   return (
     <Modal
@@ -22,43 +25,64 @@ export function BehandlingBekreftModal(props: IProps) {
       onClose={() => setAktivModalId(undefined)}
       header={{
         heading: "Er du sikker?",
-        size: "small",
+        size: "medium",
         closeButton: false,
       }}
     >
       <Modal.Body>
-        <BodyLong>
-          <strong className="capitalize">{aktivModalId}</strong> behandlig
-        </BodyLong>
+        <BodyLong>{aktivModalId && getBehandlingTekst(aktivModalId)}</BodyLong>
       </Modal.Body>
 
       <Modal.Footer>
-        <fetcher.Form method="post">
-          <Button
-            type="submit"
-            variant="primary"
-            name="skjemadata"
-            className="mr-4"
-            loading={fetcher.state !== "idle"}
-            value={JSON.stringify({
-              ferdigstillValg: aktivModalId,
-              personIdent: oppgave.personIdent,
-              behandlingId: oppgave.behandlingId,
-            })}
-          >
-            Ja, jeg er sikker
-          </Button>
+        <Button
+          size="small"
+          type="button"
+          variant="secondary"
+          onClick={() => setAktivModalId(undefined)}
+          loading={avbrytBehandlingFetcher.state !== "idle"}
+        >
+          Avbryt
+        </Button>
 
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => setAktivModalId(undefined)}
-            loading={fetcher.state !== "idle"}
-          >
-            Avbryt
-          </Button>
-        </fetcher.Form>
+        {aktivModalId === "avbryt-behandling" && (
+          <avbrytBehandlingFetcher.Form method="post" action="/action-avbryt-behandling">
+            <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
+            <input hidden={true} readOnly={true} name="personIdent" value={oppgave.personIdent} />
+
+            <Button
+              size="small"
+              variant="primary"
+              loading={avbrytBehandlingFetcher.state !== "idle"}
+            >
+              Ja
+            </Button>
+          </avbrytBehandlingFetcher.Form>
+        )}
+
+        {aktivModalId === "godkjenn-behandling" && (
+          <godkjennBehandlingFetcher.Form method="post" action="/action-godkjenn-behandling">
+            <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
+            <input hidden={true} readOnly={true} name="personIdent" value={oppgave.personIdent} />
+
+            <Button
+              size="small"
+              variant="primary"
+              loading={godkjennBehandlingFetcher.state !== "idle"}
+            >
+              Ja
+            </Button>
+          </godkjennBehandlingFetcher.Form>
+        )}
       </Modal.Footer>
     </Modal>
   );
+}
+
+function getBehandlingTekst(behandlingValg: IBehandlingValg) {
+  switch (behandlingValg) {
+    case "godkjenn-behandling":
+      return "Du er i ferd med å sende oppgaven til automatisk avslag";
+    case "avbryt-behandling":
+      return "Du er i ferd med å sende oppgaven til manuell behandling i arena";
+  }
 }

@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Await, Outlet, useLoaderData, useNavigate } from "@remix-run/react";
+import { Await, Outlet, useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
@@ -13,6 +13,8 @@ import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import styles from "~/route-styles/oppgave.module.css";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { BehandlingHandlinger } from "~/components/behandling-handlinger/BehandlingHandlinger";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -37,7 +39,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { oppgave, oppgaverForPersonPromise } = useLoaderData<typeof loader>();
+
+  function getSelectedTab() {
+    if (location.pathname.includes("melding-om-vedtak")) {
+      return "melding-om-vedtak";
+    }
+    return "behandling";
+  }
 
   return (
     <div className={styles.container}>
@@ -61,33 +71,35 @@ export default function Oppgave() {
         </Await>
       </Suspense>
       <div className={styles.behandlingBox}>
-        <Tabs defaultValue="behandling">
-          <div className={styles.tabMeny}>
-            <Tabs.List>
-              <Tabs.Tab
-                value="oversikt"
-                label="Behandlingsoversikt"
-                icon={<TasklistIcon />}
-                onClick={() => navigate("oversikt")}
-              />
-              <Tabs.Tab
-                value="behandling"
-                label="Redigere opplysninger"
-                icon={<DocPencilIcon />}
-                onClick={() => navigate("behandle")}
-              />
-              <Tabs.Tab
-                value="melding-om-vedtak"
-                label="Melding om vedtak"
-                icon={<TasklistSendIcon />}
-                onClick={() => navigate("melding-om-vedtak")}
-              />
-            </Tabs.List>
-            <OppgaveHandlinger />
-          </div>
-
-          <Outlet />
-        </Tabs>
+        <MeldingOmVedtakProvider>
+          <Tabs size="medium" value={getSelectedTab()}>
+            <div className={styles.tabMeny}>
+              <Tabs.List>
+                <Tabs.Tab
+                  value="oversikt"
+                  label="Behandlingsoversikt"
+                  icon={<TasklistIcon />}
+                  onClick={() => navigate("oversikt")}
+                />
+                <Tabs.Tab
+                  value="behandling"
+                  label="Redigere opplysninger"
+                  icon={<DocPencilIcon />}
+                  onClick={() => navigate("")}
+                />
+                <Tabs.Tab
+                  value="melding-om-vedtak"
+                  label="Melding om vedtak"
+                  icon={<TasklistSendIcon />}
+                  onClick={() => navigate("melding-om-vedtak")}
+                />
+              </Tabs.List>
+              <OppgaveHandlinger />
+              {oppgave.tilstand === "UNDER_BEHANDLING" && <BehandlingHandlinger />}
+            </div>
+            <Outlet />
+          </Tabs>
+        </MeldingOmVedtakProvider>
       </div>
     </div>
   );

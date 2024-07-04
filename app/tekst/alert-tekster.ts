@@ -25,6 +25,12 @@ export const tomtForOppgaverAlert: IAlert = {
   body: "Alle oppgaver med dette søket er ferdig behandlet",
 };
 
+export const brevMottattAlert: IAlert = {
+  variant: "success",
+  title: "Brev mottatt 📬",
+  body: "Brevet er mottatt og lagret",
+};
+
 export function getNesteOppgaveError(httpCode: number): IAlert {
   return {
     variant: "error",

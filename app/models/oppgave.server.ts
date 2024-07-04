@@ -116,3 +116,18 @@ export async function utsettOppgave(
     body: JSON.stringify({ utsettTilDato, beholdOppgave }),
   });
 }
+
+export async function sendBrev(
+  request: Request,
+  oppgaveId: string,
+  brevHtml: string,
+): Promise<Response> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/utsending/${oppgaveId}/send-brev`;
+  return await fetch(url, {
+    method: "POST",
+    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/html" },
+    body: brevHtml,
+  });
+}

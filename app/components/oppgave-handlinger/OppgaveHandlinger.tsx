@@ -33,14 +33,14 @@ export function OppgaveHandlinger() {
             <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
             <Button
               size="small"
-              variant="secondary"
+              variant="tertiary"
               loading={leggTilbakeOppgaveFetcher.state !== "idle"}
             >
-              Legg oppgave tilbake i køen
+              Legg tilbake
             </Button>
           </leggTilbakeOppgaveFetcher.Form>
 
-          <Button size="small" variant="secondary" onClick={() => ref.current?.showModal()}>
+          <Button size="small" variant="tertiary" onClick={() => ref.current?.showModal()}>
             Sett på vent
           </Button>
 

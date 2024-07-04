@@ -70,7 +70,7 @@ test("Klikk på neste knapp skal ta deg til behandling av oppgave", async ({ pag
   await page.goto(`${baseURL}`);
 
   await page.getByRole("button", { name: "Neste" }).click();
-  const urlPattern = new RegExp(`${baseURL}oppgave/[a-zA-Z0-9-]+/behandle`);
+  const urlPattern = new RegExp(`${baseURL}oppgave/[a-zA-Z0-9-]+`);
   await expect(page).toHaveURL(urlPattern);
 });
 
@@ -121,7 +121,7 @@ test("Bruker kan behandle oppgaver som har status Klar til behandling", async ({
   await page.getByRole("row", { name: "Klar til behandling" }).getByRole("button").first().click();
   await page.getByRole("button", { name: "Behandle oppgave" }).click();
 
-  const urlPattern = new RegExp(`${baseURL}oppgave/[a-zA-Z0-9-]+/behandle`);
+  const urlPattern = new RegExp(`${baseURL}oppgave/[a-zA-Z0-9-]+`);
   await expect(page).toHaveURL(urlPattern);
 });
 

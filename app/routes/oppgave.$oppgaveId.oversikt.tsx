@@ -1,13 +1,12 @@
 import { Tabs } from "@navikt/ds-react";
-import OpplysningForslag from "~/components/opplysning-forslag/OpplysningForslag";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-export default function Oversikt() {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
+export async function loader() {
+  return {};
+}
+export default function Oppgave() {
   return (
     <Tabs.Panel value="oversikt">
-      <OpplysningForslag opplysninger={behandling.opplysning} />
+      <h1>LOl</h1>
     </Tabs.Panel>
   );
 }
