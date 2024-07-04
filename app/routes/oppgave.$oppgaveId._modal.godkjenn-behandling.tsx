@@ -1,4 +1,4 @@
-import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { godkjennBehandling } from "~/models/behandling.server";
@@ -43,6 +43,10 @@ export default function GodkjennBehandling() {
 
   return (
     <>
+      <Modal.Header>
+        <Heading size={"medium"}>Automatisk avslag</Heading>
+      </Modal.Header>
+
       <Modal.Body>
         <BodyLong>Du er i ferd med å sende oppgaven til automatisk avslag</BodyLong>
       </Modal.Body>

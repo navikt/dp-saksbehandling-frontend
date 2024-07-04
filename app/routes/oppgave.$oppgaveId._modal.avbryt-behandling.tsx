@@ -1,16 +1,13 @@
-import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { avbrytBehandling } from "~/models/behandling.server";
-import { logger } from "~/utils/logger.utils";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { Form, useNavigate } from "@remix-run/react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  console.log(request);
-
   const formData = await request.formData();
   const behandlingId = formData.get("behandlingId") as string;
   const personIdent = formData.get("personIdent") as string;
@@ -20,8 +17,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   session.flash("alert", getAlertMessage({ name: "avbryt-behandling", httpCode: response.status }));
 
   if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-
     return redirect(`/oppgave/${params.oppgaveId}`, {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -29,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`../neste-oppgave`, {
+  return redirect(`/`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
@@ -42,6 +37,10 @@ export default function AvbrytBehandling() {
 
   return (
     <>
+      <Modal.Header>
+        <Heading size={"medium"}>Send til Arena</Heading>
+      </Modal.Header>
+
       <Modal.Body>
         <BodyLong>Du er i ferd med å sende oppgaven til Arena</BodyLong>
       </Modal.Body>
