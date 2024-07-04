@@ -129,7 +129,7 @@ export function handleSendBrevMessages(httpCode: number): IAlert {
 
 export function handleGodkjennBehandlingMessages(httpCode: number): IAlert {
   switch (httpCode) {
-    case 204:
+    case 201:
       return behandlingGodkjentAlert;
 
     default:
@@ -143,7 +143,7 @@ export function handleGodkjennBehandlingMessages(httpCode: number): IAlert {
 
 export function handleAvbrytBehandlingMessages(httpCode: number): IAlert {
   switch (httpCode) {
-    case 204:
+    case 201:
       return behandlingAvbruttAlert;
 
     default:
