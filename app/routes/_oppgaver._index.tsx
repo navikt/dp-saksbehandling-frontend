@@ -10,7 +10,7 @@ import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { commitSession, getSession } from "~/sessions";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
@@ -47,6 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
+  const { state } = useNavigation();
   const loaderData = useLoaderData<typeof loader>();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   useHandleAlertMessages(loaderData?.alert);
@@ -81,7 +82,12 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe oppgaver={oppgaver} visNesteOppgaveKnapp={true} visAntallOppgaver={true} />
+        <OppgaveListe
+          oppgaver={oppgaver}
+          visNesteOppgaveKnapp={true}
+          visAntallOppgaver={true}
+          lasterOppgaver={state !== "idle"}
+        />
       </main>
     </div>
   );

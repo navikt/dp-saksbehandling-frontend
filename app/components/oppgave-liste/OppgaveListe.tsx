@@ -12,17 +12,22 @@ import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: IOppgave[];
+  lasterOppgaver?: boolean;
   visNesteOppgaveKnapp?: boolean;
   visAntallOppgaver?: boolean;
 }
 
-export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver }: IProps) {
+export function OppgaveListe({
+  oppgaver,
+  visNesteOppgaveKnapp,
+  visAntallOppgaver,
+  lasterOppgaver,
+}: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
   useHandleAlertMessages(nesteFetcher.data);
 
-  const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
@@ -50,8 +55,8 @@ export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver
 
         {visAntallOppgaver && (
           <Detail textColor="subtle" className={styles.antallOppgaver}>
-            {!loading && `Antall oppgaver ${oppgaver.length}`}
-            {loading && "Laster oppgaver..."}
+            {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
+            {lasterOppgaver && "Laster oppgaver..."}
           </Detail>
         )}
       </div>
@@ -91,74 +96,70 @@ export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver
           </Table.Row>
         </Table.Header>
 
-        <Table.Body>
-          {sortedData.length === 0 && (
+        {lasterOppgaver && (
+          <Table.Body>
             <Table.Row>
-              <Table.DataCell colSpan={6}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell colSpan={6}>
+                <Skeleton variant="text" width="100%" height={35} />
+              </Table.DataCell>
             </Table.Row>
-          )}
+          </Table.Body>
+        )}
 
-          {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand, emneknagger, utsettTilDato } = oppgave;
-            const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
-            const dagerIgjenTilUtsattDato = utsettTilDato
-              ? differenceInCalendarDays(utsettTilDato, new Date())
-              : undefined;
+        {!lasterOppgaver && (
+          <Table.Body>
+            {sortedData.length === 0 && (
+              <Table.Row>
+                <Table.DataCell colSpan={6}>Fant ingen oppgaver</Table.DataCell>
+              </Table.Row>
+            )}
 
-            return (
-              <Table.Row
-                key={oppgave.oppgaveId}
-                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
-              >
-                <Table.DataCell
-                  className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+            {sortedData?.map((oppgave) => {
+              const { tidspunktOpprettet, tilstand, emneknagger, utsettTilDato } = oppgave;
+              const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
+              const dagerIgjenTilUtsattDato = utsettTilDato
+                ? differenceInCalendarDays(utsettTilDato, new Date())
+                : undefined;
+
+              return (
+                <Table.Row
+                  key={oppgave.oppgaveId}
+                  className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
                 >
-                  {!loading && (
+                  <Table.DataCell
+                    className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                  >
                     <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
-                  )}
-                  {loading && <Skeleton variant="text" width={110} height={35} />}
-                </Table.DataCell>
+                  </Table.DataCell>
 
-                <Table.DataCell>
-                  {!loading && <Detail>Søknad</Detail>}
-                  {loading && <Skeleton variant="text" width={80} height={35} />}
-                </Table.DataCell>
-                <Table.DataCell>
-                  {!loading && (
+                  <Table.DataCell>
+                    <Detail>Søknad</Detail>
+                  </Table.DataCell>
+
+                  <Table.DataCell>
                     <>
                       {emneknagger.map((emneknagg) => (
                         <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
                           <Detail>{emneknagg}</Detail>
                         </Tag>
                       ))}
+
                       {utsettTilDato && (
                         <Tag className="mr-2" size={"xsmall"} variant="alt2">
                           <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                         </Tag>
                       )}
                     </>
-                  )}
-                  {loading && <Skeleton variant="text" width={200} height={35} />}
-                </Table.DataCell>
+                  </Table.DataCell>
 
-                <Table.DataCell>
-                  {!loading && <Detail>{getTilstandText(tilstand)}</Detail>}
-                  {loading && <Skeleton variant="text" width={150} height={35} />}
-                </Table.DataCell>
-
-                <Table.DataCell>
-                  {!loading && <Detail>{oppgave.saksbehandlerIdent}</Detail>}
-                  {loading && <Skeleton variant="text" width={100} height={35} />}
-                </Table.DataCell>
-
-                <Table.DataCell>
-                  {!loading && <OppgaveListeValg oppgave={oppgave} />}
-                  {loading && <Skeleton variant="text" width={20} height={35} />}
-                </Table.DataCell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
+                  <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
+                  <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
+                  <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        )}
       </Table>
     </>
   );
