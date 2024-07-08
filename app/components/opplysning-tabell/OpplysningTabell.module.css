@@ -24,18 +24,18 @@
 }
 
 .sidebar {
-  width: 25em;
-  border-right: 1px solid #C6C2BF;
+  width: 30rem;
+  border-right: 1px solid var(--a-surface-neutral-moderate);
 }
 
 .kategoriHeader {
-  padding: 0 1em;
+  padding: 0 var(--a-spacing-4);
 }
 
 .active {
   position: relative;
   cursor: pointer;
-  background-color: #ECEEF0;
+  background-color: var(--a-bg-subtle);
 }
 
 .active::before {
@@ -47,21 +47,19 @@
   bottom: 0;
   width: 4px;
   transform: translateX(-100%);
-  background-color: #0067c5;
+  background-color: var(--a-surface-action-selected);
 }
 .circleIcon {
-  margin-left: 1em;
-  color: #FFAA33;
+  margin-left: var(--a-spacing-2);
+  color: var(--a-surface-warning-moderate);
 }
 
-
-
 .listItem:hover {
-  background-color: #EEF0F1;
+  background-color: var(--a-surface-hover);
 }
 
 .categoryList ul li {
   margin: 0;
   cursor: pointer;
-  padding: 0.5em;
+  padding: var(--a-spacing-2);
 }

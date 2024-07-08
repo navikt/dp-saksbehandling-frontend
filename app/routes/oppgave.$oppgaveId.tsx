@@ -46,6 +46,9 @@ export default function Oppgave() {
     if (location.pathname.includes("melding-om-vedtak")) {
       return "melding-om-vedtak";
     }
+    if (location.pathname.includes("oversikt")) {
+      return "oversikt";
+    }
     return "behandling";
   }
 

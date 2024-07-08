@@ -15,7 +15,7 @@ export function OpplysningTabell(props: IProps) {
   const keys = Object.keys(opplysningsMap);
   const [selectedKategori, setSelectedKategori] = React.useState(keys[0]);
 
-  var filteredOpplysning = props.opplysninger.filter((opplysning) => {
+  const filteredOpplysning = props.opplysninger.filter((opplysning) => {
     if (opplysningsMap[selectedKategori].values.length == 0) {
       return true;
     }

@@ -1,10 +1,10 @@
 .container {
     max-width: 971px;
-    padding: 0 2em 2em 2em;
+    padding: 0 var(--a-spacing-8) var(--a-spacing-8) var(--a-spacing-8);
 }
 .approved {
-    background-color: #CDE7D8;
+    background-color: var(--a-green-100);
 }
 .denied {
-    background-color: rgba(195, 0, 0, 0.05);
+    background-color: var(--a-red-100);
 }

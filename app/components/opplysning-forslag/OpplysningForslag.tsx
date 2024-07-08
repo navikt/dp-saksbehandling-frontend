@@ -7,13 +7,13 @@ interface IProps {
   opplysninger: IOpplysning[];
 }
 
-const finnOpplysningMedNavn = (navn: string, opplysninger: IOpplysning[]) => {
+function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
   return opplysninger.filter((opplysning) => {
     return opplysning.navn === navn;
   })[0];
-};
+}
 
-export default function OpplysningForslag(props: IProps) {
+export function OpplysningForslag(props: IProps) {
   const harKravDagpenger = finnOpplysningMedNavn("Krav på dagpenger", props.opplysninger);
   const kravTilAlder = finnOpplysningMedNavn("Oppfyller kravet til alder", props.opplysninger);
   const kravTilInntekt = finnOpplysningMedNavn("Krav til minsteinntekt", props.opplysninger);
@@ -27,8 +27,6 @@ export default function OpplysningForslag(props: IProps) {
     "Registrert som arbeidssøker på søknadstidspunktet",
     props.opplysninger,
   );
-
-  console.log(kravTilInntekt.verdi);
 
   const resultStyle = harKravDagpenger.verdi === "true" ? styles.approved : styles.denied;
   return (
