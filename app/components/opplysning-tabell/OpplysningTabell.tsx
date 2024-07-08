@@ -5,6 +5,7 @@ import styles from "./OpplysningTabell.module.css";
 import { opplysningsMap } from "./OpplysningMap";
 import { Table } from "@navikt/ds-react";
 import { OpplysningTabellLinje } from "./OpplysningTabellLinje";
+import classNames from "classnames";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -35,14 +36,16 @@ export function OpplysningTabell(props: IProps) {
         <div className={styles.kategoriHeader}>
           <h1>{opplysningsMap[selectedKategori].header}</h1>
           <p>{opplysningsMap[selectedKategori].description}</p>
-          <Table>
-            {filteredOpplysning.map((opplysning) => (
-              <OpplysningTabellLinje
-                key={opplysning.navn}
-                opplysning={opplysning}
-                readonly={props.readonly}
-              />
-            ))}
+          <Table className={classNames("kompakt-tabell", styles.table)}>
+            <tbody>
+              {filteredOpplysning.map((opplysning) => (
+                <OpplysningTabellLinje
+                  key={opplysning.navn}
+                  opplysning={opplysning}
+                  readonly={props.readonly}
+                />
+              ))}
+            </tbody>
           </Table>
         </div>
       </div>
