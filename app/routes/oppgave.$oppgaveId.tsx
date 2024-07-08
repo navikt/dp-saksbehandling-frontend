@@ -1,27 +1,26 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Outlet, useLoaderData, useLocation, useNavigate } from "@remix-run/react";
+import { Await, Outlet, useLoaderData, useLocation, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentBehandling } from "~/models/behandling.server";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { Tabs } from "@navikt/ds-react";
+import { Suspense } from "react";
+import { Loader, Tabs } from "@navikt/ds-react";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import styles from "~/route-styles/oppgave.module.css";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { BehandlingHandlinger } from "~/components/behandling-handlinger/BehandlingHandlinger";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
-import { commitSession, getSession } from "~/sessions";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
-  const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
   function hentJournalposter() {
     return Promise.all(
@@ -30,30 +29,18 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const journalposterPromises = hentJournalposter();
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = session.get("alert");
-
-  return defer(
-    {
-      alert,
-      oppgave,
-      behandling,
-      oppgaverForPerson,
-      journalposterPromises,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return defer({
+    oppgave,
+    behandling,
+    oppgaverForPersonPromise,
+    journalposterPromises,
+  });
 }
 
 export default function Oppgave() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
-  useHandleAlertMessages(alert);
+  const { oppgave, oppgaverForPersonPromise } = useLoaderData<typeof loader>();
 
   function getSelectedTab() {
     if (location.pathname.includes("melding-om-vedtak")) {
@@ -68,7 +55,24 @@ export default function Oppgave() {
   return (
     <div className={styles.container}>
       <PersonBoks person={oppgave.person} />
-      <OppgaveListe oppgaver={oppgaverForPerson} />
+      <Suspense
+        fallback={
+          <div>
+            Henter oppgaver for person <Loader />
+          </div>
+        }
+      >
+        <Await
+          resolve={oppgaverForPersonPromise}
+          errorElement={<div>Vi klarte ikke hente oppgaver for person 😬</div>}
+        >
+          {(oppgaver) => (
+            <div>
+              <OppgaveListe oppgaver={oppgaver} />
+            </div>
+          )}
+        </Await>
+      </Suspense>
       <div className={styles.behandlingBox}>
         <MeldingOmVedtakProvider>
           <Tabs size="medium" value={getSelectedTab()}>

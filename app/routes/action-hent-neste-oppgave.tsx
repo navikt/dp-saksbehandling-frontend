@@ -10,7 +10,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (response.ok) {
     const oppgave = (await response.json()) as IOppgave;
-    return redirect(`/oppgave/${oppgave.oppgaveId}`);
+    return redirect(`/oppgave/${oppgave.oppgaveId}/oversikt`);
   }
 
   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
