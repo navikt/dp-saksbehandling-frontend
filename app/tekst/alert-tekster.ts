@@ -31,6 +31,16 @@ export const brevMottattAlert: IAlert = {
   body: "Brevet er mottatt og lagret",
 };
 
+export const behandlingGodkjentAlert: IAlert = {
+  variant: "success",
+  title: "Behandling sendt til automatisk avslag",
+};
+
+export const behandlingAvbruttAlert: IAlert = {
+  variant: "success",
+  title: "Behandling sendt til arena for videre behandling",
+};
+
 export function getNesteOppgaveError(httpCode: number): IAlert {
   return {
     variant: "error",

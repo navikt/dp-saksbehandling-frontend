@@ -9,8 +9,10 @@ import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { useNavigation } from "@remix-run/react";
 
 export default function Saksbehandling() {
+  const { state } = useNavigation();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
@@ -40,7 +42,11 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe oppgaver={oppgaver} visAntallOppgaver={true} />
+        <OppgaveListe
+          oppgaver={oppgaver}
+          visAntallOppgaver={true}
+          lasterOppgaver={state !== "idle"}
+        />
       </main>
     </div>
   );

@@ -11,6 +11,7 @@ import { toHTML } from "@portabletext/to-html";
 import { getSanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
 import type { action as sendBrevAction } from "~/routes/action-send-brev";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { getEnv } from "~/utils/env.utils";
 
 export function MeldingOmVedtak() {
   const { brevMal } = useLoaderData<typeof loader>();
@@ -50,20 +51,22 @@ export function MeldingOmVedtak() {
 
         <FritekstEditor />
 
-        <sendBrevFetcher.Form method="post" action="/action-send-brev">
-          <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
-          <input hidden={true} readOnly={true} name="brevHtml" value={brevHtml || ""} />
+        {getEnv("GCP_ENV") !== "prod" && (
+          <sendBrevFetcher.Form method="post" action="/action-send-brev">
+            <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
+            <input hidden={true} readOnly={true} name="brevHtml" value={brevHtml || ""} />
 
-          <Button
-            className="mt-4"
-            variant="primary"
-            size="small"
-            loading={sendBrevFetcher.state !== "idle"}
-            disabled={!brevHtml}
-          >
-            Send brev
-          </Button>
-        </sendBrevFetcher.Form>
+            <Button
+              className="mt-4"
+              variant="primary"
+              size="small"
+              loading={sendBrevFetcher.state !== "idle"}
+              disabled={!brevHtml}
+            >
+              Send brev
+            </Button>
+          </sendBrevFetcher.Form>
+        )}
       </div>
 
       {valgtBrevMal && (

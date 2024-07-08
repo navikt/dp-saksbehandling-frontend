@@ -12,17 +12,22 @@ import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: IOppgave[];
+  lasterOppgaver?: boolean;
   visNesteOppgaveKnapp?: boolean;
   visAntallOppgaver?: boolean;
 }
 
-export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver }: IProps) {
+export function OppgaveListe({
+  oppgaver,
+  visNesteOppgaveKnapp,
+  visAntallOppgaver,
+  lasterOppgaver,
+}: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
   useHandleAlertMessages(nesteFetcher.data);
 
-  const loading = state !== "idle";
   const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
@@ -50,8 +55,8 @@ export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver
 
         {visAntallOppgaver && (
           <Detail textColor="subtle" className={styles.antallOppgaver}>
-            {!loading && `Antall oppgaver ${oppgaver.length}`}
-            {loading && "Laster oppgaver..."}
+            {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
+            {lasterOppgaver && "Laster oppgaver..."}
           </Detail>
         )}
       </div>
@@ -106,56 +111,67 @@ export function OppgaveListe({ oppgaver, visNesteOppgaveKnapp, visAntallOppgaver
               : undefined;
 
             return (
-              <Table.Row
-                key={oppgave.oppgaveId}
-                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
-              >
-                <Table.DataCell
-                  className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
-                >
-                  {!loading && (
-                    <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
-                  )}
-                  {loading && <Skeleton variant="text" width={110} height={35} />}
-                </Table.DataCell>
+              <>
+                {lasterOppgaver && (
+                  <Table.Row>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={90} height={33} />
+                    </Table.DataCell>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={60} height={33} />
+                    </Table.DataCell>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={250} height={33} />
+                    </Table.DataCell>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={150} height={33} />
+                    </Table.DataCell>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={100} height={33} />
+                    </Table.DataCell>
+                    <Table.DataCell>
+                      <Skeleton variant="text" width={20} height={33} />
+                    </Table.DataCell>
+                  </Table.Row>
+                )}
 
-                <Table.DataCell>
-                  {!loading && <Detail>Søknad</Detail>}
-                  {loading && <Skeleton variant="text" width={80} height={35} />}
-                </Table.DataCell>
-                <Table.DataCell>
-                  {!loading && (
-                    <>
-                      {emneknagger.map((emneknagg) => (
-                        <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
-                          <Detail>{emneknagg}</Detail>
-                        </Tag>
-                      ))}
-                      {utsettTilDato && (
-                        <Tag className="mr-2" size={"xsmall"} variant="alt2">
-                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                        </Tag>
-                      )}
-                    </>
-                  )}
-                  {loading && <Skeleton variant="text" width={200} height={35} />}
-                </Table.DataCell>
+                {!lasterOppgaver && (
+                  <Table.Row
+                    key={oppgave.oppgaveId}
+                    className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
+                  >
+                    <Table.DataCell
+                      className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                    >
+                      <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
+                    </Table.DataCell>
 
-                <Table.DataCell>
-                  {!loading && <Detail>{getTilstandText(tilstand)}</Detail>}
-                  {loading && <Skeleton variant="text" width={150} height={35} />}
-                </Table.DataCell>
+                    <Table.DataCell>
+                      <Detail>Søknad</Detail>
+                    </Table.DataCell>
 
-                <Table.DataCell>
-                  {!loading && <Detail>{oppgave.saksbehandlerIdent}</Detail>}
-                  {loading && <Skeleton variant="text" width={100} height={35} />}
-                </Table.DataCell>
+                    <Table.DataCell>
+                      <>
+                        {emneknagger.map((emneknagg) => (
+                          <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
+                            <Detail>{emneknagg}</Detail>
+                          </Tag>
+                        ))}
 
-                <Table.DataCell>
-                  {!loading && <OppgaveListeValg oppgave={oppgave} />}
-                  {loading && <Skeleton variant="text" width={20} height={35} />}
-                </Table.DataCell>
-              </Table.Row>
+                        {utsettTilDato && (
+                          <Tag className="mr-2" size={"xsmall"} variant="alt2">
+                            <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                          </Tag>
+                        )}
+                      </>
+                    </Table.DataCell>
+
+                    <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
+                    <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
+                    <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+                  </Table.Row>
+                )}
+              </>
             );
           })}
         </Table.Body>

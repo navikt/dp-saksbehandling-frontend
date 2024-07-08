@@ -1,7 +1,6 @@
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
-import type { INetworkResponse } from "~/utils/types";
 import { handleErrorResponse } from "~/utils/error-response.server";
 
 export interface IBehandling {
@@ -55,40 +54,28 @@ export async function avbrytBehandling(
   request: Request,
   behandlingId: string,
   personIdent: string,
-): Promise<INetworkResponse> {
+): Promise<Response> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avbryt`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ ident: personIdent }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return { status: "success" };
 }
 
 export async function godkjennBehandling(
   request: Request,
   behandlingId: string,
   personIdent: string,
-): Promise<INetworkResponse> {
+): Promise<Response> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/godkjenn`;
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "POST",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ ident: personIdent }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return { status: "success" };
 }
