@@ -26,6 +26,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
     getAlertMessage({ name: "hent-neste-oppgave", httpCode: response.status }),
   );
 
+  if (response.status === 404) {
+    return redirect(`/`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
   return redirect(`/oppgave/${params.oppgaveId}`, {
     headers: {
       "Set-Cookie": await commitSession(session),
