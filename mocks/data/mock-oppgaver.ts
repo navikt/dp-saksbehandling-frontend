@@ -29,7 +29,12 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   person: mockPerson,
   saksbehandlerIdent: "ident456",
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS"],
+  emneknagger: [
+    "HattLukkedeSakerSiste8Uker",
+    "InntektNesteKalendermåned",
+    "JobbetUtenforNorge",
+    "Søknadsbehandling",
+  ],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["123"],
 };

@@ -153,13 +153,13 @@ export function OppgaveListe({
                     <Table.DataCell>
                       <>
                         {emneknagger.map((emneknagg) => (
-                          <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="alt1">
+                          <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
                             <Detail>{emneknagg}</Detail>
                           </Tag>
                         ))}
 
                         {utsettTilDato && (
-                          <Tag className="mr-2" size={"xsmall"} variant="alt2">
+                          <Tag className="mr-2" size={"xsmall"} variant="warning">
                             <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                           </Tag>
                         )}

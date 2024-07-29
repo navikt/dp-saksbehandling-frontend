@@ -15,6 +15,7 @@ import styles from "~/route-styles/oppgave.module.css";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { BehandlingHandlinger } from "~/components/behandling-handlinger/BehandlingHandlinger";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
+import { getEnv } from "~/utils/env.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -79,23 +80,27 @@ export default function Oppgave() {
             <div className={styles.tabMeny}>
               <Tabs.List>
                 <Tabs.Tab
-                  value="oversikt"
-                  label="Behandlingsoversikt"
-                  icon={<TasklistIcon />}
-                  onClick={() => navigate("oversikt")}
-                />
-                <Tabs.Tab
                   value="behandling"
                   label="Redigere opplysninger"
                   icon={<DocPencilIcon />}
                   onClick={() => navigate("")}
                 />
+
                 <Tabs.Tab
-                  value="melding-om-vedtak"
-                  label="Melding om vedtak"
-                  icon={<TasklistSendIcon />}
-                  onClick={() => navigate("melding-om-vedtak")}
+                  value="oversikt"
+                  label="Behandlingsoversikt"
+                  icon={<TasklistIcon />}
+                  onClick={() => navigate("oversikt")}
                 />
+
+                {getEnv("GCP_ENV") !== "prod" && (
+                  <Tabs.Tab
+                    value="melding-om-vedtak"
+                    label="Melding om vedtak"
+                    icon={<TasklistSendIcon />}
+                    onClick={() => navigate("melding-om-vedtak")}
+                  />
+                )}
               </Tabs.List>
               <OppgaveHandlinger />
               {oppgave.tilstand === "UNDER_BEHANDLING" && <BehandlingHandlinger />}
