@@ -166,7 +166,7 @@ export function OppgaveListe({
 
                         {oppgave.skjermesSomEgneAnsatte && (
                           <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>NAV Ansatt</Detail>
+                            <Detail>Egne ansatte</Detail>
                           </Tag>
                         )}
                       </>
