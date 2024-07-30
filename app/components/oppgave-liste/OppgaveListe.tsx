@@ -112,71 +112,77 @@ export function OppgaveListe({
 
             return (
               <>
-                {lasterOppgaver && (
-                  <Table.Row>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={90} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={60} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={250} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={150} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={100} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={20} height={33} />
-                    </Table.DataCell>
-                  </Table.Row>
-                )}
+                <Table.Row
+                  key={oppgave.oppgaveId}
+                  className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
+                >
+                  {lasterOppgaver && (
+                    <>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={90} height={33} />
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={60} height={33} />
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={250} height={33} />
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={150} height={33} />
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={100} height={33} />
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        <Skeleton variant="text" width={20} height={33} />
+                      </Table.DataCell>
+                    </>
+                  )}
 
-                {!lasterOppgaver && (
-                  <Table.Row
-                    key={oppgave.oppgaveId}
-                    className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
-                  >
-                    <Table.DataCell
-                      className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
-                    >
-                      <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
-                    </Table.DataCell>
+                  {!lasterOppgaver && (
+                    <>
+                      <Table.DataCell
+                        className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                      >
+                        <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Detail>Søknad</Detail>
-                    </Table.DataCell>
+                      <Table.DataCell>
+                        <Detail>Søknad</Detail>
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <>
-                        {emneknagger.map((emneknagg) => (
-                          <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
-                            <Detail>{emneknagg}</Detail>
-                          </Tag>
-                        ))}
+                      <Table.DataCell>
+                        <>
+                          {emneknagger.map((emneknagg) => (
+                            <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
+                              <Detail>{emneknagg}</Detail>
+                            </Tag>
+                          ))}
 
-                        {utsattTilDato && (
-                          <Tag className="mr-2" size={"xsmall"} variant="warning">
-                            <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                          </Tag>
-                        )}
+                          {utsattTilDato && (
+                            <Tag className="mr-2" size={"xsmall"} variant="warning">
+                              <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                            </Tag>
+                          )}
 
-                        {oppgave.skjermesSomEgneAnsatte && (
-                          <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>Egne ansatte</Detail>
-                          </Tag>
-                        )}
-                      </>
-                    </Table.DataCell>
+                          {oppgave.skjermesSomEgneAnsatte && (
+                            <Tag className="mr-2" size={"xsmall"} variant="error">
+                              <Detail>Egne ansatte</Detail>
+                            </Tag>
+                          )}
+                        </>
+                      </Table.DataCell>
 
-                    <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
-                  </Table.Row>
-                )}
+                      <Table.DataCell>
+                        {<Detail>{getTilstandText(tilstand)}</Detail>}
+                      </Table.DataCell>
+                      <Table.DataCell>
+                        {<Detail>{oppgave.saksbehandlerIdent}</Detail>}
+                      </Table.DataCell>
+                      <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+                    </>
+                  )}
+                </Table.Row>
               </>
             );
           })}
