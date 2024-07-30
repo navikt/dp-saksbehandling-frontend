@@ -163,6 +163,12 @@ export function OppgaveListe({
                             <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                           </Tag>
                         )}
+
+                        {oppgave.skjermesSomEgneAnsatte && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>NAV Ansatt</Detail>
+                          </Tag>
+                        )}
                       </>
                     </Table.DataCell>
 

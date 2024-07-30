@@ -13,6 +13,7 @@ export interface IOppgave {
   journalpostIder: string[];
   tilstand: IOppgaveTilstand;
   utsattTilDato?: string;
+  skjermesSomEgneAnsatte: boolean;
   emneknagger: string[];
 }
 

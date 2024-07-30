@@ -20,6 +20,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
   tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Konkurs Statoil"],
   journalpostIder: ["123456789"],
+  skjermesSomEgneAnsatte: false,
 };
 
 export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
@@ -37,6 +38,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   ],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["123"],
+  skjermesSomEgneAnsatte: false,
 };
 export const underBehandlingMinOppgave: IOppgave = {
   oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10456",
@@ -48,6 +50,7 @@ export const underBehandlingMinOppgave: IOppgave = {
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["123"],
+  skjermesSomEgneAnsatte: false,
 };
 export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10999",
@@ -59,6 +62,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["123"],
+  skjermesSomEgneAnsatte: true,
 };
 
 export const paaVentOppgave: IOppgave = {
@@ -72,6 +76,7 @@ export const paaVentOppgave: IOppgave = {
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "PAA_VENT",
   journalpostIder: ["123"],
+  skjermesSomEgneAnsatte: false,
 };
 
 export const mockOppgaver: IOppgave[] = [
