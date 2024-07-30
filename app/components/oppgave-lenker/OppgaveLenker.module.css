@@ -1,9 +1,8 @@
 .container {
-  margin: var(--a-spacing-4) 0;
+  margin: var(--a-spacing-4);
 }
 
-.container a {
-  padding: var(--a-spacing-2);
+.lenke {
   font-size: var(--a-font-size-medium);
-  margin-right: var(--a-spacing-1);
+  margin: var(--a-spacing-2) 0;
 }

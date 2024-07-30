@@ -1,6 +1,7 @@
 import { getEnv } from "~/utils/env.utils";
-import { Link } from "@navikt/ds-react";
+import { Detail, Link } from "@navikt/ds-react";
 import styles from "./OppgaveLenker.module.css";
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
 
 const lenker = [
   {
@@ -39,11 +40,11 @@ export function OppgaveLenker() {
       {lenker.map(
         (lenke) =>
           lenke.url && (
-            <div key={lenke.url}>
+            <div key={lenke.url} className={styles.lenke}>
               <Link href={lenke.url} target="_blank">
-                {lenke.text}
+                <Detail>{lenke.text}</Detail>
+                <ExternalLinkIcon />
               </Link>
-              (åpner i ny fane)
             </div>
           ),
       )}
