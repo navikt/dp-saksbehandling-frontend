@@ -19,6 +19,12 @@ export const alleredeTildeltAlert: IAlert = {
   body: "Oppgaven er allerede tildelt noen andre",
 };
 
+export const ikkeTilgangEgneAnsatteAlert: IAlert = {
+  variant: "warning",
+  title: "Kunne ikke tildele oppgaven 🙅",
+  body: "Du har ikke tilgang til å behandle egne ansatte.",
+};
+
 export const tomtForOppgaverAlert: IAlert = {
   variant: "success",
   title: "Ingen flere oppgaver 🎉",

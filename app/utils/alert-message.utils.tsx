@@ -6,6 +6,7 @@ import {
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
   getNesteOppgaveError,
+  ikkeTilgangEgneAnsatteAlert,
   leggTilbakeSuccessAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
@@ -103,6 +104,9 @@ export function handleTildelOppgaveMessages(httpCode: number): IAlert {
   switch (httpCode) {
     case 423:
       return alleredeTildeltAlert;
+
+    case 403:
+      return ikkeTilgangEgneAnsatteAlert;
 
     default:
       return {
