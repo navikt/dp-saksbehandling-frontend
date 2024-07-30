@@ -12,7 +12,7 @@ export interface IOppgave {
   tidspunktOpprettet: string;
   journalpostIder: string[];
   tilstand: IOppgaveTilstand;
-  utsettTilDato?: string;
+  utsattTilDato?: string;
   emneknagger: string[];
 }
 

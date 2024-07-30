@@ -104,10 +104,10 @@ export function OppgaveListe({
           )}
 
           {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand, emneknagger, utsettTilDato } = oppgave;
+            const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
             const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
-            const dagerIgjenTilUtsattDato = utsettTilDato
-              ? differenceInCalendarDays(utsettTilDato, new Date())
+            const dagerIgjenTilUtsattDato = utsattTilDato
+              ? differenceInCalendarDays(utsattTilDato, new Date())
               : undefined;
 
             return (
@@ -158,7 +158,7 @@ export function OppgaveListe({
                           </Tag>
                         ))}
 
-                        {utsettTilDato && (
+                        {utsattTilDato && (
                           <Tag className="mr-2" size={"xsmall"} variant="warning">
                             <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                           </Tag>
