@@ -24,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`/`, {
+  return redirect(`../neste-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

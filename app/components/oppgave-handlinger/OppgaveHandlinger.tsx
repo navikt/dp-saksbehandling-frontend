@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useNavigate } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
@@ -11,6 +11,7 @@ import styles from "./OppgaveHandlinger.module.css";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export function OppgaveHandlinger() {
+  const navigate = useNavigate();
   const utsettOppgaveFetcher = useFetcher<typeof utsettAction>();
   const leggTilbakeOppgaveFetcher = useFetcher<typeof leggTilbakeAction>();
   useHandleAlertMessages(utsettOppgaveFetcher.data);
@@ -20,10 +21,11 @@ export function OppgaveHandlinger() {
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   useEffect(() => {
-    if (utsettOppgaveFetcher.data) {
+    if (utsettOppgaveFetcher.data || leggTilbakeOppgaveFetcher.data) {
       ref.current?.close();
+      navigate("/");
     }
-  }, [utsettOppgaveFetcher.data]);
+  }, [utsettOppgaveFetcher.data, leggTilbakeOppgaveFetcher.data, navigate]);
 
   return (
     <div className={styles.container}>

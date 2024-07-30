@@ -30,7 +30,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`../neste-oppgave`, {
+  return redirect(`../fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

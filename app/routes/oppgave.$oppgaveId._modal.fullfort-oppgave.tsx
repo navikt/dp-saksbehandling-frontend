@@ -1,9 +1,11 @@
-import { Button, Heading, Modal } from "@navikt/ds-react";
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
+import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
+import { Form, useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
+import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { commitSession, getSession } from "~/sessions";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+import styles from "~/route-styles/oppgave.module.css";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
@@ -56,16 +58,31 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function NesteOppgave() {
   const fetcher = useFetcher<typeof action>();
   const { alert } = useLoaderData<typeof loader>();
+  const navigation = useNavigation();
 
   return (
     <>
-      <Modal.Header>
-        <Heading size="small">{alert?.title}</Heading>
+      <Modal.Header className={styles.modalCenterHeader}>
+        <Heading size={"medium"}>Fullført!</Heading>
       </Modal.Header>
+
+      <Modal.Body className={styles.modalBody}>
+        <KonfettiKanon />
+        <BodyShort>{alert?.title}</BodyShort>
+      </Modal.Body>
 
       <Modal.Footer>
         <RemixLink asButtonVariant={"secondary"} size="small" to={"/"}>
           Oppgaveliste
+        </RemixLink>
+
+        <RemixLink
+          asButtonVariant={"secondary"}
+          size="small"
+          to={"../kaffepause"}
+          loading={navigation.state === "loading"}
+        >
+          Kaffepause
         </RemixLink>
 
         <Form method="post">

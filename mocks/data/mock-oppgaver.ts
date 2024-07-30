@@ -12,7 +12,7 @@ export const mockPerson: IPerson = {
 };
 
 export const klarTilBehandlingOppgave: IOppgave = {
-  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10789",
+  oppgaveId: "018e8237-9df8-7ee4-94a6-317fada10789",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
@@ -24,7 +24,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
 };
 
 export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
-  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10987",
+  oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
@@ -41,7 +41,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
 };
 export const underBehandlingMinOppgave: IOppgave = {
-  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10456",
+  oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10456",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
@@ -53,7 +53,7 @@ export const underBehandlingMinOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
 };
 export const ferdigBehandletOppgave: IOppgave = {
-  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10999",
+  oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
@@ -66,7 +66,7 @@ export const ferdigBehandletOppgave: IOppgave = {
 };
 
 export const paaVentOppgave: IOppgave = {
-  oppgaveId: "018e3737-9df8-7ee4-94a6-317fada10741",
+  oppgaveId: "018e3737-9df8-7bb4-94a6-317fada10741",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   personIdent: "12837798289",
   person: mockPerson,
