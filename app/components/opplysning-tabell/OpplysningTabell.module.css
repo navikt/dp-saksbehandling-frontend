@@ -8,19 +8,34 @@
 
 .table tr td:nth-child(2) {
   width: 180px;
+  padding-right: var(--a-spacing-2);
 }
 
-.table tr td:nth-child(3) {
-  width: 70px;
+.table tr:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+.table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table td {
+  border-bottom: 0;
 }
 
 .container {
   display: flex;
+  margin-bottom: var(--a-spacing-4);
+  height: 100%;
 }
 
 .sidebar {
-  width: 30rem;
-  border-right: 1px solid var(--a-surface-neutral-moderate);
+  width: 260px;
+  border-right: 1px solid var(--a-border-subtle);
+}
+
+.content {
+  flex: 1;
 }
 
 .kategoriHeader {
@@ -34,7 +49,7 @@
 }
 
 .active::before {
-  content: '';
+  content: "";
   position: absolute;
   display: inline-block;
   left: -4;
@@ -44,6 +59,7 @@
   transform: translateX(-100%);
   background-color: var(--a-surface-action-selected);
 }
+
 .circleIcon {
   margin-left: var(--a-spacing-2);
   color: var(--a-surface-warning-moderate);

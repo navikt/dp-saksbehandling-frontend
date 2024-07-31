@@ -34,10 +34,8 @@ export function OpplysningTabellSidebar({ kategori, onChange, kategorier }: IPro
   }
 
   return (
-    <div>
-      <List as="ul" className={styles.categoryList}>
-        {items}
-      </List>
-    </div>
+    <List as="ul" className={styles.categoryList}>
+      {items}
+    </List>
   );
 }

@@ -36,8 +36,8 @@ export function OpplysningTabell(props: IProps) {
         <div className={styles.kategoriHeader}>
           <h1>{opplysningsMap[selectedKategori].header}</h1>
           <p>{opplysningsMap[selectedKategori].description}</p>
-          <Table className={classNames("kompakt-tabell", styles.table)}>
-            <tbody>
+          <Table className={classNames("kompakt-tabell", styles.table)} zebraStripes={true}>
+            <Table.Body>
               {filteredOpplysning.map((opplysning) => (
                 <OpplysningTabellLinje
                   key={opplysning.navn}
@@ -45,7 +45,7 @@ export function OpplysningTabell(props: IProps) {
                   readonly={props.readonly}
                 />
               ))}
-            </tbody>
+            </Table.Body>
           </Table>
         </div>
       </div>
