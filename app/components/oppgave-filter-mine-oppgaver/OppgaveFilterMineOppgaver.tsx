@@ -17,7 +17,7 @@ export function OppgaveFilterMineOppgaver() {
   return (
     <div>
       <Detail textColor="subtle">Mine oppgaver</Detail>
-      <CheckboxGroup legend="" size="small" className={"kompakt-checkbox"}>
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
         <Checkbox
           name="mineOppgaver"
           value="true"

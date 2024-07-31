@@ -11,18 +11,6 @@
   padding-right: var(--a-spacing-2);
 }
 
-.table tr:nth-child(even) {
-  background-color: #f8f9fc;
-}
-
-.table tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.table td {
-  border-bottom: 0;
-}
-
 .container {
   display: flex;
   margin-bottom: var(--a-spacing-4);
@@ -36,28 +24,18 @@
 
 .content {
   flex: 1;
-}
-
-.kategoriHeader {
-  padding: 0 var(--a-spacing-4);
+  padding: var(--a-spacing-4);
 }
 
 .active {
   position: relative;
   cursor: pointer;
   background-color: var(--a-bg-subtle);
+  box-shadow: 4px 0 0 0 inset var(--a-border-action-selected);
 }
 
-.active::before {
-  content: "";
-  position: absolute;
-  display: inline-block;
-  left: -4;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  transform: translateX(-100%);
-  background-color: var(--a-surface-action-selected);
+.opplysningKategoriBody {
+  margin: var(--a-spacing-4) 0 var(--a-spacing-6);
 }
 
 .circleIcon {

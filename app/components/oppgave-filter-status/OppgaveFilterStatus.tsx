@@ -25,7 +25,7 @@ export function OppgaveFilterStatus() {
   return (
     <div>
       <Detail textColor="subtle">Status</Detail>
-      <CheckboxGroup legend="" size="small" className={"kompakt-checkbox"}>
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
         {statuser.map((status) => (
           <Checkbox
             name="tilstand"

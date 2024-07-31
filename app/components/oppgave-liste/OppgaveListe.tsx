@@ -62,10 +62,9 @@ export function OppgaveListe({
       </div>
 
       <Table
-        zebraStripes={true}
         sort={sortState}
         size="small"
-        className={classnames(styles.oppgaveListe)}
+        className={classnames("table--subtle-zebra", styles.oppgaveListe)}
         onSortChange={(sortKey) => sortKey && handleSort(sortKey)}
       >
         <Table.Header>

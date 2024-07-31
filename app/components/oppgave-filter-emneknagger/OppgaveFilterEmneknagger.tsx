@@ -29,7 +29,7 @@ export function OppgaveFilterEmneknagger() {
   return (
     <div>
       <Detail textColor="subtle">Emneknagger</Detail>
-      <CheckboxGroup legend="" size="small" className={"kompakt-checkbox"}>
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
         {emneknagger.map((emneknagg) => (
           <Checkbox
             key={emneknagg}

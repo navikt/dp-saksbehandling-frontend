@@ -29,7 +29,7 @@ export function OppgaveFilterType() {
   return (
     <div>
       <Detail textColor="subtle">Oppgavetype</Detail>
-      <CheckboxGroup className="kompakt-checkbox" size="small" legend={""}>
+      <CheckboxGroup className="checkbox--compact" size="small" legend={""}>
         {oppgavetyper.map((type) => (
           <Checkbox
             key={type}

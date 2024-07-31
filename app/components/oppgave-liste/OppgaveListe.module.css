@@ -25,7 +25,7 @@
 }
 
 .valgtOppgaveBorder {
-  border-left: 10px solid var(--a-border-action-selected);
+  border-left: 4px solid var(--a-border-action-selected);
   border-top-left-radius: var(--a-border-radius-small);
   border-bottom-left-radius: var(--a-border-radius-small);
 }
