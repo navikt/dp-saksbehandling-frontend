@@ -25,6 +25,16 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
         />
       );
 
+    case "penger":
+      return (
+        <OpplysningDouble
+          label={label}
+          readonly={readonly}
+          opplysning={opplysning}
+          className={className}
+        />
+      );
+
     case "desimaltall":
       return (
         <OpplysningDouble
