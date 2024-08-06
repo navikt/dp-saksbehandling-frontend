@@ -2,8 +2,31 @@
   width: 210mm; /* A4 bredde */
   height: 297mm; /* A4 høyde */
   padding: 20mm;
+
   box-shadow: var(--a-shadow-xsmall);
   background-color: white;
   overflow: scroll;
   page-break-after: always;
+
+  font-family: "Times New Roman", serif;
+  font-size: 12pt;
+}
+
+.header {
+  margin-bottom: 20mm;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header p {
+  font-family: "Times New Roman", serif;
+  font-size: 12pt;
+}
+
+.header svg {
+  right: 0;
+  top: 0;
+  color: var(--a-nav-red);
 }
