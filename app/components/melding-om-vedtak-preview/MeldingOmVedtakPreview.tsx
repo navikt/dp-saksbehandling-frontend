@@ -5,6 +5,8 @@ import styles from "./MeldingOmVedtakPreview.module.css";
 import type { IBehandling } from "~/models/behandling.server";
 import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { format } from "date-fns";
+import { nb } from "date-fns/locale";
 
 interface IProps {
   brevMal: ISanityBrevMal;
@@ -19,14 +21,17 @@ export function MeldingOmVedtakPreview(props: IProps) {
   return (
     <div className={styles.preview}>
       <div className={styles.header}>
-        <div>
-          <Detail>
-            {`Navn: ${oppgave.person.fornavn} ${oppgave.person.mellomnavn ?? ""} ${oppgave.person.etternavn}`}
-          </Detail>
-          <Detail>{`Fødselsnummer: ${oppgave.person.ident}`}</Detail>
-          <Detail>{`Fagsak Id: ${fagsakId}`}</Detail>
-        </div>
         <NavLogo />
+
+        <Detail>
+          {`Navn: ${oppgave.person.fornavn} ${oppgave.person.mellomnavn ?? ""} ${oppgave.person.etternavn}`}
+        </Detail>
+        <Detail>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</Detail>
+
+        <div className={styles.saksnummerDato}>
+          <Detail>{`Saksnummer: ${fagsakId}`}</Detail>
+          <Detail>{format(new Date(), "d. MMMM yyyy", { locale: nb })}</Detail>
+        </div>
       </div>
 
       {props.brevMal?.brevBlokker.map((brevBlokk) => (
@@ -43,8 +48,8 @@ export function MeldingOmVedtakPreview(props: IProps) {
 function NavLogo() {
   return (
     <svg
-      // width="100%"
-      height="80px"
+      className={styles.logo}
+      height="46px"
       viewBox="0 0 151 95"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

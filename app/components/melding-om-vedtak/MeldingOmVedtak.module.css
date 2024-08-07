@@ -1,8 +1,18 @@
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: var(--a-spacing-4);
   padding: var(--a-spacing-4);
+}
+
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  padding: var(--a-spacing-4) 0;
+  margin-top: calc(var(--a-spacing-4) * -1);
+  margin-right: calc(var(--a-spacing-4) * -1);
+  margin-bottom: calc(var(--a-spacing-4) * -1);
+  background-color: var(--a-gray-800);
 }
 
 .preview {
@@ -11,6 +21,5 @@
   padding: 20mm;
   box-shadow: var(--a-shadow-xsmall);
   background-color: white;
-  overflow: scroll;
   page-break-after: always;
 }

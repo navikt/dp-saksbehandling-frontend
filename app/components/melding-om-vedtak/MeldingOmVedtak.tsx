@@ -1,4 +1,4 @@
-import { Button, Select } from "@navikt/ds-react";
+import { Button, Detail, Select } from "@navikt/ds-react";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
 import styles from "./MeldingOmVedtak.module.css";
@@ -51,13 +51,16 @@ export function MeldingOmVedtak() {
 
         <FritekstEditor />
 
+        <Detail className="my-4" textColor="subtle">
+          Meldingen blir sendt til bruker når vedtaket er fattet.
+        </Detail>
+
         {getEnv("GCP_ENV") !== "prod" && (
           <sendBrevFetcher.Form method="post" action="/action-send-brev">
             <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
             <input hidden={true} readOnly={true} name="brevHtml" value={brevHtml || ""} />
 
             <Button
-              className="mt-4"
               variant="primary"
               size="small"
               loading={sendBrevFetcher.state !== "idle"}
@@ -70,11 +73,13 @@ export function MeldingOmVedtak() {
       </div>
 
       {valgtBrevMal && (
-        <MeldingOmVedtakPreview
-          brevMal={valgtBrevMal}
-          behandling={behandling}
-          fritekst={fritekst}
-        />
+        <div className={styles.previewContainer}>
+          <MeldingOmVedtakPreview
+            brevMal={valgtBrevMal}
+            behandling={behandling}
+            fritekst={fritekst}
+          />
+        </div>
       )}
     </div>
   );

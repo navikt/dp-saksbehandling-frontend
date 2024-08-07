@@ -1,32 +1,49 @@
 .preview {
   width: 210mm; /* A4 bredde */
   height: 297mm; /* A4 høyde */
-  padding: 20mm;
+  padding: 25mm;
 
-  box-shadow: var(--a-shadow-xsmall);
+  box-shadow: var(--a-shadow-medium);
   background-color: white;
   overflow: scroll;
   page-break-after: always;
 
-  font-family: "Times New Roman", serif;
+  font-family:
+    Source Sans Pro,
+    sans-serif;
   font-size: 12pt;
+}
+
+.preview h1 {
+  font-size: 18pt;
+}
+
+.preview h2 {
+  font-size: 16pt;
+}
+
+.preview h3 {
+  font-size: 14pt;
+}
+
+.preview p {
+  font-size: 12pt;
+}
+
+.logo {
+  color: var(--a-nav-red);
+  margin-bottom: 36pt;
 }
 
 .header {
-  margin-bottom: 20mm;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 40pt;
 }
 
 .header p {
-  font-family: "Times New Roman", serif;
-  font-size: 12pt;
+  margin-bottom: 4pt;
 }
 
-.header svg {
-  right: 0;
-  top: 0;
-  color: var(--a-nav-red);
+.saksnummerDato {
+  display: flex;
+  justify-content: space-between;
 }
