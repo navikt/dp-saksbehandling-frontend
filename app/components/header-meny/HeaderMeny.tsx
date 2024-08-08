@@ -2,9 +2,8 @@ import { NavLink } from "@remix-run/react";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { PersonSok } from "../person-sok/PersonSok";
-import styles from "./HeaderMeny.module.css";
 import classnames from "classnames";
-import { Detail } from "@navikt/ds-react";
+import styles from "./HeaderMeny.module.css";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
@@ -23,6 +22,7 @@ export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps)
         >
           Oppgaver til behandling
         </NavLink>
+
         <NavLink
           to={"/mine-oppgaver"}
           className={({ isActive }) =>
@@ -31,9 +31,7 @@ export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps)
         >
           Mine oppgaver
           {antallJegHarTilBehandling > 0 && (
-            <Detail className={styles.antallOppgaverTilBehandling}>
-              {antallJegHarTilBehandling}
-            </Detail>
+            <span className={styles.antallOppgaverTilBehandling}>{antallJegHarTilBehandling}</span>
           )}
         </NavLink>
 

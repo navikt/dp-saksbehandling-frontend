@@ -53,6 +53,8 @@
   justify-content: center;
   align-items: center;
 
+  font-size: var(--a-font-size-small);
+
   margin-left: var(--a-spacing-2);
   width: 22px;
   height: 22px;
