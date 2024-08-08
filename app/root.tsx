@@ -20,6 +20,7 @@ import globalCss from "~/global.css?url";
 import styles from "~/route-styles/root.module.css";
 import { AlertProvider } from "~/context/alert-context";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
+import { hentOppgaver } from "~/models/oppgave.server";
 
 export function meta() {
   return [
@@ -68,9 +69,14 @@ export function links() {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
+  const mineOppgaverTilBehandling = await hentOppgaver(
+    request,
+    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
+  );
 
   return json({
     saksbehandler: saksbehandler,
+    antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
@@ -88,7 +94,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler } = useLoaderData<typeof loader>();
+  const { env, saksbehandler, antallJegHarTilBehandling } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -104,7 +110,10 @@ export default function App() {
             </InternalHeader.Title>
           </Link>
 
-          <HeaderMeny saksbehandler={saksbehandler} />
+          <HeaderMeny
+            saksbehandler={saksbehandler}
+            antallJegHarTilBehandling={antallJegHarTilBehandling}
+          />
         </InternalHeader>
 
         <AlertProvider>

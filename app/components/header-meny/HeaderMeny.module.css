@@ -47,3 +47,16 @@
 .user button {
   height: 100%;
 }
+
+.antallOppgaverTilBehandling {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: var(--a-spacing-2);
+  width: 22px;
+  height: 22px;
+
+  background-color: var(--a-red-400);
+  border-radius: var(--a-border-radius-full);
+}
