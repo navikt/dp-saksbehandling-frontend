@@ -1,0 +1,29 @@
+import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
+import { handleErrorResponse } from "~/utils/error-response.server";
+
+export interface IStatistikk {
+  dag: number;
+  uke: number;
+  totalt: number;
+}
+
+export async function hentStatistikkForSaksbehandler(request: Request): Promise<IStatistikk> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/statistikk`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
+}

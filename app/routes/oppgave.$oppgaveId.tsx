@@ -15,6 +15,8 @@ import { BehandlingHandlinger } from "~/components/behandling-handlinger/Behandl
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { getEnv } from "~/utils/env.utils";
 import styles from "~/route-styles/oppgave.module.css";
+import { commitSession, getSession } from "~/sessions";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -28,19 +30,31 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     );
   }
 
+  const session = await getSession(request.headers.get("Cookie"));
+  const alert = session.get("alert");
+
   const journalposterPromises = hentJournalposter();
-  return defer({
-    oppgave,
-    behandling,
-    oppgaverForPerson,
-    journalposterPromises,
-  });
+  return defer(
+    {
+      alert,
+      oppgave,
+      behandling,
+      oppgaverForPerson,
+      journalposterPromises,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    },
+  );
 }
 
 export default function Oppgave() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { oppgave, oppgaverForPerson } = useLoaderData<typeof loader>();
+  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
+  useHandleAlertMessages(alert);
 
   function getSelectedTab() {
     if (location.pathname.includes("melding-om-vedtak")) {

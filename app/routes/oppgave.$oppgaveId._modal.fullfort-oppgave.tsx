@@ -1,4 +1,4 @@
-import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
+import { BodyLong, BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
@@ -9,6 +9,7 @@ import styles from "~/route-styles/oppgave.module.css";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
+import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const response = await hentNesteOppgave(request);
@@ -42,11 +43,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const statistikk = await hentStatistikkForSaksbehandler(request);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return json(
-    { alert },
+    { alert, statistikk },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -57,7 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function NesteOppgave() {
   const fetcher = useFetcher<typeof action>();
-  const { alert } = useLoaderData<typeof loader>();
+  const { alert, statistikk } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
 
   return (
@@ -69,6 +71,15 @@ export default function NesteOppgave() {
       <Modal.Body className={styles.modalBody}>
         <KonfettiKanon />
         <BodyShort>{alert?.title}</BodyShort>
+        <div className={styles.modalStatistikk}>
+          <span className={styles.modalIcon}>📊</span>
+          <BodyLong>
+            Du har behandlet{" "}
+            <b>{`${statistikk.dag} ${statistikk.dag === 1 ? "oppgave" : "oppgaver"}`}</b> i dag og
+            totalt <b>{`${statistikk.uke} ${statistikk.uke === 1 ? "oppgave" : "oppgaver"}`}</b>{" "}
+            denne uken.
+          </BodyLong>
+        </div>
       </Modal.Body>
 
       <Modal.Footer>

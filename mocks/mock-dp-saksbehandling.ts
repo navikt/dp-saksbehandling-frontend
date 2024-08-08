@@ -109,4 +109,11 @@ export const mockDpSaksbehandling = [
       status: 202,
     });
   }),
+
+  // Hent neste oppgave og tildel denne til saksbehandler
+  http.get(`${process.env.DP_SAKSBEHANDLING_URL}/statistikk`, () => {
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/statistikk`);
+
+    return HttpResponse.json({ dag: 4, uke: 12, totalt: 623 });
+  }),
 ];

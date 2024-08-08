@@ -39,3 +39,19 @@
   align-items: center;
   flex-direction: column;
 }
+
+.modalStatistikk {
+  display: flex;
+  align-items: center;
+
+  padding: var(--a-spacing-2);
+  margin-top: var(--a-spacing-2);
+
+  border: 2px dashed var(--a-border-subtle);
+  border-radius: var(--a-border-radius-large);
+}
+
+.modalIcon {
+  margin-right: var(--a-spacing-4);
+  font-size: var(--a-font-size-heading-large);
+}
