@@ -41,7 +41,7 @@ export default function GodkjennBehandling() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const isSubmitting = navigation.state !== "idle";
 
   return (
     <>
