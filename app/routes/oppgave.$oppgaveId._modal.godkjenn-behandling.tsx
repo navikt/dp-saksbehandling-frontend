@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/node";
 import { godkjennBehandling } from "~/models/behandling.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
-import { Form, useNavigate } from "@remix-run/react";
+import { Form, useNavigate, useNavigation } from "@remix-run/react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { commitSession, getSession } from "~/sessions";
 
@@ -40,6 +40,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export default function GodkjennBehandling() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <>
@@ -60,7 +62,7 @@ export default function GodkjennBehandling() {
           <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
           <input hidden={true} readOnly={true} name="personIdent" value={oppgave.personIdent} />
 
-          <Button size="small" variant="primary">
+          <Button size="small" variant="primary" disabled={isSubmitting}>
             Ja
           </Button>
         </Form>
