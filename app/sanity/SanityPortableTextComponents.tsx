@@ -4,6 +4,8 @@ import type { IBehandling } from "~/models/behandling.server";
 import { renderToString } from "react-dom/server";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
@@ -59,5 +61,12 @@ function BehandlingOpplysningReference(
     throw new Error(`Opplysning for "${props.value?.behandlingOpplysning?.textId}" ikke funnet`);
   }
 
-  return <span>{opplysning.verdi}</span>;
+  switch (props.value?.behandlingOpplysning.type) {
+    case "penger":
+      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</span>;
+    case "dato":
+      return <span>{formaterNorskDato(opplysning.verdi)}</span>;
+    default:
+      return <span>{opplysning.verdi}</span>;
+  }
 }
