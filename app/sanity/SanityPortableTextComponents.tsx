@@ -3,22 +3,20 @@ import type { PropsWithChildren } from "react";
 import type { IBehandling } from "~/models/behandling.server";
 import { renderToString } from "react-dom/server";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: true,
 ): PortableTextHtmlComponents;
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: false,
 ): PortableTextComponents;
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: boolean,
 ): PortableTextComponents | PortableTextHtmlComponents {
   if (asHtmlString) {
@@ -26,8 +24,6 @@ export function getSanityPortableTextComponents(
       types: {
         opplysningReference: ({ value }: any) =>
           renderToString(<BehandlingOpplysningReference value={value} behandling={behandling} />),
-        fritekst: ({ value }: any) =>
-          renderToString(<Fritekst value={value} fritekst={fritekst} />),
       },
     };
   }
@@ -37,13 +33,12 @@ export function getSanityPortableTextComponents(
       opplysningReference: ({ value }: any) => (
         <BehandlingOpplysningReference value={value} behandling={behandling} />
       ),
-      fritekst: ({ value }: any) => <Fritekst value={value} fritekst={fritekst} />,
     },
   };
 }
 
-function Fritekst(props: PropsWithChildren<{ value: any; fritekst: string }>) {
-  const paragrafer = props.fritekst.split(/\n+/);
+export function UtvidetBeskrivelse(utvidetBeskrivelse: IUtvidetBeskrivelse) {
+  const paragrafer = utvidetBeskrivelse.text.split(/\n+/);
   return (
     <>
       {paragrafer.map((paragraf, index) => (

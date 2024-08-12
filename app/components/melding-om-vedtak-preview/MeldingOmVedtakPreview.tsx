@@ -1,22 +1,19 @@
 import { PortableText } from "@portabletext/react";
-import { getSanityPortableTextComponents } from "~/sanity/SanityPortableTextComponents";
-import type { ISanityBrevMal } from "~/sanity/sanity-types";
+import {
+  getSanityPortableTextComponents,
+  UtvidetBeskrivelse,
+} from "~/sanity/SanityPortableTextComponents";
 import styles from "./MeldingOmVedtakPreview.module.css";
-import type { IBehandling } from "~/models/behandling.server";
 import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
+import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 
-interface IProps {
-  brevMal: ISanityBrevMal;
-  fritekst: string;
-  behandling: IBehandling;
-}
-
-export function MeldingOmVedtakPreview(props: IProps) {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const fagsakId = props.behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
+export function MeldingOmVedtakPreview() {
+  const { valgtBrevMal, utvidetBeskrivelser } = useMeldingOmVedtakTekst();
+  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
   return (
     <div className={styles.preview}>
@@ -34,12 +31,20 @@ export function MeldingOmVedtakPreview(props: IProps) {
         </div>
       </div>
 
-      {props.brevMal?.brevBlokker.map((brevBlokk) => (
-        <PortableText
-          key={brevBlokk.textId}
-          value={brevBlokk.innhold}
-          components={getSanityPortableTextComponents(props.behandling, props.fritekst, false)}
-        />
+      {valgtBrevMal?.brevBlokker.map((brevBlokk) => (
+        <div key={brevBlokk.textId}>
+          <PortableText
+            value={brevBlokk.innhold}
+            components={getSanityPortableTextComponents(behandling, false)}
+          />
+
+          {brevBlokk.utvidetBeskrivelse && (
+            <UtvidetBeskrivelse
+              id={brevBlokk.textId}
+              text={utvidetBeskrivelser.find((ub) => ub.id === brevBlokk.textId)?.text || ""}
+            />
+          )}
+        </div>
       ))}
     </div>
   );
