@@ -13,7 +13,6 @@ export function PersonBoks({ person }: IProps) {
   const utviklerinformasjon = {
     oppgaveId: oppgave.oppgaveId,
     behandlingId: behandling.behandlingId,
-    personIdent: oppgave.personIdent,
     saksbehandlerIdent: oppgave.saksbehandlerIdent,
   };
 
