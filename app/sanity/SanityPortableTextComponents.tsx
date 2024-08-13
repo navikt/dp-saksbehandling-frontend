@@ -66,6 +66,8 @@ function BehandlingOpplysningReference(
       return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</span>;
     case "dato":
       return <span>{formaterNorskDato(opplysning.verdi)}</span>;
+    case "grunnbelop":
+      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} G</span>;
     default:
       return <span>{opplysning.verdi}</span>;
   }
