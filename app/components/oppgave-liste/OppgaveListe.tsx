@@ -168,6 +168,23 @@ export function OppgaveListe({
                             <Detail>Egne ansatte</Detail>
                           </Tag>
                         )}
+                        {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Fortrolig</Detail>
+                          </Tag>
+                        )}
+
+                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Strengt fortrolig</Detail>
+                          </Tag>
+                        )}
+
+                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Strengt fortrolig utland</Detail>
+                          </Tag>
+                        )}
                       </>
                     </Table.DataCell>
 
