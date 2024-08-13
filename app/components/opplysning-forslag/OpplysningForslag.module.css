@@ -7,11 +7,11 @@
   padding: var(--a-spacing-4) 0;
 }
 
-.approved td {
+.approved th {
   background-color: var(--a-green-100);
 }
 
-.denied td {
+.denied th {
   background-color: var(--a-red-100);
 }
 
