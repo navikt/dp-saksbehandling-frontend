@@ -3,6 +3,17 @@ import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 
+export interface IPerson {
+  ident: string;
+  fornavn: string;
+  etternavn: string;
+  mellomnavn?: string;
+  kjonn: "MANN" | "KVINNE" | "UKJENT";
+  fodselsdato: string;
+  alder: number;
+  statsborgerskap: string;
+}
+
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
@@ -14,18 +25,12 @@ export interface IOppgave {
   tilstand: IOppgaveTilstand;
   utsattTilDato?: string;
   skjermesSomEgneAnsatte: boolean;
+  adressebeskyttelseGradering:
+    | "UGRADERT"
+    | "FORTROLIG"
+    | "STRENGT_FORTROLIG"
+    | "STRENGT_FORTROLIG_UTLAND";
   emneknagger: string[];
-}
-
-export interface IPerson {
-  ident: string;
-  fornavn: string;
-  etternavn: string;
-  mellomnavn?: string;
-  kjonn: "MANN" | "KVINNE" | "UKJENT";
-  fodselsdato: string;
-  alder: number;
-  statsborgerskap: string;
 }
 
 export type IOppgaveTilstand =
