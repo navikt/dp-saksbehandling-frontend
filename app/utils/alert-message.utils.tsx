@@ -6,7 +6,11 @@ import {
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
   getNesteOppgaveError,
+  ikkeTilgangAlert,
   ikkeTilgangEgneAnsatteAlert,
+  ikkeTilgangFortroligAlert,
+  ikkeTilgangStrengtFortroligAlert,
+  ikkeTilgangStrengtFortroligUtlandAlert,
   leggTilbakeSuccessAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
@@ -100,13 +104,29 @@ export function handleNesteOppgaveMessages(httpCode: number): IAlert {
   }
 }
 
-export function handleTildelOppgaveMessages(httpCode: number): IAlert {
+export function handleTildelOppgaveMessages(httpCode: number, ikkeTilgangVariant?: string): IAlert {
   switch (httpCode) {
     case 423:
       return alleredeTildeltAlert;
 
     case 403:
-      return ikkeTilgangEgneAnsatteAlert;
+      if (ikkeTilgangVariant === "egne-ansatte") {
+        return ikkeTilgangEgneAnsatteAlert;
+      }
+
+      if (ikkeTilgangVariant === "fortrolig") {
+        return ikkeTilgangFortroligAlert;
+      }
+
+      if (ikkeTilgangVariant === "strengt-fortrolig") {
+        return ikkeTilgangStrengtFortroligAlert;
+      }
+
+      if (ikkeTilgangVariant === "strengt-fortrolig-utland") {
+        return ikkeTilgangStrengtFortroligUtlandAlert;
+      }
+
+      return ikkeTilgangAlert;
 
     default:
       return {

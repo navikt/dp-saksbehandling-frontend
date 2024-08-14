@@ -3,7 +3,8 @@ import { json, redirect } from "@remix-run/node";
 import type { IOppgave } from "~/models/oppgave.server";
 import { tildelOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
-import { getAlertMessage } from "~/utils/alert-message.utils";
+import { handleTildelOppgaveMessages } from "~/utils/alert-message.utils";
+import type { IHttpProblem } from "~/utils/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -21,7 +22,14 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-  const alert = getAlertMessage({ name: "tildel-oppgave", httpCode: response.status });
 
+  const httpProblem: IHttpProblem = await response.json();
+  if (httpProblem.status === 403) {
+    const ikkeTilgangVariant = httpProblem.type.split(":")[3];
+    const alert = handleTildelOppgaveMessages(httpProblem.status, ikkeTilgangVariant);
+    return json(alert);
+  }
+
+  const alert = handleTildelOppgaveMessages(httpProblem.status);
   return json(alert);
 }
