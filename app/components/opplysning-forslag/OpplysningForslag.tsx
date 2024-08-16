@@ -68,28 +68,11 @@ export function OpplysningForslag(props: IProps) {
             <Table.DataCell>{kravTilInntekt?.verdi === "true" ? "Ja" : "Nei"}</Table.DataCell>
             <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-          {/* <Table.Row>
-            <Table.HeaderCell scope="row">§4-2 Opphold i Norge</Table.HeaderCell>
-            <Table.DataCell>Nei</Table.DataCell>
-            <Table.DataCell>Søknad</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">§4-8 Meldeplikt og møteplikt</Table.HeaderCell>
-            <Table.DataCell>Nei</Table.DataCell>
-            <Table.DataCell>Søknad</Table.DataCell>
-          </Table.Row> */}
           <Table.Row>
             <Table.HeaderCell scope="row">§4-Reel arbeidssøker</Table.HeaderCell>
             <Table.DataCell>{kravTilArbeidssoker?.verdi === "true" ? "Ja" : "Nei"}</Table.DataCell>
             <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-          {/* <Table.Row>
-            <Table.HeaderCell scope="row">
-              §4-3 Tap av arbeidstid og arbeidsinntekt
-            </Table.HeaderCell>
-            <Table.DataCell>Nei</Table.DataCell>
-            <Table.DataCell>Søknad</Table.DataCell>
-          </Table.Row> */}
           <Table.Row>
             <Table.HeaderCell scope="row">§3A-1 Søknadstidspunkt</Table.HeaderCell>
             <Table.DataCell>
