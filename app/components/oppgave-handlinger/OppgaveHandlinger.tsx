@@ -56,7 +56,7 @@ export function OppgaveHandlinger() {
               <utsettOppgaveFetcher.Form method="post" action="/action-utsett-oppgave">
                 <DatePicker.Standalone
                   onSelect={(dato) => setUtsattTilDato(dato)}
-                  fromDate={new Date()}
+                  fromDate={add(new Date(), { days: 1 })}
                   toDate={add(new Date(), { days: 19 })}
                 />
                 <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />

@@ -16,7 +16,7 @@ import { getEnv } from "~/utils/env.utils";
 export function MeldingOmVedtak() {
   const { brevMal } = useLoaderData<typeof loader>();
   const { behandling, oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { valgtBrevMal, setValgtBrevMal, fritekst } = useMeldingOmVedtakTekst();
+  const { valgtBrevMal, setValgtBrevMal } = useMeldingOmVedtakTekst();
 
   const sendBrevFetcher = useFetcher<typeof sendBrevAction>();
   useHandleAlertMessages(sendBrevFetcher.data);
@@ -29,7 +29,7 @@ export function MeldingOmVedtak() {
   const brevHtml = valgtBrevMal?.brevBlokker
     .map((blokk) =>
       toHTML(blokk.innhold, {
-        components: getSanityPortableTextComponents(behandling, fritekst, true),
+        components: getSanityPortableTextComponents(behandling, true),
       }),
     )
     .join("");
@@ -74,11 +74,7 @@ export function MeldingOmVedtak() {
 
       {valgtBrevMal && (
         <div className={styles.previewContainer}>
-          <MeldingOmVedtakPreview
-            brevMal={valgtBrevMal}
-            behandling={behandling}
-            fritekst={fritekst}
-          />
+          <MeldingOmVedtakPreview />
         </div>
       )}
     </div>

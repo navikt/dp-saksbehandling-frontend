@@ -3,22 +3,22 @@ import type { PropsWithChildren } from "react";
 import type { IBehandling } from "~/models/behandling.server";
 import { renderToString } from "react-dom/server";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: true,
 ): PortableTextHtmlComponents;
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: false,
 ): PortableTextComponents;
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
-  fritekst: string,
   asHtmlString: boolean,
 ): PortableTextComponents | PortableTextHtmlComponents {
   if (asHtmlString) {
@@ -26,8 +26,6 @@ export function getSanityPortableTextComponents(
       types: {
         opplysningReference: ({ value }: any) =>
           renderToString(<BehandlingOpplysningReference value={value} behandling={behandling} />),
-        fritekst: ({ value }: any) =>
-          renderToString(<Fritekst value={value} fritekst={fritekst} />),
       },
     };
   }
@@ -37,13 +35,12 @@ export function getSanityPortableTextComponents(
       opplysningReference: ({ value }: any) => (
         <BehandlingOpplysningReference value={value} behandling={behandling} />
       ),
-      fritekst: ({ value }: any) => <Fritekst value={value} fritekst={fritekst} />,
     },
   };
 }
 
-function Fritekst(props: PropsWithChildren<{ value: any; fritekst: string }>) {
-  const paragrafer = props.fritekst.split(/\n+/);
+export function UtvidetBeskrivelse(utvidetBeskrivelse: IUtvidetBeskrivelse) {
+  const paragrafer = utvidetBeskrivelse.text.split(/\n+/);
   return (
     <>
       {paragrafer.map((paragraf, index) => (
@@ -64,5 +61,14 @@ function BehandlingOpplysningReference(
     throw new Error(`Opplysning for "${props.value?.behandlingOpplysning?.textId}" ikke funnet`);
   }
 
-  return <span>{opplysning.verdi}</span>;
+  switch (props.value?.behandlingOpplysning.type) {
+    case "penger":
+      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</span>;
+    case "dato":
+      return <span>{formaterNorskDato(opplysning.verdi)}</span>;
+    case "grunnbelop":
+      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} G</span>;
+    default:
+      return <span>{opplysning.verdi}</span>;
+  }
 }

@@ -2,12 +2,20 @@ import { BodyShort, CopyButton } from "@navikt/ds-react";
 import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
 import styles from "./PersonBoks.module.css";
 import type { IPerson } from "~/models/oppgave.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   person: IPerson;
 }
 
 export function PersonBoks({ person }: IProps) {
+  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const utviklerinformasjon = {
+    oppgaveId: oppgave.oppgaveId,
+    behandlingId: behandling.behandlingId,
+    saksbehandlerIdent: oppgave.saksbehandlerIdent,
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.navnContainer}>
@@ -40,6 +48,14 @@ export function PersonBoks({ person }: IProps) {
       <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
         Statsborgerskap: <b>{person.statsborgerskap}</b>
       </BodyShort>
+
+      <CopyButton
+        className={styles.utviklerinfo}
+        size="xsmall"
+        copyText={JSON.stringify(utviklerinformasjon, null, 2)}
+        text="Kopier utviklerinformasjon"
+        activeText="Kopiert"
+      />
     </div>
   );
 }

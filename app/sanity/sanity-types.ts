@@ -3,6 +3,7 @@ import type { TypedObject } from "@portabletext/types";
 interface ISanityBrevBlokk {
   textId: string;
   innhold: TypedObject | TypedObject[];
+  utvidetBeskrivelse: boolean;
 }
 
 export interface ISanityBrevMal {

@@ -11,8 +11,7 @@ export const opplysningsMap: OpplysningMap = {
   virkningstidspunkt: {
     title: "Virkningstidspunkt",
     header: "Fastsett Virkningstidpunkt",
-    description:
-      "Finn tidspunkt alle vilkår er oppfylt. Videre noe som hjelper og forklarer om noe er uklart om virkningstidspunktet.",
+    description: "Finn tidspunkt alle vilkår er oppfylt.",
     values: ["Søknadsdato", "fagsakId", "Ønsker dagpenger fra dato"],
   },
   alderskrav: {

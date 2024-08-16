@@ -1,5 +1,5 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { hentFormattertDato } from "~/utils/dato.utils";
+import { formaterNorskDato } from "~/utils/dato.utils";
 import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
@@ -142,7 +142,7 @@ export function OppgaveListe({
                     <Table.DataCell
                       className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
                     >
-                      <Detail textColor="subtle">{hentFormattertDato(tidspunktOpprettet)}</Detail>
+                      <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
                     </Table.DataCell>
 
                     <Table.DataCell>
@@ -166,6 +166,23 @@ export function OppgaveListe({
                         {oppgave.skjermesSomEgneAnsatte && (
                           <Tag className="mr-2" size={"xsmall"} variant="error">
                             <Detail>Egne ansatte</Detail>
+                          </Tag>
+                        )}
+                        {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Fortrolig</Detail>
+                          </Tag>
+                        )}
+
+                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Strengt fortrolig</Detail>
+                          </Tag>
+                        )}
+
+                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
+                          <Tag className="mr-2" size={"xsmall"} variant="error">
+                            <Detail>Strengt fortrolig utland</Detail>
                           </Tag>
                         )}
                       </>

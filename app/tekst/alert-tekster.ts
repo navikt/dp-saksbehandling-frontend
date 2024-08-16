@@ -19,10 +19,34 @@ export const alleredeTildeltAlert: IAlert = {
   body: "Oppgaven er allerede tildelt noen andre",
 };
 
+export const ikkeTilgangAlert: IAlert = {
+  variant: "warning",
+  title: "Kunne ikke tildele oppgaven 🙅",
+  body: "Du har ikke tilgang til å behandle denne oppgaven.",
+};
+
 export const ikkeTilgangEgneAnsatteAlert: IAlert = {
   variant: "warning",
   title: "Kunne ikke tildele oppgaven 🙅",
   body: "Du har ikke tilgang til å behandle egne ansatte.",
+};
+
+export const ikkeTilgangFortroligAlert: IAlert = {
+  variant: "warning",
+  title: "Kunne ikke tildele oppgaven 🙅",
+  body: "Du har ikke tilgang til å behandle oppgaver med fortrolig adresse.",
+};
+
+export const ikkeTilgangStrengtFortroligAlert: IAlert = {
+  variant: "warning",
+  title: "Kunne ikke tildele oppgaven 🙅",
+  body: "Du har ikke tilgang til å behandle oppgaver med strengt fortrolig adresse.",
+};
+
+export const ikkeTilgangStrengtFortroligUtlandAlert: IAlert = {
+  variant: "warning",
+  title: "Kunne ikke tildele oppgaven 🙅",
+  body: "Du har ikke tilgang til å behandle oppgaver med strengt fortrolig adresse utland.",
 };
 
 export const tomtForOppgaverAlert: IAlert = {
