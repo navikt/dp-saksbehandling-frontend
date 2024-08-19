@@ -8,6 +8,7 @@ interface IEnv {
   BASE_PATH: string;
   DP_BEHANDLING_URL: string;
   DP_SAKSBEHANDLING_URL: string;
+  DP_MELDING_OM_VEDTAK_URL: string;
   GCP_ENV: string;
   SAF_URL: string;
   IS_LOCALHOST: string;

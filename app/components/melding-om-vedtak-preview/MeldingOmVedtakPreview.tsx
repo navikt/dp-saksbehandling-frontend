@@ -9,9 +9,12 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import { useLoaderData } from "@remix-run/react";
+import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
 
 export function MeldingOmVedtakPreview() {
-  const { valgtBrevMal, utvidetBeskrivelser } = useMeldingOmVedtakTekst();
+  const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
+  const { sanityBrevBlokker } = useLoaderData<typeof loader>();
   const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
@@ -31,7 +34,7 @@ export function MeldingOmVedtakPreview() {
         </div>
       </div>
 
-      {valgtBrevMal?.brevBlokker.map((brevBlokk) => (
+      {sanityBrevBlokker.map((brevBlokk) => (
         <div key={brevBlokk.textId}>
           <PortableText
             value={brevBlokk.innhold}

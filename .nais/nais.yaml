@@ -45,6 +45,8 @@ spec:
       value: {{dp-behandling_url}}
     - name: DP_SAKSBEHANDLING_URL
       value: {{dp-saksbehandling_url}}
+    - name: DP_MELDING_OM_VEDTAK_URL
+      value: {{dp-saksbehandling_url}}
     - name: SAF_URL
       value: {{saf_url}}
     - name: ARBEID_INNTEKT_URL
@@ -86,6 +88,7 @@ spec:
       rules:
         - application: dp-saksbehandling
         - application: dp-behandling
+        - application: dp-melding-om-vedtak
 
   azure:
     application:

@@ -6,12 +6,14 @@ import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
 import { mockDpBehandling } from "./mock-dp-behandling";
 import { mockSanity } from "./mock-sanity";
+import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
 
 const mswHandlers = [
   ...mockSanity,
   ...mockAzure,
   ...mockDpBehandling,
   ...mockDpSaksbehandling,
+  ...mockDpMeldingOmVedtak,
   ...mockPdl,
   ...mockSaf,
 ];

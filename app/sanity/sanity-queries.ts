@@ -1,27 +1,26 @@
-export const hentAlleBrevmaler = `*[_type == "brevMal"]{
+export function hentBrevBlokkerMedId(textIds: string[]) {
+  return `*[_type == "brevBlokk" && textId in ${JSON.stringify(textIds)}]{
   ...,
-  brevBlokker[]->{
+  innhold[]{
     ...,
-    innhold[]{
+    _type == "block" => {
       ...,
-      _type == "block" => {
+      children[]{
         ...,
-        children[]{
+        _type == "opplysningReference" => {
           ...,
-          _type == "opplysningReference" => {
-            ...,
-            "behandlingOpplysning": @->{
-              ...
-            }
-          },
-          _type == "fritekst" => {
+          "behandlingOpplysning": @->{
             ...
           }
+        },
+        _type == "fritekst" => {
+          ...
         }
       }
     }
-  }
+  },
 }`;
+}
 
 export const hentBrevmalMedId = `*[_type == "brevMal" && textId == $brevmalId] | order(_createdAt desc)[0] {
   ...,
