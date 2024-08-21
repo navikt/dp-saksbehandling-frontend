@@ -46,7 +46,7 @@ spec:
     - name: DP_SAKSBEHANDLING_URL
       value: {{dp-saksbehandling_url}}
     - name: DP_MELDING_OM_VEDTAK_URL
-      value: {{dp-saksbehandling_url}}
+      value: {{dp-melding-om-vedtak_url}}
     - name: SAF_URL
       value: {{saf_url}}
     - name: ARBEID_INNTEKT_URL
