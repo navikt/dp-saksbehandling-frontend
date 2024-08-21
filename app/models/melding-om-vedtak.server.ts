@@ -19,6 +19,7 @@ export async function hentMeldingOmVedtak(
   behandlingId: string,
 ): Promise<IBrevBlokk[]> {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
+  console.log("onBehalfOfToken: ", onBehalfOfToken);
 
   const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}`;
   const response = await fetch(url, {
