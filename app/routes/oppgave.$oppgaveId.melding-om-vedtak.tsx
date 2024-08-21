@@ -18,10 +18,8 @@ import { handleErrorResponse } from "~/utils/error-response.server";
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  console.log("HETNET OPPGAVER");
 
   const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
-  console.log("HETNET MELDING OM VEDTAK");
 
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
@@ -34,7 +32,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   if (!response.ok) {
     handleErrorResponse(response);
   }
-  console.log(await response.json());
 
   const brevBlokkIder = meldingOmVedtak.map((blokk) => blokk.tekstId);
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
