@@ -58,16 +58,19 @@ export async function getOnBehalfOfToken(request: Request, audience: string) {
   const token = getToken(request);
 
   if (!token) {
+    console.log("Missing token");
     throw new Response("Missing token", { status: 401 });
   }
 
   const validation = await validateToken(token);
   if (!validation.ok) {
+    console.log("Token validation failed");
     throw new Response("Token validation failed", { status: 401 });
   }
 
   const obo = await requestOboToken(token, audience);
   if (!obo.ok) {
+    console.log("Obo not ok");
     throw new Response("Unauthorized", { status: 401 });
   }
 

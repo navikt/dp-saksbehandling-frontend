@@ -18,7 +18,10 @@ import { handleErrorResponse } from "~/utils/error-response.server";
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+  console.log("HETNET OPPGAVER");
+
   const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
+  console.log("HETNET MELDING OM VEDTAK");
 
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
