@@ -79,3 +79,25 @@ export async function godkjennBehandling(
     body: JSON.stringify({ ident: personIdent }),
   });
 }
+
+export async function endreOpplysning(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+  verdi: string,
+): Promise<IBehandling> {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning/${opplysningId}`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ verdi, begrunnelse: "TEST" }),
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
+}

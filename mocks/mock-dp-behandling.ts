@@ -31,4 +31,11 @@ export const mockDpBehandling = [
       status: 201,
     });
   }),
+
+  http.put(
+    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/opplysning/:opplysningId`,
+    () => {
+      return HttpResponse.json(mockBehandling);
+    },
+  ),
 ];

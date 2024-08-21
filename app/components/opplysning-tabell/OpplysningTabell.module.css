@@ -52,3 +52,7 @@
   cursor: pointer;
   padding: var(--a-spacing-2);
 }
+
+.lagreKnapp {
+  white-space: nowrap;
+}

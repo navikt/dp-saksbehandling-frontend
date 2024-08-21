@@ -8,16 +8,27 @@ import styles from "./Opplysning.module.css";
 
 export interface IOpplysningProps {
   opplysning: IOpplysning;
+  verdi: string;
+  onChange: (verdi: string) => void;
   label?: string;
   readonly?: boolean;
   className?: string;
 }
 
-export function Opplysning({ opplysning, readonly, label, className }: IOpplysningProps) {
+export function Opplysning({
+  opplysning,
+  verdi,
+  onChange,
+  readonly,
+  label,
+  className,
+}: IOpplysningProps) {
   switch (opplysning.datatype) {
     case "heltall":
       return (
         <OpplysningInt
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
@@ -28,6 +39,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
     case "penger":
       return (
         <OpplysningDouble
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
@@ -38,6 +51,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
     case "desimaltall":
       return (
         <OpplysningDouble
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
@@ -48,6 +63,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
     case "boolsk":
       return (
         <OpplysningBoolean
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
@@ -58,6 +75,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
     case "dato":
       return (
         <OpplysningDato
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
@@ -68,6 +87,8 @@ export function Opplysning({ opplysning, readonly, label, className }: IOpplysni
     case "STRING":
       return (
         <OpplysningString
+          verdi={verdi}
+          onChange={onChange}
           label={label}
           readonly={readonly}
           opplysning={opplysning}
