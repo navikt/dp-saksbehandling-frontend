@@ -3,6 +3,7 @@ import styles from "~/route-styles/oppgave.module.css";
 import { CoffeeLoader } from "~/components/coffee-loader/CoffeeLoader";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@remix-run/react";
+import { logger } from "~/utils/logger.utils";
 
 export default function Kaffepause() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Kaffepause() {
       setImageSrc(url);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching cat GIF:", error);
+      logger.error("Error fetching cat GIF:", error);
       setIsLoading(false);
     }
   }

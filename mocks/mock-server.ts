@@ -7,6 +7,7 @@ import { mockSaf } from "./mock-saf";
 import { mockDpBehandling } from "./mock-dp-behandling";
 import { mockSanity } from "./mock-sanity";
 import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
+import { logger } from "~/utils/logger.utils";
 
 const mswHandlers = [
   ...mockSanity,
@@ -30,5 +31,5 @@ export function startMockServer(server: SetupServer) {
   process.once("SIGINT", () => server.close());
   process.once("SIGTERM", () => server.close());
 
-  console.info("🔶 Mock api kjører");
+  logger.info("🔶 Mock api kjører");
 }

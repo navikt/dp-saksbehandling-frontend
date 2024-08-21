@@ -7,6 +7,7 @@ import { useDebouncedCallback } from "~/hooks/useDebouncedCallback";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { useFirstRender } from "~/hooks/useFirstRender";
 import styles from "./FritekstEditor.module.css";
+import { logger } from "~/utils/logger.utils";
 
 export function FritekstEditor(props: { brevBlokker: ISanityBrevBlokk[] }) {
   const { utvidetBeskrivelser, setUtvidetBeskrivelser } = useMeldingOmVedtakTekst();
@@ -64,7 +65,7 @@ export function Fritekst(props: IFritekst) {
   useEffect(() => {
     if (!isFirstRender) {
       // TODO: Lagre verdi
-      console.log("LAGRE: ", debouncedVerdi);
+      logger.info("LAGRE: ", debouncedVerdi);
       setSistLagret(formaterNorskDato(new Date().toString(), true));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
