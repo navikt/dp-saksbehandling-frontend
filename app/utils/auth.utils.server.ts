@@ -1,4 +1,5 @@
 import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
+import { logger } from "~/utils/logger.utils";
 
 export async function getSaksbehandlingOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
@@ -58,19 +59,19 @@ export async function getOnBehalfOfToken(request: Request, audience: string) {
   const token = getToken(request);
 
   if (!token) {
-    console.log("Missing token");
+    logger.error("Missing token");
     throw new Response("Missing token", { status: 401 });
   }
 
   const validation = await validateToken(token);
   if (!validation.ok) {
-    console.log("Token validation failed");
+    logger.error(`Failed to validate token: ${validation.error}`);
     throw new Response("Token validation failed", { status: 401 });
   }
 
   const obo = await requestOboToken(token, audience);
   if (!obo.ok) {
-    console.log("Obo not ok");
+    logger.error(`Failed to get OBO token: ${obo.error}`);
     throw new Response("Unauthorized", { status: 401 });
   }
 
