@@ -1,13 +1,13 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Outlet, useLoaderData, useLocation, useNavigate } from "@remix-run/react";
+import { Outlet, useLoaderData, useLocation, useNavigate, useNavigation } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentBehandling } from "~/models/behandling.server";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { Tabs } from "@navikt/ds-react";
+import { Loader, Tabs } from "@navikt/ds-react";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
@@ -52,6 +52,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const location = useLocation();
   const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
@@ -102,7 +103,15 @@ export default function Oppgave() {
               <OppgaveHandlinger />
               {oppgave.tilstand === "UNDER_BEHANDLING" && <BehandlingHandlinger />}
             </div>
-            <Outlet />
+
+            {navigation.state === "loading" && (
+              <div className={styles.loaderContainer}>
+                Laster side
+                <Loader variant="interaction" size="xlarge" />
+              </div>
+            )}
+
+            {navigation.state !== "loading" && <Outlet />}
           </Tabs>
         </MeldingOmVedtakProvider>
       </div>

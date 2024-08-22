@@ -5,7 +5,7 @@
 
   box-shadow: var(--a-shadow-medium);
   background-color: white;
-  overflow: scroll;
+  overflow: auto;
   page-break-after: always;
 
   font-family:

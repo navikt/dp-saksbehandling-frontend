@@ -28,8 +28,8 @@ export const mockDpSaksbehandling = [
 
   // Hent en oppgave med oppgaveId
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`, ({ params }) => {
-    logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`);
     const { oppgaveId } = params;
+    logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}`);
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
@@ -43,9 +43,9 @@ export const mockDpSaksbehandling = [
 
   // Tildel en oppgave med oppgaveId
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`, ({ params }) => {
-    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`);
-
     const { oppgaveId } = params;
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/tildel`);
+
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
@@ -63,8 +63,8 @@ export const mockDpSaksbehandling = [
 
   // Legg oppgave med oppgaveId tilbake i køen
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`, ({ params }) => {
-    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`);
     const { oppgaveId } = params;
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/legg-tilbake`);
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
@@ -80,8 +80,8 @@ export const mockDpSaksbehandling = [
 
   // Utsett oppgave med oppgaveId
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`, ({ params }) => {
-    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`);
     const { oppgaveId } = params;
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/utsett`);
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
@@ -102,13 +102,19 @@ export const mockDpSaksbehandling = [
   }),
 
   // Send brev for oppgave
-  http.post(`${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`, async () => {
-    logger.info(`[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`);
+  http.post(
+    `${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`,
+    async ({ params }) => {
+      const { oppgaveId } = params;
+      logger.info(
+        `[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/send-brev`,
+      );
 
-    return new HttpResponse(null, {
-      status: 202,
-    });
-  }),
+      return new HttpResponse(null, {
+        status: 202,
+      });
+    },
+  ),
 
   // Hent neste oppgave og tildel denne til saksbehandler
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/statistikk`, () => {

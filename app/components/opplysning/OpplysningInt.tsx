@@ -3,7 +3,13 @@ import { useField } from "remix-validated-form";
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import styles from "./Opplysning.module.css";
 
-export function OpplysningInt({ opplysning, readonly, className }: IOpplysningProps) {
+export function OpplysningInt({
+  opplysning,
+  verdi,
+  onChange,
+  readonly,
+  className,
+}: IOpplysningProps) {
   const { error, getInputProps } = useField(opplysning.navn);
 
   return (
@@ -14,13 +20,14 @@ export function OpplysningInt({ opplysning, readonly, className }: IOpplysningPr
 
       {opplysning.redigerbar && (
         <TextField
+          {...getInputProps()}
           type="text"
           size="small"
           error={error}
           inputMode="numeric"
           readOnly={readonly}
-          defaultValue={opplysning.verdi}
-          {...getInputProps()}
+          value={verdi}
+          onChange={(e) => onChange(e.target.value)}
         />
       )}
     </div>

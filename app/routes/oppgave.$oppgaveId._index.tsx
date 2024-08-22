@@ -17,7 +17,7 @@ export default function Oppgave() {
         method="post"
         className={styles.opplysninger}
       >
-        <OpplysningTabell readonly={true} opplysninger={behandling.opplysning} />
+        <OpplysningTabell opplysninger={behandling.opplysning} />
       </ValidatedForm>
       <OppgaveInformasjon />
     </Tabs.Panel>

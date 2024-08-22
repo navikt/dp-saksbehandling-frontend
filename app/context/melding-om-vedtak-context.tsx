@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
-import type { ISanityBrevMal } from "~/sanity/sanity-types";
 
 export interface IUtvidetBeskrivelse {
   id: string;
@@ -10,8 +9,6 @@ export interface IUtvidetBeskrivelse {
 export interface MeldingOmVedtakContextType {
   utvidetBeskrivelser: IUtvidetBeskrivelse[];
   setUtvidetBeskrivelser: (utvidetBeskrivelse: IUtvidetBeskrivelse[]) => void;
-  valgtBrevMal?: ISanityBrevMal;
-  setValgtBrevMal: (brevmal?: ISanityBrevMal) => void;
 }
 
 export const MeldingOmVedtakContext = createContext<MeldingOmVedtakContextType | undefined>(
@@ -19,13 +16,10 @@ export const MeldingOmVedtakContext = createContext<MeldingOmVedtakContextType |
 );
 
 export function MeldingOmVedtakProvider({ children }: PropsWithChildren) {
-  const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
   const [utvidetBeskrivelser, setUtvidetBeskrivelser] = useState<IUtvidetBeskrivelse[]>([]);
 
   return (
-    <MeldingOmVedtakContext.Provider
-      value={{ utvidetBeskrivelser, setUtvidetBeskrivelser, valgtBrevMal, setValgtBrevMal }}
-    >
+    <MeldingOmVedtakContext.Provider value={{ utvidetBeskrivelser, setUtvidetBeskrivelser }}>
       {children}
     </MeldingOmVedtakContext.Provider>
   );

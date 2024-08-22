@@ -11,6 +11,7 @@ import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { setupMockServer, startMockServer } from "../mocks/mock-server";
 import { getEnv } from "./utils/env.utils";
+import { logger } from "~/utils/logger.utils";
 
 const ABORT_DELAY = 5000;
 
@@ -83,7 +84,7 @@ function handleBotRequest(
           // errors encountered during initial shell rendering since they'll
           // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
-            console.error(error);
+            logger.error(error);
           }
         },
       },
@@ -131,7 +132,7 @@ function handleBrowserRequest(
           // errors encountered during initial shell rendering since they'll
           // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
-            console.error(error);
+            logger.error(error);
           }
         },
       },

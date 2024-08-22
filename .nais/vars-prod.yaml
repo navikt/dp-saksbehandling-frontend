@@ -4,6 +4,7 @@ gcp_env: "prod"
 
 dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
+dp-melding-om-vedtak_url: "http://dp-melding-om-vedtak"
 saf_url: "https://saf.prod-fss-pub.nais.io"
 
 saf_audience: "api://prod-fss.teamdokumenthandtering.saf/.default"
