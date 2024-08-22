@@ -1,8 +1,8 @@
 import { BodyLong, Heading, Table } from "@navikt/ds-react";
 import { CheckmarkCircleIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
-import { parse, format } from "date-fns";
 import type { IOpplysning } from "~/models/behandling.server";
 import styles from "./OpplysningForslag.module.css";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -76,11 +76,7 @@ export function OpplysningForslag(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="row">§3A-1 Søknadstidspunkt</Table.HeaderCell>
             <Table.DataCell>
-              Virkningstidspunkt{" "}
-              {format(
-                parse(beregnetVirkningstidspunkt?.verdi, "yyyy-MM-dd", new Date()),
-                "dd.MM.yyyy",
-              )}
+              Virkningstidspunkt {formaterNorskDato(beregnetVirkningstidspunkt?.verdi)}
             </Table.DataCell>
             <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
