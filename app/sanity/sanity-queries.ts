@@ -13,9 +13,6 @@ export function hentBrevBlokkerMedId(textIds: string[]) {
             ...
           }
         },
-        _type == "fritekst" => {
-          ...
-        }
       }
     }
   },
