@@ -6,11 +6,10 @@ import {
 import styles from "./MeldingOmVedtakPreview.module.css";
 import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useLoaderData } from "@remix-run/react";
 import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
+import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 
 export function MeldingOmVedtakPreview() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
@@ -30,7 +29,7 @@ export function MeldingOmVedtakPreview() {
 
         <div className={styles.saksnummerDato}>
           <Detail>{`Saksnummer: ${fagsakId}`}</Detail>
-          <Detail>{format(new Date(), "d. MMMM yyyy", { locale: nb })}</Detail>
+          <Detail>{formaterNorskDatoITekst(new Date().toString())}</Detail>
         </div>
       </div>
 

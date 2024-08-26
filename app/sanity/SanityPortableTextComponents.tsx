@@ -5,7 +5,7 @@ import { renderToString } from "react-dom/server";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 
 export function getSanityPortableTextComponents(
   behandling: IBehandling,
@@ -65,7 +65,7 @@ function BehandlingOpplysningReference(
     case "penger":
       return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</span>;
     case "dato":
-      return <span>{formaterNorskDato(opplysning.verdi)}</span>;
+      return <span>{formaterNorskDatoITekst(opplysning.verdi)}</span>;
     case "grunnbelop":
       return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} G</span>;
     default:
