@@ -1,22 +1,29 @@
 export function hentBrevBlokkerMedId(textIds: string[]) {
-  return `*[_type == "brevBlokk" && textId in ${JSON.stringify(textIds)}]{
-  ...,
-  innhold[]{
+  const tekstBlokkSortering = textIds
+    .map((id, index) => `textId == "${id}" => ${index}`)
+    .join(", ");
+
+  return `*[_type == "brevBlokk" && textId in ${JSON.stringify(textIds)}] | order(select(
+    ${tekstBlokkSortering},
+    ${textIds.length}
+  )) {
     ...,
-    _type == "block" => {
+    innhold[]{
       ...,
-      children[]{
+      _type == "block" => {
         ...,
-        _type == "opplysningReference" => {
+        children[]{
           ...,
-          "behandlingOpplysning": @->{
-            ...
-          }
-        },
+          _type == "opplysningReference" => {
+            ...,
+            "behandlingOpplysning": @->{
+              ...
+            }
+          },
+        }
       }
-    }
-  },
-}`;
+    },
+  }`;
 }
 
 export const hentBrevmalMedId = `*[_type == "brevMal" && textId == $brevmalId] | order(_createdAt desc)[0] {

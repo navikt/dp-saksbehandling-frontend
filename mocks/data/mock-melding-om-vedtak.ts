@@ -10,7 +10,7 @@ export const mockMeldingOmVedtak: IBrevBlokk[] = [
     opplysninger: [{ tekstId: "Søknadsdato", type: "dato", verdi: "12-05-2024" }],
   },
   {
-    tekstId: "brev.blokk.rett-til-aa-klaage",
+    tekstId: "brev.blokk.rett-til-aa-klage",
     opplysninger: [
       {
         tekstId: "Arbeidsinntekt siste 12 mnd",
