@@ -8,7 +8,7 @@ export interface IMeldingOmVedtak {
   opplysninger: IBrevOpplysning[];
 }
 
-interface IBrevOpplysning {
+export interface IBrevOpplysning {
   tekstId: string;
   datatype: string;
   verdi: string;

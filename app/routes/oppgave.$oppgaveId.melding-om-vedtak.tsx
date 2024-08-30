@@ -20,7 +20,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
   );
 
-  return json({ sanityBrevBlokker });
+  return json({ sanityBrevBlokker, meldingOmVedtakOpplysninger: meldingOmVedtak.opplysninger });
 }
 
 export default function Oppgave() {
