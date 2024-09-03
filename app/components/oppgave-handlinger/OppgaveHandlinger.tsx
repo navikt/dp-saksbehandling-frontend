@@ -57,7 +57,7 @@ export function OppgaveHandlinger() {
                 <DatePicker.Standalone
                   onSelect={(dato) => setUtsattTilDato(dato)}
                   fromDate={add(new Date(), { days: 1 })}
-                  toDate={add(new Date(), { days: 19 })}
+                  toDate={add(new Date(), { days: 20 })}
                 />
                 <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
                 <input

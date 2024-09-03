@@ -1,31 +1,33 @@
 import type { PortableTextComponents } from "@portabletext/react";
 import type { PropsWithChildren } from "react";
-import type { IBehandling } from "~/models/behandling.server";
-import { renderToString } from "react-dom/server";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
+import { renderToString } from "react-dom/server";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 
 export function getSanityPortableTextComponents(
-  behandling: IBehandling,
+  opplysninger: IBrevOpplysning[],
   asHtmlString: true,
 ): PortableTextHtmlComponents;
 
 export function getSanityPortableTextComponents(
-  behandling: IBehandling,
+  opplysninger: IBrevOpplysning[],
   asHtmlString: false,
 ): PortableTextComponents;
 
 export function getSanityPortableTextComponents(
-  behandling: IBehandling,
+  opplysninger: IBrevOpplysning[],
   asHtmlString: boolean,
 ): PortableTextComponents | PortableTextHtmlComponents {
   if (asHtmlString) {
     return {
       types: {
         opplysningReference: ({ value }: any) =>
-          renderToString(<BehandlingOpplysningReference value={value} behandling={behandling} />),
+          renderToString(
+            <BehandlingOpplysningReference value={value} opplysninger={opplysninger} />,
+          ),
       },
     };
   }
@@ -33,7 +35,7 @@ export function getSanityPortableTextComponents(
   return {
     types: {
       opplysningReference: ({ value }: any) => (
-        <BehandlingOpplysningReference value={value} behandling={behandling} />
+        <BehandlingOpplysningReference value={value} opplysninger={opplysninger} />
       ),
     },
   };
@@ -51,10 +53,10 @@ export function UtvidetBeskrivelse(utvidetBeskrivelse: IUtvidetBeskrivelse) {
 }
 
 function BehandlingOpplysningReference(
-  props: PropsWithChildren<{ value: any; behandling: IBehandling }>,
+  props: PropsWithChildren<{ value: any; opplysninger: IBrevOpplysning[] }>,
 ) {
-  const opplysning = props.behandling.opplysning.find(
-    (o) => o.navn === props.value?.behandlingOpplysning?.textId,
+  const opplysning = props.opplysninger.find(
+    (o) => o.tekstId === props.value?.behandlingOpplysning?.textId,
   );
 
   if (!opplysning) {

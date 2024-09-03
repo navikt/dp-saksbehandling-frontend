@@ -1,3 +1,4 @@
+import invariant from "tiny-invariant";
 import { Alert, BodyShort, Button, Heading, Tabs } from "@navikt/ds-react";
 import { sanityClient } from "~/sanity/sanity-client";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
@@ -6,22 +7,20 @@ import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { useNavigate, useRouteError } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
-import styles from "../route-styles/melding-om-vedtak.module.css";
 import { hentOppgave } from "~/models/oppgave.server";
-import invariant from "tiny-invariant";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import styles from "../route-styles/melding-om-vedtak.module.css";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
 
-  const brevBlokkIder = meldingOmVedtak.map((blokk) => blokk.tekstId);
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
-    hentBrevBlokkerMedId(brevBlokkIder),
+    hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
   );
 
-  return json({ sanityBrevBlokker });
+  return json({ sanityBrevBlokker, meldingOmVedtakOpplysninger: meldingOmVedtak.opplysninger });
 }
 
 export default function Oppgave() {

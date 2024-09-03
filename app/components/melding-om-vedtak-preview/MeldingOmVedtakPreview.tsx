@@ -13,7 +13,7 @@ import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 
 export function MeldingOmVedtakPreview() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { sanityBrevBlokker } = useLoaderData<typeof loader>();
+  const { sanityBrevBlokker, meldingOmVedtakOpplysninger } = useLoaderData<typeof loader>();
   const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
@@ -37,7 +37,7 @@ export function MeldingOmVedtakPreview() {
         <div key={brevBlokk.textId}>
           <PortableText
             value={brevBlokk.innhold}
-            components={getSanityPortableTextComponents(behandling, false)}
+            components={getSanityPortableTextComponents(meldingOmVedtakOpplysninger, false)}
           />
 
           {brevBlokk.utvidetBeskrivelse && (
