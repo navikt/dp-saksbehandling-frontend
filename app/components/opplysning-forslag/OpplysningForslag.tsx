@@ -28,7 +28,8 @@ export function OpplysningForslag(props: IProps) {
     props.opplysninger,
   );
 
-  const resultStyle = harKravDagpenger.verdi === "true" ? styles.approved : styles.denied;
+  const resultStyle = harKravDagpenger?.verdi === "true" ? styles.approved : styles.denied;
+
   return (
     <div className={styles.container}>
       <Heading size={"large"}>Behandlingsoversikt</Heading>
@@ -42,7 +43,7 @@ export function OpplysningForslag(props: IProps) {
         <Table.Body>
           <Table.Row className={resultStyle}>
             <Table.DataCell colSpan={2}>
-              {harKravDagpenger.verdi === "true" ? (
+              {harKravDagpenger?.verdi === "true" ? (
                 <span className={styles.result}>
                   <CheckmarkCircleIcon />
                   Bruker har rett til dagpenger
@@ -82,7 +83,7 @@ export function OpplysningForslag(props: IProps) {
                 <Table.DataCell>Arbeidsinntekt siste 12 mnd</Table.DataCell>
                 <Table.DataCell>
                   {parseFloat(
-                    finnOpplysningMedNavn("Arbeidsinntekt siste 12 mnd", props.opplysninger).verdi,
+                    finnOpplysningMedNavn("Arbeidsinntekt siste 12 mnd", props.opplysninger)?.verdi,
                   )}{" "}
                   Kr
                 </Table.DataCell>
@@ -92,7 +93,7 @@ export function OpplysningForslag(props: IProps) {
                 <Table.DataCell>Arbeidsinntekt siste 36 mnd</Table.DataCell>
                 <Table.DataCell>
                   {`${parseFloat(
-                    finnOpplysningMedNavn("Arbeidsinntekt siste 36 mnd", props.opplysninger).verdi,
+                    finnOpplysningMedNavn("Arbeidsinntekt siste 36 mnd", props.opplysninger)?.verdi,
                   )} kr`}
                 </Table.DataCell>
               </Table.Row>
@@ -106,7 +107,7 @@ export function OpplysningForslag(props: IProps) {
           <Table.Row>
             <Table.DataCell>Registrert som arbeidssøker på søknadstidspunktet</Table.DataCell>
             <Table.DataCell>
-              {registrertSomArbeidssoker.verdi === "true" ? "Ja" : "Nei"}
+              {registrertSomArbeidssoker?.verdi === "true" ? "Ja" : "Nei"}
             </Table.DataCell>
           </Table.Row>
         </Table.Body>
