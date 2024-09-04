@@ -42,7 +42,7 @@
   background-color: #ffffff;
 }
 
-.table--subtle-zebra td {
+.table--subtle-zebra td th {
   border-bottom: 0;
 }
 
