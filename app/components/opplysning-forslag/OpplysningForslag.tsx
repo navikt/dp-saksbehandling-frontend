@@ -15,14 +15,14 @@ function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
 }
 
 export function OpplysningForslag(props: IProps) {
-  const harKravDagpenger = finnOpplysningMedNavn("Krav på dagpenger", props.opplysninger);
-
-  const kravTilArbeidssoker = finnOpplysningMedNavn("Krav til arbeidssøker", props.opplysninger);
-  const kravTilInntekt = finnOpplysningMedNavn("Krav til minsteinntekt", props.opplysninger);
-  const beregnetVirkningstidspunkt = finnOpplysningMedNavn(
-    "EttBeregnetVirkningstidspunkt",
+  const harKravDagpenger = finnOpplysningMedNavn(
+    "Har rett til ordinære dagpenger",
     props.opplysninger,
   );
+
+  const kravTilInntekt = finnOpplysningMedNavn("Krav til minsteinntekt", props.opplysninger);
+  const kravTilArbeidssoker = finnOpplysningMedNavn("Krav til arbeidssøker", props.opplysninger);
+  const soknadstidspunkt = finnOpplysningMedNavn("Søknadstidspunkt", props.opplysninger);
 
   const resultStyle = harKravDagpenger?.verdi === "true" ? styles.approved : styles.denied;
 
@@ -35,11 +35,11 @@ export function OpplysningForslag(props: IProps) {
         behandlingen. Se nøkkelpunkter for å få en oversikt.
       </BodyLong>
 
-      <Table zebraStripes>
+      <Table className={"table--subtle-zebra"}>
         <Table.Header>
           <Table.Row className={resultStyle}>
             <Table.HeaderCell colSpan={3}>
-              {harKravDagpenger.verdi === "true" ? (
+              {harKravDagpenger?.verdi === "true" ? (
                 <span className={styles.result}>
                   <CheckmarkCircleIcon />
                   Bruker har rett til dagpenger
@@ -77,7 +77,7 @@ export function OpplysningForslag(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="row">§3A-1 Søknadstidspunkt</Table.HeaderCell>
             <Table.DataCell>
-              Virkningstidspunkt {formaterNorskDato(beregnetVirkningstidspunkt?.verdi)}
+              Søknadstidspunkt {formaterNorskDato(soknadstidspunkt?.verdi)}
             </Table.DataCell>
             <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
