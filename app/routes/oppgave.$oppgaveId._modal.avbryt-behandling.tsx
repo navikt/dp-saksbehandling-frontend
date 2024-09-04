@@ -6,6 +6,7 @@ import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { Form, useNavigate } from "@remix-run/react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { logger } from "~/utils/logger.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -17,6 +18,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   session.flash("alert", getAlertMessage({ name: "avbryt-behandling", httpCode: response.status }));
 
   if (!response.ok) {
+    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
+
     return redirect(`/oppgave/${params.oppgaveId}`, {
       headers: {
         "Set-Cookie": await commitSession(session),

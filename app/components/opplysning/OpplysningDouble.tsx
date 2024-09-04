@@ -4,7 +4,7 @@ import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import styles from "./Opplysning.module.css";
 
-export function OpplysningDouble({ opplysning, readonly, className }: IOpplysningProps) {
+export function OpplysningDouble({ opplysning, readonly, className, onChange }: IOpplysningProps) {
   const { error, getInputProps } = useField(opplysning.navn);
   const enhet = opplysning.navn.match("\\sG\\s") ? "G" : "kr";
 
@@ -27,6 +27,7 @@ export function OpplysningDouble({ opplysning, readonly, className }: IOpplysnin
             opplysning.verdi ? formaterTallMedTusenSeperator(opplysning.verdi) : undefined
           }
           {...getInputProps()}
+          onChange={(e) => onChange(e.target.value)}
         />
       )}
     </div>
