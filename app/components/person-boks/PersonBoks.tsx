@@ -3,17 +3,20 @@ import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
 import styles from "./PersonBoks.module.css";
 import type { IPerson } from "~/models/oppgave.server";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useLocation } from "@remix-run/react";
 
 interface IProps {
   person: IPerson;
 }
 
 export function PersonBoks({ person }: IProps) {
+  const location = useLocation();
   const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const utviklerinformasjon = {
     oppgaveId: oppgave.oppgaveId,
     behandlingId: behandling.behandlingId,
     saksbehandlerIdent: oppgave.saksbehandlerIdent,
+    urlPath: location.pathname,
   };
 
   return (
