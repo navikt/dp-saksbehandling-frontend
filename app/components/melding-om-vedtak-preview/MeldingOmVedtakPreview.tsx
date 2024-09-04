@@ -6,15 +6,14 @@ import {
 import styles from "./MeldingOmVedtakPreview.module.css";
 import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { format } from "date-fns";
-import { nb } from "date-fns/locale";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useLoaderData } from "@remix-run/react";
 import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
+import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 
 export function MeldingOmVedtakPreview() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { sanityBrevBlokker } = useLoaderData<typeof loader>();
+  const { sanityBrevBlokker, meldingOmVedtakOpplysninger } = useLoaderData<typeof loader>();
   const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
@@ -30,7 +29,7 @@ export function MeldingOmVedtakPreview() {
 
         <div className={styles.saksnummerDato}>
           <Detail>{`Saksnummer: ${fagsakId}`}</Detail>
-          <Detail>{format(new Date(), "d. MMMM yyyy", { locale: nb })}</Detail>
+          <Detail>{formaterNorskDatoITekst(new Date().toString())}</Detail>
         </div>
       </div>
 
@@ -38,7 +37,7 @@ export function MeldingOmVedtakPreview() {
         <div key={brevBlokk.textId}>
           <PortableText
             value={brevBlokk.innhold}
-            components={getSanityPortableTextComponents(behandling, false)}
+            components={getSanityPortableTextComponents(meldingOmVedtakOpplysninger, false)}
           />
 
           {brevBlokk.utvidetBeskrivelse && (

@@ -16,7 +16,6 @@ function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
 
 export function OpplysningForslag(props: IProps) {
   const harKravDagpenger = finnOpplysningMedNavn("Krav på dagpenger", props.opplysninger);
-  const resultStyle = harKravDagpenger.verdi === "true" ? styles.approved : styles.denied;
 
   const kravTilArbeidssoker = finnOpplysningMedNavn("Krav til arbeidssøker", props.opplysninger);
   const kravTilInntekt = finnOpplysningMedNavn("Krav til minsteinntekt", props.opplysninger);
@@ -24,6 +23,8 @@ export function OpplysningForslag(props: IProps) {
     "EttBeregnetVirkningstidspunkt",
     props.opplysninger,
   );
+
+  const resultStyle = harKravDagpenger?.verdi === "true" ? styles.approved : styles.denied;
 
   return (
     <div className={styles.container}>

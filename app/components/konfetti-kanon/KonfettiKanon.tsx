@@ -1,13 +1,19 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
 import styles from "./KonfettiKanon.module.css";
 
 export function KonfettiKanon() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const myConfetti = confetti.create(canvasRef.current || undefined, {
-    resize: true,
-    useWorker: true,
-  });
+  const myConfetti = useRef<any>(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      myConfetti.current = confetti.create(canvasRef.current, {
+        resize: true,
+        useWorker: true,
+      });
+    }
+  }, []);
 
   function fyreFestival() {
     fire(0.25, {
@@ -40,7 +46,7 @@ export function KonfettiKanon() {
       origin: { y: 0.5 },
     };
 
-    myConfetti({
+    myConfetti.current({
       ...defaults,
       ...opts,
       particleCount: Math.floor(count * particleRatio),

@@ -35,7 +35,7 @@ export function FritekstEditor(props: { brevBlokker: ISanityBrevBlokk[] }) {
           blokk.utvidetBeskrivelse && (
             <Fritekst
               key={blokk.textId}
-              label={`Utvidet beskrivelse for ${blokk.textId}`}
+              label={`Utvidet beskrivelse for ${blokk.title ? blokk.title : blokk.textId}`}
               onChange={(verdi) => oppdaterUtvidetBeskrivelse(verdi, blokk.textId)}
               verdi={
                 utvidetBeskrivelser.find((beskrivelse) => beskrivelse.id === blokk.textId)?.text ||
