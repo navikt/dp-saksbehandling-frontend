@@ -15,7 +15,7 @@ export function OpplysningInt({
   return (
     <div className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
-        <div className={styles.opplysningVerdi}>{opplysning.verdi} år</div>
+        <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>
       )}
 
       {opplysning.redigerbar && (
