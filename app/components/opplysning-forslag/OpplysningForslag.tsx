@@ -2,6 +2,7 @@ import { BodyLong, Heading, Table } from "@navikt/ds-react";
 import { CheckmarkCircleIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
 import type { IOpplysning } from "~/models/behandling.server";
 import styles from "./OpplysningForslag.module.css";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -14,19 +15,14 @@ function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
 }
 
 export function OpplysningForslag(props: IProps) {
-  const harKravDagpenger = finnOpplysningMedNavn("Krav på dagpenger", props.opplysninger);
-  const kravTilAlder = finnOpplysningMedNavn("Oppfyller kravet til alder", props.opplysninger);
+  const harKravDagpenger = finnOpplysningMedNavn(
+    "Har rett til ordinære dagpenger",
+    props.opplysninger,
+  );
+
   const kravTilInntekt = finnOpplysningMedNavn("Krav til minsteinntekt", props.opplysninger);
-  const beregnetVirkningsTidspunkt = finnOpplysningMedNavn(
-    "EttBeregnetVirkningstidspunkt",
-    props.opplysninger,
-  );
-  const soknadsDato = finnOpplysningMedNavn("Søknadsdato", props.opplysninger);
   const kravTilArbeidssoker = finnOpplysningMedNavn("Krav til arbeidssøker", props.opplysninger);
-  const registrertSomArbeidssoker = finnOpplysningMedNavn(
-    "Registrert som arbeidssøker på søknadstidspunktet",
-    props.opplysninger,
-  );
+  const soknadstidspunkt = finnOpplysningMedNavn("Søknadstidspunkt", props.opplysninger);
 
   const resultStyle = harKravDagpenger?.verdi === "true" ? styles.approved : styles.denied;
 
@@ -40,9 +36,9 @@ export function OpplysningForslag(props: IProps) {
       </BodyLong>
 
       <Table className={"table--subtle-zebra"}>
-        <Table.Body>
+        <Table.Header>
           <Table.Row className={resultStyle}>
-            <Table.DataCell colSpan={2}>
+            <Table.HeaderCell colSpan={3}>
               {harKravDagpenger?.verdi === "true" ? (
                 <span className={styles.result}>
                   <CheckmarkCircleIcon />
@@ -54,61 +50,36 @@ export function OpplysningForslag(props: IProps) {
                   Bruker har fått avslag på dagpenger
                 </span>
               )}
-            </Table.DataCell>
+            </Table.HeaderCell>
           </Table.Row>
-
+        </Table.Header>
+        <Table.Body>
           <Table.Row>
-            <Table.DataCell>Et Beregnet Virkningstidspunkt</Table.DataCell>
-            <Table.DataCell>{beregnetVirkningsTidspunkt?.verdi}</Table.DataCell>
+            <Table.HeaderCell scope="row">Dagpenger</Table.HeaderCell>
+            <Table.DataCell>Ordinær</Table.DataCell>
+            <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-
           <Table.Row>
-            <Table.DataCell>Søknadsdato</Table.DataCell>
-            <Table.DataCell>{soknadsDato?.verdi}</Table.DataCell>
+            <Table.HeaderCell scope="row">§4-16 Gjenoppptak</Table.HeaderCell>
+            <Table.DataCell>Nei</Table.DataCell>
+            <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-
           <Table.Row>
-            <Table.DataCell>Krav til alder</Table.DataCell>
-            <Table.DataCell>{kravTilAlder?.verdi === "true" ? "Ja" : "Nei"}</Table.DataCell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.DataCell>Krav til Minsteinntekt</Table.DataCell>
+            <Table.HeaderCell scope="row">§4-4 Krav til minsteinntekt</Table.HeaderCell>
             <Table.DataCell>{kravTilInntekt?.verdi === "true" ? "Ja" : "Nei"}</Table.DataCell>
+            <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-
-          {kravTilInntekt?.verdi === "false" && (
-            <>
-              <Table.Row>
-                <Table.DataCell>Arbeidsinntekt siste 12 mnd</Table.DataCell>
-                <Table.DataCell>
-                  {parseFloat(
-                    finnOpplysningMedNavn("Arbeidsinntekt siste 12 mnd", props.opplysninger)?.verdi,
-                  )}{" "}
-                  Kr
-                </Table.DataCell>
-              </Table.Row>
-
-              <Table.Row>
-                <Table.DataCell>Arbeidsinntekt siste 36 mnd</Table.DataCell>
-                <Table.DataCell>
-                  {`${parseFloat(
-                    finnOpplysningMedNavn("Arbeidsinntekt siste 36 mnd", props.opplysninger)?.verdi,
-                  )} kr`}
-                </Table.DataCell>
-              </Table.Row>
-            </>
-          )}
           <Table.Row>
-            <Table.DataCell>Krav til Arbeidssøker</Table.DataCell>
+            <Table.HeaderCell scope="row">§4-Reel arbeidssøker</Table.HeaderCell>
             <Table.DataCell>{kravTilArbeidssoker?.verdi === "true" ? "Ja" : "Nei"}</Table.DataCell>
+            <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
-
           <Table.Row>
-            <Table.DataCell>Registrert som arbeidssøker på søknadstidspunktet</Table.DataCell>
+            <Table.HeaderCell scope="row">§3A-1 Søknadstidspunkt</Table.HeaderCell>
             <Table.DataCell>
-              {registrertSomArbeidssoker?.verdi === "true" ? "Ja" : "Nei"}
+              Søknadstidspunkt {formaterNorskDato(soknadstidspunkt?.verdi)}
             </Table.DataCell>
+            <Table.DataCell>Søknad</Table.DataCell>
           </Table.Row>
         </Table.Body>
       </Table>
