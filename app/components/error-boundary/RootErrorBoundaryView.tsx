@@ -1,7 +1,8 @@
 import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
-import { isRouteErrorResponse, Link } from "@remix-run/react";
+import { isRouteErrorResponse, Link, useLocation } from "@remix-run/react";
 import styles from "./RootErrorBoundaryView.module.css";
 import type { JSX } from "react";
+import { logger } from "~/utils/logger.utils";
 
 interface IProps {
   meta: JSX.Element;
@@ -32,6 +33,10 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 }
 
 export function ErrorMessageComponent({ error }: any) {
+  const location = useLocation();
+  logger.error(`Feil i path: ${location.pathname}`);
+  logger.error(error);
+
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
     const hasStatusText = error.statusText.length > 0;
@@ -51,7 +56,7 @@ export function ErrorMessageComponent({ error }: any) {
     return (
       <Alert className={styles.enableHorisontalScroll} variant="error">
         <Heading spacing size="medium" level="1">
-          {error.message}
+          {error.name}
         </Heading>
         <p>{error.message}</p>
         <p>The stack trace is:</p>
