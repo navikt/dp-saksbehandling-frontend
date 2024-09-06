@@ -23,7 +23,7 @@ export default defineConfig({
   build: {
     manifest: true,
     rollupOptions: {
-      external: ["./app/nais.js"],
+      external: ["./nais.js"],
     },
   },
 });
