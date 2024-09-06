@@ -23,7 +23,14 @@ if (getEnv("USE_MSW") === "true") {
 const csp = {
   "script-src": ["blob:"],
   "img-src": ["'self'", "data:", "blob:"],
-  "connect-src": ["'self'", "*.nav.no", "rt6o382n.apicdn.sanity.io", "cataas.com/cat/gif"], //trenger connect-src for å slenge faro metrics til nav sin oppsamler fra browser
+  "connect-src": [
+    "'self'",
+    "*.nav.no",
+    "rt6o382n.apicdn.sanity.io",
+    "https://telemetry.ekstern.dev.nav.no/collect",
+    "https://telemetry.nav.no/collect",
+    "cataas.com/cat/gif",
+  ],
 };
 let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
 
