@@ -20,10 +20,4 @@ export default defineConfig({
   test: {
     environment: "jsdom",
   },
-  build: {
-    manifest: true,
-    rollupOptions: {
-      external: ["./nais.js"],
-    },
-  },
 });
