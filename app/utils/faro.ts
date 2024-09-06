@@ -9,7 +9,7 @@ export function initFaro() {
     return;
   }
   const collectorUrl =
-    window.location.hostname.indexOf("dev")! - 1
+    getEnv("GCP_ENV") === "dev"
       ? "https://telemetry.ekstern.dev.nav.no/collect"
       : "https://telemetry.nav.no/collect";
   faro = initializeFaro({

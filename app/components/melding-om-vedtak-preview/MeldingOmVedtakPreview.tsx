@@ -3,7 +3,6 @@ import {
   getSanityPortableTextComponents,
   UtvidetBeskrivelse,
 } from "~/sanity/SanityPortableTextComponents";
-import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useLoaderData } from "@remix-run/react";
@@ -22,14 +21,14 @@ export function MeldingOmVedtakPreview() {
       <div className="melding-om-vedtak__header">
         <NavLogo />
 
-        <Detail>
+        <p>
           {`Navn: ${oppgave.person.fornavn} ${oppgave.person.mellomnavn ?? ""} ${oppgave.person.etternavn}`}
-        </Detail>
-        <Detail>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</Detail>
+        </p>
+        <p>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</p>
 
         <div className="melding-om-vedtak__saksnummer-dato">
-          <Detail>{`Saksnummer: ${fagsakId}`}</Detail>
-          <Detail>{formaterNorskDatoITekst(new Date().toString())}</Detail>
+          <p>{`Saksnummer: ${fagsakId}`}</p>
+          <p>{formaterNorskDatoITekst(new Date().toString())}</p>
         </div>
       </div>
 
