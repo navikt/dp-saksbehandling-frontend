@@ -114,5 +114,5 @@ spec:
 
   frontend:
     generatedConfig:
-      mountPath: /usr/share/nginx/html/js/nais.js
+      mountPath: /build/client/nais.js
 
