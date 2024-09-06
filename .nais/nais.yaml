@@ -85,7 +85,6 @@ spec:
         - host: saf.dev-fss-pub.nais.io
         - host: saf.prod-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
-        - host: {{faro_telemetry_url}}
       rules:
         - application: dp-saksbehandling
         - application: dp-behandling
@@ -112,4 +111,8 @@ spec:
       destinations:
         - id: loki
         - id: elastic
+
+  frontend:
+    generatedConfig:
+      mountPath: /usr/share/nginx/html/js/nais.js
 

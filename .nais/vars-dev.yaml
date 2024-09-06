@@ -10,7 +10,6 @@ saf_url: "https://saf.dev-fss-pub.nais.io"
 saf_audience: "api://dev-fss.teamdokumenthandtering.saf-q1/.default"
 pdl_audience: "api://dev-fss.pdl.pdl-api/.default"
 
-faro_telemetry_url: "telemetry.ekstern.dev.nav.no/collect"
 arbeid_inntekt_url: "https://arbeid-og-inntekt-q2.dev.adeo.no/"
 gosys_url: "https://gosys.dev.intern.nav.no/gosys/bruker/brukeroversikt.jsf"
 modia_url: ""

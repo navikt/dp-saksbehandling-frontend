@@ -21,6 +21,7 @@ interface IEnv {
   INNTEKTREDIGERING_URL: string;
   GRISEN_URL: string;
   DAGPENGER_NORGE_URL: string;
+  NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {
