@@ -1,5 +1,6 @@
 import { type Faro, initializeFaro } from "@grafana/faro-web-sdk";
 import { getEnv } from "~/utils/env.utils";
+import nais from "../../nais.js";
 
 let faro: Faro | null = null;
 
@@ -8,11 +9,8 @@ export function initFaro() {
     return;
   }
 
-  // nais.js filen blir injected direkte i poden.
   faro = initializeFaro({
-    // @ts-ignore
     url: nais.telemetryCollectorURL,
-    // @ts-ignore
     app: nais.app,
   });
 }
