@@ -3,7 +3,6 @@ import {
   getSanityPortableTextComponents,
   UtvidetBeskrivelse,
 } from "~/sanity/SanityPortableTextComponents";
-import styles from "./MeldingOmVedtakPreview.module.css";
 import { Detail } from "@navikt/ds-react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
@@ -15,11 +14,12 @@ export function MeldingOmVedtakPreview() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
   const { sanityBrevBlokker, meldingOmVedtakOpplysninger } = useLoaderData<typeof loader>();
   const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
   return (
-    <div className={styles.preview}>
-      <div className={styles.header}>
+    <div className="melding-om-vedtak">
+      <div className="melding-om-vedtak__header">
         <NavLogo />
 
         <Detail>
@@ -27,27 +27,39 @@ export function MeldingOmVedtakPreview() {
         </Detail>
         <Detail>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</Detail>
 
-        <div className={styles.saksnummerDato}>
+        <div className="melding-om-vedtak__saksnummer-dato">
           <Detail>{`Saksnummer: ${fagsakId}`}</Detail>
           <Detail>{formaterNorskDatoITekst(new Date().toString())}</Detail>
         </div>
       </div>
 
-      {sanityBrevBlokker.map((brevBlokk) => (
-        <div key={brevBlokk.textId}>
-          <PortableText
-            value={brevBlokk.innhold}
-            components={getSanityPortableTextComponents(meldingOmVedtakOpplysninger, false)}
-          />
-
-          {brevBlokk.utvidetBeskrivelse && (
-            <UtvidetBeskrivelse
-              id={brevBlokk.textId}
-              text={utvidetBeskrivelser.find((ub) => ub.id === brevBlokk.textId)?.text || ""}
+      <div>
+        {sanityBrevBlokker.map((brevBlokk) => (
+          <div key={brevBlokk.textId} className="meldingOmVedtak__tekst-blokk">
+            <PortableText
+              value={brevBlokk.innhold}
+              components={getSanityPortableTextComponents(meldingOmVedtakOpplysninger, false)}
             />
-          )}
-        </div>
-      ))}
+
+            {brevBlokk.utvidetBeskrivelse && (
+              <UtvidetBeskrivelse
+                id={brevBlokk.textId}
+                text={utvidetBeskrivelser.find((ub) => ub.id === brevBlokk.textId)?.text || ""}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="meldingOmVedtak__signatur">
+        <p>
+          Med vennlig hilsen
+          <br />
+          {saksbehandler.givenName}
+          <br />
+          NAV
+        </p>
+      </div>
     </div>
   );
 }
@@ -55,54 +67,18 @@ export function MeldingOmVedtakPreview() {
 function NavLogo() {
   return (
     <svg
-      className={styles.logo}
-      height="46px"
-      viewBox="0 0 151 95"
+      className="melding-om-vedtak__logo"
+      height="16"
+      viewBox="0 0 193 58"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_9800_2583)">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M70.3403 94.9674C44.1589 94.9674 22.9297 73.7093 22.9297 47.4871C22.9297 21.262 44.1589 0 70.3403 0C96.5312 0 117.763 21.262 117.763 47.4871C117.763 73.7093 96.5312 94.9674 70.3403 94.9674Z"
-          fill="#C30000"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M0 68.2195L9.6915 44.2002H19.0035L9.32439 68.2195H0Z"
-          fill="#C30000"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M119.59 68.2195L129.157 44.2002H134.234L124.667 68.2195H119.59Z"
-          fill="#C30000"
-        />
-        <mask id="mask0_9800_2583" maskUnits="userSpaceOnUse" x="138" y="44" width="13" height="25">
-          <path d="M150.668 68.2195V44.2002H138.406V68.2195H150.668Z" fill="white" />
-        </mask>
-        <g mask="url(#mask0_9800_2583)">
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M138.406 68.2195L147.972 44.2002H150.668L141.101 68.2195H138.406Z"
-            fill="#C30000"
-          />
-        </g>
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M110.787 44.2002H102.358C102.358 44.2002 101.777 44.2002 101.571 44.714L96.9065 59.014L92.2457 44.714C92.0403 44.2002 91.4559 44.2002 91.4559 44.2002H75.249C74.8981 44.2002 74.604 44.4936 74.604 44.8427V49.699C74.604 45.8467 70.5107 44.2002 68.1138 44.2002C62.7463 44.2002 59.1532 47.7405 58.0344 53.1229C57.9738 49.5522 57.6774 48.2728 56.7169 46.9625C56.2757 46.3206 55.6381 45.7809 54.9437 45.3346C53.5139 44.4959 52.2302 44.2002 49.4712 44.2002H46.2317C46.2317 44.2002 45.6462 44.2002 45.4397 44.714L42.4921 52.029V44.8427C42.4921 44.4936 42.2002 44.2002 41.8499 44.2002H34.3538C34.3538 44.2002 33.775 44.2002 33.5645 44.714L30.5002 52.3202C30.5002 52.3202 30.1943 53.0807 30.8937 53.0807H33.775V67.5747C33.775 67.9345 34.058 68.2195 34.4189 68.2195H41.8499C42.2002 68.2195 42.4921 67.9345 42.4921 67.5747V53.0807H45.3886C47.0507 53.0807 47.4027 53.1263 48.0493 53.4281C48.4389 53.5754 48.7897 53.8733 48.9811 54.2168C49.373 54.9554 49.4712 55.8425 49.4712 58.4581V67.5747C49.4712 67.9345 49.7597 68.2195 50.1162 68.2195H57.2384C57.2384 68.2195 58.0434 68.2195 58.3617 67.4235L59.9401 63.5167C62.039 66.4605 65.4935 68.2195 69.7866 68.2195H70.7246C70.7246 68.2195 71.5346 68.2195 71.8551 67.4235L74.604 60.606V67.5747C74.604 67.9345 74.8981 68.2195 75.249 68.2195H82.5194C82.5194 68.2195 83.3216 68.2195 83.6438 67.4235C83.6438 67.4235 86.5515 60.1939 86.5627 60.1394H86.5672C86.6789 59.5379 85.92 59.5379 85.92 59.5379H83.3249V47.1328L91.4896 67.4235C91.8084 68.2195 92.6123 68.2195 92.6123 68.2195H101.201C101.201 68.2195 102.01 68.2195 102.328 67.4235L111.38 44.9782C111.693 44.2002 110.787 44.2002 110.787 44.2002ZM74.604 59.5379H69.7203C67.7764 59.5379 66.1951 57.9617 66.1951 56.0128C66.1951 54.0673 67.7764 52.4809 69.7203 52.4809H71.0861C73.0249 52.4809 74.604 54.0673 74.604 56.0128V59.5379Z"
-          fill="#FEFEFE"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_9800_2583">
-          <rect width="151" height="95" fill="white" />
-        </clipPath>
-      </defs>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M190.8 0.799988H170.9C170.9 0.799988 169.5 0.8 169 2L158 35.8L147 2C146.5 0.8 145.1 0.799988 145.1 0.799988H106.8C106 0.799988 105.3 1.49999 105.3 2.29999V13.8C105.3 4.69999 95.6 0.799988 90 0.799988C77.3 0.799988 68.8 9.19999 66.2 21.9C66.1 13.5 65.4 10.4 63.1 7.39999C62.1 5.89999 60.6 4.60001 58.9 3.60001C55.5 1.60001 52.5 0.899994 46 0.899994H38.3C38.3 0.899994 36.9 0.900006 36.4 2.10001L29.4 19.4V2.39999C29.4 1.59999 28.7 0.899994 27.9 0.899994H10.2C10.2 0.899994 8.8 0.900006 8.3 2.10001L1.10002 20.1C1.10002 20.1 0.400012 21.9 2.00001 21.9H8.8V56.1C8.8 57 9.5 57.6 10.3 57.6H27.9C28.7 57.6 29.4 56.9 29.4 56.1V21.9H36.3C40.2 21.9 41.1 22 42.6 22.7C43.5 23.1 44.4 23.7 44.8 24.6C45.7 26.3 46 28.4 46 34.6V56.1C46 57 46.7 57.6 47.5 57.6H64.3C64.3 57.6 66.2 57.6 66.9 55.7L70.6 46.5C75.6 53.5 83.7 57.6 93.9 57.6H96.1C96.1 57.6 98 57.6 98.8 55.7L105.3 39.6V56.1C105.3 57 106 57.6 106.8 57.6H124C124 57.6 125.9 57.6 126.7 55.7C126.7 55.7 133.6 38.6 133.6 38.5C133.9 37.1 132.1 37.1 132.1 37.1H126V7.79999L145.3 55.7C146.1 57.6 147.9 57.6 147.9 57.6H168.2C168.2 57.6 170.1 57.6 170.9 55.7L192.3 2.70001C193 0.900012 190.9 0.899994 190.9 0.899994L190.8 0.799988ZM105.2 37H93.7C89.1 37 85.4 33.3 85.4 28.7C85.4 24.1 89.1 20.4 93.7 20.4H96.9C101.5 20.4 105.2 24.1 105.2 28.7V37Z"
+        fill="#C30000"
+      />
     </svg>
   );
 }

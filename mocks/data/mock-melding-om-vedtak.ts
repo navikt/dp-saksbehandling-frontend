@@ -9,18 +9,18 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
     "brev.blokk.sporsmaal",
   ],
   opplysninger: [
-    { tekstId: "Søknadsdato", datatype: "dato", verdi: "12-05-2024" },
+    { tekstId: "opplysning.soknadsdato", datatype: "dato", verdi: "12-05-2024" },
     {
-      tekstId: "Arbeidsinntekt siste 12 mnd",
+      tekstId: "opplysning.arbeidsinntekt-siste-12-mnd",
       datatype: "penger",
       verdi: "0",
     },
-    { tekstId: "Inntektskrav for siste 12 mnd", datatype: "penger", verdi: "176000" },
+    { tekstId: "opplysning.inntektskrav-for-siste-12-mnd", datatype: "penger", verdi: "176000" },
     {
-      tekstId: "Arbeidsinntekt siste 36 mnd",
+      tekstId: "opplysning.arbeidsinntekt-siste-36-mnd",
       datatype: "penger",
       verdi: "58000",
     },
-    { tekstId: "Inntektskrav for siste 36 mnd", datatype: "penger", verdi: "528000" },
+    { tekstId: "opplysning.inntektskrav-for-siste-36-mnd", datatype: "penger", verdi: "528000" },
   ],
 };
