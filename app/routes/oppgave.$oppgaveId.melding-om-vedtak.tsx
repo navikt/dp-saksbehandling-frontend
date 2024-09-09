@@ -18,6 +18,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
+    { lang: "nb" },
   );
 
   return json({ sanityBrevBlokker, meldingOmVedtakOpplysninger: meldingOmVedtak.opplysninger });

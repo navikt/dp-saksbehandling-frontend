@@ -3,10 +3,13 @@ export function hentBrevBlokkerMedId(textIds: string[]) {
     .map((id, index) => `textId == "${id}" => ${index}`)
     .join(", ");
 
-  return `*[_type == "brevBlokk" && textId in ${JSON.stringify(textIds)}] | order(select(
+  return `*[_type == "brevBlokk" && language==$lang && textId in ${JSON.stringify(textIds)}] | order(select(
     ${tekstBlokkSortering},
     ${textIds.length}
-  )) {
+  )) ${brevBlokkQuery}`;
+}
+
+const brevBlokkQuery = `{
     ...,
     innhold[]{
       ...,
@@ -24,29 +27,3 @@ export function hentBrevBlokkerMedId(textIds: string[]) {
       }
     },
   }`;
-}
-
-export const hentBrevmalMedId = `*[_type == "brevMal" && textId == $brevmalId] | order(_createdAt desc)[0] {
-  ...,
-  brevBlokker[]->{
-    ...,
-    innhold[]{
-      ...,
-      _type == "block" => {
-        ...,
-        children[]{
-          ...,
-          _type == "opplysningReference" => {
-            ...,
-            "behandlingOpplysning": @->{
-              ...
-            }
-          },
-          _type == "fritekst" => {
-            ...
-          }
-        }
-      }
-    }
-  }
-}`;
