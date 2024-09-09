@@ -23,14 +23,26 @@
 }
 
 .melding-om-vedtak__header p {
+  margin: 0;
+}
+
+.melding-om-vedtak__header p {
   font-size: 11px;
   line-height: 16px;
   font-weight: normal;
 }
 
+/* Bruker floats for å gjøre PDF generatoren fornøyd */
 .melding-om-vedtak__saksnummer-dato {
-  display: flex;
-  justify-content: space-between;
+  overflow: hidden; /* Clear the floats */
+}
+
+.melding-om-vedtak__saksnummer-dato--left {
+  float: left;
+}
+
+.melding-om-vedtak__saksnummer-dato--right {
+  float: right;
 }
 
 .meldingOmVedtak__tekst-blokk:not(:first-of-type) {

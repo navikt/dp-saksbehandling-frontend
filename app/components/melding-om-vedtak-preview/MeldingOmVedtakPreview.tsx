@@ -21,14 +21,14 @@ export function MeldingOmVedtakPreview() {
       <div className="melding-om-vedtak__header">
         <NavLogo />
 
-        <p>
-          {`Navn: ${oppgave.person.fornavn} ${oppgave.person.mellomnavn ?? ""} ${oppgave.person.etternavn}`}
-        </p>
+        <p>{`Navn: ${oppgave.person.fornavn} ${oppgave.person.mellomnavn ?? ""} ${oppgave.person.etternavn}`}</p>
         <p>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</p>
 
         <div className="melding-om-vedtak__saksnummer-dato">
-          <p>{`Saksnummer: ${fagsakId}`}</p>
-          <p>{formaterNorskDatoITekst(new Date().toString())}</p>
+          <p className="melding-om-vedtak__saksnummer-dato--left">{`Saksnummer: ${fagsakId}`}</p>
+          <p className="melding-om-vedtak__saksnummer-dato--right">
+            {formaterNorskDatoITekst(new Date().toString())}
+          </p>
         </div>
       </div>
 
