@@ -36,6 +36,8 @@ export function ErrorMessageComponent({ error }: any) {
   const location = useLocation();
   logger.error(`Feil i path: ${location.pathname}`);
   logger.error(error);
+  console.error(`Feil i path: ${location.pathname}`);
+  console.error(error);
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
