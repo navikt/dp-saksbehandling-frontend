@@ -2,7 +2,8 @@ import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
 import { isRouteErrorResponse, Link, useLocation } from "@remix-run/react";
 import styles from "./RootErrorBoundaryView.module.css";
 import type { JSX } from "react";
-import { logger } from "~/utils/logger.utils";
+import { getLoggerWithTraceContext } from "~/utils/logger.utils";
+import { context } from "@opentelemetry/api";
 
 interface IProps {
   meta: JSX.Element;
@@ -34,10 +35,9 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 
 export function ErrorMessageComponent({ error }: any) {
   const location = useLocation();
+  const logger = getLoggerWithTraceContext(context.active());
   logger.error(`Feil i path: ${location.pathname}`);
   logger.error(error);
-  console.error(`Feil i path: ${location.pathname}`);
-  console.error(error);
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
