@@ -3,6 +3,7 @@ import { isRouteErrorResponse, Link, useLocation } from "@remix-run/react";
 import { logger } from "~/utils/logger.utils";
 import styles from "./RootErrorBoundaryView.module.css";
 import type { JSX } from "react";
+import { faro } from "@grafana/faro-core";
 
 interface IProps {
   meta: JSX.Element;
@@ -36,6 +37,7 @@ export function ErrorMessageComponent({ error }: any) {
   const location = useLocation();
   logger.error(`Feil i path: ${location.pathname}`);
   logger.error(error);
+  faro.api.pushError(error);
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
