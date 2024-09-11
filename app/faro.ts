@@ -6,11 +6,12 @@ import nais from "./nais.js";
 let faro: Faro | null = null;
 
 export function initFaro() {
-  if (typeof document === "undefined" || faro !== null || getEnv("IS_LOCALHOST") === "true") {
+  if (typeof document === "undefined" || faro !== null) {
     return;
   }
 
   faro = initializeFaro({
+    paused: getEnv("IS_LOCALHOST") === "true",
     url: nais.telemetryCollectorURL,
     app: nais.app,
     sessionTracking: {
