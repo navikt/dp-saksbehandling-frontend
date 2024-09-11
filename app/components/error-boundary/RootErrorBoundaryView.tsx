@@ -38,8 +38,7 @@ export function ErrorMessageComponent({ error }: any) {
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
-    const faroError = new Error(error.data, { cause: `${error.status} - ${error.statusText}` });
-    faro.api?.pushError(faroError);
+    faro.api?.pushError(new Error(error.data), { type: `${error.status} - ${error.statusText}` });
     const hasStatusText = error.statusText.length > 0;
 
     return (
