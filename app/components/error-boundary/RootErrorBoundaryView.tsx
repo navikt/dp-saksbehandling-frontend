@@ -35,10 +35,11 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 
 export function ErrorMessageComponent({ error }: any) {
   logger.error(error);
-  faro.api?.pushError(error);
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
+    const faroError = new Error(error.data, { cause: `${error.status} - ${error.statusText}` });
+    faro.api?.pushError(faroError);
     const hasStatusText = error.statusText.length > 0;
 
     return (
@@ -53,6 +54,7 @@ export function ErrorMessageComponent({ error }: any) {
 
   // Treffer Uncaught-exceptions, eks. feil ved import, throw new Error()
   if (error instanceof Error) {
+    faro.api?.pushError(error);
     return (
       <Alert className={styles.enableHorisontalScroll} variant="error">
         <Heading spacing size="medium" level="1">
