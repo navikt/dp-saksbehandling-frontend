@@ -38,13 +38,12 @@ export function ErrorMessageComponent({ error }: any) {
 
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
-    faro.api?.pushError(new Error(error.data), { type: `${error.status} - ${error.statusText}` });
-    const hasStatusText = error.statusText.length > 0;
+    faro.api?.pushError(new Error(error.data), { type: `${error.status} ${error.statusText}` });
 
     return (
       <Alert variant="error">
         <Heading spacing size="medium" level="1">
-          {error.status} Error {hasStatusText && `: ${error.statusText}`}
+          {`${error.status} ${error.statusText}`}
         </Heading>
         <p>{error.data}</p>
       </Alert>
