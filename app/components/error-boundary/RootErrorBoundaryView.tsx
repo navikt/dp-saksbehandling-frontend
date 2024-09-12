@@ -1,9 +1,7 @@
 import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
 import { isRouteErrorResponse, Link } from "@remix-run/react";
-import { logger } from "~/utils/logger.utils";
 import styles from "./RootErrorBoundaryView.module.css";
 import type { JSX } from "react";
-import { faro } from "@grafana/faro-core";
 
 interface IProps {
   meta: JSX.Element;
@@ -34,12 +32,8 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 }
 
 export function ErrorMessageComponent({ error }: any) {
-  logger.error(error);
-
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
   if (isRouteErrorResponse(error)) {
-    faro.api?.pushError(new Error(error.data), { type: `${error.status} ${error.statusText}` });
-
     return (
       <Alert variant="error">
         <Heading spacing size="medium" level="1">
@@ -52,7 +46,6 @@ export function ErrorMessageComponent({ error }: any) {
 
   // Treffer Uncaught-exceptions, eks. feil ved import, throw new Error()
   if (error instanceof Error) {
-    faro.api?.pushError(error);
     return (
       <Alert className={styles.enableHorisontalScroll} variant="error">
         <Heading spacing size="medium" level="1">
