@@ -19,7 +19,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Konkurs Statoil"],
-  journalpostIder: ["123456789"],
+  journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
 };
@@ -38,7 +38,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
     "Søknadsbehandling",
   ],
   tilstand: "UNDER_BEHANDLING",
-  journalpostIder: ["123"],
+  journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "FORTROLIG",
 };
@@ -51,7 +51,7 @@ export const underBehandlingMinOppgave: IOppgave = {
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "UNDER_BEHANDLING",
-  journalpostIder: ["123"],
+  journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
@@ -64,7 +64,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "FERDIG_BEHANDLET",
-  journalpostIder: ["123"],
+  journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: true,
   adressebeskyttelseGradering: "UGRADERT",
 };
@@ -79,7 +79,7 @@ export const paaVentOppgave: IOppgave = {
   utsattTilDato: "2024-05-18",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "PAA_VENT",
-  journalpostIder: ["123"],
+  journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG_UTLAND",
 };
