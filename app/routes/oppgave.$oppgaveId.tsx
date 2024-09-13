@@ -30,10 +30,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     );
   }
 
+  const journalposterPromises = await hentJournalposter();
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  const journalposterPromises = hentJournalposter();
   return defer(
     {
       alert,
