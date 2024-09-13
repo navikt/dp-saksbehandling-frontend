@@ -16,7 +16,6 @@ import { faro } from "@grafana/faro-core";
 
 const ABORT_DELAY = 5000;
 
-console.log(getEnv("USE_MSW"));
 if (getEnv("USE_MSW") === "true") {
   const server = setupMockServer();
   startMockServer(server);

@@ -40,7 +40,6 @@ interface IJournalposter {
 function lagJournalpostData(
   journalpostResponses: INetworkResponse<JournalpostQuery["journalpost"]>[],
 ): IJournalposter {
-  console.log(journalpostResponses);
   const journalposter: IJournalposter = {
     data: [],
     errors: false,
