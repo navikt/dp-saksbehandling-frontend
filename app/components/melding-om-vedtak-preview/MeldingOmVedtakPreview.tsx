@@ -56,7 +56,9 @@ export function MeldingOmVedtakPreview() {
           <br />
           {saksbehandler.givenName}
           <br />
-          NAV
+          NAV Arbeid og ytelser Skien
+          <br />
+          Postboks 2543, Kjørbekk, 3702 SKIEN
         </p>
       </div>
     </div>
