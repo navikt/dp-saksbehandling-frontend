@@ -22,5 +22,10 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
       verdi: "58000",
     },
     { tekstId: "opplysning.inntektskrav-for-siste-36-mnd", datatype: "penger", verdi: "528000" },
+    {
+      tekstId: "opplysning.siste-avsluttende-kalendermaaned",
+      datatype: "dato",
+      verdi: "12-05-2024",
+    },
   ],
 };

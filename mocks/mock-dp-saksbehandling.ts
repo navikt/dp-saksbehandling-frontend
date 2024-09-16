@@ -78,6 +78,36 @@ export const mockDpSaksbehandling = [
     });
   }),
 
+  // Ferdigstille oppgave med melding om vedtak generert i Arena.
+  http.put(
+    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/ferdigstill/melding-om-vedtak-arena`,
+    ({ params }) => {
+      const { oppgaveId } = params;
+      logger.info(
+        `[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/ferdigstill/melding-om-vedtak-arena`,
+      );
+
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    },
+  ),
+
+  // Ferdigstille oppgave med melding om vedtak generert i frontend.
+  http.put(
+    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/ferdigstill/melding-om-vedtak`,
+    ({ params }) => {
+      const { oppgaveId } = params;
+      logger.info(
+        `[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/ferdigstill/melding-om-vedtak`,
+      );
+
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    },
+  ),
+
   // Utsett oppgave med oppgaveId
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`, ({ params }) => {
     const { oppgaveId } = params;
