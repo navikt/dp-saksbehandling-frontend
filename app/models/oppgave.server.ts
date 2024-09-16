@@ -129,7 +129,10 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string, br
 
   return await fetch(url, {
     method: "PUT",
-    headers: getHeaders(onBehalfOfToken),
+    headers: {
+      "Content-Type": "text/html",
+      Authorization: `Bearer ${onBehalfOfToken}`,
+    },
     body: brevHtml,
   });
 }
