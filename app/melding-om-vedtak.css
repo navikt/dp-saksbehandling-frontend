@@ -57,18 +57,6 @@
   letter-spacing: 0.3px;
 }
 
-.meldingOmVedtak__tekst-blokk h2 {
-  letter-spacing: 0.25px;
-}
-
-.meldingOmVedtak__tekst-blokk h3 {
-  letter-spacing: 0.25px;
-}
-
-.meldingOmVedtak__tekst-blokk h4 {
-  letter-spacing: 0.1px;
-}
-
 .meldingOmVedtak__tekst-blokk h2,
 .meldingOmVedtak__tekst-blokk h3,
 .meldingOmVedtak__tekst-blokk h4 {
@@ -79,14 +67,17 @@
 
 .meldingOmVedtak__tekst-blokk h2 {
   font-size: 13px;
+  letter-spacing: 0.25px;
 }
 
 .meldingOmVedtak__tekst-blokk h3 {
   font-size: 12px;
+  letter-spacing: 0.2px;
 }
 
 .meldingOmVedtak__tekst-blokk h4 {
   font-size: 11px;
+  letter-spacing: 0.1px;
 }
 
 .meldingOmVedtak__tekst-blokk p {
