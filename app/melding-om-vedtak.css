@@ -54,6 +54,19 @@
   line-height: 20px;
   font-weight: bold;
   margin: 0 0 26px 0;
+  letter-spacing: 0.3px;
+}
+
+.meldingOmVedtak__tekst-blokk h2 {
+  letter-spacing: 0.25px;
+}
+
+.meldingOmVedtak__tekst-blokk h3 {
+  letter-spacing: 0.25px;
+}
+
+.meldingOmVedtak__tekst-blokk h4 {
+  letter-spacing: 0.1px;
 }
 
 .meldingOmVedtak__tekst-blokk h2,
@@ -84,4 +97,17 @@
 
 .meldingOmVedtak__signatur {
   margin: 32px 0 40px;
+}
+
+@media print {
+  @page {
+    padding: 64px 64px 74px;
+  }
+
+  .meldingOmVedtak__tekst-blokk h1,
+  .meldingOmVedtak__tekst-blokk h2,
+  .meldingOmVedtak__tekst-blokk h3,
+  .meldingOmVedtak__tekst-blokk h4 {
+    page-break-after: avoid;
+  }
 }
