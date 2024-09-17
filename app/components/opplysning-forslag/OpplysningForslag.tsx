@@ -155,8 +155,12 @@ function formaterOpplysningVerdi(opplysning?: IOpplysning) {
     case "dato":
       return formaterNorskDato(opplysning.verdi);
 
-    case "desimaltall":
+    case "penger":
       return <>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</>;
+
+    case "heltall":
+    case "desimaltall":
+      return <>{formaterTallMedTusenSeperator(opplysning.verdi)}</>;
 
     default:
       return opplysning.verdi;

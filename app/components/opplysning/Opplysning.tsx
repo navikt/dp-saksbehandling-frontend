@@ -5,6 +5,7 @@ import { OpplysningInt } from "~/components/opplysning/OpplysningInt";
 import { OpplysningString } from "~/components/opplysning/OpplysningString";
 import type { IOpplysning } from "~/models/behandling.server";
 import styles from "./Opplysning.module.css";
+import { OpplysningPenger } from "~/components/opplysning/OpplysningPenger";
 
 export interface IOpplysningProps {
   opplysning: IOpplysning;
@@ -38,7 +39,7 @@ export function Opplysning({
 
     case "penger":
       return (
-        <OpplysningDouble
+        <OpplysningPenger
           verdi={verdi}
           onChange={onChange}
           label={label}
