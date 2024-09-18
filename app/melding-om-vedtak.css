@@ -14,22 +14,20 @@
   font-weight: normal;
 }
 
+.melding-om-vedtak__header,
 .melding-om-vedtak__logo {
   margin-bottom: 48px;
-}
-
-.melding-om-vedtak__header {
-  margin-bottom: 48px;
-}
-
-.melding-om-vedtak__header p {
-  margin: 0;
 }
 
 .melding-om-vedtak__header p {
   font-size: 11px;
   line-height: 16px;
   font-weight: normal;
+  margin: 0;
+}
+
+.melding-om-vedtak__opplysning-verdi {
+  white-space: nowrap;
 }
 
 /* Bruker floats for å gjøre PDF generatoren fornøyd */
@@ -45,16 +43,20 @@
   float: right;
 }
 
-.meldingOmVedtak__tekst-blokk:not(:first-of-type) {
+.meldingOmVedtak__tekst-blokk {
   margin-bottom: 26px;
+}
+
+.meldingOmVedtak__tekst-blokk--first {
+  margin-bottom: 0;
 }
 
 .meldingOmVedtak__tekst-blokk h1 {
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
-  margin: 0 0 26px 0;
   letter-spacing: 0.3px;
+  margin: 0 0 26px 0;
 }
 
 .meldingOmVedtak__tekst-blokk h2,
@@ -87,18 +89,5 @@
 }
 
 .meldingOmVedtak__signatur {
-  margin: 32px 0 40px;
-}
-
-@media print {
-  @page {
-    padding: 64px 64px 74px;
-  }
-
-  .meldingOmVedtak__tekst-blokk h1,
-  .meldingOmVedtak__tekst-blokk h2,
-  .meldingOmVedtak__tekst-blokk h3,
-  .meldingOmVedtak__tekst-blokk h4 {
-    page-break-after: avoid;
-  }
+  margin-top: 32px;
 }

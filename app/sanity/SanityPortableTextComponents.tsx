@@ -65,12 +65,24 @@ function BehandlingOpplysningReference(
 
   switch (props.value?.behandlingOpplysning.type) {
     case "penger":
-      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} kr</span>;
+      return (
+        <span className={"melding-om-vedtak__opplysning-verdi"}>
+          {formaterTallMedTusenSeperator(opplysning.verdi)} kr
+        </span>
+      );
     case "dato":
-      return <span>{formaterNorskDatoITekst(opplysning.verdi)}</span>;
+      return (
+        <span className={"melding-om-vedtak__opplysning-verdi"}>
+          {formaterNorskDatoITekst(opplysning.verdi)}
+        </span>
+      );
     case "grunnbelop":
-      return <span>{formaterTallMedTusenSeperator(opplysning.verdi)} G</span>;
+      return (
+        <span className={"melding-om-vedtak__opplysning-verdi"}>
+          {formaterTallMedTusenSeperator(opplysning.verdi)} G
+        </span>
+      );
     default:
-      return <span>{opplysning.verdi}</span>;
+      return <span className={"melding-om-vedtak__opplysning-verdi"}>{opplysning.verdi}</span>;
   }
 }

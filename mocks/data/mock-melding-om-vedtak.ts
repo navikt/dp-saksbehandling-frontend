@@ -4,9 +4,9 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
   brevblokkIder: [
     "brev.blokk.vedtak-avslag",
     "brev.blokk.begrunnelse-avslag-minsteinntekt",
+    "brev.blokk.sporsmaal",
     "brev.blokk.rett-til-aa-klage",
     "brev.blokk.rett-til-innsyn",
-    "brev.blokk.sporsmaal",
   ],
   opplysninger: [
     { tekstId: "opplysning.soknadsdato", datatype: "dato", verdi: "12-05-2024" },

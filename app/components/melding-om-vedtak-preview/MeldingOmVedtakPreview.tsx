@@ -8,6 +8,7 @@ import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useLoaderData } from "@remix-run/react";
 import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
+import classNames from "classnames";
 
 export function MeldingOmVedtakPreview() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
@@ -33,8 +34,14 @@ export function MeldingOmVedtakPreview() {
       </div>
 
       <div>
-        {sanityBrevBlokker.map((brevBlokk) => (
-          <div key={brevBlokk.textId} className="meldingOmVedtak__tekst-blokk">
+        {sanityBrevBlokker.map((brevBlokk, index) => (
+          <div
+            key={brevBlokk.textId}
+            className={classNames(
+              "meldingOmVedtak__tekst-blokk",
+              index === 0 && "meldingOmVedtak__tekst-blokk--first",
+            )}
+          >
             <PortableText
               value={brevBlokk.innhold}
               components={getSanityPortableTextComponents(meldingOmVedtakOpplysninger, false)}
