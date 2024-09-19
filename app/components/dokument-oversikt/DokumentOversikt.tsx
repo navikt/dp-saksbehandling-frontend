@@ -7,9 +7,8 @@ import { isNetworkResponseSuccess } from "~/utils/type-guards";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function DokumentOversikt() {
-  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
-  const journalposter = lagJournalpostData(journalposterPromises);
+  const { journalposterResponses } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const journalposter = lagJournalpostData(journalposterResponses);
 
   return (
     <div className={styles.dokumentContainer}>

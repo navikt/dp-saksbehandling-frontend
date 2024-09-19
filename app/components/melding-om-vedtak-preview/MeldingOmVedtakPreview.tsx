@@ -3,18 +3,34 @@ import {
   getSanityPortableTextComponents,
   UtvidetBeskrivelse,
 } from "~/sanity/SanityPortableTextComponents";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
-import { useLoaderData } from "@remix-run/react";
-import type { loader } from "~/routes/oppgave.$oppgaveId.melding-om-vedtak";
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 import classNames from "classnames";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { IOppgave } from "~/models/oppgave.server";
+import type { IBehandling } from "~/models/behandling.server";
+import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
+import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
 
-export function MeldingOmVedtakPreview() {
-  const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { sanityBrevBlokker, meldingOmVedtakOpplysninger } = useLoaderData<typeof loader>();
-  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { saksbehandler } = useTypedRouteLoaderData("root");
+interface IProps {
+  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  saksbehandler: ISaksbehandler;
+  oppgave: IOppgave;
+  behandling: IBehandling;
+  sanityBrevBlokker: ISanityBrevBlokk[];
+  meldingOmVedtakOpplysninger: IBrevOpplysning[];
+}
+
+export function MeldingOmVedtakPreview(props: IProps) {
+  const {
+    utvidetBeskrivelser,
+    saksbehandler,
+    oppgave,
+    behandling,
+    sanityBrevBlokker,
+    meldingOmVedtakOpplysninger,
+  } = props;
+
   const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
 
   return (

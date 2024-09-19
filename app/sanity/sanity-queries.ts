@@ -25,28 +25,3 @@ export function hentBrevBlokkerMedId(textIds: string[]) {
     },
   }`;
 }
-
-export const hentBrevmalMedId = `*[_type == "brevMal" && textId == $brevmalId] | order(_createdAt desc)[0] {
-  ...,
-  brevBlokker[]->{
-    ...,
-    innhold[]{
-      ...,
-      _type == "block" => {
-        ...,
-        children[]{
-          ...,
-          _type == "opplysningReference" => {
-            ...,
-            "behandlingOpplysning": @->{
-              ...
-            }
-          },
-          _type == "fritekst" => {
-            ...
-          }
-        }
-      }
-    }
-  }
-}`;
