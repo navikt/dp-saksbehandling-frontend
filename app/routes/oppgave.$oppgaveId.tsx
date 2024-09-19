@@ -26,15 +26,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
 
-  const [behandling, oppgaverForPerson, meldingOmVedtak] = await Promise.all([
-    hentBehandling(request, oppgave.behandlingId),
-    hentOppgaverForPerson(request, oppgave.person.ident),
-    hentMeldingOmVedtak(request, oppgave.behandlingId),
-  ]);
+  const behandling = await hentBehandling(request, oppgave.behandlingId);
+  const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
+
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
   );
