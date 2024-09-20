@@ -9,6 +9,8 @@ import { renderToString } from "react-dom/server";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import { getAlertMessage } from "~/utils/alert-message.utils";
+import { commitSession, getSession } from "~/sessions";
 import styles from "../route-styles/oppgave.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -16,21 +18,38 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
   const brevIArena = (formData.get("send-brev-i-arena") as string) === "true";
   const meldingOmVedtakHtml = formData.get("melding-om-vedtak-html") as string;
+  const session = await getSession(request.headers.get("Cookie"));
 
   let response;
   if (brevIArena) {
     response = await ferdigstillOppgaveMedArenaBrev(request, params.oppgaveId);
+    session.flash(
+      "alert",
+      getAlertMessage({ name: "ferdigstill-oppgave-brev-i-arena", httpCode: response.status }),
+    );
   } else {
     invariant(meldingOmVedtakHtml, "meldingOmVedtakHtml er påkrevd");
     response = await ferdigstillOppgave(request, params.oppgaveId, meldingOmVedtakHtml);
+    session.flash(
+      "alert",
+      getAlertMessage({ name: "ferdigstill-oppgave", httpCode: response.status }),
+    );
   }
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return redirect(`/oppgave/${params.oppgaveId}`);
+    return redirect(`/oppgave/${params.oppgaveId}`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
   }
 
-  return redirect(`../fullfort-oppgave`);
+  return redirect(`../fullfort-oppgave`, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }
 
 export default function FerdigstillOppgave() {

@@ -24,7 +24,9 @@ interface IAlertType {
     | "ukjent-feil"
     | "send-brev"
     | "godkjenn-behandling"
-    | "avbryt-behandling";
+    | "avbryt-behandling"
+    | "ferdigstill-oppgave"
+    | "ferdigstill-oppgave-brev-i-arena";
   httpCode: number;
 }
 
@@ -50,6 +52,12 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "avbryt-behandling":
       return handleAvbrytBehandlingMessages(alertResponse.httpCode);
+
+    case "ferdigstill-oppgave":
+      return handleFerdigstillOppgaveMessages(alertResponse.httpCode);
+
+    case "ferdigstill-oppgave-brev-i-arena":
+      return handleFerdigstillOppgaveBrevIArenaMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -158,7 +166,7 @@ export function handleGodkjennBehandlingMessages(httpCode: number): IAlert {
 
     default:
       return {
-        variant: "warning",
+        variant: "error",
         title: "Kunne ikke godkjenn behandling",
         body: `Ukjent feil: ${httpCode}`,
       };
@@ -172,9 +180,43 @@ export function handleAvbrytBehandlingMessages(httpCode: number): IAlert {
 
     default:
       return {
-        variant: "warning",
+        variant: "error",
         title: "Fikk ikke sendt behandling til Arena",
         body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleFerdigstillOppgaveMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke ferdigstille oppgave",
+        body: `Feilkode: ${httpCode}`,
+      };
+  }
+}
+
+export function handleFerdigstillOppgaveBrevIArenaMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Oppgaven er ferdig behandlet og utsending av melding om vedtak håndteres i Arena",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke ferdigstille oppgave",
+        body: `Feilkode: ${httpCode}`,
       };
   }
 }
