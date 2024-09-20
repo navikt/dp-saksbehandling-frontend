@@ -100,14 +100,15 @@ export default function Oppgave() {
                   onClick={() => navigate("oversikt")}
                 />
 
-                {getEnv("GCP_ENV") !== "prod" && (
-                  <Tabs.Tab
-                    value="melding-om-vedtak"
-                    label="Melding om vedtak"
-                    icon={<TasklistSendIcon />}
-                    onClick={() => navigate("melding-om-vedtak")}
-                  />
-                )}
+                {getEnv("GCP_ENV") !== "prod" ||
+                  (oppgave.saksbehandlerIdent === "G151133" && (
+                    <Tabs.Tab
+                      value="melding-om-vedtak"
+                      label="Melding om vedtak"
+                      icon={<TasklistSendIcon />}
+                      onClick={() => navigate("melding-om-vedtak")}
+                    />
+                  ))}
               </Tabs.List>
               <OppgaveHandlinger />
               {oppgave.tilstand === "UNDER_BEHANDLING" && <BehandlingHandlinger />}
