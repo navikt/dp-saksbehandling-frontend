@@ -12,6 +12,7 @@ import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { commitSession, getSession } from "~/sessions";
 import styles from "../route-styles/oppgave.module.css";
+import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -96,19 +97,21 @@ export default function FerdigstillOppgave() {
           </Button>
         </Form>
 
-        <Form method="post">
-          <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
-          <input
-            hidden={true}
-            readOnly={true}
-            name="melding-om-vedtak-html"
-            value={meldingOmVedtakHtml}
-          />
+        {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandlerIdent === "G151133") && (
+          <Form method="post">
+            <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
+            <input
+              hidden={true}
+              readOnly={true}
+              name="melding-om-vedtak-html"
+              value={meldingOmVedtakHtml}
+            />
 
-          <Button size="small" variant="primary" disabled={isSubmitting}>
-            Ja, med brev fra nytt system
-          </Button>
-        </Form>
+            <Button size="small" variant="primary" disabled={isSubmitting}>
+              Ja, med brev fra nytt system
+            </Button>
+          </Form>
+        )}
       </Modal.Footer>
     </>
   );

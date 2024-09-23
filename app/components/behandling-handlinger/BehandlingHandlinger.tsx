@@ -1,6 +1,5 @@
 import styles from "./BehandlingHandlinger.module.css";
 import { RemixLink } from "~/components/RemixLink";
-import { getEnv } from "~/utils/env.utils";
 
 export function BehandlingHandlinger() {
   return (
@@ -9,17 +8,9 @@ export function BehandlingHandlinger() {
         Send til Arena
       </RemixLink>
 
-      {getEnv("GCP_ENV") === "dev" && (
-        <RemixLink to={"ferdigstill"} asButtonVariant="primary" size="small">
-          Automatisk avslag
-        </RemixLink>
-      )}
-
-      {getEnv("GCP_ENV") === "prod" && (
-        <RemixLink to={"godkjenn-behandling"} asButtonVariant="primary" size="small">
-          Automatisk avslag
-        </RemixLink>
-      )}
+      <RemixLink to={"ferdigstill"} asButtonVariant="primary" size="small">
+        Automatisk avslag
+      </RemixLink>
     </div>
   );
 }
