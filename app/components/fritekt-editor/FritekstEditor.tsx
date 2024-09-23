@@ -1,4 +1,4 @@
-import { Detail, Textarea } from "@navikt/ds-react";
+import { Textarea } from "@navikt/ds-react";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import type { ChangeEvent } from "react";
@@ -57,6 +57,7 @@ interface IFritekst {
 
 export function Fritekst(props: IFritekst) {
   const isFirstRender = useFirstRender();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sistLagret, setSistLagret] = useState(props.sistLagretDato);
   const [verdi, setVerdi] = useState(props.verdi);
   const [debouncedVerdi, setDebouncedVerdi] = useState<string>(verdi);
@@ -87,11 +88,11 @@ export function Fritekst(props: IFritekst) {
         onChange={onChange}
         onBlur={debouncedChange.flush}
       />
-      {sistLagret && (
-        <Detail textColor="subtle" size="small">
-          Lagret {sistLagret}
-        </Detail>
-      )}
+      {/*{sistLagret && (*/}
+      {/*  <Detail textColor="subtle" size="small">*/}
+      {/*    Lagret {sistLagret}*/}
+      {/*  </Detail>*/}
+      {/*)}*/}
     </>
   );
 }
