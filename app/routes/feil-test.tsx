@@ -13,12 +13,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (errorTest === "throwResponse") {
     throw new Response("Throw error server side", { status: 500 });
   }
+
   if (errorTest === "logger.error") {
     logger.error("logger.error server side");
     return null;
   }
+
   if (errorTest === "console.error") {
     console.error("console.error server side");
+    return null;
   }
 }
 
