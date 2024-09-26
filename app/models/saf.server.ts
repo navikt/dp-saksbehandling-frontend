@@ -20,6 +20,7 @@ export async function hentJournalpost(
   const client = new GraphQLClient(url, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
+      connection: "keep-alive",
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
@@ -36,7 +37,7 @@ export async function hentJournalpost(
     };
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    logger.info(errorMessage);
+    logger.error(errorMessage);
 
     return {
       status: "error",

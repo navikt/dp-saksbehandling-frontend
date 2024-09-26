@@ -75,6 +75,7 @@ export async function hentPersonalia(request: Request, ident: string) {
   const client = new GraphQLClient(pdlAdresse, {
     headers: {
       Authorization: `Bearer ${onBehalfOfToken}`,
+      connection: "keep-alive",
       "Nav-User-Id": saksbehandler.onPremisesSamAccountName,
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",

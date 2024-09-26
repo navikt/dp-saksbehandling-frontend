@@ -45,11 +45,7 @@ export async function hentOppgaver(request: Request, urlParams?: string): Promis
 
   const response = await fetch(url, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: getHeaders(onBehalfOfToken),
   });
 
   if (!response.ok) {
@@ -129,10 +125,7 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string, br
 
   return await fetch(url, {
     method: "PUT",
-    headers: {
-      "Content-Type": "text/html",
-      Authorization: `Bearer ${onBehalfOfToken}`,
-    },
+    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/html" },
     body: brevHtml,
   });
 }

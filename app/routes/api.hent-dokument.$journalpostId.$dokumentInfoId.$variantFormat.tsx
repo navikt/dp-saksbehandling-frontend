@@ -16,6 +16,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
+      connection: "keep-alive",
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },

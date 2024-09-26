@@ -1,9 +1,8 @@
 export function getHeaders(onBehalfOfToken: string) {
-  const headers = {
+  return {
     "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: `Bearer ${onBehalfOfToken}`,
+    connection: "keep-alive",
   };
-
-  return headers;
 }
