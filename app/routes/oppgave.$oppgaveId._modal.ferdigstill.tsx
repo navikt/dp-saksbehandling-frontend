@@ -55,7 +55,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function FerdigstillOppgave() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtakOpplysninger } =
     useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
@@ -66,7 +65,6 @@ export default function FerdigstillOppgave() {
   const meldingOmVedtakHtml = renderToString(
     <MeldingOmVedtakPreview
       utvidetBeskrivelser={utvidetBeskrivelser}
-      saksbehandler={saksbehandler}
       oppgave={oppgave}
       behandling={behandling}
       sanityBrevBlokker={sanityBrevBlokker}

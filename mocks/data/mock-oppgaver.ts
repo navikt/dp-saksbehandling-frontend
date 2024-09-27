@@ -1,4 +1,4 @@
-import type { IOppgave, IPerson } from "~/models/oppgave.server";
+import type { IOppgave, IOppgaveSaksbehandler, IPerson } from "~/models/oppgave.server";
 
 export const mockPerson: IPerson = {
   alder: 74,
@@ -9,6 +9,17 @@ export const mockPerson: IPerson = {
   mellomnavn: "Dægg",
   etternavn: "Duck",
   ident: "12345678910",
+};
+
+export const mockOppgaveSaksbehandler: IOppgaveSaksbehandler = {
+  fornavn: "F_Z993298",
+  etternavn: "E_Z993298",
+  ident: "Z993298",
+  enhet: {
+    enhetNr: "2970",
+    navn: "IT-avdelingen",
+    postadresse: "",
+  },
 };
 
 export const klarTilBehandlingOppgave: IOppgave = {
@@ -30,6 +41,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   personIdent: "12837798289",
   person: mockPerson,
   saksbehandlerIdent: "ident456",
+  saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: [
     "HattLukkedeSakerSiste8Uker",
@@ -48,6 +60,7 @@ export const underBehandlingMinOppgave: IOppgave = {
   personIdent: "12837798289",
   person: mockPerson,
   saksbehandlerIdent: "ident123",
+  saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "UNDER_BEHANDLING",
@@ -61,6 +74,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   personIdent: "12837798289",
   person: mockPerson,
   saksbehandlerIdent: "ident123",
+  saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS"],
   tilstand: "FERDIG_BEHANDLET",
@@ -75,6 +89,7 @@ export const paaVentOppgave: IOppgave = {
   personIdent: "12837798289",
   person: mockPerson,
   saksbehandlerIdent: "ident123",
+  saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   utsattTilDato: "2024-05-18",
   emneknagger: ["Søknadsbehandling", "EØS"],

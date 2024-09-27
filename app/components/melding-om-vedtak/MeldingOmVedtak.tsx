@@ -6,7 +6,6 @@ import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtakOpplysninger } =
     useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
@@ -17,7 +16,6 @@ export function MeldingOmVedtak() {
       <div className={styles.previewContainer}>
         <MeldingOmVedtakPreview
           utvidetBeskrivelser={utvidetBeskrivelser}
-          saksbehandler={saksbehandler}
           oppgave={oppgave}
           behandling={behandling}
           sanityBrevBlokker={sanityBrevBlokker}

@@ -14,11 +14,23 @@ export interface IPerson {
   statsborgerskap: string;
 }
 
+export interface IOppgaveSaksbehandler {
+  ident: string;
+  fornavn: string;
+  etternavn: string;
+  enhet: {
+    navn: string;
+    enhetNr: string;
+    postadresse: string;
+  };
+}
+
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
   personIdent: string;
   saksbehandlerIdent?: string;
+  saksbehandler?: IOppgaveSaksbehandler;
   person: IPerson;
   tidspunktOpprettet: string;
   journalpostIder: string[];

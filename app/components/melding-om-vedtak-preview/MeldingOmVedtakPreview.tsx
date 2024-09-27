@@ -6,7 +6,6 @@ import {
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
 import classNames from "classnames";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import type { IOppgave } from "~/models/oppgave.server";
 import type { IBehandling } from "~/models/behandling.server";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
@@ -14,7 +13,6 @@ import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
 
 interface IProps {
   utvidetBeskrivelser: IUtvidetBeskrivelse[];
-  saksbehandler: ISaksbehandler;
   oppgave: IOppgave;
   behandling: IBehandling;
   sanityBrevBlokker: ISanityBrevBlokk[];
@@ -24,7 +22,6 @@ interface IProps {
 export function MeldingOmVedtakPreview(props: IProps) {
   const {
     utvidetBeskrivelser,
-    saksbehandler,
     oppgave,
     behandling,
     sanityBrevBlokker,
@@ -77,11 +74,11 @@ export function MeldingOmVedtakPreview(props: IProps) {
         <p>
           Med vennlig hilsen
           <br />
-          {saksbehandler.givenName}
+          {oppgave.saksbehandler?.fornavn} {oppgave.saksbehandler?.etternavn}
           <br />
-          NAV Arbeid og ytelser Skien
+          {oppgave.saksbehandler?.enhet.navn}
           <br />
-          Postboks 2543, Kjørbekk, 3702 SKIEN
+          {oppgave.saksbehandler?.enhet.postadresse}
         </p>
       </div>
     </div>
