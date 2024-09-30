@@ -14,6 +14,7 @@ import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { sanityClient } from "~/sanity/sanity-client";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import styles from "~/route-styles/oppgave.module.css";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -58,10 +59,13 @@ export default function Oppgave() {
   useHandleAlertMessages(alert);
 
   return (
-    <div className={styles.container}>
+    <>
       <PersonBoks person={oppgave.person} />
-      <OppgaveListe oppgaver={oppgaverForPerson} />
-      <Outlet />
-    </div>
+      <div className={styles.oppgaveContainer}>
+        <OppgaveListe oppgaver={oppgaverForPerson} />
+        <OppgaveHandlinger />
+        <Outlet />
+      </div>
+    </>
   );
 }

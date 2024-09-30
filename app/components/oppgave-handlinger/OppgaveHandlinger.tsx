@@ -9,6 +9,8 @@ import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-o
 import styles from "./OppgaveHandlinger.module.css";
 
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { RemixLink } from "~/components/RemixLink";
+import classnames from "classnames";
 
 export function OppgaveHandlinger() {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ export function OppgaveHandlinger() {
   }, [utsettOppgaveFetcher.data, leggTilbakeOppgaveFetcher.data, navigate]);
 
   return (
-    <div className={styles.container}>
+    <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
       {oppgave.tilstand !== "FERDIG_BEHANDLET" && (
         <>
           <leggTilbakeOppgaveFetcher.Form method="post" action="/action-legg-tilbake-oppgave">
@@ -45,6 +47,26 @@ export function OppgaveHandlinger() {
           <Button size="small" variant="tertiary" onClick={() => ref.current?.showModal()}>
             Sett på vent
           </Button>
+
+          {oppgave.tilstand === "UNDER_BEHANDLING" && (
+            <>
+              <RemixLink
+                to={`/oppgave/${oppgave.oppgaveId}/behandle/avbryt-behandling`}
+                asButtonVariant="secondary"
+                size="small"
+              >
+                Send til Arena
+              </RemixLink>
+
+              <RemixLink
+                to={`/oppgave/${oppgave.oppgaveId}/behandle/ferdigstill`}
+                asButtonVariant="primary"
+                size="small"
+              >
+                Automatisk avslag
+              </RemixLink>
+            </>
+          )}
 
           <Modal
             ref={ref}

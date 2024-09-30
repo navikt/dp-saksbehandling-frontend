@@ -1,8 +1,0 @@
-.personOversiktKontainer {
-  padding: var(--a-spacing-6);
-}
-
-.stans {
-  display: flex;
-  justify-content: flex-end;
-}

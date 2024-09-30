@@ -5,18 +5,18 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilte
 import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import styles from "~/route-styles/index.module.css";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
 import { useNavigation } from "@remix-run/react";
+import styles from "~/route-styles/index.module.css";
+import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
-      <aside className={styles.leftColumn}>
+      <aside className={styles.venstreMeny}>
         <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
           <Tabs.List>
             <Tabs.Tab

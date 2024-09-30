@@ -33,7 +33,7 @@ export function OpplysningTabell(props: IProps) {
         />
       </div>
       <div className={styles.content}>
-        <Heading size={"large"}>{opplysningsMap[selectedKategori].header}</Heading>
+        <Heading size={"medium"}>{opplysningsMap[selectedKategori].header}</Heading>
         <BodyLong className={styles.opplysningKategoriBody}>
           {opplysningsMap[selectedKategori].description}
         </BodyLong>

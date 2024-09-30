@@ -7,11 +7,11 @@ import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilte
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import styles from "~/route-styles/index.module.css";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 import { useNavigation } from "@remix-run/react";
+import styles from "~/route-styles/index.module.css";
+import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -41,7 +41,7 @@ export default function Saksbehandling() {
   const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
-      <aside className={styles.leftColumn}>
+      <aside className={styles.venstreMeny}>
         <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
           <Tabs.List>
             <Tabs.Tab

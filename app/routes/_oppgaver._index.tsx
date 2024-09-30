@@ -54,7 +54,7 @@ export default function Saksbehandling() {
 
   return (
     <div className={styles.container}>
-      <aside className={styles.leftColumn}>
+      <aside className={styles.venstreMeny}>
         <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
           <Tabs.List>
             <Tabs.Tab

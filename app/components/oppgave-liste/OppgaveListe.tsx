@@ -35,31 +35,33 @@ export function OppgaveListe({
 
   return (
     <>
-      <div className={styles.oppgaveListeInfo}>
-        {visNesteOppgaveKnapp && (
-          <nesteFetcher.Form
-            method="post"
-            action="/action-hent-neste-oppgave"
-            className={styles.nesteKnapp}
-          >
-            <Button
-              variant="primary"
-              size="small"
-              loading={state !== "idle"}
-              disabled={state !== "idle"}
+      {(visNesteOppgaveKnapp || visAntallOppgaver) && (
+        <div className={styles.oppgaveListeInfo}>
+          {visNesteOppgaveKnapp && (
+            <nesteFetcher.Form
+              method="post"
+              action="/action-hent-neste-oppgave"
+              className={styles.nesteKnapp}
             >
-              Neste oppgave
-            </Button>
-          </nesteFetcher.Form>
-        )}
+              <Button
+                variant="primary"
+                size="small"
+                loading={state !== "idle"}
+                disabled={state !== "idle"}
+              >
+                Neste oppgave
+              </Button>
+            </nesteFetcher.Form>
+          )}
 
-        {visAntallOppgaver && (
-          <Detail textColor="subtle" className={styles.antallOppgaver}>
-            {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
-            {lasterOppgaver && "Laster oppgaver..."}
-          </Detail>
-        )}
-      </div>
+          {visAntallOppgaver && (
+            <Detail textColor="subtle" className={styles.antallOppgaver}>
+              {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
+              {lasterOppgaver && "Laster oppgaver..."}
+            </Detail>
+          )}
+        </div>
+      )}
 
       <Table
         sort={sortState}

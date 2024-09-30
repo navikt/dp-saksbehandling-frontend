@@ -5,7 +5,7 @@ import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 
 export function OppgaveInformasjon() {
   return (
-    <Tabs defaultValue="dokumenter" size="small">
+    <Tabs defaultValue="dokumenter" size="medium">
       <Tabs.List>
         <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
         <Tabs.Tab

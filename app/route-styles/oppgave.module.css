@@ -1,14 +1,7 @@
-.container {
+.oppgaveContainer {
+  display: grid;
+  gap: var(--a-spacing-2);
   padding: var(--a-spacing-4);
-  background-color: #f2f2f2;
-  min-height: calc(100vh - 48px);
-}
-
-.behandlingBox {
-  margin-top: var(--a-spacing-4);
-  background-color: var(--a-white);
-  box-shadow: var(--a-shadow-xsmall);
-  border-radius: var(--a-border-radius-medium);
 }
 
 .loaderContainer {
@@ -18,17 +11,10 @@
   padding: 50px 0;
 }
 
-.tabMeny {
-  display: flex;
-}
-
 .behandling {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-}
-
-.opplysninger {
-  border-right: 1px solid var(--a-border-subtle);
+  gap: var(--a-spacing-2);
+  grid-template-columns: 2fr 1fr;
 }
 
 .modalCenterHeader {

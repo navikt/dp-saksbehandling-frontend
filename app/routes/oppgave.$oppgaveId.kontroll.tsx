@@ -1,63 +1,65 @@
-import { Outlet, useLocation, useNavigate, useNavigation } from "@remix-run/react";
-import { Loader, Tabs } from "@navikt/ds-react";
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { Alert, Tabs } from "@navikt/ds-react";
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { BehandlingHandlinger } from "~/components/behandling-handlinger/BehandlingHandlinger";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { getEnv } from "~/utils/env.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { ValidatedForm } from "remix-validated-form";
+import { hentValideringRegler } from "~/utils/validering.util";
+import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { Outlet } from "@remix-run/react";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
-  const navigate = useNavigate();
-  const navigation = useNavigation();
-  const location = useLocation();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
-  function getSelectedTab() {
-    if (location.pathname.includes("melding-om-vedtak")) {
-      return "melding-om-vedtak";
-    }
-
-    return "behandling";
-  }
+  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <div className={styles.behandlingBox}>
-      <MeldingOmVedtakProvider>
-        <Tabs size="medium" value={getSelectedTab()}>
-          <div className={styles.tabMeny}>
-            <Tabs.List>
-              <Tabs.Tab
-                value="behandling"
-                label="Redigere opplysninger"
-                icon={<DocPencilIcon />}
-                onClick={() => navigate("")}
-              />
-
-              {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandlerIdent === "G151133") && (
+    <MeldingOmVedtakProvider>
+      <Alert variant="warning">Kontroll</Alert>
+      <div className={styles.behandling}>
+        <div className={"card"}>
+          <Tabs size="medium" defaultValue="behandling">
+            <div className={styles.tabMeny}>
+              <Tabs.List>
                 <Tabs.Tab
-                  value="melding-om-vedtak"
-                  label="Melding om vedtak"
-                  icon={<TasklistSendIcon />}
-                  onClick={() => navigate("melding-om-vedtak")}
+                  value="behandling"
+                  label="Redigere opplysninger"
+                  icon={<DocPencilIcon />}
                 />
-              )}
-            </Tabs.List>
-            <OppgaveHandlinger />
-            {oppgave.tilstand === "UNDER_BEHANDLING" && <BehandlingHandlinger />}
-          </div>
 
-          {navigation.state === "loading" && (
-            <div className={styles.loaderContainer}>
-              Laster side
-              <Loader variant="interaction" size="xlarge" />
+                {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandlerIdent === "G151133") && (
+                  <Tabs.Tab
+                    value="melding-om-vedtak"
+                    label="Melding om vedtak"
+                    icon={<TasklistSendIcon />}
+                  />
+                )}
+              </Tabs.List>
             </div>
-          )}
 
-          {navigation.state !== "loading" && <Outlet />}
-        </Tabs>
-      </MeldingOmVedtakProvider>
-    </div>
+            <Tabs.Panel value="behandling">
+              <ValidatedForm
+                validator={hentValideringRegler(behandling.opplysning)}
+                method="post"
+                className={styles.opplysninger}
+              >
+                <OpplysningTabell opplysninger={behandling.opplysning} />
+              </ValidatedForm>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="melding-om-vedtak">
+              <MeldingOmVedtak />
+            </Tabs.Panel>
+          </Tabs>
+        </div>
+
+        <div className={"card"}>
+          <OppgaveInformasjon />
+        </div>
+
+        <Outlet />
+      </div>
+    </MeldingOmVedtakProvider>
   );
 }
