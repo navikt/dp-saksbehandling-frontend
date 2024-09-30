@@ -1,8 +1,7 @@
 import { Modal } from "@navikt/ds-react";
-import { Outlet, useNavigate, useParams } from "@remix-run/react";
+import { Outlet, useNavigate } from "@remix-run/react";
 
 export default function _Modal() {
-  const { oppgaveId } = useParams();
   const navigate = useNavigate();
   return (
     <Modal
@@ -10,7 +9,7 @@ export default function _Modal() {
       aria-label={""}
       open={true}
       width={"small"}
-      onClose={() => navigate(`/oppgave/${oppgaveId}`)}
+      onClose={() => navigate(-1)}
     >
       <Outlet />
     </Modal>
