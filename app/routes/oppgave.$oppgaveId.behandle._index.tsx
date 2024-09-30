@@ -1,11 +1,11 @@
-import styles from "~/route-styles/oppgave.module.css";
-
 import { ValidatedForm } from "remix-validated-form";
 import { hentValideringRegler } from "~/utils/validering.util";
 import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { Tabs } from "@navikt/ds-react";
+
+import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");

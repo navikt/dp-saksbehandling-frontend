@@ -16,7 +16,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (response.ok) {
     const oppgave = (await response.json()) as IOppgave;
-    return redirect(`/oppgave/${oppgave.oppgaveId}`);
+    return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
   }
 
   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`/oppgave/${params.oppgaveId}`, {
+  return redirect(`/oppgave/${params.oppgaveId}/behandle`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

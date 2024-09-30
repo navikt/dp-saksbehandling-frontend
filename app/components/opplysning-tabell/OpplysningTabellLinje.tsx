@@ -10,15 +10,17 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   opplysning: IOpplysning;
+  readonly?: boolean;
 }
 
-export function OpplysningTabellLinje({ opplysning }: IProps) {
+export function OpplysningTabellLinje(props: IProps) {
+  const { opplysning } = props;
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const endreOpplysningFetcher = useFetcher<typeof endreOpplysningAction>();
   const [verdi, setVerdi] = useState<string>(opplysning.verdi);
   const [redigerOpplysning, setRedigerOpplysning] = useState(false);
 
-  const readonly = getEnv("GCP_ENV") !== "dev";
+  const readonly = getEnv("GCP_ENV") !== "dev" || props.readonly;
   const kanRedigere = !readonly && opplysning.redigerbar;
   const dirtyInput = verdi !== opplysning.verdi;
 

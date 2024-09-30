@@ -9,6 +9,7 @@ import styles from "./OpplysningTabell.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];
+  readonly?: boolean;
 }
 
 export function OpplysningTabell(props: IProps) {
@@ -39,7 +40,11 @@ export function OpplysningTabell(props: IProps) {
         <Table className={classNames("table--compact", "table--subtle-zebra", styles.table)}>
           <Table.Body>
             {filteredOpplysning.map((opplysning) => (
-              <OpplysningTabellLinje key={opplysning.navn} opplysning={opplysning} />
+              <OpplysningTabellLinje
+                key={opplysning.navn}
+                opplysning={opplysning}
+                readonly={props.readonly}
+              />
             ))}
           </Table.Body>
         </Table>

@@ -39,7 +39,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return redirect(`/oppgave/${params.oppgaveId}`, {
+    return redirect(`/oppgave/${params.oppgaveId}/behandle`, {
       headers: {
         "Set-Cookie": await commitSession(session),
       },
