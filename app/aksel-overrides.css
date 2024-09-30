@@ -1,0 +1,68 @@
+/* Mer subtil Aksel tabell */
+.table--subtle-zebra tr:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+.table--subtle-zebra tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table--subtle-zebra td {
+  border-bottom: 0;
+}
+
+/* Overskriv Aksel defaults */
+.navds-modal__footer.navds-modal__footer {
+  flex-flow: row wrap;
+}
+
+/* Ekstra kompakt Aksel tabell */
+.table--compact .navds-fieldset > :not(:first-child):not(:empty) {
+  margin-top: 0;
+}
+
+.table--compact .navds-table__row {
+  height: 40px;
+}
+
+/* Align radio horisontalt istedet for verticalt */
+.table--compact .navds-radio-buttons {
+  display: flex;
+  gap: var(--a-spacing-2);
+}
+
+/* Flytt lås for read-only til horisontal linje for tekst/date input felt */
+.table--compact .navds-form-field {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Flytt lås for read-only til horisontal linje for radio input felt */
+.table--compact .navds-radio-group {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  /*margin-left: var(--a-spacing-2);*/
+}
+
+/* Flytt lås for read-only til horisontal linje for radio input felt og gi min width for å aligne med felter som ikke er read-only*/
+.table--compact .navds-fieldset__legend {
+  float: right;
+  align-self: center;
+  margin-left: var(--a-spacing-4);
+}
+
+.table--compact .navds-text-field__input {
+  max-width: 130px;
+}
+
+.table--compact .navds-table__data-cell,
+.table--compact .navds-table__header-cell {
+  padding: 0;
+}
+
+.checkbox--compact.navds-fieldset > :not(:first-child):not(:empty) {
+  margin-top: 0;
+}

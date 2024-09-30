@@ -17,6 +17,7 @@ import { getSaksbehandler } from "~/models/saksbehandler.server";
 import { getEnv } from "~/utils/env.utils";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import globalCss from "~/global.css?url";
+import akselOverrides from "~/aksel-overrides.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
 import { AlertProvider } from "~/context/alert-context";
@@ -47,6 +48,7 @@ export function meta() {
 export function links() {
   return [
     { rel: "stylesheet", href: navStyles },
+    { rel: "stylesheet", href: akselOverrides },
     { rel: "stylesheet", href: globalCss },
     { rel: "stylesheet", href: meldingOmVedtakCss },
     {
