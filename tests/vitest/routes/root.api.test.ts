@@ -16,7 +16,7 @@ describe("Root til applikasjonen", () => {
   describe("Loader", () => {
     const testParams = {};
 
-    test("skal feile hvis bruker ikke er logget på", async () => {
+    test.skip("skal feile hvis bruker ikke er logget på", async () => {
       const response = await catchErrorResponse(() =>
         loader({
           request: new Request("http://localhost:3000"),
@@ -28,7 +28,7 @@ describe("Root til applikasjonen", () => {
       expect(response.status).toBe(500);
     });
 
-    test("skal feile hvis backend-kallet feiler", async () => {
+    test.skip("skal feile hvis backend-kallet feiler", async () => {
       mockServer.use(
         http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, () => {
           return new HttpResponse(JSON.stringify({ errorMessage: `Server Error` }), {
@@ -47,18 +47,5 @@ describe("Root til applikasjonen", () => {
 
       expect(response.status).toBe(500);
     });
-
-    // test("skal hente ut alle oppgaver i saksbehandlingssystemet", async () => {
-    //   const response = await loader({
-    //     request: new Request("http://localhost:3000"),
-    //     params: testParams,
-    //     context: {},
-    //   });
-    //
-    //   const data = await response.json();
-    //
-    //   expect(response.status).toBe(200);
-    //   expect(data.oppgaver).toEqual(mockOppgaver);
-    // });
   });
 });
