@@ -1,7 +1,9 @@
 import { Tabs } from "@navikt/ds-react";
-import { DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
+import { ClockDashedIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
+import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
+import { getEnv } from "~/utils/env.utils";
 
 export function OppgaveInformasjon() {
   return (
@@ -13,6 +15,13 @@ export function OppgaveInformasjon() {
           label="Informasjon"
           icon={<DatabaseIcon title="Informasjon" />}
         />
+        {getEnv("GCP_ENV") !== "prod" && (
+          <Tabs.Tab
+            value="historikk"
+            label="Historikk"
+            icon={<ClockDashedIcon title="Historikk" />}
+          />
+        )}
       </Tabs.List>
 
       <Tabs.Panel value="dokumenter">
@@ -21,6 +30,10 @@ export function OppgaveInformasjon() {
 
       <Tabs.Panel value="informasjon">
         <OppgaveLenker />
+      </Tabs.Panel>
+
+      <Tabs.Panel value="historikk">
+        <OppgaveHistorikk />
       </Tabs.Panel>
     </Tabs>
   );
