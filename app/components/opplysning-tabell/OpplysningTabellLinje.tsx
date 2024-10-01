@@ -20,7 +20,7 @@ export function OpplysningTabellLinje(props: IProps) {
   const [verdi, setVerdi] = useState<string>(opplysning.verdi);
   const [redigerOpplysning, setRedigerOpplysning] = useState(false);
 
-  const readonly = getEnv("GCP_ENV") !== "dev" || props.readonly;
+  const readonly = getEnv("GCP_ENV") === "prod" || props.readonly;
   const kanRedigere = !readonly && opplysning.redigerbar;
   const dirtyInput = verdi !== opplysning.verdi;
 
@@ -49,44 +49,36 @@ export function OpplysningTabellLinje(props: IProps) {
         />
       </Table.DataCell>
 
-      {kanRedigere && !dirtyInput && (
-        <Table.DataCell>
-          <Button
-            className={styles.lagreKnapp}
-            variant="tertiary"
-            type="button"
-            size="xsmall"
-            onClick={() => setRedigerOpplysning(!redigerOpplysning)}
-          >
-            {redigerOpplysning ? "Lukk" : "Endre"}
-          </Button>
-        </Table.DataCell>
-      )}
+      {kanRedigere && (
+        <>
+          {!dirtyInput && (
+            <Table.DataCell>
+              <Button
+                className={styles.lagreKnapp}
+                variant="tertiary"
+                type="button"
+                size="xsmall"
+                onClick={() => setRedigerOpplysning(!redigerOpplysning)}
+              >
+                {redigerOpplysning ? "Lukk" : "Endre"}
+              </Button>
+            </Table.DataCell>
+          )}
 
-      {dirtyInput && (
-        <Table.DataCell>
-          <Button
-            variant="tertiary"
-            type="button"
-            size="xsmall"
-            loading={endreOpplysningFetcher.state !== "idle"}
-            onClick={() => lagreOpplysning()}
-          >
-            Lagre endringer
-          </Button>
-
-          {/*<Button*/}
-          {/*  className={styles.lagreKnapp}*/}
-          {/*  variant="tertiary"*/}
-          {/*  type="button"*/}
-          {/*  size="xsmall"*/}
-          {/*  onClick={() => {*/}
-          {/*    console.log("lagre");*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  Lagre endringer*/}
-          {/*</Button>*/}
-        </Table.DataCell>
+          {dirtyInput && (
+            <Table.DataCell>
+              <Button
+                variant="tertiary"
+                type="button"
+                size="xsmall"
+                loading={endreOpplysningFetcher.state !== "idle"}
+                onClick={() => lagreOpplysning()}
+              >
+                Lagre endringer
+              </Button>
+            </Table.DataCell>
+          )}
+        </>
       )}
     </Table.Row>
   );
