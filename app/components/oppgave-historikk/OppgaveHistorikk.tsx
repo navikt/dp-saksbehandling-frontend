@@ -59,7 +59,7 @@ export function OppgaveHistorikk() {
 
               {hendelse.behandler.rolle === "beslutter" && (
                 <>
-                  <Detail textColor="subtle">Beslytter</Detail>
+                  <Detail textColor="subtle">Beslutter</Detail>
                   <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
                 </>
               )}
