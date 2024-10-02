@@ -39,7 +39,7 @@ export function MeldingOmVedtakPreview(props: IProps) {
         <p>{`Fødselsnummer: ${oppgave.person.ident.slice(0, 6)} ${oppgave.person.ident.slice(6)}`}</p>
 
         <div className="melding-om-vedtak__saksnummer-dato">
-          <p className="melding-om-vedtak__saksnummer-dato--left">{`Saksnummer: ${fagsakId}`}</p>
+          <p className="melding-om-vedtak__saksnummer-dato--left">{`Saksid: ${fagsakId}`}</p>
           <p className="melding-om-vedtak__saksnummer-dato--right">
             {formaterNorskDatoITekst(new Date().toString())}
           </p>
