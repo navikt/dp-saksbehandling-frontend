@@ -191,7 +191,9 @@ export function OppgaveListe({
                     </Table.DataCell>
 
                     <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
+                    <Table.DataCell>
+                      {<Detail>{oppgave.saksbehandler?.ident}</Detail>}
+                    </Table.DataCell>
                     <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                   </>
                 )}

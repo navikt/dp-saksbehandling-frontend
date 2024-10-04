@@ -95,7 +95,7 @@ export default function FerdigstillOppgave() {
           </Button>
         </Form>
 
-        {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandlerIdent === "G151133") && (
+        {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandler?.ident === "G151133") && (
           <Form method="post">
             <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
             <input

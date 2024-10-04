@@ -15,7 +15,7 @@ export function PersonBoks({ person }: IProps) {
   const utviklerinformasjon = {
     oppgaveId: oppgave.oppgaveId,
     behandlingId: behandling.behandlingId,
-    saksbehandlerIdent: oppgave.saksbehandlerIdent,
+    saksbehandlerIdent: oppgave.saksbehandler?.ident,
     urlPath: location.pathname,
   };
 

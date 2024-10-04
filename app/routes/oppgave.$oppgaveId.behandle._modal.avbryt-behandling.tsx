@@ -55,7 +55,7 @@ export default function AvbrytBehandling() {
 
         <Form method="post">
           <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
-          <input hidden={true} readOnly={true} name="personIdent" value={oppgave.personIdent} />
+          <input hidden={true} readOnly={true} name="personIdent" value={oppgave.person.ident} />
 
           <Button size="small" variant="primary">
             Ja

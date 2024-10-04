@@ -28,7 +28,7 @@ export default function Oppgave() {
                   icon={<DocPencilIcon />}
                 />
 
-                {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandlerIdent === "G151133") && (
+                {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandler?.ident === "G151133") && (
                   <Tabs.Tab
                     value="melding-om-vedtak"
                     label="Melding om vedtak"

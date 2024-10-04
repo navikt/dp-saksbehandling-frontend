@@ -28,8 +28,6 @@ export interface IOppgaveSaksbehandler {
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
-  personIdent: string;
-  saksbehandlerIdent?: string;
   saksbehandler?: IOppgaveSaksbehandler;
   person: IPerson;
   tidspunktOpprettet: string;

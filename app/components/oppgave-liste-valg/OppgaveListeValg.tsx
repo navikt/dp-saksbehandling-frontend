@@ -20,7 +20,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);
 
-  const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
   const kanTildeleOgBehandleOppgave =
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
     oppgave.tilstand === "PAA_VENT" ||
