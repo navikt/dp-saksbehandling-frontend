@@ -1,4 +1,9 @@
-import type { IOppgave, IOppgaveSaksbehandler, IPerson } from "~/models/oppgave.server";
+import type {
+  IListeOppgave,
+  IOppgave,
+  IOppgaveSaksbehandler,
+  IPerson,
+} from "~/models/oppgave.server";
 
 export const mockPerson: IPerson = {
   alder: 74,
@@ -97,3 +102,25 @@ export const mockOppgaver: IOppgave[] = [
   ferdigBehandletOppgave,
   paaVentOppgave,
 ];
+
+export const mockListeOppgaver: IListeOppgave[] = [
+  konverterOppgaveTilListeOppgave(klarTilBehandlingOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
+  konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
+  konverterOppgaveTilListeOppgave(paaVentOppgave),
+];
+
+export function konverterOppgaveTilListeOppgave(oppgave: IOppgave): IListeOppgave {
+  return {
+    adressebeskyttelseGradering: oppgave.adressebeskyttelseGradering,
+    behandlingId: oppgave.behandlingId,
+    emneknagger: oppgave.emneknagger,
+    oppgaveId: oppgave.oppgaveId,
+    personIdent: oppgave.person.ident,
+    saksbehandlerIdent: oppgave.saksbehandler?.ident,
+    skjermesSomEgneAnsatte: oppgave.skjermesSomEgneAnsatte,
+    tidspunktOpprettet: oppgave.tidspunktOpprettet,
+    tilstand: oppgave.tilstand,
+  };
+}

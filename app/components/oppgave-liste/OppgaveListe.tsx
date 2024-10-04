@@ -1,6 +1,6 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import type { IOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
+import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useTableSort } from "~/hooks/useTableSort";
@@ -11,7 +11,7 @@ import classnames from "classnames";
 import styles from "./OppgaveListe.module.css";
 
 interface IProps {
-  oppgaver: IOppgave[];
+  oppgaver: IListeOppgave[];
   lasterOppgaver?: boolean;
   visNesteOppgaveKnapp?: boolean;
   visAntallOppgaver?: boolean;
@@ -28,7 +28,7 @@ export function OppgaveListe({
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
   useHandleAlertMessages(nesteFetcher.data);
 
-  const { sortedData, handleSort, sortState } = useTableSort<IOppgave>(oppgaver, {
+  const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
   });
@@ -191,9 +191,7 @@ export function OppgaveListe({
                     </Table.DataCell>
 
                     <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-                    <Table.DataCell>
-                      {<Detail>{oppgave.saksbehandler?.ident}</Detail>}
-                    </Table.DataCell>
+                    <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
                     <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                   </>
                 )}

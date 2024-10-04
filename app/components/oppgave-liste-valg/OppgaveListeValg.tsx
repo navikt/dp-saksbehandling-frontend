@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { IOppgave } from "~/models/oppgave.server";
+import type { IListeOppgave } from "~/models/oppgave.server";
 import { Button, Popover } from "@navikt/ds-react";
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { RemixLink } from "~/components/RemixLink";
@@ -10,7 +10,7 @@ import type { action as tildelOppgaveAction } from "~/routes/action-tildel-oppga
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "./OppgaveListeValg.module.css";
 
-export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
+export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
   const leggTilbakeFetcher = useFetcher<typeof leggTilbakeAction>();
   useHandleAlertMessages(leggTilbakeFetcher.data);
   const tildelOppgaveFetcher = useFetcher<typeof tildelOppgaveAction>();
@@ -20,7 +20,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IOppgave }) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);
 
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
   const kanTildeleOgBehandleOppgave =
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
     oppgave.tilstand === "PAA_VENT" ||

@@ -1,12 +1,12 @@
 import { http, HttpResponse } from "msw";
-import { mockOppgaver } from "./data/mock-oppgaver";
+import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 import { logger } from "~/utils/logger.utils";
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, () => {
     logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave`);
-    return HttpResponse.json(mockOppgaver);
+    return HttpResponse.json(mockListeOppgaver);
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler

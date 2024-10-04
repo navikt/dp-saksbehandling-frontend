@@ -25,6 +25,19 @@ export interface IOppgaveSaksbehandler {
   };
 }
 
+export interface IListeOppgave {
+  adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
+  behandlingId: string;
+  emneknagger: string[];
+  oppgaveId: string;
+  personIdent: string;
+  saksbehandlerIdent?: string;
+  skjermesSomEgneAnsatte: boolean;
+  tidspunktOpprettet: string;
+  tilstand: IOppgaveTilstand;
+  utsattTilDato?: string;
+}
+
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
@@ -35,21 +48,22 @@ export interface IOppgave {
   tilstand: IOppgaveTilstand;
   utsattTilDato?: string;
   skjermesSomEgneAnsatte: boolean;
-  adressebeskyttelseGradering:
-    | "UGRADERT"
-    | "FORTROLIG"
-    | "STRENGT_FORTROLIG"
-    | "STRENGT_FORTROLIG_UTLAND";
+  adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
 }
 
+export type IOppgaveAdressebeskyttelseGradering =
+  | "UGRADERT"
+  | "FORTROLIG"
+  | "STRENGT_FORTROLIG"
+  | "STRENGT_FORTROLIG_UTLAND";
 export type IOppgaveTilstand =
   | "PAA_VENT"
   | "KLAR_TIL_BEHANDLING"
   | "UNDER_BEHANDLING"
   | "FERDIG_BEHANDLET";
 
-export async function hentOppgaver(request: Request, urlParams?: string): Promise<IOppgave[]> {
+export async function hentOppgaver(request: Request, urlParams?: string): Promise<IListeOppgave[]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
 

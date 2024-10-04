@@ -2,9 +2,12 @@ import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
-import type { IOppgave } from "~/models/oppgave.server";
+import type { IListeOppgave } from "~/models/oppgave.server";
 
-export async function hentOppgaverForPerson(request: Request, ident: string): Promise<IOppgave[]> {
+export async function hentOppgaverForPerson(
+  request: Request,
+  ident: string,
+): Promise<IListeOppgave[]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/person/oppgaver`;
@@ -18,5 +21,5 @@ export async function hentOppgaverForPerson(request: Request, ident: string): Pr
     handleErrorResponse(response);
   }
 
-  return (await response.json()) as IOppgave[];
+  return (await response.json()) as IListeOppgave[];
 }
