@@ -38,7 +38,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   person: mockPerson,
-  saksbehandler: mockOppgaveSaksbehandler,
+  saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: [
     "HattLukkedeSakerSiste8Uker",
