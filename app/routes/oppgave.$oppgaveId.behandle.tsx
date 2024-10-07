@@ -2,7 +2,6 @@ import { Outlet } from "@remix-run/react";
 import { Tabs } from "@navikt/ds-react";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
-import { getEnv } from "~/utils/env.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { ValidatedForm } from "remix-validated-form";
@@ -13,7 +12,7 @@ import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningFor
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
-  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <MeldingOmVedtakProvider>
@@ -30,13 +29,11 @@ export default function Oppgave() {
 
                 <Tabs.Tab value="oversikt" label="Behandlingsoversikt" icon={<TasklistIcon />} />
 
-                {(getEnv("GCP_ENV") !== "prod" || oppgave.saksbehandler?.ident === "G151133") && (
-                  <Tabs.Tab
-                    value="melding-om-vedtak"
-                    label="Melding om vedtak"
-                    icon={<TasklistSendIcon />}
-                  />
-                )}
+                <Tabs.Tab
+                  value="melding-om-vedtak"
+                  label="Melding om vedtak"
+                  icon={<TasklistSendIcon />}
+                />
               </Tabs.List>
             </div>
 
