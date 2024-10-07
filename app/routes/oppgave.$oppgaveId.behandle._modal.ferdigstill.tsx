@@ -96,7 +96,7 @@ export default function FerdigstillOppgave() {
           />
 
           <Button size="small" variant="primary" disabled={isSubmitting}>
-            Ja, med brev fra nytt system
+            Ja
           </Button>
         </Form>
       </Modal.Footer>
