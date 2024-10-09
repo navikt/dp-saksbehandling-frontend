@@ -16,6 +16,7 @@ import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import styles from "~/route-styles/oppgave.module.css";
+import { logger } from "~/utils/logger.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -32,7 +33,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
   );
-  console.log("sanitybrevblokker", sanityBrevBlokker);
+
+  logger.info(`sanitybrevblokker ${JSON.stringify(sanityBrevBlokker)}`);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
