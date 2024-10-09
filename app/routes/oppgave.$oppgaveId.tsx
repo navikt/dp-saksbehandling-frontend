@@ -32,6 +32,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
+    { cache: "no-store" },
   );
 
   logger.info(`sanitybrevblokker ${JSON.stringify(sanityBrevBlokker)}`);
