@@ -32,6 +32,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
     hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
   );
+  console.log("sanitybrevblokker", sanityBrevBlokker);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
