@@ -42,7 +42,7 @@ export function OpplysningForslag(props: IProps) {
     props.opplysninger,
   );
   const arbeidsInntekstSiste36MndOpplysning = finnOpplysningMedNavn(
-    "Arbeidsinntekt siste 12 mnd",
+    "Arbeidsinntekt siste 36 mnd",
     props.opplysninger,
   );
 
