@@ -76,9 +76,18 @@ spec:
       value: "true"
     - name: OTEL_METRICS_EXEMPLAR_FILTER
       value: ALWAYS_ON
+
+    - name: SANITY_PROJECT_ID
+      value: {{sanity_project_id}}
+    - name: SANITY_ACCESS_TOKEN
+      value: {{sanity_access_token}}
+    - name: SANITY_DATASET
+      value: {{sanity_dataset}}
+
   accessPolicy:
     outbound:
       external:
+        - host: rt6o382n.api.sanity.io
         - host: rt6o382n.apicdn.sanity.io
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
