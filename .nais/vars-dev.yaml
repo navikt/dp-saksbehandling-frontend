@@ -18,6 +18,10 @@ inntektredigering_url: ""
 grisen_url: "https://navno.sharepoint.com/:x:/r/sites/44/NAYDP/_layouts/15/Doc.aspx?sourcedoc=%7B91BEA3C7-B531-4509-BD57-194AEBA31314%7D&file=GRISEN-2022-30.06.22.xlsx&action=default&mobileredirect=true"
 dagpenger-norge_url: "https://navno.sharepoint.com/:u:/r/sites/44/NAYDP/SitePages/CollabHome.aspx?csf=1&web=1&e=kfxUeP"
 
+sanity_project_id: "rt6o382n"
+sanity_access_token: ""
+sanity_dataset: "development"
+
 azure:
   tenant: trygdeetaten.no
   grupper:
