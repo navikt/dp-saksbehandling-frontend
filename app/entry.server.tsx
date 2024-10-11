@@ -27,6 +27,7 @@ const csp = {
   "connect-src": [
     "'self'",
     "*.nav.no",
+    "rt6o382n.api.sanity.io",
     "rt6o382n.apicdn.sanity.io",
     "https://telemetry.ekstern.dev.nav.no/collect",
     "https://telemetry.nav.no/collect",

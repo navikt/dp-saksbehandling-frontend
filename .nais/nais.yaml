@@ -68,6 +68,13 @@ spec:
     - name: PDL_AUDIENCE
       value: {{PDL_audience}}
 
+    - name: SANITY_PROJECT_ID
+      value: { { sanity_project_id } }
+    - name: SANITY_ACCESS_TOKEN
+      value: {{sanity_access_token}}
+    - name: SANITY_DATASET
+      value: {{sanity_dataset}}
+
     - name: OTEL_METRICS_EXPORTER
       value: otlp
     - name: OTEL_TRACES_EXPORTER
@@ -77,12 +84,6 @@ spec:
     - name: OTEL_METRICS_EXEMPLAR_FILTER
       value: ALWAYS_ON
 
-    - name: SANITY_PROJECT_ID
-      value: {{sanity_project_id}}
-    - name: SANITY_ACCESS_TOKEN
-      value: {{sanity_access_token}}
-    - name: SANITY_DATASET
-      value: {{sanity_dataset}}
 
   accessPolicy:
     outbound:
