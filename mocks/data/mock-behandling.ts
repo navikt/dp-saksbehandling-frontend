@@ -60,7 +60,7 @@ export const mockBehandling: IBehandling = {
     },
     {
       id: "0191ea5d-5f3a-7031-bfca-7772f7c9d498",
-      navn: "Søknadstidspunkt",
+      navn: "soknadstidspunkt",
       verdi: "2024-09-13",
       status: "Faktum",
       datatype: "dato",
@@ -1518,7 +1518,7 @@ export const mockBehandling: IBehandling = {
     {
       id: "0191ea5d-8568-7d69-a8e8-8bd3807cae31",
       navn: "Krav på dagpenger",
-      verdi: "true",
+      verdi: "false",
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,

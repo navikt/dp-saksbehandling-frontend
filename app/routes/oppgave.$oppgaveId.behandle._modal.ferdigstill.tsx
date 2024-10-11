@@ -71,6 +71,8 @@ export default function FerdigstillOppgave() {
     />,
   );
 
+  const kravPaaDagpenger = behandling.opplysning.find((o) => o.navn === "Krav på dagpenger")?.verdi;
+
   return (
     <>
       <Modal.Header>
@@ -87,17 +89,31 @@ export default function FerdigstillOppgave() {
         </Button>
 
         <Form method="post">
-          <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
-          <input
-            hidden={true}
-            readOnly={true}
-            name="melding-om-vedtak-html"
-            value={meldingOmVedtakHtml}
-          />
+          {kravPaaDagpenger === "false" && (
+            <>
+              <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
+              <input
+                hidden={true}
+                readOnly={true}
+                name="melding-om-vedtak-html"
+                value={meldingOmVedtakHtml}
+              />
 
-          <Button size="small" variant="primary" disabled={isSubmitting}>
-            Ja
-          </Button>
+              <Button size="small" variant="primary" disabled={isSubmitting}>
+                Ja
+              </Button>
+            </>
+          )}
+
+          {kravPaaDagpenger === "true" && (
+            <>
+              <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"true"} />
+
+              <Button size="small" variant="primary" disabled={isSubmitting}>
+                Ja, med brev fra Arena
+              </Button>
+            </>
+          )}
         </Form>
       </Modal.Footer>
     </>
