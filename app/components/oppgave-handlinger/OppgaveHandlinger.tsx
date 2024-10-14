@@ -1,29 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { add, format } from "date-fns";
-import { Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
+import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { nb } from "date-fns/locale";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
 import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
-import styles from "./OppgaveHandlinger.module.css";
-
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { RemixLink } from "~/components/RemixLink";
 import classnames from "classnames";
+import { isAlertResponse, isFormValidationErrorResponse } from "~/utils/type-guards";
+import styles from "./OppgaveHandlinger.module.css";
+
+export interface IFormValidationError {
+  field: string;
+  message: string;
+}
 
 export function OppgaveHandlinger() {
   const navigate = useNavigate();
   const utsettOppgaveFetcher = useFetcher<typeof utsettAction>();
   const leggTilbakeOppgaveFetcher = useFetcher<typeof leggTilbakeAction>();
-  useHandleAlertMessages(utsettOppgaveFetcher.data);
+  useHandleAlertMessages(
+    isAlertResponse(utsettOppgaveFetcher?.data) ? utsettOppgaveFetcher?.data : undefined,
+  );
   useHandleAlertMessages(leggTilbakeOppgaveFetcher.data);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const ref = useRef<HTMLDialogElement>(null);
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   useEffect(() => {
-    if (utsettOppgaveFetcher.data || leggTilbakeOppgaveFetcher.data) {
+    if (
+      (utsettOppgaveFetcher.data && isAlertResponse(utsettOppgaveFetcher.data)) ||
+      leggTilbakeOppgaveFetcher.data
+    ) {
       ref.current?.close();
       navigate("/");
     }
@@ -102,6 +112,12 @@ export function OppgaveHandlinger() {
                 >
                   Sett på vent
                 </Button>
+
+                {isFormValidationErrorResponse(utsettOppgaveFetcher.data) && (
+                  <Alert variant="error" size="small" className="my-2">
+                    {utsettOppgaveFetcher.data.message}
+                  </Alert>
+                )}
               </utsettOppgaveFetcher.Form>
             </Modal.Body>
           </Modal>
