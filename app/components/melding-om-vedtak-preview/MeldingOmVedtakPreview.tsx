@@ -62,8 +62,10 @@ export function MeldingOmVedtakPreview(props: IProps) {
 
             {brevBlokk.utvidetBeskrivelse && (
               <UtvidetBeskrivelse
-                id={brevBlokk.textId}
-                text={utvidetBeskrivelser.find((ub) => ub.id === brevBlokk.textId)?.text || ""}
+                brevblokkId={brevBlokk.textId}
+                tekst={
+                  utvidetBeskrivelser.find((ub) => ub.brevblokkId === brevBlokk.textId)?.tekst || ""
+                }
               />
             )}
           </div>

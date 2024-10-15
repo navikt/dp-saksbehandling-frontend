@@ -42,7 +42,7 @@ export function getSanityPortableTextComponents(
 }
 
 export function UtvidetBeskrivelse(utvidetBeskrivelse: IUtvidetBeskrivelse) {
-  const paragrafer = utvidetBeskrivelse.text.split(/\n+/);
+  const paragrafer = utvidetBeskrivelse.tekst.split(/\n+/);
   return (
     <>
       {paragrafer.map((paragraf, index) => (
