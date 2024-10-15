@@ -5,7 +5,7 @@ import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-la
 import { Detail, Textarea } from "@navikt/ds-react";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
-import styles from "~/components/utvidet-beskrivelser/UtvidetBeskrivelser.module.css";
+import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import type { SerializeFrom } from "@remix-run/node";
 
 export interface IUtvidetBeskrivelseInput {

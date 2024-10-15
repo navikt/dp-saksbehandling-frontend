@@ -1,34 +1,34 @@
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { UtvidetBeskrivelseInput } from "~/components/utvidet-beskrivelser/UtvidetBeskrivelseInput";
+import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
 
-export function UtvidetBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] }) {
-  const { utvidetBeskrivelser, setUtvidetBeskrivelser } = useMeldingOmVedtakTekst();
+export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] }) {
+  const { utvidedeBeskrivelser, setUtvidedeBeskrivelser } = useMeldingOmVedtakTekst();
 
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
-    let oppdatertUtvidetBeskrivelser = [...utvidetBeskrivelser];
+    let oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser];
 
-    const utvidetBeskrivelseIndex = utvidetBeskrivelser.findIndex(
+    const utvidetBeskrivelseIndex = utvidedeBeskrivelser.findIndex(
       (beskrivelse) => beskrivelse.brevblokkId === oppdatertBeskrivelse.brevblokkId,
     );
 
     if (utvidetBeskrivelseIndex !== -1) {
-      const oppdatertElement = oppdatertUtvidetBeskrivelser[utvidetBeskrivelseIndex];
+      const oppdatertElement = oppdatertUtvidedeBeskrivelser[utvidetBeskrivelseIndex];
       oppdatertElement.tekst = oppdatertBeskrivelse.tekst;
       oppdatertElement.sistLagretTidspunkt =
         oppdatertBeskrivelse.sistLagretTidspunkt || oppdatertElement.sistLagretTidspunkt;
     } else {
-      oppdatertUtvidetBeskrivelser = [...utvidetBeskrivelser, oppdatertBeskrivelse];
+      oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser, oppdatertBeskrivelse];
     }
 
-    setUtvidetBeskrivelser(oppdatertUtvidetBeskrivelser);
+    setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
   }
 
   return (
     <div>
       {props.brevBlokker?.map((blokk) => {
-        const utvidetBeskrivelse = utvidetBeskrivelser.find(
+        const utvidetBeskrivelse = utvidedeBeskrivelser.find(
           (beskrivelse) => beskrivelse.brevblokkId === blokk.textId,
         );
 

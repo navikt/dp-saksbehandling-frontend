@@ -7,7 +7,7 @@ import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 export interface IMeldingOmVedtak {
   brevblokkIder: string[];
   opplysninger: IBrevOpplysning[];
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
 }
 
 export interface IBrevOpplysning {

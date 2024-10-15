@@ -8,8 +8,8 @@ export interface IUtvidetBeskrivelse {
 }
 
 export interface MeldingOmVedtakContextType {
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
-  setUtvidetBeskrivelser: (utvidetBeskrivelse: IUtvidetBeskrivelse[]) => void;
+  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
+  setUtvidedeBeskrivelser: (utvidetBeskrivelse: IUtvidetBeskrivelse[]) => void;
 }
 
 export const MeldingOmVedtakContext = createContext<MeldingOmVedtakContextType | undefined>(
@@ -17,14 +17,14 @@ export const MeldingOmVedtakContext = createContext<MeldingOmVedtakContextType |
 );
 
 export function MeldingOmVedtakProvider(
-  props: PropsWithChildren<{ utvidetBeskrivelser: IUtvidetBeskrivelse[] }>,
+  props: PropsWithChildren<{ utvidedeBeskrivelser: IUtvidetBeskrivelse[] }>,
 ) {
-  const [utvidetBeskrivelser, setUtvidetBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
-    props.utvidetBeskrivelser,
+  const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
+    props.utvidedeBeskrivelser,
   );
 
   return (
-    <MeldingOmVedtakContext.Provider value={{ utvidetBeskrivelser, setUtvidetBeskrivelser }}>
+    <MeldingOmVedtakContext.Provider value={{ utvidedeBeskrivelser, setUtvidedeBeskrivelser }}>
       {props.children}
     </MeldingOmVedtakContext.Provider>
   );

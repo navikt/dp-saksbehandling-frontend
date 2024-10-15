@@ -33,7 +33,7 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
       verdi: "12-05-2024",
     },
   ],
-  utvidetBeskrivelser: [
+  utvidedeBeskrivelser: [
     {
       brevblokkId: "brev.blokk.begrunnelse-avslag-minsteinntekt",
       tekst: "Tekst persistert i backend",

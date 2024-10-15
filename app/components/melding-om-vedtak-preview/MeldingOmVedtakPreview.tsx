@@ -12,7 +12,7 @@ import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
 
 interface IProps {
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
   oppgave: IOppgave;
   behandling: IBehandling;
   sanityBrevBlokker: ISanityBrevBlokk[];
@@ -21,7 +21,7 @@ interface IProps {
 
 export function MeldingOmVedtakPreview(props: IProps) {
   const {
-    utvidetBeskrivelser,
+    utvidedeBeskrivelser,
     oppgave,
     behandling,
     sanityBrevBlokker,
@@ -64,7 +64,8 @@ export function MeldingOmVedtakPreview(props: IProps) {
               <UtvidetBeskrivelse
                 brevblokkId={brevBlokk.textId}
                 tekst={
-                  utvidetBeskrivelser.find((ub) => ub.brevblokkId === brevBlokk.textId)?.tekst || ""
+                  utvidedeBeskrivelser.find((ub) => ub.brevblokkId === brevBlokk.textId)?.tekst ||
+                  ""
                 }
               />
             )}

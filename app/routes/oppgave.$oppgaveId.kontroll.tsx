@@ -14,7 +14,7 @@ export default function Oppgave() {
   const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <MeldingOmVedtakProvider utvidetBeskrivelser={meldingOmVedtak.utvidetBeskrivelser}>
+    <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
       <Alert variant="warning">Kontroll</Alert>
       <div className={styles.behandling}>
         <div className={"card"}>
