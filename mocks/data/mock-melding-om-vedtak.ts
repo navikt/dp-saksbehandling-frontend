@@ -33,4 +33,11 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
       verdi: "12-05-2024",
     },
   ],
+  utvidetBeskrivelser: [
+    {
+      brevblokkId: "brev.blokk.begrunnelse-avslag-minsteinntekt",
+      tekst: "Tekst persistert i backend",
+      sistLagretTidspunkt: "2024-10-15T07:18:25.593Z",
+    },
+  ],
 };

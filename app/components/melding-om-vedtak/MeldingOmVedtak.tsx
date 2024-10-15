@@ -1,4 +1,4 @@
-import { FritekstEditor } from "~/components/fritekt-editor/FritekstEditor";
+import { UtvidetBeskrivelser } from "~/components/utvidet-beskrivelser/UtvidetBeskrivelser";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
@@ -6,12 +6,13 @@ import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak() {
   const { utvidetBeskrivelser } = useMeldingOmVedtakTekst();
-  const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtakOpplysninger } =
-    useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId",
+  );
 
   return (
     <div className={styles.container}>
-      <FritekstEditor brevBlokker={sanityBrevBlokker} />
+      <UtvidetBeskrivelser brevBlokker={sanityBrevBlokker} />
 
       <div className={styles.previewContainer}>
         <MeldingOmVedtakPreview
@@ -19,7 +20,7 @@ export function MeldingOmVedtak() {
           oppgave={oppgave}
           behandling={behandling}
           sanityBrevBlokker={sanityBrevBlokker}
-          meldingOmVedtakOpplysninger={meldingOmVedtakOpplysninger}
+          meldingOmVedtakOpplysninger={meldingOmVedtak.opplysninger}
         />
       </div>
     </div>

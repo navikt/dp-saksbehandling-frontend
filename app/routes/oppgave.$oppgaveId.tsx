@@ -44,7 +44,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgaverForPerson,
       journalposterResponses,
       sanityBrevBlokker,
-      meldingOmVedtakOpplysninger: meldingOmVedtak.opplysninger,
+      meldingOmVedtak,
     },
     {
       headers: {

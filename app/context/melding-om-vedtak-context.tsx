@@ -2,8 +2,9 @@ import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
 
 export interface IUtvidetBeskrivelse {
-  id: string;
-  text: string;
+  brevblokkId: string;
+  tekst: string;
+  sistLagretTidspunkt?: string;
 }
 
 export interface MeldingOmVedtakContextType {
@@ -15,12 +16,16 @@ export const MeldingOmVedtakContext = createContext<MeldingOmVedtakContextType |
   undefined,
 );
 
-export function MeldingOmVedtakProvider({ children }: PropsWithChildren) {
-  const [utvidetBeskrivelser, setUtvidetBeskrivelser] = useState<IUtvidetBeskrivelse[]>([]);
+export function MeldingOmVedtakProvider(
+  props: PropsWithChildren<{ utvidetBeskrivelser: IUtvidetBeskrivelse[] }>,
+) {
+  const [utvidetBeskrivelser, setUtvidetBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
+    props.utvidetBeskrivelser,
+  );
 
   return (
     <MeldingOmVedtakContext.Provider value={{ utvidetBeskrivelser, setUtvidetBeskrivelser }}>
-      {children}
+      {props.children}
     </MeldingOmVedtakContext.Provider>
   );
 }

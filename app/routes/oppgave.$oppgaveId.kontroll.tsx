@@ -11,10 +11,10 @@ import { Outlet } from "@remix-run/react";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <MeldingOmVedtakProvider>
+    <MeldingOmVedtakProvider utvidetBeskrivelser={meldingOmVedtak.utvidetBeskrivelser}>
       <Alert variant="warning">Kontroll</Alert>
       <div className={styles.behandling}>
         <div className={"card"}>

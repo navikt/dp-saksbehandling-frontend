@@ -15,4 +15,17 @@ export const mockDpMeldingOmVedtak = [
       return HttpResponse.json(mockMeldingOmVedtak);
     },
   ),
+
+  // Lagre utvidet beskrivelse tekst
+  http.put(
+    `${process.env.DP_MELDING_OM_VEDTAK_URL}/melding-om-vedtak/:behandlingId/:brevblokkId/utvidet-beskrivelse`,
+    ({ params }) => {
+      const { behandlingId, brevblokkId } = params;
+      logger.info(
+        `[MSW]-GET ${process.env.DP_MELDING_OM_VEDTAK}/melding-om-vedtak/${behandlingId}/${brevblokkId}/utvidet-beskrivelse`,
+      );
+
+      return HttpResponse.json({ sistLagretTidspunkt: new Date().toISOString() });
+    },
+  ),
 ];
