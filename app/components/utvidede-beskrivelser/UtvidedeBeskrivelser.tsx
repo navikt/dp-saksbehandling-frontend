@@ -16,8 +16,8 @@ export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] })
     if (utvidetBeskrivelseIndex !== -1) {
       const oppdatertElement = oppdatertUtvidedeBeskrivelser[utvidetBeskrivelseIndex];
       oppdatertElement.tekst = oppdatertBeskrivelse.tekst;
-      oppdatertElement.sistLagretTidspunkt =
-        oppdatertBeskrivelse.sistLagretTidspunkt || oppdatertElement.sistLagretTidspunkt;
+      oppdatertElement.sistEndretTidspunkt =
+        oppdatertBeskrivelse.sistEndretTidspunkt || oppdatertElement.sistEndretTidspunkt;
     } else {
       oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser, oppdatertBeskrivelse];
     }
@@ -40,7 +40,7 @@ export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] })
               label={`Utvidet beskrivelse for ${blokk.title ? blokk.title : blokk.textId}`}
               updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
               verdi={utvidetBeskrivelse?.tekst || ""}
-              sistLagretTidspunkt={utvidetBeskrivelse?.sistLagretTidspunkt}
+              sistEndretTidspunkt={utvidetBeskrivelse?.sistEndretTidspunkt}
             />
           )
         );

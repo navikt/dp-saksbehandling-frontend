@@ -25,7 +25,7 @@ export const mockDpMeldingOmVedtak = [
         `[MSW]-GET ${process.env.DP_MELDING_OM_VEDTAK}/melding-om-vedtak/${behandlingId}/${brevblokkId}/utvidet-beskrivelse`,
       );
 
-      return HttpResponse.json({ sistLagretTidspunkt: new Date().toISOString() });
+      return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
     },
   ),
 ];

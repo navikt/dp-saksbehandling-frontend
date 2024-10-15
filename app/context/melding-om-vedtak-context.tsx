@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export interface IUtvidetBeskrivelse {
   brevblokkId: string;
   tekst: string;
-  sistLagretTidspunkt?: string;
+  sistEndretTidspunkt?: string;
 }
 
 export interface MeldingOmVedtakContextType {

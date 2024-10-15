@@ -17,7 +17,7 @@ export interface IBrevOpplysning {
 }
 
 export interface ILagreUtvidetBeskrivelseResponse {
-  sistLagretTidspunkt: string;
+  sistEndretTidspunkt: string;
 }
 
 export async function hentMeldingOmVedtak(

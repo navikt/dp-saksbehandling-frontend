@@ -13,7 +13,7 @@ export interface IUtvidetBeskrivelseInput {
   label: string;
   brevblokkId: string;
   updateContext: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
-  sistLagretTidspunkt?: string;
+  sistEndretTidspunkt?: string;
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
@@ -27,7 +27,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
       props.updateContext({
         tekst: verdi,
         brevblokkId: props.brevblokkId,
-        sistLagretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistLagretTidspunkt,
+        sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,9 +60,9 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           onBlur={(event) => lagreUtvidetBeskrivelse(event, 0)}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>
-      {props.sistLagretTidspunkt && (
+      {props.sistEndretTidspunkt && (
         <Detail textColor="subtle">
-          Lagret {formaterNorskDato(props.sistLagretTidspunkt, true)}
+          Lagret {formaterNorskDato(props.sistEndretTidspunkt, true)}
         </Detail>
       )}
     </>
