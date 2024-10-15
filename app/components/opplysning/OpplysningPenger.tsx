@@ -8,7 +8,7 @@ export function OpplysningPenger({ opplysning, readonly, className, onChange }: 
   const { error, getInputProps } = useField(opplysning.navn);
 
   return (
-    <div className={className}>
+    <span className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>
           {formaterTallMedTusenSeperator(opplysning.verdi)} kr
@@ -29,6 +29,6 @@ export function OpplysningPenger({ opplysning, readonly, className, onChange }: 
           onChange={(e) => onChange(e.target.value)}
         />
       )}
-    </div>
+    </span>
   );
 }

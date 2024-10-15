@@ -27,5 +27,10 @@ export const mockMeldingOmVedtak: IMeldingOmVedtak = {
       datatype: "dato",
       verdi: "12-05-2024",
     },
+    {
+      tekstId: "opplysning.soknadstidspunkt",
+      datatype: "dato",
+      verdi: "12-05-2024",
+    },
   ],
 };

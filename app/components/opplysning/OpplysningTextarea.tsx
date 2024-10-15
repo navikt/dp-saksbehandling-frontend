@@ -7,7 +7,7 @@ export function OpplysningTextarea({ opplysning, readonly, className }: IOpplysn
   const { error, getInputProps } = useField(opplysning.navn);
 
   return (
-    <div className={className}>
+    <span className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.verdi} </div>
       )}
@@ -22,6 +22,6 @@ export function OpplysningTextarea({ opplysning, readonly, className }: IOpplysn
           {...getInputProps()}
         />
       )}
-    </div>
+    </span>
   );
 }

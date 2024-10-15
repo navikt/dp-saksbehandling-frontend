@@ -7,7 +7,7 @@ export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysni
   const { error, getInputProps } = useField(opplysning.navn);
 
   return (
-    <div className={className}>
+    <span className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.verdi === "true" ? "Ja" : "Nei"}</div>
       )}
@@ -24,6 +24,6 @@ export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysni
           <Radio value={"false"}>{"Nei"}</Radio>
         </RadioGroup>
       )}
-    </div>
+    </span>
   );
 }

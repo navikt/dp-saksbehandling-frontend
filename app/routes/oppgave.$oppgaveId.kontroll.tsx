@@ -44,7 +44,7 @@ export default function Oppgave() {
                 method="post"
                 className={styles.opplysninger}
               >
-                <OpplysningTabell opplysninger={behandling.opplysning} />
+                <OpplysningTabell />
               </ValidatedForm>
             </Tabs.Panel>
 

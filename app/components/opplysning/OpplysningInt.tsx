@@ -13,7 +13,7 @@ export function OpplysningInt({
   const { error, getInputProps } = useField(opplysning.navn);
 
   return (
-    <div className={className}>
+    <span className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>
       )}
@@ -30,6 +30,6 @@ export function OpplysningInt({
           onChange={(e) => onChange(e.target.value)}
         />
       )}
-    </div>
+    </span>
   );
 }

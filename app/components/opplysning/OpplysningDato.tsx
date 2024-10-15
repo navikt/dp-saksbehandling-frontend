@@ -15,7 +15,7 @@ export function OpplysningDato({ opplysning, readonly, label, className }: IOppl
   });
 
   return (
-    <div className={className}>
+    <span className={className}>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>{formaterNorskDato(opplysning.verdi)}</div>
       )}
@@ -31,6 +31,6 @@ export function OpplysningDato({ opplysning, readonly, label, className }: IOppl
           />
         </DatePicker>
       )}
-    </div>
+    </span>
   );
 }

@@ -20,12 +20,14 @@ export interface IOpplysning {
   datatype: string;
   redigerbar?: boolean;
   kilde: IKilde | null;
-  utledetAv: {
-    regel: {
-      navn: string;
-    };
-    opplysninger: string[];
-  } | null;
+  utledetAv: IUtledetAv | null;
+}
+
+export interface IUtledetAv {
+  regel: {
+    navn: string;
+  };
+  opplysninger: string[];
 }
 
 export interface IKilde {
