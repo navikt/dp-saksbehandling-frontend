@@ -66,7 +66,7 @@ export const behandlingGodkjentAlert: IAlert = {
   title: "Behandling sendt til automatisk avslag",
 };
 
-export const behandlingAvbruttAlert: IAlert = {
+export const sendtTilArenaAlert: IAlert = {
   variant: "success",
   title: "Behandling sendt til arena for videre behandling",
 };

@@ -1,7 +1,7 @@
 import type { IAlert } from "~/context/alert-context";
 import {
   alleredeTildeltAlert,
-  behandlingAvbruttAlert,
+  sendtTilArenaAlert,
   behandlingGodkjentAlert,
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
@@ -24,7 +24,9 @@ interface IAlertType {
     | "ukjent-feil"
     | "send-brev"
     | "godkjenn-behandling"
-    | "avbryt-behandling"
+    | "returner-til-saksbehandler"
+    | "send-til-arena"
+    | "send-til-kontroll"
     | "ferdigstill-oppgave"
     | "ferdigstill-oppgave-brev-i-arena";
   httpCode: number;
@@ -50,8 +52,14 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
     case "godkjenn-behandling":
       return handleGodkjennBehandlingMessages(alertResponse.httpCode);
 
-    case "avbryt-behandling":
-      return handleAvbrytBehandlingMessages(alertResponse.httpCode);
+    case "send-til-arena":
+      return handleSendTilArenaMessages(alertResponse.httpCode);
+
+    case "send-til-kontroll":
+      return handleSendTilKontrollMessages(alertResponse.httpCode);
+
+    case "returner-til-saksbehandler":
+      return handleReturnerTilSaksbehandler(alertResponse.httpCode);
 
     case "ferdigstill-oppgave":
       return handleFerdigstillOppgaveMessages(alertResponse.httpCode);
@@ -173,15 +181,63 @@ export function handleGodkjennBehandlingMessages(httpCode: number): IAlert {
   }
 }
 
-export function handleAvbrytBehandlingMessages(httpCode: number): IAlert {
+export function handleSendTilArenaMessages(httpCode: number): IAlert {
   switch (httpCode) {
     case 201:
-      return behandlingAvbruttAlert;
+      return sendtTilArenaAlert;
 
     default:
       return {
         variant: "error",
         title: "Fikk ikke sendt behandling til Arena",
+        body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleSendTilKontrollMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Oppgave sendt til kontroll",
+      };
+
+    case 404:
+      return {
+        variant: "error",
+        title: "Kunne ikke sende til kontroll",
+        body: "Fant ikke oppgaven",
+      };
+
+    case 409:
+      return {
+        variant: "error",
+        title: "Kunne ikke sende til kontroll",
+        body: "Oppgave er allerede sendt til kontroll",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Fikk ikke sendt oppgave til kontroll",
+        body: `Ukjent feil: ${httpCode}`,
+      };
+  }
+}
+
+export function handleReturnerTilSaksbehandler(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Oppgave sendt tilbake til saksbehandler",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Fikk ikke sendt oppgave tilbake til saksbehandler",
         body: `Ukjent feil: ${httpCode}`,
       };
   }

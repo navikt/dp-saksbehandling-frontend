@@ -31,7 +31,7 @@ export interface IListeOppgave {
   emneknagger: string[];
   oppgaveId: string;
   personIdent: string;
-  saksbehandlerIdent?: string;
+  behandlerIdent?: string;
   skjermesSomEgneAnsatte: boolean;
   tidspunktOpprettet: string;
   tilstand: IOppgaveTilstand;
@@ -57,10 +57,13 @@ export type IOppgaveAdressebeskyttelseGradering =
   | "FORTROLIG"
   | "STRENGT_FORTROLIG"
   | "STRENGT_FORTROLIG_UTLAND";
+
 export type IOppgaveTilstand =
   | "PAA_VENT"
   | "KLAR_TIL_BEHANDLING"
   | "UNDER_BEHANDLING"
+  | "KLAR_TIL_KONTROLL"
+  | "UNDER_KONTROLL"
   | "FERDIG_BEHANDLET";
 
 export async function hentOppgaver(request: Request, urlParams?: string): Promise<IListeOppgave[]> {
@@ -164,6 +167,16 @@ export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId
   });
 }
 
+export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/send-til-kontroll`;
+
+  return await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+  });
+}
+
 export async function sendBrev(
   request: Request,
   oppgaveId: string,
@@ -176,5 +189,15 @@ export async function sendBrev(
     method: "POST",
     headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/html" },
     body: brevHtml,
+  });
+}
+
+export async function returnerOppgaveTilSaksbehandler(request: Request, oppgaveId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/returner-til-saksbehandler`;
+
+  return await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
   });
 }

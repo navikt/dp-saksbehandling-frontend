@@ -1,24 +1,21 @@
 import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { godkjennBehandling } from "~/models/behandling.server";
-import { logger } from "~/utils/logger.utils";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { Form, useNavigate, useNavigation } from "@remix-run/react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { avbrytBehandling } from "~/models/behandling.server";
 import { commitSession, getSession } from "~/sessions";
+import { getAlertMessage } from "~/utils/alert-message.utils";
+import { Form, useNavigate } from "@remix-run/react";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { logger } from "~/utils/logger.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
   const behandlingId = formData.get("behandlingId") as string;
   const personIdent = formData.get("personIdent") as string;
 
-  const response = await godkjennBehandling(request, behandlingId, personIdent);
+  const response = await avbrytBehandling(request, behandlingId, personIdent);
   const session = await getSession(request.headers.get("Cookie"));
-  session.flash(
-    "alert",
-    getAlertMessage({ name: "godkjenn-behandling", httpCode: response.status }),
-  );
+  session.flash("alert", getAlertMessage({ name: "send-til-arena", httpCode: response.status }));
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
@@ -30,27 +27,25 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`../fullfort-oppgave`, {
+  return redirect(`/`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
   });
 }
 
-export default function GodkjennBehandling() {
+export default function SendTilArena() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const navigate = useNavigate();
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state !== "idle";
 
   return (
     <>
       <Modal.Header>
-        <Heading size={"medium"}>Automatisk avslag</Heading>
+        <Heading size={"medium"}>Send til Arena</Heading>
       </Modal.Header>
 
       <Modal.Body>
-        <BodyLong>Du er i ferd med å sende oppgaven til automatisk avslag</BodyLong>
+        <BodyLong>Du er i ferd med å sende oppgaven til Arena</BodyLong>
       </Modal.Body>
 
       <Modal.Footer>
@@ -62,7 +57,7 @@ export default function GodkjennBehandling() {
           <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
           <input hidden={true} readOnly={true} name="personIdent" value={oppgave.person.ident} />
 
-          <Button size="small" variant="primary" disabled={isSubmitting}>
+          <Button size="small" variant="primary">
             Ja
           </Button>
         </Form>

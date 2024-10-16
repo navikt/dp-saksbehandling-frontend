@@ -20,11 +20,18 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);
 
-  const minOppgave = oppgave.saksbehandlerIdent === saksbehandler.onPremisesSamAccountName;
+  const minSaksbehandlerOppgave = oppgave.behandlerIdent === saksbehandler.onPremisesSamAccountName;
+
+  const minBeslutterOppgaver = oppgave?.behandlerIdent === saksbehandler.onPremisesSamAccountName;
+
   const kanTildeleOgBehandleOppgave =
     oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
     oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave);
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minSaksbehandlerOppgave);
+
+  const kanKontrollereOppgave =
+    oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && minBeslutterOppgaver);
 
   return (
     <>
@@ -59,6 +66,19 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
             </tildelOppgaveFetcher.Form>
           )}
 
+          {kanKontrollereOppgave && (
+            <tildelOppgaveFetcher.Form method="post" action="/action-tildel-oppgave">
+              <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
+              <Button
+                variant="tertiary-neutral"
+                size="xsmall"
+                loading={tildelOppgaveFetcher.state !== "idle"}
+              >
+                Kontroller oppgave
+              </Button>
+            </tildelOppgaveFetcher.Form>
+          )}
+
           {!kanTildeleOgBehandleOppgave && (
             <RemixLink
               to={`/oppgave/${oppgave.oppgaveId}`}
@@ -69,7 +89,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
             </RemixLink>
           )}
 
-          {minOppgave && oppgave.tilstand !== "FERDIG_BEHANDLET" && (
+          {minSaksbehandlerOppgave && oppgave.tilstand !== "FERDIG_BEHANDLET" && (
             <leggTilbakeFetcher.Form method="post" action="/action-legg-tilbake-oppgave">
               <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
               <Button

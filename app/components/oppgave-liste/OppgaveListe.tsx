@@ -191,7 +191,7 @@ export function OppgaveListe({
                     </Table.DataCell>
 
                     <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<Detail>{oppgave.saksbehandlerIdent}</Detail>}</Table.DataCell>
+                    <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
                     <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                   </>
                 )}
@@ -214,5 +214,9 @@ export function getTilstandText(tilstand: IOppgaveTilstand) {
       return "Ferdig behandlet";
     case "KLAR_TIL_BEHANDLING":
       return "Klar til behandling";
+    case "KLAR_TIL_KONTROLL":
+      return "Klar til kontroll";
+    case "UNDER_KONTROLL":
+      return "Under kontroll";
   }
 }

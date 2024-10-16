@@ -56,6 +56,20 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "FORTROLIG",
 };
+
+export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
+  oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  person: mockPerson,
+  saksbehandler: mockOppgaveSaksbehandler,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  tilstand: "UNDER_BEHANDLING",
+  journalpostIder: ["598116231", "639664664"],
+  skjermesSomEgneAnsatte: false,
+  adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+};
+
 export const underBehandlingMinOppgave: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10456",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
@@ -68,6 +82,33 @@ export const underBehandlingMinOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
+
+export const klarTilKontrollMinOppgave: IOppgave = {
+  oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa1753",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  person: mockPerson,
+  saksbehandler: mockOppgaveSaksbehandler,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  tilstand: "KLAR_TIL_KONTROLL",
+  journalpostIder: ["598116231", "639664664"],
+  skjermesSomEgneAnsatte: false,
+  adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+};
+
+export const underKontrollMinOppgave: IOppgave = {
+  oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa104951",
+  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  person: mockPerson,
+  saksbehandler: mockOppgaveSaksbehandler,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  tilstand: "UNDER_KONTROLL",
+  journalpostIder: ["598116231", "639664664"],
+  skjermesSomEgneAnsatte: false,
+  adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+};
+
 export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
@@ -98,7 +139,10 @@ export const paaVentOppgave: IOppgave = {
 export const mockOppgaver: IOppgave[] = [
   klarTilBehandlingOppgave,
   underBehandlingMinOppgave,
+  underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
+  klarTilKontrollMinOppgave,
+  underKontrollMinOppgave,
   ferdigBehandletOppgave,
   paaVentOppgave,
 ];
@@ -106,7 +150,10 @@ export const mockOppgaver: IOppgave[] = [
 export const mockListeOppgaver: IListeOppgave[] = [
   konverterOppgaveTilListeOppgave(klarTilBehandlingOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
+  konverterOppgaveTilListeOppgave(klarTilKontrollMinOppgave),
+  konverterOppgaveTilListeOppgave(underKontrollMinOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
   konverterOppgaveTilListeOppgave(paaVentOppgave),
 ];
@@ -118,7 +165,7 @@ export function konverterOppgaveTilListeOppgave(oppgave: IOppgave): IListeOppgav
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
     personIdent: oppgave.person.ident,
-    saksbehandlerIdent: oppgave.saksbehandler?.ident,
+    behandlerIdent: oppgave.saksbehandler?.ident,
     skjermesSomEgneAnsatte: oppgave.skjermesSomEgneAnsatte,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
     tilstand: oppgave.tilstand,

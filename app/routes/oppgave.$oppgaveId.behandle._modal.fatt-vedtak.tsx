@@ -52,7 +52,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   });
 }
 
-export default function FerdigstillOppgave() {
+export default function FattVedtak() {
   const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId",
@@ -77,11 +77,20 @@ export default function FerdigstillOppgave() {
   return (
     <>
       <Modal.Header>
-        <Heading size={"medium"}>Automatisk avslag</Heading>
+        <Heading size={"medium"}>Fatt vedtak</Heading>
       </Modal.Header>
 
       <Modal.Body>
-        <BodyLong>Du er i ferd med å sende oppgaven til automatisk avslag</BodyLong>
+        {kravPaaDagpenger && (
+          <BodyLong>
+            Ønsker du å fatte vedtak med utfall{" "}
+            <strong>{kravPaaDagpenger === "true" ? "innvilget" : "avslag"}?</strong>
+          </BodyLong>
+        )}
+
+        {!kravPaaDagpenger && (
+          <BodyLong> Finner ikke opplysning "Krav på dagpenger". Ta kontakt med STSB</BodyLong>
+        )}
       </Modal.Body>
 
       <Modal.Footer className={styles.modalFooter}>

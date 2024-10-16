@@ -1,21 +1,20 @@
 import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { avbrytBehandling } from "~/models/behandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { Form, useNavigate } from "@remix-run/react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { logger } from "~/utils/logger.utils";
+import { sendOppgaveTilKontroll } from "~/models/oppgave.server";
+import invariant from "tiny-invariant";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const behandlingId = formData.get("behandlingId") as string;
-  const personIdent = formData.get("personIdent") as string;
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const response = await avbrytBehandling(request, behandlingId, personIdent);
+  const response = await sendOppgaveTilKontroll(request, params.oppgaveId);
   const session = await getSession(request.headers.get("Cookie"));
-  session.flash("alert", getAlertMessage({ name: "avbryt-behandling", httpCode: response.status }));
+  session.flash("alert", getAlertMessage({ name: "send-til-kontroll", httpCode: response.status }));
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
@@ -27,25 +26,25 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  return redirect(`/`, {
+  return redirect(`../fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
   });
 }
 
-export default function AvbrytBehandling() {
+export default function SendTilKontroll() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const navigate = useNavigate();
 
   return (
     <>
       <Modal.Header>
-        <Heading size={"medium"}>Send til Arena</Heading>
+        <Heading size={"medium"}>Send til kontroll</Heading>
       </Modal.Header>
 
       <Modal.Body>
-        <BodyLong>Du er i ferd med å sende oppgaven til Arena</BodyLong>
+        <BodyLong>Du er i ferd med å sende oppgaven til kontroll</BodyLong>
       </Modal.Body>
 
       <Modal.Footer>

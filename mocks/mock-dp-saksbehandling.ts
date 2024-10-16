@@ -125,10 +125,40 @@ export const mockDpSaksbehandling = [
     });
   }),
 
+  // Send oppgave til kontroll
+  http.put(
+    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/send-til-kontroll`,
+    async ({ params }) => {
+      const { oppgaveId } = params;
+      logger.info(
+        `[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/klar-til-kontroll`,
+      );
+
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    },
+  ),
+
+  // Send oppgave tilbake til saksbehandler fra kontroll
+  http.put(
+    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/returner-til-saksbehandler`,
+    async ({ params }) => {
+      const { oppgaveId } = params;
+      logger.info(
+        `[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/returner-instilling-til-vedtak`,
+      );
+
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    },
+  ),
+
   // Hent alle oppgaver til en person
   http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async () => {
     logger.info(`[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`);
-    return HttpResponse.json(mockOppgaver);
+    return HttpResponse.json(mockListeOppgaver);
   }),
 
   // Send brev for oppgave
