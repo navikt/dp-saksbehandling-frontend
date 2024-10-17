@@ -80,6 +80,8 @@ export function MeldingOmVedtakPreview(props: IProps) {
             <br />
             {oppgave.beslutter?.fornavn} {oppgave.beslutter?.etternavn}
             <br />
+            Beslutter
+            <br />
             {oppgave.beslutter?.enhet.navn}
             <br />
             {oppgave.beslutter?.enhet.postadresse}
@@ -91,6 +93,8 @@ export function MeldingOmVedtakPreview(props: IProps) {
             Med vennlig hilsen
             <br />
             {oppgave.saksbehandler?.fornavn} {oppgave.saksbehandler?.etternavn}
+            <br />
+            Saksbehandler
             <br />
             {oppgave.saksbehandler?.enhet.navn}
             <br />
