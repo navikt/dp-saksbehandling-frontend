@@ -43,7 +43,6 @@ export async function getSAFOboToken(request: Request) {
   }
 
   const audience = `${process.env.SAF_AUDIENCE}`;
-  logger.info("SAF audience: ", audience);
   return await getOnBehalfOfToken(request, audience);
 }
 
