@@ -73,11 +73,10 @@ export function MeldingOmVedtakPreview(props: IProps) {
         ))}
       </div>
 
-      <div className="meldingOmVedtak__signatur">
+      <div className="meldingOmVedtak__signatur-container">
+        <p>Med vennlig hilsen</p>
         {oppgave.beslutter && (
-          <p>
-            Med vennlig hilsen
-            <br />
+          <p className="meldingOmVedtak__signatur">
             {oppgave.beslutter?.fornavn} {oppgave.beslutter?.etternavn}
             <br />
             Beslutter
@@ -89,9 +88,7 @@ export function MeldingOmVedtakPreview(props: IProps) {
         )}
 
         {oppgave.saksbehandler && (
-          <p>
-            Med vennlig hilsen
-            <br />
+          <p className="meldingOmVedtak__signatur">
             {oppgave.saksbehandler?.fornavn} {oppgave.saksbehandler?.etternavn}
             <br />
             Saksbehandler

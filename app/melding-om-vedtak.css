@@ -88,11 +88,11 @@
   font-weight: normal;
 }
 
-.meldingOmVedtak__signatur {
+.meldingOmVedtak__signatur-container {
   margin-top: 32px;
 }
 
-.meldingOmVedtak__signatur p {
+.meldingOmVedtak__signatur {
   float: left;
   width: 50%;
 }
