@@ -21,7 +21,7 @@ export async function getBehandlingOboToken(request: Request) {
 
 export async function getMeldingOmVedtakOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_MELDING_OM_VEDTAK as string;
+    return process.env.DP_MELDING_OM_VEDTAK_TOKEN as string;
   }
 
   const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-melding-om-vedtak/.default`;
@@ -37,21 +37,13 @@ export async function getMicrosoftOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getPDLOboToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.PDL_TOKEN as string;
-  }
-
-  const audience = `${process.env.SAF_AUDIENCE}`;
-  return await getOnBehalfOfToken(request, audience);
-}
-
 export async function getSAFOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.SAF_TOKEN as string;
   }
 
   const audience = `${process.env.SAF_AUDIENCE}`;
+  logger.info("SAF audience: ", audience);
   return await getOnBehalfOfToken(request, audience);
 }
 
