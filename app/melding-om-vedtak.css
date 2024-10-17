@@ -93,6 +93,6 @@
 }
 
 .meldingOmVedtak__signatur p {
-  display: inline-block;
+  float: left;
   width: 50%;
 }
