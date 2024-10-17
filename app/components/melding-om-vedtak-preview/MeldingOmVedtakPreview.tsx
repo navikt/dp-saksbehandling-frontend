@@ -74,15 +74,29 @@ export function MeldingOmVedtakPreview(props: IProps) {
       </div>
 
       <div className="meldingOmVedtak__signatur">
-        <p>
-          Med vennlig hilsen
-          <br />
-          {oppgave.saksbehandler?.fornavn} {oppgave.saksbehandler?.etternavn}
-          <br />
-          {oppgave.saksbehandler?.enhet.navn}
-          <br />
-          {oppgave.saksbehandler?.enhet.postadresse}
-        </p>
+        {oppgave.saksbehandler && (
+          <p>
+            Med vennlig hilsen
+            <br />
+            {oppgave.saksbehandler?.fornavn} {oppgave.saksbehandler?.etternavn}
+            <br />
+            {oppgave.saksbehandler?.enhet.navn}
+            <br />
+            {oppgave.saksbehandler?.enhet.postadresse}
+          </p>
+        )}
+
+        {oppgave.beslutter && (
+          <p>
+            Med vennlig hilsen
+            <br />
+            {oppgave.beslutter?.fornavn} {oppgave.beslutter?.etternavn}
+            <br />
+            {oppgave.beslutter?.enhet.navn}
+            <br />
+            {oppgave.beslutter?.enhet.postadresse}
+          </p>
+        )}
       </div>
     </div>
   );

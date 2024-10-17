@@ -14,7 +14,7 @@ export interface IPerson {
   statsborgerskap: string;
 }
 
-export interface IOppgaveSaksbehandler {
+export interface IOppgaveBehandler {
   ident: string;
   fornavn: string;
   etternavn: string;
@@ -41,7 +41,8 @@ export interface IListeOppgave {
 export interface IOppgave {
   oppgaveId: string;
   behandlingId: string;
-  saksbehandler?: IOppgaveSaksbehandler;
+  saksbehandler?: IOppgaveBehandler;
+  beslutter?: IOppgaveBehandler;
   person: IPerson;
   tidspunktOpprettet: string;
   journalpostIder: string[];

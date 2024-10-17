@@ -1,9 +1,4 @@
-import type {
-  IListeOppgave,
-  IOppgave,
-  IOppgaveSaksbehandler,
-  IPerson,
-} from "~/models/oppgave.server";
+import type { IListeOppgave, IOppgave, IOppgaveBehandler, IPerson } from "~/models/oppgave.server";
 
 export const mockPerson: IPerson = {
   alder: 74,
@@ -16,9 +11,20 @@ export const mockPerson: IPerson = {
   ident: "12345678910",
 };
 
-export const mockOppgaveSaksbehandler: IOppgaveSaksbehandler = {
-  fornavn: "F_Z993298",
-  etternavn: "E_Z993298",
+export const mockOppgaveSaksbehandler: IOppgaveBehandler = {
+  fornavn: "Saksbehandler",
+  etternavn: "Behandlersen",
+  ident: "Z993298",
+  enhet: {
+    enhetNr: "2970",
+    navn: "IT-avdelingen",
+    postadresse: "",
+  },
+};
+
+export const mockOppgaveBeslutter: IOppgaveBehandler = {
+  fornavn: "Saksbehandler",
+  etternavn: "Besluttersen",
   ident: "Z993298",
   enhet: {
     enhetNr: "2970",
@@ -101,6 +107,7 @@ export const underKontrollMinOppgave: IOppgave = {
   behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
+  beslutter: mockOppgaveBeslutter,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
   tilstand: "UNDER_KONTROLL",

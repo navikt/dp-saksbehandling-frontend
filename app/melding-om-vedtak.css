@@ -91,3 +91,8 @@
 .meldingOmVedtak__signatur {
   margin-top: 32px;
 }
+
+.meldingOmVedtak__signatur p {
+  display: inline-block;
+  width: 50%;
+}
