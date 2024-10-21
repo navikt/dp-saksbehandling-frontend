@@ -23,6 +23,7 @@ import styles from "~/route-styles/root.module.css";
 import { AlertProvider } from "~/context/alert-context";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { hentOppgaver } from "~/models/oppgave.server";
+import { unleash } from "~/entry.server";
 
 export function meta() {
   return [
@@ -77,6 +78,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     request,
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
   );
+
+  const isEnabled = unleash.isEnabled("dp-saksbehandling-frontened.test");
+
+  console.log("Unleash test: ", isEnabled);
 
   return json({
     saksbehandler: saksbehandler,

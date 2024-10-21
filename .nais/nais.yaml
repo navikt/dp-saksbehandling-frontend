@@ -84,6 +84,12 @@ spec:
     - name: OTEL_METRICS_EXEMPLAR_FILTER
       value: ALWAYS_ON
 
+    - name: UNLEASH_SERVER_API_URL
+      value: {{unleash.url}}
+
+  envFrom:
+    - secret: dp-saksbehandling-frontend-unleash-api-token
+
 
   accessPolicy:
     outbound:
@@ -95,6 +101,8 @@ spec:
         - host: saf.dev-fss-pub.nais.io
         - host: saf.prod-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
+        - host: dagpenger-unleash-api.nav.cloud.nais.io
+
       rules:
         - application: dp-saksbehandling
         - application: dp-behandling
