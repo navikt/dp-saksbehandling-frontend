@@ -15,14 +15,15 @@ import { InternalHeader } from "@navikt/ds-react";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { getSaksbehandler } from "~/models/saksbehandler.server";
 import { getEnv } from "~/utils/env.utils";
+import { AlertProvider } from "~/context/alert-context";
+import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
+import { hentOppgaver } from "~/models/oppgave.server";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import globalCss from "~/global.css?url";
 import akselOverrides from "~/aksel-overrides.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
-import { AlertProvider } from "~/context/alert-context";
-import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { hentOppgaver } from "~/models/oppgave.server";
+import { unleash } from "../unleash";
 
 export function meta() {
   return [
@@ -78,9 +79,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
   );
 
+  const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
+  const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
+
   return json({
     saksbehandler: saksbehandler,
     antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
+    featureFlags: {
+      oppgaveHistorikk,
+      totrinnsKontroll,
+    },
     env: {
       BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,

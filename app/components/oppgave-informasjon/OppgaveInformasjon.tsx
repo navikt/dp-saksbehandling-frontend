@@ -3,9 +3,10 @@ import { ClockDashedIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
-import { getEnv } from "~/utils/env.utils";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export function OppgaveInformasjon() {
+  const { featureFlags } = useTypedRouteLoaderData("root");
   return (
     <Tabs defaultValue="dokumenter" size="medium">
       <Tabs.List>
@@ -15,7 +16,7 @@ export function OppgaveInformasjon() {
           label="Informasjon"
           icon={<DatabaseIcon title="Informasjon" />}
         />
-        {getEnv("GCP_ENV") !== "prod" && (
+        {featureFlags.oppgaveHistorikk && (
           <Tabs.Tab
             value="historikk"
             label="Historikk"

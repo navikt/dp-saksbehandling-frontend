@@ -22,6 +22,8 @@ interface IEnv {
   GRISEN_URL: string;
   DAGPENGER_NORGE_URL: string;
   NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: string;
+  UNLEASH_SERVER_API_URL: string;
+  UNLEASH_SERVER_API_TOKEN: string;
 }
 
 export function getEnv(value: keyof IEnv) {

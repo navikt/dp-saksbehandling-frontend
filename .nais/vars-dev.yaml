@@ -22,6 +22,10 @@ sanity_project_id: "rt6o382n"
 sanity_access_token: ""
 sanity_dataset: "development"
 
+unleash:
+  url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  environment: development
+
 azure:
   tenant: trygdeetaten.no
   grupper:
