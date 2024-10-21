@@ -7,7 +7,6 @@ import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/Opp
 import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilKontroll";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
-import { getEnv } from "~/utils/env.utils";
 
 export interface IFormValidationError {
   field: string;
@@ -15,10 +14,9 @@ export interface IFormValidationError {
 }
 
 export function OppgaveHandlinger() {
+  const { featureFlags } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  let kreverBeslutter =
-    getEnv("GCP_ENV") === "dev" &&
-    oppgave.emneknagger.find((knagg) => knagg === "Totrinnskontroll");
+  let kreverBeslutter = oppgave.emneknagger.find((knagg) => knagg === "Totrinnskontroll");
 
   return (
     <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
@@ -29,8 +27,13 @@ export function OppgaveHandlinger() {
             <>
               <OppgaveHandlingUtsett />
               <OppgaveHandlingSendTilArena oppgaveId={oppgave.oppgaveId} />
-              {kreverBeslutter && <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />}
-              {!kreverBeslutter && <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />}
+              {kreverBeslutter && featureFlags.totrinnsKontroll && (
+                <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />
+              )}
+
+              {(!kreverBeslutter || !featureFlags.totrinnsKontroll) && (
+                <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />
+              )}
             </>
           )}
 
