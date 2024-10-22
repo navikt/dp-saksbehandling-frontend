@@ -81,16 +81,10 @@ export default function FattVedtak() {
       </Modal.Header>
 
       <Modal.Body>
-        {kravPaaDagpenger && (
-          <BodyLong>
-            Ønsker du å fatte vedtak med utfall{" "}
-            <strong>{kravPaaDagpenger === "true" ? "innvilget" : "avslag"}?</strong>
-          </BodyLong>
-        )}
-
-        {!kravPaaDagpenger && (
-          <BodyLong> Finner ikke opplysning "Krav på dagpenger". Ta kontakt med STSB</BodyLong>
-        )}
+        <BodyLong>
+          Ønsker du å fatte vedtak med utfall{" "}
+          <strong>{kravPaaDagpenger === "true" ? "innvilget" : "avslag"}?</strong>
+        </BodyLong>
       </Modal.Body>
 
       <Modal.Footer className={styles.modalFooter}>
@@ -99,7 +93,7 @@ export default function FattVedtak() {
         </Button>
 
         <Form method="post">
-          {kravPaaDagpenger === "false" && (
+          {(!kravPaaDagpenger || kravPaaDagpenger === "false") && (
             <>
               <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
               <input
