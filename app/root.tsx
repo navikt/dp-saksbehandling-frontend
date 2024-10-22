@@ -24,6 +24,7 @@ import akselOverrides from "~/aksel-overrides.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
 import { unleash } from "../unleash";
+import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 
 export function meta() {
   return [
@@ -81,6 +82,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
+  const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
 
   return json({
     saksbehandler: saksbehandler,
@@ -88,6 +90,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     featureFlags: {
       oppgaveHistorikk,
       totrinnsKontroll,
+      halloween,
     },
     env: {
       BASE_PATH: process.env.BASE_PATH,
@@ -106,7 +109,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, antallJegHarTilBehandling } = useLoaderData<typeof loader>();
+  const { env, saksbehandler, antallJegHarTilBehandling, featureFlags } =
+    useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -118,7 +122,8 @@ export default function App() {
         <InternalHeader className={styles.header}>
           <Link to={"/"} className={styles.headerLogo}>
             <InternalHeader.Title as="h1" className={styles.pageHeader}>
-              NAV Dagpenger
+              {featureFlags.halloween && <PumpkinSvg />}
+              Dagpenger
             </InternalHeader.Title>
           </Link>
 

@@ -9,6 +9,9 @@
   text-decoration: none;
 }
 
-.pageHeader {
+.pageHeader span {
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-2);
 }

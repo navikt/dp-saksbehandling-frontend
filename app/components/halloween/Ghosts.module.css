@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex: 0.6;
+}
+
+.container svg {
+  --size: 1;
+  --rotation: 1;
+
+  width: auto;
+  height: calc(20px + 23px * var(--size));
+  transform: rotate(calc(-60deg + 120deg * var(--rotation)));
+}
