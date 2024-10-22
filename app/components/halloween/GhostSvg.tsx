@@ -1,6 +1,11 @@
 import type { CSSProperties } from "react";
 
-export function GhostSvg(props: { style?: CSSProperties }) {
+export interface CustomCSSProperties extends CSSProperties {
+  "--rotation"?: number;
+  "--size"?: number;
+}
+
+export function GhostSvg(props: { style?: CustomCSSProperties }) {
   return (
     <svg
       width="22"
@@ -56,9 +61,9 @@ export function GhostSvg(props: { style?: CSSProperties }) {
           width="21.0586"
           height="32.168"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feColorMatrix
             in="SourceAlpha"
