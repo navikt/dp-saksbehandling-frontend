@@ -16,10 +16,6 @@ export async function action({ request }: ActionFunctionArgs) {
     throw new Error("Mangler behandlingId");
   }
 
-  if (!utvidetBeskrivelse) {
-    throw new Error("Mangler utvidetBeskrivelse");
-  }
-
   const response = await lagreUtvidetBeskrivelse(
     request,
     behandlingId,
