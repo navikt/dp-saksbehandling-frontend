@@ -16,9 +16,9 @@ export interface IFormValidationError {
 
 export function OppgaveHandlinger() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  let erTestmiljoet = getEnv("GCP_ENV") === "dev";
   let kreverBeslutter =
-    getEnv("GCP_ENV") === "dev" &&
-    oppgave.emneknagger.find((knagg) => knagg === "Totrinnskontroll");
+    erTestmiljoet && oppgave.emneknagger.find((knagg) => knagg === "Totrinnskontroll");
 
   return (
     <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
@@ -29,6 +29,7 @@ export function OppgaveHandlinger() {
             <>
               <OppgaveHandlingUtsett />
               <OppgaveHandlingSendTilArena oppgaveId={oppgave.oppgaveId} />
+              {erTestmiljoet && <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />}
               {kreverBeslutter && <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />}
               {!kreverBeslutter && <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />}
             </>
