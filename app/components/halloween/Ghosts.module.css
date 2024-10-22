@@ -12,5 +12,5 @@
 }
 
 .container svg {
-  transition: transform 1s ease;
+  transition: transform 10s ease;
 }

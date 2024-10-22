@@ -36,7 +36,7 @@ export function Ghosts() {
         "--size": Math.random(),
       }));
       setGhostStyles(newGhostStyles);
-    }, 1000);
+    }, 11000);
 
     return () => clearInterval(interval);
   }, []);
