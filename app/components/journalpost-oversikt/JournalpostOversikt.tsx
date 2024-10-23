@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Button, List, Select } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import styles from "./JournalpostOversikt.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { logger } from "~/utils/logger.utils";
 
 interface IProps {
   journalposter: JournalpostQuery["journalpost"][];
 }
 
 export function JournalpostOversikt({ journalposter }: IProps) {
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [valgtJournalpost, setValgtJournalpost] = useState<
     JournalpostQuery["journalpost"] | undefined
   >(journalposter[0]);
@@ -18,7 +21,9 @@ export function JournalpostOversikt({ journalposter }: IProps) {
     if (!valgtJournalpost || !dokumentInfoId) {
       return;
     }
-
+    logger.info(
+      `Henter dokument for journalpostId: ${valgtJournalpost.journalpostId}. Oppgave journalpostIder: ${oppgave.journalpostIder}`,
+    );
     const url = `/saksbehandling/api/hent-dokument/${valgtJournalpost.journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
 
