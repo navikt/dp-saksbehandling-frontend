@@ -19,7 +19,7 @@ export function initFaro() {
       persistent: true,
     },
     instrumentations: [
-      ...getWebInstrumentations({ captureConsole: true }),
+      ...getWebInstrumentations({ captureConsole: true, captureConsoleDisabledLevels: [] }),
 
       new TracingInstrumentation({
         instrumentationOptions: {
