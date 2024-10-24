@@ -40,7 +40,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
   emneknagger: ["Konkurs Statoil"],
-  journalpostIder: ["598116231", "639664664"],
+  journalpostIder: ["598116232", "639664665"],
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
 };

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, List, Select } from "@navikt/ds-react";
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
-import styles from "./JournalpostOversikt.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { logger } from "~/utils/logger.utils";
+import styles from "./JournalpostOversikt.module.css";
 
 interface IProps {
   journalposter: JournalpostQuery["journalpost"][];
@@ -14,6 +14,12 @@ export function JournalpostOversikt({ journalposter }: IProps) {
   const [valgtJournalpost, setValgtJournalpost] = useState<
     JournalpostQuery["journalpost"] | undefined
   >(journalposter[0]);
+
+  useEffect(() => {
+    if (journalposter.length > 0) {
+      setValgtJournalpost(journalposter[0]);
+    }
+  }, [journalposter]);
 
   async function aapneDokument(dokumentInfoId: string) {
     const variantFormat = "ARKIV";
