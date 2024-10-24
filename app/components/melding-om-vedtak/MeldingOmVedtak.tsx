@@ -4,7 +4,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import styles from "./MeldingOmVedtak.module.css";
 
-export function MeldingOmVedtak() {
+export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
   const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId",
@@ -12,7 +12,7 @@ export function MeldingOmVedtak() {
 
   return (
     <div className={styles.container}>
-      <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} />
+      {!readOnly && <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} />}
 
       <div className={styles.previewContainer}>
         <MeldingOmVedtakPreview

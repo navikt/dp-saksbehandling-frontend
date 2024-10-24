@@ -81,7 +81,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
 
           {!kanTildeleOgBehandleOppgave && (
             <RemixLink
-              to={`/oppgave/${oppgave.oppgaveId}`}
+              to={`/oppgave/${oppgave.oppgaveId}/se`}
               asButtonVariant="tertiary-neutral"
               size="xsmall"
             >
