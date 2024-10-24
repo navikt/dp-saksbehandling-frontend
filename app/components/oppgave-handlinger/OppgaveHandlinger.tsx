@@ -1,6 +1,5 @@
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import classnames from "classnames";
-import styles from "./OppgaveHandlinger.module.css";
+import { Fragment } from "react";
 import { OppgaveHandlingUtsett } from "~/components/oppgave-handlinger/OppgaveHandlingUtsett";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
 import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilArena";
@@ -8,6 +7,8 @@ import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
 import type { IOppgave } from "~/models/oppgave.server";
+import classnames from "classnames";
+import styles from "./OppgaveHandlinger.module.css";
 
 export interface IFormValidationError {
   field: string;
@@ -61,7 +62,7 @@ export function OppgaveHandlinger() {
       {gyldigeOppgaveValg.length > 0 && (
         <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
           {gyldigeOppgaveValg.map((valg) => (
-            <>
+            <Fragment key={valg}>
               {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
               {valg === "utsett" && <OppgaveHandlingUtsett />}
               {valg === "send-til-arena" && (
@@ -76,7 +77,7 @@ export function OppgaveHandlinger() {
               {valg === "fatt-vedtak" && (
                 <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       )}
