@@ -49,6 +49,12 @@ export const mockDpSaksbehandling = [
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
+      if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
+        return HttpResponse.json("UNDER_BEHANDLING");
+      }
+      if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
+        return HttpResponse.json("UNDER_KONTROLL");
+      }
       return HttpResponse.json(mockOppgave.tilstand);
     }
 
