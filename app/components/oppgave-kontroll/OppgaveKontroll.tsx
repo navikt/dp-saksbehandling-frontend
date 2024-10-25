@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
-import styles from "./oppgaveKontroll.module.css";
+import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
   return (
