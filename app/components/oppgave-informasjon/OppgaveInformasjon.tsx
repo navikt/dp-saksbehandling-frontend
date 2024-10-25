@@ -1,11 +1,16 @@
 import { Tabs } from "@navikt/ds-react";
-import { ClockDashedIcon, DatabaseIcon, FilesIcon } from "@navikt/aksel-icons";
+import { ClockDashedIcon, DatabaseIcon, FilesIcon, PuzzlePieceIcon } from "@navikt/aksel-icons";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 
-export function OppgaveInformasjon() {
+interface IProps {
+  visKontrollFane?: boolean;
+}
+
+export function OppgaveInformasjon(props: IProps) {
   const { featureFlags } = useTypedRouteLoaderData("root");
   return (
     <Tabs defaultValue="dokumenter" size="medium">
@@ -23,6 +28,9 @@ export function OppgaveInformasjon() {
             icon={<ClockDashedIcon title="Historikk" />}
           />
         )}
+        {featureFlags.totrinnsKontroll && props.visKontrollFane && (
+          <Tabs.Tab value="kontroll" label="Kontroll" icon={<PuzzlePieceIcon title="Kontroll" />} />
+        )}
       </Tabs.List>
 
       <Tabs.Panel value="dokumenter">
@@ -35,6 +43,10 @@ export function OppgaveInformasjon() {
 
       <Tabs.Panel value="historikk">
         <OppgaveHistorikk />
+      </Tabs.Panel>
+
+      <Tabs.Panel value="kontroll">
+        <OppgaveKontroll />
       </Tabs.Panel>
     </Tabs>
   );

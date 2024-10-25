@@ -1,4 +1,4 @@
-import { Alert, Tabs } from "@navikt/ds-react";
+import { Tabs } from "@navikt/ds-react";
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -15,7 +15,6 @@ export default function Oppgave() {
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
-      <Alert variant="warning">Kontroll</Alert>
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" defaultValue="behandling">
@@ -51,7 +50,7 @@ export default function Oppgave() {
         </div>
 
         <div className={"card"}>
-          <OppgaveInformasjon />
+          <OppgaveInformasjon visKontrollFane={true} />
         </div>
 
         <Outlet />

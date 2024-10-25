@@ -6,6 +6,7 @@ import { handleErrorResponse } from "~/utils/error-response.server";
 export interface IBehandling {
   behandlingId: string;
   tilstand: string;
+  kreverTotrinnskontroll: boolean;
   opplysning: IOpplysning[];
 }
 

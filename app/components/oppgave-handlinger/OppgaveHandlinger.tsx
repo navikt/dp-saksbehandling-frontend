@@ -26,7 +26,7 @@ export type IGyldigeOppgaveHandlinger =
 function hentGyldigeOppgaveValg(
   oppgave: IOppgave,
   toTrinnsAktiv: boolean,
-  kreverBeslutter: boolean,
+  kreverTotrinnskontroll: boolean,
 ): IGyldigeOppgaveHandlinger[] {
   switch (oppgave.tilstand) {
     case "UNDER_BEHANDLING":
@@ -35,7 +35,7 @@ function hentGyldigeOppgaveValg(
         "utsett",
         "send-til-arena",
 
-        ...((kreverBeslutter && toTrinnsAktiv
+        ...((kreverTotrinnskontroll && toTrinnsAktiv
           ? ["send-til-kontroll"]
           : ["fatt-vedtak"]) as IGyldigeOppgaveHandlinger[]),
       ];
@@ -48,13 +48,12 @@ function hentGyldigeOppgaveValg(
 
 export function OppgaveHandlinger() {
   const { featureFlags } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  let kreverBeslutter = oppgave.emneknagger.find((knagg) => knagg === "Totrinnskontroll");
+  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(
     oppgave,
     featureFlags.totrinnsKontroll,
-    !!kreverBeslutter,
+    behandling.kreverTotrinnskontroll,
   );
 
   return (

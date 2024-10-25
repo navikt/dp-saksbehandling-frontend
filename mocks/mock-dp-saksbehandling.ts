@@ -49,7 +49,7 @@ export const mockDpSaksbehandling = [
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
-      return new HttpResponse(null, { status: 204 });
+      return HttpResponse.json(mockOppgave.tilstand);
     }
 
     return new HttpResponse("Oppgaven er allerede tatt til behandling", {
