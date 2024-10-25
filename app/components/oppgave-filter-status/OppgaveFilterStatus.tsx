@@ -6,6 +6,8 @@ const statuser: { id: IOppgaveTilstand; tekst: string }[] = [
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
   { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },
+  { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
+  { id: "KLAR_TIL_KONTROLL", tekst: "Til kontroll" },
   { id: "PAA_VENT", tekst: "På vent" },
 ];
 
