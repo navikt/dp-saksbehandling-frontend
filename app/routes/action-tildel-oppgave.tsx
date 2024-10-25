@@ -30,7 +30,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(alert);
   }
 
-  const nyOppgaveTilstand = (await response.json()) as IOppgave["tilstand"];
+  const nyOppgaveTilstand = (await response.text()) as IOppgave["tilstand"];
   if (nyOppgaveTilstand === "UNDER_BEHANDLING") return redirect(`/oppgave/${oppgaveId}/behandle`);
   if (nyOppgaveTilstand === "UNDER_KONTROLL") return redirect(`/oppgave/${oppgaveId}/kontroll`);
 

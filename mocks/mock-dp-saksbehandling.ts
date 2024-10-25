@@ -50,12 +50,12 @@ export const mockDpSaksbehandling = [
 
     if (mockOppgave) {
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-        return HttpResponse.json("UNDER_BEHANDLING");
+        return HttpResponse.text("UNDER_BEHANDLING");
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-        return HttpResponse.json("UNDER_KONTROLL");
+        return HttpResponse.text("UNDER_KONTROLL");
       }
-      return HttpResponse.json(mockOppgave.tilstand);
+      return HttpResponse.text(mockOppgave.tilstand);
     }
 
     return new HttpResponse("Oppgaven er allerede tatt til behandling", {
