@@ -23,6 +23,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     useDebounceFetcher<SerializeFrom<typeof lagreUtvidetBeskrivelseAction>>();
 
   useEffect(() => {
+    setVerdi(props.verdi);
+  }, [props.verdi]);
+
+  useEffect(() => {
     if (lagreUtvidetBeskrivelseFetcher.data) {
       props.updateContext({
         tekst: verdi,

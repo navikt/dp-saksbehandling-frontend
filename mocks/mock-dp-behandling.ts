@@ -1,9 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { mockBehandling } from "./data/mock-behandling";
+import { mockBehandlingInnvilgelse } from "./data/mock-behandling";
 
 export const mockDpBehandling = [
   http.get(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId`, () => {
-    return HttpResponse.json(mockBehandling);
+    return HttpResponse.json(mockBehandlingInnvilgelse);
     // return HttpResponse.json(
     //   {
     //     type: "A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provide human-readable documentation for the problem type",
@@ -35,7 +35,7 @@ export const mockDpBehandling = [
   http.put(
     `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/opplysning/:opplysningId`,
     () => {
-      return HttpResponse.json(mockBehandling);
+      return HttpResponse.json(mockBehandlingInnvilgelse);
     },
   ),
 ];

@@ -35,7 +35,7 @@ export const mockOppgaveBeslutter: IOppgaveBehandler = {
 
 export const klarTilBehandlingOppgave: IOppgave = {
   oppgaveId: "018e8237-9df8-7ee4-94a6-317fada10789",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
   person: mockPerson,
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
@@ -48,7 +48,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
 
 export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -67,7 +67,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
 
 export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -81,7 +81,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
 
 export const underBehandlingMinOppgave: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10456",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -95,7 +95,7 @@ export const underBehandlingMinOppgave: IOppgave = {
 
 export const klarTilKontrollMinOppgave: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa1753",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -109,7 +109,7 @@ export const klarTilKontrollMinOppgave: IOppgave = {
 
 export const underKontrollMinOppgave: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa104951",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   beslutter: mockOppgaveBeslutter,
@@ -124,7 +124,7 @@ export const underKontrollMinOppgave: IOppgave = {
 
 export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -138,7 +138,7 @@ export const ferdigBehandletOppgave: IOppgave = {
 
 export const paaVentOppgave: IOppgave = {
   oppgaveId: "018e3737-9df8-7bb4-94a6-317fada10741",
-  behandlingId: "018e3737-9dda-7d0f-adee-34711013001d",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   person: mockPerson,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
