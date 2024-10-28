@@ -23,10 +23,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     useDebounceFetcher<SerializeFrom<typeof lagreUtvidetBeskrivelseAction>>();
 
   useEffect(() => {
-    setVerdi(props.verdi);
-  }, [props.verdi]);
-
-  useEffect(() => {
     if (lagreUtvidetBeskrivelseFetcher.data) {
       props.updateContext({
         tekst: verdi,
@@ -38,9 +34,14 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
-    setVerdi(event.target.value);
+    const oppdatertVerdi = event.currentTarget.value;
+    if (oppdatertVerdi === verdi) {
+      return;
+    }
+
+    setVerdi(oppdatertVerdi);
     props.updateContext({
-      tekst: event.target.value,
+      tekst: oppdatertVerdi,
       brevblokkId: props.brevblokkId,
     });
 

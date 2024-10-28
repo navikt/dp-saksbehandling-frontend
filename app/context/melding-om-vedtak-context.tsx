@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { useEffect, createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export interface IUtvidetBeskrivelse {
   brevblokkId: string;
@@ -22,10 +22,6 @@ export function MeldingOmVedtakProvider(
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
     props.utvidedeBeskrivelser,
   );
-
-  useEffect(() => {
-    setUtvidedeBeskrivelser(props.utvidedeBeskrivelser);
-  }, [props.utvidedeBeskrivelser]);
 
   return (
     <MeldingOmVedtakContext.Provider value={{ utvidedeBeskrivelser, setUtvidedeBeskrivelser }}>
