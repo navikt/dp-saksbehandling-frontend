@@ -42,6 +42,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
   emneknagger: ["Konkurs Statoil"],
   journalpostIder: ["598116232", "639664665"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "UGRADERT",
 };
 
@@ -60,6 +61,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "FORTROLIG",
 };
 
@@ -73,6 +75,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
 
@@ -86,6 +89,7 @@ export const underBehandlingMinOppgave: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
 
@@ -99,6 +103,7 @@ export const klarTilKontrollMinOppgave: IOppgave = {
   tilstand: "KLAR_TIL_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
 
@@ -113,6 +118,7 @@ export const underKontrollMinOppgave: IOppgave = {
   tilstand: "UNDER_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
 
@@ -126,6 +132,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: true,
+  historikk: [],
   adressebeskyttelseGradering: "UGRADERT",
 };
 
@@ -140,6 +147,7 @@ export const paaVentOppgave: IOppgave = {
   tilstand: "PAA_VENT",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  historikk: [],
   adressebeskyttelseGradering: "STRENGT_FORTROLIG_UTLAND",
 };
 

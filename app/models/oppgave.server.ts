@@ -47,10 +47,30 @@ export interface IOppgave {
   tidspunktOpprettet: string;
   journalpostIder: string[];
   tilstand: IOppgaveTilstand;
+  historikk: IOppgaveHistorikk[];
+  notat?: IOppgaveNotat;
   utsattTilDato?: string;
   skjermesSomEgneAnsatte: boolean;
   adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
+}
+
+export interface IOppgaveNotat {
+  tekst: string;
+  sistEndretTidspunkt: string;
+}
+
+export interface IOppgaveHistorikk {
+  type: "ny-status" | "notat" | "endre-opplysning" | "melding";
+  tittel: string;
+  body?: string;
+  tidspunkt: string;
+  behandler: IBehandler;
+}
+
+interface IBehandler {
+  rolle: "system" | "saksbehandler" | "beslutter";
+  navn: string;
 }
 
 export type IOppgaveAdressebeskyttelseGradering =

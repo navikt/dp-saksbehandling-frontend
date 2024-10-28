@@ -3,19 +3,7 @@ import classnames from "classnames";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 import styles from "./OppgaveHistorikk.module.css";
-
-export interface IOppgaveHistorikk {
-  type: "ny-status" | "notat" | "endre-opplysning" | "melding";
-  tittel: string;
-  body?: string;
-  tidspunkt: string;
-  behandler: IBehandler;
-}
-
-interface IBehandler {
-  rolle: "system" | "saksbehandler" | "beslutter";
-  navn: string;
-}
+import type { IOppgaveHistorikk } from "~/models/oppgave.server";
 
 export function OppgaveHistorikk() {
   return (
