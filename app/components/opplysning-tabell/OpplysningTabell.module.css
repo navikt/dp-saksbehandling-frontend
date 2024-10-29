@@ -11,7 +11,7 @@
   padding-right: var(--a-spacing-2);
 }
 
-.container {
+.vilkaarContainer {
   display: flex;
   height: 100%;
 }

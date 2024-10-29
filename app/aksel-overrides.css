@@ -66,3 +66,18 @@
 .checkbox--compact.navds-fieldset > :not(:first-child):not(:empty) {
   margin-top: 0;
 }
+
+.alert--compact.alert--compact {
+  padding: var(--a-spacing-1) var(--a-spacing-2);
+
+  border: 0;
+  border-bottom: 1px solid var(--a-border-subtle);
+}
+
+.alert--compact .navds-alert__icon {
+  align-self: center;
+}
+
+.alert--compact .navds-alert__wrapper {
+  max-width: 100%;
+}

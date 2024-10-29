@@ -1,11 +1,12 @@
 import { OpplysningTabellSidebar } from "./OpplysningTabellSidebar";
 import type { IOpplysning } from "~/models/behandling.server";
 import { opplysningsMap } from "./OpplysningMap";
-import { BodyLong, Heading, Table } from "@navikt/ds-react";
+import { Alert, BodyLong, Heading, Table } from "@navikt/ds-react";
 import { OpplysningTabellLinje } from "./OpplysningTabellLinje";
 import { useState } from "react";
 import classNames from "classnames";
 import styles from "./OpplysningTabell.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   opplysninger: IOpplysning[];
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 export function OpplysningTabell(props: IProps) {
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const keys = Object.keys(opplysningsMap);
   const [selectedKategori, setSelectedKategori] = useState(keys[0]);
 
@@ -24,31 +26,45 @@ export function OpplysningTabell(props: IProps) {
   });
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <OpplysningTabellSidebar
-          kategorier={opplysningsMap}
-          kategori={selectedKategori}
-          onChange={setSelectedKategori}
-        />
+    <>
+      {oppgave.emneknagger.map((knagg) => (
+        <Alert
+          key={knagg}
+          className="alert--compact"
+          variant={"warning"}
+          fullWidth={true}
+          size={"small"}
+        >
+          {knagg}
+        </Alert>
+      ))}
+
+      <div className={styles.vilkaarContainer}>
+        <div className={styles.sidebar}>
+          <OpplysningTabellSidebar
+            kategorier={opplysningsMap}
+            kategori={selectedKategori}
+            onChange={setSelectedKategori}
+          />
+        </div>
+        <div className={styles.content}>
+          <Heading size={"medium"}>{opplysningsMap[selectedKategori].header}</Heading>
+          <BodyLong className={styles.opplysningKategoriBody}>
+            {opplysningsMap[selectedKategori].description}
+          </BodyLong>
+          <Table className={classNames("table--compact", "table--subtle-zebra", styles.table)}>
+            <Table.Body>
+              {filteredOpplysning.map((opplysning) => (
+                <OpplysningTabellLinje
+                  key={opplysning.navn}
+                  opplysning={opplysning}
+                  readonly={props.readonly}
+                />
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
       </div>
-      <div className={styles.content}>
-        <Heading size={"medium"}>{opplysningsMap[selectedKategori].header}</Heading>
-        <BodyLong className={styles.opplysningKategoriBody}>
-          {opplysningsMap[selectedKategori].description}
-        </BodyLong>
-        <Table className={classNames("table--compact", "table--subtle-zebra", styles.table)}>
-          <Table.Body>
-            {filteredOpplysning.map((opplysning) => (
-              <OpplysningTabellLinje
-                key={opplysning.navn}
-                opplysning={opplysning}
-                readonly={props.readonly}
-              />
-            ))}
-          </Table.Body>
-        </Table>
-      </div>
-    </div>
+    </>
   );
 }
