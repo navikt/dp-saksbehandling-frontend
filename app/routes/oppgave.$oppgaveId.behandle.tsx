@@ -10,15 +10,17 @@ import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabel
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
 import styles from "~/route-styles/oppgave.module.css";
+import { useState } from "react";
 
 export default function Oppgave() {
   const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const [aktivTab, setAktivTab] = useState("behandling");
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
       <div className={styles.behandling}>
         <div className={"card"}>
-          <Tabs size="medium" defaultValue="behandling">
+          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <div className={styles.tabMeny}>
               <Tabs.List>
                 <Tabs.Tab

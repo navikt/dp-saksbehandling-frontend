@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentJournalpost } from "~/models/saf.server";
@@ -56,7 +56,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const location = useLocation();
   const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
 
@@ -66,7 +65,7 @@ export default function Oppgave() {
       <div className={styles.oppgaveContainer}>
         <OppgaveListe oppgaver={oppgaverForPerson} />
         <OppgaveHandlinger />
-        <Fragment key={location.key}>
+        <Fragment key={oppgave.oppgaveId}>
           <Outlet />
         </Fragment>
       </div>

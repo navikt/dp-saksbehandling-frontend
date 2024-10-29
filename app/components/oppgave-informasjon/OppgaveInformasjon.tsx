@@ -5,15 +5,17 @@ import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
+import { useState } from "react";
 
 interface IProps {
   visKontrollFane?: boolean;
 }
 
 export function OppgaveInformasjon(props: IProps) {
+  const [aktivTab, setAktivTab] = useState("dokumenter");
   const { featureFlags } = useTypedRouteLoaderData("root");
   return (
-    <Tabs defaultValue="dokumenter" size="medium">
+    <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
       <Tabs.List>
         <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
         <Tabs.Tab
