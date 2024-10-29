@@ -35,9 +35,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     const oppdatertVerdi = event.currentTarget.value;
-    if (oppdatertVerdi === verdi) {
-      return;
-    }
 
     setVerdi(oppdatertVerdi);
     props.updateContext({
