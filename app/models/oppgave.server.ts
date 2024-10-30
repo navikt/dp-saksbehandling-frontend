@@ -57,7 +57,7 @@ export interface IOppgave {
 
 export interface IOppgaveNotat {
   tekst: string;
-  sistEndretTidspunkt: string;
+  sistEndretTidspunkt?: string;
 }
 
 export interface IOppgaveHistorikk {
@@ -71,6 +71,10 @@ export interface IOppgaveHistorikk {
 interface IBehandler {
   rolle: "system" | "saksbehandler" | "beslutter";
   navn: string;
+}
+
+interface ILagreNotatResponse {
+  sistEndretTidspunkt: string;
 }
 
 export type IOppgaveAdressebeskyttelseGradering =
@@ -221,4 +225,25 @@ export async function returnerOppgaveTilSaksbehandler(request: Request, oppgaveI
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
   });
+}
+
+export async function lagreNotat(
+  request: Request,
+  oppgaveId: string,
+  notat: string,
+): Promise<ILagreNotatResponse> {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
+    body: notat,
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
 }

@@ -7,7 +7,7 @@ interface IProps {
 export function OppgaveHandlingReturnerTilSaksbehandler(props: IProps) {
   return (
     <RemixLink
-      to={`/oppgave/${props.oppgaveId}/behandle/returner-til-saksbehandler`}
+      to={`/oppgave/${props.oppgaveId}/kontroll/returner-til-saksbehandler`}
       asButtonVariant="secondary"
       size="small"
     >

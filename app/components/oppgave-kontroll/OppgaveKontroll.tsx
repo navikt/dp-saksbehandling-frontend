@@ -1,20 +1,58 @@
-import { Fragment } from "react";
+import { type ChangeEvent, Fragment, useEffect } from "react";
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
+import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
+import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import styles from "./OppgaveKontroll.module.css";
 
+import type { SerializeFrom } from "@remix-run/node";
+import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { formaterNorskDato } from "~/utils/dato.utils";
+
 export function OppgaveKontroll() {
+  const { notat, setNotat } = useBeslutterNotat();
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof lagreNotatAction>>();
+
+  useEffect(() => {
+    if (lagreNotatFetcher.data) {
+      setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lagreNotatFetcher.data]);
+
+  function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
+    setNotat({ ...notat, tekst: event.currentTarget.value });
+
+    lagreNotatFetcher.submit(event.target.form, {
+      debounceTimeout: delayInMs,
+    });
+  }
+
   return (
     <div className={styles.container}>
-      <Textarea
-        label={
-          <>
-            <Heading size="small">
-              Notat - hvorfor returneres oppgaven tilbake fra kontroll?
-            </Heading>
-            <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
-          </>
-        }
-      />
+      <lagreNotatFetcher.Form method="post" action="/action-lagre-notat">
+        <input name={"oppgave-id"} value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+        <Textarea
+          value={notat.tekst}
+          onChange={(event) => lagreBeslutterNotat(event, 2000)}
+          onBlur={(event) => lagreBeslutterNotat(event, 0)}
+          resize={"vertical"}
+          label={
+            <>
+              <Heading size="small">
+                Notat - hvorfor returneres oppgaven tilbake fra kontroll?
+              </Heading>
+              <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
+            </>
+          }
+        />
+        {notat.sistEndretTidspunkt && (
+          <Detail textColor="subtle">
+            Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}
+          </Detail>
+        )}
+      </lagreNotatFetcher.Form>
 
       <List className={styles.sjekkliste} as="ol" title="Sjekkliste" size="small">
         {sjekkliste.map((punkt) => (

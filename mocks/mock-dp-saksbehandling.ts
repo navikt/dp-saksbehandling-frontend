@@ -137,7 +137,7 @@ export const mockDpSaksbehandling = [
     async ({ params }) => {
       const { oppgaveId } = params;
       logger.info(
-        `[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/klar-til-kontroll`,
+        `[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/klar-til-kontroll`,
       );
 
       return new HttpResponse(null, {
@@ -152,7 +152,7 @@ export const mockDpSaksbehandling = [
     async ({ params }) => {
       const { oppgaveId } = params;
       logger.info(
-        `[MSW]-POST ${process.env.DP_SAKSBEHANDLING_URL}/utsending/${oppgaveId}/returner-instilling-til-vedtak`,
+        `[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/returner-instilling-til-vedtak`,
       );
 
       return new HttpResponse(null, {
@@ -160,6 +160,14 @@ export const mockDpSaksbehandling = [
       });
     },
   ),
+
+  // Lagre notat på oppgave
+  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/notat`, async ({ params }) => {
+    const { oppgaveId } = params;
+    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/notat`);
+
+    return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
+  }),
 
   // Hent alle oppgaver til en person
   http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async () => {
