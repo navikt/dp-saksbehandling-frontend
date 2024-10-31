@@ -1,9 +1,9 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
 import type { ActionFunctionArgs, SerializeFrom } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
-import { Form, useNavigate } from "@remix-run/react";
+import { Form, useActionData, useNavigate } from "@remix-run/react";
 import { logger } from "~/utils/logger.utils";
 import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
 import invariant from "tiny-invariant";
@@ -13,9 +13,22 @@ import { formaterNorskDato } from "~/utils/dato.utils";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { isFormValidationErrorResponse } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  const formData = await request.formData();
+  const notat = formData.get("notat") as string;
+
+  if (!notat) {
+    const error: IFormValidationError = {
+      field: "notat",
+      message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
+    };
+
+    return json(error);
+  }
 
   const response = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
   const session = await getSession(request.headers.get("Cookie"));
@@ -42,6 +55,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function ReturnerTilSaksbehandler() {
+  const actionData = useActionData<typeof action>();
   const navigate = useNavigate();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { notat, setNotat } = useBeslutterNotat();
@@ -74,17 +88,19 @@ export default function ReturnerTilSaksbehandler() {
         <lagreNotatFetcher.Form method="post" action="/action-lagre-notat">
           <input name={"oppgave-id"} value={oppgave.oppgaveId} hidden={true} readOnly={true} />
           <Textarea
+            name="notat"
             className="mt-4"
             value={notat.tekst}
             onChange={(event) => lagreNotat(event, 2000)}
             onBlur={(event) => lagreNotat(event, 0)}
-            resize={"vertical"}
+            resize="vertical"
             label={
               <>
                 <Heading size="small">Begrunnelse</Heading>
                 <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
               </>
             }
+            error={isFormValidationErrorResponse(actionData) && <>{actionData.message}</>}
           />
           {notat.sistEndretTidspunkt && (
             <Detail textColor="subtle">
@@ -94,6 +110,7 @@ export default function ReturnerTilSaksbehandler() {
         </lagreNotatFetcher.Form>
 
         <Form method="post">
+          <input name={"notat"} value={notat.tekst} hidden={true} readOnly={true} />
           <Button
             className="mr-2 mt-6"
             size="small"

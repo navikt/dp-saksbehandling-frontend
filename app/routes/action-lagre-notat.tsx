@@ -7,6 +7,10 @@ export async function action({ request }: ActionFunctionArgs) {
   const oppgaveId = formData.get("oppgave-id") as string;
   const notat = formData.get("notat") as string;
 
+  if (notat == null) {
+    throw new Error("Mangler notat");
+  }
+
   if (!oppgaveId) {
     throw new Error("Mangler oppgaveId");
   }

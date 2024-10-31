@@ -34,10 +34,11 @@ export function OppgaveKontroll() {
       <lagreNotatFetcher.Form method="post" action="/action-lagre-notat">
         <input name={"oppgave-id"} value={oppgave.oppgaveId} hidden={true} readOnly={true} />
         <Textarea
+          name="notat"
           value={notat.tekst}
           onChange={(event) => lagreBeslutterNotat(event, 2000)}
           onBlur={(event) => lagreBeslutterNotat(event, 0)}
-          resize={"vertical"}
+          resize="vertical"
           label={
             <>
               <Heading size="small">
