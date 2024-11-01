@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
+import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
@@ -59,7 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function NesteOppgave() {
   const fetcher = useFetcher<typeof action>();
-  const { alert, statistikk } = useLoaderData<typeof loader>();
+  const { alert } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
 
   return (
@@ -71,15 +71,15 @@ export default function NesteOppgave() {
       <Modal.Body className={styles.modalBody}>
         <KonfettiKanon />
         <BodyShort>{alert?.title}</BodyShort>
-        <div className={styles.modalStatistikk}>
-          <span className={styles.modalIcon}>📊</span>
-          <BodyLong>
-            Du har behandlet{" "}
-            <b>{`${statistikk.dag} ${statistikk.dag === 1 ? "oppgave" : "oppgaver"}`}</b> i dag og
-            totalt <b>{`${statistikk.uke} ${statistikk.uke === 1 ? "oppgave" : "oppgaver"}`}</b>{" "}
-            denne uken.
-          </BodyLong>
-        </div>
+        {/*<div className={styles.modalStatistikk}>*/}
+        {/*  <span className={styles.modalIcon}>📊</span>*/}
+        {/*  <BodyLong>*/}
+        {/*    Du har behandlet{" "}*/}
+        {/*    <b>{`${statistikk.dag} ${statistikk.dag === 1 ? "oppgave" : "oppgaver"}`}</b> i dag og*/}
+        {/*    totalt <b>{`${statistikk.uke} ${statistikk.uke === 1 ? "oppgave" : "oppgaver"}`}</b>{" "}*/}
+        {/*    denne uken.*/}
+        {/*  </BodyLong>*/}
+        {/*</div>*/}
       </Modal.Body>
 
       <Modal.Footer>
