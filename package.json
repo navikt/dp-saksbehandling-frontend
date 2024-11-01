@@ -32,7 +32,7 @@
     "@grafana/faro-web-tracing": "1.11.0",
     "@navikt/aksel-icons": "7.4.2",
     "@navikt/ds-css": "7.4.2",
-    "@navikt/ds-react": "6.16.2",
+    "@navikt/ds-react": "7.4.2",
     "@navikt/oasis": "3.4.0",
     "@opentelemetry/sdk-node": "0.54.0",
     "@portabletext/react": "3.1.0",
@@ -91,7 +91,7 @@
     "prettier": "3.3.3",
     "ts-node": "10.9.2",
     "typescript": "5.6.3",
-    "vite": "5.4.6",
+    "vite": "5.4.10",
     "vite-tsconfig-paths": "5.0.1",
     "vitest": "2.1.4"
   },
