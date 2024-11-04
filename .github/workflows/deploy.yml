@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bygg-filer
-          path: build/
+          path: app/build/
 
       - name: Definer release tag
         id: version-tag
