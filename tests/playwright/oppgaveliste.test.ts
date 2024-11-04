@@ -51,15 +51,14 @@ test("Klikk på 3 status filter setter tilstand i url og checkbox som checked", 
 
   const klarTilBehandlingCheckbox = page.getByLabel("Klar til behandling");
   await klarTilBehandlingCheckbox.check();
+  await expect(klarTilBehandlingCheckbox).toBeChecked();
 
   const underBehandlingCheckbox = page.getByLabel("Under behandling");
   await underBehandlingCheckbox.check();
+  await expect(underBehandlingCheckbox).toBeChecked();
 
   const ferdigBehandlingCheckbox = page.getByLabel("Ferdig behandlet");
   await ferdigBehandlingCheckbox.check();
-
-  await expect(klarTilBehandlingCheckbox).toBeChecked();
-  await expect(underBehandlingCheckbox).toBeChecked();
   await expect(ferdigBehandlingCheckbox).toBeChecked();
 
   await expect(page).toHaveURL(
