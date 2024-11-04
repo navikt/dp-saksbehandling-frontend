@@ -3,12 +3,13 @@ import { useSearchParams } from "@remix-run/react";
 import type { IOppgaveTilstand } from "~/models/oppgave.server";
 
 const statuser: { id: IOppgaveTilstand; tekst: string }[] = [
+  { id: "KLAR_TIL_KONTROLL", tekst: "Klar til kontroll" },
+  { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
   { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },
-  { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
-  { id: "KLAR_TIL_KONTROLL", tekst: "Til kontroll" },
   { id: "PAA_VENT", tekst: "På vent" },
+  { id: "BEHANDLES_I_ARENA", tekst: "Sendt til Arena" },
 ];
 
 export function OppgaveFilterStatus() {

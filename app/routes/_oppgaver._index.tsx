@@ -18,11 +18,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
   if (!url.search) {
-    const appended = appendSearchParamIfNotExists(
-      url.searchParams,
-      "tilstand",
-      "KLAR_TIL_BEHANDLING",
-    );
+    const paramsToAppend = [
+      { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
+      { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+    ];
+
+    let appended = false;
+    for (const { key, value } of paramsToAppend) {
+      appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
+    }
 
     if (appended) {
       return redirect(url.toString());

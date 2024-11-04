@@ -13,8 +13,9 @@ import styles from "./OppgaveListe.module.css";
 interface IProps {
   oppgaver: IListeOppgave[];
   lasterOppgaver?: boolean;
-  visNesteOppgaveKnapp?: boolean;
+  visPersonIdent?: boolean;
   visAntallOppgaver?: boolean;
+  visNesteOppgaveKnapp?: boolean;
 }
 
 export function OppgaveListe({
@@ -22,6 +23,7 @@ export function OppgaveListe({
   visNesteOppgaveKnapp,
   visAntallOppgaver,
   lasterOppgaver,
+  visPersonIdent,
 }: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
@@ -82,6 +84,12 @@ export function OppgaveListe({
             <Table.ColumnHeader scope="col">
               <Detail>Emne</Detail>
             </Table.ColumnHeader>
+
+            {visPersonIdent && (
+              <Table.ColumnHeader scope="col">
+                <Detail>Personnummer</Detail>
+              </Table.ColumnHeader>
+            )}
 
             <Table.ColumnHeader scope="col">
               <Detail>Status</Detail>
@@ -190,6 +198,9 @@ export function OppgaveListe({
                       </>
                     </Table.DataCell>
 
+                    {visPersonIdent && (
+                      <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
+                    )}
                     <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
                     <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
                     <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
@@ -218,5 +229,7 @@ export function getTilstandText(tilstand: IOppgaveTilstand) {
       return "Klar til kontroll";
     case "UNDER_KONTROLL":
       return "Under kontroll";
+    case "BEHANDLES_I_ARENA":
+      return "Sendt til Arena";
   }
 }

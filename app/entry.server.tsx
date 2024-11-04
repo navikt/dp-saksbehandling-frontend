@@ -9,17 +9,17 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { isRouteErrorResponse, RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { setupMockServer, startMockServer } from "../mocks/mock-server";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 import { faro } from "@grafana/faro-core";
-import { unleash } from "../unleash";
+import { unleash } from "./unleash";
 
 const ABORT_DELAY = 5000;
 
 if (getEnv("USE_MSW") === "true") {
-  const server = setupMockServer();
-  startMockServer(server);
+  import("../mocks/mock-server").then(({ startMockServer }) => {
+    startMockServer();
+  });
 }
 
 const csp = {
@@ -37,7 +37,7 @@ const csp = {
 };
 let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
 
-if (getEnv("IS_LOCALHOST")) {
+if (getEnv("IS_LOCALHOST") === "true") {
   cspString =
     "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * blob: 'unsafe-inline' 'unsafe-eval'; connect-src * blob: 'unsafe-inline'; img-src * 'self' blob: data:; frame-src * data: blob:; style-src * 'unsafe-inline';";
 }

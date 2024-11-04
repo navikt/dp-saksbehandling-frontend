@@ -89,7 +89,8 @@ export type IOppgaveTilstand =
   | "UNDER_BEHANDLING"
   | "KLAR_TIL_KONTROLL"
   | "UNDER_KONTROLL"
-  | "FERDIG_BEHANDLET";
+  | "FERDIG_BEHANDLET"
+  | "BEHANDLES_I_ARENA";
 
 export async function hentOppgaver(request: Request, urlParams?: string): Promise<IListeOppgave[]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);

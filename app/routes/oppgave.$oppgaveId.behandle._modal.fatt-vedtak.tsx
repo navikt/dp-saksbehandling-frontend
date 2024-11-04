@@ -53,6 +53,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function FattVedtak() {
+  const { featureFlags } = useTypedRouteLoaderData("root");
   const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId",
@@ -93,7 +94,7 @@ export default function FattVedtak() {
         </Button>
 
         <Form method="post">
-          {(!kravPaaDagpenger || kravPaaDagpenger === "false") && (
+          {(!kravPaaDagpenger || kravPaaDagpenger === "false" || featureFlags.totrinnsKontroll) && (
             <>
               <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"false"} />
               <input
@@ -109,7 +110,7 @@ export default function FattVedtak() {
             </>
           )}
 
-          {kravPaaDagpenger === "true" && (
+          {kravPaaDagpenger === "true" && !featureFlags.totrinnsKontroll && (
             <>
               <input hidden={true} readOnly={true} name="send-brev-i-arena" value={"true"} />
 

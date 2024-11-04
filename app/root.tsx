@@ -23,7 +23,7 @@ import globalCss from "~/global.css?url";
 import akselOverrides from "~/aksel-overrides.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
-import { unleash } from "../unleash";
+import { unleash } from "./unleash";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 
 export function meta() {

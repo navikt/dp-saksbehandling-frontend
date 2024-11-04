@@ -20,7 +20,7 @@ const prodConfig: LoggerOptions = {
   },
 };
 
-const pinoLogger: Logger = pino(getEnv("IS_LOCALHOST") ? devConfig : prodConfig);
+const pinoLogger: Logger = pino(getEnv("IS_LOCALHOST") === "true" ? devConfig : prodConfig);
 
 // Logger wrapper to handle server-side and client-side logging. Console.log is needed client-side for faro auto capture to function properly
 export const logger = {
