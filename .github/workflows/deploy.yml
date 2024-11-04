@@ -46,6 +46,12 @@ jobs:
           dockerfile: Dockerfile
           docker_context: .
 
+
+      - name: Display Directory Structure
+        run: |
+          echo "Current directory structure:"
+          tree -L 2 . || ls -R .  # Fallback if `tree` is not installed
+
       - name: Arkiver bygg filer
         uses: actions/upload-artifact@v4
         with:
