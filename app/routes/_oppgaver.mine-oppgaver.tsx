@@ -19,7 +19,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!url.search) {
     const paramsToAppend = [
       { key: "mineOppgaver", value: "true" },
+      { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
       { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+      { key: "tilstand", value: "UNDER_KONTROLL" },
       { key: "tilstand", value: "UNDER_BEHANDLING" },
     ];
 
@@ -73,6 +75,7 @@ export default function Saksbehandling() {
         <OppgaveListe
           oppgaver={oppgaver}
           visAntallOppgaver={true}
+          visPersonIdent={true}
           lasterOppgaver={state !== "idle"}
         />
       </main>
