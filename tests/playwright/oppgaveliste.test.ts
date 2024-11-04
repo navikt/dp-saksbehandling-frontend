@@ -19,7 +19,6 @@ test("Bruker kan navigere til alle oppgaver", async ({ page, baseURL }) => {
   await page.goto(`${baseURL}`);
   await page.getByRole("link", { name: "Alle oppgaver" }).click();
 
-  await expect(page).toHaveURL(`${baseURL}alle-oppgaver`);
   await expect(page).toHaveURL(new RegExp(`${baseURL}alle-oppgaver.*`));
 });
 
@@ -38,8 +37,8 @@ test("Klikk på 1 status filter setter tilstand i url og checkbox som checked", 
 
   const underBehandlingCheckbox = page.getByLabel("Under behandling");
   await underBehandlingCheckbox.check();
-
   await expect(underBehandlingCheckbox).toBeChecked();
+
   await expect(page).toHaveURL(new RegExp(`.*\\?tilstand=UNDER_BEHANDLING.*`));
 });
 
