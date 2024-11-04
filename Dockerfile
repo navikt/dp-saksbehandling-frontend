@@ -38,8 +38,8 @@ ENV NODE_ENV=${NODE_ENV}
 ENV TZ="Europe/Oslo"
 EXPOSE 3000
 
-COPY public/ ./public/
+COPY ./public ./public/
 COPY --from=app-build /app/build/ ./build/
-COPY --from=app-dependencies /app/node_modules/ ./node_modules/
+COPY --from=app-dependencies /app/node_modules ./node_modules
 
- CMD ["/build/server/index.js"]
+ CMD ["/app/build/server/index.js"]
