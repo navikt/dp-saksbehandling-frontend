@@ -51,8 +51,8 @@ jobs:
         with:
           name: bygg-filer
           path: |
-            build/
             public/
+            build/
 
       - name: Definer release tag
         id: version-tag
