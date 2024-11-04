@@ -46,6 +46,14 @@ jobs:
           dockerfile: Dockerfile
           docker_context: .
 
+      - name: Arkiver bygg filer
+        uses: actions/upload-artifact@v4
+        with:
+          name: bygg-filer
+          path: |
+            ./app/build/
+            ./app/public/
+
       - name: Definer release tag
         id: version-tag
         run: echo "VERSION_TAG=${{env.VERSION_TAG}}" >> "$GITHUB_OUTPUT"
@@ -112,7 +120,10 @@ jobs:
       contents: "read"
       id-token: "write"
     steps:
-      - uses: 'actions/checkout@v4'
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: bygg-filer
 
       - name: Upload static files
         uses: nais/deploy/actions/cdn-upload/v2@master
