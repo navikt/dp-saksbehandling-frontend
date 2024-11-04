@@ -119,7 +119,6 @@ jobs:
             ./build
             ./public
           key: ${{ github.sha }}
-          fail-on-cache-miss: true
 
       - name: Upload static files
         uses: nais/deploy/actions/cdn-upload/v2@master
