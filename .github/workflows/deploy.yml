@@ -51,8 +51,8 @@ jobs:
         with:
           name: bygg-filer
           path: |
-            ./app/build/
-            ./app/public/
+            build/
+            public/
 
       - name: Definer release tag
         id: version-tag
@@ -129,7 +129,7 @@ jobs:
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
           team: teamdagpenger
-          source: ./app/build
+          source: build/
           destination: "/dp-saksbehandling-frontend/"
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
