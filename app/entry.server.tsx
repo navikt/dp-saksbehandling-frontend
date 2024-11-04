@@ -13,7 +13,7 @@ import { setupMockServer, startMockServer } from "../mocks/mock-server";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 import { faro } from "@grafana/faro-core";
-import { unleash } from "../unleash";
+import { unleash } from "./unleash";
 
 const ABORT_DELAY = 5000;
 
