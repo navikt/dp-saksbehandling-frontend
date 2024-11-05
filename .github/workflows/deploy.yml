@@ -141,7 +141,7 @@ jobs:
 
   deploy-dev:
     name: Deploy til dev-gcp
-    needs: [ build, playwright, upload-cdn ]
+    needs: [ build, playwright ]
     runs-on: ubuntu-latest
     environment:
       name: Development
@@ -159,7 +159,7 @@ jobs:
 
   deploy-prod:
     name: Deploy til prod-gcp
-    needs: [ build, playwright, upload-cdn, deploy-dev ]
+    needs: [ build, playwright, deploy-dev ]
     runs-on: ubuntu-latest
     environment:
       name: Production
