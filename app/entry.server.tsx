@@ -9,7 +9,6 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { isRouteErrorResponse, RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { setupMockServer, startMockServer } from "../mocks/mock-server";
 import { getEnv } from "./utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 import { faro } from "@grafana/faro-core";
@@ -18,8 +17,9 @@ import { unleash } from "./unleash";
 const ABORT_DELAY = 5000;
 
 if (getEnv("USE_MSW") === "true") {
-  const server = setupMockServer();
-  startMockServer(server);
+  import("../mocks/mock-server").then(({ startMockServer }) => {
+    startMockServer();
+  });
 }
 
 const csp = {

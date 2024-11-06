@@ -1,11 +1,6 @@
 name: Bygg, deploy til dev-gcp og lag release
 on:
   push:
-    paths-ignore:
-      - '**.md'
-      - '.gitignore'
-      - 'LICENCE'
-      - 'CODEOWNERS'
     branches:
       - main
 
@@ -46,21 +41,6 @@ jobs:
           dockerfile: Dockerfile
           docker_context: .
 
-
-      - name: Display Directory Structure
-        run: |
-          echo "Current directory structure:"
-          tree -L 2 . || ls -R .  # Fallback if `tree` is not installed
-
-      - name: Arkiver bygg filer
-        uses: actions/upload-artifact@v4
-        with:
-          name: bygg-filer
-          path: build/
-
-      - name: Definer release tag
-        id: version-tag
-        run: echo "VERSION_TAG=${{env.VERSION_TAG}}" >> "$GITHUB_OUTPUT"
 
 
   playwright:
@@ -114,29 +94,6 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 7
-
-
-  #  upload-cdn:
-  #    name: Last opp statiske filer til CDN
-  #    needs: [ build ]
-  #    runs-on: ubuntu-latest
-  #    permissions:
-  #      contents: "read"
-  #      id-token: "write"
-  #    steps:
-  #      - name: Download a single artifact
-  #        uses: actions/download-artifact@v4
-  #        with:
-  #          name: bygg-filer
-  #
-  #      - name: Upload static files
-  #        uses: nais/deploy/actions/cdn-upload/v2@master
-  #        with:
-  #          team: teamdagpenger
-  #          source: build/
-  #          destination: "/dp-saksbehandling-frontend/"
-  #          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-  #          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
 
   deploy-dev:
