@@ -80,7 +80,6 @@
     "@types/uuid": "10.0.0",
     "@vitejs/plugin-react": "4.3.3",
     "@vitest/coverage-istanbul": "2.1.4",
-    "dotenv": "16.4.5",
     "eslint": "8.57.1",
     "husky": "9.1.6",
     "jsdom": "25.0.1",

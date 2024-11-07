@@ -30,7 +30,8 @@ RUN npm ci --ignore-scripts --omit dev
 
 
 # runtime
-FROM gcr.io/distroless/nodejs20-debian12 as runtime
+#FROM gcr.io/distroless/nodejs20-debian12 as runtime
+FROM node
 WORKDIR /app
 
 ARG NODE_ENV=production
@@ -43,4 +44,4 @@ COPY ./package.json ./package.json
 COPY --from=app-build /app/build/ ./build/
 COPY --from=app-dependencies /app/node_modules ./node_modules
 
-CMD ["build/server/index.js"]
+CMD ["npm" ,"run", "start"]
