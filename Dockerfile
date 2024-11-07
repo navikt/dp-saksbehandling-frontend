@@ -39,7 +39,8 @@ ENV TZ="Europe/Oslo"
 EXPOSE 3000
 
 COPY ./public ./public/
+COPY ./package.json ./package.json
 COPY --from=app-build /app/build/ ./build/
 COPY --from=app-dependencies /app/node_modules ./node_modules
 
-CMD ["/app/build/server/index.js"]
+CMD ["build/server/index.js"]
