@@ -97,7 +97,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
             view = "behandle";
             break;
           case "UNDER_KONTROLL":
-            view = "kotroll";
+            view = "kontroll";
             break;
         }
 
