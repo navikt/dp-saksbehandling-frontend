@@ -7,9 +7,13 @@
 import { RemixBrowser } from "@remix-run/react";
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
-// import { initFaro } from "~/faro";
+import { initFaro } from "~/faro";
 
-// initFaro();
+try {
+  initFaro();
+} catch (error) {
+  console.error("Feil ved initFaro:", error);
+}
 startTransition(() => {
   hydrateRoot(
     document,
