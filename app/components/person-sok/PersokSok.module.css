@@ -1,7 +1,5 @@
-.sokeContainer {
+.sokContainer {
+  position: relative;
   margin-bottom: var(--a-spacing-2);
-}
-
-.sokefelt {
-  padding-right: var(--a-spacing-6);
+  margin-right: var(--a-spacing-6);
 }

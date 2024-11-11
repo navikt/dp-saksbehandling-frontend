@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import {
   Link,
   Links,
@@ -25,6 +25,7 @@ import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
 import { unleash } from "./unleash";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
+import { hentOppgaverForPerson } from "~/models/person.server";
 
 export function meta() {
   return [
@@ -74,7 +75,43 @@ export function links() {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const search = new URLSearchParams(url.search);
   const saksbehandler = await getSaksbehandler(request);
+  let personSokError;
+
+  const personIdent = search.get("personIdent");
+  if (personIdent) {
+    const verdiUtenMellomrom = personIdent.replace(/\s+/g, "");
+
+    if (verdiUtenMellomrom.length === 11) {
+      const oppgaver = await hentOppgaverForPerson(request, personIdent);
+      const sisteOppgave = oppgaver[0];
+
+      if (sisteOppgave) {
+        const sisteOppgaveTilstand = sisteOppgave?.tilstand;
+        let view = "se";
+        switch (sisteOppgaveTilstand) {
+          case "KLAR_TIL_BEHANDLING":
+          case "UNDER_BEHANDLING":
+            view = "behandle";
+            break;
+          case "UNDER_KONTROLL":
+            view = "kotroll";
+            break;
+        }
+
+        if (oppgaver.length > 0) {
+          return redirect(`/oppgave/${sisteOppgave.oppgaveId}/${view}`);
+        }
+      } else {
+        personSokError = "Fant ingen oppgaver for personen";
+      }
+    } else {
+      personSokError = "Personnummer må være 11 siffer";
+    }
+  }
+
   const mineOppgaverTilBehandling = await hentOppgaver(
     request,
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
@@ -87,6 +124,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     saksbehandler: saksbehandler,
     antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
+    personSokError,
     featureFlags: {
       oppgaveHistorikk,
       totrinnsKontroll,

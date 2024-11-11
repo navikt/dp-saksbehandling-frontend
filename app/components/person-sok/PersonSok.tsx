@@ -1,20 +1,24 @@
 import { Search } from "@navikt/ds-react";
+import { Form } from "@remix-run/react";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "./PersokSok.module.css";
 
 export function PersonSok() {
+  const { personSokError } = useTypedRouteLoaderData("root");
+
   return (
-    <div className={styles.sokeContainer}>
-      <Search
-        className={styles.sokefelt}
-        hideLabel={false}
-        size="small"
-        label=""
-        variant="secondary"
-        onChange={(fnr: string) => console.log(fnr)}
-        onSearchClick={(fnr: string) => console.log(fnr)}
-        onClear={() => console.log()}
-        clearButton
-      />
+    <div className={styles.sokContainer}>
+      <Form>
+        <Search
+          name="personIdent"
+          hideLabel={false}
+          size="small"
+          label=""
+          variant="secondary"
+          error={personSokError}
+          clearButton
+        />
+      </Form>
     </div>
   );
 }
