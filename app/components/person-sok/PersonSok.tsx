@@ -14,6 +14,7 @@ export function PersonSok() {
           hideLabel={false}
           size="small"
           label=""
+          placeholder="Søk etter person"
           variant="secondary"
           error={personSokError}
           clearButton
