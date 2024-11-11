@@ -1,4 +1,4 @@
-name: Bygg, deploy til dev-gcp og lag release
+name: Bygg og deploy
 on:
   push:
     branches:
@@ -101,7 +101,7 @@ jobs:
 
   deploy-dev:
     name: Deploy til dev-gcp
-    needs: [ build, playwright ]
+    needs: [ build ]
     runs-on: ubuntu-latest
     environment:
       name: Development
@@ -119,7 +119,7 @@ jobs:
 
   deploy-prod:
     name: Deploy til prod-gcp
-    needs: [ build, playwright, deploy-dev ]
+    needs: [ build,  deploy-dev ]
     runs-on: ubuntu-latest
     environment:
       name: Production
