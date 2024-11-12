@@ -2,6 +2,7 @@ import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
+import { Detail } from "@navikt/ds-react";
 
 export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] }) {
   const { utvidedeBeskrivelser, setUtvidedeBeskrivelser } = useMeldingOmVedtakTekst();
@@ -37,7 +38,12 @@ export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] })
             <UtvidetBeskrivelseInput
               key={blokk.textId}
               brevblokkId={blokk.textId}
-              label={`Utvidet beskrivelse for ${blokk.title ? blokk.title : blokk.textId}`}
+              label={
+                <>
+                  {blokk.title ? blokk.title : blokk.textId}
+                  <Detail textColor="subtle">Utvidet beskrivelse</Detail>
+                </>
+              }
               updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
               verdi={utvidetBeskrivelse?.tekst || ""}
               sistEndretTidspunkt={utvidetBeskrivelse?.sistEndretTidspunkt}

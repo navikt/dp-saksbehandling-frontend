@@ -1,6 +1,7 @@
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { type ChangeEvent, useEffect, useState } from "react";
+import type { ChangeEvent, ReactNode } from "react";
+import { useEffect, useState } from "react";
 import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
 import { Detail, Textarea } from "@navikt/ds-react";
 import { formaterNorskDato } from "~/utils/dato.utils";
@@ -10,7 +11,7 @@ import type { SerializeFrom } from "@remix-run/node";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
-  label: string;
+  label: ReactNode;
   brevblokkId: string;
   updateContext: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
   sistEndretTidspunkt?: string;
