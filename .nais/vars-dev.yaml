@@ -20,7 +20,7 @@ dagpenger-norge_url: "https://navno.sharepoint.com/:u:/r/sites/44/NAYDP/SitePage
 
 sanity_project_id: "rt6o382n"
 sanity_access_token: ""
-sanity_dataset: "development"
+sanity_dataset: "production"
 
 unleash:
   url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
