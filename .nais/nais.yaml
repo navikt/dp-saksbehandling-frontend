@@ -131,6 +131,6 @@ spec:
         - id: elastic
 
   frontend:
-    generatedConfig:
-      mountPath: /build/client/nais.js
+    mountPath:
+      generatedConfig: /build/client/assets/nais.js
 
