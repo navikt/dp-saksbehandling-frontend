@@ -48,7 +48,7 @@ export default function Oppgave() {
               </Tabs.Panel>
 
               <Tabs.Panel value="melding-om-vedtak">
-                <MeldingOmVedtak />
+                <MeldingOmVedtak readOnly={true} />
               </Tabs.Panel>
             </Tabs>
           </div>
