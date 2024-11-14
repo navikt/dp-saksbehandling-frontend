@@ -1,25 +1,28 @@
 import { Search } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useForm } from "@rvf/remix";
+import { hentValideringForPersonIdent } from "~/utils/validering.util";
 import styles from "./PersokSok.module.css";
 
 export function PersonSok() {
-  const { personSokError } = useTypedRouteLoaderData("root");
+  const validatedForm = useForm({
+    validator: hentValideringForPersonIdent(),
+    method: "post",
+  });
 
   return (
-    <div className={styles.sokContainer}>
-      <Form>
-        <Search
-          name="personIdent"
-          hideLabel={false}
-          size="small"
-          label=""
-          placeholder="Søk etter person"
-          variant="secondary"
-          error={personSokError}
-          clearButton
-        />
-      </Form>
-    </div>
+    <Form className={styles.sokForm} {...validatedForm.getFormProps()}>
+      <input hidden={true} readOnly={true} name="_action" value="sok-person" />
+      <Search
+        {...validatedForm.getInputProps("personIdent")}
+        hideLabel={false}
+        size="small"
+        label=""
+        placeholder="Søk etter person"
+        variant="secondary"
+        clearButton
+        error={validatedForm.error("personIdent")}
+      />
+    </Form>
   );
 }

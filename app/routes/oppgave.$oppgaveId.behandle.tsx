@@ -9,8 +9,8 @@ import { hentValideringRegler } from "~/utils/validering.util";
 import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
-import styles from "~/route-styles/oppgave.module.css";
 import { useState } from "react";
+import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
   const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");

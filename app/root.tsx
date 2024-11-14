@@ -1,5 +1,5 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   Link,
   Links,
@@ -18,14 +18,14 @@ import { getEnv } from "~/utils/env.utils";
 import { AlertProvider } from "~/context/alert-context";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { hentOppgaver } from "~/models/oppgave.server";
+import { unleash } from "./unleash";
+import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import globalCss from "~/global.css?url";
 import akselOverrides from "~/aksel-overrides.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import styles from "~/route-styles/root.module.css";
-import { unleash } from "./unleash";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
-import { hentOppgaverForPerson } from "~/models/person.server";
 
 export function meta() {
   return [
@@ -74,44 +74,12 @@ export function links() {
   ];
 }
 
+export async function action({ request }: ActionFunctionArgs) {
+  return await handleActions(request);
+}
+
 export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url);
-  const search = new URLSearchParams(url.search);
   const saksbehandler = await getSaksbehandler(request);
-  let personSokError;
-
-  const personIdent = search.get("personIdent");
-  if (personIdent) {
-    const verdiUtenMellomrom = personIdent.replace(/\s+/g, "");
-
-    if (verdiUtenMellomrom.length === 11) {
-      const oppgaver = await hentOppgaverForPerson(request, personIdent);
-      const sisteOppgave = oppgaver[0];
-
-      if (sisteOppgave) {
-        const sisteOppgaveTilstand = sisteOppgave?.tilstand;
-        let view = "se";
-        switch (sisteOppgaveTilstand) {
-          case "KLAR_TIL_BEHANDLING":
-          case "UNDER_BEHANDLING":
-            view = "behandle";
-            break;
-          case "UNDER_KONTROLL":
-            view = "kontroll";
-            break;
-        }
-
-        if (oppgaver.length > 0) {
-          return redirect(`/oppgave/${sisteOppgave.oppgaveId}/${view}`);
-        }
-      } else {
-        personSokError = "Fant ingen oppgaver for personen";
-      }
-    } else {
-      personSokError = "Personnummer må være 11 siffer";
-    }
-  }
-
   const mineOppgaverTilBehandling = await hentOppgaver(
     request,
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
@@ -127,7 +95,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     saksbehandler: saksbehandler,
     antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
-    personSokError,
     featureFlags: {
       halloween,
       oppgaveHistorikk,

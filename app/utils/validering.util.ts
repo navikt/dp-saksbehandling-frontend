@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { withZod } from "@remix-validated-form/with-zod";
+import { withZod as withRvfZOd } from "@rvf/zod";
 import type { IOpplysning } from "~/models/behandling.server";
 
 export function hentValideringRegler(opplysninger: IOpplysning[]) {
@@ -46,4 +47,15 @@ function hentValideringForInput(opplysningType: string): z.ZodType {
     default:
       return z.string();
   }
+}
+
+export function hentValideringForPersonIdent() {
+  return withRvfZOd(
+    z.object({
+      personIdent: z
+        .string()
+        .regex(/^\d+$/, { message: "Personnummer kan kun inneholde tall" })
+        .length(11, { message: "Personnummer må være 11 siffer" }),
+    }),
+  );
 }
