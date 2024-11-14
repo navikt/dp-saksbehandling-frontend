@@ -2,11 +2,10 @@ import type { IOpplysning } from "~/models/behandling.server";
 import { useState } from "react";
 import { Button, Table } from "@navikt/ds-react";
 import { Opplysning } from "~/components/opplysning/Opplysning";
-import { getEnv } from "~/utils/env.utils";
-import styles from "./OpplysningTabell.module.css";
 import { useFetcher } from "@remix-run/react";
 import type { action as endreOpplysningAction } from "~/routes/action-endre-opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "./OpplysningTabell.module.css";
 
 interface IProps {
   opplysning: IOpplysning;
@@ -15,14 +14,14 @@ interface IProps {
 
 export function OpplysningTabellLinje(props: IProps) {
   const { opplysning } = props;
+  const { featureFlags } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const endreOpplysningFetcher = useFetcher<typeof endreOpplysningAction>();
   const [verdi, setVerdi] = useState<string>(opplysning.verdi);
   const [redigerOpplysning, setRedigerOpplysning] = useState(false);
-
-  const readonly = getEnv("GCP_ENV") === "prod" || props.readonly;
-  const kanRedigere = !readonly && opplysning.redigerbar;
   const dirtyInput = verdi !== opplysning.verdi;
+  const kanRedigere =
+    !props.readonly && featureFlags.kanRedigereOpplysninger && opplysning.redigerbar;
 
   function lagreOpplysning() {
     setRedigerOpplysning(false);
@@ -45,7 +44,7 @@ export function OpplysningTabellLinje(props: IProps) {
           opplysning={opplysning}
           verdi={verdi}
           onChange={setVerdi}
-          readonly={readonly || !redigerOpplysning}
+          readonly={!kanRedigere}
         />
       </Table.DataCell>
 

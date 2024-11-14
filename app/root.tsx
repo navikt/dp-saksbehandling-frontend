@@ -117,18 +117,22 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
   );
 
+  const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
-  const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
+  const kanRedigereOpplysninger = unleash.isEnabled(
+    "dp-saksbehandling-frontend.kan-redigere-opplysninger",
+  );
 
   return json({
     saksbehandler: saksbehandler,
     antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
     personSokError,
     featureFlags: {
+      halloween,
       oppgaveHistorikk,
       totrinnsKontroll,
-      halloween,
+      kanRedigereOpplysninger,
     },
     env: {
       BASE_PATH: process.env.BASE_PATH,
