@@ -2,100 +2,35 @@ import { OpplysningBoolean } from "~/components/opplysning/OpplysningBoolean";
 import { OpplysningDato } from "~/components/opplysning/OpplysningDato";
 import { OpplysningDouble } from "~/components/opplysning/OpplysningDouble";
 import { OpplysningInt } from "~/components/opplysning/OpplysningInt";
-import { OpplysningString } from "~/components/opplysning/OpplysningString";
 import type { IOpplysning } from "~/models/behandling.server";
 import styles from "./Opplysning.module.css";
 import { OpplysningPenger } from "~/components/opplysning/OpplysningPenger";
+import type { FormScope } from "@rvf/core";
 
 export interface IOpplysningProps {
   opplysning: IOpplysning;
-  verdi: string;
-  onChange: (verdi: string) => void;
-  label?: string;
+  formScope: FormScope<string>;
   readonly?: boolean;
-  className?: string;
 }
 
-export function Opplysning({
-  opplysning,
-  verdi,
-  onChange,
-  readonly,
-  label,
-  className,
-}: IOpplysningProps) {
+export function Opplysning({ opplysning, formScope, readonly }: IOpplysningProps) {
   switch (opplysning.datatype) {
     case "heltall":
-      return (
-        <OpplysningInt
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
-      );
+      return <OpplysningInt readonly={readonly} opplysning={opplysning} formScope={formScope} />;
 
     case "penger":
-      return (
-        <OpplysningPenger
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
-      );
+      return <OpplysningPenger readonly={readonly} opplysning={opplysning} formScope={formScope} />;
 
     case "desimaltall":
-      return (
-        <OpplysningDouble
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
-      );
+      return <OpplysningDouble readonly={readonly} opplysning={opplysning} formScope={formScope} />;
 
     case "boolsk":
       return (
-        <OpplysningBoolean
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
+        <OpplysningBoolean readonly={readonly} opplysning={opplysning} formScope={formScope} />
       );
 
     case "dato":
-      return (
-        <OpplysningDato
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
-      );
-
-    case "STRING":
-      return (
-        <OpplysningString
-          verdi={verdi}
-          onChange={onChange}
-          label={label}
-          readonly={readonly}
-          opplysning={opplysning}
-          className={className}
-        />
-      );
+      return <OpplysningDato readonly={readonly} opplysning={opplysning} formScope={formScope} />;
 
     default:
       return <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>;

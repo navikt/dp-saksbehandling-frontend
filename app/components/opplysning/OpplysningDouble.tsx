@@ -1,14 +1,14 @@
 import { TextField } from "@navikt/ds-react";
-import { useField } from "remix-validated-form";
+import { useField } from "@rvf/remix";
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import styles from "./Opplysning.module.css";
 
-export function OpplysningDouble({ opplysning, readonly, className, onChange }: IOpplysningProps) {
-  const { error, getInputProps } = useField(opplysning.navn);
+export function OpplysningDouble({ opplysning, formScope, readonly }: IOpplysningProps) {
+  const field = useField(formScope);
 
   return (
-    <div className={className}>
+    <>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>
           {formaterTallMedTusenSeperator(opplysning.verdi)}
@@ -19,16 +19,12 @@ export function OpplysningDouble({ opplysning, readonly, className, onChange }: 
         <TextField
           size="small"
           type="text"
-          error={error}
           inputMode="decimal"
+          {...field.getInputProps()}
+          error={field.error()}
           readOnly={readonly}
-          defaultValue={
-            opplysning.verdi ? formaterTallMedTusenSeperator(opplysning.verdi) : undefined
-          }
-          {...getInputProps()}
-          onChange={(e) => onChange(e.target.value)}
         />
       )}
-    </div>
+    </>
   );
 }

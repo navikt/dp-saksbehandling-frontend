@@ -16,23 +16,23 @@
   flex-flow: row wrap;
 }
 
-/* Ekstra kompakt Aksel tabell */
-.table--compact .navds-fieldset > :not(:first-child):not(:empty) {
+/* Ekstra kompakt Aksel */
+.aksel--compact .navds-fieldset > :not(:first-child):not(:empty) {
   margin-top: 0;
 }
 
-.table--compact .navds-table__row {
+.aksel--compact .navds-table__row {
   height: 40px;
 }
 
 /* Align radio horisontalt istedet for verticalt */
-.table--compact .navds-radio-buttons {
+.aksel--compact .navds-radio-buttons {
   display: flex;
   gap: var(--a-spacing-2);
 }
 
 /* Flytt lås for read-only til horisontal linje for tekst/date input felt */
-.table--compact .navds-form-field {
+.aksel--compact .navds-form-field {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -40,7 +40,7 @@
 }
 
 /* Flytt lås for read-only til horisontal linje for radio input felt */
-.table--compact .navds-radio-group {
+.aksel--compact .navds-radio-group {
   display: flex;
   justify-content: flex-end;
   flex-direction: row-reverse;
@@ -48,18 +48,24 @@
 }
 
 /* Flytt lås for read-only til horisontal linje for radio input felt og gi min width for å aligne med felter som ikke er read-only*/
-.table--compact .navds-fieldset__legend {
+.aksel--compact .navds-fieldset__legend {
   float: right;
   align-self: center;
   margin-left: var(--a-spacing-4);
 }
 
-.table--compact .navds-text-field__input {
+.aksel--compact .navds-text-field--error {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.aksel--compact .navds-text-field__input {
   max-width: 130px;
 }
 
-.table--compact .navds-table__data-cell,
-.table--compact .navds-table__header-cell {
+.aksel--compact .navds-table__data-cell,
+.aksel--compact .navds-table__header-cell {
   padding: 0;
 }
 

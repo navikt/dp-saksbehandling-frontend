@@ -4,13 +4,17 @@ import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-ico
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { ValidatedForm } from "remix-validated-form";
-import { hentValideringRegler } from "~/utils/validering.util";
-import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
 import { useState } from "react";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
+
+export async function action({ request }: ActionFunctionArgs) {
+  return await handleActions(request);
+}
 
 export default function Oppgave() {
   const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
@@ -40,13 +44,7 @@ export default function Oppgave() {
             </div>
 
             <Tabs.Panel value="behandling">
-              <ValidatedForm
-                validator={hentValideringRegler(behandling.opplysning)}
-                method="post"
-                className={styles.opplysninger}
-              >
-                <OpplysningTabell opplysninger={behandling.opplysning} />
-              </ValidatedForm>
+              <Vilkaar opplysninger={behandling.opplysning} />
             </Tabs.Panel>
 
             <Tabs.Panel value="oversikt">

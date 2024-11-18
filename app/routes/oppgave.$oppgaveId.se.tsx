@@ -2,12 +2,10 @@ import { Tabs } from "@navikt/ds-react";
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { ValidatedForm } from "remix-validated-form";
-import { hentValideringRegler } from "~/utils/validering.util";
-import { OpplysningTabell } from "~/components/opplysning-tabell/OpplysningTabell";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { Outlet } from "@remix-run/react";
+import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
@@ -34,13 +32,7 @@ export default function Oppgave() {
             </div>
 
             <Tabs.Panel value="behandling">
-              <ValidatedForm
-                validator={hentValideringRegler(behandling.opplysning)}
-                method="post"
-                className={styles.opplysninger}
-              >
-                <OpplysningTabell opplysninger={behandling.opplysning} readonly={true} />
-              </ValidatedForm>
+              <Vilkaar opplysninger={behandling.opplysning} readonly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

@@ -1,13 +1,13 @@
 import { Radio, RadioGroup } from "@navikt/ds-react";
-import { useField } from "remix-validated-form";
+import { useField } from "@rvf/remix";
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import styles from "./Opplysning.module.css";
 
-export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysningProps) {
-  const { error, getInputProps } = useField(opplysning.navn);
+export function OpplysningBoolean({ opplysning, formScope, readonly }: IOpplysningProps) {
+  const field = useField(formScope);
 
   return (
-    <div className={className}>
+    <>
       {!opplysning.redigerbar && opplysning.verdi && (
         <div className={styles.opplysningVerdi}>{opplysning.verdi === "true" ? "Ja" : "Nei"}</div>
       )}
@@ -15,15 +15,14 @@ export function OpplysningBoolean({ opplysning, readonly, className }: IOpplysni
       {opplysning.redigerbar && (
         <RadioGroup
           size="small"
-          error={error}
+          {...field.getInputProps()}
+          error={field.error()}
           readOnly={readonly}
-          defaultValue={opplysning.verdi}
-          {...getInputProps()}
         >
-          <Radio value={"true"}>{"Ja"}</Radio>
-          <Radio value={"false"}>{"Nei"}</Radio>
+          <Radio value="true">Ja</Radio>
+          <Radio value="false">Nei</Radio>
         </RadioGroup>
       )}
-    </div>
+    </>
   );
 }

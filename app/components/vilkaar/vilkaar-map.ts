@@ -7,7 +7,7 @@ interface OpplysningMap {
   };
 }
 
-export const opplysningsMap: OpplysningMap = {
+export const vilkaarMap: OpplysningMap = {
   virkningstidspunkt: {
     title: "Virkningstidspunkt",
     header: "Fastsett Virkningstidpunkt",

@@ -1,0 +1,31 @@
+.linje {
+  padding: 0 var(--a-spacing-2);
+  list-style: none;
+}
+
+.linje:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+.linje:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.form {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 200px 140px;
+  min-height: 40px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: var(--a-spacing-2);
+  margin: var(--a-spacing-2);
+}
+
+.buttonContainer button {
+  width: fit-content;
+  height: fit-content;
+  white-space: nowrap;
+}

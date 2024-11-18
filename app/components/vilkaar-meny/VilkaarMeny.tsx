@@ -1,7 +1,7 @@
 import { List } from "@navikt/ds-react";
-import styles from "./OpplysningTabell.module.css";
 import { CircleFillIcon } from "@navikt/aksel-icons";
 import classNames from "classnames";
+import styles from "./VilkaarMeny.module.css";
 
 interface IProps {
   kategori: string;
@@ -13,19 +13,17 @@ interface IProps {
   };
 }
 
-export function OpplysningTabellSidebar({ kategori, onChange, kategorier }: IProps) {
+export function VilkaarMeny({ kategori, onChange, kategorier }: IProps) {
   const items = [];
 
   for (const key in kategorier) {
-    const itemClass = classNames(styles.listItem, {
-      [styles.active]: key === kategori,
-    });
-
     items.push(
       <List.Item
         key={key}
         onClick={() => onChange(key)}
-        className={itemClass}
+        className={classNames(styles.listItem, {
+          [styles.listItemSelected]: key === kategori,
+        })}
         icon={<CircleFillIcon className={styles.circleIcon} fontSize="0.5em" />}
       >
         <span>{kategorier[key].title}</span>
@@ -34,7 +32,7 @@ export function OpplysningTabellSidebar({ kategori, onChange, kategorier }: IPro
   }
 
   return (
-    <List as="ul" className={styles.categoryList}>
+    <List as="ul" className={styles.vilkaarMeny}>
       {items}
     </List>
   );

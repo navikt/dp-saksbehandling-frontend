@@ -1,0 +1,26 @@
+.vilkaarMeny {
+  width: 260px;
+  border-right: 1px solid var(--a-border-subtle);
+}
+
+.listItem {
+  margin: 0;
+  cursor: pointer;
+  padding: var(--a-spacing-2);
+}
+
+.listItem:hover {
+  background-color: var(--a-surface-hover);
+}
+
+.listItemSelected {
+  position: relative;
+  cursor: pointer;
+  background-color: var(--a-bg-subtle);
+  box-shadow: 4px 0 0 0 inset var(--a-border-action-selected);
+}
+
+.circleIcon {
+  margin-left: var(--a-spacing-2);
+  color: var(--a-surface-warning-moderate);
+}
