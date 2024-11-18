@@ -45,6 +45,7 @@ export function OpplysningLinje(props: IProps) {
       >
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
         <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
+        <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
         <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
         {opplysning.navn}
         <Opplysning
