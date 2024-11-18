@@ -6,7 +6,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { VilkaarMeny } from "~/components/vilkaar-meny/VilkaarMeny";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
 import { useLocation } from "@remix-run/react";
-import styles from "./vilkaar.module.css";
+import styles from "./Vilkaar.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];
