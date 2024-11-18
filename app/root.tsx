@@ -122,7 +122,7 @@ export default function App() {
     useLoaderData<typeof loader>();
 
   return (
-    <html lang="en">
+    <html lang="nb">
       <head>
         <Meta />
         <Links />
