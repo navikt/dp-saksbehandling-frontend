@@ -44,7 +44,7 @@ export function OppgaveKontroll() {
               <Heading size="small">
                 Notat - hvorfor returneres oppgaven tilbake fra kontroll?
               </Heading>
-              <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
+              <Detail textColor="subtle">Notat kan være synlig for bruker ved innsyn.</Detail>
             </>
           }
         />
