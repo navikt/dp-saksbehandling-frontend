@@ -10,9 +10,7 @@ import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
-  const { oppgave, behandling, meldingOmVedtak } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId",
-  );
+  const { oppgave, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
@@ -36,7 +34,7 @@ export default function Oppgave() {
               </div>
 
               <Tabs.Panel value="behandling">
-                <Vilkaar opplysninger={behandling.opplysning} readonly={true} />
+                <Vilkaar readonly={true} />
               </Tabs.Panel>
 
               <Tabs.Panel value="melding-om-vedtak">

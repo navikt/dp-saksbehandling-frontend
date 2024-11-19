@@ -7,6 +7,7 @@ export interface IBehandling {
   behandlingId: string;
   tilstand: string;
   kreverTotrinnskontroll: boolean;
+  aktiveAvklaringer: IAvklaring[];
   opplysning: IOpplysning[];
 }
 
@@ -34,6 +35,17 @@ export interface IKilde {
   registrert: string;
   ident: string | null;
   meldingId: string;
+}
+
+export interface IAvklaring {
+  id: string;
+  kode: string;
+  tittel: string;
+  beskrivelse: string;
+  kanKvitteres?: boolean;
+  // status: null;
+  // begrunnelse: null;
+  // kvittertAv: null;
 }
 
 export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {

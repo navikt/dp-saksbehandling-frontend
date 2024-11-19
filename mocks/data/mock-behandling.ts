@@ -1,9 +1,45 @@
 import type { IBehandling } from "~/models/behandling.server";
+import {
+  andreYtelser,
+  BarnMaaGodkjennes,
+  BrukerUnder18,
+  EOSArbeid,
+  hattLukkedeSakerSiste8Uker,
+  inntektNesteKalendermaaned,
+  jobbetUtenforNorge,
+  muligGjenopptak,
+  onskerEtterRapporteringsfrist,
+  samordnes,
+  soknadstidspunktForLangtFramITid,
+  svangerskapsrelaterteSykepenger,
+  tapAvArbeidstidBeregningsregel,
+  totrinnskontroll,
+  verneplikt,
+  virkningstidspunktForLangtFramITid,
+} from "./mock-avklaring";
 
 export const mockBehandlingInnvilgelse: IBehandling = {
   behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   tilstand: "ForslagTilVedtak",
   kreverTotrinnskontroll: true,
+  aktiveAvklaringer: [
+    andreYtelser,
+    soknadstidspunktForLangtFramITid,
+    virkningstidspunktForLangtFramITid,
+    verneplikt,
+    tapAvArbeidstidBeregningsregel,
+    EOSArbeid,
+    hattLukkedeSakerSiste8Uker,
+    samordnes,
+    inntektNesteKalendermaaned,
+    jobbetUtenforNorge,
+    muligGjenopptak,
+    svangerskapsrelaterteSykepenger,
+    onskerEtterRapporteringsfrist,
+    totrinnskontroll,
+    BrukerUnder18,
+    BarnMaaGodkjennes,
+  ],
   opplysning: [
     {
       id: "0191ea5d-57ec-7f2e-a2c9-e9f0caf7a6a2",
@@ -2675,6 +2711,24 @@ export const mockBehandlingInnvilgelse: IBehandling = {
 export const mockBehandlingAvslagMinsteinntekt: IBehandling = {
   behandlingId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
   tilstand: "ForslagTilVedtak",
+  aktiveAvklaringer: [
+    andreYtelser,
+    soknadstidspunktForLangtFramITid,
+    virkningstidspunktForLangtFramITid,
+    verneplikt,
+    tapAvArbeidstidBeregningsregel,
+    EOSArbeid,
+    hattLukkedeSakerSiste8Uker,
+    samordnes,
+    inntektNesteKalendermaaned,
+    jobbetUtenforNorge,
+    muligGjenopptak,
+    svangerskapsrelaterteSykepenger,
+    onskerEtterRapporteringsfrist,
+    totrinnskontroll,
+    BrukerUnder18,
+    BarnMaaGodkjennes,
+  ],
   opplysning: [
     {
       id: "0192c2aa-9fd5-776d-8c8f-819853b43c79",

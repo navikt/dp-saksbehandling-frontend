@@ -44,7 +44,7 @@ export default function Oppgave() {
             </div>
 
             <Tabs.Panel value="behandling">
-              <Vilkaar opplysninger={behandling.opplysning} />
+              <Vilkaar />
             </Tabs.Panel>
 
             <Tabs.Panel value="oversikt">

@@ -1,4 +1,3 @@
-import type { IOpplysning } from "~/models/behandling.server";
 import { vilkaarMap } from "./vilkaar-map";
 import { Alert, BodyLong, Heading } from "@navikt/ds-react";
 import { useState } from "react";
@@ -9,17 +8,16 @@ import { useLocation } from "@remix-run/react";
 import styles from "./Vilkaar.module.css";
 
 interface IProps {
-  opplysninger: IOpplysning[];
   readonly?: boolean;
 }
 
 export function Vilkaar(props: IProps) {
   const location = useLocation();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const keys = Object.keys(vilkaarMap);
   const [selectedKategori, setSelectedKategori] = useState(keys[0]);
 
-  const filteredOpplysning = props.opplysninger.filter((opplysning) => {
+  const filteredOpplysning = behandling.opplysning.filter((opplysning) => {
     if (vilkaarMap[selectedKategori].values.length == 0) {
       return true;
     }
@@ -28,15 +26,15 @@ export function Vilkaar(props: IProps) {
 
   return (
     <>
-      {oppgave.emneknagger.map((knagg) => (
+      {behandling.aktiveAvklaringer.map((avklaring) => (
         <Alert
-          key={knagg}
+          key={avklaring.tittel}
           className="alert--compact"
           variant={"warning"}
           fullWidth={true}
           size={"small"}
         >
-          {knagg}
+          {avklaring.beskrivelse}
         </Alert>
       ))}
 
