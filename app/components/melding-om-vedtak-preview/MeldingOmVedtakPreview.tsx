@@ -111,6 +111,8 @@ function NavLogo() {
       viewBox="0 0 193 58"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      // @ts-ignore Trengs for UU i PDF/A generering av melding av vedtak i backend.
+      alt=""
     >
       <path
         fillRule="evenodd"
