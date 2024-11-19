@@ -96,9 +96,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "optionalDependencies": {
-    "@esbuild/linux-x64": "0.24.0",
-    "@rollup/rollup-linux-x64-gnu": "4.27.3"
   }
 }
