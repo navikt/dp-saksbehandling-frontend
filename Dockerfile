@@ -1,11 +1,11 @@
-FROM node:20-alpine as node
+FROM node:22-alpine AS node
 RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
    npm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
 RUN npm config set @navikt:registry=https://npm.pkg.github.com
 
 
 # build app
-FROM node as app-build
+FROM node AS app-build
 WORKDIR /app
 
 COPY ./app ./app
@@ -20,7 +20,7 @@ RUN npm run build
 
 
 # install dependencies
-FROM node as app-dependencies
+FROM node AS app-dependencies
 WORKDIR /app
 
 COPY ./package.json ./
@@ -30,7 +30,7 @@ RUN npm ci --ignore-scripts --omit dev
 
 
 # runtime
-FROM gcr.io/distroless/nodejs20-debian12 as runtime
+FROM gcr.io/distroless/nodejs22-debian12 AS runtime
 WORKDIR /app
 
 ARG NODE_ENV=production

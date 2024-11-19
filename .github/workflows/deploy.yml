@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "22.x"
 
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.node_modules.outputs.cache-hit != 'true'
         with:
-          node-version: "20.x"
+          node-version: "22.x"
           cache: "npm"
           registry-url: "https://npm.pkg.github.com"
 
