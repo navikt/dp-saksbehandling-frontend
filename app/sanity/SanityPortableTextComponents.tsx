@@ -67,7 +67,7 @@ function BehandlingOpplysningReference(
     case "penger":
       return (
         <span className={"melding-om-vedtak__opplysning-verdi"}>
-          {formaterTallMedTusenSeperator(opplysning.verdi)} kr
+          {formaterTallMedTusenSeperator(opplysning.verdi)} kroner
         </span>
       );
     case "dato":
