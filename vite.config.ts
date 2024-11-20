@@ -4,17 +4,12 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
-// Localhost fungerer ikke MED trailing slash. GCP fungerer ikke UTEN trailing slash.
-const baseName = process.env.IS_LOCALHOST ? "/saksbehandling" : "/saksbehandling/";
-
 export default defineConfig({
-  base: baseName,
   server: {
     port: 3000,
   },
   plugins: [
     remix({
-      basename: baseName,
       future: {
         v3_singleFetch: true,
         v3_fetcherPersist: true,
