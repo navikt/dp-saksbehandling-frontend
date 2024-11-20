@@ -5,11 +5,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
 export default defineConfig({
+  base: "/saksbehandling",
   server: {
     port: 3000,
   },
   plugins: [
     remix({
+      basename: "/saksbehandling",
       future: {
         v3_singleFetch: true,
         v3_fetcherPersist: true,

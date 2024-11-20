@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Development
-      url: "https://dagpenger.ansatt.dev.nav.no"
+      url: "https://dagpenger.ansatt.dev.nav.no/saksbehandling/"
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v1
@@ -124,7 +124,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-      url: "https://dagpenger.ansatt.nav.no/saksbehandling"
+      url: "https://dagpenger.ansatt.nav.no/saksbehandling/"
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v1
