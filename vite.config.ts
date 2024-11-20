@@ -4,14 +4,16 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
+const baseName = process.env.IS_LOCALHOST ? "/saksbehandling" : "/saksbehandling/";
+
 export default defineConfig({
-  base: "/saksbehandling",
+  base: baseName,
   server: {
     port: 3000,
   },
   plugins: [
     remix({
-      basename: "/saksbehandling",
+      basename: baseName,
       future: {
         v3_singleFetch: true,
         v3_fetcherPersist: true,
