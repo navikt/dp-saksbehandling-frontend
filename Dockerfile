@@ -10,6 +10,7 @@ WORKDIR /app
 
 COPY ./app ./app
 COPY ./mocks ./mocks
+COPY ./public ./public/
 COPY ./graphql ./graphql
 COPY ./vite.config.ts ./
 COPY ./package.json ./
