@@ -41,7 +41,7 @@ export const klarTilBehandlingOppgave: IOppgave = {
 
   tidspunktOpprettet: "2024-01-01",
   tilstand: "KLAR_TIL_BEHANDLING",
-  emneknagger: ["Konkurs Statoil"],
+  emneknagger: ["Innvilgelse"],
   journalpostIder: ["598116232", "639664665"],
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
@@ -55,12 +55,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
 
   saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: [
-    "HattLukkedeSakerSiste8Uker",
-    "InntektNesteKalendermåned",
-    "JobbetUtenforNorge",
-    "Søknadsbehandling",
-  ],
+  emneknagger: ["Avslag"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
@@ -75,7 +70,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
 
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  emneknagger: ["Innvilgelse"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
@@ -90,7 +85,7 @@ export const underBehandlingMinOppgave: IOppgave = {
 
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS"],
+  emneknagger: [],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
@@ -105,7 +100,7 @@ export const klarTilKontrollMinOppgave: IOppgave = {
 
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  emneknagger: ["Totrinnskontroll"],
   tilstand: "KLAR_TIL_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
@@ -121,7 +116,7 @@ export const underKontrollMinOppgave: IOppgave = {
   saksbehandler: mockOppgaveSaksbehandler,
   beslutter: mockOppgaveBeslutter,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS", "Totrinnskontroll"],
+  emneknagger: ["Innvilgelse"],
   tilstand: "UNDER_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
@@ -136,7 +131,7 @@ export const ferdigBehandletOppgave: IOppgave = {
 
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Søknadsbehandling", "EØS"],
+  emneknagger: [],
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: true,
@@ -152,7 +147,7 @@ export const paaVentOppgave: IOppgave = {
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   utsattTilDato: "2024-05-18",
-  emneknagger: ["Søknadsbehandling", "EØS"],
+  emneknagger: [],
   tilstand: "PAA_VENT",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,

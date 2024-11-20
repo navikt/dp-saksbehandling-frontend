@@ -4,7 +4,6 @@ import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import styles from "~/route-styles/index.module.css";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
@@ -21,6 +20,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const paramsToAppend = [
       { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
       { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+      { key: "emneknagg", value: "Avslag minsteinntekt" },
     ];
 
     let appended = false;
@@ -75,7 +75,6 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
             <OppgaveFilterDato />
-            <OppgaveFilterType />
             <OppgaveFilterEmneknagger />
           </Tabs.Panel>
 

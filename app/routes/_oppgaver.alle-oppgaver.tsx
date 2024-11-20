@@ -2,7 +2,6 @@ import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -35,7 +34,6 @@ export default function Saksbehandling() {
             <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
             <OppgaveFilterStatus />
-            <OppgaveFilterType />
             <OppgaveFilterEmneknagger />
           </Tabs.Panel>
         </Tabs>

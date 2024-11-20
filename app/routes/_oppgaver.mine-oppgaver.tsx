@@ -3,7 +3,6 @@ import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveF
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
@@ -61,7 +60,6 @@ export default function Saksbehandling() {
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
             <OppgaveFilterDato />
             <OppgaveFilterStatus />
-            <OppgaveFilterType />
             <OppgaveFilterEmneknagger />
           </Tabs.Panel>
 
