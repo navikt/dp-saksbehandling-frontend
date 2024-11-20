@@ -1,15 +1,15 @@
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import { Form, useFetcher, useLoaderData, useNavigation } from "@remix-run/react";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { commitSession, getSession } from "~/sessions";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import styles from "~/route-styles/oppgave.module.css";
+import { redirect } from "@remix-run/node";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
+import styles from "~/route-styles/oppgave.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const response = await hentNesteOppgave(request);
@@ -47,14 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
-    { alert, statistikk },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return { alert, statistikk };
 }
 
 export default function NesteOppgave() {

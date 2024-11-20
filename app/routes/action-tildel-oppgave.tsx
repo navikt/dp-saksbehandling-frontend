@@ -1,10 +1,10 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
 import type { IOppgave } from "~/models/oppgave.server";
+import type { IHttpProblem } from "~/utils/types";
+import { redirect } from "@remix-run/node";
 import { tildelOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { handleTildelOppgaveMessages } from "~/utils/alert-message.utils";
-import type { IHttpProblem } from "~/utils/types";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -23,11 +23,11 @@ export async function action({ request }: ActionFunctionArgs) {
     if (httpProblem.status === 403) {
       const ikkeTilgangVariant = httpProblem.type.split(":")[3];
       const alert = handleTildelOppgaveMessages(httpProblem.status, ikkeTilgangVariant);
-      return json(alert);
+      return { alert };
     }
 
     const alert = handleTildelOppgaveMessages(httpProblem.status);
-    return json(alert);
+    return { alert };
   }
 
   const nyOppgaveTilstand = (await response.text()) as IOppgave["tilstand"];

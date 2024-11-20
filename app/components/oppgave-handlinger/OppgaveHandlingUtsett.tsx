@@ -1,9 +1,9 @@
+import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
 import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
 import { add, format } from "date-fns";
 import { nb } from "date-fns/locale";
 import { isAlertResponse, isFormValidationErrorResponse } from "~/utils/type-guards";
 import { useFetcher, useNavigate } from "@remix-run/react";
-import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useEffect, useRef, useState } from "react";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -18,11 +18,11 @@ export function OppgaveHandlingUtsett() {
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   useHandleAlertMessages(
-    isAlertResponse(utsettOppgaveFetcher?.data) ? utsettOppgaveFetcher?.data : undefined,
+    isAlertResponse(utsettOppgaveFetcher.data) ? utsettOppgaveFetcher.data.alert : undefined,
   );
 
   useEffect(() => {
-    if (utsettOppgaveFetcher.data && isAlertResponse(utsettOppgaveFetcher.data)) {
+    if (isAlertResponse(utsettOppgaveFetcher.data)) {
       ref?.current?.close();
       navigate("/");
     }
@@ -70,7 +70,7 @@ export function OppgaveHandlingUtsett() {
 
             {isFormValidationErrorResponse(utsettOppgaveFetcher.data) && (
               <Alert variant="error" size="small" className="my-2">
-                {utsettOppgaveFetcher.data.message}
+                {utsettOppgaveFetcher.data.error.message}
               </Alert>
             )}
           </utsettOppgaveFetcher.Form>

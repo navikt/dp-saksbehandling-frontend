@@ -1,6 +1,5 @@
 import invariant from "tiny-invariant";
 import { endreOpplysning } from "~/models/behandling.server";
-import { json } from "@remix-run/node";
 
 export async function lagreOpplysning(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
@@ -19,7 +18,7 @@ export async function lagreOpplysning(request: Request, formData: FormData) {
     konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi),
   );
 
-  return json(nyBehandling);
+  return { nyBehandling };
 }
 
 function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {

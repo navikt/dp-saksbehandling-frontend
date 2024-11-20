@@ -1,17 +1,17 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import styles from "~/route-styles/index.module.css";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 import { useLoaderData, useNavigation } from "@remix-run/react";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import styles from "~/route-styles/index.module.css";
+import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -37,14 +37,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const alert = session.get("alert");
 
   if (alert) {
-    return json(
-      { alert },
-      {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
-      },
-    );
+    return { alert };
   }
 
   return null;

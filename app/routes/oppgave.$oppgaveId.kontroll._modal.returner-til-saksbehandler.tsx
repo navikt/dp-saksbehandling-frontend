@@ -1,6 +1,9 @@
+import type { ActionFunctionArgs } from "@remix-run/node";
+import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
+import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { type ChangeEvent, useEffect } from "react";
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
-import type { ActionFunctionArgs, SerializeFrom } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { Form, useActionData, useNavigate } from "@remix-run/react";
@@ -8,12 +11,9 @@ import { logger } from "~/utils/logger.utils";
 import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
 import invariant from "tiny-invariant";
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
-import { type ChangeEvent, useEffect } from "react";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { isFormValidationErrorResponse } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -27,7 +27,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
     };
 
-    return json(error);
+    return { type: "error", error };
   }
 
   const response = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
@@ -59,15 +59,15 @@ export default function ReturnerTilSaksbehandler() {
   const navigate = useNavigate();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { notat, setNotat } = useBeslutterNotat();
-
-  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof lagreNotatAction>>();
+  const lagreNotatFetcher = useDebounceFetcher<typeof lagreNotatAction>();
 
   useEffect(() => {
-    if (lagreNotatFetcher.data) {
+    // @ts-ignore Typefeil fra useDebounceFetcher som ikke fungerer med v3_singleFetch. useFetcher gir ingen typefeil.
+    if (lagreNotatFetcher.data?.sistEndretTidspunkt) {
+      // @ts-ignore Samme som over
       setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lagreNotatFetcher.data]);
+  }, [lagreNotatFetcher.data, notat, setNotat]);
 
   function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     setNotat({ ...notat, tekst: event.currentTarget.value });
@@ -100,8 +100,9 @@ export default function ReturnerTilSaksbehandler() {
                 <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
               </>
             }
-            error={isFormValidationErrorResponse(actionData) && <>{actionData.message}</>}
+            error={isFormValidationErrorResponse(actionData) && <>{actionData.error.message}</>}
           />
+
           {notat.sistEndretTidspunkt && (
             <Detail textColor="subtle">
               Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}

@@ -3,7 +3,7 @@ import { Form, useFetcher, useLoaderData } from "@remix-run/react";
 import { RemixLink } from "~/components/RemixLink";
 import { commitSession, getSession } from "~/sessions";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
@@ -43,14 +43,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
-    { alert },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return { alert };
 }
 
 export default function NesteOppgave() {

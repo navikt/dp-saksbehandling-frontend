@@ -1,8 +1,8 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { ILagreNotatResponse } from "~/models/oppgave.server";
 import { lagreNotat } from "~/models/oppgave.server";
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs): Promise<ILagreNotatResponse> {
   const formData = await request.formData();
   const oppgaveId = formData.get("oppgave-id") as string;
   const notat = formData.get("notat") as string;
@@ -15,7 +15,5 @@ export async function action({ request }: ActionFunctionArgs) {
     throw new Error("Mangler oppgaveId");
   }
 
-  const response = await lagreNotat(request, oppgaveId, notat);
-
-  return json(response);
+  return await lagreNotat(request, oppgaveId, notat);
 }

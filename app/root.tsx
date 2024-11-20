@@ -1,5 +1,4 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import {
   Link,
   Links,
@@ -92,7 +91,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "dp-saksbehandling-frontend.kan-redigere-opplysninger",
   );
 
-  return json({
+  return {
     saksbehandler: saksbehandler,
     antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
     featureFlags: {
@@ -114,7 +113,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
     },
-  });
+  };
 }
 
 export default function App() {

@@ -73,7 +73,7 @@ interface IBehandler {
   navn: string;
 }
 
-interface ILagreNotatResponse {
+export interface ILagreNotatResponse {
   sistEndretTidspunkt: string;
 }
 

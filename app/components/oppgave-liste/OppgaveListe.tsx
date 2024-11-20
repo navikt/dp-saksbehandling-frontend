@@ -1,7 +1,7 @@
-import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { formaterNorskDato } from "~/utils/dato.utils";
 import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
+import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
+import { formaterNorskDato } from "~/utils/dato.utils";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useTableSort } from "~/hooks/useTableSort";
 import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
@@ -28,7 +28,7 @@ export function OppgaveListe({
   const { state } = useNavigation();
   const location = useLocation();
   const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
-  useHandleAlertMessages(nesteFetcher.data);
+  useHandleAlertMessages(nesteFetcher.data?.alert);
 
   const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",

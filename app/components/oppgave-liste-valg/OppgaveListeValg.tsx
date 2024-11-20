@@ -1,20 +1,20 @@
-import { useRef, useState } from "react";
 import type { IListeOppgave } from "~/models/oppgave.server";
+import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
+import type { action as tildelOppgaveAction } from "~/routes/action-tildel-oppgave";
+import { useRef, useState } from "react";
 import { Button, Popover } from "@navikt/ds-react";
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useFetcher } from "@remix-run/react";
-import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
-import type { action as tildelOppgaveAction } from "~/routes/action-tildel-oppgave";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "./OppgaveListeValg.module.css";
 
 export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
   const leggTilbakeFetcher = useFetcher<typeof leggTilbakeAction>();
-  useHandleAlertMessages(leggTilbakeFetcher.data);
+  useHandleAlertMessages(leggTilbakeFetcher.data?.alert);
   const tildelOppgaveFetcher = useFetcher<typeof tildelOppgaveAction>();
-  useHandleAlertMessages(tildelOppgaveFetcher.data);
+  useHandleAlertMessages(tildelOppgaveFetcher.data?.alert);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { saksbehandler } = useTypedRouteLoaderData("root");

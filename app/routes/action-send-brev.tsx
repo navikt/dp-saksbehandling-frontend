@@ -1,5 +1,4 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { sendBrev } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
@@ -20,5 +19,5 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const alert = getAlertMessage({ name: "send-brev", httpCode: response.status });
-  return json(alert);
+  return { alert };
 }

@@ -1,25 +1,24 @@
+import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { type ChangeEvent, Fragment, useEffect } from "react";
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
-import styles from "./OppgaveKontroll.module.css";
-
-import type { SerializeFrom } from "@remix-run/node";
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof lagreNotatAction>>();
+  const lagreNotatFetcher = useDebounceFetcher<typeof lagreNotatAction>();
 
   useEffect(() => {
-    if (lagreNotatFetcher.data) {
+    // @ts-ignore Typefeil fra useDebounceFetcher som ikke fungerer med v3_singleFetch. useFetcher gir ingen typefeil.
+    if (lagreNotatFetcher.data?.sistEndretTidspunkt) {
+      // @ts-ignore Samme som over
       setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lagreNotatFetcher.data]);
+  }, [lagreNotatFetcher.data, notat, setNotat]);
 
   function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     setNotat({ ...notat, tekst: event.currentTarget.value });

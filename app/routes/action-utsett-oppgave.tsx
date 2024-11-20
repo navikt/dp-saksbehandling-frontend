@@ -1,11 +1,15 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import type { IAlert } from "~/context/alert-context";
 import { utsettOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({
+  request,
+}: ActionFunctionArgs): Promise<
+  { type: "error"; error: IFormValidationError } | { type: "alert"; alert: IAlert }
+> {
   const formData = await request.formData();
   const oppgaveId = formData.get("oppgaveId") as string;
   const utsettTilDato = formData.get("utsettTilDato") as string;
@@ -17,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
       message: "Du må oppgi en dato",
     };
 
-    return json(error);
+    return { type: "error", error };
   }
 
   if (!oppgaveId) {
@@ -31,5 +35,5 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const alert = getAlertMessage({ name: "utsett-oppgave", httpCode: response.status });
-  return json(alert);
+  return { type: "alert", alert };
 }

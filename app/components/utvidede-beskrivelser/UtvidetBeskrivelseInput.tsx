@@ -1,13 +1,12 @@
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ChangeEvent, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
+import { useEffect, useState } from "react";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Detail, Textarea } from "@navikt/ds-react";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
-import type { SerializeFrom } from "@remix-run/node";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
@@ -20,19 +19,19 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
-  let lagreUtvidetBeskrivelseFetcher =
-    useDebounceFetcher<SerializeFrom<typeof lagreUtvidetBeskrivelseAction>>();
+  let lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof lagreUtvidetBeskrivelseAction>();
 
   useEffect(() => {
-    if (lagreUtvidetBeskrivelseFetcher.data) {
+    // @ts-ignore Typefeil fra useDebounceFetcher som ikke fungerer med v3_singleFetch. useFetcher gir ingen typefeil.
+    if (lagreUtvidetBeskrivelseFetcher.data?.sistEndretTidspunkt) {
       props.updateContext({
         tekst: verdi,
         brevblokkId: props.brevblokkId,
+        // @ts-ignore Samme som over
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lagreUtvidetBeskrivelseFetcher.data]);
+  }, [lagreUtvidetBeskrivelseFetcher.data, props, verdi]);
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     const oppdatertVerdi = event.currentTarget.value;

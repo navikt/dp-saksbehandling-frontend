@@ -1,10 +1,9 @@
-import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useEventSource } from "remix-utils/sse/react";
 import { format } from "date-fns";
 
 export async function loader() {
-  return json({ time: new Date().toISOString() });
+  return { time: new Date().toISOString() };
 }
 
 export default function Time() {

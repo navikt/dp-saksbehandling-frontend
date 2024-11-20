@@ -1,10 +1,9 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import { logger } from "~/utils/logger.utils";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 
-export async function action({ request, params }: ActionFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const oppgaveId = formData.get("oppgaveId") as string;
 
@@ -19,5 +18,5 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const alert = getAlertMessage({ name: "legg-tilbake-oppgave", httpCode: response.status });
-  return json(alert);
+  return { alert };
 }
