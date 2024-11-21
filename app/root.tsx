@@ -57,18 +57,18 @@ export function links() {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      href: `${getEnv("BASE_PATH")}/favicon-32x32.png`,
+      href: `${getEnv("BASE_PATH")}favicon-32x32.png`,
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      href: `${getEnv("BASE_PATH")}/favicon-16x16.png`,
+      href: `${getEnv("BASE_PATH")}favicon-16x16.png`,
     },
     {
       rel: "icon",
       type: "image/x-icon",
-      href: `${getEnv("BASE_PATH")}/favicon.ico`,
+      href: `${getEnv("BASE_PATH")}favicon.ico`,
     },
   ];
 }
