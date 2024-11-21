@@ -61,7 +61,7 @@ export interface IOppgaveNotat {
 }
 
 export interface IOppgaveHistorikk {
-  type: "ny-status" | "notat" | "endre-opplysning" | "melding";
+  type: "statusendring" | "notat" | "endre-opplysning" | "melding";
   tittel: string;
   body?: string;
   tidspunkt: string;
@@ -69,8 +69,8 @@ export interface IOppgaveHistorikk {
 }
 
 interface IBehandler {
-  rolle: "system" | "saksbehandler" | "beslutter";
   navn: string;
+  rolle?: "system" | "saksbehandler" | "beslutter";
 }
 
 interface ILagreNotatResponse {
