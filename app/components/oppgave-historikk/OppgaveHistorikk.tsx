@@ -28,7 +28,7 @@ export function OppgaveHistorikk() {
           >
             {hendelse.type === "statusendring" && (
               <BodyShort>
-                <strong>{hendelse.tittel}</strong> {hendelse.body}
+                <strong>Ny status:</strong> {hendelse.tittel}
               </BodyShort>
             )}
 
