@@ -39,10 +39,12 @@ export function OppgaveHistorikk() {
               </>
             )}
 
-            <>
-              {hentRolleTekst(hendelse.behandler.rolle)}
-              <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
-            </>
+            {hendelse.behandler.rolle !== "system" && (
+              <>
+                {hentRolleTekst(hendelse.behandler.rolle)}
+                <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
+              </>
+            )}
           </div>
         </div>
       ))}
