@@ -15,6 +15,7 @@ export interface IUtvidetBeskrivelseInput {
   brevblokkId: string;
   updateContext: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
   sistEndretTidspunkt?: string;
+  readOnly?: boolean;
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
@@ -61,8 +62,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           value={verdi}
           onChange={(event) => lagreUtvidetBeskrivelse(event, 2000)}
           onBlur={(event) => lagreUtvidetBeskrivelse(event, 0)}
+          readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>
+
       {props.sistEndretTidspunkt && (
         <Detail textColor="subtle">
           Lagret {formaterNorskDato(props.sistEndretTidspunkt, true)}

@@ -12,7 +12,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
 
   return (
     <div className={styles.container}>
-      {!readOnly && <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} />}
+      <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} readOnly={readOnly} />
 
       <div className={styles.previewContainer}>
         <MeldingOmVedtakPreview

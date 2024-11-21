@@ -1,8 +1,7 @@
 import { Tabs } from "@navikt/ds-react";
-import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon } from "@navikt/aksel-icons";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { Outlet } from "@remix-run/react";
 import { Vilkaar } from "~/components/vilkaar/Vilkaar";
@@ -23,20 +22,11 @@ export default function Oppgave() {
                   label="Redigere opplysninger"
                   icon={<DocPencilIcon />}
                 />
-                <Tabs.Tab
-                  value="melding-om-vedtak"
-                  label="Melding om vedtak"
-                  icon={<TasklistSendIcon />}
-                />
               </Tabs.List>
             </div>
 
             <Tabs.Panel value="behandling">
               <Vilkaar readonly={true} />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="melding-om-vedtak">
-              <MeldingOmVedtak readOnly={true} />
             </Tabs.Panel>
           </Tabs>
         </div>
