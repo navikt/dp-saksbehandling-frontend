@@ -1,13 +1,14 @@
 import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
+import { Form, useNavigate } from "@remix-run/react";
+import invariant from "tiny-invariant";
+
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { sendOppgaveTilKontroll } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
-import { Form, useNavigate } from "@remix-run/react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { logger } from "~/utils/logger.utils";
-import { sendOppgaveTilKontroll } from "~/models/oppgave.server";
-import invariant from "tiny-invariant";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");

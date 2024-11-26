@@ -1,10 +1,12 @@
 import { NavLink } from "@remix-run/react";
+import classnames from "classnames";
+
+import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
+
 import { PersonSok } from "../person-sok/PersonSok";
-import { Ghosts } from "~/components/halloween/Ghosts";
-import classnames from "classnames";
 import styles from "./HeaderMeny.module.css";
 
 interface IProps {

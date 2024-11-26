@@ -1,4 +1,5 @@
 import { createCookieSessionStorage } from "@remix-run/node";
+
 import type { IAlert } from "./context/alert-context";
 
 type SessionFlashData = {
@@ -24,4 +25,4 @@ const { getSession, commitSession, destroySession } = createCookieSessionStorage
   },
 });
 
-export { getSession, commitSession, destroySession };
+export { commitSession, destroySession, getSession };

@@ -1,12 +1,14 @@
-import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
+import { setupServer } from "msw/node";
+
+import { logger } from "~/utils/logger.utils";
+
 import { mockAzure } from "./mock-azure";
+import { mockDpBehandling } from "./mock-dp-behandling";
+import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
+import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
 import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
-import { mockDpBehandling } from "./mock-dp-behandling";
 import { mockSanity } from "./mock-sanity";
-import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
-import { logger } from "~/utils/logger.utils";
-import { setupServer } from "msw/node";
 
 const mswHandlers = [
   ...mockSanity,

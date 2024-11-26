@@ -1,10 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+
 import { graphql, http, HttpResponse } from "msw";
+
 import { mockJournalposter } from "./data/mock-journalposter";
 
 export const mockSaf = [
-  graphql.query("journalpost", ({ query, variables }) => {
+  graphql.query("journalpost", ({ variables }) => {
     const journalpost = mockJournalposter.find(
       (jp) => jp?.journalpostId === variables.journalpostId,
     );

@@ -1,6 +1,8 @@
 import { type Faro, getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
 import { TracingInstrumentation } from "@grafana/faro-web-tracing";
+
 import { getEnv } from "~/utils/env.utils";
+
 import nais from "./nais.js";
 
 let faro: Faro | null = null;

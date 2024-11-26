@@ -1,13 +1,15 @@
-import { useRef, useState } from "react";
-import type { IListeOppgave } from "~/models/oppgave.server";
-import { Button, Popover } from "@navikt/ds-react";
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
-import { RemixLink } from "~/components/RemixLink";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { Button, Popover } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
+import { useRef, useState } from "react";
+
+import { RemixLink } from "~/components/RemixLink";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IListeOppgave } from "~/models/oppgave.server";
 import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
 import type { action as tildelOppgaveAction } from "~/routes/action-tildel-oppgave";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+
 import styles from "./OppgaveListeValg.module.css";
 
 export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {

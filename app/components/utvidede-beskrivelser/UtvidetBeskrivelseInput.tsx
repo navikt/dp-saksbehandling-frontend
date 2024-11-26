@@ -1,13 +1,14 @@
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { Detail, Textarea } from "@navikt/ds-react";
+import type { SerializeFrom } from "@remix-run/node";
 import type { ChangeEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
-import { Detail, Textarea } from "@navikt/ds-react";
-import { formaterNorskDato } from "~/utils/dato.utils";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
-import type { SerializeFrom } from "@remix-run/node";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
@@ -21,7 +22,7 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
-  let lagreUtvidetBeskrivelseFetcher =
+  const lagreUtvidetBeskrivelseFetcher =
     useDebounceFetcher<SerializeFrom<typeof lagreUtvidetBeskrivelseAction>>();
 
   useEffect(() => {
@@ -32,7 +33,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {

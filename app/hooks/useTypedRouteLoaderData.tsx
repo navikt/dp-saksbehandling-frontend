@@ -1,6 +1,6 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import type { loader as rootLoader } from "~/root";
 
+import type { loader as rootLoader } from "~/root";
 import type { loader as oppgaverLoader } from "~/routes/_oppgaver";
 import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
 

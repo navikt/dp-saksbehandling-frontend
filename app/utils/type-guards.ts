@@ -1,6 +1,6 @@
-import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
-import type { IAlert } from "~/context/alert-context";
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import type { IAlert } from "~/context/alert-context";
+import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
 
 export function isNetworkResponseSuccess<T>(
   networkResponse?: unknown,

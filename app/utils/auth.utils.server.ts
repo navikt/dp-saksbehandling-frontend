@@ -1,4 +1,5 @@
 import { getToken, requestOboToken, validateToken } from "@navikt/oasis";
+
 import { logger } from "~/utils/logger.utils";
 
 export async function getSaksbehandlingOboToken(request: Request) {

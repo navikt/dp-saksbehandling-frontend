@@ -2,8 +2,10 @@ import { BodyLong, BodyShort, Detail } from "@navikt/ds-react";
 import classnames from "classnames";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
+
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { IOppgaveHistorikk } from "~/models/oppgave.server";
+
 import styles from "./OppgaveHistorikk.module.css";
 
 export function OppgaveHistorikk() {

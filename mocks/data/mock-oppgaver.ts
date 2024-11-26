@@ -1,4 +1,5 @@
 import type { IListeOppgave, IOppgave, IOppgaveBehandler, IPerson } from "~/models/oppgave.server";
+
 import { mockHistorikk } from "./mock-hisotrikk";
 
 export const mockPerson: IPerson = {

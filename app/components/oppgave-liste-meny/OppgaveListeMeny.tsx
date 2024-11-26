@@ -1,10 +1,12 @@
-import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
-import { OppgaveFilterStatus } from "../oppgave-filter-status/OppgaveFilterStatus";
-import { OppgaveFilterMineOppgaver } from "../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { OppgaveFilterEmneknagger } from "../oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
+import { Tabs } from "@navikt/ds-react";
+
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
+import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
+
+import { OppgaveFilterEmneknagger } from "../oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
+import { OppgaveFilterMineOppgaver } from "../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { OppgaveFilterStatus } from "../oppgave-filter-status/OppgaveFilterStatus";
 import styles from "./OppgaveListeMeny.module.css";
 
 export function OppgaveListeMeny() {

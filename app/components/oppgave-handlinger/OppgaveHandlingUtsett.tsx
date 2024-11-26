@@ -1,13 +1,14 @@
 import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
+import { useFetcher, useNavigate } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { nb } from "date-fns/locale";
-import { isAlertResponse, isFormValidationErrorResponse } from "~/utils/type-guards";
-import { useFetcher, useNavigate } from "@remix-run/react";
-import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useEffect, useRef, useState } from "react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
+import { isAlertResponse, isFormValidationErrorResponse } from "~/utils/type-guards";
 
 export function OppgaveHandlingUtsett() {
   const navigate = useNavigate();

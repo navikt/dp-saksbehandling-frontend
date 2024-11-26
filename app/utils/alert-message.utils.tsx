@@ -1,7 +1,6 @@
 import type { IAlert } from "~/context/alert-context";
 import {
   alleredeTildeltAlert,
-  sendtTilArenaAlert,
   behandlingGodkjentAlert,
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
@@ -12,6 +11,7 @@ import {
   ikkeTilgangStrengtFortroligAlert,
   ikkeTilgangStrengtFortroligUtlandAlert,
   leggTilbakeSuccessAlert,
+  sendtTilArenaAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
 

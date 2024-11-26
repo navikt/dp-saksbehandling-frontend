@@ -1,8 +1,9 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import styles from "~/route-styles/oppgave.module.css";
-import { CoffeeLoader } from "~/components/coffee-loader/CoffeeLoader";
-import { useEffect, useState } from "react";
 import { useNavigate } from "@remix-run/react";
+import { useEffect, useState } from "react";
+
+import { CoffeeLoader } from "~/components/coffee-loader/CoffeeLoader";
+import styles from "~/route-styles/oppgave.module.css";
 import { logger } from "~/utils/logger.utils";
 
 export default function Kaffepause() {
@@ -18,8 +19,8 @@ export default function Kaffepause() {
       const url = URL.createObjectURL(blob);
       setImageSrc(url);
       setIsLoading(false);
-    } catch (error) {
-      logger.error("Error fetching cat GIF:", error);
+    } catch (error: unknown) {
+      logger.error("Error fetching cat GIF:", error as never);
       setIsLoading(false);
     }
   }
@@ -33,7 +34,6 @@ export default function Kaffepause() {
         URL.revokeObjectURL(imageSrc);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

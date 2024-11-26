@@ -1,6 +1,8 @@
 import { Alert, BodyLong, Heading } from "@navikt/ds-react";
-import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import classnames from "classnames";
+
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
+
 import styles from "./GlobalAlert.module.css";
 
 export function GlobalAlerts() {

@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
+
 import type { IOppgaveNotat } from "~/models/oppgave.server";
 
 interface IBeslutterNotatContextType {

@@ -1,6 +1,8 @@
 import { http, HttpResponse } from "msw";
-import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
+
 import { logger } from "~/utils/logger.utils";
+
+import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver

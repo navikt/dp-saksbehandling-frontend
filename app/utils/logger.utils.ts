@@ -1,7 +1,8 @@
+import { ecsFormat } from "@elastic/ecs-pino-format";
 import type { Logger, LoggerOptions } from "pino";
 import { pino } from "pino";
+
 import { getEnv } from "~/utils/env.utils";
-import { ecsFormat } from "@elastic/ecs-pino-format";
 
 const devConfig: LoggerOptions = {
   transport: {
@@ -24,21 +25,21 @@ const pinoLogger: Logger = pino(getEnv("IS_LOCALHOST") === "true" ? devConfig : 
 
 // Logger wrapper to handle server-side and client-side logging. Console.log is needed client-side for faro auto capture to function properly
 export const logger = {
-  info: (data: unknown, ...args: any[]) => {
+  info: (data: unknown, ...args: never[]) => {
     if (typeof document === "undefined") {
       pinoLogger.info(data, ...args);
     } else {
       console.log(data, ...args);
     }
   },
-  error: (data: unknown, ...args: any[]) => {
+  error: (data: unknown, ...args: never[]) => {
     if (typeof document === "undefined") {
       pinoLogger.error(data, ...args);
     } else {
       console.error(data, ...args);
     }
   },
-  warn: (data: unknown, ...args: any[]) => {
+  warn: (data: unknown, ...args: never[]) => {
     if (typeof document === "undefined") {
       pinoLogger.warn(data, ...args);
     } else {

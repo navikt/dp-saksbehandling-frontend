@@ -1,13 +1,15 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
+import classnames from "classnames";
+import { differenceInCalendarDays } from "date-fns";
+
+import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTableSort } from "~/hooks/useTableSort";
 import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
-import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
-import { useTableSort } from "~/hooks/useTableSort";
-import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
-import { differenceInCalendarDays } from "date-fns";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import classnames from "classnames";
+import { formaterNorskDato } from "~/utils/dato.utils";
+
 import styles from "./OppgaveListe.module.css";
 
 interface IProps {
@@ -69,7 +71,7 @@ export function OppgaveListe({
         sort={sortState}
         size="small"
         className={classnames("table--subtle-zebra", styles.oppgaveListe)}
-        onSortChange={(sortKey) => sortKey && handleSort(sortKey)}
+        onSortChange={(sortKey) => sortKey && handleSort(sortKey as keyof IListeOppgave)}
       >
         <Table.Header>
           <Table.Row>

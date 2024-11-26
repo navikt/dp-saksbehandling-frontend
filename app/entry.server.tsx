@@ -4,15 +4,18 @@
 */
 
 import { PassThrough } from "node:stream";
+
+import { faro } from "@grafana/faro-core";
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { isRouteErrorResponse, RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { getEnv } from "./utils/env.utils";
+
 import { logger } from "~/utils/logger.utils";
-import { faro } from "@grafana/faro-core";
+
 import { unleash } from "./unleash";
+import { getEnv } from "./utils/env.utils";
 
 const ABORT_DELAY = 5000;
 

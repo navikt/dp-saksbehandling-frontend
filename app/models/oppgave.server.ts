@@ -1,7 +1,7 @@
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
+import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IPerson {
   ident: string;

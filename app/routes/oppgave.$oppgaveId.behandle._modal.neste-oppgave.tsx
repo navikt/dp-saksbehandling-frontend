@@ -1,12 +1,13 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
-import { RemixLink } from "~/components/RemixLink";
-import { commitSession, getSession } from "~/sessions";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+import { Form, useFetcher, useLoaderData } from "@remix-run/react";
+
+import { RemixLink } from "~/components/RemixLink";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
-import { logger } from "~/utils/logger.utils";
+import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
+import { logger } from "~/utils/logger.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const response = await hentNesteOppgave(request);

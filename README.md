@@ -41,25 +41,6 @@ matchende genererte tokenet.
 [dp-saksbehandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-saksbehandling),
 [dp-behandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling),
 
-## Tester
-
-Vi har to testrammeverk som vi brukes til ulike formål.
-
-### Vitest
-
-Vitest brukes til unit testing av eksempelvis komponenter, loaders og actions.
-
-```
-// Kjør testene som vanlig
-npm run test
-
-// Generer test coverage
-npm run test-coverage
-
-// Kjør testene med watch
-npm run test -- --watch
-```
-
 ### Playwright
 
 Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de

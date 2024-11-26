@@ -1,9 +1,10 @@
 import { Button } from "@navikt/ds-react";
 import { useFetcher, useNavigate } from "@remix-run/react";
-import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
+import { useEffect } from "react";
+
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useEffect } from "react";
+import type { action as leggTilbakeAction } from "~/routes/action-legg-tilbake-oppgave";
 
 export function OppgaveHandlingLeggTilbake() {
   const navigate = useNavigate();

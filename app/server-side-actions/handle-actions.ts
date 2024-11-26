@@ -1,5 +1,5 @@
-import { sokPerson } from "~/server-side-actions/sok-person";
 import { lagreOpplysning } from "~/server-side-actions/lagre-opplysning";
+import { sokPerson } from "~/server-side-actions/sok-person";
 
 export async function handleActions(request: Request) {
   const formData = await request.formData();

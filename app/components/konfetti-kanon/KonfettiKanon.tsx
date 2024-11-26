@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
+import { useEffect, useRef } from "react";
+
 import styles from "./KonfettiKanon.module.css";
 
 export function KonfettiKanon() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const myConfetti = useRef<any>(null);
+  const myConfetti = useRef<ReturnType<typeof confetti.create>>(null!);
 
   useEffect(() => {
     if (canvasRef.current) {

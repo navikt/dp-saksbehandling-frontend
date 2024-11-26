@@ -1,11 +1,12 @@
-import { Tabs } from "@navikt/ds-react";
 import { ClockDashedIcon, DatabaseIcon, FilesIcon, PuzzlePieceIcon } from "@navikt/aksel-icons";
-import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
-import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
-import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
+import { Tabs } from "@navikt/ds-react";
 import { useState } from "react";
+
+import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
+import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
+import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
+import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   visKontrollFane?: boolean;

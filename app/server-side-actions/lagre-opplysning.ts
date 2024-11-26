@@ -1,6 +1,7 @@
-import invariant from "tiny-invariant";
-import { endreOpplysning } from "~/models/behandling.server";
 import { json } from "@remix-run/node";
+import invariant from "tiny-invariant";
+
+import { endreOpplysning } from "~/models/behandling.server";
 
 export async function lagreOpplysning(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
@@ -24,9 +25,10 @@ export async function lagreOpplysning(request: Request, formData: FormData) {
 
 function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {
   switch (opplysningDatatype) {
-    case "dato":
+    case "dato": {
       const [dag, maaned, aar] = verdi.split(".");
       return `${aar}-${maaned}-${dag}`;
+    }
 
     case "desimaltall":
     case "penger":

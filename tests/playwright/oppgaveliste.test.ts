@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { getAlertMessage } from "~/utils/alert-message.utils";
+
 import {
   alleredeTildeltAlert,
   getLeggTilbakeErrorAlert,
@@ -7,6 +7,7 @@ import {
   leggTilbakeSuccessAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
+import { getAlertMessage } from "~/utils/alert-message.utils";
 
 test("Bruker kan navigere til mine oppgaver", async ({ page, baseURL }) => {
   await page.goto(`${baseURL}`);

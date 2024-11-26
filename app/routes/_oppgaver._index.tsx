@@ -1,17 +1,18 @@
+import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { Tabs } from "@navikt/ds-react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { Tabs } from "@navikt/ds-react";
-import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { useLoaderData, useNavigation } from "@remix-run/react";
+
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import styles from "~/route-styles/index.module.css";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { commitSession, getSession } from "~/sessions";
-import { useLoaderData, useNavigation } from "@remix-run/react";
-import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "~/route-styles/index.module.css";
+import { commitSession, getSession } from "~/sessions";
+import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);

@@ -1,16 +1,18 @@
 import { BodyLong, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { logger } from "~/utils/logger.utils";
 import { Form, useNavigate, useNavigation } from "@remix-run/react";
-import { ferdigstillOppgave, ferdigstillOppgaveMedArenaBrev } from "~/models/oppgave.server";
-import invariant from "tiny-invariant";
 import { renderToString } from "react-dom/server";
+import invariant from "tiny-invariant";
+
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
-import { getAlertMessage } from "~/utils/alert-message.utils";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { ferdigstillOppgave, ferdigstillOppgaveMedArenaBrev } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
+import { getAlertMessage } from "~/utils/alert-message.utils";
+import { logger } from "~/utils/logger.utils";
+
 import styles from "../route-styles/oppgave.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {

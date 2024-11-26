@@ -1,5 +1,5 @@
-import { getHeaders } from "~/utils/fetch.utils";
 import { getMicrosoftOboToken } from "~/utils/auth.utils.server";
+import { getHeaders } from "~/utils/fetch.utils";
 import { logger } from "~/utils/logger.utils";
 
 export interface ISaksbehandler {
@@ -21,8 +21,8 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
     });
 
     return await data.json();
-  } catch (e) {
-    logger.warn(`Klarte ikke hente saksbehandler status: 401`);
+  } catch (error: unknown) {
+    logger.warn(`Klarte ikke hente saksbehandler status: 401. ${error}`);
     throw new Response("Unauthorized", { status: 401 });
   }
 }

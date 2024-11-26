@@ -1,11 +1,13 @@
-import { vilkaarMap } from "./vilkaar-map";
 import { Alert, BodyLong, Heading } from "@navikt/ds-react";
-import { useState } from "react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { VilkaarMeny } from "~/components/vilkaar-meny/VilkaarMeny";
-import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
 import { useLocation } from "@remix-run/react";
+import { useState } from "react";
+
+import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
+import { VilkaarMeny } from "~/components/vilkaar-meny/VilkaarMeny";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
 import styles from "./Vilkaar.module.css";
+import { vilkaarMap } from "./vilkaar-map";
 
 interface IProps {
   readonly?: boolean;

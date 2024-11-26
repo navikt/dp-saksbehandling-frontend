@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { Button, List, Select } from "@navikt/ds-react";
+import { useState } from "react";
+
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import styles from "./JournalpostOversikt.module.css";
 

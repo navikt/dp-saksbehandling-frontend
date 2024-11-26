@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+
 import { mockSaksbehandler } from "./data/mock-saksbehandler";
 
 export const mockAzure = [

@@ -1,11 +1,13 @@
 import type { PortableTextComponents } from "@portabletext/react";
-import type { PropsWithChildren } from "react";
 import type { PortableTextHtmlComponents } from "@portabletext/to-html";
+import type { PropsWithChildren } from "react";
+import { renderToString } from "react-dom/server";
+
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
-import { renderToString } from "react-dom/server";
-import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { ISanityOpplysningReferenceValue } from "~/sanity/sanity-types";
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
+import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 
 export function getSanityPortableTextComponents(
   opplysninger: IBrevOpplysning[],
@@ -24,7 +26,7 @@ export function getSanityPortableTextComponents(
   if (asHtmlString) {
     return {
       types: {
-        opplysningReference: ({ value }: any) =>
+        opplysningReference: ({ value }: { value: ISanityOpplysningReferenceValue }) =>
           renderToString(
             <BehandlingOpplysningReference value={value} opplysninger={opplysninger} />,
           ),
@@ -34,7 +36,7 @@ export function getSanityPortableTextComponents(
 
   return {
     types: {
-      opplysningReference: ({ value }: any) => (
+      opplysningReference: ({ value }: { value: ISanityOpplysningReferenceValue }) => (
         <BehandlingOpplysningReference value={value} opplysninger={opplysninger} />
       ),
     },
@@ -53,7 +55,10 @@ export function UtvidetBeskrivelse(utvidetBeskrivelse: IUtvidetBeskrivelse) {
 }
 
 function BehandlingOpplysningReference(
-  props: PropsWithChildren<{ value: any; opplysninger: IBrevOpplysning[] }>,
+  props: PropsWithChildren<{
+    value: ISanityOpplysningReferenceValue;
+    opplysninger: IBrevOpplysning[];
+  }>,
 ) {
   const opplysning = props.opplysninger.find(
     (o) => o.tekstId === props.value?.behandlingOpplysning?.textId,

@@ -1,19 +1,20 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
 import type { ActionFunctionArgs, SerializeFrom } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+import { Form, useActionData, useNavigate } from "@remix-run/react";
+import { type ChangeEvent, useEffect } from "react";
+import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import invariant from "tiny-invariant";
+
+import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
+import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
-import { Form, useActionData, useNavigate } from "@remix-run/react";
-import { logger } from "~/utils/logger.utils";
-import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
-import invariant from "tiny-invariant";
-import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
-import { type ChangeEvent, useEffect } from "react";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { logger } from "~/utils/logger.utils";
 import { isFormValidationErrorResponse } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -66,7 +67,6 @@ export default function ReturnerTilSaksbehandler() {
     if (lagreNotatFetcher.data) {
       setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lagreNotatFetcher.data]);
 
   function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {

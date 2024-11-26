@@ -1,9 +1,10 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
+
 import { endreOpplysning } from "~/models/behandling.server";
 
-export async function action({ request, params }: ActionFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const behandlingId = formData.get("behandlingId") as string;
   const opplysningId = formData.get("opplysningId") as string;

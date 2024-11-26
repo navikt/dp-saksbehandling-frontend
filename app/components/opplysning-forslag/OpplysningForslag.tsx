@@ -1,9 +1,11 @@
-import { BodyLong, Heading, Table } from "@navikt/ds-react";
 import { CheckmarkCircleIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
+import { BodyLong, Heading, Table } from "@navikt/ds-react";
+
 import type { IOpplysning } from "~/models/behandling.server";
-import styles from "./OpplysningForslag.module.css";
-import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+
+import styles from "./OpplysningForslag.module.css";
 
 interface IProps {
   opplysninger: IOpplysning[];

@@ -1,16 +1,17 @@
-import { Outlet } from "@remix-run/react";
-import { Tabs } from "@navikt/ds-react";
 import { DocPencilIcon, TasklistIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { Tabs } from "@navikt/ds-react";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
+import { useState } from "react";
+
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
+import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
-import { useState } from "react";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { handleActions } from "~/server-side-actions/handle-actions";
-import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
+import { handleActions } from "~/server-side-actions/handle-actions";
 
 export async function action({ request }: ActionFunctionArgs) {
   return await handleActions(request);

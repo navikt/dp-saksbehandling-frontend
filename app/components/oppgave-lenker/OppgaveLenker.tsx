@@ -1,7 +1,9 @@
-import { getEnv } from "~/utils/env.utils";
-import { Detail, Link } from "@navikt/ds-react";
-import styles from "./OppgaveLenker.module.css";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { Detail, Link } from "@navikt/ds-react";
+
+import { getEnv } from "~/utils/env.utils";
+
+import styles from "./OppgaveLenker.module.css";
 
 const lenker = [
   {

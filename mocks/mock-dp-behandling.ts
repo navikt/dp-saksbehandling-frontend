@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+
 import { mockBehandlingInnvilgelse } from "./data/mock-behandling";
 
 export const mockDpBehandling = [

@@ -1,14 +1,15 @@
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { Tabs } from "@navikt/ds-react";
+import { useNavigation } from "@remix-run/react";
+
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { useNavigation } from "@remix-run/react";
-import styles from "~/route-styles/index.module.css";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "~/route-styles/index.module.css";
 
 export default function Saksbehandling() {
   const { state } = useNavigation();

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { MeldingOmVedtakContext } from "~/context/melding-om-vedtak-context";
 
 export const useMeldingOmVedtakTekst = () => {

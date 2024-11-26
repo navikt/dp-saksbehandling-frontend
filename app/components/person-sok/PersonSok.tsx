@@ -1,7 +1,9 @@
 import { Search } from "@navikt/ds-react";
 import { Form } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
+
 import { hentValideringForPersonIdent } from "~/utils/validering.util";
+
 import styles from "./PersokSok.module.css";
 
 export function PersonSok() {

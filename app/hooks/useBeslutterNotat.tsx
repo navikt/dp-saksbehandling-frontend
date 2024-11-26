@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { BeslutterNotatContext } from "~/context/beslutter-notat-context";
 
 export const useBeslutterNotat = () => {

@@ -1,5 +1,7 @@
 import { http, HttpResponse } from "msw";
+
 import { logger } from "~/utils/logger.utils";
+
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak";
 
 export const mockDpMeldingOmVedtak = [

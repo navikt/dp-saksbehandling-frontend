@@ -1,13 +1,14 @@
-import { type ChangeEvent, Fragment, useEffect } from "react";
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
-import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
-import styles from "./OppgaveKontroll.module.css";
-
 import type { SerializeFrom } from "@remix-run/node";
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
+import { type ChangeEvent, Fragment, useEffect } from "react";
+import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+
+import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
 import { formaterNorskDato } from "~/utils/dato.utils";
+
+import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
   const { notat, setNotat } = useBeslutterNotat();
@@ -18,7 +19,6 @@ export function OppgaveKontroll() {
     if (lagreNotatFetcher.data) {
       setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lagreNotatFetcher.data]);
 
   function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {

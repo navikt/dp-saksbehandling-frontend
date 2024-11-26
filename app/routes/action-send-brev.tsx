@@ -1,10 +1,11 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { sendBrev } from "~/models/oppgave.server";
-import { logger } from "~/utils/logger.utils";
-import { getAlertMessage } from "~/utils/alert-message.utils";
 
-export async function action({ request, params }: ActionFunctionArgs) {
+import { sendBrev } from "~/models/oppgave.server";
+import { getAlertMessage } from "~/utils/alert-message.utils";
+import { logger } from "~/utils/logger.utils";
+
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const oppgaveId = formData.get("oppgaveId") as string;
   const brevHtml = formData.get("brevHtml") as string;

@@ -1,7 +1,8 @@
-import { z } from "zod";
-import { withZod } from "@rvf/zod";
-import type { IOpplysning } from "~/models/behandling.server";
 import type { Validator } from "@rvf/core";
+import { withZod } from "@rvf/zod";
+import { z } from "zod";
+
+import type { IOpplysning } from "~/models/behandling.server";
 
 export function hentValideringForOpplysning(
   opplysning: IOpplysning,

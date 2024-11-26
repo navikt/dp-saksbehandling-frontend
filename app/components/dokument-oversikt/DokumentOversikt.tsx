@@ -1,10 +1,12 @@
-import styles from "./DokumentOversikt.module.css";
-import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
 import { Alert, Heading } from "@navikt/ds-react";
-import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
-import type { INetworkResponse } from "~/utils/types";
-import { isNetworkResponseSuccess } from "~/utils/type-guards";
+
+import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { isNetworkResponseSuccess } from "~/utils/type-guards";
+import type { INetworkResponse } from "~/utils/types";
+
+import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
+import styles from "./DokumentOversikt.module.css";
 
 export function DokumentOversikt() {
   const { journalposterResponses } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");

@@ -1,8 +1,9 @@
+import { Detail } from "@navikt/ds-react";
+
+import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
-import { Detail } from "@navikt/ds-react";
 
 export function UtvidedeBeskrivelser(props: {
   brevBlokker: ISanityBrevBlokk[];

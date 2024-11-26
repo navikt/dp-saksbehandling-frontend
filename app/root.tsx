@@ -1,3 +1,5 @@
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
@@ -10,22 +12,22 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import { InternalHeader } from "@navikt/ds-react";
-import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { getSaksbehandler } from "~/models/saksbehandler.server";
-import { getEnv } from "~/utils/env.utils";
-import { AlertProvider } from "~/context/alert-context";
-import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { unleash } from "./unleash";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
-import { handleActions } from "~/server-side-actions/handle-actions";
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import globalCss from "~/global.css?url";
+
 import akselOverrides from "~/aksel-overrides.css?url";
+import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
+import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
+import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
+import { AlertProvider } from "~/context/alert-context";
+import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
+import { hentOppgaver } from "~/models/oppgave.server";
+import { getSaksbehandler } from "~/models/saksbehandler.server";
 import styles from "~/route-styles/root.module.css";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { getEnv } from "~/utils/env.utils";
+
+import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
+import { unleash } from "./unleash";
 
 export function meta() {
   return [

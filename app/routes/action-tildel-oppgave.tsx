@@ -1,9 +1,10 @@
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+
 import type { IOppgave } from "~/models/oppgave.server";
 import { tildelOppgave } from "~/models/oppgave.server";
-import { logger } from "~/utils/logger.utils";
 import { handleTildelOppgaveMessages } from "~/utils/alert-message.utils";
+import { logger } from "~/utils/logger.utils";
 import type { IHttpProblem } from "~/utils/types";
 
 export async function action({ request }: ActionFunctionArgs) {

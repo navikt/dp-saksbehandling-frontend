@@ -1,16 +1,17 @@
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { Tabs } from "@navikt/ds-react";
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
-import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
+import { Tabs } from "@navikt/ds-react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 import { useNavigation } from "@remix-run/react";
-import styles from "~/route-styles/index.module.css";
+
+import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
+import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import styles from "~/route-styles/index.module.css";
+import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
