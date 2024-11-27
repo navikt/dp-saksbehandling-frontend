@@ -9,6 +9,7 @@ import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagge
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/index.module.css";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
@@ -79,6 +80,7 @@ export default function Saksbehandling() {
           visPersonIdent={true}
           lasterOppgaver={state !== "idle"}
         />
+        <OppgaveListePaginering />
       </main>
     </div>
   );

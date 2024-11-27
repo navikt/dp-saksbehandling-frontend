@@ -9,6 +9,7 @@ import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppg
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/index.module.css";
 import { commitSession, getSession } from "~/sessions";
@@ -85,6 +86,7 @@ export default function Saksbehandling() {
           visAntallOppgaver={true}
           lasterOppgaver={state !== "idle"}
         />
+        <OppgaveListePaginering />
       </main>
     </div>
   );
