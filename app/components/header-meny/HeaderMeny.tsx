@@ -11,10 +11,10 @@ import styles from "./HeaderMeny.module.css";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
-  antallJegHarTilBehandling: number;
+  antallOppgaverJegHarTilBehandling: number;
 }
 
-export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps) {
+export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }: IProps) {
   const { featureFlags } = useTypedRouteLoaderData("root");
   return (
     <div className={styles.container}>
@@ -35,8 +35,10 @@ export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps)
           }
         >
           Mine oppgaver
-          {antallJegHarTilBehandling > 0 && (
-            <span className={styles.antallOppgaverTilBehandling}>{antallJegHarTilBehandling}</span>
+          {antallOppgaverJegHarTilBehandling > 0 && (
+            <span className={styles.antallOppgaverTilBehandling}>
+              {antallOppgaverJegHarTilBehandling}
+            </span>
           )}
         </NavLink>
 

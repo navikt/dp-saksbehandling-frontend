@@ -82,9 +82,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const { totaltAntallOppgaver } = await hentOppgaver(
+  const oppgaverJegHarTilBehandling = await hentOppgaver(
     request,
-    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
+    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
   );
 
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
@@ -96,7 +96,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     saksbehandler: saksbehandler,
-    antallJegHarTilBehandling: totaltAntallOppgaver,
+    antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
       halloween,
       oppgaveHistorikk,
@@ -120,7 +120,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, antallJegHarTilBehandling, featureFlags } =
+  const { env, saksbehandler, antallOppgaverJegHarTilBehandling, featureFlags } =
     useLoaderData<typeof loader>();
 
   return (
@@ -141,7 +141,7 @@ export default function App() {
 
           <HeaderMeny
             saksbehandler={saksbehandler}
-            antallJegHarTilBehandling={antallJegHarTilBehandling}
+            antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
           />
         </InternalHeader>
 
