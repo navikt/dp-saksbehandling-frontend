@@ -82,7 +82,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const mineOppgaverTilBehandling = await hentOppgaver(
+  const { totaltAntallOppgaver } = await hentOppgaver(
     request,
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
   );
@@ -96,7 +96,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     saksbehandler: saksbehandler,
-    antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
+    antallJegHarTilBehandling: totaltAntallOppgaver,
     featureFlags: {
       halloween,
       oppgaveHistorikk,
@@ -126,6 +126,7 @@ export default function App() {
   return (
     <html lang="nb">
       <head>
+        <title>Dagpenger</title>
         <Meta />
         <Links />
       </head>

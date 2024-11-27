@@ -68,6 +68,11 @@ export interface IOppgaveHistorikk {
   behandler: IBehandler;
 }
 
+export interface IOppgaveListeResponse {
+  oppgaver: IListeOppgave[];
+  totaltAntallOppgaver: number;
+}
+
 interface IBehandler {
   navn: string;
   rolle?: "system" | "saksbehandler" | "beslutter";
@@ -92,7 +97,10 @@ export type IOppgaveTilstand =
   | "FERDIG_BEHANDLET"
   | "BEHANDLES_I_ARENA";
 
-export async function hentOppgaver(request: Request, urlParams?: string): Promise<IListeOppgave[]> {
+export async function hentOppgaver(
+  request: Request,
+  urlParams?: string,
+): Promise<IOppgaveListeResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
 

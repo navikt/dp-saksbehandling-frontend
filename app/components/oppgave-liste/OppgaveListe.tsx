@@ -3,6 +3,7 @@ import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTableSort } from "~/hooks/useTableSort";
@@ -213,6 +214,7 @@ export function OppgaveListe({
           })}
         </Table.Body>
       </Table>
+      <OppgaveListePaginering />
     </>
   );
 }

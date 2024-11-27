@@ -8,7 +8,10 @@ export const mockDpSaksbehandling = [
   // Hent alle oppgaver
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, () => {
     logger.info(`[MSW]-GET ${process.env.DP_SAKSBEHANDLING_URL}/oppgave`);
-    return HttpResponse.json(mockListeOppgaver);
+    return HttpResponse.json({
+      oppgaver: mockListeOppgaver,
+      totaltAntallOppgaver: mockListeOppgaver.length,
+    });
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler

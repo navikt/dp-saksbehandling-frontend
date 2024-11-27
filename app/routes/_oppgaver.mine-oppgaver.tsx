@@ -23,6 +23,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
       { key: "tilstand", value: "UNDER_KONTROLL" },
       { key: "tilstand", value: "UNDER_BEHANDLING" },
+      { key: "side", value: "1" },
+      { key: "antallOppgaver", value: "100" },
     ];
 
     let appended = false;
