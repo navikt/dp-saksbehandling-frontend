@@ -57,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const { state } = useNavigation();
   const loaderData = useLoaderData<typeof loader>();
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const { oppgaver, totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   useHandleAlertMessages(loaderData?.alert);
 
   return (
@@ -91,11 +91,12 @@ export default function Saksbehandling() {
       <main>
         <OppgaveListe
           oppgaver={oppgaver}
+          totaltAntallOppgaver={totaltAntallOppgaver}
           visNesteOppgaveKnapp={true}
           visAntallOppgaver={true}
           lasterOppgaver={state !== "idle"}
         />
-        <OppgaveListePaginering />
+        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       </main>
     </div>
   );

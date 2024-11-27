@@ -14,6 +14,7 @@ import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: IListeOppgave[];
+  totaltAntallOppgaver?: number;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
   visAntallOppgaver?: boolean;
@@ -22,6 +23,7 @@ interface IProps {
 
 export function OppgaveListe({
   oppgaver,
+  totaltAntallOppgaver,
   visNesteOppgaveKnapp,
   visAntallOppgaver,
   lasterOppgaver,
@@ -60,7 +62,7 @@ export function OppgaveListe({
 
           {visAntallOppgaver && (
             <Detail textColor="subtle" className={styles.antallOppgaver}>
-              {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
+              {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
               {lasterOppgaver && "Laster oppgaver..."}
             </Detail>
           )}

@@ -1,13 +1,14 @@
 import { Pagination } from "@navikt/ds-react";
 import { useSearchParams } from "@remix-run/react";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-
 import styles from "./OppgaveListePaginering.module.css";
 
-export function OppgaveListePaginering() {
+interface IProps {
+  totaltAntallOppgaver: number;
+}
+
+export function OppgaveListePaginering({ totaltAntallOppgaver }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   const antallOppgaverPerSide = searchParams.get("antallOppgaver")
     ? parseInt(searchParams.get("antallOppgaver") as string)
     : 100;

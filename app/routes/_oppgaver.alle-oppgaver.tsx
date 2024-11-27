@@ -53,7 +53,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const { oppgaver, totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
@@ -83,10 +83,11 @@ export default function Saksbehandling() {
       <main>
         <OppgaveListe
           oppgaver={oppgaver}
+          totaltAntallOppgaver={totaltAntallOppgaver}
           visAntallOppgaver={true}
           lasterOppgaver={state !== "idle"}
         />
-        <OppgaveListePaginering />
+        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       </main>
     </div>
   );
