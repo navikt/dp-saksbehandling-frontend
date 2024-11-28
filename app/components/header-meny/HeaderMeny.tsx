@@ -1,6 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import classnames from "classnames";
 
+import { Adventslys } from "~/components/adventslys/Adventslys";
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -53,6 +54,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
       </div>
 
       {featureFlags.halloween && <Ghosts />}
+      {featureFlags.jul && <Adventslys />}
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />

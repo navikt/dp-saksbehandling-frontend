@@ -87,6 +87,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
   );
 
+  const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
@@ -98,6 +99,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     saksbehandler: saksbehandler,
     antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
+      jul,
       halloween,
       oppgaveHistorikk,
       totrinnsKontroll,
