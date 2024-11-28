@@ -8,6 +8,7 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilte
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/index.module.css";
@@ -22,6 +23,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
       { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
       { key: "emneknagg", value: "Avslag minsteinntekt" },
+      { key: "side", value: "1" },
+      { key: "antallOppgaver", value: "100" },
     ];
 
     let appended = false;
@@ -54,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const { state } = useNavigation();
   const loaderData = useLoaderData<typeof loader>();
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const { oppgaver, totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   useHandleAlertMessages(loaderData?.alert);
 
   return (
@@ -88,10 +91,12 @@ export default function Saksbehandling() {
       <main>
         <OppgaveListe
           oppgaver={oppgaver}
+          totaltAntallOppgaver={totaltAntallOppgaver}
           visNesteOppgaveKnapp={true}
           visAntallOppgaver={true}
           lasterOppgaver={state !== "idle"}
         />
+        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       </main>
     </div>
   );

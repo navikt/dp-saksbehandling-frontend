@@ -17,6 +17,7 @@ import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
+import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
@@ -82,11 +83,12 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const mineOppgaverTilBehandling = await hentOppgaver(
+  const oppgaverJegHarTilBehandling = await hentOppgaver(
     request,
-    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
+    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
   );
 
+  const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
@@ -96,8 +98,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     saksbehandler: saksbehandler,
-    antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
+    antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
+      jul,
       halloween,
       oppgaveHistorikk,
       totrinnsKontroll,
@@ -120,12 +123,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, antallJegHarTilBehandling, featureFlags } =
+  const { env, saksbehandler, antallOppgaverJegHarTilBehandling, featureFlags } =
     useLoaderData<typeof loader>();
 
   return (
     <html lang="nb">
       <head>
+        <title>Dagpenger</title>
         <Meta />
         <Links />
       </head>
@@ -134,13 +138,14 @@ export default function App() {
           <Link to={"/"} className={styles.headerLogo}>
             <InternalHeader.Title as="h1" className={styles.pageHeader}>
               {featureFlags.halloween && <PumpkinSvg />}
+              {featureFlags.jul && <MistelteinSvg />}
               Dagpenger
             </InternalHeader.Title>
           </Link>
 
           <HeaderMeny
             saksbehandler={saksbehandler}
-            antallJegHarTilBehandling={antallJegHarTilBehandling}
+            antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
           />
         </InternalHeader>
 

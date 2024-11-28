@@ -1,8 +1,8 @@
 import eslint from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
+import prettier from "eslint-config-prettier";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import playwright from "eslint-plugin-playwright";
-import pluginReact from "eslint-plugin-react";
+import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
@@ -11,7 +11,7 @@ import typescriptEslint from "typescript-eslint";
 export default [
   {
     name: "ignore",
-    ignores: ["graphql/"],
+    ignores: ["graphql/", "build/", "playwright-report/"],
   },
   {
     name: "eslint/recommended:",
@@ -20,10 +20,16 @@ export default [
   ...typescriptEslint.configs.recommended,
   {
     name: "react/recommended",
-    ...pluginReact.configs.flat.recommended,
-    rules: {
-      "react/react-in-jsx-scope": "off",
+    ...react.configs.flat.recommended,
+    settings: {
+      react: {
+        version: "18",
+      },
     },
+  },
+  {
+    name: "react/jsx",
+    ...react.configs.flat["jsx-runtime"],
   },
   {
     name: "react/hooks",
@@ -54,7 +60,7 @@ export default [
   },
   {
     name: "prettier",
-    ...eslintConfigPrettier,
+    ...prettier,
   },
   {
     name: "globals",

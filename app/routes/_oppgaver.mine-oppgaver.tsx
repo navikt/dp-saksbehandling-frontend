@@ -9,6 +9,7 @@ import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagge
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/index.module.css";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
@@ -23,6 +24,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
       { key: "tilstand", value: "UNDER_KONTROLL" },
       { key: "tilstand", value: "UNDER_BEHANDLING" },
+      { key: "side", value: "1" },
+      { key: "antallOppgaver", value: "100" },
     ];
 
     let appended = false;
@@ -40,7 +43,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
-  const { oppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
+  const { oppgaver, totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
@@ -73,10 +76,12 @@ export default function Saksbehandling() {
       <main>
         <OppgaveListe
           oppgaver={oppgaver}
+          totaltAntallOppgaver={totaltAntallOppgaver}
           visAntallOppgaver={true}
           visPersonIdent={true}
           lasterOppgaver={state !== "idle"}
         />
+        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       </main>
     </div>
   );

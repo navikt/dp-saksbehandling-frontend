@@ -6,9 +6,12 @@ import { hentOppgaver } from "~/models/oppgave.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const oppgaver = await hentOppgaver(request, url.search);
+  const oppgaverResponse = await hentOppgaver(request, url.search);
 
-  return json({ oppgaver });
+  return json({
+    oppgaver: oppgaverResponse.oppgaver,
+    totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+  });
 }
 
 export function Oppgaver() {

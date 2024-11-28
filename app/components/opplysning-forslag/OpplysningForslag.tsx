@@ -81,7 +81,7 @@ export function OpplysningForslag(props: IProps) {
               )}
 
               {!harKravDagpengerOpplysning && (
-                <span>Kunne ikke hente opplysning "Krav på dagpenger"</span>
+                <span>Kunne ikke hente opplysning &quot;Krav på dagpenger&quot;</span>
               )}
             </Table.DataCell>
           </Table.Row>
