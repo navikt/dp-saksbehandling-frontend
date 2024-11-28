@@ -1,8 +1,8 @@
 import classnames from "classnames";
 
-import { CandleLightMeltSvg } from "~/components/adventslys/CandleLightMeltSvg";
-import { CandleMeltSvg } from "~/components/adventslys/CandleMeltSvg";
-import { CandleSvg } from "~/components/adventslys/CandleSvg";
+import { CandleLightMeltSvg } from "~/components/jul/CandleLightMeltSvg";
+import { CandleMeltSvg } from "~/components/jul/CandleMeltSvg";
+import { CandleSvg } from "~/components/jul/CandleSvg";
 
 import styles from "./Adventslys.module.css";
 

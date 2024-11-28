@@ -1,9 +1,9 @@
 import { NavLink } from "@remix-run/react";
 import classnames from "classnames";
 
-import { Adventslys } from "~/components/adventslys/Adventslys";
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
+import { Adventslys } from "~/components/jul/Adventslys";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 

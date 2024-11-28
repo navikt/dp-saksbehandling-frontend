@@ -17,6 +17,7 @@ import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
+import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
@@ -137,6 +138,7 @@ export default function App() {
           <Link to={"/"} className={styles.headerLogo}>
             <InternalHeader.Title as="h1" className={styles.pageHeader}>
               {featureFlags.halloween && <PumpkinSvg />}
+              {featureFlags.jul && <MistelteinSvg />}
               Dagpenger
             </InternalHeader.Title>
           </Link>
