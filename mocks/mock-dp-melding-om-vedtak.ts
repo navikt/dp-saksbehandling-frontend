@@ -8,11 +8,9 @@ export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
   http.get(
     `${process.env.DP_MELDING_OM_VEDTAK_URL}/melding-om-vedtak/:behandlingId`,
-    ({ params }) => {
+    ({ request, params }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
       const { behandlingId } = params;
-      logger.info(
-        `[MSW]-GET ${process.env.DP_MELDING_OM_VEDTAK_URL}/melding-om-vedtak/${behandlingId}`,
-      );
 
       const meldingOmVedtak = mockMeldingerOmVedtak.find(
         (melding) => melding.behandlingId === behandlingId,

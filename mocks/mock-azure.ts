@@ -6,8 +6,8 @@ import { mockSaksbehandler } from "./data/mock-saksbehandler";
 
 export const mockAzure = [
   // Hent saksbehandler
-  http.get("https://graph.microsoft.com/v1.0/me/", () => {
-    logger.info(`[MSW]-GET https://graph.microsoft.com/v1.0/me/`);
+  http.get("https://graph.microsoft.com/v1.0/me/", ({ request }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
     return HttpResponse.json(mockSaksbehandler);
   }),
 ];
