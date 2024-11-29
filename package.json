@@ -31,7 +31,7 @@
     "@navikt/aksel-icons": "7.5.3",
     "@navikt/ds-css": "7.5.3",
     "@navikt/ds-react": "7.5.3",
-    "@navikt/oasis": "3.4.0",
+    "@navikt/oasis": "3.6.0",
     "@opentelemetry/sdk-node": "0.55.0",
     "@portabletext/react": "3.1.0",
     "@portabletext/to-html": "2.0.13",
