@@ -6,6 +6,10 @@ import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMen
 import { Adventslys } from "~/components/jul/Adventslys";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
+import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
+import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
+import { convertToQueryParamString } from "~/utils/url.utils";
 
 import { PersonSok } from "../person-sok/PersonSok";
 import styles from "./HeaderMeny.module.css";
@@ -21,7 +25,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
     <div className={styles.container}>
       <div className={styles.linkContainer}>
         <NavLink
-          to={"/"}
+          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -30,7 +34,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
         </NavLink>
 
         <NavLink
-          to={"/mine-oppgaver"}
+          to={`/mine-oppgaver?${convertToQueryParamString(mineOppgaverDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -44,7 +48,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
         </NavLink>
 
         <NavLink
-          to={"/alle-oppgaver"}
+          to={`/alle-oppgaver?${convertToQueryParamString(alleOppgaverDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }

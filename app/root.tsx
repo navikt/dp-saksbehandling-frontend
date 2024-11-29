@@ -21,6 +21,7 @@ import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
+import { hentOppgaver } from "~/models/oppgave.server";
 import { getSaksbehandler } from "~/models/saksbehandler.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -82,10 +83,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  // const oppgaverJegHarTilBehandling = await hentOppgaver(
-  //   request,
-  //   "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
-  // );
+  const oppgaverJegHarTilBehandling = await hentOppgaver(
+    request,
+    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
+  );
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
@@ -97,7 +98,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     saksbehandler: saksbehandler,
-    antallOppgaverJegHarTilBehandling: 0,
+    antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
       jul,
       halloween,

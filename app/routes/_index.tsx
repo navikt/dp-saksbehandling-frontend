@@ -10,25 +10,25 @@ import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentOppgaver } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import { commitSession, getSession } from "~/sessions";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
+
+export const oppgaverTilBehandlingDefaultParams = [
+  { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
+  { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
+  { key: "emneknagg", value: "Avslag minsteinntekt" },
+  { key: "side", value: "1" },
+  { key: "antallOppgaver", value: "100" },
+];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
   if (!url.search) {
-    const paramsToAppend = [
-      { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
-      { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
-      { key: "emneknagg", value: "Avslag minsteinntekt" },
-      { key: "side", value: "1" },
-      { key: "antallOppgaver", value: "100" },
-    ];
-
     let appended = false;
-    for (const { key, value } of paramsToAppend) {
+    for (const { key, value } of oppgaverTilBehandlingDefaultParams) {
       appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
     }
 
@@ -37,28 +37,28 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
+  const oppgaverResponse = await hentOppgaver(request, url.search);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  if (alert) {
-    return json(
-      { alert },
-      {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
+  return json(
+    {
+      alert,
+      oppgaver: oppgaverResponse.oppgaver,
+      totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
       },
-    );
-  }
-
-  return null;
+    },
+  );
 }
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
-  const loaderData = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver } = useTypedRouteLoaderData("routes/_oppgaver");
-  useHandleAlertMessages(loaderData?.alert);
+  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  useHandleAlertMessages(alert);
 
   return (
     <div className={styles.container}>

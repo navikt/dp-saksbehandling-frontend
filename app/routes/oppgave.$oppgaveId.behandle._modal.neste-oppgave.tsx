@@ -5,9 +5,11 @@ import { Form, useFetcher, useLoaderData } from "@remix-run/react";
 
 import { RemixLink } from "~/components/RemixLink";
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
+import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { logger } from "~/utils/logger.utils";
+import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const response = await hentNesteOppgave(request);
@@ -65,7 +67,11 @@ export default function NesteOppgave() {
       </Modal.Header>
 
       <Modal.Footer>
-        <RemixLink asButtonVariant={"secondary"} size="small" to={"/"}>
+        <RemixLink
+          asButtonVariant={"secondary"}
+          size="small"
+          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
+        >
           Oppgaveliste
         </RemixLink>
 
