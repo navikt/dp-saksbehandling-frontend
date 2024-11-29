@@ -20,7 +20,7 @@ export const oppgaverTilBehandlingDefaultParams = [
   { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
   { key: "emneknagg", value: "Avslag minsteinntekt" },
   { key: "side", value: "1" },
-  { key: "antallOppgaver", value: "100" },
+  { key: "antallOppgaver", value: "50" },
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {

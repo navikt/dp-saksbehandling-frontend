@@ -22,7 +22,7 @@ export const mineOppgaverDefaultParams = [
   { key: "tilstand", value: "UNDER_KONTROLL" },
   { key: "tilstand", value: "UNDER_BEHANDLING" },
   { key: "side", value: "1" },
-  { key: "antallOppgaver", value: "100" },
+  { key: "antallOppgaver", value: "50" },
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {

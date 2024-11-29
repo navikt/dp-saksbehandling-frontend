@@ -18,7 +18,7 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const alleOppgaverDefaultParams = [
   { key: "side", value: "1" },
-  { key: "antallOppgaver", value: "100" },
+  { key: "antallOppgaver", value: "50" },
 ];
 
 export async function loader({ request }: LoaderFunctionArgs) {
