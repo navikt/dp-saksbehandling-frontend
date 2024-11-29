@@ -2,8 +2,11 @@ import { getToken, parseAzureUserToken, validateToken } from "@navikt/oasis";
 import { LRUCache } from "lru-cache";
 
 import { getMicrosoftOboToken } from "~/utils/auth.utils.server";
+import { getEnv } from "~/utils/env.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { logger } from "~/utils/logger.utils";
+
+import { mockSaksbehandler } from "../../mocks/data/mock-saksbehandler";
 
 export interface ISaksbehandler {
   onPremisesSamAccountName: string; // Dette er saksbehandlerIdent
@@ -20,9 +23,13 @@ const cache = new LRUCache<string, ISaksbehandler>({
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
   try {
     const navIdent = await getNavIdent(request);
+    if (navIdent === null) {
+      throw new Error("Mangler NAV ident");
+    }
 
-    if (navIdent == null) throw new Response("Unauthorized", { status: 401 });
-    if (cache.has(navIdent)) return cache.get(navIdent)!;
+    if (cache.has(navIdent)) {
+      return cache.get(navIdent)!;
+    }
 
     const oboToken = await getMicrosoftOboToken(request);
 
@@ -45,14 +52,25 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
 }
 
 async function getNavIdent(request: Request): Promise<string | null> {
+  if (getEnv("USE_MSW")) {
+    return mockSaksbehandler.onPremisesSamAccountName;
+  }
+
   const token = getToken(request);
-  if (token == null) return null;
+
+  if (token === null) {
+    return null;
+  }
 
   const validation = await validateToken(token);
-  if (!validation.ok) return null;
+  if (!validation.ok) {
+    return null;
+  }
 
   const parsed = parseAzureUserToken(token);
-  if (!parsed.ok) return null;
+  if (!parsed.ok) {
+    return null;
+  }
 
   return parsed.NAVident;
 }
