@@ -283,7 +283,7 @@ export function handleFerdigstillOppgaveBrevIArenaMessages(httpCode: number): IA
 
 export function handleKvitterAvklaringMessages(httpCode: number): IAlert {
   switch (httpCode) {
-    case 200:
+    case 204:
       return {
         variant: "success",
         title: "Avklaring kvittert",
