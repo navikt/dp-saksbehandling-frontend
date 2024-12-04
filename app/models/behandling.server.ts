@@ -106,7 +106,7 @@ export async function endreOpplysning(
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ verdi, begrunnelse: "TEST" }),
+    body: JSON.stringify({ verdi, begrunnelse: "" }),
   });
 
   if (!response.ok) {
@@ -127,6 +127,6 @@ export async function kvitterAvklaring(
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ begrunnelse: "TEST" }),
+    body: JSON.stringify({ begrunnelse: "" }),
   });
 }
