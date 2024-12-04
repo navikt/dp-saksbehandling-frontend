@@ -1,6 +1,7 @@
-import type { ActionFunctionArgs } from "@remix-run/server-runtime/dist/routeModules";
+import { ActionFunctionArgs } from "@remix-run/node";
 
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
+import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
@@ -43,6 +44,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "utsett-oppgave":
       return await utsettOppgaveAction(request, formData);
 
+    case "kvitter-avklaring":
+      return await kvitterAvklaringAction(request, formData);
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
       return null;

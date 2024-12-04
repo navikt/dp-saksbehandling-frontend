@@ -28,7 +28,8 @@ interface IAlertType {
     | "send-til-arena"
     | "send-til-kontroll"
     | "ferdigstill-oppgave"
-    | "ferdigstill-oppgave-brev-i-arena";
+    | "ferdigstill-oppgave-brev-i-arena"
+    | "kvitter-avklaring";
   httpCode: number;
 }
 
@@ -66,6 +67,9 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "ferdigstill-oppgave-brev-i-arena":
       return handleFerdigstillOppgaveBrevIArenaMessages(alertResponse.httpCode);
+
+    case "kvitter-avklaring":
+      return handleKvitterAvklaringMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -272,6 +276,35 @@ export function handleFerdigstillOppgaveBrevIArenaMessages(httpCode: number): IA
       return {
         variant: "error",
         title: "Kunne ikke ferdigstille oppgave",
+        body: `Feilkode: ${httpCode}`,
+      };
+  }
+}
+
+export function handleKvitterAvklaringMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Avklaring kvittert",
+      };
+
+    case 400:
+      return {
+        variant: "error",
+        title: "Avklaringen kan ikke kvitteres ut",
+      };
+
+    case 403:
+      return {
+        variant: "error",
+        title: "Du har ikke tilgang til å kvittere ut denne avklaringen",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke kvittere ut avklaring",
         body: `Feilkode: ${httpCode}`,
       };
   }

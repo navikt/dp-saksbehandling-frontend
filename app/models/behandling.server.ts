@@ -7,7 +7,7 @@ export interface IBehandling {
   behandlingId: string;
   tilstand: string;
   kreverTotrinnskontroll: boolean;
-  aktiveAvklaringer: IAvklaring[];
+  avklaringer: IAvklaring[];
   opplysning: IOpplysning[];
 }
 
@@ -43,9 +43,9 @@ export interface IAvklaring {
   tittel: string;
   beskrivelse: string;
   kanKvitteres?: boolean;
-  // status: null;
-  // begrunnelse: null;
-  // kvittertAv: null;
+  status: "Åpen" | "Løst" | "Kvittert";
+  kvittertAv?: { ident: string };
+  begrunnelse?: string;
 }
 
 export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
@@ -106,7 +106,7 @@ export async function endreOpplysning(
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ verdi, begrunnelse: "TEST" }),
+    body: JSON.stringify({ verdi, begrunnelse: "" }),
   });
 
   if (!response.ok) {
@@ -114,4 +114,19 @@ export async function endreOpplysning(
   }
 
   return await response.json();
+}
+
+export async function kvitterAvklaring(
+  request: Request,
+  behandlingId: string,
+  avklaringId: string,
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avklaring/${avklaringId}`;
+  return await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ begrunnelse: "" }),
+  });
 }
