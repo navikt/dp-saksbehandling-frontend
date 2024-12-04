@@ -255,6 +255,12 @@ export function handleFerdigstillOppgaveMessages(httpCode: number): IAlert {
         title: "Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet",
       };
 
+    case 403:
+      return {
+        variant: "warning",
+        title: "Du må kvittere ut alle avklaringer før du kan ferdigstille oppgaven",
+      };
+
     default:
       return {
         variant: "error",
