@@ -20,7 +20,5 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
     return json(alert);
   }
 
-  const oppdatertBehandling = await response.json();
-
-  return json(oppdatertBehandling);
+  return json({ status: response.status });
 }
