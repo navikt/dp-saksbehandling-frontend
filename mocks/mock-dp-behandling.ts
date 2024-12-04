@@ -31,4 +31,20 @@ export const mockDpBehandling = [
       return HttpResponse.json(mockBehandlingInnvilgelse);
     },
   ),
+
+  http.put(
+    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/avklaring/:avklaringId`,
+    ({ request, params }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+
+      const oppdaterteAvklaringer = mockBehandlingInnvilgelse.aktiveAvklaringer.map((avklaring) =>
+        avklaring.id === params.avklaringId ? { ...avklaring, status: "Kvittert" } : avklaring,
+      );
+
+      return HttpResponse.json({
+        ...mockBehandlingInnvilgelse,
+        aktiveAvklaringer: oppdaterteAvklaringer,
+      });
+    },
+  ),
 ];
