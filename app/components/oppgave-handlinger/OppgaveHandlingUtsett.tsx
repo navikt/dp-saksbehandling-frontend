@@ -1,33 +1,23 @@
 import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
-import { useFetcher, useNavigate } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { nb } from "date-fns/locale";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { action as utsettAction } from "~/routes/action-utsett-oppgave";
-import { isAlertResponse, isFormValidationErrorResponse } from "~/utils/type-guards";
+import { action } from "~/routes/oppgave.$oppgaveId";
+import { isAlert, isFormValidationError } from "~/utils/type-guards";
 
 export function OppgaveHandlingUtsett() {
-  const navigate = useNavigate();
+  const { state } = useNavigation();
   const ref = useRef<HTMLDialogElement>(null);
-  const utsettOppgaveFetcher = useFetcher<typeof utsettAction>();
+  const actionData = useActionData<typeof action>();
 
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
-
-  useHandleAlertMessages(
-    isAlertResponse(utsettOppgaveFetcher?.data) ? utsettOppgaveFetcher?.data : undefined,
-  );
-
-  useEffect(() => {
-    if (utsettOppgaveFetcher.data && isAlertResponse(utsettOppgaveFetcher.data)) {
-      ref?.current?.close();
-      navigate("/");
-    }
-  }, [utsettOppgaveFetcher.data, navigate]);
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <>
@@ -41,40 +31,35 @@ export function OppgaveHandlingUtsett() {
         closeOnBackdropClick
       >
         <Modal.Body>
-          <utsettOppgaveFetcher.Form method="post" action="/action-utsett-oppgave">
+          <Form method="post">
             <DatePicker.Standalone
               onSelect={(dato) => setUtsattTilDato(dato)}
               fromDate={add(new Date(), { days: 1 })}
               toDate={add(new Date(), { days: 20 })}
             />
-            <input hidden={true} readOnly={true} name="oppgaveId" value={oppgave.oppgaveId} />
+            <input name="_action" value="utsett-oppgave" hidden={true} readOnly={true} />
+            <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
             <input
-              hidden
-              readOnly
               name="utsettTilDato"
               value={utsattTilDato ? format(utsattTilDato, "yyyy-MM-dd", { locale: nb }) : ""}
+              hidden={true}
+              readOnly={true}
             />
 
             <Checkbox name="beholdOppgave" size="small">
               Behold oppgave
             </Checkbox>
 
-            <Button
-              size="small"
-              variant="primary"
-              name="_action"
-              value="utsett-oppgave"
-              loading={utsettOppgaveFetcher.state !== "idle"}
-            >
+            <Button size="small" variant="primary" loading={state !== "idle"}>
               Sett på vent
             </Button>
 
-            {isFormValidationErrorResponse(utsettOppgaveFetcher.data) && (
+            {isFormValidationError(actionData) && (
               <Alert variant="error" size="small" className="my-2">
-                {utsettOppgaveFetcher.data.message}
+                {actionData.message}
               </Alert>
             )}
-          </utsettOppgaveFetcher.Form>
+          </Form>
         </Modal.Body>
       </Modal>
     </>

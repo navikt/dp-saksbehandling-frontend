@@ -1,13 +1,11 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
+import { Form, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTableSort } from "~/hooks/useTableSort";
 import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
-import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
 import styles from "./OppgaveListe.module.css";
@@ -31,8 +29,6 @@ export function OppgaveListe({
 }: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
-  const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
-  useHandleAlertMessages(nesteFetcher.data);
 
   const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
@@ -44,11 +40,8 @@ export function OppgaveListe({
       {(visNesteOppgaveKnapp || visAntallOppgaver) && (
         <div className={styles.oppgaveListeInfo}>
           {visNesteOppgaveKnapp && (
-            <nesteFetcher.Form
-              method="post"
-              action="/action-hent-neste-oppgave"
-              className={styles.nesteKnapp}
-            >
+            <Form method="post" className={styles.nesteKnapp}>
+              <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
               <Button
                 variant="primary"
                 size="small"
@@ -57,7 +50,7 @@ export function OppgaveListe({
               >
                 Neste oppgave
               </Button>
-            </nesteFetcher.Form>
+            </Form>
           )}
 
           {visAntallOppgaver && (

@@ -1,5 +1,4 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import type { SerializeFrom } from "@remix-run/node";
 import type { ChangeEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
@@ -7,8 +6,9 @@ import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
+import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import { isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
@@ -22,11 +22,13 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
-  const lagreUtvidetBeskrivelseFetcher =
-    useDebounceFetcher<SerializeFrom<typeof lagreUtvidetBeskrivelseAction>>();
+  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
 
   useEffect(() => {
-    if (lagreUtvidetBeskrivelseFetcher.data) {
+    if (
+      lagreUtvidetBeskrivelseFetcher.data &&
+      isILagreUtvidetBeskrivelseResponse(lagreUtvidetBeskrivelseFetcher.data)
+    ) {
       props.updateContext({
         tekst: verdi,
         brevblokkId: props.brevblokkId,
@@ -52,9 +54,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
   return (
     <>
-      <lagreUtvidetBeskrivelseFetcher.Form method="post" action="/action-lagre-utvidet-beskrivelse">
-        <input name={"behandling-id"} value={oppgave.behandlingId} hidden={true} readOnly={true} />
-        <input name={"brevblokk-id"} value={props.brevblokkId} hidden={true} readOnly={true} />
+      <lagreUtvidetBeskrivelseFetcher.Form method="post">
+        <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
+        <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
+        <input name="brevblokk-id" value={props.brevblokkId} hidden={true} readOnly={true} />
         <Textarea
           name={"utvidet-beskrivelse"}
           className={styles.container}

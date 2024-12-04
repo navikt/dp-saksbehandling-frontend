@@ -1,8 +1,8 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
@@ -12,7 +12,9 @@ import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/Op
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { isAlert } from "~/utils/type-guards";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const oppgaverTilBehandlingDefaultParams = [
@@ -22,6 +24,10 @@ export const oppgaverTilBehandlingDefaultParams = [
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
 ];
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -57,7 +63,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
+  const actionData = useActionData<typeof action>();
   const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   return (

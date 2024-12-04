@@ -1,10 +1,9 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 import invariant from "tiny-invariant";
 
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -17,7 +16,12 @@ import styles from "~/route-styles/oppgave.module.css";
 import { sanityClient } from "~/sanity/sanity-client";
 import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
 import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -65,7 +69,6 @@ export default function Oppgave() {
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
         <OppgaveListe oppgaver={oppgaverForPerson} />
-        <OppgaveHandlinger />
         <Fragment key={oppgave.oppgaveId}>
           <Outlet />
         </Fragment>

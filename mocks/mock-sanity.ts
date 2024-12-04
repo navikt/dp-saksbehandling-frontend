@@ -4,7 +4,7 @@ import { logger } from "~/utils/logger.utils";
 
 export const mockSanity = [
   http.get("https://rt6o382n.api.sanity.io/v2022-03-07/data/query*", async ({ request }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+    logger.info(`[MSW]-${request.method} https://rt6o382n.api.sanity.io/v2022-03-07/data/query`);
     const response = await fetch(bypass(request));
     const sanityData = await response.json();
 

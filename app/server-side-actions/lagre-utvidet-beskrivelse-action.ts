@@ -1,10 +1,8 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 
 import { lagreUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+export async function lagreUtvidetBeskrivelseAction(request: Request, formData: FormData) {
   const brevblokkId = formData.get("brevblokk-id") as string;
   const behandlingId = formData.get("behandling-id") as string;
   const utvidetBeskrivelse = formData.get("utvidet-beskrivelse") as string;

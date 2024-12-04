@@ -1,12 +1,10 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 
-import type { IOppgave } from "~/models/oppgave.server";
-import { hentNesteOppgave } from "~/models/oppgave.server";
+import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { logger } from "~/utils/logger.utils";
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function hentNesteOppgaveAction(request: Request) {
   const response = await hentNesteOppgave(request);
 
   if (response.ok) {

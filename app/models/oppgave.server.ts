@@ -78,7 +78,7 @@ interface IBehandler {
   rolle?: "system" | "saksbehandler" | "beslutter";
 }
 
-interface ILagreNotatResponse {
+export interface ILagreNotatResponse {
   sistEndretTidspunkt: string;
 }
 

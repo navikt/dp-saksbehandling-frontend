@@ -98,7 +98,7 @@ export function handleUtsettOppgaveMessages(httpCode: number): IAlert {
     case 204:
       return {
         variant: "success",
-        title: "Oppgave utsatt",
+        title: "Oppgave utsatt 📆",
       };
 
     default:

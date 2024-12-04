@@ -1,14 +1,11 @@
-import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 
-import type { IOppgave } from "~/models/oppgave.server";
-import { tildelOppgave } from "~/models/oppgave.server";
+import { type IOppgave, tildelOppgave } from "~/models/oppgave.server";
 import { handleTildelOppgaveMessages } from "~/utils/alert-message.utils";
 import { logger } from "~/utils/logger.utils";
 import type { IHttpProblem } from "~/utils/types";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+export async function tildelOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;
 
   if (!oppgaveId) {
@@ -32,8 +29,14 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const nyOppgaveTilstand = (await response.text()) as IOppgave["tilstand"];
-  if (nyOppgaveTilstand === "UNDER_BEHANDLING") return redirect(`/oppgave/${oppgaveId}/behandle`);
-  if (nyOppgaveTilstand === "UNDER_KONTROLL") return redirect(`/oppgave/${oppgaveId}/kontroll`);
+
+  if (nyOppgaveTilstand === "UNDER_BEHANDLING") {
+    return redirect(`/oppgave/${oppgaveId}/behandle`);
+  }
+
+  if (nyOppgaveTilstand === "UNDER_KONTROLL") {
+    return redirect(`/oppgave/${oppgaveId}/kontroll`);
+  }
 
   throw new Error(
     `Oppgave med id ${oppgaveId} har uventet tilstand. Forventet tilstand er UNDER_BEHANDLING eller UNDER_KONTROLL, fikk ${nyOppgaveTilstand}`,

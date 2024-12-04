@@ -5,6 +5,7 @@ import { Outlet } from "@remix-run/react";
 import { useState } from "react";
 
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { OpplysningForslag } from "~/components/opplysning-forslag/OpplysningForslag";
 import { Vilkaar } from "~/components/vilkaar/Vilkaar";
@@ -13,8 +14,8 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 
-export async function action({ request }: ActionFunctionArgs) {
-  return await handleActions(request);
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
 }
 
 export default function Oppgave() {
@@ -23,6 +24,7 @@ export default function Oppgave() {
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
+      <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
