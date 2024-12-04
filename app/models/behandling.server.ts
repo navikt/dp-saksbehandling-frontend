@@ -7,7 +7,7 @@ export interface IBehandling {
   behandlingId: string;
   tilstand: string;
   kreverTotrinnskontroll: boolean;
-  aktiveAvklaringer: IAvklaring[];
+  avklaringer: IAvklaring[];
   opplysning: IOpplysning[];
 }
 

@@ -37,13 +37,13 @@ export const mockDpBehandling = [
     ({ request, params }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
 
-      const oppdaterteAvklaringer = mockBehandlingInnvilgelse.aktiveAvklaringer.map((avklaring) =>
+      const oppdaterteAvklaringer = mockBehandlingInnvilgelse.avklaringer.map((avklaring) =>
         avklaring.id === params.avklaringId ? { ...avklaring, status: "Kvittert" } : avklaring,
       );
 
       return HttpResponse.json({
         ...mockBehandlingInnvilgelse,
-        aktiveAvklaringer: oppdaterteAvklaringer,
+        avklaringer: oppdaterteAvklaringer,
       });
     },
   ),

@@ -29,7 +29,7 @@ export function Vilkaar(props: IProps) {
 
   return (
     <>
-      <OppgaveAvklaringer avklaringer={behandling.aktiveAvklaringer} />
+      <OppgaveAvklaringer avklaringer={behandling.avklaringer} />
 
       <div className={styles.vilkaarContainer}>
         <VilkaarMeny

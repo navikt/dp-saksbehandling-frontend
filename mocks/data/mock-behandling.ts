@@ -23,7 +23,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
   behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
   tilstand: "ForslagTilVedtak",
   kreverTotrinnskontroll: true,
-  aktiveAvklaringer: [
+  avklaringer: [
     andreYtelser,
     soknadstidspunktForLangtFramITid,
     virkningstidspunktForLangtFramITid,
@@ -2712,7 +2712,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
 export const mockBehandlingAvslagMinsteinntekt: IBehandling = {
   behandlingId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
   tilstand: "ForslagTilVedtak",
-  aktiveAvklaringer: [
+  avklaringer: [
     andreYtelser,
     soknadstidspunktForLangtFramITid,
     virkningstidspunktForLangtFramITid,
