@@ -16,9 +16,8 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    const alert = getAlertMessage({ name: "kvitter-avklaring", httpCode: response.status });
-    return json(alert);
   }
 
-  return json({ status: response.status });
+  const alert = getAlertMessage({ name: "kvitter-avklaring", httpCode: response.status });
+  return json(alert);
 }
