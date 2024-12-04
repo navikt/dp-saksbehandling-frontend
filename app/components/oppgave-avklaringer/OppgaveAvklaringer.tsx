@@ -1,10 +1,13 @@
 import { CheckmarkCircleIcon } from "@navikt/aksel-icons";
 import { Alert, Button } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IAvklaring } from "~/models/behandling.server";
+import { action } from "~/root";
+import { isAlertResponse } from "~/utils/type-guards";
 
 import styles from "./OppgaveAvklaringer.module.css";
 
@@ -15,6 +18,9 @@ interface IProps {
 export function OppgaveAvklaringer(props: IProps) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlertResponse(actionData) ? actionData : undefined);
+
   return (
     <>
       {props.avklaringer.map((avklaring) => {

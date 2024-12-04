@@ -14,7 +14,7 @@ export function isNetworkResponseError(
   return (networkResponse as INetworkResponseError)?.status === "error";
 }
 
-export function isAlertResponse(data?: IAlert | IFormValidationError): data is IAlert {
+export function isAlertResponse(data?: unknown): data is IAlert {
   return typeof data === "object" && data !== null && "variant" in data && "title" in data;
 }
 
