@@ -21,9 +21,15 @@ export function OppgaveHandlingUtsett() {
 
   return (
     <>
-      <Button size="small" variant="tertiary" onClick={() => ref.current?.showModal()}>
+      <Button
+        size="small"
+        variant="tertiary"
+        onClick={() => ref.current?.showModal()}
+        loading={state !== "idle"}
+      >
         Sett på vent
       </Button>
+
       <Modal
         ref={ref}
         className={styles.modal}

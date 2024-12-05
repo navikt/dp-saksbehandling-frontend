@@ -11,7 +11,7 @@ import { isAlert } from "~/utils/type-guards";
 
 export function OppgaveHandlingFattVedtak() {
   const fattVedtakModalRef = useRef<HTMLDialogElement>(null);
-  const navigation = useNavigation();
+  const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
   const { featureFlags } = useTypedRouteLoaderData("root");
   const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
@@ -39,7 +39,11 @@ export function OppgaveHandlingFattVedtak() {
 
   return (
     <>
-      <Button size="small" onClick={() => fattVedtakModalRef.current?.showModal()}>
+      <Button
+        size="small"
+        onClick={() => fattVedtakModalRef.current?.showModal()}
+        loading={state !== "idle"}
+      >
         Fatt vedtak
       </Button>
 
@@ -75,7 +79,7 @@ export function OppgaveHandlingFattVedtak() {
                   readOnly={true}
                 />
 
-                <Button size="small" variant="primary" disabled={navigation.state !== "idle"}>
+                <Button size="small" variant="primary" disabled={state !== "idle"}>
                   Ja
                 </Button>
               </>
@@ -85,7 +89,7 @@ export function OppgaveHandlingFattVedtak() {
               <>
                 <input name="send-brev-i-arena" value={"true"} hidden={true} readOnly={true} />
 
-                <Button size="small" variant="primary" disabled={navigation.state !== "idle"}>
+                <Button size="small" variant="primary" disabled={state !== "idle"}>
                   Ja, med brev fra Arena
                 </Button>
               </>

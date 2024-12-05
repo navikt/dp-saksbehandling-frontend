@@ -1,5 +1,5 @@
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -7,6 +7,7 @@ import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
 import { isAlert } from "~/utils/type-guards";
 
 export function OppgaveHandlingSendTilArena() {
+  const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
   const modalRef = useRef<HTMLDialogElement>(null);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
@@ -19,7 +20,12 @@ export function OppgaveHandlingSendTilArena() {
 
   return (
     <>
-      <Button size="small" variant="secondary" onClick={() => modalRef.current?.showModal()}>
+      <Button
+        size="small"
+        variant="secondary"
+        onClick={() => modalRef.current?.showModal()}
+        loading={state !== "idle"}
+      >
         Send til Arena
       </Button>
 

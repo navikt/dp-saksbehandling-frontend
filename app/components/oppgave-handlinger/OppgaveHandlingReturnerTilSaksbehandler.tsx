@@ -33,7 +33,12 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
 
   return (
     <>
-      <Button size="small" variant="secondary" onClick={() => modalRef.current?.showModal()}>
+      <Button
+        size="small"
+        variant="secondary"
+        onClick={() => modalRef.current?.showModal()}
+        loading={state !== "idle"}
+      >
         Returner til saksbehandler
       </Button>
 
