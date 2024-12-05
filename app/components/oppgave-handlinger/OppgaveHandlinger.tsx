@@ -67,9 +67,7 @@ export function OppgaveHandlinger() {
               {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
               {valg === "utsett" && <OppgaveHandlingUtsett />}
               {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
-              {valg === "send-til-kontroll" && (
-                <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />
-              )}
+              {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
               {valg === "returner-til-saksbehandler" && (
                 <OppgaveHandlingReturnerTilSaksbehandler oppgaveId={oppgave.oppgaveId} />
               )}

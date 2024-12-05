@@ -9,6 +9,7 @@ import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvid
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action";
+import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action";
@@ -55,6 +56,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "send-til-arena":
       return await sendTilArenaAction(request, params, formData);
+
+    case "send-til-kontroll":
+      return await sendTilKontrollAction(request, params);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
