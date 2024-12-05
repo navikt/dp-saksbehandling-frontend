@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from "@remix-run/node";
 
+import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
@@ -10,6 +11,7 @@ import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/ret
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action";
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
@@ -46,8 +48,15 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "kvitter-avklaring":
       return await kvitterAvklaringAction(request, formData);
+
+    case "fatt-vedtak":
+      return await fattVedtakAction(request, params, formData);
+
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
+      if (getEnv("IS_LOCALHOST") === "true") {
+        throw new Error(`Ukjent action: ${actionToRun}`);
+      }
       return null;
   }
 }

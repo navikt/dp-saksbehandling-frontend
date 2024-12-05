@@ -75,9 +75,7 @@ export function OppgaveHandlinger() {
               {valg === "returner-til-saksbehandler" && (
                 <OppgaveHandlingReturnerTilSaksbehandler oppgaveId={oppgave.oppgaveId} />
               )}
-              {valg === "fatt-vedtak" && (
-                <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />
-              )}
+              {valg === "fatt-vedtak" && <OppgaveHandlingFattVedtak />}
             </Fragment>
           ))}
         </div>
