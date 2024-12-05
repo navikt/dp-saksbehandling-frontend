@@ -66,9 +66,7 @@ export function OppgaveHandlinger() {
             <Fragment key={valg}>
               {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
               {valg === "utsett" && <OppgaveHandlingUtsett />}
-              {valg === "send-til-arena" && (
-                <OppgaveHandlingSendTilArena oppgaveId={oppgave.oppgaveId} />
-              )}
+              {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
               {valg === "send-til-kontroll" && (
                 <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />
               )}

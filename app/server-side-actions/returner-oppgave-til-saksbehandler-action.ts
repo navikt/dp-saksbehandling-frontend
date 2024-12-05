@@ -42,7 +42,7 @@ export async function returnerOppgaveTilSaksbehandlerAction(
     });
   }
 
-  return redirect(`../../behandle/neste-oppgave`, {
+  return redirect(`/oppgave/${params.oppgaveId}/se/neste-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

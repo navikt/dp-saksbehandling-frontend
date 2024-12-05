@@ -1,45 +1,17 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { useRef } from "react";
 
 import { RemixLink } from "~/components/RemixLink";
-import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
 import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  const response = await hentNesteOppgave(request);
-
-  if (response.ok) {
-    const oppgave = (await response.json()) as IOppgave;
-    return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
-  }
-
-  logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-
-  const session = await getSession(request.headers.get("Cookie"));
-  session.flash(
-    "alert",
-    getAlertMessage({ name: "hent-neste-oppgave", httpCode: response.status }),
-  );
-
-  if (response.status === 404) {
-    return redirect(`/`, {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    });
-  }
-
-  return redirect(`/oppgave/${params.oppgaveId}/behandle`, {
-    headers: {
-      "Set-Cookie": await commitSession(session),
-    },
-  });
+  return await handleActions(request, params);
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -57,12 +29,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function NesteOppgave() {
-  const fetcher = useFetcher<typeof action>();
+  const { state } = useNavigation();
   const { alert } = useLoaderData<typeof loader>();
+  const ref = useRef<HTMLDialogElement>(null);
 
   return (
-    <>
-      <Modal.Header>
+    <Modal
+      closeOnBackdropClick={false}
+      aria-label={""}
+      open={true}
+      width={"small"}
+      onClose={() => undefined}
+      onCancel={(e) => e.preventDefault()}
+      ref={ref}
+    >
+      <Modal.Header closeButton={false}>
         <Heading size="small">{alert?.title}</Heading>
       </Modal.Header>
 
@@ -76,16 +57,17 @@ export default function NesteOppgave() {
         </RemixLink>
 
         <Form method="post">
+          <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
           <Button
             variant="primary"
             size="small"
-            loading={fetcher.state !== "idle"}
-            disabled={fetcher.state !== "idle"}
+            loading={state !== "idle"}
+            disabled={state !== "idle"}
           >
             Neste oppgave
           </Button>
         </Form>
       </Modal.Footer>
-    </>
+    </Modal>
   );
 }
