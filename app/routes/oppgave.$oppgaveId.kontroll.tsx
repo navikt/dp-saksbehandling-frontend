@@ -1,5 +1,5 @@
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { Alert, Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useActionData } from "@remix-run/react";
 
@@ -23,6 +23,15 @@ export default function Oppgave() {
   const { oppgave, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
+  if (!meldingOmVedtak) {
+    return (
+      <Alert variant="error">
+        Kan ikke hente melding om vedtak for oppgave i tilstand {oppgave.tilstand}. Ta kontakt med
+        utviklere.
+      </Alert>
+    );
+  }
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>

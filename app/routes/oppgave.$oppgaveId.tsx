@@ -8,7 +8,7 @@ import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
@@ -29,15 +29,19 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
-  const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
-  const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
-    hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
-  );
+  let meldingOmVedtak: IMeldingOmVedtak | undefined;
+  let sanityBrevBlokker: ISanityBrevBlokk[] = [];
+  if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
+    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
+    sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
+      hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
+    );
+  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");

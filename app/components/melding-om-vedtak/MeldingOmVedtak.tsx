@@ -11,6 +11,10 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
     "routes/oppgave.$oppgaveId",
   );
 
+  if (!meldingOmVedtak || !sanityBrevBlokker) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
       <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} readOnly={readOnly} />

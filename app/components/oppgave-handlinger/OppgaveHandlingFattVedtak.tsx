@@ -31,7 +31,7 @@ export function OppgaveHandlingFattVedtak() {
       oppgave={oppgave}
       behandling={behandling}
       sanityBrevBlokker={sanityBrevBlokker}
-      meldingOmVedtakOpplysninger={meldingOmVedtak.opplysninger}
+      meldingOmVedtakOpplysninger={meldingOmVedtak?.opplysninger || []}
     />,
   );
 
