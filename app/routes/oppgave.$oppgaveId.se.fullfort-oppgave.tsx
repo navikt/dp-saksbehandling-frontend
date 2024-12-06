@@ -1,16 +1,18 @@
 import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
+import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
 
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/oppgave.module.css";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { getEnv } from "~/utils/env.utils";
+import { isAlert } from "~/utils/type-guards";
 import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -36,6 +38,8 @@ export default function NesteOppgave() {
   const { alert } = useLoaderData<typeof loader>();
   const ref = useRef<HTMLDialogElement>(null);
   const [kaffepuase, setKaffepause] = useState(false);
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <Modal

@@ -65,8 +65,8 @@ export default function Saksbehandling() {
   const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
   const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className={styles.container}>

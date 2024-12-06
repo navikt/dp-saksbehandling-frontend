@@ -1,7 +1,7 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import { type ActionFunctionArgs, json, LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
@@ -15,6 +15,7 @@ import { hentOppgaver } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { isAlert } from "~/utils/type-guards";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const alleOppgaverDefaultParams = [
@@ -60,8 +61,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Saksbehandling() {
   const { state } = useNavigation();
+  const actionData = useActionData<typeof action>();
   const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className={styles.container}>

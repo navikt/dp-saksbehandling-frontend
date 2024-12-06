@@ -1,14 +1,11 @@
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
+import { Form, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
 
 import { RemixLink } from "~/components/RemixLink";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { IListeOppgave } from "~/models/oppgave.server";
-import { action } from "~/routes/_index";
-import { isAlert } from "~/utils/type-guards";
 
 import styles from "./OppgaveListeValg.module.css";
 
@@ -16,9 +13,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
   const { state } = useNavigation();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);
-  const actionData = useActionData<typeof action>();
   const buttonRef = useRef<HTMLButtonElement>(null);
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   const minSaksbehandlerOppgave = oppgave.behandlerIdent === saksbehandler.onPremisesSamAccountName;
   const minBeslutterOppgaver = oppgave?.behandlerIdent === saksbehandler.onPremisesSamAccountName;
