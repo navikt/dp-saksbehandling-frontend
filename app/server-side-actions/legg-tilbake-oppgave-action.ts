@@ -1,11 +1,15 @@
-import { json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
 
 import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
 import { getAlertMessage } from "~/utils/alert-message.utils";
 import { logger } from "~/utils/logger.utils";
 
-export async function leggTilbakeOppgaveAction(request: Request, formData: FormData) {
+export async function leggTilbakeOppgaveAction(
+  request: Request,
+  params: ActionFunctionArgs["params"],
+  formData: FormData,
+) {
   const oppgaveId = formData.get("oppgaveId") as string;
 
   if (!oppgaveId) {
@@ -16,16 +20,21 @@ export async function leggTilbakeOppgaveAction(request: Request, formData: FormD
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = getAlertMessage({ name: "legg-tilbake-oppgave", httpCode: response.status });
-  session.flash("alert", alert);
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
     return json(alert);
   }
 
-  return redirect(`/`, {
-    headers: {
-      "Set-Cookie": await commitSession(session),
-    },
-  });
+  // Redirect til oppgavelisten hvis oppgaven som ble lagt tilbake er den samme som vises for saksbehandler
+  if (params?.oppgaveId === oppgaveId) {
+    session.flash("alert", alert);
+    return redirect(`/`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
+  return json(alert);
 }

@@ -40,7 +40,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await lagreUtvidetBeskrivelseAction(request, formData);
 
     case "legg-tilbake-oppgave":
-      return await leggTilbakeOppgaveAction(request, formData);
+      return await leggTilbakeOppgaveAction(request, params, formData);
 
     case "tildel-oppgave":
       return await tildelOppgaveAction(request, formData);
