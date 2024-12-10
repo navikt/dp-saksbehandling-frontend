@@ -245,11 +245,12 @@ export async function lagreNotat(
 ): Promise<ILagreNotatResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
+  const trimmetNotat = notat.trim();
 
   const response = await fetch(url, {
-    method: notat ? "PUT" : "DELETE",
+    method: trimmetNotat ? "PUT" : "DELETE",
     headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
-    body: notat,
+    body: trimmetNotat,
   });
 
   if (!response.ok) {
