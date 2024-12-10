@@ -46,6 +46,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const oppgaverResponse = await hentOppgaver(request, url.search);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
+  session.set("aktivtOppgaveFilter", url.search);
 
   return json(
     {
