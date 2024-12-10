@@ -77,8 +77,8 @@ export function links() {
   ];
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  return await handleActions(request);
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {

@@ -1,8 +1,7 @@
 name: Bygg og deploy
 on:
   push:
-    branches:
-      - main
+
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
@@ -119,6 +118,7 @@ jobs:
 
   deploy-prod:
     name: Deploy til prod-gcp
+    if: github.ref == 'refs/heads/main'
     needs: [ build,  deploy-dev ]
     runs-on: ubuntu-latest
     environment:

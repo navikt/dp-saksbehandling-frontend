@@ -1,3 +1,4 @@
+import { getSession } from "~/sessions";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
@@ -78,7 +79,7 @@ interface IBehandler {
   rolle?: "system" | "saksbehandler" | "beslutter";
 }
 
-interface ILagreNotatResponse {
+export interface ILagreNotatResponse {
   sistEndretTidspunkt: string;
 }
 
@@ -134,13 +135,14 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
 
 export async function hentNesteOppgave(request: Request): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const requestUrl = new URL(request.url);
+  const session = await getSession(request.headers.get("Cookie"));
+  const aktivtOppgaveFilter = session.get("aktivtOppgaveFilter");
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ queryParams: requestUrl.search }),
+    body: JSON.stringify({ queryParams: aktivtOppgaveFilter }),
   });
 }
 
@@ -245,7 +247,7 @@ export async function lagreNotat(
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: notat ? "PUT" : "DELETE",
     headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
     body: notat,
   });

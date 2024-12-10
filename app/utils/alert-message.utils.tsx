@@ -102,7 +102,7 @@ export function handleUtsettOppgaveMessages(httpCode: number): IAlert {
     case 204:
       return {
         variant: "success",
-        title: "Oppgave utsatt",
+        title: "Oppgave utsatt 📆",
       };
 
     default:
@@ -207,6 +207,12 @@ export function handleSendTilKontrollMessages(httpCode: number): IAlert {
         title: "Oppgave sendt til kontroll",
       };
 
+    case 400:
+      return {
+        variant: "error",
+        title: "Du må kvittere ut alle avklaringene før du kan sende oppgaven til kontroll",
+      };
+
     case 404:
       return {
         variant: "error",
@@ -255,10 +261,10 @@ export function handleFerdigstillOppgaveMessages(httpCode: number): IAlert {
         title: "Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet",
       };
 
-    case 403:
+    case 400:
       return {
-        variant: "warning",
-        title: "Du må kvittere ut alle avklaringer før du kan ferdigstille oppgaven",
+        variant: "error",
+        title: "Du må kvittere ut alle avklaringene før du kan ferdigstille oppgaven",
       };
 
     default:

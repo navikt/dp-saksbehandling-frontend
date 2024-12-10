@@ -8,7 +8,7 @@ import styles from "./OppgaveLenker.module.css";
 const lenker = [
   {
     url: getEnv("GOSYS_URL"),
-    text: "GOSYS",
+    text: "GOSYS (fungerer i SKSS)",
   },
   {
     url: getEnv("MODIA_URL"),
@@ -28,7 +28,7 @@ const lenker = [
   },
   {
     url: getEnv("ARBEID_INNTEKT_URL"),
-    text: "Inntekt og arbeidsforhold",
+    text: "Inntekt og arbeidsforhold (fungerer i SKSS)",
   },
   {
     url: getEnv("INNTEKTREDIGERING_URL"),

@@ -66,18 +66,10 @@ export function OppgaveHandlinger() {
             <Fragment key={valg}>
               {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
               {valg === "utsett" && <OppgaveHandlingUtsett />}
-              {valg === "send-til-arena" && (
-                <OppgaveHandlingSendTilArena oppgaveId={oppgave.oppgaveId} />
-              )}
-              {valg === "send-til-kontroll" && (
-                <OppgaveHandlingSendTilKontroll oppgaveId={oppgave.oppgaveId} />
-              )}
-              {valg === "returner-til-saksbehandler" && (
-                <OppgaveHandlingReturnerTilSaksbehandler oppgaveId={oppgave.oppgaveId} />
-              )}
-              {valg === "fatt-vedtak" && (
-                <OppgaveHandlingFattVedtak oppgaveId={oppgave.oppgaveId} />
-              )}
+              {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
+              {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
+              {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
+              {valg === "fatt-vedtak" && <OppgaveHandlingFattVedtak />}
             </Fragment>
           ))}
         </div>

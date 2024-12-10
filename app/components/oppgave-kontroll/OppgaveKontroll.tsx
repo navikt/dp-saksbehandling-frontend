@@ -5,34 +5,36 @@ import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
+import { action } from "~/routes/oppgave.$oppgaveId.kontroll";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import { isILagreNotatResponse } from "~/utils/type-guards";
 
 import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof lagreNotatAction>>();
+  const fetcher = useDebounceFetcher<SerializeFrom<typeof action>>();
 
   useEffect(() => {
-    if (lagreNotatFetcher.data) {
-      setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
+    if (fetcher.data && isILagreNotatResponse(fetcher.data)) {
+      setNotat({ ...notat, sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt });
     }
-  }, [lagreNotatFetcher.data]);
+  }, [fetcher.data]);
 
   function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     setNotat({ ...notat, tekst: event.currentTarget.value });
 
-    lagreNotatFetcher.submit(event.target.form, {
+    fetcher.submit(event.target.form, {
       debounceTimeout: delayInMs,
     });
   }
 
   return (
     <div className={styles.container}>
-      <lagreNotatFetcher.Form method="post" action="/action-lagre-notat">
-        <input name={"oppgave-id"} value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+      <fetcher.Form method="post">
+        <input name="_action" value="lagre-notat" hidden={true} readOnly={true} />
+        <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
         <Textarea
           name="notat"
           value={notat.tekst}
@@ -53,7 +55,7 @@ export function OppgaveKontroll() {
             Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}
           </Detail>
         )}
-      </lagreNotatFetcher.Form>
+      </fetcher.Form>
 
       <List className={styles.sjekkliste} as="ol" title="Sjekkliste" size="small">
         {sjekkliste.map((punkt) => (

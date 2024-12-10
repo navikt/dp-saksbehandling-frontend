@@ -10,6 +10,11 @@ export function PersonSok() {
   const validatedForm = useForm({
     validator: hentValideringForPersonIdent(),
     method: "post",
+    validationBehaviorConfig: {
+      initial: "onSubmit",
+      whenTouched: "onSubmit",
+      whenSubmitted: "onChange",
+    },
   });
 
   return (
@@ -23,6 +28,7 @@ export function PersonSok() {
         placeholder="Søk etter person"
         variant="secondary"
         clearButton
+        onBlur={() => validatedForm.clearError("personIdent")}
         error={validatedForm.error("personIdent")}
       />
     </Form>
