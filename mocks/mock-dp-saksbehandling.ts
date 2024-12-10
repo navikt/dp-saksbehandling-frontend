@@ -166,6 +166,16 @@ export const mockDpSaksbehandling = [
     return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
+  // Slett notat på oppgave
+  http.delete(
+    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/notat`,
+    async ({ request }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+
+      return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
+    },
+  ),
+
   // Hent alle oppgaver til en person
   http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async ({ request }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);

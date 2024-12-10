@@ -247,7 +247,7 @@ export async function lagreNotat(
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: notat ? "PUT" : "DELETE",
     headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
     body: notat,
   });
