@@ -1,4 +1,5 @@
 import { Button } from "@navikt/ds-react";
+import { useNavigation } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
 import classnames from "classnames";
 import { useState } from "react";
@@ -19,6 +20,7 @@ interface IProps {
 
 export function OpplysningLinje(props: IProps) {
   const { opplysning } = props;
+  const { state } = useNavigation();
   const { featureFlags } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [redigerOpplysningModus, setRedigerOpplysningModus] = useState(false);
@@ -72,12 +74,18 @@ export function OpplysningLinje(props: IProps) {
             {redigerOpplysningModus && (
               <>
                 {opplysningForm.formState.isDirty && (
-                  <Button variant="primary" type="submit" size="xsmall">
+                  <Button variant="primary" type="submit" size="xsmall" loading={state !== "idle"}>
                     Lagre
                   </Button>
                 )}
 
-                <Button variant="secondary" type="button" size="xsmall" onClick={() => resetForm()}>
+                <Button
+                  variant="secondary"
+                  type="button"
+                  size="xsmall"
+                  onClick={() => resetForm()}
+                  loading={state !== "idle"}
+                >
                   Avbryt
                 </Button>
               </>
