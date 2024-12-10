@@ -7,7 +7,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 installGlobals();
 
 export default defineConfig({
-  base: "/saksbehandling/",
+  base:
+    process.env.NODE_ENV === "production"
+      ? "https://cdn.nav.no/saksbehandling/dp-saksbehandling-frontend/client/"
+      : "/saksbehandling/",
   server: {
     port: 3000,
   },
