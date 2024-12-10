@@ -10,7 +10,7 @@ export async function hentNesteOppgaveAction(request: Request) {
 
   if (response.ok) {
     const oppgave = (await response.json()) as IOppgave;
-    if (oppgave.tilstand === "KLAR_TIL_KONTROLL") {
+    if (oppgave.tilstand === "UNDER_KONTROLL") {
       return redirect(`/oppgave/${oppgave.oppgaveId}/kontroll`);
     }
     return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
