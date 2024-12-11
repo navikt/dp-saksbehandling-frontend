@@ -27,6 +27,14 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
     oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
     (oppgave.tilstand === "UNDER_KONTROLL" && minBeslutterOppgaver);
 
+  const kanLeggeTilbakeOppgave =
+    oppgave.behandlerIdent &&
+    oppgave.tilstand !== "FERDIG_BEHANDLET" &&
+    oppgave.tilstand !== "BEHANDLES_I_ARENA";
+
+  const kanSeOppgave =
+    oppgave.tilstand === "FERDIG_BEHANDLET" || oppgave.tilstand === "BEHANDLES_I_ARENA";
+
   return (
     <>
       <Button
@@ -67,7 +75,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
             </Form>
           )}
 
-          {!kanTildeleOgBehandleOppgave && (
+          {kanSeOppgave && (
             <RemixLink
               to={`/oppgave/${oppgave.oppgaveId}/se`}
               asButtonVariant="tertiary-neutral"
@@ -77,7 +85,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
             </RemixLink>
           )}
 
-          {minSaksbehandlerOppgave && oppgave.tilstand !== "FERDIG_BEHANDLET" && (
+          {kanLeggeTilbakeOppgave && (
             <Form method="post">
               <input name="_action" value="legg-tilbake-oppgave" hidden={true} readOnly={true} />
               <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
