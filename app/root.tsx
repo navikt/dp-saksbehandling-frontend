@@ -118,6 +118,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       INNTEKTREDIGERING_URL: process.env.INNTEKTREDIGERING_URL,
       GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
+      GITHUB_SHA: process.env.GITHUB_SHA,
+      FARO_URL: process.env.FARO_URL,
     },
   });
 }

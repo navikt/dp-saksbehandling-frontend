@@ -3,8 +3,6 @@ import { TracingInstrumentation } from "@grafana/faro-web-tracing";
 
 import { getEnv } from "~/utils/env.utils";
 
-import nais from "./nais.js";
-
 let faro: Faro | null = null;
 
 export function initFaro() {
@@ -14,8 +12,11 @@ export function initFaro() {
 
   faro = initializeFaro({
     paused: getEnv("IS_LOCALHOST") === "true",
-    url: nais.telemetryCollectorURL,
-    app: nais.app,
+    url: getEnv("FARO_URL"),
+    app: {
+      name: "dp-saksbehandling-frontend",
+      version: getEnv("GITHUB_SHA"),
+    },
     sessionTracking: {
       enabled: true,
       persistent: true,

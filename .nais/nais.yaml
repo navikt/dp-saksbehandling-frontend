@@ -90,6 +90,11 @@ spec:
     - name: UNLEASH_SERVER_API_URL
       value: {{unleash.url}}
 
+    - name: FARO_URL
+      value: {{faro_url}}
+    - name: GITHUB_SHA
+      value: {{githubSha}}
+
   envFrom:
     - secret: dp-saksbehandling-frontend-unleash-api-token
 
