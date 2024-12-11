@@ -61,18 +61,18 @@ export function links() {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      href: `${getEnv("BASE_PATH")}/favicon-32x32.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-32x32.png`,
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      href: `${getEnv("BASE_PATH")}/favicon-16x16.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-16x16.png`,
     },
     {
       rel: "icon",
       type: "image/x-icon",
-      href: `${getEnv("BASE_PATH")}/favicon.ico`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon.ico`,
     },
   ];
 }
@@ -118,6 +118,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       INNTEKTREDIGERING_URL: process.env.INNTEKTREDIGERING_URL,
       GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
+      GITHUB_SHA: process.env.GITHUB_SHA,
+      FARO_URL: process.env.FARO_URL,
     },
   });
 }

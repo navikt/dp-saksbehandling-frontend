@@ -27,7 +27,12 @@ if (getEnv("USE_MSW") === "true") {
 
 const csp = {
   "script-src": ["blob:"],
-  "img-src": ["'self'", "data:", "blob:"],
+  "img-src": [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/",
+  ],
   "connect-src": [
     "'self'",
     "*.nav.no",
