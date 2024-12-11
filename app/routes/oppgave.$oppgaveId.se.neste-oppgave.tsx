@@ -5,6 +5,7 @@ import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef } from "react";
 
 import { RemixLink } from "~/components/RemixLink";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -31,6 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function NesteOppgave() {
   const { state } = useNavigation();
   const { alert } = useLoaderData<typeof loader>();
+  const { aktivtOppgaveSok } = useSaksbehandler();
   const ref = useRef<HTMLDialogElement>(null);
 
   return (
@@ -58,6 +60,7 @@ export default function NesteOppgave() {
 
         <Form method="post">
           <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
+          <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
           <Button
             variant="primary"
             size="small"

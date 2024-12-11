@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
 import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
@@ -29,7 +30,7 @@ export function OppgaveListe({
 }: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
-
+  const { aktivtOppgaveSok } = useSaksbehandler();
   const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
@@ -42,6 +43,12 @@ export function OppgaveListe({
           {visNesteOppgaveKnapp && (
             <Form method="post" className={styles.nesteKnapp}>
               <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
+              <input
+                name="aktivtOppgaveSok"
+                value={aktivtOppgaveSok}
+                hidden={true}
+                readOnly={true}
+              />
               <Button
                 variant="primary"
                 size="small"

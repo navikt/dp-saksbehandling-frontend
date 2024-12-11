@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/oppgave.module.css";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -39,6 +40,7 @@ export default function NesteOppgave() {
   const ref = useRef<HTMLDialogElement>(null);
   const [kaffepuase, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
+  const { aktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
@@ -77,6 +79,12 @@ export default function NesteOppgave() {
 
             <Form method="post">
               <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
+              <input
+                name="aktivtOppgaveSok"
+                value={aktivtOppgaveSok}
+                hidden={true}
+                readOnly={true}
+              />
               <Button
                 variant="primary"
                 size="small"
