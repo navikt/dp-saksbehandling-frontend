@@ -2,6 +2,7 @@ import { DocPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import { Outlet } from "@remix-run/react";
 
+import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
@@ -14,6 +15,7 @@ export default function Oppgave() {
           <div className={styles.tabMeny}>
             <Tabs.List>
               <Tabs.Tab value="behandling" label="Redigere opplysninger" icon={<DocPencilIcon />} />
+              <KravPaaDagpenger />
             </Tabs.List>
           </div>
 
