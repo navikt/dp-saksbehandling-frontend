@@ -5,40 +5,42 @@ export const mockMeldingOmVedtakAvslagMinsteinntekt: IMeldingOmVedtak = {
     "brev.blokk.vedtak-avslag",
     "brev.blokk.begrunnelse-avslag-minsteinntekt",
     "brev.blokk.sporsmaal",
-    "brev.blokk.rett-til-aa-klage",
     "brev.blokk.rett-til-innsyn",
+    "brev.blokk.rett-til-aa-klage",
   ],
   opplysninger: [
-    { tekstId: "opplysning.soknadsdato", datatype: "dato", verdi: "12-05-2024" },
     {
-      tekstId: "opplysning.arbeidsinntekt-siste-12-mnd",
-      datatype: "penger",
-      verdi: "0",
+      tekstId: "opplysning.provingsdato",
+      verdi: "2024-12-03",
+      datatype: "dato",
     },
-    { tekstId: "opplysning.inntektskrav-for-siste-12-mnd", datatype: "penger", verdi: "176000" },
     {
-      tekstId: "opplysning.arbeidsinntekt-siste-36-mnd",
+      tekstId: "opplysning.inntektskrav-for-siste-12-mnd",
+      verdi: "186042",
       datatype: "penger",
-      verdi: "58000",
     },
-    { tekstId: "opplysning.inntektskrav-for-siste-36-mnd", datatype: "penger", verdi: "528000" },
+    {
+      tekstId: "opplysning.inntektskrav-for-siste-36-mnd",
+      verdi: "372084",
+      datatype: "penger",
+    },
     {
       tekstId: "opplysning.siste-avsluttende-kalendermaaned",
+      verdi: "2024-10-31",
       datatype: "dato",
-      verdi: "12-05-2024",
     },
     {
-      tekstId: "opplysning.soknadstidspunkt",
-      datatype: "dato",
-      verdi: "12-05-2024",
+      tekstId: "opplysning.arbeidsinntekt-siste-12-mnd",
+      verdi: "0",
+      datatype: "penger",
     },
-  ],
-  utvidedeBeskrivelser: [
     {
-      brevblokkId: "brev.blokk.begrunnelse-avslag-minsteinntekt",
-      tekst: "",
+      tekstId: "opplysning.arbeidsinntekt-siste-36-mnd",
+      verdi: "55550",
+      datatype: "penger",
     },
   ],
+  utvidedeBeskrivelser: [],
 };
 
 export const mockMeldingOmVedtakInnvilgelse: IMeldingOmVedtak = {

@@ -34,7 +34,7 @@ export interface IKilde {
   type: string;
   registrert: string;
   ident: string | null;
-  meldingId: string;
+  meldingId: string | null;
 }
 
 export interface IAvklaring {
