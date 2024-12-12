@@ -3,6 +3,7 @@ import { Alert, Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useActionData } from "@remix-run/react";
 
+import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
@@ -52,6 +53,7 @@ export default function Oppgave() {
                     label="Melding om vedtak"
                     icon={<TasklistSendIcon />}
                   />
+                  <KravPaaDagpenger />
                 </Tabs.List>
               </div>
 
