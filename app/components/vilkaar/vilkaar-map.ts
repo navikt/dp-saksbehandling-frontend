@@ -55,8 +55,8 @@ export const vilkaarMap: OpplysningMap = {
     ],
   },
   reelleArbeidssokere: {
-    title: "§4-5  Reell arbeidssøkere",
-    header: "Reell arbeidssøkere",
+    title: "§4-5  Reell arbeidssøker",
+    header: "Reell arbeidssøker",
     description:
       "For å ha rett til dagpenger må medlemmet være reell arbeidssøker. Som reell arbeidssøker regnes den som er arbeidsfør og er villig til å ta ethvert arbeid, hvor som helst i Norge, uavhengig av om det er heltid eller deltid,og delta på arbeidsmarkedstiltak.",
     values: [
