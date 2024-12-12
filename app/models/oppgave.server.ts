@@ -1,4 +1,3 @@
-import { getSession } from "~/sessions";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
@@ -133,16 +132,17 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
   return await response.json();
 }
 
-export async function hentNesteOppgave(request: Request): Promise<Response> {
+export async function hentNesteOppgave(
+  request: Request,
+  aktivtOppgaveSok: string,
+): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const session = await getSession(request.headers.get("Cookie"));
-  const aktivtOppgaveFilter = session.get("aktivtOppgaveFilter");
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ queryParams: aktivtOppgaveFilter }),
+    body: JSON.stringify({ queryParams: aktivtOppgaveSok }),
   });
 }
 

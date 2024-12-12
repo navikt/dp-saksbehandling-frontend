@@ -19,6 +19,7 @@ import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
+import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import { hentOppgaver } from "~/models/oppgave.server";
@@ -136,33 +137,35 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <InternalHeader className={styles.header}>
-          <Link to={"/"} className={styles.headerLogo}>
-            <InternalHeader.Title as="h1" className={styles.pageHeader}>
-              {featureFlags.halloween && <PumpkinSvg />}
-              {featureFlags.jul && <MistelteinSvg />}
-              Dagpenger
-            </InternalHeader.Title>
-          </Link>
+        <SaksbehandlerProvider aktivtSok="">
+          <InternalHeader className={styles.header}>
+            <Link to={"/"} className={styles.headerLogo}>
+              <InternalHeader.Title as="h1" className={styles.pageHeader}>
+                {featureFlags.halloween && <PumpkinSvg />}
+                {featureFlags.jul && <MistelteinSvg />}
+                Dagpenger
+              </InternalHeader.Title>
+            </Link>
 
-          <HeaderMeny
-            saksbehandler={saksbehandler}
-            antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
+            <HeaderMeny
+              saksbehandler={saksbehandler}
+              antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
+            />
+          </InternalHeader>
+
+          <AlertProvider>
+            <GlobalAlerts />
+            <Outlet />
+          </AlertProvider>
+
+          <ScrollRestoration />
+          <Scripts />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.env = ${JSON.stringify(env)}`,
+            }}
           />
-        </InternalHeader>
-
-        <AlertProvider>
-          <GlobalAlerts />
-          <Outlet />
-        </AlertProvider>
-
-        <ScrollRestoration />
-        <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
+        </SaksbehandlerProvider>
       </body>
     </html>
   );

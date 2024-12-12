@@ -31,7 +31,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await lagreNotatAction(request, formData);
 
     case "hent-neste-oppgave":
-      return await hentNesteOppgaveAction(request);
+      return await hentNesteOppgaveAction(request, formData);
 
     case "returner-oppgave-til-saksbehandler":
       return await returnerOppgaveTilSaksbehandlerAction(request, params, formData);
