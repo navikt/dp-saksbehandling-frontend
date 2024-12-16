@@ -12,26 +12,34 @@ export function Adventslys() {
   const [forsteAdventDato, andreAdventDato, tredjeAdventDato, fjerdeAdventDato] =
     hentAdventsDatoer(aar);
 
-  const erForsteAdvent = dagensDato >= forsteAdventDato && dagensDato < andreAdventDato;
-  const erAndreAdvent = dagensDato >= andreAdventDato && dagensDato < tredjeAdventDato;
-  const erTredjeAdvent = dagensDato >= tredjeAdventDato && dagensDato < fjerdeAdventDato;
-  const erFjerdeAdvent = dagensDato >= fjerdeAdventDato;
+  const harTent = {
+    forsteLys: dagensDato >= forsteAdventDato,
+    andreLys: dagensDato >= andreAdventDato,
+    tredjeLys: dagensDato >= tredjeAdventDato,
+    fjerdeLys: dagensDato >= fjerdeAdventDato,
+  };
 
   return (
     <div
       className={classnames(styles.container, {
-        [styles.forsteAdvent]: erForsteAdvent,
-        [styles.andreAdvent]: erAndreAdvent,
-        [styles.tredjeAdvent]: erTredjeAdvent,
-        [styles.fjerdeAdvent]: erFjerdeAdvent,
+        [styles.forsteAdvent]: harTent.forsteLys && !harTent.andreLys,
+        [styles.andreAdvent]: harTent.andreLys && !harTent.tredjeLys,
+        [styles.tredjeAdvent]: harTent.tredjeLys && !harTent.fjerdeLys,
+        [styles.fjerdeAdvent]: harTent.fjerdeLys,
       })}
     >
-      {erAndreAdvent ? <CandleMeltSvg /> : erForsteAdvent ? <CandleLightMeltSvg /> : <CandleSvg />}
-      {erTredjeAdvent ? <CandleMeltSvg /> : erAndreAdvent ? <CandleLightMeltSvg /> : <CandleSvg />}
-      {erFjerdeAdvent ? <CandleMeltSvg /> : erTredjeAdvent ? <CandleLightMeltSvg /> : <CandleSvg />}
-      {erFjerdeAdvent ? <CandleLightMeltSvg /> : <CandleSvg />}
+      {hentLysSvg(harTent.forsteLys, harTent.andreLys)}
+      {hentLysSvg(harTent.andreLys, harTent.tredjeLys)}
+      {hentLysSvg(harTent.tredjeLys, harTent.fjerdeLys)}
+      {hentLysSvg(harTent.fjerdeLys, false)}
     </div>
   );
+}
+
+function hentLysSvg(erTent: boolean, harSmeltet: boolean) {
+  if (harSmeltet) return <CandleMeltSvg />;
+  if (erTent) return <CandleLightMeltSvg />;
+  return <CandleSvg />;
 }
 
 function hentAdventsDatoer(aar: number) {

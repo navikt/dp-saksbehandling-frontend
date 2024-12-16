@@ -32,7 +32,7 @@
     "@navikt/ds-css": "7.8.0",
     "@navikt/ds-react": "7.8.0",
     "@navikt/oasis": "3.6.0",
-    "@opentelemetry/sdk-node": "0.56.0",
+    "@opentelemetry/sdk-node": "0.55.0",
     "@portabletext/react": "3.2.0",
     "@portabletext/to-html": "2.0.13",
     "@remix-run/node": "2.15.1",
