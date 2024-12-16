@@ -125,7 +125,10 @@ function Kaffepause(props: IKaffepauseProps) {
       </Modal.Header>
 
       <Modal.Body className={styles.modalBody}>
-        <img src={`${getEnv("BASE_PATH")}/katter/cat${kattNummer}.gif`} alt={""} />
+        <img
+          src={`${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/katter/cat${kattNummer}.gif`}
+          alt={""}
+        />
       </Modal.Body>
 
       <Modal.Footer>
