@@ -1,4 +1,4 @@
-import type { Validator } from "@rvf/core";
+import type { Validator } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
 
