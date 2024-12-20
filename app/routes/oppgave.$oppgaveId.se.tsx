@@ -1,6 +1,6 @@
 import { DocPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import { Outlet } from "@remix-run/react";
+import { Outlet } from "react-router";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";

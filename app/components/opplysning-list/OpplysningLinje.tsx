@@ -1,8 +1,8 @@
 import { Button } from "@navikt/ds-react";
-import { useNavigation } from "@remix-run/react";
-import { useForm } from "@rvf/remix";
+import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { useState } from "react";
+import { useNavigation } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";

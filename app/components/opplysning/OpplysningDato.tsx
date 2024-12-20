@@ -1,5 +1,5 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
-import { useField } from "@rvf/remix";
+import { useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";

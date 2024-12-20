@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { format } from "date-fns";
 import { useEventSource } from "remix-utils/sse/react";
 

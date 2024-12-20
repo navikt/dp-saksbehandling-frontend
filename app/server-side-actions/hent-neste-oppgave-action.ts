@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";

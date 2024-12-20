@@ -1,5 +1,4 @@
-import { json, redirect } from "@remix-run/node";
-import type { ActionFunctionArgs } from "@remix-run/server-runtime/dist/routeModules";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
@@ -22,7 +21,7 @@ export async function returnerOppgaveTilSaksbehandlerAction(
       message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
     };
 
-    return json(error);
+    return error;
   }
 
   const response = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);

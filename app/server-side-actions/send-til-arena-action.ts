@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 import { avbrytBehandling } from "~/models/behandling.server";
 import { commitSession, getSession } from "~/sessions";
@@ -20,7 +20,7 @@ export async function sendTilArenaAction(
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+    return alert;
   }
 
   return redirect(`/oppgave/${params.oppgaveId}/se/neste-oppgave`, {

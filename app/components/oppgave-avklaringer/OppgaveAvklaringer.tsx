@@ -1,6 +1,6 @@
 import { CheckmarkCircleIcon } from "@navikt/aksel-icons";
 import { Alert, Button } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, useNavigation } from "react-router";
 import classnames from "classnames";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";

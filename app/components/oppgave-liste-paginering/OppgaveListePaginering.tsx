@@ -1,5 +1,5 @@
 import { Pagination } from "@navikt/ds-react";
-import { useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "react-router";
 
 import styles from "./OppgaveListePaginering.module.css";
 

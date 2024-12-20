@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { sendOppgaveTilKontroll } from "~/models/oppgave.server";
@@ -18,7 +18,7 @@ export async function sendTilKontrollAction(
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+    return alert;
   }
 
   session.flash("alert", alert);

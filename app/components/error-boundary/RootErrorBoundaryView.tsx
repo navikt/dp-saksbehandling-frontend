@@ -1,5 +1,5 @@
 import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
-import { isRouteErrorResponse, Link } from "@remix-run/react";
+import { isRouteErrorResponse, Link } from "react-router";
 import type { JSX } from "react";
 
 import styles from "./RootErrorBoundaryView.module.css";

@@ -1,10 +1,10 @@
 import type { ButtonProps } from "@navikt/ds-react";
 import { Button, Link } from "@navikt/ds-react";
-import type { LinkProps } from "@remix-run/react";
-import { useHref } from "@remix-run/react";
+import type { LinkProps } from "react-router";
+import { useHref } from "react-router";
 import type { PropsWithChildren, Ref } from "react";
 import { forwardRef } from "react";
-import { useLinkClickHandler } from "react-router-dom";
+import { useLinkClickHandler } from "react-router";
 
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];

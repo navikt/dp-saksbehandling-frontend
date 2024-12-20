@@ -1,4 +1,3 @@
-import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import { kvitterAvklaring } from "~/models/behandling.server";
@@ -18,6 +17,5 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
   }
 
-  const alert = getAlertMessage({ name: "kvitter-avklaring", httpCode: response.status });
-  return json(alert);
+  return getAlertMessage({ name: "kvitter-avklaring", httpCode: response.status });
 }

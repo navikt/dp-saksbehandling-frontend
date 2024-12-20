@@ -1,7 +1,13 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import { type ActionFunctionArgs, json, LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
+import {
+  type ActionFunctionArgs,
+  LoaderFunctionArgs,
+  redirect,
+  useActionData,
+  useLoaderData,
+  useNavigation,
+} from "react-router";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
@@ -13,7 +19,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/oppgave.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
@@ -49,18 +55,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
-    {
-      alert,
-      oppgaver: oppgaverResponse.oppgaver,
-      totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return {
+    alert,
+    oppgaver: oppgaverResponse.oppgaver,
+    totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+  };
 }
 
 export default function Saksbehandling() {

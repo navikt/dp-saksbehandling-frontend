@@ -1,5 +1,5 @@
 import { BodyLong, Heading } from "@navikt/ds-react";
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "react-router";
 import { useState } from "react";
 
 import { OppgaveAvklaringer } from "~/components/oppgave-avklaringer/OppgaveAvklaringer";

@@ -1,5 +1,5 @@
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "react-router";
 import { useEffect, useRef } from "react";
 import { renderToString } from "react-dom/server";
 

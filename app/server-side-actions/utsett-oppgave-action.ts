@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { utsettOppgave } from "~/models/oppgave.server";

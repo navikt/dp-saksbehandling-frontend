@@ -1,8 +1,8 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { useActionData, useLoaderData, useNavigation, useSearchParams } from "@remix-run/react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { redirect } from "react-router";
+import { useActionData, useLoaderData, useNavigation, useSearchParams } from "react-router";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";

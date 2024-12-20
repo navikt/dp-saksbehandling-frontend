@@ -1,8 +1,8 @@
 import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { add, format } from "date-fns";
 import { nb } from "date-fns/locale";
 import { useRef, useState } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";

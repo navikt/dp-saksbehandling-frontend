@@ -1,4 +1,4 @@
-import type { FormScope } from "@rvf/remix";
+import type { FormScope } from "@rvf/react-router";
 
 import { OpplysningBoolean } from "~/components/opplysning/OpplysningBoolean";
 import { OpplysningDato } from "~/components/opplysning/OpplysningDato";

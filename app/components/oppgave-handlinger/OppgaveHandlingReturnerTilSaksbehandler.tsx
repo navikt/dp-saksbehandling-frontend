@@ -1,6 +1,6 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
-import type { SerializeFrom } from "@remix-run/node";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
+import type { SerializeFrom } from "react-router";
+import { Form, useActionData, useNavigation } from "react-router";
 import { type ChangeEvent, useEffect, useRef } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 

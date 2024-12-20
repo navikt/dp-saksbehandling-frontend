@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 import { type IOppgave, tildelOppgave } from "~/models/oppgave.server";
 import { handleTildelOppgaveMessages } from "~/utils/alert-message.utils";

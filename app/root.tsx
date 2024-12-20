@@ -1,6 +1,6 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { InternalHeader } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
   Link,
   Links,
@@ -10,7 +10,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";

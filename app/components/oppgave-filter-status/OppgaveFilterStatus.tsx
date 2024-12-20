@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "react-router";
 
 import type { IOppgaveTilstand } from "~/models/oppgave.server";
 

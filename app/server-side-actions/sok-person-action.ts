@@ -1,5 +1,5 @@
-import { redirect } from "@remix-run/node";
-import { validationError } from "@rvf/remix";
+import { validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentValideringForPersonIdent } from "~/utils/validering.util";

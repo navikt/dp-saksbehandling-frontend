@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 import { leggTilbakeOppgave } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
@@ -23,7 +23,7 @@ export async function leggTilbakeOppgaveAction(
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+    return alert;
   }
 
   // Redirect til oppgavelisten hvis oppgaven som ble lagt tilbake er den samme som vises for saksbehandler
@@ -36,5 +36,5 @@ export async function leggTilbakeOppgaveAction(
     });
   }
 
-  return json(alert);
+  return alert;
 }

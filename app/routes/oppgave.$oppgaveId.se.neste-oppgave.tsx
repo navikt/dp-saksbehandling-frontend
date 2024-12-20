@@ -1,14 +1,13 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef } from "react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { Form, useLoaderData, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -19,14 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
-    { alert },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return { alert };
 }
 
 export default function NesteOppgave() {

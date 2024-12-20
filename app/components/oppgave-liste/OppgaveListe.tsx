@@ -1,7 +1,7 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { Form, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
+import { Form, useLocation, useNavigation } from "react-router";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";

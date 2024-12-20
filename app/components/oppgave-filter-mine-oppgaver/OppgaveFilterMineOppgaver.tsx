@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "react-router";
 
 export function OppgaveFilterMineOppgaver() {
   const [searchParams, setSearchParams] = useSearchParams();
