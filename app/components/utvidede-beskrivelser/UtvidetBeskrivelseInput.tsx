@@ -1,12 +1,14 @@
-import type { ChangeEvent, ReactNode } from "react";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import type { action as lagreUtvidetBeskrivelseAction } from "~/routes/action-lagre-utvidet-beskrivelse";
-import { useEffect, useState } from "react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { Detail, Textarea } from "@navikt/ds-react";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import type { ChangeEvent, ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { formaterNorskDato } from "~/utils/dato.utils";
+import { isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
@@ -14,24 +16,26 @@ export interface IUtvidetBeskrivelseInput {
   brevblokkId: string;
   updateContext: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
   sistEndretTidspunkt?: string;
+  readOnly?: boolean;
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
-  let lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof lagreUtvidetBeskrivelseAction>();
+  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
 
   useEffect(() => {
-    // @ts-ignore Typefeil fra useDebounceFetcher som ikke fungerer med v3_singleFetch. useFetcher gir ingen typefeil.
-    if (lagreUtvidetBeskrivelseFetcher.data?.sistEndretTidspunkt) {
+    if (
+      lagreUtvidetBeskrivelseFetcher.data &&
+      isILagreUtvidetBeskrivelseResponse(lagreUtvidetBeskrivelseFetcher.data)
+    ) {
       props.updateContext({
         tekst: verdi,
         brevblokkId: props.brevblokkId,
-        // @ts-ignore Samme som over
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
     }
-  }, [lagreUtvidetBeskrivelseFetcher.data, props, verdi]);
+  }, [lagreUtvidetBeskrivelseFetcher.data]);
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     const oppdatertVerdi = event.currentTarget.value;
@@ -50,9 +54,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
   return (
     <>
-      <lagreUtvidetBeskrivelseFetcher.Form method="post" action="/action-lagre-utvidet-beskrivelse">
-        <input name={"behandling-id"} value={oppgave.behandlingId} hidden={true} readOnly={true} />
-        <input name={"brevblokk-id"} value={props.brevblokkId} hidden={true} readOnly={true} />
+      <lagreUtvidetBeskrivelseFetcher.Form method="post">
+        <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
+        <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
+        <input name="brevblokk-id" value={props.brevblokkId} hidden={true} readOnly={true} />
         <Textarea
           name={"utvidet-beskrivelse"}
           className={styles.container}
@@ -60,8 +65,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           value={verdi}
           onChange={(event) => lagreUtvidetBeskrivelse(event, 2000)}
           onBlur={(event) => lagreUtvidetBeskrivelse(event, 0)}
+          readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>
+
       {props.sistEndretTidspunkt && (
         <Detail textColor="subtle">
           Lagret {formaterNorskDato(props.sistEndretTidspunkt, true)}

@@ -4,19 +4,19 @@
   gap: var(--a-spacing-2);
 }
 
-.popover {
+.popover.popover {
   border: none;
   border-radius: var(--a-border-radius-small);
   box-shadow: var(--a-shadow-small);
   min-width: 234px;
 }
 
-.popover a,
-.popover button {
+.popover.popover a,
+.popover.popover button {
   justify-content: flex-start;
 }
 
-.popover a span,
-.popover button span {
+.popover.popover a span,
+.popover.popover button span {
   font-weight: var(--a-font-weight-regular);
 }

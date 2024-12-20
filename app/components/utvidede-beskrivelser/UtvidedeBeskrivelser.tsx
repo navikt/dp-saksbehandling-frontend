@@ -1,10 +1,14 @@
-import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
-import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
 import { Detail } from "@navikt/ds-react";
 
-export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] }) {
+import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
+
+export function UtvidedeBeskrivelser(props: {
+  brevBlokker: ISanityBrevBlokk[];
+  readOnly?: boolean;
+}) {
   const { utvidedeBeskrivelser, setUtvidedeBeskrivelser } = useMeldingOmVedtakTekst();
 
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
@@ -38,11 +42,12 @@ export function UtvidedeBeskrivelser(props: { brevBlokker: ISanityBrevBlokk[] })
             <UtvidetBeskrivelseInput
               key={blokk.textId}
               brevblokkId={blokk.textId}
+              readOnly={props.readOnly}
               label={
-                <>
+                <div>
                   {blokk.title ? blokk.title : blokk.textId}
                   <Detail textColor="subtle">Utvidet beskrivelse</Detail>
-                </>
+                </div>
               }
               updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
               verdi={utvidetBeskrivelse?.tekst || ""}

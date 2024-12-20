@@ -1,6 +1,7 @@
-import { List } from "@navikt/ds-react";
 import { CircleFillIcon } from "@navikt/aksel-icons";
+import { List } from "@navikt/ds-react";
 import classNames from "classnames";
+
 import styles from "./VilkaarMeny.module.css";
 
 interface IProps {

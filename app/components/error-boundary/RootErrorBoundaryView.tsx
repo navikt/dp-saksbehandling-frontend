@@ -1,7 +1,8 @@
 import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
 import { isRouteErrorResponse, Link } from "@remix-run/react";
-import styles from "./RootErrorBoundaryView.module.css";
 import type { JSX } from "react";
+
+import styles from "./RootErrorBoundaryView.module.css";
 
 interface IProps {
   meta: JSX.Element;
@@ -31,8 +32,9 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
   );
 }
 
-export function ErrorMessageComponent({ error }: any) {
+export function ErrorMessageComponent({ error }: { error: unknown }) {
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
+
   if (isRouteErrorResponse(error)) {
     return (
       <Alert variant="error">

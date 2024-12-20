@@ -1,7 +1,7 @@
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
+import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IPerson {
   ident: string;
@@ -61,16 +61,21 @@ export interface IOppgaveNotat {
 }
 
 export interface IOppgaveHistorikk {
-  type: "ny-status" | "notat" | "endre-opplysning" | "melding";
+  type: "statusendring" | "notat" | "endre-opplysning" | "melding";
   tittel: string;
   body?: string;
   tidspunkt: string;
   behandler: IBehandler;
 }
 
+export interface IOppgaveListeResponse {
+  oppgaver: IListeOppgave[];
+  totaltAntallOppgaver: number;
+}
+
 interface IBehandler {
-  rolle: "system" | "saksbehandler" | "beslutter";
   navn: string;
+  rolle?: "system" | "saksbehandler" | "beslutter";
 }
 
 export interface ILagreNotatResponse {
@@ -92,7 +97,10 @@ export type IOppgaveTilstand =
   | "FERDIG_BEHANDLET"
   | "BEHANDLES_I_ARENA";
 
-export async function hentOppgaver(request: Request, urlParams?: string): Promise<IListeOppgave[]> {
+export async function hentOppgaver(
+  request: Request,
+  urlParams?: string,
+): Promise<IOppgaveListeResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave${urlParams || ""}`;
 
@@ -124,15 +132,17 @@ export async function hentOppgave(request: Request, oppgaveId: string): Promise<
   return await response.json();
 }
 
-export async function hentNesteOppgave(request: Request): Promise<Response> {
+export async function hentNesteOppgave(
+  request: Request,
+  aktivtOppgaveSok: string,
+): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const requestUrl = new URL(request.url);
 
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ queryParams: requestUrl.search }),
+    body: JSON.stringify({ queryParams: aktivtOppgaveSok }),
   });
 }
 
@@ -235,11 +245,12 @@ export async function lagreNotat(
 ): Promise<ILagreNotatResponse> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
+  const trimmetNotat = notat.trim();
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: trimmetNotat ? "PUT" : "DELETE",
     headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
-    body: notat,
+    body: trimmetNotat,
   });
 
   if (!response.ok) {

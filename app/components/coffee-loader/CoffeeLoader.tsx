@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./CoffeeLoader.module.css";
 
 export function CoffeeLoader() {

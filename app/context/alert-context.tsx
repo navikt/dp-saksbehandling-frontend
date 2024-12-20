@@ -1,6 +1,6 @@
+import type { AlertProps } from "@navikt/ds-react";
 import type { PropsWithChildren } from "react";
 import { createContext, useCallback, useState } from "react";
-import type { AlertProps } from "@navikt/ds-react";
 
 export interface IAlert {
   variant: AlertProps["variant"];

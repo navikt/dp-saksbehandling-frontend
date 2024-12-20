@@ -1,21 +1,26 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
-import { Fragment } from "react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
+import { Fragment } from "react";
 import invariant from "tiny-invariant";
-import { hentOppgave } from "~/models/oppgave.server";
-import { hentJournalpost } from "~/models/saf.server";
-import { hentOppgaverForPerson } from "~/models/person.server";
-import { hentBehandling } from "~/models/behandling.server";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
+
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { getSession } from "~/sessions";
+import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { hentBehandling } from "~/models/behandling.server";
+import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { hentOppgave } from "~/models/oppgave.server";
+import { hentOppgaverForPerson } from "~/models/person.server";
+import { hentJournalpost } from "~/models/saf.server";
+import styles from "~/route-styles/oppgave.module.css";
 import { sanityClient } from "~/sanity/sanity-client";
 import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
-import styles from "~/route-styles/oppgave.module.css";
+import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { getSession } from "~/sessions";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
@@ -23,15 +28,19 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
-  const meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
-  const sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
-    hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
-  );
+  let meldingOmVedtak: IMeldingOmVedtak | undefined;
+  let sanityBrevBlokker: ISanityBrevBlokk[] = [];
+  if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
+    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
+    sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
+      hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
+    );
+  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -56,7 +65,6 @@ export default function Oppgave() {
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
         <OppgaveListe oppgaver={oppgaverForPerson} />
-        <OppgaveHandlinger />
         <Fragment key={oppgave.oppgaveId}>
           <Outlet />
         </Fragment>

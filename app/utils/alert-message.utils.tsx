@@ -1,7 +1,6 @@
 import type { IAlert } from "~/context/alert-context";
 import {
   alleredeTildeltAlert,
-  sendtTilArenaAlert,
   behandlingGodkjentAlert,
   brevMottattAlert,
   getLeggTilbakeErrorAlert,
@@ -12,6 +11,7 @@ import {
   ikkeTilgangStrengtFortroligAlert,
   ikkeTilgangStrengtFortroligUtlandAlert,
   leggTilbakeSuccessAlert,
+  sendtTilArenaAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
 
@@ -28,7 +28,8 @@ interface IAlertType {
     | "send-til-arena"
     | "send-til-kontroll"
     | "ferdigstill-oppgave"
-    | "ferdigstill-oppgave-brev-i-arena";
+    | "ferdigstill-oppgave-brev-i-arena"
+    | "kvitter-avklaring";
   httpCode: number;
 }
 
@@ -67,6 +68,9 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
     case "ferdigstill-oppgave-brev-i-arena":
       return handleFerdigstillOppgaveBrevIArenaMessages(alertResponse.httpCode);
 
+    case "kvitter-avklaring":
+      return handleKvitterAvklaringMessages(alertResponse.httpCode);
+
     case "ukjent-feil":
       return {
         variant: "info",
@@ -98,7 +102,7 @@ export function handleUtsettOppgaveMessages(httpCode: number): IAlert {
     case 204:
       return {
         variant: "success",
-        title: "Oppgave utsatt",
+        title: "Oppgave utsatt 📆",
       };
 
     default:
@@ -203,6 +207,12 @@ export function handleSendTilKontrollMessages(httpCode: number): IAlert {
         title: "Oppgave sendt til kontroll",
       };
 
+    case 400:
+      return {
+        variant: "error",
+        title: "Du må kvittere ut alle avklaringene før du kan sende oppgaven til kontroll",
+      };
+
     case 404:
       return {
         variant: "error",
@@ -251,6 +261,12 @@ export function handleFerdigstillOppgaveMessages(httpCode: number): IAlert {
         title: "Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet",
       };
 
+    case 400:
+      return {
+        variant: "error",
+        title: "Du må kvittere ut alle avklaringene før du kan ferdigstille oppgaven",
+      };
+
     default:
       return {
         variant: "error",
@@ -272,6 +288,35 @@ export function handleFerdigstillOppgaveBrevIArenaMessages(httpCode: number): IA
       return {
         variant: "error",
         title: "Kunne ikke ferdigstille oppgave",
+        body: `Feilkode: ${httpCode}`,
+      };
+  }
+}
+
+export function handleKvitterAvklaringMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 204:
+      return {
+        variant: "success",
+        title: "Avklaring kvittert",
+      };
+
+    case 400:
+      return {
+        variant: "error",
+        title: "Avklaringen kan ikke kvitteres ut",
+      };
+
+    case 403:
+      return {
+        variant: "error",
+        title: "Du har ikke tilgang til å kvittere ut denne avklaringen",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke kvittere ut avklaring",
         body: `Feilkode: ${httpCode}`,
       };
   }

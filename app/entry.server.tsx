@@ -4,15 +4,18 @@
 */
 
 import { PassThrough } from "node:stream";
+
+import { faro } from "@grafana/faro-core";
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { isRouteErrorResponse, RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { getEnv } from "./utils/env.utils";
+
 import { logger } from "~/utils/logger.utils";
-import { faro } from "@grafana/faro-core";
+
 import { unleash } from "./unleash";
+import { getEnv } from "./utils/env.utils";
 
 const ABORT_DELAY = 5000;
 
@@ -24,7 +27,12 @@ if (getEnv("USE_MSW") === "true") {
 
 const csp = {
   "script-src": ["blob:"],
-  "img-src": ["'self'", "data:", "blob:"],
+  "img-src": [
+    "'self'",
+    "data:",
+    "blob:",
+    "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/",
+  ],
   "connect-src": [
     "'self'",
     "*.nav.no",
@@ -32,7 +40,6 @@ const csp = {
     "rt6o382n.apicdn.sanity.io",
     "https://telemetry.ekstern.dev.nav.no/collect",
     "https://telemetry.nav.no/collect",
-    "cataas.com/cat/gif",
   ],
 };
 let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;

@@ -1,24 +1,31 @@
 import { NavLink } from "@remix-run/react";
+import classnames from "classnames";
+
+import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
+import { Adventslys } from "~/components/jul/Adventslys";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
+import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
+import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
+import { convertToQueryParamString } from "~/utils/url.utils";
+
 import { PersonSok } from "../person-sok/PersonSok";
-import { Ghosts } from "~/components/halloween/Ghosts";
-import classnames from "classnames";
 import styles from "./HeaderMeny.module.css";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
-  antallJegHarTilBehandling: number;
+  antallOppgaverJegHarTilBehandling: number;
 }
 
-export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps) {
+export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }: IProps) {
   const { featureFlags } = useTypedRouteLoaderData("root");
   return (
     <div className={styles.container}>
       <div className={styles.linkContainer}>
         <NavLink
-          to={"/"}
+          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -27,19 +34,21 @@ export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps)
         </NavLink>
 
         <NavLink
-          to={"/mine-oppgaver"}
+          to={`/mine-oppgaver?${convertToQueryParamString(mineOppgaverDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
         >
           Mine oppgaver
-          {antallJegHarTilBehandling > 0 && (
-            <span className={styles.antallOppgaverTilBehandling}>{antallJegHarTilBehandling}</span>
+          {antallOppgaverJegHarTilBehandling > 0 && (
+            <span className={styles.antallOppgaverTilBehandling}>
+              {antallOppgaverJegHarTilBehandling}
+            </span>
           )}
         </NavLink>
 
         <NavLink
-          to={"/alle-oppgaver"}
+          to={`/alle-oppgaver?${convertToQueryParamString(alleOppgaverDefaultParams)}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -49,6 +58,7 @@ export function HeaderMeny({ saksbehandler, antallJegHarTilBehandling }: IProps)
       </div>
 
       {featureFlags.halloween && <Ghosts />}
+      {featureFlags.jul && <Adventslys />}
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />

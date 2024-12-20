@@ -1,9 +1,11 @@
-import { BodyShort, CopyButton } from "@navikt/ds-react";
 import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
-import styles from "./PersonBoks.module.css";
-import type { IPerson } from "~/models/oppgave.server";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { BodyShort, CopyButton } from "@navikt/ds-react";
 import { useLocation } from "@remix-run/react";
+
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IPerson } from "~/models/oppgave.server";
+
+import styles from "./PersonBoks.module.css";
 
 interface IProps {
   person: IPerson;

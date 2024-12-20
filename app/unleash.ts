@@ -1,4 +1,5 @@
 import { initialize } from "unleash-client";
+
 import { getEnv } from "~/utils/env.utils";
 
 export const unleash = initialize({

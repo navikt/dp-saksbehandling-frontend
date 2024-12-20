@@ -5,6 +5,7 @@
 
 .valgtVilkaar {
   flex: 1;
+  padding-bottom: var(--a-spacing-4);
 }
 
 .vilkaarHeading {

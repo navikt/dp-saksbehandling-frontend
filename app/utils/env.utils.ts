@@ -24,6 +24,8 @@ interface IEnv {
   NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: string;
   UNLEASH_SERVER_API_URL: string;
   UNLEASH_SERVER_API_TOKEN: string;
+  FARO_URL: string;
+  GITHUB_SHA: string;
 }
 
 export function getEnv(value: keyof IEnv) {

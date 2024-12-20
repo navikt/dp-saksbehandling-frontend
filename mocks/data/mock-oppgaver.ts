@@ -1,4 +1,5 @@
 import type { IListeOppgave, IOppgave, IOppgaveBehandler, IPerson } from "~/models/oppgave.server";
+
 import { mockHistorikk } from "./mock-hisotrikk";
 
 export const mockPerson: IPerson = {
@@ -78,19 +79,32 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
 
-export const underBehandlingMinOppgave: IOppgave = {
-  oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10456",
-  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
+export const underBehandlingAvslagMinsteinntektMinOppgave: IOppgave = {
+  oppgaveId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
+  behandlingId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
   person: mockPerson,
-
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: [],
+  emneknagger: ["Avslag minsteinntekt"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
-  adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+  adressebeskyttelseGradering: "UGRADERT",
+};
+
+export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
+  oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
+  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
+  person: mockPerson,
+  saksbehandler: mockOppgaveSaksbehandler,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Innvilgelse"],
+  tilstand: "UNDER_BEHANDLING",
+  journalpostIder: ["598116231", "639664664"],
+  skjermesSomEgneAnsatte: false,
+  historikk: mockHistorikk,
+  adressebeskyttelseGradering: "UGRADERT",
 };
 
 export const klarTilKontrollMinOppgave: IOppgave = {
@@ -157,7 +171,8 @@ export const paaVentOppgave: IOppgave = {
 
 export const mockOppgaver: IOppgave[] = [
   klarTilBehandlingOppgave,
-  underBehandlingMinOppgave,
+  underBehandlingInnvilgelseMinOppgave,
+  underBehandlingAvslagMinsteinntektMinOppgave,
   underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
   klarTilKontrollMinOppgave,
@@ -168,7 +183,8 @@ export const mockOppgaver: IOppgave[] = [
 
 export const mockListeOppgaver: IListeOppgave[] = [
   konverterOppgaveTilListeOppgave(klarTilBehandlingOppgave),
-  konverterOppgaveTilListeOppgave(underBehandlingMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingAvslagMinsteinntektMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(klarTilKontrollMinOppgave),

@@ -1,8 +1,8 @@
+import type { IListeOppgave } from "~/models/oppgave.server";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
-import type { IListeOppgave } from "~/models/oppgave.server";
+import { getHeaders } from "~/utils/fetch.utils";
 
 export async function hentOppgaverForPerson(
   request: Request,

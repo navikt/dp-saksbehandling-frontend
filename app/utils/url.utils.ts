@@ -9,3 +9,13 @@ export function appendSearchParamIfNotExists(
   }
   return false;
 }
+
+export function convertToQueryParamString(params: { key: string; value: string }[]): string {
+  const searchParams = new URLSearchParams();
+
+  params.forEach((param) => {
+    searchParams.append(param.key, param.value);
+  });
+
+  return searchParams.toString();
+}

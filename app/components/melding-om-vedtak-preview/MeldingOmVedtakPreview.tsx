@@ -1,15 +1,16 @@
 import { PortableText } from "@portabletext/react";
+import classNames from "classnames";
+
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import type { IBehandling } from "~/models/behandling.server";
+import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
+import type { IOppgave } from "~/models/oppgave.server";
+import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import {
   getSanityPortableTextComponents,
   UtvidetBeskrivelse,
 } from "~/sanity/SanityPortableTextComponents";
 import { formaterNorskDatoITekst } from "~/utils/dato.utils";
-import classNames from "classnames";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import type { IOppgave } from "~/models/oppgave.server";
-import type { IBehandling } from "~/models/behandling.server";
-import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
-import type { IBrevOpplysning } from "~/models/melding-om-vedtak.server";
 
 interface IProps {
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
@@ -111,7 +112,7 @@ function NavLogo() {
       viewBox="0 0 193 58"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      // @ts-ignore Trengs for UU i PDF/A generering av melding av vedtak i backend.
+      // @ts-expect-error Trengs for UU i PDF/A generering av melding av vedtak i backend.
       alt=""
     >
       <path

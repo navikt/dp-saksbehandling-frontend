@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
+
+import styles from "./Ghosts.module.css";
 import type { CustomCSSProperties } from "./GhostSvg";
 import { GhostSvg } from "./GhostSvg";
-import { useEffect, useState } from "react";
-import styles from "./Ghosts.module.css";
 
 const defaultGhostStyles: CustomCSSProperties[] = [
   {

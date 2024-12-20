@@ -1,12 +1,14 @@
-import { getEnv } from "~/utils/env.utils";
-import { Detail, Link } from "@navikt/ds-react";
-import styles from "./OppgaveLenker.module.css";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { Detail, Link } from "@navikt/ds-react";
+
+import { getEnv } from "~/utils/env.utils";
+
+import styles from "./OppgaveLenker.module.css";
 
 const lenker = [
   {
     url: getEnv("GOSYS_URL"),
-    text: "GOSYS",
+    text: "GOSYS (fungerer i SKSS)",
   },
   {
     url: getEnv("MODIA_URL"),
@@ -26,7 +28,7 @@ const lenker = [
   },
   {
     url: getEnv("ARBEID_INNTEKT_URL"),
-    text: "Inntekt og arbeidsforhold",
+    text: "Inntekt og arbeidsforhold (fungerer i SKSS)",
   },
   {
     url: getEnv("INNTEKTREDIGERING_URL"),

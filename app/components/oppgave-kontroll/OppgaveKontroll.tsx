@@ -1,37 +1,42 @@
-import type { action as lagreNotatAction } from "~/routes/action-lagre-notat";
-import { type ChangeEvent, Fragment, useEffect } from "react";
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
-import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
+import { type ChangeEvent, Fragment, useEffect } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+
+import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { action } from "~/routes/oppgave.$oppgaveId.kontroll";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import { isILagreNotatResponse } from "~/utils/type-guards";
+
 import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<typeof lagreNotatAction>();
+  const fetcher = useDebounceFetcher<typeof action>();
 
   useEffect(() => {
-    // @ts-ignore Typefeil fra useDebounceFetcher som ikke fungerer med v3_singleFetch. useFetcher gir ingen typefeil.
-    if (lagreNotatFetcher.data?.sistEndretTidspunkt) {
-      // @ts-ignore Samme som over
-      setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
+    if (fetcher.data && isILagreNotatResponse(fetcher.data)) {
+      setNotat({
+        ...notat,
+        sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt,
+      });
     }
-  }, [lagreNotatFetcher.data, notat, setNotat]);
+  }, [fetcher.data]);
 
   function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     setNotat({ ...notat, tekst: event.currentTarget.value });
 
-    lagreNotatFetcher.submit(event.target.form, {
+    fetcher.submit(event.target.form, {
       debounceTimeout: delayInMs,
     });
   }
 
   return (
     <div className={styles.container}>
-      <lagreNotatFetcher.Form method="post" action="/action-lagre-notat">
-        <input name={"oppgave-id"} value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+      <fetcher.Form method="post">
+        <input name="_action" value="lagre-notat" hidden={true} readOnly={true} />
+        <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
         <Textarea
           name="notat"
           value={notat.tekst}
@@ -52,7 +57,7 @@ export function OppgaveKontroll() {
             Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}
           </Detail>
         )}
-      </lagreNotatFetcher.Form>
+      </fetcher.Form>
 
       <List className={styles.sjekkliste} as="ol" title="Sjekkliste" size="small">
         {sjekkliste.map((punkt) => (

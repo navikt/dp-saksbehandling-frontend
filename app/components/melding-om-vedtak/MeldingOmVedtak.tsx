@@ -1,7 +1,8 @@
-import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
 import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
@@ -10,9 +11,13 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
     "routes/oppgave.$oppgaveId",
   );
 
+  if (!meldingOmVedtak || !sanityBrevBlokker) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
-      {!readOnly && <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} />}
+      <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} readOnly={readOnly} />
 
       <div className={styles.previewContainer}>
         <MeldingOmVedtakPreview

@@ -1,8 +1,9 @@
-import { logger } from "~/utils/logger.utils";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 
-export async function action({ request, params }: ActionFunctionArgs) {
+import { logger } from "~/utils/logger.utils";
+
+export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const errorTest = formData.get("errorTest") as string;
 

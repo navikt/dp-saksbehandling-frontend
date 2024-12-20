@@ -1,17 +1,19 @@
-import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
-import type { action as hentNesteOppgaveAction } from "~/routes/action-hent-neste-oppgave";
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { formaterNorskDato } from "~/utils/dato.utils";
-import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
-import { useTableSort } from "~/hooks/useTableSort";
-import { useFetcher, useLocation, useNavigation } from "@remix-run/react";
-import { differenceInCalendarDays } from "date-fns";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { Form, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
+import { differenceInCalendarDays } from "date-fns";
+
+import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useTableSort } from "~/hooks/useTableSort";
+import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
+import { formaterNorskDato } from "~/utils/dato.utils";
+
 import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: IListeOppgave[];
+  totaltAntallOppgaver?: number;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
   visAntallOppgaver?: boolean;
@@ -20,6 +22,7 @@ interface IProps {
 
 export function OppgaveListe({
   oppgaver,
+  totaltAntallOppgaver,
   visNesteOppgaveKnapp,
   visAntallOppgaver,
   lasterOppgaver,
@@ -27,9 +30,7 @@ export function OppgaveListe({
 }: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
-  const nesteFetcher = useFetcher<typeof hentNesteOppgaveAction>();
-  useHandleAlertMessages(nesteFetcher.data?.alert);
-
+  const { aktivtOppgaveSok } = useSaksbehandler();
   const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
@@ -40,11 +41,14 @@ export function OppgaveListe({
       {(visNesteOppgaveKnapp || visAntallOppgaver) && (
         <div className={styles.oppgaveListeInfo}>
           {visNesteOppgaveKnapp && (
-            <nesteFetcher.Form
-              method="post"
-              action="/action-hent-neste-oppgave"
-              className={styles.nesteKnapp}
-            >
+            <Form method="post" className={styles.nesteKnapp}>
+              <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
+              <input
+                name="aktivtOppgaveSok"
+                value={aktivtOppgaveSok}
+                hidden={true}
+                readOnly={true}
+              />
               <Button
                 variant="primary"
                 size="small"
@@ -53,12 +57,12 @@ export function OppgaveListe({
               >
                 Neste oppgave
               </Button>
-            </nesteFetcher.Form>
+            </Form>
           )}
 
           {visAntallOppgaver && (
             <Detail textColor="subtle" className={styles.antallOppgaver}>
-              {!lasterOppgaver && `Antall oppgaver ${oppgaver.length}`}
+              {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
               {lasterOppgaver && "Laster oppgaver..."}
             </Detail>
           )}
@@ -69,7 +73,7 @@ export function OppgaveListe({
         sort={sortState}
         size="small"
         className={classnames("table--subtle-zebra", styles.oppgaveListe)}
-        onSortChange={(sortKey) => sortKey && handleSort(sortKey)}
+        onSortChange={(sortKey) => sortKey && handleSort(sortKey as keyof IListeOppgave)}
       >
         <Table.Header>
           <Table.Row>
@@ -108,7 +112,7 @@ export function OppgaveListe({
         <Table.Body>
           {sortedData.length === 0 && (
             <Table.Row>
-              <Table.DataCell colSpan={6}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
@@ -122,7 +126,9 @@ export function OppgaveListe({
             return (
               <Table.Row
                 key={oppgave.oppgaveId}
-                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
+                className={classnames({
+                  [styles.valgtOppgaveBackground]: erValgtOppgave,
+                })}
               >
                 {lasterOppgaver && (
                   <>
@@ -150,7 +156,9 @@ export function OppgaveListe({
                 {!lasterOppgaver && (
                   <>
                     <Table.DataCell
-                      className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                      className={classnames({
+                        [styles.valgtOppgaveBorder]: erValgtOppgave,
+                      })}
                     >
                       <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
                     </Table.DataCell>

@@ -1,11 +1,13 @@
 import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-
-import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  base: "/saksbehandling/",
+  base:
+    process.env.NODE_ENV === "production"
+      ? "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client/"
+      : "/saksbehandling/",
   server: {
     port: 3000,
   },
@@ -22,15 +24,9 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  test: {
-    environment: "jsdom",
-  },
   build: {
     manifest: true,
     sourcemap: true,
-    rollupOptions: {
-      external: ["./nais.js"],
-    },
   },
   resolve: {
     alias: {

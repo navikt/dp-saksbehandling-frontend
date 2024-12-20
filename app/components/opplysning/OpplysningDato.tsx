@@ -1,8 +1,10 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
-import { addYears, formatISO, subYears } from "date-fns";
 import { useField } from "@rvf/remix";
+import { addYears, formatISO, subYears } from "date-fns";
+
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import { formaterNorskDato } from "~/utils/dato.utils";
+
 import styles from "./Opplysning.module.css";
 
 export function OpplysningDato({ opplysning, formScope, readonly }: IOpplysningProps) {

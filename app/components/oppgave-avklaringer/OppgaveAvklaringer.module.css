@@ -1,0 +1,16 @@
+.alert > div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.buttonContainer button,
+.buttonContainer span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

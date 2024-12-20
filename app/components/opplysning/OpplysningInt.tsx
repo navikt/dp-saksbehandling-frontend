@@ -1,6 +1,8 @@
 import { TextField } from "@navikt/ds-react";
 import { useField } from "@rvf/remix";
+
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
+
 import styles from "./Opplysning.module.css";
 
 export function OpplysningInt({ opplysning, formScope, readonly }: IOpplysningProps) {

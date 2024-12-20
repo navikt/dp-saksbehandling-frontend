@@ -1,8 +1,7 @@
 name: Bygg og deploy
 on:
   push:
-#    branches:
-#      - main
+
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
@@ -18,13 +17,13 @@ jobs:
       packages: "write"
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
-      version_tag: ${{ steps.version-tag.outputs.VERSION_TAG}}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
           node-version: "22.x"
 
@@ -41,6 +40,21 @@ jobs:
           dockerfile: Dockerfile
           docker_context: .
 
+      - name: Build static files
+        uses: docker/build-push-action@v6
+        with:
+          target: build-export
+          outputs: type=local,dest=build
+          secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
+
+      - name: Upload static files
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: teamdagpenger
+          source: ./build/client
+          destination: "/dp-saksbehandling-frontend/"
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
 
   playwright:
@@ -105,10 +119,10 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Development
-      url: "https://dagpenger.ansatt.dev.nav.no/saksbehandling/"
+      url: "https://dagpenger.ansatt.dev.nav.no/saksbehandling"
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
@@ -124,10 +138,10 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
-      url: "https://dagpenger.ansatt.nav.no/saksbehandling/"
+      url: "https://dagpenger.ansatt.nav.no/saksbehandling"
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}

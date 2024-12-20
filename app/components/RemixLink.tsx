@@ -46,14 +46,10 @@ function RemixLinkComponent(
         variant={asButtonVariant}
         loading={loading}
         onClick={(event) => {
-          /* Dette er OK å ignorere, den klager på at det er feil type 
-          (Anchor i stedet for Button), og siden vi alltid sender med 
-          as="a" overstyrer vi dette til å være en anchor-tag. Typene 
-          bakover i designsystemet gjenspeiler ikke dette. */
-          // @ts-ignore
+          // @ts-expect-error Dette er OK å ignorere, den klager på at det er feil type (Anchor i stedet for Button), og siden vi alltid sender med as="a" overstyrer vi dette til å være en anchor-tag. Typene bakover i designsystemet gjenspeiler ikke dette.
           onClick?.(event);
           if (!event.defaultPrevented) {
-            // @ts-ignore
+            // @ts-expect-error Se kommentar over
             handleClick(event);
           }
         }}

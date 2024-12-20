@@ -1,118 +1,134 @@
 import type { IAvklaring } from "~/models/behandling.server";
 
 export const andreYtelser: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-1",
   kode: "AndreYtelser",
   tittel: "Andre ytelser",
   beskrivelse: "Personen har oppgitt andre ytelser",
+  status: "Åpen",
 };
 
 export const soknadstidspunktForLangtFramITid: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-2",
   kode: "SøknadstidspunktForLangtFramITid",
   tittel: "Søknadstidspunktet ligger for lang fram i tid",
   beskrivelse: "Søknadstidspunktet ligger mer enn 14 dager fram i tid",
+  status: "Åpen",
 };
 
 export const virkningstidspunktForLangtFramITid: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-3",
   kode: "VirkningstidspunktForLangtFramItid",
   tittel: "Virkningstidspunkt ligger for lang fram i tid",
   beskrivelse: "Virkningstidspunkt ligger mer enn 14 dager fram i tid",
+  status: "Åpen",
 };
 
 export const verneplikt: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-4",
   kode: "Verneplikt",
   tittel: "Verneplikt",
   beskrivelse: "Krever avklaring om verneplikt",
+  status: "Åpen",
 };
 
 export const tapAvArbeidstidBeregningsregel: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-5",
   kode: "TapAvArbeidsinntektOgArbeidstid",
   tittel: "Beregningsregel for tap av arbeidsinntekt og arbeidstid",
   kanKvitteres: false,
   beskrivelse:
     "Kun én beregningsregel kan være gyldig til en hver tid.  Velg en av Arbeidstid siste 6 måneder, Arbeidstid siste 12 måneder eller Arbeidstid siste 36 måneder.",
+  status: "Åpen",
 };
 
 export const EOSArbeid: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-6",
   kode: "EØSArbeid",
   tittel: "Arbeid i EØS",
   beskrivelse: "Personen har oppgitt arbeid fra EØS",
+  status: "Åpen",
 };
 
 export const hattLukkedeSakerSiste8Uker: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-7",
   kode: "HattLukkedeSakerSiste8Uker",
   tittel: "Hatt lukkede saker siste 8 uker",
   beskrivelse: "Personen har lukkede saker i Arena siste 8 uker",
+  status: "Åpen",
 };
 
 export const samordnes: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-8",
   kode: "Samordning",
   tittel: "Om reduserte ytelser fra folketrygden som skal samordnes",
   beskrivelse: "Finne ut om det er noen reduserte ytelser fra folketrygden som skal samordnes",
+  status: "Åpen",
 };
 
 export const inntektNesteKalendermaaned: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-9",
   kode: "InntektNesteKalendermåned",
   tittel: "Har innrapport inntekt for neste måned",
   beskrivelse: "Personen har inntekter som tilhører neste inntektsperiode",
+  status: "Åpen",
 };
 
 export const jobbetUtenforNorge: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-10",
   kode: "JobbetUtenforNorge",
   tittel: "Arbeid utenfor Norge",
   beskrivelse: "Personen har oppgitt arbeid utenfor Norge",
+  status: "Åpen",
 };
 
 export const muligGjenopptak: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-11",
   kode: "MuligGjenopptak",
   tittel: "Mulig gjenopptak",
   beskrivelse: "Personen har åpne saker i Arena som kan være gjenopptak",
+  status: "Åpen",
 };
 
 export const svangerskapsrelaterteSykepenger: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-12",
   kode: "SvangerskapsrelaterteSykepenger",
   tittel: "Har hatt sykepenger som kan være svangerskapsrelatert",
   beskrivelse: "Personen har sykepenger som kan være svangerskapsrelaterte",
+  status: "Åpen",
 };
 
 export const onskerEtterRapporteringsfrist: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-13",
   kode: "ØnskerEtterRapporteringsfrist",
   tittel: "Ønsker dagpenger etter rapporteringsfrist",
   beskrivelse: "Personen ønsker dagpenger etter rapporteringsfrist",
+  status: "Åpen",
 };
 
 export const totrinnskontroll: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-14",
   kode: "Totrinnskontroll",
   tittel: "Totrinnskontroll",
   beskrivelse: "Totrinnskontroll",
   kanKvitteres: true,
+  status: "Åpen",
 };
 
 export const BrukerUnder18: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-15",
   kode: "BrukerUnder18",
   tittel: "Bruker er under 18",
   beskrivelse: "Bruker er under 18 og skal ikke ha automatisk behandling",
   kanKvitteres: true,
+  status: "Åpen",
 };
 
 export const BarnMaaGodkjennes: IAvklaring = {
-  id: "21235-test-id",
+  id: "test-id-16",
   kode: "BarnMåGodkjennes",
   tittel: "Barn må godkjennes for å gi barnetillegg",
   beskrivelse: "Barn må godkjennes om de skal gi barnetillegg",
   kanKvitteres: true,
+  status: "Åpen",
 };

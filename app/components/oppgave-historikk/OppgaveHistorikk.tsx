@@ -2,7 +2,10 @@ import { BodyLong, BodyShort, Detail } from "@navikt/ds-react";
 import classnames from "classnames";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
+
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import type { IOppgaveHistorikk } from "~/models/oppgave.server";
+
 import styles from "./OppgaveHistorikk.module.css";
 
 export function OppgaveHistorikk() {
@@ -19,50 +22,47 @@ export function OppgaveHistorikk() {
 
           <div
             className={classnames(styles.hendelseMelding, {
-              [styles.hendelseMeldingNyStatus]: hendelse.type === "ny-status",
+              [styles.hendelseMeldingStatusendring]: hendelse.type === "statusendring",
               [styles.hendelseMeldingNotat]: hendelse.type === "notat",
               [styles.hendelseMeldingEndreOpplysning]: hendelse.type === "endre-opplysning",
               [styles.hendelseMeldingMelding]: hendelse.type === "melding",
             })}
           >
-            {hendelse.type === "ny-status" && (
+            {hendelse.type === "statusendring" && (
               <BodyShort>
-                <strong>{hendelse.tittel}</strong> {hendelse.body}
+                <strong>Ny status:</strong> {hendelse.tittel}
               </BodyShort>
             )}
 
-            {hendelse.type !== "ny-status" && (
+            {hendelse.type !== "statusendring" && (
               <>
                 <BodyShort weight="semibold">{hendelse.tittel}</BodyShort>
                 {hendelse.body && <BodyLong>{hendelse.body}</BodyLong>}
               </>
             )}
 
-            <>
-              {hendelse.behandler.rolle === "saksbehandler" && (
-                <>
-                  <Detail textColor="subtle">Saksbehandler</Detail>
-                  <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
-                </>
-              )}
-
-              {hendelse.behandler.rolle === "beslutter" && (
-                <>
-                  <Detail textColor="subtle">Beslutter</Detail>
-                  <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
-                </>
-              )}
-
-              {hendelse.behandler.rolle === "system" && (
-                <>
-                  <Detail textColor="subtle">System</Detail>
-                  <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
-                </>
-              )}
-            </>
+            {hendelse.behandler.rolle !== "system" && (
+              <>
+                {hentRolleTekst(hendelse.behandler.rolle)}
+                <Detail textColor="subtle">{hendelse.behandler.navn}</Detail>
+              </>
+            )}
           </div>
         </div>
       ))}
     </>
   );
+}
+
+function hentRolleTekst(rolle: IOppgaveHistorikk["behandler"]["rolle"]) {
+  switch (rolle) {
+    case "system":
+      return <Detail textColor="subtle">System</Detail>;
+    case "saksbehandler":
+      return <Detail textColor="subtle">Saksbehandler</Detail>;
+    case "beslutter":
+      return <Detail textColor="subtle">Beslutter</Detail>;
+    default:
+      return undefined;
+  }
 }

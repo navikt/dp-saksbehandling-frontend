@@ -1,15 +1,16 @@
 import { createCookieSessionStorage } from "@remix-run/node";
+
 import type { IAlert } from "./context/alert-context";
 
-type SessionFlashData = {
+interface ISessionData {
   alert: IAlert;
-};
+  aktivtOppgaveFilter: string;
+}
 
-const { getSession, commitSession, destroySession } = createCookieSessionStorage<SessionFlashData>({
+const { getSession, commitSession, destroySession } = createCookieSessionStorage<ISessionData>({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
-    name: "__session",
-
+    name: "dp-saksbehandling-frontend",
     // all of these are optional
     // domain: "dagpenger.ansatt.dev.nav.no",
     // Expires can also be set (although maxAge overrides it when used in combination).
@@ -24,4 +25,4 @@ const { getSession, commitSession, destroySession } = createCookieSessionStorage
   },
 });
 
-export { getSession, commitSession, destroySession };
+export { commitSession, destroySession, getSession };

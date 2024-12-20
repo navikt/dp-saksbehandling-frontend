@@ -1,3 +1,5 @@
+import navStyles from "@navikt/ds-css/dist/index.css?url";
+import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Link,
@@ -9,22 +11,24 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import { InternalHeader } from "@navikt/ds-react";
-import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { getSaksbehandler } from "~/models/saksbehandler.server";
-import { getEnv } from "~/utils/env.utils";
-import { AlertProvider } from "~/context/alert-context";
-import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { unleash } from "./unleash";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
-import { handleActions } from "~/server-side-actions/handle-actions";
-import navStyles from "@navikt/ds-css/dist/index.css?url";
-import globalCss from "~/global.css?url";
+
 import akselOverrides from "~/aksel-overrides.css?url";
+import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
+import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
+import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
+import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
+import { AlertProvider } from "~/context/alert-context";
+import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
+import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
+import { hentOppgaver } from "~/models/oppgave.server";
+import { getSaksbehandler } from "~/models/saksbehandler.server";
 import styles from "~/route-styles/root.module.css";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { getEnv } from "~/utils/env.utils";
+
+import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
+import { unleash } from "./unleash";
 
 export function meta() {
   return [
@@ -57,33 +61,34 @@ export function links() {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      href: `${getEnv("BASE_PATH")}favicon-32x32.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-32x32.png`,
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      href: `${getEnv("BASE_PATH")}favicon-16x16.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-16x16.png`,
     },
     {
       rel: "icon",
       type: "image/x-icon",
-      href: `${getEnv("BASE_PATH")}favicon.ico`,
+      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon.ico`,
     },
   ];
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  return await handleActions(request);
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const mineOppgaverTilBehandling = await hentOppgaver(
+  const oppgaverJegHarTilBehandling = await hentOppgaver(
     request,
-    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING",
+    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
   );
 
+  const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
@@ -93,8 +98,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return {
     saksbehandler: saksbehandler,
-    antallJegHarTilBehandling: mineOppgaverTilBehandling.length,
+    antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
+      jul,
       halloween,
       oppgaveHistorikk,
       totrinnsKontroll,
@@ -112,47 +118,53 @@ export async function loader({ request }: LoaderFunctionArgs) {
       INNTEKTREDIGERING_URL: process.env.INNTEKTREDIGERING_URL,
       GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
+      GITHUB_SHA: process.env.GITHUB_SHA,
+      FARO_URL: process.env.FARO_URL,
     },
   };
 }
 
 export default function App() {
-  const { env, saksbehandler, antallJegHarTilBehandling, featureFlags } =
+  const { env, saksbehandler, antallOppgaverJegHarTilBehandling, featureFlags } =
     useLoaderData<typeof loader>();
 
   return (
     <html lang="nb">
       <head>
+        <title>Dagpenger</title>
         <Meta />
         <Links />
       </head>
       <body>
-        <InternalHeader className={styles.header}>
-          <Link to={"/"} className={styles.headerLogo}>
-            <InternalHeader.Title as="h1" className={styles.pageHeader}>
-              {featureFlags.halloween && <PumpkinSvg />}
-              Dagpenger
-            </InternalHeader.Title>
-          </Link>
+        <SaksbehandlerProvider aktivtSok="">
+          <InternalHeader className={styles.header}>
+            <Link to={"/"} className={styles.headerLogo}>
+              <InternalHeader.Title as="h1" className={styles.pageHeader}>
+                {featureFlags.halloween && <PumpkinSvg />}
+                {featureFlags.jul && <MistelteinSvg />}
+                Dagpenger
+              </InternalHeader.Title>
+            </Link>
 
-          <HeaderMeny
-            saksbehandler={saksbehandler}
-            antallJegHarTilBehandling={antallJegHarTilBehandling}
+            <HeaderMeny
+              saksbehandler={saksbehandler}
+              antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
+            />
+          </InternalHeader>
+
+          <AlertProvider>
+            <GlobalAlerts />
+            <Outlet />
+          </AlertProvider>
+
+          <ScrollRestoration />
+          <Scripts />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.env = ${JSON.stringify(env)}`,
+            }}
           />
-        </InternalHeader>
-
-        <AlertProvider>
-          <GlobalAlerts />
-          <Outlet />
-        </AlertProvider>
-
-        <ScrollRestoration />
-        <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
+        </SaksbehandlerProvider>
       </body>
     </html>
   );

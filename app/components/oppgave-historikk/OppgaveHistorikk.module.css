@@ -37,7 +37,7 @@
   position: relative;
 }
 
-.hendelseMeldingNyStatus::before {
+.hendelseMeldingStatusendring::before {
   z-index: 1;
   content: "";
   position: absolute;

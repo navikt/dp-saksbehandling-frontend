@@ -1,11 +1,14 @@
-import { vilkaarMap } from "./vilkaar-map";
-import { Alert, BodyLong, Heading } from "@navikt/ds-react";
-import { useState } from "react";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { VilkaarMeny } from "~/components/vilkaar-meny/VilkaarMeny";
-import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
+import { BodyLong, Heading } from "@navikt/ds-react";
 import { useLocation } from "@remix-run/react";
+import { useState } from "react";
+
+import { OppgaveAvklaringer } from "~/components/oppgave-avklaringer/OppgaveAvklaringer";
+import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
+import { VilkaarMeny } from "~/components/vilkaar-meny/VilkaarMeny";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+
 import styles from "./Vilkaar.module.css";
+import { vilkaarMap } from "./vilkaar-map";
 
 interface IProps {
   readonly?: boolean;
@@ -26,17 +29,7 @@ export function Vilkaar(props: IProps) {
 
   return (
     <>
-      {behandling.aktiveAvklaringer.map((avklaring) => (
-        <Alert
-          key={avklaring.tittel}
-          className="alert--compact"
-          variant={"warning"}
-          fullWidth={true}
-          size={"small"}
-        >
-          {avklaring.beskrivelse}
-        </Alert>
-      ))}
+      <OppgaveAvklaringer avklaringer={behandling.avklaringer} />
 
       <div className={styles.vilkaarContainer}>
         <VilkaarMeny

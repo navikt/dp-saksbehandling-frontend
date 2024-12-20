@@ -1,8 +1,8 @@
+import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { getHeaders } from "~/utils/fetch.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IMeldingOmVedtak {
   brevblokkIder: string[];

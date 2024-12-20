@@ -6,7 +6,7 @@
   margin-bottom: var(--a-spacing-2);
 }
 
-.antallOppgaver {
+.antallOppgaver.antallOppgaver {
   margin-left: auto;
   align-self: flex-end;
   margin-right: var(--a-spacing-2);
