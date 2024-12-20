@@ -16,9 +16,11 @@ export function OppgaveAvklaringer(props: IProps) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
 
+  const avklaringer = props.avklaringer.filter((avklaring) => !avklaring.maskinelt);
+
   return (
     <>
-      {props.avklaringer.map((avklaring) => {
+      {avklaringer.map((avklaring) => {
         const maaKvitteres = avklaring.status === "Åpen";
         return (
           <Alert
@@ -29,7 +31,6 @@ export function OppgaveAvklaringer(props: IProps) {
             size={"small"}
           >
             {avklaring.beskrivelse}
-
             {maaKvitteres && (
               <Form className={styles.buttonContainer} method="post">
                 <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />

@@ -44,6 +44,7 @@ export interface IAvklaring {
   beskrivelse: string;
   kanKvitteres?: boolean;
   status: "Åpen" | "Løst" | "Kvittert";
+  maskinelt: boolean;
   kvittertAv?: { ident: string };
   begrunnelse?: string;
 }
