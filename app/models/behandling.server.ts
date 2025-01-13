@@ -31,7 +31,7 @@ export interface IOpplysning {
 }
 
 export interface IKilde {
-  type: string;
+  type: "Saksbehandler" | "System";
   registrert: string;
   ident: string | null;
   meldingId: string | null;
@@ -51,7 +51,7 @@ export interface IAvklaring {
 export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}`;
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning`;
   const response = await fetch(url, {
     method: "GET",
     headers: getHeaders(onBehalfOfToken),
