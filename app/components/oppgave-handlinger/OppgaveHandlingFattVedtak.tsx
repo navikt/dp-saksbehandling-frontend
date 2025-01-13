@@ -13,7 +13,7 @@ export function OppgaveHandlingFattVedtak() {
   const fattVedtakModalRef = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
-
+  const { featureFlags } = useTypedRouteLoaderData("root");
   const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
   const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId",
@@ -66,30 +66,34 @@ export function OppgaveHandlingFattVedtak() {
           </Button>
 
           <Form method="post">
-            <>
-              <input name="_action" value="fatt-vedtak" hidden={true} readOnly={true} />
-              <input
-                name="melding-om-vedtak-html"
-                value={meldingOmVedtakHtml}
-                hidden={true}
-                readOnly={true}
-              />
+            {(!kravPaaDagpenger ||
+              kravPaaDagpenger === "false" ||
+              featureFlags.totrinnsKontroll) && (
+              <>
+                <input name="_action" value="fatt-vedtak" hidden={true} readOnly={true} />
+                <input name="send-brev-i-arena" value={"false"} hidden={true} readOnly={true} />
+                <input
+                  name="melding-om-vedtak-html"
+                  value={meldingOmVedtakHtml}
+                  hidden={true}
+                  readOnly={true}
+                />
 
-              <Button size="small" variant="primary" disabled={state !== "idle"}>
-                Ja, med nytt brev
-              </Button>
-            </>
-          </Form>
+                <Button size="small" variant="primary" disabled={state !== "idle"}>
+                  Ja
+                </Button>
+              </>
+            )}
 
-          <Form method="post">
-            <>
-              <input name="_action" value="fatt-vedtak" hidden={true} readOnly={true} />
-              <input name="send-brev-i-arena" value="true" hidden={true} readOnly={true} />
+            {kravPaaDagpenger === "true" && !featureFlags.totrinnsKontroll && (
+              <>
+                <input name="send-brev-i-arena" value={"true"} hidden={true} readOnly={true} />
 
-              <Button size="small" variant="primary" disabled={state !== "idle"}>
-                Ja, med brev fra Arena
-              </Button>
-            </>
+                <Button size="small" variant="primary" disabled={state !== "idle"}>
+                  Ja, med brev fra Arena
+                </Button>
+              </>
+            )}
           </Form>
         </Modal.Footer>
       </Modal>
