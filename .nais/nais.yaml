@@ -118,6 +118,11 @@ spec:
 
   azure:
     application:
+      inbound:
+        rules:
+          - application: azure-token-generator
+            namespace: aura
+            cluster: dev-gcp
       tenant: {{azure.tenant}}
       enabled: true
       claims:
