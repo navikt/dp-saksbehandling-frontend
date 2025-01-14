@@ -64,7 +64,7 @@ export function Behandling(props: IProps) {
 
         <div>
           <Heading className={styles.regelsettHeading} size="medium">
-            {aktivtRegelsett.hjemmel}
+            {aktivtRegelsett.navn}
           </Heading>
           <Avklaringer avklaringer={aktivtRegelsett.avklaringer} />
           <ul className={styles.opplysningListe}>
