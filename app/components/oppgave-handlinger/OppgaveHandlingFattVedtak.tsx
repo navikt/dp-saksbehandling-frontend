@@ -34,7 +34,9 @@ export function OppgaveHandlingFattVedtak() {
     />,
   );
 
-  const kravPaaDagpenger = behandling.opplysning.find((o) => o.navn === "Krav på dagpenger")?.verdi;
+  const kravPaaDagpenger = behandling.opplysninger.find(
+    (o) => o.navn === "Krav på dagpenger",
+  )?.verdi;
 
   return (
     <>

@@ -2,9 +2,9 @@ import { DocPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import { Outlet } from "@remix-run/react";
 
+import { Behandling } from "~/components/behandling/Behandling";
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
@@ -12,7 +12,7 @@ export default function Oppgave() {
     <div className={styles.behandling}>
       <div className={"card"}>
         <Tabs size="medium" defaultValue="behandling">
-          <div className={styles.tabMeny}>
+          <div>
             <Tabs.List>
               <Tabs.Tab value="behandling" label="Redigere opplysninger" icon={<DocPencilIcon />} />
               <KravPaaDagpenger />
@@ -20,7 +20,7 @@ export default function Oppgave() {
           </div>
 
           <Tabs.Panel value="behandling">
-            <Vilkaar readonly={true} />
+            <Behandling readonly={true} />
           </Tabs.Panel>
         </Tabs>
       </div>

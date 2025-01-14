@@ -6,13 +6,13 @@ import classnames from "classnames";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IAvklaring } from "~/models/behandling.server";
 
-import styles from "./OppgaveAvklaringer.module.css";
+import styles from "./Avklaringer.module.css";
 
 interface IProps {
   avklaringer: IAvklaring[];
 }
 
-export function OppgaveAvklaringer(props: IProps) {
+export function Avklaringer(props: IProps) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
 

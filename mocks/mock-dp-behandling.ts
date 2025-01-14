@@ -2,9 +2,29 @@ import { http, HttpResponse } from "msw";
 
 import { logger } from "~/utils/logger.utils";
 
-import { mockBehandlinger, mockBehandlingInnvilgelse } from "./data/mock-behandling";
+import {
+  mockBehandlinger,
+  mockBehandlinger2,
+  mockBehandlingInnvilgelse,
+} from "./data/mock-behandling";
 
 export const mockDpBehandling = [
+  http.get(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId`, ({ request, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    const { behandlingId } = params;
+    const mockBehandling = mockBehandlinger2.find(
+      (behandling) => behandling.behandlingId === behandlingId,
+    );
+
+    if (mockBehandling) {
+      return HttpResponse.json(mockBehandling);
+    }
+
+    return new HttpResponse(null, {
+      status: 404,
+    });
+  }),
+
   http.get(
     `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/opplysning`,
     ({ request, params }) => {

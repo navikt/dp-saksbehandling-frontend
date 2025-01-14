@@ -3,11 +3,10 @@ import { Alert, Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useActionData } from "@remix-run/react";
 
-import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
+import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -41,24 +40,21 @@ export default function Oppgave() {
         <div className={styles.behandling}>
           <div className={"card"}>
             <Tabs size="medium" defaultValue="behandling">
-              <div className={styles.tabMeny}>
-                <Tabs.List>
-                  <Tabs.Tab
-                    value="behandling"
-                    label="Redigere opplysninger"
-                    icon={<DocPencilIcon />}
-                  />
-                  <Tabs.Tab
-                    value="melding-om-vedtak"
-                    label="Melding om vedtak"
-                    icon={<TasklistSendIcon />}
-                  />
-                  <KravPaaDagpenger />
-                </Tabs.List>
-              </div>
+              <Tabs.List>
+                <Tabs.Tab
+                  value="behandling"
+                  label="Redigere opplysninger"
+                  icon={<DocPencilIcon />}
+                />
+                <Tabs.Tab
+                  value="melding-om-vedtak"
+                  label="Melding om vedtak"
+                  icon={<TasklistSendIcon />}
+                />
+              </Tabs.List>
 
               <Tabs.Panel value="behandling">
-                <Vilkaar readonly={true} />
+                <Behandling readonly={true} />
               </Tabs.Panel>
 
               <Tabs.Panel value="melding-om-vedtak">

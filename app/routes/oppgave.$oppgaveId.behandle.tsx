@@ -4,11 +4,10 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useActionData } from "@remix-run/react";
 import { useState } from "react";
 
-import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
+import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
-import { Vilkaar } from "~/components/vilkaar/Vilkaar";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -41,21 +40,18 @@ export default function Oppgave() {
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <div className={styles.tabMeny}>
-              <Tabs.List>
-                <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
+            <Tabs.List>
+              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
 
-                <Tabs.Tab
-                  value="melding-om-vedtak"
-                  label="Melding om vedtak"
-                  icon={<TasklistSendIcon />}
-                />
-                <KravPaaDagpenger />
-              </Tabs.List>
-            </div>
+              <Tabs.Tab
+                value="melding-om-vedtak"
+                label="Melding om vedtak"
+                icon={<TasklistSendIcon />}
+              />
+            </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <Vilkaar />
+              <Behandling />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

@@ -1,4 +1,4 @@
-import { CheckmarkCircleFillIcon, XMarkOctagonFillIcon } from "@navikt/aksel-icons";
+import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import classnames from "classnames";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -10,7 +10,7 @@ export function KravPaaDagpenger() {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const harKravDagpengerOpplysning = finnOpplysningMedNavn(
     "Krav på dagpenger",
-    behandling.opplysning,
+    behandling.opplysninger,
   );
   return (
     <div
@@ -22,14 +22,14 @@ export function KravPaaDagpenger() {
     >
       {harKravDagpengerOpplysning?.verdi === "true" && (
         <>
-          <CheckmarkCircleFillIcon color={"var(--a-green-500)"} />
+          <GavelSoundBlockIcon fontSize="1.5rem" />
           Bruker har rett til dagpenger
         </>
       )}
 
       {(!harKravDagpengerOpplysning || harKravDagpengerOpplysning.verdi === "false") && (
         <>
-          <XMarkOctagonFillIcon color={"var(--a-red-500)"} />
+          <GavelSoundBlockIcon fontSize="1.5rem" />
           Bruker har ikke rett til dagpenger
         </>
       )}
