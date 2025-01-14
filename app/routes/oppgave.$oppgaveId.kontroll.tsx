@@ -5,7 +5,6 @@ import { Outlet, useActionData } from "@remix-run/react";
 
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
@@ -36,7 +35,6 @@ export default function Oppgave() {
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
       <BeslutterNotatProvider notat={oppgave.notat}>
-        <OppgaveHandlinger />
         <div className={styles.behandling}>
           <div className={"card"}>
             <Tabs size="medium" defaultValue="behandling">

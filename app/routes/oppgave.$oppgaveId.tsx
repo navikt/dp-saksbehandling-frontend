@@ -4,6 +4,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 import invariant from "tiny-invariant";
 
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -74,6 +75,7 @@ export default function Oppgave() {
       <div className={styles.oppgaveContainer}>
         <OppgaveListe oppgaver={oppgaverForPerson} />
         <Fragment key={oppgave.oppgaveId}>
+          <OppgaveHandlinger />
           <Outlet />
         </Fragment>
       </div>

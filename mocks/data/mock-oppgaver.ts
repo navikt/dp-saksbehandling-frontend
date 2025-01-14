@@ -140,7 +140,7 @@ export const underKontrollMinOppgave: IOppgave = {
 
 export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
-  behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
+  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
 
   saksbehandler: mockOppgaveSaksbehandler,

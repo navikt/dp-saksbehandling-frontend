@@ -6,7 +6,6 @@ import { useState } from "react";
 
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -36,7 +35,6 @@ export default function Oppgave() {
 
   return (
     <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
-      <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
