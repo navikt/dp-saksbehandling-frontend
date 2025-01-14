@@ -1,8 +1,8 @@
 import {
   CheckmarkCircleIcon,
-  CircleSlashIcon,
-  ExclamationmarkTriangleIcon,
+  ExclamationmarkTriangleFillIcon,
   InformationSquareIcon,
+  XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import classnames from "classnames";
@@ -64,7 +64,7 @@ export function Behandling(props: IProps) {
 
         <div>
           <Heading className={styles.regelsettHeading} size="medium">
-            {aktivtRegelsett.navn}
+            {aktivtRegelsett.hjemmel}
           </Heading>
           <Avklaringer avklaringer={aktivtRegelsett.avklaringer} />
           <ul className={styles.opplysningListe}>
@@ -89,8 +89,8 @@ function renderStatusIcon(status: IRegelsett["status"]) {
     case "Oppfylt":
       return <CheckmarkCircleIcon fontSize="1.5rem" color={"var(--a-green-500)"} />;
     case "IkkeOppfylt":
-      return <CircleSlashIcon fontSize="1.5rem" color={"var(--a-red-500)"} />;
+      return <XMarkOctagonFillIcon fontSize="1.5rem" color={"var(--a-red-500)"} />;
     case "HarAvklaring":
-      return <ExclamationmarkTriangleIcon fontSize="1.5rem" color={"var(--a-orange-500)"} />;
+      return <ExclamationmarkTriangleFillIcon fontSize="1.5rem" color={"var(--a-orange-500)"} />;
   }
 }
