@@ -1,7 +1,7 @@
 import {
   CheckmarkCircleIcon,
+  CircleIcon,
   ExclamationmarkTriangleFillIcon,
-  InformationSquareIcon,
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
@@ -85,7 +85,7 @@ export function Behandling(props: IProps) {
 function renderStatusIcon(status: IRegelsett["status"]) {
   switch (status) {
     case "Info":
-      return <InformationSquareIcon fontSize="1.5rem" color={"var(--a-blue-500)"} />;
+      return <CircleIcon fontSize="1.5rem" color={"var(--a-blue-500)"} />;
     case "Oppfylt":
       return <CheckmarkCircleIcon fontSize="1.5rem" color={"var(--a-green-500)"} />;
     case "IkkeOppfylt":

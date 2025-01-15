@@ -7,7 +7,8 @@ export const andreYtelser: IAvklaring = {
   beskrivelse: "Personen har oppgitt andre ytelser",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -18,7 +19,8 @@ export const soknadstidspunktForLangtFramITid: IAvklaring = {
   beskrivelse: "Søknadstidspunktet ligger mer enn 14 dager fram i tid",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -29,7 +31,8 @@ export const virkningstidspunktForLangtFramITid: IAvklaring = {
   beskrivelse: "Virkningstidspunkt ligger mer enn 14 dager fram i tid",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -40,7 +43,8 @@ export const verneplikt: IAvklaring = {
   beskrivelse: "Krever avklaring om verneplikt",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -53,7 +57,8 @@ export const tapAvArbeidstidBeregningsregel: IAvklaring = {
     "Kun én beregningsregel kan være gyldig til en hver tid.  Velg en av Arbeidstid siste 6 måneder, Arbeidstid siste 12 måneder eller Arbeidstid siste 36 måneder.",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -64,7 +69,8 @@ export const EOSArbeid: IAvklaring = {
   beskrivelse: "Personen har oppgitt arbeid fra EØS",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -75,7 +81,8 @@ export const hattLukkedeSakerSiste8Uker: IAvklaring = {
   beskrivelse: "Personen har lukkede saker i Arena siste 8 uker",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -86,7 +93,8 @@ export const samordnes: IAvklaring = {
   beskrivelse: "Finne ut om det er noen reduserte ytelser fra folketrygden som skal samordnes",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -97,7 +105,8 @@ export const inntektNesteKalendermaaned: IAvklaring = {
   beskrivelse: "Personen har inntekter som tilhører neste inntektsperiode",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -108,7 +117,8 @@ export const jobbetUtenforNorge: IAvklaring = {
   beskrivelse: "Personen har oppgitt arbeid utenfor Norge",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -119,7 +129,8 @@ export const muligGjenopptak: IAvklaring = {
   beskrivelse: "Personen har åpne saker i Arena som kan være gjenopptak",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -130,7 +141,8 @@ export const svangerskapsrelaterteSykepenger: IAvklaring = {
   beskrivelse: "Personen har sykepenger som kan være svangerskapsrelaterte",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -141,7 +153,8 @@ export const onskerEtterRapporteringsfrist: IAvklaring = {
   beskrivelse: "Personen ønsker dagpenger etter rapporteringsfrist",
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -153,7 +166,8 @@ export const totrinnskontroll: IAvklaring = {
   kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -165,7 +179,8 @@ export const BrukerUnder18: IAvklaring = {
   kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -177,6 +192,7 @@ export const BarnMaaGodkjennes: IAvklaring = {
   kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
-  kvittertAv: null,
+  sistEndret: "2021-01-02T14:27:33",
+  avklartAv: null,
   begrunnelse: null,
 };

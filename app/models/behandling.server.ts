@@ -71,8 +71,9 @@ export interface IAvklaring {
   beskrivelse: string;
   kanKvitteres?: boolean;
   maskinelt: boolean;
-  status: "Åpen" | "Løst" | "Kvittert";
-  kvittertAv: { ident: string } | null;
+  status: "Åpen" | "Avbrutt" | "Avklart";
+  avklartAv: { ident: string } | null;
+  sistEndret: string;
   begrunnelse: string | null;
 }
 
@@ -167,6 +168,7 @@ export async function kvitterAvklaring(
   request: Request,
   behandlingId: string,
   avklaringId: string,
+  begrunnelse?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
@@ -174,6 +176,6 @@ export async function kvitterAvklaring(
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ begrunnelse: "" }),
+    body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
   });
 }
