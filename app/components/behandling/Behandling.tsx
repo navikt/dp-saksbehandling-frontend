@@ -71,7 +71,7 @@ export function Behandling(props: IProps) {
           <ul className={styles.opplysningListe}>
             {aktivtRegelsettOpplysninger.map((opplysning) => (
               <OpplysningLinje
-                key={`${opplysning.navn}`}
+                key={`${opplysning.id}`}
                 opplysning={opplysning}
                 readonly={props.readonly}
               />
