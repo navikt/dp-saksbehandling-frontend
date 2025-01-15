@@ -8,6 +8,7 @@ import invariant from "tiny-invariant";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
@@ -85,11 +86,13 @@ export default function Oppgave() {
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
         <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
-          <OppgaveListe oppgaver={oppgaverForPerson} />
-          <Fragment key={oppgave.oppgaveId}>
-            <OppgaveHandlinger />
-            <Outlet />
-          </Fragment>
+          <BeslutterNotatProvider notat={oppgave.notat}>
+            <OppgaveListe oppgaver={oppgaverForPerson} />
+            <Fragment key={oppgave.oppgaveId}>
+              <OppgaveHandlinger />
+              <Outlet />
+            </Fragment>
+          </BeslutterNotatProvider>
         </MeldingOmVedtakProvider>
       </div>
     </>
