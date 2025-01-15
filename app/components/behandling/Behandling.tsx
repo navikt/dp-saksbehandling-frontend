@@ -1,6 +1,7 @@
 import {
   CheckmarkCircleIcon,
   CircleIcon,
+  CircleSlashIcon,
   ExclamationmarkTriangleFillIcon,
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
@@ -39,7 +40,7 @@ export function Behandling(props: IProps) {
                 })}
                 onClick={() => setAktivtRegelsett(regelsett)}
               >
-                {renderStatusIcon(regelsett.status)}
+                {renderStatusIcon(regelsett.status, regelsett.relevant)}
                 {regelsett.navn}
               </button>
             </li>
@@ -55,7 +56,7 @@ export function Behandling(props: IProps) {
                 })}
                 onClick={() => setAktivtRegelsett(regelsett)}
               >
-                {renderStatusIcon(regelsett.status)}
+                {renderStatusIcon(regelsett.status, regelsett.relevant)}
                 {regelsett.navn}
               </button>
             </li>
@@ -82,7 +83,11 @@ export function Behandling(props: IProps) {
   );
 }
 
-function renderStatusIcon(status: IRegelsett["status"]) {
+function renderStatusIcon(status: IRegelsett["status"], relevant: boolean) {
+  if (!relevant) {
+    return <CircleSlashIcon fontSize="1.5rem" />;
+  }
+
   switch (status) {
     case "Info":
       return <CircleIcon fontSize="1.5rem" color={"var(--a-blue-500)"} />;
