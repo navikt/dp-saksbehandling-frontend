@@ -1,7 +1,7 @@
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Alert, Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { Outlet, useActionData } from "@remix-run/react";
+import { Outlet, useActionData, useLocation } from "@remix-run/react";
 import { useState } from "react";
 
 import { Behandling } from "~/components/behandling/Behandling";
@@ -19,6 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Oppgave() {
+  const { key } = useLocation();
   const actionData = useActionData<typeof action>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const { oppgave, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
@@ -49,7 +50,7 @@ export default function Oppgave() {
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <Behandling />
+              <Behandling key={key} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
