@@ -6,6 +6,7 @@ export const andreYtelser: IAvklaring = {
   tittel: "Andre ytelser",
   beskrivelse: "Personen har oppgitt andre ytelser",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const soknadstidspunktForLangtFramITid: IAvklaring = {
@@ -14,6 +15,7 @@ export const soknadstidspunktForLangtFramITid: IAvklaring = {
   tittel: "Søknadstidspunktet ligger for lang fram i tid",
   beskrivelse: "Søknadstidspunktet ligger mer enn 14 dager fram i tid",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const virkningstidspunktForLangtFramITid: IAvklaring = {
@@ -22,6 +24,7 @@ export const virkningstidspunktForLangtFramITid: IAvklaring = {
   tittel: "Virkningstidspunkt ligger for lang fram i tid",
   beskrivelse: "Virkningstidspunkt ligger mer enn 14 dager fram i tid",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const verneplikt: IAvklaring = {
@@ -30,6 +33,7 @@ export const verneplikt: IAvklaring = {
   tittel: "Verneplikt",
   beskrivelse: "Krever avklaring om verneplikt",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const tapAvArbeidstidBeregningsregel: IAvklaring = {
@@ -40,6 +44,7 @@ export const tapAvArbeidstidBeregningsregel: IAvklaring = {
   beskrivelse:
     "Kun én beregningsregel kan være gyldig til en hver tid.  Velg en av Arbeidstid siste 6 måneder, Arbeidstid siste 12 måneder eller Arbeidstid siste 36 måneder.",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const EOSArbeid: IAvklaring = {
@@ -48,6 +53,7 @@ export const EOSArbeid: IAvklaring = {
   tittel: "Arbeid i EØS",
   beskrivelse: "Personen har oppgitt arbeid fra EØS",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const hattLukkedeSakerSiste8Uker: IAvklaring = {
@@ -56,6 +62,7 @@ export const hattLukkedeSakerSiste8Uker: IAvklaring = {
   tittel: "Hatt lukkede saker siste 8 uker",
   beskrivelse: "Personen har lukkede saker i Arena siste 8 uker",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const samordnes: IAvklaring = {
@@ -64,6 +71,7 @@ export const samordnes: IAvklaring = {
   tittel: "Om reduserte ytelser fra folketrygden som skal samordnes",
   beskrivelse: "Finne ut om det er noen reduserte ytelser fra folketrygden som skal samordnes",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const inntektNesteKalendermaaned: IAvklaring = {
@@ -72,6 +80,7 @@ export const inntektNesteKalendermaaned: IAvklaring = {
   tittel: "Har innrapport inntekt for neste måned",
   beskrivelse: "Personen har inntekter som tilhører neste inntektsperiode",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const jobbetUtenforNorge: IAvklaring = {
@@ -80,6 +89,7 @@ export const jobbetUtenforNorge: IAvklaring = {
   tittel: "Arbeid utenfor Norge",
   beskrivelse: "Personen har oppgitt arbeid utenfor Norge",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const muligGjenopptak: IAvklaring = {
@@ -88,6 +98,7 @@ export const muligGjenopptak: IAvklaring = {
   tittel: "Mulig gjenopptak",
   beskrivelse: "Personen har åpne saker i Arena som kan være gjenopptak",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const svangerskapsrelaterteSykepenger: IAvklaring = {
@@ -96,6 +107,7 @@ export const svangerskapsrelaterteSykepenger: IAvklaring = {
   tittel: "Har hatt sykepenger som kan være svangerskapsrelatert",
   beskrivelse: "Personen har sykepenger som kan være svangerskapsrelaterte",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const onskerEtterRapporteringsfrist: IAvklaring = {
@@ -104,6 +116,7 @@ export const onskerEtterRapporteringsfrist: IAvklaring = {
   tittel: "Ønsker dagpenger etter rapporteringsfrist",
   beskrivelse: "Personen ønsker dagpenger etter rapporteringsfrist",
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const totrinnskontroll: IAvklaring = {
@@ -113,6 +126,7 @@ export const totrinnskontroll: IAvklaring = {
   beskrivelse: "Totrinnskontroll",
   kanKvitteres: true,
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const BrukerUnder18: IAvklaring = {
@@ -122,6 +136,7 @@ export const BrukerUnder18: IAvklaring = {
   beskrivelse: "Bruker er under 18 og skal ikke ha automatisk behandling",
   kanKvitteres: true,
   status: "Åpen",
+  maskinelt: false,
 };
 
 export const BarnMaaGodkjennes: IAvklaring = {
@@ -131,4 +146,5 @@ export const BarnMaaGodkjennes: IAvklaring = {
   beskrivelse: "Barn må godkjennes om de skal gi barnetillegg",
   kanKvitteres: true,
   status: "Åpen",
+  maskinelt: false,
 };
