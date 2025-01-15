@@ -28,7 +28,7 @@ export function Avklaring({ avklaring }: IProps) {
     <>
       <ExpansionCard
         size="small"
-        aria-label="Small-variant"
+        aria-label=""
         className={styles.alertCard}
         open={utvidet}
         onToggle={() => setUtvidet(!utvidet)}
