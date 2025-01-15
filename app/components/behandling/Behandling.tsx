@@ -6,6 +6,7 @@ import {
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
+import { useLocation } from "@remix-run/react";
 import classnames from "classnames";
 import { useState } from "react";
 
@@ -21,6 +22,7 @@ interface IProps {
 }
 
 export function Behandling(props: IProps) {
+  const { key } = useLocation();
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivtRegelsett, setAktivtRegelsett] = useState<IRegelsett>(behandling.vilkår[0]);
   const aktivtRegelsettOpplysninger = behandling.opplysninger.filter((opplysning) =>
@@ -28,7 +30,7 @@ export function Behandling(props: IProps) {
   );
 
   return (
-    <div>
+    <div key={key}>
       <Avklaringer avklaringer={behandling.avklaringer} />
       <div className={styles.container}>
         <ul className={styles.regelsettMeny}>
