@@ -1,6 +1,7 @@
 import {
   CheckmarkCircleFillIcon,
   ExclamationmarkTriangleFillIcon,
+  RobotFillIcon,
   RobotSmileFillIcon,
 } from "@navikt/aksel-icons";
 import { Button, Detail, ExpansionCard, Heading, TextField } from "@navikt/ds-react";
@@ -40,7 +41,7 @@ export function Avklaring({ avklaring }: IProps) {
             [styles.headingWarning]: avklaring.status === "Åpen",
           })}
         >
-          {renderStatusIcon(avklaring.status)}
+          {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
           <Heading size={"xsmall"}>{avklaring.tittel}</Heading>
         </ExpansionCard.Header>
 
@@ -48,9 +49,10 @@ export function Avklaring({ avklaring }: IProps) {
           {avklaring.beskrivelse}
           {avklaring.status === "Avklart" && (
             <Detail>
-              {`${formaterNorskDato(avklaring.sistEndret, true)} av ${avklaring.avklartAv?.ident}`}
+              {`${formaterNorskDato(avklaring.sistEndret, true)} av ${avklaring.maskinelt ? "Regelmotor" : avklaring?.avklartAv?.ident}`}
             </Detail>
           )}
+
           {avklaring.status === "Avbrutt" && (
             <Detail>{`${formaterNorskDato(avklaring.sistEndret, true)} av Regelmotor`}</Detail>
           )}
@@ -98,14 +100,18 @@ export function Avklaring({ avklaring }: IProps) {
   );
 }
 
-function renderStatusIcon(status: IAvklaring["status"]) {
+function renderStatusIcon(status: IAvklaring["status"], maskinelt: boolean) {
   switch (status) {
     case "Åpen":
       return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;
     case "Avklart":
-      return <CheckmarkCircleFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />;
+      return maskinelt ? (
+        <RobotSmileFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />
+      ) : (
+        <CheckmarkCircleFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />
+      );
     case "Avbrutt":
-      return <RobotSmileFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />;
+      return <RobotFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />;
     default:
       return null;
   }
