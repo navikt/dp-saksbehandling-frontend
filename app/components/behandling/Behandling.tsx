@@ -40,7 +40,7 @@ export function Behandling(props: IProps) {
                 })}
                 onClick={() => setAktivtRegelsett(regelsett)}
               >
-                {renderStatusIcon(regelsett.status, regelsett.relevant)}
+                {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
                 {regelsett.navn}
               </button>
             </li>
@@ -56,7 +56,7 @@ export function Behandling(props: IProps) {
                 })}
                 onClick={() => setAktivtRegelsett(regelsett)}
               >
-                {renderStatusIcon(regelsett.status, regelsett.relevant)}
+                {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
                 {regelsett.navn}
               </button>
             </li>
@@ -83,8 +83,8 @@ export function Behandling(props: IProps) {
   );
 }
 
-function renderStatusIcon(status: IRegelsett["status"], relevant: boolean) {
-  if (!relevant) {
+function renderStatusIcon(status: IRegelsett["status"], relevantForVedtak: boolean) {
+  if (!relevantForVedtak) {
     return <CircleSlashIcon fontSize="1.5rem" />;
   }
 

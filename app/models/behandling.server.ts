@@ -6,7 +6,7 @@ import { getHeaders } from "~/utils/fetch.utils";
 export interface IRegelsett {
   navn: string;
   hjemmel: string;
-  relevant: boolean;
+  relevantForVedtak: boolean;
   status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | null;
   avklaringer: IAvklaring[];
   opplysningIder: string[];

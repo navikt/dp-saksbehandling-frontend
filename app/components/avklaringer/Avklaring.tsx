@@ -4,7 +4,7 @@ import {
   RobotFillIcon,
   RobotSmileFillIcon,
 } from "@navikt/aksel-icons";
-import { Button, Detail, ExpansionCard, Heading, TextField } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, ExpansionCard, Heading, TextField } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { useState } from "react";
@@ -47,6 +47,12 @@ export function Avklaring({ avklaring }: IProps) {
 
         <ExpansionCard.Content className={styles.content}>
           {avklaring.beskrivelse}
+          {avklaring.begrunnelse ? (
+            <BodyShort size="small" className={"mt-4"}>
+              <strong>Begrunnelse: </strong>
+              {avklaring.begrunnelse}
+            </BodyShort>
+          ) : undefined}
           {avklaring.status === "Avklart" && (
             <Detail>
               {`${formaterNorskDato(avklaring.sistEndret, true)} av ${avklaring.maskinelt ? "Regelmotor" : avklaring?.avklartAv?.ident}`}

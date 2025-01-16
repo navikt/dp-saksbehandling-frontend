@@ -4915,7 +4915,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "3A-1 Søknadstidspunkt",
       avklaringer: [],
       hjemmel: "Dagpengeforskriften § 3A-1. Søknadstidspunkt",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [],
     },
@@ -4923,7 +4923,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-19 Verneplikt",
       avklaringer: [],
       hjemmel: "§ 4-19. Dagpenger etter avtjent verneplikt",
-      relevant: false,
+      relevantForVedtak: false,
       status: "IkkeOppfylt",
       opplysningIder: [
         "01935318-1e4a-7f06-b83c-24ad549b4dea",
@@ -4934,7 +4934,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-2 Opphold",
       avklaringer: [],
       hjemmel: "§ 4-2. Opphold i Norge",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [],
     },
@@ -4942,7 +4942,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-22 Streik og lock-out",
       avklaringer: [],
       hjemmel: "§ 4-22. Bortfall ved streik og lock-out",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-2497-7b2e-b8cd-9d68a0c5416b",
@@ -4954,7 +4954,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-23 Alder",
       avklaringer: [],
       hjemmel: "§ 4-23. Bortfall på grunn av alder",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-1e4a-7f06-b83c-24ad549b4deb",
@@ -4969,7 +4969,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       avklaringer: [],
       hjemmel:
         "§ 4-24. Medlem som har fulle ytelser etter folketrygdloven eller avtalefestet pensjon",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: ["01935318-2498-771b-ba3c-be452ed9f140"],
     },
@@ -4978,7 +4978,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       avklaringer: [],
       hjemmel:
         "§ 4-25. Samordning med reduserte ytelser fra folketrygden, eller redusert avtalefestet pensjon",
-      relevant: true,
+      relevantForVedtak: true,
       status: "IkkeOppfylt",
       opplysningIder: [
         "01935318-2498-771b-ba3c-be452ed9f150",
@@ -5006,7 +5006,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-26 Samordning utenfor folketrygden",
       avklaringer: [],
       hjemmel: "§ 4-26. Samordning med ytelser utenfor folketrygden",
-      relevant: true,
+      relevantForVedtak: true,
       status: "IkkeOppfylt",
       opplysningIder: [
         "01935318-2d16-7ec8-b80d-6b11fe43d9f6",
@@ -5032,7 +5032,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-28 Utestengning",
       avklaringer: [],
       hjemmel: "§ 4-28. Utestengning",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: ["01935318-249d-796a-9ade-0a89eca07540"],
     },
@@ -5040,7 +5040,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-3 Tap av arbeidsinntekt og arbeidstid",
       avklaringer: [],
       hjemmel: "§ 4-3. Krav til tap av arbeidsinntekt og arbeidstid",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-2497-7b2e-b8cd-9d68a0c54171",
@@ -5087,7 +5087,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
         },
       ],
       hjemmel: "§ 4-4. Krav til minsteinntekt",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-1e4b-7e1c-9d19-44b53d705fd9",
@@ -5108,7 +5108,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-5 Reell arbeidssøker",
       avklaringer: [],
       hjemmel: "§ 4-5. Reelle arbeidssøkere",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-2497-7b2e-b8cd-9d68a0c54159",
@@ -5124,7 +5124,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-6 Utdanning og etablering",
       avklaringer: [],
       hjemmel: "§ 4-6. Dagpenger under utdanning, opplæring, etablering av egen virksomhet m.v.",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-2497-7b2e-b8cd-9d68a0c5415d",
@@ -5145,7 +5145,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-8 Meldeplikt",
       avklaringer: [],
       hjemmel: "§ 4-8. Meldeplikt og møteplikt",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: [
         "01935318-2ce5-763c-b1ee-17f5a80fee19",
@@ -5156,7 +5156,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "Krav på dagpenger",
       avklaringer: [],
       hjemmel: "Krav på dagpenger",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Oppfylt",
       opplysningIder: ["01935318-2efe-7652-904f-f658646baffa"],
     },
@@ -5164,7 +5164,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "Søknadstidspunkt",
       avklaringer: [],
       hjemmel: "Søknadstidspunkt",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-1ce9-7f0b-be3d-5fb3f786459e",
@@ -5180,7 +5180,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-11 Dagpengegrunnlag",
       avklaringer: [],
       hjemmel: "§ 4-11. Dagpengegrunnlag",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-2498-771b-ba3c-be452ed9f142",
@@ -5211,7 +5211,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-12 Sats",
       avklaringer: [],
       hjemmel: "§ 4-12. Dagpengenes størrelse",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-2498-771b-ba3c-be452ed9f148",
@@ -5239,7 +5239,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-15 Periode",
       avklaringer: [],
       hjemmel: "§ 4-15. Antall stønadsuker (stønadsperiode)",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-2d16-7ec8-b80d-6b11fe43d9fc",
@@ -5263,7 +5263,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-19 Dagpenger ved verneplikt",
       avklaringer: [],
       hjemmel: "§ 4-19. Dagpenger etter avtjent verneplikt",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [],
     },
@@ -5271,7 +5271,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "4-9 Egenandel",
       avklaringer: [],
       hjemmel: "§ 4-9. Egenandel",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-2d16-7ec8-b80d-6b11fe43d9fa",
@@ -5282,7 +5282,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "Opptjeningsperiode",
       avklaringer: [],
       hjemmel: "A-opplysningsloven § 4. Frist for levering av opplysninger",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-1e4b-7e1c-9d19-44b53d705fd7",
@@ -5294,7 +5294,7 @@ export const mockBehandlingInnvilgelse2: IBehandling = {
       navn: "Rettighetstype",
       avklaringer: [],
       hjemmel: "Rettighetstype",
-      relevant: true,
+      relevantForVedtak: true,
       status: "Info",
       opplysningIder: [
         "01935318-2ce5-763c-b1ee-17f5a80fee13",
