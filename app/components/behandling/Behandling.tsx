@@ -23,8 +23,8 @@ interface IProps {
 export function Behandling(props: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivtRegelsett, setAktivtRegelsett] = useState<IRegelsett>(behandling.vilkår[0]);
-  const aktivtRegelsettOpplysninger = behandling.opplysninger.filter((opplysning) =>
-    aktivtRegelsett.opplysningIder?.includes(opplysning.id),
+  const aktivtRegelsettOpplysninger = behandling.opplysninger.filter(
+    (opplysning) => opplysning.synlig && aktivtRegelsett.opplysningIder?.includes(opplysning.id),
   );
 
   return (

@@ -5,11 +5,21 @@ import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IRegelsett {
   navn: string;
-  hjemmel: string;
+  hjemmel: IHjemmel;
   relevantForVedtak: boolean;
   status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | null;
   avklaringer: IAvklaring[];
   opplysningIder: string[];
+}
+
+export interface IHjemmel {
+  kilde: {
+    navn: string;
+    kortnavn: string;
+  };
+  kapittel: string;
+  paragraf: string;
+  tittel: string;
 }
 
 export interface IBehandling {
@@ -50,6 +60,8 @@ export interface IOpplysning {
   datatype: string;
   redigerbar?: boolean;
   kilde: IKilde | null;
+  synlig: boolean;
+  formål: "Legacy" | "Mellomsteg" | "Bruker" | "Register" | "Regel";
   utledetAv: {
     regel: {
       navn: string;
