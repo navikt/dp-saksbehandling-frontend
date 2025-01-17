@@ -1,4 +1,3 @@
-import { Alert } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
@@ -72,20 +71,11 @@ export default function Oppgave() {
   const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
 
-  if (!meldingOmVedtak) {
-    return (
-      <Alert variant="error">
-        Kan ikke hente melding om vedtak for oppgave i tilstand {oppgave.tilstand}. Ta kontakt med
-        utviklere.
-      </Alert>
-    );
-  }
-
   return (
     <>
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
-        <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
+        <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak?.utvidedeBeskrivelser || []}>
           <BeslutterNotatProvider notat={oppgave.notat}>
             <OppgaveListe oppgaver={oppgaverForPerson} />
             <Fragment key={oppgave.oppgaveId}>
