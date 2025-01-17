@@ -1,11 +1,20 @@
 .OppgaveHandlingerContainer {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-between;
+}
+
+.OppgaveHandlinger {
+  display: flex;
   gap: var(--a-spacing-2);
+  align-items: center;
+
   padding: var(--a-spacing-2);
 }
 
-.OppgaveHandlingerContainer button {
+.OppgaveHandlinger > Form {
+  display: inline-block;
+}
+
+.OppgaveHandlinger button {
   white-space: nowrap;
 }

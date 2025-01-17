@@ -29,7 +29,7 @@ export function MeldingOmVedtakPreview(props: IProps) {
     meldingOmVedtakOpplysninger,
   } = props;
 
-  const fagsakId = behandling.opplysning.find((o) => o.navn === "fagsakId")?.verdi;
+  const fagsakId = behandling.opplysninger.find((o) => o.navn === "fagsakId")?.verdi;
 
   return (
     <div className="melding-om-vedtak">

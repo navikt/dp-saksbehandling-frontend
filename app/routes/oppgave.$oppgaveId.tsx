@@ -1,11 +1,15 @@
+import { Alert } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 import invariant from "tiny-invariant";
 
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
@@ -65,17 +69,31 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
+  const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
+
+  if (!meldingOmVedtak) {
+    return (
+      <Alert variant="error">
+        Kan ikke hente melding om vedtak for oppgave i tilstand {oppgave.tilstand}. Ta kontakt med
+        utviklere.
+      </Alert>
+    );
+  }
 
   return (
     <>
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
-        <OppgaveListe oppgaver={oppgaverForPerson} />
-        <Fragment key={oppgave.oppgaveId}>
-          <Outlet />
-        </Fragment>
+        <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}>
+          <BeslutterNotatProvider notat={oppgave.notat}>
+            <OppgaveListe oppgaver={oppgaverForPerson} />
+            <Fragment key={oppgave.oppgaveId}>
+              <OppgaveHandlinger />
+              <Outlet />
+            </Fragment>
+          </BeslutterNotatProvider>
+        </MeldingOmVedtakProvider>
       </div>
     </>
   );

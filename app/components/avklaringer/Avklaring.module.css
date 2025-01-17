@@ -1,0 +1,41 @@
+.alertCard {
+  border-bottom: 1px solid var(--a-border-subtle);
+  border-radius: 0;
+}
+
+.alertCard > div {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  padding: var(--a-spacing-2);
+}
+
+.heading::after {
+  height: 0;
+}
+
+.heading > div {
+  display: flex;
+  align-items: center;
+}
+
+.heading > div svg {
+  margin-right: var(--a-spacing-2);
+}
+
+.headingSuccess {
+  background-color: var(--a-green-50);
+}
+
+.headingWarning {
+  background-color: var(--a-orange-100);
+}
+
+.content {
+  box-shadow: none !important;
+}
+
+.content button {
+  margin-top: var(--a-spacing-2);
+  margin-right: var(--a-spacing-2);
+}

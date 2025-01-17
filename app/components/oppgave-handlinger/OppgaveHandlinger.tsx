@@ -1,6 +1,7 @@
 import classnames from "classnames";
 import { Fragment } from "react";
 
+import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
@@ -59,21 +60,20 @@ export function OppgaveHandlinger() {
   );
 
   return (
-    <>
-      {gyldigeOppgaveValg.length > 0 && (
-        <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
-          {gyldigeOppgaveValg.map((valg) => (
-            <Fragment key={valg}>
-              {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
-              {valg === "utsett" && <OppgaveHandlingUtsett />}
-              {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
-              {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
-              {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
-              {valg === "fatt-vedtak" && <OppgaveHandlingFattVedtak />}
-            </Fragment>
-          ))}
-        </div>
-      )}
-    </>
+    <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
+      <KravPaaDagpenger />
+      <div className={styles.OppgaveHandlinger}>
+        {gyldigeOppgaveValg.map((valg) => (
+          <Fragment key={valg}>
+            {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
+            {valg === "utsett" && <OppgaveHandlingUtsett />}
+            {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
+            {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
+            {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
+            {valg === "fatt-vedtak" && <OppgaveHandlingFattVedtak />}
+          </Fragment>
+        ))}
+      </div>
+    </div>
   );
 }
