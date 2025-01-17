@@ -18,14 +18,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
     (opplysning) => opplysning.synlig && aktivtRegelsett.opplysningIder?.includes(opplysning.id),
   );
 
-  console.log(aktivtRegelsett);
-
-  aktivtRegelsettOpplysninger.map((opplysning) => {
-    if (opplysning.navn === "Deltar medlemmet i streik eller er omfattet av lock-out?") {
-      console.log(opplysning);
-    }
-  });
-
   return (
     <div>
       <Heading className={styles.regelsettHeading} size="medium">
