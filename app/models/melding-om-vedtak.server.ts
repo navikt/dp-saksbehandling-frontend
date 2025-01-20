@@ -5,8 +5,7 @@ import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
 export interface IMeldingOmVedtak {
-  brevblokkIder: string[];
-  opplysninger: IBrevOpplysning[];
+  html: string;
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
 }
 
@@ -26,7 +25,7 @@ export async function hentMeldingOmVedtak(
 ): Promise<IMeldingOmVedtak> {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
-  const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}`;
+  const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/html`;
   const response = await fetch(url, {
     method: "GET",
     headers: getHeaders(onBehalfOfToken),

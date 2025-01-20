@@ -16,9 +16,6 @@ import { hentOppgave } from "~/models/oppgave.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
-import { sanityClient } from "~/sanity/sanity-client";
-import { hentBrevBlokkerMedId } from "~/sanity/sanity-queries";
-import type { ISanityBrevBlokk } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 
@@ -38,12 +35,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   );
 
   let meldingOmVedtak: IMeldingOmVedtak | undefined;
-  let sanityBrevBlokker: ISanityBrevBlokk[] = [];
   if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
     meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
-    sanityBrevBlokker = await sanityClient.fetch<ISanityBrevBlokk[]>(
-      hentBrevBlokkerMedId(meldingOmVedtak.brevblokkIder),
-    );
   }
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -56,7 +49,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandling,
       oppgaverForPerson,
       journalposterResponses,
-      sanityBrevBlokker,
       meldingOmVedtak,
     },
     {

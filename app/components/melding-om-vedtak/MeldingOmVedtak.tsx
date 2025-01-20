@@ -1,32 +1,25 @@
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";
-import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
-  const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
-  const { oppgave, behandling, sanityBrevBlokker, meldingOmVedtak } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId",
-  );
+  const { meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
-  if (!meldingOmVedtak || !sanityBrevBlokker) {
+  if (!meldingOmVedtak) {
     return null;
   }
 
   return (
     <div className={styles.container}>
-      <UtvidedeBeskrivelser brevBlokker={sanityBrevBlokker} readOnly={readOnly} />
+      <UtvidedeBeskrivelser
+        utvidetBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}
+        readOnly={readOnly}
+      />
 
       <div className={styles.previewContainer}>
-        <MeldingOmVedtakPreview
-          utvidedeBeskrivelser={utvidedeBeskrivelser}
-          oppgave={oppgave}
-          behandling={behandling}
-          sanityBrevBlokker={sanityBrevBlokker}
-          meldingOmVedtakOpplysninger={meldingOmVedtak.opplysninger}
-        />
+        <MeldingOmVedtakPreview meldingOmVedtak={meldingOmVedtak} />
       </div>
     </div>
   );

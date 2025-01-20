@@ -5,6 +5,7 @@ export interface IUtvidetBeskrivelse {
   brevblokkId: string;
   tekst: string;
   sistEndretTidspunkt?: string;
+  tittel?: string;
 }
 
 export interface MeldingOmVedtakContextType {
