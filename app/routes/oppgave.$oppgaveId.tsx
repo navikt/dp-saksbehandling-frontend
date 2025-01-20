@@ -36,7 +36,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   let meldingOmVedtak: IMeldingOmVedtak | undefined;
   if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
-    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId);
+    const fagsakId = behandling.opplysninger.find((o) => o.navn === "fagsakId")?.verdi;
+    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
+      sakId: fagsakId || "",
+      fornavn: oppgave.person.fornavn,
+      mellomnavn: oppgave.person.mellomnavn,
+      etternavn: oppgave.person.etternavn,
+      fodselsnummer: oppgave.person.fodselsdato,
+      saksbehandler: oppgave.saksbehandler,
+      beslutter: oppgave.beslutter,
+    });
   }
 
   const session = await getSession(request.headers.get("Cookie"));

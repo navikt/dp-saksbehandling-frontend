@@ -1,4 +1,5 @@
 import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { IOppgaveBehandler } from "~/models/oppgave.server";
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
@@ -19,16 +20,28 @@ export interface ILagreUtvidetBeskrivelseResponse {
   sistEndretTidspunkt: string;
 }
 
+export interface IMeldingOmVedtakBody {
+  fornavn: string;
+  mellomnavn?: string;
+  etternavn: string;
+  fodselsnummer: string;
+  sakId: string;
+  saksbehandler?: IOppgaveBehandler; // TODO DENNE SKAL IKKE VÆRE OPTIONAL. Må fikse oppgavetilstand type
+  beslutter?: IOppgaveBehandler;
+}
+
 export async function hentMeldingOmVedtak(
   request: Request,
   behandlingId: string,
+  body: IMeldingOmVedtakBody,
 ): Promise<IMeldingOmVedtak> {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
   const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/html`;
   const response = await fetch(url, {
-    method: "GET",
+    method: "POST",
     headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
