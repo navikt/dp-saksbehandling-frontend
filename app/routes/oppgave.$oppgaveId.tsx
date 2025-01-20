@@ -4,7 +4,6 @@ import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 import invariant from "tiny-invariant";
 
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
@@ -69,10 +68,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const actionData = useActionData<typeof action>();
   const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
-  useHandleAlertMessages(alert);
+  const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  useHandleAlertMessages(alert);
 
   return (
     <>
@@ -82,7 +81,6 @@ export default function Oppgave() {
           <BeslutterNotatProvider notat={oppgave.notat}>
             <OppgaveListe oppgaver={oppgaverForPerson} />
             <Fragment key={oppgave.oppgaveId}>
-              <OppgaveHandlinger />
               <Outlet />
             </Fragment>
           </BeslutterNotatProvider>
