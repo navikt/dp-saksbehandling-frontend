@@ -6,8 +6,8 @@ import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak";
 
 export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
-  http.get(
-    `${process.env.DP_MELDING_OM_VEDTAK_URL}/melding-om-vedtak/:behandlingId`,
+  http.post(
+    `${process.env.DP_MELDING_OM_VEDTAK_URL}/melding-om-vedtak/:behandlingId/html`,
     ({ request, params }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
       const { behandlingId } = params;
