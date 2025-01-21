@@ -1,7 +1,10 @@
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { renderToString } from "react-dom/server";
 
+import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
+import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
 import { isAlert } from "~/utils/type-guards";
@@ -10,6 +13,7 @@ export function OppgaveHandlingFattVedtak() {
   const fattVedtakModalRef = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
+  const { utvidedeBeskrivelser } = useMeldingOmVedtakTekst();
   const { behandling, meldingOmVedtak } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   useEffect(() => {
@@ -17,7 +21,17 @@ export function OppgaveHandlingFattVedtak() {
       fattVedtakModalRef.current?.close();
     }
   }, [actionData]);
-
+  const meldingOmVedtakHtml = renderToString(
+    <MeldingOmVedtakPreview
+      utvidetBeskrivelser={utvidedeBeskrivelser}
+      meldingOmVedtak={
+        meldingOmVedtak || {
+          html: "",
+          utvidedeBeskrivelser: [],
+        }
+      }
+    />,
+  );
   const kravPaaDagpenger = behandling.opplysninger.find(
     (o) => o.navn === "Krav på dagpenger",
   )?.verdi;
@@ -54,7 +68,7 @@ export function OppgaveHandlingFattVedtak() {
             <input name="_action" value="fatt-vedtak" hidden={true} readOnly={true} />
             <input
               name="melding-om-vedtak-html"
-              value={meldingOmVedtak?.html || ""}
+              value={meldingOmVedtakHtml || ""}
               hidden={true}
               readOnly={true}
             />
