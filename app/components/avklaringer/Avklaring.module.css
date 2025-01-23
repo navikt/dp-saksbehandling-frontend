@@ -7,6 +7,10 @@
   border: none !important;
   box-shadow: none !important;
   border-radius: 0;
+}
+
+.heading {
+  background-color: var(--a-blue-50);
   padding: var(--a-spacing-2);
 }
 
@@ -23,16 +27,16 @@
   margin-right: var(--a-spacing-2);
 }
 
-.headingSuccess {
-  background-color: var(--a-green-50);
-}
-
 .headingWarning {
   background-color: var(--a-orange-100);
 }
 
 .content {
-  box-shadow: none !important;
+  padding: var(--a-spacing-4) var(--a-spacing-10);
+}
+
+.begrunnelseInput {
+  margin-top: var(--a-spacing-2);
 }
 
 .content button {

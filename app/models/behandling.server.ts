@@ -54,7 +54,6 @@ export interface IOpplysning {
   navn: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
-  tekstId: string | null;
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
   datatype: string;
