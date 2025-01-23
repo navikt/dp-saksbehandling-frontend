@@ -3,7 +3,7 @@ import {
   PersonPencilIcon,
   RobotSmileIcon,
 } from "@navikt/aksel-icons";
-import { Button, Detail, ExpansionCard, Heading, TextField } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { useState } from "react";
@@ -43,7 +43,9 @@ export function Avklaring({ avklaring, readonly }: IProps) {
           })}
         >
           {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
-          <Heading size={"xsmall"}>{avklaring.tittel}</Heading>
+          <BodyShort size="small" weight="semibold">
+            {avklaring.tittel}
+          </BodyShort>
         </ExpansionCard.Header>
 
         <ExpansionCard.Content className={styles.content}>
