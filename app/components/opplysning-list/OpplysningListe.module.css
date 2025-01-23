@@ -3,11 +3,11 @@
   list-style: none;
 }
 
-.linje:nth-child(even) {
+.linje:nth-child(odd) {
   background-color: #f8f9fc;
 }
 
-.linje:nth-child(odd) {
+.linje:nth-child(even) {
   background-color: #ffffff;
 }
 
