@@ -11,7 +11,7 @@ export function OppgaveHandlingRekjorBehandling() {
     <Form method="post">
       <input name="_action" value="rekjor-behandling" hidden={true} readOnly={true} />
       <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
-      <input name="ident" value={oppgave.saksbehandler?.ident} hidden={true} readOnly={true} />
+      <input name="ident" value={oppgave.person.ident} hidden={true} readOnly={true} />
       <Button size="small" variant="tertiary" loading={state !== "idle"}>
         Kjør behandling på nytt
       </Button>
