@@ -35,6 +35,13 @@ export const mockDpBehandling = [
     });
   }),
 
+  http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/rekjor`, ({ request }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    return new HttpResponse(null, {
+      status: 201,
+    });
+  }),
+
   http.put(
     `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/opplysning/:opplysningId`,
     ({ request }) => {

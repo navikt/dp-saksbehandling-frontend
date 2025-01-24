@@ -7,6 +7,7 @@ import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
+import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
@@ -59,6 +60,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "send-til-kontroll":
       return await sendTilKontrollAction(request, params);
+
+    case "rekjor-behandling":
+      return await rekjorBehandlingAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

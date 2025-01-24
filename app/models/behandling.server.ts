@@ -191,3 +191,14 @@ export async function kvitterAvklaring(
     body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
   });
 }
+
+export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/rekjor`;
+  return await fetch(url, {
+    method: "POST",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ ident }),
+  });
+}
