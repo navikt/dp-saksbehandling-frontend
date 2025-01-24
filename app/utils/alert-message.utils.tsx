@@ -337,7 +337,7 @@ export function rekjorBehandlingMessages(httpCode: number): IAlert {
     default:
       return {
         variant: "error",
-        title: "Kunne kjøre behandling på nytt",
+        title: "Kunne ikke kjøre behandling på nytt",
         body: `Feilkode: ${httpCode}`,
       };
   }
