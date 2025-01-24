@@ -1,4 +1,4 @@
-import { Heading } from "@navikt/ds-react";
+import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
@@ -41,9 +41,12 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
 
   return (
     <div>
-      <Heading className={styles.regelsettHeading} size="medium">
-        {aktivtRegelsett.navn}
+      <Heading className={styles.hjemmelTittel} size="medium">
+        {aktivtRegelsett.hjemmel.tittel}
       </Heading>
+      <Detail textColor="subtle" className={styles.hjemmelKilde}>
+        {aktivtRegelsett.hjemmel.kilde.navn}
+      </Detail>
       <Avklaringer avklaringer={aktivtRegelsett.avklaringer} />
 
       {brukerOpplysninger.length > 0 && (
