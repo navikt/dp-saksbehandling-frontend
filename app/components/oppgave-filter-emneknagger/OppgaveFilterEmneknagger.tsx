@@ -9,6 +9,7 @@ const emneknagger = [
   "Avslag ikke registrert",
   "Avslag reell arbeidssøker",
   "Avslag opphold utland",
+  "Avslag andre ytelser",
 ];
 
 export function OppgaveFilterEmneknagger() {
