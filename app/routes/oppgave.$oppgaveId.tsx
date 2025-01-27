@@ -74,18 +74,16 @@ export default function Oppgave() {
   useHandleAlertMessages(alert);
 
   return (
-    <>
+    <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
         <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak?.utvidedeBeskrivelser || []}>
           <BeslutterNotatProvider notat={oppgave.notat}>
             <OppgaveListe oppgaver={oppgaverForPerson} />
-            <Fragment key={oppgave.oppgaveId}>
-              <Outlet />
-            </Fragment>
+            <Outlet />
           </BeslutterNotatProvider>
         </MeldingOmVedtakProvider>
       </div>
-    </>
+    </Fragment>
   );
 }
