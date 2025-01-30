@@ -25,7 +25,6 @@ export interface IMeldingOmVedtakBody {
   mellomnavn?: string;
   etternavn: string;
   fodselsnummer: string;
-  sakId: string;
   saksbehandler?: IOppgaveBehandler; // TODO DENNE SKAL IKKE VÆRE OPTIONAL. Må fikse oppgavetilstand type
   beslutter?: IOppgaveBehandler;
 }
