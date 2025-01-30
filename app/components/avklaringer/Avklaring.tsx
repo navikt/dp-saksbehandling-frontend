@@ -1,10 +1,9 @@
 import {
-  CheckmarkCircleFillIcon,
   ExclamationmarkTriangleFillIcon,
-  RobotFillIcon,
-  RobotSmileFillIcon,
+  PersonPencilIcon,
+  RobotSmileIcon,
 } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, ExpansionCard, Heading, TextField } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { useState } from "react";
@@ -17,13 +16,17 @@ import styles from "./Avklaring.module.css";
 
 interface IProps {
   avklaring: IAvklaring;
+  readonly?: boolean;
 }
 
-export function Avklaring({ avklaring }: IProps) {
+export function Avklaring({ avklaring, readonly }: IProps) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
-  const [utvidet, setUtvidet] = useState<boolean>(false);
-  const maaKvitteres = avklaring.status === "Åpen";
+  const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
+
+  let avklartAv = "";
+  if (avklaring.maskinelt) avklartAv = "av regelmotor";
+  if (avklaring.avklartAv?.ident) avklartAv = `av ${avklaring.avklartAv?.ident}`;
 
   return (
     <>
@@ -31,44 +34,25 @@ export function Avklaring({ avklaring }: IProps) {
         size="small"
         aria-label=""
         className={styles.alertCard}
-        open={utvidet}
-        onToggle={() => setUtvidet(!utvidet)}
+        open={visBeskrivelse}
+        onToggle={() => setVisBeskrivelse(!visBeskrivelse)}
       >
         <ExpansionCard.Header
           className={classnames(styles.heading, {
-            [styles.headingSuccess]:
-              avklaring.status === "Avklart" || avklaring.status === "Avbrutt",
             [styles.headingWarning]: avklaring.status === "Åpen",
           })}
         >
           {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
-          <Heading size={"xsmall"}>{avklaring.tittel}</Heading>
+          <BodyShort size="small" weight="semibold">
+            {avklaring.tittel}
+          </BodyShort>
         </ExpansionCard.Header>
 
         <ExpansionCard.Content className={styles.content}>
           {avklaring.beskrivelse}
-          {avklaring.begrunnelse ? (
-            <BodyShort size="small" className={"mt-4"}>
-              <strong>Begrunnelse: </strong>
-              {avklaring.begrunnelse}
-            </BodyShort>
-          ) : undefined}
-          {avklaring.status === "Avklart" && (
-            <Detail>
-              {`${formaterNorskDato(avklaring.sistEndret, true)} av ${avklaring.maskinelt ? "Regelmotor" : avklaring?.avklartAv?.ident}`}
-            </Detail>
-          )}
 
-          {avklaring.status === "Avbrutt" && (
-            <Detail>{`${formaterNorskDato(avklaring.sistEndret, true)} av Regelmotor`}</Detail>
-          )}
-
-          {maaKvitteres && (
-            <Form
-              className={styles.buttonContainer}
-              method="post"
-              onSubmit={() => setUtvidet(!utvidet)}
-            >
+          {avklaring.kanKvitteres && (
+            <Form method="post" onSubmit={() => setVisBeskrivelse(!visBeskrivelse)}>
               <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
               <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
               <input
@@ -83,21 +67,33 @@ export function Avklaring({ avklaring }: IProps) {
                 size="small"
                 label="Begrunnelse"
                 name="begrunnelse"
+                defaultValue={avklaring.begrunnelse ?? ""}
+                readOnly={readonly}
               />
 
-              <Button
-                variant="secondary-neutral"
-                size="xsmall"
-                loading={state !== "idle"}
-                type="button"
-                onClick={() => setUtvidet(false)}
-              >
-                Avbryt
-              </Button>
+              {avklaring.sistEndret && (
+                <Detail>
+                  Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
+                </Detail>
+              )}
 
-              <Button variant="primary" size="xsmall" loading={state !== "idle"}>
-                Lagre
-              </Button>
+              {!readonly && (
+                <>
+                  <Button
+                    variant="secondary-neutral"
+                    size="xsmall"
+                    loading={state !== "idle"}
+                    type="button"
+                    onClick={() => setVisBeskrivelse(false)}
+                  >
+                    Lukk
+                  </Button>
+
+                  <Button variant="primary" size="xsmall" loading={state !== "idle"}>
+                    Lagre
+                  </Button>
+                </>
+              )}
             </Form>
           )}
         </ExpansionCard.Content>
@@ -112,12 +108,12 @@ function renderStatusIcon(status: IAvklaring["status"], maskinelt: boolean) {
       return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;
     case "Avklart":
       return maskinelt ? (
-        <RobotSmileFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />
+        <RobotSmileIcon fontSize={"1.5rem"} />
       ) : (
-        <CheckmarkCircleFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />
+        <PersonPencilIcon fontSize="1.5rem" />
       );
     case "Avbrutt":
-      return <RobotFillIcon color={"var(--a-green-500)"} fontSize={"1.5rem"} />;
+      return <RobotSmileIcon fontSize="1.5rem" />;
     default:
       return null;
   }

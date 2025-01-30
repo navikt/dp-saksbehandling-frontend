@@ -1,5 +1,18 @@
-.regelsettHeading {
+.hjemmelTittel {
+  padding: var(--a-spacing-2) var(--a-spacing-2) 0;
+}
+
+.hjemmelKilde {
+  padding: 0 var(--a-spacing-2) var(--a-spacing-2);
+}
+
+.opplysningListeHeading {
   padding: var(--a-spacing-2);
+  margin-top: var(--a-spacing-4);
+}
+
+.opplysningListeHeading:not(:first-child) {
+  /*margin-top: var(--a-spacing-4);*/
 }
 
 .opplysningListe {

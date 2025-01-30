@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
+import { OppgaveHandlingRekjorBehandling } from "~/components/oppgave-handlinger/OppgaveHandlingRekjorBehandling";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
 import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilArena";
 import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilKontroll";
@@ -24,6 +25,7 @@ export type IGyldigeOppgaveHandlinger =
   | "send-til-arena"
   | "send-til-kontroll"
   | "fatt-vedtak"
+  | "rekjor-behandling"
   | "returner-til-saksbehandler";
 
 function hentGyldigeOppgaveValg(
@@ -34,6 +36,7 @@ function hentGyldigeOppgaveValg(
   switch (oppgave.tilstand) {
     case "UNDER_BEHANDLING":
       return [
+        "rekjor-behandling",
         "legg-tilbake",
         "utsett",
         "send-til-arena",
@@ -65,6 +68,7 @@ export function OppgaveHandlinger() {
       <div className={styles.OppgaveHandlinger}>
         {gyldigeOppgaveValg.map((valg) => (
           <Fragment key={valg}>
+            {valg === "rekjor-behandling" && <OppgaveHandlingRekjorBehandling />}
             {valg === "legg-tilbake" && <OppgaveHandlingLeggTilbake />}
             {valg === "utsett" && <OppgaveHandlingUtsett />}
             {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}

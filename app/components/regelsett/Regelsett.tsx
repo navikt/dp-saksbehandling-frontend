@@ -1,4 +1,4 @@
-import { Heading } from "@navikt/ds-react";
+import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
@@ -14,25 +14,125 @@ interface IProps {
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const aktivtRegelsettOpplysninger = behandling.opplysninger.filter(
-    (opplysning) => opplysning.synlig && aktivtRegelsett.opplysningIder?.includes(opplysning.id),
+  const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
+    .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
+    .filter((opplysning) => opplysning !== undefined)
+    .filter((opplysning) => opplysning.synlig);
+
+  const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
+    (opplysning) => opplysning?.formål === "Bruker",
+  );
+
+  const registerOpplysninger = aktivtRegelsettOpplysninger.filter(
+    (opplysning) => opplysning?.formål === "Register",
+  );
+
+  const legacyOpplysninger = aktivtRegelsettOpplysninger.filter(
+    (opplysning) => opplysning?.formål === "Legacy",
+  );
+
+  const regelOpplysninger = aktivtRegelsettOpplysninger.filter(
+    (opplysning) => opplysning?.formål === "Regel",
+  );
+
+  const mellomstegOpplysninger = aktivtRegelsettOpplysninger.filter(
+    (opplysning) => opplysning?.formål === "Mellomsteg",
   );
 
   return (
     <div>
-      <Heading className={styles.regelsettHeading} size="medium">
-        {aktivtRegelsett.navn}
+      <Heading className={styles.hjemmelTittel} size="medium">
+        {aktivtRegelsett.hjemmel.tittel}
       </Heading>
+      <Detail textColor="subtle" className={styles.hjemmelKilde}>
+        {aktivtRegelsett.hjemmel.kilde.navn}
+      </Detail>
       <Avklaringer avklaringer={aktivtRegelsett.avklaringer} />
-      <ul className={styles.opplysningListe}>
-        {aktivtRegelsettOpplysninger.map((opplysning) => (
-          <OpplysningLinje
-            key={`${opplysning.id}-${opplysning.verdi}`}
-            opplysning={opplysning}
-            readonly={readonly}
-          />
-        ))}
-      </ul>
+
+      {brukerOpplysninger.length > 0 && (
+        <>
+          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
+            Brukerdata
+          </Heading>
+          <ul className={styles.opplysningListe}>
+            {brukerOpplysninger.map((opplysning) => (
+              <OpplysningLinje
+                key={`${opplysning.id}-${opplysning.verdi}`}
+                opplysning={opplysning}
+                readonly={readonly}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+
+      {registerOpplysninger.length > 0 && (
+        <>
+          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
+            Registerdata
+          </Heading>
+          <ul className={styles.opplysningListe}>
+            {registerOpplysninger.map((opplysning) => (
+              <OpplysningLinje
+                key={`${opplysning.id}-${opplysning.verdi}`}
+                opplysning={opplysning}
+                readonly={readonly}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+
+      {legacyOpplysninger.length > 0 && (
+        <>
+          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
+            Legacy
+          </Heading>
+          <ul className={styles.opplysningListe}>
+            {legacyOpplysninger.map((opplysning) => (
+              <OpplysningLinje
+                key={`${opplysning.id}-${opplysning.verdi}`}
+                opplysning={opplysning}
+                readonly={readonly}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+
+      {mellomstegOpplysninger.length > 0 && (
+        <>
+          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
+            Mellomsteg
+          </Heading>
+          <ul className={styles.opplysningListe}>
+            {mellomstegOpplysninger.map((opplysning) => (
+              <OpplysningLinje
+                key={`${opplysning.id}-${opplysning.verdi}`}
+                opplysning={opplysning}
+                readonly={readonly}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+
+      {regelOpplysninger.length > 0 && (
+        <>
+          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
+            Behandling
+          </Heading>
+          <ul className={styles.opplysningListe}>
+            {regelOpplysninger.map((opplysning) => (
+              <OpplysningLinje
+                key={`${opplysning.id}-${opplysning.verdi}`}
+                opplysning={opplysning}
+                readonly={readonly}
+              />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }

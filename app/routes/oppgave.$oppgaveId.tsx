@@ -1,10 +1,9 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 import invariant from "tiny-invariant";
 
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
@@ -18,6 +17,7 @@ import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -70,22 +70,21 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   return (
-    <>
+    <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} />
       <div className={styles.oppgaveContainer}>
         <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak?.utvidedeBeskrivelser || []}>
           <BeslutterNotatProvider notat={oppgave.notat}>
             <OppgaveListe oppgaver={oppgaverForPerson} />
-            <Fragment key={oppgave.oppgaveId}>
-              <OppgaveHandlinger />
-              <Outlet />
-            </Fragment>
+            <Outlet />
           </BeslutterNotatProvider>
         </MeldingOmVedtakProvider>
       </div>
-    </>
+    </Fragment>
   );
 }

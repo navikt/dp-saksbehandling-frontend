@@ -54,7 +54,6 @@ export interface IOpplysning {
   navn: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
-  tekstId: string | null;
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
   datatype: string;
@@ -190,5 +189,16 @@ export async function kvitterAvklaring(
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
+  });
+}
+
+export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/rekjor`;
+  return await fetch(url, {
+    method: "POST",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ ident }),
   });
 }
