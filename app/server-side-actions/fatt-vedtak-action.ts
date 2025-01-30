@@ -14,7 +14,6 @@ export async function fattVedtakAction(
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const brevIArena = (formData.get("send-brev-i-arena") as string) === "true";
-  const meldingOmVedtakHtml = formData.get("melding-om-vedtak-html") as string;
   const session = await getSession(request.headers.get("Cookie"));
 
   let response;
@@ -27,8 +26,7 @@ export async function fattVedtakAction(
       httpCode: response.status,
     });
   } else {
-    invariant(meldingOmVedtakHtml, "meldingOmVedtakHtml er påkrevd");
-    response = await ferdigstillOppgave(request, params.oppgaveId, meldingOmVedtakHtml);
+    response = await ferdigstillOppgave(request, params.oppgaveId);
     alert = getAlertMessage({ name: "ferdigstill-oppgave", httpCode: response.status });
   }
 
