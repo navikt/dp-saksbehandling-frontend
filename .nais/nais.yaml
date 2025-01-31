@@ -71,13 +71,6 @@ spec:
     - name: PDL_AUDIENCE
       value: {{PDL_audience}}
 
-    - name: SANITY_PROJECT_ID
-      value: {{sanity_project_id}}
-    - name: SANITY_ACCESS_TOKEN
-      value: {{sanity_access_token}}
-    - name: SANITY_DATASET
-      value: {{sanity_dataset}}
-
     - name: OTEL_METRICS_EXPORTER
       value: otlp
     - name: OTEL_TRACES_EXPORTER
@@ -106,8 +99,6 @@ spec:
           namespace: aura
     outbound:
       external:
-        - host: rt6o382n.api.sanity.io
-        - host: rt6o382n.apicdn.sanity.io
         - host: graph.microsoft.com
         - host: login.microsoftonline.com
         - host: saf.dev-fss-pub.nais.io

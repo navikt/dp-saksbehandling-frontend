@@ -10,20 +10,15 @@ interface IProps {
 
 export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }: IProps) {
   const { html } = meldingOmVedtak;
-
   useEffect(() => {
-    console.log(utvidetBeskrivelser);
-
     utvidetBeskrivelser.forEach((utvidetBeskrivelse) => {
       const brevBlokkDiv = document.querySelector(
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
-      console.log(brevBlokkDiv);
       if (brevBlokkDiv) {
         brevBlokkDiv.textContent = utvidetBeskrivelse.tekst;
       }
     });
   }, [utvidetBeskrivelser]);
-
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }

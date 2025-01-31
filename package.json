@@ -40,7 +40,6 @@
     "@remix-run/serve": "2.15.1",
     "@rvf/remix": "6.3.0",
     "@rvf/zod": "6.0.3",
-    "@sanity/client": "6.24.1",
     "canvas-confetti": "1.9.3",
     "classnames": "2.5.1",
     "date-fns": "4.1.0",
