@@ -12,6 +12,12 @@ export interface IRegelsett {
   opplysningIder: string[];
 }
 
+export interface IVurderinger {
+  avklaringer: IAvklaring[];
+  regelsett: IRegelsett[];
+  opplysninger: IOpplysning[];
+}
+
 export interface IHjemmel {
   kilde: {
     navn: string;
@@ -53,6 +59,7 @@ export interface IOpplysning {
   id: string;
   navn: string;
   verdi: string;
+  begrunnelse: IBegrunnelse;
   status: "Hypotese" | "Faktum";
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
@@ -67,6 +74,11 @@ export interface IOpplysning {
     };
     opplysninger: string[];
   } | null;
+}
+
+export interface IBegrunnelse {
+  verdi: string;
+  sistEndretTidspunkt: string;
 }
 
 export interface IKilde {
@@ -159,14 +171,15 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-): Promise<IBehandlingGammel> {
+  begrunnelse: string | null,
+): Promise<IBehandling> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning/${opplysningId}`;
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ verdi, begrunnelse: "" }),
+    body: JSON.stringify({ verdi, begrunnelse: begrunnelse ?? "" }),
   });
 
   if (!response.ok) {
@@ -201,4 +214,23 @@ export async function rekjorBehandling(request: Request, behandlingId: string, i
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ ident }),
   });
+}
+
+export async function hentVurderinger(
+  request: Request,
+  behandlingId: string,
+): Promise<IVurderinger> {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/vurderinger`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
 }

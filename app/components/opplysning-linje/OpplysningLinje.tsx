@@ -107,10 +107,14 @@ export function OpplysningLinje(props: IProps) {
 export function formaterOpplysningVerdi(opplysning: IOpplysning) {
   switch (opplysning.datatype) {
     case "penger":
+      return `${formaterTallMedTusenSeperator(opplysning.verdi)} kr`;
     case "desimaltall":
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
       return formaterNorskDato(opplysning.verdi);
+    case "":
+      return formaterTallMedTusenSeperator(opplysning.verdi);
+
     default:
       return opplysning.verdi;
   }

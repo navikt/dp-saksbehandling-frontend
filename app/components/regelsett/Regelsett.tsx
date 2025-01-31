@@ -1,7 +1,7 @@
 import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
+import { OpplysningLinje } from "~/components/opplysning-linje/OpplysningLinje";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IRegelsett } from "~/models/behandling.server";
 

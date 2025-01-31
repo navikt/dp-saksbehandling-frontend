@@ -3,6 +3,7 @@ import { http, HttpResponse } from "msw";
 import { logger } from "~/utils/logger.utils";
 
 import { mockBehandlinger, mockBehandlingInnvilgelse } from "./data/mock-behandling";
+import { mockVurderinger } from "./data/mock-vurderinger";
 
 export const mockDpBehandling = [
   http.get(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId`, ({ request, params }) => {
@@ -58,6 +59,15 @@ export const mockDpBehandling = [
       return new HttpResponse(null, {
         status: 204,
       });
+    },
+  ),
+
+  http.get(
+    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/vurderinger`,
+    ({ request }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+
+      return HttpResponse.json(mockVurderinger);
     },
   ),
 ];

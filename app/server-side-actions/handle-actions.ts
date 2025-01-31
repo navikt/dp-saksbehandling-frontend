@@ -64,6 +64,10 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
 
+    // Bytt til lagre vurdering når det er klart
+    case "lagre-opplysning-begrunnelse":
+      return await lagreOpplysningAction(request, formData);
+
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
       if (getEnv("IS_LOCALHOST") === "true") {

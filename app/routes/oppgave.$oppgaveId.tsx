@@ -9,7 +9,7 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
+import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
@@ -31,6 +31,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
+  const vurderinger = await hentVurderinger(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
 
   const journalposterResponses = await Promise.all(
@@ -54,6 +55,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       behandling,
+      vurderinger,
       oppgaverForPerson,
       journalposterResponses,
       sanityBrevBlokker,

@@ -1,0 +1,23 @@
+.linje {
+  list-style: none;
+  padding: var(--a-spacing-2);
+  border-bottom: 1px solid var(--a-border-subtle);
+}
+
+.linje:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+.linje:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.linje form {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 450px 150px 1fr;
+}
+
+.textarea {
+  max-width: 500px;
+}

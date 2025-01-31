@@ -69,3 +69,11 @@ export function hentValideringForPersonIdent() {
     }),
   );
 }
+
+export function hentValideringOpplysningBegrunnelse() {
+  return withZod(
+    z.object({
+      begrunnelse: z.string().min(1, "Endringen må begrunnes"),
+    }),
+  );
+}
