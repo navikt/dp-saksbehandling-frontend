@@ -10,6 +10,7 @@ import { IOpplysning } from "~/models/behandling.server";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { isSaksbehandlerKilde } from "~/utils/type-guards";
 import { hentValideringOpplysningBegrunnelse } from "~/utils/validering.util";
 
 import styles from "./BegrunnelseLinje.module.css";
@@ -19,7 +20,10 @@ interface IProps {
 }
 
 export function BegrunnelseLinje({ opplysning }: IProps) {
-  const [verdi, setVerdi] = useState<string>(opplysning.begrunnelse.verdi);
+  const initVerdi = isSaksbehandlerKilde(opplysning.kilde)
+    ? opplysning.kilde.begrunnelse.verdi
+    : "";
+  const [verdi, setVerdi] = useState<string>(initVerdi);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const lagreOpplysningBegrunnelseFetcher = useDebounceFetcher<typeof action>();
 
@@ -29,7 +33,7 @@ export function BegrunnelseLinje({ opplysning }: IProps) {
     validator: hentValideringOpplysningBegrunnelse(),
     method: "post",
     defaultValues: {
-      begrunnelse: opplysning.begrunnelse.verdi,
+      begrunnelse: initVerdi,
     },
   });
 

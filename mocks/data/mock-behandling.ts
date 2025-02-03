@@ -631,10 +631,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe5-ffb1-7d91-b8d8-430de049239e",
       navn: "fagsakId",
       verdi: "15191586",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "heltall",
       redigerbar: false,
@@ -654,10 +651,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe5-ffb1-7d91-b8d8-430de04923a0",
       navn: "søknadId",
       verdi: "81dc0423-b9b0-424f-b497-0ec7623539e3",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "tekst",
       redigerbar: false,
@@ -677,10 +671,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe5-ffb1-7d91-b8d8-430de04923a2",
       navn: "støtterInnvilgelse",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -700,10 +691,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0997-797c-8a2b-cc7daf7ad133",
       navn: "Har rett til ordinære dagpenger gjennom arbeidsforhold",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -723,10 +711,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0997-797c-8a2b-cc7daf7ad134",
       navn: "Har rett til dagpenger under permittering",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -746,10 +731,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444b9",
       navn: "Har rett til dagpenger etter konkurs",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -769,10 +751,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444ba",
       navn: "Har rett til dagpenger under permittering i fiskeforedlingsindustri",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -792,10 +771,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444bb",
       navn: "Søknadsdato",
       verdi: "2024-12-13",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -820,10 +796,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444bc",
       navn: "Ønsker dagpenger fra dato",
       verdi: "2024-12-13",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -848,10 +821,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444bd",
       navn: "Fødselsdato",
       verdi: "1967-10-19",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -871,10 +841,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444c3",
       navn: "Har rett til ordinære dagpenger uten arbeidsforhold",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -899,10 +866,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444c5",
       navn: "Søknadstidspunkt",
       verdi: "2024-12-13",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -925,10 +889,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444cb",
       navn: "Har rett til ordinære dagpenger",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -951,10 +912,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-0998-73b7-b108-503e5ca444d3",
       navn: "Rettighetstype",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -979,10 +937,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-1e3b-7e98-88e3-d6646bdaf71d",
       navn: "Avtjent verneplikt",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1007,10 +962,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-1e3c-78ca-ba38-76da4f49208c",
       navn: "Har utført minst tre måneders militærtjeneste eller obligatorisk sivilforsvarstjeneste",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1030,10 +982,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3340-74c7-b30f-348316024697",
       navn: "Kan jobbe heltid og deltid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1053,10 +1002,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3340-74c7-b30f-348316024698",
       navn: "Kan jobbe i hele Norge",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1076,10 +1022,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3340-74c7-b30f-34831602469a",
       navn: "Villig til å bytte yrke",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1099,10 +1042,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3340-74c7-b30f-34831602469b",
       navn: "Tar utdanning eller opplæring?",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1122,10 +1062,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3340-74c7-b30f-34831602469c",
       navn: "Barn",
       verdi: "Ingen barn",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "barn",
       redigerbar: false,
@@ -1150,10 +1087,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3354-7f88-9f5a-46815b635fb8",
       navn: "Oppfyller kravet til å ta ethvert arbeid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1173,10 +1107,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3354-7f88-9f5a-46815b635fba",
       navn: "Har svart ja på spørsmål om utdanning eller opplæring",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1196,10 +1127,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3354-7f88-9f5a-46815b635fbc",
       navn: "Har svart nei på spørsmål om utdanning eller opplæring",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1219,10 +1147,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193bfe6-3354-7f88-9f5a-46815b635fbe",
       navn: "Antall barn som gir rett til barnetillegg",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "heltall",
       redigerbar: false,
@@ -1242,10 +1167,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193c07f-4f1a-7b67-aa87-66057ff1a79b",
       navn: "Ny arbeidstid per uke",
       verdi: "4.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: true,
@@ -1255,6 +1177,10 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       gyldigTilOgMed: null,
       kilde: {
         type: "Saksbehandler",
+        begrunnelse: {
+          verdi: "",
+          sistEndretTidspunkt: "2025-01-21T12:25:19.82503",
+        },
         registrert: "2024-12-13T15:49:48.373866",
         ident: "Z994276",
         meldingId: null,
@@ -1265,10 +1191,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b85c-7570-8eb3-c358bf855802",
       navn: "Prøvingsdato",
       verdi: "2024-12-02",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: true,
@@ -1278,6 +1201,10 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       gyldigTilOgMed: null,
       kilde: {
         type: "Saksbehandler",
+        begrunnelse: {
+          verdi: "",
+          sistEndretTidspunkt: "2025-01-21T12:25:19.82503",
+        },
         registrert: "2024-12-16T14:50:04.919137",
         ident: "Z994276",
         meldingId: null,
@@ -1288,10 +1215,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8b4-7c7a-8682-a5e37fa19edc",
       navn: "Aldersgrense",
       verdi: "67",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "heltall",
       redigerbar: false,
@@ -1311,10 +1235,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8bb-7861-ac30-e41dd8d34c8a",
       navn: "Grunnbeløp",
       verdi: "124028",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -1334,10 +1255,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8bd-718e-b08f-5e8a3b41f590",
       navn: "Antall G for krav til 12 mnd arbeidsinntekt",
       verdi: "1.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -1357,10 +1275,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8be-7cd9-9c03-5d69385f08fc",
       navn: "Lovpålagt rapporteringsfrist for A-ordningen",
       verdi: "2024-12-05",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -1380,10 +1295,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8bf-7d31-9c4a-1a946b2c6fb1",
       navn: "Maks lengde på opptjeningsperiode",
       verdi: "36",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "heltall",
       redigerbar: false,
@@ -1403,10 +1315,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c0-7d44-8f64-93b1b401d9ab",
       navn: "Antall G for krav til 36 mnd arbeidsinntekt",
       verdi: "3.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -1426,10 +1335,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c0-7d44-8f64-93b1b401d9ad",
       navn: "Mottar ikke andre fulle ytelser",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1449,10 +1355,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c0-7d44-8f64-93b1b401d9af",
       navn: "Er personen medlem av folketrygden",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1472,10 +1375,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c0-7d44-8f64-93b1b401d9b1",
       navn: "Opphold i Norge",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1495,10 +1395,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c1-77a9-842c-e152dd9d24aa",
       navn: "Oppfyller unntak for opphold i Norge",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1518,10 +1415,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c1-77a9-842c-e152dd9d24ac",
       navn: "Det er godkjent at bruker kun søker deltidsarbeid",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1541,10 +1435,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c1-77a9-842c-e152dd9d24ae",
       navn: "Det er godkjent at bruker kun søk arbeid lokalt",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1564,10 +1455,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c1-77a9-842c-e152dd9d24b0",
       navn: "Deltar medlemmet i streik eller er omfattet av lock-out?",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1587,10 +1475,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c2-792c-a4d8-45ac5c016c31",
       navn: "Ledig ved samme bedrift eller arbeidsplass, og blir påvirket av utfallet?",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1610,10 +1495,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c2-792c-a4d8-45ac5c016c33",
       navn: "Beregningsregel: Arbeidstid siste 6 måneder",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1633,10 +1515,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c2-792c-a4d8-45ac5c016c35",
       navn: "Beregningsregel: Arbeidstid siste 12 måneder",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1656,10 +1535,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c2-792c-a4d8-45ac5c016c37",
       navn: "Beregeningsregel: Arbeidstid siste 36 måneder",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1679,10 +1555,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c3-7112-92cd-25529b602658",
       navn: "Har tapt arbeid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1702,10 +1575,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c3-7112-92cd-25529b60265a",
       navn: "Krav på lønn fra tidligere arbeidsgiver",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -1725,10 +1595,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c3-7112-92cd-25529b60265c",
       navn: "Krav til prosentvis tap av arbeidstid",
       verdi: "50.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -1748,10 +1615,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c3-7112-92cd-25529b60265e",
       navn: "Beregnet vanlig arbeidstid per uke før tap",
       verdi: "37.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: true,
@@ -1771,10 +1635,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c4-7086-8c3d-9e135ef9aef3",
       navn: "Maksimal vanlig arbeidstid",
       verdi: "40.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -1794,10 +1655,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c4-7086-8c3d-9e135ef9aef5",
       navn: "Deltar i arbeidsmarkedstiltak",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1817,10 +1675,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c4-7086-8c3d-9e135ef9aef7",
       navn: "Deltar i opplæring for innvandrere",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1840,10 +1695,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c4-7086-8c3d-9e135ef9aef9",
       navn: "Deltar i grunnskoleopplæring, videregående opplæring og opplæring i grunnleggende ferdigheter",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1863,10 +1715,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c5-786d-bc63-d534bc8a5620",
       navn: "Deltar i høyere yrkesfaglig utdanning",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1886,10 +1735,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c5-786d-bc63-d534bc8a5622",
       navn: "Deltar i høyere utdanning",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1909,10 +1755,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c5-786d-bc63-d534bc8a5624",
       navn: "Deltar på kurs mv",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1932,10 +1775,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c5-786d-bc63-d534bc8a5626",
       navn: "Bruker er utestengt fra dagpenger",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -1955,10 +1795,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c7-7216-8b75-31db57b66aaa",
       navn: "Barnetilleggets størrelse i kroner per dag for hvert barn",
       verdi: "36",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -1978,10 +1815,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c7-7216-8b75-31db57b66aac",
       navn: "Sykepenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2001,10 +1835,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c8-7f07-9fe3-445d6a91160d",
       navn: "Pleiepenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2024,10 +1855,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c8-7f07-9fe3-445d6a91160f",
       navn: "Omsorgspenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2047,10 +1875,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c9-7464-91cc-58ca477e530a",
       navn: "Opplæringspenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2070,10 +1895,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c9-7464-91cc-58ca477e530c",
       navn: "Uføre dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2093,10 +1915,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8c9-7464-91cc-58ca477e530e",
       navn: "Foreldrepenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2116,10 +1935,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8ca-79c2-9785-a8c3deb1cf46",
       navn: "Svangerskapspenger dagsats",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: true,
@@ -2139,10 +1955,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8cb-7e47-a93d-2c4c2661cd04",
       navn: "Faktor for utregning av dagsats etter dagpengegrunnlaget",
       verdi: "0.0024",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -2162,10 +1975,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8cc-7e1c-ae1c-f74d364f74fc",
       navn: "Grunnbeløp for grunnlag",
       verdi: "124028",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2185,10 +1995,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8cd-75b6-a48d-513a42d9ec3a",
       navn: "Faktor for maksimalt mulig grunnlag",
       verdi: "6.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -2208,10 +2015,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8cd-75b6-a48d-513a42d9ec3c",
       navn: "Antall år i 36 måneder",
       verdi: "3.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -2231,10 +2035,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8cd-75b6-a48d-513a42d9ec3e",
       navn: "Antall arbeidsdager per år",
       verdi: "260",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "heltall",
       redigerbar: false,
@@ -2254,10 +2055,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b8ce-779f-b7d9-0e7280cb0325",
       navn: "90% av grunnlag for dagpenger",
       verdi: "0.9",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -2277,10 +2075,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b907-712c-89c9-7bc372f569eb",
       navn: "Dato søker når maks alder",
       verdi: "2034-10-19",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -2303,10 +2098,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b908-7d70-b978-b6051a662641",
       navn: "Inntektskrav for siste 12 mnd",
       verdi: "186042",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2329,10 +2121,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b909-72ca-ad94-bdf1da564c7e",
       navn: "Arbeidsgivers rapporteringsfrist",
       verdi: "2024-12-05",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -2352,10 +2141,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90a-7c5e-97f2-b980fadbc068",
       navn: "Inntektskrav for siste 36 mnd",
       verdi: "372084",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2378,10 +2164,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90a-7c5e-97f2-b980fadbc06a",
       navn: "Oppfyller kravet til medlemskap",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2401,10 +2184,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90b-76fa-9cdb-4dc2b6a9f845",
       navn: "Oppfyller kravet til heltid- og deltidsarbeid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2427,10 +2207,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90b-76fa-9cdb-4dc2b6a9f847",
       navn: "Oppfyller kravet til mobilitet",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2453,10 +2230,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90b-76fa-9cdb-4dc2b6a9f849",
       navn: "Er medlemmet ikke påvirket av streik eller lock-out?",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2479,10 +2253,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90b-76fa-9cdb-4dc2b6a9f84b",
       navn: "Beregningsregel: Tapt arbeidstid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2506,10 +2277,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90c-7399-8ade-1b3f0d666179",
       navn: "Ikke krav på lønn fra tidligere arbeidsgiver",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2529,10 +2297,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90c-7399-8ade-1b3f0d66617b",
       navn: "Krav til tap av arbeidsinntekt",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2555,10 +2320,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90d-7bd4-8368-bbfb59eb04a0",
       navn: "Godkjent unntak for utdanning eller opplæring?",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2585,10 +2347,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90d-7bd4-8368-bbfb59eb04a2",
       navn: "Oppfyller krav til ikke utestengt",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2608,10 +2367,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90d-7bd4-8368-bbfb59eb04a4",
       navn: "Sum av barnetillegg",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2634,10 +2390,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b90e-7b6e-b9e7-dece71fd2bb9",
       navn: "Har barnetillegg",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2660,10 +2413,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b913-70d0-a1aa-392751bf9c70",
       navn: "Sum andre ytelser",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2691,10 +2441,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b913-70d0-a1aa-392751bf9c72",
       navn: "6 ganger grunnbeløp",
       verdi: "744168",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -2717,10 +2464,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b937-704b-a609-271a39426c3f",
       navn: "Siste mulige dag bruker kan oppfylle alderskrav",
       verdi: "2034-10-31",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -2740,10 +2484,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b937-704b-a609-271a39426c41",
       navn: "Siste avsluttende kalendermåned",
       verdi: "2024-10-31",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -2766,10 +2507,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b939-7a21-9631-648b57a4b784",
       navn: "Oppfyller kravet på unntak for utdanning eller opplæring",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2792,10 +2530,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b963-7a56-89f8-09e349fa4b83",
       navn: "Oppfyller kravet til alder",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2818,10 +2553,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b963-7a56-89f8-09e349fa4b85",
       navn: "Første måned av opptjeningsperiode",
       verdi: "2021-11-01",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "dato",
       redigerbar: false,
@@ -2844,10 +2576,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-b963-7a56-89f8-09e349fa4b89",
       navn: "Krav til utdanning eller opplæring",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2870,10 +2599,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d32f-7b50-a431-6f481f910dae",
       navn: "Registrert som arbeidssøker",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2898,10 +2624,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d330-7c3e-8529-f7221dde7489",
       navn: "Inntektsopplysninger",
       verdi: "01JF01KRSMKSZVQEWBG613Y49Z",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "inntekt",
       redigerbar: false,
@@ -2930,10 +2653,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d342-7bac-96bc-0907a51671f9",
       navn: "Registrert som arbeidssøker på søknadstidspunktet",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -2953,10 +2673,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d342-7bac-96bc-0907a51671fb",
       navn: "Brutto arbeidsinntekt",
       verdi: "01JF01KRSMKSZVQEWBG613Y49Z",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "inntekt",
       redigerbar: false,
@@ -2976,10 +2693,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d342-7bac-96bc-0907a51671fd",
       navn: "Tellende inntekt",
       verdi: "01JF01KRSMKSZVQEWBG613Y49Z",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "inntekt",
       redigerbar: false,
@@ -2999,10 +2713,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d34d-7b52-95b4-bda78be894b1",
       navn: "Arbeidsinntekt siste 12 mnd",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3022,10 +2733,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d34e-7657-92c9-fd8e54a5f10e",
       navn: "Arbeidsinntekt siste 36 mnd",
       verdi: "5555550",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3045,10 +2753,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d360-751e-a703-727f14c89396",
       navn: "Arbeidsinntekt er over kravet for siste 12 mnd",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3071,10 +2776,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d360-751e-a703-727f14c89398",
       navn: "Arbeidsinntekt er over kravet for siste 36 mnd",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3097,10 +2799,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d361-7973-b7bf-1f97ced9ff18",
       navn: "Oppjustert inntekt",
       verdi: "01JF01KRSMKSZVQEWBG613Y49Z",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "inntekt",
       redigerbar: false,
@@ -3123,10 +2822,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d372-79a1-9184-5597fc83742e",
       navn: "Inntektperiode 1",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3146,10 +2842,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d373-7d5a-8eee-a1ff808ba0e7",
       navn: "Inntektperiode 2",
       verdi: "1854311.890524503",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3169,10 +2862,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d373-7d5a-8eee-a1ff808ba0e9",
       navn: "Inntektperiode 3",
       verdi: "4356227.382022700",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3192,10 +2882,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d385-7d66-a9fc-a4f49694014c",
       navn: "Grunnlag siste 12 mnd.",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3218,10 +2905,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d385-7d66-a9fc-a4f49694014e",
       navn: "Avkortet inntektperiode 1",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3244,10 +2928,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d385-7d66-a9fc-a4f496940150",
       navn: "Avkortet inntektperiode 2",
       verdi: "744168",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3270,10 +2951,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d386-77bb-8e1a-eed8d0a067fa",
       navn: "Avkortet inntektperiode 3",
       verdi: "744168",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3296,10 +2974,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d39a-7cd2-8056-75bfb7c8d6de",
       navn: "Inntekt siste 36 måneder",
       verdi: "1488336",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3323,10 +2998,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d3aa-7500-b982-9914a87e652f",
       navn: "Gjennomsnittlig arbeidsinntekt siste 36 måneder",
       verdi: "496112",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3349,10 +3021,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0193cfbb-d3bc-7433-9da5-f9f563941d3a",
       navn: "Uavrundet grunnlag",
       verdi: "496112",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3375,10 +3044,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0a-7216-9296-8eea1d246d12",
       navn: "Kan ta alle typer arbeid",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: true,
@@ -3388,6 +3054,10 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       gyldigTilOgMed: null,
       kilde: {
         type: "Saksbehandler",
+        begrunnelse: {
+          verdi: "",
+          sistEndretTidspunkt: "2025-01-21T12:25:19.82503",
+        },
         registrert: "2025-01-21T12:25:19.82503",
         ident: "Z993298",
         meldingId: null,
@@ -3398,10 +3068,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0e-7642-9166-30f6622ceee1",
       navn: "Krav til minsteinntekt",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3424,10 +3091,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0e-7642-9166-30f6622ceee3",
       navn: "Oppfyller kravet til opphold i Norge eller unntak",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3450,10 +3114,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0e-7642-9166-30f6622ceee5",
       navn: "Oppfyller kravet til å være arbeidsfør",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3473,10 +3134,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0e-7642-9166-30f6622ceee7",
       navn: "Krav til arbeidssøker",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3502,10 +3160,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0f-763b-8938-a4c3720f3f67",
       navn: "Antall G som gis som grunnlag ved verneplikt",
       verdi: "3.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -3525,10 +3180,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f0f-763b-8938-a4c3720f3f69",
       navn: "Grunnlag for verneplikt hvis kravet ikke er oppfylt",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3548,10 +3200,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f16-7661-b720-f767e97257fd",
       navn: "Grunnlag ved ordinære dagpenger",
       verdi: "496112",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3571,10 +3220,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f16-7661-b720-f767e97257ff",
       navn: "Fastsatt vanlig arbeidstid for verneplikt",
       verdi: "37.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -3594,10 +3240,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f17-76a7-9b45-203c65a8cd5e",
       navn: "Antall timer arbeidstiden skal samordnes mot",
       verdi: "0.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: true,
@@ -3617,10 +3260,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f17-76a7-9b45-203c65a8cd60",
       navn: "Minimum vanlig arbeidstid",
       verdi: "18.75",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: true,
@@ -3640,10 +3280,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f1b-7e35-bf76-b9663141d65c",
       navn: "Oppfyller kravet til minsteinntekt eller verneplikt",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3666,10 +3303,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f1b-7e35-bf76-b9663141d65e",
       navn: "Oppfyller kravet til opphold i Norge",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3692,10 +3326,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f1c-73ed-bfd3-d729bf78c9a3",
       navn: "Grunnlag for gis ved verneplikt",
       verdi: "372084",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3718,10 +3349,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f1c-73ed-bfd3-d729bf78c9a5",
       navn: "Samordnet fastsatt arbeidstid",
       verdi: "37.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -3744,10 +3372,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f1f-7462-9f90-5cbb7a13aea1",
       navn: "Grunnlag for verneplikt hvis kravet er oppfylt",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3771,10 +3396,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f21-7464-a8eb-762065874d46",
       navn: "Grunnlaget for verneplikt er høyere enn dagpengegrunnlaget",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -3797,10 +3419,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f21-7464-a8eb-762065874d48",
       navn: "Grunnlag",
       verdi: "496112",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3823,10 +3442,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f23-7153-98c3-a3a85410f13a",
       navn: "Fastsatt vanlig arbeidstid etter ordinær eller verneplikt",
       verdi: "37.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -3850,10 +3466,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f23-7153-98c3-a3a85410f13c",
       navn: "Dagsats uten barnetillegg før samordning",
       verdi: "1190.6688",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3876,10 +3489,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f23-7153-98c3-a3a85410f13e",
       navn: "Maksimalt mulig grunnlag avgrenset til 90% av dagpengegrunnlaget",
       verdi: "446500.8",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3902,10 +3512,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f27-74da-b699-5c960a71600a",
       navn: "Avrundet dagsats uten barnetillegg før samordning",
       verdi: "1191",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3925,10 +3532,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f27-74da-b699-5c960a71600c",
       navn: "Dagsats med barnetillegg før samordning",
       verdi: "1190.6688",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3951,10 +3555,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f28-7e19-9b24-b576c640cd14",
       navn: "Maksimal mulig dagsats avgrenset til 90% av dagpengegrunnlaget",
       verdi: "1717.310769230769",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -3977,10 +3578,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f2b-7a16-a3a0-fd815ccddc06",
       navn: "Avrundet maksimal mulig dagsats avgrenset til 90% av dagpengegrunnlaget",
       verdi: "1717",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -4000,10 +3598,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f2c-7595-9cdf-73845f5055eb",
       navn: "Andel av dagsats med barnetillegg som overstiger maks andel av dagpengegrunnlaget",
       verdi: "0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -4026,10 +3621,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f2c-7595-9cdf-73845f5055ed",
       navn: "Andel av dagsats uten barnetillegg avkortet til maks andel av dagpengegrunnlaget",
       verdi: "1191",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "penger",
       redigerbar: false,
@@ -4052,10 +3644,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f2f-7406-b665-8aae1efbe799",
       navn: "Samordnet dagsats er negativ eller 0",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -4078,10 +3667,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-1f33-765a-a20b-aa1000a929a4",
       navn: "Utfall etter samordning",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -4104,10 +3690,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a3f-7945-8d74-0258f9eabb5f",
       navn: "Ønsket arbeidstid",
       verdi: "40.0",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: true,
@@ -4132,10 +3715,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a41-7b6c-ae2d-11e379399b3d",
       navn: "Fastsatt arbeidstid per uke før tap",
       verdi: "37.5",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "desimaltall",
       redigerbar: false,
@@ -4160,10 +3740,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a43-7e3c-b589-0763fab88393",
       navn: "Tap av arbeidstid er minst terskel",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -4187,10 +3764,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a43-7e3c-b589-0763fab88395",
       navn: "Fastsatt vanlig arbeidstid er minst minimum arbeidstid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -4213,10 +3787,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a45-7f82-ad94-75f2179c9d10",
       navn: "Krav til tap av arbeidsinntekt og arbeidstid",
       verdi: "true",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,
@@ -4241,10 +3812,7 @@ export const mockBehandlingInnvilgelse: IBehandling = {
       id: "0194889c-2a47-78a4-bfe7-36c59c81acbf",
       navn: "Krav på dagpenger",
       verdi: "false",
-      begrunnelse: {
-        verdi: "",
-        sistEndretTidspunkt: "2025-01-27",
-      },
+
       status: "Faktum",
       datatype: "boolsk",
       redigerbar: false,

@@ -2,6 +2,7 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
+import { IKilde, IKildeSaksbehandler } from "~/models/behandling.server";
 import { ILagreUtvidetBeskrivelseResponse } from "~/models/melding-om-vedtak.server";
 import { ILagreNotatResponse } from "~/models/oppgave.server";
 import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
@@ -75,4 +76,8 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   }
 
   return typeof maybeError.message === "string";
+}
+
+export function isSaksbehandlerKilde(kilde: IKilde | null): kilde is IKildeSaksbehandler {
+  return (kilde as IKildeSaksbehandler).type === "Saksbehandler";
 }

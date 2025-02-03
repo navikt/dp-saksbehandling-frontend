@@ -59,7 +59,6 @@ export interface IOpplysning {
   id: string;
   navn: string;
   verdi: string;
-  begrunnelse: IBegrunnelse;
   status: "Hypotese" | "Faktum";
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
@@ -81,8 +80,18 @@ export interface IBegrunnelse {
   sistEndretTidspunkt: string;
 }
 
-export interface IKilde {
-  type: "Saksbehandler" | "System";
+export type IKilde = IKildeSaksbehandler | IKildeSystem;
+
+export interface IKildeSaksbehandler {
+  type: "Saksbehandler";
+  registrert: string;
+  ident: string | null;
+  meldingId: string | null;
+  begrunnelse: IBegrunnelse;
+}
+
+export interface IKildeSystem {
+  type: "System";
   registrert: string;
   ident: string | null;
   meldingId: string | null;
