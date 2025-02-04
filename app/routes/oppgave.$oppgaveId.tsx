@@ -40,7 +40,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       fornavn: oppgave.person.fornavn,
       mellomnavn: oppgave.person.mellomnavn,
       etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.fodselsdato,
+      fodselsnummer: oppgave.person.ident,
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
     });
