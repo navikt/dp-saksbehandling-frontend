@@ -16,7 +16,21 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }:
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
       if (brevBlokkDiv) {
-        brevBlokkDiv.textContent = utvidetBeskrivelse.tekst;
+        const lines = utvidetBeskrivelse.tekst
+          ?.replace(/\r\n/g, "\n")
+          ?.replace(/\r/g, "\n")
+          ?.replace(/\u2028/g, "\n")
+          ?.replace(/\u2029/g, "\n")
+          ?.split("\n");
+
+        if (lines) {
+          brevBlokkDiv.innerHTML = ""; // Clear existing content
+          lines.forEach((line) => {
+            const textNode = document.createTextNode(line);
+            brevBlokkDiv.appendChild(textNode);
+            brevBlokkDiv.appendChild(document.createElement("br"));
+          });
+        }
       }
     });
   }, [utvidetBeskrivelser]);
