@@ -16,13 +16,7 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }:
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
       if (brevBlokkDiv) {
-        const lines = utvidetBeskrivelse.tekst
-          ?.replace(/\r\n/g, "\n")
-          ?.replace(/\r/g, "\n")
-          ?.replace(/\u2028/g, "\n")
-          ?.replace(/\u2029/g, "\n")
-          ?.split("\n");
-
+        const lines = utvidetBeskrivelse.tekst?.split(/\r\n|\r|\n|\u2028|\u2029/);
         if (lines) {
           brevBlokkDiv.innerHTML = ""; // Clear existing content
           lines.forEach((line) => {
