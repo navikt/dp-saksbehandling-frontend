@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
+import { ValentinesDay } from "~/components/valentines/ValentinesDay";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
@@ -57,6 +58,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
         </NavLink>
       </div>
 
+      {<ValentinesDay />}
       {featureFlags.halloween && <Ghosts />}
       {featureFlags.jul && <Adventslys />}
 
