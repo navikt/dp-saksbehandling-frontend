@@ -72,12 +72,7 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
                   hidden={true}
                   readOnly={true}
                 />
-                <input
-                  name="ident"
-                  value={saksbehandler.onPremisesSamAccountName}
-                  hidden={true}
-                  readOnly={true}
-                />
+                <input name="ident" value={oppgave.personIdent} hidden={true} readOnly={true} />
                 <Button size="xsmall" variant="tertiary-neutral" loading={state !== "idle"}>
                   Kjør behandling på nytt
                 </Button>
