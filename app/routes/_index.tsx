@@ -23,7 +23,6 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 export const oppgaverTilBehandlingDefaultParams = [
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
   { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
-  { key: "emneknagg", value: "Avslag minsteinntekt" },
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
 ];
