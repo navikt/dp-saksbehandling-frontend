@@ -4,9 +4,11 @@ import { type ActionFunctionArgs, json, LoaderFunctionArgs, redirect } from "@re
 import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-utfall/OppgaveFilterAvslagsgrunner";
+import { OppgaveFilterUtfall } from "~/components/oppgave-filter-utfall/OppgaveFilterUtfall";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
@@ -87,7 +89,9 @@ export default function Saksbehandling() {
             <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
             <OppgaveFilterStatus />
-            <OppgaveFilterEmneknagger />
+            <OppgaveFilterUtfall />
+            <OppgaveFilterRettighetstype />
+            <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
         </Tabs>
       </aside>
