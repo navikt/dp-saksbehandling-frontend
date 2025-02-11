@@ -8,10 +8,8 @@ import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
 import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
 import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
-import { mockSanity } from "./mock-sanity";
 
 const mswHandlers = [
-  ...mockSanity,
   ...mockAzure,
   ...mockDpBehandling,
   ...mockDpSaksbehandling,

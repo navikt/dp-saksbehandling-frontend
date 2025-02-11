@@ -5,7 +5,9 @@ import { json, redirect } from "@remix-run/node";
 import { useActionData, useLoaderData, useNavigation, useSearchParams } from "@remix-run/react";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterEmneknagger } from "~/components/oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-utfall/OppgaveFilterAvslagsgrunner";
+import { OppgaveFilterUtfall } from "~/components/oppgave-filter-utfall/OppgaveFilterUtfall";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
@@ -21,7 +23,6 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 export const oppgaverTilBehandlingDefaultParams = [
   { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
   { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
-  { key: "emneknagg", value: "Avslag minsteinntekt" },
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
 ];
@@ -91,7 +92,9 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
             <OppgaveFilterDato />
-            <OppgaveFilterEmneknagger />
+            <OppgaveFilterUtfall />
+            <OppgaveFilterRettighetstype />
+            <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
 
           <Tabs.Panel value="statistikk" className={tabStyles.tabPanel}>
