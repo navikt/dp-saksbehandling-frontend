@@ -2,28 +2,39 @@ import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import classnames from "classnames";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { IOpplysning } from "~/models/behandling.server";
 
 import styles from "./KravPaaDagpenger.module.css";
 
 export function KravPaaDagpenger() {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const harKravDagpengerOpplysning = behandling.utfall;
+
+  // Gammel måte - fases ut
+  const harKravDagpengerOpplysning = finnOpplysningMedNavn(
+    "Krav på dagpenger",
+    behandling.opplysninger,
+  );
+
+  // Ny måte
+  const harKravDagpengerUtfall = behandling.utfall;
+
+  const harKravPaaDagpenger = harKravDagpengerOpplysning || harKravDagpengerUtfall;
 
   return (
     <div
       className={classnames(styles.kravPaaDagpenger, {
-        [styles.kravPaaDagpengerSuccess]: harKravDagpengerOpplysning,
-        [styles.kravPaaDagpengerError]: !harKravDagpengerOpplysning,
+        [styles.kravPaaDagpengerSuccess]: harKravPaaDagpenger,
+        [styles.kravPaaDagpengerError]: !harKravPaaDagpenger,
       })}
     >
-      {harKravDagpengerOpplysning && (
+      {harKravPaaDagpenger && (
         <>
           <GavelSoundBlockIcon fontSize="1.5rem" />
           Bruker har rett til dagpenger
         </>
       )}
 
-      {!harKravDagpengerOpplysning && (
+      {!harKravPaaDagpenger && (
         <>
           <GavelSoundBlockIcon fontSize="1.5rem" />
           Bruker har ikke rett til dagpenger
@@ -31,4 +42,8 @@ export function KravPaaDagpenger() {
       )}
     </div>
   );
+}
+
+function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
+  return opplysninger.find((opplysning) => opplysning.navn === navn);
 }
