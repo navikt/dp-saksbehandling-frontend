@@ -1,7 +1,6 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
-import type { SerializeFrom } from "react-router";
-import { Form, useActionData, useNavigation } from "react-router";
 import { type ChangeEvent, useEffect, useRef } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
@@ -16,7 +15,7 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
   const modalRef = useRef<HTMLDialogElement>(null);
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof action>>();
+  const lagreNotatFetcher = useDebounceFetcher<typeof action>();
 
   useEffect(() => {
     if (lagreNotatFetcher.data && isILagreNotatResponse(lagreNotatFetcher.data)) {
