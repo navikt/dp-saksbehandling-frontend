@@ -3,6 +3,7 @@ import type { IBehandling } from "~/models/behandling.server";
 export const mockBehandlingInnvilgelse: IBehandling = {
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   tilstand: "ForslagTilVedtak",
+  utfall: false,
   kreverTotrinnskontroll: true,
   vilkår: [
     {
