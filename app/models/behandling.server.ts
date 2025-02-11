@@ -3,7 +3,45 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
+export interface IRegelsett {
+  navn: string;
+  hjemmel: IHjemmel;
+  relevantForVedtak: boolean;
+  status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | null;
+  avklaringer: IAvklaring[];
+  opplysningIder: string[];
+}
+
+export interface IHjemmel {
+  kilde: {
+    navn: string;
+    kortnavn: string;
+  };
+  kapittel: string;
+  paragraf: string;
+  tittel: string;
+}
+
 export interface IBehandling {
+  behandlingId: string;
+  tilstand:
+    | "UnderOpprettelse"
+    | "UnderBehandling"
+    | "Redigert"
+    | "ForslagTilVedtak"
+    | "Låst"
+    | "Avbrutt"
+    | "Ferdig"
+    | "TilGodkjenning"
+    | "TilBeslutning";
+  kreverTotrinnskontroll: boolean;
+  vilkår: IRegelsett[];
+  fastsettelser: IRegelsett[];
+  avklaringer: IAvklaring[];
+  opplysninger: IOpplysning[];
+}
+
+export interface IBehandlingGammel {
   behandlingId: string;
   tilstand: string;
   kreverTotrinnskontroll: boolean;
@@ -16,12 +54,13 @@ export interface IOpplysning {
   navn: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
-  tekstId: string | null;
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
   datatype: string;
   redigerbar?: boolean;
   kilde: IKilde | null;
+  synlig: boolean;
+  formål: "Legacy" | "Mellomsteg" | "Bruker" | "Register" | "Regel";
   utledetAv: {
     regel: {
       navn: string;
@@ -31,7 +70,7 @@ export interface IOpplysning {
 }
 
 export interface IKilde {
-  type: string;
+  type: "Saksbehandler" | "System";
   registrert: string;
   ident: string | null;
   meldingId: string | null;
@@ -43,9 +82,30 @@ export interface IAvklaring {
   tittel: string;
   beskrivelse: string;
   kanKvitteres?: boolean;
-  status: "Åpen" | "Løst" | "Kvittert";
-  kvittertAv?: { ident: string };
-  begrunnelse?: string;
+  maskinelt: boolean;
+  status: "Åpen" | "Avbrutt" | "Avklart";
+  avklartAv: { ident: string } | null;
+  sistEndret: string;
+  begrunnelse: string | null;
+}
+
+export async function hentOpplysninger(
+  request: Request,
+  behandlingId: string,
+): Promise<IBehandlingGammel> {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
 }
 
 export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
@@ -99,7 +159,7 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-): Promise<IBehandling> {
+): Promise<IBehandlingGammel> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning/${opplysningId}`;
@@ -120,6 +180,7 @@ export async function kvitterAvklaring(
   request: Request,
   behandlingId: string,
   avklaringId: string,
+  begrunnelse?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
@@ -127,6 +188,17 @@ export async function kvitterAvklaring(
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ begrunnelse: "" }),
+    body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
+  });
+}
+
+export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/rekjor`;
+  return await fetch(url, {
+    method: "POST",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ ident }),
   });
 }

@@ -27,6 +27,10 @@ body {
   margin-right: var(--a-spacing-2);
 }
 
+.mt-2 {
+  margin-top: var(--a-spacing-2);
+}
+
 .mt-4 {
   margin-top: var(--a-spacing-4);
 }

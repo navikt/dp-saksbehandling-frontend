@@ -29,7 +29,8 @@ interface IAlertType {
     | "send-til-kontroll"
     | "ferdigstill-oppgave"
     | "ferdigstill-oppgave-brev-i-arena"
-    | "kvitter-avklaring";
+    | "kvitter-avklaring"
+    | "rekjor-behandling";
   httpCode: number;
 }
 
@@ -70,6 +71,9 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "kvitter-avklaring":
       return handleKvitterAvklaringMessages(alertResponse.httpCode);
+
+    case "rekjor-behandling":
+      return rekjorBehandlingMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -317,6 +321,23 @@ export function handleKvitterAvklaringMessages(httpCode: number): IAlert {
       return {
         variant: "error",
         title: "Kunne ikke kvittere ut avklaring",
+        body: `Feilkode: ${httpCode}`,
+      };
+  }
+}
+
+export function rekjorBehandlingMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 201:
+      return {
+        variant: "success",
+        title: "Behandling er kjørt på nytt",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke kjøre behandling på nytt",
         body: `Feilkode: ${httpCode}`,
       };
   }

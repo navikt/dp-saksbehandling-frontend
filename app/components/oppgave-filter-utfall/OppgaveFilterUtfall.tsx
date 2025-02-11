@@ -1,18 +1,9 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-const emneknagger = [
-  "Avslag minsteinntekt",
-  "Innvilgelse ordinær",
-  "Innvilgelse verneplikt",
-  "Avslag arbeidstid",
-  "Avslag ikke registrert",
-  "Avslag reell arbeidssøker",
-  "Avslag opphold utland",
-  "Avslag andre ytelser",
-];
+const utfall = ["Avslag", "Innvilgelse"];
 
-export function OppgaveFilterEmneknagger() {
+export function OppgaveFilterUtfall() {
   const [searchParams, setSearchParams] = useSearchParams();
   const emneknaggerParams = searchParams.getAll("emneknagg");
 
@@ -27,9 +18,9 @@ export function OppgaveFilterEmneknagger() {
 
   return (
     <div>
-      <Detail textColor="subtle">Emneknagger</Detail>
+      <Detail textColor="subtle">Utfall</Detail>
       <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
-        {emneknagger.map((emneknagg) => (
+        {utfall.map((emneknagg) => (
           <Checkbox
             key={emneknagg}
             name="emneknagg"

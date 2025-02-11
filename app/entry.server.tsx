@@ -6,11 +6,11 @@
 import { PassThrough } from "node:stream";
 
 import { faro } from "@grafana/faro-core";
-import type { AppLoadContext, EntryContext } from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { isRouteErrorResponse, ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import type { AppLoadContext, EntryContext } from "react-router";
+import { isRouteErrorResponse, ServerRouter } from "react-router";
 
 import { logger } from "~/utils/logger.utils";
 
@@ -36,8 +36,6 @@ const csp = {
   "connect-src": [
     "'self'",
     "*.nav.no",
-    "rt6o382n.api.sanity.io",
-    "rt6o382n.apicdn.sanity.io",
     "https://telemetry.ekstern.dev.nav.no/collect",
     "https://telemetry.nav.no/collect",
   ],

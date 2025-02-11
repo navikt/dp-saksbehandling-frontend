@@ -1,7 +1,7 @@
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
-import { Form, useNavigation } from "react-router";
 import { useRef, useState } from "react";
+import { Form, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -56,13 +56,28 @@ export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
       >
         <Popover.Content className={styles.container}>
           {kanTildeleOgBehandleOppgave && (
-            <Form method="post">
-              <input name="_action" value="tildel-oppgave" hidden={true} readOnly={true} />
-              <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
-              <Button variant="tertiary-neutral" size="xsmall" loading={state !== "idle"}>
-                Behandle oppgave
-              </Button>
-            </Form>
+            <>
+              <Form method="post">
+                <input name="_action" value="tildel-oppgave" hidden={true} readOnly={true} />
+                <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+                <Button variant="tertiary-neutral" size="xsmall" loading={state !== "idle"}>
+                  Behandle oppgave
+                </Button>
+              </Form>
+              <Form method="post">
+                <input name="_action" value="rekjor-behandling" hidden={true} readOnly={true} />
+                <input
+                  name="behandlingId"
+                  value={oppgave.behandlingId}
+                  hidden={true}
+                  readOnly={true}
+                />
+                <input name="ident" value={oppgave.personIdent} hidden={true} readOnly={true} />
+                <Button size="xsmall" variant="tertiary-neutral" loading={state !== "idle"}>
+                  Kjør behandling på nytt
+                </Button>
+              </Form>
+            </>
           )}
 
           {kanKontrollereOppgave && (

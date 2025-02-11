@@ -1,10 +1,10 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import type { ChangeEvent, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect } from "react";
+import { useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 import { formaterNorskDato } from "~/utils/dato.utils";
@@ -23,7 +23,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
   const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
-
   useEffect(() => {
     if (
       lagreUtvidetBeskrivelseFetcher.data &&
@@ -45,7 +44,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
       tekst: oppdatertVerdi,
       brevblokkId: props.brevblokkId,
     });
-
     lagreUtvidetBeskrivelseFetcher.submit(event.target.form, {
       fetcherKey: props.brevblokkId,
       debounceTimeout: delayInMs,
