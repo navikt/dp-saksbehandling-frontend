@@ -18,7 +18,8 @@ export function KravPaaDagpenger() {
   // Ny måte
   const harKravDagpengerUtfall = behandling.utfall;
 
-  const harKravPaaDagpenger = harKravDagpengerOpplysning || harKravDagpengerUtfall;
+  const harKravPaaDagpenger =
+    harKravDagpengerUtfall === true || harKravDagpengerOpplysning?.verdi === "true";
 
   return (
     <div
