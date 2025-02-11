@@ -79,5 +79,5 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
 }
 
 export function isSaksbehandlerKilde(kilde: IKilde | null): kilde is IKildeSaksbehandler {
-  return (kilde as IKildeSaksbehandler).type === "Saksbehandler";
+  return kilde?.type === "Saksbehandler";
 }
