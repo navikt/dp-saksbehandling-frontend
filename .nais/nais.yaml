@@ -13,18 +13,18 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: "{{base_path}}/api/internal/isalive"
+    path: {{base_path}}/api/internal/isAlive
     initialDelay: 5
     timeout: 1
     periodSeconds: 10
     failureThreshold: 10
   readiness:
-    path: "{{base_path}}/api/internal/isready"
+    path: {{base_path}}/api/internal/isReady
     initialDelay: 5
     timeout: 1
   prometheus:
     enabled: true
-    path: "{{base_path}}/api/internal/metrics"
+    path: {{base_path}}/api/internal/metrics
   replicas:
     min: 2
     max: 2
