@@ -3,10 +3,23 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
-export interface IStatistikk {
+/*export interface IStatistikk {
   dag: number;
   uke: number;
   totalt: number;
+}*/
+
+export interface IStatistikk {
+  IndividuellStatistikk: {
+    dag: number;
+    uke: number;
+    totalt: number;
+  };
+  GenerellStatistikk: {
+    dag: number;
+    uke: number;
+    totalt: number;
+  };
 }
 
 export async function hentStatistikkForSaksbehandler(request: Request): Promise<IStatistikk> {
@@ -21,6 +34,18 @@ export async function hentStatistikkForSaksbehandler(request: Request): Promise<
   if (!response.ok) {
     handleErrorResponse(response);
   }
-
-  return await response.json();
+  const jsonResponse = await response.json();
+  const statistikk: IStatistikk = {
+    IndividuellStatistikk: {
+      dag: jsonResponse.individuellStatistikk.dag,
+      uke: jsonResponse.individuellStatistikk.uke,
+      totalt: jsonResponse.individuellStatistikk.totalt,
+    },
+    GenerellStatistikk: {
+      dag: jsonResponse.generellStatistikk.dag,
+      uke: jsonResponse.generellStatistikk.uke,
+      totalt: jsonResponse.generellStatistikk.totalt,
+    },
+  };
+  return statistikk;
 }

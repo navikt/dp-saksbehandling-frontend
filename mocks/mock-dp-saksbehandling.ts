@@ -198,6 +198,9 @@ export const mockDpSaksbehandling = [
   http.get(`${process.env.DP_SAKSBEHANDLING_URL}/statistikk`, ({ request }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
-    return HttpResponse.json({ dag: 4, uke: 12, totalt: 623 });
+    return HttpResponse.json({
+      individuellStatistikk: { dag: 4, uke: 12, totalt: 623 },
+      generellStatistikk: { dag: 400, uke: 1200, totalt: 6230 },
+    });
   }),
 ];
