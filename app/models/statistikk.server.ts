@@ -20,6 +20,11 @@ export interface IStatistikk {
     uke: number;
     totalt: number;
   };
+  Beholdningsinfo: {
+    antallOppgaverKlarTilBehandling: number;
+    antallOppgaverKlarTilKontroll: number;
+    datoEldsteUbehandledeOppgave: string;
+  };
 }
 
 export async function hentStatistikkForSaksbehandler(request: Request): Promise<IStatistikk> {
@@ -45,6 +50,11 @@ export async function hentStatistikkForSaksbehandler(request: Request): Promise<
       dag: jsonResponse.generellStatistikk.dag,
       uke: jsonResponse.generellStatistikk.uke,
       totalt: jsonResponse.generellStatistikk.totalt,
+    },
+    Beholdningsinfo: {
+      antallOppgaverKlarTilBehandling: jsonResponse.beholdningsinfo.antallOppgaverKlarTilBehandling,
+      antallOppgaverKlarTilKontroll: jsonResponse.beholdningsinfo.antallOppgaverKlarTilKontroll,
+      datoEldsteUbehandledeOppgave: jsonResponse.beholdningsinfo.datoEldsteUbehandledeOppgave,
     },
   };
   return statistikk;
