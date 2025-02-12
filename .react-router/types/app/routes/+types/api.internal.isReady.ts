@@ -1,5 +1,5 @@
 // React Router generated types for route:
-// routes/api.internal.isReady.ts
+// routes/api.internal.isReady.tsx
 
 import type * as T from "react-router/route-module"
 
@@ -10,7 +10,7 @@ type Module = typeof import("../api.internal.isReady.js")
 export type Info = {
   parents: [Parent0],
   id: "routes/api.internal.isReady"
-  file: "routes/api.internal.isReady.ts"
+  file: "routes/api.internal.isReady.tsx"
   path: "api/internal/isReady"
   params: {} & { [key: string]: string | undefined }
   module: Module
