@@ -13,13 +13,13 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: "{{base_path}}api/internal/isAlive"
+    path: "{{base_path}}/api/internal/isAlive"
     initialDelay: 5
     timeout: 1
     periodSeconds: 10
     failureThreshold: 10
   readiness:
-    path: "{{base_path}}api/internal/isReady"
+    path: "{{base_path}}/api/internal/isReady"
     initialDelay: 5
     timeout: 1
   prometheus:

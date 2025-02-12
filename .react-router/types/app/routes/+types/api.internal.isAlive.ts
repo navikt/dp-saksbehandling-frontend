@@ -1,17 +1,17 @@
 // React Router generated types for route:
-// routes/api.internal.isAlive.ts
+// routes/api.internal.isalive.ts
 
 import type * as T from "react-router/route-module"
 
 import type { Info as Parent0 } from "../../+types/root.js"
 
-type Module = typeof import("../api.internal.isAlive.js")
+type Module = typeof import("../api.internal.isalive.js")
 
 export type Info = {
   parents: [Parent0],
-  id: "routes/api.internal.isAlive"
-  file: "routes/api.internal.isAlive.ts"
-  path: "api/internal/isAlive"
+  id: "routes/api.internal.isalive"
+  file: "routes/api.internal.isalive.ts"
+  path: "api/internal/isalive"
   params: {} & { [key: string]: string | undefined }
   module: Module
   loaderData: T.CreateLoaderData<Module>
