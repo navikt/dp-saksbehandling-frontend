@@ -23,7 +23,7 @@ export default [
     ...react.configs.flat.recommended,
     settings: {
       react: {
-        version: "18",
+        version: "19",
       },
     },
   },
