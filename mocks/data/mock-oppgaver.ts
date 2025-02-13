@@ -43,12 +43,12 @@ export const mockOppgaveBeslutter: IOppgaveBehandler = {
 
 const mockLovligeEndringer: ILovligeEndringer = {
   paaVentAarsaker: [
-    "Avvent dokumentasjon",
-    "Avvent svar",
-    "Sendt forespørsel",
-    "Avvent meldekort",
-    "Avvent rapporteringsfrist",
-    "Annet",
+    "AVVENT_DOKUMENTASJON",
+    "AVVENT_SVAR",
+    "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "AVVENT_MELDEKORT",
+    "AVVENT_RAPPORTERINGSFRIST",
+    "ANNET",
   ],
 };
 

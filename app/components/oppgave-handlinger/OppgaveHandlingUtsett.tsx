@@ -1,12 +1,11 @@
 import { Alert, Button, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
 import { Form, useNavigation } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
-import { add } from "date-fns";
+import { add, format } from "date-fns";
 import { useRef, useState } from "react";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
 export function OppgaveHandlingUtsett() {
@@ -68,7 +67,7 @@ export function OppgaveHandlingUtsett() {
 
             <input
               name="utsettTilDato"
-              value={utsattTilDato ? formaterNorskDato(utsattTilDato.toISOString()) : ""}
+              value={utsattTilDato ? format(utsattTilDato, "yyyy-MM-dd") : ""}
               hidden={true}
               readOnly={true}
             />
@@ -79,7 +78,8 @@ export function OppgaveHandlingUtsett() {
               </option>
               {oppgave.lovligeEndringer.paaVentAarsaker.map((aarsak) => (
                 <option key={aarsak} value={aarsak}>
-                  {aarsak}
+                  {aarsak.charAt(0).toUpperCase() +
+                    aarsak.slice(1).replaceAll("_", " ").toLowerCase()}
                 </option>
               ))}
             </Select>
