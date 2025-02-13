@@ -53,6 +53,11 @@ export interface IOppgave {
   skjermesSomEgneAnsatte: boolean;
   adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
+  lovligeEndringer: ILovligeEndringer;
+}
+
+export interface ILovligeEndringer {
+  paaVentAarsaker: string[];
 }
 
 export interface IOppgaveNotat {
@@ -171,6 +176,7 @@ export async function utsettOppgave(
   oppgaveId: string,
   utsettTilDato: string,
   beholdOppgave: boolean,
+  paaVentAarsak: string,
 ): Promise<Response> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
@@ -178,7 +184,7 @@ export async function utsettOppgave(
   return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ utsettTilDato, beholdOppgave }),
+    body: JSON.stringify({ utsettTilDato, beholdOppgave, aarsak: paaVentAarsak }),
   });
 }
 

@@ -1,21 +1,36 @@
-import { Alert, Button, Checkbox, DatePicker, Modal } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { add, format } from "date-fns";
-import { nb } from "date-fns/locale";
+import { Alert, Button, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
+import { Form, useNavigation } from "@remix-run/react";
+import { useForm } from "@rvf/remix";
+import { add } from "date-fns";
 import { useRef, useState } from "react";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId";
-import { isFormValidationError } from "~/utils/type-guards";
+import { formaterNorskDato } from "~/utils/dato.utils";
+import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
 export function OppgaveHandlingUtsett() {
   const { state } = useNavigation();
   const ref = useRef<HTMLDialogElement>(null);
-  const actionData = useActionData<typeof action>();
-
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
+
+  const validatedForm = useForm({
+    validator: hentValideringUtsettOppgave(),
+    method: "post",
+    validationBehaviorConfig: {
+      initial: "onSubmit",
+      whenTouched: "onSubmit",
+      whenSubmitted: "onChange",
+    },
+  });
+
+  function oppdaterDato(dato?: Date) {
+    setUtsattTilDato(dato);
+    if (validatedForm.error("utsettTilDato")) {
+      validatedForm.validate();
+    }
+  }
 
   return (
     <>
@@ -35,34 +50,53 @@ export function OppgaveHandlingUtsett() {
         closeOnBackdropClick
       >
         <Modal.Body>
-          <Form method="post">
+          <Form method="post" {...validatedForm.getFormProps()}>
+            <input name="_action" value="utsett-oppgave" hidden={true} readOnly={true} />
+            <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+
             <DatePicker.Standalone
-              onSelect={(dato) => setUtsattTilDato(dato)}
+              onSelect={oppdaterDato}
               fromDate={add(new Date(), { days: 1 })}
               toDate={add(new Date(), { days: 20 })}
             />
-            <input name="_action" value="utsett-oppgave" hidden={true} readOnly={true} />
-            <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+
+            {validatedForm.error("utsettTilDato") && (
+              <Alert variant={"error"} size="small" className={styles.formError}>
+                {validatedForm.error("utsettTilDato")}
+              </Alert>
+            )}
+
             <input
               name="utsettTilDato"
-              value={utsattTilDato ? format(utsattTilDato, "yyyy-MM-dd", { locale: nb }) : ""}
+              value={utsattTilDato ? formaterNorskDato(utsattTilDato.toISOString()) : ""}
               hidden={true}
               readOnly={true}
             />
 
-            <Checkbox name="beholdOppgave" size="small">
+            <Select label="Velg årsak" size="small" name="paaVentAarsak">
+              <option hidden={true} value={""}>
+                Velg årsak
+              </option>
+              {oppgave.lovligeEndringer.paaVentAarsaker.map((aarsak) => (
+                <option key={aarsak} value={aarsak}>
+                  {aarsak}
+                </option>
+              ))}
+            </Select>
+
+            {validatedForm.error("paaVentAarsak") && (
+              <Alert variant={"error"} size="small" className={styles.formError}>
+                {validatedForm.error("paaVentAarsak")}
+              </Alert>
+            )}
+
+            <Checkbox name="beholdOppgave" size="small" className={styles.beholdOppgaveCheckbox}>
               Behold oppgave
             </Checkbox>
 
             <Button size="small" variant="primary" loading={state !== "idle"}>
               Sett på vent
             </Button>
-
-            {isFormValidationError(actionData) && (
-              <Alert variant="error" size="small" className="my-2">
-                {actionData.message}
-              </Alert>
-            )}
           </Form>
         </Modal.Body>
       </Modal>

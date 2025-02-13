@@ -1,4 +1,10 @@
-import type { IListeOppgave, IOppgave, IOppgaveBehandler, IPerson } from "~/models/oppgave.server";
+import type {
+  IListeOppgave,
+  ILovligeEndringer,
+  IOppgave,
+  IOppgaveBehandler,
+  IPerson,
+} from "~/models/oppgave.server";
 
 import { mockHistorikk } from "./mock-hisotrikk";
 
@@ -35,11 +41,22 @@ export const mockOppgaveBeslutter: IOppgaveBehandler = {
   },
 };
 
+const mockLovligeEndringer: ILovligeEndringer = {
+  paaVentAarsaker: [
+    "Avvent dokumentasjon",
+    "Avvent svar",
+    "Sendt forespørsel",
+    "Avvent meldekort",
+    "Avvent rapporteringsfrist",
+    "Annet",
+  ],
+};
+
 export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -54,7 +71,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -69,6 +86,7 @@ export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
   oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -83,7 +101,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: [],
