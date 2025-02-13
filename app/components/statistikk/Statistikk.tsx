@@ -1,6 +1,7 @@
 import { Table } from "@navikt/ds-react";
 
 import { IStatistikk } from "~/models/statistikk.server";
+import { formaterNorskDato } from "~/utils/dato.utils";
 
 interface IProps {
   statistikk: IStatistikk;
@@ -77,7 +78,9 @@ export function Statistikk({ statistikk }: IProps) {
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell scope="row">{"Eldste ubehandlede oppgave"}</Table.HeaderCell>
-            <Table.DataCell>{beholdningsinfo.datoEldsteUbehandledeOppgave}</Table.DataCell>
+            <Table.DataCell>
+              {formaterNorskDato(beholdningsinfo.datoEldsteUbehandledeOppgave, true)}
+            </Table.DataCell>
           </Table.Row>
         </Table.Body>
       </Table>

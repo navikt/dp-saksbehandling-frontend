@@ -204,7 +204,7 @@ export const mockDpSaksbehandling = [
       beholdningsinfo: {
         antallOppgaverKlarTilBehandling: 1401,
         antallOppgaverKlarTilKontroll: 7,
-        datoEldsteUbehandledeOppgave: "12-02-2025",
+        datoEldsteUbehandledeOppgave: "2025-02-12 13:26:19.548108",
       },
     });
   }),
