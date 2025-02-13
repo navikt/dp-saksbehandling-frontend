@@ -1,4 +1,4 @@
-ingress: "https://dagpenger.ansatt.dev.nav.no/saksbehandling/"
+ingress: "https://dagpenger.ansatt.dev.nav.no/saksbehandling"
 base_path: "/saksbehandling/"
 gcp_env: "dev"
 
