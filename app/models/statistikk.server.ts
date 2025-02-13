@@ -3,31 +3,25 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
-/*export interface IStatistikk {
+export interface IStatistikk {
   dag: number;
   uke: number;
   totalt: number;
-}*/
+}
 
-export interface IStatistikk {
-  IndividuellStatistikk: {
-    dag: number;
-    uke: number;
-    totalt: number;
-  };
-  GenerellStatistikk: {
-    dag: number;
-    uke: number;
-    totalt: number;
-  };
-  Beholdningsinfo: {
+export interface ISaksbehandlerStatistikk {
+  individuellStatistikk: IStatistikk;
+  generellStatistikk: IStatistikk;
+  beholdningsinfo: {
     antallOppgaverKlarTilBehandling: number;
     antallOppgaverKlarTilKontroll: number;
     datoEldsteUbehandledeOppgave: string;
   };
 }
 
-export async function hentStatistikkForSaksbehandler(request: Request): Promise<IStatistikk> {
+export async function hentStatistikkForSaksbehandler(
+  request: Request,
+): Promise<ISaksbehandlerStatistikk> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/statistikk`;
 
@@ -39,23 +33,5 @@ export async function hentStatistikkForSaksbehandler(request: Request): Promise<
   if (!response.ok) {
     handleErrorResponse(response);
   }
-  const jsonResponse = await response.json();
-  const statistikk: IStatistikk = {
-    IndividuellStatistikk: {
-      dag: jsonResponse.individuellStatistikk.dag,
-      uke: jsonResponse.individuellStatistikk.uke,
-      totalt: jsonResponse.individuellStatistikk.totalt,
-    },
-    GenerellStatistikk: {
-      dag: jsonResponse.generellStatistikk.dag,
-      uke: jsonResponse.generellStatistikk.uke,
-      totalt: jsonResponse.generellStatistikk.totalt,
-    },
-    Beholdningsinfo: {
-      antallOppgaverKlarTilBehandling: jsonResponse.beholdningsinfo.antallOppgaverKlarTilBehandling,
-      antallOppgaverKlarTilKontroll: jsonResponse.beholdningsinfo.antallOppgaverKlarTilKontroll,
-      datoEldsteUbehandledeOppgave: jsonResponse.beholdningsinfo.datoEldsteUbehandledeOppgave,
-    },
-  };
-  return statistikk;
+  return await response.json();
 }

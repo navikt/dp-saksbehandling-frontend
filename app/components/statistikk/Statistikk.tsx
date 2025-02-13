@@ -1,89 +1,93 @@
 import { Table } from "@navikt/ds-react";
+import classnames from "classnames";
 
-import { IStatistikk } from "~/models/statistikk.server";
+import { ISaksbehandlerStatistikk } from "~/models/statistikk.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import styles from "./Statistikk.module.css";
+
 interface IProps {
-  statistikk: IStatistikk;
+  statistikk: ISaksbehandlerStatistikk;
 }
 
 export function Statistikk({ statistikk }: IProps) {
-  const individuellStatistikk = statistikk.IndividuellStatistikk;
-  const generellStatistikk = statistikk.GenerellStatistikk;
-  const beholdningsinfo = statistikk.Beholdningsinfo;
+  const mineFullforteVedtak = {
+    tittel: "Mine fullførte vedtak",
+    data: [
+      { tittel: "I dag", verdi: statistikk.individuellStatistikk.dag },
+      {
+        tittel: "Denne uken",
+        verdi: statistikk.individuellStatistikk.uke,
+      },
+      { tittel: "Totalt", verdi: statistikk.individuellStatistikk.totalt },
+    ],
+  };
+
+  const alleFullforteVedtak = {
+    tittel: "Alle fullførte vedtak",
+    data: [
+      { tittel: "I dag", verdi: statistikk.generellStatistikk.dag },
+      {
+        tittel: "Denne uken",
+        verdi: statistikk.generellStatistikk.uke,
+      },
+      { tittel: "Totalt", verdi: statistikk.generellStatistikk.totalt },
+    ],
+  };
+
+  const beholdningsinfo = {
+    tittel: "Beholdning",
+    data: [
+      {
+        tittel: "Klar til behandling",
+        verdi: statistikk.beholdningsinfo.antallOppgaverKlarTilBehandling,
+      },
+      {
+        tittel: "Klar til kontroll",
+        verdi: statistikk.beholdningsinfo.antallOppgaverKlarTilKontroll,
+      },
+      {
+        tittel: "Eldste oppgave",
+        verdi: formaterNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave),
+      },
+    ],
+  };
 
   return (
-    <div>
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col"></Table.HeaderCell>
-            <Table.HeaderCell scope="col">Mine fullførte vedtak.</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"I dag"}</Table.HeaderCell>
-            <Table.DataCell>{individuellStatistikk.dag}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Denne uken"}</Table.HeaderCell>
-            <Table.DataCell>{individuellStatistikk.uke}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Totalt"}</Table.HeaderCell>
-            <Table.DataCell>{individuellStatistikk.totalt}</Table.DataCell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
+    <>
+      <StatistikkTabell {...mineFullforteVedtak} />
+      <StatistikkTabell {...alleFullforteVedtak} />
+      <StatistikkTabell {...beholdningsinfo} />
+    </>
+  );
+}
 
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col"></Table.HeaderCell>
-            <Table.HeaderCell scope="col">Alle fullførte vedtak.</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"I dag"}</Table.HeaderCell>
-            <Table.DataCell>{generellStatistikk.dag}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Denne uken"}</Table.HeaderCell>
-            <Table.DataCell>{generellStatistikk.uke}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Totalt"}</Table.HeaderCell>
-            <Table.DataCell>{generellStatistikk.totalt}</Table.DataCell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
+interface IStatistikkTabellProps {
+  tittel: string;
+  data: { tittel: string; verdi: string | number }[];
+}
 
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col"></Table.HeaderCell>
-            <Table.HeaderCell scope="col">Beholdning.</Table.HeaderCell>
+function StatistikkTabell({ tittel, data }: IStatistikkTabellProps) {
+  return (
+    <Table
+      className={classnames(styles.container, "table--subtle-zebra", "aksel--compact")}
+      size="small"
+    >
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell scope="col" colSpan={2}>
+            {tittel}
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {data.map((dataRad) => (
+          <Table.Row key={dataRad.tittel}>
+            <Table.DataCell scope="row">{dataRad.tittel}</Table.DataCell>
+            <Table.DataCell>{dataRad.verdi}</Table.DataCell>
           </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Klar til behandling"}</Table.HeaderCell>
-            <Table.DataCell>{beholdningsinfo.antallOppgaverKlarTilBehandling}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Klar til kontroll"}</Table.HeaderCell>
-            <Table.DataCell>{beholdningsinfo.antallOppgaverKlarTilKontroll}</Table.DataCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell scope="row">{"Eldste ubehandlede oppgave"}</Table.HeaderCell>
-            <Table.DataCell>
-              {formaterNorskDato(beholdningsinfo.datoEldsteUbehandledeOppgave, true)}
-            </Table.DataCell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
-    </div>
+        ))}
+      </Table.Body>
+    </Table>
   );
 }

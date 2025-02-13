@@ -100,7 +100,7 @@ export default function Saksbehandling() {
             <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
 
-          <Tabs.Panel value="statistikk" className={tabStyles.tabPanel}>
+          <Tabs.Panel value="statistikk">
             <Statistikk statistikk={statistikk} />
           </Tabs.Panel>
         </Tabs>
