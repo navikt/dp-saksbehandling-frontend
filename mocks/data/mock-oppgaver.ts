@@ -4,6 +4,7 @@ import type {
   IOppgave,
   IOppgaveBehandler,
   IPerson,
+  ISikkerhetstiltak,
 } from "~/models/oppgave.server";
 
 import { mockHistorikk } from "./mock-hisotrikk";
@@ -40,6 +41,10 @@ export const mockOppgaveBeslutter: IOppgaveBehandler = {
     postadresse: "",
   },
 };
+export const mockSikkerhetstiltak: ISikkerhetstiltak[] = [
+  { beskrivelse: "To i samtale", gyldingTom: "2025-12-01" },
+  { beskrivelse: "Ikke fysisk", gyldingTom: "2025-12-01" },
+];
 
 const mockLovligeEndringer: ILovligeEndringer = {
   paaVentAarsaker: [
@@ -63,6 +68,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  sikkerhetstiltak: mockSikkerhetstiltak,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "FORTROLIG",
 };
@@ -78,6 +84,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  sikkerhetstiltak: mockSikkerhetstiltak,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
 };
@@ -93,6 +100,7 @@ export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
+  sikkerhetstiltak: mockSikkerhetstiltak,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "UGRADERT",
 };
@@ -108,6 +116,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: true,
+  sikkerhetstiltak: mockSikkerhetstiltak,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "UGRADERT",
 };

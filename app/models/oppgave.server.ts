@@ -54,6 +54,12 @@ export interface IOppgave {
   adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
   lovligeEndringer: ILovligeEndringer;
+  sikkerhetstiltak: ISikkerhetstiltak[];
+}
+
+export interface ISikkerhetstiltak {
+  beskrivelse: string;
+  gyldingTom: string;
 }
 
 export interface ILovligeEndringer {
