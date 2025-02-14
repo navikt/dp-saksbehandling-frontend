@@ -9,7 +9,19 @@ export interface IStatistikk {
   totalt: number;
 }
 
-export async function hentStatistikkForSaksbehandler(request: Request): Promise<IStatistikk> {
+export interface ISaksbehandlerStatistikk {
+  individuellStatistikk: IStatistikk;
+  generellStatistikk: IStatistikk;
+  beholdningsinfo: {
+    antallOppgaverKlarTilBehandling: number;
+    antallOppgaverKlarTilKontroll: number;
+    datoEldsteUbehandledeOppgave: string;
+  };
+}
+
+export async function hentStatistikkForSaksbehandler(
+  request: Request,
+): Promise<ISaksbehandlerStatistikk> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/statistikk`;
 
@@ -21,6 +33,5 @@ export async function hentStatistikkForSaksbehandler(request: Request): Promise<
   if (!response.ok) {
     handleErrorResponse(response);
   }
-
   return await response.json();
 }
