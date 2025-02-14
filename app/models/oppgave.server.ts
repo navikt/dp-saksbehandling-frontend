@@ -12,6 +12,7 @@ export interface IPerson {
   fodselsdato: string;
   alder: number;
   statsborgerskap: string;
+  sikkerhetstiltak: ISikkerhetstiltak[];
 }
 
 export interface IOppgaveBehandler {
@@ -54,7 +55,6 @@ export interface IOppgave {
   adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
   lovligeEndringer: ILovligeEndringer;
-  sikkerhetstiltak: ISikkerhetstiltak[];
 }
 
 export interface ISikkerhetstiltak {

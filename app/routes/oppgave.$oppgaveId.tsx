@@ -77,7 +77,7 @@ export default function Oppgave() {
   return (
     <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} />
-      {oppgave.sikkerhetstiltak?.map((tiltak) => (
+      {oppgave.person.sikkerhetstiltak.map((tiltak) => (
         <Alert
           key={tiltak.beskrivelse}
           className={"alert--compact"}
