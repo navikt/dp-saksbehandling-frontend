@@ -1,4 +1,4 @@
-import { Alert, Detail } from "@navikt/ds-react";
+import { Alert } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { defer } from "@remix-run/node";
 import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
@@ -18,7 +18,6 @@ import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -77,7 +76,7 @@ export default function Oppgave() {
   return (
     <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} />
-      {oppgave.person.sikkerhetstiltak.map((tiltak) => (
+      {oppgave.person.sikkerhetstiltak?.map((tiltak) => (
         <Alert
           key={tiltak.beskrivelse}
           className={"alert--compact"}
@@ -85,7 +84,7 @@ export default function Oppgave() {
           fullWidth={true}
         >
           {tiltak.beskrivelse}
-          <Detail>Gjelder til og med {formaterNorskDato(tiltak.gyldingTom)}</Detail>
+          {/*<Detail>Gjelder til og med {formaterNorskDato(tiltak.gyldingTom)}</Detail>*/}
         </Alert>
       ))}
 

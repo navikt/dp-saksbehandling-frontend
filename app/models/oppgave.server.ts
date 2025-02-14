@@ -12,7 +12,7 @@ export interface IPerson {
   fodselsdato: string;
   alder: number;
   statsborgerskap: string;
-  sikkerhetstiltak: ISikkerhetstiltak[];
+  sikkerhetstiltak?: ISikkerhetstiltak[];
 }
 
 export interface IOppgaveBehandler {
