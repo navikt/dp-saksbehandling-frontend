@@ -91,6 +91,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
+  const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
   const kanRedigereOpplysninger = unleash.isEnabled(
@@ -103,6 +104,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     featureFlags: {
       jul,
       halloween,
+      valentines,
       oppgaveHistorikk,
       totrinnsKontroll,
       kanRedigereOpplysninger,
