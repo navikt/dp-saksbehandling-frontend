@@ -54,8 +54,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json(
     {
       alert,
-      oppgaver: oppgaverResponse.oppgaver,
       statistikk,
+      oppgaver: oppgaverResponse.oppgaver,
       totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
     },
     {
