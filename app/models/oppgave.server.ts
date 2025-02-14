@@ -59,7 +59,7 @@ export interface IOppgave {
 
 export interface ISikkerhetstiltak {
   beskrivelse: string;
-  gyldingTom: string;
+  gyldigTom: string;
 }
 
 export interface ILovligeEndringer {

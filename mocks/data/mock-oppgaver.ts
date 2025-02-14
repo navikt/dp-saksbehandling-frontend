@@ -10,8 +10,8 @@ import type {
 import { mockHistorikk } from "./mock-hisotrikk";
 
 export const mockSikkerhetstiltak: ISikkerhetstiltak[] = [
-  { beskrivelse: "To i samtale", gyldingTom: "2025-12-01" },
-  { beskrivelse: "Ikke fysisk", gyldingTom: "2025-12-01" },
+  { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
+  { beskrivelse: "Ikke fysisk", gyldigTom: "2025-12-01" },
 ];
 
 export const mockPerson: IPerson = {
