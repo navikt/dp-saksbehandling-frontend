@@ -7,7 +7,7 @@ import type {
   ISikkerhetstiltak,
 } from "~/models/oppgave.server";
 
-import { mockHistorikk } from "./mock-hisotrikk";
+import { mockHistorikk } from "./mock-historikk";
 
 export const mockSikkerhetstiltak: ISikkerhetstiltak[] = [
   { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
