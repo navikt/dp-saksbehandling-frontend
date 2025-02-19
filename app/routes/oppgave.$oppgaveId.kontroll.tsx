@@ -27,7 +27,7 @@ export default function Oppgave() {
         <div className={"card"}>
           <Tabs size="medium" defaultValue="behandling">
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Redigere opplysninger" icon={<DocPencilIcon />} />
+              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
