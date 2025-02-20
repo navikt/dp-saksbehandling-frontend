@@ -6,7 +6,7 @@ import { mockAzure } from "./mock-azure";
 import { mockDpBehandling } from "./mock-dp-behandling";
 import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
 import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
-import { mockDpSoknadOrkestrator } from "./mock-dp-soknad-orkestrator";
+import { mockDpSoknadOrkestratorBarn } from "./mock-dp-soknad-orkestrator";
 import { mockPdl } from "./mock-pdl";
 import { mockSaf } from "./mock-saf";
 
@@ -17,7 +17,7 @@ const mswHandlers = [
   ...mockDpMeldingOmVedtak,
   ...mockPdl,
   ...mockSaf,
-  ...mockDpSoknadOrkestrator,
+  ...mockDpSoknadOrkestratorBarn,
 ];
 
 export async function startMockServer() {

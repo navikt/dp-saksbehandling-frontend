@@ -16,6 +16,7 @@ export function Behandling(props: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [aktivtRegelsett, setAktivtRegelsett] = useState<IRegelsett>(behandling.vilkår[0]);
 
+
   useEffect(() => {
     if (behandling) {
       const alleRegelsett = [...behandling.vilkår, ...behandling.fastsettelser];
