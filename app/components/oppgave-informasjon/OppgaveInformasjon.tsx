@@ -10,10 +10,11 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   visKontrollFane?: boolean;
+  defaultTab: "dokumenter" | "informasjon" | "historikk" | "kontroll";
 }
 
 export function OppgaveInformasjon(props: IProps) {
-  const [aktivTab, setAktivTab] = useState("dokumenter");
+  const [aktivTab, setAktivTab] = useState<string>(props.defaultTab);
   const { featureFlags } = useTypedRouteLoaderData("root");
   return (
     <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>

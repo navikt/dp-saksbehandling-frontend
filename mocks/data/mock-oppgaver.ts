@@ -82,7 +82,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
-  tilstand: "UNDER_BEHANDLING",
+  tilstand: "UNDER_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
