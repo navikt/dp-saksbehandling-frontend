@@ -2,7 +2,10 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
-import { ILagreUtvidetBeskrivelseResponse } from "~/models/melding-om-vedtak.server";
+import {
+  ILagreUtvidetBeskrivelseResponse,
+  IMeldingOmVedtak,
+} from "~/models/melding-om-vedtak.server";
 import { ILagreNotatResponse } from "~/models/oppgave.server";
 import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
 
@@ -75,4 +78,17 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   }
 
   return typeof maybeError.message === "string";
+}
+
+export function isIMeldingOmVedtak(data: unknown): data is IMeldingOmVedtak {
+  if (typeof data !== "object" || data === null) {
+    return false;
+  }
+
+  const maybeMeldingOmVedtak = data as Partial<IMeldingOmVedtak>;
+
+  const hasValidHtml = typeof maybeMeldingOmVedtak.html === "string";
+  const hasValidUtvidedeBeskrivelser = Array.isArray(maybeMeldingOmVedtak.utvidedeBeskrivelser);
+
+  return hasValidHtml && hasValidUtvidedeBeskrivelser;
 }
