@@ -1,19 +1,21 @@
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
+import { IAlert } from "~/context/alert-context";
 import { IOppgaveBehandler } from "~/models/oppgave.server";
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
+import { IHttpProblem } from "~/utils/types";
 
 export interface IMeldingOmVedtak {
   html: string;
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
 }
 
-export interface IBrevOpplysning {
-  tekstId: string;
-  datatype: string;
-  verdi: string;
+export interface IUtvidetBeskrivelse {
+  brevblokkId: string;
+  tekst: string;
+  sistEndretTidspunkt?: string;
+  tittel?: string;
 }
 
 export interface ILagreUtvidetBeskrivelseResponse {
@@ -33,7 +35,7 @@ export async function hentMeldingOmVedtak(
   request: Request,
   behandlingId: string,
   body: IMeldingOmVedtakBody,
-): Promise<IMeldingOmVedtak> {
+): Promise<IMeldingOmVedtak | IAlert> {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
   const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/html`;
@@ -44,7 +46,11 @@ export async function hentMeldingOmVedtak(
   });
 
   if (!response.ok) {
-    handleErrorResponse(response);
+    const httpProblem: IHttpProblem = await response.json();
+    return {
+      variant: "error",
+      title: httpProblem.title,
+    };
   }
 
   return await response.json();
