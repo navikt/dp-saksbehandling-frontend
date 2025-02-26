@@ -1,5 +1,6 @@
-import { Alert, BodyShort, Button, Heading, Loader } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
+import classnames from "classnames";
 import { useEffect, useState } from "react";
 
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
@@ -69,33 +70,38 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
   }, [fetcher.data]);
 
   return (
-    <div className={styles.container}>
-      <UtvidedeBeskrivelser
-        utvidedeBeskrivelser={utvidedeBeskrivelser}
-        setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-        readOnly={readOnly}
-      />
-
-      <div className={styles.previewContainer}>
-        {loading && <Loader size="2xlarge" variant="inverted" />}
+    <>
+      <div className={styles.loaderErrorContainer}>
+        <Loader size="xlarge" className={classnames("mt-4", styles.loader)} />
+        {loading && <Loader size="xlarge" />}
         {error && (
           <Alert variant={error.variant}>
             <Heading size="small">{error.title}</Heading>
-            {error.body && <BodyShort>{error.body}</BodyShort>}
+            {error.body && <BodyLong>{error.body}</BodyLong>}
 
             <Button size="xsmall" onClick={() => hentMeldingOmVedtak()}>
               Prøv på nytt
             </Button>
           </Alert>
         )}
-
-        {meldingOmVedtak && (
-          <MeldingOmVedtakPreview
-            meldingOmVedtak={meldingOmVedtak}
-            utvidetBeskrivelser={utvidedeBeskrivelser}
-          />
-        )}
       </div>
-    </div>
+
+      {meldingOmVedtak && (
+        <div className={styles.meldingOmVedtakContainer}>
+          <UtvidedeBeskrivelser
+            utvidedeBeskrivelser={utvidedeBeskrivelser}
+            setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
+            readOnly={readOnly}
+          />
+
+          <div className={styles.previewContainer}>
+            <MeldingOmVedtakPreview
+              meldingOmVedtak={meldingOmVedtak}
+              utvidetBeskrivelser={utvidedeBeskrivelser}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
