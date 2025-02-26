@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, Heading, Loader } from "@navikt/ds-react";
+import { Alert, Loader } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
@@ -80,12 +80,12 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
         {loading && <Loader size="2xlarge" variant="inverted" />}
         {error && (
           <Alert variant={error.variant}>
-            <Heading size="small">{error.title}</Heading>
-            {error.body && <BodyShort>{error.body}</BodyShort>}
-
-            <Button size="xsmall" onClick={() => hentMeldingOmVedtak()}>
-              Prøv på nytt
-            </Button>
+            Feil
+            {/*<Heading size="small">{error.title}</Heading>*/}
+            {/*{error.body && <BodyShort>{error.body}</BodyShort>}*/}
+            {/*<Button size="xsmall" onClick={() => hentMeldingOmVedtak()}>*/}
+            {/*  Prøv på nytt*/}
+            {/*</Button>*/}
           </Alert>
         )}
 
