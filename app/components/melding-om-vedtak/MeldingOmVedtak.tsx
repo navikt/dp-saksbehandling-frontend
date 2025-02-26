@@ -25,6 +25,9 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
 
   async function hentMeldingOmVedtak() {
     try {
+      if (error) setError(null);
+      if (!loading) setLoading(true);
+
       const formData = new FormData();
       formData.append("behandlingId", oppgave.behandlingId);
       formData.append("fornavn", oppgave.person.fornavn);
