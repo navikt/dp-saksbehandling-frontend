@@ -51,6 +51,7 @@ export async function hentMeldingOmVedtak(
       variant: "error",
       title: httpProblem.title,
       body: httpProblem.detail,
+      service: httpProblem.instance,
     };
   }
 

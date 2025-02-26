@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, Detail, Heading, Loader } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
@@ -79,6 +79,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
           <Alert variant={error.variant}>
             <Heading size="small">{error.title}</Heading>
             {error.body && <BodyLong>{error.body}</BodyLong>}
+            {error.service && <Detail textColor={"subtle"}>{error.service}</Detail>}
 
             <Button size="xsmall" onClick={() => hentMeldingOmVedtak()}>
               Prøv på nytt
