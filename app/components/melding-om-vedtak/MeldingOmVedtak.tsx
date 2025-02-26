@@ -1,6 +1,5 @@
 import { Alert, BodyLong, Button, Heading, Loader } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
-import classnames from "classnames";
 import { useEffect, useState } from "react";
 
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
@@ -72,8 +71,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
   return (
     <>
       <div className={styles.loaderErrorContainer}>
-        <Loader size="xlarge" className={classnames("mt-4", styles.loader)} />
-        {loading && <Loader size="xlarge" />}
+        {loading && <Loader size="xlarge" className={"mt-4"} />}
         {error && (
           <Alert variant={error.variant}>
             <Heading size="small">{error.title}</Heading>
