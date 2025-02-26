@@ -4,7 +4,7 @@ import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
-import { IHttpProblem } from "~/utils/types";
+import { logger } from "~/utils/logger.utils";
 
 export interface IMeldingOmVedtak {
   html: string;
@@ -46,10 +46,12 @@ export async function hentMeldingOmVedtak(
   });
 
   if (!response.ok) {
-    const httpProblem: IHttpProblem = await response.json();
+    // const httpProblem: IHttpProblem = await response.json();
+    logger.error(`Feil ved henting av melding om vedtak. status ${response.status}`);
+
     return {
       variant: "error",
-      title: httpProblem.title,
+      title: "Feil ved henting av melding om vedtak.",
     };
   }
 
