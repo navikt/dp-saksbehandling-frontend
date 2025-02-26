@@ -65,6 +65,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
     if (fetcher.data && isAlert(fetcher.data)) {
       setLoading(false);
       setError(fetcher.data);
+      console.log("fetcher.data", fetcher.data);
     }
   }, [fetcher.data]);
 
