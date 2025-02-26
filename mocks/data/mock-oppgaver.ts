@@ -80,6 +80,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
+  beslutter: mockOppgaveBeslutter,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
   tilstand: "UNDER_KONTROLL",
