@@ -76,7 +76,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
       <div className={styles.loaderErrorContainer}>
         {loading && <Loader size="xlarge" className={"mt-4"} />}
         {error && (
-          <Alert variant={error.variant}>
+          <Alert variant={error.variant} className={"mt-4"}>
             <Heading size="small">{error.title}</Heading>
             {error.body && <BodyLong>{error.body}</BodyLong>}
             {error.service && <Detail textColor={"subtle"}>{error.service}</Detail>}
