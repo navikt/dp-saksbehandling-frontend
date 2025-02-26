@@ -1,3 +1,4 @@
+import { IAlert } from "~/context/alert-context";
 import { IOppgaveBehandler } from "~/models/oppgave.server";
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
@@ -34,7 +35,7 @@ export async function hentMeldingOmVedtak(
   request: Request,
   behandlingId: string,
   body: IMeldingOmVedtakBody,
-): Promise<IMeldingOmVedtak | Response> {
+): Promise<IMeldingOmVedtak | IAlert> {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
 
   const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/html`;
@@ -48,11 +49,10 @@ export async function hentMeldingOmVedtak(
     // const httpProblem: IHttpProblem = await response.json();
     logger.error(`Feil ved henting av melding om vedtak. status ${response.status}`);
 
-    // return {
-    //   variant: "error",
-    //   title: "Feil ved henting av melding om vedtak.",
-    // };
-    return response;
+    return {
+      variant: "error",
+      title: "Feil ved henting av melding om vedtak.",
+    };
   }
 
   return await response.json();
