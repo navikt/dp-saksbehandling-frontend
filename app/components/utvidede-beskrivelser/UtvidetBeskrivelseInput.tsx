@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
-import { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
