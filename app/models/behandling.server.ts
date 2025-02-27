@@ -247,3 +247,25 @@ export async function hentVurderinger(
 
   return await response.json();
 }
+
+export async function lagreVurdering(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+  begrunnelse: string,
+): Promise<IVurderinger> {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/vurderinger/${opplysningId}`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getHeaders(onBehalfOfToken),
+    body: JSON.stringify({ begrunnelse }),
+  });
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  return await response.json();
+}

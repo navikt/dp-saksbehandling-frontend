@@ -46,7 +46,7 @@ export function BegrunnelseLinje({ opplysning }: IProps) {
   return (
     <li className={styles.linje} key={opplysning.id}>
       <form className={classnames("aksel--compact")} {...begrunnelseForm.getFormProps()}>
-        <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning-begrunnelse" />
+        <input hidden={true} readOnly={true} name="_action" value="lagre-vurdering" />
         <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
         <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
         <input hidden={true} readOnly={true} name="verdi" value={opplysning.verdi} />
