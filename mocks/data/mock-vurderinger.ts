@@ -1,7 +1,7 @@
 import { IVurderinger } from "~/models/behandling.server";
 
 export const mockVurderinger: IVurderinger = {
-  behandlingId: "0193d9ab-e8d4-77cc-a475-c3765a6d14cf",
+  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   regelsett: [
     {
       navn: "Reell arbeidssøker",

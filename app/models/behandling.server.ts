@@ -253,7 +253,7 @@ export async function lagreVurdering(
   behandlingId: string,
   opplysningId: string,
   begrunnelse: string,
-): Promise<IVurderinger> {
+): Promise<Response> {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
   const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/vurderinger/${opplysningId}`;
@@ -267,5 +267,5 @@ export async function lagreVurdering(
     handleErrorResponse(response);
   }
 
-  return await response.json();
+  return response;
 }

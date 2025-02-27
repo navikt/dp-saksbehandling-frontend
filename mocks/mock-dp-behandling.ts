@@ -70,4 +70,15 @@ export const mockDpBehandling = [
       return HttpResponse.json(mockVurderinger);
     },
   ),
+
+  http.put(
+    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/vurderinger/:opplysningId`,
+    ({ request }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+
+      return new HttpResponse(null, {
+        status: 204,
+      });
+    },
+  ),
 ];
