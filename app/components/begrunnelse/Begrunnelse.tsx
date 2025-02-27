@@ -18,7 +18,7 @@ export function Begrunnelse() {
               {regelsett.navn}
             </Heading>
             <ul className={styles.regelsettListe}>
-              {regelsett.opplysningIder.map((opplysningId) => {
+              {regelsett.opplysningIder?.map((opplysningId) => {
                 const opplysning = vurderinger.opplysninger.find(
                   (opplysning) => opplysning.id === opplysningId,
                 );

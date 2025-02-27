@@ -14,10 +14,11 @@ interface IProps {
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
-    .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
-    .filter((opplysning) => opplysning !== undefined)
-    .filter((opplysning) => opplysning.synlig);
+  const aktivtRegelsettOpplysninger =
+    aktivtRegelsett.opplysningIder
+      ?.map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
+      .filter((opplysning) => opplysning !== undefined)
+      .filter((opplysning) => opplysning.synlig) ?? [];
 
   const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Bruker",

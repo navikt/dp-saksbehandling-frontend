@@ -10,6 +10,7 @@ export const andreYtelser: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: true,
 };
 
 export const soknadstidspunktForLangtFramITid: IAvklaring = {
@@ -22,6 +23,7 @@ export const soknadstidspunktForLangtFramITid: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const virkningstidspunktForLangtFramITid: IAvklaring = {
@@ -34,6 +36,7 @@ export const virkningstidspunktForLangtFramITid: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const verneplikt: IAvklaring = {
@@ -46,6 +49,7 @@ export const verneplikt: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const tapAvArbeidstidBeregningsregel: IAvklaring = {
@@ -72,6 +76,7 @@ export const EOSArbeid: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const hattLukkedeSakerSiste8Uker: IAvklaring = {
@@ -84,6 +89,7 @@ export const hattLukkedeSakerSiste8Uker: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const samordnes: IAvklaring = {
@@ -96,6 +102,7 @@ export const samordnes: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const inntektNesteKalendermaaned: IAvklaring = {
@@ -108,6 +115,7 @@ export const inntektNesteKalendermaaned: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const jobbetUtenforNorge: IAvklaring = {
@@ -120,6 +128,7 @@ export const jobbetUtenforNorge: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const muligGjenopptak: IAvklaring = {
@@ -132,6 +141,7 @@ export const muligGjenopptak: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const svangerskapsrelaterteSykepenger: IAvklaring = {
@@ -144,6 +154,7 @@ export const svangerskapsrelaterteSykepenger: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const onskerEtterRapporteringsfrist: IAvklaring = {
@@ -156,6 +167,7 @@ export const onskerEtterRapporteringsfrist: IAvklaring = {
   sistEndret: "2021-01-02T14:27:33",
   avklartAv: null,
   begrunnelse: null,
+  kanKvitteres: false,
 };
 
 export const totrinnskontroll: IAvklaring = {

@@ -30,7 +30,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
             })}
             onClick={() => setAktivtRegelsett(regelsett)}
           >
-            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
+            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak ?? true)}
             {regelsett.navn}
           </button>
         </li>
@@ -46,7 +46,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
             })}
             onClick={() => setAktivtRegelsett(regelsett)}
           >
-            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
+            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak ?? true)}
             {regelsett.navn}
           </button>
         </li>

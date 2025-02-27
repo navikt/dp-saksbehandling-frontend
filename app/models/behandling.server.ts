@@ -6,13 +6,14 @@ import { getHeaders } from "~/utils/fetch.utils";
 export interface IRegelsett {
   navn: string;
   hjemmel: IHjemmel;
-  relevantForVedtak: boolean;
+  relevantForVedtak: boolean | null;
   status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | null;
   avklaringer: IAvklaring[];
-  opplysningIder: string[];
+  opplysningIder: string[] | null;
 }
 
 export interface IVurderinger {
+  behandlingId: string;
   avklaringer: IAvklaring[];
   regelsett: IRegelsett[];
   opplysninger: IOpplysning[];
@@ -26,6 +27,7 @@ export interface IHjemmel {
   kapittel: string;
   paragraf: string;
   tittel: string;
+  url: string | null;
 }
 
 export interface IBehandling {
@@ -45,6 +47,7 @@ export interface IBehandling {
   fastsettelser: IRegelsett[];
   avklaringer: IAvklaring[];
   opplysninger: IOpplysning[];
+  utfall: boolean;
 }
 
 export interface IBehandlingGammel {
@@ -57,12 +60,22 @@ export interface IBehandlingGammel {
 
 export interface IOpplysning {
   id: string;
+  opplysningTypeId: string;
   navn: string;
   verdi: string;
   status: "Hypotese" | "Faktum";
   gyldigFraOgMed: string | null;
   gyldigTilOgMed: string | null;
-  datatype: string;
+  datatype:
+    | "dato"
+    | "penger"
+    | "desimaltall"
+    | "heltall"
+    | "boolsk"
+    | "ulid"
+    | "inntekt"
+    | "tekst"
+    | "barn";
   redigerbar?: boolean;
   kilde: IKilde | null;
   synlig: boolean;
@@ -80,21 +93,12 @@ export interface IBegrunnelse {
   sistEndretTidspunkt: string;
 }
 
-export type IKilde = IKildeSaksbehandler | IKildeSystem;
-
-export interface IKildeSaksbehandler {
-  type: "Saksbehandler";
+export interface IKilde {
+  type: "Saksbehandler" | "System";
   registrert: string;
   ident: string | null;
   meldingId: string | null;
-  begrunnelse: IBegrunnelse;
-}
-
-export interface IKildeSystem {
-  type: "System";
-  registrert: string;
-  ident: string | null;
-  meldingId: string | null;
+  begrunnelse: IBegrunnelse | null;
 }
 
 export interface IAvklaring {
@@ -102,7 +106,7 @@ export interface IAvklaring {
   kode: string;
   tittel: string;
   beskrivelse: string;
-  kanKvitteres?: boolean;
+  kanKvitteres: boolean;
   maskinelt: boolean;
   status: "Åpen" | "Avbrutt" | "Avklart";
   avklartAv: { ident: string } | null;

@@ -112,8 +112,6 @@ export function formaterOpplysningVerdi(opplysning: IOpplysning) {
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
       return formaterNorskDato(opplysning.verdi);
-    case "":
-      return formaterTallMedTusenSeperator(opplysning.verdi);
 
     default:
       return opplysning.verdi;
