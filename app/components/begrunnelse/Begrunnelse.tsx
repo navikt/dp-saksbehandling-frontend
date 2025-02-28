@@ -1,4 +1,5 @@
 import { Heading } from "@navikt/ds-react";
+import { Fragment } from "react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { BegrunnelseLinje } from "~/components/begrunnelse-linje/BegrunnelseLinje";
@@ -13,7 +14,7 @@ export function Begrunnelse() {
       <Avklaringer avklaringer={vurderinger.avklaringer} />
       <div>
         {vurderinger.regelsett.map((regelsett) => (
-          <>
+          <Fragment key={regelsett.navn}>
             <Heading size="xsmall" className={styles.regelsettHeading}>
               {regelsett.navn}
             </Heading>
@@ -23,14 +24,14 @@ export function Begrunnelse() {
                   (opplysning) => opplysning.id === opplysningId,
                 );
 
-                return (
-                  <>
-                    {opplysning && <BegrunnelseLinje key={opplysning.id} opplysning={opplysning} />}
-                  </>
-                );
+                if (!opplysning) {
+                  return null;
+                }
+
+                return <BegrunnelseLinje key={opplysning.id} opplysning={opplysning} />;
               })}
             </ul>
-          </>
+          </Fragment>
         ))}
       </div>
     </>

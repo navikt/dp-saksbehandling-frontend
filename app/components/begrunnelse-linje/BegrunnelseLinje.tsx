@@ -19,8 +19,7 @@ interface IProps {
 }
 
 export function BegrunnelseLinje({ opplysning }: IProps) {
-  const initVerdi = opplysning.kilde?.begrunnelse?.verdi ? opplysning.kilde.begrunnelse.verdi : "";
-  const [verdi, setVerdi] = useState<string>(initVerdi);
+  const [verdi, setVerdi] = useState<string>(opplysning.kilde?.begrunnelse?.verdi ?? "");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const lagreOpplysningBegrunnelseFetcher = useDebounceFetcher<typeof action>();
 
@@ -29,9 +28,6 @@ export function BegrunnelseLinje({ opplysning }: IProps) {
     id: opplysning.id,
     validator: hentValideringOpplysningBegrunnelse(),
     method: "post",
-    defaultValues: {
-      begrunnelse: initVerdi,
-    },
   });
 
   function lagreOpplysningBegrunnelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
