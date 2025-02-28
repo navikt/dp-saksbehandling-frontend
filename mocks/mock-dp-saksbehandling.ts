@@ -54,23 +54,29 @@ export const mockDpSaksbehandling = [
       logger.info(`[MSW]-${request.method} ${request.url}`);
       const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
-      if (mockOppgave) {
-        if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-          return HttpResponse.text("UNDER_BEHANDLING");
-        }
-        if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-          return HttpResponse.text("UNDER_KONTROLL");
-        }
-        return HttpResponse.text(mockOppgave.tilstand);
+      if (!mockOppgave) {
+        return HttpResponse.json(
+          {
+            type: "",
+            title: "Finner ikke oppgave",
+            status: 404,
+            detail: "",
+            instance: "",
+          },
+          { status: 404 },
+        );
+      }
+
+      if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
+        return HttpResponse.text("UNDER_BEHANDLING");
+      }
+      if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
+        return HttpResponse.text("UNDER_KONTROLL");
       }
 
       return new HttpResponse("Oppgaven er allerede tatt til behandling", {
         status: 423,
       });
-
-      // return new HttpResponse(null, {
-      //   status: 404,
-      // });
     },
   ),
 

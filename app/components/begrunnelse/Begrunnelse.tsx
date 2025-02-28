@@ -7,11 +7,11 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import styles from "./Begrunnelse.module.css";
 
-export function Begrunnelse() {
+export function Begrunnelse(props: { readonly?: boolean }) {
   const { vurderinger } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   return (
     <>
-      <Avklaringer avklaringer={vurderinger.avklaringer} />
+      <Avklaringer avklaringer={vurderinger.avklaringer} readonly={props.readonly} />
       <div>
         {vurderinger.regelsett.map((regelsett) => (
           <Fragment key={regelsett.navn}>
@@ -28,7 +28,13 @@ export function Begrunnelse() {
                   return null;
                 }
 
-                return <BegrunnelseLinje key={opplysning.id} opplysning={opplysning} />;
+                return (
+                  <BegrunnelseLinje
+                    key={opplysning.id}
+                    opplysning={opplysning}
+                    readonly={props.readonly}
+                  />
+                );
               })}
             </ul>
           </Fragment>

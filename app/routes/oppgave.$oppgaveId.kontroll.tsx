@@ -1,8 +1,9 @@
-import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon, PersonPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Outlet, useActionData } from "@remix-run/react";
 
+import { Begrunnelse } from "~/components/begrunnelse/Begrunnelse";
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
@@ -29,6 +30,11 @@ export default function Oppgave() {
             <Tabs.List>
               <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
               <Tabs.Tab
+                value="begrunnelse"
+                label="Saksbehandlers begrunnelse"
+                icon={<PersonPencilIcon />}
+              />
+              <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
                 icon={<TasklistSendIcon />}
@@ -37,6 +43,10 @@ export default function Oppgave() {
 
             <Tabs.Panel value="behandling">
               <Behandling readonly={true} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="begrunnelse">
+              <Begrunnelse readonly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

@@ -105,6 +105,21 @@ export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
   adressebeskyttelseGradering: "UGRADERT",
 };
 
+export const underKontrollInnvilgelseMinOppgave: IOppgave = {
+  oppgaveId: "218f05a0-667a-7597-a835-fab53129d052",
+  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+  person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  saksbehandler: mockOppgaveSaksbehandler,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Innvilgelse"],
+  tilstand: "UNDER_KONTROLL",
+  journalpostIder: ["598116231", "639664664"],
+  skjermesSomEgneAnsatte: false,
+  historikk: mockHistorikk,
+  adressebeskyttelseGradering: "UGRADERT",
+};
+
 export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
@@ -124,6 +139,7 @@ export const mockOppgaver: IOppgave[] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
+  underKontrollInnvilgelseMinOppgave,
   ferdigBehandletOppgave,
 ];
 
@@ -131,6 +147,7 @@ export const mockListeOppgaver: IListeOppgave[] = [
   konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
+  konverterOppgaveTilListeOppgave(underKontrollInnvilgelseMinOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
 ];
 

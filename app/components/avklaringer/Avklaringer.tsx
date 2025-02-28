@@ -5,6 +5,7 @@ import { Avklaring } from "./Avklaring";
 
 interface IProps {
   avklaringer: IAvklaring[];
+  readonly?: boolean;
 }
 
 export function Avklaringer(props: IProps) {
@@ -19,7 +20,7 @@ export function Avklaringer(props: IProps) {
         <Avklaring
           key={avklaring.id}
           avklaring={avklaring}
-          readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+          readonly={oppgave.tilstand !== "UNDER_BEHANDLING" || props.readonly}
         />
       ))}
     </>

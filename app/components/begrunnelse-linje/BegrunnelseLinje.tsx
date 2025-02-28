@@ -16,9 +16,10 @@ import styles from "./BegrunnelseLinje.module.css";
 
 interface IProps {
   opplysning: IOpplysning;
+  readonly?: boolean;
 }
 
-export function BegrunnelseLinje({ opplysning }: IProps) {
+export function BegrunnelseLinje({ opplysning, readonly }: IProps) {
   const [verdi, setVerdi] = useState<string>(opplysning.kilde?.begrunnelse?.verdi ?? "");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const lagreOpplysningBegrunnelseFetcher = useDebounceFetcher<typeof action>();
@@ -66,6 +67,7 @@ export function BegrunnelseLinje({ opplysning }: IProps) {
             onChange={(event) => lagreOpplysningBegrunnelse(event, 2000)}
             onBlur={() => begrunnelseForm.clearError("begrunnelse")}
             error={begrunnelseForm.error("begrunnelse")}
+            readOnly={readonly}
           />
           <Detail textColor={"subtle"}>{formaterNorskDato(dato.toISOString(), true)}</Detail>
         </div>
