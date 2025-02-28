@@ -29,6 +29,15 @@ export async function getMeldingOmVedtakOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getSoknadOrkestratorOboToken(request: Request) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_SOKNAD_ORKESTRATOR as string;
+  }
+
+  const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-soknad-orkestrator/.default`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getMicrosoftOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.MICROSOFT_TOKEN as string;

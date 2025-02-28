@@ -25,9 +25,9 @@ export default function Oppgave() {
       <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>
-          <Tabs size="medium" defaultValue="behandling">
+          <Tabs size="medium" defaultValue="melding-om-vedtak">
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Redigere opplysninger" icon={<DocPencilIcon />} />
+              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
@@ -46,7 +46,7 @@ export default function Oppgave() {
         </div>
 
         <div className={"card"}>
-          <OppgaveInformasjon visKontrollFane={true} />
+          <OppgaveInformasjon visKontrollFane={true} defaultTab={"kontroll"} />
         </div>
 
         <Outlet />

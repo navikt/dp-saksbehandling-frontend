@@ -7,6 +7,10 @@
   background-color: #ffffff;
 }
 
+.table--subtle-zebra .navds-table__header-cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .table--subtle-zebra td {
   border-bottom: 0;
 }
@@ -23,6 +27,13 @@
 
 .aksel--compact .navds-table__row {
   height: 40px;
+}
+
+.aksel--compact th,
+.aksel--compact tr {
+  font-size: var(--a-font-size-medium);
+  letter-spacing: 0.002em;
+  line-height: var(--a-font-line-height-medium);
 }
 
 /* Align radio horisontalt istedet for verticalt */

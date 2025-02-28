@@ -1,6 +1,18 @@
-import type { IListeOppgave, IOppgave, IOppgaveBehandler, IPerson } from "~/models/oppgave.server";
+import type {
+  IListeOppgave,
+  ILovligeEndringer,
+  IOppgave,
+  IOppgaveBehandler,
+  IPerson,
+  ISikkerhetstiltak,
+} from "~/models/oppgave.server";
 
-import { mockHistorikk } from "./mock-hisotrikk";
+import { mockHistorikk } from "./mock-historikk";
+
+export const mockSikkerhetstiltak: ISikkerhetstiltak[] = [
+  { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
+  { beskrivelse: "Ikke fysisk", gyldigTom: "2025-12-01" },
+];
 
 export const mockPerson: IPerson = {
   alder: 74,
@@ -11,6 +23,7 @@ export const mockPerson: IPerson = {
   mellomnavn: "Dægg",
   etternavn: "Duck",
   ident: "12345678910",
+  sikkerhetstiltak: mockSikkerhetstiltak,
 };
 
 export const mockOppgaveSaksbehandler: IOppgaveBehandler = {
@@ -35,11 +48,22 @@ export const mockOppgaveBeslutter: IOppgaveBehandler = {
   },
 };
 
+const mockLovligeEndringer: ILovligeEndringer = {
+  paaVentAarsaker: [
+    "AVVENT_DOKUMENTASJON",
+    "AVVENT_SVAR",
+    "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "AVVENT_MELDEKORT",
+    "AVVENT_RAPPORTERINGSFRIST",
+    "ANNET",
+  ],
+};
+
 export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -54,11 +78,12 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
+  beslutter: mockOppgaveBeslutter,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
-  tilstand: "UNDER_BEHANDLING",
+  tilstand: "UNDER_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
@@ -69,6 +94,7 @@ export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
   oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -83,7 +109,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
-
+  lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: [],

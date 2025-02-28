@@ -70,6 +70,15 @@ export function hentValideringForPersonIdent() {
   );
 }
 
+export function hentValideringUtsettOppgave() {
+  return withZod(
+    z.object({
+      utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
+      paaVentAarsak: z.string().min(1, { message: "Du må velge en begrunnelse" }),
+    }),
+  );
+}
+
 export function hentValideringOpplysningBegrunnelse() {
   return withZod(
     z.object({

@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
+import { Valentines } from "~/components/valentines/Valentines";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
@@ -59,6 +60,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
 
       {featureFlags.halloween && <Ghosts />}
       {featureFlags.jul && <Adventslys />}
+      {featureFlags.valentines && <Valentines />}
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
