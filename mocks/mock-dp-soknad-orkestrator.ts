@@ -2,14 +2,14 @@ import { http, HttpResponse } from "msw";
 
 import { logger } from "~/utils/logger.utils";
 
-import { mockOrkestratorOpplysning } from "./data/mock-orkestrator-opplysning";
+import { mockOrkestratorOpplysningBarn } from "./data/mock-orkestrator-opplysning-barn";
 
 export const mockDpSoknadOrkestratorBarn = [
-  http.get(`${process.env.DP_SOKNAD_ORKESTRATOR_URL}/`, ({ request }) => {
+  http.get(`${process.env.DP_SOKNAD_ORKESTRATOR_URL}/opplysninger/barn`, ({ request }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
-    if (mockOrkestratorOpplysning) {
-      return HttpResponse.json(mockOrkestratorOpplysning);
+    if (mockOrkestratorOpplysningBarn) {
+      return HttpResponse.json(mockOrkestratorOpplysningBarn);
     }
 
     return new HttpResponse(null, {
