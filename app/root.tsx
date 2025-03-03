@@ -97,6 +97,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const kanRedigereOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.kan-redigere-opplysninger",
   );
+  const orkestratorBarnOpplysninger = unleash.isEnabled(
+    "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
+  );
 
   return json({
     saksbehandler: saksbehandler,
@@ -108,6 +111,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       oppgaveHistorikk,
       totrinnsKontroll,
       kanRedigereOpplysninger,
+      orkestratorBarnOpplysninger,
     },
     env: {
       BASE_PATH: process.env.BASE_PATH,
