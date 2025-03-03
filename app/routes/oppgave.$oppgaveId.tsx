@@ -20,7 +20,7 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
-import { hentOrkestratorOpplysning } from "~/models/orkestrator-opplysning.server";
+import { hentOrkestratorOpplysningBarn } from "~/models/orkestrator-opplysning.server";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -30,7 +30,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const orkestratorOpplysning = await hentOrkestratorOpplysning(request);
+  const orkestratorOpplysningBarn = await hentOrkestratorOpplysningBarn(request);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
 
@@ -61,7 +61,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgaverForPerson,
       journalposterResponses,
       meldingOmVedtak,
-      orkestratorOpplysning,
+      orkestratorOpplysningBarn,
     },
     {
       headers: {
