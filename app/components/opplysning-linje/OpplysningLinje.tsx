@@ -53,9 +53,7 @@ export function OpplysningLinje(props: IProps) {
         <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
         <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
         <div className={styles.opplysningNavn}>
-          {opplysning.formål === "Bruker" && opplysning.kilde?.type === "Saksbehandler" && (
-            <PersonPencilIcon fontSize="1.5rem" />
-          )}
+          {opplysning.kilde?.type === "Saksbehandler" && <PersonPencilIcon fontSize="1.5rem" />}
           {opplysning.navn}
         </div>
 
