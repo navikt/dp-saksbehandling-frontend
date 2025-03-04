@@ -11,7 +11,11 @@ export function Begrunnelse(props: { readonly?: boolean }) {
   const { vurderinger } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   return (
     <>
-      <Avklaringer avklaringer={vurderinger.avklaringer} readonly={props.readonly} />
+      <Avklaringer
+        avklaringer={vurderinger.avklaringer}
+        readonly={props.readonly}
+        defaultOpen={true}
+      />
       <div>
         {vurderinger.regelsett.map((regelsett) => (
           <Fragment key={regelsett.navn}>

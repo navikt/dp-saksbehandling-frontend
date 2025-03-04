@@ -19,13 +19,14 @@ import styles from "./Avklaring.module.css";
 interface IProps {
   avklaring: IAvklaring;
   readonly?: boolean;
+  defaultOpen?: boolean;
 }
 
-export function Avklaring({ avklaring, readonly }: IProps) {
+export function Avklaring({ avklaring, readonly, defaultOpen }: IProps) {
   const actionData = useActionData<typeof action>();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
-  const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
+  const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(defaultOpen ?? false);
 
   let avklartAv = "";
   if (avklaring.maskinelt) avklartAv = "av regelmotor";
