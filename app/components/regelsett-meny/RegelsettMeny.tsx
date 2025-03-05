@@ -56,7 +56,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
 }
 
 function renderStatusIcon(status: IRegelsett["status"], relevantForVedtak: boolean) {
-  if (!relevantForVedtak) {
+  if (!relevantForVedtak && status !== "HarAvklaring") {
     return <CircleSlashIcon fontSize="1.5rem" />;
   }
 
