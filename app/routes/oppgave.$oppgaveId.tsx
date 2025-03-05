@@ -18,6 +18,7 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
+import { hentOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysninger.server";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -29,6 +30,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const orkestratorBarnOpplysninger = await hentOrkestratorBarnOpplysning(
+    request,
+    params.oppgaveId,
+  );
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
@@ -44,6 +49,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandling,
       oppgaverForPerson,
       journalposterResponses,
+      orkestratorBarnOpplysninger,
     },
     {
       headers: {
