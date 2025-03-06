@@ -2,3 +2,4 @@
 .github/*
 .husky/*
 graphql/*
+openapi/*

@@ -1,0 +1,9 @@
+apis:
+  behandling@v1:
+    root: https://dp-behandling.intern.dev.nav.no/openapi/behandling-api.yaml
+    x-openapi-ts:
+      output: ./openapi/behandling-typer.ts
+  saksbehandling@v1:
+    root: https://dp-saksbehandling.intern.dev.nav.no/openapi/saksbehandling-api.yaml
+    x-openapi-ts:
+      output: ./openapi/saksbehandling-typer.ts
