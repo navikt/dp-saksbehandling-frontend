@@ -34,7 +34,7 @@ export const mockDpSoknadOrkestrator = [
       }
 
       return new HttpResponse(null, {
-        status: 200,
+        status: 404,
       });
     },
   ),
