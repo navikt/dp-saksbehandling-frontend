@@ -30,13 +30,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
-  const orkestratorBarnOpplysninger = await hentOrkestratorBarnOpplysninger(
-    request,
-    params.oppgaveId,
-  );
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
+  );
+
+  const orkestratorBarnOpplysninger = await hentOrkestratorBarnOpplysninger(
+    request,
+    oppgave.soknadId,
   );
 
   const session = await getSession(request.headers.get("Cookie"));
