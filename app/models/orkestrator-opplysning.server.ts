@@ -54,8 +54,10 @@ export async function hentOrkestratorLandListe(request: Request): Promise<IOrkes
     method: "GET",
     headers: getHeaders(onBehalfOfToken),
   });
+
   if (!response.ok) {
     handleErrorResponse(response);
   }
+
   return await response.json();
 }

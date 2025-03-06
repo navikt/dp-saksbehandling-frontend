@@ -13,7 +13,7 @@ export interface IOrkestratorBarnOpplysning {
   endretAv?: string;
 }
 
-const mockBarn1: ŒIOrkestratorBarnOpplysning = {
+const mockBarn1: IOrkestratorBarnOpplysning = {
   barnId: "f4a7aa9c-7291-4d97-ae01-9fc0acef78ed",
   fornavnOgMellomnavn: "Kvekk 1",
   etternavn: "Kvakk 2",

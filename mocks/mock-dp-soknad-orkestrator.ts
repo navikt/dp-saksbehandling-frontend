@@ -13,9 +13,11 @@ export const mockDpSoknadOrkestrator = [
     `${process.env.DP_SOKNAD_ORKESTRATOR_URL}/opplysninger/:oppgaveId/barn`,
     ({ request }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
+
       if (mockOrkestratorBarnOpplysninger) {
         return HttpResponse.json(mockOrkestratorBarnOpplysninger);
       }
+
       return new HttpResponse(null, {
         status: 404,
       });
