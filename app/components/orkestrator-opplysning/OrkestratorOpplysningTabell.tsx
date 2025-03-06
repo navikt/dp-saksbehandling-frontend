@@ -1,11 +1,15 @@
 import { Heading, Radio, RadioGroup, Stack, Tag, TextField } from "@navikt/ds-react";
 
-import { IOrkestratorOpplysningBarn } from "../../../mocks/data/mock-orkestrator-opplysning-barn";
+import {
+  formatterOrkestratorOpplysningVerdi,
+  hentOrkestratorOpplysningVisningTekst,
+} from "~/utils/orkestrator-opplysninger.utils";
+import { IOrkestratorBarnOpplysning } from "../../../mocks/data/mock-orkestrator-barn-opplysninger";
 import styles from "./OrkestratorOpplysning.module.css";
 
 interface IProps {
   barnIndex: number;
-  barnOpplysning: IOrkestratorOpplysningBarn;
+  barnOpplysning: IOrkestratorBarnOpplysning;
 }
 
 export function OrkestratorOpplysningTabell({ barnIndex, barnOpplysning }: IProps) {
@@ -19,27 +23,6 @@ export function OrkestratorOpplysningTabell({ barnIndex, barnOpplysning }: IProp
 
   const barnNummer = barnIndex + 1;
 
-  function formatterOpplysningVisningsTekst(opplysning: string) {
-    switch (opplysning) {
-      case "FornavnOgMellomnavn":
-        return "Fornavn";
-      case "ForsørgerBarnet":
-        return "Forsørger barnet";
-      case "GirBarnetillegg":
-        return "Gir barnetillegg";
-      default:
-        return opplysning;
-    }
-  }
-
-  function formatterOpplysningVerdi(opplysning: string | boolean) {
-    if (typeof opplysning === "boolean") {
-      return opplysning ? "Ja" : "Nei";
-    }
-    return opplysning;
-  }
-
-
   function opplysningInput(opplysning: { key: string; value: string | boolean }) {
     const { key, value } = opplysning;
 
@@ -47,8 +30,8 @@ export function OrkestratorOpplysningTabell({ barnIndex, barnOpplysning }: IProp
       case "string":
         return (
           <TextField
-            label={formatterOpplysningVisningsTekst(key)}
-            value={formatterOpplysningVerdi(value)}
+            label={hentOrkestratorOpplysningVisningTekst(key)}
+            value={formatterOrkestratorOpplysningVerdi(value)}
             readOnly={barnOpplysning.fraRegister}
             size="small"
           />
@@ -56,7 +39,7 @@ export function OrkestratorOpplysningTabell({ barnIndex, barnOpplysning }: IProp
       case "boolean":
         return (
           <RadioGroup
-            legend={formatterOpplysningVisningsTekst(key)}
+            legend={hentOrkestratorOpplysningVisningTekst(key)}
             onChange={() => {}}
             value={value}
             className={styles.radioGroup}
@@ -85,9 +68,13 @@ export function OrkestratorOpplysningTabell({ barnIndex, barnOpplysning }: IProp
         <div key={key} className={styles.modalOpplysning}>
           <div>{opplysningInput({ key, value })}</div>
           {barnOpplysning.fraRegister ? (
-            <Tag variant="alt1" size="small">Register</Tag>
+            <Tag variant="alt1" size="small">
+              Register
+            </Tag>
           ) : (
-            <Tag variant="warning" size="small">Søknad</Tag>
+            <Tag variant="warning" size="small">
+              Søknad
+            </Tag>
           )}
         </div>
       ))}

@@ -8,11 +8,10 @@ import invariant from "tiny-invariant";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
-import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
-import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/oppgave.server";
+import { hentOrkestratorBarnOpplysninger } from "~/models/orkestrator-opplysning.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -31,22 +30,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const orkestratorBarnOpplysninger = await hentOrkestratorBarnOpplysninger(
+    request,
+    params.oppgaveId,
+  );
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
-  let meldingOmVedtak: IMeldingOmVedtak | undefined;
-  if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
-    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-    });
-  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -58,7 +49,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandling,
       oppgaverForPerson,
       journalposterResponses,
-      meldingOmVedtak,
+      orkestratorBarnOpplysninger,
     },
     {
       headers: {
@@ -69,7 +60,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -90,12 +81,10 @@ export default function Oppgave() {
       ))}
 
       <div className={styles.oppgaveContainer}>
-        <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak?.utvidedeBeskrivelser || []}>
-          <BeslutterNotatProvider notat={oppgave.notat}>
-            <OppgaveListe oppgaver={oppgaverForPerson} />
-            <Outlet />
-          </BeslutterNotatProvider>
-        </MeldingOmVedtakProvider>
+        <BeslutterNotatProvider notat={oppgave.notat}>
+          <OppgaveListe oppgaver={oppgaverForPerson} />
+          <Outlet />
+        </BeslutterNotatProvider>
       </div>
     </Fragment>
   );

@@ -1,67 +1,50 @@
 import { Heading, Tag } from "@navikt/ds-react";
-
-import { IOrkestratorOpplysningBarn } from "../../../mocks/data/mock-orkestrator-opplysning-barn";
+import classnames from "classnames";
+import {
+  byggOrkestratorOpplysningObject,
+  formatterOrkestratorOpplysningVerdi,
+  hentOrkestratorOpplysningVisningTekst,
+} from "~/utils/orkestrator-opplysninger.utils";
+import { IOrkestratorBarnOpplysning } from "../../../mocks/data/mock-orkestrator-barn-opplysninger";
 import styles from "./OrkestratorOpplysning.module.css";
 
 interface IProps {
   barnIndex: number;
-  barnOpplysning: IOrkestratorOpplysningBarn;
+  barnOpplysning: IOrkestratorBarnOpplysning;
 }
 
-export function OrkestratorOpplysningReadonlyTabell({
-  barnIndex,
-  barnOpplysning,
-}: IProps) {
-  const filterKeys = ["FraRegister", "GirBarnetilleggFom", "GirBarnetilleggTom", "BarnSvarId"];
-  const barnOpplysningArray = Object.entries(barnOpplysning)
-    .map(([key, value]) => ({
-      key: key.charAt(0).toUpperCase() + key.slice(1),
-      value,
-    }))
-    .filter((opplysning) => !filterKeys.includes(opplysning.key));
-
-  const barnNummer = barnIndex + 1;
-
-  function formatterOpplysningVisningsTekst(opplysning: string) {
-    switch (opplysning) {
-      case "FornavnOgMellomnavn":
-        return "Fornavn";
-      case "ForsørgerBarnet":
-        return "Forsørger barnet";
-      case "GirBarnetillegg":
-        return "Gir barnetillegg";
-      default:
-        return opplysning;
-    }
-  }
-
-  function formatterOpplysningVerdi(opplysning: string | boolean) {
-    if (typeof opplysning === "boolean") {
-      return opplysning ? "Ja" : "Nei";
-    }
-    return opplysning;
-  }
+export function OrkestratorOpplysningReadonlyTabell({ barnIndex, barnOpplysning }: IProps) {
+  const barnOpplysninger = byggOrkestratorOpplysningObject(barnOpplysning);
 
   return (
     <>
       <Heading level="4" size="small" className={styles.opplysningHeader} spacing>
-        Barn {barnNummer}
+        Barn {barnIndex + 1}
       </Heading>
       <table className={styles.opplysningTabell}>
         <tbody>
-          {barnOpplysningArray.map(({ key, value }) => (
-            <tr key={key}>
-              <td>{formatterOpplysningVisningsTekst(key)}</td>
-              <td>{formatterOpplysningVerdi(value)}</td>
-              <td>
-                {barnOpplysning.fraRegister ? (
-                  <Tag variant="alt1" size="small">Register</Tag>
-                ) : (
-                  <Tag variant="warning" size="small">Søknad</Tag>
-                )}
-              </td>
-            </tr>
-          ))}
+          {barnOpplysninger.opplysninger.map((opplysning, _index) => {
+            const bold = opplysning.key === "kvalifisererTilBarnetillegg";
+
+            return (
+              <tr
+                key={_index}
+                className={classnames({
+                  [styles.bold]: bold,
+                })}
+              >
+                <td>{hentOrkestratorOpplysningVisningTekst(opplysning.key)}</td>
+                <td>{formatterOrkestratorOpplysningVerdi(opplysning)}</td>
+                <td>
+                  {opplysning.fraRegister !== null && (
+                    <Tag variant={opplysning.fraRegister ? "alt1" : "warning"} size="small">
+                      {opplysning.fraRegister ? "Register" : "Søknad"}
+                    </Tag>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>

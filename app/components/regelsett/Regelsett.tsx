@@ -8,22 +8,25 @@ import { IRegelsett } from "~/models/behandling.server";
 
 import styles from "./Regelsett.module.css";
 
-
 interface IProps {
   aktivtRegelsett: IRegelsett;
   readonly?: boolean;
 }
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling, orkestratorOpplysningBarn } = useTypedRouteLoaderData(
+  const { behandling, orkestratorBarnOpplysninger } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId",
   );
+
+  const { featureFlags } = useTypedRouteLoaderData("root");
+
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
     .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
     .filter((opplysning) => opplysning !== undefined)
     .filter((opplysning) => opplysning.synlig);
 
-  const satsOgBarnetillegg = aktivtRegelsett.navn === "4-12 Sats og barnetillegg";
+  const satsOgBarnetillegg =
+    aktivtRegelsett.hjemmel.kapittel === "4" && aktivtRegelsett.hjemmel.paragraf === "12";
 
   const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Bruker",
@@ -45,7 +48,7 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
     (opplysning) => opplysning?.formål === "Mellomsteg",
   );
 
-  if (satsOgBarnetillegg) {
+  if (satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger) {
     return (
       <div>
         <Heading className={styles.hjemmelTittel} size="medium">
@@ -55,10 +58,10 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
           {aktivtRegelsett.hjemmel.kilde.navn}
         </Detail>
 
-        {orkestratorOpplysningBarn.map((barnOpplysning, index) => {
+        {orkestratorBarnOpplysninger.map((barnOpplysning, index) => {
           return (
             <OrkestratorOpplysning
-              key={barnOpplysning.barnSvarId}
+              key={barnOpplysning.barnId}
               barnOpplysning={barnOpplysning}
               barnIndex={index}
             />

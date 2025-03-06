@@ -2,17 +2,15 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Modal } from "@navikt/ds-react";
 import { useRef } from "react";
 
-import {
-  OrkestratorOpplysningReadonlyTabell
-} from "~/components/orkestrator-opplysning/OrkestratorOpplysningReadonlyTabell";
+import { OrkestratorOpplysningReadonlyTabell } from "~/components/orkestrator-opplysning/OrkestratorOpplysningReadonlyTabell";
 import { OrkestratorOpplysningTabell } from "~/components/orkestrator-opplysning/OrkestratorOpplysningTabell";
 
-import { IOrkestratorOpplysningBarn } from "../../../mocks/data/mock-orkestrator-opplysning-barn";
+import { IOrkestratorBarnOpplysning } from "../../../mocks/data/mock-orkestrator-barn-opplysninger";
 import styles from "./OrkestratorOpplysning.module.css";
 
 interface IProps {
   barnIndex: number;
-  barnOpplysning: IOrkestratorOpplysningBarn;
+  barnOpplysning: IOrkestratorBarnOpplysning;
 }
 
 export function OrkestratorOpplysning({ barnIndex, barnOpplysning }: IProps) {
@@ -20,7 +18,7 @@ export function OrkestratorOpplysning({ barnIndex, barnOpplysning }: IProps) {
 
   return (
     <div className={styles.opplysningTabellContainer}>
-      <OrkestratorOpplysningReadonlyTabell barnIndex={barnIndex} barnOpplysning={barnOpplysning}  />
+      <OrkestratorOpplysningReadonlyTabell barnIndex={barnIndex} barnOpplysning={barnOpplysning} />
 
       <Button
         variant="primary"
@@ -32,7 +30,12 @@ export function OrkestratorOpplysning({ barnIndex, barnOpplysning }: IProps) {
         Endre
       </Button>
 
-      <Modal ref={ref} header={{ heading: "Barn fra søknad" }} closeOnBackdropClick className={styles.modal}>
+      <Modal
+        ref={ref}
+        header={{ heading: "Barn fra søknad" }}
+        closeOnBackdropClick
+        className={styles.modal}
+      >
         <Modal.Body>
           <OrkestratorOpplysningTabell barnIndex={barnIndex} barnOpplysning={barnOpplysning} />
         </Modal.Body>

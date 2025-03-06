@@ -3,13 +3,14 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { IOrkestratorOpplysningBarn } from "../../mocks/data/mock-orkestrator-opplysning-barn";
+import { IOrkestratorBarnOpplysning } from "../../mocks/data/mock-orkestrator-barn-opplysninger";
 
-export async function hentOrkestratorOpplysningBarn(
+export async function hentOrkestratorBarnOpplysninger(
   request: Request,
-): Promise<IOrkestratorOpplysningBarn[]> {
+  oppgaveId: string,
+): Promise<IOrkestratorBarnOpplysning[]> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/barn`;
+  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${oppgaveId}/barn`;
 
   const response = await fetch(url, {
     method: "GET",
