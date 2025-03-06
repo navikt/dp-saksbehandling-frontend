@@ -72,6 +72,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "FORTROLIG",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44c",
 };
 
 export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
@@ -88,6 +89,7 @@ export const underBehandlingMinOppgaveKreverKontroll: IOppgave = {
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
 };
 
 export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
@@ -103,6 +105,7 @@ export const underBehandlingInnvilgelseMinOppgave: IOppgave = {
   skjermesSomEgneAnsatte: false,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "UGRADERT",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44e",
 };
 
 export const ferdigBehandletOppgave: IOppgave = {
@@ -118,6 +121,7 @@ export const ferdigBehandletOppgave: IOppgave = {
   skjermesSomEgneAnsatte: true,
   historikk: mockHistorikk,
   adressebeskyttelseGradering: "UGRADERT",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
 };
 
 export const mockOppgaver: IOppgave[] = [

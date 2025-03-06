@@ -55,6 +55,7 @@ export interface IOppgave {
   adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
   emneknagger: string[];
   lovligeEndringer: ILovligeEndringer;
+  soknadId: string;
 }
 
 export interface ISikkerhetstiltak {
