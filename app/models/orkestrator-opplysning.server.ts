@@ -9,10 +9,10 @@ import { IOrkestratorBarnOpplysning } from "../../mocks/data/mock-orkestrator-ba
 
 export async function hentOrkestratorBarnOpplysninger(
   request: Request,
-  oppgaveId: string,
+  soknadId: string,
 ): Promise<IOrkestratorBarnOpplysning[]> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${oppgaveId}/barn`;
+  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn`;
 
   const response = await fetch(url, {
     method: "GET",
@@ -28,10 +28,11 @@ export async function hentOrkestratorBarnOpplysninger(
 
 export async function oppdaterOrkestratorBarnOpplysning(
   request: Request,
+  soknadId: string,
   barnOpplysning: IOrkestratorBarnOpplysning,
 ): Promise<IOrkestratorLand[]> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/land`;
+  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
   const response = await fetch(url, {
     method: "PUT",
