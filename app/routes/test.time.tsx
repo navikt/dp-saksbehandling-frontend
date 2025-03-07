@@ -1,5 +1,5 @@
-import { useLoaderData } from "react-router";
 import { format } from "date-fns";
+import { useLoaderData } from "react-router";
 import { useEventSource } from "remix-utils/sse/react";
 
 export async function loader() {
