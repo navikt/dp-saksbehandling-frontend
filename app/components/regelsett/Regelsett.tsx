@@ -2,7 +2,7 @@ import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
-import { OrkestratorOpplysning } from "~/components/orkestrator-opplysning/OrkestratorOpplysning";
+import { OrkestratorOpplysningKort } from "~/components/orkestrator-opplysning-kort/OrkestratorOpplysningKort";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IRegelsett } from "~/models/behandling.server";
 
@@ -47,29 +47,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const mellomstegOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Mellomsteg",
   );
-
-  if (satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger) {
-    return (
-      <div>
-        <Heading className={styles.hjemmelTittel} size="medium">
-          {aktivtRegelsett.hjemmel.tittel}
-        </Heading>
-        <Detail textColor="subtle" className={styles.hjemmelKilde}>
-          {aktivtRegelsett.hjemmel.kilde.navn}
-        </Detail>
-
-        {orkestratorBarnOpplysninger.map((barnOpplysning, index) => {
-          return (
-            <OrkestratorOpplysning
-              key={barnOpplysning.barnId}
-              barnOpplysning={barnOpplysning}
-              barnIndex={index}
-            />
-          );
-        })}
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -163,6 +140,20 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
               />
             ))}
           </ul>
+        </>
+      )}
+
+      {satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger && (
+        <>
+          {orkestratorBarnOpplysninger.map((barnOpplysning, index) => {
+            return (
+              <OrkestratorOpplysningKort
+                key={barnOpplysning.barnId}
+                barnNummer={index + 1}
+                barnOpplysning={barnOpplysning}
+              />
+            );
+          })}
         </>
       )}
     </div>

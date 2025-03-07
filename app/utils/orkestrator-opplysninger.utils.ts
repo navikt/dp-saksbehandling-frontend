@@ -1,4 +1,3 @@
-import { IOrkestratorBarnOpplysning } from "mocks/data/mock-orkestrator-barn-opplysninger";
 import { formaterNorskDato } from "./dato.utils";
 
 export function hentOrkestratorOpplysningVisningTekst(opplysning: string) {
@@ -8,8 +7,8 @@ export function hentOrkestratorOpplysningVisningTekst(opplysning: string) {
     { key: "fødselsdato", navn: "Fødselsdato" },
     { key: "oppholdssted", navn: "Oppholdssted" },
     { key: "forsørgerBarnet", navn: "Forsørger barnet" },
-    { key: "barnetilleggFom", navn: "Barnetillegg fra og med" },
-    { key: "barnetilleggTom", navn: "Barnetillegg til og med" },
+    { key: "barnetilleggFom", navn: "Barnetillegg fra" },
+    { key: "barnetilleggTom", navn: "Barnetillegg til" },
     { key: "kvalifisererTilBarnetillegg", navn: "Rett til barnetillegg" },
     { key: "begrunnelse", navn: "Begrunnelse" },
   ];
@@ -17,73 +16,25 @@ export function hentOrkestratorOpplysningVisningTekst(opplysning: string) {
   return opplysninger.find((pair) => pair.key === opplysning)?.navn;
 }
 
-export function orkestratorOpplysningFraResigter(
+export function hentFormatertOpplysninigsverdi(
   opplysning: string,
-  fraRegister: boolean,
-): boolean | null {
-  const eksludertListe = [
-    "kvalifisererTilBarnetillegg",
-    "barnetilleggFom",
-    "barnetilleggTom",
-    "begrunnelse",
-    "barnId",
-  ];
-
-  if (eksludertListe.includes(opplysning)) {
-    return null;
-  }
-
-  if (opplysning === "forsørgerBarnet") {
-    return false;
-  }
-
-  return fraRegister;
-}
-
-export function setOrkestratorOpplysningsType(opplysning: string) {
+  verdi: string | boolean,
+): string {
   const datoType = ["fødselsdato", "barnetilleggFom", "barnetilleggTom"];
   const landType = ["oppholdssted"];
   const booleanType = ["forsørgerBarnet", "kvalifisererTilBarnetillegg"];
 
-  if (datoType.includes(opplysning)) {
-    return "dato";
+  if (datoType.includes(opplysning) && typeof verdi === "string") {
+    return formaterNorskDato(verdi);
   }
 
   if (landType.includes(opplysning)) {
-    return "land";
+    return verdi.toString();
   }
 
   if (booleanType.includes(opplysning)) {
-    return "boolsk";
+    return verdi ? "Ja" : "Nei";
   }
 
-  return "tekst";
-}
-
-export function byggOrkestratorOpplysningObject(barnOpplysning: IOrkestratorBarnOpplysning) {
-  const filterList = ["barnId", "fraRegister"];
-
-  return {
-    id: barnOpplysning.barnId,
-    opplysninger: Object.entries(barnOpplysning)
-      .map(([key, value]) => ({
-        key,
-        verdi: value,
-        fraRegister: orkestratorOpplysningFraResigter(key, barnOpplysning.fraRegister),
-        type: setOrkestratorOpplysningsType(key),
-      }))
-      .filter((opp) => !filterList.includes(opp.key)),
-  };
-}
-
-export function formatterOrkestratorOpplysningVerdi(opplysning: any) {
-  if (opplysning.type === "boolsk") {
-    return opplysning.verdi ? "Ja" : "Nei";
-  }
-
-  if (opplysning.type === "dato") {
-    return formaterNorskDato(opplysning.verdi);
-  }
-
-  return opplysning.verdi;
+  return verdi.toString();
 }

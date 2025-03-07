@@ -1,0 +1,71 @@
+/* .orkestratorOpplysningKort {
+  margin: var(--a-spacing-4);
+  border: 1px solid var(--a-border-default);
+  border-radius: var(--a-spacing-2);
+  padding: var(--a-spacing-4);
+} */
+
+.orkestratorOpplysningKort {
+  margin-top: var(--a-spacing-8);
+}
+
+.opplysningHeader {
+  margin-left: var(--a-spacing-3);
+}
+
+.opplysningTabell {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: var(--a-spacing-20);
+}
+
+.opplysningTabell td {
+  padding: var(--a-spacing-2);
+}
+
+.opplysningTabell tr {
+  border-top: 1px solid var(--a-border-divider);
+}
+
+.opplysningTabell tr:nth-child(odd) {
+  background-color: #f8f9fc;
+}
+
+.opplysningTabell tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.opplysningTabell td:first-child {
+  padding-left: var(--a-spacing-3);
+}
+
+.opplysningTabell td:last-child {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: var(--a-spacing-3);
+}
+
+.endreKnapp {
+  margin: var(--a-spacing-4) 0 0 var(--a-spacing-3);
+}
+
+.modal {
+  min-width: 550px;
+}
+
+.modalOpplysning {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modalOpplysning {
+  border-top: 1px solid var(--a-border-divider);
+  padding: var(--a-spacing-3) 0;
+}
+
+.bold {
+  font-weight: bold;
+}
