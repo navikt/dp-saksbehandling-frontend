@@ -11,7 +11,10 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { hentOppgave } from "~/models/oppgave.server";
-import { hentOrkestratorBarnOpplysninger } from "~/models/orkestrator-opplysning.server";
+import {
+  hentOrkestratorBarnOpplysninger,
+  hentOrkestratorLandListe,
+} from "~/models/orkestrator-opplysning.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -40,6 +43,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     oppgave.soknadId,
   );
 
+  const orkestratorLandlister = await hentOrkestratorLandListe(request);
+
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -51,6 +56,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgaverForPerson,
       journalposterResponses,
       orkestratorBarnOpplysninger,
+      orkestratorLandlister,
     },
     {
       headers: {

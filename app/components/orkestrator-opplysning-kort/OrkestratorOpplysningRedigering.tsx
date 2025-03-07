@@ -1,4 +1,12 @@
-import { Radio, RadioGroup, Stack, TextField } from "@navikt/ds-react";
+import {
+  DatePicker,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  TextField,
+  useDatepicker,
+} from "@navikt/ds-react";
 
 import {
   hentFormatertOpplysninigsverdi as hentFormatertOpplysningVerdi,
@@ -8,6 +16,7 @@ import {
 import { IOrkestratorBarnOpplysning } from "../../../mocks/data/mock-orkestrator-barn-opplysninger";
 import styles from "./OrkestratorOpplysning.module.css";
 import { OrkestratorTag } from "./OrkestratorTag";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   barnOpplysning: IOrkestratorBarnOpplysning;
@@ -26,6 +35,25 @@ export function OrkestratorOpplysningRedigering({ barnOpplysning }: IProps) {
     begrunnelse,
     fraRegister,
   } = barnOpplysning;
+
+  const { orkestratorLandlister } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
+  const { datepickerProps: fodselsdatoProps, inputProps: fodselsdatoInputProps } = useDatepicker({
+    defaultSelected: new Date(fødselsdato),
+    onDateChange: console.info,
+  });
+
+  const { datepickerProps: barnetilleggFomProps, inputProps: barnetilleggFomInputProps } =
+    useDatepicker({
+      defaultSelected: barnetilleggFom ? new Date(barnetilleggFom) : undefined,
+      onDateChange: console.info,
+    });
+
+  const { datepickerProps: barnetilleggTomProps, inputProps: barnetilleggTomInputProps } =
+    useDatepicker({
+      defaultSelected: barnetilleggTom ? new Date(barnetilleggTom) : undefined,
+      onDateChange: console.info,
+    });
 
   return (
     <div>
@@ -48,21 +76,30 @@ export function OrkestratorOpplysningRedigering({ barnOpplysning }: IProps) {
         <OrkestratorTag fraRegister={fraRegister} />
       </div>
       <div className={styles.modalOpplysning}>
-        <TextField
-          label={hentOrkestratorOpplysningLabel("fødselsdato")}
-          value={hentFormatertOpplysningVerdi(fødselsdato, fødselsdato)}
-          readOnly={fraRegister}
-          size="small"
-        />
+        <DatePicker {...fodselsdatoProps} strategy="fixed">
+          <DatePicker.Input
+            {...fodselsdatoInputProps}
+            label={hentOrkestratorOpplysningLabel("fødselsdato")}
+            readOnly
+            size="small"
+          />
+        </DatePicker>
         <OrkestratorTag fraRegister={fraRegister} />
       </div>
       <div className={styles.modalOpplysning}>
-        <TextField
+        <Select
           label={hentOrkestratorOpplysningLabel("oppholdssted")}
           value={hentFormatertOpplysningVerdi(oppholdssted, oppholdssted)}
-          readOnly={fraRegister}
           size="small"
-        />
+        >
+          <option value="">Velg land</option>
+          {orkestratorLandlister.map((land) => (
+            <option key={land.alpha3kode} value={land.alpha3kode}>
+              {land.navn}
+            </option>
+          ))}
+        </Select>
+
         <OrkestratorTag fraRegister={fraRegister} />
       </div>
       <div className={styles.modalOpplysning}>
@@ -95,18 +132,22 @@ export function OrkestratorOpplysningRedigering({ barnOpplysning }: IProps) {
         </RadioGroup>
       </div>
       <div className={styles.modalOpplysning}>
-        <TextField
-          label={hentOrkestratorOpplysningLabel("barnetilleggFom")}
-          value={hentFormatertOpplysningVerdi(barnetilleggFom || "", barnetilleggFom || "")}
-          size="small"
-        />
+        <DatePicker {...barnetilleggFomProps} strategy="fixed">
+          <DatePicker.Input
+            {...barnetilleggFomInputProps}
+            label={hentOrkestratorOpplysningLabel("barnetilleggFom")}
+            size="small"
+          />
+        </DatePicker>
       </div>
       <div className={styles.modalOpplysning}>
-        <TextField
-          label={hentOrkestratorOpplysningLabel("barnetilleggTom")}
-          value={hentFormatertOpplysningVerdi(barnetilleggTom || "", barnetilleggTom || "")}
-          size="small"
-        />
+        <DatePicker {...barnetilleggTomProps} strategy="fixed">
+          <DatePicker.Input
+            {...barnetilleggTomInputProps}
+            label={hentOrkestratorOpplysningLabel("barnetilleggTom")}
+            size="small"
+          />
+        </DatePicker>
       </div>
       <div className={styles.modalOpplysning}>
         <TextField

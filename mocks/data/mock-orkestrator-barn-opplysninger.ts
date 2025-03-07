@@ -16,7 +16,7 @@ export interface IOrkestratorBarnOpplysning {
 const mockBarn1: IOrkestratorBarnOpplysning = {
   barnId: "f4a7aa9c-7291-4d97-ae01-9fc0acef78ed",
   fornavnOgMellomnavn: "Kvekk 1",
-  etternavn: "Kvakk 2",
+  etternavn: "Kvakk 1",
   fødselsdato: "2019-01-01",
   oppholdssted: "Norge",
   forsørgerBarnet: true,
@@ -36,8 +36,8 @@ const mockBarn2: IOrkestratorBarnOpplysning = {
   forsørgerBarnet: true,
   fraRegister: false,
   kvalifisererTilBarnetillegg: true,
-  barnetilleggFom: "2021-01-01",
-  barnetilleggTom: "2021-12-31",
+  barnetilleggFom: "2024-01-01",
+  barnetilleggTom: "2025-12-31",
   begrunnelse: "Barnet er under 18 år",
 };
 
@@ -50,8 +50,8 @@ const mockBarn3: IOrkestratorBarnOpplysning = {
   forsørgerBarnet: true,
   fraRegister: false,
   kvalifisererTilBarnetillegg: true,
-  barnetilleggFom: "2021-01-01",
-  barnetilleggTom: "2021-12-31",
+  barnetilleggFom: "2024-01-01",
+  barnetilleggTom: "2025-12-31",
   begrunnelse: "Barnet er under 18 år",
 };
 
