@@ -86,7 +86,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
   const oppgaverJegHarTilBehandling = await hentOppgaver(
     request,
-    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
+    new URL(request.url).searchParams,
   );
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");

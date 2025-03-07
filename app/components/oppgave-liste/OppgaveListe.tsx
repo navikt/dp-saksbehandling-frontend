@@ -6,13 +6,14 @@ import { differenceInCalendarDays } from "date-fns";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
-import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
+import type { IListeOppgave } from "~/models/oppgave.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
 
 interface IProps {
-  oppgaver: IListeOppgave[];
+  oppgaver: components["schemas"]["OppgaveOversikt"][];
   totaltAntallOppgaver?: number;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
@@ -31,7 +32,9 @@ export function OppgaveListe({
   const { state } = useNavigation();
   const location = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
-  const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
+  const { sortedData, handleSort, sortState } = useTableSort<
+    components["schemas"]["OppgaveOversikt"]
+  >(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
   });
@@ -219,7 +222,7 @@ export function OppgaveListe({
   );
 }
 
-export function getTilstandText(tilstand: IOppgaveTilstand) {
+export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand"]) {
   switch (tilstand) {
     case "PAA_VENT":
       return "På vent";

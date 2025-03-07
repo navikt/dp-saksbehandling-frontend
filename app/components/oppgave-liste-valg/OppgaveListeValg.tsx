@@ -5,11 +5,15 @@ import { useRef, useState } from "react";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IListeOppgave } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListeValg.module.css";
 
-export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
+interface IProps {
+  oppgave: components["schemas"]["OppgaveOversikt"];
+}
+
+export function OppgaveListeValg({ oppgave }: IProps) {
   const { state } = useNavigation();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);

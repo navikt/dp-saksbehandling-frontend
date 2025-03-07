@@ -761,8 +761,8 @@ export interface components {
             sikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][];
         };
         OppgaveOversiktResultat: {
-            oppgaver?: components["schemas"]["OppgaveOversikt"][];
-            totaltAntallOppgaver?: number;
+            oppgaver: components["schemas"]["OppgaveOversikt"][];
+            totaltAntallOppgaver: number;
         };
         OppgaveOversikt: {
             /** Format: uuid */

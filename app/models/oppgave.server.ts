@@ -2,11 +2,11 @@ import createClient from "openapi-fetch";
 
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.server";
+import { handleErrorResponse, handleHttpProblem } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
-import { paths } from "../../openapi/saksbehandling-typer";
+import { components, paths } from "../../openapi/saksbehandling-typer";
 
 export interface IPerson {
   ident: string;
@@ -118,14 +118,14 @@ const saksbehandlerClient = createClient<paths>({ baseUrl: getEnv("DP_SAKSBEHAND
 export async function hentOppgaver(
   request: Request,
   urlSearchParams: URLSearchParams,
-): Promise<paths["/oppgave"]["get"]["responses"]["200"]["content"]["application/json"]> {
+): Promise<components["schemas"]["OppgaveOversiktResultat"]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const queryParams =
     parseSearchParamsToOpenApiQuery<paths["/oppgave"]["get"]["parameters"]["query"]>(
       urlSearchParams,
     );
 
-  const { response, data, error } = await saksbehandlerClient.GET("/oppgave", {
+  const { response, data } = await saksbehandlerClient.GET("/oppgave", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       query: queryParams,
@@ -136,40 +136,46 @@ export async function hentOppgaver(
     return data;
   }
 
-  if (!response.ok || error) {
+  if (!response.ok) {
     handleErrorResponse(response);
   }
 
   throw new Error("Uhåndtert feil i hentOppgaver()");
 }
 
-export async function hentOppgave(request: Request, oppgaveId: string): Promise<IOppgave> {
+export async function hentOppgave(
+  request: Request,
+  oppgaveId: string,
+): Promise<components["schemas"]["Oppgave"]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}`;
-  const response = await fetch(url, {
-    method: "GET",
+  const { response, data, error } = await saksbehandlerClient.GET("/oppgave/{oppgaveId}", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { oppgaveId },
+    },
   });
 
-  if (!response.ok) {
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  if (!response.ok || error) {
     handleErrorResponse(response);
   }
 
-  return await response.json();
+  throw new Error("Uhåndtert feil i hentOppgave()");
 }
 
-export async function hentNesteOppgave(
-  request: Request,
-  aktivtOppgaveSok: string,
-): Promise<Response> {
+export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/neste`;
-  return await fetch(url, {
-    method: "PUT",
+  return await saksbehandlerClient.PUT("/oppgave/neste", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ queryParams: aktivtOppgaveSok }),
+    body: { queryParams: JSON.stringify(aktivtOppgaveSok) },
   });
 }
 

@@ -43,7 +43,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const oppgaverResponse = await hentOppgaver(request, url.search);
+  const oppgaverResponse = await hentOppgaver(request, url.searchParams);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
