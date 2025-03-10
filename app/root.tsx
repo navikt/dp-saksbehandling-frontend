@@ -107,7 +107,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       kanRedigereOpplysninger,
     },
     env: {
-      BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
       GCP_ENV: process.env.GCP_ENV,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,

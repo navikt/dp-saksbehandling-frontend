@@ -8,7 +8,7 @@ export default defineConfig({
   //   process.env.NODE_ENV === "production"
   //     ? "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client/"
   //     : "/saksbehandling",
-  base: "/saksbehandling",
+  base: "/saksbehandling/",
   server: {
     port: 3000,
   },

@@ -40,8 +40,6 @@ spec:
   env:
     - name: SELF_URL
       value: {{ingress}}
-    - name: BASE_PATH
-      value: {{base_path}}
     - name: GCP_ENV
       value: {{gcp_env}}
     - name: DP_BEHANDLING_URL
