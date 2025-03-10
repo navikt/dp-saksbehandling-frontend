@@ -1,14 +1,14 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
-import { Button, Modal } from "@navikt/ds-react";
+import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useRef } from "react";
-
-import { OrkestratorOpplysningTabell } from "~/components/orkestrator-barn/OrkestratorOpplysningTabell";
 
 import { useForm } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import styles from "./OrkestratorBarn.module.css";
+import { OrkestratorOpplysningRad } from "./OrkestratorOpplysningRad";
+import classNames from "classnames";
 
 interface IProps {
   barnNummer: number;
@@ -45,8 +45,19 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   });
 
   return (
-    <div className={styles.orkestratorOpplysningKort}>
-      <OrkestratorOpplysningTabell barnNummer={barnNummer} barn={barn} />
+    <div className={styles.orkestratorBarn}>
+      <>
+        <Heading level="4" size="xsmall" className={styles.opplysningBarnHeader} spacing>
+          Barn {barnNummer}
+        </Heading>
+        <table className={classNames(styles.opplysningBarnTabell, styles.background)}>
+          <tbody>
+            {barn.opplysninger.map((opplysning, index) => (
+              <OrkestratorOpplysningRad key={index} opplysning={opplysning} readOnly />
+            ))}
+          </tbody>
+        </table>
+      </>
       <Button
         variant="secondary"
         size="small"
@@ -65,8 +76,13 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
       >
         <form {...barnOpplysningForm.getFormProps()}>
           <Modal.Body>
-            {/* <OrkestratorBarnSkjema barn={barn} /> */}
-            TT
+            <table className={styles.opplysningBarnTabell}>
+              <tbody>
+                {barn.opplysninger.map((opplysning, index) => (
+                  <OrkestratorOpplysningRad key={index} opplysning={opplysning} />
+                ))}
+              </tbody>
+            </table>
           </Modal.Body>
           <Modal.Footer>
             <Button

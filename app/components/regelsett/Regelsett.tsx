@@ -147,7 +147,7 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
       {visOrkestratorBarn && (
         <>
           {orkestratorBarn.map((barn, index) => {
-            return <OrkestratorBarn barnNummer={index + 1} barn={barn} />;
+            return <OrkestratorBarn key={index} barnNummer={index + 1} barn={barn} />;
           })}
         </>
       )}
