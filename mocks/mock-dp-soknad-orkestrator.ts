@@ -2,10 +2,7 @@ import { http, HttpResponse } from "msw";
 
 import { logger } from "~/utils/logger.utils";
 
-import {
-  mockOrkestratorBarnOpplysninger,
-  mockOrkestratorOppdatertBarnOpplysninger,
-} from "./data/mock-orkestrator-barn-opplysninger";
+import { mockOrkestratorBarn } from "./data/mock-orkestrator-barn";
 import { mockOrkestratorLandListe } from "./data/mock-orkestrator-land-lister";
 
 export const mockDpSoknadOrkestrator = [
@@ -14,8 +11,8 @@ export const mockDpSoknadOrkestrator = [
     ({ request }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
 
-      if (mockOrkestratorBarnOpplysninger) {
-        return HttpResponse.json(mockOrkestratorBarnOpplysninger);
+      if (mockOrkestratorBarn) {
+        return HttpResponse.json(mockOrkestratorBarn);
       }
 
       return new HttpResponse(null, {
@@ -29,8 +26,8 @@ export const mockDpSoknadOrkestrator = [
     ({ request }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
 
-      if (mockOrkestratorOppdatertBarnOpplysninger) {
-        return HttpResponse.json(mockOrkestratorOppdatertBarnOpplysninger);
+      if (mockOrkestratorBarn) {
+        return HttpResponse.json(mockOrkestratorBarn);
       }
 
       return new HttpResponse(null, {

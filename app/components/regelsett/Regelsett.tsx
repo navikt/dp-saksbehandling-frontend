@@ -2,7 +2,7 @@ import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
-import { OrkestratorOpplysningKort } from "~/components/orkestrator-opplysning-kort/OrkestratorOpplysningKort";
+import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IRegelsett } from "~/models/behandling.server";
 
@@ -14,9 +14,7 @@ interface IProps {
 }
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling, orkestratorBarnOpplysninger } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId",
-  );
+  const { behandling, orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   const { featureFlags } = useTypedRouteLoaderData("root");
 
@@ -47,6 +45,9 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const mellomstegOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Mellomsteg",
   );
+
+  const visOrkestratorBarn =
+    satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger && orkestratorBarn.length > 0;
 
   return (
     <div>
@@ -143,16 +144,10 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
         </>
       )}
 
-      {satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger && (
+      {visOrkestratorBarn && (
         <>
-          {orkestratorBarnOpplysninger.map((barnOpplysning, index) => {
-            return (
-              <OrkestratorOpplysningKort
-                key={barnOpplysning.barnId}
-                barnNummer={index + 1}
-                barnOpplysning={barnOpplysning}
-              />
-            );
+          {orkestratorBarn.map((barn, index) => {
+            return <OrkestratorBarn barnNummer={index + 1} barn={barn} />;
           })}
         </>
       )}

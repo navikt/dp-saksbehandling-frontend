@@ -12,7 +12,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import {
-  hentOrkestratorBarnOpplysninger,
+  hentOrkestratorBarn,
   hentOrkestratorLandListe,
 } from "~/models/orkestrator-opplysning.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
@@ -38,12 +38,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
-  const orkestratorBarnOpplysninger = await hentOrkestratorBarnOpplysninger(
-    request,
-    oppgave.soknadId,
-  );
-
-  const orkestratorLandlister = await hentOrkestratorLandListe(request);
+  const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
+  const orkestratorLandliste = await hentOrkestratorLandListe(request);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -55,8 +51,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandling,
       oppgaverForPerson,
       journalposterResponses,
-      orkestratorBarnOpplysninger,
-      orkestratorLandlister,
+      orkestratorBarn,
+      orkestratorLandliste,
     },
     {
       headers: {

@@ -50,6 +50,12 @@ export interface IBehandlingGammel {
   opplysning: IOpplysning[];
 }
 
+export interface IGrunnOpplysning {
+  id: string;
+  verdi: string;
+  datatype: string;
+}
+
 export interface IOpplysning {
   id: string;
   navn: string;

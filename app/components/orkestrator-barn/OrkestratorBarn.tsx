@@ -2,18 +2,17 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Modal } from "@navikt/ds-react";
 import { useRef } from "react";
 
-import { OrkestratorOpplysningTabell } from "~/components/orkestrator-opplysning-kort/OrkestratorOpplysningTabell";
+import { OrkestratorOpplysningTabell } from "~/components/orkestrator-barn/OrkestratorOpplysningTabell";
 
-import { IOrkestratorBarnOpplysning } from "../../../mocks/data/mock-orkestrator-barn-opplysninger";
-import styles from "./OrkestratorOpplysning.module.css";
-import { OrkestratorOpplysningRedigering } from "./OrkestratorOpplysningRedigering";
 import { useForm } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
+import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
+import styles from "./OrkestratorBarn.module.css";
 
 interface IProps {
   barnNummer: number;
-  barnOpplysning: IOrkestratorBarnOpplysning;
+  barn: IOrkestratorBarn;
 }
 
 const validator = withZod(
@@ -36,28 +35,18 @@ const validator = withZod(
   }),
 );
 
-export function OrkestratorOpplysningKort({ barnNummer, barnOpplysning }: IProps) {
+export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
   const barnOpplysningForm = useForm({
     validator: validator,
     method: "put",
-    defaultValues: {
-      fornavnOgMellomnavn: barnOpplysning.fornavnOgMellomnavn,
-      etternavn: barnOpplysning.etternavn,
-      fødselsdato: barnOpplysning.fødselsdato,
-      oppholdssted: barnOpplysning.oppholdssted,
-      forsørgerBarnet: barnOpplysning.forsørgerBarnet,
-      barnetilleggFom: barnOpplysning.barnetilleggFom,
-      barnetilleggTom: barnOpplysning.barnetilleggTom,
-      kvalifisererTilBarnetillegg: barnOpplysning.kvalifisererTilBarnetillegg,
-      begrunnelse: barnOpplysning.begrunnelse,
-    },
+    defaultValues: {},
   });
 
   return (
     <div className={styles.orkestratorOpplysningKort}>
-      <OrkestratorOpplysningTabell barnNummer={barnNummer} barnOpplysning={barnOpplysning} />
+      <OrkestratorOpplysningTabell barnNummer={barnNummer} barn={barn} />
       <Button
         variant="secondary"
         size="small"
@@ -76,7 +65,8 @@ export function OrkestratorOpplysningKort({ barnNummer, barnOpplysning }: IProps
       >
         <form {...barnOpplysningForm.getFormProps()}>
           <Modal.Body>
-            <OrkestratorOpplysningRedigering barnOpplysning={barnOpplysning} />
+            {/* <OrkestratorBarnSkjema barn={barn} /> */}
+            TT
           </Modal.Body>
           <Modal.Footer>
             <Button
