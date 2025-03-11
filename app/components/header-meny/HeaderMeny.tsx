@@ -1,5 +1,5 @@
-import { NavLink } from "react-router";
 import classnames from "classnames";
+import { NavLink } from "react-router";
 
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
@@ -8,7 +8,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/saksbehandler.server";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
-import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
+import { mineOppgaverDefaultParams } from "~/routes/saksbehandling.mine-oppgaver";
 import { convertToQueryParamString } from "~/utils/url.utils";
 
 import { PersonSok } from "../person-sok/PersonSok";
