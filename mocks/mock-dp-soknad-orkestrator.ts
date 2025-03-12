@@ -26,12 +26,8 @@ export const mockDpSoknadOrkestrator = [
     ({ request }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
 
-      if (mockOrkestratorBarn) {
-        return HttpResponse.json(mockOrkestratorBarn);
-      }
-
       return new HttpResponse(null, {
-        status: 404,
+        status: 200,
       });
     },
   ),

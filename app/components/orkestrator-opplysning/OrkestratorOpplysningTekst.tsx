@@ -17,7 +17,6 @@ export function OrkestratorOpplysningTekst({ opplysning, formScope }: IProps) {
       size="small"
       type="text"
       label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
-      value={field.value()}
       error={field.error()}
       readOnly={opplysning.kilde === "register"}
     />

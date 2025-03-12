@@ -17,6 +17,10 @@
   padding: var(--a-spacing-2);
 }
 
+.korrigering {
+  grid-template-columns: 1fr 0.1fr 1fr;
+}
+
 .bakgrunn:nth-child(odd) {
   background-color: #f8f9fc;
 }
@@ -36,5 +40,5 @@
 }
 
 .modal {
-  min-width: 550px;
+  min-width: 600px;
 }

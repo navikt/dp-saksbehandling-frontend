@@ -14,10 +14,8 @@ export function OrkestratorOpplysningBoolsk({ opplysning, formScope }: IProps) {
   return (
     <RadioGroup
       {...field.getInputProps()}
-      name={opplysning.id}
       legend={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       size="small"
-      value={field.value() === "Ja" ? "true" : "false"}
       error={field.error()}
       readOnly={opplysning.kilde === "register"}
     >

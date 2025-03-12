@@ -44,17 +44,11 @@ export async function oppdaterOrkestratorBarn(
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
     body: JSON.stringify({ opplysning }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
 export async function hentOrkestratorLandListe(request: Request): Promise<IOrkestratorLand[]> {

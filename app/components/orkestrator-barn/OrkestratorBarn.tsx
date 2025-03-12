@@ -10,7 +10,8 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
-import { hentOrkestratorBarnValideringDefaultValue } from "~/utils/orkestrator-opplysninger.utils";
+import { useActionData, useNavigation } from "@remix-run/react";
+import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 
 interface IProps {
   barnNummer: number;
@@ -34,25 +35,36 @@ const validator = withZod(
       required_error: "Du må velge et svar",
       invalid_type_error: "Ugyldig svar",
     }),
-    barnetilleggFom: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-    ),
-    barnetilleggTom: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-    ),
+    barnetilleggFom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
+        "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
+      ),
+    barnetilleggTom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
+        "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
+      ),
     begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
   }),
 );
 
 export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const actionData = useActionData<typeof action>();
+  const { state } = useNavigation();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
+  // Todo: Finn ut hvordan man kan lukke modalen
+  // Kanskje kjør behandling automatisk med en varsling om at barn har blitt oppdatert
+  // og må dermed må saken behandles på nytt
+  console.log(actionData);
+
   const defaultValues = barn.opplysninger.reduce(
-    (acc, opplysning) => {
-      acc[opplysning.id] = hentOrkestratorBarnValideringDefaultValue(opplysning);
+    (acc, { id, verdi }) => {
+      acc[id] = verdi;
       return acc;
     },
     {} as Record<string, string>,
@@ -76,7 +88,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
               <OrkestratorOpplysninLinje
                 key={index}
                 opplysning={opplysning}
-                formScope={orkestratorBarnForm.scope(opplysning.id as any)}
+                formScope={orkestratorBarnForm.scope(opplysning.id)}
                 readOnly
               />
             ))}
@@ -136,7 +148,12 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
             >
               Avbryt
             </Button>
-            <Button type="submit" onClick={() => console.log("close")} size="small">
+            <Button
+              type="submit"
+              onClick={() => console.log("close")}
+              size="small"
+              loading={state !== "idle"}
+            >
               Lagre endringer
             </Button>
           </Modal.Footer>

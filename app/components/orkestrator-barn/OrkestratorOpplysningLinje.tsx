@@ -29,7 +29,7 @@ export function OrkestratorOpplysninLinje({ opplysning, readOnly, formScope }: I
   }
 
   return (
-    <div className={styles.orkestratorOpplysningsLinje}>
+    <div className={classNames(styles.orkestratorOpplysningsLinje, styles.korrigering)}>
       <div>
         <OrkestratorOpplysning opplysning={opplysning} formScope={formScope} />
       </div>

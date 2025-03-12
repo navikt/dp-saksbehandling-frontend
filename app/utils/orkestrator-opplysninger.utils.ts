@@ -20,17 +20,14 @@ export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
 
 export function hentOrkestratorBarnOpplysningVerdi(opplysning: IOrkestratorBarnOpplysning): string {
   switch (opplysning.datatype) {
-    case "tekst":
-      return opplysning.verdi;
+    case "boolsk":
+      return opplysning.verdi === "true" ? "Ja" : "Nei";
 
     case "dato":
       return formaterNorskDato(opplysning.verdi);
 
     case "land":
       return hentLand(opplysning.verdi);
-
-    case "boolsk":
-      return opplysning.verdi === "true" ? "Ja" : "Nei";
 
     default:
       return opplysning.verdi;
@@ -41,25 +38,4 @@ function hentLand(lankode: string): string {
   const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return orkestratorLandliste.find((land) => land.alpha3kode === lankode)?.navn || "";
-}
-
-export function hentOrkestratorBarnValideringDefaultValue(
-  opplysning: IOrkestratorBarnOpplysning,
-): string {
-  switch (opplysning.datatype) {
-    case "tekst":
-      return opplysning.verdi;
-
-    case "dato":
-      return formaterNorskDato(opplysning.verdi);
-
-    case "land":
-      return opplysning.verdi;
-
-    case "boolsk":
-      return opplysning.verdi === "true" ? "Ja" : "Nei";
-
-    default:
-      return opplysning.verdi;
-  }
 }
