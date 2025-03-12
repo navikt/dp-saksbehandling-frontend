@@ -4,21 +4,29 @@ import { type ChangeEvent, Fragment, useEffect } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId.kontroll";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import { isILagreNotatResponse } from "~/utils/type-guards";
+import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
 
 import styles from "./OppgaveKontroll.module.css";
 
 export function OppgaveKontroll() {
+  const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fetcher = useDebounceFetcher<SerializeFrom<typeof action>>();
 
   useEffect(() => {
-    if (fetcher.data && isILagreNotatResponse(fetcher.data)) {
-      setNotat({ ...notat, sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt });
+    if (fetcher.data) {
+      if (isILagreNotatResponse(fetcher.data)) {
+        setNotat({ ...notat, sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt });
+      }
+
+      if (isAlert(fetcher.data)) {
+        addAlert(fetcher.data);
+      }
     }
   }, [fetcher.data]);
 

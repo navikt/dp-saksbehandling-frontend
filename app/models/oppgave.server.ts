@@ -185,7 +185,7 @@ export async function tildelOppgave(request: Request, oppgaveId: string) {
 export async function leggTilbakeOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/legg-tilbake", {
-    headers: { ...getHeaders(onBehalfOfToken) },
+    headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },
     },
@@ -201,7 +201,7 @@ export async function utsettOppgave(
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/utsett", {
-    headers: { ...getHeaders(onBehalfOfToken) },
+    headers: getHeaders(onBehalfOfToken),
     body: { utsettTilDato, beholdOppgave, aarsak: paaVentAarsak },
     params: {
       path: { oppgaveId },
@@ -213,7 +213,7 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak", {
-    headers: { ...getHeaders(onBehalfOfToken) },
+    headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },
     },
@@ -223,7 +223,7 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
 export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena", {
-    headers: { ...getHeaders(onBehalfOfToken) },
+    headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },
     },
@@ -233,7 +233,7 @@ export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId
 export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
-    headers: { ...getHeaders(onBehalfOfToken) },
+    headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },
     },
@@ -242,32 +242,33 @@ export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string
 
 export async function returnerOppgaveTilSaksbehandler(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/returner-til-saksbehandler`;
-
-  return await fetch(url, {
-    method: "PUT",
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/returner-til-saksbehandler", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 
-export async function lagreNotat(
-  request: Request,
-  oppgaveId: string,
-  notat: string,
-): Promise<ILagreNotatResponse> {
+export async function lagreNotat(request: Request, oppgaveId: string, notat: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/notat`;
   const trimmetNotat = notat.trim();
 
-  const response = await fetch(url, {
-    method: trimmetNotat ? "PUT" : "DELETE",
-    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
-    body: trimmetNotat,
-  });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (trimmetNotat) {
+    return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/notat", {
+      headers: getHeaders(onBehalfOfToken),
+      // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
+      body: trimmetNotat,
+      params: {
+        path: { oppgaveId },
+      },
+    });
+  } else {
+    return await saksbehandlerClient.DELETE("/oppgave/{oppgaveId}/notat", {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { oppgaveId },
+      },
+    });
   }
-
-  return await response.json();
 }
