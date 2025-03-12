@@ -1,10 +1,11 @@
 import { IAlert } from "~/context/alert-context";
-import { IOppgaveBehandler } from "~/models/oppgave.server";
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 import { IHttpProblem } from "~/utils/types";
+
+import { components } from "../../openapi/saksbehandling-typer";
 
 export interface IMeldingOmVedtak {
   html: string;
@@ -27,8 +28,8 @@ export interface IMeldingOmVedtakBody {
   mellomnavn?: string;
   etternavn: string;
   fodselsnummer: string;
-  saksbehandler?: IOppgaveBehandler; // TODO DENNE SKAL IKKE VÆRE OPTIONAL. Må fikse oppgavetilstand type
-  beslutter?: IOppgaveBehandler;
+  saksbehandler?: components["schemas"]["Behandler"]; // TODO DENNE SKAL IKKE VÆRE OPTIONAL. Må fikse oppgavetilstand type
+  beslutter?: components["schemas"]["Behandler"];
 }
 
 export async function hentMeldingOmVedtak(

@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 
-import { lagreNotat } from "~/models/oppgave.server";
+import { lagreNotat } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 
 export async function lagreNotatAction(request: Request, formData: FormData) {

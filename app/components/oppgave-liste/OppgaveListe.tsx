@@ -6,7 +6,6 @@ import { differenceInCalendarDays } from "date-fns";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
-import type { IListeOppgave } from "~/models/oppgave.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -76,7 +75,9 @@ export function OppgaveListe({
         sort={sortState}
         size="small"
         className={classnames("table--subtle-zebra", styles.oppgaveListe)}
-        onSortChange={(sortKey) => sortKey && handleSort(sortKey as keyof IListeOppgave)}
+        onSortChange={(sortKey) =>
+          sortKey && handleSort(sortKey as keyof components["schemas"]["OppgaveOversikt"])
+        }
       >
         <Table.Header>
           <Table.Row>

@@ -2,7 +2,7 @@ import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
-import { sendOppgaveTilKontroll } from "~/models/oppgave.server";
+import { sendOppgaveTilKontroll } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 

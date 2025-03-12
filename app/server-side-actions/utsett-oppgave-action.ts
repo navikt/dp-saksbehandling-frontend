@@ -2,7 +2,7 @@ import { json, redirect } from "@remix-run/node";
 import { validationError } from "@rvf/remix";
 
 import { IAlert } from "~/context/alert-context";
-import { utsettOppgave } from "~/models/oppgave.server";
+import { utsettOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";

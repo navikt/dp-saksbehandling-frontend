@@ -6,8 +6,9 @@ import {
   ILagreUtvidetBeskrivelseResponse,
   IMeldingOmVedtak,
 } from "~/models/melding-om-vedtak.server";
-import { ILagreNotatResponse } from "~/models/oppgave.server";
 import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
+
+import { components } from "../../openapi/saksbehandling-typer";
 
 export function isNetworkResponseSuccess<T>(
   networkResponse?: unknown,
@@ -44,12 +45,14 @@ export function isAlert(data?: unknown): data is IAlert {
   return true;
 }
 
-export function isILagreNotatResponse(data: unknown): data is ILagreNotatResponse {
+export function isILagreNotatResponse(
+  data: unknown,
+): data is components["schemas"]["LagreNotatResponse"] {
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeResponse = data as Partial<ILagreNotatResponse>;
+  const maybeResponse = data as Partial<components["schemas"]["LagreNotatResponse"]>;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
 }

@@ -6,7 +6,7 @@ import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMen
 import { Adventslys } from "~/components/jul/Adventslys";
 import { Valentines } from "~/components/valentines/Valentines";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { ISaksbehandler } from "~/models/microsoft.server";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";

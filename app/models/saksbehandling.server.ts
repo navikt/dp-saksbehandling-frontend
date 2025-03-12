@@ -8,111 +8,6 @@ import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
 import { components, paths } from "../../openapi/saksbehandling-typer";
 
-export interface IPerson {
-  ident: string;
-  fornavn: string;
-  etternavn: string;
-  mellomnavn?: string;
-  kjonn: "MANN" | "KVINNE" | "UKJENT";
-  fodselsdato: string;
-  alder: number;
-  statsborgerskap: string;
-  sikkerhetstiltak?: ISikkerhetstiltak[];
-}
-
-export interface IOppgaveBehandler {
-  ident: string;
-  fornavn: string;
-  etternavn: string;
-  enhet: {
-    navn: string;
-    enhetNr: string;
-    postadresse: string;
-  };
-}
-
-export interface IListeOppgave {
-  adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
-  behandlingId: string;
-  emneknagger: string[];
-  oppgaveId: string;
-  personIdent: string;
-  behandlerIdent?: string;
-  skjermesSomEgneAnsatte: boolean;
-  tidspunktOpprettet: string;
-  tilstand: IOppgaveTilstand;
-  utsattTilDato?: string;
-}
-
-export interface IOppgave {
-  oppgaveId: string;
-  behandlingId: string;
-  saksbehandler?: IOppgaveBehandler;
-  beslutter?: IOppgaveBehandler;
-  person: IPerson;
-  tidspunktOpprettet: string;
-  journalpostIder: string[];
-  tilstand: IOppgaveTilstand;
-  historikk: IOppgaveHistorikk[];
-  notat?: IOppgaveNotat;
-  utsattTilDato?: string;
-  skjermesSomEgneAnsatte: boolean;
-  adressebeskyttelseGradering: IOppgaveAdressebeskyttelseGradering;
-  emneknagger: string[];
-  lovligeEndringer: ILovligeEndringer;
-}
-
-export interface ISikkerhetstiltak {
-  beskrivelse: string;
-  gyldigTom: string;
-}
-
-export interface ILovligeEndringer {
-  paaVentAarsaker: string[];
-}
-
-export interface IOppgaveNotat {
-  tekst: string;
-  sistEndretTidspunkt?: string;
-}
-
-export interface IOppgaveHistorikk {
-  type: "statusendring" | "notat" | "endre-opplysning" | "melding";
-  tittel: string;
-  body?: string;
-  tidspunkt: string;
-  behandler: IBehandler;
-}
-
-export interface IOppgaveListeResponse {
-  oppgaver: IListeOppgave[];
-  totaltAntallOppgaver: number;
-}
-
-interface IBehandler {
-  navn: string;
-  rolle?: "system" | "saksbehandler" | "beslutter";
-}
-
-export interface ILagreNotatResponse {
-  sistEndretTidspunkt: string;
-}
-
-export type IOppgaveAdressebeskyttelseGradering =
-  | "UGRADERT"
-  | "FORTROLIG"
-  | "STRENGT_FORTROLIG"
-  | "STRENGT_FORTROLIG_UTLAND";
-
-export type IOppgaveTilstand =
-  | "PAA_VENT"
-  | "KLAR_TIL_BEHANDLING"
-  | "UNDER_BEHANDLING"
-  | "KLAR_TIL_KONTROLL"
-  | "UNDER_KONTROLL"
-  | "FERDIG_BEHANDLET"
-  | "BEHANDLES_I_ARENA";
-
 const saksbehandlerClient = createClient<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL") });
 
 export async function hentOppgaver(request: Request, urlSearchParams: URLSearchParams) {
@@ -271,4 +166,22 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
       },
     });
   }
+}
+
+export async function hentOppgaverForPerson(request: Request, ident: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, response } = await saksbehandlerClient.POST("/person/oppgaver", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (!response.ok) {
+    handleErrorResponse(response);
+  }
+
+  throw new Error("Uhåndtert feil i hentOppgaver()");
 }

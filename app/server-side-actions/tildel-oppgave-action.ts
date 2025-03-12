@@ -1,6 +1,6 @@
 import { json, redirect } from "@remix-run/node";
 
-import { tildelOppgave } from "~/models/oppgave.server";
+import { tildelOppgave } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 
 export async function tildelOppgaveAction(request: Request, formData: FormData) {

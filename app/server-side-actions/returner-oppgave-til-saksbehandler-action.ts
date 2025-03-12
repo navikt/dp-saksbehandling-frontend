@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { IAlert } from "~/context/alert-context";
-import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
+import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 

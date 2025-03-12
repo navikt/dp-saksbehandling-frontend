@@ -1,7 +1,7 @@
 import { redirect } from "@remix-run/node";
 import { validationError } from "@rvf/remix";
 
-import { hentOppgaverForPerson } from "~/models/person.server";
+import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import { hentValideringForPersonIdent } from "~/utils/validering.util";
 
 export async function sokPersonAction(request: Request, formData: FormData) {

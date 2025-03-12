@@ -4,8 +4,8 @@ import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IOppgaveHistorikk } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveHistorikk.module.css";
 
 export function OppgaveHistorikk() {
@@ -58,7 +58,7 @@ export function OppgaveHistorikk() {
   );
 }
 
-function hentRolleTekst(rolle: IOppgaveHistorikk["behandler"]["rolle"]) {
+function hentRolleTekst(rolle: components["schemas"]["OppgaveHistorikk"]["behandler"]["rolle"]) {
   switch (rolle) {
     case "system":
       return <Detail textColor="subtle">System</Detail>;

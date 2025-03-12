@@ -1,7 +1,7 @@
 import { redirect } from "@remix-run/node";
 
 import { IAlert } from "~/context/alert-context";
-import { hentNesteOppgave } from "~/models/oppgave.server";
+import { hentNesteOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { logger } from "~/utils/logger.utils";
 

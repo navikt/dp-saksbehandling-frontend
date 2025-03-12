@@ -13,7 +13,7 @@ import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.c
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentOppgaver } from "~/models/oppgave.server";
+import { hentOppgaver } from "~/models/saksbehandling.server";
 import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";

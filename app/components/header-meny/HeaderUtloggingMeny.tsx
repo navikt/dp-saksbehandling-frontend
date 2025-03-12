@@ -1,6 +1,6 @@
 import { Dropdown, InternalHeader } from "@navikt/ds-react";
 
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
+import type { ISaksbehandler } from "~/models/microsoft.server";
 
 import styles from "./HeaderMeny.module.css";
 

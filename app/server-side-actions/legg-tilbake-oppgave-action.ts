@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
 
 import { IAlert } from "~/context/alert-context";
-import { leggTilbakeOppgave } from "~/models/oppgave.server";
+import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 
