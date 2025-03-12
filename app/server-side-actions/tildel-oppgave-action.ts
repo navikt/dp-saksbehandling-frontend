@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 
 import { tildelOppgave } from "~/models/oppgave.server";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
@@ -13,7 +13,7 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
   const { data, error } = await tildelOppgave(request, oppgaveId);
 
   if (error) {
-    return getHttpProblemAlert(error);
+    return json(getHttpProblemAlert(error));
   }
 
   if (data.nyTilstand === "UNDER_BEHANDLING") {

@@ -1,10 +1,10 @@
 import { json, redirect } from "@remix-run/node";
 import { validationError } from "@rvf/remix";
 
+import { IAlert } from "~/context/alert-context";
 import { utsettOppgave } from "~/models/oppgave.server";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.server";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
 export async function utsettOppgaveAction(request: Request, formData: FormData) {
@@ -23,7 +23,7 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
     throw new Error("Mangler oppgaveId");
   }
 
-  const response = await utsettOppgave(
+  const { error } = await utsettOppgave(
     request,
     oppgaveId,
     utsettTilDato,
@@ -31,14 +31,16 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
     paaVentAarsak,
   );
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = getAlertMessage({ name: "utsett-oppgave", httpCode: response.status });
-  session.flash("alert", alert);
-
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+  if (error) {
+    return json(getHttpProblemAlert(error));
   }
+
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Oppgave utsatt 📆",
+  };
+  const session = await getSession(request.headers.get("Cookie"));
+  session.flash("alert", successAlert);
 
   return redirect(`/`, {
     headers: {

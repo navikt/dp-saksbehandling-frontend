@@ -115,10 +115,7 @@ export type IOppgaveTilstand =
 
 const saksbehandlerClient = createClient<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL") });
 
-export async function hentOppgaver(
-  request: Request,
-  urlSearchParams: URLSearchParams,
-): Promise<paths["/oppgave"]["get"]["responses"]["200"]["content"]["application/json"]> {
+export async function hentOppgaver(request: Request, urlSearchParams: URLSearchParams) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const queryParams =
     parseSearchParamsToOpenApiQuery<paths["/oppgave"]["get"]["parameters"]["query"]>(
@@ -143,10 +140,7 @@ export async function hentOppgaver(
   throw new Error("Uhåndtert feil i hentOppgaver()");
 }
 
-export async function hentOppgave(
-  request: Request,
-  oppgaveId: string,
-): Promise<components["schemas"]["Oppgave"]> {
+export async function hentOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET("/oppgave/{oppgaveId}", {
     headers: getHeaders(onBehalfOfToken),
@@ -206,15 +200,16 @@ export async function utsettOppgave(
   oppgaveId: string,
   utsettTilDato: string,
   beholdOppgave: boolean,
-  paaVentAarsak: string,
-): Promise<Response> {
+  paaVentAarsak: components["schemas"]["UtsettOppgaveAarsak"],
+) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/utsett`;
-  return await fetch(url, {
-    method: "PUT",
-    headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ utsettTilDato, beholdOppgave, aarsak: paaVentAarsak }),
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/utsett", {
+    headers: { ...getHeaders(onBehalfOfToken) },
+    body: { utsettTilDato, beholdOppgave, aarsak: paaVentAarsak },
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 
