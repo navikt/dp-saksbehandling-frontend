@@ -232,26 +232,11 @@ export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId
 
 export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/send-til-kontroll`;
-
-  return await fetch(url, {
-    method: "PUT",
-    headers: getHeaders(onBehalfOfToken),
-  });
-}
-
-export async function sendBrev(
-  request: Request,
-  oppgaveId: string,
-  brevHtml: string,
-): Promise<Response> {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/utsending/${oppgaveId}/send-brev`;
-  return await fetch(url, {
-    method: "POST",
-    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/html" },
-    body: brevHtml,
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
+    headers: { ...getHeaders(onBehalfOfToken) },
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 
