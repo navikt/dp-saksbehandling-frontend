@@ -18,7 +18,9 @@ export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   return opplysninger.find((opplysning) => opplysning.id === opplysningId)?.navn;
 }
 
-export function hentOrkestratorBarnOpplysningVerdi(opplysning: IOrkestratorBarnOpplysning): string {
+export function formatterOrkestratorOpplysningVerdi(
+  opplysning: IOrkestratorBarnOpplysning,
+): string {
   switch (opplysning.datatype) {
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";

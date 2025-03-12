@@ -1,7 +1,7 @@
 import { FormScope } from "@rvf/remix";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import {
-  hentOrkestratorBarnOpplysningVerdi,
+  formatterOrkestratorOpplysningVerdi,
   hentOrkestratorBarnOpplysningLabel,
 } from "~/utils/orkestrator-opplysninger.utils";
 import { OrkestratorOpplysning } from "../orkestrator-opplysning/OrkestratorOpplysning";
@@ -20,7 +20,7 @@ export function OrkestratorOpplysninLinje({ opplysning, readOnly, formScope }: I
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>
         <div>{hentOrkestratorBarnOpplysningLabel(opplysning.id)}</div>
-        <div>{hentOrkestratorBarnOpplysningVerdi(opplysning)}</div>
+        <div>{formatterOrkestratorOpplysningVerdi(opplysning)}</div>
         <div className={styles.alightRight}>
           <OrkestratorTag kilde={opplysning.kilde} />
         </div>
