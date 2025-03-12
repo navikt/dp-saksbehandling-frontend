@@ -2,15 +2,15 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useRef } from "react";
 
-import { FormScope, useForm } from "@rvf/remix";
+import { useForm } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
-import { z } from "zod";
-import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
-import styles from "./OrkestratorBarn.module.css";
-import { OrkestratorOpplysningRad } from "./OrkestratorOpplysningRad";
 import classNames from "classnames";
+import { z } from "zod";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import { hentFormatertOpplysninigsverdi } from "~/utils/orkestrator-opplysninger.utils";
+import styles from "./OrkestratorBarn.module.css";
+import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
 
 interface IProps {
   barnNummer: number;
@@ -58,8 +58,6 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
     {} as Record<string, string>,
   );
 
-  console.log(formattertDefaultValues);
-
   const orkestratorBarnForm = useForm({
     validator: validator,
     method: "put",
@@ -72,18 +70,18 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
         <Heading level="4" size="xsmall" className={styles.opplysningBarnHeader} spacing>
           Barn {barnNummer}
         </Heading>
-        <table className={classNames(styles.opplysningBarnTabell, styles.background)}>
-          <tbody>
+        <div className={styles.orkestratorOpplysning}>
+          <>
             {barn.opplysninger.map((opplysning, index) => (
-              <OrkestratorOpplysningRad
+              <OrkestratorOpplysninLinje
                 key={index}
                 opplysning={opplysning}
                 formScope={orkestratorBarnForm.scope(opplysning.id as any)}
                 readOnly
               />
             ))}
-          </tbody>
-        </table>
+          </>
+        </div>
       </>
       <Button
         variant="secondary"
@@ -103,25 +101,23 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
       >
         <form {...orkestratorBarnForm.getFormProps()}>
           <Modal.Body>
-            <table className={styles.opplysningBarnTabell}>
-              <tbody>
-                <input
-                  hidden={true}
-                  readOnly={true}
-                  name="_action"
-                  value="oppdater-orkestrator-barn"
+            <div className={classNames(styles.orkestratorOpplysning)}>
+              <input
+                hidden={true}
+                readOnly={true}
+                name="_action"
+                value="oppdater-orkestrator-barn"
+              />
+              <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
+              <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
+              {barn.opplysninger.map((opplysning, index) => (
+                <OrkestratorOpplysninLinje
+                  key={index}
+                  opplysning={opplysning}
+                  formScope={orkestratorBarnForm.scope(opplysning.id as string)}
                 />
-                <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
-                <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
-                {barn.opplysninger.map((opplysning, index) => (
-                  <OrkestratorOpplysningRad
-                    key={index}
-                    opplysning={opplysning}
-                    formScope={orkestratorBarnForm.scope(opplysning.id as string)}
-                  />
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button

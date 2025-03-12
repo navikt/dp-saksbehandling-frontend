@@ -6,37 +6,29 @@
   margin-left: var(--a-spacing-3);
 }
 
-.opplysningBarnTabell {
-  width: 100%;
-  margin: 0;
-  border-collapse: collapse;
-  border-spacing: var(--a-spacing-20);
-}
-
-.opplysningBarnTabell td {
+.orkestratorOpplysning {
   padding: var(--a-spacing-2);
 }
 
-.opplysningBarnTabell tr {
+.orkestratorOpplysningsLinje {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   border-top: 1px solid var(--a-border-divider);
+  padding: var(--a-spacing-2);
 }
 
-.opplysningBarnTabell.bakgrunn tr:nth-child(odd) {
+.bakgrunn:nth-child(odd) {
   background-color: #f8f9fc;
 }
 
-.opplysningBarnTabell.bakgrunn tr:nth-child(even) {
+.bakgrunn:nth-child(even) {
   background-color: #ffffff;
 }
 
-.opplysningBarnTabell td:first-child {
-  padding-left: var(--a-spacing-3);
-}
-
-.opplysningBarnTabell td:last-child {
+.alightRight {
   display: flex;
-  justify-content: flex-end;
-  padding-right: var(--a-spacing-3);
+  justify-content: end;
+  align-items: baseline;
 }
 
 .endreKnapp {
