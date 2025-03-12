@@ -21,8 +21,8 @@ export function OpplysningBoolean({ opplysning, formScope, readonly }: IOpplysni
           error={field.error()}
           readOnly={readonly}
         >
-          <Radio value={true}>Ja</Radio>
-          <Radio value={false}>Nei</Radio>
+          <Radio value="true">Ja</Radio>
+          <Radio value="false">Nei</Radio>
         </RadioGroup>
       )}
     </>
