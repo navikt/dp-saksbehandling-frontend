@@ -37,14 +37,14 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
       body: error.detail,
       service: error.instance,
     };
-
-    const session = await getSession(request.headers.get("Cookie"));
-    session.flash("alert", alert);
-
-    return redirect(`/`, {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    });
   }
+
+  const session = await getSession(request.headers.get("Cookie"));
+  session.flash("alert", alert);
+
+  return redirect(`/`, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }

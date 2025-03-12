@@ -118,7 +118,7 @@ const saksbehandlerClient = createClient<paths>({ baseUrl: getEnv("DP_SAKSBEHAND
 export async function hentOppgaver(
   request: Request,
   urlSearchParams: URLSearchParams,
-): Promise<components["schemas"]["OppgaveOversiktResultat"]> {
+): Promise<paths["/oppgave"]["get"]["responses"]["200"]["content"]["application/json"]> {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const queryParams =
     parseSearchParamsToOpenApiQuery<paths["/oppgave"]["get"]["parameters"]["query"]>(

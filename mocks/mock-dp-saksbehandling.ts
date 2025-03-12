@@ -17,16 +17,16 @@ export const mockDpSaksbehandling = [
   // Hent neste oppgave og tildel denne til saksbehandler
   http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/neste`, ({ request }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    // return HttpResponse.json(
-    //   {
-    //     type: "",
-    //     title: "",
-    //     status: 404,
-    //     detail: "",
-    //     instance: "",
-    //   },
-    //   { status: 404 },
-    // );
+    return HttpResponse.json(
+      {
+        type: "",
+        title: "",
+        status: 404,
+        detail: "",
+        instance: "",
+      },
+      { status: 404 },
+    );
 
     return HttpResponse.json(mockOppgaver[0]);
   }),

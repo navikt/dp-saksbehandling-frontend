@@ -10,6 +10,7 @@ import styles from "./OppgaveHistorikk.module.css";
 
 export function OppgaveHistorikk() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
   return (
     <>
       {oppgave.historikk.map((hendelse, index) => (
@@ -24,7 +25,9 @@ export function OppgaveHistorikk() {
             className={classnames(styles.hendelseMelding, {
               [styles.hendelseMeldingStatusendring]: hendelse.type === "statusendring",
               [styles.hendelseMeldingNotat]: hendelse.type === "notat",
+              // @ts-expect-error // TODO: Dette er midlertidig for mockdata, finnes ikke i dp-saksbehandling enda.
               [styles.hendelseMeldingEndreOpplysning]: hendelse.type === "endre-opplysning",
+              // @ts-expect-error // TODO: Dette er midlertidig for mockdata, finnes ikke i dp-saksbehandling enda.
               [styles.hendelseMeldingMelding]: hendelse.type === "melding",
             })}
           >

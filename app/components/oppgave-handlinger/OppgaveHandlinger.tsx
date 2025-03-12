@@ -10,8 +10,8 @@ import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/Opp
 import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilKontroll";
 import { OppgaveHandlingUtsett } from "~/components/oppgave-handlinger/OppgaveHandlingUtsett";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IOppgave } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveHandlinger.module.css";
 
 export interface IFormValidationError {
@@ -29,7 +29,7 @@ export type IGyldigeOppgaveHandlinger =
   | "returner-til-saksbehandler";
 
 function hentGyldigeOppgaveValg(
-  oppgave: IOppgave,
+  oppgave: components["schemas"]["Oppgave"],
   toTrinnsAktiv: boolean,
   kreverTotrinnskontroll: boolean,
 ): IGyldigeOppgaveHandlinger[] {
