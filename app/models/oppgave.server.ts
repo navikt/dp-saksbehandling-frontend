@@ -190,13 +190,14 @@ export async function tildelOppgave(request: Request, oppgaveId: string) {
   });
 }
 
-export async function leggTilbakeOppgave(request: Request, oppgaveId: string): Promise<Response> {
+export async function leggTilbakeOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/legg-tilbake`;
-  return await fetch(url, {
-    method: "PUT",
-    headers: getHeaders(onBehalfOfToken),
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/legg-tilbake", {
+    headers: { ...getHeaders(onBehalfOfToken) },
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 

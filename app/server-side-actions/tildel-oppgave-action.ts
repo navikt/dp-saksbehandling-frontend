@@ -16,11 +16,11 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     return getHttpProblemAlert(error);
   }
 
-  if (data === "UNDER_BEHANDLING") {
+  if (data.nyTilstand === "UNDER_BEHANDLING") {
     return redirect(`/oppgave/${oppgaveId}/behandle`);
   }
 
-  if (data === "UNDER_KONTROLL") {
+  if (data.nyTilstand === "UNDER_KONTROLL") {
     return redirect(`/oppgave/${oppgaveId}/kontroll`);
   }
 

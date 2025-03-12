@@ -56,21 +56,24 @@ export const mockDpSaksbehandling = [
 
       if (mockOppgave) {
         if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-          return HttpResponse.text("UNDER_BEHANDLING");
+          return HttpResponse.json({ nyTilstand: "UNDER_BEHANDLING" });
         }
         if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-          return HttpResponse.text("UNDER_KONTROLL");
+          return HttpResponse.json({ nyTilstand: "UNDER_KONTROLL" });
         }
-        return HttpResponse.text(mockOppgave.tilstand);
+        return HttpResponse.json({ nyTilstand: mockOppgave.tilstand });
       }
 
-      return new HttpResponse("Oppgaven er allerede tatt til behandling", {
-        status: 423,
-      });
-
-      // return new HttpResponse(null, {
-      //   status: 404,
-      // });
+      return HttpResponse.json(
+        {
+          type: "",
+          title: "Oppgaven ble ikke funnet",
+          status: 404,
+          detail: "",
+          instance: "",
+        },
+        { status: 404 },
+      );
     },
   ),
 
@@ -88,9 +91,16 @@ export const mockDpSaksbehandling = [
         });
       }
 
-      return new HttpResponse(null, {
-        status: 404,
-      });
+      return HttpResponse.json(
+        {
+          type: "",
+          title: "Oppgaven ble ikke funnet",
+          status: 404,
+          detail: "",
+          instance: "",
+        },
+        { status: 404 },
+      );
     },
   ),
 

@@ -25,8 +25,8 @@ export function getHttpProblemAlert(problem: components["schemas"]["HttpProblem"
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {
-    type: "error",
+    variant: "error",
     title: problem.title,
-    message: problem.detail,
+    body: problem.detail,
   };
 }
