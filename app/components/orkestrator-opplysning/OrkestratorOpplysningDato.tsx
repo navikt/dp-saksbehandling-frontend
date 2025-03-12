@@ -1,31 +1,46 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
-import { addYears, subYears } from "date-fns";
+import { FormScope, useField } from "@rvf/remix";
+import { addYears, formatISO, subYears } from "date-fns";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
+import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentOrkestratorOpplysningVisningTekst } from "~/utils/orkestrator-opplysninger.utils";
-import styles from "../orkestrator-barn/OrkestratorBarn.module.css";
-import { OrkestratorTag } from "../orkestrator-barn/OrkestratorTag";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
+  formScope: FormScope<string>;
 }
 
-export function OrkestratorOpplysningDato({ opplysning }: IProps) {
+export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
+  const field = useField(formScope);
+
   const { datepickerProps, inputProps } = useDatepicker({
     defaultSelected: new Date(opplysning.verdi),
     toDate: addYears(new Date(), 100),
     fromDate: subYears(new Date(), 100),
     locale: "nb",
     inputFormat: "dd.MM.yyyy",
-    onDateChange: (date) => {},
+    onDateChange: (date) => {
+      if (date) {
+        const datoBackendFormat = formatISO(date, { representation: "date" });
+        field.setValue(formaterNorskDato(datoBackendFormat));
+        if (datoBackendFormat !== opplysning.verdi) {
+          field.setDirty(true);
+        } else {
+          field.setDirty(false);
+        }
+      }
+    },
   });
 
   return (
     <DatePicker {...datepickerProps}>
       <DatePicker.Input
         size="small"
-        label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
         {...inputProps}
-        name={opplysning.id}
+        label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+        form={field.getInputProps().form}
+        name={field.getInputProps().name}
+        error={field.error()}
         readOnly={opplysning.kilde === "register"}
       />
     </DatePicker>

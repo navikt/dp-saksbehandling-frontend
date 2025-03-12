@@ -16,6 +16,7 @@ import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action
 import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
+import { oppdaterOrkestratorBarnAction } from "./oppdater-orkestrator-barn-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
   const formData = await request.formData();
@@ -63,6 +64,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
+
+    case "oppdater-orkestrator-barn":
+      return await oppdaterOrkestratorBarnAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

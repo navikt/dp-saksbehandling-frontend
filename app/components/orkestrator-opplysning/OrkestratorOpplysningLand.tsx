@@ -1,17 +1,26 @@
 import { Select } from "@navikt/ds-react";
+import { FormScope, useField } from "@rvf/remix";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import { hentOrkestratorOpplysningVisningTekst } from "~/utils/orkestrator-opplysninger.utils";
+import {
+  hentLandMedLandKode,
+  hentOrkestratorOpplysningVisningTekst,
+} from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
+  formScope: FormScope<string>;
 }
 
-export function OrkestratorOpplysningLand({ opplysning }: IProps) {
+export function OrkestratorOpplysningLand({ opplysning, formScope }: IProps) {
   const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const field = useField(formScope);
 
   return (
     <Select
+      {...field.getInputProps()}
+      value="NORGE"
+      error={field.error()}
       label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
       size="small"
       readOnly={opplysning.kilde === "register"}

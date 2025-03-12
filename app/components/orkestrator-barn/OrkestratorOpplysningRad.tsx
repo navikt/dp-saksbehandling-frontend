@@ -5,13 +5,15 @@ import {
 } from "~/utils/orkestrator-opplysninger.utils";
 import { OrkestratorOpplysning } from "../orkestrator-opplysning/OrkestratorOpplysning";
 import { OrkestratorTag } from "./OrkestratorTag";
+import { FormScope } from "@rvf/remix";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
   readOnly?: boolean;
+  formScope: FormScope<string>;
 }
 
-export function OrkestratorOpplysningRad({ opplysning, readOnly }: IProps) {
+export function OrkestratorOpplysningRad({ opplysning, readOnly, formScope }: IProps) {
   if (readOnly) {
     return (
       <tr>
@@ -27,8 +29,9 @@ export function OrkestratorOpplysningRad({ opplysning, readOnly }: IProps) {
   return (
     <tr>
       <td>
-        <OrkestratorOpplysning opplysning={opplysning} />
+        <OrkestratorOpplysning opplysning={opplysning} formScope={formScope} />
       </td>
+      <td></td>
       <td>
         <OrkestratorTag kilde={opplysning.kilde} />
       </td>

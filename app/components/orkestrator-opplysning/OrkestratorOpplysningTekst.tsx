@@ -1,22 +1,27 @@
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import styles from "../orkestrator-barn/OrkestratorBarn.module.css";
 import { TextField } from "@navikt/ds-react";
+import { FormScope, useField } from "@rvf/remix";
+import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import {
   hentFormatertOpplysninigsverdi,
   hentOrkestratorOpplysningVisningTekst,
 } from "~/utils/orkestrator-opplysninger.utils";
-import { OrkestratorTag } from "../orkestrator-barn/OrkestratorTag";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
+  formScope: FormScope<string>;
 }
 
-export function OrkestratorOpplysningTekst({ opplysning }: IProps) {
+export function OrkestratorOpplysningTekst({ opplysning, formScope }: IProps) {
+  const field = useField(formScope);
+
   return (
     <TextField
-      label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
-      value={hentFormatertOpplysninigsverdi(opplysning)}
+      {...field.getInputProps()}
       size="small"
+      type="text"
+      label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+      value={field.value()}
+      error={field.error()}
       readOnly={opplysning.kilde === "register"}
     />
   );

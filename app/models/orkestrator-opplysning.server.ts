@@ -39,16 +39,18 @@ export async function hentOrkestratorBarn(
 export async function oppdaterOrkestratorBarn(
   request: Request,
   soknadId: string,
-  barnOpplysning: IOrkestratorBarnOpplysning,
-): Promise<IOrkestratorLand[]> {
+  opplysning: string,
+): Promise<Response> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
   const response = await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ barnOpplysning }),
+    body: JSON.stringify({ opplysning }),
   });
+
+  console.log(opplysning);
 
   if (!response.ok) {
     handleErrorResponse(response);
