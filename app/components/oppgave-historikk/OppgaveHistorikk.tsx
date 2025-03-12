@@ -13,6 +13,7 @@ export function OppgaveHistorikk() {
 
   return (
     <>
+      {/*// @ts-expect-error TODO: Type skal endres i DP-saksbehandling*/}
       {oppgave.historikk.map((hendelse, index) => (
         <div key={index} className={styles.hendelse}>
           <Detail className={styles.hendelseTidspunkt} textColor="subtle">

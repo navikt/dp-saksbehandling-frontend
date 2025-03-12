@@ -31,6 +31,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
 
   const journalposterResponses = await Promise.all(
+    // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
