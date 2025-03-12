@@ -1,10 +1,7 @@
 import { TextField } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/remix";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import {
-  hentFormatertOpplysninigsverdi,
-  hentOrkestratorOpplysningVisningTekst,
-} from "~/utils/orkestrator-opplysninger.utils";
+import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -19,7 +16,7 @@ export function OrkestratorOpplysningTekst({ opplysning, formScope }: IProps) {
       {...field.getInputProps()}
       size="small"
       type="text"
-      label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+      label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       value={field.value()}
       error={field.error()}
       readOnly={opplysning.kilde === "register"}

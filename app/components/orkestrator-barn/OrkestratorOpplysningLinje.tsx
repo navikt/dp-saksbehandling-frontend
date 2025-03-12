@@ -1,8 +1,8 @@
 import { FormScope } from "@rvf/remix";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import {
-  hentFormatertOpplysninigsverdi,
-  hentOrkestratorOpplysningVisningTekst,
+  hentOrkestratorBarnOpplysningVerdi,
+  hentOrkestratorBarnOpplysningLabel,
 } from "~/utils/orkestrator-opplysninger.utils";
 import { OrkestratorOpplysning } from "../orkestrator-opplysning/OrkestratorOpplysning";
 import styles from "./OrkestratorBarn.module.css";
@@ -19,8 +19,8 @@ export function OrkestratorOpplysninLinje({ opplysning, readOnly, formScope }: I
   if (readOnly) {
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>
-        <div>{hentOrkestratorOpplysningVisningTekst(opplysning.id)}</div>
-        <div>{hentFormatertOpplysninigsverdi(opplysning)}</div>
+        <div>{hentOrkestratorBarnOpplysningLabel(opplysning.id)}</div>
+        <div>{hentOrkestratorBarnOpplysningVerdi(opplysning)}</div>
         <div className={styles.alightRight}>
           <OrkestratorTag kilde={opplysning.kilde} />
         </div>

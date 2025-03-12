@@ -50,8 +50,6 @@ export async function oppdaterOrkestratorBarn(
     body: JSON.stringify({ opplysning }),
   });
 
-  console.log(opplysning);
-
   if (!response.ok) {
     handleErrorResponse(response);
   }

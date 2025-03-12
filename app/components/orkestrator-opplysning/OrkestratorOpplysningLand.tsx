@@ -2,10 +2,7 @@ import { Select } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/remix";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import {
-  hentLandMedLandKode,
-  hentOrkestratorOpplysningVisningTekst,
-} from "~/utils/orkestrator-opplysninger.utils";
+import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -19,9 +16,8 @@ export function OrkestratorOpplysningLand({ opplysning, formScope }: IProps) {
   return (
     <Select
       {...field.getInputProps()}
-      value="NORGE"
       error={field.error()}
-      label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+      label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       size="small"
       readOnly={opplysning.kilde === "register"}
     >

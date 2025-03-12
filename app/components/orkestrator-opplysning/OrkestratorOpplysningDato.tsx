@@ -3,7 +3,7 @@ import { FormScope, useField } from "@rvf/remix";
 import { addYears, formatISO, subYears } from "date-fns";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import { hentOrkestratorOpplysningVisningTekst } from "~/utils/orkestrator-opplysninger.utils";
+import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -37,7 +37,7 @@ export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
       <DatePicker.Input
         size="small"
         {...inputProps}
-        label={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+        label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
         form={field.getInputProps().form}
         name={field.getInputProps().name}
         error={field.error()}

@@ -1,7 +1,7 @@
 import { Radio, RadioGroup, Stack } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/remix";
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import { hentOrkestratorOpplysningVisningTekst } from "~/utils/orkestrator-opplysninger.utils";
+import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -15,7 +15,7 @@ export function OrkestratorOpplysningBoolsk({ opplysning, formScope }: IProps) {
     <RadioGroup
       {...field.getInputProps()}
       name={opplysning.id}
-      legend={hentOrkestratorOpplysningVisningTekst(opplysning.id)}
+      legend={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       size="small"
       value={field.value() === "Ja" ? "true" : "false"}
       error={field.error()}

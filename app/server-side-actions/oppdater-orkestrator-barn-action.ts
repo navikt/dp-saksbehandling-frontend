@@ -16,7 +16,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
   const barnetilleggTom = formData.get("barnetilleggTom");
   const begrunnelse = formData.get("begrunnelse");
 
-  const barn = JSON.stringify({
+  const oppdatertBarnOpplysning = JSON.stringify({
     barnId,
     fornavnOgMellomnavn,
     etternavn,
@@ -37,7 +37,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     throw new Error("Mangler soknadId");
   }
 
-  const response = await oppdaterOrkestratorBarn(request, soknadId, barn);
+  const response = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarnOpplysning);
 
   if (!response.ok) {
     logger.warn(`${response.status} - Feil ved kall til ${response.url}`);

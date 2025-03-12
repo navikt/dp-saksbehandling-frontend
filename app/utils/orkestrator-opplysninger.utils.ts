@@ -2,43 +2,64 @@ import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.serv
 import { formaterNorskDato } from "./dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-export function hentOrkestratorOpplysningVisningTekst(opplysning: string) {
+export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   const opplysninger = [
-    { key: "fornavnOgMellomnavn", navn: "Fornavn" },
-    { key: "etternavn", navn: "Etternavn" },
-    { key: "fødselsdato", navn: "Fødselsdato" },
-    { key: "oppholdssted", navn: "Oppholdssted" },
-    { key: "forsørgerBarnet", navn: "Forsørger barnet" },
-    { key: "barnetilleggFom", navn: "Barnetillegg fra" },
-    { key: "barnetilleggTom", navn: "Barnetillegg til" },
-    { key: "kvalifisererTilBarnetillegg", navn: "Rett til barnetillegg" },
-    { key: "begrunnelse", navn: "Begrunnelse" },
+    { id: "fornavnOgMellomnavn", navn: "Fornavn" },
+    { id: "etternavn", navn: "Etternavn" },
+    { id: "fødselsdato", navn: "Fødselsdato" },
+    { id: "oppholdssted", navn: "Oppholdssted" },
+    { id: "forsørgerBarnet", navn: "Forsørger barnet" },
+    { id: "barnetilleggFom", navn: "Barnetillegg fra" },
+    { id: "barnetilleggTom", navn: "Barnetillegg til" },
+    { id: "kvalifisererTilBarnetillegg", navn: "Rett til barnetillegg" },
+    { id: "begrunnelse", navn: "Begrunnelse" },
   ];
 
-  return opplysninger.find((pair) => pair.key === opplysning)?.navn;
+  return opplysninger.find((opplysning) => opplysning.id === opplysningId)?.navn;
 }
 
-export function hentFormatertOpplysninigsverdi(opplysning: IOrkestratorBarnOpplysning): string {
+export function hentOrkestratorBarnOpplysningVerdi(opplysning: IOrkestratorBarnOpplysning): string {
   switch (opplysning.datatype) {
     case "tekst":
-      return opplysning.verdi.toString();
+      return opplysning.verdi;
 
     case "dato":
-      return formaterNorskDato(opplysning.verdi.toString());
+      return formaterNorskDato(opplysning.verdi);
 
     case "land":
-      return hentLandMedLandKode(opplysning.verdi);
+      return hentLand(opplysning.verdi);
 
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";
 
     default:
-      return opplysning.verdi?.toString();
+      return opplysning.verdi;
   }
 }
 
-export function hentLandMedLandKode(lankode: string): string {
+function hentLand(lankode: string): string {
   const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return orkestratorLandliste.find((land) => land.alpha3kode === lankode)?.navn || "";
+}
+
+export function hentOrkestratorBarnValideringDefaultValue(
+  opplysning: IOrkestratorBarnOpplysning,
+): string {
+  switch (opplysning.datatype) {
+    case "tekst":
+      return opplysning.verdi;
+
+    case "dato":
+      return formaterNorskDato(opplysning.verdi);
+
+    case "land":
+      return opplysning.verdi;
+
+    case "boolsk":
+      return opplysning.verdi === "true" ? "Ja" : "Nei";
+
+    default:
+      return opplysning.verdi;
+  }
 }

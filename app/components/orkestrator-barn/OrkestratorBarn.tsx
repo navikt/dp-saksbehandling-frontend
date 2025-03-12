@@ -8,9 +8,9 @@ import classNames from "classnames";
 import { z } from "zod";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
-import { hentFormatertOpplysninigsverdi } from "~/utils/orkestrator-opplysninger.utils";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
+import { hentOrkestratorBarnValideringDefaultValue } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
   barnNummer: number;
@@ -50,9 +50,9 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
-  const formattertDefaultValues = barn.opplysninger.reduce(
+  const defaultValues = barn.opplysninger.reduce(
     (acc, opplysning) => {
-      acc[opplysning.id] = hentFormatertOpplysninigsverdi(opplysning);
+      acc[opplysning.id] = hentOrkestratorBarnValideringDefaultValue(opplysning);
       return acc;
     },
     {} as Record<string, string>,
@@ -61,7 +61,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const orkestratorBarnForm = useForm({
     validator: validator,
     method: "put",
-    defaultValues: formattertDefaultValues,
+    defaultValues: defaultValues,
   });
 
   return (
