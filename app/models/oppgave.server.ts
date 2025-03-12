@@ -166,7 +166,6 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
 
 export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
   return await saksbehandlerClient.PUT("/oppgave/neste", {
     headers: getHeaders(onBehalfOfToken),
     body: { queryParams: JSON.stringify(aktivtOppgaveSok) },
@@ -175,7 +174,6 @@ export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: strin
 
 export async function tildelOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/tildel", {
     headers: getHeaders(onBehalfOfToken),
     params: {
@@ -186,7 +184,6 @@ export async function tildelOppgave(request: Request, oppgaveId: string) {
 
 export async function leggTilbakeOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/legg-tilbake", {
     headers: { ...getHeaders(onBehalfOfToken) },
     params: {
@@ -203,7 +200,6 @@ export async function utsettOppgave(
   paaVentAarsak: components["schemas"]["UtsettOppgaveAarsak"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/utsett", {
     headers: { ...getHeaders(onBehalfOfToken) },
     body: { utsettTilDato, beholdOppgave, aarsak: paaVentAarsak },
@@ -215,21 +211,22 @@ export async function utsettOppgave(
 
 export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/ferdigstill/melding-om-vedtak`;
-
-  return await fetch(url, {
-    method: "PUT",
+  // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak", {
     headers: { ...getHeaders(onBehalfOfToken) },
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 
 export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/ferdigstill/melding-om-vedtak-arena`;
-
-  return await fetch(url, {
-    method: "PUT",
-    headers: getHeaders(onBehalfOfToken),
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena", {
+    headers: { ...getHeaders(onBehalfOfToken) },
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 

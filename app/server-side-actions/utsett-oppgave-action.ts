@@ -7,11 +7,15 @@ import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
+import { components } from "../../openapi/saksbehandling-typer";
+
 export async function utsettOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;
   const utsettTilDato = formData.get("utsettTilDato") as string;
-  const paaVentAarsak = formData.get("paaVentAarsak") as string;
   const beholdOppgave = formData.has("beholdOppgave");
+  const paaVentAarsak = formData.get(
+    "paaVentAarsak",
+  ) as components["schemas"]["UtsettOppgaveAarsak"];
 
   const result = await hentValideringUtsettOppgave().validate(formData);
 
