@@ -179,13 +179,14 @@ export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: strin
   });
 }
 
-export async function tildelOppgave(request: Request, oppgaveId: string): Promise<Response> {
+export async function tildelOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
 
-  const url = `${getEnv("DP_SAKSBEHANDLING_URL")}/oppgave/${oppgaveId}/tildel`;
-  return await fetch(url, {
-    method: "PUT",
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/tildel", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { oppgaveId },
+    },
   });
 }
 

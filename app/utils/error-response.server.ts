@@ -1,3 +1,4 @@
+import { IAlert } from "~/context/alert-context";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/saksbehandling-typer";
@@ -18,4 +19,14 @@ export function handleHttpProblem(problem: components["schemas"]["HttpProblem"])
     status: problem.status,
     statusText: problem.detail,
   });
+}
+
+export function getHttpProblemAlert(problem: components["schemas"]["HttpProblem"]): IAlert {
+  logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
+
+  return {
+    type: "error",
+    title: problem.title,
+    message: problem.detail,
+  };
 }
