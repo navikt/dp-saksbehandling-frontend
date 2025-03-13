@@ -4,6 +4,7 @@ import { OrkestratorOpplysningLand } from "./OrkestratorOpplysningLand";
 import { OrkestratorOpplysningBoolsk } from "./OrkestratorOpplysningBoolsk";
 import { OrkestratorOpplysningDato } from "./OrkestratorOpplysningDato";
 import { FormScope } from "@rvf/remix";
+import { logger } from "~/utils/logger.utils";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -25,6 +26,8 @@ export function OrkestratorOpplysning({ opplysning, formScope }: IProps) {
       return <OrkestratorOpplysningDato opplysning={opplysning} formScope={formScope} />;
 
     default:
+      logger.error(`Ukjent orkestrator datatype ${opplysning.datatype}`);
+
       return (
         <>
           {opplysning.id}: {opplysning.verdi}

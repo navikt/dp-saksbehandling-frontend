@@ -30,7 +30,8 @@ interface IAlertType {
     | "ferdigstill-oppgave"
     | "ferdigstill-oppgave-brev-i-arena"
     | "kvitter-avklaring"
-    | "rekjor-behandling";
+    | "rekjor-behandling"
+    | "oppdatere-orkestrator-barn";
   httpCode: number;
 }
 
@@ -74,6 +75,9 @@ export function getAlertMessage(alertResponse: IAlertType): IAlert {
 
     case "rekjor-behandling":
       return rekjorBehandlingMessages(alertResponse.httpCode);
+
+    case "oppdatere-orkestrator-barn":
+      return handleOppdatereOrkestratorBarnMessages(alertResponse.httpCode);
 
     case "ukjent-feil":
       return {
@@ -338,6 +342,23 @@ export function rekjorBehandlingMessages(httpCode: number): IAlert {
       return {
         variant: "error",
         title: "Kunne ikke kjøre behandling på nytt",
+        body: `Feilkode: ${httpCode}`,
+      };
+  }
+}
+
+export function handleOppdatereOrkestratorBarnMessages(httpCode: number): IAlert {
+  switch (httpCode) {
+    case 200:
+      return {
+        variant: "success",
+        title: "Barn opplysninger er oppdatert, kjør behandling på nytt",
+      };
+
+    default:
+      return {
+        variant: "error",
+        title: "Kunne ikke oppdatere barn opplysninger",
         body: `Feilkode: ${httpCode}`,
       };
   }

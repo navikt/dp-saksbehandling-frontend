@@ -1,17 +1,19 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
+import { useActionData, useNavigation } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
 import classNames from "classnames";
 import { z } from "zod";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
+import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { isAlert } from "~/utils/type-guards";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
-import { useActionData, useNavigation } from "@remix-run/react";
-import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 
 interface IProps {
   barnNummer: number;
@@ -55,12 +57,16 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const actionData = useActionData<typeof action>();
   const { state } = useNavigation();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, alert } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
-  // Todo: Finn ut hvordan man kan lukke modalen
-  // Kanskje kjør behandling automatisk med en varsling om at barn har blitt oppdatert
-  // og må dermed må saken behandles på nytt
-  console.log(actionData);
+  useHandleAlertMessages(alert);
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
+  useEffect(() => {
+    if (actionData) {
+      ref.current?.close();
+    }
+  }, [actionData]);
 
   const defaultValues = barn.opplysninger.reduce(
     (acc, { id, verdi }) => {
@@ -75,6 +81,11 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
     method: "put",
     defaultValues: defaultValues,
   });
+
+  function avbryt() {
+    orkestratorBarnForm.resetForm();
+    ref.current?.close();
+  }
 
   return (
     <div className={styles.orkestratorBarn}>
@@ -140,20 +151,10 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
             >
               Lukk
             </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              size="small"
-              onClick={() => ref.current?.close()}
-            >
+            <Button type="button" variant="secondary" size="small" onClick={avbryt}>
               Avbryt
             </Button>
-            <Button
-              type="submit"
-              onClick={() => console.log("close")}
-              size="small"
-              loading={state !== "idle"}
-            >
+            <Button type="submit" size="small" loading={state !== "idle"}>
               Lagre endringer
             </Button>
           </Modal.Footer>
