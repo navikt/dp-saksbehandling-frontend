@@ -22,7 +22,6 @@ export function OrkestratorOpplysningLand({ opplysning, formScope }: IProps) {
       error={field.error()}
       label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       size="small"
-      readOnly={opplysning.kilde === "register"}
     >
       <option value="">Velg land</option>
       {orkestratorLandliste.map((land) => (
