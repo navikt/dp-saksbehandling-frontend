@@ -29,5 +29,6 @@ export function getHttpProblemAlert(problem: components["schemas"]["HttpProblem"
     // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
     title: problem.title,
     body: problem.detail,
+    service: problem.instance,
   };
 }

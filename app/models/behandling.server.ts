@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse, handleHttpProblem } from "~/utils/error-response.server";
+import { handleHttpProblem } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { paths } from "../../openapi/behandling-typer";
@@ -129,41 +129,20 @@ export async function avbrytBehandling(
   });
 }
 
-export async function godkjennBehandling(
-  request: Request,
-  behandlingId: string,
-  personIdent: string,
-): Promise<Response> {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/godkjenn`;
-  return await fetch(url, {
-    method: "POST",
-    headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident: personIdent }),
-  });
-}
-
 export async function endreOpplysning(
   request: Request,
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-): Promise<IBehandlingGammel> {
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning/${opplysningId}`;
-  const response = await fetch(url, {
-    method: "PUT",
+  return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ verdi, begrunnelse: "" }),
+    body: { verdi, begrunnelse: "" },
+    params: {
+      path: { behandlingId, opplysningId },
+    },
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
 export async function kvitterAvklaring(
