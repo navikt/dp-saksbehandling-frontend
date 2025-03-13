@@ -183,3 +183,18 @@ export async function hentOppgaverForPerson(request: Request, ident: string) {
 
   throw new Error("Uhåndtert feil i hentOppgaver()");
 }
+
+export async function hentStatistikkForSaksbehandler(request: Request) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error } = await saksbehandlerClient.GET("/statistikk", {
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (error) {
+    return handleHttpProblem(error);
+  }
+
+  if (data) {
+    return data;
+  }
+}

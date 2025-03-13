@@ -15,7 +15,7 @@ import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentOppgaver } from "~/models/saksbehandling.server";
-import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
+import { hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";

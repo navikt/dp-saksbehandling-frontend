@@ -1,7 +1,8 @@
 import { IAlert } from "~/context/alert-context";
 import { logger } from "~/utils/logger.utils";
 
-import { components } from "../../openapi/saksbehandling-typer";
+import { components as behandlingComponent } from "../../openapi/behandling-typer";
+import { components as sakbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
 export function handleErrorResponse(response: Response): void {
   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
@@ -12,7 +13,7 @@ export function handleErrorResponse(response: Response): void {
   });
 }
 
-export function handleHttpProblem(problem: components["schemas"]["HttpProblem"]): void {
+export function handleHttpProblem(problem: sakbehandlingComponent["schemas"]["HttpProblem"]): void {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   throw new Response(problem.title, {
@@ -21,7 +22,11 @@ export function handleHttpProblem(problem: components["schemas"]["HttpProblem"])
   });
 }
 
-export function getHttpProblemAlert(problem: components["schemas"]["HttpProblem"]): IAlert {
+export function getHttpProblemAlert(
+  problem:
+    | sakbehandlingComponent["schemas"]["HttpProblem"]
+    | behandlingComponent["schemas"]["HttpProblem"],
+): IAlert {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {

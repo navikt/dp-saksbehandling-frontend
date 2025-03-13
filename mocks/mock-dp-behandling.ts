@@ -10,14 +10,16 @@ const http = createOpenApiHttp<paths>({ baseUrl: process.env.DP_BEHANDLING_URL }
 
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
-  title: "Default feilmelding dp-behandling",
+  title: "Default MSW feilmelding",
   status: 500,
+  instance: "dp-behandling",
 };
 
 const error404: components["schemas"]["HttpProblem"] = {
   type: "404",
-  title: "Fant ikke data i dp-behandling",
+  title: "Fant ikke data",
   status: 404,
+  instance: "dp-behandling",
 };
 
 export const mockDpBehandling = [

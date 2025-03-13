@@ -1,24 +1,27 @@
 import { Table } from "@navikt/ds-react";
 import classnames from "classnames";
 
-import { ISaksbehandlerStatistikk } from "~/models/statistikk.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import { IStatistikk } from "../../../mocks/data/mock-statistikk";
 import styles from "./Statistikk.module.css";
 
 interface IProps {
-  statistikk: ISaksbehandlerStatistikk;
+  statistikk: IStatistikk;
 }
 
 export function Statistikk({ statistikk }: IProps) {
   const mineFullforteVedtak = {
     tittel: "Mine fullførte vedtak",
     data: [
+      // @ts-expect-error TODO feil i dp-saks
       { tittel: "I dag", verdi: statistikk.individuellStatistikk.dag },
       {
         tittel: "Denne uken",
+        // @ts-expect-error TODO feil i dp-saks
         verdi: statistikk.individuellStatistikk.uke,
       },
+      // @ts-expect-error TODO feil i dp-saks
       { tittel: "Totalt", verdi: statistikk.individuellStatistikk.totalt },
     ],
   };
@@ -26,11 +29,14 @@ export function Statistikk({ statistikk }: IProps) {
   const alleFullforteVedtak = {
     tittel: "Alle fullførte vedtak",
     data: [
+      // @ts-expect-error TODO feil i dp-saks
       { tittel: "I dag", verdi: statistikk.generellStatistikk.dag },
       {
         tittel: "Denne uken",
+        // @ts-expect-error TODO feil i dp-saks
         verdi: statistikk.generellStatistikk.uke,
       },
+      // @ts-expect-error TODO feil i dp-saks
       { tittel: "Totalt", verdi: statistikk.generellStatistikk.totalt },
     ],
   };
@@ -40,14 +46,17 @@ export function Statistikk({ statistikk }: IProps) {
     data: [
       {
         tittel: "Klar til behandling",
+        // @ts-expect-error TODO feil i dp-saks
         verdi: statistikk.beholdningsinfo.antallOppgaverKlarTilBehandling,
       },
       {
         tittel: "Klar til kontroll",
+        // @ts-expect-error TODO feil i dp-saks
         verdi: statistikk.beholdningsinfo.antallOppgaverKlarTilKontroll,
       },
       {
         tittel: "Eldste oppgave",
+        // @ts-expect-error TODO feil i dp-saks
         verdi: formaterNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave),
       },
     ],
