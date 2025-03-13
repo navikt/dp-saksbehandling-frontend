@@ -1,13 +1,15 @@
 import { FormScope } from "@rvf/remix";
+import classNames from "classnames";
+
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import {
   formatterOrkestratorOpplysningVerdi,
   hentOrkestratorBarnOpplysningLabel,
 } from "~/utils/orkestrator-opplysninger.utils";
+
 import { OrkestratorOpplysning } from "../orkestrator-opplysning/OrkestratorOpplysning";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorTag } from "./OrkestratorTag";
-import classNames from "classnames";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;
@@ -15,7 +17,7 @@ interface IProps {
   formScope: FormScope<string>;
 }
 
-export function OrkestratorOpplysninLinje({ opplysning, readOnly, formScope }: IProps) {
+export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {
   if (readOnly) {
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>

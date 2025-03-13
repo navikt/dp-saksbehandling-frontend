@@ -352,7 +352,7 @@ export function handleOppdatereOrkestratorBarnMessages(httpCode: number): IAlert
     case 200:
       return {
         variant: "success",
-        title: "Barn opplysninger er oppdatert, kjør behandling på nytt",
+        title: "Barneopplysninger er oppdatert, kjør behandling på nytt",
       };
 
     default:

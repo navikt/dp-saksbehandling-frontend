@@ -12,7 +12,7 @@ import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 
 import styles from "./OrkestratorBarn.module.css";
-import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
+import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 interface IProps {
   barnNummer: number;
@@ -91,16 +91,14 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
           Barn {barnNummer}
         </Heading>
         <div className={styles.orkestratorOpplysning}>
-          <>
-            {barn.opplysninger.map((opplysning, index) => (
-              <OrkestratorOpplysninLinje
-                key={index}
-                opplysning={opplysning}
-                formScope={orkestratorBarnForm.scope(opplysning.id)}
-                readOnly
-              />
-            ))}
-          </>
+          {barn.opplysninger.map((opplysning, index) => (
+            <OrkestratorOpplysningLinje
+              key={index}
+              opplysning={opplysning}
+              formScope={orkestratorBarnForm.scope(opplysning.id)}
+              readOnly
+            />
+          ))}
         </div>
       </>
       <Button
@@ -131,7 +129,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
               <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
               <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
               {barn.opplysninger.map((opplysning, index) => (
-                <OrkestratorOpplysninLinje
+                <OrkestratorOpplysningLinje
                   key={index}
                   opplysning={opplysning}
                   formScope={orkestratorBarnForm.scope(opplysning.id as string)}
