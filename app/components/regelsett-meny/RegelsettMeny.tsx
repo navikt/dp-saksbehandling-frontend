@@ -8,13 +8,13 @@ import {
 import classnames from "classnames";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IRegelsett } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
 
 interface IProps {
-  aktivtRegelsett: IRegelsett;
-  setAktivtRegelsett: (regelsett: IRegelsett) => void;
+  aktivtRegelsett: components["schemas"]["Regelsett"];
+  setAktivtRegelsett: (regelsett: components["schemas"]["Regelsett"]) => void;
 }
 
 export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
@@ -30,7 +30,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
             })}
             onClick={() => setAktivtRegelsett(regelsett)}
           >
-            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
+            {renderStatusIcon(regelsett.status)}
             {regelsett.navn}
           </button>
         </li>
@@ -46,7 +46,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
             })}
             onClick={() => setAktivtRegelsett(regelsett)}
           >
-            {renderStatusIcon(regelsett.status, regelsett.relevantForVedtak)}
+            {renderStatusIcon(regelsett.status)}
             {regelsett.navn}
           </button>
         </li>
@@ -55,11 +55,7 @@ export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
   );
 }
 
-function renderStatusIcon(status: IRegelsett["status"], relevantForVedtak: boolean) {
-  if (!relevantForVedtak) {
-    return <CircleSlashIcon fontSize="1.5rem" />;
-  }
-
+function renderStatusIcon(status: components["schemas"]["Regelsett"]["status"]) {
   switch (status) {
     case "Info":
       return <CircleIcon fontSize="1.5rem" color={"var(--a-blue-500)"} />;
@@ -69,5 +65,7 @@ function renderStatusIcon(status: IRegelsett["status"], relevantForVedtak: boole
       return <XMarkOctagonFillIcon fontSize="1.5rem" color={"var(--a-red-500)"} />;
     case "HarAvklaring":
       return <ExclamationmarkTriangleFillIcon fontSize="1.5rem" color={"var(--a-orange-600)"} />;
+    case "IkkeRelevant":
+      return <CircleSlashIcon fontSize="1.5rem" />;
   }
 }

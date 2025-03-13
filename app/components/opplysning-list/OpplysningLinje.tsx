@@ -7,15 +7,15 @@ import { useState } from "react";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IOpplysning } from "~/models/behandling.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { hentValideringForOpplysning } from "~/utils/validering.util";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./OpplysningListe.module.css";
 
 interface IProps {
-  opplysning: IOpplysning;
+  opplysning: components["schemas"]["Opplysning"];
   readonly?: boolean;
 }
 
@@ -104,7 +104,7 @@ export function OpplysningLinje(props: IProps) {
   );
 }
 
-export function formaterOpplysningVerdi(opplysning: IOpplysning) {
+export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]) {
   switch (opplysning.datatype) {
     case "penger":
     case "desimaltall":

@@ -14,10 +14,11 @@ import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./Avklaring.module.css";
 
 interface IProps {
-  avklaring: IAvklaring;
+  avklaring: components["schemas"]["Avklaring"];
   readonly?: boolean;
 }
 

@@ -1,7 +1,11 @@
+import createClient from "openapi-fetch";
+
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.server";
+import { handleErrorResponse, handleHttpProblem } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
+
+import { paths } from "../../openapi/behandling-typer";
 
 export interface IRegelsett {
   navn: string;
@@ -90,39 +94,24 @@ export interface IAvklaring {
   begrunnelse: string | null;
 }
 
-export async function hentOpplysninger(
-  request: Request,
-  behandlingId: string,
-): Promise<IBehandlingGammel> {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
+const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning`;
-  const response = await fetch(url, {
-    method: "GET",
+export async function hentBehandling(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  const { data, error } = await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (error) {
+    return handleHttpProblem(error);
   }
 
-  return await response.json();
-}
-
-export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: getHeaders(onBehalfOfToken),
-  });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
-
-  return await response.json();
 }
 
 export async function avbrytBehandling(

@@ -1,10 +1,10 @@
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IAvklaring } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import { Avklaring } from "./Avklaring";
 
 interface IProps {
-  avklaringer: IAvklaring[];
+  avklaringer: components["schemas"]["Avklaring"][];
 }
 
 export function Avklaringer(props: IProps) {
