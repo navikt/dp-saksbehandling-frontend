@@ -152,12 +152,12 @@ export async function kvitterAvklaring(
   begrunnelse?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avklaring/${avklaringId}`;
-  return await fetch(url, {
-    method: "PUT",
+  return await behandlingClient.PUT("/behandling/{behandlingId}/avklaring/{avklaringId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
+    body: { begrunnelse: begrunnelse ?? "" },
+    params: {
+      path: { behandlingId, avklaringId },
+    },
   });
 }
 
