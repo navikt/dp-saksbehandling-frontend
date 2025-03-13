@@ -1,17 +1,16 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import { useEffect, useRef } from "react";
-
 import { useActionData, useNavigation } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
 import { withZod } from "@rvf/zod";
 import classNames from "classnames";
+import { useEffect, useRef } from "react";
 import { z } from "zod";
-import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
-import { isAlert } from "~/utils/type-guards";
+
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysninLinje } from "./OrkestratorOpplysningLinje";
 
@@ -57,10 +56,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const actionData = useActionData<typeof action>();
   const { state } = useNavigation();
-  const { oppgave, alert } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
-  useHandleAlertMessages(alert);
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   useEffect(() => {
     if (actionData) {
@@ -87,6 +83,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
     ref.current?.close();
   }
 
+  // Todo: Ikke lagre til backend dersom ingenting er endret i formen
   return (
     <div className={styles.orkestratorBarn}>
       <>

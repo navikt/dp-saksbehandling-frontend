@@ -1,6 +1,7 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/remix";
 import { addYears, formatISO, subYears } from "date-fns";
+
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
@@ -21,6 +22,8 @@ export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
     inputFormat: "dd.MM.yyyy",
     onDateChange: (date) => {
       if (date) {
+        field.clearError();
+
         const datoBackendFormat = formatISO(date, { representation: "date" });
         field.setValue(formaterNorskDato(datoBackendFormat));
         if (datoBackendFormat !== opplysning.verdi) {
