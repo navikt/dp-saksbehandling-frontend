@@ -12,7 +12,8 @@
     "playwright:ui": "npx playwright test --ui",
     "playwright:verbose": "DEBUG=pw:api npx playwright test",
     "generate-token": "chmod +x ./token-generator.sh && ./token-generator.sh",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "generate-openapi-types": "npx openapi-typescript",
+    "grapql-codegen": "graphql-codegen --config codegen.ts"
   },
   "prettier": {
     "printWidth": 100
