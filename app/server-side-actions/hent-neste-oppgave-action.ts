@@ -33,7 +33,6 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
   } else {
     alert = {
       variant: "error",
-      // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
       title: error.title,
       body: error.detail,
       service: error.instance,

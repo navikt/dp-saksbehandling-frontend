@@ -106,7 +106,6 @@ export async function utsettOppgave(
 
 export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak", {
     headers: getHeaders(onBehalfOfToken),
     params: {
@@ -152,7 +151,6 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
   if (trimmetNotat) {
     return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/notat", {
       headers: getHeaders(onBehalfOfToken),
-      // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
       body: trimmetNotat,
       params: {
         path: { oppgaveId },

@@ -28,7 +28,7 @@ export interface IMeldingOmVedtakBody {
   mellomnavn?: string;
   etternavn: string;
   fodselsnummer: string;
-  saksbehandler?: components["schemas"]["Behandler"]; // TODO DENNE SKAL IKKE VÆRE OPTIONAL. Må fikse oppgavetilstand type
+  saksbehandler?: components["schemas"]["Behandler"];
   beslutter?: components["schemas"]["Behandler"];
 }
 

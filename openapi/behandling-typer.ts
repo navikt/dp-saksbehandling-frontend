@@ -688,7 +688,7 @@ export interface components {
             /** @enum {string} */
             status: "Åpen" | "Avbrutt" | "Avklart";
             maskinelt: boolean;
-            begrunnelse?: string;
+            begrunnelse: string | null;
             /** Format: date-time */
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
@@ -712,10 +712,10 @@ export interface components {
             /** @deprecated */
             relevantForVedtak?: boolean;
             /** @enum {string} */
-            status?: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
+            status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
             /** @description Hvilke avklaringer som skal vises i dette regelsettet */
             avklaringer: components["schemas"]["Avklaring"][];
-            opplysningIder?: components["schemas"]["OpplysningsId"][];
+            opplysningIder: components["schemas"]["OpplysningsId"][];
         };
         Hjemmel: {
             /** @description Lov, forskrift, eller rundskriv */
@@ -982,11 +982,9 @@ export interface components {
         };
         Utbetaling: {
             /** Format: date */
-            dato?: string;
-            sats?: number;
-            gradertSats?: number;
-            egenandel?: number;
-            utbetaling?: number;
+            dato: string;
+            sats: number;
+            utbetaling: number;
         };
         BehandletAv: {
             /** @enum {string} */

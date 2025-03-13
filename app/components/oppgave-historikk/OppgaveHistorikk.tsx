@@ -13,7 +13,6 @@ export function OppgaveHistorikk() {
 
   return (
     <>
-      {/*// @ts-expect-error TODO: Type skal endres i DP-saksbehandling*/}
       {oppgave.historikk.map((hendelse, index) => (
         <div key={index} className={styles.hendelse}>
           <Detail className={styles.hendelseTidspunkt} textColor="subtle">
@@ -26,10 +25,6 @@ export function OppgaveHistorikk() {
             className={classnames(styles.hendelseMelding, {
               [styles.hendelseMeldingStatusendring]: hendelse.type === "statusendring",
               [styles.hendelseMeldingNotat]: hendelse.type === "notat",
-              // @ts-expect-error // TODO: Dette er midlertidig for mockdata, finnes ikke i dp-saksbehandling enda.
-              [styles.hendelseMeldingEndreOpplysning]: hendelse.type === "endre-opplysning",
-              // @ts-expect-error // TODO: Dette er midlertidig for mockdata, finnes ikke i dp-saksbehandling enda.
-              [styles.hendelseMeldingMelding]: hendelse.type === "melding",
             })}
           >
             {hendelse.type === "statusendring" && (

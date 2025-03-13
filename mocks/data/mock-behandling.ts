@@ -5832,4 +5832,4 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
   utfall: true,
 };
 
-export const mockBehandlinger: IBehandling[] = [mockBehandlingInnvilgelse];
+export const mockBehandlinger: components["schemas"]["Behandling"][] = [mockBehandlingInnvilgelse];

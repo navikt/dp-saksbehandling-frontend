@@ -14,7 +14,6 @@ interface IProps {
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  // @ts-expect-error //TODO Fiks missmatch med dp-behandling
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
     .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
     .filter((opplysning) => opplysning !== undefined)

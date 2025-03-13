@@ -16,12 +16,10 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     return json(getHttpProblemAlert(error));
   }
 
-  // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
   if (data.nyTilstand === "UNDER_BEHANDLING") {
     return redirect(`/oppgave/${oppgaveId}/behandle`);
   }
-
-  // @ts-expect-error TODO: Type skal endres i DP-saksbehandling
+  
   if (data.nyTilstand === "UNDER_KONTROLL") {
     return redirect(`/oppgave/${oppgaveId}/kontroll`);
   }
