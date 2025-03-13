@@ -118,14 +118,14 @@ export async function avbrytBehandling(
   request: Request,
   behandlingId: string,
   personIdent: string,
-): Promise<Response> {
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avbryt`;
-  return await fetch(url, {
-    method: "POST",
+  return await behandlingClient.POST("/behandling/{behandlingId}/avbryt", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident: personIdent }),
+    body: { ident: personIdent },
+    params: {
+      path: { behandlingId },
+    },
   });
 }
 
