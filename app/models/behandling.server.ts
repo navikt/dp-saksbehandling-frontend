@@ -163,11 +163,11 @@ export async function kvitterAvklaring(
 
 export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/rekjor`;
-  return await fetch(url, {
-    method: "POST",
+  return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident }),
+    body: { ident: ident },
+    params: {
+      path: { behandlingId },
+    },
   });
 }
