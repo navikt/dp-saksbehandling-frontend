@@ -88,7 +88,7 @@ export const mockDpBehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(400).empty();
+      return response(400).json(defaultError);
     }
 
     return response(204).empty();

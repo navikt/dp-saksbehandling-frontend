@@ -5,10 +5,10 @@ export const andreYtelser: components["schemas"]["Avklaring"] = {
   kode: "AndreYtelser",
   tittel: "Andre ytelser",
   beskrivelse: "Personen har oppgitt andre ytelser",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -17,10 +17,10 @@ export const soknadstidspunktForLangtFramITid: components["schemas"]["Avklaring"
   kode: "SøknadstidspunktForLangtFramITid",
   tittel: "Søknadstidspunktet ligger for lang fram i tid",
   beskrivelse: "Søknadstidspunktet ligger mer enn 14 dager fram i tid",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -29,10 +29,10 @@ export const virkningstidspunktForLangtFramITid: components["schemas"]["Avklarin
   kode: "VirkningstidspunktForLangtFramItid",
   tittel: "Virkningstidspunkt ligger for lang fram i tid",
   beskrivelse: "Virkningstidspunkt ligger mer enn 14 dager fram i tid",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -41,10 +41,10 @@ export const verneplikt: components["schemas"]["Avklaring"] = {
   kode: "Verneplikt",
   tittel: "Verneplikt",
   beskrivelse: "Krever avklaring om verneplikt",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -58,7 +58,6 @@ export const tapAvArbeidstidBeregningsregel: components["schemas"]["Avklaring"] 
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -67,10 +66,10 @@ export const EOSArbeid: components["schemas"]["Avklaring"] = {
   kode: "EØSArbeid",
   tittel: "Arbeid i EØS",
   beskrivelse: "Personen har oppgitt arbeid fra EØS",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -79,10 +78,10 @@ export const hattLukkedeSakerSiste8Uker: components["schemas"]["Avklaring"] = {
   kode: "HattLukkedeSakerSiste8Uker",
   tittel: "Hatt lukkede saker siste 8 uker",
   beskrivelse: "Personen har lukkede saker i Arena siste 8 uker",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -91,10 +90,10 @@ export const samordnes: components["schemas"]["Avklaring"] = {
   kode: "Samordning",
   tittel: "Om reduserte ytelser fra folketrygden som skal samordnes",
   beskrivelse: "Finne ut om det er noen reduserte ytelser fra folketrygden som skal samordnes",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -103,10 +102,10 @@ export const inntektNesteKalendermaaned: components["schemas"]["Avklaring"] = {
   kode: "InntektNesteKalendermåned",
   tittel: "Har innrapport inntekt for neste måned",
   beskrivelse: "Personen har inntekter som tilhører neste inntektsperiode",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -115,10 +114,10 @@ export const jobbetUtenforNorge: components["schemas"]["Avklaring"] = {
   kode: "JobbetUtenforNorge",
   tittel: "Arbeid utenfor Norge",
   beskrivelse: "Personen har oppgitt arbeid utenfor Norge",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -127,10 +126,10 @@ export const muligGjenopptak: components["schemas"]["Avklaring"] = {
   kode: "MuligGjenopptak",
   tittel: "Mulig gjenopptak",
   beskrivelse: "Personen har åpne saker i Arena som kan være gjenopptak",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -139,10 +138,10 @@ export const svangerskapsrelaterteSykepenger: components["schemas"]["Avklaring"]
   kode: "SvangerskapsrelaterteSykepenger",
   tittel: "Har hatt sykepenger som kan være svangerskapsrelatert",
   beskrivelse: "Personen har sykepenger som kan være svangerskapsrelaterte",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -151,10 +150,10 @@ export const onskerEtterRapporteringsfrist: components["schemas"]["Avklaring"] =
   kode: "ØnskerEtterRapporteringsfrist",
   tittel: "Ønsker dagpenger etter rapporteringsfrist",
   beskrivelse: "Personen ønsker dagpenger etter rapporteringsfrist",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -167,7 +166,6 @@ export const totrinnskontroll: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -180,7 +178,6 @@ export const BrukerUnder18: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
@@ -193,6 +190,5 @@ export const BarnMaaGodkjennes: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };

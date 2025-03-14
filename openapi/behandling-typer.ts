@@ -1140,14 +1140,18 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
             };
             /** @description Du har ikke tilgang til å kvittere ut denne avklaringen */
             403: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
             };
         };
     };
