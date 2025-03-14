@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
@@ -19,12 +19,12 @@ export async function fattVedtakAction(
   if (brevIArena) {
     const { error } = await ferdigstillOppgaveMedArenaBrev(request, params.oppgaveId);
     if (error) {
-      return json(getHttpProblemAlert(error));
+      return getHttpProblemAlert(error);
     }
   } else {
     const { error } = await ferdigstillOppgave(request, params.oppgaveId);
     if (error) {
-      return json(getHttpProblemAlert(error));
+      return getHttpProblemAlert(error);
     }
   }
 

@@ -1,4 +1,4 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs } from "react-router";
 
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 

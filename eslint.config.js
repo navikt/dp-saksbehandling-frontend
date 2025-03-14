@@ -11,7 +11,7 @@ import typescriptEslint from "typescript-eslint";
 export default [
   {
     name: "ignore",
-    ignores: ["graphql/", "build/", "playwright-report/"],
+    ignores: ["graphql/", "build/", "playwright-report/", ".react-router"],
   },
   {
     name: "eslint/recommended:",
@@ -23,7 +23,7 @@ export default [
     ...react.configs.flat.recommended,
     settings: {
       react: {
-        version: "18",
+        version: "19",
       },
     },
   },

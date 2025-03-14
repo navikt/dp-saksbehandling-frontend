@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
@@ -19,8 +19,7 @@ export async function leggTilbakeOppgaveAction(
   const { error } = await leggTilbakeOppgave(request, oppgaveId);
 
   if (error) {
-    const alert = getHttpProblemAlert(error);
-    return json(alert);
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
@@ -40,5 +39,5 @@ export async function leggTilbakeOppgaveAction(
     });
   }
 
-  return json(successAlert);
+  return successAlert;
 }

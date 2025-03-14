@@ -1,4 +1,3 @@
-import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
@@ -16,7 +15,7 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
   const { error } = await kvitterAvklaring(request, behandlingId, avklaringId, begrunnelse);
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
@@ -24,5 +23,5 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
     title: "Avklaring kvittert",
   };
 
-  return json(successAlert);
+  return successAlert;
 }

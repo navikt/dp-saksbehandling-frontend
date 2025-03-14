@@ -1,5 +1,4 @@
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
-import type { SerializeFrom } from "@remix-run/node";
 import { type ChangeEvent, Fragment, useEffect } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
@@ -16,7 +15,7 @@ export function OppgaveKontroll() {
   const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const fetcher = useDebounceFetcher<SerializeFrom<typeof action>>();
+  const fetcher = useDebounceFetcher<typeof action>();
 
   useEffect(() => {
     if (fetcher.data) {

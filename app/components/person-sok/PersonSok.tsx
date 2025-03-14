@@ -1,6 +1,6 @@
 import { Search } from "@navikt/ds-react";
-import { Form } from "@remix-run/react";
-import { useForm } from "@rvf/remix";
+import { useForm } from "@rvf/react-router";
+import { Form } from "react-router";
 
 import { hentValideringForPersonIdent } from "~/utils/validering.util";
 

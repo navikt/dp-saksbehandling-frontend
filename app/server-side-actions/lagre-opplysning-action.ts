@@ -1,4 +1,3 @@
-import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
@@ -23,7 +22,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   );
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   if (data) {
@@ -32,8 +31,10 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
       title: "Opplysning lagret",
     };
 
-    return json(successAlert);
+    return successAlert;
   }
+
+  throw new Error(`Uhåndtert feil i lagreOpplysningAction()`);
 }
 
 function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {

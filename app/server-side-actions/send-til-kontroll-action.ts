@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
@@ -14,13 +14,14 @@ export async function sendTilKontrollAction(
 
   const { error } = await sendOppgaveTilKontroll(request, params.oppgaveId);
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
     variant: "success",
     title: "Oppgave sendt til kontroll 👮",
   };
+
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 

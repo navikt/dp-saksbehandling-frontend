@@ -11,7 +11,7 @@ const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_UR
 
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-  const { data, error } = await behandlingClient.GET("/behandling/{behandlingId}", {
+  const { data, error, response } = await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { behandlingId },
@@ -19,12 +19,14 @@ export async function hentBehandling(request: Request, behandlingId: string) {
   });
 
   if (error) {
-    return handleHttpProblem(error);
+    handleHttpProblem(error);
   }
 
   if (data) {
     return data;
   }
+
+  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
 export async function avbrytBehandling(

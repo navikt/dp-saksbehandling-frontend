@@ -1,5 +1,4 @@
-import { json, redirect } from "@remix-run/node";
-import type { ActionFunctionArgs } from "@remix-run/server-runtime/dist/routeModules";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
@@ -22,19 +21,20 @@ export async function returnerOppgaveTilSaksbehandlerAction(
       message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
     };
 
-    return json(error);
+    return error;
   }
 
   const { error } = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
     variant: "success",
     title: "Oppgave sendt tilbake til saksbehandler ↩️",
   };
+
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 

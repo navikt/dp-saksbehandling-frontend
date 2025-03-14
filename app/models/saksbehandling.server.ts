@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse, handleHttpProblem } from "~/utils/error-response.server";
+import { handleHttpProblem } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
@@ -17,7 +17,7 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
       urlSearchParams,
     );
 
-  const { response, data } = await saksbehandlerClient.GET("/oppgave", {
+  const { data, error, response } = await saksbehandlerClient.GET("/oppgave", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       query: queryParams,
@@ -28,11 +28,11 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
     return data;
   }
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (error) {
+    handleHttpProblem(error);
   }
 
-  throw new Error("Uhåndtert feil i hentOppgaver()");
+  throw new Error(`Uhåndtert feil i hentOppgaver(). ${response.status} - ${response.statusText}`);
 }
 
 export async function hentOppgave(request: Request, oppgaveId: string) {
@@ -52,11 +52,7 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
     handleHttpProblem(error);
   }
 
-  if (!response.ok || error) {
-    handleErrorResponse(response);
-  }
-
-  throw new Error("Uhåndtert feil i hentOppgave()");
+  throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
 export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: string) {
@@ -168,7 +164,7 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
 
 export async function hentOppgaverForPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, response } = await saksbehandlerClient.POST("/person/oppgaver", {
+  const { data, error, response } = await saksbehandlerClient.POST("/person/oppgaver", {
     headers: getHeaders(onBehalfOfToken),
     body: { ident },
   });
@@ -177,24 +173,30 @@ export async function hentOppgaverForPerson(request: Request, ident: string) {
     return data;
   }
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (error) {
+    handleHttpProblem(error);
   }
 
-  throw new Error("Uhåndtert feil i hentOppgaver()");
+  throw new Error(
+    `Uhåndtert feil i hentOppgaverForPerson(). ${response.status} - ${response.statusText}`,
+  );
 }
 
 export async function hentStatistikkForSaksbehandler(request: Request) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error } = await saksbehandlerClient.GET("/statistikk", {
+  const { data, error, response } = await saksbehandlerClient.GET("/statistikk", {
     headers: getHeaders(onBehalfOfToken),
   });
-
-  if (error) {
-    return handleHttpProblem(error);
-  }
 
   if (data) {
     return data;
   }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentStatistikkForSaksbehandler(). ${response.status} - ${response.statusText}`,
+  );
 }

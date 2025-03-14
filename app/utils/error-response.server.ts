@@ -13,7 +13,11 @@ export function handleErrorResponse(response: Response): void {
   });
 }
 
-export function handleHttpProblem(problem: sakbehandlingComponent["schemas"]["HttpProblem"]): void {
+export function handleHttpProblem(
+  problem:
+    | sakbehandlingComponent["schemas"]["HttpProblem"]
+    | behandlingComponent["schemas"]["HttpProblem"],
+): void {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   throw new Response(problem.title, {

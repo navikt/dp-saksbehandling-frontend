@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { avbrytBehandling } from "~/models/behandling.server";
@@ -16,13 +16,14 @@ export async function sendTilArenaAction(
   const { error } = await avbrytBehandling(request, behandlingId, personIdent);
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
     variant: "success",
     title: "Behandling sendt til arena for videre behandling",
   };
+
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 

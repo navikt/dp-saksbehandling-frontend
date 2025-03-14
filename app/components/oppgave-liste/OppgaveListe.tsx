@@ -1,7 +1,7 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { Form, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
+import { Form, useLocation, useNavigation } from "react-router";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -130,7 +130,9 @@ export function OppgaveListe({
             return (
               <Table.Row
                 key={oppgave.oppgaveId}
-                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
+                className={classnames({
+                  [styles.valgtOppgaveBackground]: erValgtOppgave,
+                })}
               >
                 {lasterOppgaver && (
                   <>
@@ -158,7 +160,9 @@ export function OppgaveListe({
                 {!lasterOppgaver && (
                   <>
                     <Table.DataCell
-                      className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
+                      className={classnames({
+                        [styles.valgtOppgaveBorder]: erValgtOppgave,
+                      })}
                     >
                       <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
                     </Table.DataCell>

@@ -1,9 +1,9 @@
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { hentNesteOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.server";
 
 export async function hentNesteOppgaveAction(request: Request, formData: FormData) {
   const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
@@ -21,22 +21,20 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
     return redirect(`/oppgave/${data.oppgaveId}/behandle`);
   }
 
-  logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-  let alert: IAlert;
+  let alert: IAlert = {
+    variant: "error",
+    title: `${response.status} ${response.statusText}`,
+  };
 
-  if (response.status === 404) {
-    alert = {
-      variant: "success",
-      title: "Ingen flere oppgaver 🎉",
-      body: "Alle oppgaver med dette søket er ferdig behandlet",
-    };
-  } else {
-    alert = {
-      variant: "error",
-      title: error.title,
-      body: error.detail,
-      service: error.instance,
-    };
+  if (error) {
+    if (error.status === 404) {
+      alert = {
+        variant: "success",
+        title: "Ingen flere oppgaver 🎉",
+        body: "Alle oppgaver med dette søket er ferdig behandlet",
+      };
+    }
+    alert = getHttpProblemAlert(error);
   }
 
   const session = await getSession(request.headers.get("Cookie"));

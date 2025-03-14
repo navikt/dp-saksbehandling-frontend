@@ -1,6 +1,6 @@
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";

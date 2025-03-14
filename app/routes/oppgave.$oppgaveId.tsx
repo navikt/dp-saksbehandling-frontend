@@ -1,8 +1,7 @@
 import { Alert, Detail } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { defer } from "@remix-run/node";
-import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { Outlet, useActionData, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -15,7 +14,7 @@ import { hentOppgave } from "~/models/saksbehandling.server";
 import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
@@ -37,24 +36,18 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return defer(
-    {
-      alert,
-      oppgave,
-      behandling,
-      oppgaverForPerson,
-      journalposterResponses,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return {
+    alert,
+    oppgave,
+    behandling,
+    oppgaverForPerson,
+    journalposterResponses,
+  };
 }
 
 export default function Oppgave() {
   const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
+
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);

@@ -4,13 +4,12 @@ import {
   RobotSmileIcon,
 } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { useEffect, useState } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IAvklaring } from "~/models/behandling.server";
-import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
@@ -23,7 +22,7 @@ interface IProps {
 }
 
 export function Avklaring({ avklaring, readonly }: IProps) {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<typeof handleActions>();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
   const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
@@ -117,7 +116,10 @@ export function Avklaring({ avklaring, readonly }: IProps) {
   );
 }
 
-function renderStatusIcon(status: IAvklaring["status"], maskinelt: boolean) {
+function renderStatusIcon(
+  status: components["schemas"]["Avklaring"]["status"],
+  maskinelt: boolean,
+) {
   switch (status) {
     case "Åpen":
       return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;

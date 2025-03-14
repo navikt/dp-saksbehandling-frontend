@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Button, Detail, Heading, Loader } from "@navikt/ds-react";
-import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import { useFetcher } from "react-router";
 
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";

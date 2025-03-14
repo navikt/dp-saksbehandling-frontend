@@ -1,8 +1,7 @@
 import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { Form, useActionData, useLoaderData, useNavigation } from "react-router";
 
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
@@ -11,7 +10,7 @@ import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/oppgave.module.css";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { commitSession, getSession } from "~/sessions";
+import { getSession } from "~/sessions";
 import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
 import { convertToQueryParamString } from "~/utils/url.utils";
@@ -24,14 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
-    { alert },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    },
-  );
+  return { alert };
 }
 
 export default function NesteOppgave() {

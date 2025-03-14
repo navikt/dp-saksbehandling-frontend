@@ -1,4 +1,4 @@
-import type { Validator } from "@rvf/remix";
+import type { Validator } from "@rvf/react-router";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
 

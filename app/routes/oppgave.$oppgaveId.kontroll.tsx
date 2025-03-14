@@ -1,7 +1,7 @@
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { Outlet, useActionData } from "@remix-run/react";
+import type { ActionFunctionArgs } from "react-router";
+import { Outlet, useActionData } from "react-router";
 
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";

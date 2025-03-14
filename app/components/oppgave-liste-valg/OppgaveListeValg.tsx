@@ -1,7 +1,7 @@
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
+import { Form, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";

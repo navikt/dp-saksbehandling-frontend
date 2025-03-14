@@ -1,5 +1,3 @@
-import { json } from "@remix-run/node";
-
 import { lagreNotat } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 
@@ -18,8 +16,8 @@ export async function lagreNotatAction(request: Request, formData: FormData) {
   const { data, error } = await lagreNotat(request, oppgaveId, notat);
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
-  return json(data);
+  return data;
 }

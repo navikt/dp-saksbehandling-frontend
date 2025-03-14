@@ -1,5 +1,5 @@
-import { json, redirect } from "@remix-run/node";
-import { validationError } from "@rvf/remix";
+import { validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { utsettOppgave } from "~/models/saksbehandling.server";
@@ -36,13 +36,14 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
   );
 
   if (error) {
-    return json(getHttpProblemAlert(error));
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
     variant: "success",
     title: "Oppgave utsatt 📆",
   };
+
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 

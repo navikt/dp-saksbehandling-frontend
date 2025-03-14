@@ -1,7 +1,6 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { InternalHeader } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
   Link,
   Links,
@@ -11,7 +10,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
@@ -103,7 +102,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
 
-  return json({
+  return {
     saksbehandler: saksbehandler,
     antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
@@ -116,7 +115,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       orkestratorBarnOpplysninger,
     },
     env: {
-      BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
       GCP_ENV: process.env.GCP_ENV,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
@@ -130,7 +128,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
     },
-  });
+  };
 }
 
 export default function App() {
