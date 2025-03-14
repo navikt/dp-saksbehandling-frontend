@@ -64,6 +64,8 @@ export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Op
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
+  adressebeskyttelseGradering: "FORTROLIG",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44c",
 };
 
 export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Oppgave"] = {
@@ -78,6 +80,8 @@ export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Opp
   tilstand: "UNDER_KONTROLL",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
+  adressebeskyttelseGradering: "STRENGT_FORTROLIG",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
 };
 
 export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgave"] = {
@@ -91,6 +95,8 @@ export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgav
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
+  adressebeskyttelseGradering: "UGRADERT",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44e",
 };
 
 export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
@@ -104,6 +110,8 @@ export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
+  adressebeskyttelseGradering: "UGRADERT",
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
 };
 
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [
