@@ -16,7 +16,7 @@ COPY ./vite.config.ts ./
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
-RUN npm ci --ignore-scripts
+RUN npm install --ignore-scripts
 RUN npm run build
 
 
@@ -27,7 +27,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
-RUN npm ci --ignore-scripts --omit dev
+RUN npm install --ignore-scripts --omit dev
 
 
 # export build to filesystem (GitHub)
