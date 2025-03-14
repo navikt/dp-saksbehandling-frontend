@@ -826,6 +826,7 @@ export interface components {
         Vedtak: {
             /** Format: uuid */
             behandlingId: string;
+            "basertP\u00E5Behandlinger"?: string[];
             fagsakId: string;
             "s\u00F8knadId": string;
             automatisk?: boolean;
@@ -843,6 +844,8 @@ export interface components {
             virkningsdato: string;
             /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
             behandletAv: components["schemas"]["BehandletAv"][];
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse?: components["schemas"]["Hendelse"];
             /**
              * @description En liste over vilkår som er vurdert i behandlingen
              * @example [
@@ -990,6 +993,11 @@ export interface components {
             /** @enum {string} */
             rolle: "saksbehandler" | "beslutter";
             behandler?: components["schemas"]["Saksbehandler"];
+        };
+        Hendelse: {
+            hendelseId: string;
+            /** @enum {string} */
+            hendelseType: "Søknad" | "Meldekort";
         };
     };
     responses: never;
