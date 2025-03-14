@@ -130,7 +130,6 @@ export default function App() {
   return (
     <html lang="nb">
       <head>
-        <base href="/saksbehandling" />
         <title>Dagpenger</title>
         <Meta />
         <Links />
