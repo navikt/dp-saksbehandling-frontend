@@ -16,7 +16,7 @@ COPY ./vite.config.ts ./
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
-RUN npm ci --ignore-scripts --legacy-peer-deps
+RUN npm ci --ignore-scripts
 RUN npm run build
 
 
