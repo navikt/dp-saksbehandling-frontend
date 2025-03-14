@@ -1,5 +1,6 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
+import { useEffect } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { redirect } from "react-router";
 import { useActionData, useLoaderData, useNavigation, useSearchParams } from "react-router";
@@ -68,7 +69,10 @@ export default function Saksbehandling() {
   const { setAktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  setAktivtOppgaveSok(searchParams.toString());
+
+  useEffect(() => {
+    setAktivtOppgaveSok(searchParams.toString());
+  }, []);
 
   return (
     <div className={styles.container}>
