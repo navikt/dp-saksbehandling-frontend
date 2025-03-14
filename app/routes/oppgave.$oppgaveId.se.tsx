@@ -31,7 +31,7 @@ export default function Oppgave() {
         </div>
 
         <div className={"card"}>
-          <OppgaveInformasjon />
+          <OppgaveInformasjon defaultTab={"dokumenter"} />
         </div>
 
         <Outlet />

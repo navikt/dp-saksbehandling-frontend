@@ -35,6 +35,7 @@ export interface IBehandling {
     | "TilGodkjenning"
     | "TilBeslutning";
   kreverTotrinnskontroll: boolean;
+  utfall: boolean;
   vilkår: IRegelsett[];
   fastsettelser: IRegelsett[];
   avklaringer: IAvklaring[];

@@ -6,6 +6,7 @@ export interface IAlert {
   variant: AlertProps["variant"];
   title: string;
   body?: string;
+  service?: string;
 }
 
 export interface AlertContextType {

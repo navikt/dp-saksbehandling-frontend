@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import type { IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import type { IMeldingOmVedtak, IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 
 interface IProps {
   meldingOmVedtak: IMeldingOmVedtak;
@@ -10,6 +9,7 @@ interface IProps {
 
 export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }: IProps) {
   const { html } = meldingOmVedtak;
+
   useEffect(() => {
     utvidetBeskrivelser.forEach((utvidetBeskrivelse) => {
       const brevBlokkDiv = document.querySelector(
@@ -28,5 +28,6 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }:
       }
     });
   }, [utvidetBeskrivelser]);
+
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }

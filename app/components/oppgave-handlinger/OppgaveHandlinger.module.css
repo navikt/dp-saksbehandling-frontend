@@ -18,3 +18,11 @@
 .OppgaveHandlinger button {
   white-space: nowrap;
 }
+
+.formError {
+  margin: var(--a-spacing-2) 0;
+}
+
+.beholdOppgaveCheckbox {
+  margin: var(--a-spacing-2) 0;
+}

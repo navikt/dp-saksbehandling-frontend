@@ -17,9 +17,6 @@ export function OppgaveHandlingFattVedtak() {
       fattVedtakModalRef.current?.close();
     }
   }, [actionData]);
-  const kravPaaDagpenger = behandling.opplysninger.find(
-    (o) => o.navn === "Krav på dagpenger",
-  )?.verdi;
 
   return (
     <>
@@ -35,7 +32,7 @@ export function OppgaveHandlingFattVedtak() {
         <Modal.Body>
           <BodyLong>
             Ønsker du å fatte vedtak med utfall{" "}
-            <strong>{kravPaaDagpenger === "true" ? "innvilget" : "avslag"}?</strong>
+            <strong>{behandling.utfall ? "innvilget" : "avslag"}?</strong>
           </BodyLong>
         </Modal.Body>
 

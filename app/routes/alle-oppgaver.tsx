@@ -1,4 +1,4 @@
-import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import {
   type ActionFunctionArgs,
@@ -76,11 +76,6 @@ export default function Saksbehandling() {
               value="filter"
               label="Filter"
               icon={<FunnelIcon title="filter" aria-hidden />}
-            />
-            <Tabs.Tab
-              value="statistikk"
-              label="Statistikk"
-              icon={<BarChartIcon title="statistikk" aria-hidden />}
             />
           </Tabs.List>
 

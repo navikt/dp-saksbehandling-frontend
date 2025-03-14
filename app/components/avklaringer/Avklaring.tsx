@@ -5,12 +5,14 @@ import {
 } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
 import classnames from "classnames";
-import { useState } from "react";
-import { Form, useNavigation } from "react-router";
+import { useEffect, useState } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IAvklaring } from "~/models/behandling.server";
+import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
 import { formaterNorskDato } from "~/utils/dato.utils";
+import { isAlert } from "~/utils/type-guards";
 
 import styles from "./Avklaring.module.css";
 
@@ -20,6 +22,7 @@ interface IProps {
 }
 
 export function Avklaring({ avklaring, readonly }: IProps) {
+  const actionData = useActionData<typeof action>();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
   const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
@@ -27,6 +30,12 @@ export function Avklaring({ avklaring, readonly }: IProps) {
   let avklartAv = "";
   if (avklaring.maskinelt) avklartAv = "av regelmotor";
   if (avklaring.avklartAv?.ident) avklartAv = `av ${avklaring.avklartAv?.ident}`;
+
+  useEffect(() => {
+    if (isAlert(actionData)) {
+      setVisBeskrivelse(false);
+    }
+  }, [actionData]);
 
   return (
     <>
@@ -52,7 +61,7 @@ export function Avklaring({ avklaring, readonly }: IProps) {
           {avklaring.beskrivelse}
 
           {avklaring.kanKvitteres && (
-            <Form method="post" onSubmit={() => setVisBeskrivelse(!visBeskrivelse)}>
+            <Form method="post">
               <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
               <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
               <input
@@ -84,12 +93,17 @@ export function Avklaring({ avklaring, readonly }: IProps) {
                     size="xsmall"
                     loading={state !== "idle"}
                     type="button"
-                    onClick={() => setVisBeskrivelse(false)}
                   >
                     Lukk
                   </Button>
 
-                  <Button variant="primary" size="xsmall" loading={state !== "idle"}>
+                  <Button
+                    variant="primary"
+                    size="xsmall"
+                    loading={state !== "idle"}
+                    type="submit"
+                    onClick={() => setVisBeskrivelse(true)}
+                  >
                     Lagre
                   </Button>
                 </>

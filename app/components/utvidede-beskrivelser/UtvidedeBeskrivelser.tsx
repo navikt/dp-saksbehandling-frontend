@@ -1,19 +1,17 @@
 import { Detail } from "@navikt/ds-react";
 
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
-import type { IUtvidetBeskrivelse } from "~/context/melding-om-vedtak-context";
-import { useMeldingOmVedtakTekst } from "~/hooks/useMeldingOmVedtakTekst";
+import { IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 
 export function UtvidedeBeskrivelser(props: {
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
+  setUtvidedeBeskrivelser: (utvidedeBeskrivelser: IUtvidetBeskrivelse[]) => void;
   readOnly?: boolean;
 }) {
-  const { utvidedeBeskrivelser, setUtvidedeBeskrivelser } = useMeldingOmVedtakTekst();
-
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
-    let oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser];
+    let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
 
-    const utvidetBeskrivelseIndex = utvidedeBeskrivelser.findIndex(
+    const utvidetBeskrivelseIndex = props.utvidedeBeskrivelser.findIndex(
       (beskrivelse) => beskrivelse.brevblokkId === oppdatertBeskrivelse.brevblokkId,
     );
 
@@ -23,15 +21,15 @@ export function UtvidedeBeskrivelser(props: {
       oppdatertElement.sistEndretTidspunkt =
         oppdatertBeskrivelse.sistEndretTidspunkt || oppdatertElement.sistEndretTidspunkt;
     } else {
-      oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser, oppdatertBeskrivelse];
+      oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser, oppdatertBeskrivelse];
     }
 
-    setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
+    props.setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
   }
 
   return (
     <div>
-      {props.utvidetBeskrivelser.map((utvidetBeskrivelse) => (
+      {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
         <UtvidetBeskrivelseInput
           key={utvidetBeskrivelse.brevblokkId}
           brevblokkId={utvidetBeskrivelse.brevblokkId}

@@ -11,9 +11,11 @@ import { OppgaveFilterUtfall } from "~/components/oppgave-filter-utfall/OppgaveF
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
+import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentOppgaver } from "~/models/oppgave.server";
+import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getSession } from "~/sessions";
@@ -46,11 +48,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   const oppgaverResponse = await hentOppgaver(request, url.search);
+  const statistikk = await hentStatistikkForSaksbehandler(request);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return {
     alert,
+    statistikk,
     oppgaver: oppgaverResponse.oppgaver,
     totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
   };
@@ -60,7 +64,7 @@ export default function Saksbehandling() {
   const { state } = useNavigation();
   const [searchParams] = useSearchParams();
   const actionData = useActionData<typeof action>();
-  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  const { alert, oppgaver, statistikk, totaltAntallOppgaver } = useLoaderData<typeof loader>();
   const { setAktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -90,8 +94,8 @@ export default function Saksbehandling() {
             <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
 
-          <Tabs.Panel value="statistikk" className={tabStyles.tabPanel}>
-            Statistikk
+          <Tabs.Panel value="statistikk">
+            <Statistikk statistikk={statistikk} />
           </Tabs.Panel>
         </Tabs>
       </aside>

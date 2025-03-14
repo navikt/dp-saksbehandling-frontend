@@ -1,3 +1,4 @@
+import { Alert, Detail } from "@navikt/ds-react";
 import { Fragment } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Outlet, useActionData, useLoaderData } from "react-router";
@@ -6,16 +7,15 @@ import invariant from "tiny-invariant";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
-import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
-import { hentMeldingOmVedtak, IMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/oppgave.server";
 import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getSession } from "~/sessions";
+import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -33,18 +33,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
-  let meldingOmVedtak: IMeldingOmVedtak | undefined;
-  if (oppgave.tilstand === "UNDER_KONTROLL" || oppgave.tilstand === "UNDER_BEHANDLING") {
-    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-    });
-  }
-
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -54,12 +42,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     behandling,
     oppgaverForPerson,
     journalposterResponses,
-    meldingOmVedtak,
   };
 }
 
 export default function Oppgave() {
-  const { oppgave, oppgaverForPerson, alert, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -67,13 +54,23 @@ export default function Oppgave() {
   return (
     <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} />
+      {oppgave.person.sikkerhetstiltak?.map((tiltak) => (
+        <Alert
+          key={tiltak.beskrivelse}
+          className={"alert--compact"}
+          variant="warning"
+          fullWidth={true}
+        >
+          {tiltak.beskrivelse}
+          <Detail>Gjelder til og med {formaterNorskDato(tiltak.gyldigTom)}</Detail>
+        </Alert>
+      ))}
+
       <div className={styles.oppgaveContainer}>
-        <MeldingOmVedtakProvider utvidedeBeskrivelser={meldingOmVedtak?.utvidedeBeskrivelser || []}>
-          <BeslutterNotatProvider notat={oppgave.notat}>
-            <OppgaveListe oppgaver={oppgaverForPerson} />
-            <Outlet />
-          </BeslutterNotatProvider>
-        </MeldingOmVedtakProvider>
+        <BeslutterNotatProvider notat={oppgave.notat}>
+          <OppgaveListe oppgaver={oppgaverForPerson} />
+          <Outlet />
+        </BeslutterNotatProvider>
       </div>
     </Fragment>
   );
