@@ -135,7 +135,6 @@ export default function App() {
   const { env, saksbehandler, antallOppgaverJegHarTilBehandling, featureFlags } =
     useLoaderData<typeof loader>();
 
-  console.log("SB: ", saksbehandler);
   return (
     <html lang="nb">
       <head>
