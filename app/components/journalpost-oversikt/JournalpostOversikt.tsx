@@ -20,7 +20,7 @@ export function JournalpostOversikt({ journalposter }: IProps) {
       return;
     }
 
-    const url = `/saksbehandling/api/hent-dokument/${valgtJournalpost.journalpostId}/${dokumentInfoId}/${variantFormat}`;
+    const url = `/api/hent-dokument/${valgtJournalpost.journalpostId}/${dokumentInfoId}/${variantFormat}`;
     const response = await fetch(url);
 
     if (!response.ok) {
