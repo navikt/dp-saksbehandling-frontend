@@ -47,7 +47,7 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   );
 
   const visOrkestratorBarn =
-    satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger && orkestratorBarn.length > 0;
+    satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger
 
   return (
     <div>
