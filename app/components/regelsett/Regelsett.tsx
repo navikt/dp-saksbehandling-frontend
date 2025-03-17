@@ -46,8 +46,7 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
     (opplysning) => opplysning?.formål === "Mellomsteg",
   );
 
-  const visOrkestratorBarn =
-    satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger
+  const visOrkestratorBarn = satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger;
 
   return (
     <div>
@@ -146,9 +145,9 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
 
       {visOrkestratorBarn && (
         <>
-          {orkestratorBarn.map((barn, index) => {
-            return <OrkestratorBarn key={index} barnNummer={index + 1} barn={barn} />;
-          })}
+          {orkestratorBarn.map((barn, index) => (
+            <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
+          ))}
         </>
       )}
     </div>

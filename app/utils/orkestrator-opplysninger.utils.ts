@@ -1,6 +1,7 @@
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import { formaterNorskDato } from "./dato.utils";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
+
+import { formaterNorskDato } from "./dato.utils";
 
 export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   const opplysninger = [
@@ -40,4 +41,15 @@ function hentLand(lankode: string): string {
   const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return orkestratorLandliste.find((land) => land.alpha3kode === lankode)?.navn || "";
+}
+
+// Funksjonen returnerer et objekt med opplysninger fra opplysnings array
+export function hentOrkestratorBarnFormDefaultValues(opplysninger: IOrkestratorBarnOpplysning[]) {
+  return opplysninger.reduce(
+    (acc, { id, verdi }) => {
+      acc[id] = verdi;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
 }

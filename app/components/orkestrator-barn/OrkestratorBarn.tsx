@@ -1,15 +1,14 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import { useActionData, useNavigation } from "@remix-run/react";
+import { useNavigation } from "@remix-run/react";
 import { useForm } from "@rvf/remix";
-import { withZod } from "@rvf/zod";
 import classNames from "classnames";
-import { useEffect, useRef } from "react";
-import { z } from "zod";
+import { useRef } from "react";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
-import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
+import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
@@ -19,63 +18,18 @@ interface IProps {
   barn: IOrkestratorBarn;
 }
 
-const validator = withZod(
-  z.object({
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fødselsdato: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-    ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsørgerBarnet: z.enum(["true", "false"], {
-      required_error: "Du må velge et svar",
-      invalid_type_error: "Ugyldig svar",
-    }),
-    kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
-      required_error: "Du må velge et svar",
-      invalid_type_error: "Ugyldig svar",
-    }),
-    barnetilleggFom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-      ),
-    barnetilleggTom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-      ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-  }),
-);
-
 export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
-  const actionData = useActionData<typeof action>();
   const { state } = useNavigation();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
-  useEffect(() => {
-    if (actionData) {
-      ref.current?.close();
-    }
-  }, [actionData]);
-
-  const defaultValues = barn.opplysninger.reduce(
-    (acc, { id, verdi }) => {
-      acc[id] = verdi;
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-
   const orkestratorBarnForm = useForm({
-    validator: validator,
+    validator: hentValideringOrkestratorBarn(),
     method: "put",
-    defaultValues: defaultValues,
+    defaultValues: hentOrkestratorBarnFormDefaultValues(barn.opplysninger),
+    onSubmitSuccess: () => {
+      ref.current?.close();
+    },
   });
 
   function avbryt() {
@@ -83,7 +37,6 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
     ref.current?.close();
   }
 
-  // Todo: Ikke lagre til backend dersom ingenting er endret i formen
   return (
     <div className={styles.orkestratorBarn}>
       <>
@@ -149,7 +102,12 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
             <Button type="button" variant="secondary" size="small" onClick={avbryt}>
               Avbryt
             </Button>
-            <Button type="submit" size="small" loading={state !== "idle"}>
+            <Button
+              type="submit"
+              size="small"
+              loading={state !== "idle"}
+              disabled={!orkestratorBarnForm.formState.isDirty}
+            >
               Lagre endringer
             </Button>
           </Modal.Footer>
