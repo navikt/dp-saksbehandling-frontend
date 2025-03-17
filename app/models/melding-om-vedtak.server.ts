@@ -1,11 +1,10 @@
-import { IAlert } from "~/context/alert-context";
+import createClient from "openapi-fetch";
+
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.server";
 import { getHeaders } from "~/utils/fetch.utils";
-import { IHttpProblem } from "~/utils/types";
 
-import { components } from "../../openapi/saksbehandling-typer";
+import { components, paths } from "../../openapi/melding-om-vedtak-typer";
 
 export interface IMeldingOmVedtak {
   html: string;
@@ -32,31 +31,21 @@ export interface IMeldingOmVedtakBody {
   beslutter?: components["schemas"]["Behandler"];
 }
 
+const meldingOmVedtakClient = createClient<paths>({ baseUrl: getEnv("DP_MELDING_OM_VEDTAK_URL") });
+
 export async function hentMeldingOmVedtak(
   request: Request,
   behandlingId: string,
-  body: IMeldingOmVedtakBody,
-): Promise<IMeldingOmVedtak | IAlert> {
+  body: components["schemas"]["MeldingOmVedtakData"],
+) {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
-
-  const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/html`;
-  const response = await fetch(url, {
-    method: "POST",
+  return await meldingOmVedtakClient.POST("/melding-om-vedtak/{behandlingId}/html", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify(body),
+    body: { ...body },
+    params: {
+      path: { behandlingId },
+    },
   });
-
-  if (!response.ok) {
-    const httpProblem: IHttpProblem = await response.json();
-    return {
-      variant: "error",
-      title: httpProblem.title,
-      body: httpProblem.detail,
-      service: httpProblem.instance,
-    };
-  }
-
-  return await response.json();
 }
 
 export async function lagreUtvidetBeskrivelse(
@@ -64,19 +53,16 @@ export async function lagreUtvidetBeskrivelse(
   behandlingId: string,
   brevblokkId: string,
   utvidetBeskrivelse: string,
-): Promise<ILagreUtvidetBeskrivelseResponse> {
+) {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
-
-  const url = `${getEnv("DP_MELDING_OM_VEDTAK_URL")}/melding-om-vedtak/${behandlingId}/${brevblokkId}/utvidet-beskrivelse`;
-  const response = await fetch(url, {
-    method: "PUT",
-    headers: { ...getHeaders(onBehalfOfToken), "Content-Type": "text/plain" },
-    body: utvidetBeskrivelse,
-  });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
+  return await meldingOmVedtakClient.PUT(
+    "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      body: utvidetBeskrivelse,
+      params: {
+        path: { behandlingId, brevblokkId },
+      },
+    },
+  );
 }

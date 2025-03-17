@@ -2,7 +2,8 @@ import { IAlert } from "~/context/alert-context";
 import { logger } from "~/utils/logger.utils";
 
 import { components as behandlingComponent } from "../../openapi/behandling-typer";
-import { components as sakbehandlingComponent } from "../../openapi/saksbehandling-typer";
+import { components as meldingOmVedtakComponent } from "../../openapi/melding-om-vedtak-typer";
+import { components as saksbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
 export function handleErrorResponse(response: Response): void {
   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
@@ -15,7 +16,8 @@ export function handleErrorResponse(response: Response): void {
 
 export function handleHttpProblem(
   problem:
-    | sakbehandlingComponent["schemas"]["HttpProblem"]
+    | meldingOmVedtakComponent["schemas"]["HttpProblem"]
+    | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
 ): void {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
@@ -28,14 +30,15 @@ export function handleHttpProblem(
 
 export function getHttpProblemAlert(
   problem:
-    | sakbehandlingComponent["schemas"]["HttpProblem"]
+    | meldingOmVedtakComponent["schemas"]["HttpProblem"]
+    | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
 ): IAlert {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {
     variant: "error",
-    title: problem.title,
+    title: problem.title || "Ukjent feil",
     body: problem.detail,
     service: problem.instance,
   };
