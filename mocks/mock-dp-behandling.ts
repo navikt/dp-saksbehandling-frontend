@@ -1,12 +1,13 @@
 import { createOpenApiHttp } from "openapi-msw";
 
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
 import { mockBehandlinger } from "./data/mock-behandling";
 
 const apiError = false;
-const http = createOpenApiHttp<paths>({ baseUrl: process.env.DP_BEHANDLING_URL });
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",

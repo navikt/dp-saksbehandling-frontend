@@ -1,5 +1,6 @@
 import { createOpenApiHttp } from "openapi-msw";
 
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
@@ -7,7 +8,7 @@ import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
 const apiError = false;
-const http = createOpenApiHttp<paths>({ baseUrl: process.env.DP_SAKSBEHANDLING_URL });
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL") });
 
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
@@ -29,7 +30,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json({
@@ -43,7 +44,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json(mockOppgaver[0]);
@@ -54,7 +55,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     const { oppgaveId } = params;
@@ -71,7 +72,7 @@ export const mockDpSaksbehandling = [
   http.put(`/oppgave/{oppgaveId}/tildel`, ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     const { oppgaveId } = params;
@@ -94,7 +95,7 @@ export const mockDpSaksbehandling = [
   http.put(`/oppgave/{oppgaveId}/legg-tilbake`, ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     const { oppgaveId } = params;
@@ -112,7 +113,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(204).empty();
@@ -123,7 +124,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(204).empty();
@@ -134,7 +135,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     const { oppgaveId } = params;
@@ -152,7 +153,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(204).empty();
@@ -163,7 +164,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(204).empty();
@@ -174,7 +175,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
@@ -185,7 +186,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
@@ -196,7 +197,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json(mockListeOppgaver);
@@ -207,7 +208,7 @@ export const mockDpSaksbehandling = [
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     if (apiError) {
-      return response(500).json(defaultError);
+      return response("default").json(defaultError, { status: 500 });
     }
 
     return response(200).json(mockStatistikk);

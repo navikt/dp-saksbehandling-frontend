@@ -1,17 +1,15 @@
+import { components } from "openapi/melding-om-vedtak-typer";
 import { useEffect } from "react";
 
-import type { IMeldingOmVedtak, IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
-
 interface IProps {
-  meldingOmVedtak: IMeldingOmVedtak;
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
 }
 
-export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }: IProps) {
-  const { html } = meldingOmVedtak;
+export function MeldingOmVedtakPreview({ meldingOmVedtak }: IProps) {
+  const { html, utvidedeBeskrivelser } = meldingOmVedtak;
 
   useEffect(() => {
-    utvidetBeskrivelser.forEach((utvidetBeskrivelse) => {
+    utvidedeBeskrivelser?.forEach((utvidetBeskrivelse) => {
       const brevBlokkDiv = document.querySelector(
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
@@ -27,7 +25,8 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }:
         }
       }
     });
-  }, [utvidetBeskrivelser]);
+  }, [utvidedeBeskrivelser]);
 
+  // @ts-expect-error TODO: Typefeil i dp-melding-om-vedtak
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }

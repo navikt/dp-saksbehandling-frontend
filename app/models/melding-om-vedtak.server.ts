@@ -6,31 +6,6 @@ import { getHeaders } from "~/utils/fetch.utils";
 
 import { components, paths } from "../../openapi/melding-om-vedtak-typer";
 
-export interface IMeldingOmVedtak {
-  html: string;
-  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
-}
-
-export interface IUtvidetBeskrivelse {
-  brevblokkId: string;
-  tekst: string;
-  sistEndretTidspunkt?: string;
-  tittel?: string;
-}
-
-export interface ILagreUtvidetBeskrivelseResponse {
-  sistEndretTidspunkt: string;
-}
-
-export interface IMeldingOmVedtakBody {
-  fornavn: string;
-  mellomnavn?: string;
-  etternavn: string;
-  fodselsnummer: string;
-  saksbehandler?: components["schemas"]["Behandler"];
-  beslutter?: components["schemas"]["Behandler"];
-}
-
 const meldingOmVedtakClient = createClient<paths>({ baseUrl: getEnv("DP_MELDING_OM_VEDTAK_URL") });
 
 export async function hentMeldingOmVedtak(

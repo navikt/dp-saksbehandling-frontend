@@ -1,10 +1,7 @@
-import { ActionFunctionArgs } from "react-router";
-
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { getHttpProblemAlert } from "~/utils/error-response.server";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+export async function hentMeldingOmVedtakAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
   const fornavn = formData.get("fornavn") as string;
   const mellomnavn = formData.get("mellomnavn") as string;

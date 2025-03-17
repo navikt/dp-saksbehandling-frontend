@@ -1,14 +1,19 @@
 import { Detail } from "@navikt/ds-react";
 
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
-import { IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
+
+import { components } from "../../../openapi/melding-om-vedtak-typer";
 
 export function UtvidedeBeskrivelser(props: {
-  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
-  setUtvidedeBeskrivelser: (utvidedeBeskrivelser: IUtvidetBeskrivelse[]) => void;
+  utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
+  setUtvidedeBeskrivelser: (
+    utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][],
+  ) => void;
   readOnly?: boolean;
 }) {
-  function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
+  function oppdaterUtvidetBeskrivelse(
+    oppdatertBeskrivelse: components["schemas"]["UtvidetBeskrivelse"],
+  ) {
     let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
 
     const utvidetBeskrivelseIndex = props.utvidedeBeskrivelser.findIndex(
@@ -32,8 +37,8 @@ export function UtvidedeBeskrivelser(props: {
       {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
         <UtvidetBeskrivelseInput
           key={utvidetBeskrivelse.brevblokkId}
-          brevblokkId={utvidetBeskrivelse.brevblokkId}
           readOnly={props.readOnly}
+          utvidetBeskrivelse={utvidetBeskrivelse}
           updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
           label={
             <div>
@@ -41,8 +46,6 @@ export function UtvidedeBeskrivelser(props: {
               <Detail textColor="subtle">Utvidet beskrivelse</Detail>
             </div>
           }
-          verdi={utvidetBeskrivelse?.tekst || ""}
-          sistEndretTidspunkt={utvidetBeskrivelse?.sistEndretTidspunkt}
         />
       ))}
     </div>

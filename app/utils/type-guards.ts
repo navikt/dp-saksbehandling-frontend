@@ -2,13 +2,10 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
-import {
-  ILagreUtvidetBeskrivelseResponse,
-  IMeldingOmVedtak,
-} from "~/models/melding-om-vedtak.server";
 import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
 
-import { components } from "../../openapi/saksbehandling-typer";
+import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
+import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export function isNetworkResponseSuccess<T>(
   networkResponse?: unknown,
@@ -47,24 +44,26 @@ export function isAlert(data?: unknown): data is IAlert {
 
 export function isILagreNotatResponse(
   data: unknown,
-): data is components["schemas"]["LagreNotatResponse"] {
+): data is saksbehandlingComponents["schemas"]["LagreNotatResponse"] {
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeResponse = data as Partial<components["schemas"]["LagreNotatResponse"]>;
+  const maybeResponse = data as Partial<saksbehandlingComponents["schemas"]["LagreNotatResponse"]>;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
 }
 
 export function isILagreUtvidetBeskrivelseResponse(
   data: unknown,
-): data is ILagreUtvidetBeskrivelseResponse {
+): data is meldingOmVedtakComponents["schemas"]["UtvidetBeskrivelseSistEndretTidspunkt"] {
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeResponse = data as Partial<ILagreUtvidetBeskrivelseResponse>;
+  const maybeResponse = data as Partial<
+    meldingOmVedtakComponents["schemas"]["UtvidetBeskrivelseSistEndretTidspunkt"]
+  >;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
 }
@@ -83,12 +82,16 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   return typeof maybeError.message === "string";
 }
 
-export function isIMeldingOmVedtak(data: unknown): data is IMeldingOmVedtak {
+export function isIMeldingOmVedtak(
+  data: unknown,
+): data is meldingOmVedtakComponents["schemas"]["MeldingOmVedtakResponse"] {
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeMeldingOmVedtak = data as Partial<IMeldingOmVedtak>;
+  const maybeMeldingOmVedtak = data as Partial<
+    meldingOmVedtakComponents["schemas"]["MeldingOmVedtakResponse"]
+  >;
 
   const hasValidHtml = typeof maybeMeldingOmVedtak.html === "string";
   const hasValidUtvidedeBeskrivelser = Array.isArray(maybeMeldingOmVedtak.utvidedeBeskrivelser);

@@ -6,20 +6,19 @@ import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/M
 import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { IAlert } from "~/context/alert-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IMeldingOmVedtak, IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 import { logger } from "~/utils/logger.utils";
 import { isAlert, isIMeldingOmVedtak } from "~/utils/type-guards";
 
+import { components } from "../../../openapi/melding-om-vedtak-typer";
 import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
   const fetcher = useFetcher();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const [meldingOmVedtak, setMeldingOmVedtak] = useState<
+    components["schemas"]["MeldingOmVedtakResponse"] | null
+  >(null);
 
-  const [meldingOmVedtak, setMeldingOmVedtak] = useState<IMeldingOmVedtak | null>(null);
-  const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
-    meldingOmVedtak?.utvidedeBeskrivelser || [],
-  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<IAlert | null>(null);
 
@@ -29,6 +28,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
       if (!loading) setLoading(true);
 
       const formData = new FormData();
+      formData.append("_action", "hent-melding-om-vedtak-action");
       formData.append("behandlingId", oppgave.behandlingId);
       formData.append("fornavn", oppgave.person.fornavn);
       formData.append("mellomnavn", oppgave.person.mellomnavn || "");
@@ -41,8 +41,7 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
         formData.append("beslutter", JSON.stringify(oppgave.beslutter));
       }
 
-      fetcher.submit(formData, {
-        action: "/api/hent-melding-om-vedtak",
+      await fetcher.submit(formData, {
         method: "post",
       });
     } catch (error) {
@@ -62,7 +61,6 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
     if (fetcher.data && isIMeldingOmVedtak(fetcher.data)) {
       setLoading(false);
       setMeldingOmVedtak(fetcher.data);
-      setUtvidedeBeskrivelser(fetcher.data.utvidedeBeskrivelser);
     }
 
     if (fetcher.data && isAlert(fetcher.data)) {
@@ -90,17 +88,21 @@ export function MeldingOmVedtak({ readOnly }: { readOnly?: boolean }) {
 
       {meldingOmVedtak && (
         <div className={styles.meldingOmVedtakContainer}>
-          <UtvidedeBeskrivelser
-            utvidedeBeskrivelser={utvidedeBeskrivelser}
-            setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-            readOnly={readOnly}
-          />
+          {meldingOmVedtak.utvidedeBeskrivelser && (
+            <UtvidedeBeskrivelser
+              utvidedeBeskrivelser={meldingOmVedtak.utvidedeBeskrivelser}
+              setUtvidedeBeskrivelser={(utvidedeBeskrivelser) =>
+                setMeldingOmVedtak({
+                  ...meldingOmVedtak,
+                  utvidedeBeskrivelser,
+                })
+              }
+              readOnly={readOnly}
+            />
+          )}
 
           <div className={styles.previewContainer}>
-            <MeldingOmVedtakPreview
-              meldingOmVedtak={meldingOmVedtak}
-              utvidetBeskrivelser={utvidedeBeskrivelser}
-            />
+            <MeldingOmVedtakPreview meldingOmVedtak={meldingOmVedtak} />
           </div>
         </div>
       )}

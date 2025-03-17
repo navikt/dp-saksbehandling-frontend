@@ -38,6 +38,15 @@ export interface paths {
                         "application/json": components["schemas"]["OppgaveOversiktResultat"];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         put?: never;
@@ -81,6 +90,15 @@ export interface paths {
                 };
                 /** @description Ingen flere oppgaver å behandle akkurat nå */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -134,6 +152,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         put?: never;
@@ -164,7 +191,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["Notat"];
+                    "text/plain": string;
                 };
             };
             responses: {
@@ -179,6 +206,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -212,6 +248,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -264,6 +309,15 @@ export interface paths {
                 };
                 /** @description Oppgaven er allerede sendt til kontroll eller den krever ikke kontroll. */
                 409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -325,6 +379,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         post?: never;
@@ -352,11 +415,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
-                content: {
-                    "text/html": string;
-                };
-            };
+            requestBody?: never;
             responses: {
                 /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
                 204: {
@@ -374,8 +433,8 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Unsupported Media Type - Innholdstypen må være text/html */
-                415: {
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -421,6 +480,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -486,6 +554,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         post?: never;
@@ -521,7 +598,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["OppgaveTilstand"];
+                        "application/json": components["schemas"]["OppdatertTilstand"];
                     };
                 };
                 /** @description Oppgaven ble ikke funnet */
@@ -535,6 +612,15 @@ export interface paths {
                 };
                 /** @description Oppgaven er allerede tatt til behandling */
                 409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -596,6 +682,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         post?: never;
@@ -637,6 +732,15 @@ export interface paths {
                         "application/json": components["schemas"]["OppgaveOversikt"][];
                     };
                 };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
             };
         };
         delete?: never;
@@ -675,6 +779,15 @@ export interface paths {
                 };
                 /** @description Fant ikke oppgaveId for behandlingId */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -730,7 +843,18 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
                 };
             };
         };
@@ -792,8 +916,8 @@ export interface components {
             tidspunktOpprettet: string;
             /** Format: date */
             utsattTilDato?: string;
-            journalpostIder?: string[];
-            historikk?: components["schemas"]["OppgaveHistorikk"][];
+            journalpostIder: string[];
+            historikk: components["schemas"]["OppgaveHistorikk"][];
             emneknagger: string[];
             tilstand: components["schemas"]["OppgaveTilstand"];
             notat?: components["schemas"]["Notat"];
@@ -839,7 +963,7 @@ export interface components {
             /** Format: date */
             utsettTilDato: string;
             beholdOppgave: boolean;
-            aarsak?: components["schemas"]["UtsettOppgaveAarsak"];
+            aarsak: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
         UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "ANNET";
@@ -905,13 +1029,16 @@ export interface components {
              */
             datoEldsteUbehandledeOppgave?: string;
         };
+        OppdatertTilstand: {
+            nyTilstand: components["schemas"]["OppgaveTilstand"];
+        };
         HttpProblem: {
-            type?: string;
-            title?: string;
+            type: string;
+            title: string;
             /** Format: int32 */
-            status?: number;
+            status: number;
             detail?: string;
-            instance?: string;
+            instance: string;
         };
     };
     responses: never;
