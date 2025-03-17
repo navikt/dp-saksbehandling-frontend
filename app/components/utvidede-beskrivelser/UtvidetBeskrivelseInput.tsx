@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 import { action } from "~/routes/oppgave.$oppgaveId.behandle";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import { isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
+import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
 export interface IUtvidetBeskrivelseInput {
   verdi: string;
@@ -20,9 +21,11 @@ export interface IUtvidetBeskrivelseInput {
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
+  const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.verdi);
   const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
+
   useEffect(() => {
     if (
       lagreUtvidetBeskrivelseFetcher.data &&
@@ -33,6 +36,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
         brevblokkId: props.brevblokkId,
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
+    }
+
+    if (isAlert(lagreUtvidetBeskrivelseFetcher.data)) {
+      addAlert(lagreUtvidetBeskrivelseFetcher.data);
     }
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
