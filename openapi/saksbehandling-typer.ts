@@ -38,15 +38,6 @@ export interface paths {
                         "application/json": components["schemas"]["OppgaveOversiktResultat"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         put?: never;
@@ -90,15 +81,6 @@ export interface paths {
                 };
                 /** @description Ingen flere oppgaver å behandle akkurat nå */
                 404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -152,15 +134,6 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         put?: never;
@@ -191,7 +164,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "text/plain": string;
+                    "application/json": components["schemas"]["Notat"];
                 };
             };
             responses: {
@@ -206,15 +179,6 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -248,15 +212,6 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -309,15 +264,6 @@ export interface paths {
                 };
                 /** @description Oppgaven er allerede sendt til kontroll eller den krever ikke kontroll. */
                 409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -379,15 +325,6 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         post?: never;
@@ -415,7 +352,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "text/html": string;
+                };
+            };
             responses: {
                 /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
                 204: {
@@ -435,15 +376,6 @@ export interface paths {
                 };
                 /** @description Unsupported Media Type - Innholdstypen må være text/html */
                 415: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -489,15 +421,6 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -563,15 +486,6 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         post?: never;
@@ -607,7 +521,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["OppdatertTilstand"];
+                        "text/plain": components["schemas"]["OppgaveTilstand"];
                     };
                 };
                 /** @description Oppgaven ble ikke funnet */
@@ -621,15 +535,6 @@ export interface paths {
                 };
                 /** @description Oppgaven er allerede tatt til behandling */
                 409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -691,15 +596,6 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         post?: never;
@@ -739,15 +635,6 @@ export interface paths {
                     };
                     content: {
                         "application/json": components["schemas"]["OppgaveOversikt"][];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
             };
@@ -795,15 +682,6 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
             };
         };
         put?: never;
@@ -841,9 +719,9 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            individuellStatistikk?: components["schemas"]["Statistikk"];
-                            generellStatistikk?: components["schemas"]["Statistikk"];
-                            beholdningsinfo?: components["schemas"]["BeholdningsInfo"];
+                            individuellStatistikk: components["schemas"]["Statistikk"];
+                            generellStatistikk: components["schemas"]["Statistikk"];
+                            beholdningsinfo: components["schemas"]["BeholdningsInfo"];
                         };
                     };
                 };
@@ -852,18 +730,7 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Intern serverfeil */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
+                    content?: never;
                 };
             };
         };
@@ -925,8 +792,8 @@ export interface components {
             tidspunktOpprettet: string;
             /** Format: date */
             utsattTilDato?: string;
-            journalpostIder: string[];
-            historikk: components["schemas"]["OppgaveHistorikk"][];
+            journalpostIder?: string[];
+            historikk?: components["schemas"]["OppgaveHistorikk"][];
             emneknagger: string[];
             tilstand: components["schemas"]["OppgaveTilstand"];
             notat?: components["schemas"]["Notat"];
@@ -972,7 +839,7 @@ export interface components {
             /** Format: date */
             utsettTilDato: string;
             beholdOppgave: boolean;
-            aarsak: components["schemas"]["UtsettOppgaveAarsak"];
+            aarsak?: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
         UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "ANNET";
@@ -1038,16 +905,13 @@ export interface components {
              */
             datoEldsteUbehandledeOppgave?: string;
         };
-        OppdatertTilstand: {
-            nyTilstand: components["schemas"]["OppgaveTilstand"];
-        };
         HttpProblem: {
-            type: string;
-            title: string;
+            type?: string;
+            title?: string;
             /** Format: int32 */
-            status: number;
+            status?: number;
             detail?: string;
-            instance: string;
+            instance?: string;
         };
     };
     responses: never;
