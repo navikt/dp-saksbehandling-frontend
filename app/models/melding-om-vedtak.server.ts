@@ -31,10 +31,10 @@ export async function lagreUtvidetBeskrivelse(
 ) {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
   return await meldingOmVedtakClient.PUT(
-    "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse",
+    "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse-json",
     {
       headers: getHeaders(onBehalfOfToken),
-      body: utvidetBeskrivelse,
+      body: { tekst: utvidetBeskrivelse },
       params: {
         path: { behandlingId, brevblokkId },
       },

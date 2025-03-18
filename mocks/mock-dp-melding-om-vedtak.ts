@@ -45,7 +45,7 @@ export const mockDpMeldingOmVedtak = [
 
   // Lagre utvidet beskrivelse tekst
   http.put(
-    "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse",
+    "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse-json",
     ({ request, response }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
 
