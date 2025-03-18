@@ -1,22 +1,34 @@
 import { components } from "openapi/melding-om-vedtak-typer";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface IProps {
-  meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
+  html: string;
+  utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
 }
 
-export function MeldingOmVedtakPreview({ meldingOmVedtak }: IProps) {
-  const { html, utvidedeBeskrivelser } = meldingOmVedtak;
+export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    utvidedeBeskrivelser?.forEach((utvidetBeskrivelse) => {
-      const brevBlokkDiv = document.querySelector(
+    if (containerRef.current) {
+      containerRef.current.innerHTML = html;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    utvidedeBeskrivelser.forEach((utvidetBeskrivelse) => {
+      const brevBlokkDiv = containerRef.current?.querySelector<HTMLElement>(
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
+
       if (brevBlokkDiv) {
         const lines = utvidetBeskrivelse.tekst?.split(/\r\n|\r|\n|\u2028|\u2029/);
         if (lines) {
-          brevBlokkDiv.innerHTML = ""; // Clear existing content
+          brevBlokkDiv.innerHTML = "";
           lines.forEach((line) => {
             const textNode = document.createTextNode(line);
             brevBlokkDiv.appendChild(textNode);
@@ -27,6 +39,5 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak }: IProps) {
     });
   }, [utvidedeBeskrivelser]);
 
-  // @ts-expect-error TODO: Typefeil i dp-melding-om-vedtak
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div ref={containerRef} />;
 }

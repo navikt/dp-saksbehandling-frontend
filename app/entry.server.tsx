@@ -17,7 +17,8 @@ import { logger } from "~/utils/logger.utils";
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 
-const ABORT_DELAY = 5000;
+// Reject all pending promises from handler functions after 10 seconds
+export const streamTimeout = 10000;
 
 if (getEnv("USE_MSW") === "true") {
   import("../mocks/mock-server").then(({ startMockServer }) => {
@@ -108,8 +109,9 @@ function handleBotRequest(
         },
       },
     );
-
-    setTimeout(abort, ABORT_DELAY);
+    // Abort the streaming render pass after 11 seconds to allow the rejected
+    // boundaries to be flushed
+    setTimeout(abort, streamTimeout + 1000);
   });
 }
 
@@ -157,7 +159,9 @@ function handleBrowserRequest(
       },
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    // Abort the streaming render pass after 11 seconds to allow the rejected
+    // boundaries to be flushed
+    setTimeout(abort, streamTimeout + 1000);
   });
 }
 

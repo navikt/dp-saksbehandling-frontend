@@ -9,6 +9,7 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
+import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
@@ -28,6 +29,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const meldingOmVedtakResponse = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+    fornavn: oppgave.person.fornavn,
+    mellomnavn: oppgave.person.mellomnavn,
+    etternavn: oppgave.person.etternavn,
+    fodselsnummer: oppgave.person.ident,
+    // @ts-expect-error TODO: Fiks type i backend
+    saksbehandler: oppgave.saksbehandler,
+    // @ts-expect-error TODO: Fiks type i backend
+    beslutter: oppgave.beslutter,
+  });
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
@@ -42,6 +53,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     behandling,
     oppgaverForPerson,
     journalposterResponses,
+    meldingOmVedtakResponse,
   };
 }
 

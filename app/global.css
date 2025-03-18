@@ -3,6 +3,10 @@ body {
   min-height: calc(100vh);
 }
 
+.m-4 {
+  margin: var(--a-spacing-4);
+}
+
 .-mx-4 {
   margin: 0 calc(var(--a-spacing-4) * -1);
 }

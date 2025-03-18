@@ -12,20 +12,22 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_MELDING_OM_VEDTAK_UR
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
   title: "Default MSW feilmelding",
+  detail: "En feil har oppstått",
   status: 500,
-  instance: "dp-saksbehandling",
+  instance: "dp-melding-om-vedtak",
 };
 
 const error404: components["schemas"]["HttpProblem"] = {
   type: "404",
   title: "Fant ikke data",
+  detail: "Default 404 feilmelding",
   status: 404,
   instance: "dp-melding-om-vedtak",
 };
 
 export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
-  http.post("/melding-om-vedtak/{behandlingId}/html", ({ request, params, response }) => {
+  http.post("/melding-om-vedtak/{behandlingId}/html", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
     const meldingOmVedtak = mockMeldingerOmVedtak.find(

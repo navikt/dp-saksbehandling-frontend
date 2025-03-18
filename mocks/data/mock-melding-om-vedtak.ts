@@ -11,7 +11,7 @@ export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVed
   utvidedeBeskrivelser: [
     {
       brevblokkId: "brev.blokk.vedtak-innvilgelse",
-      tekst: "",
+      tekst: "Fisk",
       tittel: "Nav har innvilget søknaden din om dagpenger",
       sistEndretTidspunkt: "2025-01-21T11:12:22.825566779",
     },

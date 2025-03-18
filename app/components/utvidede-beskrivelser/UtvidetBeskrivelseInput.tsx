@@ -5,7 +5,7 @@ import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
@@ -22,7 +22,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState(props.utvidetBeskrivelse.tekst);
-  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
+  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof handleActions>();
 
   useEffect(() => {
     if (
@@ -72,7 +72,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           label={props.label}
           value={verdi}
           onChange={(event) => lagreUtvidetBeskrivelse(event, 2000)}
-          onBlur={(event) => lagreUtvidetBeskrivelse(event, 0)}
+          onBlur={(event) => {
+            if (props.utvidetBeskrivelse.tekst !== event.currentTarget.value)
+              lagreUtvidetBeskrivelse(event, 0);
+          }}
           readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>

@@ -4,16 +4,14 @@ import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/Utvi
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
+type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
+
 export function UtvidedeBeskrivelser(props: {
-  utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
-  setUtvidedeBeskrivelser: (
-    utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][],
-  ) => void;
+  utvidedeBeskrivelser: IUtvidetBeskrivelse[];
+  setUtvidedeBeskrivelser: (utvidedeBeskrivelser: IUtvidetBeskrivelse[]) => void;
   readOnly?: boolean;
 }) {
-  function oppdaterUtvidetBeskrivelse(
-    oppdatertBeskrivelse: components["schemas"]["UtvidetBeskrivelse"],
-  ) {
+  function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
     let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
 
     const utvidetBeskrivelseIndex = props.utvidedeBeskrivelser.findIndex(
