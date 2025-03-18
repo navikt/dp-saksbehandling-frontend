@@ -14,6 +14,8 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
 
   const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSok);
 
+  console.log(response);
+
   if (data) {
     if (data.tilstand === "UNDER_KONTROLL") {
       return redirect(`/oppgave/${data.oppgaveId}/kontroll`);
@@ -33,8 +35,9 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
         title: "Ingen flere oppgaver 🎉",
         body: "Alle oppgaver med dette søket er ferdig behandlet",
       };
+    } else {
+      alert = getHttpProblemAlert(error);
     }
-    alert = getHttpProblemAlert(error);
   }
 
   const session = await getSession(request.headers.get("Cookie"));

@@ -34,41 +34,39 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
   }, [meldingOmVedtakResponse]);
 
   return (
-    <div>
-      <Suspense fallback={<CenteredLoader size={"large"} />}>
-        <Await
-          resolve={meldingOmVedtakResponse}
-          errorElement={<AsyncErrorMelding feilmelding={"Klarte ikke hente melding om vedtak"} />}
-        >
-          {(meldingOmVedtak) => {
-            if (meldingOmVedtak.error) {
-              return <HttpProblemAlert error={getHttpProblemAlert(meldingOmVedtak.error)} />;
-            }
+    <Suspense fallback={<CenteredLoader size={"large"} />}>
+      <Await
+        resolve={meldingOmVedtakResponse}
+        errorElement={<AsyncErrorMelding feilmelding={"Klarte ikke hente melding om vedtak"} />}
+      >
+        {(meldingOmVedtak) => {
+          if (meldingOmVedtak.error) {
+            return <HttpProblemAlert error={getHttpProblemAlert(meldingOmVedtak.error)} />;
+          }
 
-            return (
-              <>
-                <div className={styles.meldingOmVedtakContainer}>
-                  {meldingOmVedtak.data.utvidedeBeskrivelser && (
-                    <UtvidedeBeskrivelser
-                      utvidedeBeskrivelser={utvidedeBeskrivelser}
-                      setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-                      readOnly={readOnly}
-                    />
-                  )}
+          return (
+            <>
+              <div className={styles.meldingOmVedtakContainer}>
+                {meldingOmVedtak.data.utvidedeBeskrivelser && (
+                  <UtvidedeBeskrivelser
+                    utvidedeBeskrivelser={utvidedeBeskrivelser}
+                    setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
+                    readOnly={readOnly}
+                  />
+                )}
 
-                  <div className={styles.previewContainer}>
-                    <MeldingOmVedtakPreview
-                      utvidedeBeskrivelser={utvidedeBeskrivelser}
-                      // @ts-expect-error TODO: Fiks type backend
-                      html={meldingOmVedtak.data.html}
-                    />
-                  </div>
+                <div className={styles.previewContainer}>
+                  <MeldingOmVedtakPreview
+                    utvidedeBeskrivelser={utvidedeBeskrivelser}
+                    // @ts-expect-error TODO: Fiks type backend
+                    html={meldingOmVedtak.data.html}
+                  />
                 </div>
-              </>
-            );
-          }}
-        </Await>
-      </Suspense>
-    </div>
+              </div>
+            </>
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 }
