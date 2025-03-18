@@ -5,7 +5,7 @@ import type { IFormValidationError } from "~/components/oppgave-handlinger/Oppga
 import { IAlert } from "~/context/alert-context";
 import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function returnerOppgaveTilSaksbehandlerAction(
   request: Request,

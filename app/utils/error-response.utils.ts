@@ -36,6 +36,8 @@ export function getHttpProblemAlert(
 ): IAlert {
   logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
+  console.log(problem);
+
   return {
     variant: "error",
     title: problem.title || "Ukjent feil",

@@ -1,5 +1,5 @@
 import { lagreNotat } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function lagreNotatAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgave-id") as string;

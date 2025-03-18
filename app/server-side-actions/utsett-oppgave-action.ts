@@ -4,7 +4,7 @@ import { redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { utsettOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";

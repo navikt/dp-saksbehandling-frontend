@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillOppgave, ferdigstillOppgaveMedArenaBrev } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function fattVedtakAction(
   request: Request,

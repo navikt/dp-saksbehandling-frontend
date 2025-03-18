@@ -3,7 +3,7 @@ import { redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { hentNesteOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function hentNesteOppgaveAction(request: Request, formData: FormData) {
   const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;

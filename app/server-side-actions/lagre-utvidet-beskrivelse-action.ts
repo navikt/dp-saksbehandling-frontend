@@ -1,5 +1,5 @@
 import { lagreUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function lagreUtvidetBeskrivelseAction(request: Request, formData: FormData) {
   const brevblokkId = formData.get("brevblokk-id") as string;

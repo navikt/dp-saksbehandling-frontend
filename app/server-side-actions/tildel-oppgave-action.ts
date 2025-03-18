@@ -1,7 +1,7 @@
 import { redirect } from "react-router";
 
 import { tildelOppgave } from "~/models/saksbehandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function tildelOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;

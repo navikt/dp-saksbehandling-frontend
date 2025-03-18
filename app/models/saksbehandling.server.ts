@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.server";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 

@@ -1,6 +1,6 @@
 import { IAlert } from "~/context/alert-context";
 import { rekjorBehandling } from "~/models/behandling.server";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function rekjorBehandlingAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;

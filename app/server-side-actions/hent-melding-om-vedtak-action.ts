@@ -1,5 +1,5 @@
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
-import { getHttpProblemAlert } from "~/utils/error-response.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function hentMeldingOmVedtakAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
