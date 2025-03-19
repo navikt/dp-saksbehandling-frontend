@@ -1,6 +1,6 @@
 import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
 import { useRef, useState } from "react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { ActionFunctionArgs, data, LoaderFunctionArgs } from "react-router";
 import { Form, useActionData, useLoaderData, useNavigation } from "react-router";
 
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
@@ -10,7 +10,7 @@ import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/oppgave.module.css";
 import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
 import { convertToQueryParamString } from "~/utils/url.utils";
@@ -23,7 +23,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return { alert };
+  return data(
+    { alert },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    },
+  );
 }
 
 export default function NesteOppgave() {

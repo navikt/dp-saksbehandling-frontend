@@ -2,6 +2,7 @@ import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import {
   type ActionFunctionArgs,
+  data,
   LoaderFunctionArgs,
   redirect,
   useActionData,
@@ -23,7 +24,7 @@ import { hentOppgaver } from "~/models/saksbehandling.server";
 import { hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
@@ -60,12 +61,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return {
-    alert,
-    statistikk,
-    oppgaver: oppgaverResponse.oppgaver,
-    totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
-  };
+  return data(
+    {
+      alert,
+      statistikk,
+      oppgaver: oppgaverResponse.oppgaver,
+      totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    },
+  );
 }
 
 export default function Saksbehandling() {

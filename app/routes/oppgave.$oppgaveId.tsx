@@ -1,6 +1,6 @@
 import { Alert, Detail } from "@navikt/ds-react";
 import { Fragment } from "react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { ActionFunctionArgs, data, LoaderFunctionArgs } from "react-router";
 import { Outlet, useActionData, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
@@ -15,7 +15,7 @@ import { hentOppgave } from "~/models/saksbehandling.server";
 import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { getSession } from "~/sessions";
+import { commitSession, getSession } from "~/sessions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
@@ -47,14 +47,21 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return {
-    alert,
-    oppgave,
-    behandling,
-    oppgaverForPerson,
-    journalposterResponses,
-    meldingOmVedtakResponse,
-  };
+  return data(
+    {
+      alert,
+      oppgave,
+      behandling,
+      oppgaverForPerson,
+      journalposterResponses,
+      meldingOmVedtakResponse,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    },
+  );
 }
 
 export default function Oppgave() {
