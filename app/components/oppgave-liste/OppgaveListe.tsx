@@ -115,7 +115,7 @@ export function OppgaveListe({
 
         <Table.Body>
           {lasterOppgaver && (
-            <>
+            <Table.Row>
               <Table.DataCell>
                 <Skeleton variant="text" width={90} height={33} />
               </Table.DataCell>
@@ -139,7 +139,7 @@ export function OppgaveListe({
               <Table.DataCell>
                 <Skeleton variant="text" width={20} height={33} />
               </Table.DataCell>
-            </>
+            </Table.Row>
           )}
 
           {!lasterOppgaver && (
