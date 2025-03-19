@@ -37,11 +37,19 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
     <Suspense fallback={<CenteredLoader size={"large"} />}>
       <Await
         resolve={meldingOmVedtakResponse}
-        errorElement={<AsyncErrorMelding feilmelding={"Klarte ikke hente melding om vedtak"} />}
+        errorElement={
+          <div className={"p-2"}>
+            <AsyncErrorMelding feilmelding={"Klarte ikke hente melding om vedtak"} />
+          </div>
+        }
       >
         {(meldingOmVedtak) => {
           if (meldingOmVedtak.error) {
-            return <HttpProblemAlert error={getHttpProblemAlert(meldingOmVedtak.error)} />;
+            return (
+              <div className={"p-2"}>
+                <HttpProblemAlert error={getHttpProblemAlert(meldingOmVedtak.error)} />
+              </div>
+            );
           }
 
           return (
