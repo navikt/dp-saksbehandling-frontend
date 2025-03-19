@@ -3,6 +3,10 @@ body {
   min-height: calc(100vh);
 }
 
+.p-2 {
+  padding: var(--a-spacing-2);
+}
+
 .m-4 {
   margin: var(--a-spacing-4);
 }
