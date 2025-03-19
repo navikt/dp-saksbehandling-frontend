@@ -1,3 +1,4 @@
+import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
@@ -26,8 +27,9 @@ const error404: components["schemas"]["HttpProblem"] = {
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
-  http.get(`/oppgave`, ({ request, response }) => {
+  http.get(`/oppgave`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -40,9 +42,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler
-  http.put(`/oppgave/neste`, ({ request, response }) => {
+  http.put(`/oppgave/neste`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-
+    await delay();
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
@@ -51,8 +53,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent en oppgave med oppgaveId
-  http.get(`/oppgave/{oppgaveId}`, ({ request, response, params }) => {
+  http.get(`/oppgave/{oppgaveId}`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -69,8 +72,10 @@ export const mockDpSaksbehandling = [
   }),
 
   // Tildel en oppgave med oppgaveId
-  http.put(`/oppgave/{oppgaveId}/tildel`, ({ request, response, params }) => {
+  http.put(`/oppgave/{oppgaveId}/tildel`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
@@ -92,8 +97,10 @@ export const mockDpSaksbehandling = [
   }),
 
   // Legg oppgave med oppgaveId tilbake i køen
-  http.put(`/oppgave/{oppgaveId}/legg-tilbake`, ({ request, response, params }) => {
+  http.put(`/oppgave/{oppgaveId}/legg-tilbake`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
@@ -109,19 +116,24 @@ export const mockDpSaksbehandling = [
   }),
 
   // Ferdigstille oppgave med melding om vedtak generert i Arena.
-  http.put(`/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena`, ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(
+    `/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena`,
+    async ({ request, response }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
 
-    if (apiError) {
-      return response("default").json(defaultError, { status: 500 });
-    }
+      if (apiError) {
+        return response("default").json(defaultError, { status: 500 });
+      }
 
-    return response(204).empty();
-  }),
+      return response(204).empty();
+    },
+  ),
 
   // Ferdigstille oppgave med melding om vedtak generert i frontend.
-  http.put(`/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak`, ({ request, response }) => {
+  http.put(`/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -131,8 +143,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Utsett oppgave med oppgaveId
-  http.put(`/oppgave/{oppgaveId}/utsett`, ({ request, response, params }) => {
+  http.put(`/oppgave/{oppgaveId}/utsett`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -149,8 +162,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Send oppgave til kontroll
-  http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, ({ request, response }) => {
+  http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -160,8 +174,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Send oppgave tilbake til saksbehandler fra kontroll
-  http.put(`/oppgave/{oppgaveId}/returner-til-saksbehandler`, ({ request, response }) => {
+  http.put(`/oppgave/{oppgaveId}/returner-til-saksbehandler`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -171,8 +186,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Lagre notat på oppgave
-  http.put(`/oppgave/{oppgaveId}/notat`, ({ request, response }) => {
+  http.put(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -182,8 +198,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Slett notat på oppgave
-  http.delete(`/oppgave/{oppgaveId}/notat`, ({ request, response }) => {
+  http.delete(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -193,8 +210,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent alle oppgaver til en person
-  http.post(`/person/oppgaver`, ({ request, response }) => {
+  http.post(`/person/oppgaver`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -204,8 +222,9 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent statistikk
-  http.get(`/statistikk`, ({ request, response }) => {
+  http.get(`/statistikk`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });

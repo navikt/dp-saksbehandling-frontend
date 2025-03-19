@@ -1,3 +1,4 @@
+import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
@@ -29,6 +30,7 @@ export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
   http.post("/melding-om-vedtak/{behandlingId}/html", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
     const meldingOmVedtak = mockMeldingerOmVedtak.find(
       (melding) => melding.behandlingId === params.behandlingId,
@@ -48,8 +50,9 @@ export const mockDpMeldingOmVedtak = [
   // Lagre utvidet beskrivelse tekst
   http.put(
     "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse-json",
-    ({ request, response }) => {
+    async ({ request, response }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
 
       if (apiError) {
         return response("default").json(defaultError, { status: 500 });
