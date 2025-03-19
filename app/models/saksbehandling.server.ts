@@ -164,22 +164,10 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
 
 export async function hentOppgaverForPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.POST("/person/oppgaver", {
+  return await saksbehandlerClient.POST("/person/oppgaver", {
     headers: getHeaders(onBehalfOfToken),
     body: { ident },
   });
-
-  if (data) {
-    return data;
-  }
-
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentOppgaverForPerson(). ${response.status} - ${response.statusText}`,
-  );
 }
 
 export async function hentStatistikkForSaksbehandler(request: Request) {

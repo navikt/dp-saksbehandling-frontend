@@ -13,8 +13,8 @@ export async function sokPersonAction(request: Request, formData: FormData) {
 
   const { personIdent } = result.data;
 
-  const oppgaver = await hentOppgaverForPerson(request, personIdent);
-  const sisteOppgave = oppgaver[0];
+  const { data } = await hentOppgaverForPerson(request, personIdent);
+  const sisteOppgave = data?.[0];
 
   if (sisteOppgave) {
     const sisteOppgaveTilstand = sisteOppgave.tilstand;
