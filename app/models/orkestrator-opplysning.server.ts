@@ -5,12 +5,27 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { IOrkestratorBarnOpplysning } from "../../mocks/data/mock-orkestrator-barn-opplysninger";
+export interface IGrunnOpplysning {
+  id: string;
+  verdi: string;
+  datatype: string;
+}
 
-export async function hentOrkestratorBarnOpplysninger(
+export type IOrkestratorKilde = "register" | "søknad";
+
+export interface IOrkestratorBarnOpplysning extends IGrunnOpplysning {
+  kilde?: IOrkestratorKilde;
+}
+
+export interface IOrkestratorBarn {
+  barnId: string;
+  opplysninger: IOrkestratorBarnOpplysning[];
+}
+
+export async function hentOrkestratorBarn(
   request: Request,
   soknadId: string,
-): Promise<IOrkestratorBarnOpplysning[]> {
+): Promise<IOrkestratorBarn[]> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn`;
 
@@ -26,25 +41,19 @@ export async function hentOrkestratorBarnOpplysninger(
   return await response.json();
 }
 
-export async function oppdaterOrkestratorBarnOpplysning(
+export async function oppdaterOrkestratorBarn(
   request: Request,
   soknadId: string,
-  barnOpplysning: IOrkestratorBarnOpplysning,
-): Promise<IOrkestratorLand[]> {
+  opplysning: string,
+): Promise<Response> {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: "PUT",
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ barnOpplysning }),
+    body: JSON.stringify({ opplysning }),
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
 export async function hentOrkestratorLandListe(request: Request): Promise<IOrkestratorLand[]> {

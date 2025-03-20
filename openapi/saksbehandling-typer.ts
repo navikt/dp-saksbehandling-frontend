@@ -191,7 +191,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "text/plain": string;
+                    "plain/text": string;
                 };
             };
             responses: {
@@ -986,7 +986,7 @@ export interface components {
             ident: string;
             fornavn: string;
             etternavn: string;
-            enhet?: {
+            enhet: {
                 navn: string;
                 enhetNr: string;
                 postadresse: string;

@@ -845,7 +845,7 @@ export interface components {
             /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
             behandletAv: components["schemas"]["BehandletAv"][];
             /** @description Hvilken hendelse som utløste behandlingen */
-            behandletHendelse?: components["schemas"]["Hendelse"];
+            behandletHendelse: components["schemas"]["Hendelse"];
             /**
              * @description En liste over vilkår som er vurdert i behandlingen
              * @example [
@@ -995,9 +995,10 @@ export interface components {
             behandler?: components["schemas"]["Saksbehandler"];
         };
         Hendelse: {
-            hendelseId: string;
+            datatype: string;
+            id: string;
             /** @enum {string} */
-            hendelseType: "Søknad" | "Meldekort";
+            type: "Søknad" | "Meldekort";
         };
     };
     responses: never;

@@ -2,6 +2,7 @@ import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
+import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -13,11 +14,17 @@ interface IProps {
 }
 
 export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandling, orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
+  const { featureFlags } = useTypedRouteLoaderData("root");
+
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
     .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
     .filter((opplysning) => opplysning !== undefined)
     .filter((opplysning) => opplysning.synlig);
+
+  const satsOgBarnetillegg =
+    aktivtRegelsett.hjemmel.kapittel === "4" && aktivtRegelsett.hjemmel.paragraf === "12";
 
   const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Bruker",
@@ -34,6 +41,8 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
   const regelOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Regel",
   );
+
+  const visOrkestratorBarn = satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger;
 
   return (
     <div>
@@ -110,6 +119,14 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
               />
             ))}
           </ul>
+        </>
+      )}
+
+      {visOrkestratorBarn && (
+        <>
+          {orkestratorBarn.map((barn, index) => (
+            <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
+          ))}
         </>
       )}
     </div>

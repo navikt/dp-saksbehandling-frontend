@@ -16,6 +16,10 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import {
+  hentOrkestratorBarn,
+  hentOrkestratorLandListe,
+} from "~/models/orkestrator-opplysning.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -41,13 +45,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     fodselsnummer: oppgave.person.ident,
     // @ts-expect-error TODO: Fiks type i backend
     saksbehandler: oppgave.saksbehandler,
-    // @ts-expect-error TODO: Fiks type i backend
     beslutter: oppgave.beslutter,
   });
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
+
+  // @ts-expect-error TODO: hva skjer hvis oppgaveId er null?
+  const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
+  const orkestratorLandliste = await hentOrkestratorLandListe(request);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -59,6 +66,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandling,
       oppgaverForPersonResponse,
       journalposterResponses,
+      orkestratorBarn,
+      orkestratorLandliste,
       meldingOmVedtakResponse,
     },
     {
