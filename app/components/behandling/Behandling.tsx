@@ -7,6 +7,7 @@ import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
@@ -19,12 +20,29 @@ interface IProps {
 
 export function Behandling(props: IProps) {
   const { behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { response } = useAwaitPromise(behandlingPromise);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
   );
 
+  useEffect(() => {
+    if (response?.data) {
+      const behandling = response.data;
+      const alleRegelsett = [...behandling.vilkår, ...behandling.fastsettelser];
+      const nåværendeRegelsett = alleRegelsett.find(
+        (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
+      );
+
+      if (nåværendeRegelsett) {
+        setAktivtRegelsett(nåværendeRegelsett);
+      } else {
+        setAktivtRegelsett(behandling.vilkår[0]);
+      }
+    }
+  }, [response?.data]);
+
   return (
-    <Suspense fallback={<CenteredLoader size={"large"} />}>
+    <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter behandling"} />}>
       <Await
         resolve={behandlingPromise}
         errorElement={
@@ -41,21 +59,6 @@ export function Behandling(props: IProps) {
               </div>
             );
           }
-
-          useEffect(() => {
-            if (behandling.data) {
-              const alleRegelsett = [...behandling.data.vilkår, ...behandling.data.fastsettelser];
-              const nåværendeRegelsett = alleRegelsett.find(
-                (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
-              );
-
-              if (nåværendeRegelsett) {
-                setAktivtRegelsett(nåværendeRegelsett);
-              } else {
-                setAktivtRegelsett(behandling.data.vilkår[0]);
-              }
-            }
-          }, [behandling.data]);
 
           return (
             <>
