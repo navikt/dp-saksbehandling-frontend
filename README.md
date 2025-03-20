@@ -91,7 +91,7 @@ Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
 4. `$ npm install`
 5. `$ npm run generate-token`
 6. `$ npm run dev`
-7. Gå til http://localhost:3000/saksbehandling/
+7. Gå til http://localhost:3000/
 8. Ferdig!
 
 ## Potensielle errorer
