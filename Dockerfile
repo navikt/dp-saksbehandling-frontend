@@ -27,7 +27,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
-RUN npm install --ignore-scripts --omit dev
+RUN npm ci --ignore-scripts --omit dev
 
 
 # export build to filesystem (GitHub)
