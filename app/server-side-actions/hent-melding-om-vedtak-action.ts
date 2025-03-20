@@ -29,5 +29,6 @@ export async function hentMeldingOmVedtakAction(request: Request, formData: Form
     return getHttpProblemAlert(error);
   }
 
+  // Dette skjer ikke i praksis, men for at typescript skal være fornøyd så kaster vi feil for å få riktig retur typer
   throw new Error(`Uhåndtert feil i hentMeldingOmVedtak()`);
 }

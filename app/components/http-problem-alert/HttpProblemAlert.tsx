@@ -9,7 +9,7 @@ interface IProps {
 export function HttpProblemAlert({ error }: IProps) {
   return (
     <Alert variant={error.variant}>
-      <Heading size={"small"}>{error.title}</Heading>
+      <Heading size="small">{error.title}</Heading>
       <BodyShort>{error.body}</BodyShort>
       <Detail>{error.service}</Detail>
     </Alert>

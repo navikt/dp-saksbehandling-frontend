@@ -15,15 +15,15 @@ export function OppgavelistePerson() {
       <Await
         resolve={oppgaverForPersonResponse}
         errorElement={
-          <div className={"card p-2"}>
-            <AsyncErrorMelding feilmelding={"Klarte ikke hente oppgaver for person"} />
+          <div className="card p-2">
+            <AsyncErrorMelding feilmelding="Klarte ikke hente oppgaver for person" />
           </div>
         }
       >
         {(oppgaverForPerson) => {
           if (oppgaverForPerson.error) {
             return (
-              <div className={"card p-2"}>
+              <div className="card p-2">
                 <HttpProblemAlert error={getHttpProblemAlert(oppgaverForPerson.error)} />
               </div>
             );

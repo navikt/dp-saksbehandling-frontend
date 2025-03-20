@@ -14,10 +14,10 @@ export async function sokPersonAction(request: Request, formData: FormData) {
   const { personIdent } = result.data;
 
   const { data } = await hentOppgaverForPerson(request, personIdent);
-  const sisteOppgave = data?.[0];
+  const nyesteOppgave = data?.[0];
 
-  if (sisteOppgave) {
-    const sisteOppgaveTilstand = sisteOppgave.tilstand;
+  if (nyesteOppgave) {
+    const sisteOppgaveTilstand = nyesteOppgave.tilstand;
     let view = "se";
     switch (sisteOppgaveTilstand) {
       case "KLAR_TIL_BEHANDLING":
@@ -28,7 +28,7 @@ export async function sokPersonAction(request: Request, formData: FormData) {
         view = "kontroll";
         break;
     }
-    return redirect(`/oppgave/${sisteOppgave.oppgaveId}/${view}`);
+    return redirect(`/oppgave/${nyesteOppgave.oppgaveId}/${view}`);
   } else {
     return validationError({ fieldErrors: { personIdent: "Fant ingen oppgaver for personen" } });
   }

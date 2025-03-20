@@ -14,8 +14,6 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
 
   const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSok);
 
-  console.log(response);
-
   if (data) {
     if (data.tilstand === "UNDER_KONTROLL") {
       return redirect(`/oppgave/${data.oppgaveId}/kontroll`);

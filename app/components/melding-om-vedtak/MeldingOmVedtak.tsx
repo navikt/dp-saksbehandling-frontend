@@ -38,15 +38,15 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
       <Await
         resolve={meldingOmVedtakResponse}
         errorElement={
-          <div className={"p-2"}>
-            <AsyncErrorMelding feilmelding={"Klarte ikke hente melding om vedtak"} />
+          <div className="p-2">
+            <AsyncErrorMelding feilmelding="Klarte ikke hente melding om vedtak" />
           </div>
         }
       >
         {(meldingOmVedtak) => {
           if (meldingOmVedtak.error) {
             return (
-              <div className={"p-2"}>
+              <div className="p-2">
                 <HttpProblemAlert error={getHttpProblemAlert(meldingOmVedtak.error)} />
               </div>
             );

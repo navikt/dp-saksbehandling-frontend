@@ -6,7 +6,7 @@ import { components as meldingOmVedtakComponent } from "../../openapi/melding-om
 import { components as saksbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
 export function handleErrorResponse(response: Response): void {
-  logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
+  logger.error(`${response.status} - Feil ved kall til ${response.url}`);
 
   throw new Response(`Feil ved kall til ${response.url}`, {
     status: response.status,
@@ -20,7 +20,7 @@ export function handleHttpProblem(
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
 ): void {
-  logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   throw new Response(problem.title, {
     status: problem.status,
@@ -34,7 +34,7 @@ export function getHttpProblemAlert(
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
 ): IAlert {
-  logger.warn(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {
     variant: "error",
