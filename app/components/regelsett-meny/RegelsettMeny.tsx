@@ -7,19 +7,16 @@ import {
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
 
 interface IProps {
+  behandling: components["schemas"]["Behandling"];
   aktivtRegelsett: components["schemas"]["Regelsett"];
   setAktivtRegelsett: (regelsett: components["schemas"]["Regelsett"]) => void;
 }
 
-export function RegelsettMeny({ aktivtRegelsett, setAktivtRegelsett }: IProps) {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
+export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett }: IProps) {
   return (
     <ul className={styles.regelsettMeny}>
       {behandling.vilkår.map((regelsett, index) => (

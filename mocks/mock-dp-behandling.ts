@@ -28,6 +28,7 @@ export const mockDpBehandling = [
   http.get("/behandling/{behandlingId}", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
+
     const { behandlingId } = params;
     const mockBehandling = mockBehandlinger.find(
       (behandling) => behandling.behandlingId === behandlingId,

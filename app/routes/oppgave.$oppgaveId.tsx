@@ -32,7 +32,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, oppgave.behandlingId);
+  const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPersonResponse = hentOppgaverForPerson(request, oppgave.person.ident);
   const meldingOmVedtakResponse = hentMeldingOmVedtak(request, oppgave.behandlingId, {
     fornavn: oppgave.person.fornavn,
@@ -56,7 +56,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-      behandling,
+
+      behandlingPromise,
       oppgaverForPersonResponse,
       journalposterResponses,
       meldingOmVedtakResponse,

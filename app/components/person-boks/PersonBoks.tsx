@@ -13,10 +13,10 @@ interface IProps {
 
 export function PersonBoks({ person }: IProps) {
   const location = useLocation();
-  const { oppgave, behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const utviklerinformasjon = {
     oppgaveId: oppgave.oppgaveId,
-    behandlingId: behandling.behandlingId,
+    behandlingId: oppgave.behandlingId,
     saksbehandlerIdent: oppgave.saksbehandler?.ident,
     urlPath: location.pathname,
   };

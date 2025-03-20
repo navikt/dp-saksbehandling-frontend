@@ -2,7 +2,6 @@ import createClient from "openapi-fetch";
 
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { paths } from "../../openapi/behandling-typer";
@@ -11,22 +10,12 @@ const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_UR
 
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-  const { data, error, response } = await behandlingClient.GET("/behandling/{behandlingId}", {
+  return await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { behandlingId },
     },
   });
-
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  if (data) {
-    return data;
-  }
-
-  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
 export async function avbrytBehandling(
