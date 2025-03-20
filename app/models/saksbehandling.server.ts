@@ -59,7 +59,7 @@ export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: strin
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/neste", {
     headers: getHeaders(onBehalfOfToken),
-    body: { queryParams: JSON.stringify(aktivtOppgaveSok) },
+    body: { queryParams: aktivtOppgaveSok },
   });
 }
 
