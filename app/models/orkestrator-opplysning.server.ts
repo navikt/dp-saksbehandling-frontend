@@ -2,7 +2,7 @@ import { IOrkestratorLand } from "mocks/data/mock-orkestrator-land-lister";
 
 import { getSoknadOrkestratorOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.server";
+import { handleErrorResponse } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { IGrunnOpplysning } from "./behandling.server";

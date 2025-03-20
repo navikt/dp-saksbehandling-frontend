@@ -1,163 +1,46 @@
+import createClient from "openapi-fetch";
+
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.server";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-export interface IRegelsett {
-  navn: string;
-  hjemmel: IHjemmel;
-  relevantForVedtak: boolean;
-  status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | null;
-  avklaringer: IAvklaring[];
-  opplysningIder: string[];
-}
+import { paths } from "../../openapi/behandling-typer";
 
-export interface IHjemmel {
-  kilde: {
-    navn: string;
-    kortnavn: string;
-  };
-  kapittel: string;
-  paragraf: string;
-  tittel: string;
-}
+const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
-export interface IBehandling {
-  behandlingId: string;
-  tilstand:
-    | "UnderOpprettelse"
-    | "UnderBehandling"
-    | "Redigert"
-    | "ForslagTilVedtak"
-    | "Låst"
-    | "Avbrutt"
-    | "Ferdig"
-    | "TilGodkjenning"
-    | "TilBeslutning";
-  kreverTotrinnskontroll: boolean;
-  utfall: boolean;
-  vilkår: IRegelsett[];
-  fastsettelser: IRegelsett[];
-  avklaringer: IAvklaring[];
-  opplysninger: IOpplysning[];
-}
-
-export interface IBehandlingGammel {
-  behandlingId: string;
-  tilstand: string;
-  kreverTotrinnskontroll: boolean;
-  avklaringer: IAvklaring[];
-  opplysning: IOpplysning[];
-}
-
-export interface IGrunnOpplysning {
-  id: string;
-  verdi: string;
-  datatype: string;
-}
-
-export interface IOpplysning {
-  id: string;
-  navn: string;
-  verdi: string;
-  status: "Hypotese" | "Faktum";
-  gyldigFraOgMed: string | null;
-  gyldigTilOgMed: string | null;
-  datatype: string;
-  redigerbar?: boolean;
-  kilde: IKilde | null;
-  synlig: boolean;
-  formål: "Legacy" | "Mellomsteg" | "Bruker" | "Register" | "Regel";
-  utledetAv: {
-    regel: {
-      navn: string;
-    };
-    opplysninger: string[];
-  } | null;
-}
-
-export interface IKilde {
-  type: "Saksbehandler" | "System";
-  registrert: string;
-  ident: string | null;
-  meldingId: string | null;
-}
-
-export interface IAvklaring {
-  id: string;
-  kode: string;
-  tittel: string;
-  beskrivelse: string;
-  kanKvitteres?: boolean;
-  maskinelt: boolean;
-  status: "Åpen" | "Avbrutt" | "Avklart";
-  avklartAv: { ident: string } | null;
-  sistEndret: string;
-  begrunnelse: string | null;
-}
-
-export async function hentOpplysninger(
-  request: Request,
-  behandlingId: string,
-): Promise<IBehandlingGammel> {
+export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning`;
-  const response = await fetch(url, {
-    method: "GET",
+  const { data, error, response } = await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (error) {
+    handleHttpProblem(error);
   }
 
-  return await response.json();
-}
-
-export async function hentBehandling(request: Request, behandlingId: string): Promise<IBehandling> {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: getHeaders(onBehalfOfToken),
-  });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
 
-  return await response.json();
+  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
 export async function avbrytBehandling(
   request: Request,
   behandlingId: string,
   personIdent: string,
-): Promise<Response> {
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avbryt`;
-  return await fetch(url, {
-    method: "POST",
+  return await behandlingClient.POST("/behandling/{behandlingId}/avbryt", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident: personIdent }),
-  });
-}
-
-export async function godkjennBehandling(
-  request: Request,
-  behandlingId: string,
-  personIdent: string,
-): Promise<Response> {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/godkjenn`;
-  return await fetch(url, {
-    method: "POST",
-    headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident: personIdent }),
+    body: { ident: personIdent },
+    params: {
+      path: { behandlingId },
+    },
   });
 }
 
@@ -166,21 +49,15 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-): Promise<IBehandlingGammel> {
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/opplysning/${opplysningId}`;
-  const response = await fetch(url, {
-    method: "PUT",
+  return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ verdi, begrunnelse: "" }),
+    body: { verdi, begrunnelse: "" },
+    params: {
+      path: { behandlingId, opplysningId },
+    },
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
 export async function kvitterAvklaring(
@@ -190,22 +67,22 @@ export async function kvitterAvklaring(
   begrunnelse?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/avklaring/${avklaringId}`;
-  return await fetch(url, {
-    method: "PUT",
+  return await behandlingClient.PUT("/behandling/{behandlingId}/avklaring/{avklaringId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ begrunnelse: begrunnelse ?? "" }),
+    body: { begrunnelse: begrunnelse ?? "" },
+    params: {
+      path: { behandlingId, avklaringId },
+    },
   });
 }
 
 export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-
-  const url = `${getEnv("DP_BEHANDLING_URL")}/behandling/${behandlingId}/rekjor`;
-  return await fetch(url, {
-    method: "POST",
+  return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ ident }),
+    body: { ident: ident },
+    params: {
+      path: { behandlingId },
+    },
   });
 }

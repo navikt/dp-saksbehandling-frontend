@@ -1,22 +1,27 @@
 import { Alert, Detail } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { defer } from "@remix-run/node";
-import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
+import {
+  ActionFunctionArgs,
+  data,
+  LoaderFunctionArgs,
+  Outlet,
+  useActionData,
+  useLoaderData,
+} from "react-router";
 import invariant from "tiny-invariant";
 
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
-import { hentOppgave } from "~/models/oppgave.server";
+import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
 } from "~/models/orkestrator-opplysning.server";
-import { hentOppgaverForPerson } from "~/models/person.server";
 import { hentJournalpost } from "~/models/saf.server";
+import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -32,7 +37,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandling(request, oppgave.behandlingId);
-  const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const oppgaverForPersonResponse = hentOppgaverForPerson(request, oppgave.person.ident);
+  const meldingOmVedtakResponse = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+    fornavn: oppgave.person.fornavn,
+    mellomnavn: oppgave.person.mellomnavn,
+    etternavn: oppgave.person.etternavn,
+    fodselsnummer: oppgave.person.ident,
+    // @ts-expect-error TODO: Fiks type i backend
+    saksbehandler: oppgave.saksbehandler,
+    // @ts-expect-error TODO: Fiks type i backend
+    beslutter: oppgave.beslutter,
+  });
 
   const journalposterResponses = await Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
@@ -44,15 +59,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return defer(
+  return data(
     {
       alert,
       oppgave,
       behandling,
-      oppgaverForPerson,
+      oppgaverForPersonResponse,
       journalposterResponses,
       orkestratorBarn,
       orkestratorLandliste,
+      meldingOmVedtakResponse,
     },
     {
       headers: {
@@ -63,7 +79,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
+  const { oppgave, alert } = useLoaderData<typeof loader>();
+
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -85,7 +102,7 @@ export default function Oppgave() {
 
       <div className={styles.oppgaveContainer}>
         <BeslutterNotatProvider notat={oppgave.notat}>
-          <OppgaveListe oppgaver={oppgaverForPerson} />
+          <OppgavelistePerson />
           <Outlet />
         </BeslutterNotatProvider>
       </div>

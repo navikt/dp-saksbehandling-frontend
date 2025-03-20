@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: "./.env.test" });
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-const baseURL = `http://localhost:${port}/saksbehandling/`;
+const baseURL = `http://localhost:${port}`;
 
 export default defineConfig({
   testDir: "./tests/playwright",

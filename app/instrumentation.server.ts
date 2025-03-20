@@ -1,22 +1,14 @@
-import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc";
-import type { OTLPGRPCExporterConfigNode } from "@opentelemetry/otlp-grpc-exporter-base";
-import { Resource } from "@opentelemetry/resources";
+import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
+import { ConsoleMetricExporter, PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
-import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-node";
-import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
-
-const otelConfig = {
-  url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
-  headers: {
-    "x-sf-service-name": "dp-saksbehandling-frontend",
-  },
-} as OTLPGRPCExporterConfigNode;
+import { ConsoleSpanExporter } from "@opentelemetry/sdk-trace-node";
 
 const sdk = new NodeSDK({
-  resource: new Resource({
-    [ATTR_SERVICE_NAME]: "dp-saksbehandling-frontend",
+  traceExporter: new ConsoleSpanExporter(),
+  metricReader: new PeriodicExportingMetricReader({
+    exporter: new ConsoleMetricExporter(),
   }),
-  spanProcessors: [new SimpleSpanProcessor(new OTLPTraceExporter(otelConfig))],
+  instrumentations: [getNodeAutoInstrumentations()],
 });
 
 sdk.start();

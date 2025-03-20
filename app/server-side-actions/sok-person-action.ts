@@ -1,7 +1,7 @@
-import { redirect } from "@remix-run/node";
-import { validationError } from "@rvf/remix";
+import { validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
-import { hentOppgaverForPerson } from "~/models/person.server";
+import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import { hentValideringForPersonIdent } from "~/utils/validering.util";
 
 export async function sokPersonAction(request: Request, formData: FormData) {
@@ -13,11 +13,11 @@ export async function sokPersonAction(request: Request, formData: FormData) {
 
   const { personIdent } = result.data;
 
-  const oppgaver = await hentOppgaverForPerson(request, personIdent);
-  const sisteOppgave = oppgaver[0];
+  const { data } = await hentOppgaverForPerson(request, personIdent);
+  const nyesteOppgave = data?.[0];
 
-  if (sisteOppgave) {
-    const sisteOppgaveTilstand = sisteOppgave?.tilstand;
+  if (nyesteOppgave) {
+    const sisteOppgaveTilstand = nyesteOppgave.tilstand;
     let view = "se";
     switch (sisteOppgaveTilstand) {
       case "KLAR_TIL_BEHANDLING":
@@ -28,10 +28,7 @@ export async function sokPersonAction(request: Request, formData: FormData) {
         view = "kontroll";
         break;
     }
-
-    if (oppgaver.length > 0) {
-      return redirect(`/oppgave/${sisteOppgave.oppgaveId}/${view}`);
-    }
+    return redirect(`/oppgave/${nyesteOppgave.oppgaveId}/${view}`);
   } else {
     return validationError({ fieldErrors: { personIdent: "Fant ingen oppgaver for personen" } });
   }

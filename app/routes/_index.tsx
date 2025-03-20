@@ -1,8 +1,9 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { useActionData, useLoaderData, useNavigation, useSearchParams } from "@remix-run/react";
+import { useEffect } from "react";
+import { ActionFunctionArgs, data, LoaderFunctionArgs } from "react-router";
+import { redirect } from "react-router";
+import { useActionData, useLoaderData, useNavigation, useSearchParams } from "react-router";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
@@ -14,8 +15,8 @@ import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/Op
 import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { hentStatistikkForSaksbehandler } from "~/models/statistikk.server";
+import { hentOppgaver } from "~/models/saksbehandling.server";
+import { hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -47,11 +48,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const oppgaverResponse = await hentOppgaver(request, url.search);
+  const oppgaverResponse = await hentOppgaver(request, url.searchParams);
   const statistikk = await hentStatistikkForSaksbehandler(request);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
-  return json(
+
+  return data(
     {
       alert,
       statistikk,
@@ -74,7 +76,10 @@ export default function Saksbehandling() {
   const { setAktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  setAktivtOppgaveSok(searchParams.toString());
+
+  useEffect(() => {
+    setAktivtOppgaveSok(searchParams.toString());
+  }, [searchParams]);
 
   return (
     <div className={styles.container}>

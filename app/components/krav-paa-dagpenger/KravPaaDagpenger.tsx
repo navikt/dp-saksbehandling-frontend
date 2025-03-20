@@ -2,8 +2,8 @@ import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import classnames from "classnames";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IOpplysning } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./KravPaaDagpenger.module.css";
 
 export function KravPaaDagpenger() {
@@ -45,6 +45,6 @@ export function KravPaaDagpenger() {
   );
 }
 
-function finnOpplysningMedNavn(navn: string, opplysninger: IOpplysning[]) {
+function finnOpplysningMedNavn(navn: string, opplysninger: components["schemas"]["Opplysning"][]) {
   return opplysninger.find((opplysning) => opplysning.navn === navn);
 }

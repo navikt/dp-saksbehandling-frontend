@@ -7,7 +7,6 @@ import {
   leggTilbakeSuccessAlert,
   tomtForOppgaverAlert,
 } from "~/tekst/alert-tekster";
-import { getAlertMessage } from "~/utils/alert-message.utils";
 
 test("Bruker kan navigere til mine oppgaver", async ({ page, baseURL }) => {
   await page.goto(`${baseURL}`);
@@ -78,7 +77,7 @@ test("Klikk på neste knapp skal ta deg til behandling av oppgave", async ({ pag
 test("Skal vise feilmelding hvis klikk på neste knapp feiler", async ({ page, baseURL }) => {
   const errorCode = 500;
   await page.route(`${baseURL}action-hent-neste-oppgave*`, async (route) => {
-    const json = getAlertMessage({ name: "hent-neste-oppgave", httpCode: errorCode });
+    const json = { variant: "error", title: "feil" };
     await route.fulfill({
       json,
     });
@@ -95,9 +94,8 @@ test("Skal vise feilmelding hvis klikk på neste knapp feiler", async ({ page, b
 });
 
 test("Skal vise success alert hvis klikk på neste knapp gir 404", async ({ page, baseURL }) => {
-  const errorCode = 404;
   await page.route(`${baseURL}action-hent-neste-oppgave*`, async (route) => {
-    const json = getAlertMessage({ name: "hent-neste-oppgave", httpCode: errorCode });
+    const json = { variant: "error", title: "feil" };
     await route.fulfill({
       json,
     });
@@ -130,9 +128,8 @@ test("Bruker skal få feilmelding hvis man prøver å behandle en oppgave som er
   page,
   baseURL,
 }) => {
-  const errorCode = 423;
   await page.route(`${baseURL}action-tildel-oppgave*`, async (route) => {
-    const json = getAlertMessage({ name: "tildel-oppgave", httpCode: errorCode });
+    const json = { variant: "error", title: "feil" };
     await route.fulfill({
       json,
     });
@@ -165,7 +162,7 @@ test("Bruker skal få feilmelding hvis legg tilbake endepunktet feiler", async (
 }) => {
   const errorCode = 500;
   await page.route(`${baseURL}action-legg-tilbake-oppgave*`, async (route) => {
-    const json = getAlertMessage({ name: "legg-tilbake-oppgave", httpCode: errorCode });
+    const json = { variant: "error", title: "feil" };
     await route.fulfill({
       json,
     });

@@ -1,9 +1,9 @@
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
-import { hentNesteOppgave, type IOppgave } from "~/models/oppgave.server";
+import { IAlert } from "~/context/alert-context";
+import { hentNesteOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function hentNesteOppgaveAction(request: Request, formData: FormData) {
   const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
@@ -12,17 +12,31 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
     throw new Error("Mangler aktivt oppgave søk");
   }
 
-  const response = await hentNesteOppgave(request, aktivtOppgaveSok);
-  if (response.ok) {
-    const oppgave = (await response.json()) as IOppgave;
-    if (oppgave.tilstand === "UNDER_KONTROLL") {
-      return redirect(`/oppgave/${oppgave.oppgaveId}/kontroll`);
+  const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSok);
+
+  if (data) {
+    if (data.tilstand === "UNDER_KONTROLL") {
+      return redirect(`/oppgave/${data.oppgaveId}/kontroll`);
     }
-    return redirect(`/oppgave/${oppgave.oppgaveId}/behandle`);
+    return redirect(`/oppgave/${data.oppgaveId}/behandle`);
   }
 
-  logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-  const alert = getAlertMessage({ name: "hent-neste-oppgave", httpCode: response.status });
+  let alert: IAlert = {
+    variant: "error",
+    title: `${response.status} ${response.statusText}`,
+  };
+
+  if (error) {
+    if (error.status === 404) {
+      alert = {
+        variant: "success",
+        title: "Ingen flere oppgaver 🎉",
+        body: "Alle oppgaver med dette søket er ferdig behandlet",
+      };
+    } else {
+      alert = getHttpProblemAlert(error);
+    }
+  }
 
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", alert);

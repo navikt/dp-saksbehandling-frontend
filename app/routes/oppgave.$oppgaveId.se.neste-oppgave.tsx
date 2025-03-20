@@ -1,8 +1,7 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef } from "react";
+import { ActionFunctionArgs, data, LoaderFunctionArgs } from "react-router";
+import { Form, useLoaderData, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -19,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
+  return data(
     { alert },
     {
       headers: {

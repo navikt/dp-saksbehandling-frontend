@@ -1,9 +1,8 @@
-import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
+import { IAlert } from "~/context/alert-context";
 import { kvitterAvklaring } from "~/models/behandling.server";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function kvitterAvklaringAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandling-id") as string;
@@ -13,12 +12,16 @@ export async function kvitterAvklaringAction(request: Request, formData: FormDat
   invariant(behandlingId, "behandling-id er påkrevd");
   invariant(avklaringId, "avklaring-id er påkrevd");
 
-  const response = await kvitterAvklaring(request, behandlingId, avklaringId, begrunnelse);
+  const { error } = await kvitterAvklaring(request, behandlingId, avklaringId, begrunnelse);
 
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
+  if (error) {
+    return getHttpProblemAlert(error);
   }
 
-  const alert = getAlertMessage({ name: "kvitter-avklaring", httpCode: response.status });
-  return json(alert);
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Avklaring kvittert",
+  };
+
+  return successAlert;
 }

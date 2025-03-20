@@ -1,6 +1,5 @@
-import { json } from "@remix-run/node";
-
 import { lagreUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function lagreUtvidetBeskrivelseAction(request: Request, formData: FormData) {
   const brevblokkId = formData.get("brevblokk-id") as string;
@@ -15,12 +14,20 @@ export async function lagreUtvidetBeskrivelseAction(request: Request, formData: 
     throw new Error("Mangler behandlingId");
   }
 
-  const response = await lagreUtvidetBeskrivelse(
+  const { data, error } = await lagreUtvidetBeskrivelse(
     request,
     behandlingId,
     brevblokkId,
     utvidetBeskrivelse,
   );
 
-  return json(response);
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  if (data) {
+    return data;
+  }
+
+  throw new Error(`Uhåndtert feil i lagreUtvidetBeskrivelseAction()`);
 }

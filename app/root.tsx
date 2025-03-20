@@ -1,7 +1,6 @@
 import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { InternalHeader } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
   Link,
   Links,
@@ -11,7 +10,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
@@ -22,8 +21,8 @@ import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
 import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
-import { hentOppgaver } from "~/models/oppgave.server";
-import { getSaksbehandler } from "~/models/saksbehandler.server";
+import { getSaksbehandler } from "~/models/microsoft.server";
+import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getEnv } from "~/utils/env.utils";
@@ -62,18 +61,18 @@ export function links() {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-32x32.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-32x32.png`,
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-16x16.png`,
+      href: `${getEnv("IS_LOCALHOST") ? "" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon-16x16.png`,
     },
     {
       rel: "icon",
       type: "image/x-icon",
-      href: `${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon.ico`,
+      href: `${getEnv("IS_LOCALHOST") ? "" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/favicon.ico`,
     },
   ];
 }
@@ -86,7 +85,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
   const oppgaverJegHarTilBehandling = await hentOppgaver(
     request,
-    "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
+    new URLSearchParams(
+      "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
+    ),
   );
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
@@ -101,7 +102,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
 
-  return json({
+  return {
     saksbehandler: saksbehandler,
     antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
     featureFlags: {
@@ -114,7 +115,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       orkestratorBarnOpplysninger,
     },
     env: {
-      BASE_PATH: process.env.BASE_PATH,
       IS_LOCALHOST: process.env.IS_LOCALHOST,
       GCP_ENV: process.env.GCP_ENV,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
@@ -128,7 +128,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
     },
-  });
+  };
 }
 
 export default function App() {

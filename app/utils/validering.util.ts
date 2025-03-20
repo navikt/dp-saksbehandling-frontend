@@ -1,11 +1,11 @@
-import type { Validator } from "@rvf/remix";
+import type { Validator } from "@rvf/react-router";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
 
-import type { IOpplysning } from "~/models/behandling.server";
+import { components } from "../../openapi/behandling-typer";
 
 export function hentValideringForOpplysning(
-  opplysning: IOpplysning,
+  opplysning: components["schemas"]["Opplysning"],
 ): Validator<{ verdi: string | number }> {
   switch (opplysning.datatype) {
     case "heltall":
