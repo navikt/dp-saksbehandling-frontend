@@ -79,7 +79,7 @@ export default function Saksbehandling() {
 
   useEffect(() => {
     setAktivtOppgaveSok(searchParams.toString());
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className={styles.container}>
