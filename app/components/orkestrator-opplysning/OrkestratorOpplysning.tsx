@@ -1,10 +1,12 @@
+import { FormScope } from "@rvf/react-router";
+
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
-import { OrkestratorOpplysningTekst } from "./OrkestratorOpplysningTekst";
-import { OrkestratorOpplysningLand } from "./OrkestratorOpplysningLand";
+import { logger } from "~/utils/logger.utils";
+
 import { OrkestratorOpplysningBoolsk } from "./OrkestratorOpplysningBoolsk";
 import { OrkestratorOpplysningDato } from "./OrkestratorOpplysningDato";
-import { FormScope } from "@rvf/remix";
-import { logger } from "~/utils/logger.utils";
+import { OrkestratorOpplysningLand } from "./OrkestratorOpplysningLand";
+import { OrkestratorOpplysningTekst } from "./OrkestratorOpplysningTekst";
 
 interface IProps {
   opplysning: IOrkestratorBarnOpplysning;

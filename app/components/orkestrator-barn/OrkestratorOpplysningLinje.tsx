@@ -1,4 +1,4 @@
-import { FormScope } from "@rvf/remix";
+import { FormScope } from "@rvf/react-router";
 import classNames from "classnames";
 
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";

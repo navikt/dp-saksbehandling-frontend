@@ -1,8 +1,4 @@
-import { json } from "@remix-run/node";
-
 import { oppdaterOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
 
 export async function oppdaterOrkestratorBarnAction(request: Request, formData: FormData) {
   const soknadId = formData.get("soknadId") as string;
@@ -39,12 +35,12 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
   }
 
   const response = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarnOpplysning);
-  const alert = getAlertMessage({ name: "oppdatere-orkestrator-barn", httpCode: response.status });
+  // const alert = getAlertMessage({ name: "oppdatere-orkestrator-barn", httpCode: response.status });
 
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
-  }
+  // if (!response.ok) {
+  //   logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
+  //   return json(alert);
+  // }
 
-  return json(alert);
+  return response.json();
 }

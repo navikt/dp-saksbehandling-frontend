@@ -1,5 +1,5 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
-import { FormScope, useField } from "@rvf/remix";
+import { FormScope, useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
 
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";

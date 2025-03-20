@@ -21,7 +21,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --list-different",
-      "eslint --no-warn-ignored --max-warnings 0"
+      "eslint --no-warn-ignored --max-warnings 0",
+      "bash -c 'npm run type-check'"
     ]
   },
   "dependencies": {

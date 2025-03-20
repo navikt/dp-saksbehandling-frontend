@@ -5,7 +5,11 @@ import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { IGrunnOpplysning } from "./behandling.server";
+export interface IGrunnOpplysning {
+  id: string;
+  verdi: string;
+  datatype: string;
+}
 
 export type IOrkestratorKilde = "register" | "søknad";
 

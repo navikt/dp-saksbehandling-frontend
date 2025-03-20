@@ -1,5 +1,6 @@
 import { Radio, RadioGroup, Stack } from "@navikt/ds-react";
-import { FormScope, useField } from "@rvf/remix";
+import { FormScope, useField } from "@rvf/react-router";
+
 import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 

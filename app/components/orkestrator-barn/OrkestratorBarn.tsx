@@ -1,9 +1,9 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import { useNavigation } from "@remix-run/react";
-import { useForm } from "@rvf/remix";
+import { useForm } from "@rvf/react-router";
 import classNames from "classnames";
 import { useRef } from "react";
+import { useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";

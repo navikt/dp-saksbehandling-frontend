@@ -45,7 +45,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     fodselsnummer: oppgave.person.ident,
     // @ts-expect-error TODO: Fiks type i backend
     saksbehandler: oppgave.saksbehandler,
-    // @ts-expect-error TODO: Fiks type i backend
     beslutter: oppgave.beslutter,
   });
 
@@ -53,6 +52,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
 
+  // @ts-expect-error TODO: hva skjer hvis oppgaveId er null?
   const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
   const orkestratorLandliste = await hentOrkestratorLandListe(request);
 
