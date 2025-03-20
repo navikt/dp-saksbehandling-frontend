@@ -13,6 +13,7 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
   title: "Default MSW feilmelding",
+  detail: "En feil har oppstått. Kan ikke hente behandling",
   status: 500,
   instance: "dp-behandling",
 };
