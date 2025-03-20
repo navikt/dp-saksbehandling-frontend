@@ -1,9 +1,9 @@
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "react-router";
 
-import { leggTilbakeOppgave } from "~/models/oppgave.server";
+import { IAlert } from "~/context/alert-context";
+import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function leggTilbakeOppgaveAction(
   request: Request,
@@ -16,19 +16,22 @@ export async function leggTilbakeOppgaveAction(
     throw new Error("Mangler oppgaveId");
   }
 
-  const response = await leggTilbakeOppgave(request, oppgaveId);
+  const { error } = await leggTilbakeOppgave(request, oppgaveId);
+
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Oppgave lagt tilbake i køen 📥",
+  };
 
   const session = await getSession(request.headers.get("Cookie"));
-  const alert = getAlertMessage({ name: "legg-tilbake-oppgave", httpCode: response.status });
-
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
-  }
 
   // Redirect til oppgavelisten hvis oppgaven som ble lagt tilbake er den samme som vises for saksbehandler
   if (params?.oppgaveId === oppgaveId) {
-    session.flash("alert", alert);
+    session.flash("alert", successAlert);
     return redirect(`/`, {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -36,5 +39,5 @@ export async function leggTilbakeOppgaveAction(
     });
   }
 
-  return json(alert);
+  return successAlert;
 }

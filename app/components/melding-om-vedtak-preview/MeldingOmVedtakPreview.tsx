@@ -1,24 +1,34 @@
-import { useEffect } from "react";
-
-import type { IMeldingOmVedtak, IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
+import { components } from "openapi/melding-om-vedtak-typer";
+import { useEffect, useRef } from "react";
 
 interface IProps {
-  meldingOmVedtak: IMeldingOmVedtak;
-  utvidetBeskrivelser: IUtvidetBeskrivelse[];
+  html: string;
+  utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
 }
 
-export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }: IProps) {
-  const { html } = meldingOmVedtak;
+export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    utvidetBeskrivelser.forEach((utvidetBeskrivelse) => {
-      const brevBlokkDiv = document.querySelector(
+    if (containerRef.current) {
+      containerRef.current.innerHTML = html;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    utvidedeBeskrivelser.forEach((utvidetBeskrivelse) => {
+      const brevBlokkDiv = containerRef.current?.querySelector<HTMLElement>(
         `[data-utvidet-beskrivelse-id="${utvidetBeskrivelse.brevblokkId}"]`,
       );
+
       if (brevBlokkDiv) {
         const lines = utvidetBeskrivelse.tekst?.split(/\r\n|\r|\n|\u2028|\u2029/);
         if (lines) {
-          brevBlokkDiv.innerHTML = ""; // Clear existing content
+          brevBlokkDiv.innerHTML = "";
           lines.forEach((line) => {
             const textNode = document.createTextNode(line);
             brevBlokkDiv.appendChild(textNode);
@@ -27,7 +37,7 @@ export function MeldingOmVedtakPreview({ meldingOmVedtak, utvidetBeskrivelser }:
         }
       }
     });
-  }, [utvidetBeskrivelser]);
+  }, [utvidedeBeskrivelser]);
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div ref={containerRef} />;
 }

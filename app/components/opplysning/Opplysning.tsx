@@ -1,16 +1,16 @@
-import type { FormScope } from "@rvf/remix";
+import type { FormScope } from "@rvf/react-router";
 
 import { OpplysningBoolean } from "~/components/opplysning/OpplysningBoolean";
 import { OpplysningDato } from "~/components/opplysning/OpplysningDato";
 import { OpplysningDouble } from "~/components/opplysning/OpplysningDouble";
 import { OpplysningInt } from "~/components/opplysning/OpplysningInt";
 import { OpplysningPenger } from "~/components/opplysning/OpplysningPenger";
-import type { IOpplysning } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./Opplysning.module.css";
 
 export interface IOpplysningProps {
-  opplysning: IOpplysning;
+  opplysning: components["schemas"]["Opplysning"];
   formScope: FormScope<string>;
   readonly?: boolean;
 }

@@ -1,6 +1,7 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs } from "react-router";
 
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
+import { hentMeldingOmVedtakAction } from "~/server-side-actions/hent-melding-om-vedtak-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
@@ -63,6 +64,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
+
+    case "hent-melding-om-vedtak-action":
+      return await hentMeldingOmVedtakAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

@@ -4,8 +4,8 @@ import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IRegelsett } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./Behandling.module.css";
 
 interface IProps {
@@ -14,7 +14,9 @@ interface IProps {
 
 export function Behandling(props: IProps) {
   const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const [aktivtRegelsett, setAktivtRegelsett] = useState<IRegelsett>(behandling.vilkår[0]);
+  const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"]>(
+    behandling.vilkår[0],
+  );
 
   useEffect(() => {
     if (behandling) {

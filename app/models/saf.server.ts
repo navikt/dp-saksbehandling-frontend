@@ -1,6 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
 
+import { getSaksbehandler } from "~/models/microsoft.server";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
@@ -8,7 +9,6 @@ import { type INetworkResponse } from "~/utils/types";
 
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
-import { getSaksbehandler } from "./saksbehandler.server";
 
 export async function hentJournalpost(
   request: Request,

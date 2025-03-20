@@ -1,14 +1,14 @@
 import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton } from "@navikt/ds-react";
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IPerson } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./PersonBoks.module.css";
 
 interface IProps {
-  person: IPerson;
+  person: components["schemas"]["Person"];
 }
 
 export function PersonBoks({ person }: IProps) {

@@ -4,12 +4,13 @@ import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IOppgaveHistorikk } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveHistorikk.module.css";
 
 export function OppgaveHistorikk() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
   return (
     <>
       {oppgave.historikk.map((hendelse, index) => (
@@ -24,8 +25,6 @@ export function OppgaveHistorikk() {
             className={classnames(styles.hendelseMelding, {
               [styles.hendelseMeldingStatusendring]: hendelse.type === "statusendring",
               [styles.hendelseMeldingNotat]: hendelse.type === "notat",
-              [styles.hendelseMeldingEndreOpplysning]: hendelse.type === "endre-opplysning",
-              [styles.hendelseMeldingMelding]: hendelse.type === "melding",
             })}
           >
             {hendelse.type === "statusendring" && (
@@ -54,7 +53,7 @@ export function OppgaveHistorikk() {
   );
 }
 
-function hentRolleTekst(rolle: IOppgaveHistorikk["behandler"]["rolle"]) {
+function hentRolleTekst(rolle: components["schemas"]["OppgaveHistorikk"]["behandler"]["rolle"]) {
   switch (rolle) {
     case "system":
       return <Detail textColor="subtle">System</Detail>;

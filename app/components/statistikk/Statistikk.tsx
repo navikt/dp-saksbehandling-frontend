@@ -1,13 +1,13 @@
 import { Table } from "@navikt/ds-react";
 import classnames from "classnames";
 
-import { ISaksbehandlerStatistikk } from "~/models/statistikk.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import { paths } from "../../../openapi/saksbehandling-typer";
 import styles from "./Statistikk.module.css";
 
 interface IProps {
-  statistikk: ISaksbehandlerStatistikk;
+  statistikk: paths["/statistikk"]["get"]["responses"]["200"]["content"]["application/json"];
 }
 
 export function Statistikk({ statistikk }: IProps) {
@@ -48,7 +48,9 @@ export function Statistikk({ statistikk }: IProps) {
       },
       {
         tittel: "Eldste oppgave",
-        verdi: formaterNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave),
+        verdi: statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave
+          ? formaterNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave)
+          : "Ingen oppgaver",
       },
     ],
   };

@@ -3,12 +3,12 @@ import { Detail, Heading } from "@navikt/ds-react";
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IRegelsett } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./Regelsett.module.css";
 
 interface IProps {
-  aktivtRegelsett: IRegelsett;
+  aktivtRegelsett: components["schemas"]["Regelsett"];
   readonly?: boolean;
 }
 
@@ -33,10 +33,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
 
   const regelOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Regel",
-  );
-
-  const mellomstegOpplysninger = aktivtRegelsettOpplysninger.filter(
-    (opplysning) => opplysning?.formål === "Mellomsteg",
   );
 
   return (
@@ -90,23 +86,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
           </Heading>
           <ul className={styles.opplysningListe}>
             {legacyOpplysninger.map((opplysning) => (
-              <OpplysningLinje
-                key={`${opplysning.id}-${opplysning.verdi}`}
-                opplysning={opplysning}
-                readonly={readonly}
-              />
-            ))}
-          </ul>
-        </>
-      )}
-
-      {mellomstegOpplysninger.length > 0 && (
-        <>
-          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
-            Mellomsteg
-          </Heading>
-          <ul className={styles.opplysningListe}>
-            {mellomstegOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
                 opplysning={opplysning}

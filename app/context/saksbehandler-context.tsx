@@ -9,7 +9,7 @@ interface ISaksbehandlerContext {
 export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefined>(undefined);
 
 export function SaksbehandlerProvider(props: PropsWithChildren<{ aktivtSok: string }>) {
-  const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>("");
+  const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>(props.aktivtSok);
 
   return (
     <SaksbehandlerContext.Provider value={{ aktivtOppgaveSok, setAktivtOppgaveSok }}>

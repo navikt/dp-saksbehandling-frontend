@@ -1,6 +1,5 @@
-import { json } from "@remix-run/node";
-
-import { lagreNotat } from "~/models/oppgave.server";
+import { lagreNotat } from "~/models/saksbehandling.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function lagreNotatAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgave-id") as string;
@@ -14,7 +13,11 @@ export async function lagreNotatAction(request: Request, formData: FormData) {
     throw new Error("Mangler oppgaveId");
   }
 
-  const response = await lagreNotat(request, oppgaveId, notat);
+  const { data, error } = await lagreNotat(request, oppgaveId, notat);
 
-  return json(response);
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  return data;
 }

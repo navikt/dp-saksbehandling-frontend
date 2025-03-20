@@ -1,54 +1,54 @@
-import type { IAvklaring } from "~/models/behandling.server";
+import { components } from "../../openapi/behandling-typer";
 
-export const andreYtelser: IAvklaring = {
+export const andreYtelser: components["schemas"]["Avklaring"] = {
   id: "test-id-1",
   kode: "AndreYtelser",
   tittel: "Andre ytelser",
   beskrivelse: "Personen har oppgitt andre ytelser",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const soknadstidspunktForLangtFramITid: IAvklaring = {
+export const soknadstidspunktForLangtFramITid: components["schemas"]["Avklaring"] = {
   id: "test-id-2",
   kode: "SøknadstidspunktForLangtFramITid",
   tittel: "Søknadstidspunktet ligger for lang fram i tid",
   beskrivelse: "Søknadstidspunktet ligger mer enn 14 dager fram i tid",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const virkningstidspunktForLangtFramITid: IAvklaring = {
+export const virkningstidspunktForLangtFramITid: components["schemas"]["Avklaring"] = {
   id: "test-id-3",
   kode: "VirkningstidspunktForLangtFramItid",
   tittel: "Virkningstidspunkt ligger for lang fram i tid",
   beskrivelse: "Virkningstidspunkt ligger mer enn 14 dager fram i tid",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const verneplikt: IAvklaring = {
+export const verneplikt: components["schemas"]["Avklaring"] = {
   id: "test-id-4",
   kode: "Verneplikt",
   tittel: "Verneplikt",
   beskrivelse: "Krever avklaring om verneplikt",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const tapAvArbeidstidBeregningsregel: IAvklaring = {
+export const tapAvArbeidstidBeregningsregel: components["schemas"]["Avklaring"] = {
   id: "test-id-5",
   kode: "TapAvArbeidsinntektOgArbeidstid",
   tittel: "Beregningsregel for tap av arbeidsinntekt og arbeidstid",
@@ -58,107 +58,106 @@ export const tapAvArbeidstidBeregningsregel: IAvklaring = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const EOSArbeid: IAvklaring = {
+export const EOSArbeid: components["schemas"]["Avklaring"] = {
   id: "test-id-6",
   kode: "EØSArbeid",
   tittel: "Arbeid i EØS",
   beskrivelse: "Personen har oppgitt arbeid fra EØS",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const hattLukkedeSakerSiste8Uker: IAvklaring = {
+export const hattLukkedeSakerSiste8Uker: components["schemas"]["Avklaring"] = {
   id: "test-id-7",
   kode: "HattLukkedeSakerSiste8Uker",
   tittel: "Hatt lukkede saker siste 8 uker",
   beskrivelse: "Personen har lukkede saker i Arena siste 8 uker",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const samordnes: IAvklaring = {
+export const samordnes: components["schemas"]["Avklaring"] = {
   id: "test-id-8",
   kode: "Samordning",
   tittel: "Om reduserte ytelser fra folketrygden som skal samordnes",
   beskrivelse: "Finne ut om det er noen reduserte ytelser fra folketrygden som skal samordnes",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const inntektNesteKalendermaaned: IAvklaring = {
+export const inntektNesteKalendermaaned: components["schemas"]["Avklaring"] = {
   id: "test-id-9",
   kode: "InntektNesteKalendermåned",
   tittel: "Har innrapport inntekt for neste måned",
   beskrivelse: "Personen har inntekter som tilhører neste inntektsperiode",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const jobbetUtenforNorge: IAvklaring = {
+export const jobbetUtenforNorge: components["schemas"]["Avklaring"] = {
   id: "test-id-10",
   kode: "JobbetUtenforNorge",
   tittel: "Arbeid utenfor Norge",
   beskrivelse: "Personen har oppgitt arbeid utenfor Norge",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const muligGjenopptak: IAvklaring = {
+export const muligGjenopptak: components["schemas"]["Avklaring"] = {
   id: "test-id-11",
   kode: "MuligGjenopptak",
   tittel: "Mulig gjenopptak",
   beskrivelse: "Personen har åpne saker i Arena som kan være gjenopptak",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const svangerskapsrelaterteSykepenger: IAvklaring = {
+export const svangerskapsrelaterteSykepenger: components["schemas"]["Avklaring"] = {
   id: "test-id-12",
   kode: "SvangerskapsrelaterteSykepenger",
   tittel: "Har hatt sykepenger som kan være svangerskapsrelatert",
   beskrivelse: "Personen har sykepenger som kan være svangerskapsrelaterte",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const onskerEtterRapporteringsfrist: IAvklaring = {
+export const onskerEtterRapporteringsfrist: components["schemas"]["Avklaring"] = {
   id: "test-id-13",
   kode: "ØnskerEtterRapporteringsfrist",
   tittel: "Ønsker dagpenger etter rapporteringsfrist",
   beskrivelse: "Personen ønsker dagpenger etter rapporteringsfrist",
+  kanKvitteres: true,
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const totrinnskontroll: IAvklaring = {
+export const totrinnskontroll: components["schemas"]["Avklaring"] = {
   id: "test-id-14",
   kode: "Totrinnskontroll",
   tittel: "Totrinnskontroll",
@@ -167,11 +166,10 @@ export const totrinnskontroll: IAvklaring = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const BrukerUnder18: IAvklaring = {
+export const BrukerUnder18: components["schemas"]["Avklaring"] = {
   id: "test-id-15",
   kode: "BrukerUnder18",
   tittel: "Bruker er under 18",
@@ -180,11 +178,10 @@ export const BrukerUnder18: IAvklaring = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };
 
-export const BarnMaaGodkjennes: IAvklaring = {
+export const BarnMaaGodkjennes: components["schemas"]["Avklaring"] = {
   id: "test-id-16",
   kode: "BarnMåGodkjennes",
   tittel: "Barn må godkjennes for å gi barnetillegg",
@@ -193,6 +190,5 @@ export const BarnMaaGodkjennes: IAvklaring = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  avklartAv: null,
   begrunnelse: null,
 };

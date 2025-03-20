@@ -1,17 +1,21 @@
-import { json, redirect } from "@remix-run/node";
-import { validationError } from "@rvf/remix";
+import { validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
-import { utsettOppgave } from "~/models/oppgave.server";
+import { IAlert } from "~/context/alert-context";
+import { utsettOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
+
+import { components } from "../../openapi/saksbehandling-typer";
 
 export async function utsettOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;
   const utsettTilDato = formData.get("utsettTilDato") as string;
-  const paaVentAarsak = formData.get("paaVentAarsak") as string;
   const beholdOppgave = formData.has("beholdOppgave");
+  const paaVentAarsak = formData.get(
+    "paaVentAarsak",
+  ) as components["schemas"]["UtsettOppgaveAarsak"];
 
   const result = await hentValideringUtsettOppgave().validate(formData);
 
@@ -23,7 +27,7 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
     throw new Error("Mangler oppgaveId");
   }
 
-  const response = await utsettOppgave(
+  const { error } = await utsettOppgave(
     request,
     oppgaveId,
     utsettTilDato,
@@ -31,14 +35,17 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
     paaVentAarsak,
   );
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const alert = getAlertMessage({ name: "utsett-oppgave", httpCode: response.status });
-  session.flash("alert", alert);
-
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+  if (error) {
+    return getHttpProblemAlert(error);
   }
+
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Oppgave utsatt 📆",
+  };
+
+  const session = await getSession(request.headers.get("Cookie"));
+  session.flash("alert", successAlert);
 
   return redirect(`/`, {
     headers: {

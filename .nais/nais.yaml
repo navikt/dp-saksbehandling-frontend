@@ -13,18 +13,18 @@ spec:
   image: {{image}}
   port: 3000
   liveness:
-    path: "{{base_path}}/api/internal/isAlive"
+    path: /api/internal/isAlive
     initialDelay: 5
     timeout: 1
     periodSeconds: 10
     failureThreshold: 10
   readiness:
-    path: "{{base_path}}/api/internal/isReady"
+    path: /api/internal/isReady
     initialDelay: 5
     timeout: 1
   prometheus:
     enabled: true
-    path: "{{base_path}}/api/internal/metrics"
+    path: /api/internal/metrics
   replicas:
     min: 2
     max: 2
@@ -40,8 +40,6 @@ spec:
   env:
     - name: SELF_URL
       value: {{ingress}}
-    - name: BASE_PATH
-      value: {{base_path}}
     - name: GCP_ENV
       value: {{gcp_env}}
     - name: DP_BEHANDLING_URL

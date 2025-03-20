@@ -1,15 +1,19 @@
 import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
+import { Form, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { IListeOppgave } from "~/models/oppgave.server";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListeValg.module.css";
 
-export function OppgaveListeValg({ oppgave }: { oppgave: IListeOppgave }) {
+interface IProps {
+  oppgave: components["schemas"]["OppgaveOversikt"];
+}
+
+export function OppgaveListeValg({ oppgave }: IProps) {
   const { state } = useNavigation();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const [openState, setOpenState] = useState(false);

@@ -1,9 +1,7 @@
-import { ActionFunctionArgs } from "@remix-run/node";
-
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+export async function hentMeldingOmVedtakAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
   const fornavn = formData.get("fornavn") as string;
   const mellomnavn = formData.get("mellomnavn") as string;
@@ -12,12 +10,25 @@ export async function action({ request }: ActionFunctionArgs) {
   const saksbehandler = formData.get("saksbehandler") as string;
   const beslutter = formData.get("beslutter") as string;
 
-  return await hentMeldingOmVedtak(request, behandlingId, {
+  const body = {
     fornavn,
     mellomnavn,
     etternavn,
     fodselsnummer,
     saksbehandler: saksbehandler ? JSON.parse(saksbehandler) : undefined,
     beslutter: beslutter ? JSON.parse(beslutter) : undefined,
-  });
+  };
+
+  const { data, error } = await hentMeldingOmVedtak(request, behandlingId, body);
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  // Dette skjer ikke i praksis, men for at typescript skal være fornøyd så kaster vi feil for å få riktig retur typer
+  throw new Error(`Uhåndtert feil i hentMeldingOmVedtak()`);
 }

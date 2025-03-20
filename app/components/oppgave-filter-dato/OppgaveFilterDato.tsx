@@ -1,7 +1,7 @@
 import { DatePicker, Detail, useDatepicker } from "@navikt/ds-react";
-import { useSearchParams } from "@remix-run/react";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
+import { useSearchParams } from "react-router";
 
 import styles from "./OppgaveFilterDato.module.css";
 

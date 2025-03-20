@@ -6,18 +6,19 @@
 import { PassThrough } from "node:stream";
 
 import { faro } from "@grafana/faro-core";
-import type { AppLoadContext, EntryContext } from "@remix-run/node";
-import { createReadableStreamFromReadable } from "@remix-run/node";
-import { isRouteErrorResponse, RemixServer } from "@remix-run/react";
+import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import type { AppLoadContext, EntryContext } from "react-router";
+import { isRouteErrorResponse, ServerRouter } from "react-router";
 
 import { logger } from "~/utils/logger.utils";
 
 import { unleash } from "./unleash";
 import { getEnv } from "./utils/env.utils";
 
-const ABORT_DELAY = 5000;
+// Reject all pending promises from handler functions after 10 seconds
+export const streamTimeout = 10000;
 
 if (getEnv("USE_MSW") === "true") {
   import("../mocks/mock-server").then(({ startMockServer }) => {
@@ -55,27 +56,27 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  reactRouterContext: EntryContext,
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext,
 ) {
   return isbot(request.headers.get("user-agent") || "")
-    ? handleBotRequest(request, responseStatusCode, responseHeaders, remixContext)
-    : handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext);
+    ? handleBotRequest(request, responseStatusCode, responseHeaders, reactRouterContext)
+    : handleBrowserRequest(request, responseStatusCode, responseHeaders, reactRouterContext);
 }
 
 function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  reactRouterContext: EntryContext,
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
+      <ServerRouter context={reactRouterContext} url={request.url} />,
       {
         onAllReady() {
           shellRendered = true;
@@ -108,8 +109,9 @@ function handleBotRequest(
         },
       },
     );
-
-    setTimeout(abort, ABORT_DELAY);
+    // Abort the streaming render pass after 11 seconds to allow the rejected
+    // boundaries to be flushed
+    setTimeout(abort, streamTimeout + 1000);
   });
 }
 
@@ -117,13 +119,13 @@ function handleBrowserRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  reactRouterContext: EntryContext,
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
 
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
+      <ServerRouter context={reactRouterContext} url={request.url} />,
       {
         onShellReady() {
           shellRendered = true;
@@ -157,7 +159,9 @@ function handleBrowserRequest(
       },
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    // Abort the streaming render pass after 11 seconds to allow the rejected
+    // boundaries to be flushed
+    setTimeout(abort, streamTimeout + 1000);
   });
 }
 

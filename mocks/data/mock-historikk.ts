@@ -1,18 +1,6 @@
-import type { IOppgaveHistorikk } from "~/models/oppgave.server";
+import { components } from "../../openapi/saksbehandling-typer";
 
-export const mockHistorikk: IOppgaveHistorikk[] = [
-  {
-    type: "melding",
-    tittel: "Melding om vedtak sendt",
-    tidspunkt: "2024-09-18T16:43:00",
-    behandler: { navn: "dp-saksbehandling", rolle: "system" },
-  },
-  {
-    type: "melding",
-    tittel: "Vedtak lagret i Arena",
-    tidspunkt: "2024-09-18T15:43:00",
-    behandler: { navn: "dp-behandling", rolle: "system" },
-  },
+export const mockHistorikk: components["schemas"]["OppgaveHistorikk"][] = [
   {
     type: "statusendring",
     tittel: "Ferdig behandlet",
@@ -63,13 +51,6 @@ export const mockHistorikk: IOppgaveHistorikk[] = [
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
   },
   {
-    type: "endre-opplysning",
-    tittel: "Endret opplysning",
-    body: "Arbeidsinntekt siste 12 mnd: 185 300 kr → 189 800 kr",
-    tidspunkt: "2024-09-18T06:43:00",
-    behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
-  },
-  {
     type: "statusendring",
     tittel: "nder behandling",
     tidspunkt: "2024-09-18T05:43:00",
@@ -82,29 +63,9 @@ export const mockHistorikk: IOppgaveHistorikk[] = [
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
   },
   {
-    type: "endre-opplysning",
-    tittel: "Endret opplysning",
-    body: "Beregningregel: Arbeidstid siste 6 måneder: Ja → Nei",
-    tidspunkt: "2024-09-18T03:43:00",
-    behandler: { navn: "dp-behandling", rolle: "system" },
-  },
-  {
-    type: "endre-opplysning",
-    tittel: "Endret opplysning",
-    body: "Beregnet vanlig arbeidstid per uke før tap: 37,5 t → 22,5 t",
-    tidspunkt: "2024-09-18T02:43:00",
-    behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
-  },
-  {
     type: "statusendring",
     tittel: "nder behandling",
     tidspunkt: "2024-09-18T08:43:00",
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
-  },
-  {
-    type: "melding",
-    tittel: "Oppgave opprettet",
-    tidspunkt: "2024-09-18T01:43:00",
-    behandler: { navn: "dp-saksbehandling", rolle: "system" },
   },
 ];

@@ -1,5 +1,5 @@
 import { Button } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
+import { Form, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 

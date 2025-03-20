@@ -16,7 +16,7 @@ COPY ./vite.config.ts ./
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
-RUN npm ci --ignore-scripts
+RUN npm install --ignore-scripts
 RUN npm run build
 
 
@@ -49,4 +49,4 @@ COPY ./package.json ./package.json
 COPY --from=app-build /app/build/ ./build/
 COPY --from=app-dependencies /app/node_modules ./node_modules
 
-CMD ["./node_modules/@remix-run/serve/dist/cli.js", "./build/server/index.js"]
+CMD ["./node_modules/@react-router/serve/dist/cli.js", "./build/server/index.js"]

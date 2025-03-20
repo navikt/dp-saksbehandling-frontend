@@ -1,38 +1,43 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import { ChangeEvent, ReactNode, useEffect } from "react";
-import { useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
-import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterNorskDato } from "~/utils/dato.utils";
-import { isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
+import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
+
+import { components } from "../../../openapi/melding-om-vedtak-typer";
 
 export interface IUtvidetBeskrivelseInput {
-  verdi: string;
   label: ReactNode;
-  brevblokkId: string;
-  updateContext: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
-  sistEndretTidspunkt?: string;
+  utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
+  updateContext: (utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"]) => void;
   readOnly?: boolean;
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
+  const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const [verdi, setVerdi] = useState(props.verdi);
-  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof action>();
+  const [verdi, setVerdi] = useState(props.utvidetBeskrivelse.tekst);
+  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof handleActions>();
+
   useEffect(() => {
     if (
       lagreUtvidetBeskrivelseFetcher.data &&
       isILagreUtvidetBeskrivelseResponse(lagreUtvidetBeskrivelseFetcher.data)
     ) {
       props.updateContext({
+        ...props.utvidetBeskrivelse,
         tekst: verdi,
-        brevblokkId: props.brevblokkId,
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
+    }
+
+    if (isAlert(lagreUtvidetBeskrivelseFetcher.data)) {
+      addAlert(lagreUtvidetBeskrivelseFetcher.data);
     }
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
@@ -41,11 +46,11 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
     setVerdi(oppdatertVerdi);
     props.updateContext({
+      ...props.utvidetBeskrivelse,
       tekst: oppdatertVerdi,
-      brevblokkId: props.brevblokkId,
     });
     lagreUtvidetBeskrivelseFetcher.submit(event.target.form, {
-      fetcherKey: props.brevblokkId,
+      fetcherKey: props.utvidetBeskrivelse.brevblokkId,
       debounceTimeout: delayInMs,
     });
   }
@@ -55,21 +60,29 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
       <lagreUtvidetBeskrivelseFetcher.Form method="post">
         <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
         <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
-        <input name="brevblokk-id" value={props.brevblokkId} hidden={true} readOnly={true} />
+        <input
+          name="brevblokk-id"
+          value={props.utvidetBeskrivelse.brevblokkId}
+          hidden={true}
+          readOnly={true}
+        />
         <Textarea
           name={"utvidet-beskrivelse"}
           className={styles.container}
           label={props.label}
           value={verdi}
           onChange={(event) => lagreUtvidetBeskrivelse(event, 2000)}
-          onBlur={(event) => lagreUtvidetBeskrivelse(event, 0)}
+          onBlur={(event) => {
+            if (props.utvidetBeskrivelse.tekst !== event.currentTarget.value)
+              lagreUtvidetBeskrivelse(event, 0);
+          }}
           readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>
 
-      {props.sistEndretTidspunkt && (
+      {props.utvidetBeskrivelse.sistEndretTidspunkt && (
         <Detail textColor="subtle">
-          Lagret {formaterNorskDato(props.sistEndretTidspunkt, true)}
+          Lagret {formaterNorskDato(props.utvidetBeskrivelse.sistEndretTidspunkt, true)}
         </Detail>
       )}
     </>
