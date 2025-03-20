@@ -42,11 +42,7 @@ function hentGyldigeOppgaveValg(
       handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "send-til-arena");
 
       if (behandling) {
-        handlinger.push("fatt-vedtak");
-      }
-
-      if (behandling?.kreverTotrinnskontroll) {
-        handlinger.push("send-til-kontroll");
+        handlinger.push(behandling.kreverTotrinnskontroll ? "send-til-kontroll" : "fatt-vedtak");
       }
 
       return handlinger;
