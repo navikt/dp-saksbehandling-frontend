@@ -1,5 +1,6 @@
 import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton } from "@navikt/ds-react";
+import classnames from "classnames";
 import { useLocation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -24,7 +25,12 @@ export function PersonBoks({ person }: IProps) {
   return (
     <div className={styles.container}>
       <div className={styles.navnContainer}>
-        <span className={styles.iconContainer}>
+        <span
+          className={classnames(styles.iconContainer, {
+            [styles.iconContainerMann]: person.kjonn === "MANN",
+            [styles.iconContainerKvinne]: person.kjonn === "KVINNE",
+          })}
+        >
           {person.kjonn === "MANN" && (
             <SilhouetteFillIcon title="" fontSize="1.5rem" color="white" />
           )}
