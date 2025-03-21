@@ -1,14 +1,18 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useRef } from "react";
-import { ActionFunctionArgs, data, LoaderFunctionArgs } from "react-router";
-import { Form, useLoaderData, useNavigation } from "react-router";
+import {
+  ActionFunctionArgs,
+  data,
+  Form,
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigation,
+} from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -49,11 +53,7 @@ export default function NesteOppgave() {
       </Modal.Header>
 
       <Modal.Footer>
-        <RemixLink
-          asButtonVariant={"secondary"}
-          size="small"
-          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
-        >
+        <RemixLink asButtonVariant={"secondary"} size="small" to={`/?${aktivtOppgaveSok}`}>
           Oppgaveliste
         </RemixLink>
 
