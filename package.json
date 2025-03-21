@@ -51,7 +51,7 @@
     "groq": "3.79.0",
     "isbot": "5.1.23",
     "lru-cache": "11.0.2",
-    "openapi-fetch": "^0.13.4",
+    "openapi-fetch": "^0.13.5",
     "pino": "9.6.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
