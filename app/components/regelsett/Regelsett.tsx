@@ -2,18 +2,17 @@ import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./Regelsett.module.css";
 
 interface IProps {
+  behandling: components["schemas"]["Behandling"];
   aktivtRegelsett: components["schemas"]["Regelsett"];
   readonly?: boolean;
 }
 
-export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
     .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
     .filter((opplysning) => opplysning !== undefined)

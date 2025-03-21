@@ -32,16 +32,20 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, oppgave.behandlingId);
+  const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
   const oppgaverForPersonResponse = hentOppgaverForPerson(request, oppgave.person.ident);
+
+  // TODO Teknisk gjeld: Denne sjekken burde ikke være nødvendig fordi det ikke er mulig å se en oppgave i oppgave view uten at det er satt en saksbehandler på oppgaven. Vil fikses når vi refaktorer dp-melding-om-vedtak til å hente data fra dp-saksbehandling selv istedet for at frontend må sende det med.
+  if (!oppgave?.saksbehandler) {
+    throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
+  }
+
   const meldingOmVedtakResponse = hentMeldingOmVedtak(request, oppgave.behandlingId, {
     fornavn: oppgave.person.fornavn,
     mellomnavn: oppgave.person.mellomnavn,
     etternavn: oppgave.person.etternavn,
     fodselsnummer: oppgave.person.ident,
-    // @ts-expect-error TODO: Fiks type i backend
     saksbehandler: oppgave.saksbehandler,
-    // @ts-expect-error TODO: Fiks type i backend
     beslutter: oppgave.beslutter,
   });
 
@@ -56,7 +60,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-      behandling,
+
+      behandlingPromise,
       oppgaverForPersonResponse,
       journalposterResponses,
       meldingOmVedtakResponse,

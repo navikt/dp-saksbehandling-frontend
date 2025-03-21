@@ -5,12 +5,14 @@ import styles from "./CenteredLoader.module.css";
 
 interface IProps {
   size: LoaderProps["size"];
+  loadingText?: string;
 }
 
 export function CenteredLoader(props: IProps) {
   return (
     <div className={styles.loaderContainer}>
       <Loader size={props.size} />
+      {props.loadingText && <>{props.loadingText}</>}
     </div>
   );
 }

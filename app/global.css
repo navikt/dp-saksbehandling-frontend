@@ -35,6 +35,10 @@ body {
   margin-right: var(--a-spacing-2);
 }
 
+.ml-2 {
+  margin-left: var(--a-spacing-2);
+}
+
 .mt-2 {
   margin-top: var(--a-spacing-2);
 }
