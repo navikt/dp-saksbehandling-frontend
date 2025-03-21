@@ -41,7 +41,7 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", alert);
 
-  return redirect(`/`, {
+  return redirect(`/?${aktivtOppgaveSok}`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

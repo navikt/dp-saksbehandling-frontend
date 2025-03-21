@@ -45,6 +45,7 @@ export const mockDpSaksbehandling = [
   http.put(`/oppgave/neste`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
+
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }

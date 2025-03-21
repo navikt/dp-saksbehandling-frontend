@@ -11,6 +11,7 @@ export async function leggTilbakeOppgaveAction(
   formData: FormData,
 ) {
   const oppgaveId = formData.get("oppgaveId") as string;
+  const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
 
   if (!oppgaveId) {
     throw new Error("Mangler oppgaveId");
@@ -32,7 +33,7 @@ export async function leggTilbakeOppgaveAction(
   // Redirect til oppgavelisten hvis oppgaven som ble lagt tilbake er den samme som vises for saksbehandler
   if (params?.oppgaveId === oppgaveId) {
     session.flash("alert", successAlert);
-    return redirect(`/`, {
+    return redirect(`/?${aktivtOppgaveSok}`, {
       headers: {
         "Set-Cookie": await commitSession(session),
       },
