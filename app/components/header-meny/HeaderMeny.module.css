@@ -62,3 +62,14 @@
   background-color: var(--a-red-400);
   border-radius: var(--a-border-radius-full);
 }
+
+.dropdownMeny {
+  width: fit-content;
+}
+
+.loggUt {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}

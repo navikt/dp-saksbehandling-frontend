@@ -2,7 +2,7 @@ import classnames from "classnames";
 import { NavLink } from "react-router";
 
 import { Ghosts } from "~/components/halloween/Ghosts";
-import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
+import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
 import { Valentines } from "~/components/valentines/Valentines";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -66,7 +66,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
-        <HeaderUtloggingMeny saksbehandler={saksbehandler} />
+        <HeaderSaksbehandlerMeny saksbehandler={saksbehandler} />
       </div>
     </div>
   );

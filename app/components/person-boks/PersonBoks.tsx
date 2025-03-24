@@ -3,7 +3,9 @@ import { BodyShort, CopyButton } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useLocation } from "react-router";
 
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./PersonBoks.module.css";
@@ -15,12 +17,16 @@ interface IProps {
 export function PersonBoks({ person }: IProps) {
   const location = useLocation();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const utviklerinformasjon = {
     oppgaveId: oppgave.oppgaveId,
     behandlingId: oppgave.behandlingId,
     saksbehandlerIdent: oppgave.saksbehandler?.ident,
     urlPath: location.pathname,
   };
+
+  const navn = `${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`;
+  const personNummerMedMellomrom = `${person.ident.slice(0, 6)} ${person.ident.slice(6)}`;
 
   return (
     <div className={styles.container}>
@@ -40,12 +46,18 @@ export function PersonBoks({ person }: IProps) {
         </span>
 
         <BodyShort size="small" weight="semibold">
-          {`${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`}
+          {skjulSensitiveOpplysninger ? maskerVerdi(navn) : navn}
         </BodyShort>
       </div>
 
       <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
-        Personnummer: <b>{person.ident}</b> <CopyButton copyText={person.ident} size="xsmall" />
+        Personnummer:{" "}
+        <b>
+          {skjulSensitiveOpplysninger
+            ? maskerVerdi(personNummerMedMellomrom)
+            : personNummerMedMellomrom}
+        </b>
+        <CopyButton copyText={person.ident} size="xsmall" />
       </BodyShort>
 
       <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
