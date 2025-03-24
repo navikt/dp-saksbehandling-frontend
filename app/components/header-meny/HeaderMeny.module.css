@@ -63,13 +63,12 @@
   border-radius: var(--a-border-radius-full);
 }
 
-.dropdownMeny {
+.dropdownMeny.dropdownMeny {
   width: fit-content;
 }
 
 .loggUt {
   display: flex;
   justify-content: space-between;
-
   width: 100%;
 }

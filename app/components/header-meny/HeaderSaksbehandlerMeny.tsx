@@ -33,7 +33,7 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
               </Switch>
             </Dropdown.Menu.List.Item>
             <Dropdown.Menu.List.Item>
-              <a href={"/saksbehandling/oauth2/logout"} className={styles.loggUt}>
+              <a href={"/oauth2/logout"} className={styles.loggUt}>
                 Logg ut <LeaveIcon aria-hidden fontSize="1.5rem" />
               </a>
             </Dropdown.Menu.List.Item>
