@@ -33,7 +33,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
-  const oppgaverForPersonResponse = hentOppgaverForPerson(request, oppgave.person.ident);
+  const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
   // TODO Teknisk gjeld: Denne sjekken burde ikke være nødvendig fordi det ikke er mulig å se en oppgave i oppgave view uten at det er satt en saksbehandler på oppgaven. Vil fikses når vi refaktorer dp-melding-om-vedtak til å hente data fra dp-saksbehandling selv istedet for at frontend må sende det med.
   if (!oppgave?.saksbehandler) {
@@ -62,7 +62,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgave,
 
       behandlingPromise,
-      oppgaverForPersonResponse,
+      oppgaverForPersonPromise,
       journalposterResponses,
       meldingOmVedtakResponse,
     },
