@@ -40,7 +40,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
   }
 
-  const meldingOmVedtakResponse = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+  const meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
     fornavn: oppgave.person.fornavn,
     mellomnavn: oppgave.person.mellomnavn,
     etternavn: oppgave.person.etternavn,
@@ -64,7 +64,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       behandlingPromise,
       oppgaverForPersonPromise,
       journalposterResponses,
-      meldingOmVedtakResponse,
+      meldingOmVedtakPromise,
     },
     {
       headers: {
