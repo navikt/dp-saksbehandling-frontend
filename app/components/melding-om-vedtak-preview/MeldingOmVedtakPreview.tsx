@@ -53,7 +53,7 @@ function maskerSensitivHtml(html: string): string {
   });
 
   // Bytt innhold etter "Fødseslnummer:"
-  html = html.replace(/Fødseslnummer:([^\n]*)/g, (match, group1) => {
+  html = html.replace(/Fødselsnummer:([^\n]*)/g, (match, group1) => {
     const sanitized = group1.replace(/[^\s]/g, "*");
     return `Fødselsnummer:${sanitized}`;
   });
