@@ -2,22 +2,9 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
-import type { INetworkResponseError, INetworkResponseSuccess } from "~/utils/types";
 
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
-
-export function isNetworkResponseSuccess<T>(
-  networkResponse?: unknown,
-): networkResponse is INetworkResponseSuccess<T> {
-  return (networkResponse as INetworkResponseSuccess<T>)?.status === "success";
-}
-
-export function isNetworkResponseError(
-  networkResponse?: unknown,
-): networkResponse is INetworkResponseError {
-  return (networkResponse as INetworkResponseError)?.status === "error";
-}
 
 export function isAlert(data?: unknown): data is IAlert {
   if (typeof data !== "object" || data === null) {

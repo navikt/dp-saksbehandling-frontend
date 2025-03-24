@@ -49,10 +49,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     beslutter: oppgave.beslutter,
   });
 
-  const journalposterResponses = await Promise.all(
+  const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -63,7 +62,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
       behandlingPromise,
       oppgaverForPersonPromise,
-      journalposterResponses,
+      journalposterPromises,
       meldingOmVedtakPromise,
     },
     {
