@@ -44,7 +44,7 @@ export function hentValideringForOpplysning(
       return withZod(
         z.object({
           verdi: z.string().regex(
-            new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+            new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
             "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
           ),
         }),
@@ -75,14 +75,6 @@ export function hentValideringUtsettOppgave() {
     z.object({
       utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
       paaVentAarsak: z.string().min(1, { message: "Du må velge en begrunnelse" }),
-    }),
-  );
-}
-
-export function hentValideringOpplysningBegrunnelse() {
-  return withZod(
-    z.object({
-      begrunnelse: z.string().min(1, "Endringen må begrunnes"),
     }),
   );
 }

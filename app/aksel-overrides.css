@@ -1,3 +1,30 @@
+/* Subtil Aksel expansion card med tabell*/
+.expansion--subtil {
+  --ac-expansioncard-border-hover-color: var(--a-border-default);
+}
+
+.expansion--subtil:hover > div {
+  box-shadow: none;
+}
+
+/*Subtil Aksel tabell*/
+.tabell--subtil {
+  --ac-table-row-hover: var(--a-white);
+}
+
+.tabell--subtil tr:hover {
+  background-color: inherit;
+}
+
+.tabell--subtil td .navds-form-field {
+  gap: 0;
+}
+
+.tabell--subtil tr:last-child th,
+.tabell--subtil tr:last-child td {
+  border-bottom: 0;
+}
+
 /* Mer subtil Aksel tabell */
 .table--subtle-zebra tr:nth-child(even) {
   background-color: #f8f9fc;

@@ -110,6 +110,8 @@ export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opply
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
       return formaterNorskDato(opplysning.verdi);
+    case "boolsk":
+      return opplysning.verdi === "true" ? "Ja" : "Nei";
 
     default:
       return opplysning.verdi;
