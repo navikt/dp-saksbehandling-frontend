@@ -1,18 +1,23 @@
 import { Alert, Detail } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { defer } from "@remix-run/node";
-import { Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
+import {
+  ActionFunctionArgs,
+  data,
+  LoaderFunctionArgs,
+  Outlet,
+  useActionData,
+  useLoaderData,
+} from "react-router";
 import invariant from "tiny-invariant";
 
-import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
+import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
-import { hentOppgave } from "~/models/oppgave.server";
-import { hentOppgaverForPerson } from "~/models/person.server";
+import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
+import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -27,25 +32,39 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, oppgave.behandlingId);
-  const vurderinger = await hentVurderinger(request, oppgave.behandlingId);
-  const oppgaverForPerson = await hentOppgaverForPerson(request, oppgave.person.ident);
+  const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
+  const vurderingerPromise = hentVurderinger(request, oppgave.behandlingId);
+  const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
-  const journalposterResponses = await Promise.all(
+  // TODO Teknisk gjeld: Denne sjekken burde ikke være nødvendig fordi det ikke er mulig å se en oppgave i oppgave view uten at det er satt en saksbehandler på oppgaven. Vil fikses når vi refaktorer dp-melding-om-vedtak til å hente data fra dp-saksbehandling selv istedet for at frontend må sende det med.
+  if (!oppgave?.saksbehandler) {
+    throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
+  }
+
+  const meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+    fornavn: oppgave.person.fornavn,
+    mellomnavn: oppgave.person.mellomnavn,
+    etternavn: oppgave.person.etternavn,
+    fodselsnummer: oppgave.person.ident,
+    saksbehandler: oppgave.saksbehandler,
+    beslutter: oppgave.beslutter,
+  });
+
+  const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return defer(
+  return data(
     {
       alert,
       oppgave,
-      behandling,
-      vurderinger,
-      oppgaverForPerson,
-      journalposterResponses,
+      behandlingPromise,
+      vurderingerPromise,
+      oppgaverForPersonPromise,
+      journalposterPromises,
+      meldingOmVedtakPromise,
     },
     {
       headers: {
@@ -56,7 +75,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, oppgaverForPerson, alert } = useLoaderData<typeof loader>();
+  const { oppgave, alert } = useLoaderData<typeof loader>();
+
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -78,7 +98,7 @@ export default function Oppgave() {
 
       <div className={styles.oppgaveContainer}>
         <BeslutterNotatProvider notat={oppgave.notat}>
-          <OppgaveListe oppgaver={oppgaverForPerson} />
+          <OppgavelistePerson />
           <Outlet />
         </BeslutterNotatProvider>
       </div>

@@ -1,35 +1,43 @@
 import { PersonPencilIcon } from "@navikt/aksel-icons";
-import { Detail, Textarea } from "@navikt/ds-react";
-import { useForm } from "@rvf/remix";
+import { Textarea } from "@navikt/ds-react";
+import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
+import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IOpplysning } from "~/models/behandling.server";
-import { action } from "~/routes/oppgave.$oppgaveId.behandle";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { isAlert } from "~/utils/type-guards";
 import { hentValideringOpplysningBegrunnelse } from "~/utils/validering.util";
 
+import { components } from "../../../openapi/behandling-typer";
 import styles from "./BegrunnelseLinje.module.css";
 
 interface IProps {
-  opplysning: IOpplysning;
+  opplysning: components["schemas"]["Opplysning"];
   readonly?: boolean;
 }
 
 export function BegrunnelseLinje({ opplysning, readonly }: IProps) {
+  const { addAlert } = useGlobalAlerts();
   const [verdi, setVerdi] = useState<string>(opplysning.kilde?.begrunnelse?.verdi ?? "");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreOpplysningBegrunnelseFetcher = useDebounceFetcher<typeof action>();
+  const lagreOpplysningBegrunnelseFetcher = useDebounceFetcher<typeof handleActions>();
 
-  const dato = new Date();
   const begrunnelseForm = useForm({
     id: opplysning.id,
     validator: hentValideringOpplysningBegrunnelse(),
     method: "post",
   });
+
+  useEffect(() => {
+    if (isAlert(lagreOpplysningBegrunnelseFetcher.data)) {
+      addAlert(lagreOpplysningBegrunnelseFetcher.data);
+    }
+  }, [lagreOpplysningBegrunnelseFetcher.data]);
 
   function lagreOpplysningBegrunnelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
     const oppdatertVerdi = event.currentTarget.value;
@@ -69,14 +77,13 @@ export function BegrunnelseLinje({ opplysning, readonly }: IProps) {
             error={begrunnelseForm.error("begrunnelse")}
             readOnly={readonly}
           />
-          <Detail textColor={"subtle"}>{formaterNorskDato(dato.toISOString(), true)}</Detail>
         </div>
       </form>
     </li>
   );
 }
 
-function formatereOpplysningVerdi(opplysning: IOpplysning): string {
+function formatereOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]): string {
   switch (opplysning.datatype) {
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";

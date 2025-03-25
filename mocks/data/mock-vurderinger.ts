@@ -1,6 +1,6 @@
-import { IVurderinger } from "~/models/behandling.server";
+import { components } from "../../openapi/behandling-typer";
 
-export const mockVurderinger: IVurderinger = {
+export const mockVurderinger: components["schemas"]["SaksbehandlersVurderinger"] = {
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   regelsett: [
     {
@@ -117,10 +117,8 @@ export const mockVurderinger: IVurderinger = {
         type: "Saksbehandler",
         registrert: "2024-12-23T21:44:20.422267",
         ident: "Z994276",
-        begrunnelse: null,
         meldingId: null,
       },
-      utledetAv: null,
     },
     {
       id: "0193f54c-3540-7363-8b37-657a0c080341",
@@ -138,10 +136,8 @@ export const mockVurderinger: IVurderinger = {
         type: "Saksbehandler",
         registrert: "2024-12-23T21:53:51.670069",
         ident: "Z994276",
-        begrunnelse: null,
         meldingId: null,
       },
-      utledetAv: null,
     },
     {
       id: "0194b727-934d-76f8-940b-c3dc7bff917b",
@@ -159,10 +155,8 @@ export const mockVurderinger: IVurderinger = {
         type: "Saksbehandler",
         registrert: "2025-01-30T13:20:10.75773",
         ident: "Z993298",
-        begrunnelse: null,
         meldingId: null,
       },
-      utledetAv: null,
     },
     {
       id: "01951944-9e79-70b3-b234-4c7050dd3226",
@@ -180,10 +174,8 @@ export const mockVurderinger: IVurderinger = {
         type: "Saksbehandler",
         registrert: "2025-02-18T14:34:40.986138",
         ident: "Z993298",
-        begrunnelse: null,
         meldingId: null,
       },
-      utledetAv: null,
     },
   ],
 };

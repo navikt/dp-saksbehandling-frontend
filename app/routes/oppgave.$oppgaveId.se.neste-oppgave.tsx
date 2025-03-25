@@ -1,15 +1,18 @@
 import { Button, Heading, Modal } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef } from "react";
+import {
+  ActionFunctionArgs,
+  data,
+  Form,
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigation,
+} from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -19,7 +22,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
+  return data(
     { alert },
     {
       headers: {
@@ -50,11 +53,7 @@ export default function NesteOppgave() {
       </Modal.Header>
 
       <Modal.Footer>
-        <RemixLink
-          asButtonVariant={"secondary"}
-          size="small"
-          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
-        >
+        <RemixLink asButtonVariant={"secondary"} size="small" to={`/?${aktivtOppgaveSok}`}>
           Oppgaveliste
         </RemixLink>
 

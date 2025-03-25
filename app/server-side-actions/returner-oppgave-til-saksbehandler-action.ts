@@ -1,12 +1,11 @@
-import { json, redirect } from "@remix-run/node";
-import type { ActionFunctionArgs } from "@remix-run/server-runtime/dist/routeModules";
+import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
-import { returnerOppgaveTilSaksbehandler } from "~/models/oppgave.server";
+import { IAlert } from "~/context/alert-context";
+import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function returnerOppgaveTilSaksbehandlerAction(
   request: Request,
@@ -22,25 +21,22 @@ export async function returnerOppgaveTilSaksbehandlerAction(
       message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
     };
 
-    return json(error);
+    return error;
   }
 
-  const response = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
+  const { error } = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
+
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Oppgave sendt tilbake til saksbehandler ↩️",
+  };
+
   const session = await getSession(request.headers.get("Cookie"));
-  session.flash(
-    "alert",
-    getAlertMessage({ name: "returner-til-saksbehandler", httpCode: response.status }),
-  );
-
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-
-    return redirect(`/oppgave/${params.oppgaveId}/behandle`, {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    });
-  }
+  session.flash("alert", successAlert);
 
   return redirect(`/oppgave/${params.oppgaveId}/se/neste-oppgave`, {
     headers: {

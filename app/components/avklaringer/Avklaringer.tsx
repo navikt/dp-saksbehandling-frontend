@@ -1,12 +1,10 @@
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IAvklaring } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
 import { Avklaring } from "./Avklaring";
 
 interface IProps {
-  avklaringer: IAvklaring[];
-  readonly?: boolean;
-  defaultOpen?: boolean;
+  avklaringer: components["schemas"]["Avklaring"][];
 }
 
 export function Avklaringer(props: IProps) {
@@ -21,8 +19,7 @@ export function Avklaringer(props: IProps) {
         <Avklaring
           key={avklaring.id}
           avklaring={avklaring}
-          defaultOpen={props.defaultOpen}
-          readonly={oppgave.tilstand !== "UNDER_BEHANDLING" || props.readonly}
+          readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
         />
       ))}
     </>

@@ -1,7 +1,8 @@
-import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
+import { IAlert } from "~/context/alert-context";
 import { endreOpplysning } from "~/models/behandling.server";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function lagreOpplysningAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
@@ -14,7 +15,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   invariant(opplysningId, "opplysningId er påkrevd");
   invariant(verdi, "verdi er påkrevd");
 
-  const nyBehandling = await endreOpplysning(
+  const { data, error } = await endreOpplysning(
     request,
     behandlingId,
     opplysningId,
@@ -22,7 +23,20 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     begrunnelse,
   );
 
-  return json(nyBehandling);
+  if (error) {
+    return getHttpProblemAlert(error);
+  }
+
+  if (data) {
+    const successAlert: IAlert = {
+      variant: "success",
+      title: "Opplysning lagret",
+    };
+
+    return successAlert;
+  }
+
+  throw new Error(`Uhåndtert feil i lagreOpplysningAction()`);
 }
 
 function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {

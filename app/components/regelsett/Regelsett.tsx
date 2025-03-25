@@ -1,24 +1,22 @@
 import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import { OpplysningLinje } from "~/components/opplysning-linje/OpplysningLinje";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IRegelsett } from "~/models/behandling.server";
 
+import { components } from "../../../openapi/behandling-typer";
+import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
 interface IProps {
-  aktivtRegelsett: IRegelsett;
+  behandling: components["schemas"]["Behandling"];
+  aktivtRegelsett: components["schemas"]["Regelsett"];
   readonly?: boolean;
 }
 
-export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const aktivtRegelsettOpplysninger =
-    aktivtRegelsett.opplysningIder
-      ?.map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
-      .filter((opplysning) => opplysning !== undefined)
-      .filter((opplysning) => opplysning.synlig) ?? [];
+export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
+  const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
+    .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
+    .filter((opplysning) => opplysning !== undefined)
+    .filter((opplysning) => opplysning.synlig);
 
   const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Bruker",
@@ -34,10 +32,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
 
   const regelOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Regel",
-  );
-
-  const mellomstegOpplysninger = aktivtRegelsettOpplysninger.filter(
-    (opplysning) => opplysning?.formål === "Mellomsteg",
   );
 
   return (
@@ -91,23 +85,6 @@ export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
           </Heading>
           <ul className={styles.opplysningListe}>
             {legacyOpplysninger.map((opplysning) => (
-              <OpplysningLinje
-                key={`${opplysning.id}-${opplysning.verdi}`}
-                opplysning={opplysning}
-                readonly={readonly}
-              />
-            ))}
-          </ul>
-        </>
-      )}
-
-      {mellomstegOpplysninger.length > 0 && (
-        <>
-          <Heading size={"xsmall"} className={styles.opplysningListeHeading}>
-            Mellomsteg
-          </Heading>
-          <ul className={styles.opplysningListe}>
-            {mellomstegOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
                 opplysning={opplysning}

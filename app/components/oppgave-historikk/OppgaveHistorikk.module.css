@@ -49,36 +49,12 @@
   border-radius: var(--a-border-radius-xlarge);
 }
 
-.hendelseMeldingMelding::before {
-  z-index: 1;
-  content: "";
-  position: absolute;
-  width: 10px;
-  background-color: var(--a-gray-700);
-  top: 0;
-  bottom: 0;
-  left: -1px;
-  border-radius: var(--a-border-radius-xlarge);
-}
-
 .hendelseMeldingNotat::before {
   z-index: 1;
   content: "";
   position: absolute;
   width: 10px;
   background-color: var(--a-purple-400);
-  top: 0;
-  bottom: 0;
-  left: -1px;
-  border-radius: var(--a-border-radius-xlarge);
-}
-
-.hendelseMeldingEndreOpplysning::before {
-  z-index: 1;
-  content: "";
-  position: absolute;
-  width: 10px;
-  background-color: var(--a-orange-500);
   top: 0;
   bottom: 0;
   left: -1px;

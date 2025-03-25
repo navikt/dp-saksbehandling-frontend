@@ -1,5 +1,5 @@
 import { Radio, RadioGroup } from "@navikt/ds-react";
-import { useField } from "@rvf/remix";
+import { useField } from "@rvf/react-router";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 

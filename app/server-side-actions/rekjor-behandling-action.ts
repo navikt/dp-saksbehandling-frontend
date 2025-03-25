@@ -1,8 +1,6 @@
-import { json } from "@remix-run/node";
-
+import { IAlert } from "~/context/alert-context";
 import { rekjorBehandling } from "~/models/behandling.server";
-import { getAlertMessage } from "~/utils/alert-message.utils";
-import { logger } from "~/utils/logger.utils";
+import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function rekjorBehandlingAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
@@ -16,13 +14,16 @@ export async function rekjorBehandlingAction(request: Request, formData: FormDat
     throw new Error("Mangler ident");
   }
 
-  const response = await rekjorBehandling(request, behandlingId, ident);
-  const alert = getAlertMessage({ name: "rekjor-behandling", httpCode: response.status });
+  const { error } = await rekjorBehandling(request, behandlingId, ident);
 
-  if (!response.ok) {
-    logger.warn(`${response.status} - Feil ved kall til ${response.url}`);
-    return json(alert);
+  if (error) {
+    return getHttpProblemAlert(error);
   }
 
-  return json(alert);
+  const successAlert: IAlert = {
+    variant: "success",
+    title: "Behandling er kjørt på nytt",
+  };
+
+  return successAlert;
 }

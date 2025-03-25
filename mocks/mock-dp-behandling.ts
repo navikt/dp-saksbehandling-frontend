@@ -1,84 +1,131 @@
-import { http, HttpResponse } from "msw";
+import { delay } from "msw";
+import { createOpenApiHttp } from "openapi-msw";
 
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
-import { mockBehandlinger, mockBehandlingInnvilgelse } from "./data/mock-behandling";
+import { components, paths } from "../openapi/behandling-typer";
+import { mockBehandlinger } from "./data/mock-behandling";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
+const apiError = false;
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
+
+const defaultError: components["schemas"]["HttpProblem"] = {
+  type: "500",
+  title: "Default MSW feilmelding",
+  detail: "En feil har oppstått. Kan ikke hente behandling",
+  status: 500,
+  instance: "dp-behandling",
+};
+
+const error404: components["schemas"]["HttpProblem"] = {
+  type: "404",
+  title: "Fant ikke data",
+  status: 404,
+  instance: "dp-behandling",
+};
+
 export const mockDpBehandling = [
-  http.get(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId`, ({ request, params }) => {
+  http.get("/behandling/{behandlingId}", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
     const { behandlingId } = params;
     const mockBehandling = mockBehandlinger.find(
       (behandling) => behandling.behandlingId === behandlingId,
     );
 
-    if (mockBehandling) {
-      return HttpResponse.json(mockBehandling);
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
     }
 
-    return new HttpResponse(null, {
-      status: 404,
-    });
+    if (mockBehandling) {
+      return response(200).json(mockBehandling);
+    }
+
+    return response("default").json(error404, { status: 404 });
   }),
 
-  http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/avbryt`, ({ request }) => {
+  http.post(`/behandling/{behandlingId}/avbryt`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    return new HttpResponse(null, {
-      status: 201,
-    });
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(201).empty();
   }),
 
-  http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/godkjenn`, ({ request }) => {
+  http.post(`/behandling/{behandlingId}/godkjenn`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    return new HttpResponse(null, {
-      status: 201,
-    });
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(201).empty();
   }),
 
-  http.post(`${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/rekjor`, ({ request }) => {
+  http.post(`/behandling/{behandlingId}/rekjor`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    return new HttpResponse(null, {
-      status: 201,
-    });
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(201).empty();
   }),
 
   http.put(
-    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/opplysning/:opplysningId`,
-    ({ request }) => {
+    `/behandling/{behandlingId}/opplysning/{opplysningId}`,
+    async ({ request, response, params }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
-      return HttpResponse.json(mockBehandlingInnvilgelse);
+      await delay();
+      if (apiError) {
+        return response("default").json(defaultError, { status: 500 });
+      }
+
+      return response(200).json({ behandlingId: params.behandlingId });
     },
   ),
+
+  http.put(`/behandling/{behandlingId}/avklaring/{avklaringId}`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response(400).json(defaultError);
+    }
+
+    return response(204).empty();
+  }),
+
+  http.get(`/behandling/{behandlingId}/vurderinger`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockVurderinger);
+  }),
 
   http.put(
-    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/avklaring/:avklaringId`,
-    ({ request }) => {
+    `/behandling/{behandlingId}/vurderinger/{opplysningId}`,
+    async ({ request, response }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
 
-      return new HttpResponse(null, {
-        status: 204,
-      });
-    },
-  ),
+      if (apiError) {
+        return response(400).json(defaultError);
+      }
 
-  http.get(
-    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/vurderinger`,
-    ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      return HttpResponse.json(mockVurderinger);
-    },
-  ),
-
-  http.put(
-    `${process.env.DP_BEHANDLING_URL}/behandling/:behandlingId/vurderinger/:opplysningId`,
-    ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      return new HttpResponse(null, {
-        status: 204,
-      });
+      return response(204).empty();
     },
   ),
 ];

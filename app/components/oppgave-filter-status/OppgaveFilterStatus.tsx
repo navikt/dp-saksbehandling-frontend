@@ -1,9 +1,9 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "react-router";
 
-import type { IOppgaveTilstand } from "~/models/oppgave.server";
+import { components } from "../../../openapi/saksbehandling-typer";
 
-const statuser: { id: IOppgaveTilstand; tekst: string }[] = [
+const statuser: { id: components["schemas"]["OppgaveTilstand"]; tekst: string }[] = [
   { id: "KLAR_TIL_KONTROLL", tekst: "Klar til kontroll" },
   { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },

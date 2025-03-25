@@ -1,6 +1,6 @@
 import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
-import { isRouteErrorResponse, Link } from "@remix-run/react";
 import type { JSX } from "react";
+import { isRouteErrorResponse, Link } from "react-router";
 
 import styles from "./RootErrorBoundaryView.module.css";
 
@@ -17,6 +17,7 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
         {meta}
         {links}
       </head>
+
       <body>
         <InternalHeader>
           <Link to={"/"} className={styles.headerLogo}>

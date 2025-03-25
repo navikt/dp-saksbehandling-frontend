@@ -24,10 +24,21 @@
 }
 
 .iconContainer {
-  background-color: var(--a-red-300);
   border-radius: var(--a-border-radius-full);
-  width: 24px;
-  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 26px;
+  height: 26px;
+}
+
+.iconContainerMann {
+  background-color: var(--a-blue-400);
+}
+
+.iconContainerKvinne {
+  background-color: var(--a-red-400);
 }
 
 .utviklerinfo {

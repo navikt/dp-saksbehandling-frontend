@@ -1,18 +1,18 @@
 import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { Form, useLocation, useNavigation } from "@remix-run/react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
+import { Form, useLocation, useNavigation } from "react-router";
 
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
-import type { IListeOppgave, IOppgaveTilstand } from "~/models/oppgave.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
 
 interface IProps {
-  oppgaver: IListeOppgave[];
+  oppgaver: components["schemas"]["OppgaveOversikt"][];
   totaltAntallOppgaver?: number;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
@@ -31,7 +31,9 @@ export function OppgaveListe({
   const { state } = useNavigation();
   const location = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
-  const { sortedData, handleSort, sortState } = useTableSort<IListeOppgave>(oppgaver, {
+  const { sortedData, handleSort, sortState } = useTableSort<
+    components["schemas"]["OppgaveOversikt"]
+  >(oppgaver, {
     orderBy: "tidspunktOpprettet",
     direction: "ascending",
   });
@@ -73,7 +75,9 @@ export function OppgaveListe({
         sort={sortState}
         size="small"
         className={classnames("table--subtle-zebra", styles.oppgaveListe)}
-        onSortChange={(sortKey) => sortKey && handleSort(sortKey as keyof IListeOppgave)}
+        onSortChange={(sortKey) =>
+          sortKey && handleSort(sortKey as keyof components["schemas"]["OppgaveOversikt"])
+        }
       >
         <Table.Header>
           <Table.Row>
@@ -110,116 +114,131 @@ export function OppgaveListe({
         </Table.Header>
 
         <Table.Body>
-          {sortedData.length === 0 && (
+          {lasterOppgaver && (
             <Table.Row>
-              <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell>
+                <Skeleton variant="text" width={90} height={33} />
+              </Table.DataCell>
+              <Table.DataCell>
+                <Skeleton variant="text" width={60} height={33} />
+              </Table.DataCell>
+              <Table.DataCell>
+                <Skeleton variant="text" width={250} height={33} />
+              </Table.DataCell>
+              <Table.DataCell>
+                <Skeleton variant="text" width={150} height={33} />
+              </Table.DataCell>
+              <Table.DataCell>
+                <Skeleton variant="text" width={100} height={33} />
+              </Table.DataCell>
+              {visPersonIdent && (
+                <Table.DataCell>
+                  <Skeleton variant="text" width={80} height={33} />
+                </Table.DataCell>
+              )}
+              <Table.DataCell>
+                <Skeleton variant="text" width={20} height={33} />
+              </Table.DataCell>
             </Table.Row>
           )}
 
-          {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
-            const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
-            const dagerIgjenTilUtsattDato = utsattTilDato
-              ? differenceInCalendarDays(utsattTilDato, new Date())
-              : undefined;
+          {!lasterOppgaver && (
+            <>
+              {sortedData.length === 0 && (
+                <Table.Row>
+                  <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>
+                    Fant ingen oppgaver
+                  </Table.DataCell>
+                </Table.Row>
+              )}
 
-            return (
-              <Table.Row
-                key={oppgave.oppgaveId}
-                className={classnames({ [styles.valgtOppgaveBackground]: erValgtOppgave })}
-              >
-                {lasterOppgaver && (
-                  <>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={90} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={60} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={250} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={150} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={100} height={33} />
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Skeleton variant="text" width={20} height={33} />
-                    </Table.DataCell>
-                  </>
-                )}
+              {sortedData?.map((oppgave) => {
+                const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
+                const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
+                const dagerIgjenTilUtsattDato = utsattTilDato
+                  ? differenceInCalendarDays(utsattTilDato, new Date())
+                  : undefined;
 
-                {!lasterOppgaver && (
-                  <>
-                    <Table.DataCell
-                      className={classnames({ [styles.valgtOppgaveBorder]: erValgtOppgave })}
-                    >
-                      <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
-                    </Table.DataCell>
+                return (
+                  <Table.Row
+                    key={oppgave.oppgaveId}
+                    className={classnames({
+                      [styles.valgtOppgaveBackground]: erValgtOppgave,
+                    })}
+                  >
+                    <>
+                      <Table.DataCell
+                        className={classnames({
+                          [styles.valgtOppgaveBorder]: erValgtOppgave,
+                        })}
+                      >
+                        <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Detail>Søknad</Detail>
-                    </Table.DataCell>
+                      <Table.DataCell>
+                        <Detail>Søknad</Detail>
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <>
-                        {emneknagger.map((emneknagg) => (
-                          <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
-                            <Detail>{emneknagg}</Detail>
-                          </Tag>
-                        ))}
+                      <Table.DataCell>
+                        <>
+                          {emneknagger.map((emneknagg) => (
+                            <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
+                              <Detail>{emneknagg}</Detail>
+                            </Tag>
+                          ))}
 
-                        {utsattTilDato && (
-                          <Tag className="mr-2" size={"xsmall"} variant="warning">
-                            <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                          </Tag>
-                        )}
+                          {utsattTilDato && (
+                            <Tag className="mr-2" size={"xsmall"} variant="warning">
+                              <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                            </Tag>
+                          )}
 
-                        {oppgave.skjermesSomEgneAnsatte && (
-                          <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>Egne ansatte</Detail>
-                          </Tag>
-                        )}
-                        {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
-                          <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>Fortrolig</Detail>
-                          </Tag>
-                        )}
+                          {oppgave.skjermesSomEgneAnsatte && (
+                            <Tag className="mr-2" size={"xsmall"} variant="error">
+                              <Detail>Egne ansatte</Detail>
+                            </Tag>
+                          )}
+                          {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
+                            <Tag className="mr-2" size={"xsmall"} variant="error">
+                              <Detail>Fortrolig</Detail>
+                            </Tag>
+                          )}
 
-                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
-                          <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>Strengt fortrolig</Detail>
-                          </Tag>
-                        )}
+                          {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
+                            <Tag className="mr-2" size={"xsmall"} variant="error">
+                              <Detail>Strengt fortrolig</Detail>
+                            </Tag>
+                          )}
 
-                        {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
-                          <Tag className="mr-2" size={"xsmall"} variant="error">
-                            <Detail>Strengt fortrolig utland</Detail>
-                          </Tag>
-                        )}
-                      </>
-                    </Table.DataCell>
+                          {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
+                            <Tag className="mr-2" size={"xsmall"} variant="error">
+                              <Detail>Strengt fortrolig utland</Detail>
+                            </Tag>
+                          )}
+                        </>
+                      </Table.DataCell>
 
-                    {visPersonIdent && (
-                      <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
-                    )}
-                    <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
-                    <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
-                  </>
-                )}
-              </Table.Row>
-            );
-          })}
+                      {visPersonIdent && (
+                        <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
+                      )}
+                      <Table.DataCell>
+                        {<Detail>{getTilstandText(tilstand)}</Detail>}
+                      </Table.DataCell>
+                      <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
+                      <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+                    </>
+                  </Table.Row>
+                );
+              })}
+            </>
+          )}
         </Table.Body>
       </Table>
     </>
   );
 }
 
-export function getTilstandText(tilstand: IOppgaveTilstand) {
+export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand"]) {
   switch (tilstand) {
     case "PAA_VENT":
       return "På vent";

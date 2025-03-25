@@ -1,217 +1,236 @@
-import { http, HttpResponse } from "msw";
+import { delay } from "msw";
+import { createOpenApiHttp } from "openapi-msw";
 
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
+import { components, paths } from "../openapi/saksbehandling-typer";
 import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
+import { mockStatistikk } from "./data/mock-statistikk";
+
+const apiError = false;
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL") });
+
+const defaultError: components["schemas"]["HttpProblem"] = {
+  type: "500",
+  title: "Default MSW feilmelding",
+  status: 500,
+  instance: "dp-saksbehandling",
+};
+
+const error404: components["schemas"]["HttpProblem"] = {
+  type: "404",
+  title: "Fant ikke data",
+  status: 404,
+  instance: "dp-saksbehandling",
+};
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
-  http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave`, ({ request }) => {
+  http.get(`/oppgave`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    return HttpResponse.json({
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json({
       oppgaver: mockListeOppgaver,
       totaltAntallOppgaver: mockListeOppgaver.length,
     });
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/neste`, ({ request }) => {
+  http.put(`/oppgave/neste`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    // return HttpResponse.json(
-    //   {
-    //     type: "",
-    //     title: "",
-    //     status: 404,
-    //     detail: "",
-    //     instance: "",
-    //   },
-    //   { status: 404 },
-    // );
+    await delay();
 
-    return HttpResponse.json(mockOppgaver[0]);
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockOppgaver[0]);
   }),
 
   // Hent en oppgave med oppgaveId
-  http.get(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId`, ({ request, params }) => {
-    const { oppgaveId } = params;
+  http.get(`/oppgave/{oppgaveId}`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { oppgaveId } = params;
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
-      return HttpResponse.json(mockOppgave);
+      return response(200).json(mockOppgave);
     }
 
-    return new HttpResponse(null, {
-      status: 404,
-    });
+    return response(404).json(error404);
   }),
 
   // Tildel en oppgave med oppgaveId
-  http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/tildel`,
-    ({ request, params }) => {
-      const { oppgaveId } = params;
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-      const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+  http.put(`/oppgave/{oppgaveId}/tildel`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-      if (!mockOppgave) {
-        return HttpResponse.json(
-          {
-            type: "",
-            title: "Finner ikke oppgave",
-            status: 404,
-            detail: "",
-            instance: "",
-          },
-          { status: 404 },
-        );
-      }
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
 
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-        return HttpResponse.text("UNDER_BEHANDLING");
+        return response(200).json({ nyTilstand: "UNDER_BEHANDLING" });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-        return HttpResponse.text("UNDER_KONTROLL");
+        return response(200).json({ nyTilstand: "UNDER_KONTROLL" });
       }
+      return response(200).json({ nyTilstand: mockOppgave.tilstand });
+    }
 
-      return new HttpResponse("Oppgaven er allerede tatt til behandling", {
-        status: 423,
-      });
-    },
-  ),
+    return response(404).json(error404);
+  }),
 
   // Legg oppgave med oppgaveId tilbake i køen
-  http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/legg-tilbake`,
-    ({ request, params }) => {
-      const { oppgaveId } = params;
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-      const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+  http.put(`/oppgave/{oppgaveId}/legg-tilbake`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-      if (mockOppgave) {
-        return new HttpResponse(null, {
-          status: 204,
-        });
-      }
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
 
-      return new HttpResponse(null, {
-        status: 404,
-      });
-    },
-  ),
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
+      return response(204).empty();
+    }
+
+    return response(404).json(error404);
+  }),
 
   // Ferdigstille oppgave med melding om vedtak generert i Arena.
   http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/ferdigstill/melding-om-vedtak-arena`,
-    ({ request }) => {
+    `/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena`,
+    async ({ request, response }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
 
-      return new HttpResponse(null, {
-        status: 204,
-      });
+      if (apiError) {
+        return response("default").json(defaultError, { status: 500 });
+      }
+
+      return response(204).empty();
     },
   ),
 
   // Ferdigstille oppgave med melding om vedtak generert i frontend.
-  http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/ferdigstill/melding-om-vedtak`,
-    ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-      return new HttpResponse(null, {
-        status: 204,
-      });
-    },
-  ),
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 
   // Utsett oppgave med oppgaveId
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/utsett`, ({ params }) => {
+  http.put(`/oppgave/{oppgaveId}/utsett`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
     const { oppgaveId } = params;
-    logger.info(`[MSW]-PUT ${process.env.DP_SAKSBEHANDLING_URL}/oppgave/${oppgaveId}/utsett`);
     const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
 
     if (mockOppgave) {
-      return new HttpResponse(null, {
-        status: 204,
-      });
+      return response(200).empty();
     }
 
-    return new HttpResponse(null, {
-      status: 404,
-    });
+    return response(404).json(error404);
   }),
 
   // Send oppgave til kontroll
-  http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/send-til-kontroll`,
-    async ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-      return new HttpResponse(null, {
-        status: 204,
-      });
-    },
-  ),
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 
   // Send oppgave tilbake til saksbehandler fra kontroll
-  http.put(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/returner-til-saksbehandler`,
-    async ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/returner-til-saksbehandler`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-      return new HttpResponse(null, {
-        status: 204,
-      });
-    },
-  ),
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 
   // Lagre notat på oppgave
-  http.put(`${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/notat`, async ({ request }) => {
+  http.put(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-    return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
   // Slett notat på oppgave
-  http.delete(
-    `${process.env.DP_SAKSBEHANDLING_URL}/oppgave/:oppgaveId/notat`,
-    async ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      return HttpResponse.json({ sistEndretTidspunkt: new Date().toISOString() });
-    },
-  ),
-
-  // Hent alle oppgaver til en person
-  http.post(`${process.env.DP_SAKSBEHANDLING_URL}/person/oppgaver`, async ({ request }) => {
+  http.delete(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
-    return HttpResponse.json(mockListeOppgaver);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
-  // Send brev for oppgave
-  http.post(
-    `${process.env.DP_SAKSBEHANDLING_URL}/utsending/:oppgaveId/send-brev`,
-    async ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      return new HttpResponse(null, {
-        status: 202,
-      });
-    },
-  ),
-
-  // Hent neste oppgave og tildel denne til saksbehandler
-  http.get(`${process.env.DP_SAKSBEHANDLING_URL}/statistikk`, ({ request }) => {
+  // Hent alle oppgaver til en person
+  http.post(`/person/oppgaver`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
 
-    return HttpResponse.json({
-      individuellStatistikk: { dag: 4, uke: 12, totalt: 623 },
-      generellStatistikk: { dag: 400, uke: 1200, totalt: 6230 },
-      beholdningsinfo: {
-        antallOppgaverKlarTilBehandling: 1401,
-        antallOppgaverKlarTilKontroll: 7,
-        datoEldsteUbehandledeOppgave: "2025-02-12T13:26:19.548108",
-      },
-    });
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockListeOppgaver);
+  }),
+
+  // Hent statistikk
+  http.get(`/statistikk`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockStatistikk);
   }),
 ];

@@ -1,13 +1,13 @@
-import { NavLink } from "@remix-run/react";
 import classnames from "classnames";
+import { NavLink } from "react-router";
 
 import { Ghosts } from "~/components/halloween/Ghosts";
-import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
+import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
 import { Valentines } from "~/components/valentines/Valentines";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import type { ISaksbehandler } from "~/models/saksbehandler.server";
-import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
+import type { ISaksbehandler } from "~/models/microsoft.server";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
 import { convertToQueryParamString } from "~/utils/url.utils";
@@ -22,11 +22,13 @@ interface IProps {
 
 export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }: IProps) {
   const { featureFlags } = useTypedRouteLoaderData("root");
+  const { aktivtOppgaveSok } = useSaksbehandler();
+
   return (
     <div className={styles.container}>
       <div className={styles.linkContainer}>
         <NavLink
-          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
+          to={`/?${aktivtOppgaveSok}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -64,7 +66,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
-        <HeaderUtloggingMeny saksbehandler={saksbehandler} />
+        <HeaderSaksbehandlerMeny saksbehandler={saksbehandler} />
       </div>
     </div>
   );

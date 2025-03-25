@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
 
-import type { IOppgaveNotat } from "~/models/oppgave.server";
+import { components } from "../../openapi/saksbehandling-typer";
+
+type IOppgaveNotat = components["schemas"]["Notat"];
 
 interface IBeslutterNotatContextType {
   notat: IOppgaveNotat;
@@ -13,7 +15,9 @@ export const BeslutterNotatContext = createContext<IBeslutterNotatContextType | 
 );
 
 export function BeslutterNotatProvider(props: PropsWithChildren<{ notat?: IOppgaveNotat }>) {
-  const [notat, setNotat] = useState<IOppgaveNotat>(props.notat || { tekst: "" });
+  const [notat, setNotat] = useState<IOppgaveNotat>(
+    props.notat || { tekst: "", sistEndretTidspunkt: "" },
+  );
 
   return (
     <BeslutterNotatContext.Provider value={{ notat, setNotat }}>

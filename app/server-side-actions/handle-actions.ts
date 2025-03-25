@@ -1,4 +1,4 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs } from "react-router";
 
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
@@ -6,7 +6,7 @@ import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
-import { lagreVurderingAction } from "~/server-side-actions/lagreVurderingAction";
+import { lagreVurderingAction } from "~/server-side-actions/lagre-vurdering-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";

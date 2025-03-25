@@ -1,22 +1,22 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
-import type { SerializeFrom } from "@remix-run/node";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { type ChangeEvent, useEffect, useRef } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId.kontroll";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isFormValidationError, isILagreNotatResponse } from "~/utils/type-guards";
 
 export function OppgaveHandlingReturnerTilSaksbehandler() {
   const { state } = useNavigation();
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<typeof handleActions>();
   const modalRef = useRef<HTMLDialogElement>(null);
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<SerializeFrom<typeof action>>();
+  const lagreNotatFetcher = useDebounceFetcher<typeof lagreNotatAction>();
 
   useEffect(() => {
     if (lagreNotatFetcher.data && isILagreNotatResponse(lagreNotatFetcher.data)) {

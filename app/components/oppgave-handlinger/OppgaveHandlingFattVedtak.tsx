@@ -1,16 +1,20 @@
 import { BodyLong, Button, Modal } from "@navikt/ds-react";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
-export function OppgaveHandlingFattVedtak() {
+import { components } from "../../../openapi/behandling-typer";
+
+interface IProps {
+  utfall: components["schemas"]["Behandling"]["utfall"];
+}
+
+export function OppgaveHandlingFattVedtak(props: IProps) {
   const fattVedtakModalRef = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const actionData = useActionData<typeof action>();
-  const { behandling } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const actionData = useActionData<typeof handleActions>();
 
   useEffect(() => {
     if (isAlert(actionData) && actionData.variant === "error") {
@@ -32,7 +36,7 @@ export function OppgaveHandlingFattVedtak() {
         <Modal.Body>
           <BodyLong>
             Ønsker du å fatte vedtak med utfall{" "}
-            <strong>{behandling.utfall ? "innvilget" : "avslag"}?</strong>
+            <strong>{props.utfall ? "innvilget" : "avslag"}</strong>
           </BodyLong>
         </Modal.Body>
 

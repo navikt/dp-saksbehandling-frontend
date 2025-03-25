@@ -1,16 +1,18 @@
 import { Alert, Button, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
-import { Form, useNavigation } from "@remix-run/react";
-import { useForm } from "@rvf/remix";
+import { useForm } from "@rvf/react-router";
 import { add, format } from "date-fns";
 import { useRef, useState } from "react";
+import { Form, useNavigation } from "react-router";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
 export function OppgaveHandlingUtsett() {
   const { state } = useNavigation();
   const ref = useRef<HTMLDialogElement>(null);
+  const { aktivtOppgaveSok } = useSaksbehandler();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
@@ -52,6 +54,7 @@ export function OppgaveHandlingUtsett() {
           <Form method="post" {...validatedForm.getFormProps()}>
             <input name="_action" value="utsett-oppgave" hidden={true} readOnly={true} />
             <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+            <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
 
             <DatePicker.Standalone
               onSelect={oppdaterDato}

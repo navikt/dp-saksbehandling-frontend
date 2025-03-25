@@ -1,5 +1,4 @@
-ingress: "https://dagpenger.ansatt.nav.no/saksbehandling"
-base_path: "/saksbehandling"
+ingress: "https://saksbehandling-dagpenger.ansatt.nav.no"
 gcp_env: "prod"
 
 dp-behandling_url: "http://dp-behandling"

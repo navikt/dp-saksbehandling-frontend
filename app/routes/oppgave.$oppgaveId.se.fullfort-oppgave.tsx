@@ -1,20 +1,24 @@
 import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Form, useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { useRef, useState } from "react";
+import {
+  ActionFunctionArgs,
+  data,
+  Form,
+  LoaderFunctionArgs,
+  useActionData,
+  useLoaderData,
+  useNavigation,
+} from "react-router";
 
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import styles from "~/route-styles/oppgave.module.css";
-import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
-import { convertToQueryParamString } from "~/utils/url.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -24,7 +28,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
-  return json(
+  return data(
     { alert },
     {
       headers: {
@@ -65,11 +69,7 @@ export default function NesteOppgave() {
           </Modal.Body>
 
           <Modal.Footer>
-            <RemixLink
-              asButtonVariant={"secondary"}
-              size="small"
-              to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
-            >
+            <RemixLink asButtonVariant={"secondary"} size="small" to={`/?${aktivtOppgaveSok}`}>
               Oppgaveliste
             </RemixLink>
 
