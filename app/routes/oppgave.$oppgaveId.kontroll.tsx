@@ -42,11 +42,11 @@ export default function Oppgave() {
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <Behandling readonly={true} />
+              <Behandling readOnly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="begrunnelse">
-              <Begrunnelse readonly={true} />
+              <Begrunnelse readOnly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

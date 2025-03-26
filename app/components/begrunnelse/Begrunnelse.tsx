@@ -33,14 +33,18 @@ export function Begrunnelse(props: { readOnly?: boolean }) {
 
             return (
               <>
-                <BegrunnelseOpplysninger
-                  opplysninger={vurderingerResponse.data.opplysninger}
-                  readOnly={props.readOnly}
-                />
-                <BegrunnelseAvklaringer
-                  avklaringer={vurderingerResponse.data.avklaringer}
-                  readOnly={props.readOnly}
-                />
+                {vurderingerResponse.data.opplysninger.length > 0 && (
+                  <BegrunnelseOpplysninger
+                    opplysninger={vurderingerResponse.data.opplysninger}
+                    readOnly={props.readOnly}
+                  />
+                )}
+                {vurderingerResponse.data.avklaringer.length > 0 && (
+                  <BegrunnelseAvklaringer
+                    avklaringer={vurderingerResponse.data.avklaringer}
+                    readOnly={props.readOnly}
+                  />
+                )}
               </>
             );
           }}
