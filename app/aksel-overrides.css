@@ -7,13 +7,9 @@
   box-shadow: none;
 }
 
-/*Subtil Aksel tabell*/
+/* Subtil Aksel tabell*/
 .tabell--subtil {
   --ac-table-row-hover: var(--a-white);
-}
-
-.tabell--subtil tr:hover {
-  background-color: inherit;
 }
 
 .tabell--subtil td .navds-form-field {
