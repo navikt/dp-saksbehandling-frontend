@@ -1,4 +1,5 @@
 import { Detail, Textarea } from "@navikt/ds-react";
+import classnames from "classnames";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
@@ -52,9 +53,10 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
       <input name="behandling-id" value={oppgave.behandlingId} readOnly={true} hidden={true} />
 
       <Textarea
-        label={""}
+        label=""
         size="small"
         name="begrunnelse"
+        className="textarea--kompakt"
         value={verdi}
         onChange={(event) => lagreAvklaringBegrunnelse(event, 2000)}
         onBlur={handleOnBlur}
@@ -62,7 +64,7 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
       />
 
       {avklaring.sistEndret && (
-        <Detail>
+        <Detail className={classnames({ ["ml-6"]: readOnly })}>
           Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
         </Detail>
       )}

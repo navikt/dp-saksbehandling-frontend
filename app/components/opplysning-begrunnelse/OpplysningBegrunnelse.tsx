@@ -50,9 +50,10 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
       <input hidden={true} readOnly={true} name="ident" value={oppgave.saksbehandler?.ident} />
 
       <Textarea
-        label={""}
+        label=""
         size="small"
         name="begrunnelse"
+        className="textarea--kompakt"
         value={verdi}
         onChange={(event) => lagreOpplysningBegrunnelse(event, 2000)}
         onBlur={handleOnBlur}

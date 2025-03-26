@@ -27,10 +27,10 @@ export function BegrunnelseOpplysninger({ opplysninger, readOnly }: IProps) {
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <Table size="small" className={"tabell--subtil"}>
+        <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
           <Table.Body>
             {opplysninger.map((opplysning) => (
-              <Table.Row key={opplysning.id}>
+              <Table.Row key={opplysning.id} shadeOnHover={false}>
                 <Table.HeaderCell>{opplysning.navn}</Table.HeaderCell>
                 <Table.DataCell>{formaterOpplysningVerdi(opplysning)}</Table.DataCell>
                 <Table.DataCell>

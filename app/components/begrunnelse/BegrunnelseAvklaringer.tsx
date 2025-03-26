@@ -25,10 +25,10 @@ export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <Table size="small" className={"tabell--subtil"}>
+        <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
           <Table.Body>
             {avklaringer.map((avklaring) => (
-              <Table.Row key={avklaring.id}>
+              <Table.Row key={avklaring.id} shadeOnHover={false}>
                 <Table.HeaderCell>{avklaring.tittel}</Table.HeaderCell>
                 <Table.DataCell>
                   <AvklaringBegrunnelse avklaring={avklaring} readOnly={readOnly} />
