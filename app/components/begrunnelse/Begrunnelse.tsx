@@ -1,3 +1,4 @@
+import { Alert } from "@navikt/ds-react";
 import { Suspense } from "react";
 import { Await } from "react-router";
 
@@ -33,12 +34,20 @@ export function Begrunnelse(props: { readOnly?: boolean }) {
 
             return (
               <>
+                {vurderingerResponse.data.opplysninger.length === 0 &&
+                  vurderingerResponse.data.avklaringer.length === 0 && (
+                    <Alert variant={"info"} className={"m-4"}>
+                      Det er ingen opplysninger som er endret eller avklaringer som er kvittert
+                    </Alert>
+                  )}
+
                 {vurderingerResponse.data.opplysninger.length > 0 && (
                   <BegrunnelseOpplysninger
                     opplysninger={vurderingerResponse.data.opplysninger}
                     readOnly={props.readOnly}
                   />
                 )}
+
                 {vurderingerResponse.data.avklaringer.length > 0 && (
                   <BegrunnelseAvklaringer
                     avklaringer={vurderingerResponse.data.avklaringer}
