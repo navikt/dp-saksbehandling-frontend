@@ -9,6 +9,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   const opplysningId = formData.get("opplysningId") as string;
   const opplysningDatatype = formData.get("datatype") as string;
   const verdi = formData.get("verdi") as string;
+  const begrunnelse = formData.get("begrunnelse") as string | null;
 
   invariant(behandlingId, "behandlingId er påkrevd");
   invariant(opplysningId, "opplysningId er påkrevd");
@@ -19,6 +20,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     behandlingId,
     opplysningId,
     konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi),
+    begrunnelse,
   );
 
   if (error) {
@@ -47,6 +49,9 @@ function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, ver
     case "desimaltall":
     case "penger":
       return verdi.replace(",", ".");
+
+    case "boolsk":
+      return verdi === "Ja" ? "true" : "false";
 
     default:
       return verdi;

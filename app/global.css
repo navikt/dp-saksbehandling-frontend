@@ -43,6 +43,10 @@ body {
   margin-left: var(--a-spacing-2);
 }
 
+.ml-6 {
+  margin-left: var(--a-spacing-6);
+}
+
 .mt-2 {
   margin-top: var(--a-spacing-2);
 }

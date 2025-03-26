@@ -1,12 +1,12 @@
 import { ActionFunctionArgs } from "react-router";
 
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
-import { hentMeldingOmVedtakAction } from "~/server-side-actions/hent-melding-om-vedtak-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
+import { lagreVurderingAction } from "~/server-side-actions/lagre-vurdering-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
@@ -65,8 +65,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
 
-    case "hent-melding-om-vedtak-action":
-      return await hentMeldingOmVedtakAction(request, formData);
+    case "lagre-vurdering":
+      return await lagreVurderingAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

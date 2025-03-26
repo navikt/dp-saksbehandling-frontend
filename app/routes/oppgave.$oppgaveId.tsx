@@ -14,7 +14,7 @@ import { OppgavelistePerson } from "~/components/oppgaveliste-person/Oppgavelist
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
+import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
@@ -33,6 +33,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
+  const vurderingerPromise = hentVurderinger(request, oppgave.behandlingId);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
   // TODO Teknisk gjeld: Denne sjekken burde ikke være nødvendig fordi det ikke er mulig å se en oppgave i oppgave view uten at det er satt en saksbehandler på oppgaven. Vil fikses når vi refaktorer dp-melding-om-vedtak til å hente data fra dp-saksbehandling selv istedet for at frontend må sende det med.
@@ -59,8 +60,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-
       behandlingPromise,
+      vurderingerPromise,
       oppgaverForPersonPromise,
       journalposterPromises,
       meldingOmVedtakPromise,

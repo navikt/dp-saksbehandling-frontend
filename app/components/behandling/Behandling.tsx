@@ -15,7 +15,7 @@ import { components } from "../../../openapi/behandling-typer";
 import styles from "./Behandling.module.css";
 
 interface IProps {
-  readonly?: boolean;
+  readOnly?: boolean;
 }
 
 export function Behandling(props: IProps) {
@@ -73,7 +73,7 @@ export function Behandling(props: IProps) {
                   <Regelsett
                     behandling={behandling.data}
                     aktivtRegelsett={aktivtRegelsett}
-                    readonly={props.readonly}
+                    readonly={props.readOnly}
                   />
                 </div>
               )}

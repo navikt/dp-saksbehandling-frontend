@@ -1,9 +1,9 @@
 import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
 
 import { components } from "../../../openapi/behandling-typer";
+import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
 interface IProps {

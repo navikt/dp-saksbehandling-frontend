@@ -2,6 +2,7 @@ import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
+import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 
 import styles from "./Opplysning.module.css";
 
@@ -11,7 +12,7 @@ export function OpplysningBoolean({ opplysning, formScope, readonly }: IOpplysni
   return (
     <>
       {!opplysning.redigerbar && opplysning.verdi && (
-        <div className={styles.opplysningVerdi}>{opplysning.verdi === "true" ? "Ja" : "Nei"}</div>
+        <div className={styles.opplysningVerdi}>{formaterOpplysningVerdi(opplysning)}</div>
       )}
 
       {opplysning.redigerbar && (
@@ -21,8 +22,8 @@ export function OpplysningBoolean({ opplysning, formScope, readonly }: IOpplysni
           error={field.error()}
           readOnly={readonly}
         >
-          <Radio value="true">Ja</Radio>
-          <Radio value="false">Nei</Radio>
+          <Radio value="Ja">Ja</Radio>
+          <Radio value="Nei">Nei</Radio>
         </RadioGroup>
       )}
     </>

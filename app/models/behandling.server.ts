@@ -38,11 +38,12 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
+  begrunnelse: string | null,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: { verdi, begrunnelse: "" },
+    body: { verdi, begrunnelse: begrunnelse ?? "" },
     params: {
       path: { behandlingId, opplysningId },
     },
@@ -72,6 +73,32 @@ export async function rekjorBehandling(request: Request, behandlingId: string, i
     body: { ident: ident },
     params: {
       path: { behandlingId },
+    },
+  });
+}
+
+export async function hentVurderinger(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.GET("/behandling/{behandlingId}/vurderinger", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
+export async function lagreVurdering(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+  begrunnelse: string,
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.PUT("/behandling/{behandlingId}/vurderinger/{opplysningId}", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { begrunnelse },
+    params: {
+      path: { behandlingId, opplysningId },
     },
   });
 }

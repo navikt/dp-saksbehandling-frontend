@@ -6,6 +6,7 @@ import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
 import { mockBehandlinger } from "./data/mock-behandling";
+import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
@@ -102,4 +103,29 @@ export const mockDpBehandling = [
 
     return response(204).empty();
   }),
+
+  http.get(`/behandling/{behandlingId}/vurderinger`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockVurderinger);
+  }),
+
+  http.put(
+    `/behandling/{behandlingId}/vurderinger/{opplysningId}`,
+    async ({ request, response }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
+
+      if (apiError) {
+        return response(400).json(defaultError);
+      }
+
+      return response(204).empty();
+    },
+  ),
 ];

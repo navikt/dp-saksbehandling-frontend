@@ -25,7 +25,7 @@ export default function Oppgave() {
             </div>
 
             <Tabs.Panel value="behandling">
-              <Behandling readonly={true} />
+              <Behandling readOnly={true} />
             </Tabs.Panel>
           </Tabs>
         </div>
