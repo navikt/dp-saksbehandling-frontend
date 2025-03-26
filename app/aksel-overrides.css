@@ -1,6 +1,7 @@
 /* Aksel expansion overrides */
 .expansion--subtil {
-  --ac-expansioncard-border-hover-color: var(--a-border-default);
+  --ac-expansioncard-border-color: var(--a-border-subtle);
+  --ac-expansioncard-border-hover-color: var(--a-border-subtle);
   --ac-expansioncard-border-radius: var(--a-border-radius-medium);
 }
 
