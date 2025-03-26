@@ -50,6 +50,9 @@ function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, ver
     case "penger":
       return verdi.replace(",", ".");
 
+    case "boolsk":
+      return verdi === "Ja" ? "true" : "false";
+
     default:
       return verdi;
   }

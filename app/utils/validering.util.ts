@@ -33,7 +33,7 @@ export function hentValideringForOpplysning(
     case "boolsk":
       return withZod(
         z.object({
-          verdi: z.enum(["true", "false"], {
+          verdi: z.enum(["Ja", "Nei"], {
             required_error: "Du må velge et svar",
             invalid_type_error: "Ugyldig svar",
           }),
