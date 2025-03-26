@@ -18,7 +18,7 @@ export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
       size={"small"}
     >
       <ExpansionCard.Header>
-        <ExpansionCard.Title>Regelmotor avklaringer</ExpansionCard.Title>
+        <ExpansionCard.Title>Avklaringer</ExpansionCard.Title>
         <ExpansionCard.Description>
           Saksbehandler har skrevet følgende begrunnelser på avklaringer i saken.
         </ExpansionCard.Description>
