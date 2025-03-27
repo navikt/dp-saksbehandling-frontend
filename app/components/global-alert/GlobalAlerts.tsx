@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Heading } from "@navikt/ds-react";
+import { Alert, BodyLong, Detail, Heading } from "@navikt/ds-react";
 import classnames from "classnames";
 
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
@@ -25,6 +25,7 @@ export function GlobalAlerts() {
           <>
             <Heading size="small">{alert.title}</Heading>
             {alert.body && <BodyLong>{alert.body}</BodyLong>}
+            <Detail>{alert.service}</Detail>
           </>
         </Alert>
       ))}
