@@ -10,6 +10,11 @@ apis:
       output: ./openapi/saksbehandling-typer.ts
 
   melding-om-vedtak@v1:
-    root: https://dp-melding-om-vedtak.intern.dev.nav.no//openapi/melding-om-vedtak-api.yaml
+    root: https://dp-melding-om-vedtak.intern.dev.nav.no/openapi/melding-om-vedtak-api.yaml
     x-openapi-ts:
       output: ./openapi/melding-om-vedtak-typer.ts
+
+  soknad-orkestrator@v1:
+    root: https://navikt.github.io/dp-soknad-orkestrator/soknad-orkestrator-api.yaml
+    x-openapi-ts:
+      output: ./openapi/soknad-orkestrator-typer.ts

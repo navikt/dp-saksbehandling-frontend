@@ -1,51 +1,67 @@
+import createClient from "openapi-fetch";
+
 import { getSoknadOrkestratorOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.utils";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
+
+import { components, paths } from "../../openapi/soknad-orkestrator-typer";
+
+const orkestratorClient = createClient<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
 
 export async function hentOrkestratorBarn(request: Request, soknadId: string) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn`;
 
-  const response = await fetch(url, {
-    method: "GET",
+  const { response, data, error } = await orkestratorClient.GET("/opplysninger/{soknadId}/barn", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { soknadId },
+    },
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
 
-  return await response.json();
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentOrkestratorBarn(). ${response.status} - ${response.statusText}`,
+  );
 }
 
 export async function oppdaterOrkestratorBarn(
   request: Request,
   soknadId: string,
-  opplysning: string,
+  oppdatertBarn: components["schemas"]["OppdatertBarnRequest"],
 ) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
-  return await fetch(url, {
-    method: "PUT",
+  return await orkestratorClient.PUT("/opplysninger/{soknadId}/barn/oppdater", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ opplysning }),
+    body: oppdatertBarn,
+    params: {
+      path: { soknadId },
+    },
   });
 }
 
 export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/land`;
 
-  const response = await fetch(url, {
-    method: "GET",
+  const { data, error } = await orkestratorClient.GET("/land", {
     headers: getHeaders(onBehalfOfToken),
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
 
-  return await response.json();
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentOppgaver(). 500 - Internal Server Error`);
 }

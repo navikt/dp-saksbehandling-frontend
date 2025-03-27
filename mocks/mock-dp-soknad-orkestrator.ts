@@ -1,4 +1,3 @@
-import { HttpResponse } from "msw";
 import { paths } from "openapi/soknad-orkestrator-typer";
 import { createOpenApiHttp } from "openapi-msw";
 
@@ -18,28 +17,18 @@ export const mockDpSoknadOrkestrator = [
       return response(200).json(mockOrkestratorBarn);
     }
 
-    return new HttpResponse(null, {
-      status: 404,
-    });
+    return response(400).empty();
   }),
 
-  http.put(`/opplysninger/{soknadId}/barn/oppdater`, ({ request }) => {
+  http.put(`/opplysninger/{soknadId}/barn/oppdater`, ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
-    return new HttpResponse(null, {
-      status: 200,
-    });
+    return response(200).empty();
   }),
 
-  http.get(`/land`, ({ request }) => {
+  http.get(`/land`, ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
-    if (mockOrkestratorLandListe) {
-      return HttpResponse.json(mockOrkestratorLandListe);
-    }
-
-    return new HttpResponse(null, {
-      status: 200,
-    });
+    return response(200).json(mockOrkestratorLandListe);
   }),
 ];
