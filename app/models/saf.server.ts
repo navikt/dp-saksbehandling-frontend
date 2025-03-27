@@ -5,7 +5,6 @@ import { getSaksbehandler } from "~/models/microsoft.server";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
-import { type INetworkResponse } from "~/utils/types";
 
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
@@ -13,7 +12,7 @@ import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 export async function hentJournalpost(
   request: Request,
   journalpostId: string,
-): Promise<INetworkResponse<JournalpostQuery["journalpost"]>> {
+): Promise<JournalpostQuery["journalpost"]> {
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
@@ -33,24 +32,15 @@ export async function hentJournalpost(
     logger.info(`Henter dokumenter med call-id: ${callId}`);
     const response = await client.request(journalpostQuery, { journalpostId });
 
-    return {
-      status: "success",
-      data: response.journalpost,
-    };
+    return response.journalpost;
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
     logger.error(errorMessage);
 
-    return {
-      status: "error",
-      error: {
-        type: "Ukjent feil",
-        status: 500,
-        title: errorMessage,
-        detail: url,
-        instance: "/saksbehandling/hentJournalpost",
-      },
-    };
+    throw new Response(`Feil ved kall til ${url}`, {
+      status: 500,
+      statusText: errorMessage,
+    });
   }
 }
 

@@ -3,6 +3,7 @@ import { useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
+import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
 import styles from "./Opplysning.module.css";
@@ -32,7 +33,7 @@ export function OpplysningDato({ opplysning, formScope, readonly }: IOpplysningP
   return (
     <>
       {!opplysning.redigerbar && opplysning.verdi && (
-        <div className={styles.opplysningVerdi}>{formaterNorskDato(opplysning.verdi)}</div>
+        <div className={styles.opplysningVerdi}>{formaterOpplysningVerdi(opplysning)}</div>
       )}
 
       {opplysning.redigerbar && (

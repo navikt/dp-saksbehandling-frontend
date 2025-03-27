@@ -1,8 +1,9 @@
-import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon, PersonPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "react-router";
 import { Outlet, useActionData } from "react-router";
 
+import { Begrunnelse } from "~/components/begrunnelse/Begrunnelse";
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
@@ -25,9 +26,14 @@ export default function Oppgave() {
       <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>
-          <Tabs size="medium" defaultValue="melding-om-vedtak">
+          <Tabs size="medium" defaultValue="begrunnelse">
             <Tabs.List>
               <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
+              <Tabs.Tab
+                value="begrunnelse"
+                label="Saksbehandlers begrunnelse"
+                icon={<PersonPencilIcon />}
+              />
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
@@ -36,7 +42,11 @@ export default function Oppgave() {
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <Behandling readonly={true} />
+              <Behandling readOnly={true} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="begrunnelse">
+              <Begrunnelse readOnly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

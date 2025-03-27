@@ -2,7 +2,7 @@ import { TextField } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
-import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 
 import styles from "./Opplysning.module.css";
 
@@ -12,9 +12,7 @@ export function OpplysningDouble({ opplysning, formScope, readonly }: IOpplysnin
   return (
     <>
       {!opplysning.redigerbar && opplysning.verdi && (
-        <div className={styles.opplysningVerdi}>
-          {formaterTallMedTusenSeperator(opplysning.verdi)}
-        </div>
+        <div className={styles.opplysningVerdi}>{formaterOpplysningVerdi(opplysning)}</div>
       )}
 
       {opplysning.redigerbar && (

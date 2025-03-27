@@ -6,6 +6,7 @@ import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
 import { mockBehandlinger } from "./data/mock-behandling";
+import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
@@ -13,6 +14,7 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
   title: "Default MSW feilmelding",
+  detail: "En feil har oppstått. Kan ikke hente behandling",
   status: 500,
   instance: "dp-behandling",
 };
@@ -28,6 +30,7 @@ export const mockDpBehandling = [
   http.get("/behandling/{behandlingId}", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
+
     const { behandlingId } = params;
     const mockBehandling = mockBehandlinger.find(
       (behandling) => behandling.behandlingId === behandlingId,
@@ -100,4 +103,29 @@ export const mockDpBehandling = [
 
     return response(204).empty();
   }),
+
+  http.get(`/behandling/{behandlingId}/vurderinger`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockVurderinger);
+  }),
+
+  http.put(
+    `/behandling/{behandlingId}/vurderinger/{opplysningId}`,
+    async ({ request, response }) => {
+      logger.info(`[MSW]-${request.method} ${request.url}`);
+      await delay();
+
+      if (apiError) {
+        return response(400).json(defaultError);
+      }
+
+      return response(204).empty();
+    },
+  ),
 ];

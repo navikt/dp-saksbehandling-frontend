@@ -1,13 +1,16 @@
+import { Loader } from "@navikt/ds-react";
 import classnames from "classnames";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
 import { Ghosts } from "~/components/halloween/Ghosts";
-import { HeaderUtloggingMeny } from "~/components/header-meny/HeaderUtloggingMeny";
+import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
 import { Valentines } from "~/components/valentines/Valentines";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/microsoft.server";
-import { oppgaverTilBehandlingDefaultParams } from "~/routes/_index";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
 import { convertToQueryParamString } from "~/utils/url.utils";
@@ -17,16 +20,27 @@ import styles from "./HeaderMeny.module.css";
 
 interface IProps {
   saksbehandler: ISaksbehandler;
-  antallOppgaverJegHarTilBehandling: number;
 }
 
-export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }: IProps) {
-  const { featureFlags } = useTypedRouteLoaderData("root");
+export function HeaderMeny({ saksbehandler }: IProps) {
+  const { featureFlags, oppgaverJegHarTilBehandlingPromise } = useTypedRouteLoaderData("root");
+  const { response } = useAwaitPromise(oppgaverJegHarTilBehandlingPromise);
+  const { aktivtOppgaveSok } = useSaksbehandler();
+  const [antallOppgaverJegHarTilBehandling, setAntallOppgaverJegHarTilBehandling] = useState<
+    number | undefined
+  >();
+
+  useEffect(() => {
+    if (response) {
+      setAntallOppgaverJegHarTilBehandling(response.totaltAntallOppgaver);
+    }
+  }, [response]);
+
   return (
     <div className={styles.container}>
       <div className={styles.linkContainer}>
         <NavLink
-          to={`/?${convertToQueryParamString(oppgaverTilBehandlingDefaultParams)}`}
+          to={`/?${aktivtOppgaveSok}`}
           className={({ isActive }) =>
             classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
           }
@@ -41,7 +55,8 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
           }
         >
           Mine oppgaver
-          {antallOppgaverJegHarTilBehandling > 0 && (
+          {!antallOppgaverJegHarTilBehandling && <Loader className="ml-2" size={"xsmall"} />}
+          {antallOppgaverJegHarTilBehandling && antallOppgaverJegHarTilBehandling > 0 && (
             <span className={styles.antallOppgaverTilBehandling}>
               {antallOppgaverJegHarTilBehandling}
             </span>
@@ -64,7 +79,7 @@ export function HeaderMeny({ saksbehandler, antallOppgaverJegHarTilBehandling }:
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
-        <HeaderUtloggingMeny saksbehandler={saksbehandler} />
+        <HeaderSaksbehandlerMeny saksbehandler={saksbehandler} />
       </div>
     </div>
   );

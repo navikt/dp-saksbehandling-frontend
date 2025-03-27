@@ -1,6 +1,8 @@
 import { components } from "openapi/melding-om-vedtak-typer";
 import { useEffect, useRef } from "react";
 
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+
 interface IProps {
   html: string;
   utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
@@ -8,12 +10,13 @@ interface IProps {
 
 export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { skjulSensitiveOpplysninger } = useSaksbehandler();
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.innerHTML = html;
+      containerRef.current.innerHTML = skjulSensitiveOpplysninger ? maskerSensitivHtml(html) : html;
     }
-  }, []);
+  }, [skjulSensitiveOpplysninger]);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -40,4 +43,20 @@ export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
   }, [utvidedeBeskrivelser]);
 
   return <div ref={containerRef} />;
+}
+
+function maskerSensitivHtml(html: string): string {
+  // Bytt innhold etter "Navn:"
+  html = html.replace(/Navn:([^\n]*)/g, (match, group1) => {
+    const sanitized = group1.replace(/[^\s]/g, "*");
+    return `Navn:${sanitized}`;
+  });
+
+  // Bytt innhold etter "Fødseslnummer:"
+  html = html.replace(/Fødselsnummer:([^\n]*)/g, (match, group1) => {
+    const sanitized = group1.replace(/[^\s]/g, "*");
+    return `Fødselsnummer:${sanitized}`;
+  });
+
+  return html;
 }

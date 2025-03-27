@@ -1,21 +1,21 @@
 import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import { OpplysningLinje } from "~/components/opplysning-list/OpplysningLinje";
 import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
+import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
 interface IProps {
+  behandling: components["schemas"]["Behandling"];
   aktivtRegelsett: components["schemas"]["Regelsett"];
   readonly?: boolean;
 }
 
-export function Regelsett({ aktivtRegelsett, readonly }: IProps) {
-  const { behandling, orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-
+export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
+  const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { featureFlags } = useTypedRouteLoaderData("root");
 
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder

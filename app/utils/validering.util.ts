@@ -33,7 +33,7 @@ export function hentValideringForOpplysning(
     case "boolsk":
       return withZod(
         z.object({
-          verdi: z.enum(["true", "false"], {
+          verdi: z.enum(["Ja", "Nei"], {
             required_error: "Du må velge et svar",
             invalid_type_error: "Ugyldig svar",
           }),
@@ -44,7 +44,7 @@ export function hentValideringForOpplysning(
       return withZod(
         z.object({
           verdi: z.string().regex(
-            new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+            new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
             "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
           ),
         }),

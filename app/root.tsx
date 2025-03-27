@@ -83,7 +83,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const oppgaverJegHarTilBehandling = await hentOppgaver(
+  const oppgaverJegHarTilBehandlingPromise = hentOppgaver(
     request,
     new URLSearchParams(
       "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
@@ -104,7 +104,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return {
     saksbehandler: saksbehandler,
-    antallOppgaverJegHarTilBehandling: oppgaverJegHarTilBehandling.totaltAntallOppgaver,
+    oppgaverJegHarTilBehandlingPromise,
     featureFlags: {
       jul,
       halloween,
@@ -132,8 +132,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, antallOppgaverJegHarTilBehandling, featureFlags } =
-    useLoaderData<typeof loader>();
+  const { env, saksbehandler, featureFlags } = useLoaderData<typeof loader>();
 
   return (
     <html lang="nb">
@@ -153,10 +152,7 @@ export default function App() {
               </InternalHeader.Title>
             </Link>
 
-            <HeaderMeny
-              saksbehandler={saksbehandler}
-              antallOppgaverJegHarTilBehandling={antallOppgaverJegHarTilBehandling}
-            />
+            <HeaderMeny saksbehandler={saksbehandler} />
           </InternalHeader>
 
           <AlertProvider>

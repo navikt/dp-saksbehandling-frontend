@@ -12,6 +12,7 @@ import { components } from "../../openapi/saksbehandling-typer";
 export async function utsettOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;
   const utsettTilDato = formData.get("utsettTilDato") as string;
+  const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
   const beholdOppgave = formData.has("beholdOppgave");
   const paaVentAarsak = formData.get(
     "paaVentAarsak",
@@ -47,7 +48,7 @@ export async function utsettOppgaveAction(request: Request, formData: FormData) 
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/`, {
+  return redirect(`/?${aktivtOppgaveSok}`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

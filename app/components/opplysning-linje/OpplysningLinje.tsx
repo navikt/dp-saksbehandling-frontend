@@ -53,9 +53,7 @@ export function OpplysningLinje(props: IProps) {
         <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
         <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
         <div className={styles.opplysningNavn}>
-          {opplysning.formål === "Bruker" && opplysning.kilde?.type === "Saksbehandler" && (
-            <PersonPencilIcon fontSize="1.5rem" />
-          )}
+          {opplysning.kilde?.type === "Saksbehandler" && <PersonPencilIcon fontSize="1.5rem" />}
           {opplysning.navn}
         </div>
 
@@ -107,10 +105,14 @@ export function OpplysningLinje(props: IProps) {
 export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]) {
   switch (opplysning.datatype) {
     case "penger":
+      return `${formaterTallMedTusenSeperator(opplysning.verdi)} kr`;
     case "desimaltall":
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
       return formaterNorskDato(opplysning.verdi);
+    case "boolsk":
+      return opplysning.verdi === "true" ? "Ja" : "Nei";
+
     default:
       return opplysning.verdi;
   }

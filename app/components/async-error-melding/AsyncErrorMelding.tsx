@@ -2,7 +2,8 @@ import { Alert, BodyShort, Heading } from "@navikt/ds-react";
 import { useAsyncError } from "react-router";
 
 interface IAsyncProps {
-  feilmelding: string;
+  tittel?: string;
+  feilmelding?: string;
 }
 
 export function AsyncErrorMelding(props: IAsyncProps) {
@@ -16,8 +17,8 @@ export function AsyncErrorMelding(props: IAsyncProps) {
 
   return (
     <Alert variant="error">
-      <Heading size="small">Noe gikk galt</Heading>
-      <BodyShort>{props.feilmelding}</BodyShort>
+      <Heading size="small">{props.tittel || "Noe gikk galt"}</Heading>
+      {props.feilmelding && <BodyShort>{props.feilmelding}</BodyShort>}
       {hasErrorMessage && <BodyShort>{(error as { message: string }).message}</BodyShort>}
     </Alert>
   );

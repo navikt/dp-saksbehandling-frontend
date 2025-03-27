@@ -4,6 +4,7 @@ import { Await } from "react-router";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
@@ -17,26 +18,25 @@ interface IProps {
 }
 
 export function MeldingOmVedtak({ readOnly }: IProps) {
-  const { meldingOmVedtakResponse } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { response } = useAwaitPromise(meldingOmVedtakPromise);
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
     components["schemas"]["UtvidetBeskrivelse"][]
-  >([]);
+  >(response?.data?.utvidedeBeskrivelser ?? []);
 
   useEffect(() => {
-    const test = async () => {
-      const meldingOmVedtak = await meldingOmVedtakResponse;
-      if (meldingOmVedtak.data) {
-        setUtvidedeBeskrivelser(meldingOmVedtak.data.utvidedeBeskrivelser ?? []);
+    if (response?.data) {
+      // TODO: Fiks type backend. utvidedeBeskrivelser skal ikke være optional
+      if (response.data.utvidedeBeskrivelser) {
+        setUtvidedeBeskrivelser(response.data.utvidedeBeskrivelser);
       }
-    };
-
-    test();
-  }, [meldingOmVedtakResponse]);
+    }
+  }, [response?.data]);
 
   return (
     <Suspense fallback={<CenteredLoader size={"large"} />}>
       <Await
-        resolve={meldingOmVedtakResponse}
+        resolve={meldingOmVedtakPromise}
         errorElement={
           <div className="p-2">
             <AsyncErrorMelding feilmelding="Klarte ikke hente melding om vedtak" />
@@ -55,19 +55,17 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
           return (
             <>
               <div className={styles.meldingOmVedtakContainer}>
-                {meldingOmVedtak.data.utvidedeBeskrivelser && (
-                  <UtvidedeBeskrivelser
-                    utvidedeBeskrivelser={utvidedeBeskrivelser}
-                    setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-                    readOnly={readOnly}
-                  />
-                )}
+                <UtvidedeBeskrivelser
+                  utvidedeBeskrivelser={utvidedeBeskrivelser}
+                  setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
+                  readOnly={readOnly}
+                />
 
                 <div className={styles.previewContainer}>
                   <MeldingOmVedtakPreview
                     utvidedeBeskrivelser={utvidedeBeskrivelser}
-                    // @ts-expect-error TODO: Fiks type backend
-                    html={meldingOmVedtak.data.html}
+                    // TODO: Fiks type backend. html skal ikke være optional
+                    html={meldingOmVedtak.data.html || ""}
                   />
                 </div>
               </div>

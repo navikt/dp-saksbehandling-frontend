@@ -1,18 +1,63 @@
-/* Mer subtil Aksel tabell */
-.table--subtle-zebra tr:nth-child(even) {
-  background-color: #f8f9fc;
+/* Aksel expansion overrides */
+.expansion--subtil {
+  --ac-expansioncard-border-color: var(--a-border-subtle);
+  --ac-expansioncard-border-hover-color: var(--a-border-subtle);
+  --ac-expansioncard-border-radius: var(--a-border-radius-medium);
 }
 
-.table--subtle-zebra tr:nth-child(odd) {
-  background-color: #ffffff;
+/* Mindre padding i header */
+.expansion--subtil .navds-expansioncard__header {
+  padding: var(--a-spacing-2);
 }
 
-.table--subtle-zebra .navds-table__header-cell {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+/* Fjern border under header når expansion er åpen */
+.expansion--subtil.navds-expansioncard--open > :where(.navds-expansioncard__header)::after {
+  opacity: 0;
 }
 
-.table--subtle-zebra td {
+/* La innhold i expansioncard ta opp hele plassen */
+.expansion--subtil .navds-expansioncard__content {
+  padding: 0;
+}
+
+/* Fiks border radius på tabell inne i expansioncard */
+.expansion--subtil tr:last-child:nth-child(odd) th,
+.expansion--subtil tr:last-child:nth-child(odd) td {
+  border-bottom-right-radius: var(--a-border-radius-large);
+  border-bottom-left-radius: var(--a-border-radius-large);
+}
+
+/* Fjern box-shadow på hover */
+.expansion--subtil:hover > div {
+  box-shadow: none;
+}
+
+/* Aksel tabell overrides*/
+.tabell--subtil {
+  --ac-table-row-zebra: #f8f9fc;
+}
+
+/* Fjern border på alle rader */
+.tabell--subtil tr th,
+.tabell--subtil tr td {
   border-bottom: 0;
+}
+
+/* Fjern luft over input når det ikke er label */
+.textarea--kompakt > label:empty {
+  display: none;
+}
+
+/* Flytt lås ikon til høyre for tekstfelt */
+.textarea--kompakt.navds-form-field--readonly {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+/* Fjern luft rundt lås */
+.textarea--kompakt.navds-form-field--readonly svg {
+  margin-right: 0;
 }
 
 /* Overskriv Aksel defaults */
