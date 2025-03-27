@@ -1,11 +1,11 @@
 import { Radio, RadioGroup, Stack } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
+import { components } from "openapi/soknad-orkestrator-typer";
 
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
-  opplysning: IOrkestratorBarnOpplysning;
+  opplysning: components["schemas"]["BarnOpplysning"];
   formScope: FormScope<string>;
 }
 

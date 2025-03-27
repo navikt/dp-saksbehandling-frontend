@@ -1,31 +1,9 @@
-import { IOrkestratorLand } from "mocks/data/mock-orkestrator-land-lister";
-
 import { getSoknadOrkestratorOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleErrorResponse } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-export interface IGrunnOpplysning {
-  id: string;
-  verdi: string;
-  datatype: string;
-}
-
-export type IOrkestratorKilde = "register" | "søknad";
-
-export interface IOrkestratorBarnOpplysning extends IGrunnOpplysning {
-  kilde?: IOrkestratorKilde;
-}
-
-export interface IOrkestratorBarn {
-  barnId: string;
-  opplysninger: IOrkestratorBarnOpplysning[];
-}
-
-export async function hentOrkestratorBarn(
-  request: Request,
-  soknadId: string,
-): Promise<IOrkestratorBarn[]> {
+export async function hentOrkestratorBarn(request: Request, soknadId: string) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn`;
 
@@ -45,7 +23,7 @@ export async function oppdaterOrkestratorBarn(
   request: Request,
   soknadId: string,
   opplysning: string,
-): Promise<Response> {
+) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
@@ -56,7 +34,7 @@ export async function oppdaterOrkestratorBarn(
   });
 }
 
-export async function hentOrkestratorLandListe(request: Request): Promise<IOrkestratorLand[]> {
+export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
   const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/land`;
 

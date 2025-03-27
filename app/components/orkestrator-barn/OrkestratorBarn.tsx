@@ -6,16 +6,16 @@ import { useRef } from "react";
 import { useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IOrkestratorBarn } from "~/models/orkestrator-opplysning.server";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
+import { components } from "../../../openapi/soknad-orkestrator-typer";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 interface IProps {
   barnNummer: number;
-  barn: IOrkestratorBarn;
+  barn: components["schemas"]["BarnResponse"];
 }
 
 export function OrkestratorBarn({ barnNummer, barn }: IProps) {

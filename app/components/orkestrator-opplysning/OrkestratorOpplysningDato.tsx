@@ -1,13 +1,13 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
+import { components } from "openapi/soknad-orkestrator-typer";
 
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
-  opplysning: IOrkestratorBarnOpplysning;
+  opplysning: components["schemas"]["BarnOpplysning"];
   formScope: FormScope<string>;
 }
 

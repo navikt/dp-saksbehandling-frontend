@@ -1,5 +1,6 @@
+import { components } from "openapi/soknad-orkestrator-typer";
+
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 
 import { formaterNorskDato } from "./dato.utils";
 
@@ -20,9 +21,9 @@ export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
 }
 
 export function formatterOrkestratorOpplysningVerdi(
-  opplysning: IOrkestratorBarnOpplysning,
+  opplysning: components["schemas"]["BarnOpplysning"],
 ): string {
-  switch (opplysning.datatype) {
+  switch (opplysning.dataType) {
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";
 
@@ -40,11 +41,16 @@ export function formatterOrkestratorOpplysningVerdi(
 function hentLand(lankode: string): string {
   const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
-  return orkestratorLandliste.find((land) => land.alpha3kode === lankode)?.navn || "";
+  return (
+    orkestratorLandliste.find((land: components["schemas"]["Land"]) => land.alpha3kode === lankode)
+      ?.navn || ""
+  );
 }
 
 // Funksjonen returnerer et objekt med opplysninger fra opplysnings array
-export function hentOrkestratorBarnFormDefaultValues(opplysninger: IOrkestratorBarnOpplysning[]) {
+export function hentOrkestratorBarnFormDefaultValues(
+  opplysninger: components["schemas"]["BarnOpplysning"][],
+) {
   return opplysninger.reduce(
     (acc, { id, verdi }) => {
       acc[id] = verdi;

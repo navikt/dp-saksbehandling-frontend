@@ -1,6 +1,6 @@
 import { FormScope } from "@rvf/react-router";
+import { components } from "openapi/soknad-orkestrator-typer";
 
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import { logger } from "~/utils/logger.utils";
 
 import { OrkestratorOpplysningBoolsk } from "./OrkestratorOpplysningBoolsk";
@@ -9,12 +9,12 @@ import { OrkestratorOpplysningLand } from "./OrkestratorOpplysningLand";
 import { OrkestratorOpplysningTekst } from "./OrkestratorOpplysningTekst";
 
 interface IProps {
-  opplysning: IOrkestratorBarnOpplysning;
+  opplysning: components["schemas"]["BarnOpplysning"];
   formScope: FormScope<string>;
 }
 
 export function OrkestratorOpplysning({ opplysning, formScope }: IProps) {
-  switch (opplysning.datatype) {
+  switch (opplysning.dataType) {
     case "tekst":
       return <OrkestratorOpplysningTekst opplysning={opplysning} formScope={formScope} />;
 
@@ -28,7 +28,7 @@ export function OrkestratorOpplysning({ opplysning, formScope }: IProps) {
       return <OrkestratorOpplysningDato opplysning={opplysning} formScope={formScope} />;
 
     default:
-      logger.error(`Ukjent orkestrator datatype ${opplysning.datatype}`);
+      logger.error(`Ukjent orkestrator datatype ${opplysning.dataType}`);
 
       return (
         <>

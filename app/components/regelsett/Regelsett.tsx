@@ -5,6 +5,7 @@ import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
+import { components as orkestratorComponents } from "../../../openapi/soknad-orkestrator-typer";
 import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
@@ -124,9 +125,11 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
 
       {visOrkestratorBarn && (
         <>
-          {orkestratorBarn.map((barn, index) => (
-            <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
-          ))}
+          {orkestratorBarn.map(
+            (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
+              <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
+            ),
+          )}
         </>
       )}
     </div>

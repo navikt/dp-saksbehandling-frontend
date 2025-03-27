@@ -1,8 +1,9 @@
 import { Tag } from "@navikt/ds-react";
-import { IOrkestratorKilde } from "~/models/orkestrator-opplysning.server";
+
+import { components } from "../../../openapi/soknad-orkestrator-typer";
 
 interface IProps {
-  kilde?: IOrkestratorKilde;
+  kilde?: components["schemas"]["BarnOpplysning"]["kilde"];
 }
 
 export function OrkestratorTag({ kilde }: IProps) {

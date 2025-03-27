@@ -29,7 +29,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["BarnResponse"];
+                        "application/json": components["schemas"]["BarnResponse"][];
                     };
                 };
                 /** @description SøknadId mangler eller har feil format */

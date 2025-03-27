@@ -1,7 +1,7 @@
 import { FormScope } from "@rvf/react-router";
 import classNames from "classnames";
+import { components } from "openapi/soknad-orkestrator-typer";
 
-import { IOrkestratorBarnOpplysning } from "~/models/orkestrator-opplysning.server";
 import {
   formatterOrkestratorOpplysningVerdi,
   hentOrkestratorBarnOpplysningLabel,
@@ -12,7 +12,7 @@ import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorTag } from "./OrkestratorTag";
 
 interface IProps {
-  opplysning: IOrkestratorBarnOpplysning;
+  opplysning: components["schemas"]["BarnOpplysning"];
   readOnly?: boolean;
   formScope: FormScope<string>;
 }
