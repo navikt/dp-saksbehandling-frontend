@@ -1,8 +1,11 @@
 import { Detail, Heading } from "@navikt/ds-react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
+import { components as orkestratorComponents } from "../../../openapi/soknad-orkestrator-typer";
 import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
@@ -13,10 +16,16 @@ interface IProps {
 }
 
 export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
+  const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { featureFlags } = useTypedRouteLoaderData("root");
+
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
     .map((id) => behandling.opplysninger.find((opplysning) => opplysning.id === id))
     .filter((opplysning) => opplysning !== undefined)
     .filter((opplysning) => opplysning.synlig);
+
+  const satsOgBarnetillegg =
+    aktivtRegelsett.hjemmel.kapittel === "4" && aktivtRegelsett.hjemmel.paragraf === "12";
 
   const brukerOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Bruker",
@@ -33,6 +42,8 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   const regelOpplysninger = aktivtRegelsettOpplysninger.filter(
     (opplysning) => opplysning?.formål === "Regel",
   );
+
+  const visOrkestratorBarn = satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger;
 
   return (
     <div>
@@ -109,6 +120,16 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
               />
             ))}
           </ul>
+        </>
+      )}
+
+      {visOrkestratorBarn && (
+        <>
+          {orkestratorBarn.map(
+            (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
+              <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
+            ),
+          )}
         </>
       )}
     </div>

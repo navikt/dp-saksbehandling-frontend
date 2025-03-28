@@ -16,6 +16,10 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import {
+  hentOrkestratorBarn,
+  hentOrkestratorLandListe,
+} from "~/models/orkestrator-opplysning.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -41,6 +45,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
   }
 
+  if (!oppgave?.soknadId) {
+    throw new Error("Oppgave id");
+  }
+
+  const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
+  console.log(`🔥 orkestratorBarn :`, orkestratorBarn);
+
+  const orkestratorLandliste = await hentOrkestratorLandListe(request);
+  console.log(`🔥 orkestratorLandliste :`, orkestratorLandliste);
+
   const meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
     fornavn: oppgave.person.fornavn,
     mellomnavn: oppgave.person.mellomnavn,
@@ -65,6 +79,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgaverForPersonPromise,
       journalposterPromises,
       meldingOmVedtakPromise,
+      orkestratorBarn,
+      orkestratorLandliste,
     },
     {
       headers: {
