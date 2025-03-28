@@ -49,6 +49,7 @@ const journalpostQuery = graphql(`
     journalpost(journalpostId: $journalpostId) {
       journalpostId
       tittel
+      datoOpprettet
       dokumenter {
         dokumentInfoId
         tittel

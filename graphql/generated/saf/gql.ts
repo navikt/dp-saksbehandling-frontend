@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from "./graphql";
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import * as types from './graphql';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -11,9 +11,13 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
-    "\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n": types.JournalpostDocument,
+type Documents = {
+    "\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      datoOpprettet\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n": typeof types.JournalpostDocument,
+};
+const documents: Documents = {
+    "\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      datoOpprettet\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n": types.JournalpostDocument,
 };
 
 /**
@@ -33,7 +37,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      datoOpprettet\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query journalpost($journalpostId: String!) {\n    journalpost(journalpostId: $journalpostId) {\n      journalpostId\n      tittel\n      datoOpprettet\n      dokumenter {\n        dokumentInfoId\n        tittel\n        brevkode\n        originalJournalpostId\n        dokumentvarianter {\n          variantformat\n          saksbehandlerHarTilgang\n          skjerming\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -5,6 +5,7 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
   {
     journalpostId: "639664664",
     tittel: "MASKERT_FELT",
+    datoOpprettet: "2018-01-01T12:00:00",
     dokumenter: [
       {
         dokumentInfoId: "669305578",
@@ -29,6 +30,7 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
   {
     journalpostId: "639664665",
     tittel: "2. MASKERT_FELT",
+    datoOpprettet: "2018-01-02T12:00:00",
     dokumenter: [
       {
         dokumentInfoId: "669305578",
@@ -53,6 +55,7 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
   {
     journalpostId: "598116232",
     tittel: "(mockdata 2)Søknad om dagpenger (ikke permittert)",
+    datoOpprettet: "2018-01-02T12:00:00",
     dokumenter: [
       {
         dokumentInfoId: "624863374",
@@ -134,6 +137,7 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
   {
     journalpostId: "598116231",
     tittel: "(mockdata)Søknad om dagpenger (ikke permittert)",
+    datoOpprettet: "2018-01-03T12:00:00",
     dokumenter: [
       {
         dokumentInfoId: "624863374",
