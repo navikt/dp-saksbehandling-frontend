@@ -110,6 +110,7 @@ spec:
         - application: dp-saksbehandling
         - application: dp-behandling
         - application: dp-melding-om-vedtak
+        - application: dp-soknad-orkestrator
 
   azure:
     application:
