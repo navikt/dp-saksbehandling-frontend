@@ -50,7 +50,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
+  console.log(`🔥 orkestratorBarn :`, orkestratorBarn);
+
   const orkestratorLandliste = await hentOrkestratorLandListe(request);
+  console.log(`🔥 orkestratorLandliste :`, orkestratorLandliste);
 
   const meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
     fornavn: oppgave.person.fornavn,

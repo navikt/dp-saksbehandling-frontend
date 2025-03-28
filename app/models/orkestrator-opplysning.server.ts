@@ -21,10 +21,6 @@ export async function hentOrkestratorBarn(request: Request, soknadId: string) {
     },
   });
 
-  console.log(`🔥 error :`, error);
-  console.log(`🔥 data :`, data);
-  console.log(`🔥 response :`, response);
-
   if (data) {
     return data;
   }
