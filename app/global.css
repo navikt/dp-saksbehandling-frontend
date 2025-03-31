@@ -7,6 +7,10 @@ body {
   padding: var(--a-spacing-2);
 }
 
+.m-2 {
+  margin: var(--a-spacing-2);
+}
+
 .m-4 {
   margin: var(--a-spacing-4);
 }

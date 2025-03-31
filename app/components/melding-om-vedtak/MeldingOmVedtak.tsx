@@ -1,3 +1,4 @@
+import { Alert } from "@navikt/ds-react";
 import { Suspense, useEffect, useState } from "react";
 import { Await } from "react-router";
 
@@ -19,6 +20,14 @@ interface IProps {
 
 export function MeldingOmVedtak({ readOnly }: IProps) {
   const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  if (!meldingOmVedtakPromise) {
+    return (
+      <Alert variant="warning" className="m-2">
+        Kan ikke hente melding om vedtak
+      </Alert>
+    );
+  }
+
   const { response } = useAwaitPromise(meldingOmVedtakPromise);
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
     components["schemas"]["UtvidetBeskrivelse"][]
