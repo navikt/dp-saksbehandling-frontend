@@ -42,19 +42,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   let meldingOmVedtakPromise;
 
-  if (!oppgave?.saksbehandler) {
-    throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
-  }
-
   if (!oppgave?.soknadId) {
-    throw new Error("Oppgave id");
+    throw new Error("Mangler søknadId fra oppgave for å hente ut orkestrator barn");
   }
 
   const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
-  console.log(`🔥 orkestratorBarn :`, orkestratorBarn);
-
   const orkestratorLandliste = await hentOrkestratorLandListe(request);
-  console.log(`🔥 orkestratorLandliste :`, orkestratorLandliste);
 
   if (oppgave.saksbehandler) {
     meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {

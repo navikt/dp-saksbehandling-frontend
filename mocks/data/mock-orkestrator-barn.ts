@@ -5,9 +5,9 @@ const barn1: components["schemas"]["BarnResponse"] = {
   opplysninger: [
     { id: "fornavnOgMellomnavn", verdi: "Kvekk 1", kilde: "register", dataType: "tekst" },
     { id: "etternavn", verdi: "Kvakk 1", kilde: "register", dataType: "tekst" },
-    { id: "fødselsdato", verdi: "2019-01-01", kilde: "register", dataType: "dato" },
+    { id: "fodselsdato", verdi: "2019-01-01", kilde: "register", dataType: "dato" },
     { id: "oppholdssted", verdi: "SWE", kilde: "register", dataType: "land" },
-    { id: "forsørgerBarnet", verdi: "true", kilde: "soknad", dataType: "boolsk" },
+    { id: "forsorgerBarnet", verdi: "true", kilde: "soknad", dataType: "boolsk" },
     { id: "kvalifisererTilBarnetillegg", verdi: "true", dataType: "boolsk" },
     { id: "barnetilleggFom", verdi: "2021-01-01", dataType: "dato" },
     { id: "barnetilleggTom", verdi: "2021-12-31", dataType: "dato" },
@@ -20,9 +20,9 @@ const barn2: components["schemas"]["BarnResponse"] = {
   opplysninger: [
     { id: "fornavnOgMellomnavn", verdi: "Kvekk 2", kilde: "soknad", dataType: "tekst" },
     { id: "etternavn", verdi: "Kvakk 2", kilde: "soknad", dataType: "tekst" },
-    { id: "fødselsdato", verdi: "2020-01-01", kilde: "soknad", dataType: "dato" },
+    { id: "fodselsdato", verdi: "2020-01-01", kilde: "soknad", dataType: "dato" },
     { id: "oppholdssted", verdi: "NOR", kilde: "soknad", dataType: "land" },
-    { id: "forsørgerBarnet", verdi: "true", kilde: "soknad", dataType: "boolsk" },
+    { id: "forsorgerBarnet", verdi: "true", kilde: "soknad", dataType: "boolsk" },
     { id: "kvalifisererTilBarnetillegg", verdi: "false", dataType: "boolsk" },
     { id: "barnetilleggFom", verdi: "2022-01-01", dataType: "dato" },
     { id: "barnetilleggTom", verdi: "2023-12-31", dataType: "dato" },

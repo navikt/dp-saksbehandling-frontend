@@ -12,8 +12,6 @@ const orkestratorClient = createClient<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKES
 export async function hentOrkestratorBarn(request: Request, soknadId: string) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
-  console.log("hentOrkestratorBarn 🚀");
-
   const { response, data, error } = await orkestratorClient.GET("/opplysninger/{soknadId}/barn", {
     headers: getHeaders(onBehalfOfToken),
     params: {

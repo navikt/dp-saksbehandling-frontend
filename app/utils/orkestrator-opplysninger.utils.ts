@@ -6,18 +6,22 @@ import { formaterNorskDato } from "./dato.utils";
 
 export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   const opplysninger = [
-    { id: "fornavnOgMellomnavn", navn: "Fornavn" },
+    { id: "fornavnOgMellomnavn", label: "Fornavn" },
     { id: "etternavn", navn: "Etternavn" },
-    { id: "fødselsdato", navn: "Fødselsdato" },
+    { id: "fodselsdato", navn: "Fødselsdato" },
     { id: "oppholdssted", navn: "Oppholdssted" },
-    { id: "forsørgerBarnet", navn: "Forsørger barnet" },
+    { id: "forsorgerBarnet", navn: "Forsørger barnet" },
     { id: "barnetilleggFom", navn: "Barnetillegg fra" },
     { id: "barnetilleggTom", navn: "Barnetillegg til" },
     { id: "kvalifisererTilBarnetillegg", navn: "Rett til barnetillegg" },
     { id: "begrunnelse", navn: "Begrunnelse" },
   ];
 
-  return opplysninger.find((opplysning) => opplysning.id === opplysningId)?.navn;
+  // Returner label hvis key finnes, eller returnerer key med første bokstaven uppercase
+  return (
+    opplysninger.find((opplysning) => opplysning.id === opplysningId)?.label ||
+    opplysningId.charAt(0).toUpperCase() + opplysningId.slice(1)
+  );
 }
 
 export function formatterOrkestratorOpplysningVerdi(
