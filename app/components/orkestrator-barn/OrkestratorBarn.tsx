@@ -23,6 +23,9 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const { state } = useNavigation();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
+  // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.
+  const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
+
   const orkestratorBarnForm = useForm({
     validator: hentValideringOrkestratorBarn(),
     method: "put",
@@ -44,7 +47,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
           Barn {barnNummer}
         </Heading>
         <div className={styles.orkestratorOpplysning}>
-          {barn.opplysninger.map((opplysning, index) => (
+          {barnOpplysninger.map((opplysning, index) => (
             <OrkestratorOpplysningLinje
               key={index}
               opplysning={opplysning}
@@ -81,15 +84,13 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
               />
               <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
               <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
-              {barn.opplysninger
-                .filter((opplysning) => opplysning.id !== "endretAv")
-                .map((opplysning, index) => (
-                  <OrkestratorOpplysningLinje
-                    key={index}
-                    opplysning={opplysning}
-                    formScope={orkestratorBarnForm.scope(opplysning.id as string)}
-                  />
-                ))}
+              {barnOpplysninger.map((opplysning, index) => (
+                <OrkestratorOpplysningLinje
+                  key={index}
+                  opplysning={opplysning}
+                  formScope={orkestratorBarnForm.scope(opplysning.id as string)}
+                />
+              ))}
             </div>
           </Modal.Body>
           <Modal.Footer>
