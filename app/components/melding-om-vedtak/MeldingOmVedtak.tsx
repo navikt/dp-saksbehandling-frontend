@@ -22,7 +22,7 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
   const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   if (!meldingOmVedtakPromise) {
     return (
-      <Alert variant="warning" className={"m-4"}>
+      <Alert variant="warning" className="m-2">
         Kan ikke hente melding om vedtak
       </Alert>
     );
