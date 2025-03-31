@@ -12,6 +12,7 @@ const barn1: components["schemas"]["BarnResponse"] = {
     { id: "barnetilleggFom", verdi: "2021-01-01", dataType: "dato" },
     { id: "barnetilleggTom", verdi: "2021-12-31", dataType: "dato" },
     { id: "begrunnelse", verdi: "Barnet er under 18 år", dataType: "tekst" },
+    { id: "endretAv", verdi: "", dataType: "tekst" },
   ],
 };
 
@@ -27,6 +28,7 @@ const barn2: components["schemas"]["BarnResponse"] = {
     { id: "barnetilleggFom", verdi: "2022-01-01", dataType: "dato" },
     { id: "barnetilleggTom", verdi: "2023-12-31", dataType: "dato" },
     { id: "begrunnelse", verdi: "Barnet er under 18 år", dataType: "tekst" },
+    { id: "endretAv", verdi: "", dataType: "tekst" },
   ],
 };
 
