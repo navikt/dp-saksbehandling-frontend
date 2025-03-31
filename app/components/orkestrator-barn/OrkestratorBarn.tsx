@@ -29,7 +29,7 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
   const orkestratorBarnForm = useForm({
     validator: hentValideringOrkestratorBarn(),
     method: "put",
-    defaultValues: hentOrkestratorBarnFormDefaultValues(barn.opplysninger),
+    defaultValues: hentOrkestratorBarnFormDefaultValues(barnOpplysninger),
     onSubmitSuccess: () => {
       ref.current?.close();
     },

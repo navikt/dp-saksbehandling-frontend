@@ -5,8 +5,6 @@ import { oppdaterOrkestratorBarn } from "~/models/orkestrator-opplysning.server"
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function oppdaterOrkestratorBarnAction(request: Request, formData: FormData) {
-  console.log("treffer oppdaterOrkestratorBarnAction");
-
   const soknadId = formData.get("soknadId") as string;
   const barnId = formData.get("barnId") as string;
   const fornavnOgMellomnavn = formData.get("fornavnOgMellomnavn") as string;

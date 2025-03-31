@@ -84,12 +84,12 @@ export function hentValideringOrkestratorBarn() {
     z.object({
       fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
       etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-      fødselsdato: z.string().regex(
+      fodselsdato: z.string().regex(
         new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
         "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
       ),
       oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-      forsørgerBarnet: z.enum(["true", "false"], {
+      forsorgerBarnet: z.enum(["true", "false"], {
         required_error: "Du må velge et svar",
         invalid_type_error: "Ugyldig svar",
       }),
