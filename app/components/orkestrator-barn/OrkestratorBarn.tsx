@@ -81,13 +81,15 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
               />
               <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
               <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
-              {barn.opplysninger.map((opplysning, index) => (
-                <OrkestratorOpplysningLinje
-                  key={index}
-                  opplysning={opplysning}
-                  formScope={orkestratorBarnForm.scope(opplysning.id as string)}
-                />
-              ))}
+              {barn.opplysninger
+                .filter((opplysning) => opplysning.id !== "endretAv")
+                .map((opplysning, index) => (
+                  <OrkestratorOpplysningLinje
+                    key={index}
+                    opplysning={opplysning}
+                    formScope={orkestratorBarnForm.scope(opplysning.id as string)}
+                  />
+                ))}
             </div>
           </Modal.Body>
           <Modal.Footer>

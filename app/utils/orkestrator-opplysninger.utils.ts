@@ -7,14 +7,14 @@ import { formaterNorskDato } from "./dato.utils";
 export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   const opplysninger = [
     { id: "fornavnOgMellomnavn", label: "Fornavn" },
-    { id: "etternavn", navn: "Etternavn" },
-    { id: "fodselsdato", navn: "Fødselsdato" },
-    { id: "oppholdssted", navn: "Oppholdssted" },
-    { id: "forsorgerBarnet", navn: "Forsørger barnet" },
-    { id: "barnetilleggFom", navn: "Barnetillegg fra" },
-    { id: "barnetilleggTom", navn: "Barnetillegg til" },
-    { id: "kvalifisererTilBarnetillegg", navn: "Rett til barnetillegg" },
-    { id: "begrunnelse", navn: "Begrunnelse" },
+    { id: "etternavn", label: "Etternavn" },
+    { id: "fodselsdato", label: "Fødselsdato" },
+    { id: "oppholdssted", label: "Oppholdssted" },
+    { id: "forsorgerBarnet", label: "Forsørger barnet" },
+    { id: "barnetilleggFom", label: "Barnetillegg fra" },
+    { id: "barnetilleggTom", label: "Barnetillegg til" },
+    { id: "kvalifisererTilBarnetillegg", label: "Rett til barnetillegg" },
+    { id: "begrunnelse", label: "Begrunnelse" },
   ];
 
   // Returner label hvis key finnes, eller returnerer key med første bokstaven uppercase
