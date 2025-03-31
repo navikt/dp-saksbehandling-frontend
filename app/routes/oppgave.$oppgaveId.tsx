@@ -36,19 +36,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const vurderingerPromise = hentVurderinger(request, oppgave.behandlingId);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
-  // TODO Teknisk gjeld: Denne sjekken burde ikke være nødvendig fordi det ikke er mulig å se en oppgave i oppgave view uten at det er satt en saksbehandler på oppgaven. Vil fikses når vi refaktorer dp-melding-om-vedtak til å hente data fra dp-saksbehandling selv istedet for at frontend må sende det med.
-  if (!oppgave?.saksbehandler) {
-    throw new Error("Oppgave mangler saksbehandler, kan ikke vise oppgave");
+  let meldingOmVedtakPromise;
+  if (oppgave.saksbehandler) {
+    meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+      fornavn: oppgave.person.fornavn,
+      mellomnavn: oppgave.person.mellomnavn,
+      etternavn: oppgave.person.etternavn,
+      fodselsnummer: oppgave.person.ident,
+      saksbehandler: oppgave.saksbehandler,
+      beslutter: oppgave.beslutter,
+    });
   }
-
-  const meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
-    fornavn: oppgave.person.fornavn,
-    mellomnavn: oppgave.person.mellomnavn,
-    etternavn: oppgave.person.etternavn,
-    fodselsnummer: oppgave.person.ident,
-    saksbehandler: oppgave.saksbehandler,
-    beslutter: oppgave.beslutter,
-  });
 
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),

@@ -56,7 +56,6 @@ export function JournalpostOversikt({ journalposter }: IProps) {
         {journalposter.map((journalpost) => (
           <option key={journalpost?.journalpostId} value={journalpost?.journalpostId}>
             {`${journalpost?.tittel} ${journalpost?.datoOpprettet ? ` : ${formaterNorskDato(journalpost.datoOpprettet, true)}` : ""}`}
-            {}
           </option>
         ))}
       </Select>

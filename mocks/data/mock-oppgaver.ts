@@ -77,7 +77,7 @@ export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Opp
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
   tilstand: "UNDER_KONTROLL",
-  journalpostIder: ["598116231", "639664664"],
+  journalpostIder: ["639664664", "598116231"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
 };
@@ -103,7 +103,20 @@ export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
   lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: [],
+  emneknagger: ["Innvilgelse"],
+  tilstand: "FERDIG_BEHANDLET",
+  journalpostIder: ["598116231", "639664664"],
+  historikk: mockHistorikk,
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+};
+
+export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] = {
+  oppgaveId: "018e3755-9df8-7aa4-94a6-318fada10999",
+  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+  person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Automatisk behandlet"],
   tilstand: "FERDIG_BEHANDLET",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
@@ -115,6 +128,7 @@ export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
   ferdigBehandletOppgave,
+  ferdigBehandletAutomatiskOppgave,
 ];
 
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
@@ -122,6 +136,7 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
+  konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
 ];
 
 export function konverterOppgaveTilListeOppgave(
