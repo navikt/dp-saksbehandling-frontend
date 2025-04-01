@@ -1,3 +1,4 @@
+import { format, parse } from "date-fns";
 import { components } from "openapi/soknad-orkestrator-typer";
 
 import { IAlert } from "~/context/alert-context";
@@ -5,8 +6,6 @@ import { oppdaterOrkestratorBarn } from "~/models/orkestrator-opplysning.server"
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function oppdaterOrkestratorBarnAction(request: Request, formData: FormData) {
-  console.log("treffer oppdaterOrkestratorBarnAction 🚀");
-
   const soknadId = formData.get("soknadId") as string;
   const barnId = formData.get("barnId") as string;
   const fornavnOgMellomnavn = formData.get("fornavnOgMellomnavn") as string;
@@ -27,12 +26,10 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     oppholdssted,
     forsorgerBarnet: Boolean(forsorgerBarnet),
     kvalifisererTilBarnetillegg: Boolean(kvalifisererTilBarnetillegg),
-    barnetilleggFom,
-    barnetilleggTom,
+    barnetilleggFom: format(parse(barnetilleggFom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
+    barnetilleggTom: format(parse(barnetilleggTom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
     begrunnelse,
   };
-
-  console.log(`🔥 oppdatertBarn :`, oppdatertBarn);
 
   if (!barnId) {
     throw new Error("Mangler barnId");
@@ -46,6 +43,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
 
   console.log(`🔷 data :`, data);
   console.log(`🔴 error :`, error);
+
   if (error) {
     return getHttpProblemAlert(error);
   }
