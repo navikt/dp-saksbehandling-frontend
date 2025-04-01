@@ -39,10 +39,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     throw new Error("Mangler soknadId");
   }
 
-  const { error, data } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
-
-  console.log(`🔷 data :`, data);
-  console.log(`🔴 error :`, error);
+  const { error } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
 
   if (error) {
     return getHttpProblemAlert(error);
