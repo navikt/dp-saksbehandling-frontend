@@ -40,7 +40,7 @@ export async function oppdaterOrkestratorBarn(
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
   console.log("oppdatertBarn ⭐️");
-  console.log(oppdatertBarn);
+  console.log(JSON.stringify(oppdatertBarn));
 
   return await orkestratorClient.PUT("/opplysninger/{soknadId}/barn/oppdater", {
     headers: getHeaders(onBehalfOfToken),
