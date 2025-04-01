@@ -22,7 +22,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     barnId,
     fornavnOgMellomnavn,
     etternavn,
-    fodselsdato,
+    fodselsdato: format(parse(fodselsdato, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
     oppholdssted,
     forsorgerBarnet: Boolean(forsorgerBarnet),
     kvalifisererTilBarnetillegg: Boolean(kvalifisererTilBarnetillegg),
