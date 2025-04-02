@@ -41,11 +41,13 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     throw new Error("Mangler soknadId");
   }
 
-  const { error, data } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
+  const { error, data, response } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
 
   console.log("Error 💥: ", error);
 
   console.log("Data 💥: ", data);
+
+  console.log("Response 💥: ", response);
 
   if (error) {
     return getHttpProblemAlert(error);
