@@ -31,6 +31,8 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     begrunnelse,
   };
 
+  console.log(oppdatertBarn);
+
   if (!barnId) {
     throw new Error("Mangler barnId");
   }
@@ -39,7 +41,11 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
     throw new Error("Mangler soknadId");
   }
 
-  const { error } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
+  const { error, data } = await oppdaterOrkestratorBarn(request, soknadId, oppdatertBarn);
+
+  console.log("Error 💥: ", error);
+
+  console.log("Data 💥: ", data);
 
   if (error) {
     return getHttpProblemAlert(error);
