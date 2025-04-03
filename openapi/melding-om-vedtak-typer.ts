@@ -292,8 +292,8 @@ export interface components {
         };
         MeldingOmVedtakResponse: {
             /** @description HTML for melding om vedtak */
-            html?: string;
-            utvidedeBeskrivelser?: components["schemas"]["UtvidetBeskrivelse"][];
+            html: string;
+            utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
         };
         UtvidetBeskrivelse: {
             brevblokkId: string;

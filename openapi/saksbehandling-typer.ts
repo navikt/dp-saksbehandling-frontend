@@ -700,6 +700,112 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/oppgave/klage/{klageId}/opplysning/{opplysningId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Oppdaterer opplysning i klage */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    klageId: string;
+                    opplysningId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["OppdaterKlageOpplysning"];
+                };
+            };
+            responses: {
+                /** @description Vellykket oppdatering av opplysning i klage */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen eller opplysningen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppgave/klage/{klageId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent klage basert på klageId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    klageId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med detaljer om klagen */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Klage"];
+                    };
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/oppgaver": {
         parameters: {
             query?: never;
@@ -1031,7 +1137,7 @@ export interface components {
             aarsak: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
-        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "ANNET";
+        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "ANNET";
         LagreNotatResponse: {
             /**
              * Format: date-time
@@ -1096,6 +1202,47 @@ export interface components {
         };
         OppdatertTilstand: {
             nyTilstand: components["schemas"]["OppgaveTilstand"];
+        };
+        Klage: {
+            /** Format: uuid */
+            Id: string;
+            saksbehandler?: components["schemas"]["Behandler"];
+            opplysninger: components["schemas"]["KlageOpplysning"];
+            utfall?: components["schemas"]["Utfall"];
+            meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
+        };
+        OppdaterKlageOpplysning: {
+            /** @enum {string} */
+            opplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER-LISTEVALG";
+            verdi: Record<string, never>;
+        };
+        KlageOpplysning: {
+            /** Format: uuid */
+            id: string;
+            navn: string;
+            /** @enum {string} */
+            type: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER-LISTEVALG";
+            paakrevd: boolean;
+            /** @enum {string} */
+            gruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE-ANKE";
+        };
+        Utfall: {
+            /** @enum {string} */
+            verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS-MEDHOLD" | "MEDHOLD";
+            /** @description Tilgjengelige utfall for klagebehandling */
+            tilgjeneligeUtfall: string[];
+        };
+        MeldingOmVedtakResponse: {
+            /** @description HTML for melding om vedtak */
+            html: string;
+            utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
+        };
+        UtvidetBeskrivelse: {
+            brevblokkId: string;
+            tekst: string;
+            /** Format: date-time */
+            sistEndretTidspunkt?: string;
+            tittel: string;
         };
         HttpProblem: {
             type: string;
