@@ -35,10 +35,7 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
 
   useEffect(() => {
     if (response?.data) {
-      // TODO: Fiks type backend. utvidedeBeskrivelser skal ikke være optional
-      if (response.data.utvidedeBeskrivelser) {
-        setUtvidedeBeskrivelser(response.data.utvidedeBeskrivelser);
-      }
+      setUtvidedeBeskrivelser(response.data.utvidedeBeskrivelser);
     }
   }, [response?.data]);
 
@@ -73,8 +70,7 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
                 <div className={styles.previewContainer}>
                   <MeldingOmVedtakPreview
                     utvidedeBeskrivelser={utvidedeBeskrivelser}
-                    // TODO: Fiks type backend. html skal ikke være optional
-                    html={meldingOmVedtak.data.html || ""}
+                    html={meldingOmVedtak.data.html}
                   />
                 </div>
               </div>
