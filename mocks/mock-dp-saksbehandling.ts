@@ -5,6 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { klageOppgaver } from "./data/mock-klage-oppgaver";
 import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
@@ -208,6 +209,33 @@ export const mockDpSaksbehandling = [
     }
 
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
+  }),
+
+  // Hent en klage oppgave med oppgaveId
+  http.get(`/oppgave/klage/{klageId}`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { klageId } = params;
+    const klageOppgave = klageOppgaver.find((klage) => klage.id === klageId);
+
+    if (klageOppgave) {
+      return response(200).json(klageOppgave);
+    }
+
+    return response(404).json(error404);
+  }),
+
+  // Lagre opplysning på klage
+  http.put(`/oppgave/klage/{klageId}/opplysning/{opplysningId}`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    return response(201).empty();
   }),
 
   // Hent alle oppgaver til en person
