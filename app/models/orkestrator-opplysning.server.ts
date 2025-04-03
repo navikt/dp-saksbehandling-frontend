@@ -1,64 +1,67 @@
-import { IOrkestratorLand } from "mocks/data/mock-orkestrator-land-lister";
+import createClient from "openapi-fetch";
 
 import { getSoknadOrkestratorOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleErrorResponse } from "~/utils/error-response.utils";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { IOrkestratorBarnOpplysning } from "../../mocks/data/mock-orkestrator-barn-opplysninger";
+import { components, paths } from "../../openapi/soknad-orkestrator-typer";
 
-export async function hentOrkestratorBarnOpplysninger(
-  request: Request,
-  soknadId: string,
-): Promise<IOrkestratorBarnOpplysning[]> {
+const orkestratorClient = createClient<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
+
+export async function hentOrkestratorBarn(request: Request, soknadId: string) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn`;
 
-  const response = await fetch(url, {
-    method: "GET",
+  const { response, data, error } = await orkestratorClient.GET("/opplysninger/{soknadId}/barn", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { soknadId },
+    },
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
 
-  return await response.json();
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentOrkestratorBarn(). ${response.status} - ${response.statusText}`,
+  );
 }
 
-export async function oppdaterOrkestratorBarnOpplysning(
+export async function oppdaterOrkestratorBarn(
   request: Request,
   soknadId: string,
-  barnOpplysning: IOrkestratorBarnOpplysning,
-): Promise<IOrkestratorLand[]> {
+  oppdatertBarn: components["schemas"]["OppdatertBarnRequest"],
+) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/opplysninger/${soknadId}/barn/oppdater`;
 
-  const response = await fetch(url, {
-    method: "PUT",
+  return await orkestratorClient.PUT("/opplysninger/{soknadId}/barn/oppdater", {
     headers: getHeaders(onBehalfOfToken),
-    body: JSON.stringify({ barnOpplysning }),
+    body: { ...oppdatertBarn },
+    params: {
+      path: { soknadId },
+    },
   });
-
-  if (!response.ok) {
-    handleErrorResponse(response);
-  }
-
-  return await response.json();
 }
 
-export async function hentOrkestratorLandListe(request: Request): Promise<IOrkestratorLand[]> {
+export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
-  const url = `${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/land`;
 
-  const response = await fetch(url, {
-    method: "GET",
+  const { data, error } = await orkestratorClient.GET("/land", {
     headers: getHeaders(onBehalfOfToken),
   });
 
-  if (!response.ok) {
-    handleErrorResponse(response);
+  if (data) {
+    return data;
   }
 
-  return await response.json();
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentOppgaver(). 500 - Internal Server Error`);
 }

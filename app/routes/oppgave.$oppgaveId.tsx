@@ -16,6 +16,10 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import {
+  hentOrkestratorBarn,
+  hentOrkestratorLandListe,
+} from "~/models/orkestrator-opplysning.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -37,6 +41,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
 
   let meldingOmVedtakPromise;
+
+  if (!oppgave?.soknadId) {
+    throw new Error("Mangler søknadId fra oppgave for å hente ut orkestrator barn");
+  }
+
+  const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
+  const orkestratorLandliste = await hentOrkestratorLandListe(request);
+
   if (oppgave.saksbehandler) {
     meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
       fornavn: oppgave.person.fornavn,
@@ -63,6 +75,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgaverForPersonPromise,
       journalposterPromises,
       meldingOmVedtakPromise,
+      orkestratorBarn,
+      orkestratorLandliste,
     },
     {
       headers: {

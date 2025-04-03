@@ -1,9 +1,6 @@
-export interface IOrkestratorLand {
-  alpha3kode: string;
-  navn: string;
-}
+import { components } from "openapi/soknad-orkestrator-typer";
 
-export const mockOrkestratorLandListe: IOrkestratorLand[] = [
+export const mockOrkestratorLandListe: components["schemas"]["Land"][] = [
   {
     alpha3kode: "NOR",
     navn: "Norge",
