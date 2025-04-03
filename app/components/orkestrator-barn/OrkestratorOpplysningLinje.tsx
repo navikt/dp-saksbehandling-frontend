@@ -6,6 +6,7 @@ import {
   formatterOrkestratorOpplysningVerdi,
   hentOrkestratorBarnOpplysningLabel,
 } from "~/utils/orkestrator-opplysninger.utils";
+import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { OrkestratorOpplysning } from "../orkestrator-opplysning/OrkestratorOpplysning";
 import styles from "./OrkestratorBarn.module.css";
@@ -18,11 +19,18 @@ interface IProps {
 }
 
 export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {
+  const sensitiveOpplyninger = ["fornavnOgMellomnavn", "etternavn"];
+  const skjulSensitivOpplysning = sensitiveOpplyninger.includes(opplysning.id);
+
   if (readOnly) {
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>
         <div>{hentOrkestratorBarnOpplysningLabel(opplysning.id)}</div>
-        <div>{formatterOrkestratorOpplysningVerdi(opplysning)}</div>
+        <div>
+          {skjulSensitivOpplysning
+            ? maskerVerdi(opplysning.verdi)
+            : formatterOrkestratorOpplysningVerdi(opplysning)}
+        </div>
         <div className={styles.alightRight}>
           <OrkestratorTag kilde={opplysning.kilde} />
         </div>
