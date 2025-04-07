@@ -7,6 +7,8 @@ import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function oppdaterOrkestratorBarnAction(request: Request, formData: FormData) {
   const soknadId = formData.get("soknadId") as string;
+  const opplysningId = formData.get("opplysningId") as string;
+  const behandlingId = formData.get("behandlingId") as string;
   const barnId = formData.get("barnId") as string;
   const fornavnOgMellomnavn = formData.get("fornavnOgMellomnavn") as string;
   const etternavn = formData.get("etternavn") as string;
@@ -19,19 +21,21 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
   const begrunnelse = formData.get("begrunnelse") as string;
 
   const oppdatertBarn: components["schemas"]["OppdatertBarnRequest"] = {
-    barnId,
-    fornavnOgMellomnavn,
-    etternavn,
-    fodselsdato: format(parse(fodselsdato, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
-    oppholdssted,
-    forsorgerBarnet: forsorgerBarnet === "true",
-    kvalifisererTilBarnetillegg: kvalifisererTilBarnetillegg === "true",
-    barnetilleggFom: format(parse(barnetilleggFom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
-    barnetilleggTom: format(parse(barnetilleggTom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
-    begrunnelse,
+    opplysningId,
+    behandlingId,
+    oppdatertBarn: {
+      barnId,
+      fornavnOgMellomnavn,
+      etternavn,
+      fodselsdato: format(parse(fodselsdato, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
+      oppholdssted,
+      forsorgerBarnet: forsorgerBarnet === "true",
+      kvalifisererTilBarnetillegg: kvalifisererTilBarnetillegg === "true",
+      barnetilleggFom: format(parse(barnetilleggFom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
+      barnetilleggTom: format(parse(barnetilleggTom, "dd.MM.yyyy", new Date()), "yyyy-MM-dd"),
+      begrunnelse,
+    },
   };
-
-  console.log(oppdatertBarn);
 
   if (!barnId) {
     throw new Error("Mangler barnId");
