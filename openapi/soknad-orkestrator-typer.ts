@@ -167,6 +167,13 @@ export interface components {
         };
         OppdatertBarnRequest: {
             /** Format: uuid */
+            opplysningId: string;
+            /** Format: uuid */
+            behandlingId: string;
+            oppdatertBarn: components["schemas"]["OppdatertBarn"];
+        };
+        OppdatertBarn: {
+            /** Format: uuid */
             barnId: string;
             fornavnOgMellomnavn: string;
             etternavn: string;
