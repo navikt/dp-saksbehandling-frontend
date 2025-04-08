@@ -3,6 +3,7 @@ import { withZod } from "@rvf/zod";
 import { z } from "zod";
 
 import { components } from "../../openapi/behandling-typer";
+import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export function hentValideringForOpplysning(
   opplysning: components["schemas"]["Opplysning"],
@@ -41,6 +42,39 @@ export function hentValideringForOpplysning(
       );
 
     case "dato":
+      return withZod(
+        z.object({
+          verdi: z.string().regex(
+            new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+            "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
+          ),
+        }),
+      );
+
+    default:
+      return withZod(
+        z.object({
+          verdi: z.string(),
+        }),
+      );
+  }
+}
+
+export function hentValideringForKlageOpplysning(
+  opplysning: saksbehandlingComponents["schemas"]["KlageOpplysning"],
+): Validator<{ verdi: string | number }> {
+  switch (opplysning.type) {
+    case "BOOLSK":
+      return withZod(
+        z.object({
+          verdi: z.enum(["Ja", "Nei"], {
+            required_error: "Du må velge et svar",
+            invalid_type_error: "Ugyldig svar",
+          }),
+        }),
+      );
+
+    case "DATO":
       return withZod(
         z.object({
           verdi: z.string().regex(

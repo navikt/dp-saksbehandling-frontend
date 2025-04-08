@@ -55,6 +55,47 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentKlageOppgave(request: Request, klageId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET("/oppgave/klage/{klageId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { klageId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
+}
+
+export async function lagreKlageOpplysning(
+  request: Request,
+  klageId: string,
+  opplysningId: string,
+  verdi: string,
+  opplysningType: components["schemas"]["OppdaterKlageOpplysning"]["opplysningType"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppgave/klage/{klageId}/opplysning/{opplysningId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { klageId, opplysningId },
+    },
+    body: {
+      // @ts-expect-error TODO Fix type error for verdi i openapi spec
+      verdi,
+      opplysningType,
+    },
+  });
+}
+
 export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/neste", {

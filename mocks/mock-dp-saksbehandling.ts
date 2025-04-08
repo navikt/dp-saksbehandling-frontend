@@ -14,14 +14,14 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL")
 
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
-  title: "Default MSW feilmelding",
+  title: "MSW 500 feilmelding",
   status: 500,
   instance: "dp-saksbehandling",
 };
 
 const error404: components["schemas"]["HttpProblem"] = {
   type: "404",
-  title: "Fant ikke data",
+  title: "MSW 404 feilmelding",
   status: 404,
   instance: "dp-saksbehandling",
 };

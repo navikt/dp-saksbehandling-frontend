@@ -3,6 +3,7 @@ import { ActionFunctionArgs } from "react-router";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
+import { lagreKlageOpplysningAction } from "~/server-side-actions/lagre-klage-opplysning-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
@@ -67,6 +68,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-vurdering":
       return await lagreVurderingAction(request, formData);
+
+    case "lagre-klage-opplysning":
+      return await lagreKlageOpplysningAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

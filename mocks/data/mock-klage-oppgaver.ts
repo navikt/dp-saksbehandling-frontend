@@ -24,6 +24,7 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
     type: "DATO",
     paakrevd: true,
     gruppe: "FRIST",
+    verdi: "2025-01-23",
     redigerbar: true,
   },
   {
