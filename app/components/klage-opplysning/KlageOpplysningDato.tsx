@@ -4,13 +4,17 @@ import { useField } from "@rvf/react-router";
 import { IKlageOpplysningProps } from "~/components/klage-opplysning/KlageOpplysning";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
+import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./KlageOpplysning.module.css";
 
-export function KlageOpplysningDato({ opplysning, formScope, readonly }: IKlageOpplysningProps) {
+interface IProps extends IKlageOpplysningProps {
+  opplysning: components["schemas"]["KlageOpplysningDato"];
+}
+
+export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps) {
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
-    // @ts-expect-error TODO Fix typing backend
     defaultSelected: opplysning.verdi ? new Date(opplysning.verdi) : undefined,
     locale: "nb",
     inputFormat: "dd.MM.yyyy",

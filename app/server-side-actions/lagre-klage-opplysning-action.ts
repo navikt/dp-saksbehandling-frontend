@@ -9,22 +9,20 @@ import { components } from "../../openapi/saksbehandling-typer";
 export async function lagreKlageOpplysningAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgave-id") as string;
   const opplysningId = formData.get("opplysning-id") as string;
-  const verdi = formData.get("verdi") as string;
-  const opplysningDatatype = formData.get(
-    "datatype",
-  ) as components["schemas"]["KlageOpplysning"]["type"];
+  const verdi = formData.get("verdi") as string; //TODO Fix type for å håndtere multiselect
+  const type = formData.get("datatype") as components["schemas"]["KlageOpplysningType"];
 
   invariant(oppgaveId, "oppgaveId er påkrevd");
   invariant(opplysningId, "opplysningId er påkrevd");
   invariant(verdi, "verdi er påkrevd");
 
+  const oppdatertKlageOpplysning = konverterOpplysningVerdiTilBackendVerdi(type, verdi);
+
   const { response, error } = await lagreKlageOpplysning(
     request,
     oppgaveId,
     opplysningId,
-    verdi,
-    // @ts-expect-error TODO Fix miss match mellom _ og - i openapi spec
-    opplysningDatatype,
+    oppdatertKlageOpplysning,
   );
 
   if (error) {
@@ -41,4 +39,41 @@ export async function lagreKlageOpplysningAction(request: Request, formData: For
   }
 
   throw new Error(`Uhåndtert feil i lagreKlageOpplysningAction()`);
+}
+
+function konverterOpplysningVerdiTilBackendVerdi(
+  opplysningDatatype: components["schemas"]["KlageOpplysningType"],
+  verdi: string,
+): components["schemas"]["OppdaterKlageOpplysning"] {
+  switch (opplysningDatatype) {
+    case "TEKST":
+      return {
+        type: "TEKST",
+        verdi: verdi,
+      };
+
+    case "LISTEVALG":
+      return {
+        type: "LISTEVALG",
+        verdi: verdi,
+      };
+
+    case "FLER_LISTEVALG":
+      return {
+        type: "TEKST",
+        verdi: verdi,
+      };
+
+    case "DATO": {
+      const [dag, maaned, aar] = verdi.split(".");
+      const backendVerdi = `${aar}-${maaned}-${dag}`;
+      return {
+        type: "DATO",
+        verdi: backendVerdi,
+      };
+    }
+
+    case "BOOLSK":
+      return { type: "BOOLSK", verdi: verdi === "Ja" };
+  }
 }

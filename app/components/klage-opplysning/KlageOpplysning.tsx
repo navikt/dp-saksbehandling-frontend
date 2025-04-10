@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
 import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysningDato";
+import { KlageOpplysningFlervalg } from "~/components/klage-opplysning/KlageOpplysningFlervalg";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentValideringForKlageOpplysning } from "~/utils/validering.util";
 
@@ -48,6 +49,7 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
       <input hidden={true} readOnly={true} name="oppgave-id" value={oppgaveId} />
       <input hidden={true} readOnly={true} name="opplysning-id" value={opplysning.id} />
       <input hidden={true} readOnly={true} name="datatype" value={opplysning.type} />
+
       <OpplysningType
         opplysning={opplysning}
         formScope={klageOpplysningForm.scope("verdi")}
@@ -61,12 +63,21 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
   switch (opplysning.type) {
     case "BOOLSK":
       return (
-        <KlageOpplysningBoolean readonly={readonly} opplysning={opplysning} formScope={formScope} />
+        <KlageOpplysningBoolean opplysning={opplysning} formScope={formScope} readonly={readonly} />
       );
 
     case "DATO":
       return (
-        <KlageOpplysningDato readonly={readonly} opplysning={opplysning} formScope={formScope} />
+        <KlageOpplysningDato opplysning={opplysning} formScope={formScope} readonly={readonly} />
+      );
+
+    case "FLER_LISTEVALG":
+      return (
+        <KlageOpplysningFlervalg
+          opplysning={opplysning}
+          formScope={formScope}
+          readonly={readonly}
+        />
       );
 
     default:

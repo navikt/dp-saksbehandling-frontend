@@ -828,7 +828,6 @@ export interface components {
             behandlingId: string;
             "basertP\u00E5Behandlinger"?: string[];
             fagsakId: string;
-            "s\u00F8knadId": string;
             automatisk?: boolean;
             /** @description Person vedtak gjelder for */
             ident: string;

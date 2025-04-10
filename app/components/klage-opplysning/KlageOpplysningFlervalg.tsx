@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@navikt/ds-react";
+import { UNSAFE_Combobox } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import { IKlageOpplysningProps } from "~/components/klage-opplysning/KlageOpplysning";
@@ -7,10 +7,10 @@ import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./KlageOpplysning.module.css";
 
 interface IProps extends IKlageOpplysningProps {
-  opplysning: components["schemas"]["KlageOpplysningBoolsk"];
+  opplysning: components["schemas"]["KlageOpplysningFlerListeValg"];
 }
 
-export function KlageOpplysningBoolean({ opplysning, formScope, readonly }: IProps) {
+export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IProps) {
   const field = useField(formScope);
 
   return (
@@ -20,15 +20,14 @@ export function KlageOpplysningBoolean({ opplysning, formScope, readonly }: IPro
       )}
 
       {opplysning.redigerbar && (
-        <RadioGroup
-          size="small"
+        <UNSAFE_Combobox
+          isMultiSelect
+          // @ts-expect-error TODO Fix type i backend
+          options={opplysning.valgmuligheter}
           {...field.getInputProps()}
           error={field.error()}
           readOnly={readonly}
-        >
-          <Radio value="Ja">Ja</Radio>
-          <Radio value="Nei">Nei</Radio>
-        </RadioGroup>
+        />
       )}
     </>
   );
