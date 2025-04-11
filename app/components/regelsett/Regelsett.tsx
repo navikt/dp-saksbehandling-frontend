@@ -17,6 +17,10 @@ interface IProps {
 
 export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
+  console.log("🔥 orkestratorBarn");
+  console.log(orkestratorBarn);
+
   const { featureFlags } = useTypedRouteLoaderData("root");
 
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
@@ -44,6 +48,8 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   );
 
   const visOrkestratorBarn = satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger;
+
+  console.log(`🔥 visOrkestratorBarn :`, visOrkestratorBarn);
 
   return (
     <div>
