@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
 import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysningDato";
 import { KlageOpplysningFlervalg } from "~/components/klage-opplysning/KlageOpplysningFlervalg";
+import { KlageOpplysningTekst } from "~/components/klage-opplysning/KlageOpplysningTekst";
+import { KlageOpplysningValg } from "~/components/klage-opplysning/KlageOpplysningValg";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { hentValideringForKlageOpplysning } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
-import styles from "./KlageOpplysning.module.css";
 
 export interface IKlageOpplysningProps {
   opplysning: components["schemas"]["KlageOpplysning"];
@@ -37,7 +38,8 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
 
   useEffect(
     () =>
-      klageOpplysningForm.subscribe.value(() => {
+      klageOpplysningForm.subscribe.value((values) => {
+        console.log(values);
         klageOpplysningForm.submit();
       }),
     [],
@@ -71,6 +73,16 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
         <KlageOpplysningDato opplysning={opplysning} formScope={formScope} readonly={readonly} />
       );
 
+    case "LISTEVALG":
+      return (
+        <KlageOpplysningValg opplysning={opplysning} formScope={formScope} readonly={readonly} />
+      );
+
+    case "TEKST":
+      return (
+        <KlageOpplysningTekst opplysning={opplysning} formScope={formScope} readonly={readonly} />
+      );
+
     case "FLER_LISTEVALG":
       return (
         <KlageOpplysningFlervalg
@@ -79,8 +91,5 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
           readonly={readonly}
         />
       );
-
-    default:
-      return <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>;
   }
 }

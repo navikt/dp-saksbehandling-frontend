@@ -1,5 +1,5 @@
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { Table, Tabs } from "@navikt/ds-react";
+import { Radio, RadioGroup, Table, Tabs } from "@navikt/ds-react";
 import { Fragment, useState } from "react";
 import {
   ActionFunctionArgs,
@@ -45,7 +45,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { klageOppgave, alert } = useLoaderData<typeof loader>();
-  const [aktivTab, setAktivTab] = useState("behandling");
+  const [aktivTab, setAktivTab] = useState("utfall");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -117,11 +117,23 @@ export default function Oppgave() {
 
               <Tabs.Panel value="utfall">
                 <div className={"m-2"}>
+                  <RadioGroup
+                    legend={"Utfall"}
+                    size="small"
+                    defaultValue={klageOppgave.utfall.verdi}
+                  >
+                    {klageOppgave.utfall.tilgjeneligeUtfall.map((valg) => (
+                      <Radio key={valg} value={valg}>
+                        {valg}
+                      </Radio>
+                    ))}
+                  </RadioGroup>
+
                   {klageOppgave.utfallOpplysninger.map((opplysning) => (
-                    <>
+                    <Fragment key={opplysning.id}>
                       {opplysning.navn}
                       <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
-                    </>
+                    </Fragment>
                   ))}
                 </div>
               </Tabs.Panel>
