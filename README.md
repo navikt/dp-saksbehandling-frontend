@@ -136,4 +136,3 @@ Github token er utdatert.
 13. Trykk `Configure SSO`
 14. Trykk `Authorize` på `navikt`
 15. Ferdig!
-
