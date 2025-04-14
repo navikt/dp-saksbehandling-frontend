@@ -17,7 +17,6 @@ import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
-import { Paaske } from "~/components/paaske/Paaske";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
@@ -92,7 +91,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   );
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
-  const paaske = unleash.isEnabled("dp-saksbehandling-frontend.paaske");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
@@ -109,7 +107,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
     oppgaverJegHarTilBehandlingPromise,
     featureFlags: {
       jul,
-      paaske,
       halloween,
       valentines,
       oppgaveHistorikk,
@@ -146,7 +143,6 @@ export default function App() {
       </head>
       <body>
         <SaksbehandlerProvider aktivtSok="">
-          {featureFlags.paaske && <Paaske />}
           <InternalHeader className={styles.header}>
             <Link to={"/"} className={styles.headerLogo}>
               <InternalHeader.Title as="h1" className={styles.pageHeader}>
