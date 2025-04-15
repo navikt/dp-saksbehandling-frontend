@@ -44,6 +44,11 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   );
 
   const visOrkestratorBarn = satsOgBarnetillegg && featureFlags.orkestratorBarnOpplysninger;
+  const barnOpplysningId = aktivtRegelsettOpplysninger.find(
+    (opplysning) => opplysning.datatype === "barn",
+  )?.id;
+
+  console.log(`🔥 barnOpplysningId :`, barnOpplysningId);
 
   return (
     <div>
@@ -123,11 +128,16 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
         </>
       )}
 
-      {visOrkestratorBarn && (
+      {visOrkestratorBarn && barnOpplysningId && (
         <>
           {orkestratorBarn.map(
             (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
-              <OrkestratorBarn key={barn.barnId} barnNummer={index + 1} barn={barn} />
+              <OrkestratorBarn
+                key={barn.barnId}
+                barnNummer={index + 1}
+                barn={barn}
+                opplysningId={barnOpplysningId}
+              />
             ),
           )}
         </>
