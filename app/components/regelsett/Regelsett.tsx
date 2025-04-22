@@ -48,8 +48,6 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
     (opplysning) => opplysning.datatype === "barn",
   )?.id;
 
-  console.log(`🔥 barnOpplysningId :`, barnOpplysningId);
-
   return (
     <div>
       <Heading className={styles.hjemmelTittel} size="medium">
