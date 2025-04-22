@@ -20,9 +20,7 @@ export async function oppdaterOrkestratorBarnAction(request: Request, formData: 
   const barnetilleggTom = formData.get("barnetilleggTom") as string;
   const begrunnelse = formData.get("begrunnelse") as string;
 
-  console.log(`🔥 opplysningId :`, opplysningId);
-  console.log(`🔥 behandlingId :`, behandlingId);
-  console.log(`🔥 barnId :`, barnId);
+  console.log(`🔥 oppholdssted :`, oppholdssted);
 
   const oppdatertBarn: components["schemas"]["OppdatertBarnRequest"] = {
     opplysningId,
