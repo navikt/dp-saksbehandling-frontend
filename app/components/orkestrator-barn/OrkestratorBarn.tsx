@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { useRef } from "react";
 import { useNavigation } from "react-router";
 
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
@@ -16,12 +17,14 @@ import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 interface IProps {
   barnNummer: number;
   barn: components["schemas"]["BarnResponse"];
+  opplysningId: string;
 }
 
-export function OrkestratorBarn({ barnNummer, barn }: IProps) {
+export function OrkestratorBarn({ barnNummer, barn, opplysningId }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { response: behandlingResponse } = useAwaitPromise(behandlingPromise);
 
   // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.
   const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
@@ -84,6 +87,13 @@ export function OrkestratorBarn({ barnNummer, barn }: IProps) {
               />
               <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
               <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
+              <input hidden={true} readOnly={true} name="opplysningId" value={opplysningId} />
+              <input
+                hidden={true}
+                readOnly={true}
+                name="behandlingId"
+                value={behandlingResponse?.data?.behandlingId}
+              />
               {barnOpplysninger.map((opplysning, index) => (
                 <OrkestratorOpplysningLinje
                   key={index}
