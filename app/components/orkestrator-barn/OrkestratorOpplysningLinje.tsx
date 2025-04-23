@@ -2,6 +2,7 @@ import { FormScope } from "@rvf/react-router";
 import classNames from "classnames";
 import { components } from "openapi/soknad-orkestrator-typer";
 
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import {
   formatterOrkestratorOpplysningVerdi,
   hentOrkestratorBarnOpplysningLabel,
@@ -19,15 +20,16 @@ interface IProps {
 }
 
 export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {
+  const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const sensitiveOpplyninger = ["fornavnOgMellomnavn", "etternavn"];
-  const skjulSensitivOpplysning = sensitiveOpplyninger.includes(opplysning.id);
+  const skjulOpplysning = sensitiveOpplyninger.includes(opplysning.id);
 
   if (readOnly) {
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>
         <div>{hentOrkestratorBarnOpplysningLabel(opplysning.id)}</div>
         <div>
-          {skjulSensitivOpplysning
+          {skjulOpplysning && skjulSensitiveOpplysninger
             ? maskerVerdi(opplysning.verdi)
             : formatterOrkestratorOpplysningVerdi(opplysning)}
         </div>
