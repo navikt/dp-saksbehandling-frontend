@@ -646,6 +646,10 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Rekjoring: {
+            ident: string;
+            opplysninger?: components["schemas"]["OpplysningsId"][];
+        };
         IdentForesporsel: {
             ident: string;
         };
@@ -750,6 +754,8 @@ export interface components {
             datatype: components["schemas"]["DataType"];
             /** @description Indikerer om opplysningen kan redigeres */
             redigerbar: boolean;
+            /** @description Indikerer om opplysningen kan oppfriskes (enten hentes inn eller utledes på nytt) */
+            kanOppfriskes?: boolean;
             kilde?: components["schemas"]["Opplysningskilde"];
             utledetAv?: components["schemas"]["Utledning"];
             /** @description Indikerer om opplysningen skal vises i grensesnittet */
@@ -797,7 +803,7 @@ export interface components {
          *
          * @enum {string}
          */
-        DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn";
+        DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn" | "periode";
         Kvittering: {
             /** Format: uuid */
             behandlingId: string;
@@ -828,7 +834,6 @@ export interface components {
             behandlingId: string;
             "basertP\u00E5Behandlinger"?: string[];
             fagsakId: string;
-            "s\u00F8knadId": string;
             automatisk?: boolean;
             /** @description Person vedtak gjelder for */
             ident: string;

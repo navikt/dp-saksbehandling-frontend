@@ -1205,30 +1205,131 @@ export interface components {
         };
         Klage: {
             /** Format: uuid */
-            Id: string;
+            id: string;
             saksbehandler?: components["schemas"]["Behandler"];
-            opplysninger: components["schemas"]["KlageOpplysning"];
-            utfall?: components["schemas"]["Utfall"];
+            behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
+            utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
+            utfall: components["schemas"]["Utfall"];
             meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
         };
-        OppdaterKlageOpplysning: {
-            /** @enum {string} */
-            opplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER-LISTEVALG";
-            verdi: Record<string, never>;
+        TekstVerdi: {
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "TEKST" | "LISTEVALG";
         };
-        KlageOpplysning: {
+        BoolskVerdi: {
+            verdi: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "BOOLSK";
+        };
+        DatoVerdi: {
+            /** Format: date */
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "DATO";
+        };
+        ListeVerdi: {
+            verdi: string[];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "FLER_LISTEVALG";
+        };
+        OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"];
+        /** @enum {string} */
+        KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
+        KlageOpplysningTekst: {
             /** Format: uuid */
             id: string;
             navn: string;
-            /** @enum {string} */
-            type: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER-LISTEVALG";
             paakrevd: boolean;
-            /** @enum {string} */
-            gruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE-ANKE";
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter?: string[];
+            redigerbar: boolean;
+            verdi?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "TEKST";
         };
+        KlageOpplysningBoolsk: {
+            /** Format: uuid */
+            id: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter?: string[];
+            redigerbar: boolean;
+            verdi?: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "BOOLSK";
+        };
+        KlageOpplysningDato: {
+            /** Format: uuid */
+            id: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter?: string[];
+            redigerbar: boolean;
+            /** Format: date */
+            verdi?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "DATO";
+        };
+        KlageOpplysningFlerListeValg: {
+            /** Format: uuid */
+            id: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter?: string[];
+            redigerbar: boolean;
+            verdi?: string[];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "FLER_LISTEVALG";
+        };
+        KlageOpplysningListeValg: {
+            /** Format: uuid */
+            id: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter?: string[];
+            redigerbar: boolean;
+            verdi?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "LISTEVALG";
+        };
+        /** @enum {string} */
+        KlageOpplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER_LISTEVALG";
+        KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"];
         Utfall: {
             /** @enum {string} */
-            verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS-MEDHOLD" | "MEDHOLD";
+            verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS-MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjeneligeUtfall: string[];
         };
