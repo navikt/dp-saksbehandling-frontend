@@ -8,18 +8,18 @@ import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAle
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentBehandling } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./Behandling.module.css";
 
 interface IProps {
+  behandlingPromise: ReturnType<typeof hentBehandling>;
   readOnly?: boolean;
 }
 
-export function Behandling(props: IProps) {
-  const { behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+export function Behandling({ behandlingPromise, readOnly }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
@@ -65,8 +65,8 @@ export function Behandling(props: IProps) {
               <Avklaringer
                 avklaringer={behandling.data.avklaringer}
                 behandlingId={behandling.data.behandlingId}
+                readOnly={readOnly}
               />
-
               {aktivtRegelsett && (
                 <div className={styles.container}>
                   <RegelsettMeny
@@ -77,7 +77,7 @@ export function Behandling(props: IProps) {
                   <Regelsett
                     behandling={behandling.data}
                     aktivtRegelsett={aktivtRegelsett}
-                    readonly={props.readOnly}
+                    readonly={readOnly}
                   />
                 </div>
               )}

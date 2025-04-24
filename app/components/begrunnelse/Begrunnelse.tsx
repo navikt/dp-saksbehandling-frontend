@@ -7,11 +7,15 @@ import { BegrunnelseAvklaringer } from "~/components/begrunnelse/BegrunnelseAvkl
 import { BegrunnelseOpplysninger } from "~/components/begrunnelse/BegrunnelseOpplysninger";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentVurderinger } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
-export function Begrunnelse(props: { readOnly?: boolean }) {
-  const { vurderingerPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+interface IProps {
+  vurderingerPromise: ReturnType<typeof hentVurderinger>;
+  readOnly?: boolean;
+}
+
+export function Begrunnelse({ vurderingerPromise, readOnly }: IProps) {
   return (
     <>
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter vurderinger"} />}>
@@ -44,14 +48,14 @@ export function Begrunnelse(props: { readOnly?: boolean }) {
                 {vurderingerResponse.data.opplysninger.length > 0 && (
                   <BegrunnelseOpplysninger
                     opplysninger={vurderingerResponse.data.opplysninger}
-                    readOnly={props.readOnly}
+                    readOnly={readOnly}
                   />
                 )}
 
                 {vurderingerResponse.data.avklaringer.length > 0 && (
                   <BegrunnelseAvklaringer
                     avklaringer={vurderingerResponse.data.avklaringer}
-                    readOnly={props.readOnly}
+                    readOnly={readOnly}
                   />
                 )}
               </>

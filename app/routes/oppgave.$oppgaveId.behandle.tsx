@@ -20,7 +20,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, behandlingPromise, vurderingerPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId",
+  );
   const actionData = useActionData<typeof action>();
   const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -48,7 +50,8 @@ export default function Oppgave() {
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <Behandling />
+              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+              <Behandling behandlingPromise={behandlingPromise} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
@@ -56,7 +59,8 @@ export default function Oppgave() {
             </Tabs.Panel>
 
             <Tabs.Panel value="begrunnelse">
-              <Begrunnelse />
+              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+              <Begrunnelse vurderingerPromise={vurderingerPromise} />
             </Tabs.Panel>
           </Tabs>
         </div>

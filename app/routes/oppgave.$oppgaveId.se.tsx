@@ -7,9 +7,14 @@ import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
+  const { behandlingPromise, vurderingerPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId",
+  );
+
   return (
     <>
       <OppgaveHandlinger />
@@ -39,11 +44,13 @@ export default function Oppgave() {
             </div>
 
             <Tabs.Panel value="behandling">
-              <Behandling readOnly={true} />
+              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+              <Behandling behandlingPromise={behandlingPromise} readOnly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="begrunnelse">
-              <Begrunnelse readOnly={true} />
+              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+              <Begrunnelse vurderingerPromise={vurderingerPromise} readOnly={true} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
