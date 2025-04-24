@@ -62,7 +62,11 @@ export function Behandling(props: IProps) {
 
           return (
             <>
-              <Avklaringer avklaringer={behandling.data.avklaringer} />
+              <Avklaringer
+                avklaringer={behandling.data.avklaringer}
+                behandlingId={behandling.data.behandlingId}
+              />
+
               {aktivtRegelsett && (
                 <div className={styles.container}>
                   <RegelsettMeny

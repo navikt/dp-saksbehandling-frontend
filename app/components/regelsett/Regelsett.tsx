@@ -5,7 +5,6 @@ import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/behandling-typer";
-import { components as orkestratorComponents } from "../../../openapi/soknad-orkestrator-typer";
 import { OpplysningLinje } from "../opplysning-linje/OpplysningLinje";
 import styles from "./Regelsett.module.css";
 
@@ -16,7 +15,6 @@ interface IProps {
 }
 
 export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
-  const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { featureFlags } = useTypedRouteLoaderData("root");
 
   const aktivtRegelsettOpplysninger = aktivtRegelsett.opplysningIder
@@ -53,10 +51,15 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
       <Heading className={styles.hjemmelTittel} size="medium">
         {aktivtRegelsett.hjemmel.tittel}
       </Heading>
+
       <Detail textColor="subtle" className={styles.hjemmelKilde}>
         {aktivtRegelsett.hjemmel.kilde.navn}
       </Detail>
-      <Avklaringer avklaringer={aktivtRegelsett.avklaringer} />
+
+      <Avklaringer
+        avklaringer={aktivtRegelsett.avklaringer}
+        behandlingId={behandling.behandlingId}
+      />
 
       {brukerOpplysninger.length > 0 && (
         <>
@@ -67,6 +70,7 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
             {brukerOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
+                behandlingId={behandling.behandlingId}
                 opplysning={opplysning}
                 readonly={readonly}
               />
@@ -84,6 +88,7 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
             {registerOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
+                behandlingId={behandling.behandlingId}
                 opplysning={opplysning}
                 readonly={readonly}
               />
@@ -101,6 +106,7 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
             {legacyOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
+                behandlingId={behandling.behandlingId}
                 opplysning={opplysning}
                 readonly={readonly}
               />
@@ -118,6 +124,7 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
             {regelOpplysninger.map((opplysning) => (
               <OpplysningLinje
                 key={`${opplysning.id}-${opplysning.verdi}`}
+                behandlingId={behandling.behandlingId}
                 opplysning={opplysning}
                 readonly={readonly}
               />
@@ -127,18 +134,7 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
       )}
 
       {visOrkestratorBarn && barnOpplysningId && (
-        <>
-          {orkestratorBarn.map(
-            (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
-              <OrkestratorBarn
-                key={barn.barnId}
-                barnNummer={index + 1}
-                barn={barn}
-                opplysningId={barnOpplysningId}
-              />
-            ),
-          )}
-        </>
+        <OrkestratorBarn opplysningId={barnOpplysningId} />
       )}
     </div>
   );

@@ -10,9 +10,25 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
-import { components } from "../../../openapi/soknad-orkestrator-typer";
+import {
+  components,
+  components as orkestratorComponents,
+} from "../../../openapi/soknad-orkestrator-typer";
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
+
+export function OrkestratorBarn({ opplysningId }: { opplysningId: string }) {
+  const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  return (
+    <>
+      {orkestratorBarn.map(
+        (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
+          <Barn key={barn.barnId} barnNummer={index + 1} barn={barn} opplysningId={opplysningId} />
+        ),
+      )}
+    </>
+  );
+}
 
 interface IProps {
   barnNummer: number;
@@ -20,7 +36,7 @@ interface IProps {
   opplysningId: string;
 }
 
-export function OrkestratorBarn({ barnNummer, barn, opplysningId }: IProps) {
+function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
   const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
