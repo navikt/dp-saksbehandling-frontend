@@ -1,6 +1,4 @@
-import { Table } from "@navikt/ds-react";
-
-import styles from "~/components/behandling/Behandling.module.css";
+import { Heading, Table } from "@navikt/ds-react";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -38,32 +36,26 @@ export function MeldekortBeregning({ behandling }: IProps) {
 
   return (
     <>
-      <div>
-        <h2 className={styles.meldekortTittel}>Meldekort</h2>
-        <p>
-          {meldedager.length > 0 && (
-            <div className="flex justify-between border-b border-border-default py-1">
-              <dt>Periode</dt>
-              <dd>
-                {formatterDato(meldedager[0].fraDato)} -{" "}
-                {formatterDato(meldedager[meldedager.length - 1].tilDato)}
-              </dd>
-            </div>
-          )}
-          <div className="flex justify-between border-b border-border-default py-1">
-            <dt>Utbetalt i perioden</dt>
-            <dd>{meldedager.reduce((sum, dag) => sum + (dag.utbetaling || 0), 0)} kr</dd>
-          </div>
-          <div className="flex justify-between border-b border-border-default py-1">
-            <dt>Forbrukt i perioden</dt>
+      <Heading size="medium">Meldekort</Heading>
+      <dl>
+        {meldedager.length > 0 && (
+          <>
+            <dt>Periode</dt>
             <dd>
-              {meldedager.reduce((sum, dag) => sum + ((dag.forbruksdag == "true" ? 1 : 0) || 0), 0)}{" "}
-              dager{" "}
+              {formatterDato(meldedager[0].fraDato)} -{" "}
+              {formatterDato(meldedager[meldedager.length - 1].tilDato)}
             </dd>
-          </div>
-          <Meldedager meldedager={meldedager} />
-        </p>
-      </div>
+          </>
+        )}
+        <dt>Utbetalt i perioden</dt>
+        <dd>{meldedager.reduce((sum, dag) => sum + (dag.utbetaling || 0), 0)} kr</dd>
+        <dt>Forbrukt i perioden</dt>
+        <dd>
+          {meldedager.reduce((sum, dag) => sum + ((dag.forbruksdag == "true" ? 1 : 0) || 0), 0)}{" "}
+          dager{" "}
+        </dd>
+      </dl>
+      <Meldedager meldedager={meldedager} />
     </>
   );
 }

@@ -87,7 +87,11 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                   />
                 </div>
               )}
-              {erMeldekort && <MeldekortBeregning behandling={behandling.data} />}
+              {erMeldekort && (
+                <div>
+                  <MeldekortBeregning behandling={behandling.data} />{" "}
+                </div>
+              )}
             </>
           );
         }}
