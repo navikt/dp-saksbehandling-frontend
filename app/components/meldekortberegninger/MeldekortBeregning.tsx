@@ -24,15 +24,18 @@ export function MeldekortBeregning({ behandling }: IProps) {
     (op) => op.opplysningTypeId == utbetalingOpplysningstypeId,
   );
 
-  const meldedager = dager.map((op) => ({
-    fraDato: op.gyldigFraOgMed,
-    tilDato: op.gyldigTilOgMed,
-    erArbeidsdag: op.verdi,
-    timer: timer.find((t) => t.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
-    utbetaling: utbetaling.find((u) => u.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
-  }));
-
-  console.log(dager);
+  const meldedager = dager
+    .map((op) => ({
+      fraDato: new Date(op.gyldigFraOgMed ?? ""),
+      erArbeidsdag: op.verdi,
+      timer: timer.find((t) => t.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
+      utbetaling: utbetaling.find((u) => u.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
+    }))
+    .sort((a, b) => {
+      const timeA = a.fraDato?.getTime() ?? 0;
+      const timeB = b.fraDato?.getTime() ?? 0;
+      return timeA - timeB;
+    });
 
   return (
     <>
@@ -49,8 +52,7 @@ export function MeldekortBeregning({ behandling }: IProps) {
 
 interface Meldedager {
   meldedager?: {
-    fraDato: string | null | undefined;
-    tilDato: string | null | undefined;
+    fraDato: Date | null | undefined;
     erArbeidsdag: string | undefined;
     timer: string | undefined;
     utbetaling: string | undefined;
@@ -59,11 +61,15 @@ interface Meldedager {
 
 const Meldedager = ({ meldedager }: Meldedager) => {
   return (
-    <Table>
+    <Table size={"medium"}>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell scope="col">Dato</Table.HeaderCell>
-          <Table.HeaderCell scope="col">Forbruksdag</Table.HeaderCell>
+          <Table.HeaderCell scope="col" align="center">
+            Dato
+          </Table.HeaderCell>
+          <Table.HeaderCell scope="col" align="center">
+            Forbruksdag
+          </Table.HeaderCell>
           <Table.HeaderCell scope="col" align="right">
             Arbeidede timer
           </Table.HeaderCell>
@@ -76,8 +82,12 @@ const Meldedager = ({ meldedager }: Meldedager) => {
         {meldedager &&
           meldedager.map(({ fraDato, timer, erArbeidsdag, utbetaling }, i) => (
             <Table.Row key={i}>
-              <Table.HeaderCell scope="row">{fraDato}</Table.HeaderCell>
-              <Table.DataCell>{erArbeidsdag == "true" ? "Ja" : "Nei"}</Table.DataCell>
+              <Table.HeaderCell scope="row" align="center">
+                {fraDato?.toLocaleDateString("no-NO")}
+              </Table.HeaderCell>
+              <Table.DataCell align="center">
+                {erArbeidsdag == "true" ? "Ja" : "Nei"}
+              </Table.DataCell>
               <Table.DataCell align="right">{timer}</Table.DataCell>
               <Table.DataCell align="right">{utbetaling} kr</Table.DataCell>
             </Table.Row>
