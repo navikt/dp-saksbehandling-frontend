@@ -73,7 +73,7 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                 behandlingId={behandling.data.behandlingId}
                 readOnly={readOnly}
               />
-              {aktivtRegelsett && !erMeldekort && (
+              {aktivtRegelsett && (
                 <div className={styles.container}>
                   <RegelsettMeny
                     behandling={behandling.data}

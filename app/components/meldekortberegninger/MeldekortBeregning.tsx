@@ -10,8 +10,6 @@ interface IProps {
 
 export function MeldekortBeregning({ behandling }: IProps) {
   const opplysninger = behandling.opplysninger;
-  const meldekortPeriodeId = "01956abd-2871-7517-a332-b462c0c31292";
-  const meldeperiode = opplysninger.find((op) => op.opplysningTypeId == meldekortPeriodeId);
 
   const forbruksdagOpplysningstypeId = "01948ea0-ffdc-7964-ab55-52a7e35e1020";
   const dager = opplysninger.filter((op) => op.opplysningTypeId == forbruksdagOpplysningstypeId);
@@ -27,9 +25,10 @@ export function MeldekortBeregning({ behandling }: IProps) {
   const meldedager = dager
     .map((op) => ({
       fraDato: new Date(op.gyldigFraOgMed ?? ""),
-      erArbeidsdag: op.verdi,
-      timer: timer.find((t) => t.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
-      utbetaling: utbetaling.find((u) => u.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi,
+      tilDato: new Date(op.gyldigTilOgMed ?? ""),
+      forbruksdag: op.verdi,
+      timer: Number(timer.find((t) => t.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi),
+      utbetaling: Number(utbetaling.find((u) => u.gyldigFraOgMed == op.gyldigFraOgMed)?.verdi),
     }))
     .sort((a, b) => {
       const timeA = a.fraDato?.getTime() ?? 0;
@@ -41,8 +40,27 @@ export function MeldekortBeregning({ behandling }: IProps) {
     <>
       <div>
         <h2 className={styles.meldekortTittel}>Meldekort</h2>
-        <p className={styles.meldekortTekst}>
-          {meldeperiode && <div>Meldeperiode: {meldeperiode.verdi}</div>}
+        <p>
+          {meldedager.length > 0 && (
+            <div className="flex justify-between border-b border-border-default py-1">
+              <dt>Periode</dt>
+              <dd>
+                {formatterDato(meldedager[0].fraDato)} -{" "}
+                {formatterDato(meldedager[meldedager.length - 1].tilDato)}
+              </dd>
+            </div>
+          )}
+          <div className="flex justify-between border-b border-border-default py-1">
+            <dt>Utbetalt i perioden</dt>
+            <dd>{meldedager.reduce((sum, dag) => sum + (dag.utbetaling || 0), 0)} kr</dd>
+          </div>
+          <div className="flex justify-between border-b border-border-default py-1">
+            <dt>Forbrukt i perioden</dt>
+            <dd>
+              {meldedager.reduce((sum, dag) => sum + ((dag.forbruksdag == "true" ? 1 : 0) || 0), 0)}{" "}
+              dager{" "}
+            </dd>
+          </div>
           <Meldedager meldedager={meldedager} />
         </p>
       </div>
@@ -52,10 +70,11 @@ export function MeldekortBeregning({ behandling }: IProps) {
 
 interface Meldedager {
   meldedager?: {
-    fraDato: Date | null | undefined;
-    erArbeidsdag: string | undefined;
-    timer: string | undefined;
-    utbetaling: string | undefined;
+    fraDato: Date;
+    tilDato: Date;
+    forbruksdag: string;
+    timer: number;
+    utbetaling: number;
   }[];
 }
 
@@ -80,19 +99,24 @@ const Meldedager = ({ meldedager }: Meldedager) => {
       </Table.Header>
       <Table.Body>
         {meldedager &&
-          meldedager.map(({ fraDato, timer, erArbeidsdag, utbetaling }, i) => (
+          meldedager.map(({ fraDato, timer, forbruksdag, utbetaling }, i) => (
             <Table.Row key={i}>
               <Table.HeaderCell scope="row" align="center">
-                {fraDato?.toLocaleDateString("no-NO")}
+                {formatterDato(fraDato)}
               </Table.HeaderCell>
-              <Table.DataCell align="center">
-                {erArbeidsdag == "true" ? "Ja" : "Nei"}
-              </Table.DataCell>
+              <Table.DataCell align="center">{forbruksdag == "true" ? "Ja" : "Nei"}</Table.DataCell>
               <Table.DataCell align="right">{timer}</Table.DataCell>
-              <Table.DataCell align="right">{utbetaling} kr</Table.DataCell>
+              <Table.DataCell align="right">{utbetaling}&nbsp;kr</Table.DataCell>
             </Table.Row>
           ))}
       </Table.Body>
     </Table>
   );
+};
+
+const formatterDato = (date: Date) => {
+  const y = date.getFullYear();
+  const m = (date.getMonth() + 1).toString().padStart(2, "0");
+  const d = date.getDate().toString().padStart(2, "0");
+  return `${d}.${m}.${y}`;
 };
