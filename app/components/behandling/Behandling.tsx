@@ -5,6 +5,7 @@ import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMe
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
+import { MeldekortBeregning } from "~/components/meldekortberegninger/MeldekortBeregning";
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
@@ -25,6 +26,8 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
     null,
   );
 
+  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
+
   useEffect(() => {
     if (response?.data) {
       const behandling = response.data;
@@ -32,6 +35,9 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
       const nåværendeRegelsett = alleRegelsett.find(
         (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
       );
+
+      const meldekortHendelse = behandling?.behandletHendelse?.type == "Meldekort";
+      setErMeldekort(meldekortHendelse);
 
       if (nåværendeRegelsett) {
         setAktivtRegelsett(nåværendeRegelsett);
@@ -67,7 +73,7 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                 behandlingId={behandling.data.behandlingId}
                 readOnly={readOnly}
               />
-              {aktivtRegelsett && (
+              {aktivtRegelsett && !erMeldekort && (
                 <div className={styles.container}>
                   <RegelsettMeny
                     behandling={behandling.data}
@@ -81,6 +87,7 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                   />
                 </div>
               )}
+              {erMeldekort && <MeldekortBeregning behandling={behandling.data} />}
             </>
           );
         }}
