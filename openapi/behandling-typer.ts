@@ -450,7 +450,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["IdentForesporsel"];
+                    "application/json": components["schemas"]["Rekjoring"];
                 };
             };
             responses: {
@@ -658,6 +658,8 @@ export interface components {
             behandlingId: string;
             /** @enum {string} */
             tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse?: components["schemas"]["Hendelse"];
             kreverTotrinnskontroll: boolean;
             utfall?: boolean;
             "vilk\u00E5r": components["schemas"]["Regelsett"][];
