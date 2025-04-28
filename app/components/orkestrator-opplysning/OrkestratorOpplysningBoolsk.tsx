@@ -18,7 +18,7 @@ export function OrkestratorOpplysningBoolsk({ opplysning, formScope }: IProps) {
       legend={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
       size="small"
       error={field.error()}
-      readOnly={opplysning.kilde === "register"}
+      readOnly={opplysning.kilde === "register" || opplysning.id === "forsorgerBarnet"}
     >
       <Stack gap="0 6" direction={{ xs: "column", sm: "row" }} wrap={false}>
         <Radio value="true">Ja</Radio>
