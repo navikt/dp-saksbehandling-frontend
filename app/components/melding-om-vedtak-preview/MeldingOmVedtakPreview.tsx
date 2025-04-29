@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 
+import styles from "./MeldingOmVedtakPreview.module.css";
+
 interface IProps {
   html: string;
   utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
@@ -42,7 +44,7 @@ export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
     });
   }, [utvidedeBeskrivelser]);
 
-  return <div ref={containerRef} />;
+  return <div className={styles.container} ref={containerRef} />;
 }
 
 function maskerSensitivHtml(html: string): string {

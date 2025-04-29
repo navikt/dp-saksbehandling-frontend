@@ -1,5 +1,5 @@
 import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { Radio, RadioGroup, Table, Tabs } from "@navikt/ds-react";
+import { Tabs } from "@navikt/ds-react";
 import { Fragment, useState } from "react";
 import {
   ActionFunctionArgs,
@@ -11,7 +11,8 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
-import { KlageOpplysning } from "~/components/klage-opplysning/KlageOpplysning";
+import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
+import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentKlageOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -50,17 +51,6 @@ export default function Oppgave() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
-  const klageSakOpplysninger = klageOppgave.behandlingOpplysninger.filter(
-    (opplysning) => opplysning.gruppe === "KLAGESAK",
-  );
-  const fristOpplysninger = klageOppgave.behandlingOpplysninger.filter(
-    (opplysning) => opplysning.gruppe === "FRIST",
-  );
-
-  const formkravOpplysninger = klageOppgave.behandlingOpplysninger.filter(
-    (opplysning) => opplysning.gruppe === "FORMKRAV",
-  );
-
   return (
     <Fragment key={klageOppgave.id}>
       <div className={styles.oppgaveContainer}>
@@ -74,68 +64,11 @@ export default function Oppgave() {
               </Tabs.List>
 
               <Tabs.Panel value="behandling">
-                <Table className={"tabell--subtil"} zebraStripes>
-                  <Table.Body>
-                    <Table.Row shadeOnHover={false}>
-                      <Table.HeaderCell colSpan={2}>Klagesak</Table.HeaderCell>
-                    </Table.Row>
-                    {klageSakOpplysninger.map((opplysning) => (
-                      <Table.Row key={opplysning.id} shadeOnHover={false}>
-                        <Table.DataCell>{opplysning.navn}</Table.DataCell>
-                        <Table.DataCell>
-                          <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
-                        </Table.DataCell>
-                      </Table.Row>
-                    ))}
-
-                    <Table.Row shadeOnHover={false}>
-                      <Table.HeaderCell colSpan={2}>Frist</Table.HeaderCell>
-                    </Table.Row>
-                    {fristOpplysninger.map((opplysning) => (
-                      <Table.Row key={opplysning.id} shadeOnHover={false}>
-                        <Table.DataCell>{opplysning.navn}</Table.DataCell>
-                        <Table.DataCell>
-                          <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
-                        </Table.DataCell>
-                      </Table.Row>
-                    ))}
-
-                    <Table.Row shadeOnHover={false}>
-                      <Table.HeaderCell colSpan={2}>Formkrav</Table.HeaderCell>
-                    </Table.Row>
-                    {formkravOpplysninger.map((opplysning) => (
-                      <Table.Row key={opplysning.id} shadeOnHover={false}>
-                        <Table.DataCell>{opplysning.navn}</Table.DataCell>
-                        <Table.DataCell>
-                          <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
-                        </Table.DataCell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
+                <KlageBehandling klageOppgave={klageOppgave} />
               </Tabs.Panel>
 
               <Tabs.Panel value="utfall">
-                <div className={"m-2"}>
-                  <RadioGroup
-                    legend={"Utfall"}
-                    size="small"
-                    defaultValue={klageOppgave.utfall.verdi}
-                  >
-                    {klageOppgave.utfall.tilgjeneligeUtfall.map((valg) => (
-                      <Radio key={valg} value={valg}>
-                        {valg}
-                      </Radio>
-                    ))}
-                  </RadioGroup>
-
-                  {klageOppgave.utfallOpplysninger.map((opplysning) => (
-                    <Fragment key={opplysning.id}>
-                      {opplysning.navn}
-                      <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
-                    </Fragment>
-                  ))}
-                </div>
+                <KlageUtfall klageOppgave={klageOppgave} />
               </Tabs.Panel>
             </Tabs>
           </div>

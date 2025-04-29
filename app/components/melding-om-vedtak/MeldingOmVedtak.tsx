@@ -67,12 +67,10 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
                   readOnly={readOnly}
                 />
 
-                <div className={styles.previewContainer}>
-                  <MeldingOmVedtakPreview
-                    utvidedeBeskrivelser={utvidedeBeskrivelser}
-                    html={meldingOmVedtak.data.html}
-                  />
-                </div>
+                <MeldingOmVedtakPreview
+                  utvidedeBeskrivelser={utvidedeBeskrivelser}
+                  html={meldingOmVedtak.data.html}
+                />
               </div>
             </>
           );

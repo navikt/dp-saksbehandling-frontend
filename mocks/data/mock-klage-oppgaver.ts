@@ -86,14 +86,6 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
     redigerbar: true,
   },
   {
-    id: "vuk",
-    navn: "Vurdering av klagen",
-    type: "TEKST",
-    paakrevd: false,
-    gruppe: "KLAGESAK",
-    redigerbar: true,
-  },
-  {
     id: "hekis",
     navn: "Hvem er klager i saken?",
     type: "LISTEVALG",

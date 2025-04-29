@@ -1,5 +1,5 @@
+import { Button } from "@navikt/ds-react";
 import { FormScope, useForm } from "@rvf/react-router";
-import { useEffect } from "react";
 
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
 import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysningDato";
@@ -36,14 +36,14 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
     },
   });
 
-  useEffect(
-    () =>
-      klageOpplysningForm.subscribe.value((values) => {
-        console.log(values);
-        klageOpplysningForm.submit();
-      }),
-    [],
-  );
+  // useEffect(
+  //   () =>
+  //     klageOpplysningForm.subscribe.value((values) => {
+  //       console.log(values);
+  //       klageOpplysningForm.submit();
+  //     }),
+  //   [],
+  // );
 
   return (
     <form className={"aksel--compact"} {...klageOpplysningForm.getFormProps()}>
@@ -57,6 +57,10 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
         formScope={klageOpplysningForm.scope("verdi")}
         readonly={readonly}
       />
+
+      <Button variant={"secondary"} size={"xsmall"}>
+        lagre
+      </Button>
     </form>
   );
 }
