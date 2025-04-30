@@ -1,8 +1,8 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 
+import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterType } from "~/components/oppgave-filter-type/OppgaveFilterType";
 
 import { OppgaveFilterEmneknagger } from "../oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
 import { OppgaveFilterMineOppgaver } from "../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
@@ -25,7 +25,7 @@ export function OppgaveListeMeny() {
         <OppgaveFilterMineOppgaver />
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
-        <OppgaveFilterType />
+        <OppgaveFilterBehandlingType />
         <OppgaveFilterEmneknagger />
       </Tabs.Panel>
 

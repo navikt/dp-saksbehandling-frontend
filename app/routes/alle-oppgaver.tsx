@@ -10,12 +10,12 @@ import {
   useNavigation,
 } from "react-router";
 
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
+import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-utfall/OppgaveFilterAvslagsgrunner";
-import { OppgaveFilterUtfall } from "~/components/oppgave-filter-utfall/OppgaveFilterUtfall";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
@@ -90,8 +90,8 @@ export default function Saksbehandling() {
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
             <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
+            <OppgaveFilterBehandlingType />
             <OppgaveFilterStatus />
-            <OppgaveFilterUtfall />
             <OppgaveFilterRettighetstype />
             <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>

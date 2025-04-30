@@ -1,19 +1,7 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-const avslagsgrunner = [
-  "Minsteinntekt",
-  "Arbeidsinntekt",
-  "Arbeidstid",
-  "Alder",
-  "Andre ytelser",
-  "Streik",
-  "Opphold utland",
-  "Reell arbeidssøker",
-  "Ikke registrert",
-  "Utestengt",
-  "Utdanning",
-];
+const avslagsgrunner = ["Minsteinntekt", "Streik"];
 
 export function OppgaveFilterAvslagsgrunner() {
   const [searchParams, setSearchParams] = useSearchParams();

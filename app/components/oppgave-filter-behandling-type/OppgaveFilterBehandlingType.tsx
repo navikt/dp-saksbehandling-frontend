@@ -1,21 +1,13 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-const oppgavetyper = [
-  "Søknad",
-  "Feilutbetaling",
-  "Klage",
-  "Meldekort",
-  "To-trinns kontroll",
-  "Endret arbeidsituasjon",
-  "Søknad om utdanning",
-  "Søknad om etablering av egen virksomhet",
-  "Samordning",
-];
+import { components } from "../../../openapi/saksbehandling-typer";
 
-export function OppgaveFilterType() {
+const behandlingTyper: components["schemas"]["BehandlingType"][] = ["RETT_TIL_DAGPENGER", "KLAGE"];
+
+export function OppgaveFilterBehandlingType() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const oppgavetype = searchParams.getAll("oppgavetype");
+  const behandlingType = searchParams.getAll("behandlingType");
 
   function updateSearchParams(key: string, value: string, checked: boolean) {
     if (!checked) {
@@ -28,26 +20,37 @@ export function OppgaveFilterType() {
 
   return (
     <div>
-      <Detail textColor="subtle">Oppgavetype</Detail>
+      <Detail textColor="subtle">Behandlingstype</Detail>
       <CheckboxGroup className="checkbox--compact" size="small" legend={""}>
-        {oppgavetyper.map((type) => (
+        {behandlingTyper.map((type) => (
           <Checkbox
             key={type}
-            name="oppgavetype"
+            name="behandlingType"
             value={type}
-            defaultChecked={oppgavetype.includes(type)}
+            defaultChecked={behandlingType.includes(type)}
             onChange={(event) =>
               updateSearchParams(
-                "oppgavetype",
+                "behandlingType",
                 event.currentTarget.value,
                 event.currentTarget.checked,
               )
             }
           >
-            {type}
+            {hentBehandlingTypeTekstForVisning(type)}
           </Checkbox>
         ))}
       </CheckboxGroup>
     </div>
   );
+}
+
+export function hentBehandlingTypeTekstForVisning(
+  behandlingType: components["schemas"]["BehandlingType"],
+) {
+  switch (behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      return "Rett til dagpenger";
+    case "KLAGE":
+      return "Klage";
+  }
 }

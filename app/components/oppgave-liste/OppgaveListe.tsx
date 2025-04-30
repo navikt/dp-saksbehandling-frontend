@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 import { Form, useLocation, useNavigation } from "react-router";
 
+import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
@@ -86,7 +87,7 @@ export function OppgaveListe({
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
-              <Detail>Oppgavetype</Detail>
+              <Detail>Behandlingstype</Detail>
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
@@ -176,7 +177,7 @@ export function OppgaveListe({
                       </Table.DataCell>
 
                       <Table.DataCell>
-                        <Detail>{getBehandlingTypeText(oppgave.behandlingType)}</Detail>
+                        <Detail>{hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}</Detail>
                       </Table.DataCell>
 
                       <Table.DataCell>
@@ -254,14 +255,5 @@ export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand
       return "Under kontroll";
     case "BEHANDLES_I_ARENA":
       return "Sendt til Arena";
-  }
-}
-
-function getBehandlingTypeText(behandlingType: components["schemas"]["BehandlingType"]) {
-  switch (behandlingType) {
-    case "RETT_TIL_DAGPENGER":
-      return "Rett til dagpenger";
-    case "KLAGE":
-      return "Klage";
   }
 }
