@@ -12,7 +12,6 @@ export async function lagreKlageOpplysningAction(request: Request, formData: For
   const verdi = formData.get("verdi") as string; //TODO Fix type for å håndtere multiselect
   const type = formData.get("datatype") as components["schemas"]["KlageOpplysningType"];
 
-  console.log("lagreKlageOpplysningAction() ", verdi);
   invariant(oppgaveId, "oppgaveId er påkrevd");
   invariant(opplysningId, "opplysningId er påkrevd");
   invariant(verdi, "verdi er påkrevd");
@@ -60,7 +59,6 @@ function konverterOpplysningVerdiTilBackendVerdi(
       };
 
     case "FLER_LISTEVALG":
-      console.log(JSON.parse(verdi));
       return {
         type: "TEKST",
         verdi: JSON.parse(verdi),

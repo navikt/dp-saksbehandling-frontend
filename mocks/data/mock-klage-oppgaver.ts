@@ -1,4 +1,5 @@
 import { components } from "../../openapi/saksbehandling-typer";
+import { mockMeldingOmVedtakInnvilgelse } from "./mock-melding-om-vedtak";
 
 const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
@@ -78,6 +79,15 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
 ];
 const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
+    id: "ufa",
+    navn: "utfall",
+    type: "LISTEVALG",
+    paakrevd: true,
+    gruppe: "KLAGESAK",
+    redigerbar: true,
+    valgmuligheter: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
+  },
+  {
     id: "vuk",
     navn: "Vurdering av klagen",
     type: "TEKST",
@@ -117,8 +127,9 @@ export const klageOppgave: components["schemas"]["Klage"] = {
   id: "123456789",
   utfall: {
     verdi: "OPPRETTHOLDELSE",
-    tilgjeneligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
+    tilgjengeligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
   },
+  meldingOmVedtak: mockMeldingOmVedtakInnvilgelse,
   behandlingOpplysninger,
   utfallOpplysninger,
 };

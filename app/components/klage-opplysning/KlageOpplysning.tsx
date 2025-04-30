@@ -1,5 +1,5 @@
-import { Button } from "@navikt/ds-react";
 import { FormScope, useForm } from "@rvf/react-router";
+import { useEffect } from "react";
 
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
 import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysningDato";
@@ -28,22 +28,17 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
     validator: hentValideringForKlageOpplysning(opplysning),
     method: "post",
     defaultValues: {
-      verdi:
-        opplysning.type === "BOOLSK" && opplysning.verdi
-          ? // @ts-expect-error TODO Fix typing backend
-            formaterNorskDato(opplysning.verdi)
-          : opplysning.verdi,
+      verdi: formaterOpplysningVerdi(opplysning),
     },
   });
 
-  // useEffect(
-  //   () =>
-  //     klageOpplysningForm.subscribe.value((values) => {
-  //       console.log(values);
-  //       klageOpplysningForm.submit();
-  //     }),
-  //   [],
-  // );
+  useEffect(
+    () =>
+      klageOpplysningForm.subscribe.value((formData) => {
+        klageOpplysningForm.submit({ name: "verdi", value: formData.verdi });
+      }),
+    [],
+  );
 
   return (
     <form className={"aksel--compact"} {...klageOpplysningForm.getFormProps()}>
@@ -57,10 +52,6 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
         formScope={klageOpplysningForm.scope("verdi")}
         readonly={readonly}
       />
-
-      <Button variant={"secondary"} size={"xsmall"}>
-        lagre
-      </Button>
     </form>
   );
 }
@@ -95,5 +86,24 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
           readonly={readonly}
         />
       );
+  }
+}
+
+function formaterOpplysningVerdi(opplysning: components["schemas"]["KlageOpplysning"]): string {
+  if (!opplysning.verdi) {
+    return "";
+  }
+
+  switch (opplysning.type) {
+    case "BOOLSK":
+      return opplysning.verdi ? "Ja" : "Nei";
+    case "DATO":
+      return formaterNorskDato(opplysning.verdi);
+    case "LISTEVALG":
+      return opplysning.verdi;
+    case "TEKST":
+      return opplysning.verdi;
+    case "FLER_LISTEVALG":
+      return opplysning.verdi.join(", ");
   }
 }

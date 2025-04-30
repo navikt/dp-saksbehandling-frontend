@@ -1,6 +1,6 @@
 import { UNSAFE_Combobox } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { IKlageOpplysningProps } from "~/components/klage-opplysning/KlageOpplysning";
 
@@ -14,6 +14,10 @@ interface IProps extends IKlageOpplysningProps {
 export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IProps) {
   const field = useField(formScope);
   const [selectedOptions, setSelectedOptions] = useState<string[]>(opplysning.verdi || []);
+
+  useEffect(() => {
+    field.setValue(JSON.stringify(selectedOptions));
+  }, [selectedOptions]);
 
   function onToggleSelected(option: string, isSelected: boolean) {
     if (isSelected) {
@@ -31,20 +35,15 @@ export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IPr
 
       {opplysning.redigerbar && (
         <>
-          <input
-            {...field.getInputProps()}
-            value={JSON.stringify(selectedOptions)}
-            hidden={true}
-            readOnly={true}
-          />
-
+          <input {...field.getInputProps()} hidden={true} readOnly={true} />
           <UNSAFE_Combobox
             label={""}
+            size={"small"}
             isMultiSelect
             onToggleSelected={onToggleSelected}
             selectedOptions={selectedOptions}
-            options={opplysning.valgmuligheter || []}
-            size={"small"}
+            // @ts-expect-error TODO Fix openAPI spec
+            options={opplysning.valgmuligheter}
             error={field.error()}
             readOnly={readonly}
           />

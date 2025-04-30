@@ -1,5 +1,6 @@
 import { components } from "../../openapi/saksbehandling-typer";
 import { mockHistorikk } from "./mock-historikk";
+import { klageOppgave } from "./mock-klage-oppgaver";
 
 export const mockSikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][] = [
   { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
@@ -55,6 +56,7 @@ const mockLovligeEndringer: components["schemas"]["LovligeEndringer"] = {
 
 export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "518e3737-9df8-7ee4-91a6-317fada10987",
+  behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
@@ -69,6 +71,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Op
 
 export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Oppgave"] = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
+  behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
@@ -84,6 +87,7 @@ export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Opp
 
 export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
+  behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
@@ -98,6 +102,7 @@ export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgav
 
 export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-317fada10999",
+  behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
@@ -112,6 +117,7 @@ export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
 
 export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e3755-9df8-7aa4-94a6-318fada10999",
+  behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
@@ -137,6 +143,7 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
+  konverterKlageTilListeOppgave(klageOppgave),
 ];
 
 export function konverterOppgaveTilListeOppgave(
@@ -144,6 +151,7 @@ export function konverterOppgaveTilListeOppgave(
 ): components["schemas"]["OppgaveOversikt"] {
   return {
     adressebeskyttelseGradering: "UGRADERT",
+    behandlingType: oppgave.behandlingType,
     behandlingId: oppgave.behandlingId,
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
@@ -152,5 +160,22 @@ export function konverterOppgaveTilListeOppgave(
     skjermesSomEgneAnsatte: false,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
     tilstand: oppgave.tilstand,
+  };
+}
+
+export function konverterKlageTilListeOppgave(
+  oppgave: components["schemas"]["Klage"],
+): components["schemas"]["OppgaveOversikt"] {
+  return {
+    adressebeskyttelseGradering: "UGRADERT",
+    behandlingType: "KLAGE",
+    behandlingId: "lol",
+    emneknagger: [],
+    oppgaveId: oppgave.id,
+    personIdent: "har itte",
+    behandlerIdent: "har itte",
+    skjermesSomEgneAnsatte: false,
+    tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+    tilstand: "UNDER_KONTROLL",
   };
 }

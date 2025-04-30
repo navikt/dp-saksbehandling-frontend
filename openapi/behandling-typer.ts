@@ -450,7 +450,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["IdentForesporsel"];
+                    "application/json": components["schemas"]["Rekjoring"];
                 };
             };
             responses: {
@@ -646,14 +646,27 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Rekjoring: {
+            ident: string;
+            opplysninger?: components["schemas"]["OpplysningsId"][];
+        };
         IdentForesporsel: {
             ident: string;
+        };
+        OppdaterOpplysning: {
+            verdi: string;
+            begrunnelse: string;
+        };
+        AvklaringKvittering: {
+            begrunnelse: string;
         };
         Behandling: {
             /** Format: uuid */
             behandlingId: string;
             /** @enum {string} */
             tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse?: components["schemas"]["Hendelse"];
             kreverTotrinnskontroll: boolean;
             utfall?: boolean;
             "vilk\u00E5r": components["schemas"]["Regelsett"][];
@@ -734,6 +747,7 @@ export interface components {
             id: components["schemas"]["OpplysningsId"];
             opplysningTypeId: components["schemas"]["opplysningTypeId"];
             navn: string;
+            verdien?: components["schemas"]["Opplysningsverdi"];
             verdi: string;
             /** @enum {string} */
             status: "Hypotese" | "Faktum";
@@ -750,12 +764,95 @@ export interface components {
             datatype: components["schemas"]["DataType"];
             /** @description Indikerer om opplysningen kan redigeres */
             redigerbar: boolean;
+            /** @description Indikerer om opplysningen kan oppfriskes (enten hentes inn eller utledes på nytt) */
+            kanOppfriskes?: boolean;
             kilde?: components["schemas"]["Opplysningskilde"];
             utledetAv?: components["schemas"]["Utledning"];
             /** @description Indikerer om opplysningen skal vises i grensesnittet */
             synlig: boolean;
             /** @enum {string} */
             "form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+        };
+        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
+         *      */
+        Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
+        TekstVerdi: {
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "tekst" | "inntekt";
+        };
+        DatoVerdi: {
+            /** Format: date */
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "dato";
+        };
+        HeltallVerdi: {
+            /** Format: int32 */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "heltall";
+        };
+        UlidVerdi: {
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "ulid";
+        };
+        DesimaltallVerdi: {
+            /** Format: double */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "desimaltall" | "penger";
+        };
+        BoolskVerdi: {
+            verdi: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "boolsk";
+        };
+        PeriodeVerdi: {
+            /** Format: date */
+            fom: string;
+            /** Format: date */
+            tom: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "periode";
+        };
+        Barneliste: {
+            verdi: components["schemas"]["BarnVerdi"][];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "barn";
+        };
+        BarnVerdi: {
+            /** Format: date */
+            "f\u00F8dselsdato": string;
+            fornavnOgMellomnavn?: string;
+            etternavn?: string;
+            statsborgerskap?: string;
+            kvalifiserer: boolean;
         };
         /** @description Kilde for opplysningen
          *      */
@@ -797,7 +894,7 @@ export interface components {
          *
          * @enum {string}
          */
-        DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn";
+        DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn" | "periode";
         Kvittering: {
             /** Format: uuid */
             behandlingId: string;
@@ -1058,10 +1155,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    verdi: string;
-                    begrunnelse: string;
-                };
+                "application/json": components["schemas"]["OppdaterOpplysning"];
             };
         };
         responses: {
@@ -1122,9 +1216,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    begrunnelse: string;
-                };
+                "application/json": components["schemas"]["AvklaringKvittering"];
             };
         };
         responses: {

@@ -176,7 +176,7 @@ export function OppgaveListe({
                       </Table.DataCell>
 
                       <Table.DataCell>
-                        <Detail>Søknad</Detail>
+                        <Detail>{getBehandlingTypeText(oppgave.behandlingType)}</Detail>
                       </Table.DataCell>
 
                       <Table.DataCell>
@@ -254,5 +254,14 @@ export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand
       return "Under kontroll";
     case "BEHANDLES_I_ARENA":
       return "Sendt til Arena";
+  }
+}
+
+function getBehandlingTypeText(behandlingType: components["schemas"]["BehandlingType"]) {
+  switch (behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      return "Rett til dagpenger";
+    case "KLAGE":
+      return "Klage";
   }
 }
