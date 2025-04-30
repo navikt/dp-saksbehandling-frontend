@@ -222,9 +222,11 @@ export function OppgaveListe({
                       {visPersonIdent && (
                         <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
                       )}
+
                       <Table.DataCell>
                         {<Detail>{getTilstandText(tilstand)}</Detail>}
                       </Table.DataCell>
+
                       <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
                       <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                     </>

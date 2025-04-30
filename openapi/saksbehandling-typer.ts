@@ -599,7 +599,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["OppdatertTilstand"];
+                        "application/json": components["schemas"]["TildeltOppgave"];
                     };
                 };
                 /** @description Oppgaven ble ikke funnet */
@@ -1313,8 +1313,9 @@ export interface components {
              */
             datoEldsteUbehandledeOppgave?: string;
         };
-        OppdatertTilstand: {
+        TildeltOppgave: {
             nyTilstand: components["schemas"]["OppgaveTilstand"];
+            behandlingType?: components["schemas"]["BehandlingType"];
         };
         Klage: {
             /** Format: uuid */
@@ -1323,7 +1324,7 @@ export interface components {
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfall: components["schemas"]["Utfall"];
-            meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
+            meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
         };
         TekstVerdi: {
             verdi: string;
@@ -1413,7 +1414,7 @@ export interface components {
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             verdi?: string[];
             /**

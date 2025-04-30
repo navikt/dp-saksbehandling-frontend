@@ -1,6 +1,5 @@
 import { components } from "../../openapi/saksbehandling-typer";
 import { mockHistorikk } from "./mock-historikk";
-import { klageOppgave } from "./mock-klage-oppgaver";
 
 export const mockSikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][] = [
   { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
@@ -129,12 +128,28 @@ export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] 
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
 };
 
+export const klageOppgave: components["schemas"]["Oppgave"] = {
+  oppgaveId: "018e9999-9df8-7aa4-94a6-318fada10999",
+  behandlingType: "KLAGE",
+  behandlingId: "123456789",
+  person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Klage"],
+  tilstand: "UNDER_BEHANDLING",
+  journalpostIder: ["598116231", "639664664"],
+  historikk: mockHistorikk,
+  saksbehandler: mockOppgaveSaksbehandler,
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+};
+
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
   ferdigBehandletOppgave,
   ferdigBehandletAutomatiskOppgave,
+  klageOppgave,
 ];
 
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
@@ -143,7 +158,7 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
-  konverterKlageTilListeOppgave(klageOppgave),
+  konverterOppgaveTilListeOppgave(klageOppgave),
 ];
 
 export function konverterOppgaveTilListeOppgave(
@@ -160,22 +175,5 @@ export function konverterOppgaveTilListeOppgave(
     skjermesSomEgneAnsatte: false,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
     tilstand: oppgave.tilstand,
-  };
-}
-
-export function konverterKlageTilListeOppgave(
-  oppgave: components["schemas"]["Klage"],
-): components["schemas"]["OppgaveOversikt"] {
-  return {
-    adressebeskyttelseGradering: "UGRADERT",
-    behandlingType: "KLAGE",
-    behandlingId: "lol",
-    emneknagger: [],
-    oppgaveId: oppgave.id,
-    personIdent: "har itte",
-    behandlerIdent: "har itte",
-    skjermesSomEgneAnsatte: false,
-    tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-    tilstand: "UNDER_KONTROLL",
   };
 }

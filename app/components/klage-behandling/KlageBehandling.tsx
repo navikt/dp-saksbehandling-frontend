@@ -1,21 +1,21 @@
 import { Table } from "@navikt/ds-react";
 
 import { KlageOpplysning } from "~/components/klage-opplysning/KlageOpplysning";
-import { hentKlageOppgave } from "~/models/saksbehandling.server";
+import { hentKlage } from "~/models/saksbehandling.server";
 
 interface IProps {
-  klageOppgave: Awaited<ReturnType<typeof hentKlageOppgave>>;
+  klage: Awaited<ReturnType<typeof hentKlage>>;
 }
 
-export function KlageBehandling({ klageOppgave }: IProps) {
-  const klageSakOpplysninger = klageOppgave.behandlingOpplysninger.filter(
+export function KlageBehandling({ klage }: IProps) {
+  const klageSakOpplysninger = klage.behandlingOpplysninger.filter(
     (opplysning) => opplysning.gruppe === "KLAGESAK",
   );
-  const fristOpplysninger = klageOppgave.behandlingOpplysninger.filter(
+  const fristOpplysninger = klage.behandlingOpplysninger.filter(
     (opplysning) => opplysning.gruppe === "FRIST",
   );
 
-  const formkravOpplysninger = klageOppgave.behandlingOpplysninger.filter(
+  const formkravOpplysninger = klage.behandlingOpplysninger.filter(
     (opplysning) => opplysning.gruppe === "FORMKRAV",
   );
 
@@ -30,7 +30,7 @@ export function KlageBehandling({ klageOppgave }: IProps) {
           <Table.Row key={opplysning.id} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
+              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -43,7 +43,7 @@ export function KlageBehandling({ klageOppgave }: IProps) {
           <Table.Row key={opplysning.id} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
+              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -56,7 +56,7 @@ export function KlageBehandling({ klageOppgave }: IProps) {
           <Table.Row key={opplysning.id} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klageOppgave.id} />
+              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
             </Table.DataCell>
           </Table.Row>
         ))}

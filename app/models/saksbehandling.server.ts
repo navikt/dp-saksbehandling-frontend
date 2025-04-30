@@ -55,7 +55,7 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentKlageOppgave(request: Request, klageId: string) {
+export async function hentKlage(request: Request, klageId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET("/oppgave/klage/{klageId}", {
     headers: getHeaders(onBehalfOfToken),
@@ -72,9 +72,7 @@ export async function hentKlageOppgave(request: Request, klageId: string) {
     handleHttpProblem(error);
   }
 
-  throw new Error(
-    `Uhåndtert feil i hentKlageOppgave(). ${response.status} - ${response.statusText}`,
-  );
+  throw new Error(`Uhåndtert feil i hentKlage(). ${response.status} - ${response.statusText}`);
 }
 
 export async function lagreKlageOpplysning(

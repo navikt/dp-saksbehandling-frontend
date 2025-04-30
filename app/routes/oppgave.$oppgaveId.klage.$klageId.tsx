@@ -13,8 +13,11 @@ import invariant from "tiny-invariant";
 
 import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
 import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
+import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentKlageOppgave } from "~/models/saksbehandling.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentKlage } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -27,14 +30,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.klageId, "params.klageId er påkrevd");
 
-  const klageOppgave = await hentKlageOppgave(request, params.klageId);
+  const klage = await hentKlage(request, params.klageId);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
-      klageOppgave,
+      klage,
     },
     {
       headers: {
@@ -45,38 +48,39 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { klageOppgave, alert } = useLoaderData<typeof loader>();
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { klage, alert } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("utfall");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   return (
-    <Fragment key={klageOppgave.id}>
-      <div className={styles.oppgaveContainer}>
-        {/*<OppgaveHandlinger />*/}
-        <div className={styles.behandling}>
-          <div className={"card"}>
-            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-              <Tabs.List>
-                <Tabs.Tab value="behandling" label="Behandling" icon={<DocPencilIcon />} />
-                <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
-              </Tabs.List>
+    <Fragment key={klage.id}>
+      <OppgaveHandlinger />
+      <div className={styles.behandling}>
+        <div className={"card"}>
+          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+            <Tabs.List>
+              <Tabs.Tab value="behandling" label="Behandling" icon={<DocPencilIcon />} />
+              <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
+            </Tabs.List>
 
-              <Tabs.Panel value="behandling">
-                <KlageBehandling klageOppgave={klageOppgave} />
-              </Tabs.Panel>
+            <Tabs.Panel value="behandling">
+              <KlageBehandling klage={klage} />
+            </Tabs.Panel>
 
-              <Tabs.Panel value="utfall">
-                <KlageUtfall klageOppgave={klageOppgave} />
-              </Tabs.Panel>
-            </Tabs>
-          </div>
-
-          <div className={"card"}>{/*<OppgaveInformasjon defaultTab="dokumenter" />*/}</div>
-
-          <Outlet />
+            <Tabs.Panel value="utfall">
+              <KlageUtfall klage={klage} />
+            </Tabs.Panel>
+          </Tabs>
         </div>
+
+        <div className={"card"}>
+          <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+        </div>
+
+        <Outlet />
       </div>
     </Fragment>
   );

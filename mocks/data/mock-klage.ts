@@ -123,7 +123,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
 ];
 
-export const klageOppgave: components["schemas"]["Klage"] = {
+export const klage: components["schemas"]["Klage"] = {
   id: "123456789",
   utfall: {
     verdi: "OPPRETTHOLDELSE",
@@ -134,4 +134,4 @@ export const klageOppgave: components["schemas"]["Klage"] = {
   utfallOpplysninger,
 };
 
-export const klageOppgaver: components["schemas"]["Klage"][] = [klageOppgave];
+export const klager: components["schemas"]["Klage"][] = [klage];

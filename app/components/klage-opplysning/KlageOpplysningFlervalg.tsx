@@ -42,7 +42,6 @@ export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IPr
             isMultiSelect
             onToggleSelected={onToggleSelected}
             selectedOptions={selectedOptions}
-            // @ts-expect-error TODO Fix openAPI spec
             options={opplysning.valgmuligheter}
             error={field.error()}
             readOnly={readonly}

@@ -37,25 +37,39 @@ function hentGyldigeOppgaveValg(
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
 
-  switch (oppgave.tilstand) {
-    case "UNDER_BEHANDLING":
-      handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "send-til-arena");
+  switch (oppgave.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      switch (oppgave.tilstand) {
+        case "UNDER_BEHANDLING":
+          handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "send-til-arena");
 
-      if (behandling) {
-        handlinger.push(behandling.kreverTotrinnskontroll ? "send-til-kontroll" : "fatt-vedtak");
+          if (behandling) {
+            handlinger.push(
+              behandling.kreverTotrinnskontroll ? "send-til-kontroll" : "fatt-vedtak",
+            );
+          }
+
+          return handlinger;
+        case "UNDER_KONTROLL":
+          handlinger.push("legg-tilbake", "returner-til-saksbehandler");
+
+          if (behandling) {
+            handlinger.push("fatt-vedtak");
+          }
+
+          return handlinger;
+        default:
+          return [];
       }
 
-      return handlinger;
-    case "UNDER_KONTROLL":
-      handlinger.push("legg-tilbake", "returner-til-saksbehandler");
-
-      if (behandling) {
-        handlinger.push("fatt-vedtak");
+    case "KLAGE":
+      switch (oppgave.tilstand) {
+        case "UNDER_BEHANDLING":
+          handlinger.push("legg-tilbake", "utsett");
+          return handlinger;
+        default:
+          return [];
       }
-
-      return handlinger;
-    default:
-      return [];
   }
 }
 
@@ -74,7 +88,7 @@ export function OppgaveHandlinger() {
 
   return (
     <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
-      <KravPaaDagpenger />
+      {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && <KravPaaDagpenger />}
       <div className={styles.OppgaveHandlinger}>
         {gyldigeOppgaveValg.map((valg) => (
           <Fragment key={valg}>

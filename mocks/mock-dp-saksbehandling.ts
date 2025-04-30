@@ -5,7 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { klageOppgaver } from "./data/mock-klage-oppgaver";
+import { klager } from "./data/mock-klage";
 import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
@@ -87,12 +87,22 @@ export const mockDpSaksbehandling = [
 
     if (mockOppgave) {
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-        return response(200).json({ nyTilstand: "UNDER_BEHANDLING" });
+        return response(200).json({
+          nyTilstand: "UNDER_BEHANDLING",
+          behandlingType: mockOppgave.behandlingType,
+        });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-        return response(200).json({ nyTilstand: "UNDER_KONTROLL" });
+        return response(200).json({
+          nyTilstand: "UNDER_KONTROLL",
+          behandlingType: mockOppgave.behandlingType,
+        });
       }
-      return response(200).json({ nyTilstand: mockOppgave.tilstand });
+
+      return response(200).json({
+        nyTilstand: mockOppgave.tilstand,
+        behandlingType: mockOppgave.behandlingType,
+      });
     }
 
     return response(404).json(error404);
@@ -211,7 +221,7 @@ export const mockDpSaksbehandling = [
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
-  // Hent en klage oppgave med oppgaveId
+  // Hent en klage med behandlingId
   http.get(`/oppgave/klage/{klageId}`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
@@ -221,10 +231,10 @@ export const mockDpSaksbehandling = [
     }
 
     const { klageId } = params;
-    const klageOppgave = klageOppgaver.find((klage) => klage.id === klageId);
+    const klage = klager.find((klage) => klage.id === klageId);
 
-    if (klageOppgave) {
-      return response(200).json(klageOppgave);
+    if (klage) {
+      return response(200).json(klage);
     }
 
     return response(404).json(error404);

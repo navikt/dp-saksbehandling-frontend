@@ -775,7 +775,16 @@ export interface components {
         };
         /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
          *      */
-        Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
+        Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
+        PengeVerdi: {
+            /** Format: bigdecimal */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "penger";
+        };
         TekstVerdi: {
             verdi: string;
             /**
@@ -817,7 +826,7 @@ export interface components {
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
-            datatype: "desimaltall" | "penger";
+            datatype: "desimaltall";
         };
         BoolskVerdi: {
             verdi: boolean;
@@ -1080,6 +1089,7 @@ export interface components {
             verdi?: number;
         };
         Utbetaling: {
+            meldeperiode: string;
             /** Format: date */
             dato: string;
             sats: number;

@@ -9,6 +9,7 @@
   align-items: center;
 
   padding: var(--a-spacing-2);
+  margin-left: auto;
 }
 
 .OppgaveHandlinger > Form {
