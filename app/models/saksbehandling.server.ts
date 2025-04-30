@@ -55,12 +55,12 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentKlage(request: Request, klageId: string) {
+export async function hentKlage(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { response, data, error } = await saksbehandlerClient.GET("/oppgave/klage/{klageId}", {
+  const { response, data, error } = await saksbehandlerClient.GET("/klage/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
-      path: { klageId },
+      path: { behandlingId },
     },
   });
 
@@ -77,15 +77,15 @@ export async function hentKlage(request: Request, klageId: string) {
 
 export async function lagreKlageOpplysning(
   request: Request,
-  klageId: string,
+  behandlingId: string,
   opplysningId: string,
   OppdaterKlageOpplysning: components["schemas"]["OppdaterKlageOpplysning"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/oppgave/klage/{klageId}/opplysning/{opplysningId}", {
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
-      path: { klageId, opplysningId },
+      path: { behandlingId, opplysningId },
     },
     body: {
       ...OppdaterKlageOpplysning,

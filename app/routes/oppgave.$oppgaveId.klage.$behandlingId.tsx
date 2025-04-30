@@ -28,9 +28,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.klageId, "params.klageId er påkrevd");
+  invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const klage = await hentKlage(request, params.klageId);
+  const klage = await hentKlage(request, params.behandlingId);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -56,7 +56,7 @@ export default function Oppgave() {
   useHandleAlertMessages(alert);
 
   return (
-    <Fragment key={klage.id}>
+    <Fragment key={klage.behandlingId}>
       <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>

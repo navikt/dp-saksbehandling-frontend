@@ -701,7 +701,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}/opplysning/{opplysningId}": {
+    "/klage/{behandlingId}/opplysning/{opplysningId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -715,7 +715,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                     opplysningId: string;
                 };
                 cookie?: never;
@@ -751,7 +751,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}/ferdigstill": {
+    "/klage/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
             header?: never;
@@ -765,7 +765,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -805,7 +805,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}/trekk": {
+    "/klage/{behandlingId}/trekk": {
         parameters: {
             query?: never;
             header?: never;
@@ -819,7 +819,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -859,20 +859,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}": {
+    "/klage/{behandlingId}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Hent klage basert på klageId */
+        /** Hent klage basert på behandlingId til klagen */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -1315,11 +1315,11 @@ export interface components {
         };
         TildeltOppgave: {
             nyTilstand: components["schemas"]["OppgaveTilstand"];
-            behandlingType?: components["schemas"]["BehandlingType"];
+            behandlingType: components["schemas"]["BehandlingType"];
         };
         Klage: {
             /** Format: uuid */
-            id: string;
+            behandlingId: string;
             saksbehandler?: components["schemas"]["Behandler"];
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
@@ -1364,7 +1364,7 @@ export interface components {
         KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
         KlageOpplysningTekst: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1379,7 +1379,7 @@ export interface components {
         };
         KlageOpplysningBoolsk: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1394,7 +1394,7 @@ export interface components {
         };
         KlageOpplysningDato: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1410,7 +1410,7 @@ export interface components {
         };
         KlageOpplysningFlerListeValg: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1425,7 +1425,7 @@ export interface components {
         };
         KlageOpplysningListeValg: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];

@@ -15,9 +15,9 @@ export function KlageUtfall({ klage }: IProps) {
     <div className={styles.utfallContainer}>
       <div>
         {klage.utfallOpplysninger.map((opplysning) => (
-          <Fragment key={opplysning.id}>
+          <Fragment key={opplysning.opplysningId}>
             {opplysning.navn}
-            <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
+            <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
           </Fragment>
         ))}
       </div>

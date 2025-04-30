@@ -222,7 +222,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent en klage med behandlingId
-  http.get(`/oppgave/klage/{klageId}`, async ({ request, response, params }) => {
+  http.get(`/klage/{behandlingId}`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 
@@ -230,8 +230,8 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    const { klageId } = params;
-    const klage = klager.find((klage) => klage.id === klageId);
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
 
     if (klage) {
       return response(200).json(klage);
@@ -241,7 +241,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Lagre opplysning på klage
-  http.put(`/oppgave/klage/{klageId}/opplysning/{opplysningId}`, async ({ request, response }) => {
+  http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 

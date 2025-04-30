@@ -18,12 +18,12 @@ export interface IKlageOpplysningProps {
 }
 
 interface IProps {
-  oppgaveId: string;
+  behandlingId: string;
   opplysning: components["schemas"]["KlageOpplysning"];
   readonly?: boolean;
 }
 
-export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
+export function KlageOpplysning({ opplysning, behandlingId, readonly }: IProps) {
   const klageOpplysningForm = useForm({
     validator: hentValideringForKlageOpplysning(opplysning),
     method: "post",
@@ -43,8 +43,8 @@ export function KlageOpplysning({ opplysning, oppgaveId, readonly }: IProps) {
   return (
     <form className={"aksel--compact"} {...klageOpplysningForm.getFormProps()}>
       <input hidden={true} readOnly={true} name="_action" value="lagre-klage-opplysning" />
-      <input hidden={true} readOnly={true} name="oppgave-id" value={oppgaveId} />
-      <input hidden={true} readOnly={true} name="opplysning-id" value={opplysning.id} />
+      <input hidden={true} readOnly={true} name="behandlingId" value={behandlingId} />
+      <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.opplysningId} />
       <input hidden={true} readOnly={true} name="datatype" value={opplysning.type} />
 
       <OpplysningType

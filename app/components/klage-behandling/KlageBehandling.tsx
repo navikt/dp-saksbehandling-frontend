@@ -27,10 +27,10 @@ export function KlageBehandling({ klage }: IProps) {
         </Table.Row>
 
         {klageSakOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.id} shadeOnHover={false}>
+          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
+              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -40,10 +40,10 @@ export function KlageBehandling({ klage }: IProps) {
         </Table.Row>
 
         {fristOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.id} shadeOnHover={false}>
+          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
+              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -53,10 +53,10 @@ export function KlageBehandling({ klage }: IProps) {
         </Table.Row>
 
         {formkravOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.id} shadeOnHover={false}>
+          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
             <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} oppgaveId={klage.id} />
+              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
             </Table.DataCell>
           </Table.Row>
         ))}

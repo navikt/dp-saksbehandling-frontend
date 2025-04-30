@@ -7,12 +7,12 @@ import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { components } from "../../openapi/saksbehandling-typer";
 
 export async function lagreKlageOpplysningAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgave-id") as string;
-  const opplysningId = formData.get("opplysning-id") as string;
+  const behandlingId = formData.get("behandlingId") as string;
+  const opplysningId = formData.get("opplysningId") as string;
   const verdi = formData.get("verdi") as string; //TODO Fix type for å håndtere multiselect
   const type = formData.get("datatype") as components["schemas"]["KlageOpplysningType"];
 
-  invariant(oppgaveId, "oppgaveId er påkrevd");
+  invariant(behandlingId, "behandlingId er påkrevd");
   invariant(opplysningId, "opplysningId er påkrevd");
   invariant(verdi, "verdi er påkrevd");
 
@@ -20,7 +20,7 @@ export async function lagreKlageOpplysningAction(request: Request, formData: For
 
   const { response, error } = await lagreKlageOpplysning(
     request,
-    oppgaveId,
+    behandlingId,
     opplysningId,
     oppdatertKlageOpplysning,
   );
