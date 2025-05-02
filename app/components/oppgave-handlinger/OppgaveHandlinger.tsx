@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
+import { OppgaveHandlingFerdigstillKlage } from "~/components/oppgave-handlinger/OppgaveHandlingFerdigstillKlage";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
 import { OppgaveHandlingRekjorBehandling } from "~/components/oppgave-handlinger/OppgaveHandlingRekjorBehandling";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
@@ -29,6 +30,7 @@ export type IGyldigeOppgaveHandlinger =
   | "send-til-kontroll"
   | "fatt-vedtak"
   | "rekjor-behandling"
+  | "ferdigstill-klage"
   | "returner-til-saksbehandler";
 
 function hentGyldigeOppgaveValg(
@@ -65,7 +67,7 @@ function hentGyldigeOppgaveValg(
     case "KLAGE":
       switch (oppgave.tilstand) {
         case "UNDER_BEHANDLING":
-          handlinger.push("legg-tilbake", "utsett");
+          handlinger.push("legg-tilbake", "utsett", "ferdigstill-klage");
           return handlinger;
         default:
           return [];
@@ -98,6 +100,7 @@ export function OppgaveHandlinger() {
             {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
             {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
             {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
+            {valg === "ferdigstill-klage" && <OppgaveHandlingFerdigstillKlage />}
             {valg === "fatt-vedtak" && (
               <OppgaveHandlingFattVedtak utfall={response?.data?.utfall} />
             )}

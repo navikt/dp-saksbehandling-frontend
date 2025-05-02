@@ -75,6 +75,16 @@ export async function hentKlage(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentKlage(). ${response.status} - ${response.statusText}`);
 }
 
+export async function ferdigstillKlage(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
 export async function lagreKlageOpplysning(
   request: Request,
   behandlingId: string,

@@ -50,7 +50,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function Oppgave() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { klage, alert } = useLoaderData<typeof loader>();
-  const [aktivTab, setAktivTab] = useState("utfall");
+  const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
