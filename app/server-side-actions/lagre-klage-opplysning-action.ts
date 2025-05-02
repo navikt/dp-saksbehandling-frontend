@@ -60,7 +60,7 @@ function konverterOpplysningVerdiTilBackendVerdi(
 
     case "FLER_LISTEVALG":
       return {
-        type: "TEKST",
+        type: "FLER_LISTEVALG",
         verdi: JSON.parse(verdi),
       };
 
