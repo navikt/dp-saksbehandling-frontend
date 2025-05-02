@@ -1,5 +1,7 @@
 import { Textarea } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
+import { useEffect, useState } from "react";
+import { useDebounceCallback } from "usehooks-ts";
 
 import { IKlageOpplysningProps } from "~/components/klage-opplysning/KlageOpplysning";
 
@@ -12,6 +14,14 @@ interface IProps extends IKlageOpplysningProps {
 
 export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps) {
   const field = useField(formScope);
+  const [verdi, setVerdi] = useState<string>(opplysning.verdi || "");
+  const debouncedSetVerdi = useDebounceCallback(setVerdi, 2000);
+
+  useEffect(() => {
+    if (verdi !== opplysning.verdi) {
+      field.setValue(verdi);
+    }
+  }, [verdi]);
 
   return (
     <>
@@ -19,7 +29,20 @@ export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps
         <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>
       )}
 
-      {opplysning.redigerbar && <Textarea readOnly={readonly} {...field.getInputProps()} />}
+      {opplysning.redigerbar && (
+        <>
+          <input {...field.getInputProps()} value={verdi} hidden={true} readOnly={true} />
+          <Textarea
+            // Denne må settes for å ikke kobles mot RVF skjema sin ID. Trengs for å få til debounced submit for input
+            form={"ikke-rvf-form"}
+            label={""}
+            readOnly={readonly}
+            defaultValue={verdi}
+            onChange={(event) => debouncedSetVerdi(event.currentTarget.value)}
+            onBlur={() => debouncedSetVerdi.flush()}
+          />
+        </>
+      )}
     </>
   );
 }
