@@ -1,4 +1,5 @@
 import { FormScope, useForm } from "@rvf/react-router";
+import classnames from "classnames";
 import { useEffect } from "react";
 
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
@@ -11,6 +12,8 @@ import { hentValideringForKlageOpplysning } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
+type OpplysningVisningTyper = "vertikal" | "horisontal";
+
 export interface IKlageOpplysningProps {
   opplysning: components["schemas"]["KlageOpplysning"];
   formScope: FormScope<components["schemas"]["KlageOpplysning"]["verdi"]>;
@@ -20,10 +23,11 @@ export interface IKlageOpplysningProps {
 interface IProps {
   behandlingId: string;
   opplysning: components["schemas"]["KlageOpplysning"];
+  visningType: OpplysningVisningTyper;
   readonly?: boolean;
 }
 
-export function KlageOpplysning({ opplysning, behandlingId, readonly }: IProps) {
+export function KlageOpplysning({ opplysning, behandlingId, readonly, visningType }: IProps) {
   const klageOpplysningForm = useForm({
     validator: hentValideringForKlageOpplysning(opplysning),
     method: "post",
@@ -41,7 +45,13 @@ export function KlageOpplysning({ opplysning, behandlingId, readonly }: IProps) 
   );
 
   return (
-    <form className={"aksel--compact"} {...klageOpplysningForm.getFormProps()}>
+    <form
+      className={classnames({
+        "opplysning--compact-vertikal": visningType === "vertikal",
+        "opplysning--compact-horisontal": visningType === "horisontal",
+      })}
+      {...klageOpplysningForm.getFormProps()}
+    >
       <input hidden={true} readOnly={true} name="_action" value="lagre-klage-opplysning" />
       <input hidden={true} readOnly={true} name="behandlingId" value={behandlingId} />
       <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.opplysningId} />

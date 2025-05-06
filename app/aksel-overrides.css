@@ -143,3 +143,61 @@
 .alert--compact .navds-alert__wrapper {
   max-width: 100%;
 }
+
+/*Legg til luft mellom hver opplysning*/
+.opplysning--compact-vertikal {
+  margin-bottom: var(--a-spacing-6);
+}
+
+/*Fjern luft mellom label og input*/
+.opplysning--compact-vertical .navds-fieldset > :not(:first-child, :empty),
+.opplysning--compact-horisontal .navds-fieldset > :not(:first-child, :empty) {
+  margin-top: 0;
+}
+
+/*Flytt label for input felt fra vertikal til horisontal visning.*/
+.opplysning--compact-horisontal .navds-date__field,
+.opplysning--compact-horisontal .navds-form-field,
+.opplysning--compact-horisontal .navds-fieldset {
+  display: grid;
+  grid-template-columns: minmax(auto, 400px) 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+/*Plasser label i første grid kolonne. Trenger float for å få legend til å ligge sentrert i boksen*/
+.opplysning--compact-horisontal .navds-fieldset__legend {
+  grid-column: 1;
+  float: left;
+  font-weight: var(--a-font-weight-regular);
+}
+
+/*Plasser label i første grid kolonne.*/
+.opplysning--compact-horisontal .navds-form-field__label {
+  font-weight: var(--a-font-weight-regular);
+  grid-column: 1;
+}
+
+/*Plasser radio inputs i andre grid kolonne. Flex for å få horisontale radio buttons*/
+.opplysning--compact-horisontal .navds-radio-buttons {
+  grid-column: 2;
+  display: flex;
+  gap: var(--a-spacing-4);
+  white-space: nowrap;
+}
+
+/*Plasser date input i andre grid kolonne.*/
+.opplysning--compact-horisontal .navds-date__field-wrapper {
+  grid-column: 2;
+}
+
+/*Align datepicker popover med andre kolonne slik at den komme under faktisk input felt. Må samkjøres med grid-template-columns over*/
+.opplysning--compact-horisontal .navds-date__wrapper .navds-popover.navds-date__popover {
+  left: 400px !important;
+}
+
+/*Align error med inputs i andre kolonne*/
+.opplysning--compact-horisontal .navds-form-field__error,
+.opplysning--compact-horisontal .navds-fieldset__error {
+  grid-column: 2;
+}

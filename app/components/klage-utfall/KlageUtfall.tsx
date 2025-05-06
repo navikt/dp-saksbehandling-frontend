@@ -8,16 +8,21 @@ import styles from "./KlageUtfall.module.css";
 
 interface IProps {
   klage: Awaited<ReturnType<typeof hentKlage>>;
+  readonly?: boolean;
 }
 
-export function KlageUtfall({ klage }: IProps) {
+export function KlageUtfall({ klage, readonly }: IProps) {
   return (
     <div className={styles.utfallContainer}>
       <div>
         {klage.utfallOpplysninger.map((opplysning) => (
           <Fragment key={opplysning.opplysningId}>
-            {opplysning.navn}
-            <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
+            <KlageOpplysning
+              opplysning={opplysning}
+              behandlingId={klage.behandlingId}
+              readonly={readonly}
+              visningType={"vertikal"}
+            />
           </Fragment>
         ))}
       </div>

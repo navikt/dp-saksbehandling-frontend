@@ -37,7 +37,7 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
           <DatePicker {...datepickerProps}>
             <DatePicker.Input
               size="small"
-              label={""}
+              label={opplysning.navn}
               {...inputProps}
               form={field.getInputProps().form}
               name={field.getInputProps().name}

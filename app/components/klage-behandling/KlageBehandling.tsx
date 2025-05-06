@@ -5,9 +5,10 @@ import { hentKlage } from "~/models/saksbehandling.server";
 
 interface IProps {
   klage: Awaited<ReturnType<typeof hentKlage>>;
+  readonly?: boolean;
 }
 
-export function KlageBehandling({ klage }: IProps) {
+export function KlageBehandling({ klage, readonly }: IProps) {
   const klageSakOpplysninger = klage.behandlingOpplysninger.filter(
     (opplysning) => opplysning.gruppe === "KLAGESAK",
   );
@@ -28,9 +29,13 @@ export function KlageBehandling({ klage }: IProps) {
 
         {klageSakOpplysninger.map((opplysning) => (
           <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
+              <KlageOpplysning
+                opplysning={opplysning}
+                behandlingId={klage.behandlingId}
+                readonly={readonly}
+                visningType={"horisontal"}
+              />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -41,9 +46,13 @@ export function KlageBehandling({ klage }: IProps) {
 
         {fristOpplysninger.map((opplysning) => (
           <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
+              <KlageOpplysning
+                opplysning={opplysning}
+                behandlingId={klage.behandlingId}
+                readonly={readonly}
+                visningType={"horisontal"}
+              />
             </Table.DataCell>
           </Table.Row>
         ))}
@@ -54,9 +63,13 @@ export function KlageBehandling({ klage }: IProps) {
 
         {formkravOpplysninger.map((opplysning) => (
           <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>{opplysning.navn}</Table.DataCell>
             <Table.DataCell>
-              <KlageOpplysning opplysning={opplysning} behandlingId={klage.behandlingId} />
+              <KlageOpplysning
+                opplysning={opplysning}
+                behandlingId={klage.behandlingId}
+                readonly={readonly}
+                visningType={"horisontal"}
+              />
             </Table.DataCell>
           </Table.Row>
         ))}

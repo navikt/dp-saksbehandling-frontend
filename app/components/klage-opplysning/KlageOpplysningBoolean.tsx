@@ -23,8 +23,9 @@ export function KlageOpplysningBoolean({ opplysning, formScope, readonly }: IPro
         <RadioGroup
           size="small"
           {...field.getInputProps()}
-          error={field.error()}
+          legend={opplysning.navn}
           readOnly={readonly}
+          error={field.error()}
         >
           <Radio value="Ja">Ja</Radio>
           <Radio value="Nei">Nei</Radio>

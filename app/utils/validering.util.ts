@@ -68,7 +68,7 @@ export function hentValideringForKlageOpplysning(
       return withZod(
         z.object({
           verdi: z.enum(["Ja", "Nei"], {
-            required_error: "Du må velge et svar",
+            required_error: "Du må velge et alternativ",
             invalid_type_error: "Ugyldig svar",
           }),
         }),
@@ -81,6 +81,28 @@ export function hentValideringForKlageOpplysning(
             new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
             "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
           ),
+        }),
+      );
+
+    case "LISTEVALG":
+      return withZod(
+        z.object({
+          verdi: z.enum(["", ...(opplysning.valgmuligheter || [])], {
+            required_error: "Du må velge et alternativ",
+            invalid_type_error: "Ugyldig svar",
+          }),
+        }),
+      );
+
+    case "FLER_LISTEVALG":
+      return withZod(
+        z.object({
+          verdi: z
+            .string({
+              required_error: "Du må velge et alternativ",
+              invalid_type_error: "Ugyldig svar",
+            })
+            .min(1),
         }),
       );
 

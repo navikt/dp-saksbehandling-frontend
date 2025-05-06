@@ -44,7 +44,7 @@ export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IPr
           <UNSAFE_Combobox
             // Denne må settes for å ikke kobles mot RVF skjema sin ID.
             form={"ikke-rvf-form"}
-            label={""}
+            label={opplysning.navn}
             size={"small"}
             isMultiSelect
             onToggleSelected={onToggleSelected}

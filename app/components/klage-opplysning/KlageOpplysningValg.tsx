@@ -23,17 +23,31 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
         <RadioGroup
           size="small"
           {...field.getInputProps()}
+          legend={opplysning.navn}
           error={field.error()}
           readOnly={readonly}
         >
           {/*// @ts-expect-error TODO Fix type i backend */}
           {opplysning.valgmuligheter.map((valg) => (
             <Radio key={valg} value={valg}>
-              {valg}
+              {konverterValgmulighetEnumTilVisningVerdi(valg)}
             </Radio>
           ))}
         </RadioGroup>
       )}
     </>
   );
+}
+
+function konverterValgmulighetEnumTilVisningVerdi(valg: string): string {
+  switch (valg) {
+    case "OPPRETTHOLDELSE":
+      return "Opprettholdelse";
+    case "DELVIS_MEDHOLD":
+      return "Delvis medhold";
+    case "MEDHOLD":
+      return "Medhold";
+    default:
+      return valg;
+  }
 }
