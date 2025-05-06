@@ -143,6 +143,21 @@ export const klageOppgave: components["schemas"]["Oppgave"] = {
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
 };
 
+export const ferdigBehandlerKlageOppgave: components["schemas"]["Oppgave"] = {
+  oppgaveId: "018e1119-9df8-7aa4-94a6-318fada10999",
+  behandlingType: "KLAGE",
+  behandlingId: "123456789",
+  person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Klage"],
+  tilstand: "FERDIG_BEHANDLET",
+  journalpostIder: ["598116231", "639664664"],
+  historikk: mockHistorikk,
+  saksbehandler: mockOppgaveSaksbehandler,
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+};
+
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMinOppgaveKreverKontroll,
@@ -150,6 +165,7 @@ export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   ferdigBehandletOppgave,
   ferdigBehandletAutomatiskOppgave,
   klageOppgave,
+  ferdigBehandlerKlageOppgave,
 ];
 
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
@@ -159,6 +175,7 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
   konverterOppgaveTilListeOppgave(klageOppgave),
+  konverterOppgaveTilListeOppgave(ferdigBehandlerKlageOppgave),
 ];
 
 export function konverterOppgaveTilListeOppgave(

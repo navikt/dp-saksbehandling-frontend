@@ -105,7 +105,7 @@ export function OppgaveListeValg({ oppgave }: IProps) {
 
           {kanSeOppgave && (
             <RemixLink
-              to={`/oppgave/${oppgave.oppgaveId}/se`}
+              to={`${oppgave.behandlingType === "RETT_TIL_DAGPENGER" ? `/oppgave/${oppgave.oppgaveId}/se` : `/oppgave/${oppgave.oppgaveId}/klage/${oppgave.behandlingId}`}`}
               asButtonVariant="tertiary-neutral"
               size="xsmall"
             >
