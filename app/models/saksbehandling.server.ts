@@ -85,6 +85,16 @@ export async function ferdigstillKlage(request: Request, behandlingId: string) {
   });
 }
 
+export async function trekkKlage(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/trekk", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
 export async function lagreKlageOpplysning(
   request: Request,
   behandlingId: string,

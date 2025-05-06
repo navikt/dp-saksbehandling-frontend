@@ -17,6 +17,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { components as behandlingComponent } from "../../../openapi/behandling-typer";
 import { components as saksbehandlingComponent } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveHandlinger.module.css";
+import { OppgaveHandlingTrekkKlage } from "./OppgaveHandlingTrekkKlage";
 
 export interface IFormValidationError {
   field: string;
@@ -30,6 +31,7 @@ export type IGyldigeOppgaveHandlinger =
   | "send-til-kontroll"
   | "fatt-vedtak"
   | "rekjor-behandling"
+  | "trekk-klage"
   | "ferdigstill-klage"
   | "returner-til-saksbehandler";
 
@@ -67,7 +69,7 @@ function hentGyldigeOppgaveValg(
     case "KLAGE":
       switch (oppgave.tilstand) {
         case "UNDER_BEHANDLING":
-          handlinger.push("legg-tilbake", "utsett", "ferdigstill-klage");
+          handlinger.push("legg-tilbake", "utsett", "trekk-klage", "ferdigstill-klage");
           return handlinger;
         default:
           return [];
@@ -100,6 +102,7 @@ export function OppgaveHandlinger() {
             {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
             {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
             {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
+            {valg === "trekk-klage" && <OppgaveHandlingTrekkKlage />}
             {valg === "ferdigstill-klage" && <OppgaveHandlingFerdigstillKlage />}
             {valg === "fatt-vedtak" && (
               <OppgaveHandlingFattVedtak utfall={response?.data?.utfall} />

@@ -259,6 +259,25 @@ export const mockDpSaksbehandling = [
     return response(404).json(error404);
   }),
 
+  // Trekk en klage med behandlingId
+  http.put(`/klage/{behandlingId}/trekk`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+    if (klage) {
+      return response(204).empty();
+    }
+
+    return response(404).json(error404);
+  }),
+
   // Lagre opplysning på klage
   http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
