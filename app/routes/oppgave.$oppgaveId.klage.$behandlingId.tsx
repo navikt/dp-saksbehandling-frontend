@@ -55,6 +55,8 @@ export default function Oppgave() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
+  const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
+
   return (
     <Fragment key={klage.behandlingId}>
       <OppgaveHandlinger />
@@ -63,7 +65,9 @@ export default function Oppgave() {
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <Tabs.List>
               <Tabs.Tab value="behandling" label="Behandling" icon={<DocPencilIcon />} />
-              <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
+              {harUtfallOpplysninger && (
+                <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
+              )}
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
