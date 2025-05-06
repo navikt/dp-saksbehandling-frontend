@@ -80,7 +80,7 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
 const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
     opplysningId: "ufa",
-    navn: "utfall",
+    navn: "Utfall",
     type: "LISTEVALG",
     paakrevd: true,
     gruppe: "KLAGESAK",

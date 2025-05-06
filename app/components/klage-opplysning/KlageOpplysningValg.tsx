@@ -47,6 +47,12 @@ function konverterValgmulighetEnumTilVisningVerdi(valg: string): string {
       return "Delvis medhold";
     case "MEDHOLD":
       return "Medhold";
+    case "AVVIST":
+      return "Avvist";
+    case "BRUKER":
+      return "Bruker";
+    case "FULLMEKTIG":
+      return "Fullmektig";
     default:
       return valg;
   }
