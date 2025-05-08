@@ -9,6 +9,8 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -18,12 +20,16 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Oppgave() {
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
+  const { response } = useAwaitPromise(behandlingPromise);
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <>
-      <OppgaveHandlinger />
+      <OppgaveHandlinger behandling={response?.data} />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" defaultValue="begrunnelse">

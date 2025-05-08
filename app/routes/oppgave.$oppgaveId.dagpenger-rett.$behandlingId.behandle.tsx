@@ -10,6 +10,7 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -21,13 +22,17 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
+  const { response } = useAwaitPromise(behandlingPromise);
   const actionData = useActionData<typeof action>();
   const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <>
-      <OppgaveHandlinger />
+      <OppgaveHandlinger behandling={response?.data} />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>

@@ -1,6 +1,5 @@
-import { Loader } from "@navikt/ds-react";
 import classnames from "classnames";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
@@ -11,7 +10,6 @@ import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-ha
 import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilArena";
 import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilKontroll";
 import { OppgaveHandlingUtsett } from "~/components/oppgave-handlinger/OppgaveHandlingUtsett";
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components as behandlingComponent } from "../../../openapi/behandling-typer";
@@ -77,21 +75,13 @@ function hentGyldigeOppgaveValg(
   }
 }
 
-export function OppgaveHandlinger() {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { behandlingPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
-  );
-  const { response, loading } = useAwaitPromise(behandlingPromise);
-  const [gyldigeOppgaveValg, setGyldigeOppgaveValg] = useState(() =>
-    hentGyldigeOppgaveValg(oppgave),
-  );
+interface IProps {
+  behandling?: behandlingComponent["schemas"]["Behandling"];
+}
 
-  useEffect(() => {
-    if (response?.data) {
-      setGyldigeOppgaveValg(() => hentGyldigeOppgaveValg(oppgave, response.data));
-    }
-  }, [response]);
+export function OppgaveHandlinger(props: IProps) {
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, props.behandling);
 
   return (
     <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
@@ -107,12 +97,11 @@ export function OppgaveHandlinger() {
             {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
             {valg === "trekk-klage" && <OppgaveHandlingTrekkKlage />}
             {valg === "ferdigstill-klage" && <OppgaveHandlingFerdigstillKlage />}
-            {valg === "fatt-vedtak" && (
-              <OppgaveHandlingFattVedtak utfall={response?.data?.utfall} />
+            {valg === "fatt-vedtak" && props.behandling && (
+              <OppgaveHandlingFattVedtak utfall={props.behandling.utfall} />
             )}
           </Fragment>
         ))}
-        {loading && <Loader size={"small"} />}
       </div>
     </div>
   );

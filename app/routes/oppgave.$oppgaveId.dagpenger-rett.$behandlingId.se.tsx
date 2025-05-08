@@ -7,12 +7,19 @@ import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
+  const { response } = useAwaitPromise(behandlingPromise);
+
   return (
     <>
-      <OppgaveHandlinger />
+      <OppgaveHandlinger behandling={response?.data} />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" defaultValue="behandling">
