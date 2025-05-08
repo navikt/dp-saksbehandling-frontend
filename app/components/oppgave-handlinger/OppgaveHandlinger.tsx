@@ -78,7 +78,10 @@ function hentGyldigeOppgaveValg(
 }
 
 export function OppgaveHandlinger() {
-  const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
   const { response, loading } = useAwaitPromise(behandlingPromise);
   const [gyldigeOppgaveValg, setGyldigeOppgaveValg] = useState(() =>
     hentGyldigeOppgaveValg(oppgave),

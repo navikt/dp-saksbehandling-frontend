@@ -85,7 +85,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
     paakrevd: true,
     gruppe: "KLAGESAK",
     redigerbar: true,
-    valgmuligheter: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
+    valgmuligheter: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD", "AVVIST"],
   },
   {
     opplysningId: "vuk",

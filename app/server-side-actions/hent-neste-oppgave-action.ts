@@ -15,10 +15,19 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
   const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSok);
 
   if (data) {
-    if (data.tilstand === "UNDER_KONTROLL") {
-      return redirect(`/oppgave/${data.oppgaveId}/kontroll`);
+    switch (data.behandlingType) {
+      case "RETT_TIL_DAGPENGER":
+        if (data.tilstand === "UNDER_KONTROLL") {
+          return redirect(
+            `/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/kontroll`,
+          );
+        }
+
+        return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/behandle`);
+
+      case "KLAGE":
+        return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
     }
-    return redirect(`/oppgave/${data.oppgaveId}/behandle`);
   }
 
   let alert: IAlert = {

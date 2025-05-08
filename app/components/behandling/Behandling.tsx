@@ -19,7 +19,9 @@ interface IProps {
 }
 
 export function Behandling(props: IProps) {
-  const { behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
   const { response } = useAwaitPromise(behandlingPromise);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,

@@ -11,6 +11,10 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     throw new Error("Mangler oppgaveId");
   }
 
+  if (!behandlingId) {
+    throw new Error("Mangler behandlingId");
+  }
+
   const { data, error } = await tildelOppgave(request, oppgaveId);
 
   if (error) {
@@ -22,11 +26,11 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
   switch (data.behandlingType) {
     case "RETT_TIL_DAGPENGER":
       if (data.nyTilstand === "UNDER_BEHANDLING") {
-        return redirect(`/oppgave/${oppgaveId}/behandle`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
       }
 
       if (data.nyTilstand === "UNDER_KONTROLL") {
-        return redirect(`/oppgave/${oppgaveId}/kontroll`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/kontroll`);
       }
       break;
 

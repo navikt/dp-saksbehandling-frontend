@@ -10,7 +10,9 @@ import { components } from "../../../openapi/behandling-typer";
 import styles from "./KravPaaDagpenger.module.css";
 
 export function KravPaaDagpenger() {
-  const { behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
 
   return (
     <Suspense fallback={<Loader className="ml-2" size={"large"} />}>

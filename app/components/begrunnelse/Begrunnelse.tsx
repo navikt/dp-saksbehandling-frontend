@@ -11,7 +11,9 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export function Begrunnelse(props: { readOnly?: boolean }) {
-  const { vurderingerPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { vurderingerPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
   return (
     <>
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter vurderinger"} />}>
