@@ -2,6 +2,7 @@ import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -12,6 +13,7 @@ interface IProps {
 }
 
 export function OppgaveHandlingFattVedtak(props: IProps) {
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fattVedtakModalRef = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
   const actionData = useActionData<typeof handleActions>();
@@ -52,6 +54,7 @@ export function OppgaveHandlingFattVedtak(props: IProps) {
 
           <Form method="post">
             <input name="_action" value="fatt-vedtak" hidden={true} readOnly={true} />
+            <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
             <Button size="small" variant="primary" disabled={state !== "idle"}>
               Ja
             </Button>

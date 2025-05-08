@@ -2,7 +2,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
-import { ferdigstillOppgave, ferdigstillOppgaveMedArenaBrev } from "~/models/saksbehandling.server";
+import { ferdigstillOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
@@ -11,21 +11,14 @@ export async function fattVedtakAction(
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
+  const behandlingId = formData.get("behandlingId") as string;
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-
-  const brevIArena = (formData.get("send-brev-i-arena") as string) === "true";
+  invariant(behandlingId, "behandlingId er påkrevd");
   const session = await getSession(request.headers.get("Cookie"));
 
-  if (brevIArena) {
-    const { error } = await ferdigstillOppgaveMedArenaBrev(request, params.oppgaveId);
-    if (error) {
-      return getHttpProblemAlert(error);
-    }
-  } else {
-    const { error } = await ferdigstillOppgave(request, params.oppgaveId);
-    if (error) {
-      return getHttpProblemAlert(error);
-    }
+  const { error } = await ferdigstillOppgave(request, params.oppgaveId);
+  if (error) {
+    return getHttpProblemAlert(error);
   }
 
   const successAlert: IAlert = {
@@ -34,9 +27,12 @@ export async function fattVedtakAction(
   };
 
   session.flash("alert", successAlert);
-  return redirect(`/oppgave/${params.oppgaveId}/se/fullfort-oppgave`, {
-    headers: {
-      "Set-Cookie": await commitSession(session),
+  return redirect(
+    `/oppgave/${params.oppgaveId}/dagpenger-rett/${behandlingId}/se/fullfort-oppgave`,
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
     },
-  });
+  );
 }

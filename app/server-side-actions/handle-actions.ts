@@ -63,7 +63,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await sendTilArenaAction(request, params, formData);
 
     case "send-til-kontroll":
-      return await sendTilKontrollAction(request, params);
+      return await sendTilKontrollAction(request, params, formData);
 
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);

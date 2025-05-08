@@ -168,16 +168,6 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   });
 }
 
-export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId: string) {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena", {
-    headers: getHeaders(onBehalfOfToken),
-    params: {
-      path: { oppgaveId },
-    },
-  });
-}
-
 export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
