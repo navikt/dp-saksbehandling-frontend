@@ -8,10 +8,10 @@ Yellow='\033[0;33m'       # Yellow
 BPurple='\033[1;35m'      # Purple bold
 UGreen='\033[4;32m'       # Green underline
 
-# Env file 
+# Env file
 envFile='.env'
 
-# json config 
+# json config
 jsonConfig='token-generator.config.json'
 
 # Main script
@@ -19,7 +19,7 @@ init() {
   # Welcome text
   echo -e "${Cyan}::: ${BPurple}dp-saksbehandling-frontend token generator ${Cyan}::: \n"
 
-  # Check if jq package is installed 
+  # Check if jq package is installed
   verifyJQ
 
   # Generate azure-token-generator token
@@ -33,20 +33,24 @@ init() {
 # Check if user has `jq` installed
 # https://formulae.brew.sh/formula/jq
 verifyJQ() {
-  if brew ls --versions jq > /dev/null; then
+  if command -v jq > /dev/null; then
     # jq already installed, continue script
-    :
+    return
   else
     # jq not found
     # ask user to install jq
     echo -e "${Yellow}🟡 jq not found. jq is required for token-generator script."
     echo -e "${Yellow}🟡 Read more about jq: ${UGreen}https://formulae.brew.sh/formula/jq${Cyan}\n"
-    
+
     # ask for user input y or n
     read -p "Install jq (y/n)? " answer
 
     if [ "$answer" = "y" ]; then
-      brew install jq 
+      if [ "$(uname)" == "Darwin" ]; then
+          brew install jq
+      elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+          sudo apt install jq
+      fi
       echo -e "\n"
     else
       echo -e "🛑 ${Red}Token generator aborted."
@@ -59,7 +63,7 @@ verifyJQ() {
 startTokenGenerator() {
   # First azure-token-generator url from json config
   url=$(jq '.' $jsonConfig | jq '.[0].url' | tr -d '"')
-  
+
   # Show link to azureTokenGenerator to user
   echo -e "${Cyan}Visit: ${UGreen}${url}\n"
   echo -e "${Cyan}Find and copy ${Yellow}io.nais.wonderwall.session ${Cyan}cookie from ${Yellow}DevTools > Application > Cookies"
@@ -107,7 +111,7 @@ generateAndUpdateEnvFile() {
   fi
 
   # Store access token in variable
-  accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token") 
+  accessToken=$(curl -s -b "io.nais.wonderwall.session=${cookie}" ${url}| jq ".access_token")
 
   # Check if accessToken is empty or null
   if [[ -z "$accessToken" || "$accessToken" == null ]]; then
