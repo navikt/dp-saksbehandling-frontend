@@ -8,7 +8,6 @@ import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
@@ -18,12 +17,12 @@ import styles from "./Avklaring.module.css";
 
 interface IProps {
   avklaring: components["schemas"]["Avklaring"];
+  behandlingId: string;
   readonly?: boolean;
 }
 
-export function Avklaring({ avklaring, readonly }: IProps) {
+export function Avklaring({ avklaring, behandlingId, readonly }: IProps) {
   const actionData = useActionData<typeof handleActions>();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { state } = useNavigation();
   const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
 
@@ -64,12 +63,7 @@ export function Avklaring({ avklaring, readonly }: IProps) {
             <Form method="post">
               <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
               <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
-              <input
-                name="behandling-id"
-                value={oppgave.behandlingId}
-                readOnly={true}
-                hidden={true}
-              />
+              <input name="behandling-id" value={behandlingId} readOnly={true} hidden={true} />
 
               <TextField
                 className={styles.begrunnelseInput}

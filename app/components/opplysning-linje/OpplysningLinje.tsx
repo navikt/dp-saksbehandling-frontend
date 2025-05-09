@@ -16,6 +16,7 @@ import styles from "./OpplysningListe.module.css";
 
 interface IProps {
   opplysning: components["schemas"]["Opplysning"];
+  behandlingId: string;
   readonly?: boolean;
 }
 
@@ -23,7 +24,6 @@ export function OpplysningLinje(props: IProps) {
   const { opplysning } = props;
   const { state } = useNavigation();
   const { featureFlags } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [redigerOpplysningModus, setRedigerOpplysningModus] = useState(false);
 
   const kanRedigere =
@@ -51,7 +51,7 @@ export function OpplysningLinje(props: IProps) {
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
         <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
         <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
-        <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
+        <input hidden={true} readOnly={true} name="behandlingId" value={props.behandlingId} />
         <div className={styles.opplysningNavn}>
           {opplysning.kilde?.type === "Saksbehandler" && <PersonPencilIcon fontSize="1.5rem" />}
           {opplysning.navn}

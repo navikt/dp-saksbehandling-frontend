@@ -1,14 +1,13 @@
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-
 import { components } from "../../../openapi/behandling-typer";
 import { Avklaring } from "./Avklaring";
 
 interface IProps {
   avklaringer: components["schemas"]["Avklaring"][];
+  behandlingId: string;
+  readOnly?: boolean;
 }
 
 export function Avklaringer(props: IProps) {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const synligeAvklaringer = props.avklaringer.filter(
     (avklaring) => !(avklaring.status === "Avklart" && avklaring.maskinelt),
   );
@@ -19,7 +18,8 @@ export function Avklaringer(props: IProps) {
         <Avklaring
           key={avklaring.id}
           avklaring={avklaring}
-          readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+          behandlingId={props.behandlingId}
+          readonly={props.readOnly}
         />
       ))}
     </>

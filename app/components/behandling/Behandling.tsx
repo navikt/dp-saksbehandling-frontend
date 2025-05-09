@@ -5,24 +5,24 @@ import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMe
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
+import { MeldekortBeregning } from "~/components/meldekortberegninger/MeldekortBeregning";
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentBehandling } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./Behandling.module.css";
 
 interface IProps {
+  behandlingPromise: ReturnType<typeof hentBehandling>;
   readOnly?: boolean;
 }
 
-export function Behandling(props: IProps) {
-  const { behandlingPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
-  );
+export function Behandling({ behandlingPromise, readOnly }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
+  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
   );
@@ -34,6 +34,9 @@ export function Behandling(props: IProps) {
       const nåværendeRegelsett = alleRegelsett.find(
         (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
       );
+
+      const meldekortHendelse = behandling?.behandletHendelse?.type == "Meldekort";
+      setErMeldekort(meldekortHendelse);
 
       if (nåværendeRegelsett) {
         setAktivtRegelsett(nåværendeRegelsett);
@@ -64,7 +67,11 @@ export function Behandling(props: IProps) {
 
           return (
             <>
-              <Avklaringer avklaringer={behandling.data.avklaringer} />
+              <Avklaringer
+                avklaringer={behandling.data.avklaringer}
+                behandlingId={behandling.data.behandlingId}
+                readOnly={readOnly}
+              />
               {aktivtRegelsett && (
                 <div className={styles.container}>
                   <RegelsettMeny
@@ -75,10 +82,11 @@ export function Behandling(props: IProps) {
                   <Regelsett
                     behandling={behandling.data}
                     aktivtRegelsett={aktivtRegelsett}
-                    readonly={props.readOnly}
+                    readonly={readOnly}
                   />
                 </div>
               )}
+              {erMeldekort && <MeldekortBeregning behandling={behandling.data} />}
             </>
           );
         }}

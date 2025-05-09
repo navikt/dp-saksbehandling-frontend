@@ -1,53 +1,34 @@
-import { http, HttpResponse } from "msw";
+import { paths } from "openapi/soknad-orkestrator-typer";
+import { createOpenApiHttp } from "openapi-msw";
 
+import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
-import {
-  mockOrkestratorBarnOpplysninger,
-  mockOrkestratorOppdatertBarnOpplysninger,
-} from "./data/mock-orkestrator-barn-opplysninger";
+import { mockOrkestratorBarn } from "./data/mock-orkestrator-barn";
 import { mockOrkestratorLandListe } from "./data/mock-orkestrator-land-lister";
 
+const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
+
 export const mockDpSoknadOrkestrator = [
-  http.get(
-    `${process.env.DP_SOKNAD_ORKESTRATOR_URL}/opplysninger/:oppgaveId/barn`,
-    ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      if (mockOrkestratorBarnOpplysninger) {
-        return HttpResponse.json(mockOrkestratorBarnOpplysninger);
-      }
-
-      return new HttpResponse(null, {
-        status: 404,
-      });
-    },
-  ),
-
-  http.put(
-    `${process.env.DP_SOKNAD_ORKESTRATOR_URL}/opplysninger/:oppgaveId/barn/oppdater`,
-    ({ request }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-
-      if (mockOrkestratorOppdatertBarnOpplysninger) {
-        return HttpResponse.json(mockOrkestratorOppdatertBarnOpplysninger);
-      }
-
-      return new HttpResponse(null, {
-        status: 404,
-      });
-    },
-  ),
-
-  http.get(`${process.env.DP_SOKNAD_ORKESTRATOR_URL}/land`, ({ request }) => {
+  http.get(`/opplysninger/{soknadId}/barn`, ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
 
-    if (mockOrkestratorLandListe) {
-      return HttpResponse.json(mockOrkestratorLandListe);
+    if (mockOrkestratorBarn) {
+      return response(200).json(mockOrkestratorBarn);
     }
 
-    return new HttpResponse(null, {
-      status: 404,
-    });
+    return response(400).empty();
+  }),
+
+  http.put(`/opplysninger/{soknadId}/barn/oppdater`, ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+
+    return response(200).empty();
+  }),
+
+  http.get(`/land`, ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+
+    return response(200).json(mockOrkestratorLandListe);
   }),
 ];

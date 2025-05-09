@@ -66,11 +66,16 @@ export async function kvitterAvklaring(
   });
 }
 
-export async function rekjorBehandling(request: Request, behandlingId: string, ident: string) {
+export async function rekjorBehandling(
+  request: Request,
+  behandlingId: string,
+  ident: string,
+  opplysningerSomSkalOppfriskes?: string[],
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident: ident },
+    body: { ident: ident, opplysninger: opplysningerSomSkalOppfriskes },
     params: {
       path: { behandlingId },
     },

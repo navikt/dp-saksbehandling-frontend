@@ -10,6 +10,7 @@ import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-ac
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { lagreVurderingAction } from "~/server-side-actions/lagre-vurdering-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
+import { oppdaterOrkestratorBarnAction } from "~/server-side-actions/oppdater-orkestrator-barn-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action";
@@ -79,6 +80,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "trekk-klage":
       return await trekkKlageAction(request, formData);
+
+    case "oppdater-orkestrator-barn":
+      return await oppdaterOrkestratorBarnAction(request, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
