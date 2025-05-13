@@ -1,0 +1,10 @@
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--a-spacing-4) 0;
+}

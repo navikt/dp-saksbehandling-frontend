@@ -1,50 +1,33 @@
-import { Fragment } from "react";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
-  Outlet,
   useActionData,
   useLoaderData,
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
+import { OpprettKlage } from "~/components/opprett-klage/OpprettKlage";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
-import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
-import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
+
+import styles from "../route-styles/person.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  invariant(params.personUuid, "params.peronUuid er påkrevd");
 
-  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const oppgave = await hentOppgave(request, params.personUuid);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
-  let meldingOmVedtakPromise;
-
-  if (oppgave.saksbehandler) {
-    meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-    });
-  }
-
-  const journalposterPromises = Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -54,8 +37,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       oppgaverForPersonPromise,
-      meldingOmVedtakPromise,
-      journalposterPromises,
     },
     {
       headers: {
@@ -66,21 +47,27 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, alert } = useLoaderData<typeof loader>();
+  const { oppgave, oppgaverForPersonPromise, alert } = useLoaderData<typeof loader>();
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   return (
-    <Fragment key={oppgave.oppgaveId}>
+    <>
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
 
-      <div className={styles.oppgaveContainer}>
-        <BeslutterNotatProvider notat={oppgave.notat}>
-          <Outlet />
-        </BeslutterNotatProvider>
+      <div className={styles.container}>
+        <div className={styles.buttonContainer}>
+          <Heading size={"medium"}>Oppgaver</Heading>
+          <OpprettKlage />
+        </div>
+
+        <div className={"card"}>
+          {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+          <OppgavelistePerson oppgaverForPersonPromise={oppgaverForPersonPromise} />
+        </div>
       </div>
-    </Fragment>
+    </>
   );
 }

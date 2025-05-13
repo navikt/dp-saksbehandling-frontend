@@ -15,8 +15,10 @@ import styles from "./OppgaveListe.module.css";
 interface IProps {
   oppgaver: components["schemas"]["OppgaveOversikt"][];
   totaltAntallOppgaver?: number;
+  sorterbar?: boolean;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
+  visSaksbehandler?: boolean;
   visAntallOppgaver?: boolean;
   visNesteOppgaveKnapp?: boolean;
 }
@@ -26,8 +28,10 @@ export function OppgaveListe({
   totaltAntallOppgaver,
   visNesteOppgaveKnapp,
   visAntallOppgaver,
+  sorterbar,
   lasterOppgaver,
   visPersonIdent,
+  visSaksbehandler,
 }: IProps) {
   const { state } = useNavigation();
   const location = useLocation();
@@ -73,7 +77,7 @@ export function OppgaveListe({
       )}
 
       <Table
-        sort={sortState}
+        sort={sorterbar ? sortState : undefined}
         size="small"
         className={classnames("table--subtle-zebra", styles.oppgaveListe)}
         onSortChange={(sortKey) =>
@@ -82,7 +86,7 @@ export function OppgaveListe({
       >
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader scope="col" sortKey="tidspunktOpprettet" sortable={true}>
+            <Table.ColumnHeader scope="col" sortKey="tidspunktOpprettet" sortable={sorterbar}>
               <Detail>Opprettet</Detail>
             </Table.ColumnHeader>
 
@@ -104,9 +108,11 @@ export function OppgaveListe({
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
-            <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent" sortable={true}>
-              <Detail>Saksbehandler</Detail>
-            </Table.ColumnHeader>
+            {visSaksbehandler && (
+              <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent" sortable={true}>
+                <Detail>Saksbehandler</Detail>
+              </Table.ColumnHeader>
+            )}
 
             <Table.ColumnHeader scope="col" textSize="small">
               <Detail>Valg</Detail>
@@ -137,9 +143,11 @@ export function OppgaveListe({
                   <Skeleton variant="text" width={80} height={33} />
                 </Table.DataCell>
               )}
-              <Table.DataCell>
-                <Skeleton variant="text" width={20} height={33} />
-              </Table.DataCell>
+              {visSaksbehandler && (
+                <Table.DataCell>
+                  <Skeleton variant="text" width={20} height={33} />
+                </Table.DataCell>
+              )}
             </Table.Row>
           )}
 
@@ -227,7 +235,10 @@ export function OppgaveListe({
                         {<Detail>{getTilstandText(tilstand)}</Detail>}
                       </Table.DataCell>
 
-                      <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
+                      {visSaksbehandler && (
+                        <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
+                      )}
+
                       <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                     </>
                   </Table.Row>

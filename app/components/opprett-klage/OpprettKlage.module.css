@@ -1,0 +1,9 @@
+.buttonContainer {
+  display: flex;
+  gap: var(--a-spacing-2);
+  margin-top: var(--a-spacing-4);
+}
+
+.modal {
+  min-width: 400px;
+}

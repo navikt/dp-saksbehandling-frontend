@@ -1,35 +1,29 @@
 import { Suspense } from "react";
-import { Await, useLoaderData } from "react-router";
+import { Await } from "react-router";
 
 import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMelding";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { loader } from "~/routes/oppgave.$oppgaveId";
+import { hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
-export function OppgavelistePerson() {
-  const { oppgaverForPersonPromise } = useLoaderData<typeof loader>();
+interface IProps {
+  oppgaverForPersonPromise: ReturnType<typeof hentOppgaverForPerson>;
+}
 
+export function OppgavelistePerson({ oppgaverForPersonPromise }: IProps) {
   return (
     <Suspense fallback={<OppgaveListe oppgaver={[]} lasterOppgaver={true} />}>
       <Await
         resolve={oppgaverForPersonPromise}
-        errorElement={
-          <div className="card p-2">
-            <AsyncErrorMelding feilmelding="Klarte ikke hente oppgaver for person" />
-          </div>
-        }
+        errorElement={<AsyncErrorMelding feilmelding="Klarte ikke hente oppgaver for person" />}
       >
         {(oppgaverForPerson) => {
           if (oppgaverForPerson.error) {
-            return (
-              <div className="card p-2">
-                <HttpProblemAlert error={getHttpProblemAlert(oppgaverForPerson.error)} />
-              </div>
-            );
+            return <HttpProblemAlert error={getHttpProblemAlert(oppgaverForPerson.error)} />;
           }
 
-          return <OppgaveListe oppgaver={oppgaverForPerson.data} />;
+          return <OppgaveListe oppgaver={oppgaverForPerson.data} visSaksbehandler={false} />;
         }}
       </Await>
     </Suspense>
