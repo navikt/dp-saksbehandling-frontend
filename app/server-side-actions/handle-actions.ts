@@ -1,8 +1,10 @@
 import { ActionFunctionArgs } from "react-router";
 
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
+import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
+import { lagreKlageOpplysningAction } from "~/server-side-actions/lagre-klage-opplysning-action";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
@@ -15,6 +17,7 @@ import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action"
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
+import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
@@ -61,13 +64,22 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await sendTilArenaAction(request, params, formData);
 
     case "send-til-kontroll":
-      return await sendTilKontrollAction(request, params);
+      return await sendTilKontrollAction(request, params, formData);
 
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
 
     case "lagre-vurdering":
       return await lagreVurderingAction(request, formData);
+
+    case "lagre-klage-opplysning":
+      return await lagreKlageOpplysningAction(request, formData);
+
+    case "ferdigstill-klage":
+      return await ferdigstillKlageAction(request, formData);
+
+    case "trekk-klage":
+      return await trekkKlageAction(request, formData);
 
     case "oppdater-orkestrator-barn":
       return await oppdaterOrkestratorBarnAction(request, formData);

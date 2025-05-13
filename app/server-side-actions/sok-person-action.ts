@@ -17,18 +17,25 @@ export async function sokPersonAction(request: Request, formData: FormData) {
   const nyesteOppgave = data?.[0];
 
   if (nyesteOppgave) {
-    const sisteOppgaveTilstand = nyesteOppgave.tilstand;
-    let view = "se";
-    switch (sisteOppgaveTilstand) {
-      case "KLAR_TIL_BEHANDLING":
-      case "UNDER_BEHANDLING":
-        view = "behandle";
-        break;
-      case "UNDER_KONTROLL":
-        view = "kontroll";
-        break;
+    switch (nyesteOppgave.behandlingType) {
+      case "RETT_TIL_DAGPENGER":
+        if (nyesteOppgave.tilstand === "UNDER_KONTROLL") {
+          return redirect(
+            `/oppgave/${nyesteOppgave.oppgaveId}/dagpenger-rett/${nyesteOppgave.behandlingId}/kontroll`,
+          );
+        }
+        if (nyesteOppgave.tilstand === "UNDER_BEHANDLING") {
+          return redirect(
+            `/oppgave/${nyesteOppgave.oppgaveId}/dagpenger-rett/${nyesteOppgave.behandlingId}/behandle`,
+          );
+        }
+        return redirect(
+          `/oppgave/${nyesteOppgave.oppgaveId}/dagpenger-rett/${nyesteOppgave.behandlingId}/se`,
+        );
+
+      case "KLAGE":
+        return redirect(`/oppgave/${nyesteOppgave.oppgaveId}/klage/${nyesteOppgave.behandlingId}`);
     }
-    return redirect(`/oppgave/${nyesteOppgave.oppgaveId}/${view}`);
   } else {
     return validationError({ fieldErrors: { personIdent: "Fant ingen oppgaver for personen" } });
   }

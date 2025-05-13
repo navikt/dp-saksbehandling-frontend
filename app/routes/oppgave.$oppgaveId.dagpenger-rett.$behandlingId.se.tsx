@@ -1,4 +1,4 @@
-import { DocPencilIcon, PersonPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon, EnvelopeClosedIcon, PersonPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import { Outlet } from "react-router";
 
@@ -7,17 +7,19 @@ import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "~/route-styles/oppgave.module.css";
 
 export default function Oppgave() {
   const { behandlingPromise, vurderingerPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId",
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
+  const { response } = useAwaitPromise(behandlingPromise);
 
   return (
     <>
-      <OppgaveHandlinger />
+      <OppgaveHandlinger behandling={response?.data} />
       <div className={styles.behandling}>
         <div className={"card"}>
           <Tabs size="medium" defaultValue="behandling">
@@ -38,7 +40,7 @@ export default function Oppgave() {
                 <Tabs.Tab
                   value="melding-om-vedtak"
                   label="Melding om vedtak"
-                  icon={<TasklistSendIcon />}
+                  icon={<EnvelopeClosedIcon />}
                 />
               </Tabs.List>
             </div>

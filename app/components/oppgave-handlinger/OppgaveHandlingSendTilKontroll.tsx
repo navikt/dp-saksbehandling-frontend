@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
+import { action } from "~/routes/oppgave.$oppgaveId";
 import { isAlert } from "~/utils/type-guards";
 
 export function OppgaveHandlingSendTilKontroll() {

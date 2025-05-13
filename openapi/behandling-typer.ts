@@ -653,6 +653,13 @@ export interface components {
         IdentForesporsel: {
             ident: string;
         };
+        OppdaterOpplysning: {
+            verdi: string;
+            begrunnelse: string;
+        };
+        AvklaringKvittering: {
+            begrunnelse: string;
+        };
         Behandling: {
             /** Format: uuid */
             behandlingId: string;
@@ -740,6 +747,7 @@ export interface components {
             id: components["schemas"]["OpplysningsId"];
             opplysningTypeId: components["schemas"]["opplysningTypeId"];
             navn: string;
+            verdien?: components["schemas"]["Opplysningsverdi"];
             verdi: string;
             /** @enum {string} */
             status: "Hypotese" | "Faktum";
@@ -764,6 +772,96 @@ export interface components {
             synlig: boolean;
             /** @enum {string} */
             "form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+        };
+        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
+         *      */
+        Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
+        PengeVerdi: {
+            /** Format: bigdecimal */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "penger";
+        };
+        TekstVerdi: {
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "tekst" | "inntekt";
+        };
+        DatoVerdi: {
+            /** Format: date */
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "dato";
+        };
+        HeltallVerdi: {
+            /** Format: int32 */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "heltall";
+        };
+        UlidVerdi: {
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "ulid";
+        };
+        DesimaltallVerdi: {
+            /** Format: double */
+            verdi: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "desimaltall";
+        };
+        BoolskVerdi: {
+            verdi: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "boolsk";
+        };
+        PeriodeVerdi: {
+            /** Format: date */
+            fom: string;
+            /** Format: date */
+            tom: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "periode";
+        };
+        Barneliste: {
+            verdi: components["schemas"]["BarnVerdi"][];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            datatype: "barn";
+        };
+        BarnVerdi: {
+            /** Format: date */
+            "f\u00F8dselsdato": string;
+            fornavnOgMellomnavn?: string;
+            etternavn?: string;
+            statsborgerskap?: string;
+            kvalifiserer: boolean;
         };
         /** @description Kilde for opplysningen
          *      */
@@ -991,6 +1089,7 @@ export interface components {
             verdi?: number;
         };
         Utbetaling: {
+            meldeperiode: string;
             /** Format: date */
             dato: string;
             sats: number;
@@ -1066,10 +1165,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    verdi: string;
-                    begrunnelse: string;
-                };
+                "application/json": components["schemas"]["OppdaterOpplysning"];
             };
         };
         responses: {
@@ -1130,9 +1226,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": {
-                    begrunnelse: string;
-                };
+                "application/json": components["schemas"]["AvklaringKvittering"];
             };
         };
         responses: {

@@ -20,6 +20,7 @@ interface IProps {
 
 export function MeldingOmVedtak({ readOnly }: IProps) {
   const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
   if (!meldingOmVedtakPromise) {
     return (
       <Alert variant="warning" className="m-2">
@@ -67,12 +68,10 @@ export function MeldingOmVedtak({ readOnly }: IProps) {
                   readOnly={readOnly}
                 />
 
-                <div className={styles.previewContainer}>
-                  <MeldingOmVedtakPreview
-                    utvidedeBeskrivelser={utvidedeBeskrivelser}
-                    html={meldingOmVedtak.data.html}
-                  />
-                </div>
+                <MeldingOmVedtakPreview
+                  utvidedeBeskrivelser={utvidedeBeskrivelser}
+                  html={meldingOmVedtak.data.html}
+                />
               </div>
             </>
           );

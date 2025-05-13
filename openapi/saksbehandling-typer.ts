@@ -17,6 +17,7 @@ export interface paths {
                 query?: {
                     emneknagg?: string[];
                     tilstand?: components["schemas"]["OppgaveTilstand"][];
+                    behandlingType?: components["schemas"]["BehandlingType"][];
                     fom?: string;
                     tom?: string;
                     mineOppgaver?: boolean;
@@ -598,7 +599,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["OppdatertTilstand"];
+                        "application/json": components["schemas"]["TildeltOppgave"];
                     };
                 };
                 /** @description Oppgaven ble ikke funnet */
@@ -700,7 +701,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}/opplysning/{opplysningId}": {
+    "/klage/{behandlingId}/opplysning/{opplysningId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -714,7 +715,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                     opplysningId: string;
                 };
                 cookie?: never;
@@ -750,20 +751,128 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/klage/{klageId}": {
+    "/klage/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Hent klage basert på klageId */
+        get?: never;
+        /** Ferdigstill klage */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Klagen er ferdigbehandlet */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/klage/{behandlingId}/trekk": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Trekk klage */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Klagen er trukket */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/klage/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent klage basert på behandlingId til klagen */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    klageId: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -1063,6 +1172,7 @@ export interface components {
             behandlerIdent?: string;
             /** Format: date-time */
             tidspunktOpprettet: string;
+            behandlingType: components["schemas"]["BehandlingType"];
             emneknagger: string[];
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
@@ -1080,6 +1190,7 @@ export interface components {
             person: components["schemas"]["Person"];
             /** Format: date-time */
             tidspunktOpprettet: string;
+            behandlingType: components["schemas"]["BehandlingType"];
             /** Format: date */
             utsattTilDato?: string;
             journalpostIder: string[];
@@ -1095,6 +1206,8 @@ export interface components {
         Kjonn: "MANN" | "KVINNE" | "UKJENT";
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "BEHANDLES_I_ARENA";
+        /** @enum {string} */
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: string[];
@@ -1200,17 +1313,18 @@ export interface components {
              */
             datoEldsteUbehandledeOppgave?: string;
         };
-        OppdatertTilstand: {
+        TildeltOppgave: {
             nyTilstand: components["schemas"]["OppgaveTilstand"];
+            behandlingType: components["schemas"]["BehandlingType"];
         };
         Klage: {
             /** Format: uuid */
-            id: string;
+            behandlingId: string;
             saksbehandler?: components["schemas"]["Behandler"];
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfall: components["schemas"]["Utfall"];
-            meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
+            meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
         };
         TekstVerdi: {
             verdi: string;
@@ -1250,7 +1364,7 @@ export interface components {
         KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
         KlageOpplysningTekst: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1265,7 +1379,7 @@ export interface components {
         };
         KlageOpplysningBoolsk: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1280,7 +1394,7 @@ export interface components {
         };
         KlageOpplysningDato: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1296,11 +1410,11 @@ export interface components {
         };
         KlageOpplysningFlerListeValg: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             verdi?: string[];
             /**
@@ -1311,7 +1425,7 @@ export interface components {
         };
         KlageOpplysningListeValg: {
             /** Format: uuid */
-            id: string;
+            opplysningId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1329,9 +1443,9 @@ export interface components {
         KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"];
         Utfall: {
             /** @enum {string} */
-            verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS-MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
+            verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
-            tilgjeneligeUtfall: string[];
+            tilgjengeligeUtfall: string[];
         };
         MeldingOmVedtakResponse: {
             /** @description HTML for melding om vedtak */

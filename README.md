@@ -2,19 +2,26 @@
 
 ## Komme i gang
 
-Appen er basert på [Remix](https://remix.run/docs)
+Appen er basert på    ~~[Remix](https://remix.run/docs)~~ [React router Framework mode](https://reactrouter.com/home)
+
+Lag .env fil og oppdater .env med unleash token. Du finner unleash token
+her https://dagpenger-unleash-web.nav.cloud.nais.io/admin/api
+
+```
+cp .env.example .env
+```
+
+Installer NPM pakker og kjør appen
 
 ```sh
 npm install
-cp .env.example .env
-npm run generate-token
 npm run dev
 ```
 
 ## Kjøre mot dev-APIer i localhost
 
 Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og
-Env-variabelen `USE_MSW="false"` må også være satt.
+Env-variabelen `USE_MSW="false"` må også være satt. Start opp Naisdevice (den må bli grønn)
 
 For å generere nye tokens, kjør:
 
@@ -77,26 +84,10 @@ Ikke slett `.env.example` eller legg denne filen inn i `.gitignore` da det er n�
 
 Spørsmål knyttet til koden eller prosjektet kan rettes mot:
 
-- André Roaldseth, andre.roaldseth@nav.no
-
-### For NAV-ansatte
-
-Interne henvendelser kan sendes via Slack i kanalen #team-dagpenger-dev.
+- #team-dagpenger-behandling på slack
+- Sindre Sægrov, sindre.segrov@nav.no
 
 ## Vanlig oppstart av prosjektet (når alt er satt opp)
-
-1. Start opp Naisdevice (den må bli grønn)
-2. `$ git pull`
-3. `$ nvm use`
-4. `$ npm install`
-5. `$ npm run generate-token`
-6. `$ npm run dev`
-7. Gå til http://localhost:3000/
-8. Ferdig!
-
-## Potensielle errorer
-
-### Feil node versjon
 
 ```npm ERR! code EBADENGINE
 npm ERR! engine Unsupported engine

@@ -43,10 +43,12 @@ export function formatterOrkestratorOpplysningVerdi(
 }
 
 function hentLand(lankode: string): string {
-  const { orkestratorLandliste } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { orkestratorLandliste } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
 
   return (
-    orkestratorLandliste.find((land: components["schemas"]["Land"]) => land.alpha3kode === lankode)
+    orkestratorLandliste?.find((land: components["schemas"]["Land"]) => land.alpha3kode === lankode)
       ?.navn || ""
   );
 }

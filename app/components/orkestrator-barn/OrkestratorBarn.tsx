@@ -18,7 +18,14 @@ import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 export function OrkestratorBarn({ opplysningId }: { opplysningId: string }) {
-  const { orkestratorBarn } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { orkestratorBarn } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
+
+  if (!orkestratorBarn) {
+    return null;
+  }
+
   return (
     <>
       {orkestratorBarn.map(
@@ -39,7 +46,10 @@ interface IProps {
 function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
   const { response: behandlingResponse } = useAwaitPromise(behandlingPromise);
 
   // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.

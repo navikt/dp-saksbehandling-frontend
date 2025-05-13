@@ -1,21 +1,21 @@
-import { Loader } from "@navikt/ds-react";
 import classnames from "classnames";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
+import { OppgaveHandlingFerdigstillKlage } from "~/components/oppgave-handlinger/OppgaveHandlingFerdigstillKlage";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
 import { OppgaveHandlingRekjorBehandling } from "~/components/oppgave-handlinger/OppgaveHandlingRekjorBehandling";
 import { OppgaveHandlingReturnerTilSaksbehandler } from "~/components/oppgave-handlinger/OppgaveHandlingReturnerTilSaksbehandler";
 import { OppgaveHandlingSendTilArena } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilArena";
 import { OppgaveHandlingSendTilKontroll } from "~/components/oppgave-handlinger/OppgaveHandlingSendTilKontroll";
 import { OppgaveHandlingUtsett } from "~/components/oppgave-handlinger/OppgaveHandlingUtsett";
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components as behandlingComponent } from "../../../openapi/behandling-typer";
 import { components as saksbehandlingComponent } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveHandlinger.module.css";
+import { OppgaveHandlingTrekkKlage } from "./OppgaveHandlingTrekkKlage";
 
 export interface IFormValidationError {
   field: string;
@@ -29,6 +29,8 @@ export type IGyldigeOppgaveHandlinger =
   | "send-til-kontroll"
   | "fatt-vedtak"
   | "rekjor-behandling"
+  | "trekk-klage"
+  | "ferdigstill-klage"
   | "returner-til-saksbehandler";
 
 function hentGyldigeOppgaveValg(
@@ -37,44 +39,53 @@ function hentGyldigeOppgaveValg(
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
 
-  switch (oppgave.tilstand) {
-    case "UNDER_BEHANDLING":
-      handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "send-til-arena");
+  switch (oppgave.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      switch (oppgave.tilstand) {
+        case "UNDER_BEHANDLING":
+          handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "send-til-arena");
 
-      if (behandling) {
-        handlinger.push(behandling.kreverTotrinnskontroll ? "send-til-kontroll" : "fatt-vedtak");
+          if (behandling) {
+            handlinger.push(
+              behandling.kreverTotrinnskontroll ? "send-til-kontroll" : "fatt-vedtak",
+            );
+          }
+
+          return handlinger;
+        case "UNDER_KONTROLL":
+          handlinger.push("legg-tilbake", "returner-til-saksbehandler");
+
+          if (behandling) {
+            handlinger.push("fatt-vedtak");
+          }
+
+          return handlinger;
+        default:
+          return [];
       }
 
-      return handlinger;
-    case "UNDER_KONTROLL":
-      handlinger.push("legg-tilbake", "returner-til-saksbehandler");
-
-      if (behandling) {
-        handlinger.push("fatt-vedtak");
+    case "KLAGE":
+      switch (oppgave.tilstand) {
+        case "UNDER_BEHANDLING":
+          handlinger.push("legg-tilbake", "utsett", "trekk-klage", "ferdigstill-klage");
+          return handlinger;
+        default:
+          return [];
       }
-
-      return handlinger;
-    default:
-      return [];
   }
 }
 
-export function OppgaveHandlinger() {
-  const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { response, loading } = useAwaitPromise(behandlingPromise);
-  const [gyldigeOppgaveValg, setGyldigeOppgaveValg] = useState(() =>
-    hentGyldigeOppgaveValg(oppgave),
-  );
+interface IProps {
+  behandling?: behandlingComponent["schemas"]["Behandling"];
+}
 
-  useEffect(() => {
-    if (response?.data) {
-      setGyldigeOppgaveValg(() => hentGyldigeOppgaveValg(oppgave, response.data));
-    }
-  }, [response]);
+export function OppgaveHandlinger(props: IProps) {
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, props.behandling);
 
   return (
     <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
-      <KravPaaDagpenger />
+      {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && <KravPaaDagpenger />}
       <div className={styles.OppgaveHandlinger}>
         {gyldigeOppgaveValg.map((valg) => (
           <Fragment key={valg}>
@@ -84,12 +95,13 @@ export function OppgaveHandlinger() {
             {valg === "send-til-arena" && <OppgaveHandlingSendTilArena />}
             {valg === "send-til-kontroll" && <OppgaveHandlingSendTilKontroll />}
             {valg === "returner-til-saksbehandler" && <OppgaveHandlingReturnerTilSaksbehandler />}
-            {valg === "fatt-vedtak" && (
-              <OppgaveHandlingFattVedtak utfall={response?.data?.utfall} />
+            {valg === "trekk-klage" && <OppgaveHandlingTrekkKlage />}
+            {valg === "ferdigstill-klage" && <OppgaveHandlingFerdigstillKlage />}
+            {valg === "fatt-vedtak" && props.behandling && (
+              <OppgaveHandlingFattVedtak utfall={props.behandling.utfall} />
             )}
           </Fragment>
         ))}
-        {loading && <Loader size={"small"} />}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 import { Form, useLocation, useNavigation } from "react-router";
 
+import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
@@ -86,7 +87,7 @@ export function OppgaveListe({
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
-              <Detail>Oppgavetype</Detail>
+              <Detail>Behandlingstype</Detail>
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
@@ -176,7 +177,7 @@ export function OppgaveListe({
                       </Table.DataCell>
 
                       <Table.DataCell>
-                        <Detail>Søknad</Detail>
+                        <Detail>{hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}</Detail>
                       </Table.DataCell>
 
                       <Table.DataCell>
@@ -221,9 +222,11 @@ export function OppgaveListe({
                       {visPersonIdent && (
                         <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
                       )}
+
                       <Table.DataCell>
                         {<Detail>{getTilstandText(tilstand)}</Detail>}
                       </Table.DataCell>
+
                       <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
                       <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                     </>

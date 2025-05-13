@@ -22,11 +22,10 @@ interface IProps {
 
 export function Behandling({ behandlingPromise, readOnly }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
+  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
   );
-
-  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
 
   useEffect(() => {
     if (response?.data) {

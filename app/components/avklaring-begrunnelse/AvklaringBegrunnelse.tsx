@@ -1,5 +1,4 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import classnames from "classnames";
 import { type ChangeEvent, useEffect, useState } from "react";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
@@ -64,7 +63,7 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
       />
 
       {avklaring.sistEndret && (
-        <Detail className={classnames({ ["ml-6"]: readOnly })}>
+        <Detail>
           Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
         </Detail>
       )}

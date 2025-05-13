@@ -64,23 +64,32 @@ export function OppgaveListeValg({ oppgave }: IProps) {
               <Form method="post">
                 <input name="_action" value="tildel-oppgave" hidden={true} readOnly={true} />
                 <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
-                <Button variant="tertiary-neutral" size="xsmall" loading={state !== "idle"}>
-                  Behandle oppgave
-                </Button>
-              </Form>
-              <Form method="post">
-                <input name="_action" value="rekjor-behandling" hidden={true} readOnly={true} />
                 <input
                   name="behandlingId"
                   value={oppgave.behandlingId}
                   hidden={true}
                   readOnly={true}
                 />
-                <input name="ident" value={oppgave.personIdent} hidden={true} readOnly={true} />
-                <Button size="xsmall" variant="tertiary-neutral" loading={state !== "idle"}>
-                  Kjør behandling på nytt
+                <Button variant="tertiary-neutral" size="xsmall" loading={state !== "idle"}>
+                  Behandle oppgave
                 </Button>
               </Form>
+
+              {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && (
+                <Form method="post">
+                  <input name="_action" value="rekjor-behandling" hidden={true} readOnly={true} />
+                  <input
+                    name="behandlingId"
+                    value={oppgave.behandlingId}
+                    hidden={true}
+                    readOnly={true}
+                  />
+                  <input name="ident" value={oppgave.personIdent} hidden={true} readOnly={true} />
+                  <Button size="xsmall" variant="tertiary-neutral" loading={state !== "idle"}>
+                    Kjør behandling på nytt
+                  </Button>
+                </Form>
+              )}
             </>
           )}
 
@@ -88,6 +97,12 @@ export function OppgaveListeValg({ oppgave }: IProps) {
             <Form method="post">
               <input name="_action" value="tildel-oppgave" hidden={true} readOnly={true} />
               <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+              <input
+                name="behandlingId"
+                value={oppgave.behandlingId}
+                hidden={true}
+                readOnly={true}
+              />
               <Button variant="tertiary-neutral" size="xsmall" loading={state !== "idle"}>
                 Kontroller oppgave
               </Button>
@@ -96,7 +111,7 @@ export function OppgaveListeValg({ oppgave }: IProps) {
 
           {kanSeOppgave && (
             <RemixLink
-              to={`/oppgave/${oppgave.oppgaveId}/se`}
+              to={`${oppgave.behandlingType === "RETT_TIL_DAGPENGER" ? `/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${oppgave.behandlingId}/se` : `/oppgave/${oppgave.oppgaveId}/klage/${oppgave.behandlingId}`}`}
               asButtonVariant="tertiary-neutral"
               size="xsmall"
             >

@@ -5,6 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { klager } from "./data/mock-klage";
 import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
@@ -13,14 +14,14 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SAKSBEHANDLING_URL")
 
 const defaultError: components["schemas"]["HttpProblem"] = {
   type: "500",
-  title: "Default MSW feilmelding",
+  title: "MSW 500 feilmelding",
   status: 500,
   instance: "dp-saksbehandling",
 };
 
 const error404: components["schemas"]["HttpProblem"] = {
   type: "404",
-  title: "Fant ikke data",
+  title: "MSW 404 feilmelding",
   status: 404,
   instance: "dp-saksbehandling",
 };
@@ -86,12 +87,22 @@ export const mockDpSaksbehandling = [
 
     if (mockOppgave) {
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-        return response(200).json({ nyTilstand: "UNDER_BEHANDLING" });
+        return response(200).json({
+          nyTilstand: "UNDER_BEHANDLING",
+          behandlingType: mockOppgave.behandlingType,
+        });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
-        return response(200).json({ nyTilstand: "UNDER_KONTROLL" });
+        return response(200).json({
+          nyTilstand: "UNDER_KONTROLL",
+          behandlingType: mockOppgave.behandlingType,
+        });
       }
-      return response(200).json({ nyTilstand: mockOppgave.tilstand });
+
+      return response(200).json({
+        nyTilstand: mockOppgave.tilstand,
+        behandlingType: mockOppgave.behandlingType,
+      });
     }
 
     return response(404).json(error404);
@@ -208,6 +219,71 @@ export const mockDpSaksbehandling = [
     }
 
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
+  }),
+
+  // Hent en klage med behandlingId
+  http.get(`/klage/{behandlingId}`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+    if (klage) {
+      return response(200).json(klage);
+    }
+
+    return response(404).json(error404);
+  }),
+
+  // Ferdigstill en klage med behandlingId
+  http.put(`/klage/{behandlingId}/ferdigstill`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+    if (klage) {
+      return response(204).empty();
+    }
+
+    return response(404).json(error404);
+  }),
+
+  // Trekk en klage med behandlingId
+  http.put(`/klage/{behandlingId}/trekk`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+    if (klage) {
+      return response(204).empty();
+    }
+
+    return response(404).json(error404);
+  }),
+
+  // Lagre opplysning på klage
+  http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    return response(201).empty();
   }),
 
   // Hent alle oppgaver til en person

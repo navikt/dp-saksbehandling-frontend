@@ -14,12 +14,7 @@ import { OppgavelistePerson } from "~/components/oppgaveliste-person/Oppgavelist
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
-import {
-  hentOrkestratorBarn,
-  hentOrkestratorLandListe,
-} from "~/models/orkestrator-opplysning.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -36,18 +31,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandlingPromise = hentBehandling(request, oppgave.behandlingId);
-  const vurderingerPromise = hentVurderinger(request, oppgave.behandlingId);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
-
   let meldingOmVedtakPromise;
-
-  if (!oppgave?.soknadId) {
-    throw new Error("Mangler søknadId fra oppgave for å hente ut orkestrator barn");
-  }
-
-  const orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
-  const orkestratorLandliste = await hentOrkestratorLandListe(request);
 
   if (oppgave.saksbehandler) {
     meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
@@ -63,6 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
+
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -70,13 +56,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-      behandlingPromise,
-      vurderingerPromise,
       oppgaverForPersonPromise,
-      journalposterPromises,
       meldingOmVedtakPromise,
-      orkestratorBarn,
-      orkestratorLandliste,
+      journalposterPromises,
     },
     {
       headers: {

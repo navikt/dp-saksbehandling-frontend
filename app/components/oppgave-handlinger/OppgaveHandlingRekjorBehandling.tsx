@@ -4,17 +4,19 @@ import { Form, useActionData, useNavigation } from "react-router";
 
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId.se.fullfort-oppgave";
+import { action } from "~/routes/oppgave.$oppgaveId.klage.$behandlingId";
 import { isAlert } from "~/utils/type-guards";
 
 export function OppgaveHandlingRekjorBehandling() {
   const { state } = useNavigation();
-  const { oppgave, behandlingPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
   const { response } = useAwaitPromise(behandlingPromise);
   const actionData = useActionData<typeof action>();
   const modalRef = useRef<HTMLDialogElement>(null);
-
-  const [oppfrisk, setOppfrisk] = useState<string[]>([]);
+  const [opplysningerSomSkalOppfriskes, setOpplysningerSomSkalOppfriskes] = useState<string[]>([]);
 
   useEffect(() => {
     if (isAlert(actionData) && actionData.variant === "error") {
@@ -22,18 +24,16 @@ export function OppgaveHandlingRekjorBehandling() {
     }
   }, [actionData]);
 
-  const muligeOpplysninger =
+  const opplysningerSomKanOppfriskes =
     response?.data?.opplysninger
       ?.filter((opplysning) => opplysning.kanOppfriskes)
-      ?.map((opplysning) => {
-        return { label: opplysning.navn, value: opplysning.id };
-      }) ?? [];
+      ?.map((opplysning) => ({ label: opplysning.navn, value: opplysning.id })) ?? [];
 
   return (
     <>
       <Button
         size="small"
-        variant="primary"
+        variant="tertiary"
         onClick={() => modalRef.current?.showModal()}
         loading={state !== "idle"}
       >
@@ -43,24 +43,26 @@ export function OppgaveHandlingRekjorBehandling() {
       <Modal
         ref={modalRef}
         header={{ heading: "Kjør behandling på nytt" }}
-        onClose={() => setOppfrisk([])}
+        onClose={() => setOpplysningerSomSkalOppfriskes([])}
       >
         <Modal.Body>
-          <BodyLong spacing>Du kan også velge noen opplysninger som skal oppfriskes.</BodyLong>
-
-          <BodyLong>
-            <CheckboxGroup
-              legend="Opplysninger som skal oppfriskes"
-              onChange={setOppfrisk}
-              value={oppfrisk}
-            >
-              {muligeOpplysninger.map((opplysning) => (
-                <Checkbox key={opplysning.value} value={opplysning.value}>
-                  {opplysning.label}
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
-          </BodyLong>
+          {opplysningerSomKanOppfriskes.length > 0 && (
+            <>
+              <BodyLong spacing>Du kan også velge noen opplysninger som skal oppfriskes.</BodyLong>
+              <CheckboxGroup
+                size={"small"}
+                legend="Opplysninger som skal oppfriskes"
+                onChange={setOpplysningerSomSkalOppfriskes}
+                value={opplysningerSomSkalOppfriskes}
+              >
+                {opplysningerSomKanOppfriskes.map((opplysning) => (
+                  <Checkbox key={opplysning.value} value={opplysning.value}>
+                    {opplysning.label}
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
+            </>
+          )}
         </Modal.Body>
 
         <Modal.Footer>
@@ -76,7 +78,7 @@ export function OppgaveHandlingRekjorBehandling() {
             <input name="_action" value="rekjor-behandling" hidden={true} readOnly={true} />
             <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
             <input name="ident" value={oppgave.person.ident} hidden={true} readOnly={true} />
-            {oppfrisk.map((opplysning) => (
+            {opplysningerSomSkalOppfriskes.map((opplysning) => (
               <input
                 name="opplysninger"
                 key={opplysning}

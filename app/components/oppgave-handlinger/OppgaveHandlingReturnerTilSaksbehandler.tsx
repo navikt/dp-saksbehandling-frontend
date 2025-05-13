@@ -79,6 +79,7 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
               hidden={true}
               readOnly={true}
             />
+            <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
             <input name="notat" value={notat.tekst} hidden={true} readOnly={true} />
             <Button
               className="mr-2 mt-6"

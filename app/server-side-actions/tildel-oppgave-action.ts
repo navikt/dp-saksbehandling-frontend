@@ -5,9 +5,14 @@ import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 export async function tildelOppgaveAction(request: Request, formData: FormData) {
   const oppgaveId = formData.get("oppgaveId") as string;
+  const behandlingId = formData.get("behandlingId") as string;
 
   if (!oppgaveId) {
     throw new Error("Mangler oppgaveId");
+  }
+
+  if (!behandlingId) {
+    throw new Error("Mangler behandlingId");
   }
 
   const { data, error } = await tildelOppgave(request, oppgaveId);
@@ -16,12 +21,21 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     return getHttpProblemAlert(error);
   }
 
-  if (data.nyTilstand === "UNDER_BEHANDLING") {
-    return redirect(`/oppgave/${oppgaveId}/behandle`);
-  }
+  console.log(data);
 
-  if (data.nyTilstand === "UNDER_KONTROLL") {
-    return redirect(`/oppgave/${oppgaveId}/kontroll`);
+  switch (data.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      if (data.nyTilstand === "UNDER_BEHANDLING") {
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+      }
+
+      if (data.nyTilstand === "UNDER_KONTROLL") {
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/kontroll`);
+      }
+      break;
+
+    case "KLAGE":
+      return redirect(`/oppgave/${oppgaveId}/klage/${behandlingId}`);
   }
 
   throw new Error(

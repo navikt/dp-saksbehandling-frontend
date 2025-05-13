@@ -55,6 +55,64 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentKlage(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET("/klage/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentKlage(). ${response.status} - ${response.statusText}`);
+}
+
+export async function ferdigstillKlage(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
+export async function trekkKlage(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/trekk", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
+export async function lagreKlageOpplysning(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+  OppdaterKlageOpplysning: components["schemas"]["OppdaterKlageOpplysning"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/klage/{behandlingId}/opplysning/{opplysningId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId, opplysningId },
+    },
+    body: {
+      ...OppdaterKlageOpplysning,
+    },
+  });
+}
+
 export async function hentNesteOppgave(request: Request, aktivtOppgaveSok: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/neste", {
@@ -103,16 +161,6 @@ export async function utsettOppgave(
 export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak", {
-    headers: getHeaders(onBehalfOfToken),
-    params: {
-      path: { oppgaveId },
-    },
-  });
-}
-
-export async function ferdigstillOppgaveMedArenaBrev(request: Request, oppgaveId: string) {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },
