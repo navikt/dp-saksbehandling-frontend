@@ -35,6 +35,7 @@ export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps
           <Textarea
             // Denne må settes for å ikke kobles mot RVF skjema sin ID. Trengs for å få til debounced submit for input
             form={"ikke-rvf-form"}
+            size={"small"}
             label={opplysning.navn}
             readOnly={readonly}
             defaultValue={verdi}

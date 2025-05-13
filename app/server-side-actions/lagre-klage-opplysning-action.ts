@@ -9,7 +9,7 @@ import { components } from "../../openapi/saksbehandling-typer";
 export async function lagreKlageOpplysningAction(request: Request, formData: FormData) {
   const behandlingId = formData.get("behandlingId") as string;
   const opplysningId = formData.get("opplysningId") as string;
-  const verdi = formData.get("verdi") as string; //TODO Fix type for å håndtere multiselect
+  const verdi = formData.get("verdi") as string;
   const type = formData.get("datatype") as components["schemas"]["KlageOpplysningType"];
 
   invariant(behandlingId, "behandlingId er påkrevd");

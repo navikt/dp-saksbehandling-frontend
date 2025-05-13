@@ -1,4 +1,4 @@
-import { DocPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import { Fragment, useState } from "react";
 import {
@@ -13,6 +13,7 @@ import invariant from "tiny-invariant";
 
 import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
 import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -68,6 +69,11 @@ export default function Oppgave() {
               {harUtfallOpplysninger && (
                 <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
               )}
+              <Tabs.Tab
+                value="melding-om-vedtak"
+                label="Melding om vedtak"
+                icon={<EnvelopeClosedIcon />}
+              />
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
@@ -76,6 +82,10 @@ export default function Oppgave() {
 
             <Tabs.Panel value="utfall">
               <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="melding-om-vedtak">
+              <MeldingOmVedtak readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
             </Tabs.Panel>
           </Tabs>
         </div>

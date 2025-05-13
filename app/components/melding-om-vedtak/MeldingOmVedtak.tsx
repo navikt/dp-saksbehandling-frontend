@@ -19,9 +19,8 @@ interface IProps {
 }
 
 export function MeldingOmVedtak({ readOnly }: IProps) {
-  const { meldingOmVedtakPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
-  );
+  const { meldingOmVedtakPromise } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
   if (!meldingOmVedtakPromise) {
     return (
       <Alert variant="warning" className="m-2">

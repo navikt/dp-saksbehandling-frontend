@@ -2,7 +2,6 @@ import { type LoaderFunctionArgs, Outlet } from "react-router";
 import invariant from "tiny-invariant";
 
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
@@ -16,7 +15,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const vurderingerPromise = hentVurderinger(request, params.behandlingId);
   const oppgave = await hentOppgave(request, params.oppgaveId);
 
-  let meldingOmVedtakPromise;
   let orkestratorBarn;
   let orkestratorLandliste;
 
@@ -25,21 +23,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     orkestratorLandliste = await hentOrkestratorLandListe(request);
   }
 
-  if (oppgave.saksbehandler) {
-    meldingOmVedtakPromise = hentMeldingOmVedtak(request, params.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-    });
-  }
-
   return {
     behandlingPromise,
     vurderingerPromise,
-    meldingOmVedtakPromise,
     orkestratorBarn,
     orkestratorLandliste,
   };

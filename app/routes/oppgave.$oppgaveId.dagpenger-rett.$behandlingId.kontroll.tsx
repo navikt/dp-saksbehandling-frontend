@@ -1,4 +1,4 @@
-import { DocPencilIcon, PersonPencilIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import { DocPencilIcon, EnvelopeClosedIcon, PersonPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import type { ActionFunctionArgs } from "react-router";
 import { Outlet, useActionData } from "react-router";
@@ -43,7 +43,7 @@ export default function Oppgave() {
               <Tabs.Tab
                 value="melding-om-vedtak"
                 label="Melding om vedtak"
-                icon={<TasklistSendIcon />}
+                icon={<EnvelopeClosedIcon />}
               />
             </Tabs.List>
 

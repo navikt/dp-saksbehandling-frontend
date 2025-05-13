@@ -88,14 +88,6 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
     valgmuligheter: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD", "AVVIST"],
   },
   {
-    opplysningId: "vuk",
-    navn: "Vurdering av klagen",
-    type: "TEKST",
-    paakrevd: false,
-    gruppe: "KLAGESAK",
-    redigerbar: true,
-  },
-  {
     opplysningId: "hekis",
     navn: "Hvem er klager i saken?",
     type: "LISTEVALG",

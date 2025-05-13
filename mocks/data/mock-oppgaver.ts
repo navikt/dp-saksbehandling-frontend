@@ -131,7 +131,7 @@ export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] 
 export const klageOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e9999-9df8-7aa4-94a6-318fada10999",
   behandlingType: "KLAGE",
-  behandlingId: "123456789",
+  behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -146,7 +146,7 @@ export const klageOppgave: components["schemas"]["Oppgave"] = {
 export const ferdigBehandlerKlageOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e1119-9df8-7aa4-94a6-318fada10999",
   behandlingType: "KLAGE",
-  behandlingId: "123456789",
+  behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",

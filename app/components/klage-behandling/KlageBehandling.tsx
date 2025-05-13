@@ -21,59 +21,61 @@ export function KlageBehandling({ klage, readonly }: IProps) {
   );
 
   return (
-    <Table className={"tabell--subtil"} zebraStripes>
-      <Table.Body>
-        <Table.Row shadeOnHover={false}>
-          <Table.HeaderCell colSpan={2}>Klagesak</Table.HeaderCell>
-        </Table.Row>
-
-        {klageSakOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>
-              <KlageOpplysning
-                opplysning={opplysning}
-                behandlingId={klage.behandlingId}
-                readonly={readonly}
-                visningType={"horisontal"}
-              />
-            </Table.DataCell>
+    <div className={"p-2"}>
+      <Table className={"tabell--subtil"} zebraStripes>
+        <Table.Body>
+          <Table.Row shadeOnHover={false}>
+            <Table.HeaderCell colSpan={2}>Klagesak</Table.HeaderCell>
           </Table.Row>
-        ))}
 
-        <Table.Row shadeOnHover={false}>
-          <Table.HeaderCell colSpan={2}>Frist</Table.HeaderCell>
-        </Table.Row>
+          {klageSakOpplysninger.map((opplysning) => (
+            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
+              <Table.DataCell>
+                <KlageOpplysning
+                  opplysning={opplysning}
+                  behandlingId={klage.behandlingId}
+                  readonly={readonly}
+                  visningType={"horisontal"}
+                />
+              </Table.DataCell>
+            </Table.Row>
+          ))}
 
-        {fristOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>
-              <KlageOpplysning
-                opplysning={opplysning}
-                behandlingId={klage.behandlingId}
-                readonly={readonly}
-                visningType={"horisontal"}
-              />
-            </Table.DataCell>
+          <Table.Row shadeOnHover={false}>
+            <Table.HeaderCell colSpan={2}>Frist</Table.HeaderCell>
           </Table.Row>
-        ))}
 
-        <Table.Row shadeOnHover={false}>
-          <Table.HeaderCell colSpan={2}>Formkrav</Table.HeaderCell>
-        </Table.Row>
+          {fristOpplysninger.map((opplysning) => (
+            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
+              <Table.DataCell>
+                <KlageOpplysning
+                  opplysning={opplysning}
+                  behandlingId={klage.behandlingId}
+                  readonly={readonly}
+                  visningType={"horisontal"}
+                />
+              </Table.DataCell>
+            </Table.Row>
+          ))}
 
-        {formkravOpplysninger.map((opplysning) => (
-          <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-            <Table.DataCell>
-              <KlageOpplysning
-                opplysning={opplysning}
-                behandlingId={klage.behandlingId}
-                readonly={readonly}
-                visningType={"horisontal"}
-              />
-            </Table.DataCell>
+          <Table.Row shadeOnHover={false}>
+            <Table.HeaderCell colSpan={2}>Formkrav</Table.HeaderCell>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+
+          {formkravOpplysninger.map((opplysning) => (
+            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
+              <Table.DataCell>
+                <KlageOpplysning
+                  opplysning={opplysning}
+                  behandlingId={klage.behandlingId}
+                  readonly={readonly}
+                  visningType={"horisontal"}
+                />
+              </Table.DataCell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
   );
 }

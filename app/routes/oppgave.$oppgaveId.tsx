@@ -14,6 +14,7 @@ import { OppgavelistePerson } from "~/components/oppgaveliste-person/Oppgavelist
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
@@ -31,6 +32,19 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
+  let meldingOmVedtakPromise;
+
+  if (oppgave.saksbehandler) {
+    meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+      fornavn: oppgave.person.fornavn,
+      mellomnavn: oppgave.person.mellomnavn,
+      etternavn: oppgave.person.etternavn,
+      fodselsnummer: oppgave.person.ident,
+      saksbehandler: oppgave.saksbehandler,
+      beslutter: oppgave.beslutter,
+    });
+  }
+
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
@@ -43,6 +57,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       oppgaverForPersonPromise,
+      meldingOmVedtakPromise,
       journalposterPromises,
     },
     {
