@@ -1,6 +1,5 @@
 import invariant from "tiny-invariant";
 
-import { IAlert } from "~/context/alert-context";
 import { lagreKlageOpplysning } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
@@ -29,16 +28,7 @@ export async function lagreKlageOpplysningAction(request: Request, formData: For
     return getHttpProblemAlert(error);
   }
 
-  if (response.ok) {
-    const successAlert: IAlert = {
-      variant: "success",
-      title: "Opplysning lagret",
-    };
-
-    return successAlert;
-  }
-
-  throw new Error(`Uhåndtert feil i lagreKlageOpplysningAction()`);
+  return response;
 }
 
 function konverterOpplysningVerdiTilBackendVerdi(
