@@ -33,19 +33,17 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
       )}
 
       {opplysning.redigerbar && (
-        <>
-          <DatePicker {...datepickerProps}>
-            <DatePicker.Input
-              size="small"
-              label={opplysning.navn}
-              {...inputProps}
-              form={field.getInputProps().form}
-              name={field.getInputProps().name}
-              error={field.error()}
-              readOnly={readonly}
-            />
-          </DatePicker>
-        </>
+        <DatePicker {...datepickerProps}>
+          <DatePicker.Input
+            size="small"
+            label={opplysning.navn}
+            {...inputProps}
+            form={field.getInputProps().form}
+            name={field.getInputProps().name}
+            error={field.error()}
+            readOnly={readonly}
+          />
+        </DatePicker>
       )}
     </>
   );
