@@ -1,4 +1,4 @@
-import { MenuElipsisHorizontalIcon } from "@navikt/aksel-icons";
+import { MenuElipsisHorizontalCircleIcon } from "@navikt/aksel-icons";
 import { Button, Popover } from "@navikt/ds-react";
 import { useRef, useState } from "react";
 import { Form, useNavigation } from "react-router";
@@ -44,10 +44,10 @@ export function OppgaveListeValg({ oppgave }: IProps) {
       <Button
         ref={buttonRef}
         size="small"
-        variant="tertiary-neutral"
+        variant="tertiary"
         onClick={() => setOpenState(!openState)}
         aria-expanded={openState}
-        icon={<MenuElipsisHorizontalIcon />}
+        icon={<MenuElipsisHorizontalCircleIcon />}
       />
       <Popover
         className={styles.popover}

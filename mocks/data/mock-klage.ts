@@ -4,14 +4,17 @@ import { mockMeldingOmVedtakInnvilgelse } from "./mock-melding-om-vedtak";
 const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
     opplysningId: "hkg",
+    opplysningNavnId: "test",
     navn: "Hva klagen gjelder",
     type: "TEKST",
     paakrevd: false,
     gruppe: "KLAGESAK",
+    valgmuligheter: [],
     redigerbar: true,
   },
   {
     opplysningId: "vkg",
+    opplysningNavnId: "test",
     navn: "Vedtak klagen gjelder",
     type: "LISTEVALG",
     paakrevd: true,
@@ -21,8 +24,10 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
   {
     opplysningId: "ffk",
+    opplysningNavnId: "test",
     navn: "Frist for klage",
     type: "DATO",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FRIST",
     verdi: "2025-01-23",
@@ -30,48 +35,60 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
   {
     opplysningId: "km",
+    opplysningNavnId: "test",
     navn: "Klage mottatt",
     type: "DATO",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FRIST",
     redigerbar: true,
   },
   {
     opplysningId: "hkkif",
+    opplysningNavnId: "test",
     navn: "Har klager klaget innen fristen?",
     type: "BOOLSK",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FRIST",
     redigerbar: true,
   },
   {
     opplysningId: "eks",
+    opplysningNavnId: "test",
     navn: "Er klagen skriftlig?",
     type: "BOOLSK",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FORMKRAV",
     redigerbar: true,
   },
   {
     opplysningId: "eku",
+    opplysningNavnId: "test",
     navn: "Er klagen underskrevet?",
     type: "BOOLSK",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FORMKRAV",
     redigerbar: true,
   },
   {
     opplysningId: "nkdesk",
+    opplysningNavnId: "test",
     navn: "Nevner klagen den endring som krevet?",
     type: "BOOLSK",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FORMKRAV",
     redigerbar: true,
   },
   {
     opplysningId: "hkrk",
+    opplysningNavnId: "test",
     navn: "Har klager rettslig klageinteresse",
     type: "BOOLSK",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "FORMKRAV",
     redigerbar: true,
@@ -80,6 +97,7 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
 const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
     opplysningId: "ufa",
+    opplysningNavnId: "test",
     navn: "Utfall",
     type: "LISTEVALG",
     paakrevd: true,
@@ -89,6 +107,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
   {
     opplysningId: "hekis",
+    opplysningNavnId: "test",
     navn: "Hvem er klager i saken?",
     type: "LISTEVALG",
     paakrevd: true,
@@ -98,6 +117,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
   {
     opplysningId: "hhgk",
+    opplysningNavnId: "test",
     navn: "Hvilke hjemler gjelder klagen?",
     type: "FLER_LISTEVALG",
     valgmuligheter: ["Hjemmel 1", "Hjemmel 2"],
@@ -107,8 +127,10 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
   {
     opplysningId: "imtk",
+    opplysningNavnId: "test",
     navn: "Intern melding til klageinstans",
     type: "TEKST",
+    valgmuligheter: [],
     paakrevd: true,
     gruppe: "KLAGE_ANKE",
     redigerbar: true,
@@ -116,7 +138,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
 ];
 
 export const klage: components["schemas"]["Klage"] = {
-  behandlingId: "123456789",
+  behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
   utfall: {
     verdi: "OPPRETTHOLDELSE",
     tilgjengeligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],

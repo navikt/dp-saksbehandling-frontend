@@ -6,7 +6,12 @@ import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
 import { klager } from "./data/mock-klage";
-import { mockListeOppgaver, mockOppgaver } from "./data/mock-oppgaver";
+import {
+  klageOppgave,
+  konverterOppgaveTilListeOppgave,
+  mockListeOppgaver,
+  mockOppgaver,
+} from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
 const apiError = false;
@@ -19,12 +24,14 @@ const defaultError: components["schemas"]["HttpProblem"] = {
   instance: "dp-saksbehandling",
 };
 
-const error404: components["schemas"]["HttpProblem"] = {
-  type: "404",
-  title: "MSW 404 feilmelding",
-  status: 404,
-  instance: "dp-saksbehandling",
-};
+function get404Error(apiKall: string): components["schemas"]["HttpProblem"] {
+  return {
+    type: "404",
+    title: `MSW 404 feilmelding for ${apiKall}`,
+    status: 404,
+    instance: "dp-saksbehandling",
+  };
+}
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
@@ -70,7 +77,7 @@ export const mockDpSaksbehandling = [
       return response(200).json(mockOppgave);
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/oppgave/{oppgaveId}"));
   }),
 
   // Tildel en oppgave med oppgaveId
@@ -105,7 +112,7 @@ export const mockDpSaksbehandling = [
       });
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/oppgave/{oppgaveId}/tildel"));
   }),
 
   // Legg oppgave med oppgaveId tilbake i køen
@@ -124,7 +131,7 @@ export const mockDpSaksbehandling = [
       return response(204).empty();
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("oppgave/{oppgaveId}/legg-tilbake"));
   }),
 
   // Ferdigstille oppgave med melding om vedtak generert i Arena.
@@ -170,7 +177,7 @@ export const mockDpSaksbehandling = [
       return response(200).empty();
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/oppgave/{oppgaveId}/utsett"));
   }),
 
   // Send oppgave til kontroll
@@ -237,7 +244,19 @@ export const mockDpSaksbehandling = [
       return response(200).json(klage);
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/klage/{behandlingId}"));
+  }),
+
+  // Opprett en klage
+  http.post(`/klage/opprett`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(konverterOppgaveTilListeOppgave(klageOppgave));
   }),
 
   // Ferdigstill en klage med behandlingId
@@ -256,7 +275,7 @@ export const mockDpSaksbehandling = [
       return response(204).empty();
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/klage/{behandlingId}/ferdigstill"));
   }),
 
   // Trekk en klage med behandlingId
@@ -275,7 +294,7 @@ export const mockDpSaksbehandling = [
       return response(204).empty();
     }
 
-    return response(404).json(error404);
+    return response(404).json(get404Error("/klage/{behandlingId}/trekk"));
   }),
 
   // Lagre opplysning på klage
