@@ -23,7 +23,13 @@ export function OppgavelistePerson({ oppgaverForPersonPromise }: IProps) {
             return <HttpProblemAlert error={getHttpProblemAlert(oppgaverForPerson.error)} />;
           }
 
-          return <OppgaveListe oppgaver={oppgaverForPerson.data} visSaksbehandler={false} />;
+          return (
+            <OppgaveListe
+              tittel={"Alle oppgaver"}
+              oppgaver={oppgaverForPerson.data}
+              totaltAntallOppgaver={oppgaverForPerson.data.length}
+            />
+          );
         }}
       </Await>
     </Suspense>

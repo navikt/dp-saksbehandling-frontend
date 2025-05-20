@@ -1,11 +1,11 @@
-import { Button, Detail, Skeleton, Table, Tag } from "@navikt/ds-react";
+import { LayersIcon } from "@navikt/aksel-icons";
+import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
 import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
-import { Form, useLocation, useNavigation } from "react-router";
 
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
+import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
 import { formaterNorskDato } from "~/utils/dato.utils";
 
@@ -14,28 +14,21 @@ import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: components["schemas"]["OppgaveOversikt"][];
+  tittel?: string;
   totaltAntallOppgaver?: number;
   sorterbar?: boolean;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
-  visSaksbehandler?: boolean;
-  visAntallOppgaver?: boolean;
-  visNesteOppgaveKnapp?: boolean;
 }
 
 export function OppgaveListe({
   oppgaver,
+  tittel,
   totaltAntallOppgaver,
-  visNesteOppgaveKnapp,
-  visAntallOppgaver,
   sorterbar,
   lasterOppgaver,
   visPersonIdent,
-  visSaksbehandler,
 }: IProps) {
-  const { state } = useNavigation();
-  const location = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
   const { sortedData, handleSort, sortState } = useTableSort<
     components["schemas"]["OppgaveOversikt"]
   >(oppgaver, {
@@ -44,37 +37,22 @@ export function OppgaveListe({
   });
 
   return (
-    <>
-      {(visNesteOppgaveKnapp || visAntallOppgaver) && (
-        <div className={styles.oppgaveListeInfo}>
-          {visNesteOppgaveKnapp && (
-            <Form method="post" className={styles.nesteKnapp}>
-              <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
-              <input
-                name="aktivtOppgaveSok"
-                value={aktivtOppgaveSok}
-                hidden={true}
-                readOnly={true}
-              />
-              <Button
-                variant="primary"
-                size="small"
-                loading={state !== "idle"}
-                disabled={state !== "idle"}
-              >
-                Neste oppgave
-              </Button>
-            </Form>
-          )}
+    <div className="p-4 flex flex-col">
+      <div className={styles.oppgavelisteHeader}>
+        {tittel && (
+          <Heading size={"xsmall"} spacing className={styles.heading}>
+            <LayersIcon fontSize="1.5rem" />
+            {tittel}
+          </Heading>
+        )}
 
-          {visAntallOppgaver && (
-            <Detail textColor="subtle" className={styles.antallOppgaver}>
-              {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
-              {lasterOppgaver && "Laster oppgaver..."}
-            </Detail>
-          )}
-        </div>
-      )}
+        {totaltAntallOppgaver && (
+          <Detail textColor="subtle" className={styles.antallOppgaver}>
+            {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
+            {lasterOppgaver && "Laster oppgaver..."}
+          </Detail>
+        )}
+      </div>
 
       <Table
         sort={sorterbar ? sortState : undefined}
@@ -108,11 +86,9 @@ export function OppgaveListe({
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
-            {visSaksbehandler && (
-              <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent" sortable={true}>
-                <Detail>Saksbehandler</Detail>
-              </Table.ColumnHeader>
-            )}
+            <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent">
+              <Detail>Saksbehandler</Detail>
+            </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col" textSize="small">
               <Detail>Valg</Detail>
@@ -143,11 +119,10 @@ export function OppgaveListe({
                   <Skeleton variant="text" width={80} height={33} />
                 </Table.DataCell>
               )}
-              {visSaksbehandler && (
-                <Table.DataCell>
-                  <Skeleton variant="text" width={20} height={33} />
-                </Table.DataCell>
-              )}
+
+              <Table.DataCell>
+                <Skeleton variant="text" width={20} height={33} />
+              </Table.DataCell>
             </Table.Row>
           )}
 
@@ -163,84 +138,66 @@ export function OppgaveListe({
 
               {sortedData?.map((oppgave) => {
                 const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
-                const erValgtOppgave = location.pathname.includes(oppgave.oppgaveId);
                 const dagerIgjenTilUtsattDato = utsattTilDato
                   ? differenceInCalendarDays(utsattTilDato, new Date())
                   : undefined;
 
                 return (
-                  <Table.Row
-                    key={oppgave.oppgaveId}
-                    className={classnames({
-                      [styles.valgtOppgaveBackground]: erValgtOppgave,
-                    })}
-                  >
-                    <>
-                      <Table.DataCell
-                        className={classnames({
-                          [styles.valgtOppgaveBorder]: erValgtOppgave,
-                        })}
-                      >
-                        <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
-                      </Table.DataCell>
+                  <Table.Row key={oppgave.oppgaveId}>
+                    <Table.DataCell>
+                      <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
+                    </Table.DataCell>
 
-                      <Table.DataCell>
-                        <Detail>{hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}</Detail>
-                      </Table.DataCell>
+                    <Table.DataCell>
+                      <Detail>{hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}</Detail>
+                    </Table.DataCell>
 
-                      <Table.DataCell>
-                        <>
-                          {emneknagger.map((emneknagg) => (
-                            <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
-                              <Detail>{emneknagg}</Detail>
-                            </Tag>
-                          ))}
+                    <Table.DataCell>
+                      {emneknagger.map((emneknagg) => (
+                        <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
+                          <Detail>{emneknagg}</Detail>
+                        </Tag>
+                      ))}
 
-                          {utsattTilDato && (
-                            <Tag className="mr-2" size={"xsmall"} variant="warning">
-                              <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                            </Tag>
-                          )}
-
-                          {oppgave.skjermesSomEgneAnsatte && (
-                            <Tag className="mr-2" size={"xsmall"} variant="error">
-                              <Detail>Egne ansatte</Detail>
-                            </Tag>
-                          )}
-                          {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
-                            <Tag className="mr-2" size={"xsmall"} variant="error">
-                              <Detail>Fortrolig</Detail>
-                            </Tag>
-                          )}
-
-                          {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
-                            <Tag className="mr-2" size={"xsmall"} variant="error">
-                              <Detail>Strengt fortrolig</Detail>
-                            </Tag>
-                          )}
-
-                          {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
-                            <Tag className="mr-2" size={"xsmall"} variant="error">
-                              <Detail>Strengt fortrolig utland</Detail>
-                            </Tag>
-                          )}
-                        </>
-                      </Table.DataCell>
-
-                      {visPersonIdent && (
-                        <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
+                      {utsattTilDato && (
+                        <Tag className="mr-2" size={"xsmall"} variant="warning">
+                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                        </Tag>
                       )}
 
-                      <Table.DataCell>
-                        {<Detail>{getTilstandText(tilstand)}</Detail>}
-                      </Table.DataCell>
-
-                      {visSaksbehandler && (
-                        <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
+                      {oppgave.skjermesSomEgneAnsatte && (
+                        <Tag className="mr-2" size={"xsmall"} variant="error">
+                          <Detail>Egne ansatte</Detail>
+                        </Tag>
+                      )}
+                      {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
+                        <Tag className="mr-2" size={"xsmall"} variant="error">
+                          <Detail>Fortrolig</Detail>
+                        </Tag>
                       )}
 
-                      <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
-                    </>
+                      {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
+                        <Tag className="mr-2" size={"xsmall"} variant="error">
+                          <Detail>Strengt fortrolig</Detail>
+                        </Tag>
+                      )}
+
+                      {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
+                        <Tag className="mr-2" size={"xsmall"} variant="error">
+                          <Detail>Strengt fortrolig utland</Detail>
+                        </Tag>
+                      )}
+                    </Table.DataCell>
+
+                    {visPersonIdent && (
+                      <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
+                    )}
+
+                    <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
+
+                    <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
+
+                    <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
                   </Table.Row>
                 );
               })}
@@ -248,7 +205,11 @@ export function OppgaveListe({
           )}
         </Table.Body>
       </Table>
-    </>
+
+      {totaltAntallOppgaver && (
+        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
+      )}
+    </div>
   );
 }
 

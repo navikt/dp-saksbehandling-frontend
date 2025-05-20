@@ -1,51 +1,26 @@
-.oppgaveListeInfo {
+.oppgavelisteHeader {
   display: flex;
+  justify-content: space-between;
 }
 
-.nesteKnapp {
-  margin-bottom: var(--a-spacing-2);
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-1);
 }
 
 .antallOppgaver.antallOppgaver {
   margin-left: auto;
-  align-self: flex-end;
   margin-right: var(--a-spacing-2);
-  margin-bottom: var(--a-spacing-2);
 }
 
 .oppgaveListe {
-  box-shadow: var(--a-shadow-xsmall);
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: var(--a-border-radius-medium);
-}
-
-.oppgaveListe .valgtOppgaveBackground.valgtOppgaveBackground {
-  background-color: var(--a-blue-50);
-}
-
-.valgtOppgaveBorder {
-  border-left: 4px solid var(--a-border-action-selected);
-  border-top-left-radius: var(--a-border-radius-small);
-  border-bottom-left-radius: var(--a-border-radius-small);
 }
 
 .oppgaveListe.oppgaveListe th {
-  border-bottom: 0;
-  padding: var(--a-spacing-2);
-  background-color: #f6f8fd;
-}
-
-.oppgaveListe.oppgaveListe th button {
-  color: var(--a-text-default);
-}
-
-.oppgaveListe th:first-child {
-  border-top-left-radius: var(--a-border-radius-medium);
-}
-
-.oppgaveListe th:last-child {
-  border-top-right-radius: var(--a-border-radius-medium);
+  border-bottom: 1px solid var(--a-border-subtle);
 }
 
 .oppgaveListe tr:nth-child(even) {
@@ -54,14 +29,6 @@
 
 .oppgaveListe tr:nth-child(odd) {
   background-color: #ffffff;
-}
-
-.oppgaveListe tr:last-child td:first-child {
-  border-bottom-left-radius: var(--a-border-radius-medium);
-}
-
-.oppgaveListe tr:last-child td:last-child {
-  border-bottom-right-radius: var(--a-border-radius-medium);
 }
 
 .oppgaveListe td {

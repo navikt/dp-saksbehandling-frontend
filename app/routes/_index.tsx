@@ -1,5 +1,5 @@
 import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { Button, Tabs } from "@navikt/ds-react";
 import { useEffect } from "react";
 import {
   ActionFunctionArgs,
@@ -18,7 +18,6 @@ import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilte
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -77,6 +76,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const { state } = useNavigation();
   const [searchParams] = useSearchParams();
+  const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   const { alert, oppgaver, statistikk, totaltAntallOppgaver } = useLoaderData<typeof loader>();
   const { setAktivtOppgaveSok } = useSaksbehandler();
@@ -118,14 +118,28 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe
-          oppgaver={oppgaver}
-          totaltAntallOppgaver={totaltAntallOppgaver}
-          visNesteOppgaveKnapp={true}
-          visAntallOppgaver={true}
-          lasterOppgaver={state !== "idle"}
-        />
-        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
+        <form method="post" className={"mb-2"}>
+          <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
+          <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
+          <Button
+            variant="primary"
+            size="small"
+            type="submit"
+            loading={state !== "idle"}
+            disabled={state !== "idle"}
+          >
+            Neste oppgave
+          </Button>
+        </form>
+
+        <div className={"card"}>
+          <OppgaveListe
+            tittel={"Oppgaver til behandling"}
+            oppgaver={oppgaver}
+            totaltAntallOppgaver={totaltAntallOppgaver}
+            lasterOppgaver={state !== "idle"}
+          />
+        </div>
       </main>
     </div>
   );

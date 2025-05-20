@@ -3,6 +3,18 @@ body {
   min-height: calc(100vh);
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
 .p-2 {
   padding: var(--a-spacing-2);
 }
@@ -29,6 +41,10 @@ body {
 
 .my-4 {
   margin: var(--a-spacing-4) 0;
+}
+
+.mb-2 {
+  margin-bottom: var(--a-spacing-2);
 }
 
 .mb-6 {
