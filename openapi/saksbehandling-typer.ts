@@ -701,6 +701,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/klage/opprett": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Oppretter en klage */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["OpprettKlage"];
+                };
+            };
+            responses: {
+                /** @description Vellykket oppretting av klageOppgave */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OppgaveOversikt"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/klage/{behandlingId}/opplysning/{opplysningId}": {
         parameters: {
             query?: never;
@@ -915,6 +964,102 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Hent personinformasjon basert på ident */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["PersonIdent"];
+                };
+            };
+            responses: {
+                /** @description Vellykket respons med personinformasjon */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Person"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/person/{personId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent personinformasjon basert på UUID */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    personId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med personinformasjon */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Person"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/oppgaver": {
         parameters: {
             query?: never;
@@ -973,7 +1118,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Sjeker om det søknaden er sett på av saksbehandler og ikke sendt til Arena */
+        /** Sjekker om søknaden er sett på av saksbehandler og ikke sendt til Arena */
         post: {
             parameters: {
                 query?: never;
@@ -1147,6 +1292,8 @@ export interface components {
     schemas: {
         Person: {
             ident: string;
+            /** Format: uuid */
+            id: string;
             fornavn: string;
             etternavn: string;
             mellomnavn?: string;
@@ -1324,7 +1471,6 @@ export interface components {
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfall: components["schemas"]["Utfall"];
-            meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
         };
         TekstVerdi: {
             verdi: string;
@@ -1359,16 +1505,24 @@ export interface components {
              */
             type: "FLER_LISTEVALG";
         };
+        OpprettKlage: {
+            /** Format: date-time */
+            opprettet: string;
+            journalpostId: string;
+            sakId: string;
+            personIdent: components["schemas"]["PersonIdent"];
+        };
         OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"];
         /** @enum {string} */
         KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
         KlageOpplysningTekst: {
             /** Format: uuid */
             opplysningId: string;
+            opplysningNavnId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             verdi?: string;
             /**
@@ -1380,10 +1534,11 @@ export interface components {
         KlageOpplysningBoolsk: {
             /** Format: uuid */
             opplysningId: string;
+            opplysningNavnId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             verdi?: boolean;
             /**
@@ -1395,10 +1550,11 @@ export interface components {
         KlageOpplysningDato: {
             /** Format: uuid */
             opplysningId: string;
+            opplysningNavnId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             /** Format: date */
             verdi?: string;
@@ -1411,6 +1567,7 @@ export interface components {
         KlageOpplysningFlerListeValg: {
             /** Format: uuid */
             opplysningId: string;
+            opplysningNavnId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
@@ -1426,10 +1583,11 @@ export interface components {
         KlageOpplysningListeValg: {
             /** Format: uuid */
             opplysningId: string;
+            opplysningNavnId: string;
             navn: string;
             paakrevd: boolean;
             gruppe: components["schemas"]["KlageGruppe"];
-            valgmuligheter?: string[];
+            valgmuligheter: string[];
             redigerbar: boolean;
             verdi?: string;
             /**
@@ -1446,18 +1604,6 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
-        };
-        MeldingOmVedtakResponse: {
-            /** @description HTML for melding om vedtak */
-            html: string;
-            utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
-        };
-        UtvidetBeskrivelse: {
-            brevblokkId: string;
-            tekst: string;
-            /** Format: date-time */
-            sistEndretTidspunkt?: string;
-            tittel: string;
         };
         HttpProblem: {
             type: string;

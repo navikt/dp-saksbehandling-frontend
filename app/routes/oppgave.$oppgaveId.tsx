@@ -42,6 +42,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       fodselsnummer: oppgave.person.ident,
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
+      behandlingstype: oppgave.behandlingType,
     });
   }
 

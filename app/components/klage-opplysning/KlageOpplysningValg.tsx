@@ -27,7 +27,6 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
           error={field.error()}
           readOnly={readonly}
         >
-          {/*// @ts-expect-error TODO Fix type i backend */}
           {opplysning.valgmuligheter.map((valg) => (
             <Radio key={valg} value={valg}>
               {konverterValgmulighetEnumTilVisningVerdi(valg)}

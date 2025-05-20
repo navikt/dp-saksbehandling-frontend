@@ -40,6 +40,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person/behandling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Opprett ny behandling for en person */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["NyBehandling"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Behandling"];
+                    };
+                };
+                /** @description Feil ved oppretting av behandling */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/behandling": {
         parameters: {
             query?: never;
@@ -653,6 +702,13 @@ export interface components {
         IdentForesporsel: {
             ident: string;
         };
+        NyBehandling: {
+            ident: string;
+            hendelse?: components["schemas"]["Hendelse"];
+            /** Format: date */
+            "pr\u00F8vingsdato"?: string;
+            begrunnelse?: string;
+        };
         OppdaterOpplysning: {
             verdi: string;
             begrunnelse: string;
@@ -1076,6 +1132,8 @@ export interface components {
             status: "Oppfylt" | "IkkeOppfylt";
             /** Format: date-time */
             vurderingstidspunkt: string;
+            /** Format: uuid */
+            id: string;
         };
         Barn: {
             /** Format: date */
@@ -1104,7 +1162,7 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort";
+            type: "Søknad" | "Meldekort" | "Manuell";
         };
     };
     responses: never;
