@@ -1,13 +1,25 @@
-import { data, LoaderFunctionArgs, useLoaderData } from "react-router";
+import {
+  ActionFunctionArgs,
+  data,
+  LoaderFunctionArgs,
+  useActionData,
+  useLoaderData,
+} from "react-router";
 import invariant from "tiny-invariant";
 
 import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
 import { OpprettKlage } from "~/components/opprett-klage/OpprettKlage";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
+import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
@@ -34,6 +46,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgaverForPersonPromise, alert } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   return (
