@@ -15,6 +15,14 @@ body {
   align-self: flex-end;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: var(--a-spacing-2);
+}
+
 .p-2 {
   padding: var(--a-spacing-2);
 }

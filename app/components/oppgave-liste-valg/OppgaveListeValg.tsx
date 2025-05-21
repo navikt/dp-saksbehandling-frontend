@@ -48,6 +48,7 @@ export function OppgaveListeValg({ oppgave }: IProps) {
         onClick={() => setOpenState(!openState)}
         aria-expanded={openState}
         icon={<MenuElipsisHorizontalCircleIcon />}
+        title={"Valg"}
       />
       <Popover
         className={styles.popover}

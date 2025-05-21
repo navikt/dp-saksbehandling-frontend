@@ -54,7 +54,7 @@ export function PersonBoks({ person, oppgave }: IProps) {
 
         <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
           Personnummer:{" "}
-          <RemixLink to={`/person/${oppgave.oppgaveId}`}>
+          <RemixLink to={`/person/${oppgave.oppgaveId}/oversikt`}>
             {skjulSensitiveOpplysninger
               ? maskerVerdi(personNummerMedMellomrom)
               : personNummerMedMellomrom}

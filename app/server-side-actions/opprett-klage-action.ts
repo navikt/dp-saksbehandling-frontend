@@ -1,44 +1,20 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { opprettKlage } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";
 
 export async function opprettKlageAction(request: Request, formData: FormData) {
-  const opprettetDato = formData.get("opprettetDato") as string;
-  const journalpostId = formData.get("journalpostId") as string;
-  const sakId = formData.get("sakId") as string;
-  const personIdent = formData.get("personIdent") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForNyKlageSkjema());
 
-  if (!opprettetDato) {
-    const error: IFormValidationError = {
-      field: "opprettetDato",
-      message: "Du må oppgi en dato",
-    };
-
-    return error;
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!journalpostId) {
-    const error: IFormValidationError = {
-      field: "journalpostId",
-      message: "Du må skrive inn en journalpost ID",
-    };
-
-    return error;
-  }
-
-  if (!sakId) {
-    const error: IFormValidationError = {
-      field: "sakId",
-      message: "Du må skrive inn en sak ID",
-    };
-
-    return error;
-  }
-
+  const { opprettetDato, journalpostId, sakId, personIdent } = validertSkjema.data;
   const klageBody: components["schemas"]["OpprettKlage"] = {
     opprettet: opprettetDato,
     journalpostId,
@@ -47,8 +23,6 @@ export async function opprettKlageAction(request: Request, formData: FormData) {
       ident: personIdent,
     },
   };
-
-  console.log(klageBody);
 
   const { data, error } = await opprettKlage(request, klageBody);
 

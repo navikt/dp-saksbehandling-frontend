@@ -141,7 +141,7 @@ export function hentValideringOrkestratorBarn() {
       fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
       etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
       fodselsdato: z.string().regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
         "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
       ),
       oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
@@ -156,16 +156,28 @@ export function hentValideringOrkestratorBarn() {
       barnetilleggFom: z
         .string()
         .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
+          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
           "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
         ),
       barnetilleggTom: z
         .string()
         .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[\\.-](0[1-9]|1[012])[\\.-](19|20|)\\d\\d$"),
+          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
           "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
         ),
       begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
     }),
   );
+}
+
+export function hentValideringForNyKlageSkjema() {
+  return z.object({
+    opprettetDato: z.string().regex(
+      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+      "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
+    ),
+    journalpostId: z.string().min(1, { message: "Du må skrive inn journalpost id" }),
+    sakId: z.string().min(1, { message: "Du må skrive inn sak id" }),
+    personIdent: z.string().min(1, { message: "Du må skrive inn personnummer" }),
+  });
 }

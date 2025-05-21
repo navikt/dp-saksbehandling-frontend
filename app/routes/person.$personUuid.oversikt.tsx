@@ -1,23 +1,13 @@
-import {
-  ActionFunctionArgs,
-  data,
-  LoaderFunctionArgs,
-  Outlet,
-  useActionData,
-  useLoaderData,
-} from "react-router";
+import { data, LoaderFunctionArgs, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
+import { OpprettKlage } from "~/components/opprett-klage/OpprettKlage";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
-import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { isAlert } from "~/utils/type-guards";
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  return await handleActions(request, params);
-}
+import styles from "../route-styles/person.module.css";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
@@ -43,16 +33,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, alert } = useLoaderData<typeof loader>();
-
-  const actionData = useActionData<typeof action>();
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const { oppgaverForPersonPromise, alert } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
 
   return (
-    <>
-      <PersonBoks person={oppgave.person} oppgave={oppgave} />
-      <Outlet />
-    </>
+    <div className={styles.container}>
+      <OpprettKlage />
+      <div className={"card"}>
+        {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+        <OppgavelistePerson oppgaverForPersonPromise={oppgaverForPersonPromise} />
+      </div>
+    </div>
   );
 }
