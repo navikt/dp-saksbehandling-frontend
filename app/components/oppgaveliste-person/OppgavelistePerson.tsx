@@ -13,7 +13,9 @@ interface IProps {
 
 export function OppgavelistePerson({ oppgaverForPersonPromise }: IProps) {
   return (
-    <Suspense fallback={<OppgaveListe oppgaver={[]} lasterOppgaver={true} />}>
+    <Suspense
+      fallback={<OppgaveListe oppgaver={[]} lasterOppgaver={true} totaltAntallOppgaver={0} />}
+    >
       <Await
         resolve={oppgaverForPersonPromise}
         errorElement={<AsyncErrorMelding feilmelding="Klarte ikke hente oppgaver for person" />}

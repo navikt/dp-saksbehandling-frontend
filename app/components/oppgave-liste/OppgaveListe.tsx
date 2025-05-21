@@ -14,8 +14,8 @@ import styles from "./OppgaveListe.module.css";
 
 interface IProps {
   oppgaver: components["schemas"]["OppgaveOversikt"][];
+  totaltAntallOppgaver: number;
   tittel?: string;
-  totaltAntallOppgaver?: number;
   sorterbar?: boolean;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
@@ -46,7 +46,7 @@ export function OppgaveListe({
           </Heading>
         )}
 
-        {totaltAntallOppgaver && (
+        {totaltAntallOppgaver > 0 && (
           <Detail textColor="subtle" className={styles.antallOppgaver}>
             {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
             {lasterOppgaver && "Laster oppgaver..."}
@@ -206,7 +206,7 @@ export function OppgaveListe({
         </Table.Body>
       </Table>
 
-      {totaltAntallOppgaver && (
+      {totaltAntallOppgaver > 0 && (
         <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
       )}
     </div>
