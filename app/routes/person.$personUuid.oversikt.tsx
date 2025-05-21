@@ -44,7 +44,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   );
 }
 
-export default function Oppgave() {
+export default function PersonOversikt() {
   const { oppgaverForPersonPromise, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);

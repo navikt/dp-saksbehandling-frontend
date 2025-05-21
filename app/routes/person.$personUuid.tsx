@@ -42,7 +42,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   );
 }
 
-export default function Oppgave() {
+export default function Person() {
   const { oppgave, alert } = useLoaderData<typeof loader>();
 
   const actionData = useActionData<typeof action>();
