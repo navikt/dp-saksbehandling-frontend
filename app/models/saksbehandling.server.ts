@@ -236,6 +236,26 @@ export async function hentPerson(request: Request, ident: string) {
   throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentPersonUuid(request: Request, personId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.GET("/person/{personId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { personId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
+}
+
 export async function hentOppgaverForPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.POST("/person/oppgaver", {

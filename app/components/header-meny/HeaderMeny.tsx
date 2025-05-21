@@ -1,4 +1,3 @@
-import { Loader } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
@@ -26,9 +25,8 @@ export function HeaderMeny({ saksbehandler }: IProps) {
   const { featureFlags, oppgaverJegHarTilBehandlingPromise } = useTypedRouteLoaderData("root");
   const { response } = useAwaitPromise(oppgaverJegHarTilBehandlingPromise);
   const { aktivtOppgaveSok } = useSaksbehandler();
-  const [antallOppgaverJegHarTilBehandling, setAntallOppgaverJegHarTilBehandling] = useState<
-    number | undefined
-  >();
+  const [antallOppgaverJegHarTilBehandling, setAntallOppgaverJegHarTilBehandling] =
+    useState<number>(0);
 
   useEffect(() => {
     if (response) {
@@ -55,8 +53,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Mine oppgaver
-          {!antallOppgaverJegHarTilBehandling && <Loader className="ml-2" size={"xsmall"} />}
-          {antallOppgaverJegHarTilBehandling && antallOppgaverJegHarTilBehandling > 0 && (
+          {antallOppgaverJegHarTilBehandling > 0 && (
             <span className={styles.antallOppgaverTilBehandling}>
               {antallOppgaverJegHarTilBehandling}
             </span>

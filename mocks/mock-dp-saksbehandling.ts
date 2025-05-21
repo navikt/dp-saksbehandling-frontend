@@ -306,8 +306,20 @@ export const mockDpSaksbehandling = [
     return response(201).empty();
   }),
 
-  // Hent person
+  // Hent person med fnr i body
   http.post(`/person`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockPerson);
+  }),
+
+  // Hent person med uuid i url
+  http.get(`/person/{personId}`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 
