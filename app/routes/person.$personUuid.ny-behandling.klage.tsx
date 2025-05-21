@@ -1,7 +1,7 @@
 import { Button, DatePicker, Heading, TextField, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
-import { ActionFunctionArgs, useActionData } from "react-router";
+import { ActionFunctionArgs, Form, useActionData } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -17,7 +17,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, alert } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { person, alert } = useTypedRouteLoaderData("routes/person.$personUuid");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -27,7 +27,7 @@ export default function Oppgave() {
     schema: hentValideringForNyKlageSkjema(),
     method: "post",
     defaultValues: {
-      personIdent: oppgave.person.ident,
+      personIdent: person.ident,
       opprettetDato: "",
       journalpostId: "",
       sakId: "",
@@ -40,9 +40,9 @@ export default function Oppgave() {
         Opprett ny klage
       </Heading>
 
-      <form method="post" {...klageForm.getFormProps()}>
+      <Form method="post" {...klageForm.getFormProps()}>
         <input name="_action" value="opprett-klage" hidden={true} readOnly={true} />
-        <input name="personident" value={oppgave.person.ident} hidden={true} readOnly={true} />
+        <input name="personIdent" value={person.ident} hidden={true} readOnly={true} />
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
@@ -52,6 +52,7 @@ export default function Oppgave() {
             error={klageForm.error("opprettetDato")}
           />
         </DatePicker>
+
         <TextField
           name="journalpostId"
           className="mt-4"
@@ -59,6 +60,7 @@ export default function Oppgave() {
           size={"small"}
           error={klageForm.error("journalpostId")}
         />
+
         <TextField
           name="sakId"
           className="mt-4"
@@ -69,7 +71,7 @@ export default function Oppgave() {
 
         <div className={"flex gap-2 mt-4"}>
           <RemixLink
-            to={`/person/${oppgave.oppgaveId}/oversikt`}
+            to={`/person/${person.id}/oversikt`}
             asButtonVariant={"secondary"}
             size={"small"}
           >
@@ -85,7 +87,7 @@ export default function Oppgave() {
             Opprett
           </Button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

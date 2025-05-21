@@ -3,7 +3,7 @@ import { Button } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { useState } from "react";
-import { useNavigation } from "react-router";
+import { Form, useNavigation } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -44,7 +44,7 @@ export function OpplysningLinje(props: IProps) {
 
   return (
     <li className={styles.linje}>
-      <form
+      <Form
         className={classnames("aksel--compact", styles.form)}
         {...opplysningForm.getFormProps()}
       >
@@ -97,7 +97,7 @@ export function OpplysningLinje(props: IProps) {
             )}
           </div>
         )}
-      </form>
+      </Form>
     </li>
   );
 }

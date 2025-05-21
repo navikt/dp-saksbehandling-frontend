@@ -1,5 +1,4 @@
 import { components } from "../../openapi/saksbehandling-typer";
-import { mockMeldingOmVedtakInnvilgelse } from "./mock-melding-om-vedtak";
 
 const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
@@ -143,7 +142,6 @@ export const klage: components["schemas"]["Klage"] = {
     verdi: "OPPRETTHOLDELSE",
     tilgjengeligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
   },
-  meldingOmVedtak: mockMeldingOmVedtakInnvilgelse,
   behandlingOpplysninger,
   utfallOpplysninger,
 };

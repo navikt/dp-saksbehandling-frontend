@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   ActionFunctionArgs,
   data,
+  Form,
   LoaderFunctionArgs,
   redirect,
   useActionData,
@@ -118,7 +119,7 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <form method="post" className={"mb-2"}>
+        <Form method="post" className={"mb-2"}>
           <input hidden={true} readOnly={true} name="_action" value="hent-neste-oppgave" />
           <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
           <Button
@@ -130,7 +131,7 @@ export default function Saksbehandling() {
           >
             Neste oppgave
           </Button>
-        </form>
+        </Form>
 
         <div className={"card"}>
           <OppgaveListe

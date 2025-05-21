@@ -11,3 +11,9 @@
 .container div > * {
   gap: 0;
 }
+
+.datepicker label {
+  color: var(--a-text-subtle);
+  font-size: var(--a-font-size-small);
+  font-weight: var(--a-font-weight-regular);
+}

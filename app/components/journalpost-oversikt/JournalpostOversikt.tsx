@@ -61,7 +61,7 @@ export function JournalpostOversikt({ journalposter }: IProps) {
       </Select>
 
       {valgtJournalpost && (
-        <List as="ul" size="small" title="Filer">
+        <List as="ul" size="small" title="Filer" className={"mt-4"}>
           {valgtJournalpost.dokumenter?.map((dokument) => (
             <List.Item key={dokument?.dokumentInfoId}>
               {dokument && (

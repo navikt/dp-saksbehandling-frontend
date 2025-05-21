@@ -13,16 +13,16 @@ import styles from "./PersonBoks.module.css";
 
 interface IProps {
   person: components["schemas"]["Person"];
-  oppgave: components["schemas"]["Oppgave"];
+  oppgave?: components["schemas"]["Oppgave"];
 }
 
 export function PersonBoks({ person, oppgave }: IProps) {
   const location = useLocation();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const utviklerinformasjon = {
-    oppgaveId: oppgave.oppgaveId,
-    behandlingId: oppgave.behandlingId,
-    saksbehandlerIdent: oppgave.saksbehandler?.ident,
+    oppgaveId: oppgave?.oppgaveId,
+    behandlingId: oppgave?.behandlingId,
+    saksbehandlerIdent: oppgave?.saksbehandler?.ident,
     urlPath: location.pathname,
   };
 
@@ -54,7 +54,7 @@ export function PersonBoks({ person, oppgave }: IProps) {
 
         <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
           Personnummer:{" "}
-          <RemixLink to={`/person/${oppgave.oppgaveId}/oversikt`}>
+          <RemixLink to={`/person/${person.id}/oversikt`}>
             {skjulSensitiveOpplysninger
               ? maskerVerdi(personNummerMedMellomrom)
               : personNummerMedMellomrom}

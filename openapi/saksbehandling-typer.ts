@@ -964,6 +964,102 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Hent personinformasjon basert på ident */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["PersonIdent"];
+                };
+            };
+            responses: {
+                /** @description Vellykket respons med personinformasjon */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Person"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/person/{personId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent personinformasjon basert på UUID */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    personId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med personinformasjon */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Person"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/oppgaver": {
         parameters: {
             query?: never;
@@ -1196,6 +1292,8 @@ export interface components {
     schemas: {
         Person: {
             ident: string;
+            /** Format: uuid */
+            id: string;
             fornavn: string;
             etternavn: string;
             mellomnavn?: string;
@@ -1373,7 +1471,6 @@ export interface components {
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfall: components["schemas"]["Utfall"];
-            meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"];
         };
         TekstVerdi: {
             verdi: string;
@@ -1507,18 +1604,6 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
-        };
-        MeldingOmVedtakResponse: {
-            /** @description HTML for melding om vedtak */
-            html: string;
-            utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
-        };
-        UtvidetBeskrivelse: {
-            brevblokkId: string;
-            tekst: string;
-            /** Format: date-time */
-            sistEndretTidspunkt?: string;
-            tittel: string;
         };
         HttpProblem: {
             type: string;

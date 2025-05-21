@@ -8,7 +8,7 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import styles from "./OpprettKlage.module.css";
 
 export function OpprettKlage() {
-  const { oppgave } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { person } = useTypedRouteLoaderData("routes/person.$personUuid");
   const [openState, setOpenState] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -40,7 +40,7 @@ export function OpprettKlage() {
             Velg behandlingstype
           </Heading>
           <BodyShort size={"small"}>
-            <RemixLink to={`/person/${oppgave.oppgaveId}/ny-behandling/klage`} size={"xsmall"}>
+            <RemixLink to={`/person/${person.id}/ny-behandling/klage`} size={"xsmall"}>
               Klage
             </RemixLink>
           </BodyShort>

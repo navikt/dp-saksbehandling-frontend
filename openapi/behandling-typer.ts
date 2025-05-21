@@ -707,6 +707,7 @@ export interface components {
             hendelse?: components["schemas"]["Hendelse"];
             /** Format: date */
             "pr\u00F8vingsdato"?: string;
+            begrunnelse?: string;
         };
         OppdaterOpplysning: {
             verdi: string;
@@ -1091,14 +1092,12 @@ export interface components {
              *         "dato": "2021-01-01",
              *         "sats": 1000,
              *         "gradertSats": 500,
-             *         "egenandel": 200,
              *         "utbetaling": 300
              *       },
              *       {
              *         "dato": "2021-01-15",
              *         "sats": 1000,
              *         "gradertSats": 500,
-             *         "egenandel": 0,
              *         "utbetaling": 500
              *       }
              *     ] */
@@ -1125,7 +1124,7 @@ export interface components {
         /** @description En tynn versjon av regeltre og data som førte til resultatet */
         Forklaring: Record<string, never>;
         Vilkaar: {
-            navn: string;
+            navn: components["schemas"]["VilkaarNavn"];
             hjemmel?: string;
             /** @enum {string} */
             status: "Oppfylt" | "IkkeOppfylt";
@@ -1161,6 +1160,8 @@ export interface components {
             /** @enum {string} */
             type: "Søknad" | "Meldekort" | "Manuell";
         };
+        /** @enum {string} */
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";
     };
     responses: never;
     parameters: never;

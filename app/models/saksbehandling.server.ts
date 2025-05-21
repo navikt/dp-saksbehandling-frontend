@@ -218,6 +218,24 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
   }
 }
 
+export async function hentPerson(request: Request, ident: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.POST("/person", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
+}
+
 export async function hentOppgaverForPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.POST("/person/oppgaver", {

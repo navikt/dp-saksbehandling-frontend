@@ -5,6 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { mockPerson } from "./data/mock-dp-sak-person";
 import { klager } from "./data/mock-klage";
 import {
   klageOppgave,
@@ -303,6 +304,18 @@ export const mockDpSaksbehandling = [
     await delay();
 
     return response(201).empty();
+  }),
+
+  // Hent person
+  http.post(`/person`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockPerson);
   }),
 
   // Hent alle oppgaver til en person

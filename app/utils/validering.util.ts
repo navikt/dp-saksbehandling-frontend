@@ -116,14 +116,12 @@ export function hentValideringForKlageOpplysning(
 }
 
 export function hentValideringForPersonIdent() {
-  return withZod(
-    z.object({
-      personIdent: z
-        .string()
-        .regex(/^\d+$/, { message: "Personnummer kan kun inneholde tall" })
-        .length(11, { message: "Personnummer må være 11 siffer" }),
-    }),
-  );
+  return z.object({
+    personIdent: z
+      .string()
+      .regex(/^\d+$/, { message: "Personnummer kan kun inneholde tall" })
+      .length(11, { message: "Personnummer må være 11 siffer" }),
+  });
 }
 
 export function hentValideringUtsettOppgave() {
