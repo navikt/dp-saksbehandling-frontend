@@ -16,7 +16,7 @@ export async function opprettKlageAction(request: Request, formData: FormData) {
 
   const { opprettetDato, journalpostId, sakId, personIdent } = validertSkjema.data;
   const [dag, maaned, aar] = opprettetDato.split(".");
-  const datoBackendFormat = `${aar}-${maaned}-${dag}`;
+  const datoBackendFormat = `${aar}-${maaned}-${dag}T00:00:00`;
 
   const klageBody: components["schemas"]["OpprettKlage"] = {
     opprettet: datoBackendFormat,
