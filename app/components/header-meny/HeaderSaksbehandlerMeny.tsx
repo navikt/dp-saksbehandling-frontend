@@ -11,7 +11,12 @@ interface IProps {
 }
 
 export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
-  const { skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger } = useSaksbehandler();
+  const {
+    skjulSensitiveOpplysninger,
+    setSkjulSensitiveOpplysninger,
+    periodisertBehandlingsView,
+    setPeriodisertBehandlingsView,
+  } = useSaksbehandler();
 
   return (
     <div className={styles.user}>
@@ -30,6 +35,15 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
                 onChange={(e) => setSkjulSensitiveOpplysninger(e.target.checked)}
               >
                 Skjul sensitive opplysninger (Best effort)
+              </Switch>
+            </Dropdown.Menu.List.Item>
+            <Dropdown.Menu.List.Item>
+              <Switch
+                checked={periodisertBehandlingsView}
+                size={"small"}
+                onChange={(e) => setPeriodisertBehandlingsView(e.target.checked)}
+              >
+                Periodisert opplysning visning (Beta)
               </Switch>
             </Dropdown.Menu.List.Item>
             <Dropdown.Menu.List.Item>

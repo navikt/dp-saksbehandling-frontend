@@ -527,57 +527,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/behandling/{behandlingId}/opplysning": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Behandlingens id */
-                behandlingId: string;
-            };
-            cookie?: never;
-        };
-        /** Hent opplysninger for en spesifikk behandling */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description Behandlingens id */
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["BehandlingOpplysninger"];
-                    };
-                };
-                /** @description Feil ved henting av opplysninger for en behandling */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/opplysning/{opplysningId}": {
         parameters: {
             query?: never;
@@ -712,6 +661,10 @@ export interface components {
         OppdaterOpplysning: {
             verdi: string;
             begrunnelse: string;
+            /** Format: date */
+            gyldigFraOgMed?: string;
+            /** Format: date */
+            gyldigTilOgMed?: string;
         };
         AvklaringKvittering: {
             begrunnelse: string;
@@ -729,6 +682,7 @@ export interface components {
             fastsettelser: components["schemas"]["Regelsett"][];
             avklaringer: components["schemas"]["Avklaring"][];
             opplysninger: components["schemas"]["Opplysning"][];
+            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
         };
         BehandlingOpplysninger: {
             /** Format: uuid */
@@ -739,6 +693,7 @@ export interface components {
             kreverTotrinnskontroll: boolean;
             aktiveAvklaringer: components["schemas"]["Avklaring"][];
             avklaringer: components["schemas"]["Avklaring"][];
+            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
         };
         SaksbehandlersVurderinger: {
             /** Format: uuid */
@@ -757,13 +712,13 @@ export interface components {
             /** @enum {string} */
             status: "Åpen" | "Avbrutt" | "Avklart";
             maskinelt: boolean;
-            begrunnelse: string | null;
+            begrunnelse?: string;
             /** Format: date-time */
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
         };
         Opplysningstype: {
-            opplysningTypeId: components["schemas"]["opplysningTypeId"];
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             behovId: string;
             navn: string;
             datatype: components["schemas"]["DataType"];
@@ -771,7 +726,7 @@ export interface components {
         /** Format: uuid */
         OpplysningsId: string;
         /** Format: uuid */
-        opplysningTypeId: string;
+        OpplysningTypeId: string;
         AvklaringKode: string;
         Regelsett: {
             /** @description Kort navn som beskriver regelsettet */
@@ -785,6 +740,7 @@ export interface components {
             /** @description Hvilke avklaringer som skal vises i dette regelsettet */
             avklaringer: components["schemas"]["Avklaring"][];
             opplysningIder: components["schemas"]["OpplysningsId"][];
+            opplysningTypeIder: components["schemas"]["OpplysningTypeId"][];
         };
         Hjemmel: {
             /** @description Lov, forskrift, eller rundskriv */
@@ -799,9 +755,15 @@ export interface components {
             navn: string;
             kortnavn: string;
         };
+        Opplysningsgruppe: {
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            datatype: components["schemas"]["DataType"];
+            opplysninger: components["schemas"]["Opplysning"][];
+        };
         Opplysning: {
             id: components["schemas"]["OpplysningsId"];
-            opplysningTypeId: components["schemas"]["opplysningTypeId"];
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             navn: string;
             verdien?: components["schemas"]["Opplysningsverdi"];
             verdi: string;

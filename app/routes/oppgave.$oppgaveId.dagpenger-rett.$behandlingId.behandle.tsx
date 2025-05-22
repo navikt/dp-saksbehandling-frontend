@@ -9,6 +9,8 @@ import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { OpplysningGruppeRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -22,6 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { aktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const { behandlingPromise, vurderingerPromise } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
@@ -69,7 +72,14 @@ export default function Oppgave() {
         </div>
 
         <div className={"card"}>
-          <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+          {aktivOpplysningsgruppe ? (
+            <OpplysningGruppeRedigering
+              opplysningGruppe={aktivOpplysningsgruppe}
+              behandlingId={oppgave.behandlingId}
+            />
+          ) : (
+            <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+          )}
         </div>
 
         <Outlet />

@@ -1,6 +1,7 @@
 import { type LoaderFunctionArgs, Outlet } from "react-router";
 import invariant from "tiny-invariant";
 
+import { DagpengerRettBehandlingProvider } from "~/context/dagpenger-rett-behandling-context";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
@@ -32,5 +33,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  return <Outlet />;
+  return (
+    <DagpengerRettBehandlingProvider>
+      <Outlet />
+    </DagpengerRettBehandlingProvider>
+  );
 }
