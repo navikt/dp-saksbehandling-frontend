@@ -1,8 +1,6 @@
 import { Pagination } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-import styles from "./OppgaveListePaginering.module.css";
-
 interface IProps {
   totaltAntallOppgaver: number;
 }
@@ -24,15 +22,14 @@ export function OppgaveListePaginering({ totaltAntallOppgaver }: IProps) {
   }
 
   return (
-    <div className={styles.container}>
-      <Pagination
-        page={searchParams.get("side") ? parseInt(searchParams.get("side") as string) : 1}
-        onPageChange={endreSide}
-        count={antallSider}
-        boundaryCount={1}
-        siblingCount={1}
-        size="xsmall"
-      />
-    </div>
+    <Pagination
+      className={"mt-2 self-end"}
+      page={searchParams.get("side") ? parseInt(searchParams.get("side") as string) : 1}
+      onPageChange={endreSide}
+      count={antallSider}
+      boundaryCount={1}
+      siblingCount={1}
+      size="xsmall"
+    />
   );
 }

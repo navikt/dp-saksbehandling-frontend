@@ -1,5 +1,6 @@
 import { Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, useEffect, useState } from "react";
+import { Form } from "react-router";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
@@ -42,7 +43,7 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
   }
 
   return (
-    <form method="post">
+    <Form method="post">
       <input hidden={true} readOnly={true} name="_action" value="lagre-vurdering" />
       <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
       <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
@@ -59,6 +60,6 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
         onBlur={handleOnBlur}
         readOnly={readOnly}
       />
-    </form>
+    </Form>
   );
 }

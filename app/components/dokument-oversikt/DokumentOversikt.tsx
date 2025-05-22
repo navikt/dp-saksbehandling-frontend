@@ -1,4 +1,3 @@
-import { Heading } from "@navikt/ds-react";
 import { Suspense } from "react";
 import { Await } from "react-router";
 
@@ -14,10 +13,6 @@ export function DokumentOversikt() {
 
   return (
     <div className={styles.dokumentContainer}>
-      <Heading size={"medium"} level={"3"}>
-        Dokumenter
-      </Heading>
-
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>
         <Await
           resolve={journalposterPromises}

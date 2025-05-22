@@ -3,7 +3,7 @@ import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classNames from "classnames";
 import { useRef } from "react";
-import { useNavigation } from "react-router";
+import { Form, useNavigation } from "react-router";
 
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -102,7 +102,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
         closeOnBackdropClick
         className={styles.modal}
       >
-        <form {...orkestratorBarnForm.getFormProps()}>
+        <Form {...orkestratorBarnForm.getFormProps()}>
           <Modal.Body>
             <div className={classNames(styles.orkestratorOpplysning)}>
               <input
@@ -150,7 +150,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
               Lagre endringer
             </Button>
           </Modal.Footer>
-        </form>
+        </Form>
       </Modal>
     </div>
   );

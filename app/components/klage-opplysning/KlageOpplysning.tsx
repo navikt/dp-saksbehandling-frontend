@@ -1,6 +1,7 @@
 import { FormScope, useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { useEffect } from "react";
+import { Form } from "react-router";
 
 import { KlageOpplysningBoolean } from "~/components/klage-opplysning/KlageOpplysningBoolean";
 import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysningDato";
@@ -45,7 +46,7 @@ export function KlageOpplysning({ opplysning, behandlingId, readonly, visningTyp
   );
 
   return (
-    <form
+    <Form
       className={classnames({
         "opplysning--compact-vertikal": visningType === "vertikal",
         "opplysning--compact-horisontal": visningType === "horisontal",
@@ -62,7 +63,7 @@ export function KlageOpplysning({ opplysning, behandlingId, readonly, visningTyp
         formScope={klageOpplysningForm.scope("verdi")}
         readonly={readonly}
       />
-    </form>
+    </Form>
   );
 }
 

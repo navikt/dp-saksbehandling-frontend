@@ -1,5 +1,6 @@
 import { Detail, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, useEffect, useState } from "react";
+import { Form } from "react-router";
 import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
@@ -46,7 +47,7 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
   if (avklaring.maskinelt) avklartAv = "av regelmotor";
   if (avklaring.avklartAv?.ident) avklartAv = `av ${avklaring.avklartAv?.ident}`;
   return (
-    <form method="post">
+    <Form method="post">
       <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
       <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
       <input name="behandling-id" value={oppgave.behandlingId} readOnly={true} hidden={true} />
@@ -67,6 +68,6 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
           Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
         </Detail>
       )}
-    </form>
+    </Form>
   );
 }

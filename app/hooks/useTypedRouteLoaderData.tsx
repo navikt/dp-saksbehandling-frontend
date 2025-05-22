@@ -4,9 +4,11 @@ import type { loader as rootLoader } from "~/root";
 import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
 import type { loader as dagpengerRettLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId";
 import type { loader as klageLoader } from "~/routes/oppgave.$oppgaveId.klage.$behandlingId";
+import type { loader as personLoader } from "~/routes/person.$personUuid";
 
 type Loaders = {
   root: typeof rootLoader;
+  "routes/person.$personUuid": typeof personLoader;
   "routes/oppgave.$oppgaveId": typeof oppgaveLoader;
   "routes/oppgave.$oppgaveId.klage.$behandlingId": typeof klageLoader;
   "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId": typeof dagpengerRettLoader;

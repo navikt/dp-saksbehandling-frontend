@@ -18,7 +18,6 @@ import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettigh
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
@@ -99,13 +98,14 @@ export default function Saksbehandling() {
       </aside>
 
       <main>
-        <OppgaveListe
-          oppgaver={oppgaver}
-          totaltAntallOppgaver={totaltAntallOppgaver}
-          visAntallOppgaver={true}
-          lasterOppgaver={state !== "idle"}
-        />
-        <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
+        <div className={"card"}>
+          <OppgaveListe
+            tittel={"Alle oppgaver"}
+            oppgaver={oppgaver}
+            totaltAntallOppgaver={totaltAntallOppgaver}
+            lasterOppgaver={state !== "idle"}
+          />
+        </div>
       </main>
     </div>
   );
