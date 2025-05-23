@@ -9,8 +9,6 @@ import styles from "./Opplysning.module.css";
 export function OpplysningBoolean({ opplysning, formScope, readonly }: IOpplysningProps) {
   const field = useField(formScope);
 
-  console.log(opplysning);
-
   return (
     <>
       {!opplysning.redigerbar && opplysning.verdi && (

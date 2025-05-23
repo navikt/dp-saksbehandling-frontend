@@ -19,9 +19,10 @@ import { components } from "../../../openapi/behandling-typer";
 interface IProps {
   behandlingId: string;
   opplysning: components["schemas"]["Opplysning"];
+  periodeNummer: number;
 }
 
-export function RedigerPeriode({ opplysning, behandlingId }: IProps) {
+export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IProps) {
   const { state } = useNavigation();
   const [ingenFomDato, setIngenFomDato] = useState<string[]>([]);
   const [ingenTomDato, setIngenTomDato] = useState<string[]>([]);
@@ -37,11 +38,13 @@ export function RedigerPeriode({ opplysning, behandlingId }: IProps) {
   });
 
   const datepickerFom = useDatepicker({
+    defaultSelected: opplysning.gyldigFraOgMed ? new Date(opplysning.gyldigFraOgMed) : undefined,
     onDateChange: (date) => {
       opplysningForm.field("gyldigFraOgMed").setValue(date?.toISOString());
     },
   });
   const datepickerTom = useDatepicker({
+    defaultSelected: opplysning.gyldigTilOgMed ? new Date(opplysning.gyldigTilOgMed) : undefined,
     onDateChange: (date) => {
       opplysningForm.field("gyldigTilOgMed").setValue(date?.toISOString());
     },
@@ -49,7 +52,7 @@ export function RedigerPeriode({ opplysning, behandlingId }: IProps) {
 
   return (
     <div className="card mt-8 p-2">
-      <Heading size={"xsmall"}>Periode X </Heading>
+      <Heading size={"xsmall"}>Periode {periodeNummer} </Heading>
       <Form {...opplysningForm.getFormProps()}>
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
         <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
