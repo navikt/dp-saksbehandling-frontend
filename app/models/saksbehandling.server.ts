@@ -97,7 +97,7 @@ export async function trekkKlage(request: Request, behandlingId: string) {
 
 export async function opprettKlage(request: Request, body: components["schemas"]["OpprettKlage"]) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.POST("/klage/opprett", {
+  return await saksbehandlerClient.POST("/klage/opprett-manuelt", {
     headers: getHeaders(onBehalfOfToken),
     body,
   });
