@@ -4,28 +4,28 @@ import { nb } from "date-fns/locale";
 /**
  * Formaterer en dato-streng til norsk datoformat.
  *
- * @param dato - En dato som streng (ISO-format, f.eks. `"2021-01-31T12:00:00"`).
+ * @param inputDato - En `Date`-instans eller en streng i (ISO-format, f.eks. `"2021-01-31T12:00:00"`).
  * @param medKlokkeslett - Om klokkeslett skal inkluderes i formatet (valgfritt).
  * @returns En dato som streng i formatet `dd.MM.yyyy` eller `dd.MM.yyyy - HH:mm:ss`.
  *
  * @throws Kaster en feil hvis dato-strengen ikke kan konverteres til en gyldig `Date`.
  */
-export function formaterTilNorskDato(dato: string, medKlokkeslett?: boolean) {
-  const parsed = new Date(dato);
+export function formaterTilNorskDato(inputDato: Date | string, medKlokkeslett?: boolean) {
+  const dato = inputDato instanceof Date ? inputDato : new Date(inputDato);
 
-  if (isNaN(parsed.getTime())) {
+  if (isNaN(dato.getTime())) {
     throw new Error("Ugyldig datoformat. Forventet ISO-streng, f.eks. '2021-01-31T12:00:00'.");
   }
 
   if (medKlokkeslett) {
     // 31.01.2021 - 12:00:00
-    return format(parsed, "dd.MM.yyyy - HH:mm:ss", {
+    return format(dato, "dd.MM.yyyy - HH:mm:ss", {
       locale: nb,
     });
   }
 
   // 31.01.2021
-  return format(parsed, "dd.MM.yyyy", {
+  return format(dato, "dd.MM.yyyy", {
     locale: nb,
   });
 }
@@ -42,7 +42,7 @@ export function formaterTilNorskDato(dato: string, medKlokkeslett?: boolean) {
 export function formaterTilBackendDato(inputDato: Date | string, medKlokkeslett?: boolean) {
   const dato = inputDato instanceof Date ? inputDato : parse(inputDato, "dd.MM.yyyy", new Date());
 
-  if (!(dato instanceof Date) || isNaN(dato.getTime())) {
+  if (isNaN(dato.getTime())) {
     throw new Error("inputDato må være en Date eller en streng i formatet 'dd.MM.yyyy'");
   }
 
