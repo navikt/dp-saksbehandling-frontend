@@ -1,4 +1,3 @@
-import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
@@ -20,7 +19,6 @@ import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
-import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
@@ -53,10 +51,8 @@ export function meta() {
 
 export function links() {
   return [
-    { rel: "stylesheet", href: navStyles },
-    { rel: "stylesheet", href: akselOverrides },
     { rel: "stylesheet", href: globalCss },
-    { rel: "stylesheet", href: meldingOmVedtakCss },
+    { rel: "stylesheet", href: akselOverrides },
     {
       rel: "icon",
       type: "image/png",
