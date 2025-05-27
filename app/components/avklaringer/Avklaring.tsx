@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -76,7 +76,7 @@ export function Avklaring({ avklaring, behandlingId, readonly }: IProps) {
 
               {avklaring.sistEndret && (
                 <Detail>
-                  Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
+                  Sist endret {formaterTilNorskDato(avklaring.sistEndret, true)} {avklartAv}
                 </Detail>
               )}
 

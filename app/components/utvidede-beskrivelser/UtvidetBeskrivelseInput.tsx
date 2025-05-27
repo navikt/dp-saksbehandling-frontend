@@ -6,7 +6,7 @@ import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.modul
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
@@ -82,7 +82,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
       {props.utvidetBeskrivelse.sistEndretTidspunkt && (
         <Detail textColor="subtle">
-          Lagret {formaterNorskDato(props.utvidetBeskrivelse.sistEndretTidspunkt, true)}
+          Lagret {formaterTilNorskDato(props.utvidetBeskrivelse.sistEndretTidspunkt, true)}
         </Detail>
       )}
     </>

@@ -7,7 +7,7 @@ import { Form, useNavigation } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { hentValideringForOpplysning } from "~/utils/validering.util";
 
@@ -102,14 +102,14 @@ export function OpplysningLinje(props: IProps) {
   );
 }
 
-export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]) {
+export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]): string {
   switch (opplysning.datatype) {
     case "penger":
       return `${formaterTallMedTusenSeperator(opplysning.verdi)} kr`;
     case "desimaltall":
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
-      return formaterNorskDato(opplysning.verdi);
+      return formaterTilNorskDato(opplysning.verdi);
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";
 

@@ -2,7 +2,7 @@ import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import { IKlageOpplysningProps } from "~/components/klage-opplysning/KlageOpplysning";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./KlageOpplysning.module.css";
@@ -20,7 +20,7 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
     inputFormat: "dd.MM.yyyy",
     onDateChange: (date) => {
       if (date) {
-        const datoNorskFormat = formaterNorskDato(date.toISOString());
+        const datoNorskFormat = formaterTilNorskDato(date.toISOString());
         field.setValue(datoNorskFormat);
       }
     },

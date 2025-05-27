@@ -2,7 +2,7 @@ import { components } from "openapi/soknad-orkestrator-typer";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-import { formaterNorskDato } from "./dato.utils";
+import { formaterTilNorskDato } from "./dato.utils";
 
 export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
   const opplysninger = [
@@ -32,7 +32,7 @@ export function formatterOrkestratorOpplysningVerdi(
       return opplysning.verdi === "true" ? "Ja" : "Nei";
 
     case "dato":
-      return formaterNorskDato(opplysning.verdi);
+      return formaterTilNorskDato(opplysning.verdi);
 
     case "land":
       return hentLand(opplysning.verdi);

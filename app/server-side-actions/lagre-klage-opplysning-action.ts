@@ -1,6 +1,7 @@
 import invariant from "tiny-invariant";
 
 import { lagreKlageOpplysning } from "~/models/saksbehandling.server";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
 import { components } from "../../openapi/saksbehandling-typer";
@@ -55,8 +56,7 @@ function konverterOpplysningVerdiTilBackendVerdi(
       };
 
     case "DATO": {
-      const [dag, maaned, aar] = verdi.split(".");
-      const backendVerdi = `${aar}-${maaned}-${dag}`;
+      const backendVerdi = formaterTilBackendDato(verdi);
       return {
         type: "DATO",
         verdi: backendVerdi,

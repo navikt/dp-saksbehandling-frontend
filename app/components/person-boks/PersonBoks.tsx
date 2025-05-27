@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -91,7 +91,7 @@ export function PersonBoks({ person, oppgave }: IProps) {
           fullWidth={true}
         >
           {tiltak.beskrivelse}
-          <Detail>Gjelder til og med {formaterNorskDato(tiltak.gyldigTom)}</Detail>
+          <Detail>Gjelder til og med {formaterTilNorskDato(tiltak.gyldigTom)}</Detail>
         </Alert>
       ))}
     </>

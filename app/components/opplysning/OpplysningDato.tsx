@@ -4,7 +4,7 @@ import { addYears, formatISO, subYears } from "date-fns";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import styles from "./Opplysning.module.css";
 
@@ -20,7 +20,7 @@ export function OpplysningDato({ opplysning, formScope, readonly }: IOpplysningP
     onDateChange: (date) => {
       if (date) {
         const datoBackendFormat = formatISO(date, { representation: "date" });
-        field.setValue(formaterNorskDato(datoBackendFormat));
+        field.setValue(formaterTilNorskDato(datoBackendFormat));
         if (datoBackendFormat !== opplysning.verdi) {
           field.setDirty(true);
         } else {

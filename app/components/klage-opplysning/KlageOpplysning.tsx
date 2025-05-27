@@ -8,7 +8,7 @@ import { KlageOpplysningDato } from "~/components/klage-opplysning/KlageOpplysni
 import { KlageOpplysningFlervalg } from "~/components/klage-opplysning/KlageOpplysningFlervalg";
 import { KlageOpplysningTekst } from "~/components/klage-opplysning/KlageOpplysningTekst";
 import { KlageOpplysningValg } from "~/components/klage-opplysning/KlageOpplysningValg";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForKlageOpplysning } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -109,7 +109,7 @@ function formaterOpplysningVerdi(opplysning: components["schemas"]["KlageOpplysn
     case "BOOLSK":
       return opplysning.verdi ? "Ja" : "Nei";
     case "DATO":
-      return formaterNorskDato(opplysning.verdi);
+      return formaterTilNorskDato(opplysning.verdi);
     case "LISTEVALG":
       return opplysning.verdi;
     case "TEKST":

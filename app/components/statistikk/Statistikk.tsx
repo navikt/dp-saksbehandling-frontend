@@ -1,7 +1,7 @@
 import { Table } from "@navikt/ds-react";
 import classnames from "classnames";
 
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { paths } from "../../../openapi/saksbehandling-typer";
 import styles from "./Statistikk.module.css";
@@ -49,7 +49,7 @@ export function Statistikk({ statistikk }: IProps) {
       {
         tittel: "Eldste oppgave",
         verdi: statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave
-          ? formaterNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave)
+          ? formaterTilNorskDato(statistikk.beholdningsinfo.datoEldsteUbehandledeOppgave)
           : "Ingen oppgaver",
       },
     ],
