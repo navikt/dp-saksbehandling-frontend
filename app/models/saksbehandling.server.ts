@@ -95,6 +95,14 @@ export async function trekkKlage(request: Request, behandlingId: string) {
   });
 }
 
+export async function opprettKlage(request: Request, body: components["schemas"]["OpprettKlage"]) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.POST("/klage/opprett-manuelt", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+  });
+}
+
 export async function lagreKlageOpplysning(
   request: Request,
   behandlingId: string,
@@ -208,6 +216,44 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
       },
     });
   }
+}
+
+export async function hentPerson(request: Request, ident: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.POST("/person", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
+}
+
+export async function hentPersonUuid(request: Request, personId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.GET("/person/{personId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { personId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
 }
 
 export async function hentOppgaverForPerson(request: Request, ident: string) {

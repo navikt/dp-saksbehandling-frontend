@@ -1,4 +1,3 @@
-import { Alert, Detail } from "@navikt/ds-react";
 import { Fragment } from "react";
 import {
   ActionFunctionArgs,
@@ -10,7 +9,6 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
-import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -20,7 +18,6 @@ import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.serv
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { formaterNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -78,22 +75,10 @@ export default function Oppgave() {
 
   return (
     <Fragment key={oppgave.oppgaveId}>
-      <PersonBoks person={oppgave.person} />
-      {oppgave.person.sikkerhetstiltak?.map((tiltak) => (
-        <Alert
-          key={tiltak.beskrivelse}
-          className={"alert--compact"}
-          variant="warning"
-          fullWidth={true}
-        >
-          {tiltak.beskrivelse}
-          <Detail>Gjelder til og med {formaterNorskDato(tiltak.gyldigTom)}</Detail>
-        </Alert>
-      ))}
+      <PersonBoks person={oppgave.person} oppgave={oppgave} />
 
       <div className={styles.oppgaveContainer}>
         <BeslutterNotatProvider notat={oppgave.notat}>
-          <OppgavelistePerson />
           <Outlet />
         </BeslutterNotatProvider>
       </div>

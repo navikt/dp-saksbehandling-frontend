@@ -1,4 +1,4 @@
-import { DatePicker, Detail, useDatepicker } from "@navikt/ds-react";
+import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
 import { useSearchParams } from "react-router";
@@ -39,14 +39,24 @@ export function OppgaveFilterDato() {
 
   return (
     <div className={styles.container}>
-      <Detail textColor="subtle">Fra</Detail>
       <DatePicker {...fraDato.datepickerProps}>
-        <DatePicker.Input label="" size="small" name="fom" {...fraDato.inputProps} />
+        <DatePicker.Input
+          className={styles.datepicker}
+          label="Fra"
+          size="small"
+          name="fom"
+          {...fraDato.inputProps}
+        />
       </DatePicker>
 
-      <Detail textColor="subtle">Til</Detail>
       <DatePicker {...tilDato.datepickerProps}>
-        <DatePicker.Input label="" size="small" name="tom" {...tilDato.inputProps} />
+        <DatePicker.Input
+          className={styles.datepicker}
+          label="Til"
+          size="small"
+          name="tom"
+          {...tilDato.inputProps}
+        />
       </DatePicker>
     </div>
   );

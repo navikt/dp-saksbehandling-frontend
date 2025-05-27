@@ -15,6 +15,7 @@ export const mockVurderinger: components["schemas"]["SaksbehandlersVurderinger"]
         tittel: "§ 4-5. Reelle arbeidssøkere",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
       },
+      opplysningTypeIder: [],
       avklaringer: [
         {
           id: "0193f543-36ec-7244-a140-e12464a771d0",
@@ -47,6 +48,7 @@ export const mockVurderinger: components["schemas"]["SaksbehandlersVurderinger"]
         tittel: "§ 4-3. Krav til tap av arbeidsinntekt og arbeidstid",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
       },
+      opplysningTypeIder: [],
       avklaringer: [],
       relevantForVedtak: true,
       status: "Info",

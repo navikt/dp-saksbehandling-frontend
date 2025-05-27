@@ -1,0 +1,6 @@
+.popover.popover {
+  border: none;
+  border-radius: var(--a-border-radius-small);
+  box-shadow: var(--a-shadow-small);
+  min-width: 234px;
+}

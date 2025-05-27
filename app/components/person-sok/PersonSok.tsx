@@ -7,29 +7,27 @@ import { hentValideringForPersonIdent } from "~/utils/validering.util";
 import styles from "./PersokSok.module.css";
 
 export function PersonSok() {
-  const validatedForm = useForm({
-    validator: hentValideringForPersonIdent(),
+  const sokPersonForm = useForm({
+    schema: hentValideringForPersonIdent(),
     method: "post",
-    validationBehaviorConfig: {
-      initial: "onSubmit",
-      whenTouched: "onSubmit",
-      whenSubmitted: "onChange",
+    defaultValues: {
+      personIdent: "",
     },
   });
 
   return (
-    <Form className={styles.sokForm} {...validatedForm.getFormProps()}>
+    <Form className={styles.sokForm} {...sokPersonForm.getFormProps()} role="search">
       <input hidden={true} readOnly={true} name="_action" value="sok-person" />
       <Search
-        {...validatedForm.getInputProps("personIdent")}
-        hideLabel={false}
+        {...sokPersonForm.getInputProps("personIdent")}
+        hideLabel={true}
         size="small"
-        label=""
+        label="Søk petter person"
         placeholder="Søk etter person"
         variant="secondary"
         clearButton
-        onBlur={() => validatedForm.clearError("personIdent")}
-        error={validatedForm.error("personIdent")}
+        onBlur={() => sokPersonForm.clearError("personIdent")}
+        error={sokPersonForm.error("personIdent")}
       />
     </Form>
   );

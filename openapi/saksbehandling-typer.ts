@@ -710,7 +710,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Oppretter en klage */
+        /** Oppretter en klage fra en applikasjon (p.t. dp-mottak) */
         post: {
             parameters: {
                 query?: never;
@@ -724,7 +724,56 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Vellykket oppretting av klageOppgave */
+                /** @description Vellykket oppretting av klage og tilhørende oppgave */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["OppgaveOversikt"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/klage/opprett-manuelt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Oppretter en klage fra saksbehandler */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["OpprettKlage"];
+                };
+            };
+            responses: {
+                /** @description Vellykket oppretting av klage og tilhørende oppgave */
                 200: {
                     headers: {
                         [name: string]: unknown;

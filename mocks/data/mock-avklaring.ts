@@ -9,7 +9,6 @@ export const andreYtelser: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const soknadstidspunktForLangtFramITid: components["schemas"]["Avklaring"] = {
@@ -21,7 +20,6 @@ export const soknadstidspunktForLangtFramITid: components["schemas"]["Avklaring"
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const virkningstidspunktForLangtFramITid: components["schemas"]["Avklaring"] = {
@@ -33,7 +31,6 @@ export const virkningstidspunktForLangtFramITid: components["schemas"]["Avklarin
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const verneplikt: components["schemas"]["Avklaring"] = {
@@ -45,7 +42,6 @@ export const verneplikt: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const tapAvArbeidstidBeregningsregel: components["schemas"]["Avklaring"] = {
@@ -58,7 +54,6 @@ export const tapAvArbeidstidBeregningsregel: components["schemas"]["Avklaring"] 
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const EOSArbeid: components["schemas"]["Avklaring"] = {
@@ -70,7 +65,6 @@ export const EOSArbeid: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const hattLukkedeSakerSiste8Uker: components["schemas"]["Avklaring"] = {
@@ -82,7 +76,6 @@ export const hattLukkedeSakerSiste8Uker: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const samordnes: components["schemas"]["Avklaring"] = {
@@ -94,7 +87,6 @@ export const samordnes: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const inntektNesteKalendermaaned: components["schemas"]["Avklaring"] = {
@@ -106,7 +98,6 @@ export const inntektNesteKalendermaaned: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const jobbetUtenforNorge: components["schemas"]["Avklaring"] = {
@@ -118,7 +109,6 @@ export const jobbetUtenforNorge: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const muligGjenopptak: components["schemas"]["Avklaring"] = {
@@ -130,7 +120,6 @@ export const muligGjenopptak: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const svangerskapsrelaterteSykepenger: components["schemas"]["Avklaring"] = {
@@ -142,7 +131,6 @@ export const svangerskapsrelaterteSykepenger: components["schemas"]["Avklaring"]
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const onskerEtterRapporteringsfrist: components["schemas"]["Avklaring"] = {
@@ -154,7 +142,6 @@ export const onskerEtterRapporteringsfrist: components["schemas"]["Avklaring"] =
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const totrinnskontroll: components["schemas"]["Avklaring"] = {
@@ -166,7 +153,6 @@ export const totrinnskontroll: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const BrukerUnder18: components["schemas"]["Avklaring"] = {
@@ -178,7 +164,6 @@ export const BrukerUnder18: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
 
 export const BarnMaaGodkjennes: components["schemas"]["Avklaring"] = {
@@ -190,5 +175,4 @@ export const BarnMaaGodkjennes: components["schemas"]["Avklaring"] = {
   status: "Åpen",
   maskinelt: false,
   sistEndret: "2021-01-02T14:27:33",
-  begrunnelse: null,
 };
