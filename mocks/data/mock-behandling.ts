@@ -10,6 +10,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
   },
   kreverTotrinnskontroll: true,
   utfall: false,
+  opplysningsgrupper: [],
   vilkår: [
     {
       navn: "Opphold",
@@ -29,7 +30,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
         {
           id: "0196afef-fed3-7c0a-a968-a4c202265192",
           kode: "Bostedsland",
-          begrunnelse: null,
           tittel: "Bruker har oppgitt bostedsland som ikke er Norge",
           beskrivelse:
             "Du må sjekke om bruker oppfyller vilkåret om opphold i Norge eller er unntatt fra vilkåret om opphold",
@@ -39,6 +39,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
           sistEndret: "2025-05-08T14:47:43.315693",
         },
       ],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afef-fe92-7ed4-a1ee-2135246609fe",
         "0196afef-fea6-7e8f-b1e8-0e98059008fd",
@@ -66,7 +67,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       avklaringer: [
         {
           id: "0196afdc-ebcc-7c6d-a87d-27194e6b0a56",
-          begrunnelse: null,
           kode: "BeregnetArbeidstid",
           tittel: "Sjekk om beregnet arbeidstid er korrekt",
           beskrivelse: "Sjekk at beregnet arbeidstid er korrekt",
@@ -76,6 +76,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
           sistEndret: "2025-05-08T14:26:53.260336",
         },
       ],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb8b-7b4c-92ec-e8ddd6c18ba9",
         "0196afdc-eb8c-7991-bbc9-ed0a5f73b969",
@@ -118,11 +119,11 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
             "Personen har inntekt som tilhører neste inntektsperiode. Vurder om det er tilstrekkelige inntekter til at utfallet vil \nendre seg i neste inntektsperiode.",
           kanKvitteres: true,
           status: "Avklart",
-          begrunnelse: null,
           maskinelt: true,
           sistEndret: "2025-05-08T14:27:01.455337",
         },
       ],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd77-79a1-94e4-6c589dbe18b6",
         "0196afdc-cd84-7c24-a9ad-710a51053b43",
@@ -155,6 +156,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb77-7b68-941e-50865d515be4",
         "0196afdc-cd7d-7e9d-93c1-cc8a7618abdf",
@@ -189,6 +191,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb77-7b68-941e-50865d515be6",
         "0196afdc-eb7a-753e-8791-ef3a3801a61b",
@@ -209,6 +212,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-f103-7a96-ad10-c2d66fd15e94",
         "0196afdc-eb8c-7991-bbc9-ed0a5f73b974",
@@ -239,6 +243,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd7d-7e9d-93c1-cc8a7618abe1",
         "0196afdc-cd7e-7fa0-8be8-a9445074b699",
@@ -260,6 +265,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd7e-7fa0-8be8-a9445074b69a",
         "0196afdc-cd7e-7fa0-8be8-a9445074b69b",
@@ -282,6 +288,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
     {
@@ -299,6 +306,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb77-7b68-941e-50865d515be5",
         "0196afdc-eb7a-753e-8791-ef3a3801a61c",
@@ -319,6 +327,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb8b-7b4c-92ec-e8ddd6c18ba7",
         "0196afdc-eb8b-7b4c-92ec-e8ddd6c18ba8",
@@ -340,6 +349,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd70-7c4e-8cd8-b2f96d36cb2a",
         "0196afdc-cd73-76c8-990e-b93107d25ed3",
@@ -364,6 +374,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: ["0196afdc-eb88-7ebd-9e4e-d1971f8ee356"],
     },
     {
@@ -382,6 +393,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-f103-7a96-ad10-c2d66fd15e9a",
         "0196afdc-f103-7a96-ad10-c2d66fd15e97",
@@ -424,6 +436,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Oppfylt",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb8c-7991-bbc9-ed0a5f73b97a",
         "0196afdc-eb93-7595-badb-7c1c1a22f397",
@@ -446,6 +459,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd70-7c4e-8cd8-b2f96d36cb27",
         "0196afdc-cd6f-7404-949c-a238d7da46ef",
@@ -470,6 +484,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-caeb-7c70-896d-2ae94d64f49f",
         "0196afdc-cd6f-7404-949c-a238d7da46ed",
@@ -492,6 +507,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-cd77-79a1-94e4-6c589dbe18b5",
         "0196afdc-cd80-779a-9380-6b443dbde562",
@@ -513,6 +529,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: ["0196afdc-ebc3-77eb-a6ab-3824aab11285"],
     },
     {
@@ -530,6 +547,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
     {
@@ -548,6 +566,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
     {
@@ -565,6 +584,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
     {
@@ -584,7 +604,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       avklaringer: [
         {
           id: "0196afdc-ebcc-7c6d-a87d-27194e6b0a4c",
-          begrunnelse: null,
           kode: "NyttGrunnbeløpForGrunnlag",
           tittel: "Grunnbeløpet for dagpengegrunnlag kan være utdatert",
           beskrivelse:
@@ -595,6 +614,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
           sistEndret: "2025-05-08T14:26:53.260319",
         },
       ],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb89-73da-9a2c-baaceb6c7b77",
         "0196afdc-eb89-73da-9a2c-baaceb6c7b76",
@@ -633,7 +653,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       avklaringer: [
         {
           id: "0196afdc-f130-7e2b-8b62-23832ac5e23a",
-          begrunnelse: null,
           kode: "BarnMåGodkjennes",
           tittel: "Sjekk hvilke barn som skal gi barnetillegg",
           beskrivelse: "Barn må godkjennes om de skal gi barnetillegg",
@@ -643,6 +662,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
           sistEndret: "2025-05-08T14:26:54.640513",
         },
       ],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-f103-7a96-ad10-c2d66fd15e93",
         "0196afdc-f106-7c74-8ec1-67231abc4162",
@@ -677,6 +697,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
     {
@@ -694,6 +715,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: false,
       status: "IkkeRelevant",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [
         "0196afdc-eb89-73da-9a2c-baaceb6c7b78",
         "0196afdc-eb93-7595-badb-7c1c1a22f38f",
@@ -718,6 +740,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
       relevantForVedtak: true,
       status: "Info",
       avklaringer: [],
+      opplysningTypeIder: [],
       opplysningIder: [],
     },
   ],
@@ -725,7 +748,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     {
       id: "0196afdc-caff-7017-97f1-79e71683abec",
       kode: "HarTilleggsopplysninger",
-      begrunnelse: null,
       tittel: "Sjekk hva bruker har oppgitt som tilleggsopplysninger i søknaden",
       beskrivelse: "Du må vurdere om tilleggsopplysninger har betydning for saken",
       kanKvitteres: true,
@@ -736,7 +758,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     {
       id: "0196afdc-cd87-7359-bac0-0bf524ca0ed8",
       kode: "HattLukkedeSakerSiste8Uker",
-      begrunnelse: null,
       tittel: "Sjekk om nylig lukkede saker i Arena kan påvirke behandlingen",
       beskrivelse:
         "Personen har lukkede saker i Arena siste 8 uker. Har vi nylig gitt avslag bør vi sjekke om det er nødvendig med ekstra \nveiledning.",
@@ -748,7 +769,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     {
       id: "0196afdc-cd87-7359-bac0-0bf524ca0eda",
       kode: "MuligGjenopptak",
-      begrunnelse: null,
       tittel: "Sjekk om det er sak som kan gjenopptas i Arena",
       beskrivelse:
         "Personen har åpne saker i Arena som kan være gjenopptak. Saker som skal gjenopptas må håndteres i Arena.",
@@ -760,7 +780,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     {
       id: "0196afdc-ebcc-7c6d-a87d-27194e6b0a4a",
       kode: "EØSArbeid",
-      begrunnelse: null,
       tittel: "Sjekk om arbeid i EØS fører til sammenlegging",
       beskrivelse:
         "Personen har oppgitt arbeid fra EØS i søknaden. Det må vurderes om det skal være sammenlegging.",
@@ -772,7 +791,6 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     {
       id: "0196afdc-ebcc-7c6d-a87d-27194e6b0a52",
       kode: "JobbetUtenforNorge",
-      begrunnelse: null,
       tittel: "Sjekk om arbeid utenfor Norge påvirker retten til dagpenger",
       beskrivelse:
         "Personen har oppgitt arbeid utenfor Norge i søknaden. Sjekk om arbeidsforholdene som er oppgitt i søknaden skal være \nmed i vurderingen av retten til dagpenger.",

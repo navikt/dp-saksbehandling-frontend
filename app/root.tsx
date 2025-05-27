@@ -13,6 +13,7 @@ import {
 } from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
+import { Flagg } from "~/components/17-mai/Flagg";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
@@ -93,6 +94,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
+  const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
   const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
   const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
   const kanRedigereOpplysninger = unleash.isEnabled(
@@ -109,6 +111,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       jul,
       halloween,
       valentines,
+      hippHippHurra,
       oppgaveHistorikk,
       totrinnsKontroll,
       kanRedigereOpplysninger,
@@ -148,6 +151,7 @@ export default function App() {
               <InternalHeader.Title as="h1" className={styles.pageHeader}>
                 {featureFlags.halloween && <PumpkinSvg />}
                 {featureFlags.jul && <MistelteinSvg />}
+                {featureFlags.hippHippHurra && <Flagg />}
                 Dagpenger
               </InternalHeader.Title>
             </Link>
