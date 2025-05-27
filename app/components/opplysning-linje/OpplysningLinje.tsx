@@ -9,7 +9,7 @@ import { Opplysning } from "~/components/opplysning/Opplysning";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { hentValideringForOpplysning } from "~/utils/validering.util";
+import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./OpplysningListe.module.css";
@@ -30,10 +30,13 @@ export function OpplysningLinje(props: IProps) {
     !props.readonly && opplysning.redigerbar && featureFlags.kanRedigereOpplysninger;
 
   const opplysningForm = useForm({
-    validator: hentValideringForOpplysning(opplysning),
+    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     method: "post",
     defaultValues: {
       verdi: formaterOpplysningVerdi(opplysning),
+      opplysningId: opplysning.id,
+      datatype: opplysning.datatype,
+      behandlingId: props.behandlingId,
     },
   });
 
@@ -49,9 +52,22 @@ export function OpplysningLinje(props: IProps) {
         {...opplysningForm.getFormProps()}
       >
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
-        <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
-        <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
-        <input hidden={true} readOnly={true} name="behandlingId" value={props.behandlingId} />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("opplysningId").getInputProps()}
+        />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("datatype").getInputProps()}
+        />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("behandlingId").getInputProps()}
+        />
+
         <div className={styles.opplysningNavn}>
           {opplysning.kilde?.type === "Saksbehandler" && <PersonPencilIcon fontSize="1.5rem" />}
           {opplysning.navn}

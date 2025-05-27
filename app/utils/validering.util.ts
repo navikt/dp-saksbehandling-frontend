@@ -5,58 +5,73 @@ import { z } from "zod";
 import { components } from "../../openapi/behandling-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
-export function hentValideringForOpplysning(
-  opplysning: components["schemas"]["Opplysning"],
-): Validator<{ verdi: string | number }> {
-  switch (opplysning.datatype) {
+export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
+  return z.object({
+    verdi: hentValideringForOpplysningVerdi(datatype),
+    opplysningId: z.string().min(1, "Det mangler opplysningId i skjema"),
+    datatype: z.string().min(1, "Det mangler datatype i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    begrunnelse: z.string().optional(),
+    gyldigFraOgMed: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+    gyldigTilOgMed: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+    ingenTomDato: z
+      .string()
+      .transform((val) => val === "true")
+      .optional(),
+    ingenFomDato: z
+      .string()
+      .transform((val) => val === "true")
+      .optional(),
+  });
+}
+
+export function hentValideringForOpplysningVerdi(datatype: components["schemas"]["DataType"]) {
+  switch (datatype) {
     case "heltall":
-      return withZod(
-        z.object({
-          verdi: z.coerce
-            .number({
-              required_error: "Du må skrive et tall",
-              invalid_type_error: "Det må være et gyldig heltall",
-            })
-            .positive({ message: "Du må skrive inn et tall" }),
-        }),
-      );
+      return z
+        .string()
+        .min(1, { message: "Du må skrive et tall" })
+        .regex(/^\d+$/, "Det må være et gyldig heltall")
+        .refine(
+          (val) => {
+            const num = parseInt(val, 10);
+            return num >= 0;
+          },
+          { message: "Du må skrive inn et tall" },
+        );
 
     case "desimaltall":
-      return withZod(
-        z.object({
-          verdi: z
-            .string()
-            .min(1, { message: "Du må skrive et tall" })
-            .regex(new RegExp("^\\d*(,)?\\d*$"), "Det må være et gyldig tall"), // Regex for å matche tall med komma seperator
-        }),
-      );
+      return z
+        .string()
+        .min(1, { message: "Du må skrive et tall" })
+        .regex(new RegExp("^\\d*(,)?\\d*$"), "Det må være et gyldig tall") // Regex for å matche tall med komma seperator
+        .refine(
+          (val) => {
+            // Bytt komma med punktum for parsing
+            const normalizedVal = val.replace(",", ".");
+            const num = parseFloat(normalizedVal);
+            return !isNaN(num) && num >= 0;
+          },
+          { message: "Du må skrive inn et gyldig tall" },
+        );
 
     case "boolsk":
-      return withZod(
-        z.object({
-          verdi: z.enum(["Ja", "Nei"], {
-            required_error: "Du må velge et svar",
-            invalid_type_error: "Ugyldig svar",
-          }),
-        }),
-      );
+      return z.enum(["Ja", "Nei"], {
+        required_error: "Du må velge et svar",
+        invalid_type_error: "Ugyldig svar",
+      });
 
     case "dato":
-      return withZod(
-        z.object({
-          verdi: z.string().regex(
-            new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-            "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-          ),
-        }),
-      );
+      return hentValideringForNorskDato();
 
     default:
-      return withZod(
-        z.object({
-          verdi: z.string(),
-        }),
-      );
+      return z.string();
   }
 }
 
@@ -178,4 +193,24 @@ export function hentValideringForNyKlageSkjema() {
     sakId: z.string().min(1, { message: "Du må skrive inn sak id" }),
     personIdent: z.string().min(1, { message: "Du må skrive inn personnummer" }),
   });
+}
+
+function hentValideringForNorskDato() {
+  return z
+    .string()
+    .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
+    .refine(
+      (dateString) => {
+        const [day, month, year] = dateString.split(".").map(Number);
+        const date = new Date(year, month - 1, day);
+
+        // Sjekk at dato er gyldig og matcher input.
+        return (
+          date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+        );
+      },
+      {
+        message: "Ugyldig dato",
+      },
+    );
 }

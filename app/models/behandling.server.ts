@@ -38,12 +38,14 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-  begrunnelse: string | null,
+  begrunnelse?: string,
+  gyldigFomDato?: string,
+  gyldigTomDato?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: { verdi, begrunnelse: begrunnelse ?? "" },
+    body: { verdi, begrunnelse: begrunnelse ?? "", gyldigFomDato, gyldigTomDato },
     params: {
       path: { behandlingId, opplysningId },
     },

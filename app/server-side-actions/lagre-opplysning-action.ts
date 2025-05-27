@@ -1,26 +1,57 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
 import { endreOpplysning } from "~/models/behandling.server";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
+
+import { components } from "../../openapi/behandling-typer";
 
 export async function lagreOpplysningAction(request: Request, formData: FormData) {
-  const behandlingId = formData.get("behandlingId") as string;
-  const opplysningId = formData.get("opplysningId") as string;
-  const opplysningDatatype = formData.get("datatype") as string;
-  const verdi = formData.get("verdi") as string;
-  const begrunnelse = formData.get("begrunnelse") as string | null;
+  const opplysningDatatype = formData.get("datatype") as components["schemas"]["DataType"];
+  invariant(opplysningDatatype, "opplysningDatatype er påkrevd");
 
-  invariant(behandlingId, "behandlingId er påkrevd");
-  invariant(opplysningId, "opplysningId er påkrevd");
-  invariant(verdi, "verdi er påkrevd");
+  const validertSkjema = await parseFormData(
+    formData,
+    hentValideringForOpplysningSkjema(opplysningDatatype),
+  );
+
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
+  }
+
+  const {
+    behandlingId,
+    opplysningId,
+    verdi,
+    gyldigFraOgMed,
+    ingenFomDato,
+    gyldigTilOgMed,
+    ingenTomDato,
+    begrunnelse,
+  } = validertSkjema.data;
+
+  let gyldigFraOgMedDato: string | undefined = undefined;
+  let gyldigTilOgMedDato: string | undefined = undefined;
+
+  if (gyldigFraOgMed && !ingenFomDato) {
+    gyldigFraOgMedDato = formaterTilBackendDato(gyldigFraOgMed);
+  }
+
+  if (gyldigTilOgMed && !ingenTomDato) {
+    gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
+  }
 
   const { data, error } = await endreOpplysning(
     request,
     behandlingId,
     opplysningId,
     konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi),
-    begrunnelse,
+    begrunnelse ? begrunnelse : undefined,
+    gyldigFraOgMedDato,
+    gyldigTilOgMedDato,
   );
 
   if (error) {
@@ -42,8 +73,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
 function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {
   switch (opplysningDatatype) {
     case "dato": {
-      const [dag, maaned, aar] = verdi.split(".");
-      return `${aar}-${maaned}-${dag}`;
+      return formaterTilBackendDato(verdi);
     }
 
     case "desimaltall":
