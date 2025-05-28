@@ -249,7 +249,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Opprett en klage
-  http.post(`/klage/opprett`, async ({ request, response }) => {
+  http.post(`/klage/opprett-manuelt`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 
