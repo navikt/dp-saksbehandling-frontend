@@ -48,7 +48,7 @@ export function formaterTilBackendDato(inputDato: Date | string, medKlokkeslett?
 
   if (medKlokkeslett) {
     // 2021-01-31T12:00:00
-    return format(inputDato, "yyyy-MM-dd'T'HH:mm:ss", { locale: nb });
+    return format(dato, "yyyy-MM-dd'T'HH:mm:ss", { locale: nb });
   }
 
   // 2021-01-31
