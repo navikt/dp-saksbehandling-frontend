@@ -2,6 +2,7 @@ import { LeaveIcon } from "@navikt/aksel-icons";
 import { Dropdown, InternalHeader, Switch } from "@navikt/ds-react";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/microsoft.server";
 
 import styles from "./HeaderMeny.module.css";
@@ -11,6 +12,7 @@ interface IProps {
 }
 
 export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
+  const { featureFlags } = useTypedRouteLoaderData("root");
   const {
     skjulSensitiveOpplysninger,
     setSkjulSensitiveOpplysninger,
@@ -38,13 +40,15 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
               </Switch>
             </Dropdown.Menu.List.Item>
             <Dropdown.Menu.List.Item>
-              <Switch
-                checked={periodisertBehandlingsView}
-                size={"small"}
-                onChange={(e) => setPeriodisertBehandlingsView(e.target.checked)}
-              >
-                Periodisert opplysning visning (Beta)
-              </Switch>
+              {featureFlags.periodiserteOpplysninger && (
+                <Switch
+                  checked={periodisertBehandlingsView}
+                  size={"small"}
+                  onChange={(e) => setPeriodisertBehandlingsView(e.target.checked)}
+                >
+                  Periodisert opplysning visning (Beta)
+                </Switch>
+              )}
             </Dropdown.Menu.List.Item>
             <Dropdown.Menu.List.Item>
               <a href={"/oauth2/logout"} className={styles.loggUt}>

@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
@@ -23,11 +22,9 @@ interface IProps {
 export function OpplysningLinje(props: IProps) {
   const { opplysning } = props;
   const { state } = useNavigation();
-  const { featureFlags } = useTypedRouteLoaderData("root");
   const [redigerOpplysningModus, setRedigerOpplysningModus] = useState(false);
 
-  const kanRedigere =
-    !props.readonly && opplysning.redigerbar && featureFlags.kanRedigereOpplysninger;
+  const kanRedigere = !props.readonly && opplysning.redigerbar;
 
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),

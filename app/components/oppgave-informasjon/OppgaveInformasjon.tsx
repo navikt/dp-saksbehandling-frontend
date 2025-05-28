@@ -6,7 +6,6 @@ import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversik
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   visKontrollFane?: boolean;
@@ -15,24 +14,25 @@ interface IProps {
 
 export function OppgaveInformasjon(props: IProps) {
   const [aktivTab, setAktivTab] = useState<string>(props.defaultTab);
-  const { featureFlags } = useTypedRouteLoaderData("root");
+
   return (
     <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
       <Tabs.List>
         <Tabs.Tab value="dokumenter" label="Dokumenter" icon={<FilesIcon title="Dokumenter" />} />
+
         <Tabs.Tab
           value="informasjon"
           label="Informasjon"
           icon={<DatabaseIcon title="Informasjon" />}
         />
-        {featureFlags.oppgaveHistorikk && (
-          <Tabs.Tab
-            value="historikk"
-            label="Historikk"
-            icon={<ClockDashedIcon title="Historikk" />}
-          />
-        )}
-        {featureFlags.totrinnsKontroll && props.visKontrollFane && (
+
+        <Tabs.Tab
+          value="historikk"
+          label="Historikk"
+          icon={<ClockDashedIcon title="Historikk" />}
+        />
+
+        {props.visKontrollFane && (
           <Tabs.Tab value="kontroll" label="Kontroll" icon={<PuzzlePieceIcon title="Kontroll" />} />
         )}
       </Tabs.List>

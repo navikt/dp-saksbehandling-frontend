@@ -83,6 +83,7 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                     aktivtRegelsett={aktivtRegelsett}
                     setAktivtRegelsett={setAktivtRegelsett}
                   />
+
                   {periodisertBehandlingsView ? (
                     <RegelsettPeriode
                       behandling={behandling.data}
