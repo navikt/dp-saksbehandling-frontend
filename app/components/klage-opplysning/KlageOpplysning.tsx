@@ -9,7 +9,7 @@ import { KlageOpplysningFlervalg } from "~/components/klage-opplysning/KlageOppl
 import { KlageOpplysningTekst } from "~/components/klage-opplysning/KlageOpplysningTekst";
 import { KlageOpplysningValg } from "~/components/klage-opplysning/KlageOpplysningValg";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForKlageOpplysning } from "~/utils/validering.util";
+import { hentValideringForKlageOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -30,10 +30,13 @@ interface IProps {
 
 export function KlageOpplysning({ opplysning, behandlingId, readonly, visningType }: IProps) {
   const klageOpplysningForm = useForm({
-    validator: hentValideringForKlageOpplysning(opplysning),
+    schema: hentValideringForKlageOpplysningSkjema(opplysning),
     method: "post",
     defaultValues: {
       verdi: formaterOpplysningVerdi(opplysning),
+      opplysningId: opplysning.opplysningId,
+      datatype: opplysning.type,
+      behandlingId: behandlingId,
     },
   });
 
@@ -54,10 +57,21 @@ export function KlageOpplysning({ opplysning, behandlingId, readonly, visningTyp
       {...klageOpplysningForm.getFormProps()}
     >
       <input hidden={true} readOnly={true} name="_action" value="lagre-klage-opplysning" />
-      <input hidden={true} readOnly={true} name="behandlingId" value={behandlingId} />
-      <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.opplysningId} />
-      <input hidden={true} readOnly={true} name="datatype" value={opplysning.type} />
-
+      <input
+        hidden={true}
+        readOnly={true}
+        {...klageOpplysningForm.field("opplysningId").getInputProps()}
+      />
+      <input
+        hidden={true}
+        readOnly={true}
+        {...klageOpplysningForm.field("datatype").getInputProps()}
+      />
+      <input
+        hidden={true}
+        readOnly={true}
+        {...klageOpplysningForm.field("behandlingId").getInputProps()}
+      />
       <OpplysningType
         opplysning={opplysning}
         formScope={klageOpplysningForm.scope("verdi")}
@@ -101,7 +115,7 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
 }
 
 function formaterOpplysningVerdi(opplysning: components["schemas"]["KlageOpplysning"]): string {
-  if (!opplysning.verdi) {
+  if (opplysning.verdi === undefined) {
     return "";
   }
 

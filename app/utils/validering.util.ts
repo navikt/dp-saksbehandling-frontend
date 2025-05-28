@@ -1,6 +1,7 @@
-import type { Validator } from "@rvf/react-router";
 import { withZod } from "@rvf/zod";
 import { z } from "zod";
+
+import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
@@ -75,58 +76,64 @@ export function hentValideringForOpplysningVerdi(datatype: components["schemas"]
   }
 }
 
-export function hentValideringForKlageOpplysning(
+export function hentValideringForKlageOpplysningSkjema(
   opplysning: saksbehandlingComponents["schemas"]["KlageOpplysning"],
-): Validator<{ verdi: string | number }> {
+) {
+  return z.object({
+    verdi: hentValideringForKlageOpplysningVerdi(opplysning),
+    opplysningId: z.string().min(1, "Det mangler opplysningId i skjema"),
+    datatype: z.string().min(1, "Det mangler datatype i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+  });
+}
+
+export function hentValideringForKlageOpplysningVerdi(
+  opplysning: saksbehandlingComponents["schemas"]["KlageOpplysning"],
+) {
   switch (opplysning.type) {
+    case "TEKST":
+      return z.string().min(1);
+
     case "BOOLSK":
-      return withZod(
-        z.object({
-          verdi: z.enum(["Ja", "Nei"], {
-            required_error: "Du må velge et alternativ",
-            invalid_type_error: "Ugyldig svar",
-          }),
-        }),
-      );
+      return z.enum(["Ja", "Nei"], {
+        required_error: "Du må velge et svar",
+        invalid_type_error: "Ugyldig svar",
+      });
 
     case "DATO":
-      return withZod(
-        z.object({
-          verdi: z.string().regex(
-            new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-            "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
-          ),
-        }),
-      );
+      return hentValideringForNorskDato();
 
     case "LISTEVALG":
-      return withZod(
-        z.object({
-          verdi: z.enum(["", ...(opplysning.valgmuligheter || [])], {
-            required_error: "Du må velge et alternativ",
-            invalid_type_error: "Ugyldig svar",
-          }),
-        }),
-      );
+      return z.enum(["", ...opplysning.valgmuligheter], {
+        required_error: "Du må velge et svar",
+        invalid_type_error: "Ugyldig svar",
+      });
 
     case "FLER_LISTEVALG":
-      return withZod(
-        z.object({
-          verdi: z
-            .string({
-              required_error: "Du må velge et alternativ",
-              invalid_type_error: "Ugyldig svar",
-            })
-            .min(1),
-        }),
+      return z.preprocess(
+        (input) => {
+          if (typeof input === "string") {
+            try {
+              const parsed = JSON.parse(input);
+              if (Array.isArray(parsed)) {
+                return parsed;
+              }
+            } catch (error: unknown) {
+              logger.error(error);
+              return undefined;
+            }
+          }
+          return undefined;
+        },
+        z.array(
+          z.string().refine((val) => opplysning.valgmuligheter.includes(val), {
+            message: "Ugyldig valg",
+          }),
+        ),
       );
 
     default:
-      return withZod(
-        z.object({
-          verdi: z.string(),
-        }),
-      );
+      return z.string();
   }
 }
 
