@@ -5,10 +5,10 @@ const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
     opplysningId: "hkg",
     opplysningNavnId: "test",
     navn: "Hva klagen gjelder",
-    type: "TEKST",
+    type: "FLER_LISTEVALG",
     paakrevd: false,
     gruppe: "KLAGESAK",
-    valgmuligheter: [],
+    valgmuligheter: ["AVSLAG_PÅ_SØKNAD", "FOR_LITE_UTBETALT", "VEDTAK_OM_TILBAKEBETALING", "ANNET"],
     redigerbar: true,
   },
   {
