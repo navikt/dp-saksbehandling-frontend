@@ -85,7 +85,7 @@ export default function Oppgave() {
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
-              {klage.utfall.verdi === "IKKE_SATT" ? (
+              {klage.utfall.verdi !== "IKKE_SATT" ? (
                 <MeldingOmVedtak readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
