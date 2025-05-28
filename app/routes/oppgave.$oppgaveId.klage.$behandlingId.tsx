@@ -1,5 +1,5 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { Alert, Heading, Tabs } from "@navikt/ds-react";
 import { Fragment, useState } from "react";
 import {
   ActionFunctionArgs,
@@ -85,7 +85,13 @@ export default function Oppgave() {
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
-              <MeldingOmVedtak readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              {klage.utfall.verdi === "IKKE_SATT" ? (
+                <MeldingOmVedtak readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              ) : (
+                <Alert size={"small"} variant={"info"} className={"m-2"}>
+                  <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
+                </Alert>
+              )}
             </Tabs.Panel>
           </Tabs>
         </div>
