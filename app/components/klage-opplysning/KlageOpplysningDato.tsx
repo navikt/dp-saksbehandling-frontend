@@ -16,11 +16,9 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
 
   const { datepickerProps, inputProps } = useDatepicker({
     defaultSelected: opplysning.verdi ? new Date(opplysning.verdi) : undefined,
-    locale: "nb",
-    inputFormat: "dd.MM.yyyy",
     onDateChange: (date) => {
       if (date) {
-        const datoNorskFormat = formaterTilNorskDato(date.toISOString());
+        const datoNorskFormat = formaterTilNorskDato(date);
         field.setValue(datoNorskFormat);
       }
     },
@@ -35,9 +33,9 @@ export function KlageOpplysningDato({ opplysning, formScope, readonly }: IProps)
       {opplysning.redigerbar && (
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
+            {...inputProps}
             size="small"
             label={opplysning.navn}
-            {...inputProps}
             form={field.getInputProps().form}
             name={field.getInputProps().name}
             error={field.error()}
