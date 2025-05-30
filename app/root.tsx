@@ -1,5 +1,4 @@
-import { InternalHeader, Loader } from "@navikt/ds-react";
-import { Suspense } from "react";
+import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
   Link,
@@ -150,9 +149,7 @@ export default function App() {
 
           <AlertProvider>
             <GlobalAlerts />
-            <Suspense fallback={<Loader />}>
-              <Outlet />
-            </Suspense>
+            <Outlet />
           </AlertProvider>
 
           <ScrollRestoration />

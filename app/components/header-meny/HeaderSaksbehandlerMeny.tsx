@@ -39,8 +39,8 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
                 Skjul sensitive opplysninger (Best effort)
               </Switch>
             </Dropdown.Menu.List.Item>
-            <Dropdown.Menu.List.Item>
-              {featureFlags.periodiserteOpplysninger && (
+            {featureFlags.periodiserteOpplysninger && (
+              <Dropdown.Menu.List.Item>
                 <Switch
                   checked={periodisertBehandlingsView}
                   size={"small"}
@@ -48,8 +48,8 @@ export function HeaderSaksbehandlerMeny({ saksbehandler }: IProps) {
                 >
                   Periodisert opplysning visning (Beta)
                 </Switch>
-              )}
-            </Dropdown.Menu.List.Item>
+              </Dropdown.Menu.List.Item>
+            )}
             <Dropdown.Menu.List.Item>
               <a href={"/oauth2/logout"} className={styles.loggUt}>
                 Logg ut <LeaveIcon aria-hidden fontSize="1.5rem" />
