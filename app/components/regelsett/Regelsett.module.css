@@ -1,3 +1,8 @@
+.hjemmelContainer {
+  border-bottom: 1px solid var(--a-border-subtle);
+  background-color: var(--a-white);
+}
+
 .hjemmelTittel {
   padding: var(--a-spacing-2) var(--a-spacing-2) 0;
 }
@@ -19,4 +24,24 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.opplysningLinje {
+  margin: 0 var(--a-spacing-4);
+  display: grid;
+  grid-template-columns: 1fr auto 32px;
+  align-items: center;
+  padding: var(--a-spacing-2);
+}
+
+.opplysningLinjeAktiv {
+  background-color: var(--a-blue-50);
+}
+
+.opplysningLinje > p {
+  margin-right: var(--a-spacing-4);
+}
+
+.opplysningLinje:not(:last-child) {
+  border-bottom: 1px solid var(--a-border-subtle);
 }

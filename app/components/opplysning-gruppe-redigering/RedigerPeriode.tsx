@@ -5,7 +5,6 @@ import { Form } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -20,21 +19,6 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
 
-  let defaultGyldigFraOgMedDato = undefined;
-  let defaultGyldigTilOgMedDato = undefined;
-
-  if (opplysning.gyldigFraOgMed === null) {
-    defaultGyldigFraOgMedDato = "01.01.1900";
-  } else if (opplysning.gyldigFraOgMed) {
-    defaultGyldigFraOgMedDato = formaterTilNorskDato(opplysning.gyldigFraOgMed);
-  }
-
-  if (opplysning.gyldigTilOgMed === null) {
-    defaultGyldigTilOgMedDato = "01.01.2100";
-  } else if (opplysning.gyldigTilOgMed) {
-    defaultGyldigTilOgMedDato = formaterTilNorskDato(opplysning.gyldigTilOgMed);
-  }
-
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     method: "post",
@@ -43,8 +27,8 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
-      gyldigFraOgMed: defaultGyldigFraOgMedDato,
-      gyldigTilOgMed: defaultGyldigTilOgMedDato,
+      gyldigFraOgMed: opplysning.gyldigFraOgMed,
+      gyldigTilOgMed: opplysning.gyldigTilOgMed,
       ingenTomDato: "false",
       ingenFomDato: "false",
     },
@@ -59,7 +43,7 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
   });
 
   return (
-    <div className="card mt-8 p-2">
+    <div className="card mt-8 p-4">
       <Heading size={"xsmall"}>Periode {periodeNummer + 1} </Heading>
 
       {!opplysning.redigerbar && (
@@ -86,11 +70,12 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
           />
           <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
-          <div className={"flex gap-2 mt-4"}>
+          <div className={"mt-4 flex gap-2"}>
             <div>
               <DatePicker {...datepickerFom.datepickerProps}>
                 <DatePicker.Input
                   {...datepickerFom.inputProps}
+                  size={"small"}
                   label="Fra og med"
                   form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
                   name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
@@ -100,6 +85,7 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
               </DatePicker>
 
               <Checkbox
+                size={"small"}
                 name={"ingenFomDato"}
                 value={ingenFomDato}
                 onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
@@ -112,6 +98,7 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
               <DatePicker {...datepickerTom.datepickerProps}>
                 <DatePicker.Input
                   {...datepickerTom.inputProps}
+                  size={"small"}
                   label="Til og med"
                   form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
                   name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
@@ -121,6 +108,7 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
               </DatePicker>
 
               <Checkbox
+                size={"small"}
                 name={"ingenTomDato"}
                 value={ingenTomDato}
                 onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
@@ -131,6 +119,7 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
           </div>
 
           <Button
+            className={"mt-4"}
             variant="primary"
             type="submit"
             size="xsmall"
