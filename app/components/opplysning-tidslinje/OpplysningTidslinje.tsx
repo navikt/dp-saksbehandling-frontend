@@ -35,8 +35,8 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
     start: Date;
     end: Date;
   }>({
-    start: new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? ""),
-    end: add(new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? ""), { months: 2 }),
+    start: new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()),
+    end: add(new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()), { months: 2 }),
   });
 
   function navigerTilbakeITidslinje(antallMaaneder: number) {
@@ -50,6 +50,8 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
     const nySluttDato = add(nyStartDato, { months: parseInt(antallMaanederITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
+
+  console.log(tidslinjeStartSlutt);
 
   return (
     <Provider locale={nb} translations={{ Timeline: { dayFormat: "MMM d" } }}>
