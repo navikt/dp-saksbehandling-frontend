@@ -101,7 +101,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
                * to navigate through the timeline.
                * This is a design choice, and can be adjusted to fit your needs.
                */
-              navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.3);
+              navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.25);
             }}
           />
           <Button
@@ -109,7 +109,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
             variant="secondary-neutral"
             size="small"
             onClick={() => {
-              navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.3);
+              navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.25);
             }}
           />
         </HStack>
