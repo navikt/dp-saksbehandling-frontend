@@ -5,7 +5,6 @@ import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMe
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { MeldekortBeregning } from "~/components/meldekortberegninger/MeldekortBeregning";
 import { Regelsett } from "~/components/regelsett/Regelsett";
 import { RegelsettPeriode } from "~/components/regelsett/RegelsettPeriode";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
@@ -25,7 +24,6 @@ interface IProps {
 export function Behandling({ behandlingPromise, readOnly }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
   const { periodisertBehandlingsView } = useSaksbehandler();
-  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
   );
@@ -37,9 +35,6 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
       const nåværendeRegelsett = alleRegelsett.find(
         (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
       );
-
-      const meldekortHendelse = behandling?.behandletHendelse?.type == "Meldekort";
-      setErMeldekort(meldekortHendelse);
 
       if (nåværendeRegelsett) {
         setAktivtRegelsett(nåværendeRegelsett);
@@ -99,7 +94,6 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                   )}
                 </div>
               )}
-              {erMeldekort && <MeldekortBeregning behandling={behandling.data} />}
             </>
           );
         }}
