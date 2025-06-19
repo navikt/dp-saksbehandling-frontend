@@ -1,6 +1,7 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, Heading, Tooltip } from "@navikt/ds-react";
+import { ChevronRightIcon } from "@navikt/aksel-icons";
+import { BodyShort, Detail, Heading } from "@navikt/ds-react";
 import classnames from "classnames";
+import { motion } from "motion/react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
@@ -49,24 +50,30 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
             const erAktivGruppe =
               gruppe.opplysningTypeId === aktivOpplysningsgruppe?.opplysningTypeId;
             return (
-              <li
+              <motion.li
+                key={gruppe.opplysningTypeId}
                 className={classnames(styles.opplysningLinje, {
                   [styles.opplysningLinjeAktiv]: erAktivGruppe,
                 })}
-                key={gruppe.opplysningTypeId}
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
               >
-                <BodyShort>{gruppe.navn}</BodyShort>
-                <BodyShort>{formaterOpplysningVerdi(gruppe.opplysninger[0])}</BodyShort>
-
-                <Tooltip content={erAktivGruppe ? "Lukk opplysning" : "Åpne opplysning"}>
-                  <Button
-                    size={"small"}
-                    variant={"tertiary"}
-                    icon={erAktivGruppe ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    onClick={() => setAktivOpplysningsgruppe(erAktivGruppe ? undefined : gruppe)}
-                  />
-                </Tooltip>
-              </li>
+                <button
+                  onClick={() => setAktivOpplysningsgruppe(erAktivGruppe ? undefined : gruppe)}
+                >
+                  <BodyShort>{gruppe.navn}</BodyShort>
+                  <BodyShort>{formaterOpplysningVerdi(gruppe.opplysninger[0])}</BodyShort>
+                  <motion.span
+                    animate={{ rotate: erAktivGruppe ? 180 : 0 }}
+                    transition={{
+                      duration: 0.2,
+                      type: "spring",
+                    }}
+                  >
+                    <ChevronRightIcon fontSize={"1.5rem"} />
+                  </motion.span>
+                </button>
+              </motion.li>
             );
           })}
         </ul>

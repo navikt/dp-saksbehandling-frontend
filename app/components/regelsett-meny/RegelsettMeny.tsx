@@ -6,7 +6,7 @@ import {
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
-import * as motion from "motion/react-client";
+import { motion } from "motion/react";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
