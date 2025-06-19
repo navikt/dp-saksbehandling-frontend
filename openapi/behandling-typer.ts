@@ -759,6 +759,7 @@ export interface components {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             navn: string;
             datatype: components["schemas"]["DataType"];
+            synlig: boolean;
             opplysninger: components["schemas"]["Opplysning"][];
         };
         Opplysning: {

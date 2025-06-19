@@ -25,39 +25,41 @@ interface IProps {
   setAktivPeriode: Dispatch<SetStateAction<IAktivPeriode>>;
 }
 
-type TidslinjeMaanedVisning = "2" | "4" | "8";
+type AntallUkerITidslinje = "2" | "4" | "8";
 
 export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPeriode }: IProps) {
-  const [antallMaanederITidslinje, setAntallMaanederITidslinje] =
-    useState<TidslinjeMaanedVisning>("2");
+  const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
 
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<{
     start: Date;
     end: Date;
   }>({
     start: new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()),
-    end: add(new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()), { months: 2 }),
+    end: add(new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()), { weeks: 2 }),
   });
 
-  function navigerTilbakeITidslinje(antallMaaneder: number) {
-    const nyStartDato = sub(tidslinjeStartSlutt.start, { months: antallMaaneder });
-    const nySluttDato = add(nyStartDato, { months: parseInt(antallMaanederITidslinje) });
+  function navigerTilbakeITidslinje(antallUker: number) {
+    const nyStartDato = sub(tidslinjeStartSlutt.start, { months: antallUker });
+    const nySluttDato = add(nyStartDato, { months: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
-  function navigerFremITidslinje(antallMaaneder: number) {
-    const nyStartDato = add(tidslinjeStartSlutt.start, { months: antallMaaneder });
-    const nySluttDato = add(nyStartDato, { months: parseInt(antallMaanederITidslinje) });
+  function navigerFremITidslinje(antallUker: number) {
+    const nyStartDato = add(tidslinjeStartSlutt.start, { months: antallUker });
+    const nySluttDato = add(nyStartDato, { months: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
   return (
     <Provider locale={nb} translations={{ Timeline: { dayFormat: "MMM d" } }}>
       <Timeline
-        className={"mt-8 mb-2"}
+        className={"max-w mt-8 mb-2"}
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
+        <Timeline.Pin date={new Date()}>
+          <Detail>I dag</Detail>
+        </Timeline.Pin>
         <Timeline.Row label={""}>
           {opplysningGruppe.opplysninger.map((opplysning, index) => (
             <Timeline.Period
@@ -66,7 +68,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
               end={
                 opplysning.gyldigTilOgMed
                   ? new Date(opplysning.gyldigTilOgMed)
-                  : add(new Date(), { days: 14 })
+                  : add(new Date(), { weeks: 2 })
               }
               placement={"bottom"}
               status={hentFargeForTidslinjePeriodeOpplysning(opplysning)}
@@ -99,7 +101,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
                * to navigate through the timeline.
                * This is a design choice, and can be adjusted to fit your needs.
                */
-              navigerTilbakeITidslinje(parseInt(antallMaanederITidslinje) * 0.5);
+              navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.5);
             }}
           />
           <Button
@@ -107,7 +109,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
             variant="secondary-neutral"
             size="small"
             onClick={() => {
-              navigerFremITidslinje(parseInt(antallMaanederITidslinje) * 0.5);
+              navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.5);
             }}
           />
         </HStack>
@@ -115,18 +117,18 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
         <ToggleGroup
           variant="neutral"
           size="small"
-          value={antallMaanederITidslinje}
+          value={antallUkerITidslinje}
           onChange={(value) => {
-            setAntallMaanederITidslinje(value as TidslinjeMaanedVisning);
+            setAntallUkerITidslinje(value as AntallUkerITidslinje);
             setTidslinjeStartSlutt({
               start: tidslinjeStartSlutt.start,
-              end: add(tidslinjeStartSlutt.start, { months: parseInt(value) }),
+              end: add(tidslinjeStartSlutt.start, { weeks: parseInt(value) }),
             });
           }}
         >
-          <ToggleGroup.Item value="2" label="2 mnd" />
-          <ToggleGroup.Item value="4" label="4 mnd" />
-          <ToggleGroup.Item value="8" label="8 mnd" />
+          <ToggleGroup.Item value="2" label="2 uker" />
+          <ToggleGroup.Item value="4" label="4 uker" />
+          <ToggleGroup.Item value="8" label="8 uker" />
         </ToggleGroup>
       </HStack>
     </Provider>

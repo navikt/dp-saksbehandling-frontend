@@ -18,8 +18,9 @@ interface IProps {
 export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
   const { aktivOpplysningsgruppe, setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
 
-  const grupper = behandling.opplysningsgrupper.filter((gruppe) =>
-    aktivtRegelsett.opplysningTypeIder.includes(gruppe.opplysningTypeId),
+  const grupper = behandling.opplysningsgrupper.filter(
+    (gruppe) =>
+      gruppe.synlig && aktivtRegelsett.opplysningTypeIder.includes(gruppe.opplysningTypeId),
   );
 
   return (
