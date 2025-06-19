@@ -19,35 +19,43 @@ interface IProps {
 export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett }: IProps) {
   return (
     <ul className={styles.regelsettMeny}>
-      {behandling.vilkår.map((regelsett, index) => (
-        <li key={index}>
-          <button
-            className={classnames({
-              [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
-            })}
-            onClick={() => setAktivtRegelsett(regelsett)}
-          >
-            {renderStatusIcon(regelsett.status)}
-            {regelsett.navn}
-          </button>
-        </li>
-      ))}
+      {behandling.vilkår.map((regelsett, index) => {
+        if (regelsett.opplysningIder.length > 0) {
+          return (
+            <li key={index}>
+              <button
+                className={classnames({
+                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+                })}
+                onClick={() => setAktivtRegelsett(regelsett)}
+              >
+                {renderStatusIcon(regelsett.status)}
+                {regelsett.navn}
+              </button>
+            </li>
+          );
+        }
+      })}
 
       <div className={styles.divider} />
 
-      {behandling.fastsettelser.map((regelsett) => (
-        <li key={regelsett.navn}>
-          <button
-            className={classnames({
-              [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
-            })}
-            onClick={() => setAktivtRegelsett(regelsett)}
-          >
-            {renderStatusIcon(regelsett.status)}
-            {regelsett.navn}
-          </button>
-        </li>
-      ))}
+      {behandling.fastsettelser.map((regelsett) => {
+        if (regelsett.opplysningIder.length > 0) {
+          return (
+            <li key={regelsett.navn}>
+              <button
+                className={classnames({
+                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+                })}
+                onClick={() => setAktivtRegelsett(regelsett)}
+              >
+                {renderStatusIcon(regelsett.status)}
+                {regelsett.navn}
+              </button>
+            </li>
+          );
+        }
+      })}
     </ul>
   );
 }
