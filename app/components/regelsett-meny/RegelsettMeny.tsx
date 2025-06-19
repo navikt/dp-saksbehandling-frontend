@@ -6,6 +6,7 @@ import {
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
+import * as motion from "motion/react-client";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
@@ -19,10 +20,10 @@ interface IProps {
 export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett }: IProps) {
   return (
     <ul className={styles.regelsettMeny}>
-      {behandling.vilkår.map((regelsett, index) => {
+      {behandling.vilkår.map((regelsett) => {
         if (regelsett.opplysningIder.length > 0) {
           return (
-            <li key={index}>
+            <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
               <button
                 className={classnames({
                   [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
@@ -32,7 +33,7 @@ export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett 
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
               </button>
-            </li>
+            </motion.li>
           );
         }
       })}
@@ -42,7 +43,7 @@ export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett 
       {behandling.fastsettelser.map((regelsett) => {
         if (regelsett.opplysningIder.length > 0) {
           return (
-            <li key={regelsett.navn}>
+            <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
               <button
                 className={classnames({
                   [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
@@ -52,7 +53,7 @@ export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett 
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
               </button>
-            </li>
+            </motion.li>
           );
         }
       })}
