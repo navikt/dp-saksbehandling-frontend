@@ -39,14 +39,14 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
   });
 
   function navigerTilbakeITidslinje(antallUker: number) {
-    const nyStartDato = sub(tidslinjeStartSlutt.start, { months: antallUker });
-    const nySluttDato = add(nyStartDato, { months: parseInt(antallUkerITidslinje) });
+    const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
+    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
   function navigerFremITidslinje(antallUker: number) {
-    const nyStartDato = add(tidslinjeStartSlutt.start, { months: antallUker });
-    const nySluttDato = add(nyStartDato, { months: parseInt(antallUkerITidslinje) });
+    const nyStartDato = add(tidslinjeStartSlutt.start, { weeks: antallUker });
+    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
@@ -101,7 +101,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
                * to navigate through the timeline.
                * This is a design choice, and can be adjusted to fit your needs.
                */
-              navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.5);
+              navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.3);
             }}
           />
           <Button
@@ -109,7 +109,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
             variant="secondary-neutral"
             size="small"
             onClick={() => {
-              navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.5);
+              navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.3);
             }}
           />
         </HStack>
