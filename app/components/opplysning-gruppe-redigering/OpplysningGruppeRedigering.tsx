@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
 import { Accordion, Button, Detail, Heading } from "@navikt/ds-react";
-import { Fragment, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { RedigerPeriode } from "~/components/opplysning-gruppe-redigering/RedigerPeriode";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
@@ -33,6 +33,21 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
     periodeNummer: forsteRedigerBareOpplysningIndex !== -1 ? forsteRedigerBareOpplysningIndex : 0,
   });
 
+  useEffect(() => {
+    const forsteRedigerBareOpplysningIndex = opplysningGruppe.opplysninger.findIndex(
+      (opplysning) => opplysning.redigerbar,
+    );
+    const forsteRedigerBarOpplysning =
+      forsteRedigerBareOpplysningIndex !== -1
+        ? opplysningGruppe.opplysninger[forsteRedigerBareOpplysningIndex]
+        : opplysningGruppe.opplysninger[0];
+
+    setAktivPeriode({
+      opplysning: forsteRedigerBarOpplysning,
+      periodeNummer: forsteRedigerBareOpplysningIndex !== -1 ? forsteRedigerBareOpplysningIndex : 0,
+    });
+  }, [opplysningGruppe]);
+
   return (
     <div className={"p-4"}>
       <div className={"flex justify-between"}>
@@ -50,23 +65,17 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
         </Button>
       </div>
 
-      <div>
-        <OpplysningTidslinje
-          opplysningGruppe={opplysningGruppe}
-          aktivPeriode={aktivPeriode}
-          setAktivPeriode={setAktivPeriode}
-        />
-      </div>
+      <OpplysningTidslinje
+        opplysningGruppe={opplysningGruppe}
+        aktivPeriode={aktivPeriode}
+        setAktivPeriode={setAktivPeriode}
+      />
 
-      {aktivPeriode && (
-        <Fragment key={aktivPeriode.opplysning.id}>
-          <RedigerPeriode
-            opplysning={aktivPeriode.opplysning}
-            periodeNummer={aktivPeriode.periodeNummer}
-            behandlingId={behandlingId}
-          />
-        </Fragment>
-      )}
+      <RedigerPeriode
+        opplysning={aktivPeriode.opplysning}
+        periodeNummer={aktivPeriode.periodeNummer}
+        behandlingId={behandlingId}
+      />
 
       <Accordion size={"small"} className={"mt-8"}>
         <Accordion.Item>

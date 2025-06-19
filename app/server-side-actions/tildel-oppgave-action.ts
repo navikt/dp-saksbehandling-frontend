@@ -21,8 +21,6 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     return getHttpProblemAlert(error);
   }
 
-  console.log(data);
-
   switch (data.behandlingType) {
     case "RETT_TIL_DAGPENGER":
       if (data.nyTilstand === "UNDER_BEHANDLING") {

@@ -51,8 +51,6 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
-  console.log(tidslinjeStartSlutt);
-
   return (
     <Provider locale={nb} translations={{ Timeline: { dayFormat: "MMM d" } }}>
       <Timeline

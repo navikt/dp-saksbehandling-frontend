@@ -32,8 +32,6 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
     handleHttpProblem(error);
   }
 
-  console.log("wws");
-  console.log("wws");
   throw new Error(`Uhåndtert feil i hentOppgaver(). ${response.status} - ${response.statusText}`);
 }
 
