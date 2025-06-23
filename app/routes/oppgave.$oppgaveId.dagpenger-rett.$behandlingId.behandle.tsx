@@ -1,5 +1,6 @@
 import { DocPencilIcon, EnvelopeClosedIcon, PersonPencilIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import type { ActionFunctionArgs } from "react-router";
 import { Outlet, useActionData } from "react-router";
@@ -76,14 +77,27 @@ export default function Oppgave() {
 
         <ResizableColumns.Right>
           <div className={"card h-[100%]"}>
-            {aktivOpplysningsgruppe ? (
-              <OpplysningGruppeRedigering
-                opplysningGruppe={aktivOpplysningsgruppe}
-                behandlingId={oppgave.behandlingId}
-              />
-            ) : (
-              <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
-            )}
+            <AnimatePresence mode="popLayout">
+              {aktivOpplysningsgruppe ? (
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 200 }}
+                  transition={{
+                    type: "spring",
+                    duration: 0.25,
+                  }}
+                  key={aktivOpplysningsgruppe.opplysningTypeId}
+                >
+                  <OpplysningGruppeRedigering
+                    opplysningGruppe={aktivOpplysningsgruppe}
+                    behandlingId={oppgave.behandlingId}
+                  />
+                </motion.div>
+              ) : (
+                <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+              )}
+            </AnimatePresence>
           </div>
         </ResizableColumns.Right>
       </ResizableColumns>
