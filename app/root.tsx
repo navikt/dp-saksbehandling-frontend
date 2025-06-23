@@ -1,11 +1,21 @@
 import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Link, Links, Meta, useLoaderData, useRouteError } from "react-router";
+import {
+  Link,
+  Links,
+  Meta,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
+import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
+import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
@@ -113,7 +123,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { saksbehandler, featureFlags } = useLoaderData<typeof loader>();
+  const { env, saksbehandler, featureFlags } = useLoaderData<typeof loader>();
 
   return (
     <html lang="nb">
@@ -136,18 +146,18 @@ export default function App() {
             <HeaderMeny saksbehandler={saksbehandler} />
           </InternalHeader>
 
-          {/*<AlertProvider>*/}
-          {/*  <GlobalAlerts />*/}
-          {/*  <Outlet />*/}
-          {/*</AlertProvider>*/}
+          <AlertProvider>
+            <GlobalAlerts />
+            {/*<Outlet />*/}
+          </AlertProvider>
 
-          {/*<ScrollRestoration />*/}
-          {/*<Scripts />*/}
-          {/*<script*/}
-          {/*  dangerouslySetInnerHTML={{*/}
-          {/*    __html: `window.env = ${JSON.stringify(env)}`,*/}
-          {/*  }}*/}
-          {/*/>*/}
+          <ScrollRestoration />
+          <Scripts />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.env = ${JSON.stringify(env)}`,
+            }}
+          />
         </SaksbehandlerProvider>
       </body>
     </html>
