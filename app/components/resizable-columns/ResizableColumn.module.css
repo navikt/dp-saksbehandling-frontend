@@ -1,0 +1,34 @@
+.resizableContainer {
+  display: flex;
+  gap: var(--a-spacing-1);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: var(--a-spacing-1);
+}
+
+.pillHandle {
+  width: 12px;
+
+  cursor: col-resize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pillHandle::after {
+  content: "";
+  height: 40px;
+  width: 6px;
+  background-color: var(--a-gray-500);
+  border-radius: 10px;
+}
+
+.pillHandle:hover::after {
+  transform: scale(1.1);
+}
+
+.pillHandle:active::after {
+  transform: scale(1);
+}

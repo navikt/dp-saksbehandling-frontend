@@ -25,7 +25,7 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
   );
 
   return (
-    <div className={"bg-gray-100"}>
+    <div className={styles.container}>
       <div className={styles.hjemmelContainer}>
         <Heading className={styles.hjemmelTittel} size="medium">
           {aktivtRegelsett.hjemmel.tittel}
@@ -45,7 +45,7 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
         <Heading size={"small"} className={"pt-4 pl-6"}>
           Opplysninger
         </Heading>
-        <ul>
+        <ul className={"pb-4"}>
           {grupper.map((gruppe) => {
             const erAktivGruppe =
               gruppe.opplysningTypeId === aktivOpplysningsgruppe?.opplysningTypeId;
@@ -62,7 +62,7 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
                   onClick={() => setAktivOpplysningsgruppe(erAktivGruppe ? undefined : gruppe)}
                 >
                   <BodyShort>{gruppe.navn}</BodyShort>
-                  <BodyShort>{formaterOpplysningVerdi(gruppe.opplysninger[0])}</BodyShort>
+                  <BodyShort>{formaterOpplysningVerdi(gruppe.opplysninger[0])} </BodyShort>
                   <motion.span
                     animate={{ rotate: erAktivGruppe ? 180 : 0 }}
                     transition={{
@@ -70,7 +70,10 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
                       type: "spring",
                     }}
                   >
-                    <ChevronRightIcon fontSize={"1.5rem"} />
+                    <ChevronRightIcon
+                      fontSize={"1.5rem"}
+                      aria-label={erAktivGruppe ? "Lukk opplysning" : "Åpne opplsyning"}
+                    />
                   </motion.span>
                 </button>
               </motion.li>

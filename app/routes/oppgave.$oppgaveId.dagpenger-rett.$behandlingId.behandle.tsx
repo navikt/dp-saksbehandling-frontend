@@ -10,11 +10,11 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { OpplysningGruppeRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { ResizableColumns } from "~/components/resizable-columns/ResizableColumns";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -36,54 +36,59 @@ export default function Oppgave() {
   return (
     <>
       <OppgaveHandlinger behandling={response?.data} />
-      <div className={styles.behandling}>
-        <div className={"card"}>
-          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <Tabs.List>
-              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
 
-              <Tabs.Tab
-                value="begrunnelse"
-                label="Saksbehandlers begrunnelse"
-                icon={<PersonPencilIcon />}
+      <ResizableColumns defaultLeftWidth={70}>
+        <ResizableColumns.Left>
+          <div className={"card h-[100%]"}>
+            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+              <Tabs.List>
+                <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
+
+                <Tabs.Tab
+                  value="begrunnelse"
+                  label="Saksbehandlers begrunnelse"
+                  icon={<PersonPencilIcon />}
+                />
+
+                <Tabs.Tab
+                  value="melding-om-vedtak"
+                  label="Melding om vedtak"
+                  icon={<EnvelopeClosedIcon />}
+                />
+              </Tabs.List>
+
+              <Tabs.Panel value="behandling">
+                {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+                <Behandling behandlingPromise={behandlingPromise} />
+              </Tabs.Panel>
+
+              <Tabs.Panel value="melding-om-vedtak">
+                <MeldingOmVedtak />
+              </Tabs.Panel>
+
+              <Tabs.Panel value="begrunnelse">
+                {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
+                <Begrunnelse vurderingerPromise={vurderingerPromise} />
+              </Tabs.Panel>
+            </Tabs>
+          </div>
+        </ResizableColumns.Left>
+
+        <ResizableColumns.Right>
+          <div className={"card h-[100%]"}>
+            {aktivOpplysningsgruppe ? (
+              <OpplysningGruppeRedigering
+                opplysningGruppe={aktivOpplysningsgruppe}
+                behandlingId={oppgave.behandlingId}
               />
+            ) : (
+              <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+            )}
+          </div>
+        </ResizableColumns.Right>
+      </ResizableColumns>
 
-              <Tabs.Tab
-                value="melding-om-vedtak"
-                label="Melding om vedtak"
-                icon={<EnvelopeClosedIcon />}
-              />
-            </Tabs.List>
-
-            <Tabs.Panel value="behandling">
-              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
-              <Behandling behandlingPromise={behandlingPromise} />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="melding-om-vedtak">
-              <MeldingOmVedtak />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="begrunnelse">
-              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
-              <Begrunnelse vurderingerPromise={vurderingerPromise} />
-            </Tabs.Panel>
-          </Tabs>
-        </div>
-
-        <div className={"card"}>
-          {aktivOpplysningsgruppe ? (
-            <OpplysningGruppeRedigering
-              opplysningGruppe={aktivOpplysningsgruppe}
-              behandlingId={oppgave.behandlingId}
-            />
-          ) : (
-            <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
-          )}
-        </div>
-
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }
