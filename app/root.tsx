@@ -1,9 +1,8 @@
-import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
-  Link,
   Links,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -12,15 +11,11 @@ import {
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
-import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
-import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getEnv } from "~/utils/env.utils";
 
@@ -123,7 +118,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, featureFlags } = useLoaderData<typeof loader>();
+  const { env } = useLoaderData<typeof loader>();
 
   return (
     <html lang="nb">
@@ -134,21 +129,22 @@ export default function App() {
       </head>
       <body>
         <SaksbehandlerProvider aktivtSok="">
-          <InternalHeader className={styles.header}>
-            <Link to={"/"} className={styles.headerLogo}>
-              <InternalHeader.Title as="h1" className={styles.pageHeader}>
-                {featureFlags.halloween && <PumpkinSvg />}
-                {featureFlags.jul && <MistelteinSvg />}
-                Dagpenger
-              </InternalHeader.Title>
-            </Link>
+          {/*<InternalHeader className={styles.header}>*/}
+          {/*  <Link to={"/"} className={styles.headerLogo}>*/}
+          {/*    <InternalHeader.Title as="h1" className={styles.pageHeader}>*/}
+          {/*      {featureFlags.halloween && <PumpkinSvg />}*/}
+          {/*      {featureFlags.jul && <MistelteinSvg />}*/}
+          {/*      Dagpenger*/}
+          {/*    </InternalHeader.Title>*/}
+          {/*  </Link>*/}
 
-            <HeaderMeny saksbehandler={saksbehandler} />
-          </InternalHeader>
+          {/*  <HeaderMeny saksbehandler={saksbehandler} />*/}
+          {/*</InternalHeader>*/}
 
           <AlertProvider>
             <GlobalAlerts />
-            {/*<Outlet />*/}
+
+            <Outlet />
           </AlertProvider>
 
           <ScrollRestoration />
