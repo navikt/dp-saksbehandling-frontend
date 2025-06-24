@@ -12,8 +12,8 @@ interface ISaksbehandlerContext {
 
 export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefined>(undefined);
 
-export function SaksbehandlerProvider(props: PropsWithChildren<{ aktivtSok: string }>) {
-  const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>(props.aktivtSok);
+export function SaksbehandlerProvider({ children }: PropsWithChildren) {
+  const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>("");
   const [skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger] = useState<boolean>(false);
   const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useState<boolean>(true);
 
@@ -28,7 +28,7 @@ export function SaksbehandlerProvider(props: PropsWithChildren<{ aktivtSok: stri
         setPeriodisertBehandlingsView,
       }}
     >
-      {props.children}
+      {children}
     </SaksbehandlerContext.Provider>
   );
 }

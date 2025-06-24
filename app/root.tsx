@@ -1,12 +1,5 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import {
-  Links,
-  Meta,
-  Scripts,
-  ScrollRestoration,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
+import { Links, Meta, Scripts, ScrollRestoration, useRouteError } from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import globalCss from "~/global.css?url";
@@ -114,8 +107,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env } = useLoaderData<typeof loader>();
-
   return (
     <html lang="nb">
       <head>
@@ -124,29 +115,29 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {/*<SaksbehandlerProvider aktivtSok="">*/}
         TEST HYDRATION ERROR
-        {/*<InternalHeader className={styles.header}>*/}
-        {/*  <Link to={"/"} className={styles.headerLogo}>*/}
-        {/*    <InternalHeader.Title as="h1" className={styles.pageHeader}>*/}
-        {/*      {featureFlags.halloween && <PumpkinSvg />}*/}
-        {/*      {featureFlags.jul && <MistelteinSvg />}*/}
-        {/*      Dagpenger*/}
-        {/*    </InternalHeader.Title>*/}
-        {/*  </Link>*/}
-        {/*  <HeaderMeny saksbehandler={saksbehandler} />*/}
-        {/*</InternalHeader>*/}
-        {/*<AlertProvider>*/}
-        {/*  <GlobalAlerts />*/}
-        {/*  <Outlet />*/}
-        {/*</AlertProvider>*/}
+        {/*<SaksbehandlerProvider>*/}
+        {/*  <InternalHeader className={styles.header}>*/}
+        {/*    <Link to={"/"} className={styles.headerLogo}>*/}
+        {/*      <InternalHeader.Title as="h1" className={styles.pageHeader}>*/}
+        {/*        {featureFlags.halloween && <PumpkinSvg />}*/}
+        {/*        {featureFlags.jul && <MistelteinSvg />}*/}
+        {/*        Dagpenger*/}
+        {/*      </InternalHeader.Title>*/}
+        {/*    </Link>*/}
+        {/*    <HeaderMeny saksbehandler={saksbehandler} />*/}
+        {/*  </InternalHeader>*/}
+        {/*  <AlertProvider>*/}
+        {/*    <GlobalAlerts />*/}
+        {/*    <Outlet />*/}
+        {/*  </AlertProvider>*/}
         <ScrollRestoration />
         <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`,
-          }}
-        />
+        {/*  <script*/}
+        {/*    dangerouslySetInnerHTML={{*/}
+        {/*      __html: `window.env = ${JSON.stringify(env)}`,*/}
+        {/*    }}*/}
+        {/*  />*/}
         {/*</SaksbehandlerProvider>*/}
       </body>
     </html>
