@@ -20374,6 +20374,8 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       navn: "fagsakId",
       datatype: "heltall",
       synlig: true,
+      redigertAvSaksbehandler: true,
+      redigerbar: true,
       opplysninger: [
         {
           id: "019758b2-cd32-709b-81ba-d0969ac62603",
@@ -20403,6 +20405,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       navn: "søknadId",
       datatype: "tekst",
       synlig: true,
+      redigerbar: true,
       opplysninger: [
         {
           id: "019758b2-cd33-7e20-82e1-416cb5b5847d",
@@ -21368,6 +21371,8 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       navn: "Bostedsland er Norge",
       datatype: "boolsk",
       synlig: true,
+      redigertAvSaksbehandler: true,
+      redigerbar: true,
       opplysninger: [
         {
           id: "019758bd-ac36-7734-877a-0bfb19639489",
@@ -21473,6 +21478,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       navn: "Bruker oppholder seg i Norge",
       datatype: "boolsk",
       synlig: true,
+      redigerbar: true,
       opplysninger: [
         {
           id: "019758bd-ac38-71cc-b71f-c44414ab64df",
@@ -21503,6 +21509,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       navn: "Antall barn som gir rett til barnetillegg",
       datatype: "heltall",
       synlig: true,
+      redigerbar: true,
       opplysninger: [
         {
           id: "019758bd-ac38-71cc-b71f-c44414ab64e0",
@@ -21514,6 +21521,32 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
           },
           verdi: "0",
           status: "Faktum",
+          datatype: "heltall",
+          redigerbar: false,
+          kanOppfriskes: false,
+          gyldigFraOgMed: "2025-06-01",
+          gyldigTilOgMed: "2025-06-10",
+          utledetAv: {
+            regel: {
+              navn: "AntallAv",
+            },
+            opplysninger: ["019758bd-ac36-7734-877a-0bfb1963948a"],
+          },
+          synlig: true,
+          formål: "Regel",
+        },
+        {
+          id: "019758bd-ac38-71cc-b71f-c44414ab64e2",
+          opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23c",
+          navn: "Antall barn som gir rett til barnetillegg",
+          verdien: {
+            verdi: 1,
+            datatype: "heltall",
+          },
+          verdi: "1",
+          status: "Faktum",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-25",
           datatype: "heltall",
           redigerbar: false,
           kanOppfriskes: false,

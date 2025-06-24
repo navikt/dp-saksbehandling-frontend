@@ -74,7 +74,7 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
               status={hentFargeForTidslinjePeriodeOpplysning(opplysning)}
               icon={hentIkonForTIdslinjePeriodeOpplysning(opplysning)}
               statusLabel={opplysning.navn}
-              onSelectPeriod={() => setAktivPeriode({ opplysning, periodeNummer: index + 1 })}
+              onSelectPeriod={() => setAktivPeriode({ opplysning, periodeNummer: index })}
               isActive={aktivPeriode?.opplysning.id === opplysning.id}
               id={opplysning.id}
             >

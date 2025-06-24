@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
-import { Accordion, Button, Detail, Heading } from "@navikt/ds-react";
+import { Accordion, Button, Heading } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 
 import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
@@ -53,7 +53,6 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
       <div className={"flex justify-between"}>
         <div>
           <Heading size={"xsmall"}>{opplysningGruppe.navn}</Heading>
-          <Detail textColor={"subtle"}>§ 4-5. Reelle arbeidssøkere (mock)</Detail>
         </div>
         <Button
           size={"small"}

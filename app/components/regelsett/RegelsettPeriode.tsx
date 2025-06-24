@@ -1,5 +1,10 @@
-import { ChevronRightIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, Heading } from "@navikt/ds-react";
+import {
+  ChevronRightIcon,
+  ClockDashedIcon,
+  PadlockLockedIcon,
+  PersonPencilIcon,
+} from "@navikt/aksel-icons";
+import { BodyShort, Detail, Heading, Tooltip } from "@navikt/ds-react";
 import classnames from "classnames";
 import { motion } from "motion/react";
 
@@ -19,7 +24,7 @@ interface IProps {
 export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
   const { aktivOpplysningsgruppe, setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
 
-  const grupper = behandling.opplysningsgrupper.filter(
+  const opplysningGrupper = behandling.opplysningsgrupper.filter(
     (gruppe) =>
       gruppe.synlig && aktivtRegelsett.opplysningTypeIder.includes(gruppe.opplysningTypeId),
   );
@@ -46,24 +51,46 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
           Opplysninger
         </Heading>
         <ul className={"pb-4"}>
-          {grupper.map((gruppe) => {
+          {opplysningGrupper.map((opplysningGruppe) => {
             const erAktivGruppe =
-              gruppe.opplysningTypeId === aktivOpplysningsgruppe?.opplysningTypeId;
+              opplysningGruppe.opplysningTypeId === aktivOpplysningsgruppe?.opplysningTypeId;
+
             return (
-              <motion.li
-                key={gruppe.opplysningTypeId}
-                className={classnames(styles.opplysningLinje, {
-                  [styles.opplysningLinjeAktiv]: erAktivGruppe,
-                })}
-                whileHover={{ scale: 1.005 }}
-                whileTap={{ scale: 0.995 }}
-              >
-                <button
-                  onClick={() => setAktivOpplysningsgruppe(erAktivGruppe ? undefined : gruppe)}
+              <li key={opplysningGruppe.opplysningTypeId} className={styles.opplysningLinje}>
+                <motion.button
+                  className={classnames(styles.opplysningLinjeKnapp, {
+                    [styles.opplysningLinjeKnappAktiv]: erAktivGruppe,
+                  })}
+                  whileHover={{ scale: 1.005 }}
+                  whileTap={{ scale: 0.995 }}
+                  onClick={() =>
+                    setAktivOpplysningsgruppe(erAktivGruppe ? undefined : opplysningGruppe)
+                  }
                 >
-                  <BodyShort>{gruppe.navn}</BodyShort>
-                  <BodyShort>{formaterOpplysningVerdi(gruppe.opplysninger[0])} </BodyShort>
+                  <BodyShort className={"flex items-center gap-1"}>
+                    {opplysningGruppe.redigertAvSaksbehandler && (
+                      <Tooltip content="Opplysningen er redigert av saksbehandler">
+                        <PersonPencilIcon />
+                      </Tooltip>
+                    )}
+                    {!opplysningGruppe.redigerbar && (
+                      <Tooltip content="Opplysningen er ikke redigerbar">
+                        <PadlockLockedIcon />
+                      </Tooltip>
+                    )}
+                    {opplysningGruppe.navn}
+                  </BodyShort>
+                  <BodyShort className={"flex items-center gap-1"}>
+                    {formaterOpplysningVerdi(opplysningGruppe.opplysninger[0])}
+                    {opplysningGruppe.opplysninger.length > 1 && (
+                      <Tooltip content="Opplysningen har flere perioder">
+                        <ClockDashedIcon />
+                      </Tooltip>
+                    )}
+                  </BodyShort>
+
                   <motion.span
+                    className={"justify-self-end"}
                     animate={{ rotate: erAktivGruppe ? 180 : 0 }}
                     transition={{
                       duration: 0.2,
@@ -71,12 +98,13 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
                     }}
                   >
                     <ChevronRightIcon
-                      fontSize={"1.5rem"}
+                      fontSize={"1.2rem"}
                       aria-label={erAktivGruppe ? "Lukk opplysning" : "Åpne opplsyning"}
+                      color={"var(--a-blue-400)"}
                     />
                   </motion.span>
-                </button>
-              </motion.li>
+                </motion.button>
+              </li>
             );
           })}
         </ul>
