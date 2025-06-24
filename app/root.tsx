@@ -9,7 +9,6 @@ import {
 } from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
-import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
@@ -125,30 +124,30 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <SaksbehandlerProvider aktivtSok="">
-          TEST HYDRATION ERROR
-          {/*<InternalHeader className={styles.header}>*/}
-          {/*  <Link to={"/"} className={styles.headerLogo}>*/}
-          {/*    <InternalHeader.Title as="h1" className={styles.pageHeader}>*/}
-          {/*      {featureFlags.halloween && <PumpkinSvg />}*/}
-          {/*      {featureFlags.jul && <MistelteinSvg />}*/}
-          {/*      Dagpenger*/}
-          {/*    </InternalHeader.Title>*/}
-          {/*  </Link>*/}
-          {/*  <HeaderMeny saksbehandler={saksbehandler} />*/}
-          {/*</InternalHeader>*/}
-          {/*<AlertProvider>*/}
-          {/*  <GlobalAlerts />*/}
-          {/*  <Outlet />*/}
-          {/*</AlertProvider>*/}
-          <ScrollRestoration />
-          <Scripts />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.env = ${JSON.stringify(env)}`,
-            }}
-          />
-        </SaksbehandlerProvider>
+        {/*<SaksbehandlerProvider aktivtSok="">*/}
+        TEST HYDRATION ERROR
+        {/*<InternalHeader className={styles.header}>*/}
+        {/*  <Link to={"/"} className={styles.headerLogo}>*/}
+        {/*    <InternalHeader.Title as="h1" className={styles.pageHeader}>*/}
+        {/*      {featureFlags.halloween && <PumpkinSvg />}*/}
+        {/*      {featureFlags.jul && <MistelteinSvg />}*/}
+        {/*      Dagpenger*/}
+        {/*    </InternalHeader.Title>*/}
+        {/*  </Link>*/}
+        {/*  <HeaderMeny saksbehandler={saksbehandler} />*/}
+        {/*</InternalHeader>*/}
+        {/*<AlertProvider>*/}
+        {/*  <GlobalAlerts />*/}
+        {/*  <Outlet />*/}
+        {/*</AlertProvider>*/}
+        <ScrollRestoration />
+        <Scripts />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(env)}`,
+          }}
+        />
+        {/*</SaksbehandlerProvider>*/}
       </body>
     </html>
   );
