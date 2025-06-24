@@ -80,12 +80,12 @@ export default function Oppgave() {
             <AnimatePresence mode="popLayout">
               {aktivOpplysningsgruppe ? (
                 <motion.div
-                  initial={{ opacity: 0, x: -50 }}
+                  initial={{ opacity: 0, x: 200 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 200 }}
+                  exit={{ opacity: 0, x: 500 }}
                   transition={{
                     type: "spring",
-                    duration: 0.25,
+                    duration: 0.5,
                   }}
                   key={aktivOpplysningsgruppe.opplysningTypeId}
                 >
