@@ -93,11 +93,6 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
             variant="secondary-neutral"
             size="small"
             onClick={() => {
-              /**
-               * We move the window with 50% the total width to make it easier
-               * to navigate through the timeline.
-               * This is a design choice, and can be adjusted to fit your needs.
-               */
               navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.25);
             }}
           />
