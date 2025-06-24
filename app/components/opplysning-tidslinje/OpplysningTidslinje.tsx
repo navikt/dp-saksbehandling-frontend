@@ -57,9 +57,6 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
-        <Timeline.Pin date={new Date()}>
-          <Detail>I dag</Detail>
-        </Timeline.Pin>
         <Timeline.Row label={""}>
           {opplysningGruppe.opplysninger.map((opplysning, index) => (
             <Timeline.Period
