@@ -15,7 +15,7 @@ export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefi
 export function SaksbehandlerProvider({ children }: PropsWithChildren) {
   const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>("");
   const [skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger] = useState<boolean>(false);
-  const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useState<boolean>(true);
+  const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useState<boolean>(false);
 
   return (
     <SaksbehandlerContext.Provider
