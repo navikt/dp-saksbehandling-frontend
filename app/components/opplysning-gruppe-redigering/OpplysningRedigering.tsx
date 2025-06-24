@@ -15,7 +15,7 @@ interface IProps {
   periodeNummer: number;
 }
 
-export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IProps) {
+export function OpplysningRedigering({ opplysning, periodeNummer, behandlingId }: IProps) {
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
 
@@ -127,8 +127,6 @@ export function RedigerPeriode({ opplysning, periodeNummer, behandlingId }: IPro
           >
             Lagre
           </Button>
-
-          {}
         </Form>
       )}
     </div>

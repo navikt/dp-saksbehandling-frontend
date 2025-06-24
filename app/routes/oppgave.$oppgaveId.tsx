@@ -39,7 +39,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       fodselsnummer: oppgave.person.ident,
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
-      // @ts-expect-error Melding om vedtak må fikse sin type.
       behandlingstype: oppgave.behandlingType,
     });
   }

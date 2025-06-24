@@ -2,7 +2,7 @@ import { XMarkIcon } from "@navikt/aksel-icons";
 import { Accordion, Button, Detail, Heading } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 
-import { RedigerPeriode } from "~/components/opplysning-gruppe-redigering/RedigerPeriode";
+import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 
@@ -71,7 +71,7 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
         setAktivPeriode={setAktivPeriode}
       />
 
-      <RedigerPeriode
+      <OpplysningRedigering
         opplysning={aktivPeriode.opplysning}
         periodeNummer={aktivPeriode.periodeNummer}
         behandlingId={behandlingId}

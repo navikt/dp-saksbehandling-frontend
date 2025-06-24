@@ -303,7 +303,6 @@ export interface components {
             tittel: string;
         };
         MeldingOmVedtakData: {
-            /** @default RETT_TIL_DAGPENGER */
             behandlingstype: components["schemas"]["Behandlingstype"];
             fornavn: string;
             mellomnavn?: string;
@@ -324,7 +323,7 @@ export interface components {
             };
         };
         /** @enum {string} */
-        Behandlingstype: "RETT_TIL_DAGPENGER" | "KLAGE";
+        Behandlingstype: "RETT_TIL_DAGPENGER" | "KLAGE" | "MELDEKORT";
         HttpProblem: {
             type?: string;
             title?: string;
