@@ -13,7 +13,7 @@ import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { IAktivPeriode } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { IAktivOpplysning } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
@@ -21,8 +21,8 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
-  aktivPeriode: IAktivPeriode;
-  setAktivPeriode: Dispatch<SetStateAction<IAktivPeriode>>;
+  aktivPeriode: IAktivOpplysning;
+  setAktivPeriode: Dispatch<SetStateAction<IAktivOpplysning>>;
 }
 
 type AntallUkerITidslinje = "2" | "4" | "8";

@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
 import { Accordion, Button, Heading } from "@navikt/ds-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
@@ -13,40 +13,17 @@ interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
 }
 
-export interface IAktivPeriode {
+export interface IAktivOpplysning {
   opplysning: components["schemas"]["Opplysning"];
   periodeNummer: number;
 }
 
 export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: IProps) {
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
-  const forsteRedigerBareOpplysningIndex = opplysningGruppe.opplysninger.findIndex(
-    (opplysning) => opplysning.redigerbar,
-  );
-
-  const forsteRedigerBarOpplysning =
-    forsteRedigerBareOpplysningIndex !== -1
-      ? opplysningGruppe.opplysninger[forsteRedigerBareOpplysningIndex]
-      : opplysningGruppe.opplysninger[0];
-  const [aktivPeriode, setAktivPeriode] = useState<IAktivPeriode>({
-    opplysning: forsteRedigerBarOpplysning,
-    periodeNummer: forsteRedigerBareOpplysningIndex !== -1 ? forsteRedigerBareOpplysningIndex : 0,
+  const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>({
+    opplysning: opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1],
+    periodeNummer: opplysningGruppe.opplysninger.length - 1,
   });
-
-  useEffect(() => {
-    const forsteRedigerBareOpplysningIndex = opplysningGruppe.opplysninger.findIndex(
-      (opplysning) => opplysning.redigerbar,
-    );
-    const forsteRedigerBarOpplysning =
-      forsteRedigerBareOpplysningIndex !== -1
-        ? opplysningGruppe.opplysninger[forsteRedigerBareOpplysningIndex]
-        : opplysningGruppe.opplysninger[0];
-
-    setAktivPeriode({
-      opplysning: forsteRedigerBarOpplysning,
-      periodeNummer: forsteRedigerBareOpplysningIndex !== -1 ? forsteRedigerBareOpplysningIndex : 0,
-    });
-  }, [opplysningGruppe]);
 
   return (
     <div className={"p-4"}>
@@ -66,13 +43,13 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
 
       <OpplysningTidslinje
         opplysningGruppe={opplysningGruppe}
-        aktivPeriode={aktivPeriode}
-        setAktivPeriode={setAktivPeriode}
+        aktivPeriode={aktivOpplysning}
+        setAktivPeriode={setAktivOpplysning}
       />
 
       <OpplysningRedigering
-        opplysning={aktivPeriode.opplysning}
-        periodeNummer={aktivPeriode.periodeNummer}
+        opplysning={aktivOpplysning.opplysning}
+        periodeNummer={aktivOpplysning.periodeNummer}
         behandlingId={behandlingId}
       />
 

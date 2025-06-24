@@ -95,7 +95,14 @@ export default function Oppgave() {
                   />
                 </motion.div>
               ) : (
-                <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  key={aktivOpplysningsgruppe}
+                >
+                  <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
+                </motion.div>
               )}
             </AnimatePresence>
           </div>
