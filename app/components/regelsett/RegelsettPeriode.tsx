@@ -73,13 +73,16 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
                         <PersonPencilIcon />
                       </Tooltip>
                     )}
+
                     {!opplysningGruppe.redigerbar && (
                       <Tooltip content="Opplysningen er ikke redigerbar">
                         <PadlockLockedIcon />
                       </Tooltip>
                     )}
+
                     {opplysningGruppe.navn}
                   </BodyShort>
+
                   <BodyShort className={"flex items-center gap-1"}>
                     {formaterOpplysningVerdi(opplysningGruppe.opplysninger[0])}
                     {opplysningGruppe.opplysninger.length > 1 && (
