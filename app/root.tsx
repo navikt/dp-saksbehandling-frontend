@@ -1,5 +1,13 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Links, Meta, Scripts, ScrollRestoration, useRouteError } from "react-router";
+import {
+  ActionFunctionArgs,
+  Links,
+  LoaderFunctionArgs,
+  Meta,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import akselOverrides from "~/aksel-overrides.css?url";
 import globalCss from "~/global.css?url";
@@ -107,12 +115,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
+  const { env } = useLoaderData<typeof loader>();
+
   return (
     <html lang="nb">
       <head>
         <title>Dagpenger</title>
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.env = ${JSON.stringify(env)}`,
+          }}
+        />
       </head>
       <body>
         TEST HYDRATION ERROR
