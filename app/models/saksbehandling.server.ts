@@ -202,7 +202,7 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
 
   if (trimmetNotat) {
     return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/notat", {
-      headers: { ...getHeaders(onBehalfOfToken), "Content-Type": " text/plain" },
+      headers: getHeaders(onBehalfOfToken),
       body: trimmetNotat,
       params: {
         path: { oppgaveId },
