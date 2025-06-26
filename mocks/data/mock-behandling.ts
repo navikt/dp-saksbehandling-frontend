@@ -20257,7 +20257,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       gyldigFraOgMed: "2025-05-22",
       gyldigTilOgMed: "2025-05-22",
       datatype: "boolsk",
-      redigerbar: false,
+      redigerbar: true,
       kanOppfriskes: false,
       kilde: {
         type: "System",
@@ -20280,7 +20280,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
       gyldigFraOgMed: "2025-05-22",
       gyldigTilOgMed: "2025-05-22",
       datatype: "heltall",
-      redigerbar: false,
+      redigerbar: true,
       kanOppfriskes: false,
       kilde: {
         type: "System",
@@ -28840,7 +28840,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
           gyldigFraOgMed: "2025-06-08",
           gyldigTilOgMed: "2025-06-08",
           datatype: "boolsk",
-          redigerbar: false,
+          redigerbar: true,
           kanOppfriskes: false,
           kilde: {
             type: "System",
@@ -29484,7 +29484,7 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
           gyldigFraOgMed: "2025-06-08",
           gyldigTilOgMed: "2025-06-08",
           datatype: "boolsk",
-          redigerbar: false,
+          redigerbar: true,
           kanOppfriskes: false,
           kilde: {
             type: "System",

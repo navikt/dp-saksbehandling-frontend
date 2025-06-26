@@ -21,21 +21,22 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
-  aktivPeriode: IAktivOpplysning;
-  setAktivPeriode: Dispatch<SetStateAction<IAktivOpplysning>>;
+  aktivPeriode?: IAktivOpplysning;
+  setAktivPeriode: Dispatch<SetStateAction<IAktivOpplysning | undefined>>;
 }
 
 type AntallUkerITidslinje = "2" | "4" | "8";
 
 export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPeriode }: IProps) {
+  const sisteOpplysningDato =
+    opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1].gyldigFraOgMed;
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
-
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<{
     start: Date;
     end: Date;
   }>({
-    start: new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()),
-    end: add(new Date(aktivPeriode.opplysning.gyldigFraOgMed ?? new Date()), { weeks: 2 }),
+    start: new Date(sisteOpplysningDato ?? new Date()),
+    end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
   });
 
   function navigerTilbakeITidslinje(antallUker: number) {

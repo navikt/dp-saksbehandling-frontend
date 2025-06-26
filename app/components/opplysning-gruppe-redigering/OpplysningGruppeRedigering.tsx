@@ -20,10 +20,7 @@ export interface IAktivOpplysning {
 
 export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: IProps) {
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
-  const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>({
-    opplysning: opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1],
-    periodeNummer: opplysningGruppe.opplysninger.length - 1,
-  });
+  const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>();
 
   return (
     <div className={"p-4"}>
@@ -47,11 +44,20 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
         setAktivPeriode={setAktivOpplysning}
       />
 
-      <OpplysningRedigering
-        opplysning={aktivOpplysning.opplysning}
-        periodeNummer={aktivOpplysning.periodeNummer}
-        behandlingId={behandlingId}
-      />
+      {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
+        const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
+        const isActive = aktivOpplysning?.periodeNummer === periodeNummer;
+
+        return (
+          <OpplysningRedigering
+            key={index}
+            opplysning={opplysning}
+            periodeNummer={periodeNummer}
+            behandlingId={behandlingId}
+            isActive={isActive}
+          />
+        );
+      })}
 
       <Accordion size={"small"} className={"mt-8"}>
         <Accordion.Item>

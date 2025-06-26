@@ -1,10 +1,12 @@
+import { PadlockLockedFillIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Checkbox, DatePicker, Heading, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -13,11 +15,24 @@ interface IProps {
   behandlingId: string;
   opplysning: components["schemas"]["Opplysning"];
   periodeNummer: number;
+  isActive?: boolean;
 }
 
-export function OpplysningRedigering({ opplysning, periodeNummer, behandlingId }: IProps) {
+export function OpplysningRedigering({
+  opplysning,
+  periodeNummer,
+  behandlingId,
+  isActive = false,
+}: IProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isActive && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isActive]);
 
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),
@@ -43,11 +58,41 @@ export function OpplysningRedigering({ opplysning, periodeNummer, behandlingId }
   });
 
   return (
-    <div className="card mt-8 p-4">
-      <Heading size={"xsmall"}>Periode {periodeNummer + 1} </Heading>
+    <div className={`card mt-8 p-4 ${isActive ? "border-2 border-blue-500" : ""}`} ref={ref}>
+      <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
+        {!opplysning.redigerbar && <PadlockLockedFillIcon />} Periode {periodeNummer + 1}
+      </Heading>
+
+      <BodyShort size={"small"} weight={"semibold"}>
+        {opplysning.navn}
+      </BodyShort>
 
       {!opplysning.redigerbar && (
-        <BodyShort size={"small"}>{formaterOpplysningVerdi(opplysning)}</BodyShort>
+        <>
+          <BodyShort size={"small"}>{formaterOpplysningVerdi(opplysning)}</BodyShort>
+          <div className={"mt-4 flex gap-6"}>
+            <div>
+              <BodyShort size={"small"} weight={"semibold"}>
+                Gyldig fra og med
+              </BodyShort>
+              {opplysning.gyldigFraOgMed && (
+                <BodyShort size={"small"}>
+                  {formaterTilNorskDato(opplysning.gyldigFraOgMed)}
+                </BodyShort>
+              )}
+            </div>
+            <div>
+              <BodyShort size={"small"} weight={"semibold"}>
+                Gyldig til og med
+              </BodyShort>
+              {opplysning.gyldigTilOgMed && (
+                <BodyShort size={"small"}>
+                  {formaterTilNorskDato(opplysning.gyldigTilOgMed)}
+                </BodyShort>
+              )}
+            </div>
+          </div>
+        </>
       )}
 
       {opplysning.redigerbar && (
