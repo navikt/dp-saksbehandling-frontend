@@ -31,7 +31,7 @@ export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps
 
       {opplysning.redigerbar && (
         <>
-          <input {...field.getInputProps()} value={verdi} hidden={true} readOnly={true} />
+          <input {...field.getInputProps()} hidden={true} readOnly={true} />
           <Textarea
             // Denne må settes for å ikke kobles mot RVF skjema sin ID. Trengs for å få til debounced submit for input
             form={"ikke-rvf-form"}

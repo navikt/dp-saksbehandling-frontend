@@ -7,7 +7,7 @@ import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isFormValidationError, isILagreNotatResponse } from "~/utils/type-guards";
 
 export function OppgaveHandlingReturnerTilSaksbehandler() {
@@ -67,7 +67,7 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
 
             {notat.sistEndretTidspunkt && (
               <Detail textColor="subtle">
-                Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}
+                Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
               </Detail>
             )}
           </lagreNotatFetcher.Form>

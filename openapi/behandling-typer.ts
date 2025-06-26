@@ -759,6 +759,9 @@ export interface components {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             navn: string;
             datatype: components["schemas"]["DataType"];
+            synlig: boolean;
+            redigerbar?: boolean;
+            redigertAvSaksbehandler?: boolean;
             opplysninger: components["schemas"]["Opplysning"][];
         };
         Opplysning: {

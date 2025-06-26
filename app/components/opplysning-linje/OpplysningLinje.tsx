@@ -6,10 +6,9 @@ import { useState } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { hentValideringForOpplysning } from "~/utils/validering.util";
+import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./OpplysningListe.module.css";
@@ -23,17 +22,18 @@ interface IProps {
 export function OpplysningLinje(props: IProps) {
   const { opplysning } = props;
   const { state } = useNavigation();
-  const { featureFlags } = useTypedRouteLoaderData("root");
   const [redigerOpplysningModus, setRedigerOpplysningModus] = useState(false);
 
-  const kanRedigere =
-    !props.readonly && opplysning.redigerbar && featureFlags.kanRedigereOpplysninger;
+  const kanRedigere = !props.readonly && opplysning.redigerbar;
 
   const opplysningForm = useForm({
-    validator: hentValideringForOpplysning(opplysning),
+    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     method: "post",
     defaultValues: {
       verdi: formaterOpplysningVerdi(opplysning),
+      opplysningId: opplysning.id,
+      datatype: opplysning.datatype,
+      behandlingId: props.behandlingId,
     },
   });
 
@@ -49,9 +49,22 @@ export function OpplysningLinje(props: IProps) {
         {...opplysningForm.getFormProps()}
       >
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
-        <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
-        <input hidden={true} readOnly={true} name="datatype" value={opplysning.datatype} />
-        <input hidden={true} readOnly={true} name="behandlingId" value={props.behandlingId} />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("opplysningId").getInputProps()}
+        />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("datatype").getInputProps()}
+        />
+        <input
+          hidden={true}
+          readOnly={true}
+          {...opplysningForm.field("behandlingId").getInputProps()}
+        />
+
         <div className={styles.opplysningNavn}>
           {opplysning.kilde?.type === "Saksbehandler" && <PersonPencilIcon fontSize="1.5rem" />}
           {opplysning.navn}
@@ -102,14 +115,14 @@ export function OpplysningLinje(props: IProps) {
   );
 }
 
-export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]) {
+export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]): string {
   switch (opplysning.datatype) {
     case "penger":
       return `${formaterTallMedTusenSeperator(opplysning.verdi)} kr`;
     case "desimaltall":
       return formaterTallMedTusenSeperator(opplysning.verdi);
     case "dato":
-      return formaterNorskDato(opplysning.verdi);
+      return formaterTilNorskDato(opplysning.verdi);
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";
 

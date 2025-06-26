@@ -1,7 +1,7 @@
 import { Button, List, Select } from "@navikt/ds-react";
 import { useState } from "react";
 
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import type { JournalpostQuery } from "../../../graphql/generated/saf/graphql";
 import styles from "./JournalpostOversikt.module.css";
@@ -55,7 +55,7 @@ export function JournalpostOversikt({ journalposter }: IProps) {
       >
         {journalposter.map((journalpost) => (
           <option key={journalpost?.journalpostId} value={journalpost?.journalpostId}>
-            {`${journalpost?.tittel} ${journalpost?.datoOpprettet ? ` : ${formaterNorskDato(journalpost.datoOpprettet, true)}` : ""}`}
+            {`${journalpost?.tittel} ${journalpost?.datoOpprettet ? ` : ${formaterTilNorskDato(journalpost.datoOpprettet, true)}` : ""}`}
           </option>
         ))}
       </Select>

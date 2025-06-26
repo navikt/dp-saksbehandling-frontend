@@ -1,4 +1,3 @@
-import navStyles from "@navikt/ds-css/dist/index.css?url";
 import { InternalHeader } from "@navikt/ds-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
@@ -21,7 +20,6 @@ import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
-import meldingOmVedtakCss from "~/melding-om-vedtak.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
@@ -54,10 +52,8 @@ export function meta() {
 
 export function links() {
   return [
-    { rel: "stylesheet", href: navStyles },
-    { rel: "stylesheet", href: akselOverrides },
     { rel: "stylesheet", href: globalCss },
-    { rel: "stylesheet", href: meldingOmVedtakCss },
+    { rel: "stylesheet", href: akselOverrides },
     {
       rel: "icon",
       type: "image/png",
@@ -95,10 +91,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
-  const oppgaveHistorikk = unleash.isEnabled("dp-saksbehandling-frontend.oppgave-historikk");
-  const totrinnsKontroll = unleash.isEnabled("dp-saksbehandling-frontend.totrinns-kontroll");
-  const kanRedigereOpplysninger = unleash.isEnabled(
-    "dp-saksbehandling-frontend.kan-redigere-opplysninger",
+  const periodiserteOpplysninger = unleash.isEnabled(
+    "dp-saksbehandling-frontend.periodiserte-opplysninger",
   );
   const orkestratorBarnOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
@@ -112,9 +106,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       halloween,
       valentines,
       hippHippHurra,
-      oppgaveHistorikk,
-      totrinnsKontroll,
-      kanRedigereOpplysninger,
+      periodiserteOpplysninger,
       orkestratorBarnOpplysninger,
     },
     env: {
@@ -145,7 +137,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <SaksbehandlerProvider aktivtSok="">
+        <SaksbehandlerProvider>
           <InternalHeader className={styles.header}>
             <Link to={"/"} className={styles.headerLogo}>
               <InternalHeader.Title as="h1" className={styles.pageHeader}>
@@ -161,6 +153,7 @@ export default function App() {
 
           <AlertProvider>
             <GlobalAlerts />
+
             <Outlet />
           </AlertProvider>
 

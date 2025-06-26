@@ -6,6 +6,7 @@ import {
   XMarkOctagonFillIcon,
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
+import { motion } from "motion/react";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
@@ -19,35 +20,43 @@ interface IProps {
 export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett }: IProps) {
   return (
     <ul className={styles.regelsettMeny}>
-      {behandling.vilkår.map((regelsett, index) => (
-        <li key={index}>
-          <button
-            className={classnames({
-              [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
-            })}
-            onClick={() => setAktivtRegelsett(regelsett)}
-          >
-            {renderStatusIcon(regelsett.status)}
-            {regelsett.navn}
-          </button>
-        </li>
-      ))}
+      {behandling.vilkår.map((regelsett) => {
+        if (regelsett.opplysningIder.length > 0) {
+          return (
+            <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+              <button
+                className={classnames({
+                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+                })}
+                onClick={() => setAktivtRegelsett(regelsett)}
+              >
+                {renderStatusIcon(regelsett.status)}
+                {regelsett.navn}
+              </button>
+            </motion.li>
+          );
+        }
+      })}
 
       <div className={styles.divider} />
 
-      {behandling.fastsettelser.map((regelsett) => (
-        <li key={regelsett.navn}>
-          <button
-            className={classnames({
-              [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
-            })}
-            onClick={() => setAktivtRegelsett(regelsett)}
-          >
-            {renderStatusIcon(regelsett.status)}
-            {regelsett.navn}
-          </button>
-        </li>
-      ))}
+      {behandling.fastsettelser.map((regelsett) => {
+        if (regelsett.opplysningIder.length > 0) {
+          return (
+            <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+              <button
+                className={classnames({
+                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+                })}
+                onClick={() => setAktivtRegelsett(regelsett)}
+              >
+                {renderStatusIcon(regelsett.status)}
+                {regelsett.navn}
+              </button>
+            </motion.li>
+          );
+        }
+      })}
     </ul>
   );
 }

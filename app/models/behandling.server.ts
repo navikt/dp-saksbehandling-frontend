@@ -8,6 +8,9 @@ import { paths } from "../../openapi/behandling-typer";
 
 const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
+type EndreOpplysningRequestBody =
+  paths["/behandling/{behandlingId}/opplysning/{opplysningId}"]["put"]["requestBody"]["content"]["application/json"];
+
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.GET("/behandling/{behandlingId}", {
@@ -38,12 +41,20 @@ export async function endreOpplysning(
   behandlingId: string,
   opplysningId: string,
   verdi: string,
-  begrunnelse: string | null,
+  begrunnelse?: string,
+  gyldigFraOgMed?: string,
+  gyldigTilOgMed?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
+  const body: EndreOpplysningRequestBody = {
+    verdi,
+    begrunnelse: begrunnelse ?? "",
+    gyldigFraOgMed,
+    gyldigTilOgMed,
+  };
   return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: { verdi, begrunnelse: begrunnelse ?? "" },
+    body,
     params: {
       path: { behandlingId, opplysningId },
     },

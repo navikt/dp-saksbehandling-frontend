@@ -6,7 +6,7 @@ import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -65,7 +65,7 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
 
       {avklaring.sistEndret && (
         <Detail>
-          Sist endret {formaterNorskDato(avklaring.sistEndret, true)} {avklartAv}
+          Sist endret {formaterTilNorskDato(avklaring.sistEndret, true)} {avklartAv}
         </Detail>
       )}
     </Form>

@@ -35,12 +35,7 @@ export function KlageOpplysningFlervalg({ opplysning, formScope, readonly }: IPr
 
       {opplysning.redigerbar && (
         <>
-          <input
-            {...field.getInputProps()}
-            value={JSON.stringify(selectedOptions)}
-            hidden={true}
-            readOnly={true}
-          />
+          <input {...field.getInputProps()} hidden={true} readOnly={true} />
           <UNSAFE_Combobox
             // Denne må settes for å ikke kobles mot RVF skjema sin ID.
             form={"ikke-rvf-form"}

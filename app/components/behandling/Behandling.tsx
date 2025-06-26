@@ -5,10 +5,11 @@ import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMe
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { MeldekortBeregning } from "~/components/meldekortberegninger/MeldekortBeregning";
 import { Regelsett } from "~/components/regelsett/Regelsett";
+import { RegelsettPeriode } from "~/components/regelsett/RegelsettPeriode";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandling } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 
@@ -22,7 +23,7 @@ interface IProps {
 
 export function Behandling({ behandlingPromise, readOnly }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
-  const [erMeldekort, setErMeldekort] = useState<boolean>(false);
+  const { periodisertBehandlingsView } = useSaksbehandler();
   const [aktivtRegelsett, setAktivtRegelsett] = useState<components["schemas"]["Regelsett"] | null>(
     null,
   );
@@ -34,9 +35,6 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
       const nåværendeRegelsett = alleRegelsett.find(
         (regelsett) => regelsett.navn === aktivtRegelsett?.navn,
       );
-
-      const meldekortHendelse = behandling?.behandletHendelse?.type == "Meldekort";
-      setErMeldekort(meldekortHendelse);
 
       if (nåværendeRegelsett) {
         setAktivtRegelsett(nåværendeRegelsett);
@@ -72,6 +70,7 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                 behandlingId={behandling.data.behandlingId}
                 readOnly={readOnly}
               />
+
               {aktivtRegelsett && (
                 <div className={styles.container}>
                   <RegelsettMeny
@@ -79,14 +78,22 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
                     aktivtRegelsett={aktivtRegelsett}
                     setAktivtRegelsett={setAktivtRegelsett}
                   />
-                  <Regelsett
-                    behandling={behandling.data}
-                    aktivtRegelsett={aktivtRegelsett}
-                    readonly={readOnly}
-                  />
+
+                  {periodisertBehandlingsView ? (
+                    <RegelsettPeriode
+                      behandling={behandling.data}
+                      aktivtRegelsett={aktivtRegelsett}
+                      readonly={readOnly}
+                    />
+                  ) : (
+                    <Regelsett
+                      behandling={behandling.data}
+                      aktivtRegelsett={aktivtRegelsett}
+                      readonly={readOnly}
+                    />
+                  )}
                 </div>
               )}
-              {erMeldekort && <MeldekortBeregning behandling={behandling.data} />}
             </>
           );
         }}

@@ -1354,6 +1354,22 @@ export interface components {
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             sikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][];
+            saker: components["schemas"]["Sak"][];
+            oppgaver: components["schemas"]["OppgaveOversikt"][];
+        };
+        Sak: {
+            /** Format: uuid */
+            id: string;
+            behandlinger: components["schemas"]["Behandling"][];
+        };
+        Behandling: {
+            /** Format: uuid */
+            id: string;
+            behandlingType: components["schemas"]["BehandlingType"];
+            /** Format: date-time */
+            opprettet: string;
+            /** Format: uuid */
+            oppgaveId?: string;
         };
         OppgaveOversiktResultat: {
             oppgaver: components["schemas"]["OppgaveOversikt"][];
@@ -1403,7 +1419,7 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "BEHANDLES_I_ARENA";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "MELDEKORT";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: string[];
@@ -1558,6 +1574,7 @@ export interface components {
             /** Format: date-time */
             opprettet: string;
             journalpostId: string;
+            /** Format: uuid */
             sakId: string;
             personIdent: components["schemas"]["PersonIdent"];
         };

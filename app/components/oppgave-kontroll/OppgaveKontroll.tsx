@@ -6,7 +6,7 @@ import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
 
 import styles from "./OppgaveKontroll.module.css";
@@ -59,7 +59,7 @@ export function OppgaveKontroll() {
         />
         {notat.sistEndretTidspunkt && (
           <Detail textColor="subtle">
-            Sist lagret: {formaterNorskDato(notat.sistEndretTidspunkt, true)}
+            Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
           </Detail>
         )}
       </fetcher.Form>

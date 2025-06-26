@@ -22,7 +22,7 @@ export default function Oppgave() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
-  const { datepickerProps, inputProps } = useDatepicker();
+  const { datepickerProps, inputProps } = useDatepicker({ toDate: new Date() });
   const klageForm = useForm({
     schema: hentValideringForNyKlageSkjema(),
     method: "post",
@@ -35,7 +35,7 @@ export default function Oppgave() {
   });
 
   return (
-    <div className={classnames("card p-4 mt-2", styles.container)}>
+    <div className={classnames("card mt-2 p-4", styles.container)}>
       <Heading size="small" spacing>
         Opprett ny klage
       </Heading>
@@ -46,7 +46,7 @@ export default function Oppgave() {
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
-            label="Velg dato"
+            label="Klage motatt"
             name={"opprettetDato"}
             size={"small"}
             error={klageForm.error("opprettetDato")}
@@ -69,7 +69,7 @@ export default function Oppgave() {
           error={klageForm.error("sakId")}
         />
 
-        <div className={"flex gap-2 mt-4"}>
+        <div className={"mt-4 flex gap-2"}>
           <RemixLink
             to={`/person/${person.id}/oversikt`}
             asButtonVariant={"secondary"}

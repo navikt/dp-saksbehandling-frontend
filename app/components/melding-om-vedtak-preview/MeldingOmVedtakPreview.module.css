@@ -7,3 +7,13 @@
   margin-bottom: calc(var(--a-spacing-4) * -1);
   background-color: var(--a-gray-800);
 }
+
+.container > div {
+  width: 595px; /* A4 bredde */
+  height: 842px; /* A4 høyde */
+  padding: 64px 64px 74px;
+
+  box-shadow: var(--a-shadow-medium);
+  background-color: white;
+  overflow: auto;
+}

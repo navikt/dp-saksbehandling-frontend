@@ -9,12 +9,14 @@ import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";
 
 import { initFaro } from "~/faro";
+import { logger } from "~/utils/logger.utils";
 
 try {
   initFaro();
 } catch (error) {
-  console.error("Feil ved initFaro:", error);
+  logger.error(error);
 }
+
 startTransition(() => {
   hydrateRoot(
     document,

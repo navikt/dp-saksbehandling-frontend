@@ -7,7 +7,7 @@ import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-b
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useTableSort } from "~/hooks/useTableSort";
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -145,7 +145,7 @@ export function OppgaveListe({
                 return (
                   <Table.Row key={oppgave.oppgaveId}>
                     <Table.DataCell>
-                      <Detail textColor="subtle">{formaterNorskDato(tidspunktOpprettet)}</Detail>
+                      <Detail textColor="subtle">{formaterTilNorskDato(tidspunktOpprettet)}</Detail>
                     </Table.DataCell>
 
                     <Table.DataCell>

@@ -18,4 +18,6 @@ export const mockPerson: components["schemas"]["Person"] = {
   sikkerhetstiltak: mockSikkerhetstiltak,
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
+  saker: [],
+  oppgaver: [],
 };

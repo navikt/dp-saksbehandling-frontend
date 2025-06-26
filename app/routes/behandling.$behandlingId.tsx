@@ -5,6 +5,7 @@ import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
+  Outlet,
   useActionData,
   useLoaderData,
 } from "react-router";
@@ -12,8 +13,11 @@ import invariant from "tiny-invariant";
 
 import { Begrunnelse } from "~/components/begrunnelse/Begrunnelse";
 import { Behandling } from "~/components/behandling/Behandling";
+import { OpplysningGruppeRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
+import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -34,6 +38,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return data(
     {
       alert,
+      behandlingId: params.behandlingId,
       behandlingPromise,
       vurderingerPromise,
     },
@@ -45,14 +50,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   );
 }
 
-export default function Oppgave() {
-  const { behandlingPromise, vurderingerPromise } = useLoaderData<typeof loader>();
+export default function BehandlingRoute() {
+  const { behandlingId, behandlingPromise, vurderingerPromise } = useLoaderData<typeof loader>();
+  const { aktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const actionData = useActionData<typeof action>();
   const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <>
+    <div className={styles.behandling}>
       <div className={"card"}>
         <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
           <Tabs.List>
@@ -76,6 +82,17 @@ export default function Oppgave() {
           </Tabs.Panel>
         </Tabs>
       </div>
-    </>
+
+      <div className={"card"}>
+        {aktivOpplysningsgruppe && (
+          <OpplysningGruppeRedigering
+            opplysningGruppe={aktivOpplysningsgruppe}
+            behandlingId={behandlingId}
+          />
+        )}
+      </div>
+
+      <Outlet />
+    </div>
   );
 }

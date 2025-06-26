@@ -73,6 +73,8 @@ function hentGyldigeOppgaveValg(
           return [];
       }
   }
+
+  return [];
 }
 
 interface IProps {

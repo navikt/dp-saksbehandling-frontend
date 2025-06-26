@@ -2,6 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
 import { opprettKlage } from "~/models/saksbehandling.server";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
 
@@ -15,11 +16,8 @@ export async function opprettKlageAction(request: Request, formData: FormData) {
   }
 
   const { opprettetDato, journalpostId, sakId, personIdent } = validertSkjema.data;
-  const [dag, maaned, aar] = opprettetDato.split(".");
-  const datoBackendFormat = `${aar}-${maaned}-${dag}T00:00:00`;
-
   const klageBody: components["schemas"]["OpprettKlage"] = {
-    opprettet: datoBackendFormat,
+    opprettet: formaterTilBackendDato(opprettetDato, true),
     journalpostId,
     sakId,
     personIdent: {

@@ -3,7 +3,7 @@ import { FormScope, useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
 import { components } from "openapi/soknad-orkestrator-typer";
 
-import { formaterNorskDato } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 interface IProps {
@@ -25,7 +25,7 @@ export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
         field.clearError();
 
         const datoBackendFormat = formatISO(date, { representation: "date" });
-        field.setValue(formaterNorskDato(datoBackendFormat));
+        field.setValue(formaterTilNorskDato(datoBackendFormat));
         if (datoBackendFormat !== opplysning.verdi) {
           field.setDirty(true);
         } else {
