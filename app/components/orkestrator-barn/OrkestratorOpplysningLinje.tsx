@@ -21,18 +21,27 @@ interface IProps {
 
 export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
-  const sensitiveOpplyninger = ["fornavnOgMellomnavn", "etternavn"];
-  const skjulOpplysning = sensitiveOpplyninger.includes(opplysning.id);
+
+  function hentOpplysningVerdi() {
+    if (opplysning.verdi === "null") {
+      return "";
+    }
+
+    const sensitiveOpplyninger = ["fornavnOgMellomnavn", "etternavn"];
+    const skjulOpplysning = sensitiveOpplyninger.includes(opplysning.id);
+
+    if (skjulOpplysning && skjulSensitiveOpplysninger) {
+      return maskerVerdi(opplysning.verdi);
+    }
+
+    return formatterOrkestratorOpplysningVerdi(opplysning);
+  }
 
   if (readOnly) {
     return (
       <div className={classNames(styles.orkestratorOpplysningsLinje, styles.bakgrunn)}>
         <div>{hentOrkestratorBarnOpplysningLabel(opplysning.id)}</div>
-        <div>
-          {skjulOpplysning && skjulSensitiveOpplysninger
-            ? maskerVerdi(opplysning.verdi)
-            : formatterOrkestratorOpplysningVerdi(opplysning)}
-        </div>
+        <div>{hentOpplysningVerdi()}</div>
         <div className={styles.alightRight}>
           <OrkestratorTag kilde={opplysning.kilde} />
         </div>

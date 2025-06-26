@@ -12,7 +12,7 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
   }
 
   if (!behandlingId) {
-    throw new Error("Mangler behandlingId");
+    throw new Error(`Mangler behandlingId på oppgave med ID: ${oppgaveId}`);
   }
 
   const { data, error } = await tildelOppgave(request, oppgaveId);
@@ -37,6 +37,6 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
   }
 
   throw new Error(
-    `Oppgave med id ${oppgaveId} har uventet tilstand. Forventet tilstand er UNDER_BEHANDLING eller UNDER_KONTROLL, fikk ${data}`,
+    `Oppgave med id ${oppgaveId} har uventet tilstand. Forventet tilstand er UNDER_BEHANDLING eller UNDER_KONTROLL, fikk ${data.nyTilstand}`,
   );
 }

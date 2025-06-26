@@ -15,7 +15,7 @@ export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: new Date(opplysning.verdi),
+    defaultSelected: opplysning.verdi === "null" ? undefined : new Date(opplysning.verdi),
     toDate: addYears(new Date(), 100),
     fromDate: subYears(new Date(), 100),
     locale: "nb",

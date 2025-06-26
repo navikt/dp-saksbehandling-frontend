@@ -2,6 +2,7 @@ import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
+import { HippHippHurra } from "~/components/17-mai/HippHippHurra";
 import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { Adventslys } from "~/components/jul/Adventslys";
@@ -73,6 +74,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
       {featureFlags.halloween && <Ghosts />}
       {featureFlags.jul && <Adventslys />}
       {featureFlags.valentines && <Valentines />}
+      {featureFlags.hippHippHurra && <HippHippHurra />}
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
