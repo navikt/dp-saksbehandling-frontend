@@ -672,6 +672,7 @@ export interface components {
         Behandling: {
             /** Format: uuid */
             behandlingId: string;
+            tidslinje?: components["schemas"]["Tidslinjehendelse"][];
             /** @enum {string} */
             tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
             /** @description Hvilken hendelse som utløste behandlingen */
@@ -1118,6 +1119,11 @@ export interface components {
             /** @enum {string} */
             rolle: "saksbehandler" | "beslutter";
             behandler?: components["schemas"]["Saksbehandler"];
+        };
+        Tidslinjehendelse: {
+            /** Format: date */
+            dato: string;
+            hendelse: string;
         };
         Hendelse: {
             datatype: string;

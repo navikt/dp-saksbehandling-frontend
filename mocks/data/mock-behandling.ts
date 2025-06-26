@@ -13522,7 +13522,7 @@ export const mockBehandlingInnvilgelse: components["schemas"]["Behandling"] = {
     },
   ],
 };
-export const mockBehandlingArv: components["schemas"]["Behandling"] = {
+export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
   behandlingId: "0196f70d-baf3-708a-8741-6e9c5e03448a",
   tilstand: "Ferdig",
   behandletHendelse: {
@@ -13532,6 +13532,28 @@ export const mockBehandlingArv: components["schemas"]["Behandling"] = {
   },
   kreverTotrinnskontroll: true,
   utfall: true,
+  tidslinje: [
+    {
+      dato: "2025-06-10",
+      hendelse: "SøknadInnsendtHendelse",
+    },
+    {
+      dato: "2025-06-10",
+      hendelse: "BeregnMeldekortHendelse",
+    },
+    {
+      dato: "2025-06-10",
+      hendelse: "BeregnMeldekortHendelse",
+    },
+    {
+      dato: "2025-06-10",
+      hendelse: "BeregnMeldekortHendelse",
+    },
+    {
+      dato: "2025-06-10",
+      hendelse: "BeregnMeldekortHendelse",
+    },
+  ],
   vilkår: [
     {
       navn: "Opphold",
@@ -45478,5 +45500,5 @@ export const mockBehandlingAvslag: components["schemas"]["Behandling"] = {
 export const mockBehandlinger: components["schemas"]["Behandling"][] = [
   mockBehandlingInnvilgelse,
   mockBehandlingAvslag,
-  mockBehandlingArv,
+  mockBehandlingMeldekort,
 ];

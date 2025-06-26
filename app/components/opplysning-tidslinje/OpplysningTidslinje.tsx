@@ -1,5 +1,6 @@
 import { CheckmarkIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@navikt/aksel-icons";
 import {
+  BodyShort,
   Button,
   Detail,
   HStack,
@@ -15,6 +16,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 import { IAktivOpplysning } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -28,6 +31,10 @@ interface IProps {
 type AntallUkerITidslinje = "2" | "4" | "8";
 
 export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPeriode }: IProps) {
+  const { behandlingPromise } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+  );
+  const behandling = useAwaitPromise(behandlingPromise);
   const sisteOpplysningDato =
     opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1].gyldigFraOgMed;
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
@@ -58,6 +65,13 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
+        {behandling.response?.data?.tidslinje?.map((hendelse, index) => (
+          <Timeline.Pin date={new Date(hendelse.dato)} key={index}>
+            <BodyShort size={"small"}>{hendelse.hendelse}</BodyShort>
+            <BodyShort size={"small"}>{formaterTilNorskDato(hendelse.dato)}</BodyShort>
+          </Timeline.Pin>
+        ))}
+
         <Timeline.Row label={""}>
           {opplysningGruppe.opplysninger.map((opplysning, index) => (
             <Timeline.Period

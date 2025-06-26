@@ -103,7 +103,7 @@ export const underBehandlingArvOppgaveMineOppgave: components["schemas"]["Oppgav
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Arv"],
+  emneknagger: ["Meldekort"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
