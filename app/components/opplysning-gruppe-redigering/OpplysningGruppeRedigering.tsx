@@ -5,11 +5,14 @@ import { useState } from "react";
 import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
+import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { hentBehandling } from "~/models/behandling.server";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   behandlingId: string;
+  behandlingPromise: ReturnType<typeof hentBehandling>;
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
 }
 
@@ -18,7 +21,12 @@ export interface IAktivOpplysning {
   periodeNummer: number;
 }
 
-export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: IProps) {
+export function OpplysningGruppeRedigering({
+  opplysningGruppe,
+  behandlingId,
+  behandlingPromise,
+}: IProps) {
+  const { response } = useAwaitPromise(behandlingPromise);
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>();
 
@@ -41,6 +49,7 @@ export function OpplysningGruppeRedigering({ opplysningGruppe, behandlingId }: I
       <OpplysningTidslinje
         opplysningGruppe={opplysningGruppe}
         aktivPeriode={aktivOpplysning}
+        behandling={response?.data}
         setAktivPeriode={setAktivOpplysning}
       />
 

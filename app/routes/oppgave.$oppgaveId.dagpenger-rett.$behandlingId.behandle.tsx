@@ -90,6 +90,8 @@ export default function Oppgave() {
                   key={aktivOpplysningsgruppe.opplysningTypeId}
                 >
                   <OpplysningGruppeRedigering
+                    // @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router
+                    behandlingPromise={behandlingPromise}
                     opplysningGruppe={aktivOpplysningsgruppe}
                     behandlingId={oppgave.behandlingId}
                   />

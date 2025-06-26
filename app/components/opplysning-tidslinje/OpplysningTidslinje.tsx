@@ -16,25 +16,25 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 import { IAktivOpplysning } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
+  behandling: components["schemas"]["Behandling"] | undefined;
   aktivPeriode?: IAktivOpplysning;
   setAktivPeriode: Dispatch<SetStateAction<IAktivOpplysning | undefined>>;
 }
 
 type AntallUkerITidslinje = "2" | "4" | "8";
 
-export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPeriode }: IProps) {
-  const { behandlingPromise } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
-  );
-  const behandling = useAwaitPromise(behandlingPromise);
+export function OpplysningTidslinje({
+  opplysningGruppe,
+  behandling,
+  aktivPeriode,
+  setAktivPeriode,
+}: IProps) {
   const sisteOpplysningDato =
     opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1].gyldigFraOgMed;
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
@@ -61,11 +61,11 @@ export function OpplysningTidslinje({ opplysningGruppe, aktivPeriode, setAktivPe
   return (
     <Provider locale={nb} translations={{ Timeline: { dayFormat: "MMM d" } }}>
       <Timeline
-        className={"max-w mt-8 mb-2"}
+        className={"mt-8 mb-2 max-w-full"}
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
-        {behandling.response?.data?.tidslinje?.map((hendelse, index) => (
+        {behandling?.tidslinje?.map((hendelse, index) => (
           <Timeline.Pin date={new Date(hendelse.dato)} key={index}>
             <BodyShort size={"small"}>{hendelse.hendelse}</BodyShort>
             <BodyShort size={"small"}>{formaterTilNorskDato(hendelse.dato)}</BodyShort>
