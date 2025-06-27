@@ -37,6 +37,11 @@
   --ac-table-row-zebra: #f8f9fc;
 }
 
+/* Legg til border under header */
+.tabell--subtil thead tr {
+  border-bottom: 1px solid var(--a-border-subtle);
+}
+
 /* Fjern border på alle rader */
 .tabell--subtil tr th,
 .tabell--subtil tr td {

@@ -1,6 +1,5 @@
 import { LayersIcon } from "@navikt/aksel-icons";
 import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
-import classnames from "classnames";
 import { differenceInCalendarDays } from "date-fns";
 
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
@@ -37,7 +36,7 @@ export function OppgaveListe({
   });
 
   return (
-    <div className="p-4 flex flex-col">
+    <div className="flex flex-col p-4">
       <div className={styles.oppgavelisteHeader}>
         {tittel && (
           <Heading size={"xsmall"} spacing className={styles.heading}>
@@ -57,7 +56,8 @@ export function OppgaveListe({
       <Table
         sort={sorterbar ? sortState : undefined}
         size="small"
-        className={classnames("table--subtle-zebra", styles.oppgaveListe)}
+        className={"tabell--subtil"}
+        zebraStripes={true}
         onSortChange={(sortKey) =>
           sortKey && handleSort(sortKey as keyof components["schemas"]["OppgaveOversikt"])
         }

@@ -13,24 +13,3 @@
   margin-left: auto;
   margin-right: var(--a-spacing-2);
 }
-
-.oppgaveListe {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-.oppgaveListe.oppgaveListe th {
-  border-bottom: 1px solid var(--a-border-subtle);
-}
-
-.oppgaveListe tr:nth-child(even) {
-  background-color: #f8f9fc;
-}
-
-.oppgaveListe tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.oppgaveListe td {
-  border-bottom: 0;
-}

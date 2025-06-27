@@ -18,6 +18,35 @@ export const mockPerson: components["schemas"]["Person"] = {
   sikkerhetstiltak: mockSikkerhetstiltak,
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
-  saker: [],
+  saker: [
+    {
+      id: "01979c1e-9005-76d8-8efa-99370d5e77e5",
+      behandlinger: [
+        {
+          id: "0197a0f3-c587-760e-9966-ab336f85c63a",
+          behandlingType: "KLAGE",
+          opprettet: "2025-06-24T00:00:00",
+          oppgaveId: "0197a0f3-c61e-76d3-9e15-1a1605df602a",
+        },
+        {
+          id: "01979c1e-8f4f-772c-98a8-286eac985cbf",
+          behandlingType: "RETT_TIL_DAGPENGER",
+          opprettet: "2025-06-23T11:28:57.936476",
+          oppgaveId: "01979c1e-a0f7-7d33-88ae-d30dc573002e",
+        },
+      ],
+    },
+    {
+      id: "01979c85-adb5-7b7a-b67d-4265b3b88e81",
+      behandlinger: [
+        {
+          id: "01979c85-ac69-78b2-a880-c38a86d583cf",
+          behandlingType: "RETT_TIL_DAGPENGER",
+          opprettet: "2025-06-23T13:21:35.602787",
+          oppgaveId: "01979c85-ce5c-7e04-9a2e-c5bb762ef12d",
+        },
+      ],
+    },
+  ],
   oppgaver: [],
 };
