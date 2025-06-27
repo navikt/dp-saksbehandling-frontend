@@ -27,6 +27,16 @@ const error404: components["schemas"]["HttpProblem"] = {
 };
 
 export const mockDpBehandling = [
+  http.post("/person/behandling", async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockBehandlinger[0]);
+  }),
+
   http.get("/behandling/{behandlingId}", async ({ request, params, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();

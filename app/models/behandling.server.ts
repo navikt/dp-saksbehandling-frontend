@@ -11,6 +11,14 @@ const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_UR
 type EndreOpplysningRequestBody =
   paths["/behandling/{behandlingId}/opplysning/{opplysningId}"]["put"]["requestBody"]["content"]["application/json"];
 
+export async function opprettManuellBehandling(request: Request, ident: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.POST("/person/behandling", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident },
+  });
+}
+
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.GET("/behandling/{behandlingId}", {

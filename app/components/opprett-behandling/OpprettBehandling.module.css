@@ -3,4 +3,9 @@
   border-radius: var(--a-border-radius-small);
   box-shadow: var(--a-shadow-small);
   min-width: 234px;
+  font-weight: var(--a-font-weight-regular);
+}
+
+.popover p span {
+  font-weight: var(--a-font-weight-regular);
 }

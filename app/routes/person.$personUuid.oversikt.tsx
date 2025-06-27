@@ -8,7 +8,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
-import { OpprettKlage } from "~/components/opprett-klage/OpprettKlage";
+import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaverForPerson, hentPersonUuid } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -52,7 +52,7 @@ export default function PersonOversikt() {
 
   return (
     <div className={styles.container}>
-      <OpprettKlage />
+      <OpprettBehandling />
       <div className={"card"}>
         {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
         <OppgavelistePerson oppgaverForPersonPromise={oppgaverForPersonPromise} />
