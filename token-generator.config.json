@@ -10,5 +10,9 @@
   {
     "env": "DP_MELDING_OM_VEDTAK_TOKEN",
     "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-melding-om-vedtak"
+  },
+  {
+    "env" : "DP_SOKNAD_ORKESTRATOR_TOKEN",
+    "url": "https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-soknad-orkestrator"
   }
 ]
