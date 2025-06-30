@@ -5,10 +5,10 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { mockPersonOversikt } from "./data/mock-dp-sak-person";
 import { klager } from "./data/mock-klage";
 import { konverterOppgaveTilListeOppgave, mockListeOppgaver } from "./data/mock-liste-oppgaver";
 import { klageOppgave, mockOppgaver } from "./data/mock-oppgaver";
+import { mockPersonOversikt } from "./data/mock-person-oversikt";
 import { mockStatistikk } from "./data/mock-statistikk";
 
 const apiError = false;

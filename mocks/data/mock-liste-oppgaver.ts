@@ -15,16 +15,17 @@ export function konverterOppgaveTilListeOppgave(
   oppgave: components["schemas"]["Oppgave"],
 ): components["schemas"]["OppgaveOversikt"] {
   return {
-    adressebeskyttelseGradering: "UGRADERT",
     behandlingType: oppgave.behandlingType,
     behandlingId: oppgave.behandlingId,
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
     personIdent: oppgave.person?.ident || "12345678910",
     behandlerIdent: oppgave.saksbehandler?.ident,
-    skjermesSomEgneAnsatte: false,
+    skjermesSomEgneAnsatte: oppgave.person.skjermesSomEgneAnsatte,
+    adressebeskyttelseGradering: oppgave.person.adressebeskyttelseGradering,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
     tilstand: oppgave.tilstand,
+    utsattTilDato: oppgave.utsattTilDato,
   };
 }
 

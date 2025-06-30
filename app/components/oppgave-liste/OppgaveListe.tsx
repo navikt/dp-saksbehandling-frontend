@@ -97,112 +97,115 @@ export function OppgaveListe({
         </Table.Header>
 
         <Table.Body>
-          {lasterOppgaver && (
-            <Table.Row>
-              <Table.DataCell>
-                <Skeleton variant="text" width={90} height={33} />
-              </Table.DataCell>
-              <Table.DataCell>
-                <Skeleton variant="text" width={60} height={33} />
-              </Table.DataCell>
-              <Table.DataCell>
-                <Skeleton variant="text" width={250} height={33} />
-              </Table.DataCell>
-              <Table.DataCell>
-                <Skeleton variant="text" width={150} height={33} />
-              </Table.DataCell>
-              <Table.DataCell>
-                <Skeleton variant="text" width={100} height={33} />
-              </Table.DataCell>
-              {visPersonIdent && (
-                <Table.DataCell>
-                  <Skeleton variant="text" width={80} height={33} />
-                </Table.DataCell>
-              )}
-
-              <Table.DataCell>
-                <Skeleton variant="text" width={20} height={33} />
-              </Table.DataCell>
+          {sortedData.length === 0 && (
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
-          {!lasterOppgaver && (
-            <>
-              {sortedData.length === 0 && (
-                <Table.Row shadeOnHover={false}>
-                  <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>
-                    Fant ingen oppgaver
+          {sortedData?.map((oppgave) => {
+            const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
+            const dagerIgjenTilUtsattDato = utsattTilDato
+              ? differenceInCalendarDays(utsattTilDato, new Date())
+              : undefined;
+
+            return (
+              <Table.Row key={oppgave.oppgaveId}>
+                <Table.DataCell>
+                  <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
+                    {formaterTilNorskDato(tidspunktOpprettet)}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                    {hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {emneknagger.map((emneknagg) => (
+                    <Tag
+                      key={emneknagg}
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "info-moderate" : "info"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg}</Detail>
+                    </Tag>
+                  ))}
+
+                  {utsattTilDato && (
+                    <Tag
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "warning-moderate" : "warning"}
+                    >
+                      <Detail
+                        as={lasterOppgaver ? Skeleton : "p"}
+                      >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                    </Tag>
+                  )}
+
+                  {oppgave.skjermesSomEgneAnsatte && (
+                    <Tag
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "error-moderate" : "error"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Egne ansatte</Detail>
+                    </Tag>
+                  )}
+
+                  {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
+                    <Tag
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "error-moderate" : "error"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Fortrolig</Detail>
+                    </Tag>
+                  )}
+
+                  {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
+                    <Tag
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "error-moderate" : "error"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Strengt fortrolig</Detail>
+                    </Tag>
+                  )}
+
+                  {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
+                    <Tag
+                      className="mr-2"
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "error-moderate" : "error"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Strengt fortrolig utland</Detail>
+                    </Tag>
+                  )}
+                </Table.DataCell>
+
+                {visPersonIdent && (
+                  <Table.DataCell>
+                    {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.personIdent}</Detail>}
                   </Table.DataCell>
-                </Table.Row>
-              )}
+                )}
 
-              {sortedData?.map((oppgave) => {
-                const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
-                const dagerIgjenTilUtsattDato = utsattTilDato
-                  ? differenceInCalendarDays(utsattTilDato, new Date())
-                  : undefined;
+                <Table.DataCell>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"}>{getTilstandText(tilstand)}</Detail>
+                </Table.DataCell>
 
-                return (
-                  <Table.Row key={oppgave.oppgaveId}>
-                    <Table.DataCell>
-                      <Detail textColor="subtle">{formaterTilNorskDato(tidspunktOpprettet)}</Detail>
-                    </Table.DataCell>
+                <Table.DataCell>
+                  {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.behandlerIdent}</Detail>}
+                </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Detail>{hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}</Detail>
-                    </Table.DataCell>
-
-                    <Table.DataCell>
-                      {emneknagger.map((emneknagg) => (
-                        <Tag key={emneknagg} className="mr-2" size={"xsmall"} variant="info">
-                          <Detail>{emneknagg}</Detail>
-                        </Tag>
-                      ))}
-
-                      {utsattTilDato && (
-                        <Tag className="mr-2" size={"xsmall"} variant="warning">
-                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                        </Tag>
-                      )}
-
-                      {oppgave.skjermesSomEgneAnsatte && (
-                        <Tag className="mr-2" size={"xsmall"} variant="error">
-                          <Detail>Egne ansatte</Detail>
-                        </Tag>
-                      )}
-                      {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
-                        <Tag className="mr-2" size={"xsmall"} variant="error">
-                          <Detail>Fortrolig</Detail>
-                        </Tag>
-                      )}
-
-                      {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
-                        <Tag className="mr-2" size={"xsmall"} variant="error">
-                          <Detail>Strengt fortrolig</Detail>
-                        </Tag>
-                      )}
-
-                      {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
-                        <Tag className="mr-2" size={"xsmall"} variant="error">
-                          <Detail>Strengt fortrolig utland</Detail>
-                        </Tag>
-                      )}
-                    </Table.DataCell>
-
-                    {visPersonIdent && (
-                      <Table.DataCell>{<Detail>{oppgave.personIdent}</Detail>}</Table.DataCell>
-                    )}
-
-                    <Table.DataCell>{<Detail>{getTilstandText(tilstand)}</Detail>}</Table.DataCell>
-
-                    <Table.DataCell>{<Detail>{oppgave.behandlerIdent}</Detail>}</Table.DataCell>
-
-                    <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
-                  </Table.Row>
-                );
-              })}
-            </>
-          )}
+                <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
 

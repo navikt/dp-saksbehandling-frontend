@@ -14,7 +14,7 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
-import { hentOppgave, hentOppgaverForPerson } from "~/models/saksbehandling.server";
+import { hentOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -28,7 +28,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const oppgaverForPersonPromise = hentOppgaverForPerson(request, oppgave.person.ident);
+
   let meldingOmVedtakPromise;
 
   if (oppgave.saksbehandler) {
@@ -54,7 +54,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-      oppgaverForPersonPromise,
       meldingOmVedtakPromise,
       journalposterPromises,
     },
