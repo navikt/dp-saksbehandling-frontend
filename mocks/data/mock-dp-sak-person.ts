@@ -1,4 +1,5 @@
 import { components } from "../../openapi/saksbehandling-typer";
+import { mockListeOppgaver } from "./mock-liste-oppgaver";
 
 export const mockSikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][] = [
   { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
@@ -18,6 +19,11 @@ export const mockPerson: components["schemas"]["Person"] = {
   sikkerhetstiltak: mockSikkerhetstiltak,
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
+};
+
+export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
+  person: mockPerson,
+  oppgaver: mockListeOppgaver,
   saker: [
     {
       id: "01979c1e-9005-76d8-8efa-99370d5e77e5",
@@ -48,5 +54,4 @@ export const mockPerson: components["schemas"]["Person"] = {
       ],
     },
   ],
-  oppgaver: [],
 };

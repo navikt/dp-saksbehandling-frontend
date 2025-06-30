@@ -203,7 +203,7 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
   if (trimmetNotat) {
     return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/notat", {
       headers: getHeaders(onBehalfOfToken),
-      body: trimmetNotat,
+      body: { tekst: trimmetNotat },
       params: {
         path: { oppgaveId },
       },
@@ -218,7 +218,7 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
   }
 }
 
-export async function hentPerson(request: Request, ident: string) {
+export async function sokPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { data, error, response } = await saksbehandlerClient.POST("/person", {
     headers: getHeaders(onBehalfOfToken),
@@ -236,7 +236,7 @@ export async function hentPerson(request: Request, ident: string) {
   throw new Error(`Uhåndtert feil i hentPerson(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentPersonUuid(request: Request, personId: string) {
+export async function hentPersonOversikt(request: Request, personId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { data, error, response } = await saksbehandlerClient.GET("/person/{personId}", {
     headers: getHeaders(onBehalfOfToken),

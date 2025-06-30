@@ -192,7 +192,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "plain/text": string;
+                    "application/json": components["schemas"]["NotatRequest"];
                 };
             };
             responses: {
@@ -1042,7 +1042,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Person"];
+                        "application/json": components["schemas"]["PersonOversikt"];
                     };
                 };
                 /** @description Feil */
@@ -1087,7 +1087,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["Person"];
+                        "application/json": components["schemas"]["PersonOversikt"];
                     };
                 };
                 /** @description Feil */
@@ -1354,6 +1354,9 @@ export interface components {
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             sikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][];
+        };
+        PersonOversikt: {
+            person: components["schemas"]["Person"];
             saker: components["schemas"]["Sak"][];
             oppgaver: components["schemas"]["OppgaveOversikt"][];
         };
@@ -1469,6 +1472,9 @@ export interface components {
              * @description Tidspunkt notat sist ble endret
              */
             sistEndretTidspunkt: string;
+        };
+        NotatRequest: {
+            tekst: string;
         };
         Notat: {
             tekst: string;

@@ -5,14 +5,10 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { mockPerson } from "./data/mock-dp-sak-person";
+import { mockPersonOversikt } from "./data/mock-dp-sak-person";
 import { klager } from "./data/mock-klage";
-import {
-  klageOppgave,
-  konverterOppgaveTilListeOppgave,
-  mockListeOppgaver,
-  mockOppgaver,
-} from "./data/mock-oppgaver";
+import { konverterOppgaveTilListeOppgave, mockListeOppgaver } from "./data/mock-liste-oppgaver";
+import { klageOppgave, mockOppgaver } from "./data/mock-oppgaver";
 import { mockStatistikk } from "./data/mock-statistikk";
 
 const apiError = false;
@@ -315,7 +311,7 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockPerson);
+    return response(200).json(mockPersonOversikt);
   }),
 
   // Hent person med uuid i url
@@ -327,7 +323,7 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockPerson);
+    return response(200).json(mockPersonOversikt);
   }),
 
   // Hent alle oppgaver til en person

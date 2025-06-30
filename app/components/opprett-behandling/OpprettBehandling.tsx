@@ -13,7 +13,7 @@ import styles from "./OpprettBehandling.module.css";
 export function OpprettBehandling() {
   const fetcher = useFetcher();
   const { addAlert } = useGlobalAlerts();
-  const { person } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { personOversikt } = useTypedRouteLoaderData("routes/person.$personUuid");
   const [openState, setOpenState] = useState(false);
   const modalRef = useRef<HTMLDialogElement>(null);
   const popoverRef = useRef<HTMLButtonElement>(null);
@@ -65,7 +65,7 @@ export function OpprettBehandling() {
           </BodyShort>
           <BodyShort size={"small"}>
             <RemixLink
-              to={`/person/${person.id}/ny-behandling/klage`}
+              to={`/person/${personOversikt.person.id}/ny-behandling/klage`}
               size={"xsmall"}
               asButtonVariant={"tertiary-neutral"}
             >
@@ -91,7 +91,12 @@ export function OpprettBehandling() {
               hidden={true}
               readOnly={true}
             />
-            <input name="personIdent" value={person.ident} hidden={true} readOnly={true} />
+            <input
+              name="personIdent"
+              value={personOversikt.person.ident}
+              hidden={true}
+              readOnly={true}
+            />
             <BodyLong spacing>
               Den nye behandlingen er basert på opplysningene i siste fullførte behandling. Du kan
               endre opplysninger i den nye behandlingen. Behandlingen kan ikke slettes.

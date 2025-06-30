@@ -10,7 +10,7 @@ import invariant from "tiny-invariant";
 
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentOppgaverForPerson, hentPersonUuid } from "~/models/saksbehandling.server";
+import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -22,8 +22,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
-  const person = await hentPersonUuid(request, params.personUuid);
-  const oppgaverForPersonPromise = hentOppgaverForPerson(request, person.ident);
+  const personOversikt = await hentPersonOversikt(request, params.personUuid);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -31,8 +30,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return data(
     {
       alert,
-      person,
-      oppgaverForPersonPromise,
+      personOversikt,
     },
     {
       headers: {
@@ -43,7 +41,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Person() {
-  const { person, alert } = useLoaderData<typeof loader>();
+  const { personOversikt, alert } = useLoaderData<typeof loader>();
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -51,7 +49,7 @@ export default function Person() {
 
   return (
     <>
-      <PersonBoks person={person} />
+      <PersonBoks person={personOversikt.person} />
       <Outlet />
     </>
   );

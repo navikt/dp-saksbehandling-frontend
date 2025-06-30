@@ -17,7 +17,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { person, alert } = useTypedRouteLoaderData("routes/person.$personUuid");
+  const { personOversikt, alert } = useTypedRouteLoaderData("routes/person.$personUuid");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -27,7 +27,7 @@ export default function Oppgave() {
     schema: hentValideringForNyKlageSkjema(),
     method: "post",
     defaultValues: {
-      personIdent: person.ident,
+      personIdent: personOversikt.person.ident,
       opprettetDato: "",
       journalpostId: "",
       sakId: "",
@@ -42,7 +42,8 @@ export default function Oppgave() {
 
       <Form method="post" {...klageForm.getFormProps()}>
         <input name="_action" value="opprett-klage" hidden={true} readOnly={true} />
-        <input name="personIdent" value={person.ident} hidden={true} readOnly={true} />
+        <input hidden={true} readOnly={true} {...klageForm.field("personIdent").getInputProps()} />
+
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
@@ -71,7 +72,7 @@ export default function Oppgave() {
 
         <div className={"mt-4 flex gap-2"}>
           <RemixLink
-            to={`/person/${person.id}/oversikt`}
+            to={`/person/${personOversikt.person.id}/oversikt`}
             asButtonVariant={"secondary"}
             size={"small"}
           >

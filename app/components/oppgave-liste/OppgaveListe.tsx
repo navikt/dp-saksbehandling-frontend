@@ -129,7 +129,7 @@ export function OppgaveListe({
           {!lasterOppgaver && (
             <>
               {sortedData.length === 0 && (
-                <Table.Row>
+                <Table.Row shadeOnHover={false}>
                   <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>
                     Fant ingen oppgaver
                   </Table.DataCell>

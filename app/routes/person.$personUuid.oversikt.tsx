@@ -10,11 +10,11 @@ import {
 import invariant from "tiny-invariant";
 
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
-import { OppgavelistePerson } from "~/components/oppgaveliste-person/OppgavelistePerson";
+import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentOppgaverForPerson, hentPersonUuid } from "~/models/saksbehandling.server";
+import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -29,8 +29,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
-  const person = await hentPersonUuid(request, params.personUuid);
-  const oppgaverForPersonPromise = hentOppgaverForPerson(request, person.ident);
+  const personOversikt = await hentPersonOversikt(request, params.personUuid);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -38,8 +37,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return data(
     {
       alert,
-      person,
-      oppgaverForPersonPromise,
+      personOversikt,
     },
     {
       headers: {
@@ -50,7 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { person, oppgaverForPersonPromise, alert } = useLoaderData<typeof loader>();
+  const { personOversikt, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -59,12 +57,15 @@ export default function PersonOversikt() {
     <div className={styles.container}>
       <OpprettBehandling />
       <div className={"card"}>
-        {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
-        <OppgavelistePerson oppgaverForPersonPromise={oppgaverForPersonPromise} />
+        <OppgaveListe
+          tittel={"Alle oppgaver"}
+          oppgaver={personOversikt.oppgaver}
+          totaltAntallOppgaver={personOversikt.oppgaver.length}
+        />
       </div>
 
       <div className={"card"}>
-        {person.saker.map((sak) => (
+        {personOversikt.saker.map((sak) => (
           <div className={"mt-6 flex flex-col p-4"} key={sak.id}>
             <Heading size={"xsmall"} className={"flex gap-1"} spacing>
               <FolderFileIcon fontSize="1.5rem" />
