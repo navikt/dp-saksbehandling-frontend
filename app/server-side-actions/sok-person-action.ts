@@ -1,7 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
-import { hentPerson } from "~/models/saksbehandling.server";
+import { sokPerson } from "~/models/saksbehandling.server";
 import { hentValideringForPersonIdent } from "~/utils/validering.util";
 
 export async function sokPersonAction(request: Request, formData: FormData) {
@@ -12,7 +12,7 @@ export async function sokPersonAction(request: Request, formData: FormData) {
   }
 
   const { personIdent } = validertSkjema.data;
-  const person = await hentPerson(request, personIdent);
+  const personOversikt = await sokPerson(request, personIdent);
 
-  return redirect(`/person/${person.id}/oversikt`);
+  return redirect(`/person/${personOversikt.person.id}/oversikt`);
 }
