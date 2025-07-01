@@ -1,6 +1,7 @@
-import { XMarkIcon } from "@navikt/aksel-icons";
+import { PlusIcon, XMarkIcon } from "@navikt/aksel-icons";
 import { Accordion, Button, Heading } from "@navikt/ds-react";
-import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { PropsWithChildren, useState } from "react";
 
 import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
@@ -29,6 +30,7 @@ export function OpplysningGruppeRedigering({
   const { response } = useAwaitPromise(behandlingPromise);
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>();
+  const [leggTilNyPeriode, setLeggTilNyPeriode] = useState<boolean>(false);
 
   return (
     <div className={"p-4"}>
@@ -53,20 +55,58 @@ export function OpplysningGruppeRedigering({
         setAktivPeriode={setAktivOpplysning}
       />
 
-      {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
-        const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
-        const isActive = aktivOpplysning?.periodeNummer === periodeNummer;
+      <Button
+        className={"mt-2"}
+        variant={"tertiary"}
+        size={"small"}
+        icon={<PlusIcon />}
+        onClick={() => setLeggTilNyPeriode(!leggTilNyPeriode)}
+      >
+        Legg til periode
+      </Button>
 
-        return (
-          <OpplysningRedigering
-            key={index}
-            opplysning={opplysning}
-            periodeNummer={periodeNummer}
-            behandlingId={behandlingId}
-            isActive={isActive}
-          />
-        );
-      })}
+      <AnimatePresence initial={false}>
+        {leggTilNyPeriode && (
+          <AnimertOpplysningKort>
+            <OpplysningRedigering
+              behandlingId={behandlingId}
+              opplysning={{
+                opplysningTypeId: opplysningGruppe.opplysningTypeId,
+                navn: opplysningGruppe.navn,
+                datatype: opplysningGruppe.datatype,
+                id: "ny-opplysning",
+                verdi: "",
+                status: "Hypotese",
+                redigerbar: true,
+                synlig: true,
+                formål: "Legacy",
+              }}
+              forrigePeriode={
+                opplysningGruppe.opplysninger.length > 0
+                  ? opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1]
+                  : undefined
+              }
+              periodeNummer={opplysningGruppe.opplysninger.length}
+            />
+          </AnimertOpplysningKort>
+        )}
+        {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
+          const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
+          const isActive = aktivOpplysning?.periodeNummer === periodeNummer;
+
+          return (
+            <AnimertOpplysningKort key={index}>
+              <OpplysningRedigering
+                opplysning={opplysning}
+                periodeNummer={periodeNummer}
+                behandlingId={behandlingId}
+                readonly={leggTilNyPeriode}
+                erAktiv={isActive}
+              />
+            </AnimertOpplysningKort>
+          );
+        })}
+      </AnimatePresence>
 
       <Accordion size={"small"} className={"mt-8"}>
         <Accordion.Item>
@@ -77,5 +117,36 @@ export function OpplysningGruppeRedigering({
         </Accordion.Item>
       </Accordion>
     </div>
+  );
+}
+
+function AnimertOpplysningKort({ children }: PropsWithChildren) {
+  return (
+    <motion.div
+      layout
+      initial={{
+        y: -50,
+        opacity: 0,
+        height: 0,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+        height: "auto",
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          duration: 0.1,
+          ease: "easeInOut",
+        },
+      }}
+      transition={{
+        type: "spring",
+        duration: 0.4,
+      }}
+    >
+      {children}
+    </motion.div>
   );
 }

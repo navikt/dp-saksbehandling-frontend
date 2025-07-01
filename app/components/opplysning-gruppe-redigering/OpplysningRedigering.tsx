@@ -1,6 +1,7 @@
 import { PadlockLockedFillIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Checkbox, DatePicker, Heading, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
+import { add, sub } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { Form } from "react-router";
 
@@ -15,24 +16,32 @@ interface IProps {
   behandlingId: string;
   opplysning: components["schemas"]["Opplysning"];
   periodeNummer: number;
-  isActive?: boolean;
+  forrigePeriode?: components["schemas"]["Opplysning"];
+  nestePeriode?: components["schemas"]["Opplysning"];
+
+  readonly?: boolean;
+  erAktiv?: boolean;
 }
 
 export function OpplysningRedigering({
   opplysning,
   periodeNummer,
   behandlingId,
-  isActive = false,
+  forrigePeriode,
+  nestePeriode,
+
+  readonly,
+  erAktiv = false,
 }: IProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isActive && ref.current) {
+    if (erAktiv && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [isActive]);
+  }, [erAktiv]);
 
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),
@@ -49,25 +58,40 @@ export function OpplysningRedigering({
     },
   });
 
-  const datepickerFom = useDatepicker({
-    defaultSelected: opplysning.gyldigFraOgMed ? new Date(opplysning.gyldigFraOgMed) : undefined,
+  const opplysningKanRedigeres = opplysning.redigerbar && !readonly;
+
+  const tidligsteFraOgMedDato = forrigePeriode?.gyldigTilOgMed
+    ? add(new Date(forrigePeriode?.gyldigTilOgMed), { days: 1 })
+    : forrigePeriode?.gyldigFraOgMed
+      ? add(new Date(forrigePeriode?.gyldigFraOgMed), { days: 1 })
+      : undefined;
+  const tidligsteTilOgMedDato = nestePeriode?.gyldigFraOgMed
+    ? sub(new Date(nestePeriode?.gyldigFraOgMed), { days: 1 })
+    : undefined;
+
+  const datepickerFraOgMed = useDatepicker({
+    defaultSelected: opplysning.gyldigFraOgMed
+      ? new Date(opplysning.gyldigFraOgMed)
+      : tidligsteFraOgMedDato,
+    fromDate: forrigePeriode?.gyldigFraOgMed ? tidligsteFraOgMedDato : undefined,
   });
 
-  const datepickerTom = useDatepicker({
+  const datepickerTilOgMed = useDatepicker({
     defaultSelected: opplysning.gyldigTilOgMed ? new Date(opplysning.gyldigTilOgMed) : undefined,
+    toDate: nestePeriode?.gyldigFraOgMed ? tidligsteTilOgMedDato : undefined,
   });
 
   return (
-    <div className={`card mt-8 p-4 ${isActive ? "border-2 border-blue-500" : ""}`} ref={ref}>
+    <div className={`card mt-2 p-4 ${erAktiv ? "border-2 border-blue-500" : ""}`} ref={ref}>
       <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
-        {!opplysning.redigerbar && <PadlockLockedFillIcon />} Periode {periodeNummer + 1}
+        {!opplysningKanRedigeres && <PadlockLockedFillIcon />} Periode {periodeNummer + 1}
       </Heading>
 
       <BodyShort size={"small"} weight={"semibold"}>
         {opplysning.navn}
       </BodyShort>
 
-      {!opplysning.redigerbar && (
+      {!opplysningKanRedigeres && (
         <>
           <BodyShort size={"small"}>{formaterOpplysningVerdi(opplysning)}</BodyShort>
           <div className={"mt-4 flex gap-6"}>
@@ -75,27 +99,32 @@ export function OpplysningRedigering({
               <BodyShort size={"small"} weight={"semibold"}>
                 Gyldig fra og med
               </BodyShort>
-              {opplysning.gyldigFraOgMed && (
+              {opplysning.gyldigFraOgMed ? (
                 <BodyShort size={"small"}>
                   {formaterTilNorskDato(opplysning.gyldigFraOgMed)}
                 </BodyShort>
+              ) : (
+                <BodyShort size={"small"}>Ikke satt</BodyShort>
               )}
             </div>
             <div>
               <BodyShort size={"small"} weight={"semibold"}>
                 Gyldig til og med
               </BodyShort>
-              {opplysning.gyldigTilOgMed && (
+
+              {opplysning.gyldigTilOgMed ? (
                 <BodyShort size={"small"}>
                   {formaterTilNorskDato(opplysning.gyldigTilOgMed)}
                 </BodyShort>
+              ) : (
+                <BodyShort size={"small"}>Ikke satt</BodyShort>
               )}
             </div>
           </div>
         </>
       )}
 
-      {opplysning.redigerbar && (
+      {opplysningKanRedigeres && (
         <Form {...opplysningForm.getFormProps()}>
           <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
           <input
@@ -113,13 +142,14 @@ export function OpplysningRedigering({
             readOnly={true}
             {...opplysningForm.field("behandlingId").getInputProps()}
           />
+
           <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
           <div className={"mt-4 flex gap-2"}>
             <div>
-              <DatePicker {...datepickerFom.datepickerProps}>
+              <DatePicker {...datepickerFraOgMed.datepickerProps}>
                 <DatePicker.Input
-                  {...datepickerFom.inputProps}
+                  {...datepickerFraOgMed.inputProps}
                   size={"small"}
                   label="Fra og med"
                   form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
@@ -140,9 +170,9 @@ export function OpplysningRedigering({
             </div>
 
             <div>
-              <DatePicker {...datepickerTom.datepickerProps}>
+              <DatePicker {...datepickerTilOgMed.datepickerProps}>
                 <DatePicker.Input
-                  {...datepickerTom.inputProps}
+                  {...datepickerTilOgMed.inputProps}
                   size={"small"}
                   label="Til og med"
                   form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
