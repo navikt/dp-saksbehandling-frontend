@@ -67,7 +67,7 @@ export function OpplysningGruppeRedigering({
 
       <AnimatePresence initial={false}>
         {leggTilNyPeriode && (
-          <AnimertOpplysningKort>
+          <AnimertOpplysningKort key={"ny-opplysning"}>
             <OpplysningRedigering
               behandlingId={behandlingId}
               opplysning={{
@@ -90,12 +90,13 @@ export function OpplysningGruppeRedigering({
             />
           </AnimertOpplysningKort>
         )}
+
         {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
           const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
           const isActive = aktivOpplysning?.periodeNummer === periodeNummer;
 
           return (
-            <AnimertOpplysningKort key={index}>
+            <AnimertOpplysningKort key={opplysning.id}>
               <OpplysningRedigering
                 opplysning={opplysning}
                 periodeNummer={periodeNummer}
@@ -106,16 +107,16 @@ export function OpplysningGruppeRedigering({
             </AnimertOpplysningKort>
           );
         })}
-      </AnimatePresence>
 
-      <Accordion size={"small"} className={"mt-8"}>
-        <Accordion.Item>
-          <Accordion.Header>Rådata</Accordion.Header>
-          <Accordion.Content>
-            <pre>{JSON.stringify(opplysningGruppe.opplysninger, null, 2)}</pre>
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
+        <Accordion size={"small"} className={"mt-8"}>
+          <Accordion.Item>
+            <Accordion.Header>Rådata</Accordion.Header>
+            <Accordion.Content>
+              <pre>{JSON.stringify(opplysningGruppe.opplysninger, null, 2)}</pre>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion>
+      </AnimatePresence>
     </div>
   );
 }
