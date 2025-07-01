@@ -1,9 +1,8 @@
 import { PlusIcon, XMarkIcon } from "@navikt/aksel-icons";
-import { Accordion, Button, Heading } from "@navikt/ds-react";
-import { AnimatePresence, motion } from "motion/react";
-import { PropsWithChildren, useState } from "react";
+import { Button, Heading } from "@navikt/ds-react";
+import { useState } from "react";
 
-import { OpplysningRedigering } from "~/components/opplysning-gruppe-panel/OpplysningRedigering";
+import { OpplysningKort } from "~/components/opplysning-gruppe-panel/OpplysningKort";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
@@ -29,8 +28,7 @@ export function OpplysningGruppePanel({
 }: IProps) {
   const { response } = useAwaitPromise(behandlingPromise);
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
-  const [aktivOpplysning, setAktivOpplysning] = useState<IAktivOpplysning>();
-  const [leggTilNyPeriode, setLeggTilNyPeriode] = useState<boolean>(false);
+  const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
 
   return (
     <div className={"p-4"}>
@@ -50,9 +48,9 @@ export function OpplysningGruppePanel({
 
       <OpplysningTidslinje
         opplysningGruppe={opplysningGruppe}
-        aktivPeriode={aktivOpplysning}
         behandling={response?.data}
-        setAktivPeriode={setAktivOpplysning}
+        aktivOpplysning={aktivOpplysning}
+        setAktivOpplysning={setAktivOpplysning}
       />
 
       <Button
@@ -60,96 +58,30 @@ export function OpplysningGruppePanel({
         variant={"tertiary"}
         size={"small"}
         icon={<PlusIcon />}
-        onClick={() => setLeggTilNyPeriode(!leggTilNyPeriode)}
+        disabled={aktivOpplysning?.id === "ny-periode"}
+        onClick={() =>
+          setAktivOpplysning({
+            opplysningTypeId: opplysningGruppe.opplysningTypeId,
+            navn: opplysningGruppe.navn,
+            datatype: opplysningGruppe.datatype,
+            id: "ny-periode",
+            verdi: "",
+            status: "Hypotese",
+            redigerbar: true,
+            synlig: true,
+            formål: "Legacy",
+          })
+        }
       >
         Legg til periode
       </Button>
 
-      <AnimatePresence initial={false}>
-        {leggTilNyPeriode && (
-          <AnimertOpplysningKort key={"ny-opplysning"}>
-            <OpplysningRedigering
-              behandlingId={behandlingId}
-              opplysning={{
-                opplysningTypeId: opplysningGruppe.opplysningTypeId,
-                navn: opplysningGruppe.navn,
-                datatype: opplysningGruppe.datatype,
-                id: "ny-opplysning",
-                verdi: "",
-                status: "Hypotese",
-                redigerbar: true,
-                synlig: true,
-                formål: "Legacy",
-              }}
-              forrigePeriode={
-                opplysningGruppe.opplysninger.length > 0
-                  ? opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1]
-                  : undefined
-              }
-              periodeNummer={opplysningGruppe.opplysninger.length}
-            />
-          </AnimertOpplysningKort>
-        )}
-
-        {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
-          const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
-          const isActive = aktivOpplysning?.periodeNummer === periodeNummer;
-
-          return (
-            <AnimertOpplysningKort key={opplysning.id}>
-              <OpplysningRedigering
-                opplysning={opplysning}
-                periodeNummer={periodeNummer}
-                behandlingId={behandlingId}
-                readonly={leggTilNyPeriode}
-                forrigePeriode={opplysningGruppe.opplysninger[periodeNummer - 1]}
-                nestePeriode={opplysningGruppe.opplysninger[periodeNummer + 1]}
-                erAktiv={isActive}
-              />
-            </AnimertOpplysningKort>
-          );
-        })}
-
-        <Accordion size={"small"} className={"mt-8"}>
-          <Accordion.Item>
-            <Accordion.Header>Rådata</Accordion.Header>
-            <Accordion.Content>
-              <pre>{JSON.stringify(opplysningGruppe.opplysninger, null, 2)}</pre>
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion>
-      </AnimatePresence>
+      <OpplysningKort
+        opplysningGruppe={opplysningGruppe}
+        behandlingId={behandlingId}
+        aktivOpplysning={aktivOpplysning}
+        setAktivOpplysning={setAktivOpplysning}
+      />
     </div>
-  );
-}
-
-function AnimertOpplysningKort({ children }: PropsWithChildren) {
-  return (
-    <motion.div
-      layout
-      initial={{
-        y: -50,
-        opacity: 0,
-        height: 0,
-      }}
-      animate={{
-        y: 0,
-        opacity: 1,
-        height: "auto",
-      }}
-      exit={{
-        opacity: 0,
-        transition: {
-          duration: 0.1,
-          ease: "easeInOut",
-        },
-      }}
-      transition={{
-        type: "spring",
-        duration: 0.4,
-      }}
-    >
-      {children}
-    </motion.div>
   );
 }

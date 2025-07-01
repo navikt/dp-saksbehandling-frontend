@@ -12,9 +12,8 @@ import {
 } from "@navikt/ds-react";
 import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
-import { IAktivOpplysning } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
@@ -23,8 +22,8 @@ import { components } from "../../../openapi/behandling-typer";
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
   behandling: components["schemas"]["Behandling"] | undefined;
-  aktivPeriode?: IAktivOpplysning;
-  setAktivPeriode: Dispatch<SetStateAction<IAktivOpplysning | undefined>>;
+  aktivOpplysning?: components["schemas"]["Opplysning"];
+  setAktivOpplysning: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
 }
 
 type AntallUkerITidslinje = "2" | "4" | "8";
@@ -32,8 +31,8 @@ type AntallUkerITidslinje = "2" | "4" | "8";
 export function OpplysningTidslinje({
   opplysningGruppe,
   behandling,
-  aktivPeriode,
-  setAktivPeriode,
+  aktivOpplysning,
+  setAktivOpplysning,
 }: IProps) {
   const sisteOpplysningDato =
     opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1].gyldigFraOgMed;
@@ -86,8 +85,8 @@ export function OpplysningTidslinje({
               status={hentFargeForTidslinjePeriodeOpplysning(opplysning)}
               icon={hentIkonForTIdslinjePeriodeOpplysning(opplysning)}
               statusLabel={opplysning.navn}
-              onSelectPeriod={() => setAktivPeriode({ opplysning, periodeNummer: index })}
-              isActive={aktivPeriode?.opplysning.id === opplysning.id}
+              onSelectPeriod={() => setAktivOpplysning(opplysning)}
+              isActive={aktivOpplysning?.id === opplysning.id}
               id={opplysning.id}
             >
               <Detail textColor={"subtle"}>Periode: {index + 1}</Detail>
