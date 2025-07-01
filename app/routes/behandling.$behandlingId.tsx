@@ -14,7 +14,7 @@ import invariant from "tiny-invariant";
 import { Begrunnelse } from "~/components/begrunnelse/Begrunnelse";
 import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OpplysningGruppeRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { OpplysningGruppePanel } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { ResizableColumns } from "~/components/resizable-columns/ResizableColumns";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -110,7 +110,7 @@ export default function BehandlingRoute() {
                 }}
                 key={aktivOpplysningsgruppe.opplysningTypeId}
               >
-                <OpplysningGruppeRedigering
+                <OpplysningGruppePanel
                   // @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router
                   behandlingPromise={behandlingPromise}
                   opplysningGruppe={aktivOpplysningsgruppe}

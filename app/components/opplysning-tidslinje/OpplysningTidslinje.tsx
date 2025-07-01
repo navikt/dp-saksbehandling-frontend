@@ -14,7 +14,7 @@ import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
 import { Dispatch, SetStateAction, useState } from "react";
 
-import { IAktivOpplysning } from "~/components/opplysning-gruppe-redigering/OpplysningGruppeRedigering";
+import { IAktivOpplysning } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 

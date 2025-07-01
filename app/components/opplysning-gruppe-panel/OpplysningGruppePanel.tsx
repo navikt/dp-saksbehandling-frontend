@@ -3,7 +3,7 @@ import { Accordion, Button, Heading } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren, useState } from "react";
 
-import { OpplysningRedigering } from "~/components/opplysning-gruppe-redigering/OpplysningRedigering";
+import { OpplysningRedigering } from "~/components/opplysning-gruppe-panel/OpplysningRedigering";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
@@ -22,7 +22,7 @@ export interface IAktivOpplysning {
   periodeNummer: number;
 }
 
-export function OpplysningGruppeRedigering({
+export function OpplysningGruppePanel({
   opplysningGruppe,
   behandlingId,
   behandlingPromise,
