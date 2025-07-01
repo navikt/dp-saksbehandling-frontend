@@ -102,6 +102,8 @@ export function OpplysningGruppeRedigering({
                 periodeNummer={periodeNummer}
                 behandlingId={behandlingId}
                 readonly={leggTilNyPeriode}
+                forrigePeriode={opplysningGruppe.opplysninger[periodeNummer - 1]}
+                nestePeriode={opplysningGruppe.opplysninger[periodeNummer + 1]}
                 erAktiv={isActive}
               />
             </AnimertOpplysningKort>
