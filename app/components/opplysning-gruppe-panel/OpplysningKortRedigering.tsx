@@ -7,7 +7,10 @@ import { Form } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
+import {
+  hentValideringForOpplysningSkjema,
+  hentValideringForSlettOpplysningSkjema,
+} from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -33,11 +36,12 @@ export function OpplysningKortRedigering({
   const ref = useRef<HTMLDivElement>(null);
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
+
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     method: "post",
     defaultValues: {
-      opplysningId: opplysning.id,
+      opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
@@ -46,6 +50,12 @@ export function OpplysningKortRedigering({
       ingenTomDato: "false",
       ingenFomDato: "false",
     },
+  });
+
+  const slettOpplysningForm = useForm({
+    method: "post",
+    schema: hentValideringForSlettOpplysningSkjema(),
+    defaultValues: { behandlingId, opplysningId: opplysning.id },
   });
 
   const tidligsteFraOgMedDato = forrigePeriode?.gyldigTilOgMed
@@ -82,12 +92,19 @@ export function OpplysningKortRedigering({
         "border-1 border-blue-400": aktivOpplysning?.id === opplysning.id,
       })}
     >
+      <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
+        Periode {periodeNummer + 1}
+      </Heading>
+
+      <BodyShort size={"small"} weight={"semibold"}>
+        {opplysning.navn}
+      </BodyShort>
       <Form {...opplysningForm.getFormProps()}>
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
         <input
           hidden={true}
           readOnly={true}
-          {...opplysningForm.field("opplysningId").getInputProps()}
+          {...opplysningForm.field("opplysningTypeId").getInputProps()}
         />
         <input
           hidden={true}
@@ -99,14 +116,6 @@ export function OpplysningKortRedigering({
           readOnly={true}
           {...opplysningForm.field("behandlingId").getInputProps()}
         />
-
-        <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
-          Periode {periodeNummer + 1}
-        </Heading>
-
-        <BodyShort size={"small"} weight={"semibold"}>
-          {opplysning.navn}
-        </BodyShort>
         <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
         <div className={"mt-4 flex gap-8"}>
@@ -165,8 +174,24 @@ export function OpplysningKortRedigering({
       </Form>
 
       <div className={"mt-4 flex gap-2"}>
-        <Form>
-          <Button variant="tertiary" type="button" size="xsmall">
+        <Form {...slettOpplysningForm.getFormProps()}>
+          <input hidden={true} readOnly={true} name="_action" value="slett-opplysning" />
+          <input
+            hidden={true}
+            readOnly={true}
+            {...slettOpplysningForm.field("opplysningId").getInputProps()}
+          />
+          <input
+            hidden={true}
+            readOnly={true}
+            {...slettOpplysningForm.field("behandlingId").getInputProps()}
+          />
+          <Button
+            variant="tertiary"
+            type="submit"
+            size="xsmall"
+            loading={slettOpplysningForm.formState.isSubmitting}
+          >
             Slett periode
           </Button>
         </Form>
@@ -185,6 +210,7 @@ export function OpplysningKortRedigering({
           variant="primary"
           type="submit"
           size="xsmall"
+          form={opplysningForm.formOptions.formId}
           loading={opplysningForm.formState.isSubmitting}
         >
           Lagre

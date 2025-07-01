@@ -31,7 +31,7 @@ export function OpplysningLinje(props: IProps) {
     method: "post",
     defaultValues: {
       verdi: formaterOpplysningVerdi(opplysning),
-      opplysningId: opplysning.id,
+      opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,
       behandlingId: props.behandlingId,
     },
@@ -52,7 +52,7 @@ export function OpplysningLinje(props: IProps) {
         <input
           hidden={true}
           readOnly={true}
-          {...opplysningForm.field("opplysningId").getInputProps()}
+          {...opplysningForm.field("opplysningTypeId").getInputProps()}
         />
         <input
           hidden={true}

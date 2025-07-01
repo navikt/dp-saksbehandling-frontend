@@ -90,7 +90,17 @@ export const mockDpBehandling = [
     return response(201).empty();
   }),
 
-  http.put(
+  http.post(`/behandling/{behandlingId}/opplysning/`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json({ behandlingId: params.behandlingId });
+  }),
+
+  http.delete(
     `/behandling/{behandlingId}/opplysning/{opplysningId}`,
     async ({ request, response, params }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);

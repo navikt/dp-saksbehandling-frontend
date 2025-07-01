@@ -1062,6 +1062,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person/personId": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Hent personId basert på personIdent */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["PersonIdent"];
+                };
+            };
+            responses: {
+                /** @description Vellykket respons med personinformasjon */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PersonId"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/{personId}": {
         parameters: {
             query?: never;
@@ -1436,6 +1485,10 @@ export interface components {
         };
         PersonIdent: {
             ident: string;
+        };
+        PersonId: {
+            /** Format: uuid */
+            id: string;
         };
         Soknad: {
             ident: string;

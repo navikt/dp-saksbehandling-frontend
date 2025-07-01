@@ -8,9 +8,6 @@ import { paths } from "../../openapi/behandling-typer";
 
 const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
-type EndreOpplysningRequestBody =
-  paths["/behandling/{behandlingId}/opplysning/{opplysningId}"]["put"]["requestBody"]["content"]["application/json"];
-
 export async function opprettManuellBehandling(request: Request, ident: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {
@@ -44,25 +41,39 @@ export async function avbrytBehandling(
   });
 }
 
-export async function endreOpplysning(
+export async function lagreOpplysning(
   request: Request,
   behandlingId: string,
-  opplysningId: string,
+  opplysningstype: string,
   verdi: string,
-  begrunnelse?: string,
+  begrunnelse: string,
   gyldigFraOgMed?: string,
   gyldigTilOgMed?: string,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-  const body: EndreOpplysningRequestBody = {
-    verdi,
-    begrunnelse: begrunnelse ?? "",
-    gyldigFraOgMed,
-    gyldigTilOgMed,
-  };
-  return await behandlingClient.PUT("/behandling/{behandlingId}/opplysning/{opplysningId}", {
+  return await behandlingClient.POST("/behandling/{behandlingId}/opplysning/", {
     headers: getHeaders(onBehalfOfToken),
-    body,
+    body: {
+      verdi,
+      opplysningstype,
+      gyldigFraOgMed,
+      gyldigTilOgMed,
+      begrunnelse,
+    },
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
+export async function slettOpplysning(
+  request: Request,
+  behandlingId: string,
+  opplysningId: string,
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.DELETE("/behandling/{behandlingId}/opplysning/{opplysningId}", {
+    headers: getHeaders(onBehalfOfToken),
     params: {
       path: { behandlingId, opplysningId },
     },

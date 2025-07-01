@@ -17,6 +17,7 @@ import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
+import { slettOpplysningAction } from "~/server-side-actions/slett-opplysning-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
@@ -34,6 +35,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-opplysning":
       return await lagreOpplysningAction(request, formData);
+
+    case "slett-opplysning":
+      return await slettOpplysningAction(request, formData);
 
     case "lagre-notat":
       return await lagreNotatAction(request, formData);

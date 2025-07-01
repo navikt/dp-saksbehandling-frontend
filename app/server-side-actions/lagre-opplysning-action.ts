@@ -2,7 +2,7 @@ import { parseFormData, validationError } from "@rvf/react-router";
 import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
-import { endreOpplysning } from "~/models/behandling.server";
+import { lagreOpplysning } from "~/models/behandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
@@ -24,7 +24,7 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
 
   const {
     behandlingId,
-    opplysningId,
+    opplysningTypeId,
     verdi,
     gyldigFraOgMed,
     ingenFomDato,
@@ -44,12 +44,12 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
   }
 
-  const { data, error } = await endreOpplysning(
+  const { data, error } = await lagreOpplysning(
     request,
     behandlingId,
-    opplysningId,
+    opplysningTypeId,
     konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype, verdi),
-    begrunnelse ? begrunnelse : undefined,
+    begrunnelse ? begrunnelse : "",
     gyldigFraOgMedDato,
     gyldigTilOgMedDato,
   );

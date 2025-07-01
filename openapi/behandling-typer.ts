@@ -540,9 +540,33 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** Overskriv en opplysning */
+        /**
+         * Overskriv en opplysning
+         * @deprecated
+         */
         put: operations["oppdaterOpplysning"];
         post?: never;
+        /** Fjern en opplysning */
+        delete: operations["fjernOpplysning"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/behandling/{behandlingId}/opplysning/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Legg til en opplysning */
+        post: operations["leggTilOpplysning"];
         delete?: never;
         options?: never;
         head?: never;
@@ -657,6 +681,15 @@ export interface components {
             /** Format: date */
             "pr\u00F8vingsdato"?: string;
             begrunnelse?: string;
+        };
+        NyOpplysning: {
+            opplysningstype: components["schemas"]["OpplysningTypeId"];
+            verdi: string;
+            begrunnelse: string;
+            /** Format: date */
+            gyldigFraOgMed?: string;
+            /** Format: date */
+            gyldigTilOgMed?: string;
         };
         OppdaterOpplysning: {
             verdi: string;
@@ -1193,6 +1226,76 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["OppdaterOpplysning"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Kvittering"];
+                };
+            };
+            /** @description Feil ved redigering av opplysninger */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+        };
+    };
+    fjernOpplysning: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+                /** @description Opplysningens id */
+                opplysningId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Kvittering"];
+                };
+            };
+            /** @description Feil ved fjerning av opplysning */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+        };
+    };
+    leggTilOpplysning: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NyOpplysning"];
             };
         };
         responses: {
