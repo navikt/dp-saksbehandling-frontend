@@ -31,7 +31,7 @@ export function OpplysningGruppePanel({
   const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
 
   return (
-    <div className={"p-4"}>
+    <div className={"p-4"} key={`${behandlingId}-${opplysningGruppe.opplysninger.length}`}>
       <div className={"flex justify-between"}>
         <div>
           <Heading size={"xsmall"}>{opplysningGruppe.navn}</Heading>
