@@ -9,7 +9,9 @@ import classnames from "classnames";
 import { motion } from "motion/react";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
+import { isDefined } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 import { formaterOpplysningVerdi } from "../opplysning-linje/OpplysningLinje";
@@ -24,10 +26,19 @@ interface IProps {
 export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
   const { aktivOpplysningsgruppe, setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
 
-  const opplysningGrupper = behandling.opplysningsgrupper.filter(
-    (gruppe) =>
-      gruppe.synlig && aktivtRegelsett.opplysningTypeIder.includes(gruppe.opplysningTypeId),
-  );
+  const opplysningGrupper = aktivtRegelsett.opplysningTypeIder
+    .map((id) =>
+      behandling.opplysningsgrupper.find(
+        (gruppe) => gruppe.synlig && gruppe.opplysningTypeId === id,
+      ),
+    )
+    .filter(isDefined);
+
+  const visOrkestratorBarn =
+    aktivtRegelsett.hjemmel.kapittel === "4" && aktivtRegelsett.hjemmel.paragraf === "12";
+
+  const barnOpplysningId = opplysningGrupper.find((opplysning) => opplysning.datatype === "barn")
+    ?.opplysninger[0].id;
 
   return (
     <div className={styles.container}>
@@ -112,6 +123,10 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
           })}
         </ul>
       </div>
+
+      {visOrkestratorBarn && barnOpplysningId && (
+        <OrkestratorBarn opplysningId={barnOpplysningId} />
+      )}
     </div>
   );
 }

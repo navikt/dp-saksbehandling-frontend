@@ -42,7 +42,7 @@ export function OpplysningGruppePanel({
           icon={<XMarkIcon />}
           onClick={() => setAktivOpplysningsgruppe(undefined)}
         >
-          lukk
+          Lukk
         </Button>
       </div>
 

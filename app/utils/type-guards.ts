@@ -69,21 +69,8 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   return typeof maybeError.message === "string";
 }
 
-export function isIMeldingOmVedtak(
-  data: unknown,
-): data is meldingOmVedtakComponents["schemas"]["MeldingOmVedtakResponse"] {
-  if (typeof data !== "object" || data === null) {
-    return false;
-  }
-
-  const maybeMeldingOmVedtak = data as Partial<
-    meldingOmVedtakComponents["schemas"]["MeldingOmVedtakResponse"]
-  >;
-
-  const hasValidHtml = typeof maybeMeldingOmVedtak.html === "string";
-  const hasValidUtvidedeBeskrivelser = Array.isArray(maybeMeldingOmVedtak.utvidedeBeskrivelser);
-
-  return hasValidHtml && hasValidUtvidedeBeskrivelser;
+export function isDefined<T>(value: T | undefined): value is T {
+  return value !== undefined;
 }
 
 /**

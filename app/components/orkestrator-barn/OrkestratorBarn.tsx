@@ -2,10 +2,12 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classNames from "classnames";
+import classnames from "classnames";
 import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
@@ -46,6 +48,7 @@ interface IProps {
 function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
+  const { periodisertBehandlingsView } = useSaksbehandler();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { behandlingPromise } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
@@ -70,22 +73,32 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
   }
 
   return (
-    <div className={styles.orkestratorBarn}>
-      <>
-        <Heading level="4" size="xsmall" className={styles.opplysningBarnHeader} spacing>
-          Barn {barnNummer}
-        </Heading>
-        <div className={styles.orkestratorOpplysning}>
-          {barnOpplysninger.map((opplysning, index) => (
-            <OrkestratorOpplysningLinje
-              key={index}
-              opplysning={opplysning}
-              formScope={orkestratorBarnForm.scope(opplysning.id)}
-              readOnly
-            />
-          ))}
-        </div>
-      </>
+    <div
+      className={classnames(styles.orkestratorBarn, {
+        ["card m-4 p-2"]: periodisertBehandlingsView,
+      })}
+    >
+      <Heading
+        level="4"
+        size="xsmall"
+        className={classnames(styles.opplysningBarnHeader, {
+          ["mt-1 mb-0"]: periodisertBehandlingsView,
+        })}
+        spacing
+      >
+        Barn {barnNummer}
+      </Heading>
+      <div className={styles.orkestratorOpplysning}>
+        {barnOpplysninger.map((opplysning, index) => (
+          <OrkestratorOpplysningLinje
+            key={index}
+            opplysning={opplysning}
+            formScope={orkestratorBarnForm.scope(opplysning.id)}
+            readOnly
+          />
+        ))}
+      </div>
+
       <Button
         variant="secondary"
         size="small"
