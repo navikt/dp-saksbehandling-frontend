@@ -1,4 +1,3 @@
-import { LayersIcon } from "@navikt/aksel-icons";
 import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
 
@@ -15,6 +14,7 @@ interface IProps {
   oppgaver: components["schemas"]["OppgaveOversikt"][];
   totaltAntallOppgaver: number;
   tittel?: string;
+  icon?: React.ReactNode;
   sorterbar?: boolean;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
@@ -23,6 +23,7 @@ interface IProps {
 export function OppgaveListe({
   oppgaver,
   tittel,
+  icon,
   totaltAntallOppgaver,
   sorterbar,
   lasterOppgaver,
@@ -40,7 +41,7 @@ export function OppgaveListe({
       <div className={styles.oppgavelisteHeader}>
         {tittel && (
           <Heading size={"xsmall"} spacing className={styles.heading}>
-            <LayersIcon fontSize="1.5rem" />
+            {icon}
             {tittel}
           </Heading>
         )}

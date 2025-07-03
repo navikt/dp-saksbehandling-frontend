@@ -28,7 +28,7 @@ export function OpprettBehandling() {
   }, [fetcher.data]);
 
   return (
-    <div className={"flex justify-end"}>
+    <>
       <Button
         className={"my-2"}
         ref={popoverRef}
@@ -122,6 +122,6 @@ export function OpprettBehandling() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 }

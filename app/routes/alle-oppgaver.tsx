@@ -1,4 +1,4 @@
-import { FunnelIcon } from "@navikt/aksel-icons";
+import { FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import {
   type ActionFunctionArgs,
@@ -101,6 +101,7 @@ export default function Saksbehandling() {
         <div className={"card"}>
           <OppgaveListe
             tittel={"Alle oppgaver"}
+            icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
             lasterOppgaver={state !== "idle"}

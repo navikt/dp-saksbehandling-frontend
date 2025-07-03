@@ -12,13 +12,13 @@ interface IProps {
 export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
   return (
     <ExpansionCard
-      className={"m-4 expansion--subtil"}
+      className={"expansion--subtil card m-4"}
       aria-label={""}
       defaultOpen={true}
       size={"small"}
     >
       <ExpansionCard.Header>
-        <ExpansionCard.Title>Avklaringer</ExpansionCard.Title>
+        <ExpansionCard.Title size={"small"}>Avklaringer</ExpansionCard.Title>
         <ExpansionCard.Description>
           Saksbehandler har skrevet følgende begrunnelser på avklaringer i saken.
         </ExpansionCard.Description>

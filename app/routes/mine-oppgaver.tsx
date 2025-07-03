@@ -1,4 +1,4 @@
-import { BarChartIcon, FunnelIcon } from "@navikt/aksel-icons";
+import { BarChartIcon, FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
 import { Tabs } from "@navikt/ds-react";
 import {
   type ActionFunctionArgs,
@@ -116,6 +116,7 @@ export default function Saksbehandling() {
         <div className={"card"}>
           <OppgaveListe
             tittel={"Mine oppgaver"}
+            icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             visPersonIdent={true}
             totaltAntallOppgaver={totaltAntallOppgaver}
