@@ -3,10 +3,13 @@ import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { useEffect, useRef, useState } from "react";
-import { Form } from "react-router";
+import { Form, useActionData } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
+import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
 import {
   hentValideringForOpplysningSkjema,
   hentValideringForSlettOpplysningSkjema,
@@ -34,6 +37,7 @@ export function OpplysningKortRedigering({
   setAktivOpplysning,
 }: IProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const actionData = useActionData<typeof handleActions>();
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
 
@@ -80,6 +84,12 @@ export function OpplysningKortRedigering({
   });
 
   useEffect(() => {
+    if (isAlert(actionData) && actionData.variant === "success") {
+      setAktivOpplysning(undefined);
+    }
+  }, [actionData]);
+
+  useEffect(() => {
     if (opplysning.id === aktivOpplysning?.id && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -93,7 +103,7 @@ export function OpplysningKortRedigering({
       })}
     >
       <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
-        Periode {periodeNummer + 1}
+        {opplysning.id === NY_PERIODE_ID ? <>Ny periode</> : <>Periode {periodeNummer + 1}</>}
       </Heading>
 
       <BodyShort size={"small"} weight={"semibold"}>

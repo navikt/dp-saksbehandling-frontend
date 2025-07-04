@@ -17,10 +17,7 @@ interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
 }
 
-export interface IAktivOpplysning {
-  opplysning: components["schemas"]["Opplysning"];
-  periodeNummer: number;
-}
+export const NY_PERIODE_ID = "ny-periode";
 
 export function OpplysningGruppePanel({
   opplysningGruppe,
@@ -31,6 +28,8 @@ export function OpplysningGruppePanel({
   const { response } = useAwaitPromise(behandlingPromise);
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
+
+  console.log(opplysningGruppe);
 
   return (
     <div className={"p-4"} key={location.key}>
@@ -60,13 +59,13 @@ export function OpplysningGruppePanel({
         variant={"tertiary"}
         size={"small"}
         icon={<PlusIcon />}
-        disabled={aktivOpplysning?.id === "ny-periode"}
+        disabled={aktivOpplysning?.id === NY_PERIODE_ID}
         onClick={() =>
           setAktivOpplysning({
             opplysningTypeId: opplysningGruppe.opplysningTypeId,
             navn: opplysningGruppe.navn,
             datatype: opplysningGruppe.datatype,
-            id: "ny-periode",
+            id: NY_PERIODE_ID,
             verdi: "",
             status: "Hypotese",
             redigerbar: true,

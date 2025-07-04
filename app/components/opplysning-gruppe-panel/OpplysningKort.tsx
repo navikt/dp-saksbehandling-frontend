@@ -2,6 +2,7 @@ import { Accordion } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren } from "react";
 
+import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { OpplysningKortRedigering } from "~/components/opplysning-gruppe-panel/OpplysningKortRedigering";
 import { OpplysningKortVisning } from "~/components/opplysning-gruppe-panel/OpplysningKortVisning";
 
@@ -22,8 +23,8 @@ export function OpplysningKort({
 }: IProps) {
   return (
     <AnimatePresence initial={false}>
-      {aktivOpplysning?.id === "ny-periode" && (
-        <AnimertOpplysningKort key={"ny-periode"}>
+      {aktivOpplysning?.id === NY_PERIODE_ID && (
+        <AnimertOpplysningKort key={NY_PERIODE_ID}>
           <OpplysningKortRedigering
             behandlingId={behandlingId}
             opplysning={aktivOpplysning}
