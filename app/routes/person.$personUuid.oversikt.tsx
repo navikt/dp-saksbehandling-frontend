@@ -1,13 +1,5 @@
 import { ArchiveIcon, FolderFileIcon, LayersIcon, PencilWritingIcon } from "@navikt/aksel-icons";
-import {
-  BodyShort,
-  CopyButton,
-  Detail,
-  ExpansionCard,
-  Heading,
-  Table,
-  Tabs,
-} from "@navikt/ds-react";
+import { BodyShort, Detail, ExpansionCard, Heading, Table, Tabs } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   data,
@@ -25,6 +17,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { SisteSak } from "~/siste-sak/SisteSak";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
@@ -61,10 +54,6 @@ export default function PersonOversikt() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
-  const sisteSak = personOversikt.saker[0];
-  const idGrupper = sisteSak.id.split("-");
-  const sisteIdGruppe = idGrupper.pop();
-  const forsteIdGruppe = idGrupper.join("-");
   const oppgaverTilBehandling = personOversikt.oppgaver.filter((oppgave) =>
     ["KLAR_TIL_BEHANDLING", "UNDER_BEHANDLING", "KLAR_TIL_KONTROLL"].includes(oppgave.tilstand),
   );
@@ -103,71 +92,12 @@ export default function PersonOversikt() {
           />
         </Tabs.List>
         <Tabs.Panel value="siste-sak">
-          <div className={"card my-4 p-4"}>
-            <div className={"flex items-center gap-2 pb-4"}>
-              <Heading
-                size={"small"}
-                className={"flex items-center gap-1 border-r-1 border-(--a-border-subtle) pr-4"}
-              >
-                <FolderFileIcon aria-hidden /> Siste sak
-              </Heading>
-
-              <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
-                SakID:
-              </BodyShort>
-              <BodyShort>
-                {forsteIdGruppe}-<b>{sisteIdGruppe}</b>
-              </BodyShort>
-              <CopyButton copyText={sisteSak.id} size={"small"} title={"kopier sakid"} />
+          {personOversikt.saker[0] && <SisteSak sak={personOversikt.saker[0]} />}
+          {!personOversikt.saker[0] && (
+            <div className={"card my-4 p-4"}>
+              <BodyShort>Personen har ingen saker</BodyShort>
             </div>
-            <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell scope="col">
-                    <Detail weight={"semibold"}>Mottatt</Detail>
-                  </Table.HeaderCell>
-                  <Table.HeaderCell scope="col">
-                    <Detail weight={"semibold"}>Type</Detail>
-                  </Table.HeaderCell>
-                  <Table.HeaderCell scope="col">
-                    <Detail weight={"semibold"}>BehandlingId</Detail>
-                  </Table.HeaderCell>
-                  <Table.HeaderCell scope="col">
-                    <Detail weight={"semibold"}>OppgaveId</Detail>
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {sisteSak.behandlinger.map((behandling) => (
-                  <Table.Row key={behandling.id}>
-                    <Table.DataCell>
-                      <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Detail>
-                        {hentBehandlingTypeTekstForVisning(behandling.behandlingType)}
-                      </Detail>
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Detail>
-                        <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
-                      </Detail>
-                    </Table.DataCell>
-                    <Table.DataCell>
-                      <Detail>
-                        <RemixLink
-                          to={`/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}`}
-                        >
-                          {behandling.oppgaveId}
-                        </RemixLink>
-                      </Detail>
-                    </Table.DataCell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </div>
+          )}
         </Tabs.Panel>
         <Tabs.Panel value="tidligere-saker">
           {personOversikt.saker.map((sak) => (
