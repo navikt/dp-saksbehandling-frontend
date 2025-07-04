@@ -25,7 +25,7 @@
 
 /* Aksel tabell overrides*/
 .tabell--subtil {
-  --ac-table-row-zebra: color-mix(in srgb, var(--a-blue-200) 12%, transparent);
+  --ac-table-row-zebra: #f8f9fc;
 }
 
 /* Legg til border under header */

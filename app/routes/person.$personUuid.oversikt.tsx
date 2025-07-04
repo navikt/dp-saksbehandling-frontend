@@ -63,7 +63,7 @@ export default function PersonOversikt() {
         <OpprettBehandling />
       </div>
 
-      <div className={"card !bg-blue-50"}>
+      <div className={"card"}>
         <OppgaveListe
           tittel={"Oppgave til behandling"}
           icon={<PencilWritingIcon fontSize="1.5rem" aria-hidden />}
