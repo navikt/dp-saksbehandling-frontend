@@ -8,28 +8,54 @@ import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/Opplysnin
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { hentBehandling } from "~/models/behandling.server";
+import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   behandlingId: string;
   behandlingPromise: ReturnType<typeof hentBehandling>;
-  opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
 }
 
 export const NY_PERIODE_ID = "ny-periode";
 
-export function OpplysningGruppePanel({
-  opplysningGruppe,
-  behandlingId,
-  behandlingPromise,
-}: IProps) {
+export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProps) {
   const location = useLocation();
   const { response } = useAwaitPromise(behandlingPromise);
-  const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
+  const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
 
-  console.log(opplysningGruppe);
+  const opplysningGruppe = response?.data?.opplysningsgrupper.find(
+    (gruppe) => gruppe.opplysningTypeId === aktivOpplysningsgruppeId,
+  );
+
+  if (!opplysningGruppe) {
+    return (
+      <div className={"p-4"}>
+        <Heading size={"xsmall"}>Ingen opplysningsgruppe valgt</Heading>
+      </div>
+    );
+  }
+
+  function leggTilNyPeriode() {
+    console.log("legg til ny periode");
+
+    if (!opplysningGruppe) {
+      return logger.error("Opplysning gruppe er ikke satt");
+    }
+
+    setAktivOpplysning({
+      opplysningTypeId: opplysningGruppe.opplysningTypeId,
+      navn: opplysningGruppe.navn,
+      datatype: opplysningGruppe.datatype,
+      id: NY_PERIODE_ID,
+      verdi: "",
+      status: "Hypotese",
+      redigerbar: true,
+      synlig: true,
+      formål: "Legacy",
+    });
+  }
 
   return (
     <div className={"p-4"} key={location.key}>
@@ -41,7 +67,7 @@ export function OpplysningGruppePanel({
           size={"small"}
           variant={"tertiary"}
           icon={<XMarkIcon />}
-          onClick={() => setAktivOpplysningsgruppe(undefined)}
+          onClick={() => setAktivOpplysningsgruppeId(undefined)}
         >
           Lukk
         </Button>
@@ -60,19 +86,7 @@ export function OpplysningGruppePanel({
         size={"small"}
         icon={<PlusIcon />}
         disabled={aktivOpplysning?.id === NY_PERIODE_ID}
-        onClick={() =>
-          setAktivOpplysning({
-            opplysningTypeId: opplysningGruppe.opplysningTypeId,
-            navn: opplysningGruppe.navn,
-            datatype: opplysningGruppe.datatype,
-            id: NY_PERIODE_ID,
-            verdi: "",
-            status: "Hypotese",
-            redigerbar: true,
-            synlig: true,
-            formål: "Legacy",
-          })
-        }
+        onClick={() => leggTilNyPeriode()}
       >
         Legg til periode
       </Button>

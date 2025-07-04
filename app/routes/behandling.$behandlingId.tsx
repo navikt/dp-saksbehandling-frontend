@@ -53,7 +53,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function BehandlingRoute() {
   const { behandlingId, behandlingPromise, vurderingerPromise } = useLoaderData<typeof loader>();
-  const { aktivOpplysningsgruppe } = useDagpengerRettBehandling();
+  const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const actionData = useActionData<typeof action>();
   const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -99,7 +99,7 @@ export default function BehandlingRoute() {
       <ResizableColumns.Right>
         <div className={"card h-[100%]"}>
           <AnimatePresence mode="popLayout">
-            {aktivOpplysningsgruppe ? (
+            {aktivOpplysningsgruppeId ? (
               <motion.div
                 initial={{ opacity: 0, x: 200 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -108,12 +108,12 @@ export default function BehandlingRoute() {
                   type: "spring",
                   duration: 0.5,
                 }}
-                key={aktivOpplysningsgruppe.opplysningTypeId}
+                key={aktivOpplysningsgruppeId}
               >
                 <OpplysningGruppePanel
                   // @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router
                   behandlingPromise={behandlingPromise}
-                  opplysningGruppe={aktivOpplysningsgruppe}
+                  aktivOpplysningsgruppeId={aktivOpplysningsgruppeId}
                   behandlingId={behandlingId}
                 />
               </motion.div>
@@ -122,7 +122,7 @@ export default function BehandlingRoute() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                key={aktivOpplysningsgruppe}
+                key={aktivOpplysningsgruppeId}
               ></motion.div>
             )}
           </AnimatePresence>

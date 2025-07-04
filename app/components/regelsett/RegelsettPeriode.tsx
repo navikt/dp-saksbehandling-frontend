@@ -24,7 +24,7 @@ interface IProps {
 }
 
 export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
-  const { aktivOpplysningsgruppe, setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
+  const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
 
   const opplysningGrupper = aktivtRegelsett.opplysningTypeIder
     .map((id) =>
@@ -63,8 +63,7 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
         </Heading>
         <ul className={"pb-4"}>
           {opplysningGrupper.map((opplysningGruppe) => {
-            const erAktivGruppe =
-              opplysningGruppe.opplysningTypeId === aktivOpplysningsgruppe?.opplysningTypeId;
+            const erAktivGruppe = opplysningGruppe.opplysningTypeId === aktivOpplysningsgruppeId;
 
             return (
               <li key={opplysningGruppe.opplysningTypeId} className={styles.opplysningLinje}>
@@ -75,7 +74,9 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
                   whileHover={{ scale: 1.005 }}
                   whileTap={{ scale: 0.995 }}
                   onClick={() =>
-                    setAktivOpplysningsgruppe(erAktivGruppe ? undefined : opplysningGruppe)
+                    setAktivOpplysningsgruppeId(
+                      erAktivGruppe ? undefined : opplysningGruppe.opplysningTypeId,
+                    )
                   }
                 >
                   <BodyShort className={"flex items-center gap-1"}>

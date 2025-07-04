@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { aktivOpplysningsgruppe } = useDagpengerRettBehandling();
+  const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const { behandlingPromise, vurderingerPromise } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
@@ -78,7 +78,7 @@ export default function Oppgave() {
         <ResizableColumns.Right>
           <div className={"card h-[100%]"}>
             <AnimatePresence mode="popLayout">
-              {aktivOpplysningsgruppe ? (
+              {aktivOpplysningsgruppeId ? (
                 <motion.div
                   initial={{ opacity: 0, x: 200 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -87,12 +87,12 @@ export default function Oppgave() {
                     type: "spring",
                     duration: 0.5,
                   }}
-                  key={aktivOpplysningsgruppe.opplysningTypeId}
+                  key={aktivOpplysningsgruppeId}
                 >
                   <OpplysningGruppePanel
                     // @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router
                     behandlingPromise={behandlingPromise}
-                    opplysningGruppe={aktivOpplysningsgruppe}
+                    aktivOpplysningsgruppeId={aktivOpplysningsgruppeId}
                     behandlingId={oppgave.behandlingId}
                   />
                 </motion.div>
@@ -101,7 +101,7 @@ export default function Oppgave() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  key={aktivOpplysningsgruppe}
+                  key={aktivOpplysningsgruppeId}
                 >
                   <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
                 </motion.div>

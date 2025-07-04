@@ -3,13 +3,11 @@ import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { useEffect, useRef, useState } from "react";
-import { Form, useActionData } from "react-router";
+import { Form } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { handleActions } from "~/server-side-actions/handle-actions";
-import { isAlert } from "~/utils/type-guards";
 import {
   hentValideringForOpplysningSkjema,
   hentValideringForSlettOpplysningSkjema,
@@ -37,7 +35,6 @@ export function OpplysningKortRedigering({
   setAktivOpplysning,
 }: IProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const actionData = useActionData<typeof handleActions>();
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
 
@@ -82,12 +79,6 @@ export function OpplysningKortRedigering({
     defaultSelected: opplysning.gyldigTilOgMed ? new Date(opplysning.gyldigTilOgMed) : undefined,
     toDate: nestePeriode?.gyldigFraOgMed ? tidligsteTilOgMedDato : undefined,
   });
-
-  useEffect(() => {
-    if (isAlert(actionData) && actionData.variant === "success") {
-      setAktivOpplysning(undefined);
-    }
-  }, [actionData]);
 
   useEffect(() => {
     if (opplysning.id === aktivOpplysning?.id && ref.current) {

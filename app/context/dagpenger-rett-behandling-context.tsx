@@ -1,11 +1,8 @@
-import type { PropsWithChildren } from "react";
-import { createContext, useState } from "react";
-
-import { components } from "../../openapi/behandling-typer";
+import { createContext, PropsWithChildren, useState } from "react";
 
 interface IDagpengerRettBehandlingContext {
-  aktivOpplysningsgruppe: components["schemas"]["Opplysningsgruppe"] | undefined;
-  setAktivOpplysningsgruppe: (opplysning?: components["schemas"]["Opplysningsgruppe"]) => void;
+  aktivOpplysningsgruppeId: string | undefined;
+  setAktivOpplysningsgruppeId: (id?: string) => void;
 }
 
 export const DagpengerRettBehandlingContext = createContext<
@@ -13,15 +10,13 @@ export const DagpengerRettBehandlingContext = createContext<
 >(undefined);
 
 export function DagpengerRettBehandlingProvider(props: PropsWithChildren) {
-  const [aktivOpplysningsgruppe, setAktivOpplysningsgruppe] = useState<
-    components["schemas"]["Opplysningsgruppe"] | undefined
-  >();
+  const [aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId] = useState<string | undefined>();
 
   return (
     <DagpengerRettBehandlingContext.Provider
       value={{
-        aktivOpplysningsgruppe,
-        setAktivOpplysningsgruppe,
+        aktivOpplysningsgruppeId,
+        setAktivOpplysningsgruppeId,
       }}
     >
       {props.children}
