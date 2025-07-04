@@ -1,5 +1,5 @@
 import { ArchiveIcon, FolderFileIcon, LayersIcon, PencilWritingIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, ExpansionCard, Heading, Table, Tabs } from "@navikt/ds-react";
+import { BodyShort, Heading, Tabs } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   data,
@@ -9,16 +9,14 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
-import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
+import { SakListe } from "~/sak-liste/SakListe";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { SisteSak } from "~/siste-sak/SisteSak";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
@@ -77,20 +75,24 @@ export default function PersonOversikt() {
       <Heading size={"medium"} className={"mt-6"}>
         Saks- og oppgavehistorikk
       </Heading>
+
       <Tabs defaultValue="siste-sak" size="small" className={"mt-2"}>
         <Tabs.List>
           <Tabs.Tab value="siste-sak" label="Siste sak" icon={<FolderFileIcon aria-hidden />} />
+
           <Tabs.Tab
             value="tidligere-saker"
             label="Tidligere saker og behandlinger"
             icon={<ArchiveIcon aria-hidden />}
           />
+
           <Tabs.Tab
             value="alle-oppgaver"
             label="Alle oppgaver"
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
           />
         </Tabs.List>
+
         <Tabs.Panel value="siste-sak">
           {personOversikt.saker[0] && <SisteSak sak={personOversikt.saker[0]} />}
           {!personOversikt.saker[0] && (
@@ -99,78 +101,11 @@ export default function PersonOversikt() {
             </div>
           )}
         </Tabs.Panel>
+
         <Tabs.Panel value="tidligere-saker">
-          {personOversikt.saker.map((sak) => (
-            <ExpansionCard
-              key={sak.id}
-              className={"expansion--subtil card my-4"}
-              aria-label={""}
-              size={"small"}
-            >
-              <ExpansionCard.Header>
-                <ExpansionCard.Title size={"small"} className={"flex items-center gap-1"}>
-                  <FolderFileIcon fontSize="1.5rem" />
-                  SakID: {sak.id}
-                </ExpansionCard.Title>
-                <ExpansionCard.Description>
-                  Siste endret: {formaterTilNorskDato(new Date())}
-                </ExpansionCard.Description>
-              </ExpansionCard.Header>
-
-              <ExpansionCard.Content className={"p-4"}>
-                <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell scope="col">
-                        <Detail weight={"semibold"}>Mottatt</Detail>
-                      </Table.HeaderCell>
-                      <Table.HeaderCell scope="col">
-                        <Detail weight={"semibold"}>Type</Detail>
-                      </Table.HeaderCell>
-                      <Table.HeaderCell scope="col">
-                        <Detail weight={"semibold"}>BehandlingId</Detail>
-                      </Table.HeaderCell>
-                      <Table.HeaderCell scope="col">
-                        <Detail weight={"semibold"}>OppgaveId</Detail>
-                      </Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-
-                  <Table.Body>
-                    {sak.behandlinger.map((behandling) => (
-                      <Table.Row key={behandling.id}>
-                        <Table.DataCell>
-                          <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
-                        </Table.DataCell>
-                        <Table.DataCell>
-                          <Detail>
-                            {hentBehandlingTypeTekstForVisning(behandling.behandlingType)}
-                          </Detail>
-                        </Table.DataCell>
-                        <Table.DataCell>
-                          <Detail>
-                            <RemixLink to={`/behandling/${behandling.id}`}>
-                              {behandling.id}
-                            </RemixLink>
-                          </Detail>
-                        </Table.DataCell>
-                        <Table.DataCell>
-                          <Detail>
-                            <RemixLink
-                              to={`/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}`}
-                            >
-                              {behandling.oppgaveId}
-                            </RemixLink>
-                          </Detail>
-                        </Table.DataCell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
-              </ExpansionCard.Content>
-            </ExpansionCard>
-          ))}
+          <SakListe saker={personOversikt.saker} />
         </Tabs.Panel>
+
         <Tabs.Panel value="alle-oppgaver">
           <div className={"card mt-4"}>
             <OppgaveListe
