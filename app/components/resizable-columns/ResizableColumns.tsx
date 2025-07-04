@@ -28,8 +28,9 @@ export function ResizableColumns({
   const hoyreInnholdRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const [venstreBreddeProsent, setVenstreBreddeProsent] = useState<number>(defaultLeftWidth);
-  const [minVenstreBreddeProsent, setMinVenstreBreddeProsent] = useState<number>(0);
-  const [minHoyreBreddeProsent, setMinHoyreBreddeProsent] = useState<number>(0);
+
+  const minVenstreBreddeProsent = 37;
+  const minHoyreBreddeProsent = 15;
 
   // Valider struktur
   const childrenArray = Children.toArray(children);
@@ -43,50 +44,6 @@ export function ResizableColumns({
   if (!leftColumn || !rightColumn) {
     throw new Error("ResizableColumns må ha én ResizableColumns.Left og én ResizableColumns.Right");
   }
-
-  useEffect(() => {
-    // Beregn minimumsbredder basert på innhold
-    function oppdaterMinimumsbredder() {
-      if (!containerRef.current || !venstreInnholdRef.current || !hoyreInnholdRef.current) return;
-
-      const containerBredde = containerRef.current.getBoundingClientRect().width;
-
-      // Lagre opprinnelige stiler
-      const venstreOpprinneligStil = venstreInnholdRef.current.style.cssText;
-      const hoyreOpprinneligStil = hoyreInnholdRef.current.style.cssText;
-
-      // Sett midlertidige stiler for finne av minimum bredde av innhold
-      const midlertidigeStiler = {
-        width: "auto",
-        position: "absolute",
-        visibility: "hidden",
-      };
-
-      // Bruk stiler på venstre innhold
-      Object.assign(venstreInnholdRef.current.style, midlertidigeStiler);
-      const venstreInnholdBredde = venstreInnholdRef.current.scrollWidth;
-
-      // Bruk stiler på høyre innhold
-      Object.assign(hoyreInnholdRef.current.style, midlertidigeStiler);
-      const hoyreInnholdBredde = hoyreInnholdRef.current.scrollWidth;
-
-      // Gjenopprett opprinnelige stiler
-      venstreInnholdRef.current.style.cssText = venstreOpprinneligStil;
-      hoyreInnholdRef.current.style.cssText = hoyreOpprinneligStil;
-
-      // Legg til buffer og konverter til prosentandeler
-      const buffer = 10;
-      const minVenstreProsent = ((venstreInnholdBredde + buffer) / containerBredde) * 100;
-      const minHoyreProsent = ((hoyreInnholdBredde + buffer) / containerBredde) * 100;
-
-      setMinVenstreBreddeProsent(minVenstreProsent);
-      setMinHoyreBreddeProsent(minHoyreProsent);
-    }
-
-    oppdaterMinimumsbredder();
-    window.addEventListener("resize", oppdaterMinimumsbredder);
-    return () => window.removeEventListener("resize", oppdaterMinimumsbredder);
-  }, []);
 
   function handleMouseDown(
     event: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>,

@@ -40,8 +40,8 @@ export default function Oppgave() {
 
       <ResizableColumns defaultLeftWidth={70}>
         <ResizableColumns.Left>
-          <div className={"card h-[100%]"}>
-            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+          <div className={"card h-full"}>
+            <Tabs className={"h-full"} size="medium" value={aktivTab} onChange={setAktivTab}>
               <Tabs.List>
                 <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
 
@@ -58,7 +58,7 @@ export default function Oppgave() {
                 />
               </Tabs.List>
 
-              <Tabs.Panel value="behandling">
+              <Tabs.Panel value="behandling" className={"h-[calc(100%-48px)]"}>
                 {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
                 <Behandling behandlingPromise={behandlingPromise} />
               </Tabs.Panel>
