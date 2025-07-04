@@ -1,6 +1,7 @@
 import { PlusIcon, XMarkIcon } from "@navikt/aksel-icons";
 import { Button, Heading } from "@navikt/ds-react";
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 import { OpplysningKort } from "~/components/opplysning-gruppe-panel/OpplysningKort";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
@@ -26,12 +27,13 @@ export function OpplysningGruppePanel({
   behandlingId,
   behandlingPromise,
 }: IProps) {
+  const location = useLocation();
   const { response } = useAwaitPromise(behandlingPromise);
   const { setAktivOpplysningsgruppe } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
 
   return (
-    <div className={"p-4"} key={`${behandlingId}-${opplysningGruppe.opplysninger.length}`}>
+    <div className={"p-4"} key={location.key}>
       <div className={"flex justify-between"}>
         <div>
           <Heading size={"xsmall"}>{opplysningGruppe.navn}</Heading>
