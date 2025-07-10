@@ -79,7 +79,7 @@ export function OpprettBehandling() {
         ref={modalRef}
         header={{
           icon: <FilePlusIcon aria-hidden />,
-          heading: "Ved å endre opplysninger oppretter du en ny behandling",
+          heading: "Opprett ny behandling av rett til dagpenger",
         }}
         width={620}
       >
@@ -98,10 +98,10 @@ export function OpprettBehandling() {
               readOnly={true}
             />
             <BodyLong spacing>
-              Den nye behandlingen er basert på opplysningene i siste fullførte behandling. Du kan
+              Den nye behandlingen er basert på opplysninger i siste fullførte behandling. Du kan
               endre opplysninger i den nye behandlingen. Behandlingen kan ikke slettes.
             </BodyLong>
-            <BodyLong> Er du sikker på at du vil opprette en ny behandling?</BodyLong>
+            <BodyLong>Er du sikker på at du vil opprette en ny behandling?</BodyLong>
           </fetcher.Form>
         </Modal.Body>
         <Modal.Footer>
