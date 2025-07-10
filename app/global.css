@@ -2,7 +2,7 @@
 @import "@navikt/ds-css" layer(components);
 
 body {
-  background-color: #f2f2f2;
+  background-color: var(--a-grayalpha-50);
   min-height: calc(100vh);
 }
 

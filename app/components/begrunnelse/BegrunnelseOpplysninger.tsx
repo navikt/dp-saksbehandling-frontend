@@ -1,4 +1,4 @@
-import { ExpansionCard, Table } from "@navikt/ds-react";
+import { BodyShort, ExpansionCard } from "@navikt/ds-react";
 
 import { OpplysningBegrunnelse } from "~/components/opplysning-begrunnelse/OpplysningBegrunnelse";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
@@ -13,8 +13,8 @@ interface IProps {
 export function BegrunnelseOpplysninger({ opplysninger, readOnly }: IProps) {
   return (
     <ExpansionCard
-      className={"card expansion--subtil m-4"}
-      aria-label={""}
+      className={"card expansion--subtil mb-4"}
+      aria-label={"Opplysninger som er endret"}
       defaultOpen={true}
       size={"small"}
     >
@@ -27,19 +27,22 @@ export function BegrunnelseOpplysninger({ opplysninger, readOnly }: IProps) {
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-          <Table.Body>
-            {opplysninger.map((opplysning) => (
-              <Table.Row key={opplysning.id} shadeOnHover={false}>
-                <Table.HeaderCell>{opplysning.navn}</Table.HeaderCell>
-                <Table.DataCell>{formaterOpplysningVerdi(opplysning)}</Table.DataCell>
-                <Table.DataCell>
-                  <OpplysningBegrunnelse opplysning={opplysning} readOnly={readOnly} />
-                </Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <ul>
+          {opplysninger.map((opplysning) => (
+            <li
+              key={opplysning.id}
+              className={"mb-4 grid grid-cols-[minmax(auto,550px)_auto] items-start"}
+            >
+              <BodyShort size={"small"}>
+                <b>{opplysning.navn}</b>
+                <br />
+                {formaterOpplysningVerdi(opplysning)}
+              </BodyShort>
+
+              <OpplysningBegrunnelse opplysning={opplysning} readOnly={readOnly} />
+            </li>
+          ))}
+        </ul>
       </ExpansionCard.Content>
     </ExpansionCard>
   );

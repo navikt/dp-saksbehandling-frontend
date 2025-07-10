@@ -29,7 +29,7 @@ export function SakListe({ saker }: IProps) {
         >
           <ExpansionCard.Header>
             <ExpansionCard.Title size={"small"} className={"flex items-center gap-1"}>
-              <FolderFileIcon fontSize="1.5rem" />
+              <FolderFileIcon fontSize="1.5rem" aria-hidden />
               SakID: {sak.id}
             </ExpansionCard.Title>
             <ExpansionCard.Description>

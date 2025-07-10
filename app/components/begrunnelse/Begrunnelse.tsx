@@ -21,26 +21,18 @@ export function Begrunnelse({ vurderingerPromise, readOnly }: IProps) {
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter vurderinger"} />}>
         <Await
           resolve={vurderingerPromise}
-          errorElement={
-            <div className={"p-2"}>
-              <AsyncErrorMelding feilmelding={"Klarte ikke hente vurderinger"} />
-            </div>
-          }
+          errorElement={<AsyncErrorMelding feilmelding={"Klarte ikke hente vurderinger"} />}
         >
           {(vurderingerResponse) => {
             if (vurderingerResponse.error) {
-              return (
-                <div className={"p-2"}>
-                  <HttpProblemAlert error={getHttpProblemAlert(vurderingerResponse.error)} />
-                </div>
-              );
+              return <HttpProblemAlert error={getHttpProblemAlert(vurderingerResponse.error)} />;
             }
 
             return (
               <>
                 {vurderingerResponse.data.opplysninger.length === 0 &&
                   vurderingerResponse.data.avklaringer.length === 0 && (
-                    <Alert variant={"info"} className={"m-4"}>
+                    <Alert variant={"info"}>
                       Det er ingen opplysninger som er endret eller avklaringer som er kvittert
                     </Alert>
                   )}

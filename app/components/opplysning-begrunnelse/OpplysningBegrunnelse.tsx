@@ -43,7 +43,7 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
   }
 
   return (
-    <Form method="post">
+    <Form method="post" className={"max-w-[450px]"}>
       <input hidden={true} readOnly={true} name="_action" value="lagre-vurdering" />
       <input hidden={true} readOnly={true} name="opplysningId" value={opplysning.id} />
       <input hidden={true} readOnly={true} name="behandlingId" value={oppgave.behandlingId} />
@@ -51,7 +51,7 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
       <input hidden={true} readOnly={true} name="ident" value={oppgave.saksbehandler?.ident} />
 
       <Textarea
-        label=""
+        label="Begrunnelse"
         size="small"
         name="begrunnelse"
         className="textarea--kompakt"

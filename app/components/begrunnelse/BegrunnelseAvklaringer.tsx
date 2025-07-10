@@ -1,4 +1,4 @@
-import { ExpansionCard, Table } from "@navikt/ds-react";
+import { BodyShort, ExpansionCard } from "@navikt/ds-react";
 
 import { AvklaringBegrunnelse } from "~/components/avklaring-begrunnelse/AvklaringBegrunnelse";
 
@@ -12,8 +12,8 @@ interface IProps {
 export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
   return (
     <ExpansionCard
-      className={"expansion--subtil card m-4"}
-      aria-label={""}
+      className={"expansion--subtil card"}
+      aria-label={"Avklaringer"}
       defaultOpen={true}
       size={"small"}
     >
@@ -25,18 +25,19 @@ export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-          <Table.Body>
-            {avklaringer.map((avklaring) => (
-              <Table.Row key={avklaring.id} shadeOnHover={false}>
-                <Table.HeaderCell>{avklaring.tittel}</Table.HeaderCell>
-                <Table.DataCell>
-                  <AvklaringBegrunnelse avklaring={avklaring} readOnly={readOnly} />
-                </Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        <ul>
+          {avklaringer.map((avklaring) => (
+            <li
+              key={avklaring.id}
+              className={"mb-4 grid grid-cols-[minmax(auto,550px)_auto] items-start"}
+            >
+              <BodyShort weight={"semibold"} size={"small"}>
+                {avklaring.tittel}
+              </BodyShort>
+              <AvklaringBegrunnelse avklaring={avklaring} readOnly={readOnly} />
+            </li>
+          ))}
+        </ul>
       </ExpansionCard.Content>
     </ExpansionCard>
   );

@@ -67,7 +67,7 @@ export default function Oppgave() {
                 <MeldingOmVedtak />
               </Tabs.Panel>
 
-              <Tabs.Panel value="begrunnelse">
+              <Tabs.Panel value="begrunnelse" className={"bg-(--a-grayalpha-50) p-4"}>
                 {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
                 <Begrunnelse vurderingerPromise={vurderingerPromise} />
               </Tabs.Panel>

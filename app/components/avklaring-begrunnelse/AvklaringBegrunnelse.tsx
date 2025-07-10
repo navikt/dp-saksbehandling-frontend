@@ -47,16 +47,17 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
   if (avklaring.maskinelt) avklartAv = "av regelmotor";
   if (avklaring.avklartAv?.ident) avklartAv = `av ${avklaring.avklartAv?.ident}`;
   return (
-    <Form method="post">
+    <Form method="post" className={"max-w-[450px]"}>
       <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
       <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
       <input name="behandling-id" value={oppgave.behandlingId} readOnly={true} hidden={true} />
 
       <Textarea
-        label=""
+        label="Begrunnelse"
         size="small"
         name="begrunnelse"
         className="textarea--kompakt"
+        minRows={3}
         value={verdi}
         onChange={(event) => lagreAvklaringBegrunnelse(event, 2000)}
         onBlur={handleOnBlur}
