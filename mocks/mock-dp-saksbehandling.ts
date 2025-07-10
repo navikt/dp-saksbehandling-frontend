@@ -131,23 +131,8 @@ export const mockDpSaksbehandling = [
     return response(404).json(get404Error("oppgave/{oppgaveId}/legg-tilbake"));
   }),
 
-  // Ferdigstille oppgave med melding om vedtak generert i Arena.
-  http.put(
-    `/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena`,
-    async ({ request, response }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-      await delay();
-
-      if (apiError) {
-        return response("default").json(defaultError, { status: 500 });
-      }
-
-      return response(204).empty();
-    },
-  ),
-
-  // Ferdigstille oppgave med melding om vedtak generert i frontend.
-  http.put(`/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak`, async ({ request, response }) => {
+  // Ferdigstille oppgave
+  http.put(`/oppgave/{oppgaveId}/ferdigstill`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 

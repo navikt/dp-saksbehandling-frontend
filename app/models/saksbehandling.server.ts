@@ -168,7 +168,7 @@ export async function utsettOppgave(
 
 export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak", {
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { oppgaveId },

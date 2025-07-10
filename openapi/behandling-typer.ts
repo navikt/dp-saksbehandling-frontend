@@ -1129,6 +1129,7 @@ export interface components {
             status: "Oppfylt" | "IkkeOppfylt";
             /** Format: date-time */
             vurderingstidspunkt: string;
+            periode: components["schemas"]["Periode"];
         };
         Barn: {
             /** Format: date */
@@ -1140,6 +1141,12 @@ export interface components {
             /** @enum {string} */
             type?: "dager" | "uker" | "beløp";
             verdi?: number;
+        };
+        Periode: {
+            /** Format: date */
+            fraOgMed: string;
+            /** Format: date */
+            tilOgMed?: string;
         };
         Utbetaling: {
             meldeperiode: string;

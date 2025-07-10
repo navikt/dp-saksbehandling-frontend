@@ -398,7 +398,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak": {
+    "/oppgave/{oppgaveId}/ferdigstill": {
         parameters: {
             query?: never;
             header?: never;
@@ -452,7 +452,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak-arena": {
+    "/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak": {
         parameters: {
             query?: never;
             header?: never;
@@ -460,7 +460,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** Ferdigstill en Oppgave ved å la arena lage melding om vedtak. */
+        /** Ferdigstill en Oppgave ved å godkjenne behandlingen og starte utsending. */
         put: {
             parameters: {
                 query?: never;
@@ -472,7 +472,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak håndteres i Arena */
+                /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
                 204: {
                     headers: {
                         [name: string]: unknown;
