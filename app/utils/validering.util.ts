@@ -12,7 +12,7 @@ export function hentValideringForOpplysningSkjema(datatype: components["schemas"
     opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
     datatype: z.string().min(1, "Det mangler datatype i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().optional(),
+    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse").optional(),
     gyldigFraOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),
       hentValideringForNorskDato().optional(),

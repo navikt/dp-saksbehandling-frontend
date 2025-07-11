@@ -1,4 +1,12 @@
-import { BodyShort, Button, Checkbox, DatePicker, Heading, useDatepicker } from "@navikt/ds-react";
+import {
+  BodyShort,
+  Button,
+  Checkbox,
+  DatePicker,
+  Heading,
+  Textarea,
+  useDatepicker,
+} from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
@@ -46,6 +54,7 @@ export function OpplysningKortRedigering({
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
+      begrunnelse: "",
       gyldigFraOgMed: opplysning.gyldigFraOgMed,
       gyldigTilOgMed: opplysning.gyldigTilOgMed,
       ingenTomDato: "false",
@@ -172,6 +181,14 @@ export function OpplysningKortRedigering({
             )}
           </div>
         </div>
+
+        <Textarea
+          {...opplysningForm.field("begrunnelse").getInputProps()}
+          error={opplysningForm.field("begrunnelse").error()}
+          size={"small"}
+          className={"mt-2"}
+          label={"Begrunnelse"}
+        />
       </Form>
 
       <div className={"mt-4 flex gap-2"}>
