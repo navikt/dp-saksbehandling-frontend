@@ -54,7 +54,6 @@ export function OpplysningBegrunnelse({ opplysning, readOnly }: IProps) {
         label="Begrunnelse"
         size="small"
         name="begrunnelse"
-        className="textarea--kompakt"
         value={verdi}
         onChange={(event) => lagreOpplysningBegrunnelse(event, 2000)}
         onBlur={handleOnBlur}

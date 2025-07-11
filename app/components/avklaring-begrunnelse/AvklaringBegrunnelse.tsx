@@ -56,7 +56,6 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
         label="Begrunnelse"
         size="small"
         name="begrunnelse"
-        className="textarea--kompakt"
         minRows={3}
         value={verdi}
         onChange={(event) => lagreAvklaringBegrunnelse(event, 2000)}
