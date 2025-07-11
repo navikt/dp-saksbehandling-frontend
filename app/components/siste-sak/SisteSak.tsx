@@ -5,7 +5,7 @@ import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-b
 import { RemixLink } from "~/components/RemixLink";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
-import { components } from "../../openapi/saksbehandling-typer";
+import { components } from "../../../openapi/saksbehandling-typer";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
@@ -34,6 +34,7 @@ export function SisteSak({ sak }: IProps) {
         </BodyShort>
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
+
       <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
         <Table.Header>
           <Table.Row>

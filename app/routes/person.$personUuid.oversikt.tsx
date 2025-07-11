@@ -11,12 +11,12 @@ import invariant from "tiny-invariant";
 
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
+import { SakListe } from "~/components/sak-liste/SakListe";
+import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
-import { SakListe } from "~/sak-liste/SakListe";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { SisteSak } from "~/siste-sak/SisteSak";
 import { isAlert } from "~/utils/type-guards";
 
 import styles from "../route-styles/person.module.css";
