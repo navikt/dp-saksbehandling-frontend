@@ -29,6 +29,14 @@ export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProp
     (gruppe) => gruppe.opplysningTypeId === aktivOpplysningsgruppeId,
   );
 
+  const sisteOpplysningPeriodeHarGyldigTilOgMedDato =
+    !opplysningGruppe?.opplysninger[opplysningGruppe?.opplysninger.length - 1].gyldigTilOgMed;
+
+  const kanIkkeLeggeTilNyPeriode =
+    !aktivOpplysning?.redigerbar ||
+    aktivOpplysning?.id === NY_PERIODE_ID ||
+    sisteOpplysningPeriodeHarGyldigTilOgMedDato;
+
   if (!opplysningGruppe) {
     return (
       <div className={"p-4"}>
@@ -38,8 +46,6 @@ export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProp
   }
 
   function leggTilNyPeriode() {
-    console.log("legg til ny periode");
-
     if (!opplysningGruppe) {
       return logger.error("Opplysning gruppe er ikke satt");
     }
@@ -80,16 +86,17 @@ export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProp
         setAktivOpplysning={setAktivOpplysning}
       />
 
-      <Button
-        className={"mt-2"}
-        variant={"tertiary"}
-        size={"small"}
-        icon={<PlusIcon />}
-        disabled={aktivOpplysning?.id === NY_PERIODE_ID}
-        onClick={() => leggTilNyPeriode()}
-      >
-        Legg til periode
-      </Button>
+      {!kanIkkeLeggeTilNyPeriode && (
+        <Button
+          className={"mt-2"}
+          variant={"tertiary"}
+          size={"small"}
+          icon={<PlusIcon />}
+          onClick={() => leggTilNyPeriode()}
+        >
+          Legg til periode
+        </Button>
+      )}
 
       <OpplysningKort
         opplysningGruppe={opplysningGruppe}
