@@ -58,6 +58,14 @@ export default function Oppgave() {
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
 
+  const tabs = [
+    { value: "behandling", label: "Behandling", icon: <DocPencilIcon /> },
+    ...(harUtfallOpplysninger
+      ? [{ value: "utfall", label: "Utfall", icon: <TasklistSendIcon /> }]
+      : []),
+    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
+  ];
+
   return (
     <Fragment key={klage.behandlingId}>
       <OppgaveHandlinger />
@@ -65,15 +73,9 @@ export default function Oppgave() {
         <div className={"card"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Behandling" icon={<DocPencilIcon />} />
-              {harUtfallOpplysninger && (
-                <Tabs.Tab value="utfall" label="Utfall" icon={<TasklistSendIcon />} />
-              )}
-              <Tabs.Tab
-                value="melding-om-vedtak"
-                label="Melding om vedtak"
-                icon={<EnvelopeClosedIcon />}
-              />
+              {tabs.map(({ value, label, icon }, index) => (
+                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
+              ))}
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
