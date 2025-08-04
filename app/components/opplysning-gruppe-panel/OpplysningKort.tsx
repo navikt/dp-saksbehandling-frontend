@@ -1,4 +1,3 @@
-import { Accordion } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren } from "react";
 
@@ -68,15 +67,6 @@ export function OpplysningKort({
           </AnimertOpplysningKort>
         );
       })}
-
-      <Accordion size={"small"} className={"mt-8"}>
-        <Accordion.Item>
-          <Accordion.Header>Rådata</Accordion.Header>
-          <Accordion.Content>
-            <pre>{JSON.stringify(opplysningGruppe.opplysninger, null, 2)}</pre>
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion>
     </AnimatePresence>
   );
 }
