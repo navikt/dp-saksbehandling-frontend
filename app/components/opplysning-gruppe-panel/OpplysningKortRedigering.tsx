@@ -43,8 +43,9 @@ export function OpplysningKortRedigering({
   setAktivOpplysning,
 }: IProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [ingenFomDato, setIngenFomDato] = useState<boolean>(false);
-  const [ingenTomDato, setIngenTomDato] = useState<boolean>(false);
+  const erProvingsDatoOpplysning = aktivOpplysning?.navn === "Prøvingsdato"; // Midlertidig løsning for å håndtere prøvingsdato som en spesiell opplysningstype. PJs jobber med hvordan de kan trekke ut prøvingsdato som en opplysning
+  const [ingenFomDato, setIngenFomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
+  const [ingenTomDato, setIngenTomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
 
   const opplysningForm = useForm({
     schema: hentValideringForOpplysningSkjema(opplysning.datatype),
@@ -54,11 +55,11 @@ export function OpplysningKortRedigering({
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
-      begrunnelse: "",
+      begrunnelse: erProvingsDatoOpplysning ? "Prøvingsdato" : "",
       gyldigFraOgMed: opplysning.gyldigFraOgMed,
       gyldigTilOgMed: opplysning.gyldigTilOgMed,
-      ingenTomDato: "false",
-      ingenFomDato: "false",
+      ingenTomDato: ingenTomDato.toString(),
+      ingenFomDato: ingenFomDato.toString(),
     },
   });
 
@@ -128,67 +129,71 @@ export function OpplysningKortRedigering({
         />
         <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
-        <div className={"mt-4 flex gap-8"}>
-          <div>
-            <DatePicker {...datepickerFraOgMed.datepickerProps}>
-              <DatePicker.Input
-                {...datepickerFraOgMed.inputProps}
-                size={"small"}
-                label="Fra og med"
-                form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
-                name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
-                error={opplysningForm.field("gyldigFraOgMed").error()}
-                disabled={ingenFomDato}
-              />
-            </DatePicker>
+        {!erProvingsDatoOpplysning && (
+          <>
+            <div className={"mt-4 flex gap-8"}>
+              <div>
+                <DatePicker {...datepickerFraOgMed.datepickerProps}>
+                  <DatePicker.Input
+                    {...datepickerFraOgMed.inputProps}
+                    size={"small"}
+                    label="Fra og med"
+                    form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
+                    name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
+                    error={opplysningForm.field("gyldigFraOgMed").error()}
+                    disabled={ingenFomDato}
+                  />
+                </DatePicker>
 
-            {!forrigePeriode && (
-              <Checkbox
-                size={"small"}
-                className={"mt-1"}
-                name={"ingenFomDato"}
-                value={ingenFomDato}
-                onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
-              >
-                Ingen start
-              </Checkbox>
-            )}
-          </div>
+                {!forrigePeriode && (
+                  <Checkbox
+                    size={"small"}
+                    className={"mt-1"}
+                    name={"ingenFomDato"}
+                    value={ingenFomDato}
+                    onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
+                  >
+                    Ingen start
+                  </Checkbox>
+                )}
+              </div>
 
-          <div>
-            <DatePicker {...datepickerTilOgMed.datepickerProps}>
-              <DatePicker.Input
-                {...datepickerTilOgMed.inputProps}
-                size={"small"}
-                label={"Til og med"}
-                form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
-                name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
-                error={opplysningForm.field("gyldigTilOgMed").error()}
-                disabled={ingenTomDato}
-              />
-            </DatePicker>
+              <div>
+                <DatePicker {...datepickerTilOgMed.datepickerProps}>
+                  <DatePicker.Input
+                    {...datepickerTilOgMed.inputProps}
+                    size={"small"}
+                    label={"Til og med"}
+                    form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
+                    name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
+                    error={opplysningForm.field("gyldigTilOgMed").error()}
+                    disabled={ingenTomDato}
+                  />
+                </DatePicker>
 
-            {!nestePeriode && (
-              <Checkbox
-                size={"small"}
-                className={"mt-1"}
-                name={"ingenTomDato"}
-                value={ingenTomDato}
-                onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
-              >
-                Ingen slutt
-              </Checkbox>
-            )}
-          </div>
-        </div>
+                {!nestePeriode && (
+                  <Checkbox
+                    size={"small"}
+                    className={"mt-1"}
+                    name={"ingenTomDato"}
+                    value={ingenTomDato}
+                    onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
+                  >
+                    Ingen slutt
+                  </Checkbox>
+                )}
+              </div>
+            </div>
 
-        <Textarea
-          {...opplysningForm.field("begrunnelse").getInputProps()}
-          error={opplysningForm.field("begrunnelse").error()}
-          size={"small"}
-          className={"mt-2"}
-          label={"Begrunnelse"}
-        />
+            <Textarea
+              {...opplysningForm.field("begrunnelse").getInputProps()}
+              error={opplysningForm.field("begrunnelse").error()}
+              size={"small"}
+              className={"mt-2"}
+              label={"Begrunnelse"}
+            />
+          </>
+        )}
       </Form>
 
       <div className={"mt-4 flex gap-2"}>
