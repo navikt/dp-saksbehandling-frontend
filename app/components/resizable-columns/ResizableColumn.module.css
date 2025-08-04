@@ -5,7 +5,7 @@
 }
 
 .resizableContainer :global(.card) {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .pillHandle {
