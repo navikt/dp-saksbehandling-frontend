@@ -5,7 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
-import { mockBehandlinger } from "./data/mock-behandling";
+import { mockBehandlinger } from "./data/mock-behandling/mock-behandling";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;

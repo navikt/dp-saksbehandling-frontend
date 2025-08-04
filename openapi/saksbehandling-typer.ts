@@ -416,61 +416,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
-            responses: {
-                /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Oppgaven ble ikke funnet */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["SendMeldingOmVedtak"];
                 };
             };
-        };
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/oppgave/{oppgaveId}/ferdigstill/melding-om-vedtak": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Ferdigstill en Oppgave ved å godkjenne behandlingen og starte utsending. */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    oppgaveId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
             responses: {
                 /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
                 204: {
@@ -1729,6 +1679,10 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
+        };
+        SendMeldingOmVedtak: {
+            /** @enum {string} */
+            sendMeldingOmVedtak?: "DP-SAK" | "IKKE_SEND";
         };
         HttpProblem: {
             type: string;

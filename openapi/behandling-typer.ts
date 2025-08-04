@@ -669,14 +669,14 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Rekjoring: {
-            ident: string;
+            ident: components["schemas"]["Personident"];
             opplysninger?: components["schemas"]["OpplysningsId"][];
         };
         IdentForesporsel: {
-            ident: string;
+            ident: components["schemas"]["Personident"];
         };
         NyBehandling: {
-            ident: string;
+            ident: components["schemas"]["Personident"];
             hendelse?: components["schemas"]["Hendelse"];
             /** Format: date */
             "pr\u00F8vingsdato"?: string;
@@ -717,6 +717,28 @@ export interface components {
             avklaringer: components["schemas"]["Avklaring"][];
             opplysninger: components["schemas"]["Opplysning"][];
             opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
+        };
+        Verdenbesteklumpmeddata: {
+            /** Format: uuid */
+            behandlingId: string;
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse: components["schemas"]["Hendelse"];
+            ident: components["schemas"]["Personident"];
+            "vilk\u00E5r": components["schemas"]["Noesomharblittvurdert"][];
+            fastsettelser: components["schemas"]["Noesomharblittvurdert"][];
+            opplysninger: components["schemas"]["OpplysningsgruppeKlump"][];
+            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+        };
+        Personident: string;
+        Noesomharblittvurdert: {
+            /** @description Kort navn som beskriver regelsettet */
+            navn: string;
+            /** @description Hvilken hjemmel er regelsettet basert på */
+            hjemmel: components["schemas"]["Hjemmel"];
+            perioder?: components["schemas"]["Rettighetsperiode"][];
+            utfall?: components["schemas"]["OpplysningTypeId"][];
+            "\u00F8nsketResultat"?: components["schemas"]["OpplysningTypeId"][];
+            opplysninger?: components["schemas"]["OpplysningTypeId"][];
         };
         BehandlingOpplysninger: {
             /** Format: uuid */
@@ -796,8 +818,11 @@ export interface components {
             synlig: boolean;
             redigerbar?: boolean;
             redigertAvSaksbehandler?: boolean;
+            "form\u00E5l": components["schemas"]["Form\u00E5l"];
             opplysninger: components["schemas"]["Opplysning"][];
         };
+        /** @enum {string} */
+        "Form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
         Opplysning: {
             id: components["schemas"]["OpplysningsId"];
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -825,8 +850,33 @@ export interface components {
             utledetAv?: components["schemas"]["Utledning"];
             /** @description Indikerer om opplysningen skal vises i grensesnittet */
             synlig: boolean;
-            /** @enum {string} */
-            "form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+            "form\u00E5l": components["schemas"]["Form\u00E5l"];
+        };
+        OpplysningsgruppeKlump: {
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            datatype: components["schemas"]["DataType"];
+            opplysninger: components["schemas"]["OpplysningKlump"][];
+        };
+        OpplysningKlump: {
+            id: components["schemas"]["OpplysningsId"];
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            verdien?: components["schemas"]["Opplysningsverdi"];
+            verdi: string;
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig fra tidens morgen.
+             */
+            gyldigFraOgMed?: string | null;
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig til evig tid.
+             */
+            gyldigTilOgMed?: string | null;
+            datatype: components["schemas"]["DataType"];
+            kilde?: components["schemas"]["Opplysningskilde"];
+            utledetAv?: components["schemas"]["Utledning"];
         };
         /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
          *      */
@@ -987,11 +1037,14 @@ export interface components {
         Vedtak: {
             /** Format: uuid */
             behandlingId: string;
+            /** @deprecated */
             "basertP\u00E5Behandlinger"?: string[];
+            /** Format: uuid */
+            "basertP\u00E5Behandling"?: string | null;
             fagsakId: string;
             automatisk?: boolean;
             /** @description Person vedtak gjelder for */
-            ident: string;
+            ident: components["schemas"]["Personident"];
             /**
              * Format: date-time
              * @description Når vedtaket ble fattet
@@ -1129,7 +1182,7 @@ export interface components {
             status: "Oppfylt" | "IkkeOppfylt";
             /** Format: date-time */
             vurderingstidspunkt: string;
-            periode: components["schemas"]["Periode"];
+            periode?: components["schemas"]["Periode"];
         };
         Barn: {
             /** Format: date */
@@ -1147,6 +1200,13 @@ export interface components {
             fraOgMed: string;
             /** Format: date */
             tilOgMed?: string;
+        };
+        Rettighetsperiode: {
+            /** Format: date */
+            fraOgMed: string;
+            /** Format: date */
+            tilOgMed?: string;
+            harRett: boolean;
         };
         Utbetaling: {
             meldeperiode: string;
