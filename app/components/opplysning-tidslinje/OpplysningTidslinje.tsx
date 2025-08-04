@@ -60,7 +60,7 @@ export function OpplysningTidslinje({
   return (
     <Provider locale={nb} translations={{ Timeline: { dayFormat: "MMM d" } }}>
       <Timeline
-        className={"mt-8 mb-2 max-w-full"}
+        className={"mt-8 mb-2 max-w-full overflow-x-clip"}
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
