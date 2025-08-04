@@ -148,8 +148,8 @@ export function hentValideringForPersonIdent() {
   return z.object({
     personIdent: z
       .string()
-      .regex(/^\d+$/, { message: "Personnummer kan kun inneholde tall" })
-      .length(11, { message: "Personnummer må være 11 siffer" }),
+      .regex(/^\d+$/, { message: "Fødselsnummer kan kun inneholde tall" })
+      .length(11, { message: "Fødselsnummer må være 11 siffer" }),
   });
 }
 
@@ -205,7 +205,7 @@ export function hentValideringForNyKlageSkjema() {
     ),
     journalpostId: z.string().min(1, { message: "Du må skrive inn journalpost id" }),
     sakId: z.string().min(1, { message: "Du må skrive inn sak id" }),
-    personIdent: z.string().min(1, { message: "Du må skrive inn personnummer" }),
+    personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
 
