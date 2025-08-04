@@ -17,6 +17,12 @@ export default function Oppgave() {
   );
   const { response } = useAwaitPromise(behandlingPromise);
 
+  const tabs = [
+    { value: "behandling", label: "Redigere opplysninger", icon: <DocPencilIcon /> },
+    { value: "begrunnelse", label: "Saksbehandlers begrunnelse", icon: <PersonPencilIcon /> },
+    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
+  ];
+
   return (
     <>
       <OppgaveHandlinger behandling={response?.data} />
@@ -25,23 +31,14 @@ export default function Oppgave() {
           <Tabs size="medium" defaultValue="behandling">
             <div>
               <Tabs.List>
-                <Tabs.Tab
-                  value="behandling"
-                  label="Redigere opplysninger"
-                  icon={<DocPencilIcon />}
-                />
-
-                <Tabs.Tab
-                  value="begrunnelse"
-                  label="Saksbehandlers begrunnelse"
-                  icon={<PersonPencilIcon />}
-                />
-
-                <Tabs.Tab
-                  value="melding-om-vedtak"
-                  label="Melding om vedtak"
-                  icon={<EnvelopeClosedIcon />}
-                />
+                {tabs.map(({ value, label, icon }, index) => (
+                  <Tabs.Tab
+                    key={value}
+                    value={value}
+                    label={`${index + 1}. ${label}`}
+                    icon={icon}
+                  />
+                ))}
               </Tabs.List>
             </div>
 

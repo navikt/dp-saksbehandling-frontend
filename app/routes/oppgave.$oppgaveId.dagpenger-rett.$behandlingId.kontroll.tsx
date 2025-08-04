@@ -27,6 +27,12 @@ export default function Oppgave() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
+  const tabs = [
+    { value: "behandling", label: "Behandlingsoversikt", icon: <DocPencilIcon /> },
+    { value: "begrunnelse", label: "Saksbehandlers begrunnelse", icon: <PersonPencilIcon /> },
+    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
+  ];
+
   return (
     <>
       <OppgaveHandlinger behandling={response?.data} />
@@ -34,17 +40,9 @@ export default function Oppgave() {
         <div className={"card"}>
           <Tabs size="medium" defaultValue="begrunnelse">
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
-              <Tabs.Tab
-                value="begrunnelse"
-                label="Saksbehandlers begrunnelse"
-                icon={<PersonPencilIcon />}
-              />
-              <Tabs.Tab
-                value="melding-om-vedtak"
-                label="Melding om vedtak"
-                icon={<EnvelopeClosedIcon />}
-              />
+              {tabs.map(({ value, label, icon }, index) => (
+                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
+              ))}
             </Tabs.List>
 
             <Tabs.Panel value="behandling">

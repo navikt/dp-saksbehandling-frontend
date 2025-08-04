@@ -58,25 +58,21 @@ export default function BehandlingRoute() {
   const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
+  const tabs = [
+    { value: "behandling", label: "Behandlingsoversikt", icon: <DocPencilIcon /> },
+    { value: "begrunnelse", label: "Saksbehandlers begrunnelse", icon: <PersonPencilIcon /> },
+    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
+  ];
+
   return (
     <ResizableColumns defaultLeftWidth={70}>
       <ResizableColumns.Left>
         <div className={"card h-[100%]"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <Tabs.List>
-              <Tabs.Tab value="behandling" label="Behandlingsoversikt" icon={<DocPencilIcon />} />
-
-              <Tabs.Tab
-                value="begrunnelse"
-                label="Saksbehandlers begrunnelse"
-                icon={<PersonPencilIcon />}
-              />
-
-              <Tabs.Tab
-                value="melding-om-vedtak"
-                label="Melding om vedtak"
-                icon={<EnvelopeClosedIcon />}
-              />
+              {tabs.map(({ value, label, icon }, index) => (
+                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
+              ))}
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
