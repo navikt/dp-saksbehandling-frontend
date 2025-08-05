@@ -39,7 +39,10 @@ export function Behandling({ behandlingPromise, readOnly }: IProps) {
       if (nåværendeRegelsett) {
         setAktivtRegelsett(nåværendeRegelsett);
       } else {
-        setAktivtRegelsett(behandling.vilkår[0]);
+        const førsteRegelsettMedOpplysninger = alleRegelsett.find(
+          (regelsett) => regelsett.opplysningTypeIder.length > 0,
+        );
+        setAktivtRegelsett(førsteRegelsettMedOpplysninger || null);
       }
     }
   }, [response?.data]);
