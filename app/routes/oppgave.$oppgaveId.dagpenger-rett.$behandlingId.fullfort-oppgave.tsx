@@ -1,5 +1,5 @@
-import { BodyShort, Button, Heading, Modal } from "@navikt/ds-react";
-import { useRef, useState } from "react";
+import { BodyShort, Button, Heading } from "@navikt/ds-react";
+import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
@@ -14,7 +14,7 @@ import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import styles from "~/route-styles/oppgave.module.css";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { getEnv } from "~/utils/env.utils";
@@ -41,41 +41,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function NesteOppgave() {
   const navigation = useNavigation();
   const { alert } = useLoaderData<typeof loader>();
-  const ref = useRef<HTMLDialogElement>(null);
-  const [kaffepuase, setKaffepause] = useState(false);
+  const [kaffepause, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
   const { aktivtOppgaveSok } = useSaksbehandler();
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <Modal
-      closeOnBackdropClick={false}
-      aria-label={""}
-      open={true}
-      onClose={() => undefined}
-      onCancel={(e) => e.preventDefault()}
-      ref={ref}
-    >
-      {kaffepuase && <Kaffepause setKaffepause={setKaffepause} />}
-      {!kaffepuase && (
-        <>
-          <Modal.Header className={styles.modalCenterHeader} closeButton={false}>
-            <Heading size={"medium"}>Fullført!</Heading>
-          </Modal.Header>
-
-          <Modal.Body className={styles.modalBody}>
+    <div className="flex flex-grow flex-col">
+      <div className="card flex flex-grow-1 flex-col items-center gap-8 pt-16">
+        {kaffepause && <Kaffepause setKaffepause={setKaffepause} />}
+        {!kaffepause && (
+          <>
             <KonfettiKanon />
+            <Heading size="xlarge">Fullført!</Heading>
             <BodyShort>{alert?.title}</BodyShort>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <RemixLink asButtonVariant={"secondary"} size="small" to={`/?${aktivtOppgaveSok}`}>
-              Oppgaveliste
-            </RemixLink>
-
-            <Button size="small" variant="secondary" onClick={() => setKaffepause(true)}>
-              Kaffepause
-            </Button>
 
             <Form method="post">
               <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
@@ -87,17 +67,27 @@ export default function NesteOppgave() {
               />
               <Button
                 variant="primary"
-                size="small"
                 loading={navigation.state !== "idle"}
                 disabled={navigation.state !== "idle"}
               >
-                Neste oppgave
+                Start neste oppgave
               </Button>
             </Form>
-          </Modal.Footer>
-        </>
-      )}
-    </Modal>
+            <div className="flex gap-6">
+              <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+                Gå til oppgaveliste
+              </RemixLink>
+              <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
+                Gå til personoversikt
+              </RemixLink>
+              <Button variant="secondary" onClick={() => setKaffepause(true)}>
+                Ta en kaffepause
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -120,25 +110,19 @@ function Kaffepause(props: IKaffepauseProps) {
 
   return (
     <>
-      <Modal.Header className={styles.modalCenterHeader} closeButton={false}>
-        <Heading size={"medium"}>Katt til kaffen ☕️</Heading>
-      </Modal.Header>
+      <Heading size={"medium"}>Katt til kaffen ☕️</Heading>
 
-      <Modal.Body className={styles.modalBody}>
-        <img
-          src={`${getEnv("IS_LOCALHOST") ? "/saksbehandling" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/katter/cat${kattNummer}.gif`}
-          alt={""}
-        />
-      </Modal.Body>
+      <img
+        src={`${getEnv("IS_LOCALHOST") ? "" : "https://cdn.nav.no/teamdagpenger/dp-saksbehandling-frontend/client"}/katter/cat${kattNummer}.gif`}
+        alt={""}
+      />
 
-      <Modal.Footer>
-        <Button size="small" variant="secondary" onClick={() => hentNyKatt()}>
-          Ny katt
-        </Button>
-        <Button size="small" variant="primary" onClick={() => props.setKaffepause(false)}>
-          Nok kaffe
-        </Button>
-      </Modal.Footer>
+      <Button size="small" variant="secondary" onClick={() => hentNyKatt()}>
+        Ny katt
+      </Button>
+      <Button size="small" variant="primary" onClick={() => props.setKaffepause(false)}>
+        Nok kaffe
+      </Button>
     </>
   );
 }
