@@ -79,7 +79,7 @@ export function OppgaveListe({
 
             {visPersonIdent && (
               <Table.ColumnHeader scope="col">
-                <Detail>Personnummer</Detail>
+                <Detail>Fødselsnummer</Detail>
               </Table.ColumnHeader>
             )}
 

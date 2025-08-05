@@ -27,7 +27,7 @@ export function PersonBoks({ person, oppgave }: IProps) {
   };
 
   const navn = `${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`;
-  const personNummerMedMellomrom = `${person.ident.slice(0, 6)} ${person.ident.slice(6)}`;
+  const fødselsnummerMedMellomrom = `${person.ident.slice(0, 6)} ${person.ident.slice(6)}`;
 
   return (
     <>
@@ -52,25 +52,25 @@ export function PersonBoks({ person, oppgave }: IProps) {
           </BodyShort>
         </div>
 
-        <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
-          Personnummer:{" "}
+        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
+          Fødselsnummer:{" "}
           <RemixLink to={`/person/${person.id}/oversikt`}>
             {skjulSensitiveOpplysninger
-              ? maskerVerdi(personNummerMedMellomrom)
-              : personNummerMedMellomrom}
+              ? maskerVerdi(fødselsnummerMedMellomrom)
+              : fødselsnummerMedMellomrom}
           </RemixLink>
           <CopyButton copyText={person.ident} size="xsmall" />
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
           Alder: <b>{person.alder}</b>
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
           Kjønn: <b>{person.kjonn}</b>
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.personnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
           Statsborgerskap: <b>{person.statsborgerskap}</b>
         </BodyShort>
 

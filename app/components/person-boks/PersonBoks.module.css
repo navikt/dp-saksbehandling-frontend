@@ -17,7 +17,10 @@
   gap: var(--a-spacing-2);
 }
 
-.personnummerContainer {
+/* https://mathiasbynens.be/notes/html5-id-class 
+   det er ok med ø i klassenavn!
+*/
+.fødselsnummerContainer {
   display: flex;
   align-items: center;
   gap: var(--a-spacing-1);
