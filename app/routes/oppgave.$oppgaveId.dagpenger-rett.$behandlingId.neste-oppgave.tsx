@@ -10,6 +10,7 @@ import {
 
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 
@@ -35,6 +36,7 @@ export default function NesteOppgave() {
   const { state } = useNavigation();
   const { alert } = useLoaderData<typeof loader>();
   const { aktivtOppgaveSok } = useSaksbehandler();
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <div className="flex flex-grow flex-col">
@@ -50,8 +52,13 @@ export default function NesteOppgave() {
               Neste oppgave
             </Button>
           </Form>
+        </div>
+        <div className="flex gap-6">
           <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
-            Oppgaveliste
+            Gå til oppgaveliste
+          </RemixLink>
+          <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
+            Gå til personoversikt
           </RemixLink>
         </div>
       </div>
