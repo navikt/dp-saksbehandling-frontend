@@ -41,9 +41,9 @@ export function UtvidedeBeskrivelser(props: {
         onChange={setMeldingOmVedtakKilde}
         value={meldingOmVedtakKilde}
       >
-        <Radio value="dp-sak">Som brev via DP-sak</Radio>
-        <Radio value="gosys">Som brev via Gosys</Radio>
-        <Radio value="ingen-melding">Ikke send melding til bruker</Radio>
+        <Radio value="DP-SAK">Som brev via DP-sak</Radio>
+        <Radio value="GOSYS">Som brev via Gosys</Radio>
+        <Radio value="INGEN">Ikke send melding til bruker</Radio>
       </RadioGroup>
       <hr className="border-(--a-border-subtle)" />
       {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (

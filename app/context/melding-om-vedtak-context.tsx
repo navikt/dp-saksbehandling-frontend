@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
 
-export type IMeldingOmVedtakKilde = "dp-sak" | "gosys" | "ingen-melding";
+export type IMeldingOmVedtakKilde = "DP-SAK" | "GOSYS" | "INGEN";
 
 interface IMeldingOmVedtakContextType {
   meldingOmVedtakKilde: IMeldingOmVedtakKilde;
@@ -13,7 +13,7 @@ export const MeldingOmVedtakContext = createContext<IMeldingOmVedtakContextType 
 );
 
 export function MeldingOmVedtakProvider(props: PropsWithChildren) {
-  const [meldingOmVedtakKilde, setMeldingOmVedtakKilde] = useState<IMeldingOmVedtakKilde>("dp-sak");
+  const [meldingOmVedtakKilde, setMeldingOmVedtakKilde] = useState<IMeldingOmVedtakKilde>("DP-SAK");
 
   return (
     <MeldingOmVedtakContext.Provider value={{ meldingOmVedtakKilde, setMeldingOmVedtakKilde }}>
