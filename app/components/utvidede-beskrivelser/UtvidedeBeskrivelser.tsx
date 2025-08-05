@@ -1,6 +1,7 @@
-import { Detail } from "@navikt/ds-react";
+import { Detail, Radio, RadioGroup } from "@navikt/ds-react";
 
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
@@ -11,6 +12,8 @@ export function UtvidedeBeskrivelser(props: {
   setUtvidedeBeskrivelser: (utvidedeBeskrivelser: IUtvidetBeskrivelse[]) => void;
   readOnly?: boolean;
 }) {
+  const { meldingOmVedtakKilde, setMeldingOmVedtakKilde } = useMeldingOmVedtak();
+
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
     let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
 
@@ -31,7 +34,18 @@ export function UtvidedeBeskrivelser(props: {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
+      <RadioGroup
+        legend="Send melding om vedtak til bruker"
+        size="small"
+        onChange={setMeldingOmVedtakKilde}
+        value={meldingOmVedtakKilde}
+      >
+        <Radio value="dp-sak">Som brev via DP-sak</Radio>
+        <Radio value="gosys">Som brev via Gosys</Radio>
+        <Radio value="ingen-melding">Ikke send melding til bruker</Radio>
+      </RadioGroup>
+      <hr className="border-(--a-border-subtle)" />
       {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
         <UtvidetBeskrivelseInput
           key={utvidetBeskrivelse.brevblokkId}

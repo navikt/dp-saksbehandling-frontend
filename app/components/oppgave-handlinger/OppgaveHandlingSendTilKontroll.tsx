@@ -2,6 +2,7 @@ import { BodyLong, Button, Modal } from "@navikt/ds-react";
 import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId";
 import { isAlert } from "~/utils/type-guards";
@@ -11,6 +12,7 @@ export function OppgaveHandlingSendTilKontroll() {
   const actionData = useActionData<typeof action>();
   const modalRef = useRef<HTMLDialogElement>(null);
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { meldingOmVedtakKilde } = useMeldingOmVedtak();
 
   useEffect(() => {
     if (isAlert(actionData) && actionData.variant === "error") {
@@ -47,6 +49,12 @@ export function OppgaveHandlingSendTilKontroll() {
           <Form method="post">
             <input name="_action" value="send-til-kontroll" hidden={true} readOnly={true} />
             <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
+            <input
+              name="meldingOmVedtakKilde"
+              value={meldingOmVedtakKilde}
+              hidden={true}
+              readOnly={true}
+            />
             <input name="personIdent" value={oppgave.person.ident} hidden={true} readOnly={true} />
 
             <Button size="small" variant="primary">

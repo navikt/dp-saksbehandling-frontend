@@ -12,6 +12,7 @@ import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandli
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { OpplysningGruppePanel } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { ResizableColumns } from "~/components/resizable-columns/ResizableColumns";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
@@ -41,7 +42,7 @@ export default function Oppgave() {
   ];
 
   return (
-    <>
+    <MeldingOmVedtakProvider>
       <OppgaveHandlinger behandling={response?.data} />
 
       <ResizableColumns defaultLeftWidth={70}>
@@ -112,6 +113,6 @@ export default function Oppgave() {
       </ResizableColumns>
 
       <Outlet />
-    </>
+    </MeldingOmVedtakProvider>
   );
 }
