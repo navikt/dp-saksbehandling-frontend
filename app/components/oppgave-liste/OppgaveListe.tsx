@@ -1,6 +1,6 @@
-import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
-import { differenceInCalendarDays } from "date-fns";
+import { Detail, Heading, Skeleton, Table } from "@navikt/ds-react";
 
+import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
@@ -105,10 +105,7 @@ export function OppgaveListe({
           )}
 
           {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand, emneknagger, utsattTilDato } = oppgave;
-            const dagerIgjenTilUtsattDato = utsattTilDato
-              ? differenceInCalendarDays(utsattTilDato, new Date())
-              : undefined;
+            const { tidspunktOpprettet, tilstand } = oppgave;
 
             return (
               <Table.Row key={oppgave.oppgaveId}>
@@ -125,68 +122,9 @@ export function OppgaveListe({
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {emneknagger.map((emneknagg) => (
-                    <Tag
-                      key={emneknagg}
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "info-moderate" : "info"}
-                    >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg}</Detail>
-                    </Tag>
-                  ))}
-
-                  {utsattTilDato && (
-                    <Tag
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "warning-moderate" : "warning"}
-                    >
-                      <Detail
-                        as={lasterOppgaver ? Skeleton : "p"}
-                      >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                    </Tag>
-                  )}
-
-                  {oppgave.skjermesSomEgneAnsatte && (
-                    <Tag
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "error-moderate" : "error"}
-                    >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Egne ansatte</Detail>
-                    </Tag>
-                  )}
-
-                  {oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
-                    <Tag
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "error-moderate" : "error"}
-                    >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Fortrolig</Detail>
-                    </Tag>
-                  )}
-
-                  {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
-                    <Tag
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "error-moderate" : "error"}
-                    >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Strengt fortrolig</Detail>
-                    </Tag>
-                  )}
-
-                  {oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
-                    <Tag
-                      className="mr-2"
-                      size={"xsmall"}
-                      variant={lasterOppgaver ? "error-moderate" : "error"}
-                    >
-                      <Detail as={lasterOppgaver ? Skeleton : "p"}>Strengt fortrolig utland</Detail>
-                    </Tag>
-                  )}
+                  <div className={"flex gap-2"}>
+                    <OppgaveEmneknagger oppgave={oppgave} laster={lasterOppgaver} />
+                  </div>
                 </Table.DataCell>
 
                 {visPersonIdent && (

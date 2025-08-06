@@ -1,7 +1,7 @@
-import classnames from "classnames";
 import { Fragment } from "react";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
+import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHandlingFattVedtak } from "~/components/oppgave-handlinger/OppgaveHandlingFattVedtak";
 import { OppgaveHandlingFerdigstillKlage } from "~/components/oppgave-handlinger/OppgaveHandlingFerdigstillKlage";
 import { OppgaveHandlingLeggTilbake } from "~/components/oppgave-handlinger/OppgaveHandlingLeggTilbake";
@@ -86,8 +86,13 @@ export function OppgaveHandlinger(props: IProps) {
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, props.behandling);
 
   return (
-    <div className={classnames("card", styles.OppgaveHandlingerContainer)}>
+    <div className={"card flex"}>
       {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && <KravPaaDagpenger />}
+
+      <div className={"ml-4 flex items-center gap-2"}>
+        <OppgaveEmneknagger oppgave={oppgave} />
+      </div>
+
       <div className={styles.OppgaveHandlinger}>
         {gyldigeOppgaveValg.map((valg) => (
           <Fragment key={valg}>

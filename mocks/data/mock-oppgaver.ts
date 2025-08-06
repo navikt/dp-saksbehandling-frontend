@@ -43,7 +43,7 @@ export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Op
   lovligeEndringer: mockLovligeEndringer,
   saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
-  emneknagger: ["Innvilgelse"],
+  emneknagger: ["Innvilgelse", "Arbeidstid"],
   tilstand: "UNDER_BEHANDLING",
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,

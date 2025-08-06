@@ -6,6 +6,14 @@ import type { IAlert } from "~/context/alert-context";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
+export function isOppgaveOversikt(
+  oppgave:
+    | saksbehandlingComponents["schemas"]["OppgaveOversikt"]
+    | saksbehandlingComponents["schemas"]["Oppgave"],
+): oppgave is saksbehandlingComponents["schemas"]["OppgaveOversikt"] {
+  return "skjermesSomEgneAnsatte" in oppgave && "adressebeskyttelseGradering" in oppgave;
+}
+
 export function isAlert(data?: unknown): data is IAlert {
   if (typeof data !== "object" || data === null) {
     return false;
