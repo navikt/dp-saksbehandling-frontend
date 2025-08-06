@@ -47,7 +47,7 @@ export default function Oppgave() {
       <ResizableColumns defaultLeftWidth={70}>
         <ResizableColumns.Left>
           <div className={"card h-full"}>
-            <Tabs className={"h-full"} size="medium" value={aktivTab} onChange={setAktivTab}>
+            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
               <Tabs.List>
                 {tabs.map(({ value, label, icon }, index) => (
                   <Tabs.Tab
