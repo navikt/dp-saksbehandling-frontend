@@ -5,58 +5,43 @@ import styles from "./KonfettiKanon.module.css";
 
 export function KonfettiKanon() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const myConfetti = useRef<ReturnType<typeof confetti.create>>(null!);
-
+  const minKonfetti = useRef<ReturnType<typeof confetti.create>>(null!);
   useEffect(() => {
     if (canvasRef.current) {
-      myConfetti.current = confetti.create(canvasRef.current, {
+      minKonfetti.current = confetti.create(canvasRef.current, {
         resize: true,
         useWorker: true,
       });
     }
   }, []);
 
-  function fyreFestival() {
-    fire(0.25, {
-      spread: 26,
-      startVelocity: 55,
-    });
-    fire(0.2, {
-      spread: 60,
-    });
-    fire(0.35, {
-      spread: 100,
-      decay: 0.91,
-      scalar: 0.8,
-    });
-    fire(0.1, {
-      spread: 120,
-      startVelocity: 25,
-      decay: 0.92,
-      scalar: 1.2,
-    });
-    fire(0.1, {
-      spread: 120,
-      startVelocity: 45,
-    });
+  function tomorrowWorld() {
+    const varighet = Date.now() + 1000;
+    renderKonfetti(varighet);
   }
 
-  function fire(particleRatio: number, opts: confetti.Options) {
-    const count = 200;
-    const defaults = {
-      origin: { y: 0.5 },
+  function renderKonfetti(kjøretid: number) {
+    const konfigurasjon = {
+      particleCount: 2,
+      angle: 60,
+      spread: 55,
+      scalar: 1.2,
+      drift: 0.5,
+      decay: 0.96,
+      colors: ["#FFAB34", "#FEA8DD", "#3983F3", "#C8304E", "#FEFD3B"],
     };
 
-    myConfetti.current({
-      ...defaults,
-      ...opts,
-      particleCount: Math.floor(count * particleRatio),
-    });
+    confetti({ ...konfigurasjon, angle: 60, origin: { x: 0, y: 0.7 } });
+    confetti({ ...konfigurasjon, angle: 120, origin: { x: 1, y: 0.7 } });
+
+    if (Date.now() < kjøretid) {
+      requestAnimationFrame(() => renderKonfetti(kjøretid));
+    }
   }
 
   return (
     <>
-      <button className={styles.tada} onClick={() => fyreFestival()}>
+      <button className={styles.tada} onClick={() => tomorrowWorld()}>
         🎉
       </button>
 
