@@ -55,7 +55,9 @@ export function OpplysningKortRedigering({
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
-      begrunnelse: erProvingsDatoOpplysning ? "Prøvingsdato" : "",
+      begrunnelse: erProvingsDatoOpplysning
+        ? "Prøvingsdato"
+        : (opplysning.kilde?.begrunnelse?.verdi ?? ""),
       gyldigFraOgMed: opplysning.gyldigFraOgMed,
       gyldigTilOgMed: opplysning.gyldigTilOgMed,
       ingenTomDato: ingenTomDato.toString(),
