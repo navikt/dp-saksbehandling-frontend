@@ -8,6 +8,7 @@ import { Behandling } from "~/components/behandling/Behandling";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -34,7 +35,7 @@ export default function Oppgave() {
   ];
 
   return (
-    <>
+    <MeldingOmVedtakProvider>
       <OppgaveHandlinger behandling={response?.data} />
       <div className={styles.behandling}>
         <div className={"card"}>
@@ -67,6 +68,6 @@ export default function Oppgave() {
 
         <Outlet />
       </div>
-    </>
+    </MeldingOmVedtakProvider>
   );
 }

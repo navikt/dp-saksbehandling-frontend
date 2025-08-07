@@ -1,6 +1,6 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Alert, Heading, Tabs } from "@navikt/ds-react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
@@ -16,6 +16,7 @@ import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentKlage } from "~/models/saksbehandling.server";
@@ -67,7 +68,7 @@ export default function Oppgave() {
   ];
 
   return (
-    <Fragment key={klage.behandlingId}>
+    <MeldingOmVedtakProvider key={klage.behandlingId}>
       <OppgaveHandlinger />
       <div className={styles.behandling}>
         <div className={"card"}>
@@ -104,6 +105,6 @@ export default function Oppgave() {
 
         <Outlet />
       </div>
-    </Fragment>
+    </MeldingOmVedtakProvider>
   );
 }
