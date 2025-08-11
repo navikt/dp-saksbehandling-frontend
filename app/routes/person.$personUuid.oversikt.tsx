@@ -19,6 +19,7 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
 
+import { components } from "../../openapi/saksbehandling-typer";
 import styles from "../route-styles/person.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -119,4 +120,15 @@ export default function PersonOversikt() {
       </Tabs>
     </div>
   );
+}
+
+export function hentOppgaveUrl(behandling: components["schemas"]["Behandling"]) {
+  switch (behandling.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      return `/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
+    case "KLAGE":
+      return `/oppgave/${behandling.oppgaveId}/klage/${behandling.id}`;
+    case "MELDEKORT":
+      return `/oppgave/${behandling.oppgaveId}`;
+  }
 }

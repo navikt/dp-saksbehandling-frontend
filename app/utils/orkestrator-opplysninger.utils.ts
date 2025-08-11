@@ -44,7 +44,7 @@ export function formatterOrkestratorOpplysningVerdi(
 
 function hentLand(lankode: string): string {
   const { orkestratorLandliste } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
   );
 
   return (

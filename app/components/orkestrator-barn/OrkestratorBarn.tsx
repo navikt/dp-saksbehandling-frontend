@@ -6,7 +6,6 @@ import classnames from "classnames";
 import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
@@ -21,7 +20,7 @@ import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 export function OrkestratorBarn({ opplysningId }: { opplysningId: string }) {
   const { orkestratorBarn } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
   );
 
   if (!orkestratorBarn) {
@@ -50,10 +49,9 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const { state } = useNavigation();
   const { periodisertBehandlingsView } = useSaksbehandler();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { behandlingPromise } = useTypedRouteLoaderData(
+  const { behandling } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
-  const { response: behandlingResponse } = useAwaitPromise(behandlingPromise);
 
   // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.
   const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
@@ -131,7 +129,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
                 hidden={true}
                 readOnly={true}
                 name="behandlingId"
-                value={behandlingResponse?.data?.behandlingId}
+                value={behandling.behandlingId}
               />
               {barnOpplysninger.map((opplysning, index) => (
                 <OrkestratorOpplysningLinje

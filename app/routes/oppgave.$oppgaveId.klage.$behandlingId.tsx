@@ -8,9 +8,11 @@ import {
   Outlet,
   useActionData,
   useLoaderData,
+  useRouteError,
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
 import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
@@ -88,7 +90,7 @@ export default function Oppgave() {
 
             <Tabs.Panel value="melding-om-vedtak">
               {klage.utfall.verdi !== "IKKE_SATT" ? (
-                <MeldingOmVedtak readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+                <MeldingOmVedtak />
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
                   <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
@@ -106,4 +108,10 @@ export default function Oppgave() {
       </div>
     </Fragment>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }

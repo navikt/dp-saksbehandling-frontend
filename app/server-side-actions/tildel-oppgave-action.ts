@@ -28,7 +28,7 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
       }
 
       if (data.nyTilstand === "UNDER_KONTROLL") {
-        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/kontroll`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/begrunnelse`);
       }
       break;
 

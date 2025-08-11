@@ -1,4 +1,4 @@
-import { Alert, Heading, InternalHeader } from "@navikt/ds-react";
+import { Alert, BodyLong, Heading, InternalHeader } from "@navikt/ds-react";
 import type { JSX } from "react";
 import { isRouteErrorResponse, Link } from "react-router";
 
@@ -16,12 +16,13 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
       <head>
         {meta}
         {links}
+        <title>Dagpenger</title>
       </head>
 
       <body>
         <InternalHeader>
           <Link to={"/"} className={styles.headerLogo}>
-            <InternalHeader.Title as="h1">NAV Dagpenger</InternalHeader.Title>
+            <InternalHeader.Title as="h1">Dagpenger</InternalHeader.Title>
           </Link>
         </InternalHeader>
 
@@ -35,14 +36,13 @@ export function RootErrorBoundaryView({ meta, links, error }: IProps) {
 
 export function ErrorMessageComponent({ error }: { error: unknown }) {
   // Treffer Response errors, eks. throw new Response(), 401, 404, 500 errors
-
   if (isRouteErrorResponse(error)) {
     return (
-      <Alert variant="error">
+      <Alert className={"m-4"} variant="error">
         <Heading spacing size="medium" level="1">
           {`${error.status} ${error.statusText}`}
         </Heading>
-        <p>{error.data}</p>
+        <BodyLong>{error.data}</BodyLong>
       </Alert>
     );
   }
@@ -50,19 +50,19 @@ export function ErrorMessageComponent({ error }: { error: unknown }) {
   // Treffer Uncaught-exceptions, eks. feil ved import, throw new Error()
   if (error instanceof Error) {
     return (
-      <Alert className={styles.enableHorisontalScroll} variant="error">
+      <Alert className={"m-4"} variant="error">
         <Heading spacing size="medium" level="1">
           {error.name}
         </Heading>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
+        <BodyLong>{error.message}</BodyLong>
+
+        {error.stack && <pre className={"mt-2"}>{error.stack}</pre>}
       </Alert>
     );
   }
 
   return (
-    <Alert variant="error">
+    <Alert className={"m-4"} variant="error">
       <Heading spacing size="medium" level="1">
         Ukjent feil
       </Heading>

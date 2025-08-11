@@ -9,6 +9,7 @@ import { useLinkClickHandler } from "react-router";
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
   size?: ButtonProps["size"];
+  className?: string;
   loading?: boolean;
 }
 

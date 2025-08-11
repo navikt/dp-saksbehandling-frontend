@@ -19,12 +19,9 @@ const defaultError: components["schemas"]["HttpProblem"] = {
   instance: "dp-behandling",
 };
 
-const error404: components["schemas"]["HttpProblem"] = {
-  type: "404",
-  title: "Fant ikke data",
-  status: 404,
-  instance: "dp-behandling",
-};
+function getError404(detail: string): components["schemas"]["HttpProblem"] {
+  return { type: "404", title: "Fant ikke data", detail, status: 404, instance: "dp-behandling" };
+}
 
 export const mockDpBehandling = [
   http.post("/person/behandling", async ({ request, response }) => {
@@ -54,7 +51,9 @@ export const mockDpBehandling = [
       return response(200).json(mockBehandling);
     }
 
-    return response("default").json(error404, { status: 404 });
+    return response("default").json(getError404(`Fant ikke behandling med id: ${behandlingId}`), {
+      status: 404,
+    });
   }),
 
   http.post(`/behandling/{behandlingId}/avbryt`, async ({ request, response }) => {

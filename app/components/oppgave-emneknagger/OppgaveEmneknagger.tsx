@@ -18,12 +18,21 @@ export function OppgaveEmneknagger({ oppgave, laster }: IProps) {
   return (
     <>
       {oppgave.emneknagger.map((emneknagg) => (
-        <Tag key={emneknagg} size={"xsmall"} variant={laster ? "info-moderate" : "info"}>
+        <Tag
+          className={"whitespace-nowrap"}
+          key={emneknagg}
+          size={"xsmall"}
+          variant={laster ? "info-moderate" : "info"}
+        >
           <Detail as={laster ? Skeleton : "p"}>{emneknagg}</Detail>
         </Tag>
       ))}
       {oppgave.utsattTilDato && (
-        <Tag size={"xsmall"} variant={laster ? "warning-moderate" : "warning"}>
+        <Tag
+          className={"whitespace-nowrap"}
+          size={"xsmall"}
+          variant={laster ? "warning-moderate" : "warning"}
+        >
           <Detail
             as={laster ? Skeleton : "p"}
           >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
@@ -31,27 +40,43 @@ export function OppgaveEmneknagger({ oppgave, laster }: IProps) {
       )}
 
       {isOppgaveOversikt(oppgave) && oppgave.skjermesSomEgneAnsatte && (
-        <Tag size={"xsmall"} variant={laster ? "error-moderate" : "error"}>
+        <Tag
+          className={"whitespace-nowrap"}
+          size={"xsmall"}
+          variant={laster ? "error-moderate" : "error"}
+        >
           <Detail as={laster ? Skeleton : "p"}>Egne ansatte</Detail>
         </Tag>
       )}
 
       {isOppgaveOversikt(oppgave) && oppgave.adressebeskyttelseGradering === "FORTROLIG" && (
-        <Tag size={"xsmall"} variant={laster ? "error-moderate" : "error"}>
+        <Tag
+          className={"whitespace-nowrap"}
+          size={"xsmall"}
+          variant={laster ? "error-moderate" : "error"}
+        >
           <Detail as={laster ? Skeleton : "p"}>Fortrolig</Detail>
         </Tag>
       )}
 
       {isOppgaveOversikt(oppgave) &&
         oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG" && (
-          <Tag size={"xsmall"} variant={laster ? "error-moderate" : "error"}>
+          <Tag
+            className={"whitespace-nowrap"}
+            size={"xsmall"}
+            variant={laster ? "error-moderate" : "error"}
+          >
             <Detail as={laster ? Skeleton : "p"}>Strengt fortrolig</Detail>
           </Tag>
         )}
 
       {isOppgaveOversikt(oppgave) &&
         oppgave.adressebeskyttelseGradering === "STRENGT_FORTROLIG_UTLAND" && (
-          <Tag size={"xsmall"} variant={laster ? "error-moderate" : "error"}>
+          <Tag
+            className={"whitespace-nowrap"}
+            size={"xsmall"}
+            variant={laster ? "error-moderate" : "error"}
+          >
             <Detail as={laster ? Skeleton : "p"}>Strengt fortrolig utland</Detail>
           </Tag>
         )}

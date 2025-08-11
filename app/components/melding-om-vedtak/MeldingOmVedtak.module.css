@@ -1,8 +1,3 @@
-.loaderErrorContainer {
-  display: flex;
-  justify-content: center;
-}
-
 .meldingOmVedtakContainer {
   display: grid;
   grid-template-columns: 1fr 2fr;

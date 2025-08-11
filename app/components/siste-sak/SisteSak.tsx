@@ -3,6 +3,7 @@ import { BodyShort, CopyButton, Detail, Heading, Table } from "@navikt/ds-react"
 
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { RemixLink } from "~/components/RemixLink";
+import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -64,16 +65,14 @@ export function SisteSak({ sak }: IProps) {
               </Table.DataCell>
               <Table.DataCell>
                 <Detail>
-                  <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
+                  {behandling.behandlingType === "RETT_TIL_DAGPENGER" && (
+                    <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
+                  )}
                 </Detail>
               </Table.DataCell>
               <Table.DataCell>
                 <Detail>
-                  <RemixLink
-                    to={`/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}`}
-                  >
-                    {behandling.oppgaveId}
-                  </RemixLink>
+                  <RemixLink to={hentOppgaveUrl(behandling)}>{behandling.oppgaveId}</RemixLink>
                 </Detail>
               </Table.DataCell>
             </Table.Row>

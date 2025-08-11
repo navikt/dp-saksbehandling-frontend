@@ -2,7 +2,6 @@ import { BodyLong, Button, Checkbox, CheckboxGroup, Modal } from "@navikt/ds-rea
 import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { action } from "~/routes/oppgave.$oppgaveId.klage.$behandlingId";
 import { isAlert } from "~/utils/type-guards";
@@ -10,10 +9,9 @@ import { isAlert } from "~/utils/type-guards";
 export function OppgaveHandlingRekjorBehandling() {
   const { state } = useNavigation();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { behandlingPromise } = useTypedRouteLoaderData(
+  const { behandling } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
-  const { response } = useAwaitPromise(behandlingPromise);
   const actionData = useActionData<typeof action>();
   const modalRef = useRef<HTMLDialogElement>(null);
   const [opplysningerSomSkalOppfriskes, setOpplysningerSomSkalOppfriskes] = useState<string[]>([]);
@@ -25,7 +23,7 @@ export function OppgaveHandlingRekjorBehandling() {
   }, [actionData]);
 
   const opplysningerSomKanOppfriskes =
-    response?.data?.opplysninger
+    behandling.opplysninger
       ?.filter((opplysning) => opplysning.kanOppfriskes)
       ?.map((opplysning) => ({ label: opplysning.navn, value: opplysning.id })) ?? [];
 

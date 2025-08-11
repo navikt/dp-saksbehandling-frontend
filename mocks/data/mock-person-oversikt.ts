@@ -10,16 +10,16 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
       id: "01979c1e-9005-76d8-8efa-99370d5e77e5",
       behandlinger: [
         {
-          id: "0197a0f3-c587-760e-9966-ab336f85c63a",
+          id: "018e2222-9df8-7aa4-94a6-318fada10999",
           behandlingType: "KLAGE",
           opprettet: "2025-06-24T00:00:00",
-          oppgaveId: "0197a0f3-c61e-76d3-9e15-1a1605df602a",
+          oppgaveId: "018e9999-9df8-7aa4-94a6-318fada10999",
         },
         {
-          id: "01979c1e-8f4f-772c-98a8-286eac985cbf",
+          id: "019353b5-3ee6-7693-8fdd-649153c18f74",
           behandlingType: "RETT_TIL_DAGPENGER",
           opprettet: "2025-06-23T11:28:57.936476",
-          oppgaveId: "01979c1e-a0f7-7d33-88ae-d30dc573002e",
+          oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
         },
       ],
     },
@@ -27,10 +27,10 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
       id: "01979c85-adb5-7b7a-b67d-4265b3b88e81",
       behandlinger: [
         {
-          id: "01979c85-ac69-78b2-a880-c38a86d583cf",
+          id: "019391c0-d9f5-78d9-8704-02f749bfb17b",
           behandlingType: "RETT_TIL_DAGPENGER",
           opprettet: "2025-06-23T13:21:35.602787",
-          oppgaveId: "01979c85-ce5c-7e04-9a2e-c5bb762ef12d",
+          oppgaveId: "018e2229-9df8-7aa4-94a6-318fada10999",
         },
       ],
     },

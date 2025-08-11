@@ -6,8 +6,10 @@ import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigation,
+  useRouteError,
 } from "react-router";
 
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -64,4 +66,10 @@ export default function NesteOppgave() {
       </div>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }

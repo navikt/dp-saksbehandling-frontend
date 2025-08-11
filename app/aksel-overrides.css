@@ -11,13 +11,6 @@
   opacity: 0;
 }
 
-/* Fiks border radius på tabell inne i expansioncard */
-.expansion--subtil tr:last-child:nth-child(odd) th,
-.expansion--subtil tr:last-child:nth-child(odd) td {
-  border-bottom-right-radius: var(--a-border-radius-large);
-  border-bottom-left-radius: var(--a-border-radius-large);
-}
-
 /* Fjern box-shadow på hover */
 .expansion--subtil:hover > div {
   box-shadow: none;
