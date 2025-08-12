@@ -85,10 +85,6 @@ export function OpplysningKortVisning({
       ) : (
         <BodyShort size={"small"}>--</BodyShort>
       )}
-
-      {/*<Button className={"mt-2"} size={"xsmall"} onClick={() => setRedigeringsModus(true)}>*/}
-      {/*  Rediger*/}
-      {/*</Button>*/}
     </div>
   );
 }
