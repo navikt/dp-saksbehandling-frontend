@@ -10,6 +10,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { OppgaveTabs } from "~/components/oppgave-tabs/OppgaveTabs";
 import { OpplysningGruppePanel } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
@@ -22,6 +23,8 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
+  console.log("@@@@@@@@@@@@@@@@@");
+  console.log("behandingId Action");
   return await handleActions(request, params);
 }
 
@@ -44,40 +47,43 @@ export default function BehandlingRoute() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <ResizableColumns defaultLeftWidth={70}>
-      <ResizableColumns.Left>
-        <div className={"card"}>
-          <OppgaveTabs />
-          <Outlet />
-        </div>
-      </ResizableColumns.Left>
+    <>
+      <OppgaveHandlinger />
+      <ResizableColumns defaultLeftWidth={70}>
+        <ResizableColumns.Left>
+          <div className={"card"}>
+            <OppgaveTabs />
+            <Outlet />
+          </div>
+        </ResizableColumns.Left>
 
-      <ResizableColumns.Right>
-        <div className={"card h-[100%]"}>
-          <AnimatePresence mode="popLayout">
-            {aktivOpplysningsgruppeId ? (
-              <motion.div
-                initial={{ opacity: 0, x: 200 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 500 }}
-                transition={{
-                  type: "spring",
-                  duration: 0.5,
-                }}
-                key={aktivOpplysningsgruppeId}
-              >
-                <OpplysningGruppePanel behandling={behandling} />
-              </motion.div>
-            ) : (
-              <OppgaveInformasjon
-                defaultTab={oppgave.tilstand === "UNDER_KONTROLL" ? "kontroll" : "dokumenter"}
-                visKontrollFane={oppgave.tilstand === "UNDER_KONTROLL"}
-              />
-            )}
-          </AnimatePresence>
-        </div>
-      </ResizableColumns.Right>
-    </ResizableColumns>
+        <ResizableColumns.Right>
+          <div className={"card h-[100%]"}>
+            <AnimatePresence mode="popLayout">
+              {aktivOpplysningsgruppeId ? (
+                <motion.div
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 500 }}
+                  transition={{
+                    type: "spring",
+                    duration: 0.5,
+                  }}
+                  key={aktivOpplysningsgruppeId}
+                >
+                  <OpplysningGruppePanel behandling={behandling} />
+                </motion.div>
+              ) : (
+                <OppgaveInformasjon
+                  defaultTab={oppgave.tilstand === "UNDER_KONTROLL" ? "kontroll" : "dokumenter"}
+                  visKontrollFane={oppgave.tilstand === "UNDER_KONTROLL"}
+                />
+              )}
+            </AnimatePresence>
+          </div>
+        </ResizableColumns.Right>
+      </ResizableColumns>
+    </>
   );
 }
 

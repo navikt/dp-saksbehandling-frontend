@@ -1,25 +1,14 @@
-import {
-  BodyShort,
-  Button,
-  Checkbox,
-  DatePicker,
-  Heading,
-  Textarea,
-  useDatepicker,
-} from "@navikt/ds-react";
+import { BodyShort, Button, Checkbox, DatePicker, Heading, Textarea, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { useEffect, useRef, useState } from "react";
-import { Form } from "react-router";
+import { Form, useParams } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import {
-  hentValideringForOpplysningSkjema,
-  hentValideringForSlettOpplysningSkjema,
-} from "~/utils/validering.util";
+import { hentValideringForOpplysningSkjema, hentValideringForSlettOpplysningSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -42,14 +31,16 @@ export function OpplysningKortRedigering({
   aktivOpplysning,
   setAktivOpplysning,
 }: IProps) {
+  const { oppgaveId, regelsettNavn } = useParams();
   const ref = useRef<HTMLDivElement>(null);
   const erProvingsDatoOpplysning = aktivOpplysning?.navn === "Prøvingsdato"; // Midlertidig løsning for å håndtere prøvingsdato som en spesiell opplysningstype. PJs jobber med hvordan de kan trekke ut prøvingsdato som en opplysning
   const [ingenFomDato, setIngenFomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
   const [ingenTomDato, setIngenTomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
 
   const opplysningForm = useForm({
-    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     method: "post",
+    action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
+    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
     defaultValues: {
       opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,
@@ -67,6 +58,7 @@ export function OpplysningKortRedigering({
 
   const slettOpplysningForm = useForm({
     method: "post",
+    action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
     schema: hentValideringForSlettOpplysningSkjema(),
     defaultValues: { behandlingId, opplysningId: opplysning.id },
   });
