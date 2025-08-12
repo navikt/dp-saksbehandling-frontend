@@ -12,7 +12,7 @@ export async function sokPersonAction(request: Request, formData: FormData) {
   }
 
   const { personIdent } = validertSkjema.data;
-  const personOversikt = await sokPerson(request, personIdent);
+  const personResponse = await sokPerson(request, personIdent);
 
-  return redirect(`/person/${personOversikt.person.id}/oversikt`);
+  return redirect(`/person/${personResponse.id}/oversikt`);
 }

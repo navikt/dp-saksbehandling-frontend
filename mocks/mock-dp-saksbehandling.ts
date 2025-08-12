@@ -8,6 +8,7 @@ import { components, paths } from "../openapi/saksbehandling-typer";
 import { klager } from "./data/mock-klage";
 import { konverterOppgaveTilListeOppgave, mockListeOppgaver } from "./data/mock-liste-oppgaver";
 import { klageOppgave, mockOppgaver } from "./data/mock-oppgaver";
+import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
 import { mockStatistikk } from "./data/mock-statistikk";
 
@@ -288,7 +289,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent person med fnr i body
-  http.post(`/person`, async ({ request, response }) => {
+  http.post(`/person/personId`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
     await delay();
 
@@ -296,7 +297,7 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockPersonOversikt);
+    return response(200).json({ id: mockPerson.id });
   }),
 
   // Hent person med uuid i url

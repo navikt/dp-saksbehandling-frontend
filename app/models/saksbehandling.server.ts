@@ -220,7 +220,7 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
 
 export async function sokPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.POST("/person", {
+  const { data, error, response } = await saksbehandlerClient.POST("/person/personId", {
     headers: getHeaders(onBehalfOfToken),
     body: { ident },
   });
