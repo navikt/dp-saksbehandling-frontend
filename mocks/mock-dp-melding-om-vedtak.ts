@@ -18,13 +18,15 @@ const defaultError: components["schemas"]["HttpProblem"] = {
   instance: "dp-melding-om-vedtak",
 };
 
-const error404: components["schemas"]["HttpProblem"] = {
-  type: "404",
-  title: "Fant ikke data",
-  detail: "Default 404 feilmelding",
-  status: 404,
-  instance: "dp-melding-om-vedtak",
-};
+function getError404(detail: string): components["schemas"]["HttpProblem"] {
+  return {
+    type: "404",
+    title: "Fant ikke data",
+    detail,
+    status: 404,
+    instance: "dp-melding-om-vedtak",
+  };
+}
 
 export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
@@ -37,7 +39,9 @@ export const mockDpMeldingOmVedtak = [
     );
 
     if (!meldingOmVedtak) {
-      return response(404).json(error404);
+      return response(404).json(
+        getError404(`Fant ikke melding om vedtak for ${params.behandlingId}`),
+      );
     }
 
     if (apiError) {
