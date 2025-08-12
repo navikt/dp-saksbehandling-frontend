@@ -8,7 +8,7 @@ import {
   Spacer,
   Timeline,
   TimelinePeriodProps,
-  ToggleGroup,
+  ToggleGroup
 } from "@navikt/ds-react";
 import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
@@ -75,12 +75,8 @@ export function OpplysningTidslinje({
           {opplysningGruppe.opplysninger.map((opplysning, index) => (
             <Timeline.Period
               key={opplysning.opplysningTypeId}
-              start={opplysning.gyldigFraOgMed ? new Date(opplysning.gyldigFraOgMed) : new Date()}
-              end={
-                opplysning.gyldigTilOgMed
-                  ? new Date(opplysning.gyldigTilOgMed)
-                  : add(new Date(), { weeks: 2 })
-              }
+              start={beregnStartDato(opplysning, parseInt(antallUkerITidslinje))}
+              end={beregnSluttDato(opplysning, parseInt(antallUkerITidslinje))}
               placement={"bottom"}
               status={hentFargeForTidslinjePeriodeOpplysning(opplysning)}
               icon={hentIkonForTIdslinjePeriodeOpplysning(opplysning)}
@@ -91,7 +87,7 @@ export function OpplysningTidslinje({
             >
               <Detail textColor={"subtle"}>Periode: {index + 1}</Detail>
               <Detail textColor={"subtle"}>
-                {`${formaterTilNorskDato(opplysning.gyldigFraOgMed ? opplysning.gyldigFraOgMed : new Date())} - ${opplysning.gyldigTilOgMed ? formaterTilNorskDato(opplysning.gyldigTilOgMed) : "♾️"}`}
+                {`${opplysning.gyldigFraOgMed ? formaterTilNorskDato(opplysning.gyldigFraOgMed) : "Ikke satt"} - ${opplysning.gyldigTilOgMed ? formaterTilNorskDato(opplysning.gyldigTilOgMed) : "Ikke satt"}`}
               </Detail>
               {formaterOpplysningVerdi(opplysning)}
             </Timeline.Period>
@@ -159,4 +155,30 @@ function hentIkonForTIdslinjePeriodeOpplysning(opplysning: components["schemas"]
     default:
       break;
   }
+}
+
+function beregnStartDato(
+  opplysning: components["schemas"]["Opplysning"],
+  antallUkerITidslinje: number,
+): Date {
+  if (opplysning.gyldigFraOgMed) {
+    return new Date(opplysning.gyldigFraOgMed);
+  }
+
+  if (opplysning.gyldigTilOgMed) {
+    return sub(new Date(opplysning.gyldigTilOgMed), { days: 5 });
+  }
+
+  return sub(Date(), { weeks: antallUkerITidslinje / 2 });
+}
+
+function beregnSluttDato(
+  opplysning: components["schemas"]["Opplysning"],
+  antallUkerITidslinje: number,
+): Date {
+  if (opplysning.gyldigTilOgMed) {
+    return new Date(opplysning.gyldigTilOgMed);
+  }
+
+  return add(new Date(), { weeks: antallUkerITidslinje / 2 });
 }
