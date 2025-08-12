@@ -8,8 +8,10 @@ import {
   useActionData,
   useLoaderData,
   useNavigation,
+  useRouteError,
 } from "react-router";
 
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -139,4 +141,10 @@ function Kaffepause(props: IKaffepauseProps) {
 
 function hentTilfeldigNummer() {
   return Math.floor(Math.random() * 8) + 1;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }

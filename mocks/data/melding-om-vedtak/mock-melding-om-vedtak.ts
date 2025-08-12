@@ -59,7 +59,7 @@ export const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakRes
 
 export const mockMeldingerOmVedtak = [
   {
-    behandlingId: "018f05a0-667a-7597-a835-fab53189d051",
+    behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
@@ -67,7 +67,11 @@ export const mockMeldingerOmVedtak = [
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "0192c2aa-9fd5-776d-8c8f-819853b43c7e",
+    behandlingId: "0196f70d-baf3-708a-8741-6e9c5e03448a",
+    melding: mockMeldingOmVedtakInnvilgelse,
+  },
+  {
+    behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
     melding: mockMeldingOmVedtakAvslagMinsteinntekt,
   },
   {

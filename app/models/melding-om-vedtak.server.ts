@@ -2,6 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { components, paths } from "../../openapi/melding-om-vedtak-typer";
@@ -14,13 +15,28 @@ export async function hentMeldingOmVedtak(
   body: components["schemas"]["MeldingOmVedtakData"],
 ) {
   const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
-  return await meldingOmVedtakClient.POST("/melding-om-vedtak/{behandlingId}/html", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ...body },
-    params: {
-      path: { behandlingId },
+  const { data, error, response } = await meldingOmVedtakClient.POST(
+    "/melding-om-vedtak/{behandlingId}/html",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      body: { ...body },
+      params: {
+        path: { behandlingId },
+      },
     },
-  });
+  );
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentMeldingOmVedtak(). ${response.status} - ${response.statusText}`,
+  );
 }
 
 export async function lagreUtvidetBeskrivelse(

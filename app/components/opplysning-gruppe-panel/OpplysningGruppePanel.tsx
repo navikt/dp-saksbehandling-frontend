@@ -6,26 +6,22 @@ import { useLocation } from "react-router";
 import { OpplysningKort } from "~/components/opplysning-gruppe-panel/OpplysningKort";
 import { OpplysningTidslinje } from "~/components/opplysning-tidslinje/OpplysningTidslinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
-import { hentBehandling } from "~/models/behandling.server";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
-  behandlingId: string;
-  behandlingPromise: ReturnType<typeof hentBehandling>;
+  behandling: components["schemas"]["Behandling"];
 }
 
 export const NY_PERIODE_ID = "ny-periode";
 
-export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProps) {
+export function OpplysningGruppePanel({ behandling }: IProps) {
   const location = useLocation();
-  const { response } = useAwaitPromise(behandlingPromise);
   const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
 
-  const opplysningGruppe = response?.data?.opplysningsgrupper.find(
+  const opplysningGruppe = behandling.opplysningsgrupper.find(
     (gruppe) => gruppe.opplysningTypeId === aktivOpplysningsgruppeId,
   );
 
@@ -81,7 +77,7 @@ export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProp
 
       <OpplysningTidslinje
         opplysningGruppe={opplysningGruppe}
-        behandling={response?.data}
+        behandling={behandling}
         aktivOpplysning={aktivOpplysning}
         setAktivOpplysning={setAktivOpplysning}
       />
@@ -100,7 +96,7 @@ export function OpplysningGruppePanel({ behandlingId, behandlingPromise }: IProp
 
       <OpplysningKort
         opplysningGruppe={opplysningGruppe}
-        behandlingId={behandlingId}
+        behandlingId={behandling.behandlingId}
         aktivOpplysning={aktivOpplysning}
         setAktivOpplysning={setAktivOpplysning}
       />

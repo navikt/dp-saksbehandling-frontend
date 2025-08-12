@@ -7,32 +7,32 @@ import {
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
 import { motion } from "motion/react";
+import { useParams } from "react-router";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
 
 interface IProps {
   behandling: components["schemas"]["Behandling"];
-  aktivtRegelsett: components["schemas"]["Regelsett"];
-  setAktivtRegelsett: (regelsett: components["schemas"]["Regelsett"]) => void;
 }
 
-export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett }: IProps) {
+export function RegelsettMeny({ behandling }: IProps) {
+  const { regelsettNavn } = useParams();
   return (
     <ul className={styles.regelsettMeny}>
       {behandling.vilkår.map((regelsett) => {
         if (regelsett.opplysningIder.length > 0) {
           return (
             <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <button
-                className={classnames({
-                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+              <a
+                href={regelsett.navn}
+                className={classnames(styles.lenke, {
+                  [styles.akitvtRegelsett]: regelsettNavn === regelsett.navn,
                 })}
-                onClick={() => setAktivtRegelsett(regelsett)}
               >
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
-              </button>
+              </a>
             </motion.li>
           );
         }
@@ -44,15 +44,15 @@ export function RegelsettMeny({ behandling, aktivtRegelsett, setAktivtRegelsett 
         if (regelsett.opplysningIder.length > 0) {
           return (
             <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <button
-                className={classnames({
-                  [styles.akitvtRegelsett]: aktivtRegelsett.navn === regelsett.navn,
+              <a
+                href={regelsett.navn}
+                className={classnames(styles.lenke, {
+                  [styles.akitvtRegelsett]: regelsettNavn === regelsett.navn,
                 })}
-                onClick={() => setAktivtRegelsett(regelsett)}
               >
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
-              </button>
+              </a>
             </motion.li>
           );
         }

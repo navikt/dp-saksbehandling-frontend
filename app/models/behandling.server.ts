@@ -2,6 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getBehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
+import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { paths } from "../../openapi/behandling-typer";
@@ -18,12 +19,23 @@ export async function opprettManuellBehandling(request: Request, ident: string) 
 
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-  return await behandlingClient.GET("/behandling/{behandlingId}", {
+
+  const { response, data, error } = await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { behandlingId },
     },
   });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
 export async function avbrytBehandling(
@@ -114,12 +126,27 @@ export async function rekjorBehandling(
 
 export async function hentVurderinger(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
-  return await behandlingClient.GET("/behandling/{behandlingId}/vurderinger", {
-    headers: getHeaders(onBehalfOfToken),
-    params: {
-      path: { behandlingId },
+  const { data, error, response } = await behandlingClient.GET(
+    "/behandling/{behandlingId}/vurderinger",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { behandlingId },
+      },
     },
-  });
+  );
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentVurderinger(). ${response.status} - ${response.statusText}`,
+  );
 }
 
 export async function lagreVurdering(

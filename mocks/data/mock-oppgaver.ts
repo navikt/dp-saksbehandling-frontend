@@ -85,7 +85,7 @@ export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgav
 export const underBehandlingAvslagOppgaveMineOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e2229-9df8-7aa4-94a6-318fada10999",
   behandlingType: "RETT_TIL_DAGPENGER",
-  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+  behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
   person: mockPerson,
   lovligeEndringer: mockLovligeEndringer,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
@@ -97,7 +97,7 @@ export const underBehandlingAvslagOppgaveMineOppgave: components["schemas"]["Opp
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
 };
 
-export const underBehandlingArvOppgaveMineOppgave: components["schemas"]["Oppgave"] = {
+export const underBehandlingMeldekortOppgaveMineOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "018e2229-6969-7aa4-94a6-318fada10999",
   behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "0196f70d-baf3-708a-8741-6e9c5e03448a",
@@ -174,7 +174,7 @@ export const ferdigBehandlerKlageOppgave: components["schemas"]["Oppgave"] = {
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingAvslagOppgaveMineOppgave,
-  underBehandlingArvOppgaveMineOppgave,
+  underBehandlingMeldekortOppgaveMineOppgave,
   underBehandlingMinOppgaveKreverKontroll,
   underBehandlingAnnenSaksbehandlerOppgave,
   ferdigBehandletOppgave,

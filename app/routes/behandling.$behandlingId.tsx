@@ -1,24 +1,26 @@
-import { DocPencilIcon, EnvelopeClosedIcon, PersonPencilIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
+  Outlet,
+  redirect,
   useActionData,
   useLoaderData,
+  useRouteError,
 } from "react-router";
 import invariant from "tiny-invariant";
 
-import { Begrunnelse } from "~/components/begrunnelse/Begrunnelse";
-import { Behandling } from "~/components/behandling/Behandling";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { OppgaveTabs } from "~/components/oppgave-tabs/OppgaveTabs";
 import { OpplysningGruppePanel } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
+import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { ResizableColumns } from "~/components/resizable-columns/ResizableColumns";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
+import styles from "~/route-styles/behandling.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -30,8 +32,17 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const behandlingPromise = hentBehandling(request, params.behandlingId);
-  const vurderingerPromise = hentVurderinger(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
+  const vurderinger = await hentVurderinger(request, params.behandlingId);
+
+  const alleRegelsett = [...behandling.vilkår, ...behandling.fastsettelser];
+  const førsteRegelsettMedOpplysninger = alleRegelsett.find(
+    (regelsett) => regelsett.opplysningTypeIder.length > 0,
+  );
+
+  if (!params.regelsettNavn && førsteRegelsettMedOpplysninger) {
+    return redirect(`${førsteRegelsettMedOpplysninger.navn}`);
+  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -39,9 +50,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return data(
     {
       alert,
-      behandlingId: params.behandlingId,
-      behandlingPromise,
-      vurderingerPromise,
+      behandling,
+      vurderinger,
     },
     {
       headers: {
@@ -52,50 +62,35 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function BehandlingRoute() {
-  const { behandlingId, behandlingPromise, vurderingerPromise } = useLoaderData<typeof loader>();
+  const { behandling } = useLoaderData<typeof loader>();
   const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const actionData = useActionData<typeof action>();
-  const [aktivTab, setAktivTab] = useState("behandling");
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-
-  const tabs = [
-    { value: "behandling", label: "Behandlingsoversikt", icon: <DocPencilIcon /> },
-    { value: "begrunnelse", label: "Saksbehandlers begrunnelse", icon: <PersonPencilIcon /> },
-    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
-  ];
 
   return (
     <ResizableColumns defaultLeftWidth={70}>
       <ResizableColumns.Left>
-        <div className={"card h-[100%]"}>
-          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <Tabs.List>
-              {tabs.map(({ value, label, icon }, index) => (
-                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
-              ))}
-            </Tabs.List>
+        <div className={"card"}>
+          <OppgaveTabs />
+          <>
+            <Avklaringer
+              avklaringer={behandling.avklaringer}
+              behandlingId={behandling.behandlingId}
+              readOnly={false}
+            />
 
-            <Tabs.Panel value="behandling">
-              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
-              <Behandling behandlingPromise={behandlingPromise} />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="melding-om-vedtak">
-              <MeldingOmVedtak />
-            </Tabs.Panel>
-
-            <Tabs.Panel value="begrunnelse">
-              {/*// @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router*/}
-              <Begrunnelse vurderingerPromise={vurderingerPromise} />
-            </Tabs.Panel>
-          </Tabs>
+            <div className={styles.container}>
+              <RegelsettMeny behandling={behandling} />
+              <Outlet />
+            </div>
+          </>
         </div>
       </ResizableColumns.Left>
 
       <ResizableColumns.Right>
         <div className={"card h-[100%]"}>
           <AnimatePresence mode="popLayout">
-            {aktivOpplysningsgruppeId ? (
+            {aktivOpplysningsgruppeId && (
               <motion.div
                 initial={{ opacity: 0, x: 200 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -106,24 +101,18 @@ export default function BehandlingRoute() {
                 }}
                 key={aktivOpplysningsgruppeId}
               >
-                <OpplysningGruppePanel
-                  // @ts-expect-error Det Blir feil type interferens. Antatt feil mellom openapi-fetch typer data loader wrapperen fra react-router
-                  behandlingPromise={behandlingPromise}
-                  aktivOpplysningsgruppeId={aktivOpplysningsgruppeId}
-                  behandlingId={behandlingId}
-                />
+                <OpplysningGruppePanel behandling={behandling} />
               </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                key={aktivOpplysningsgruppeId}
-              ></motion.div>
             )}
           </AnimatePresence>
         </div>
       </ResizableColumns.Right>
     </ResizableColumns>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
 }

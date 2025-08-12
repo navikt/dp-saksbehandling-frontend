@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  box-shadow: inset 0 -1px 0 0 var(--a-border-divider);
+}
+
+.lenke {
+  display: flex;
+  align-items: center;
+  padding: var(--a-spacing-3);
+  white-space: nowrap;
+  color: var(--a-text-default);
+  text-decoration: none;
+}
+
+.lenke:hover {
+  box-shadow: inset 0 -3px 0 0 var(--a-border-subtle-hover);
+}
+
+.lenkeAktiv.lenkeAktiv {
+  box-shadow: inset 0 -3px 0 0 var(--a-border-action-selected);
+}

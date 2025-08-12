@@ -12,7 +12,7 @@ interface IProps {
 
 export function OrkestratorOpplysningLand({ opplysning, formScope }: IProps) {
   const { orkestratorLandliste } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
   );
   const field = useField(formScope);
 

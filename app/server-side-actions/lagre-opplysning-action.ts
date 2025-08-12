@@ -63,7 +63,6 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
       variant: "success",
       title: "Opplysning lagret",
     };
-
     return successAlert;
   }
 

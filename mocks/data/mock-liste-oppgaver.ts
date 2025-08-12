@@ -5,9 +5,9 @@ import {
   ferdigBehandletOppgave,
   klageOppgave,
   underBehandlingAnnenSaksbehandlerOppgave,
-  underBehandlingArvOppgaveMineOppgave,
   underBehandlingAvslagOppgaveMineOppgave,
   underBehandlingInnvilgelseMinOppgave,
+  underBehandlingMeldekortOppgaveMineOppgave,
   underBehandlingMinOppgaveKreverKontroll,
 } from "./mock-oppgaver";
 
@@ -32,7 +32,7 @@ export function konverterOppgaveTilListeOppgave(
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingAvslagOppgaveMineOppgave),
-  konverterOppgaveTilListeOppgave(underBehandlingArvOppgaveMineOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingMeldekortOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),

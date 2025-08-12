@@ -1,6 +1,6 @@
 import { components } from "../../../openapi/behandling-typer";
 
-// behandlingId: "0196f70d-baf3-708a-8741-6e9c5e03448a",
+// behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
 export const mockBehandlingAvslag: components["schemas"]["Behandling"] = {
   behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
   tidslinje: [],

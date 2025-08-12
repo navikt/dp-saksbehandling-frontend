@@ -41,7 +41,8 @@ export function OpplysningKort({
 
       {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
         const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
-        const erAktiv = aktivOpplysning?.id === opplysning.id;
+        const erAktiv =
+          aktivOpplysning?.id === opplysning.id || opplysningGruppe.opplysninger.length === 1;
 
         return (
           <AnimertOpplysningKort key={opplysning.id}>
