@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -61,7 +61,7 @@ jobs:
   #    timeout-minutes: 2
   #    runs-on: ubuntu-latest
   #    steps:
-  #      - uses: actions/checkout@v4
+  #      - uses: actions/checkout@v5
   #
   #      - name: Cache node_modules
   #        uses: actions/cache@v4
@@ -121,7 +121,7 @@ jobs:
       name: Development
       url: "https://saksbehandling-dagpenger.ansatt.dev.nav.no"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
@@ -140,7 +140,7 @@ jobs:
       name: Production
       url: "https://saksbehandling-dagpenger.ansatt.nav.no"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: nais/deploy/actions/deploy@v2
         env:
           VAR: image=${{ needs.build.outputs.image }},githubSha=${{ github.sha }}
