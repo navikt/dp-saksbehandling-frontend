@@ -1,5 +1,5 @@
 import { PadlockLockedIcon, PencilWritingIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, Heading } from "@navikt/ds-react";
+import { BodyLong, BodyShort, Button, Detail, Heading } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useEffect, useRef } from "react";
 
@@ -63,7 +63,7 @@ export function OpplysningKortVisning({
           {opplysning.gyldigFraOgMed ? (
             <BodyShort size={"small"}>{formaterTilNorskDato(opplysning.gyldigFraOgMed)}</BodyShort>
           ) : (
-            <BodyShort size={"small"}>Ikke satt</BodyShort>
+            <BodyShort size={"small"}>--</BodyShort>
           )}
         </div>
         <div>
@@ -72,10 +72,19 @@ export function OpplysningKortVisning({
           {opplysning.gyldigTilOgMed ? (
             <BodyShort size={"small"}>{formaterTilNorskDato(opplysning.gyldigTilOgMed)}</BodyShort>
           ) : (
-            <BodyShort size={"small"}>Ikke satt</BodyShort>
+            <BodyShort size={"small"}>--</BodyShort>
           )}
         </div>
       </div>
+
+      <Detail textColor={"subtle"} className={"mt-4"}>
+        Begrunnelse
+      </Detail>
+      {opplysning.kilde?.begrunnelse ? (
+        <BodyLong size={"small"}>{opplysning.kilde.begrunnelse.verdi}</BodyLong>
+      ) : (
+        <BodyShort size={"small"}>--</BodyShort>
+      )}
 
       {/*<Button className={"mt-2"} size={"xsmall"} onClick={() => setRedigeringsModus(true)}>*/}
       {/*  Rediger*/}
