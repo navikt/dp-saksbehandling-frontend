@@ -61,7 +61,7 @@ export function RegelsettPeriode({ behandling, aktivtRegelsett }: IProps) {
       />
 
       {brukerOpplysninger.length > 0 && (
-        <RegelsettOpplysningListe tittel={"Bruker"} opplysninger={brukerOpplysninger} />
+        <RegelsettOpplysningListe tittel={"Søknad"} opplysninger={brukerOpplysninger} />
       )}
 
       {registerOpplysninger.length > 0 && (

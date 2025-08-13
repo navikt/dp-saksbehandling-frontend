@@ -128,7 +128,7 @@ export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opply
     case "barn": {
       const barnArrayLength = (opplysning.verdien as components["schemas"]["Barneliste"])?.verdi
         .length;
-      return `${barnArrayLength > 0 ? barnArrayLength - 1 : 0} stk`;
+      return `${barnArrayLength > 0 ? barnArrayLength - 1 : 0}`;
     }
 
     default:
