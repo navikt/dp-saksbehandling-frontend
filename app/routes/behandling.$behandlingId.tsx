@@ -1,3 +1,4 @@
+import { Alert } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ActionFunctionArgs,
@@ -68,46 +69,52 @@ export default function BehandlingRoute() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <ResizableColumns>
-      <ResizableColumns.Left>
-        <div className={"card"}>
-          <OppgaveTabs />
-          <>
-            <Avklaringer
-              avklaringer={behandling.avklaringer}
-              behandlingId={behandling.behandlingId}
-              readOnly={false}
-            />
+    <div className={"m-4"}>
+      <Alert variant={"info"} className={"mb-4"}>
+        Behandling tilstand: <b>{behandling.tilstand}</b>
+      </Alert>
 
-            <div className={styles.container}>
-              <RegelsettMeny behandling={behandling} />
-              <Outlet />
-            </div>
-          </>
-        </div>
-      </ResizableColumns.Left>
+      <ResizableColumns>
+        <ResizableColumns.Left>
+          <div className={"card"}>
+            <OppgaveTabs />
+            <>
+              <Avklaringer
+                avklaringer={behandling.avklaringer}
+                behandlingId={behandling.behandlingId}
+                readOnly={false}
+              />
 
-      <ResizableColumns.Right>
-        <div className={"card h-[100%]"}>
-          <AnimatePresence mode="popLayout">
-            {aktivOpplysningsgruppeId && (
-              <motion.div
-                initial={{ opacity: 0, x: 200 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 500 }}
-                transition={{
-                  type: "spring",
-                  duration: 0.5,
-                }}
-                key={aktivOpplysningsgruppeId}
-              >
-                <OpplysningGruppePanel behandling={behandling} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </ResizableColumns.Right>
-    </ResizableColumns>
+              <div className={styles.container}>
+                <RegelsettMeny behandling={behandling} />
+                <Outlet />
+              </div>
+            </>
+          </div>
+        </ResizableColumns.Left>
+
+        <ResizableColumns.Right>
+          <div className={"card h-[100%]"}>
+            <AnimatePresence mode="popLayout">
+              {aktivOpplysningsgruppeId && (
+                <motion.div
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 500 }}
+                  transition={{
+                    type: "spring",
+                    duration: 0.5,
+                  }}
+                  key={aktivOpplysningsgruppeId}
+                >
+                  <OpplysningGruppePanel behandling={behandling} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </ResizableColumns.Right>
+      </ResizableColumns>
+    </div>
   );
 }
 
