@@ -23,8 +23,6 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
-  console.log("@@@@@@@@@@@@@@@@@");
-  console.log("behandingId Action");
   return await handleActions(request, params);
 }
 
@@ -48,7 +46,7 @@ export default function BehandlingRoute() {
 
   return (
     <>
-      <OppgaveHandlinger />
+      <OppgaveHandlinger behandling={behandling} />
       <ResizableColumns defaultLeftWidth={70}>
         <ResizableColumns.Left>
           <div className={"card"}>
