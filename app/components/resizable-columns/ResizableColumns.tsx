@@ -9,25 +9,26 @@ import {
   useRef,
   useState,
 } from "react";
+import { useLocation } from "react-router";
+import { useLocalStorage } from "usehooks-ts";
 
 import styles from "./ResizableColumn.module.css";
-import { ResizableColumnsContext } from "./ResizableColumnsContext";
+import { ResizableColumnsContext, ResizableColumnsContextType } from "./ResizableColumnsContext";
 import { ResizableColumnsLeft } from "./ResizableColumnsLeft";
 import { ResizableColumnsRight } from "./ResizableColumnsRight";
 
-interface ResizableColumnsProps {
-  defaultLeftWidth?: number;
-}
-
-export function ResizableColumns({
-  children,
-  defaultLeftWidth = 50,
-}: PropsWithChildren<ResizableColumnsProps>) {
+export function ResizableColumns({ children }: PropsWithChildren) {
+  const { pathname } = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
   const venstreInnholdRef = useRef<HTMLDivElement>(null);
   const hoyreInnholdRef = useRef<HTMLDivElement>(null);
+
   const [dragging, setDragging] = useState<boolean>(false);
-  const [venstreBreddeProsent, setVenstreBreddeProsent] = useState<number>(defaultLeftWidth);
+  const [venstreBreddeProsent, setVenstreBreddeProsent] = useLocalStorage<number>(
+    `${hentSideIdFraPath(pathname)}-venstre-bredde-prosent`,
+    70,
+    { initializeWithValue: false },
+  );
 
   const minVenstreBreddeProsent = 37;
   const minHoyreBreddeProsent = 15;
@@ -117,10 +118,11 @@ export function ResizableColumns({
     };
   }, [dragging]);
 
-  const contextValue = {
+  const contextValue: ResizableColumnsContextType = {
     leftRef: venstreInnholdRef,
     rightRef: hoyreInnholdRef,
     leftWidth: venstreBreddeProsent,
+    dragging,
   };
 
   return (
@@ -144,3 +146,10 @@ export function ResizableColumns({
 // Attach the subcomponents
 ResizableColumns.Left = ResizableColumnsLeft;
 ResizableColumns.Right = ResizableColumnsRight;
+
+function hentSideIdFraPath(path: string): string {
+  if (path.includes("behandle")) return "behandle";
+  if (path.includes("melding-om-vedtak")) return "melding-om-vedtak";
+  if (path.includes("begrunnelse")) return "begrunnelse";
+  return "default";
+}

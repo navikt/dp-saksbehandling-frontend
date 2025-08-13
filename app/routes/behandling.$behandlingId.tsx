@@ -68,7 +68,7 @@ export default function BehandlingRoute() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <ResizableColumns defaultLeftWidth={70}>
+    <ResizableColumns>
       <ResizableColumns.Left>
         <div className={"card"}>
           <OppgaveTabs />

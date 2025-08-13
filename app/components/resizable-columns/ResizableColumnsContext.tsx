@@ -4,6 +4,7 @@ export interface ResizableColumnsContextType {
   leftRef: RefObject<HTMLDivElement | null>;
   rightRef: RefObject<HTMLDivElement | null>;
   leftWidth: number;
+  dragging: boolean;
 }
 
 export const ResizableColumnsContext = createContext<ResizableColumnsContextType | null>(null);

@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
-
-import { getEnv } from "~/utils/env.utils";
+import { useLocalStorage } from "usehooks-ts";
 
 interface ISaksbehandlerContext {
   aktivtOppgaveSok: string;
@@ -16,9 +15,13 @@ export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefi
 
 export function SaksbehandlerProvider({ children }: PropsWithChildren) {
   const [aktivtOppgaveSok, setAktivtOppgaveSok] = useState<string>("");
-  const [skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger] = useState<boolean>(false);
-  const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useState<boolean>(
-    getEnv("GCP_ENV") === "dev",
+  const [skjulSensitiveOpplysninger, setSkjulSensitiveOpplysninger] = useLocalStorage<boolean>(
+    "skjul-sensitive-opplysninger",
+    false,
+  );
+  const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useLocalStorage<boolean>(
+    "periodisert-behandlings-view",
+    true,
   );
 
   return (

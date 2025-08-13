@@ -47,7 +47,7 @@ export default function BehandlingRoute() {
   return (
     <>
       <OppgaveHandlinger behandling={behandling} />
-      <ResizableColumns defaultLeftWidth={70}>
+      <ResizableColumns>
         <ResizableColumns.Left>
           <div className={"card"}>
             <OppgaveTabs />
