@@ -1,3 +1,4 @@
+import { Alert, Button } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ActionFunctionArgs,
@@ -5,6 +6,7 @@ import {
   Outlet,
   useActionData,
   useLoaderData,
+  useRevalidator,
   useRouteError,
 } from "react-router";
 import invariant from "tiny-invariant";
@@ -40,13 +42,29 @@ export default function BehandlingRoute() {
   const { behandling } = useLoaderData<typeof loader>();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
+  const { revalidate } = useRevalidator();
   const actionData = useActionData<typeof action>();
 
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <>
+      {behandling.tilstand === "Redigert" && (
+        <Alert size={"small"} variant={"error"}>
+          Det er løk i regelmotoren. Oppdater nettleseren for å se om løken er borte.
+          <Button
+            size={"small"}
+            className={"ml-2"}
+            variant={"secondary-neutral"}
+            onClick={() => revalidate()}
+          >
+            Oppdater nettleser
+          </Button>
+        </Alert>
+      )}
+
       <OppgaveHandlinger behandling={behandling} />
+
       <ResizableColumns>
         <ResizableColumns.Left>
           <div className={"card"}>
