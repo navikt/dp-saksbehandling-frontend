@@ -3,6 +3,7 @@ import {
   type LoaderFunctionArgs,
   Outlet,
   redirect,
+  useActionData,
   useLoaderData,
   useRouteError,
 } from "react-router";
@@ -11,6 +12,7 @@ import invariant from "tiny-invariant";
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
@@ -19,6 +21,7 @@ import {
 import { hentOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/behandling.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -52,6 +55,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { behandling, oppgave } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <>

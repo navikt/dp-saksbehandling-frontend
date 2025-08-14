@@ -2,6 +2,7 @@ import { Alert } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
+  useActionData,
   useLoaderData,
   useRouteError,
 } from "react-router";
@@ -10,9 +11,11 @@ import invariant from "tiny-invariant";
 import { BegrunnelseAvklaringer } from "~/components/begrunnelse/BegrunnelseAvklaringer";
 import { BegrunnelseOpplysninger } from "~/components/begrunnelse/BegrunnelseOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -29,6 +32,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function BegrunnelseRoute() {
   const { vurderinger } = useLoaderData<typeof loader>();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className={"bg-(--a-grayalpha-50) p-4"}>

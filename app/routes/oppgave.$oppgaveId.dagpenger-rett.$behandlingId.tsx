@@ -44,7 +44,6 @@ export default function BehandlingRoute() {
   const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const { revalidate } = useRevalidator();
   const actionData = useActionData<typeof action>();
-
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
