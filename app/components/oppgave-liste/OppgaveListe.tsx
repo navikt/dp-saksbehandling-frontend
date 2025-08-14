@@ -4,8 +4,10 @@ import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmne
 import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -29,6 +31,7 @@ export function OppgaveListe({
   lasterOppgaver,
   visPersonIdent,
 }: IProps) {
+  const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const { sortedData, handleSort, sortState } = useTableSort<
     components["schemas"]["OppgaveOversikt"]
   >(oppgaver, {
@@ -129,7 +132,13 @@ export function OppgaveListe({
 
                 {visPersonIdent && (
                   <Table.DataCell>
-                    {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.personIdent}</Detail>}
+                    {
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                        {skjulSensitiveOpplysninger
+                          ? maskerVerdi(oppgave.personIdent)
+                          : oppgave.personIdent}
+                      </Detail>
+                    }
                   </Table.DataCell>
                 )}
 
