@@ -8,7 +8,7 @@ import {
   Spacer,
   Timeline,
   TimelinePeriodProps,
-  ToggleGroup
+  ToggleGroup,
 } from "@navikt/ds-react";
 import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
@@ -22,8 +22,8 @@ import { components } from "../../../openapi/behandling-typer";
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
   behandling: components["schemas"]["Behandling"] | undefined;
-  aktivOpplysning?: components["schemas"]["Opplysning"];
-  setAktivOpplysning: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
+  aktivPeriode?: components["schemas"]["Opplysning"];
+  setAktivPeriode: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
 }
 
 type AntallUkerITidslinje = "2" | "4" | "8";
@@ -31,8 +31,8 @@ type AntallUkerITidslinje = "2" | "4" | "8";
 export function OpplysningTidslinje({
   opplysningGruppe,
   behandling,
-  aktivOpplysning,
-  setAktivOpplysning,
+  aktivPeriode,
+  setAktivPeriode,
 }: IProps) {
   const sisteOpplysningDato =
     opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1].gyldigFraOgMed;
@@ -81,8 +81,8 @@ export function OpplysningTidslinje({
               status={hentFargeForTidslinjePeriodeOpplysning(opplysning)}
               icon={hentIkonForTIdslinjePeriodeOpplysning(opplysning)}
               statusLabel={opplysning.navn}
-              onSelectPeriod={() => setAktivOpplysning(opplysning)}
-              isActive={aktivOpplysning?.id === opplysning.id}
+              onSelectPeriod={() => setAktivPeriode(opplysning)}
+              isActive={aktivPeriode?.id === opplysning.id}
               id={opplysning.id}
             >
               <Detail textColor={"subtle"}>Periode: {index + 1}</Detail>

@@ -1,4 +1,12 @@
-import { BodyShort, Button, Checkbox, DatePicker, Heading, Textarea, useDatepicker } from "@navikt/ds-react";
+import {
+  BodyShort,
+  Button,
+  Checkbox,
+  DatePicker,
+  Heading,
+  Textarea,
+  useDatepicker,
+} from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
@@ -8,7 +16,10 @@ import { Form, useParams } from "react-router";
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
-import { hentValideringForOpplysningSkjema, hentValideringForSlettOpplysningSkjema } from "~/utils/validering.util";
+import {
+  hentValideringForOpplysningSkjema,
+  hentValideringForSlettOpplysningSkjema,
+} from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -18,8 +29,8 @@ interface IProps {
   opplysning: components["schemas"]["Opplysning"];
   nestePeriode?: components["schemas"]["Opplysning"];
   forrigePeriode?: components["schemas"]["Opplysning"];
-  aktivOpplysning?: components["schemas"]["Opplysning"];
-  setAktivOpplysning: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
+  aktivPeriode?: components["schemas"]["Opplysning"];
+  setAktivPeriode: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
 }
 
 export function OpplysningKortRedigering({
@@ -28,14 +39,14 @@ export function OpplysningKortRedigering({
   opplysning,
   nestePeriode,
   forrigePeriode,
-  aktivOpplysning,
-  setAktivOpplysning,
+  aktivPeriode,
+  setAktivPeriode,
 }: IProps) {
   const { oppgaveId, regelsettNavn } = useParams();
   const ref = useRef<HTMLDivElement>(null);
-  const erProvingsDatoOpplysning = aktivOpplysning?.navn === "Prøvingsdato"; // Midlertidig løsning for å håndtere prøvingsdato som en spesiell opplysningstype. PJs jobber med hvordan de kan trekke ut prøvingsdato som en opplysning
-  const [ingenFomDato, setIngenFomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
-  const [ingenTomDato, setIngenTomDato] = useState<boolean>(erProvingsDatoOpplysning || false);
+  const erPrøvingsdatoOpplysning = opplysning?.navn === "Prøvingsdato"; // Midlertidig løsning for å håndtere prøvingsdato som en spesiell opplysningstype. PJs jobber med hvordan de kan trekke ut prøvingsdato som en opplysning
+  const [ingenFomDato, setIngenFomDato] = useState<boolean>(erPrøvingsdatoOpplysning || false);
+  const [ingenTomDato, setIngenTomDato] = useState<boolean>(erPrøvingsdatoOpplysning || false);
 
   const opplysningForm = useForm({
     method: "post",
@@ -46,7 +57,7 @@ export function OpplysningKortRedigering({
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
       verdi: formaterOpplysningVerdi(opplysning),
-      begrunnelse: erProvingsDatoOpplysning
+      begrunnelse: erPrøvingsdatoOpplysning
         ? "Prøvingsdato"
         : (opplysning.kilde?.begrunnelse?.verdi ?? ""),
       gyldigFraOgMed: opplysning.gyldigFraOgMed,
@@ -85,16 +96,16 @@ export function OpplysningKortRedigering({
   });
 
   useEffect(() => {
-    if (opplysning.id === aktivOpplysning?.id && ref.current) {
+    if (opplysning.id === aktivPeriode?.id && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [aktivOpplysning]);
+  }, [aktivPeriode]);
 
   return (
     <div
       ref={ref}
       className={classnames("card mt-2 p-4", {
-        "border-1 border-blue-400": aktivOpplysning?.id === opplysning.id,
+        "border-1 border-blue-400": aktivPeriode?.id === opplysning.id,
       })}
     >
       <Heading className={"mb-2 flex gap-1"} size={"xsmall"}>
@@ -104,6 +115,7 @@ export function OpplysningKortRedigering({
       <BodyShort size={"small"} weight={"semibold"}>
         {opplysning.navn}
       </BodyShort>
+
       <Form {...opplysningForm.getFormProps()}>
         <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
         <input
@@ -121,9 +133,10 @@ export function OpplysningKortRedigering({
           readOnly={true}
           {...opplysningForm.field("behandlingId").getInputProps()}
         />
+
         <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
-        {!erProvingsDatoOpplysning && (
+        {!erPrøvingsdatoOpplysning && (
           <>
             <div className={"mt-4 flex gap-8"}>
               <div>
@@ -218,7 +231,7 @@ export function OpplysningKortRedigering({
           variant="tertiary"
           type="button"
           size="xsmall"
-          onClick={() => setAktivOpplysning(undefined)}
+          onClick={() => setAktivPeriode(undefined)}
         >
           Avbryt
         </Button>

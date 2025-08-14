@@ -10,25 +10,25 @@ import { components } from "../../../openapi/behandling-typer";
 interface IProps {
   behandlingId: string;
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
-  aktivOpplysning?: components["schemas"]["Opplysning"];
-  setAktivOpplysning: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
+  aktivPeriode?: components["schemas"]["Opplysning"];
+  setAktivPeriode: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
 }
 
 export function OpplysningKort({
   behandlingId,
   opplysningGruppe,
-  aktivOpplysning,
-  setAktivOpplysning,
+  aktivPeriode,
+  setAktivPeriode,
 }: IProps) {
   return (
     <AnimatePresence initial={false}>
-      {aktivOpplysning?.id === NY_PERIODE_ID && (
+      {aktivPeriode?.id === NY_PERIODE_ID && (
         <AnimertOpplysningKort key={NY_PERIODE_ID}>
           <OpplysningKortRedigering
             behandlingId={behandlingId}
-            opplysning={aktivOpplysning}
-            aktivOpplysning={aktivOpplysning}
-            setAktivOpplysning={setAktivOpplysning}
+            opplysning={aktivPeriode}
+            aktivPeriode={aktivPeriode}
+            setAktivPeriode={setAktivPeriode}
             forrigePeriode={
               opplysningGruppe.opplysninger.length > 0
                 ? opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1]
@@ -41,18 +41,17 @@ export function OpplysningKort({
 
       {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
         const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
-        const erAktiv =
-          aktivOpplysning?.id === opplysning.id || opplysningGruppe.opplysninger.length === 1;
+        const erAktivOpplysningPeriode = aktivPeriode?.id === opplysning.id;
 
         return (
           <AnimertOpplysningKort key={opplysning.id}>
-            {erAktiv && opplysning.redigerbar ? (
+            {erAktivOpplysningPeriode && opplysning.redigerbar ? (
               <OpplysningKortRedigering
                 behandlingId={behandlingId}
                 opplysning={opplysning}
                 periodeNummer={periodeNummer}
-                aktivOpplysning={aktivOpplysning}
-                setAktivOpplysning={setAktivOpplysning}
+                aktivPeriode={aktivPeriode}
+                setAktivPeriode={setAktivPeriode}
                 nestePeriode={opplysningGruppe.opplysninger[periodeNummer + 1]}
                 forrigePeriode={opplysningGruppe.opplysninger[periodeNummer - 1]}
               />
@@ -61,8 +60,8 @@ export function OpplysningKort({
                 opplysning={opplysning}
                 periodeNummer={periodeNummer}
                 behandlingId={behandlingId}
-                aktivOpplysning={aktivOpplysning}
-                setAktivOpplysning={setAktivOpplysning}
+                aktivOpplysning={aktivPeriode}
+                setAktivOpplysning={setAktivPeriode}
               />
             )}
           </AnimertOpplysningKort>

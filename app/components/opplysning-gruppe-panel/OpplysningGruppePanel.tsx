@@ -19,19 +19,9 @@ export const NY_PERIODE_ID = "ny-periode";
 export function OpplysningGruppePanel({ behandling }: IProps) {
   const location = useLocation();
   const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
-  const [aktivOpplysning, setAktivOpplysning] = useState<components["schemas"]["Opplysning"]>();
-
   const opplysningGruppe = behandling.opplysningsgrupper.find(
     (gruppe) => gruppe.opplysningTypeId === aktivOpplysningsgruppeId,
   );
-
-  const sisteOpplysningPeriodeHarGyldigTilOgMedDato =
-    !opplysningGruppe?.opplysninger[opplysningGruppe?.opplysninger.length - 1].gyldigTilOgMed;
-
-  const kanIkkeLeggeTilNyPeriode =
-    !aktivOpplysning?.redigerbar ||
-    aktivOpplysning?.id === NY_PERIODE_ID ||
-    sisteOpplysningPeriodeHarGyldigTilOgMedDato;
 
   if (!opplysningGruppe) {
     return (
@@ -41,12 +31,24 @@ export function OpplysningGruppePanel({ behandling }: IProps) {
     );
   }
 
+  const [aktivPeriode, setAktivPeriode] = useState<components["schemas"]["Opplysning"] | undefined>(
+    opplysningGruppe.opplysninger.length === 1 ? opplysningGruppe.opplysninger[0] : undefined,
+  );
+
+  const sisteOpplysningPeriodeHarGyldigTilOgMedDato =
+    !opplysningGruppe?.opplysninger[opplysningGruppe?.opplysninger.length - 1].gyldigTilOgMed;
+
+  const kanLeggeTilNyPeriode =
+    !!aktivPeriode?.redigerbar &&
+    aktivPeriode?.id !== NY_PERIODE_ID &&
+    !sisteOpplysningPeriodeHarGyldigTilOgMedDato;
+
   function leggTilNyPeriode() {
     if (!opplysningGruppe) {
       return logger.error("Opplysning gruppe er ikke satt");
     }
 
-    setAktivOpplysning({
+    setAktivPeriode({
       opplysningTypeId: opplysningGruppe.opplysningTypeId,
       navn: opplysningGruppe.navn,
       datatype: opplysningGruppe.datatype,
@@ -65,6 +67,7 @@ export function OpplysningGruppePanel({ behandling }: IProps) {
         <div>
           <Heading size={"xsmall"}>{opplysningGruppe.navn}</Heading>
         </div>
+
         <Button
           size={"small"}
           variant={"tertiary"}
@@ -78,11 +81,11 @@ export function OpplysningGruppePanel({ behandling }: IProps) {
       <OpplysningTidslinje
         opplysningGruppe={opplysningGruppe}
         behandling={behandling}
-        aktivOpplysning={aktivOpplysning}
-        setAktivOpplysning={setAktivOpplysning}
+        aktivPeriode={aktivPeriode}
+        setAktivPeriode={setAktivPeriode}
       />
 
-      {!kanIkkeLeggeTilNyPeriode && (
+      {kanLeggeTilNyPeriode && (
         <Button
           className={"mt-2"}
           variant={"tertiary"}
@@ -97,8 +100,8 @@ export function OpplysningGruppePanel({ behandling }: IProps) {
       <OpplysningKort
         opplysningGruppe={opplysningGruppe}
         behandlingId={behandling.behandlingId}
-        aktivOpplysning={aktivOpplysning}
-        setAktivOpplysning={setAktivOpplysning}
+        aktivPeriode={aktivPeriode}
+        setAktivPeriode={setAktivPeriode}
       />
     </div>
   );
