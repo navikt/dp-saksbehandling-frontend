@@ -54,7 +54,7 @@
     "date-fns": "4.1.0",
     "graphql": "16.11.0",
     "graphql-request": "7.2.0",
-    "groq": "3.94.2",
+    "groq": "4.4.0",
     "isbot": "5.1.28",
     "lru-cache": "11.1.0",
     "motion": "12.19.1",
