@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
-const statuser: { id: components["schemas"]["OppgaveTilstand"]; tekst: string }[] = [
+const TILSTANDER: ITilstander[] = [
   { id: "KLAR_TIL_KONTROLL", tekst: "Klar til kontroll" },
   { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
@@ -13,9 +13,23 @@ const statuser: { id: components["schemas"]["OppgaveTilstand"]; tekst: string }[
   { id: "BEHANDLES_I_ARENA", tekst: "Sendt til Arena" },
 ];
 
-export function OppgaveFilterStatus() {
+interface IProps {
+  tilgjengeligTilstander?: components["schemas"]["OppgaveTilstand"][];
+}
+
+interface ITilstander {
+  id: components["schemas"]["OppgaveTilstand"];
+  tekst: string;
+}
+
+export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const tilstand = searchParams.getAll("tilstand");
+
+  const tilstander =
+    tilgjengeligTilstander && tilgjengeligTilstander.length > 0
+      ? TILSTANDER.filter((tilstand) => tilgjengeligTilstander.includes(tilstand.id))
+      : TILSTANDER;
 
   function updateSearchParams(key: string, value: string, checked: boolean) {
     if (!checked) {
@@ -30,7 +44,7 @@ export function OppgaveFilterStatus() {
     <div>
       <Detail textColor="subtle">Status</Detail>
       <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
-        {statuser.map((status) => (
+        {tilstander.map((status) => (
           <Checkbox
             name="tilstand"
             key={status.id}

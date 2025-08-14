@@ -1,7 +1,7 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-const avslagsgrunner = ["Minsteinntekt", "Streik"];
+const AVSLAGSGRUNNER = ["Minsteinntekt"];
 
 export function OppgaveFilterAvslagsgrunner() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export function OppgaveFilterAvslagsgrunner() {
     <div>
       <Detail textColor="subtle">Avslagsgrunner</Detail>
       <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
-        {avslagsgrunner.map((emneknagg) => (
+        {AVSLAGSGRUNNER.map((emneknagg) => (
           <Checkbox
             key={emneknagg}
             name="emneknagg"

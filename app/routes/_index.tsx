@@ -17,6 +17,7 @@ import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslags
 import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { Statistikk } from "~/components/statistikk/Statistikk";
@@ -30,7 +31,6 @@ import { isAlert } from "~/utils/type-guards";
 import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 
 export const oppgaverTilBehandlingDefaultParams = [
-  { key: "tilstand", value: "KLAR_TIL_KONTROLL" },
   { key: "tilstand", value: "KLAR_TIL_BEHANDLING" },
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
@@ -107,6 +107,9 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
             <OppgaveFilterDato />
+            <OppgaveFilterStatus
+              tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
+            />
             <OppgaveFilterBehandlingType />
             <OppgaveFilterRettighetstype />
             <OppgaveFilterAvslagsgrunner />
