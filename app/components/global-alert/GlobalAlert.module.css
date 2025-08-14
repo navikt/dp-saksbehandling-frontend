@@ -14,10 +14,6 @@
   margin-bottom: var(--a-spacing-2);
 
   opacity: 0;
-  animation-duration: 3000ms;
-  animation-name: fadeInOut;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
 }
 
 .alertFadeIn {
