@@ -126,9 +126,7 @@ export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opply
     case "boolsk":
       return opplysning.verdi === "true" ? "Ja" : "Nei";
     case "barn": {
-      const barnArrayLength = (opplysning.verdien as components["schemas"]["Barneliste"])?.verdi
-        .length;
-      return `${barnArrayLength > 0 ? barnArrayLength - 1 : 0}`;
+      return (opplysning.verdien as components["schemas"]["Barneliste"])?.verdi.length.toString();
     }
 
     default:
