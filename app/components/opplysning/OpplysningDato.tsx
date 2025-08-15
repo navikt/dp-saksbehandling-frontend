@@ -2,8 +2,8 @@ import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import type { IOpplysningProps } from "~/components/opplysning/Opplysning";
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import styles from "./Opplysning.module.css";
 

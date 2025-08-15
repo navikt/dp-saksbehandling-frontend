@@ -14,8 +14,8 @@ import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 

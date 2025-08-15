@@ -9,8 +9,6 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { Regelsett } from "~/components/regelsett/Regelsett";
-import { RegelsettPeriode } from "~/components/regelsett/RegelsettPeriode";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -45,7 +43,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function RegelsettRoute() {
   const { regelsettNavn } = useParams();
-  const { periodisertBehandlingsView } = useSaksbehandler();
   const { behandling } = useTypedRouteLoaderData("routes/behandling.$behandlingId");
 
   const alleRegelsett = [...behandling.vilkår, ...behandling.fastsettelser];
@@ -56,17 +53,7 @@ export default function RegelsettRoute() {
   }
 
   return (
-    <>
-      {periodisertBehandlingsView ? (
-        <RegelsettPeriode
-          behandling={behandling}
-          aktivtRegelsett={nåværendeRegelsett}
-          readonly={false}
-        />
-      ) : (
-        <Regelsett behandling={behandling} aktivtRegelsett={nåværendeRegelsett} readonly={false} />
-      )}
-    </>
+    <Regelsett behandling={behandling} aktivtRegelsett={nåværendeRegelsett} readonly={false} />
   );
 }
 

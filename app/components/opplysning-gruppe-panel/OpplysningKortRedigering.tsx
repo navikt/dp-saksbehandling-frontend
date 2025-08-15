@@ -15,7 +15,7 @@ import { Form, useParams } from "react-router";
 
 import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import {
   hentValideringForOpplysningSkjema,
   hentValideringForSlettOpplysningSkjema,

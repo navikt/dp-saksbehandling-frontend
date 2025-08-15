@@ -6,7 +6,6 @@ import classnames from "classnames";
 import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
@@ -47,7 +46,6 @@ interface IProps {
 function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const { periodisertBehandlingsView } = useSaksbehandler();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { behandling } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
@@ -71,17 +69,11 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
   }
 
   return (
-    <div
-      className={classnames(styles.orkestratorBarn, {
-        ["card m-4 p-2"]: periodisertBehandlingsView,
-      })}
-    >
+    <div className={classnames(styles.orkestratorBarn, "card m-4 p-2")}>
       <Heading
         level="4"
         size="xsmall"
-        className={classnames(styles.opplysningBarnHeader, {
-          ["mt-1 mb-0"]: periodisertBehandlingsView,
-        })}
+        className={classnames(styles.opplysningBarnHeader, "mt-1 mb-0")}
         spacing
       >
         Barn {barnNummer}

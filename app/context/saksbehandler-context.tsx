@@ -7,8 +7,6 @@ interface ISaksbehandlerContext {
   setAktivtOppgaveSok: (sok: string) => void;
   skjulSensitiveOpplysninger: boolean;
   setSkjulSensitiveOpplysninger: (verdi: boolean) => void;
-  periodisertBehandlingsView: boolean;
-  setPeriodisertBehandlingsView: (verdi: boolean) => void;
 }
 
 export const SaksbehandlerContext = createContext<ISaksbehandlerContext | undefined>(undefined);
@@ -19,10 +17,6 @@ export function SaksbehandlerProvider({ children }: PropsWithChildren) {
     "skjul-sensitive-opplysninger",
     false,
   );
-  const [periodisertBehandlingsView, setPeriodisertBehandlingsView] = useLocalStorage<boolean>(
-    "periodisert-behandlings-view",
-    true,
-  );
 
   return (
     <SaksbehandlerContext.Provider
@@ -31,8 +25,6 @@ export function SaksbehandlerProvider({ children }: PropsWithChildren) {
         setAktivtOppgaveSok,
         skjulSensitiveOpplysninger,
         setSkjulSensitiveOpplysninger,
-        periodisertBehandlingsView,
-        setPeriodisertBehandlingsView,
       }}
     >
       {children}

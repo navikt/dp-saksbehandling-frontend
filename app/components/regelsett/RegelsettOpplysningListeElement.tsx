@@ -8,8 +8,8 @@ import { BodyShort, Tooltip } from "@navikt/ds-react";
 import classnames from "classnames";
 import { motion } from "motion/react";
 
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./Regelsett.module.css";

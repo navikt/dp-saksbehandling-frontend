@@ -1,7 +1,7 @@
 import { BodyShort, ExpansionCard } from "@navikt/ds-react";
 
 import { OpplysningBegrunnelse } from "~/components/opplysning-begrunnelse/OpplysningBegrunnelse";
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 

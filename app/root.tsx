@@ -91,9 +91,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
-  const periodiserteOpplysninger = unleash.isEnabled(
-    "dp-saksbehandling-frontend.periodiserte-opplysninger",
-  );
   const orkestratorBarnOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
@@ -106,7 +103,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       halloween,
       valentines,
       hippHippHurra,
-      periodiserteOpplysninger,
       orkestratorBarnOpplysninger,
     },
     env: {

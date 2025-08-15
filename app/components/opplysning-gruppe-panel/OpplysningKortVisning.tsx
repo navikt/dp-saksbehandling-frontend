@@ -3,8 +3,8 @@ import { BodyLong, BodyShort, Button, Detail, Heading } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useEffect, useRef } from "react";
 
-import { formaterOpplysningVerdi } from "~/components/opplysning-linje/OpplysningLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
