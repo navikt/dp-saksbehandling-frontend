@@ -12,7 +12,12 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
     throw new Error("Mangler aktivt oppgave søk");
   }
 
-  const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSok);
+  const params = new URLSearchParams(aktivtOppgaveSok);
+  params.delete("side");
+  params.delete("antallOppgaver");
+  const aktivtOppgaveSokUtenPaginering = params.toString();
+
+  const { data, error, response } = await hentNesteOppgave(request, aktivtOppgaveSokUtenPaginering);
 
   if (data) {
     switch (data.behandlingType) {

@@ -50,7 +50,7 @@ export default function BehandlingRoute() {
     <>
       {behandling.tilstand === "Redigert" && (
         <Alert size={"small"} variant={"error"}>
-          Det er løk i regelmotoren. Oppdater nettleseren for å se om løken er borte.
+          Det er løk i regelmotoren. Oppdater nettleseren for å se om løken er borte 🧅
           <Button
             size={"small"}
             className={"ml-2"}
