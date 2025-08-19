@@ -1,7 +1,7 @@
 import type { SortState } from "@navikt/ds-react";
 import { useState } from "react";
 
-interface ISortState<T> extends SortState {
+export interface ISortState<T> extends SortState {
   orderBy: keyof T & string;
 }
 

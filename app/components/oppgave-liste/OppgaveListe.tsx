@@ -5,7 +5,7 @@ import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-b
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { useTableSort } from "~/hooks/useTableSort";
+import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
@@ -17,27 +17,17 @@ interface IProps {
   totaltAntallOppgaver: number;
   tittel?: string;
   icon?: React.ReactNode;
-  sorterbar?: boolean;
+  sortState?: ISortState<components["schemas"]["OppgaveOversikt"]>;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
 }
 
-export function OppgaveListe({
-  oppgaver,
-  tittel,
-  icon,
-  totaltAntallOppgaver,
-  sorterbar,
-  lasterOppgaver,
-  visPersonIdent,
-}: IProps) {
+export function OppgaveListe(props: IProps) {
+  const { oppgaver, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const { sortedData, handleSort, sortState } = useTableSort<
     components["schemas"]["OppgaveOversikt"]
-  >(oppgaver, {
-    orderBy: "tidspunktOpprettet",
-    direction: "ascending",
-  });
+  >(oppgaver, props.sortState);
 
   return (
     <div className="flex flex-col p-4">
@@ -58,7 +48,7 @@ export function OppgaveListe({
       </div>
 
       <Table
-        sort={sorterbar ? sortState : undefined}
+        sort={props.sortState ? sortState : undefined}
         size="small"
         className={"tabell--subtil"}
         zebraStripes={true}
@@ -68,7 +58,11 @@ export function OppgaveListe({
       >
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader scope="col" sortKey="tidspunktOpprettet" sortable={sorterbar}>
+            <Table.ColumnHeader
+              scope="col"
+              sortKey="tidspunktOpprettet"
+              sortable={!!props.sortState}
+            >
               <Detail>Opprettet</Detail>
             </Table.ColumnHeader>
 
@@ -90,7 +84,7 @@ export function OppgaveListe({
               <Detail>Status</Detail>
             </Table.ColumnHeader>
 
-            <Table.ColumnHeader scope="col" sortKey="saksbehandlerIdent">
+            <Table.ColumnHeader scope="col">
               <Detail>Saksbehandler</Detail>
             </Table.ColumnHeader>
 

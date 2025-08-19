@@ -70,6 +70,10 @@ export default function PersonOversikt() {
           icon={<PencilWritingIcon fontSize="1.5rem" aria-hidden />}
           oppgaver={oppgaverTilBehandling}
           totaltAntallOppgaver={personOversikt.oppgaver.length}
+          sortState={{
+            orderBy: "tidspunktOpprettet",
+            direction: "descending",
+          }}
         />
       </div>
 
