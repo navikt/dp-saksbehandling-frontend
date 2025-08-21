@@ -50,13 +50,29 @@ export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Op
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44c",
 };
 
-export const underBehandlingMinOppgaveKreverKontroll: components["schemas"]["Oppgave"] = {
+export const underKontrollMinOppgave: components["schemas"]["Oppgave"] = {
   oppgaveId: "015e3737-9df8-7ee4-94a6-317fgsa10147",
   behandlingType: "RETT_TIL_DAGPENGER",
   behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
   person: mockGradertPerson,
   lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
+  beslutter: mockOppgaveBeslutter,
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Innvilgelse"],
+  tilstand: "UNDER_KONTROLL",
+  journalpostIder: ["639664664", "598116231"],
+  historikk: mockHistorikk,
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
+};
+
+export const underKontrollAnnenSaksbehandler: components["schemas"]["Oppgave"] = {
+  oppgaveId: "015e3737-9df8-7ee4-94a6-117fgsa10147",
+  behandlingType: "RETT_TIL_DAGPENGER",
+  behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+  person: mockGradertPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  saksbehandler: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   beslutter: mockOppgaveBeslutter,
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
@@ -175,7 +191,8 @@ export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingAvslagOppgaveMineOppgave,
   underBehandlingMeldekortOppgaveMineOppgave,
-  underBehandlingMinOppgaveKreverKontroll,
+  underKontrollMinOppgave,
+  underKontrollAnnenSaksbehandler,
   underBehandlingAnnenSaksbehandlerOppgave,
   ferdigBehandletOppgave,
   ferdigBehandletAutomatiskOppgave,

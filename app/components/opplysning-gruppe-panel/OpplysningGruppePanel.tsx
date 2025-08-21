@@ -12,11 +12,12 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   behandling: components["schemas"]["Behandling"];
+  readonly?: boolean;
 }
 
 export const NY_PERIODE_ID = "ny-periode";
 
-export function OpplysningGruppePanel({ behandling }: IProps) {
+export function OpplysningGruppePanel({ behandling, readonly }: IProps) {
   const location = useLocation();
   const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const opplysningGruppe = behandling.opplysningsgrupper.find(
@@ -102,6 +103,7 @@ export function OpplysningGruppePanel({ behandling }: IProps) {
         behandlingId={behandling.behandlingId}
         aktivPeriode={aktivPeriode}
         setAktivPeriode={setAktivPeriode}
+        readonly={readonly}
       />
     </div>
   );

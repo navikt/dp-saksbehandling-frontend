@@ -14,8 +14,10 @@ import styles from "./OppgaveKontroll.module.css";
 export function OppgaveKontroll() {
   const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fetcher = useDebounceFetcher<typeof action>();
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   useEffect(() => {
     if (fetcher.data) {
@@ -48,6 +50,7 @@ export function OppgaveKontroll() {
           onChange={(event) => lagreBeslutterNotat(event, 2000)}
           onBlur={(event) => lagreBeslutterNotat(event, 0)}
           resize="vertical"
+          disabled={oppgave.tilstand !== "UNDER_KONTROLL" || !minOppgave}
           label={
             <>
               <Heading size="small">

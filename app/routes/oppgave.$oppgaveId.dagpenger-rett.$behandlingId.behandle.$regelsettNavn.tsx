@@ -13,6 +13,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function RegelsettRoute() {
   const { regelsettNavn } = useParams();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { behandling } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
@@ -22,6 +23,7 @@ export default function RegelsettRoute() {
 
   const alleRegelsett = [...behandling.vilkår, ...behandling.fastsettelser];
   const nåværendeRegelsett = alleRegelsett.find((regelsett) => regelsett.navn === regelsettNavn);
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   if (!nåværendeRegelsett) {
     return <div>Fant ikke regelsett</div>;
@@ -31,7 +33,7 @@ export default function RegelsettRoute() {
     <Regelsett
       behandling={behandling}
       aktivtRegelsett={nåværendeRegelsett}
-      readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+      readonly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
     />
   );
 }
