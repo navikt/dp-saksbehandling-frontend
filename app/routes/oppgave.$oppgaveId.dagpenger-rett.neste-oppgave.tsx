@@ -1,4 +1,4 @@
-import { Button, Heading } from "@navikt/ds-react";
+import { BodyShort, Button, Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   data,
@@ -9,6 +9,7 @@ import {
   useRouteError,
 } from "react-router";
 
+import { AktivOppgaveSøk } from "~/components/aktivt-oppgave-søk-tags/AktivtOppgaveSøkTags";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { RemixLink } from "~/components/RemixLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -41,30 +42,33 @@ export default function NesteOppgave() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <div className="flex flex-grow flex-col">
-      <div className="card flex flex-grow-1 flex-col items-center gap-8 pt-16">
-        <span className="text-7xl">🫡</span>
-        <Heading size="xlarge">{alert?.title}</Heading>
+    <>
+      <div className="card">
+        <div className={"mx-auto flex max-w-[650px] flex-col items-center gap-8 py-16"}>
+          <span className="text-5xl">🫡</span>
+          <Heading size="xlarge">Ferdig!</Heading>
+          <BodyShort>{alert?.title}</BodyShort>
 
-        <div className="flex gap-6">
-          <Form method="post">
+          <Form method="post" className={"flex flex-col items-center"}>
             <input name="_action" value="hent-neste-oppgave" hidden={true} readOnly={true} />
             <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
             <Button variant="primary" loading={state !== "idle"} disabled={state !== "idle"}>
-              Neste oppgave
+              Start neste oppgave
             </Button>
+            <AktivOppgaveSøk aktivtOppgaveSok={aktivtOppgaveSok} />
           </Form>
-        </div>
-        <div className="flex gap-6">
-          <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
-            Gå til oppgaveliste
-          </RemixLink>
-          <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
-            Gå til personoversikt
-          </RemixLink>
+
+          <div className="flex gap-6">
+            <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+              Gå til oppgaveliste
+            </RemixLink>
+            <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
+              Gå til personoversikt
+            </RemixLink>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

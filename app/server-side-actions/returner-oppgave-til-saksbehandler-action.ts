@@ -14,7 +14,6 @@ export async function returnerOppgaveTilSaksbehandlerAction(
 ) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   const notat = formData.get("notat") as string;
-  const behandlingId = formData.get("behandlingId") as string;
 
   if (!notat) {
     const error: IFormValidationError = {
@@ -39,7 +38,7 @@ export async function returnerOppgaveTilSaksbehandlerAction(
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/oppgave/${params.oppgaveId}/dagpenger-rett/${behandlingId}/neste-oppgave`, {
+  return redirect(`/oppgave/${params.oppgaveId}/dagpenger-rett/neste-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

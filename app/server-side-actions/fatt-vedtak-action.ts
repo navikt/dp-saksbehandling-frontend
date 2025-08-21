@@ -27,7 +27,7 @@ export async function fattVedtakAction(
   };
 
   session.flash("alert", successAlert);
-  return redirect(`/oppgave/${params.oppgaveId}/dagpenger-rett/${behandlingId}/fullfort-oppgave`, {
+  return redirect(`/oppgave/${params.oppgaveId}/dagpenger-rett/fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

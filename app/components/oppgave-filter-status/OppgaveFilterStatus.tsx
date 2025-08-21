@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
-const TILSTANDER: ITilstander[] = [
+export const TILSTANDER: ITilstander[] = [
   { id: "KLAR_TIL_KONTROLL", tekst: "Klar til kontroll" },
   { id: "UNDER_KONTROLL", tekst: "Under kontroll" },
   { id: "KLAR_TIL_BEHANDLING", tekst: "Klar til behandling" },
