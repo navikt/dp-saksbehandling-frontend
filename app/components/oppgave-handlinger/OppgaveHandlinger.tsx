@@ -1,3 +1,4 @@
+import { PadlockLockedIcon } from "@navikt/aksel-icons";
 import { Tag } from "@navikt/ds-react";
 import { Fragment } from "react";
 
@@ -45,8 +46,6 @@ function hentGyldigeOppgaveValg(
     handlinger.push("legg-tilbake");
     return handlinger;
   }
-
-  console.log("ikke kjør");
 
   switch (oppgave.behandlingType) {
     case "RETT_TIL_DAGPENGER":
@@ -120,7 +119,13 @@ export function OppgaveHandlinger(props: IProps) {
             )}
           </Fragment>
         ))}
-        {!minOppgave && <Tag variant={"error-filled"}>Lesemodus</Tag>}
+
+        {!minOppgave && (
+          <Tag variant={"neutral"}>
+            <PadlockLockedIcon />
+            Kun lesetilgang
+          </Tag>
+        )}
       </div>
     </div>
   );
