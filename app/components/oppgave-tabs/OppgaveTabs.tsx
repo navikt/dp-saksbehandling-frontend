@@ -1,6 +1,6 @@
 import { DocPencilIcon } from "@navikt/aksel-icons";
 import classnames from "classnames";
-import { useLocation, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 
 import styles from "./OppgaveTabs.module.css";
 
@@ -24,15 +24,15 @@ export function OppgaveTabs() {
       <ol className={styles.container}>
         {TABS.map(({ path, label }) => (
           <li key={path}>
-            <a
-              href={`${currentBasePath}${path}`}
+            <Link
+              to={`${currentBasePath}${path}`}
               className={classnames(styles.lenke, {
                 [styles.lenkeAktiv]: location.pathname.includes(path),
               })}
             >
               <DocPencilIcon aria-hidden />
               {label}
-            </a>
+            </Link>
           </li>
         ))}
       </ol>
