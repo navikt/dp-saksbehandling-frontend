@@ -31,9 +31,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function BegrunnelseRoute() {
   const { vurderinger } = useLoaderData<typeof loader>();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   return (
     <div className={"bg-(--a-grayalpha-50) p-4"}>
@@ -46,14 +48,14 @@ export default function BegrunnelseRoute() {
       {vurderinger.opplysninger.length > 0 && (
         <BegrunnelseOpplysninger
           opplysninger={vurderinger.opplysninger}
-          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
         />
       )}
 
       {vurderinger.avklaringer.length > 0 && (
         <BegrunnelseAvklaringer
           avklaringer={vurderinger.avklaringer}
-          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
         />
       )}
     </div>

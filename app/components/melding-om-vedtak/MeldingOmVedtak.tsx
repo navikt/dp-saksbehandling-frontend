@@ -8,13 +8,14 @@ import { UtvidedeBeskrivelser } from "../utvidede-beskrivelser/UtvidedeBeskrivel
 import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak() {
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { meldingOmVedtak, oppgave } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
   );
-
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
     components["schemas"]["UtvidetBeskrivelse"][]
   >(meldingOmVedtak?.utvidedeBeskrivelser ?? []);
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   return (
     <>
@@ -22,7 +23,7 @@ export function MeldingOmVedtak() {
         <UtvidedeBeskrivelser
           utvidedeBeskrivelser={utvidedeBeskrivelser}
           setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+          readOnly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
         />
 
         <MeldingOmVedtakPreview
