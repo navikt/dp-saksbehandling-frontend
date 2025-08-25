@@ -92,7 +92,11 @@ interface IProps {
 export function OppgaveHandlinger(props: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const minOppgave =
+    (oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
+      oppgave.tilstand === "UNDER_BEHANDLING") ||
+    (oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
+      oppgave.tilstand === "UNDER_KONTROLL");
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(minOppgave, oppgave, props.behandling);
 
   return (

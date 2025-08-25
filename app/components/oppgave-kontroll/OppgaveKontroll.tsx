@@ -17,7 +17,7 @@ export function OppgaveKontroll() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const fetcher = useDebounceFetcher<typeof action>();
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const minOppgave = oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName;
 
   useEffect(() => {
     if (fetcher.data) {
@@ -50,7 +50,7 @@ export function OppgaveKontroll() {
           onChange={(event) => lagreBeslutterNotat(event, 2000)}
           onBlur={(event) => lagreBeslutterNotat(event, 0)}
           resize="vertical"
-          disabled={oppgave.tilstand !== "UNDER_KONTROLL" || !minOppgave}
+          disabled={!minOppgave}
           label={
             <>
               <Heading size="small">

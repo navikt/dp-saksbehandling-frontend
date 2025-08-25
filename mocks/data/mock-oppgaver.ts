@@ -57,7 +57,7 @@ export const underKontrollMinOppgave: components["schemas"]["Oppgave"] = {
   person: mockGradertPerson,
   lovligeEndringer: mockLovligeEndringer,
   saksbehandler: mockOppgaveSaksbehandler,
-  beslutter: mockOppgaveBeslutter,
+  beslutter: { ...mockOppgaveBeslutter, ident: "ident456" },
   tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
   emneknagger: ["Innvilgelse"],
   tilstand: "UNDER_KONTROLL",

@@ -21,7 +21,12 @@ export function konverterOppgaveTilListeOppgave(
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
     personIdent: oppgave.person?.ident || "12345678910",
-    behandlerIdent: oppgave.saksbehandler?.ident,
+    behandlerIdent:
+      oppgave.tilstand === "UNDER_BEHANDLING"
+        ? oppgave.saksbehandler?.ident
+        : oppgave.tilstand === "UNDER_KONTROLL"
+          ? oppgave.beslutter?.ident
+          : "",
     skjermesSomEgneAnsatte: oppgave.person.skjermesSomEgneAnsatte,
     adressebeskyttelseGradering: oppgave.person.adressebeskyttelseGradering,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
