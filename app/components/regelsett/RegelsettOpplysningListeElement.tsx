@@ -16,9 +16,10 @@ import styles from "./Regelsett.module.css";
 
 interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
+  readonly?: boolean;
 }
 
-export function RegelsettOpplysningListeElement({ opplysningGruppe }: IProps) {
+export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: IProps) {
   const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const erAktivGruppe = aktivOpplysningsgruppeId === opplysningGruppe.opplysningTypeId;
 
@@ -41,7 +42,7 @@ export function RegelsettOpplysningListeElement({ opplysningGruppe }: IProps) {
             </Tooltip>
           )}
 
-          {!opplysningGruppe.redigerbar && (
+          {(!opplysningGruppe.redigerbar || readonly) && (
             <Tooltip content="Opplysningen er ikke redigerbar">
               <PadlockLockedIcon />
             </Tooltip>

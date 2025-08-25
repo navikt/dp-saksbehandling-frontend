@@ -1,3 +1,5 @@
+import { PadlockLockedIcon } from "@navikt/aksel-icons";
+import { Tag } from "@navikt/ds-react";
 import { Fragment } from "react";
 
 import { KravPaaDagpenger } from "~/components/krav-paa-dagpenger/KravPaaDagpenger";
@@ -34,10 +36,16 @@ export type IGyldigeOppgaveHandlinger =
   | "returner-til-saksbehandler";
 
 function hentGyldigeOppgaveValg(
+  minOppgave: boolean,
   oppgave: saksbehandlingComponent["schemas"]["Oppgave"],
   behandling?: behandlingComponent["schemas"]["Behandling"],
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
+
+  if (!minOppgave) {
+    handlinger.push("legg-tilbake");
+    return handlinger;
+  }
 
   switch (oppgave.behandlingType) {
     case "RETT_TIL_DAGPENGER":
@@ -82,8 +90,14 @@ interface IProps {
 }
 
 export function OppgaveHandlinger(props: IProps) {
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, props.behandling);
+  const minOppgave =
+    (oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
+      oppgave.tilstand === "UNDER_BEHANDLING") ||
+    (oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
+      oppgave.tilstand === "UNDER_KONTROLL");
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(minOppgave, oppgave, props.behandling);
 
   return (
     <div className={"card flex"}>
@@ -109,6 +123,13 @@ export function OppgaveHandlinger(props: IProps) {
             )}
           </Fragment>
         ))}
+
+        {!minOppgave && (
+          <Tag variant={"neutral"}>
+            <PadlockLockedIcon />
+            Kun lesetilgang
+          </Tag>
+        )}
       </div>
     </div>
   );

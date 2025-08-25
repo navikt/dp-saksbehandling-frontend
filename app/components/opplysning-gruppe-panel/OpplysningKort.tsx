@@ -12,6 +12,7 @@ interface IProps {
   opplysningGruppe: components["schemas"]["Opplysningsgruppe"];
   aktivPeriode?: components["schemas"]["Opplysning"];
   setAktivPeriode: (opplysning: components["schemas"]["Opplysning"] | undefined) => void;
+  readonly?: boolean;
 }
 
 export function OpplysningKort({
@@ -19,6 +20,7 @@ export function OpplysningKort({
   opplysningGruppe,
   aktivPeriode,
   setAktivPeriode,
+  readonly,
 }: IProps) {
   return (
     <AnimatePresence initial={false}>
@@ -42,10 +44,12 @@ export function OpplysningKort({
       {[...opplysningGruppe.opplysninger].reverse().map((opplysning, index) => {
         const periodeNummer = opplysningGruppe.opplysninger.length - 1 - index;
         const erAktivOpplysningPeriode = aktivPeriode?.id === opplysning.id;
+        const kanRedigereOpplysning =
+          erAktivOpplysningPeriode && opplysning.redigerbar && !readonly;
 
         return (
           <AnimertOpplysningKort key={opplysning.id}>
-            {erAktivOpplysningPeriode && opplysning.redigerbar ? (
+            {kanRedigereOpplysning ? (
               <OpplysningKortRedigering
                 behandlingId={behandlingId}
                 opplysning={opplysning}
@@ -62,6 +66,7 @@ export function OpplysningKort({
                 behandlingId={behandlingId}
                 aktivOpplysning={aktivPeriode}
                 setAktivOpplysning={setAktivPeriode}
+                readonly={readonly}
               />
             )}
           </AnimertOpplysningKort>

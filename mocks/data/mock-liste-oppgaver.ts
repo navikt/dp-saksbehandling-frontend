@@ -8,7 +8,8 @@ import {
   underBehandlingAvslagOppgaveMineOppgave,
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMeldekortOppgaveMineOppgave,
-  underBehandlingMinOppgaveKreverKontroll,
+  underKontrollAnnenSaksbehandler,
+  underKontrollMinOppgave,
 } from "./mock-oppgaver";
 
 export function konverterOppgaveTilListeOppgave(
@@ -20,7 +21,12 @@ export function konverterOppgaveTilListeOppgave(
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
     personIdent: oppgave.person?.ident || "12345678910",
-    behandlerIdent: oppgave.saksbehandler?.ident,
+    behandlerIdent:
+      oppgave.tilstand === "UNDER_BEHANDLING"
+        ? oppgave.saksbehandler?.ident
+        : oppgave.tilstand === "UNDER_KONTROLL"
+          ? oppgave.beslutter?.ident
+          : "",
     skjermesSomEgneAnsatte: oppgave.person.skjermesSomEgneAnsatte,
     adressebeskyttelseGradering: oppgave.person.adressebeskyttelseGradering,
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
@@ -33,7 +39,8 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingAvslagOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMeldekortOppgaveMineOppgave),
-  konverterOppgaveTilListeOppgave(underBehandlingMinOppgaveKreverKontroll),
+  konverterOppgaveTilListeOppgave(underKontrollMinOppgave),
+  konverterOppgaveTilListeOppgave(underKontrollAnnenSaksbehandler),
   konverterOppgaveTilListeOppgave(underBehandlingAnnenSaksbehandlerOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),

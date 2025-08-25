@@ -16,7 +16,7 @@ import {
 import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterUtfall";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";

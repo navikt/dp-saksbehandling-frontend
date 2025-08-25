@@ -14,7 +14,7 @@ interface IProps {
   readonly?: boolean;
 }
 
-export function Regelsett({ behandling, aktivtRegelsett }: IProps) {
+export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   const opplysningGrupper = aktivtRegelsett.opplysningTypeIder
     .map((id) =>
       behandling.opplysningsgrupper.find(
@@ -58,22 +58,39 @@ export function Regelsett({ behandling, aktivtRegelsett }: IProps) {
       <Avklaringer
         avklaringer={aktivtRegelsett.avklaringer}
         behandlingId={behandling.behandlingId}
+        readOnly={readonly}
       />
 
       {brukerOpplysninger.length > 0 && (
-        <RegelsettOpplysningListe tittel={"Søknad"} opplysninger={brukerOpplysninger} />
+        <RegelsettOpplysningListe
+          tittel={"Søknad"}
+          opplysninger={brukerOpplysninger}
+          readonly={readonly}
+        />
       )}
 
       {registerOpplysninger.length > 0 && (
-        <RegelsettOpplysningListe tittel={"Register"} opplysninger={registerOpplysninger} />
+        <RegelsettOpplysningListe
+          tittel={"Register"}
+          opplysninger={registerOpplysninger}
+          readonly={readonly}
+        />
       )}
 
       {legacyOpplysninger.length > 0 && (
-        <RegelsettOpplysningListe tittel={"Arena"} opplysninger={legacyOpplysninger} />
+        <RegelsettOpplysningListe
+          tittel={"Arena"}
+          opplysninger={legacyOpplysninger}
+          readonly={readonly}
+        />
       )}
 
       {regelOpplysninger.length > 0 && (
-        <RegelsettOpplysningListe tittel={"Regelmotor"} opplysninger={regelOpplysninger} />
+        <RegelsettOpplysningListe
+          tittel={"Regelmotor"}
+          opplysninger={regelOpplysninger}
+          readonly={readonly}
+        />
       )}
 
       {visOrkestratorBarn && barnOpplysningId && (

@@ -13,6 +13,7 @@ import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandling } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
@@ -55,15 +56,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { behandling, oppgave } = useLoaderData<typeof loader>();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   return (
     <>
       <Avklaringer
         avklaringer={behandling.avklaringer}
         behandlingId={behandling.behandlingId}
-        readOnly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+        readOnly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
       />
 
       <div className={styles.container}>

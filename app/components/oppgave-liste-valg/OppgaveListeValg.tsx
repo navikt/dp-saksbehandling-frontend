@@ -37,7 +37,10 @@ export function OppgaveListeValg({ oppgave }: IProps) {
     oppgave.tilstand !== "BEHANDLES_I_ARENA";
 
   const kanSeOppgave =
-    oppgave.tilstand === "FERDIG_BEHANDLET" || oppgave.tilstand === "BEHANDLES_I_ARENA";
+    oppgave.tilstand === "FERDIG_BEHANDLET" ||
+    oppgave.tilstand === "BEHANDLES_I_ARENA" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !minSaksbehandlerOppgave) ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && !minBeslutterOppgaver);
 
   return (
     <>

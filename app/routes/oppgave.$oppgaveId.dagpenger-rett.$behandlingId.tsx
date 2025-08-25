@@ -43,8 +43,10 @@ export default function BehandlingRoute() {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { aktivOpplysningsgruppeId } = useDagpengerRettBehandling();
   const { revalidate } = useRevalidator();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   return (
     <>
@@ -86,7 +88,10 @@ export default function BehandlingRoute() {
                   }}
                   key={aktivOpplysningsgruppeId}
                 >
-                  <OpplysningGruppePanel behandling={behandling} />
+                  <OpplysningGruppePanel
+                    behandling={behandling}
+                    readonly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
+                  />
                 </motion.div>
               ) : (
                 <OppgaveInformasjon

@@ -14,6 +14,7 @@ interface IProps {
   opplysning: components["schemas"]["Opplysning"];
   aktivOpplysning?: components["schemas"]["Opplysning"];
   setAktivOpplysning: (opplysning: components["schemas"]["Opplysning"]) => void;
+  readonly?: boolean;
 }
 
 export function OpplysningKortVisning({
@@ -21,6 +22,7 @@ export function OpplysningKortVisning({
   aktivOpplysning,
   periodeNummer,
   opplysning,
+  readonly,
 }: IProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,7 +41,7 @@ export function OpplysningKortVisning({
     >
       <Heading className={"mb-2 flex items-center gap-1"} size={"xsmall"}>
         Periode {periodeNummer + 1}{" "}
-        {opplysning.redigerbar ? (
+        {opplysning.redigerbar && !readonly ? (
           <Button
             size={"xsmall"}
             className={"ml-auto"}
