@@ -7,7 +7,7 @@ import {
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
 import { motion } from "motion/react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./RegelsettMeny.module.css";
@@ -24,15 +24,15 @@ export function RegelsettMeny({ behandling }: IProps) {
         if (regelsett.opplysningIder.length > 0) {
           return (
             <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <a
-                href={regelsett.navn}
+              <Link
+                to={regelsett.navn}
                 className={classnames(styles.lenke, {
                   [styles.akitvtRegelsett]: regelsettNavn === regelsett.navn,
                 })}
               >
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
-              </a>
+              </Link>
             </motion.li>
           );
         }
@@ -44,15 +44,15 @@ export function RegelsettMeny({ behandling }: IProps) {
         if (regelsett.opplysningIder.length > 0) {
           return (
             <motion.li key={regelsett.navn} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <a
-                href={regelsett.navn}
+              <Link
+                to={regelsett.navn}
                 className={classnames(styles.lenke, {
                   [styles.akitvtRegelsett]: regelsettNavn === regelsett.navn,
                 })}
               >
                 {renderStatusIcon(regelsett.status)}
                 {regelsett.navn}
-              </a>
+              </Link>
             </motion.li>
           );
         }
