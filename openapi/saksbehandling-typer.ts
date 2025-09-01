@@ -272,6 +272,131 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/oppgave/{oppgaveId}/kontrollert-brev": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Beslutter kvitterer ut at brev er kontrollert i gosys */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["KontrollertBrevRequest"];
+                };
+            };
+            responses: {
+                /** @description Flagg for kontrollert brev er lagret */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Feil ved parsing av request body */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppgaven ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppgave/{oppgaveId}/melding-om-vedtak-kilde": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Endre kilde for melding om vedtak */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["MeldingOmVedtakKildeRequest"];
+                };
+            };
+            responses: {
+                /** @description Kilde for melding om vedtak er lagret */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppgaven ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/oppgave/{oppgaveId}/send-til-kontroll": {
         parameters: {
             query?: never;
@@ -416,11 +541,7 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["SendMeldingOmVedtak"];
-                };
-            };
+            requestBody?: never;
             responses: {
                 /** @description Oppgaven er ferdig behandlet og utsending av melding om vedtak har startet */
                 204: {
@@ -963,55 +1084,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/person": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Hent personinformasjon basert på ident */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["PersonIdent"];
-                };
-            };
-            responses: {
-                /** @description Vellykket respons med personinformasjon */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["PersonOversikt"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/person/personId": {
         parameters: {
             query?: never;
@@ -1415,9 +1487,21 @@ export interface components {
             lovligeEndringer: components["schemas"]["LovligeEndringer"];
             /** Format: uuid */
             soknadId?: string;
+            meldingOmVedtakKilde: components["schemas"]["MeldingOmVedtakKilde"];
+            kontrollertBrev: components["schemas"]["KontrollertBrev"];
         };
         /** @enum {string} */
         Kjonn: "MANN" | "KVINNE" | "UKJENT";
+        KontrollertBrevRequest: {
+            kontrollert: components["schemas"]["KontrollertBrev"];
+        };
+        /** @enum {string} */
+        KontrollertBrev: "JA" | "NEI" | "IKKE_RELEVANT";
+        MeldingOmVedtakKildeRequest: {
+            meldingOmVedtakKilde?: components["schemas"]["MeldingOmVedtakKilde"];
+        };
+        /** @enum {string} */
+        MeldingOmVedtakKilde: "DP_SAK" | "GOSYS" | "INGEN";
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "BEHANDLES_I_ARENA";
         /** @enum {string} */
@@ -1679,10 +1763,6 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
-        };
-        SendMeldingOmVedtak: {
-            /** @enum {string} */
-            sendMeldingOmVedtak?: "DP-SAK" | "IKKE_SEND";
         };
         HttpProblem: {
             type: string;

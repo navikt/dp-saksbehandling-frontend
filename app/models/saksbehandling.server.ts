@@ -1,5 +1,6 @@
 import createClient from "openapi-fetch";
 
+import { IMeldingOmVedtakKilde } from "~/context/melding-om-vedtak-context";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { handleHttpProblem } from "~/utils/error-response.utils";
@@ -216,6 +217,21 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
       },
     });
   }
+}
+
+export async function lagreMeldingOmVedtak(
+  request: Request,
+  oppgaveId: string,
+  meldingOmVedtakKilde: IMeldingOmVedtakKilde,
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/melding-om-vedtak-kilde", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { meldingOmVedtakKilde },
+    params: {
+      path: { oppgaveId },
+    },
+  });
 }
 
 export async function sokPerson(request: Request, ident: string) {

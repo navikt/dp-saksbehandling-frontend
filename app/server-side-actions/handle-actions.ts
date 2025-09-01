@@ -25,6 +25,8 @@ import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
+import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
+
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
   const formData = await request.formData();
   const actionToRun = formData.get("_action") as string;
@@ -80,6 +82,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-klage-opplysning":
       return await lagreKlageOpplysningAction(request, formData);
+
+    case "lagre-melding-om-vedtak-kilde":
+      return await lagreMeldingOmVedtakKildeAction(request, formData);
 
     case "ferdigstill-klage":
       return await ferdigstillKlageAction(request, formData);

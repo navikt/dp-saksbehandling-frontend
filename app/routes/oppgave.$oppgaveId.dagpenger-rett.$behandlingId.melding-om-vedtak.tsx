@@ -1,11 +1,20 @@
-import { ActionFunctionArgs, type LoaderFunctionArgs, useRouteError } from "react-router";
+import {
+  ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  useActionData,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -34,7 +43,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function MeldingOmVedtakRoute() {
-  return <MeldingOmVedtak />;
+  const { oppgave } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  return (
+    <MeldingOmVedtakProvider meldingOmVedtakKilde={oppgave.meldingOmVedtakKilde}>
+      <MeldingOmVedtak />
+    </MeldingOmVedtakProvider>
+  );
 }
 
 export function ErrorBoundary() {
