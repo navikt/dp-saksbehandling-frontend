@@ -20,8 +20,6 @@ export function MeldingOmVedtakProvider(
     props.meldingOmVedtakKilde,
   );
 
-  console.log("kilde", meldingOmVedtakKilde);
-
   return (
     <MeldingOmVedtakContext.Provider value={{ meldingOmVedtakKilde, setMeldingOmVedtakKilde }}>
       {props.children}

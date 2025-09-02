@@ -1,8 +1,13 @@
-import { Button, Checkbox, Detail, Radio, RadioGroup } from "@navikt/ds-react";
+import { Checkbox, Detail, Radio, RadioGroup } from "@navikt/ds-react";
+import { useForm } from "@rvf/react-router";
 import { Form } from "react-router";
 
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import {
+  hentValideringForGodkjentBrevSkjema,
+  hentValideringForMeldingOmVedtakKildeSkjema,
+} from "~/utils/validering.util";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
@@ -14,24 +19,26 @@ export function UtvidedeBeskrivelser(props: {
   readOnly?: boolean;
 }) {
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const meldingOmVedtakKildeSkjema = useForm({
+    method: "post",
+    schema: hentValideringForMeldingOmVedtakKildeSkjema(),
+    defaultValues: {
+      oppgaveId: oppgave.oppgaveId,
+      meldingOmVedtakKilde: oppgave.meldingOmVedtakKilde,
+    },
+  });
 
-  // const meldingOmVedtakForm = useForm({
-  //   schema: hentValideringForKlageOpplysningSkjema(opplysning),
-  //   method: "post",
-  //   defaultValues: {
-  //     verdi: formaterOpplysningVerdi(opplysning),
-  //     opplysningId: opplysning.opplysningId,
-  //     datatype: opplysning.type,
-  //     behandlingId: behandlingId,
-  //   },
-  // });
-  // useEffect(
-  //     () =>
-  //       meldingOmVedtakForm.subscribe.value((formData) => {
-  //         meldingOmVedtakForm.submit({ name: "verdi", value: formData.verdi });
-  //       }),
-  //     [],
-  //   );
+  const godkjentBrevSkjema = useForm({
+    method: "post",
+    schema: hentValideringForGodkjentBrevSkjema(),
+    defaultValues: {
+      oppgaveId: oppgave.oppgaveId,
+    },
+  });
+
+  function handleChange() {
+    godkjentBrevSkjema.submit();
+  }
 
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
     let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
@@ -54,30 +61,42 @@ export function UtvidedeBeskrivelser(props: {
 
   return (
     <div className="flex flex-col gap-6">
-      <Form method="post">
+      <Form {...meldingOmVedtakKildeSkjema.getFormProps()}>
         <input name="_action" value="lagre-melding-om-vedtak-kilde" hidden={true} readOnly={true} />
-        <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+        <input
+          {...meldingOmVedtakKildeSkjema.field("oppgaveId").getInputProps()}
+          hidden={true}
+          readOnly={true}
+        />
         <RadioGroup
-          name="melding-om-vedtak-kilde"
-          legend="Send melding om vedtak til bruker"
+          {...meldingOmVedtakKildeSkjema.field("meldingOmVedtakKilde").getInputProps()}
           size="small"
           readOnly={props.readOnly}
-          defaultValue={oppgave.meldingOmVedtakKilde}
+          onChange={() => meldingOmVedtakKildeSkjema.submit()}
+          error={meldingOmVedtakKildeSkjema.field("meldingOmVedtakKilde").error()}
+          legend="Send melding om vedtak til bruker"
         >
           <Radio value="DP_SAK">Som brev via DP-sak</Radio>
           <Radio value="GOSYS">Som brev via Gosys</Radio>
           <Radio value="INGEN">Ikke send melding til bruker</Radio>
         </RadioGroup>
-        <Button type="submit">Lagre :)</Button>
       </Form>
       {oppgave.meldingOmVedtakKilde == "GOSYS" && (
-        <Form method="post">
+        <Form {...godkjentBrevSkjema.getFormProps()}>
           <input name="_action" value="lagre-godkjent-brev-i-gosys" hidden={true} readOnly={true} />
-          <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
-          <Checkbox name="godkjent-brev" size="small">
+          <input
+            {...godkjentBrevSkjema.field("oppgaveId").getInputProps()}
+            hidden={true}
+            readOnly={true}
+          />
+          <Checkbox
+            {...godkjentBrevSkjema.field("godkjentBrev").getInputProps()}
+            onChange={handleChange}
+            size="small"
+            defaultChecked={oppgave.kontrollertBrev === "JA"}
+          >
             Beslutter har godkjent brev i Gosys
           </Checkbox>
-          <Button type="submit">Lagre :)</Button>
         </Form>
       )}
       <hr className="border-(--a-border-subtle)" />

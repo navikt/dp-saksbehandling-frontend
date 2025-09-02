@@ -1,19 +1,21 @@
+import { parseFormData, validationError } from "@rvf/react-router";
+
 import { IAlert } from "~/context/alert-context";
-import { IMeldingOmVedtakKilde } from "~/context/melding-om-vedtak-context";
 import { lagreMeldingOmVedtak } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForMeldingOmVedtakKildeSkjema } from "~/utils/validering.util";
 
 export async function lagreMeldingOmVedtakKildeAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgave-id") as string;
-  const meldingOmVedtakKilde = formData.get("melding-om-vedtak-kilde") as IMeldingOmVedtakKilde;
+  const validertSkjema = await parseFormData(
+    formData,
+    hentValideringForMeldingOmVedtakKildeSkjema(),
+  );
 
-  if (meldingOmVedtakKilde == null) {
-    throw new Error("Mangler kilde for melding om vedtak");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
-  }
+  const { oppgaveId, meldingOmVedtakKilde } = validertSkjema.data;
 
   const { response, error } = await lagreMeldingOmVedtak(request, oppgaveId, meldingOmVedtakKilde);
 

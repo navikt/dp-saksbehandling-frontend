@@ -9,9 +9,7 @@ import styles from "./MeldingOmVedtak.module.css";
 
 export function MeldingOmVedtak() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { meldingOmVedtak, oppgave } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
-  );
+  const { meldingOmVedtak, oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
     components["schemas"]["UtvidetBeskrivelse"][]
   >(meldingOmVedtak?.utvidedeBeskrivelser ?? []);

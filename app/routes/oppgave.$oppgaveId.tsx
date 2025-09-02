@@ -29,10 +29,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const oppgave = await hentOppgave(request, params.oppgaveId);
 
-  let meldingOmVedtakPromise;
+  let meldingOmVedtak;
 
   if (oppgave.saksbehandler) {
-    meldingOmVedtakPromise = hentMeldingOmVedtak(request, oppgave.behandlingId, {
+    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
       fornavn: oppgave.person.fornavn,
       mellomnavn: oppgave.person.mellomnavn,
       etternavn: oppgave.person.etternavn,
@@ -54,7 +54,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       oppgave,
-      meldingOmVedtakPromise,
+      meldingOmVedtak,
       journalposterPromises,
     },
     {

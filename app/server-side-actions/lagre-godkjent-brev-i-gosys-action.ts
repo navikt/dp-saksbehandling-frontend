@@ -1,23 +1,22 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { components } from "openapi/saksbehandling-typer";
 
 import { IAlert } from "~/context/alert-context";
 import { lagreGodkjentBrevIGosys } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForGodkjentBrevSkjema } from "~/utils/validering.util";
 
 export async function lagreGodkjentBrevIGosysAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgave-id") as string;
-  const godkjentBrev = (formData.get("godkjent-brev") as string) == "on";
-  console.log("godkjentBrev", godkjentBrev);
+  const validertSkjema = await parseFormData(formData, hentValideringForGodkjentBrevSkjema());
 
-  if (godkjentBrev == null) {
-    throw new Error("Mangler godkjentbrev");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
-  }
+  const { oppgaveId, godkjentBrev } = validertSkjema.data;
 
-  const kontrollert: components["schemas"]["KontrollertBrev"] = godkjentBrev ? "JA" : "NEI";
+  const kontrollert: components["schemas"]["KontrollertBrev"] =
+    godkjentBrev === "on" ? "JA" : "NEI";
 
   const { response, error } = await lagreGodkjentBrevIGosys(request, oppgaveId, kontrollert);
 
