@@ -25,6 +25,7 @@ import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
+import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
@@ -85,6 +86,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-melding-om-vedtak-kilde":
       return await lagreMeldingOmVedtakKildeAction(request, formData);
+
+    case "lagre-godkjent-brev-i-gosys":
+      return await lagreGodkjentBrevIGosysAction(request, formData);
 
     case "ferdigstill-klage":
       return await ferdigstillKlageAction(request, formData);

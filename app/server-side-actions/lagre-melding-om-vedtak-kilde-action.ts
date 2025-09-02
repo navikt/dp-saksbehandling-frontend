@@ -8,7 +8,7 @@ export async function lagreMeldingOmVedtakKildeAction(request: Request, formData
   const meldingOmVedtakKilde = formData.get("melding-om-vedtak-kilde") as IMeldingOmVedtakKilde;
 
   if (meldingOmVedtakKilde == null) {
-    throw new Error("Mangler notat");
+    throw new Error("Mangler kilde for melding om vedtak");
   }
 
   if (!oppgaveId) {
@@ -29,5 +29,5 @@ export async function lagreMeldingOmVedtakKildeAction(request: Request, formData
     return successAlert;
   }
 
-  throw new Error(`Uhåndtert feil i lagreMeldingOmVedtakKildeAction()`);
+  throw new Error(`Uhåndtert feil i lagreMeldingOmVedtakKildeAction(): ${response.status}`);
 }

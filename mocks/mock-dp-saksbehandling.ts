@@ -211,6 +211,28 @@ export const mockDpSaksbehandling = [
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
+  http.put(`/oppgave/{oppgaveId}/melding-om-vedtak-kilde`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
+
+  http.put(`/oppgave/{oppgaveId}/kontrollert-brev`, async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
+
   // Hent en klage med behandlingId
   http.get(`/klage/{behandlingId}`, async ({ request, response, params }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);

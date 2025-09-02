@@ -73,9 +73,11 @@ export function UtvidedeBeskrivelser(props: {
       {oppgave.meldingOmVedtakKilde == "GOSYS" && (
         <Form method="post">
           <input name="_action" value="lagre-godkjent-brev-i-gosys" hidden={true} readOnly={true} />
-          <Checkbox readOnly={props.readOnly} size="small">
+          <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
+          <Checkbox name="godkjent-brev" size="small">
             Beslutter har godkjent brev i Gosys
           </Checkbox>
+          <Button type="submit">Lagre :)</Button>
         </Form>
       )}
       <hr className="border-(--a-border-subtle)" />
