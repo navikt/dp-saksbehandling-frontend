@@ -6,13 +6,11 @@ import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
-import styles from "./DokumentOversikt.module.css";
-
 export function DokumentOversikt() {
   const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
-    <div className={styles.dokumentContainer}>
+    <div className={"p-4"}>
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>
         <Await
           resolve={journalposterPromises}
@@ -20,7 +18,7 @@ export function DokumentOversikt() {
             <AsyncErrorMelding tittel={"En feil oppsto når vi skulle hente ut dokumentene 🤖"} />
           }
         >
-          {(journalposter) => <div>{<JournalpostOversikt journalposter={journalposter} />}</div>}
+          {(journalposter) => <JournalpostOversikt journalposter={journalposter} />}
         </Await>
       </Suspense>
     </div>
