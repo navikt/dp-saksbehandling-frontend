@@ -34,7 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
-      meldekortUrl: `${getEnv("DP_RAPPORTERING_PERSONREGISTER_URL")}/person/${personId}`,
+      meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
     },
     {
       headers: {
