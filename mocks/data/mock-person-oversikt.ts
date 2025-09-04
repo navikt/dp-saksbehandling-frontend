@@ -21,6 +21,12 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
           opprettet: "2025-06-23T11:28:57.936476",
           oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
         },
+        {
+          id: "019353b5-3ee6-7693-8fdd-649153c18f74",
+          behandlingType: "MELDEKORT",
+          opprettet: "2025-06-23T11:28:57.936476",
+          oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
+        },
       ],
     },
     {
