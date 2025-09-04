@@ -21,6 +21,10 @@ const cache = new LRUCache<string, ISaksbehandler>({
 });
 
 export async function getSaksbehandler(request: Request): Promise<ISaksbehandler> {
+  if (getEnv("IS_LOCALHOST") === "true") {
+    return mockSaksbehandler;
+  }
+
   try {
     const navIdent = await getNavIdent(request);
     if (navIdent === null) {
@@ -52,7 +56,7 @@ export async function getSaksbehandler(request: Request): Promise<ISaksbehandler
 }
 
 async function getNavIdent(request: Request): Promise<string | null> {
-  if (getEnv("USE_MSW")) {
+  if (getEnv("IS_LOCALHOST") === "true") {
     return mockSaksbehandler.onPremisesSamAccountName;
   }
 
