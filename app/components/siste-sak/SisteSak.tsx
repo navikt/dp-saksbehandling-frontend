@@ -65,7 +65,7 @@ export function SisteSak({ sak }: IProps) {
               </Table.DataCell>
               <Table.DataCell>
                 <Detail>
-                  {behandling.behandlingType === "RETT_TIL_DAGPENGER" && (
+                  {behandling.behandlingType !== "KLAGE" && (
                     <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
                   )}
                 </Detail>
