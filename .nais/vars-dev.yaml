@@ -5,6 +5,7 @@ dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
 dp-melding-om-vedtak_url: "http://dp-melding-om-vedtak"
 dp-soknad-orkestrator_url: "http://dp-soknad-orkestrator"
+dp-rapportering_personregister_url: "http://dp-rapportering-personregister"
 saf_url: "https://saf.dev-fss-pub.nais.io"
 
 saf_audience: "api://dev-fss.teamdokumenthandtering.saf-q1/.default"

@@ -664,6 +664,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/behandling/{behandlingId}/behandlingsresultat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        /** @description Viser et vedtak / resultat av en behandling */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Behandlingsresultat"];
+                    };
+                };
+                /** @description Feil ved uthenting av vedtak */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -718,19 +767,19 @@ export interface components {
             opplysninger: components["schemas"]["Opplysning"][];
             opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
         };
-        Verdenbesteklumpmeddata: {
+        Behandlingsresultat: {
             /** Format: uuid */
             behandlingId: string;
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
             ident: components["schemas"]["Personident"];
-            "vilk\u00E5r": components["schemas"]["Noesomharblittvurdert"][];
-            fastsettelser: components["schemas"]["Noesomharblittvurdert"][];
-            opplysninger: components["schemas"]["OpplysningsgruppeKlump"][];
+            "vilk\u00E5r": components["schemas"]["Vurderingsresultat"][];
+            fastsettelser: components["schemas"]["Vurderingsresultat"][];
+            opplysninger: components["schemas"]["Opplysninger"][];
             rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
         };
         Personident: string;
-        Noesomharblittvurdert: {
+        Vurderingsresultat: {
             /** @description Kort navn som beskriver regelsettet */
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
@@ -852,18 +901,20 @@ export interface components {
             synlig: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
         };
-        OpplysningsgruppeKlump: {
+        Opplysninger: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             navn: string;
-            datatype: components["schemas"]["DataType"];
-            opplysninger: components["schemas"]["OpplysningKlump"][];
+            perioder?: components["schemas"]["Opplysningsperiode"][];
         };
-        OpplysningKlump: {
+        Opplysningsperiode: {
             id: components["schemas"]["OpplysningsId"];
-            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
-            navn: string;
-            verdien?: components["schemas"]["Opplysningsverdi"];
-            verdi: string;
+            /** Format: date-time */
+            opprettet: string;
+            /**
+             * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
+             * @enum {string}
+             */
+            status: "Ny" | "Arvet";
             /**
              * Format: date
              * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig fra tidens morgen.
@@ -874,7 +925,7 @@ export interface components {
              * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig til evig tid.
              */
             gyldigTilOgMed?: string | null;
-            datatype: components["schemas"]["DataType"];
+            verdi: components["schemas"]["Opplysningsverdi"];
             kilde?: components["schemas"]["Opplysningskilde"];
             utledetAv?: components["schemas"]["Utledning"];
         };

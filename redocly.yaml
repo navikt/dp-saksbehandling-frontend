@@ -18,3 +18,8 @@ apis:
     root: https://navikt.github.io/dp-soknad-orkestrator/soknad-orkestrator-api.yaml
     x-openapi-ts:
       output: ./openapi/soknad-orkestrator-typer.ts
+
+  rapporting-personregister@v1:
+    root: https://navikt.github.io/dp-rapportering-personregister/personstatus-api.yaml
+    x-openapi-ts:
+      output: ./openapi/rapportering-personregister-typer.ts

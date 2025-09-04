@@ -48,6 +48,8 @@ spec:
       value: "{{dp-saksbehandling_url}}"
     - name: DP_MELDING_OM_VEDTAK_URL
       value: "{{dp-melding-om-vedtak_url}}"
+    - name: DP_RAPPORTERING_PERSONREGISTER_URL
+      value: "{{dp-rapportering_personregister_url}}"
     - name: SAF_URL
       value: "{{saf_url}}"
     - name: DP_SOKNAD_ORKESTRATOR_URL
@@ -111,6 +113,7 @@ spec:
         - application: dp-behandling
         - application: dp-melding-om-vedtak
         - application: dp-soknad-orkestrator
+        - application: dp-rapportering-personregister
 
   azure:
     application:

@@ -11,6 +11,15 @@ export async function getSaksbehandlingOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
+export async function getRapporteringPersonregisterOboToken(request: Request) {
+  if (process.env.IS_LOCALHOST === "true") {
+    return process.env.DP_RAPPORTERING_PERSONREGISTER_TOKEN as string;
+  }
+
+  const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-rapportering-personregister/.default`;
+  return await getOnBehalfOfToken(request, audience);
+}
+
 export async function getBehandlingOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.DP_BEHANDLING_TOKEN as string;
