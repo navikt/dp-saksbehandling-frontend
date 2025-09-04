@@ -18,7 +18,7 @@ export async function hentJournalpost(
 
   const callId = uuidv4();
   const url = `${getEnv("SAF_URL")}/graphql`;
-  const client = new GraphQLClient(url, {
+  const headers = {
     headers: {
       Authorization: `Bearer ${oboToken}`,
       connection: "keep-alive",
@@ -26,7 +26,10 @@ export async function hentJournalpost(
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
-  });
+  };
+
+  logger.info(headers);
+  const client = new GraphQLClient(url, headers);
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);
@@ -34,8 +37,9 @@ export async function hentJournalpost(
 
     return response.journalpost;
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    logger.error(errorMessage);
+    logger.error(error);
+    // const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
+    // logger.error(errorMessage);
   }
 }
 
