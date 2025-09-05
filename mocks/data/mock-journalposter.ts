@@ -69,13 +69,8 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
             skjerming: null,
           },
           {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
-            skjerming: null,
-          },
-          {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
+            variantformat: Variantformat.Produksjon,
+            saksbehandlerHarTilgang: false,
             skjerming: null,
           },
         ],
@@ -151,13 +146,8 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
             skjerming: null,
           },
           {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
-            skjerming: null,
-          },
-          {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
+            variantformat: Variantformat.Produksjon,
+            saksbehandlerHarTilgang: false,
             skjerming: null,
           },
         ],

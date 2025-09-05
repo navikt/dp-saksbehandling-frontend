@@ -5,6 +5,7 @@ import type { IAlert } from "~/context/alert-context";
 
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
+import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
 export function isOppgaveOversikt(
   oppgave:
@@ -180,4 +181,33 @@ function parseValue(value: string): PrimitiveValue {
 
   // Keep strings as is
   return value;
+}
+
+export function isSAFRequestError(value: unknown): value is ISAFRequestError {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    "status" in value &&
+    "timestamp" in value &&
+    "error" in value &&
+    "message" in value &&
+    "path" in value
+  );
+}
+
+export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    "errors" in value &&
+    Array.isArray(value.errors) &&
+    value.errors.every(
+      (e: unknown) =>
+        e &&
+        typeof e === "object" &&
+        typeof e.message === "string" &&
+        e.extensions &&
+        typeof e.extensions === "object",
+    )
+  );
 }
