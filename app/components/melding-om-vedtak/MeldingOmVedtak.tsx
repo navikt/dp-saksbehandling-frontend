@@ -35,12 +35,16 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
         <MeldingOmVedtakKilde readOnly={readOnly} />
-        {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
-        <UtvidedeBeskrivelser
-          utvidedeBeskrivelser={utvidedeBeskrivelser}
-          setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-          readOnly={readOnly}
-        />
+        {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
+          <>
+            {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
+            <UtvidedeBeskrivelser
+              utvidedeBeskrivelser={utvidedeBeskrivelser}
+              setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
+              readOnly={readOnly}
+            />
+          </>
+        )}
       </div>
 
       <div className={styles.previewContainer}>
