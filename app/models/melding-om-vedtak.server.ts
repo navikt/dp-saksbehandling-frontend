@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 
 import { getMeldingOmVedtakOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
+import { getHttpProblemAlert, handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
 import { components, paths } from "../../openapi/melding-om-vedtak-typer";
@@ -31,6 +31,11 @@ export async function hentMeldingOmVedtak(
   }
 
   if (error) {
+    // 501 error skal ut til saksbehandler sånn at gosys brev kan velges, alle andre feil skal kastes
+    if (error.status === 501) {
+      getHttpProblemAlert(error);
+    }
+
     handleHttpProblem(error);
   }
 

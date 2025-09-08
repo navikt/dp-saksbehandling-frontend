@@ -77,7 +77,6 @@ export function MeldingOmVedtakKilde(props: { readOnly?: boolean }) {
           </Checkbox>
         </Form>
       )}
-      <hr className="border-(--a-border-subtle)" />
     </>
   );
 }
