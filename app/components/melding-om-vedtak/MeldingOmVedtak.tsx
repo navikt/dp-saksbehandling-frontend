@@ -48,16 +48,15 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
       </div>
 
       <div className={styles.previewContainer}>
-        {isAlert(meldingOmVedtak) ? (
-          <HttpProblemAlert error={meldingOmVedtak} />
-        ) : (
-          oppgave.meldingOmVedtakKilde === "DP_SAK" && (
+        {oppgave.meldingOmVedtakKilde === "DP_SAK" &&
+          (isAlert(meldingOmVedtak) ? (
+            <HttpProblemAlert error={meldingOmVedtak} />
+          ) : (
             <MeldingOmVedtakPreview
               utvidedeBeskrivelser={utvidedeBeskrivelser}
               html={meldingOmVedtak?.html || ""}
             />
-          )
-        )}
+          ))}
       </div>
     </div>
   );
