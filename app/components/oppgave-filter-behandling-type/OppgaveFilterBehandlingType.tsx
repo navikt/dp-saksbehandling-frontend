@@ -52,5 +52,10 @@ export function hentBehandlingTypeTekstForVisning(
       return "Rett til dagpenger";
     case "KLAGE":
       return "Klage";
+    case "MELDEKORT":
+      return "Meldekort";
+
+    default:
+      return behandlingType;
   }
 }

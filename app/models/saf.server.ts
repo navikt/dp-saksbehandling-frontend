@@ -36,11 +36,6 @@ export async function hentJournalpost(
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
     logger.error(errorMessage);
-
-    throw new Response(`Feil ved kall til ${url}`, {
-      status: 500,
-      statusText: errorMessage,
-    });
   }
 }
 
