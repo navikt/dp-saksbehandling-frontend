@@ -136,8 +136,8 @@ export const underBehandlingMeldekortOppgaveMineOppgave: components["schemas"]["
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
-  meldingOmVedtakKilde: "DP_SAK",
-  kontrollertBrev: "IKKE_RELEVANT",
+  meldingOmVedtakKilde: "GOSYS",
+  kontrollertBrev: "NEI",
 };
 
 export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
