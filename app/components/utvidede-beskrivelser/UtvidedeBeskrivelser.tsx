@@ -3,7 +3,6 @@ import { Detail } from "@navikt/ds-react";
 import { UtvidetBeskrivelseInput } from "~/components/utvidede-beskrivelser/UtvidetBeskrivelseInput";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
-import { MeldingOmVedtakKilde } from "../melding-om-vedtak-kilde/MeldingOmVedtakKilde";
 
 type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
 
@@ -31,23 +30,18 @@ export function UtvidedeBeskrivelser(props: {
     props.setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
   }
 
-  return (
-    <div className="flex flex-col gap-6">
-      <MeldingOmVedtakKilde readOnly={props.readOnly} />
-      {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
-        <UtvidetBeskrivelseInput
-          key={utvidetBeskrivelse.brevblokkId}
-          readOnly={props.readOnly}
-          utvidetBeskrivelse={utvidetBeskrivelse}
-          updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
-          label={
-            <div>
-              {utvidetBeskrivelse.tittel}
-              <Detail textColor="subtle">Utvidet beskrivelse</Detail>
-            </div>
-          }
-        />
-      ))}
-    </div>
-  );
+  return props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
+    <UtvidetBeskrivelseInput
+      key={utvidetBeskrivelse.brevblokkId}
+      readOnly={props.readOnly}
+      utvidetBeskrivelse={utvidetBeskrivelse}
+      updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
+      label={
+        <div>
+          {utvidetBeskrivelse.tittel}
+          <Detail textColor="subtle">Utvidet beskrivelse</Detail>
+        </div>
+      }
+    />
+  ));
 }
