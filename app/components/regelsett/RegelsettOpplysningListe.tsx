@@ -1,4 +1,5 @@
-import { Heading } from "@navikt/ds-react";
+import { Heading, Skeleton } from "@navikt/ds-react";
+import { useNavigation } from "react-router";
 
 import { RegelsettOpplysningListeElement } from "~/components/regelsett/RegelsettOpplysningListeElement";
 
@@ -11,9 +12,15 @@ interface IProps {
 }
 
 export function RegelsettOpplysningListe({ tittel, opplysninger, readonly }: IProps) {
+  const { state } = useNavigation();
   return (
     <div className={"card m-4"}>
-      <Heading size={"small"} className={"pt-4 pl-6"}>
+      <Heading
+        size={"small"}
+        level={"2"}
+        className={"mt-4 ml-6"}
+        as={state === "loading" ? Skeleton : "h2"}
+      >
         {tittel}
       </Heading>
 

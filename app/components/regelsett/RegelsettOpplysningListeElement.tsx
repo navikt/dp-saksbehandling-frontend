@@ -4,9 +4,10 @@ import {
   PadlockLockedIcon,
   PersonPencilIcon,
 } from "@navikt/aksel-icons";
-import { BodyShort, Tooltip } from "@navikt/ds-react";
+import { BodyShort, Skeleton, Tooltip } from "@navikt/ds-react";
 import classnames from "classnames";
 import { motion } from "motion/react";
+import { useNavigation } from "react-router";
 
 import { useDagpengerRettBehandling } from "~/hooks/useDagpengerRettBehandling";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
@@ -21,6 +22,7 @@ interface IProps {
 
 export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: IProps) {
   const { aktivOpplysningsgruppeId, setAktivOpplysningsgruppeId } = useDagpengerRettBehandling();
+  const { state } = useNavigation();
   const erAktivGruppe = aktivOpplysningsgruppeId === opplysningGruppe.opplysningTypeId;
 
   return (
@@ -35,7 +37,7 @@ export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: 
           setAktivOpplysningsgruppeId(erAktivGruppe ? undefined : opplysningGruppe.opplysningTypeId)
         }
       >
-        <BodyShort className={"flex items-center gap-1"}>
+        <BodyShort className={"flex items-center gap-1"} as={state === "loading" ? Skeleton : "p"}>
           {opplysningGruppe.redigertAvSaksbehandler && (
             <Tooltip content="Opplysningen er redigert av saksbehandler">
               <PersonPencilIcon />
@@ -51,29 +53,29 @@ export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: 
           {opplysningGruppe.navn}
         </BodyShort>
 
-        <BodyShort className={"flex items-center gap-1"}>
+        <BodyShort className={"flex items-center gap-1"} as={state === "loading" ? Skeleton : "p"}>
           {formaterOpplysningVerdi(opplysningGruppe.opplysninger[0])}
           {opplysningGruppe.opplysninger.length > 1 && (
             <Tooltip content="Opplysningen har flere perioder">
               <ClockDashedIcon />
             </Tooltip>
           )}
-        </BodyShort>
 
-        <motion.span
-          className={"justify-self-end"}
-          animate={{ rotate: erAktivGruppe ? 180 : 0 }}
-          transition={{
-            duration: 0.2,
-            type: "spring",
-          }}
-        >
-          <ChevronRightIcon
-            fontSize={"1.2rem"}
-            aria-label={erAktivGruppe ? "Lukk opplysning" : "Åpne opplsyning"}
-            color={"var(--a-blue-400)"}
-          />
-        </motion.span>
+          <motion.span
+            className={"justify-self-end"}
+            animate={{ rotate: erAktivGruppe ? 180 : 0 }}
+            transition={{
+              duration: 0.2,
+              type: "spring",
+            }}
+          >
+            <ChevronRightIcon
+              fontSize={"1.2rem"}
+              aria-label={erAktivGruppe ? "Lukk opplysning" : "Åpne opplsyning"}
+              color={"var(--a-blue-400)"}
+            />
+          </motion.span>
+        </BodyShort>
       </motion.button>
     </li>
   );
