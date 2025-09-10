@@ -102,7 +102,7 @@ export function OppgaveHandlinger(props: IProps) {
 
   return (
     <div className={"card flex"}>
-      {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && <KravPaaDagpenger />}
+      {oppgave.behandlingType !== "KLAGE" && <KravPaaDagpenger />}
 
       <div className={"ml-4 flex items-center gap-2"}>
         <OppgaveEmneknagger oppgave={oppgave} />
