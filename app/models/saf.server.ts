@@ -1,4 +1,4 @@
-import { ClientError, GraphQLClient } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
 
 import { IAlert } from "~/context/alert-context";
@@ -40,7 +40,7 @@ export async function hentJournalpost(
 
   const callId = uuidv4();
   const url = `${getEnv("SAF_URL")}/graphql`;
-  const headers = {
+  const client = new GraphQLClient(url, {
     headers: {
       Authorization: `Bearer ${oboToken}`,
       connection: "keep-alive",
@@ -48,10 +48,7 @@ export async function hentJournalpost(
       "Nav-Callid": callId,
       "Nav-Consumer-Id": "dp-saksbehandling-frontend",
     },
-  };
-
-  logger.info(headers);
-  const client = new GraphQLClient(url, headers);
+  });
 
   try {
     logger.info(`Henter dokumenter med call-id: ${callId}`);

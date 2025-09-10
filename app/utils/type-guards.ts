@@ -15,23 +15,28 @@ export function isOppgaveOversikt(
   return "skjermesSomEgneAnsatte" in oppgave && "adressebeskyttelseGradering" in oppgave;
 }
 
-export function isAlert(data?: unknown): data is IAlert {
+export function isAlert(data: unknown): data is IAlert {
+  const ALERT_VARIANTS: AlertProps["variant"][] = ["success", "warning", "error", "info"];
+
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeAlert = data as Partial<IAlert>;
+  const obj = data as Record<string, unknown>;
 
-  if (typeof maybeAlert.title !== "string") {
+  if (!ALERT_VARIANTS.includes(obj.variant as AlertProps["variant"])) {
     return false;
   }
 
-  const validVariants: AlertProps["variant"][] = ["error", "warning", "info", "success"];
-  if (!maybeAlert.variant || !validVariants.includes(maybeAlert.variant)) {
+  if (typeof obj.title !== "string" || !obj.title) {
     return false;
   }
 
-  if (maybeAlert.body !== undefined && typeof maybeAlert.body !== "string") {
+  if ("body" in obj && obj.body !== undefined && typeof obj.body !== "string") {
+    return false;
+  }
+
+  if ("service" in obj && obj.service !== undefined && typeof obj.service !== "string") {
     return false;
   }
 
@@ -184,30 +189,64 @@ function parseValue(value: string): PrimitiveValue {
 }
 
 export function isSAFRequestError(value: unknown): value is ISAFRequestError {
-  return (
-    !!value &&
-    typeof value === "object" &&
-    "status" in value &&
-    "timestamp" in value &&
-    "error" in value &&
-    "message" in value &&
-    "path" in value
-  );
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  if (typeof obj.timestamp !== "string") {
+    return false;
+  }
+
+  if (typeof obj.status !== "number") {
+    return false;
+  }
+
+  if (typeof obj.error !== "string") {
+    return false;
+  }
+
+  if (typeof obj.message !== "string") {
+    return false;
+  }
+
+  return typeof obj.path === "string";
 }
 
 export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
-  return (
-    !!value &&
-    typeof value === "object" &&
-    "errors" in value &&
-    Array.isArray(value.errors) &&
-    value.errors.every(
-      (e: unknown) =>
-        e &&
-        typeof e === "object" &&
-        typeof e.message === "string" &&
-        e.extensions &&
-        typeof e.extensions === "object",
-    )
-  );
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  if (!Array.isArray(obj.errors) || obj.errors.length === 0) {
+    return false;
+  }
+
+  const firstError = obj.errors[0];
+
+  if (typeof firstError !== "object" || firstError === null) {
+    return false;
+  }
+
+  const error = firstError as Record<string, unknown>;
+
+  if (typeof error.message !== "string") {
+    return false;
+  }
+
+  if (typeof error.extensions !== "object" || error.extensions === null) {
+    return false;
+  }
+
+  const extensions = error.extensions as Record<string, unknown>;
+
+  const validCodes = ["bad_request", "forbidden", "not_found", "server_error"];
+  if (!validCodes.includes(extensions.code as string)) {
+    return false;
+  }
+
+  return typeof extensions.classification === "string";
 }

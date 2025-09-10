@@ -18,7 +18,7 @@ export function DokumentOversikt() {
             <AsyncErrorMelding tittel={"En feil oppsto når vi skulle hente ut dokumentene 🤖"} />
           }
         >
-          {(journalposter) => <JournalpostOversikt journalposter={journalposter} />}
+          {(journalposter) => <JournalpostOversikt journalposterResponse={journalposter} />}
         </Await>
       </Suspense>
     </div>

@@ -1,15 +1,17 @@
 import { Button, Detail, Heading, List } from "@navikt/ds-react";
 
+import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
+import { IAlert } from "~/context/alert-context";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { isDefined } from "~/utils/type-guards";
+import { isAlert, isDefined } from "~/utils/type-guards";
 
 import { JournalpostQuery, Variantformat } from "../../../graphql/generated/saf/graphql";
 
 interface IProps {
-  journalposter: JournalpostQuery["journalpost"][];
+  journalposterResponse: (JournalpostQuery["journalpost"] | IAlert)[];
 }
 
-export function JournalpostOversikt({ journalposter }: IProps) {
+export function JournalpostOversikt({ journalposterResponse }: IProps) {
   async function aapneDokument(
     journalpostId: string,
     dokumentInfoId: string,
@@ -33,7 +35,11 @@ export function JournalpostOversikt({ journalposter }: IProps) {
 
   return (
     <div className={"flex flex-col gap-6"}>
-      {journalposter.map((journalpost, index) => {
+      {journalposterResponse.map((journalpost, index) => {
+        if (isAlert(journalpost)) {
+          return <HttpProblemAlert key={index} error={journalpost} />;
+        }
+
         const dokumenterMedTilgang = journalpost?.dokumenter
           ?.map((dokument) => {
             if (!dokument) return null;
@@ -42,24 +48,25 @@ export function JournalpostOversikt({ journalposter }: IProps) {
             );
 
             if (dokumentvarianterMedTilgang.length === 0) return null;
-
             return { ...dokument, dokumentvarianter: dokumentvarianterMedTilgang };
           })
           .filter(isDefined);
 
-        console.log("journalpost", journalpost);
-        console.log("dokumenterMedTilgang", dokumenterMedTilgang);
-
         if (!dokumenterMedTilgang || dokumenterMedTilgang.length === 0) {
           return (
-            <Heading key={index} size={"xsmall"} level={"2"}>
+            <Heading
+              key={index}
+              size={"xsmall"}
+              level={"2"}
+              className={"border-l-2 border-(--a-border-subtle) pl-2"}
+            >
               Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
             </Heading>
           );
         }
 
         return (
-          <div key={index}>
+          <div key={index} className={"border-l-2 border-(--a-border-subtle) pl-2"}>
             <Heading size={"xsmall"} level={"2"}>
               {journalpost?.tittel}
             </Heading>
