@@ -48,6 +48,8 @@ export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Op
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44c",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const underKontrollMinOppgave: components["schemas"]["Oppgave"] = {
@@ -64,6 +66,8 @@ export const underKontrollMinOppgave: components["schemas"]["Oppgave"] = {
   journalpostIder: ["639664664", "598116231"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
+  meldingOmVedtakKilde: "GOSYS",
+  kontrollertBrev: "NEI",
 };
 
 export const underKontrollAnnenSaksbehandler: components["schemas"]["Oppgave"] = {
@@ -80,6 +84,8 @@ export const underKontrollAnnenSaksbehandler: components["schemas"]["Oppgave"] =
   journalpostIder: ["639664664", "598116231"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44d",
+  meldingOmVedtakKilde: "GOSYS",
+  kontrollertBrev: "JA",
 };
 
 export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgave"] = {
@@ -96,6 +102,8 @@ export const underBehandlingInnvilgelseMinOppgave: components["schemas"]["Oppgav
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44e",
   utsattTilDato: "2025-07-20",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const underBehandlingAvslagOppgaveMineOppgave: components["schemas"]["Oppgave"] = {
@@ -111,6 +119,8 @@ export const underBehandlingAvslagOppgaveMineOppgave: components["schemas"]["Opp
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const underBehandlingMeldekortOppgaveMineOppgave: components["schemas"]["Oppgave"] = {
@@ -126,6 +136,8 @@ export const underBehandlingMeldekortOppgaveMineOppgave: components["schemas"]["
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "GOSYS",
+  kontrollertBrev: "NEI",
 };
 
 export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
@@ -141,6 +153,8 @@ export const ferdigBehandletOppgave: components["schemas"]["Oppgave"] = {
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "GOSYS",
+  kontrollertBrev: "JA",
 };
 
 export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] = {
@@ -155,6 +169,8 @@ export const ferdigBehandletAutomatiskOppgave: components["schemas"]["Oppgave"] 
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const klageOppgave: components["schemas"]["Oppgave"] = {
@@ -170,6 +186,8 @@ export const klageOppgave: components["schemas"]["Oppgave"] = {
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const ferdigBehandlerKlageOppgave: components["schemas"]["Oppgave"] = {
@@ -185,6 +203,8 @@ export const ferdigBehandlerKlageOppgave: components["schemas"]["Oppgave"] = {
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
 };
 
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [

@@ -303,6 +303,7 @@ export interface components {
             tittel: string;
         };
         MeldingOmVedtakData: {
+            sakId?: string;
             behandlingstype: components["schemas"]["Behandlingstype"];
             fornavn: string;
             mellomnavn?: string;

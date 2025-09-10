@@ -21,6 +21,7 @@ export function GlobalAlerts() {
           closeButton={true}
           fullWidth={true}
           onClose={() => removeAlert(index)}
+          onAnimationEnd={() => alert.variant === "success" && removeAlert(index)}
         >
           <>
             <Heading size="small">{alert.title}</Heading>
