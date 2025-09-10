@@ -772,6 +772,7 @@ export interface components {
             behandlingId: string;
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
+            automatisk: boolean;
             ident: components["schemas"]["Personident"];
             "vilk\u00E5r": components["schemas"]["Vurderingsresultat"][];
             fastsettelser: components["schemas"]["Vurderingsresultat"][];
