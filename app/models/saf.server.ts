@@ -1,18 +1,40 @@
 import { GraphQLClient } from "graphql-request";
 import { v4 as uuidv4 } from "uuid";
 
+import { IAlert } from "~/context/alert-context";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
+import { isSAFGraphqlError, isSAFRequestError } from "~/utils/type-guards";
 
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
 
+export interface ISAFGraphqlError {
+  errors: [
+    {
+      message: string;
+      extensions: {
+        code: "bad_request" | "forbidden" | "not_found" | "server_error";
+        classification: string;
+      };
+    },
+  ];
+}
+
+export interface ISAFRequestError {
+  timestamp: string;
+  status: number;
+  error: string;
+  message: string;
+  path: string;
+}
+
 export async function hentJournalpost(
   request: Request,
   journalpostId: string,
-): Promise<JournalpostQuery["journalpost"]> {
+): Promise<JournalpostQuery["journalpost"] | IAlert> {
   const oboToken = await getSAFOboToken(request);
   const saksbehandler = await getSaksbehandler(request);
 
@@ -34,8 +56,33 @@ export async function hentJournalpost(
 
     return response.journalpost;
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Feil ved henting av dokumenter";
-    logger.error(errorMessage);
+    logger.error(error);
+
+    if (isSAFRequestError(error)) {
+      return {
+        variant: "error",
+        title: error.error,
+        body: error.message,
+        service: url,
+      };
+    }
+
+    if (isSAFGraphqlError(error)) {
+      const first = error.errors?.[0];
+      return {
+        variant: "error",
+        title: first?.extensions.classification || "Ukjent feil",
+        body: first?.message,
+        service: url,
+      };
+    }
+
+    return {
+      variant: "error",
+      title: "Ukjent feil",
+      body: JSON.stringify(error),
+      service: url,
+    };
   }
 }
 

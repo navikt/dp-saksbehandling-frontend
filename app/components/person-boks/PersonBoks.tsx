@@ -1,5 +1,5 @@
-import { FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
-import { Alert, BodyShort, CopyButton, Detail } from "@navikt/ds-react";
+import { ExternalLinkIcon, FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
+import { Alert, BodyShort, CopyButton, Detail, Link } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useLocation } from "react-router";
 
@@ -13,10 +13,11 @@ import styles from "./PersonBoks.module.css";
 
 interface IProps {
   person: components["schemas"]["Person"];
+  meldekortUrl?: string;
   oppgave?: components["schemas"]["Oppgave"];
 }
 
-export function PersonBoks({ person, oppgave }: IProps) {
+export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
   const location = useLocation();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const utviklerinformasjon = {
@@ -52,7 +53,7 @@ export function PersonBoks({ person, oppgave }: IProps) {
           </BodyShort>
         </div>
 
-        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Fødselsnummer:{" "}
           <RemixLink to={`/person/${person.id}/oversikt`}>
             {skjulSensitiveOpplysninger
@@ -62,17 +63,25 @@ export function PersonBoks({ person, oppgave }: IProps) {
           <CopyButton copyText={person.ident} size="xsmall" />
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Alder: <b>{person.alder}</b>
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Kjønn: <b>{person.kjonn}</b>
         </BodyShort>
 
-        <BodyShort size="small" textColor="subtle" className={styles.fødselsnummerContainer}>
+        <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Statsborgerskap: <b>{person.statsborgerskap}</b>
         </BodyShort>
+
+        {meldekortUrl && (
+          <BodyShort size={"small"} textColor={"subtle"} className={styles.infoElement}>
+            <Link href={meldekortUrl}>
+              Meldekort <ExternalLinkIcon aria-hidden />
+            </Link>
+          </BodyShort>
+        )}
 
         <CopyButton
           className={styles.utviklerinfo}

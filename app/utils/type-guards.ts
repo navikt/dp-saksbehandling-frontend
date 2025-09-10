@@ -2,6 +2,7 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
+import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
@@ -14,23 +15,28 @@ export function isOppgaveOversikt(
   return "skjermesSomEgneAnsatte" in oppgave && "adressebeskyttelseGradering" in oppgave;
 }
 
-export function isAlert(data?: unknown): data is IAlert {
+export function isAlert(data: unknown): data is IAlert {
+  const ALERT_VARIANTS: AlertProps["variant"][] = ["success", "warning", "error", "info"];
+
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
-  const maybeAlert = data as Partial<IAlert>;
+  const obj = data as Record<string, unknown>;
 
-  if (typeof maybeAlert.title !== "string") {
+  if (!ALERT_VARIANTS.includes(obj.variant as AlertProps["variant"])) {
     return false;
   }
 
-  const validVariants: AlertProps["variant"][] = ["error", "warning", "info", "success"];
-  if (!maybeAlert.variant || !validVariants.includes(maybeAlert.variant)) {
+  if (typeof obj.title !== "string" || !obj.title) {
     return false;
   }
 
-  if (maybeAlert.body !== undefined && typeof maybeAlert.body !== "string") {
+  if ("body" in obj && obj.body !== undefined && typeof obj.body !== "string") {
+    return false;
+  }
+
+  if ("service" in obj && obj.service !== undefined && typeof obj.service !== "string") {
     return false;
   }
 
@@ -77,8 +83,8 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   return typeof maybeError.message === "string";
 }
 
-export function isDefined<T>(value: T | undefined): value is T {
-  return value !== undefined;
+export function isDefined<T>(value: T | undefined | null): value is T {
+  return value !== undefined && value !== null;
 }
 
 /**
@@ -180,4 +186,67 @@ function parseValue(value: string): PrimitiveValue {
 
   // Keep strings as is
   return value;
+}
+
+export function isSAFRequestError(value: unknown): value is ISAFRequestError {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  if (typeof obj.timestamp !== "string") {
+    return false;
+  }
+
+  if (typeof obj.status !== "number") {
+    return false;
+  }
+
+  if (typeof obj.error !== "string") {
+    return false;
+  }
+
+  if (typeof obj.message !== "string") {
+    return false;
+  }
+
+  return typeof obj.path === "string";
+}
+
+export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  if (!Array.isArray(obj.errors) || obj.errors.length === 0) {
+    return false;
+  }
+
+  const firstError = obj.errors[0];
+
+  if (typeof firstError !== "object" || firstError === null) {
+    return false;
+  }
+
+  const error = firstError as Record<string, unknown>;
+
+  if (typeof error.message !== "string") {
+    return false;
+  }
+
+  if (typeof error.extensions !== "object" || error.extensions === null) {
+    return false;
+  }
+
+  const extensions = error.extensions as Record<string, unknown>;
+
+  const validCodes = ["bad_request", "forbidden", "not_found", "server_error"];
+  if (!validCodes.includes(extensions.code as string)) {
+    return false;
+  }
+
+  return typeof extensions.classification === "string";
 }

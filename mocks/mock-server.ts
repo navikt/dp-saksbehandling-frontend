@@ -5,6 +5,7 @@ import { logger } from "~/utils/logger.utils";
 import { mockAzure } from "./mock-azure";
 import { mockDpBehandling } from "./mock-dp-behandling";
 import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
+import { mockDpRapporteringPersonregister } from "./mock-dp-rapportering-personregister";
 import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
 import { mockDpSoknadOrkestrator } from "./mock-dp-soknad-orkestrator";
 import { mockPdl } from "./mock-pdl";
@@ -18,6 +19,7 @@ const mswHandlers = [
   ...mockPdl,
   ...mockSaf,
   ...mockDpSoknadOrkestrator,
+  ...mockDpRapporteringPersonregister,
 ];
 
 export async function startMockServer() {

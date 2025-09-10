@@ -4,12 +4,12 @@ import { Variantformat } from "../../graphql/generated/saf/graphql";
 export const mockJournalposter: JournalpostQuery["journalpost"][] = [
   {
     journalpostId: "639664664",
-    tittel: "MASKERT_FELT",
+    tittel: "Journalpost tittel",
     datoOpprettet: "2018-01-01T12:00:00",
     dokumenter: [
       {
         dokumentInfoId: "669305578",
-        tittel: "MASKERT_FELT",
+        tittel: "Dokument tittel",
         brevkode: "000053",
         originalJournalpostId: "639664664",
         dokumentvarianter: [
@@ -69,13 +69,8 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
             skjerming: null,
           },
           {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
-            skjerming: null,
-          },
-          {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
+            variantformat: Variantformat.Produksjon,
+            saksbehandlerHarTilgang: false,
             skjerming: null,
           },
         ],
@@ -151,13 +146,8 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
             skjerming: null,
           },
           {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
-            skjerming: null,
-          },
-          {
-            variantformat: Variantformat.Arkiv,
-            saksbehandlerHarTilgang: true,
+            variantformat: Variantformat.Produksjon,
+            saksbehandlerHarTilgang: false,
             skjerming: null,
           },
         ],
