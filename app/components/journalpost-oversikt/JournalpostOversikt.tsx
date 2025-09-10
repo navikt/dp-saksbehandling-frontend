@@ -1,8 +1,7 @@
-import { variance } from "@babel/types";
 import { Button, Detail, Heading, List } from "@navikt/ds-react";
-import { Fragment } from "react";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { isDefined } from "~/utils/type-guards";
 
 import { JournalpostQuery, Variantformat } from "../../../graphql/generated/saf/graphql";
 
@@ -33,70 +32,77 @@ export function JournalpostOversikt({ journalposter }: IProps) {
   }
 
   return (
-    <>
-      {journalposter.map((journalpost, index) => (
-        <div className={"mb-8"} key={index}>
-          <Heading size={"xsmall"}>{journalpost?.tittel}</Heading>
-          {journalpost?.datoOpprettet && (
-            <Detail textColor={"subtle"}>
-              {formaterTilNorskDato(journalpost.datoOpprettet, true)}
-            </Detail>
-          )}
+    <div className={"flex flex-col gap-6"}>
+      {journalposter.map((journalpost, index) => {
+        const dokumenterMedTilgang = journalpost?.dokumenter
+          ?.map((dokument) => {
+            if (!dokument) return null;
+            const dokumentvarianterMedTilgang = dokument.dokumentvarianter.filter(
+              (variant) => variant?.saksbehandlerHarTilgang,
+            );
 
-          <List as="ul" size="small">
-            {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
-              <List.Item>Ingen dokumenter</List.Item>
+            if (dokumentvarianterMedTilgang.length === 0) return null;
+
+            return { ...dokument, dokumentvarianter: dokumentvarianterMedTilgang };
+          })
+          .filter(isDefined);
+
+        console.log("journalpost", journalpost);
+        console.log("dokumenterMedTilgang", dokumenterMedTilgang);
+
+        if (!dokumenterMedTilgang || dokumenterMedTilgang.length === 0) {
+          return (
+            <Heading key={index} size={"xsmall"} level={"2"}>
+              Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
+            </Heading>
+          );
+        }
+
+        return (
+          <div key={index}>
+            <Heading size={"xsmall"} level={"2"}>
+              {journalpost?.tittel}
+            </Heading>
+            {journalpost?.datoOpprettet && (
+              <Detail textColor={"subtle"}>
+                {formaterTilNorskDato(journalpost.datoOpprettet, true)}
+              </Detail>
             )}
 
-            {journalpost?.dokumenter &&
-              journalpost.dokumenter.map((dokument) => {
-                if (!dokument) return null;
-                // Basert på SAF sin graphql dokumentasjon har vi gjort antagelsen at vi prøver å hente arkiv varianten først hvis det finnes.
-                // Dokumentvariant
-                // En variant av et dokumentet, som er beregnet på et spesielt formål, for eksempel langtidsbevaring eller automatisk saksbehandling.
-                // De fleste dokumenter vil kun returneres i variantformat ARKIV. Dersom det eksisterer andre varianter av dokumentet, vil disse også returneres, gitt at saksbehandler har rettigheter som tilsier at han/hun skal vite at det finnes andre varianter.
-                let dokumentVariantMedTilgang;
-                dokumentVariantMedTilgang = dokument?.dokumentvarianter.find(
-                  (variant) =>
-                    variant?.saksbehandlerHarTilgang && variant?.variantformat === "ARKIV",
-                );
+            <List as="ul" size="small">
+              {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
+                <List.Item>Ingen dokumenter</List.Item>
+              )}
 
-                if (!dokumentVariantMedTilgang) {
-                  dokumentVariantMedTilgang = dokument?.dokumentvarianter.find(
-                    (variant) => variant?.saksbehandlerHarTilgang,
-                  );
-                }
-
-                return (
-                  <>
-                    {dokumentVariantMedTilgang && (
-                      <List.Item>
-                        <Button
-                          type="button"
-                          size="xsmall"
-                          variant="tertiary"
-                          onClick={() =>
-                            aapneDokument(
-                              journalpost?.journalpostId,
-                              dokument.dokumentInfoId,
-                              dokumentVariantMedTilgang.variantformat,
-                            )
-                          }
-                        >
-                          {dokument.tittel}
-                        </Button>
-                      </List.Item>
-                    )}
-
-                    {!dokumentVariantMedTilgang && (
-                      <List.Item>Du har ikke tilgang til dokumentet</List.Item>
-                    )}
-                  </>
-                );
-              })}
-          </List>
-        </div>
-      ))}
-    </>
+              {journalpost &&
+                dokumenterMedTilgang.map((dokument) =>
+                  dokument?.dokumentvarianter.map((variant) => (
+                    <>
+                      {dokument && variant && (
+                        <List.Item>
+                          <Button
+                            type="button"
+                            size="xsmall"
+                            variant="tertiary"
+                            onClick={() =>
+                              aapneDokument(
+                                journalpost?.journalpostId,
+                                dokument.dokumentInfoId,
+                                variant.variantformat,
+                              )
+                            }
+                          >
+                            {dokument.tittel}
+                          </Button>
+                        </List.Item>
+                      )}
+                    </>
+                  )),
+                )}
+            </List>
+          </div>
+        );
+      })}
+    </div>
   );
 }

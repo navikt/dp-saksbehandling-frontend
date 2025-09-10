@@ -2,10 +2,10 @@ import { AlertProps } from "@navikt/ds-react";
 
 import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
+import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
-import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
 export function isOppgaveOversikt(
   oppgave:
@@ -78,8 +78,8 @@ export function isFormValidationError(data: unknown): data is IFormValidationErr
   return typeof maybeError.message === "string";
 }
 
-export function isDefined<T>(value: T | undefined): value is T {
-  return value !== undefined;
+export function isDefined<T>(value: T | undefined | null): value is T {
+  return value !== undefined && value !== null;
 }
 
 /**
