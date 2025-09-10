@@ -9,7 +9,6 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -44,14 +43,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   };
 }
 export default function MeldingOmVedtakRoute() {
-  const { oppgave, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { meldingOmVedtak } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  return (
-    <MeldingOmVedtakProvider meldingOmVedtakKilde={oppgave.meldingOmVedtakKilde}>
-      <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
-    </MeldingOmVedtakProvider>
-  );
+  return <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />;
 }
 
 export function ErrorBoundary() {
