@@ -3,7 +3,11 @@ import { useSearchParams } from "react-router";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
-const behandlingTyper: components["schemas"]["BehandlingType"][] = ["RETT_TIL_DAGPENGER", "KLAGE"];
+const behandlingTyper: components["schemas"]["BehandlingType"][] = [
+  "RETT_TIL_DAGPENGER",
+  "KLAGE",
+  "MELDEKORT",
+];
 
 export function OppgaveFilterBehandlingType() {
   const [searchParams, setSearchParams] = useSearchParams();
