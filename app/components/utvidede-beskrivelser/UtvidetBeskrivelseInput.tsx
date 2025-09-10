@@ -56,7 +56,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   }
 
   return (
-    <>
+    <div>
       <lagreUtvidetBeskrivelseFetcher.Form method="post">
         <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
         <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
@@ -85,6 +85,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           Lagret {formaterTilNorskDato(props.utvidetBeskrivelse.sistEndretTidspunkt, true)}
         </Detail>
       )}
-    </>
+    </div>
   );
 }

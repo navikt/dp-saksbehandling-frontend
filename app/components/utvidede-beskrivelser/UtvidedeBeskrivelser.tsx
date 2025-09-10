@@ -30,22 +30,18 @@ export function UtvidedeBeskrivelser(props: {
     props.setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
   }
 
-  return (
-    <div>
-      {props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
-        <UtvidetBeskrivelseInput
-          key={utvidetBeskrivelse.brevblokkId}
-          readOnly={props.readOnly}
-          utvidetBeskrivelse={utvidetBeskrivelse}
-          updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
-          label={
-            <div>
-              {utvidetBeskrivelse.tittel}
-              <Detail textColor="subtle">Utvidet beskrivelse</Detail>
-            </div>
-          }
-        />
-      ))}
-    </div>
-  );
+  return props.utvidedeBeskrivelser.map((utvidetBeskrivelse) => (
+    <UtvidetBeskrivelseInput
+      key={utvidetBeskrivelse.brevblokkId}
+      readOnly={props.readOnly}
+      utvidetBeskrivelse={utvidetBeskrivelse}
+      updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
+      label={
+        <div>
+          {utvidetBeskrivelse.tittel}
+          <Detail textColor="subtle">Utvidet beskrivelse</Detail>
+        </div>
+      }
+    />
+  ));
 }

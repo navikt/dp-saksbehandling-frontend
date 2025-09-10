@@ -218,6 +218,36 @@ export async function lagreNotat(request: Request, oppgaveId: string, notat: str
   }
 }
 
+export async function lagreMeldingOmVedtak(
+  request: Request,
+  oppgaveId: string,
+  meldingOmVedtakKilde: components["schemas"]["MeldingOmVedtakKilde"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/melding-om-vedtak-kilde", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { meldingOmVedtakKilde },
+    params: {
+      path: { oppgaveId },
+    },
+  });
+}
+
+export async function lagreGodkjentBrevIGosys(
+  request: Request,
+  oppgaveId: string,
+  kontrollert: components["schemas"]["KontrollertBrev"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/kontrollert-brev", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { kontrollert },
+    params: {
+      path: { oppgaveId },
+    },
+  });
+}
+
 export async function sokPerson(request: Request, ident: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { data, error, response } = await saksbehandlerClient.POST("/person/personId", {

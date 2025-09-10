@@ -48,6 +48,7 @@ function hentGyldigeOppgaveValg(
   }
 
   switch (oppgave.behandlingType) {
+    case "MELDEKORT":
     case "RETT_TIL_DAGPENGER":
       switch (oppgave.tilstand) {
         case "UNDER_BEHANDLING":

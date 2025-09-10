@@ -209,6 +209,23 @@ export function hentValideringForNyKlageSkjema() {
   });
 }
 
+export function hentValideringForMeldingOmVedtakKildeSkjema() {
+  return z.object({
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    meldingOmVedtakKilde: z.enum(["DP_SAK", "GOSYS", "INGEN"], {
+      required_error: "Du må velge et alternativ",
+      invalid_type_error: "Ugyldig valg",
+    }),
+  });
+}
+
+export function hentValideringForGodkjentBrevSkjema() {
+  return z.object({
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    godkjentBrev: z.string().optional(),
+  });
+}
+
 function hentValideringForNorskDato() {
   return z
     .string()

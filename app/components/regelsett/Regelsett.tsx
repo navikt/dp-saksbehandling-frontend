@@ -1,4 +1,5 @@
-import { Detail, Heading } from "@navikt/ds-react";
+import { Detail, Heading, Skeleton } from "@navikt/ds-react";
+import { useNavigation } from "react-router";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
@@ -15,6 +16,7 @@ interface IProps {
 }
 
 export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
+  const { state } = useNavigation();
   const opplysningGrupper = aktivtRegelsett.opplysningTypeIder
     .map((id) =>
       behandling.opplysningsgrupper.find(
@@ -46,11 +48,19 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   return (
     <div className={styles.container}>
       <div className={styles.hjemmelContainer}>
-        <Heading className={styles.hjemmelTittel} size="medium">
+        <Heading
+          className={styles.hjemmelTittel}
+          size="medium"
+          as={state === "loading" ? Skeleton : "h1"}
+        >
           {aktivtRegelsett.hjemmel.tittel}
         </Heading>
 
-        <Detail textColor="subtle" className={styles.hjemmelKilde}>
+        <Detail
+          textColor="subtle"
+          className={styles.hjemmelKilde}
+          as={state === "loading" ? Skeleton : "p"}
+        >
           {aktivtRegelsett.hjemmel.kilde.navn}
         </Detail>
       </div>

@@ -19,8 +19,8 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentKlage } from "~/models/saksbehandling.server";
+import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { hentKlage, hentOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -32,15 +32,32 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  const oppgave = await hentOppgave(request, params.oppgaveId);
   const klage = await hentKlage(request, params.behandlingId);
+  let meldingOmVedtak;
+
+  if (oppgave.saksbehandler) {
+    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
+      fornavn: oppgave.person.fornavn,
+      mellomnavn: oppgave.person.mellomnavn,
+      etternavn: oppgave.person.etternavn,
+      fodselsnummer: oppgave.person.ident,
+      saksbehandler: oppgave.saksbehandler,
+      beslutter: oppgave.beslutter,
+      behandlingstype: oppgave.behandlingType,
+    });
+  }
+
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
+      oppgave,
       klage,
+      meldingOmVedtak,
     },
     {
       headers: {
@@ -51,8 +68,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { klage, alert } = useLoaderData<typeof loader>();
+  const { oppgave, meldingOmVedtak, klage, alert } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -90,7 +106,7 @@ export default function Oppgave() {
 
             <Tabs.Panel value="melding-om-vedtak">
               {klage.utfall.verdi !== "IKKE_SATT" ? (
-                <MeldingOmVedtak />
+                <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
                   <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
