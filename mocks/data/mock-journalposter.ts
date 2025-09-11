@@ -70,7 +70,17 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
           },
           {
             variantformat: Variantformat.Produksjon,
-            saksbehandlerHarTilgang: false,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+          {
+            variantformat: Variantformat.Original,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+          {
+            variantformat: Variantformat.Fullversjon,
+            saksbehandlerHarTilgang: true,
             skjerming: null,
           },
         ],

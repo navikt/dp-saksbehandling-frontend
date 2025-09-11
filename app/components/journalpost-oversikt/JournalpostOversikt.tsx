@@ -43,8 +43,11 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
         const dokumenterMedTilgang = journalpost?.dokumenter
           ?.map((dokument) => {
             if (!dokument) return null;
+
+            // Filtrer ut dokumentvarianter hvor saksbehandler ikke har tilgang eller hvor variantformat er "ORIGINAL". Vi er usikre på hva original er, men den kan ikke åpnes som et dokument. Ser heller ikke ut til å finnesi Gosys
             const dokumentvarianterMedTilgang = dokument.dokumentvarianter.filter(
-              (variant) => variant?.saksbehandlerHarTilgang,
+              (variant) =>
+                variant?.saksbehandlerHarTilgang && variant?.variantformat !== "ORIGINAL",
             );
 
             if (dokumentvarianterMedTilgang.length === 0) return null;
@@ -99,7 +102,8 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                               )
                             }
                           >
-                            {dokument.tittel}
+                            {dokument.tittel}{" "}
+                            {variant.variantformat !== "ARKIV" && `[${variant.variantformat}]`}
                           </Button>
                         </List.Item>
                       )}
