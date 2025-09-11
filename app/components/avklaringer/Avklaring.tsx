@@ -3,7 +3,7 @@ import {
   PersonPencilIcon,
   RobotSmileIcon,
 } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, ExpansionCard, Skeleton, TextField } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
@@ -50,8 +50,13 @@ export function Avklaring({ avklaring, behandlingId, readonly }: IProps) {
             [styles.headingWarning]: avklaring.status === "Åpen",
           })}
         >
-          {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
-          <BodyShort size="small" weight="semibold">
+          <BodyShort
+            className={"flex items-center"}
+            size="small"
+            weight="semibold"
+            as={state === "loading" ? Skeleton : "p"}
+          >
+            {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
             {avklaring.tittel}
           </BodyShort>
         </ExpansionCard.Header>
