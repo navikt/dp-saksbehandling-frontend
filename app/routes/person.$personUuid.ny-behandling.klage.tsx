@@ -56,7 +56,7 @@ export default function Oppgave() {
 
         <TextField
           name="journalpostId"
-          className="mt-4"
+          className="mt-4 max-w-sm"
           label={"Journalpost Id"}
           size={"small"}
           error={klageForm.error("journalpostId")}
@@ -64,7 +64,7 @@ export default function Oppgave() {
 
         <TextField
           name="sakId"
-          className="mt-4"
+          className="mt-4 max-w-sm"
           label={"Sak Id"}
           size={"small"}
           error={klageForm.error("sakId")}

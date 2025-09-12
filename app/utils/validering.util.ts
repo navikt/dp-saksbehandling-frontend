@@ -204,7 +204,7 @@ export function hentValideringForNyKlageSkjema() {
       "Ugyldig dato. Gylige datoformat er dd.mm.åååå",
     ),
     journalpostId: z.string().min(1, { message: "Du må skrive inn journalpost id" }),
-    sakId: z.string().min(1, { message: "Du må skrive inn sak id" }),
+    sakId: z.string().uuid({ message: "Du må skrive inn gyldig sak uuid" }),
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
