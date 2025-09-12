@@ -91,6 +91,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                       {dokument && variant && (
                         <List.Item>
                           <Button
+                            className={"text-start"}
                             type="button"
                             size="xsmall"
                             variant="tertiary"
