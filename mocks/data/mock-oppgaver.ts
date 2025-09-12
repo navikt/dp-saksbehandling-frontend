@@ -126,6 +126,7 @@ export const underBehandlingAvslagOppgaveMineOppgave: components["schemas"]["Opp
   journalpostIder: ["598116231", "639664664"],
   historikk: mockHistorikk,
   saksbehandler: mockOppgaveSaksbehandler,
+  beslutter: { ...mockOppgaveSaksbehandler, ident: "ident456" },
   soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
   meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",

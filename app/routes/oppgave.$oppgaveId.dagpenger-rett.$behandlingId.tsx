@@ -24,6 +24,8 @@ import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
+import { components } from "../../openapi/saksbehandling-typer";
+
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
@@ -95,7 +97,7 @@ export default function BehandlingRoute() {
                 </motion.div>
               ) : (
                 <OppgaveInformasjon
-                  defaultTab={oppgave.tilstand === "UNDER_KONTROLL" ? "kontroll" : "dokumenter"}
+                  defaultTab={hentDefaultTab(oppgave)}
                   visKontrollFane={oppgave.tilstand === "UNDER_KONTROLL"}
                 />
               )}
@@ -105,6 +107,18 @@ export default function BehandlingRoute() {
       </ResizableColumns>
     </>
   );
+}
+
+function hentDefaultTab(oppgave: components["schemas"]["Oppgave"]) {
+  if (oppgave.tilstand === "UNDER_KONTROLL") {
+    return "kontroll";
+  }
+
+  if (oppgave.beslutter) {
+    return "historikk";
+  }
+
+  return "dokumenter";
 }
 
 export function ErrorBoundary() {
