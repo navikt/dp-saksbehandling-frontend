@@ -1,4 +1,4 @@
-import { Button, Detail, Heading, List } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
 
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { IAlert } from "~/context/alert-context";
@@ -34,7 +34,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
   }
 
   return (
-    <div className={"flex flex-col gap-6"}>
+    <div className={"flex flex-col gap-2"}>
       {journalposterResponse.map((journalpost, index) => {
         if (isAlert(journalpost)) {
           return <HttpProblemAlert key={index} error={journalpost} />;
@@ -57,28 +57,19 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
 
         if (!dokumenterMedTilgang || dokumenterMedTilgang.length === 0) {
           return (
-            <Heading
+            <BodyShort
               key={index}
-              size={"xsmall"}
-              level={"2"}
-              className={"border-l-2 border-(--a-border-subtle) pl-2"}
+              size={"small"}
+              weight={"semibold"}
+              className={"border-b-1 border-(--a-border-subtle) pb-2"}
             >
               Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
-            </Heading>
+            </BodyShort>
           );
         }
 
         return (
-          <div key={index} className={"border-l-2 border-(--a-border-subtle) pl-2"}>
-            <Heading size={"xsmall"} level={"2"}>
-              {journalpost?.tittel}
-            </Heading>
-            {journalpost?.datoOpprettet && (
-              <Detail textColor={"subtle"}>
-                {formaterTilNorskDato(journalpost.datoOpprettet, true)}
-              </Detail>
-            )}
-
+          <div key={index} className={"border-b-1 border-(--a-border-subtle)"}>
             <List as="ul" size="small">
               {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
                 <List.Item>Ingen dokumenter</List.Item>
@@ -112,6 +103,11 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                   )),
                 )}
             </List>
+            {journalpost?.datoOpprettet && (
+              <Detail textColor={"subtle"} className={"m text-right"}>
+                {formaterTilNorskDato(journalpost.datoOpprettet, true)}
+              </Detail>
+            )}
           </div>
         );
       })}

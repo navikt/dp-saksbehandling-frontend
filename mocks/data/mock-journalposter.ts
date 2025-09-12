@@ -216,4 +216,70 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
       },
     ],
   },
+  {
+    journalpostId: "598116238",
+    tittel: "Ettersendelse til seknad om dagpenger ved arbeidsledighet (ikke permittert)",
+    datoOpprettet: "2018-01-03T12:00:00",
+    dokumenter: [
+      {
+        dokumentInfoId: "624863374",
+        tittel: "Ettersendelse til seknad om dagpenger ved arbeidsledighet (ikke permittert)",
+        brevkode: "NAV 04-01.03",
+        originalJournalpostId: "598116238",
+        dokumentvarianter: [
+          {
+            variantformat: Variantformat.Arkiv,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+        ],
+      },
+      {
+        dokumentInfoId: "624863375",
+        tittel: "Arbeidsavtale",
+        brevkode: "T3",
+        originalJournalpostId: "598116238",
+        dokumentvarianter: [
+          {
+            variantformat: Variantformat.Arkiv,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    journalpostId: "598116239",
+    tittel: "Ettersendelse til seknad om dagpenger ved arbeidsledighet (ikke permittert)",
+    datoOpprettet: "2018-01-03T12:00:00",
+    dokumenter: [
+      {
+        dokumentInfoId: "624863374",
+        tittel: "Ettersendelse til seknad om dagpenger ved arbeidsledighet (ikke permittert)",
+        brevkode: "NAV 04-01.03",
+        originalJournalpostId: "598116238",
+        dokumentvarianter: [
+          {
+            variantformat: Variantformat.Arkiv,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+        ],
+      },
+      {
+        dokumentInfoId: "624863375",
+        tittel: "Arbeidsavtale",
+        brevkode: "T3",
+        originalJournalpostId: "598116238",
+        dokumentvarianter: [
+          {
+            variantformat: Variantformat.Arkiv,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+        ],
+      },
+    ],
+  },
 ];
