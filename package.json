@@ -74,9 +74,9 @@
   },
   "devDependencies": {
     "@eslint/js": "9.35.0",
-    "@graphql-codegen/cli": "5.0.7",
-    "@graphql-codegen/client-preset": "4.8.2",
-    "@graphql-codegen/typescript": "4.1.6",
+    "@graphql-codegen/cli": "6.0.0",
+    "@graphql-codegen/client-preset": "5.0.0",
+    "@graphql-codegen/typescript": "5.0.0",
     "@parcel/watcher": "2.5.1",
     "@playwright/test": "1.55.0",
     "@portabletext/types": "2.0.15",
