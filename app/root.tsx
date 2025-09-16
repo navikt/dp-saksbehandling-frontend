@@ -118,6 +118,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
+      UMAMI_ID: process.env.UMAMI_ID,
     },
   };
 }
@@ -131,6 +132,12 @@ export default function App() {
         <title>Dagpenger</title>
         <Meta />
         <Links />
+        <script
+          defer
+          src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+          data-host-url="https://umami.nav.no"
+          data-website-id={env.UMAMI_ID}
+        ></script>
       </head>
       <body>
         <SaksbehandlerProvider>

@@ -115,6 +115,7 @@ jobs:
 
   deploy-dev:
     name: Deploy til dev-gcp
+    if: github.ref == 'refs/heads/main' # TODO: fjern denne tullesjekken (som forhindrer at denne branchen bygger til noe miljø)
     needs: [ build ]
     runs-on: ubuntu-latest
     environment:
