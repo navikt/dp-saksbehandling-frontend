@@ -17,8 +17,12 @@ export function OppgaveHandlingUtsett() {
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   const validatedForm = useForm({
-    validator: hentValideringUtsettOppgave(),
+    schema: hentValideringUtsettOppgave(),
     method: "post",
+    defaultValues: {
+      utsettTilDato: "",
+      paaVentAarsak: "",
+    },
     validationBehaviorConfig: {
       initial: "onSubmit",
       whenTouched: "onSubmit",

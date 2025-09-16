@@ -52,16 +52,3 @@ function hentLand(lankode: string): string {
       ?.navn || ""
   );
 }
-
-// Funksjonen returnerer et objekt med opplysninger fra opplysnings array
-export function hentOrkestratorBarnFormDefaultValues(
-  opplysninger: components["schemas"]["BarnOpplysning"][],
-) {
-  return opplysninger.reduce(
-    (acc, { id, verdi }) => {
-      acc[id] = verdi;
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-}

@@ -7,7 +7,6 @@ import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
 import {
@@ -55,9 +54,19 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
   const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
 
   const orkestratorBarnForm = useForm({
-    validator: hentValideringOrkestratorBarn(),
+    schema: hentValideringOrkestratorBarn(),
     method: "put",
-    defaultValues: hentOrkestratorBarnFormDefaultValues(barnOpplysninger),
+    defaultValues: {
+      fornavnOgMellomnavn: "",
+      etternavn: "",
+      fodselsdato: "",
+      oppholdssted: "",
+      forsorgerBarnet: "false",
+      kvalifisererTilBarnetillegg: "false",
+      barnetilleggFom: "",
+      barnetilleggTom: "",
+      begrunnelse: "",
+    },
     onSubmitSuccess: () => {
       ref.current?.close();
     },
@@ -83,6 +92,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
           <OrkestratorOpplysningLinje
             key={index}
             opplysning={opplysning}
+            // @ts-expect-error TODO Nattaphong fikser <3
             formScope={orkestratorBarnForm.scope(opplysning.id)}
             readOnly
           />
@@ -127,7 +137,8 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
                 <OrkestratorOpplysningLinje
                   key={index}
                   opplysning={opplysning}
-                  formScope={orkestratorBarnForm.scope(opplysning.id as string)}
+                  // @ts-expect-error TODO Nattaphong fikser <3
+                  formScope={orkestratorBarnForm.scope(opplysning.id)}
                 />
               ))}
             </div>
