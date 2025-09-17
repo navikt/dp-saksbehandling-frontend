@@ -17,15 +17,5 @@ node_modules
 /.idea
 /.fleet
 
-.env.local
-
-# Playwright
-/test-results/
-/playwright-report/
-/playwright/.cache/
-
-#Vitest
-coverage
-
 # .env
-.env
+.env*

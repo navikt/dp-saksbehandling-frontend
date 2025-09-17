@@ -33,6 +33,7 @@ const mockLovligeEndringer: components["schemas"]["LovligeEndringer"] = {
     "AVVENT_RAPPORTERINGSFRIST",
     "ANNET",
   ],
+  avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
 };
 
 export const underBehandlingAnnenSaksbehandlerOppgave: components["schemas"]["Oppgave"] = {

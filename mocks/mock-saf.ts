@@ -25,7 +25,7 @@ export const mockSaf = [
     async ({ request }) => {
       logger.info(`[MSW]-${request.method} ${request.url}`);
       await delay();
-      const buffer = fs.readFileSync(path.resolve(process.cwd(), "public", `sample.pdf`));
+      const buffer = fs.readFileSync(path.resolve(process.cwd(), "public", `sample.pdf`)).buffer;
       return HttpResponse.arrayBuffer(buffer, {
         headers: {
           "Content-Type": "application/pdf",

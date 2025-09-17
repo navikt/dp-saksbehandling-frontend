@@ -869,6 +869,8 @@ export interface components {
             redigerbar?: boolean;
             redigertAvSaksbehandler?: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
+            /** @description Indikerer om opplysningen kan oppfriskes (enten hentes inn eller utledes på nytt) */
+            kanOppfriskes: boolean;
             opplysninger: components["schemas"]["Opplysning"][];
         };
         /** @enum {string} */
@@ -1040,6 +1042,7 @@ export interface components {
         Utledning: {
             regel: components["schemas"]["Regel"];
             opplysninger: string[];
+            versjon?: string;
         };
         Regel: {
             navn: string;

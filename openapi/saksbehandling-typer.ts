@@ -523,6 +523,60 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/oppgave/{oppgaveId}/avbryt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Avbryter en oppgave. */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Oppgaven er avbrutt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppgaven ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/oppgave/{oppgaveId}/ferdigstill": {
         parameters: {
             query?: never;
@@ -1503,12 +1557,14 @@ export interface components {
         /** @enum {string} */
         MeldingOmVedtakKilde: "DP_SAK" | "GOSYS" | "INGEN";
         /** @enum {string} */
-        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "BEHANDLES_I_ARENA";
+        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "MELDEKORT";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: string[];
+            /** @description Årsaker til at oppgaven avbrytes */
+            avbrytAarsaker: string[];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1545,6 +1601,11 @@ export interface components {
         NesteOppgave: {
             queryParams: string;
         };
+        AvbrytOppgave: {
+            aarsak: components["schemas"]["AvbrytOppgaveAarsak"];
+        };
+        /** @enum {string} */
+        AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;
