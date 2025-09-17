@@ -9,6 +9,8 @@ import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
+import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
+
 export function OppgaveHandlingUtsett() {
   const { state } = useNavigation();
   const ref = useRef<HTMLDialogElement>(null);
@@ -20,8 +22,10 @@ export function OppgaveHandlingUtsett() {
     schema: hentValideringUtsettOppgave(),
     method: "post",
     defaultValues: {
+      oppgaveId: oppgave.oppgaveId,
+      beholdOppgave: false,
       utsettTilDato: "",
-      paaVentAarsak: "",
+      paaVentAarsak: "" as unknown as saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"],
     },
     validationBehaviorConfig: {
       initial: "onSubmit",
