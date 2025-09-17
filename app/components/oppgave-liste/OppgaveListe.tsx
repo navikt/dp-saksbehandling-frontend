@@ -172,7 +172,7 @@ export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand
       return "Klar til kontroll";
     case "UNDER_KONTROLL":
       return "Under kontroll";
-    case "BEHANDLES_I_ARENA":
-      return "Sendt til Arena";
+    case "AVBRUTT":
+      return "Avbrutt";
   }
 }

@@ -10,7 +10,7 @@ export const TILSTANDER: ITilstander[] = [
   { id: "UNDER_BEHANDLING", tekst: "Under behandling" },
   { id: "FERDIG_BEHANDLET", tekst: "Ferdig behandlet" },
   { id: "PAA_VENT", tekst: "På vent" },
-  { id: "BEHANDLES_I_ARENA", tekst: "Sendt til Arena" },
+  { id: "AVBRUTT", tekst: "Avbrutt" },
 ];
 
 interface IProps {

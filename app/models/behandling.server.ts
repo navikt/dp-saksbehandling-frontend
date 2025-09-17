@@ -112,12 +112,12 @@ export async function rekjorBehandling(
   request: Request,
   behandlingId: string,
   ident: string,
-  opplysningerSomSkalOppfriskes?: string[],
+  opplysningIderSomSkalOppfriskes?: string[],
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident: ident, opplysninger: opplysningerSomSkalOppfriskes },
+    body: { ident: ident, opplysninger: opplysningIderSomSkalOppfriskes },
     params: {
       path: { behandlingId },
     },
