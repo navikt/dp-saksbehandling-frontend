@@ -541,7 +541,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["AvbrytOppgave"];
+                };
+            };
             responses: {
                 /** @description Oppgaven er avbrutt */
                 204: {

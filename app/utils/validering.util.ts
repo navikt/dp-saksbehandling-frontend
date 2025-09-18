@@ -168,6 +168,19 @@ export function hentValideringUtsettOppgave() {
   });
 }
 
+export function hentValideringAvbrytOppgave() {
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"][] = [
+    "BEHANDLES_I_ARENA",
+    "FLERE_SØKNADER",
+    "TRUKKET_SØKNAD",
+    "ANNET",
+  ];
+  return z.object({
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+  });
+}
+
 export function hentValideringOrkestratorBarn() {
   return z.object({
     fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),

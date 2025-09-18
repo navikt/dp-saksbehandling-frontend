@@ -1,19 +1,25 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
-import { avbrytBehandling } from "~/models/behandling.server";
+import { avbrytOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringAvbrytOppgave } from "~/utils/validering.util";
 
-export async function sendTilArenaAction(
+export async function avbrytOppgaveAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const behandlingId = formData.get("behandlingId") as string;
-  const personIdent = formData.get("personIdent") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringAvbrytOppgave());
 
-  const { error } = await avbrytBehandling(request, behandlingId, personIdent);
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
+  }
+
+  const { oppgaveId, avbrytAarsak } = validertSkjema.data;
+  const { error } = await avbrytOppgave(request, oppgaveId, avbrytAarsak);
 
   if (error) {
     return getHttpProblemAlert(error);
@@ -21,7 +27,7 @@ export async function sendTilArenaAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: "Behandling sendt til arena for videre behandling",
+    title: "Oppgave avbrutt",
   };
 
   const session = await getSession(request.headers.get("Cookie"));

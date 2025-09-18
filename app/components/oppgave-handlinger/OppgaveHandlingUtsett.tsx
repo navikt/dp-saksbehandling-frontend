@@ -25,7 +25,7 @@ export function OppgaveHandlingUtsett() {
       oppgaveId: oppgave.oppgaveId,
       beholdOppgave: false,
       utsettTilDato: "",
-      // castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
+      // Castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
       // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773
       paaVentAarsak: "" as unknown as saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"],
     },

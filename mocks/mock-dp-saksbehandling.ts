@@ -164,6 +164,25 @@ export const mockDpSaksbehandling = [
     return response(404).json(get404Error("/oppgave/{oppgaveId}/utsett"));
   }),
 
+  // Avbryt oppgave med oppgaveId
+  http.put(`/oppgave/{oppgaveId}/avbryt`, async ({ request, response, params }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
+      return response(204).empty();
+    }
+
+    return response(404).json(get404Error("/oppgave/{oppgaveId}/avbryt"));
+  }),
+
   // Send oppgave til kontroll
   http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, async ({ request, response }) => {
     logger.info(`[MSW]-${request.method} ${request.url}`);
