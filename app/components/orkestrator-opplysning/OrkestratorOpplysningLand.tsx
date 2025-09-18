@@ -7,7 +7,7 @@ import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysni
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string>;
+  formScope: FormScope<string | undefined>;
 }
 
 export function OrkestratorOpplysningLand({ opplysning, formScope }: IProps) {

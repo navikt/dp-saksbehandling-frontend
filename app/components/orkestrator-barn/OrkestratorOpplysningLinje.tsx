@@ -16,7 +16,7 @@ import { OrkestratorTag } from "./OrkestratorTag";
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
   readOnly?: boolean;
-  formScope: FormScope<string>;
+  formScope: FormScope<string | undefined>;
 }
 
 export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {

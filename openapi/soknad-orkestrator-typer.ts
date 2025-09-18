@@ -151,8 +151,8 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         BarnOpplysning: {
-            /** Format: string */
-            id: string;
+            /** @enum {string} */
+            id: "fornavnOgMellomnavn" | "etternavn" | "fodselsdato" | "oppholdssted" | "forsorgerBarnet" | "kvalifisererTilBarnetillegg" | "barnetilleggFom" | "barnetilleggTom" | "begrunnelse";
             /** Format: string */
             verdi: string;
             /** @enum {string} */
