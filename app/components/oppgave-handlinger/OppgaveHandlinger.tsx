@@ -42,6 +42,10 @@ function hentGyldigeOppgaveValg(
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
 
+  if (oppgave.tilstand === "AVBRUTT") {
+    return handlinger;
+  }
+
   if (!minOppgave) {
     handlinger.push("legg-tilbake");
     return handlinger;
