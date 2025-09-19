@@ -1,4 +1,3 @@
-import { withZod } from "@rvf/zod";
 import { z } from "zod";
 
 import { logger } from "~/utils/logger.utils";
@@ -71,8 +70,7 @@ export function hentValideringForOpplysningVerdi(datatype: components["schemas"]
 
     case "boolsk":
       return z.enum(["Ja", "Nei"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+        message: "Du må velge et svar",
       });
 
     case "dato":
@@ -103,17 +101,15 @@ export function hentValideringForKlageOpplysningVerdi(
 
     case "BOOLSK":
       return z.enum(["Ja", "Nei"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+        message: "Du må velge et svar",
       });
 
     case "DATO":
       return hentValideringForNorskDato();
 
     case "LISTEVALG":
-      return z.enum(["", ...opplysning.valgmuligheter], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+      return z.enum(opplysning.valgmuligheter, {
+        message: "Du må velge et svar",
       });
 
     case "FLER_LISTEVALG":
@@ -154,47 +150,66 @@ export function hentValideringForPersonIdent() {
 }
 
 export function hentValideringUtsettOppgave() {
-  return withZod(
-    z.object({
-      utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
-      paaVentAarsak: z.string().min(1, { message: "Du må velge en begrunnelse" }),
-    }),
-  );
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"][] = [
+    "AVVENT_SVAR",
+    "AVVENT_DOKUMENTASJON",
+    "AVVENT_MELDEKORT",
+    "AVVENT_PERMITTERINGSÅRSAK",
+    "AVVENT_RAPPORTERINGSFRIST",
+    "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "ANNET",
+  ];
+  return z.object({
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    aktivtOppgaveSok: z.string().optional(),
+    beholdOppgave: z.coerce.boolean(),
+    utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
+    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en begrunnelse" }),
+  });
+}
+
+export function hentValideringAvbrytOppgave() {
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"][] = [
+    "BEHANDLES_I_ARENA",
+    "FLERE_SØKNADER",
+    "TRUKKET_SØKNAD",
+    "ANNET",
+  ];
+  return z.object({
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+  });
 }
 
 export function hentValideringOrkestratorBarn() {
-  return withZod(
-    z.object({
-      fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-      etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-      fodselsdato: z.string().regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+  return z.object({
+    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
+    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
+    fodselsdato: z.string().regex(
+      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+      "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
+    ),
+    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
+    forsorgerBarnet: z.enum(["true", "false"], {
+      message: "Du må velge et svar",
+    }),
+    kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
+      message: "Du må velge et svar",
+    }),
+    barnetilleggFom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
         "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
       ),
-      oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-      forsorgerBarnet: z.enum(["true", "false"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
-      }),
-      kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
-      }),
-      barnetilleggFom: z
-        .string()
-        .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-          "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
-        ),
-      barnetilleggTom: z
-        .string()
-        .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-          "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
-        ),
-      begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-    }),
-  );
+    barnetilleggTom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
+        "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
+      ),
+    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+  });
 }
 
 export function hentValideringForNyKlageSkjema() {
@@ -213,8 +228,7 @@ export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     meldingOmVedtakKilde: z.enum(["DP_SAK", "GOSYS", "INGEN"], {
-      required_error: "Du må velge et alternativ",
-      invalid_type_error: "Ugyldig valg",
+      message: "Du må velge et alternativ",
     }),
   });
 }

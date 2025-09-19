@@ -10,7 +10,7 @@ import { OrkestratorOpplysningTekst } from "./OrkestratorOpplysningTekst";
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string>;
+  formScope: FormScope<string | undefined>;
 }
 
 export function OrkestratorOpplysning({ opplysning, formScope }: IProps) {

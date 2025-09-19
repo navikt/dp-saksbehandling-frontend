@@ -9,6 +9,8 @@ import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
+import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
+
 export function OppgaveHandlingUtsett() {
   const { state } = useNavigation();
   const ref = useRef<HTMLDialogElement>(null);
@@ -17,8 +19,16 @@ export function OppgaveHandlingUtsett() {
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   const validatedForm = useForm({
-    validator: hentValideringUtsettOppgave(),
+    schema: hentValideringUtsettOppgave(),
     method: "post",
+    defaultValues: {
+      oppgaveId: oppgave.oppgaveId,
+      beholdOppgave: false,
+      utsettTilDato: "",
+      // Castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
+      // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773
+      paaVentAarsak: "" as unknown as saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"],
+    },
     validationBehaviorConfig: {
       initial: "onSubmit",
       whenTouched: "onSubmit",

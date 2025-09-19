@@ -7,7 +7,6 @@ import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentOrkestratorBarnFormDefaultValues } from "~/utils/orkestrator-opplysninger.utils";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
 import {
@@ -51,13 +50,27 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
 
-  // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.
-  const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
-
   const orkestratorBarnForm = useForm({
-    validator: hentValideringOrkestratorBarn(),
+    schema: hentValideringOrkestratorBarn(),
     method: "put",
-    defaultValues: hentOrkestratorBarnFormDefaultValues(barnOpplysninger),
+    defaultValues: {
+      fornavnOgMellomnavn:
+        barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi || "",
+      etternavn: barn.opplysninger.find((o) => o.id === "etternavn")?.verdi || "",
+      fodselsdato: barn.opplysninger.find((o) => o.id === "fodselsdato")?.verdi || "",
+      oppholdssted: barn.opplysninger.find((o) => o.id === "oppholdssted")?.verdi || "",
+      forsorgerBarnet:
+        barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi === "true"
+          ? "true"
+          : "false",
+      kvalifisererTilBarnetillegg:
+        barn.opplysninger.find((o) => o.id === "kvalifisererTilBarnetillegg")?.verdi === "true"
+          ? "true"
+          : "false",
+      barnetilleggFom: barn.opplysninger.find((o) => o.id === "barnetilleggFom")?.verdi || "",
+      barnetilleggTom: barn.opplysninger.find((o) => o.id === "barnetilleggTom")?.verdi || "",
+      begrunnelse: barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi || "",
+    },
     onSubmitSuccess: () => {
       ref.current?.close();
     },
@@ -79,7 +92,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
         Barn {barnNummer}
       </Heading>
       <div className={styles.orkestratorOpplysning}>
-        {barnOpplysninger.map((opplysning, index) => (
+        {barn.opplysninger.map((opplysning, index) => (
           <OrkestratorOpplysningLinje
             key={index}
             opplysning={opplysning}
@@ -123,11 +136,11 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
                 name="behandlingId"
                 value={behandling.behandlingId}
               />
-              {barnOpplysninger.map((opplysning, index) => (
+              {barn.opplysninger.map((opplysning, index) => (
                 <OrkestratorOpplysningLinje
                   key={index}
                   opplysning={opplysning}
-                  formScope={orkestratorBarnForm.scope(opplysning.id as string)}
+                  formScope={orkestratorBarnForm.scope(opplysning.id)}
                 />
               ))}
             </div>

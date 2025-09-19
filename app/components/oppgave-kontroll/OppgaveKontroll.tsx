@@ -1,6 +1,7 @@
 import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, Fragment, useEffect } from "react";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import { useFetcher } from "react-router";
+import { useDebounceCallback } from "usehooks-ts";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
@@ -16,7 +17,9 @@ export function OppgaveKontroll() {
   const { notat, setNotat } = useBeslutterNotat();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const fetcher = useDebounceFetcher<typeof action>();
+  const fetcher = useFetcher<typeof action>();
+  const debouncedFetcher = useDebounceCallback(fetcher.submit, 2000);
+
   const minOppgave = oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName;
 
   useEffect(() => {
@@ -31,12 +34,19 @@ export function OppgaveKontroll() {
     }
   }, [fetcher.data]);
 
-  function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
+  function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     setNotat({ ...notat, tekst: event.currentTarget.value });
 
-    fetcher.submit(event.target.form, {
-      debounceTimeout: delayInMs,
-    });
+    debouncedFetcher(event.target.form);
+    if (event.currentTarget.value === oppgave.notat?.tekst) {
+      debouncedFetcher.cancel();
+    }
+  }
+
+  function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.currentTarget.value !== oppgave.notat?.tekst) {
+      debouncedFetcher.flush();
+    }
   }
 
   return (
@@ -47,8 +57,8 @@ export function OppgaveKontroll() {
         <Textarea
           name="notat"
           value={notat.tekst}
-          onChange={(event) => lagreBeslutterNotat(event, 2000)}
-          onBlur={(event) => lagreBeslutterNotat(event, 0)}
+          onChange={lagreBeslutterNotat}
+          onBlur={handleOnBlur}
           resize="vertical"
           disabled={!minOppgave}
           label={

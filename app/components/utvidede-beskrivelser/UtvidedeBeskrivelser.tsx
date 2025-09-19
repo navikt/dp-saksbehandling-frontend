@@ -6,11 +6,14 @@ import { components } from "../../../openapi/melding-om-vedtak-typer";
 
 type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
 
-export function UtvidedeBeskrivelser(props: {
+interface IProps {
+  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
   setUtvidedeBeskrivelser: (utvidedeBeskrivelser: IUtvidetBeskrivelse[]) => void;
   readOnly?: boolean;
-}) {
+}
+
+export function UtvidedeBeskrivelser(props: IProps) {
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
     let oppdatertUtvidedeBeskrivelser = [...props.utvidedeBeskrivelser];
 
@@ -34,6 +37,7 @@ export function UtvidedeBeskrivelser(props: {
     <UtvidetBeskrivelseInput
       key={utvidetBeskrivelse.brevblokkId}
       readOnly={props.readOnly}
+      meldingOmVedtak={props.meldingOmVedtak}
       utvidetBeskrivelse={utvidetBeskrivelse}
       updateContext={(utvidetBeskrivelse) => oppdaterUtvidetBeskrivelse(utvidetBeskrivelse)}
       label={

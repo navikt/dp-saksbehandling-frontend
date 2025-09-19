@@ -1,4 +1,4 @@
-import { validationError } from "@rvf/react-router";
+import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
@@ -7,26 +7,15 @@ import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringUtsettOppgave } from "~/utils/validering.util";
 
-import { components } from "../../openapi/saksbehandling-typer";
-
 export async function utsettOppgaveAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgaveId") as string;
-  const utsettTilDato = formData.get("utsettTilDato") as string;
-  const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
-  const beholdOppgave = formData.has("beholdOppgave");
-  const paaVentAarsak = formData.get(
-    "paaVentAarsak",
-  ) as components["schemas"]["UtsettOppgaveAarsak"];
+  const validertSkjema = await parseFormData(formData, hentValideringUtsettOppgave());
 
-  const result = await hentValideringUtsettOppgave().validate(formData);
-
-  if (result.error) {
-    return validationError(result.error, result.submittedData);
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
-  }
+  const { oppgaveId, utsettTilDato, aktivtOppgaveSok, beholdOppgave, paaVentAarsak } =
+    validertSkjema.data;
 
   const { error } = await utsettOppgave(
     request,
