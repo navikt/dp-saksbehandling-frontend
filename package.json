@@ -51,7 +51,7 @@
     "lru-cache": "11.2.1",
     "motion": "12.23.12",
     "openapi-fetch": "0.14.0",
-    "pino": "9.9.5",
+    "pino": "9.10.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "react-router": "7.9.1",
