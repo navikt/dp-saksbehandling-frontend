@@ -50,22 +50,26 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
   );
 
-  // Filtrerer bort opplysninger der id er ‘endretAv’, siden disse ikke skal vises.
-  const barnOpplysninger = barn.opplysninger.filter((opplysning) => opplysning.id !== "endretAv");
-
   const orkestratorBarnForm = useForm({
     schema: hentValideringOrkestratorBarn(),
     method: "put",
     defaultValues: {
-      fornavnOgMellomnavn: "",
-      etternavn: "",
-      fodselsdato: "",
-      oppholdssted: "",
-      forsorgerBarnet: "false",
-      kvalifisererTilBarnetillegg: "false",
-      barnetilleggFom: "",
-      barnetilleggTom: "",
-      begrunnelse: "",
+      fornavnOgMellomnavn:
+        barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi || "",
+      etternavn: barn.opplysninger.find((o) => o.id === "etternavn")?.verdi || "",
+      fodselsdato: barn.opplysninger.find((o) => o.id === "fodselsdato")?.verdi || "",
+      oppholdssted: barn.opplysninger.find((o) => o.id === "oppholdssted")?.verdi || "",
+      forsorgerBarnet:
+        barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi === "true"
+          ? "true"
+          : "false",
+      kvalifisererTilBarnetillegg:
+        barn.opplysninger.find((o) => o.id === "kvalifisererTilBarnetillegg")?.verdi === "true"
+          ? "true"
+          : "false",
+      barnetilleggFom: barn.opplysninger.find((o) => o.id === "barnetilleggFom")?.verdi || "",
+      barnetilleggTom: barn.opplysninger.find((o) => o.id === "barnetilleggTom")?.verdi || "",
+      begrunnelse: barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi || "",
     },
     onSubmitSuccess: () => {
       ref.current?.close();
@@ -88,11 +92,10 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
         Barn {barnNummer}
       </Heading>
       <div className={styles.orkestratorOpplysning}>
-        {barnOpplysninger.map((opplysning, index) => (
+        {barn.opplysninger.map((opplysning, index) => (
           <OrkestratorOpplysningLinje
             key={index}
             opplysning={opplysning}
-            // @ts-expect-error TODO Nattaphong fikser <3
             formScope={orkestratorBarnForm.scope(opplysning.id)}
             readOnly
           />
@@ -133,11 +136,10 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
                 name="behandlingId"
                 value={behandling.behandlingId}
               />
-              {barnOpplysninger.map((opplysning, index) => (
+              {barn.opplysninger.map((opplysning, index) => (
                 <OrkestratorOpplysningLinje
                   key={index}
                   opplysning={opplysning}
-                  // @ts-expect-error TODO Nattaphong fikser <3
                   formScope={orkestratorBarnForm.scope(opplysning.id)}
                 />
               ))}
