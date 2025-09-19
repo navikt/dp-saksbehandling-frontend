@@ -48,23 +48,6 @@ matchende genererte tokenet.
 [dp-saksbehandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-saksbehandling),
 [dp-behandling](https://azure-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp.teamdagpenger.dp-behandling),
 
-### Playwright
-
-Playwright brukes til e2e (ende til ende) testing, og er et veldig fint verktøy for å teste flyt og samspillet mellom de
-ulike delene av løsningen.
-
-```
-//Hvis du ikke har playwright fra før
-npx install playwright
-```
-
-```
-// Kjør vanlig playwright i kommandolinjen
-npm run playwright
-
-// Kjør med UI inkludert
-npm run playwright:ui
-```
 
 ## Vanlige problemer med oppsett
 

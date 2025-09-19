@@ -1,7 +1,7 @@
 import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, useEffect, useRef } from "react";
-import { Form, useActionData, useNavigation } from "react-router";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import { Form, useActionData, useFetcher, useNavigation } from "react-router";
+import { useDebounceCallback } from "usehooks-ts";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -16,7 +16,8 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
   const modalRef = useRef<HTMLDialogElement>(null);
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const lagreNotatFetcher = useDebounceFetcher<typeof lagreNotatAction>();
+  const lagreNotatFetcher = useFetcher<typeof lagreNotatAction>();
+  const debouncedLagreNotatFetcher = useDebounceCallback(lagreNotatFetcher.submit, 2000);
 
   useEffect(() => {
     if (lagreNotatFetcher.data && isILagreNotatResponse(lagreNotatFetcher.data)) {
@@ -24,11 +25,19 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
     }
   }, [lagreNotatFetcher.data]);
 
-  function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
+  function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     setNotat({ ...notat, tekst: event.currentTarget.value });
-    lagreNotatFetcher.submit(event.target.form, {
-      debounceTimeout: delayInMs,
-    });
+    debouncedLagreNotatFetcher(event.target.form);
+
+    if (event.currentTarget.value === oppgave.notat?.tekst) {
+      debouncedLagreNotatFetcher.cancel();
+    }
+  }
+
+  function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.currentTarget.value !== oppgave.notat?.tekst) {
+      debouncedLagreNotatFetcher.flush();
+    }
   }
 
   return (
@@ -53,8 +62,8 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
               name="notat"
               className="mt-4"
               value={notat.tekst}
-              onChange={(event) => lagreNotat(event, 2000)}
-              onBlur={(event) => lagreNotat(event, 0)}
+              onChange={lagreNotat}
+              onBlur={handleOnBlur}
               resize="vertical"
               label={
                 <>
@@ -82,7 +91,7 @@ export function OppgaveHandlingReturnerTilSaksbehandler() {
             <input name="behandlingId" value={oppgave.behandlingId} hidden={true} readOnly={true} />
             <input name="notat" value={notat.tekst} hidden={true} readOnly={true} />
             <Button
-              className="mr-2 mt-6"
+              className="mt-6 mr-2"
               size="small"
               type="button"
               variant="secondary"

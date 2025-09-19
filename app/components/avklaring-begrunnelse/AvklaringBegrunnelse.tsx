@@ -1,7 +1,7 @@
 import { Detail, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, useEffect, useState } from "react";
-import { Form } from "react-router";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import { Form, useFetcher } from "react-router";
+import { useDebounceCallback } from "usehooks-ts";
 
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -20,7 +20,11 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const [verdi, setVerdi] = useState<string>(avklaring.begrunnelse ?? "");
-  const lagreAvklaringBegrunnelseFetcher = useDebounceFetcher<typeof handleActions>();
+  const lagreAvklaringBegrunnelseFetcher = useFetcher<typeof handleActions>();
+  const debouncedLagreAvklaringBegrunnelseFetcher = useDebounceCallback(
+    lagreAvklaringBegrunnelseFetcher.submit,
+    2000,
+  );
 
   useEffect(() => {
     if (isAlert(lagreAvklaringBegrunnelseFetcher.data)) {
@@ -28,18 +32,19 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
     }
   }, [lagreAvklaringBegrunnelseFetcher.data]);
 
-  function lagreAvklaringBegrunnelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
+  function lagreAvklaringBegrunnelse(event: ChangeEvent<HTMLTextAreaElement>) {
     const oppdatertVerdi = event.currentTarget.value;
 
     setVerdi(oppdatertVerdi);
-    lagreAvklaringBegrunnelseFetcher.submit(event.target.form, {
-      debounceTimeout: delayInMs,
-    });
+    debouncedLagreAvklaringBegrunnelseFetcher(event.target.form);
+    if (event.currentTarget.value === avklaring.begrunnelse) {
+      debouncedLagreAvklaringBegrunnelseFetcher.cancel();
+    }
   }
 
   function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
     if (event.currentTarget.value !== avklaring.begrunnelse) {
-      lagreAvklaringBegrunnelse(event, 0);
+      debouncedLagreAvklaringBegrunnelseFetcher.flush();
     }
   }
 
@@ -58,7 +63,7 @@ export function AvklaringBegrunnelse({ avklaring, readOnly }: IProps) {
         name="begrunnelse"
         minRows={3}
         value={verdi}
-        onChange={(event) => lagreAvklaringBegrunnelse(event, 2000)}
+        onChange={lagreAvklaringBegrunnelse}
         onBlur={handleOnBlur}
         readOnly={readOnly}
       />

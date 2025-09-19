@@ -6879,6 +6879,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -6911,6 +6912,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -6943,6 +6945,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7064,6 +7067,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7102,6 +7106,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7140,6 +7145,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7178,6 +7184,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7216,6 +7223,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7254,6 +7262,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7292,6 +7301,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7324,6 +7334,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7360,6 +7371,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7398,6 +7410,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7434,6 +7447,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7472,6 +7486,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7510,6 +7525,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7548,6 +7564,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7586,6 +7603,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7624,6 +7642,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7662,6 +7681,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -7700,6 +7720,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7733,6 +7754,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7766,6 +7788,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7863,6 +7886,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7945,6 +7969,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -7983,6 +8008,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Register",
       opplysninger: [
         {
@@ -8021,6 +8047,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Bruker",
       opplysninger: [
         {
@@ -8059,6 +8086,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8092,6 +8120,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8125,6 +8154,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8158,6 +8188,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8191,6 +8222,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: true,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8224,6 +8256,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8258,6 +8291,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8292,6 +8326,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8326,6 +8361,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8360,6 +8396,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8394,6 +8431,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8428,6 +8466,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8462,6 +8501,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8496,6 +8536,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8530,6 +8571,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8564,6 +8606,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8598,6 +8641,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8632,6 +8676,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8666,6 +8711,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8700,6 +8746,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8734,6 +8781,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8768,6 +8816,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8802,6 +8851,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8836,6 +8886,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8870,6 +8921,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8904,6 +8956,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8938,6 +8991,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -8972,6 +9026,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9006,6 +9061,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9040,6 +9096,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9074,6 +9131,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9108,6 +9166,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9142,6 +9201,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9176,6 +9236,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9210,6 +9271,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9244,6 +9306,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9278,6 +9341,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9312,6 +9376,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9346,6 +9411,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9380,6 +9446,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9414,6 +9481,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9448,6 +9516,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9482,6 +9551,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9516,6 +9586,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9550,6 +9621,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9584,6 +9656,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9618,6 +9691,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9652,6 +9726,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9686,6 +9761,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9720,6 +9796,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9754,6 +9831,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9788,6 +9866,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9822,6 +9901,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9856,6 +9936,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9890,6 +9971,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9924,6 +10006,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9958,6 +10041,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -9992,6 +10076,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10026,6 +10111,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10060,6 +10146,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10094,6 +10181,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10128,6 +10216,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10162,6 +10251,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10196,6 +10286,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10230,6 +10321,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10264,6 +10356,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10298,6 +10391,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10332,6 +10426,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10366,6 +10461,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10400,6 +10496,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10434,6 +10531,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10468,6 +10566,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10502,6 +10601,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10536,6 +10636,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10570,6 +10671,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10604,6 +10706,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10638,6 +10741,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10672,6 +10776,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10706,6 +10811,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10740,6 +10846,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10774,6 +10881,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10808,6 +10916,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10842,6 +10951,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10876,6 +10986,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10910,6 +11021,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10944,6 +11056,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -10978,6 +11091,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11012,6 +11126,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11049,6 +11164,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11086,6 +11202,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11123,6 +11240,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11157,6 +11275,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11194,6 +11313,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11235,6 +11355,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11272,6 +11393,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11309,6 +11431,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11346,6 +11469,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11383,6 +11507,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11420,6 +11545,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11458,6 +11584,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11495,6 +11622,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11529,6 +11657,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11566,6 +11695,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11603,6 +11733,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11640,6 +11771,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11677,6 +11809,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11711,6 +11844,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11748,6 +11882,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11782,6 +11917,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11820,6 +11956,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11857,6 +11994,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11895,6 +12033,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11936,6 +12075,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -11970,6 +12110,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12008,6 +12149,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12042,6 +12184,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12080,6 +12223,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12117,6 +12261,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12154,6 +12299,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12194,6 +12340,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12231,6 +12378,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12269,6 +12417,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12306,6 +12455,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12343,6 +12493,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12380,6 +12531,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12417,6 +12569,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12459,6 +12612,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12496,6 +12650,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12528,6 +12683,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12560,6 +12716,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12599,6 +12756,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Register",
       opplysninger: [
         {
@@ -12642,6 +12800,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12681,6 +12840,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12720,6 +12880,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12759,6 +12920,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12798,6 +12960,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: true,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12837,6 +13000,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12871,6 +13035,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12905,6 +13070,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12948,6 +13114,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -12990,6 +13157,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13027,6 +13195,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13061,6 +13230,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13095,6 +13265,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13129,6 +13300,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13163,6 +13335,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13197,6 +13370,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13231,6 +13405,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13265,6 +13440,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13299,6 +13475,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13336,6 +13513,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13373,6 +13551,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13410,6 +13589,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13447,6 +13627,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13484,6 +13665,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13521,6 +13703,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13558,6 +13741,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13595,6 +13779,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13632,6 +13817,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13669,6 +13855,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13706,6 +13893,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13743,6 +13931,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13781,6 +13970,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13818,6 +14008,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13856,6 +14047,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13894,6 +14086,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13932,6 +14125,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -13969,6 +14163,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14006,6 +14201,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14043,6 +14239,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14081,6 +14278,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14118,6 +14316,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14152,6 +14351,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14186,6 +14386,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14223,6 +14424,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14260,6 +14462,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14297,6 +14500,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14334,6 +14538,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14372,6 +14577,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14409,6 +14615,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14443,6 +14650,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14482,6 +14690,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14519,6 +14728,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14553,6 +14763,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14591,6 +14802,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14628,6 +14840,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Legacy",
       opplysninger: [
         {
@@ -14665,6 +14878,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14704,6 +14918,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14741,6 +14956,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14778,6 +14994,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14815,6 +15032,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14852,6 +15070,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14889,6 +15108,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14926,6 +15146,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -14963,6 +15184,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15000,6 +15222,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15037,6 +15260,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15074,6 +15298,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15111,6 +15336,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15148,6 +15374,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Legacy",
       opplysninger: [
         {
@@ -15185,6 +15412,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15222,6 +15450,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15260,6 +15489,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -15367,6 +15597,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -16022,6 +16253,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -16677,6 +16909,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -17332,6 +17565,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -17847,6 +18081,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {
@@ -18362,6 +18597,7 @@ export const mockBehandlingMeldekort: components["schemas"]["Behandling"] = {
       synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
+      kanOppfriskes: false,
       formål: "Regel",
       opplysninger: [
         {

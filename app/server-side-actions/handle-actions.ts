@@ -1,5 +1,6 @@
 import { ActionFunctionArgs } from "react-router";
 
+import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
 import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
@@ -15,7 +16,6 @@ import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
 import { opprettManuellBehandlingAction } from "~/server-side-actions/opprett-manuell-behandling-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
-import { sendTilArenaAction } from "~/server-side-actions/send-til-arena-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { slettOpplysningAction } from "~/server-side-actions/slett-opplysning-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
@@ -69,8 +69,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "fatt-vedtak":
       return await fattVedtakAction(request, params, formData);
 
-    case "send-til-arena":
-      return await sendTilArenaAction(request, params, formData);
+    case "avbryt-oppgave":
+      return await avbrytOppgaveAction(request, params, formData);
 
     case "send-til-kontroll":
       return await sendTilKontrollAction(request, params);

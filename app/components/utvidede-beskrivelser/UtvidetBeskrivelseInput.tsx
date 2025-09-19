@@ -1,6 +1,7 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import { ChangeEvent, ReactNode, useEffect } from "react";
+import { useFetcher } from "react-router";
+import { useDebounceCallback } from "usehooks-ts";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
@@ -21,8 +22,14 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const [verdi, setVerdi] = useState(props.utvidetBeskrivelse.tekst);
-  const lagreUtvidetBeskrivelseFetcher = useDebounceFetcher<typeof handleActions>();
+  const { meldingOmVedtak } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
+  );
+  const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof handleActions>();
+  const debouncedLagreUtvidetBeskrivelseFetcher = useDebounceCallback(
+    lagreUtvidetBeskrivelseFetcher.submit,
+    2000,
+  );
 
   useEffect(() => {
     if (
@@ -31,7 +38,6 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     ) {
       props.updateContext({
         ...props.utvidetBeskrivelse,
-        tekst: verdi,
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
     }
@@ -41,18 +47,29 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     }
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
-  function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
+  function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>) {
     const oppdatertVerdi = event.currentTarget.value;
 
-    setVerdi(oppdatertVerdi);
     props.updateContext({
       ...props.utvidetBeskrivelse,
       tekst: oppdatertVerdi,
     });
-    lagreUtvidetBeskrivelseFetcher.submit(event.target.form, {
-      fetcherKey: props.utvidetBeskrivelse.brevblokkId,
-      debounceTimeout: delayInMs,
-    });
+    debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
+
+    if (!isAlert(meldingOmVedtak) && meldingOmVedtak) {
+      const utvidetBeskrivelse = meldingOmVedtak.utvidedeBeskrivelser.find(
+        (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
+      );
+      if (utvidetBeskrivelse?.tekst === oppdatertVerdi) {
+        debouncedLagreUtvidetBeskrivelseFetcher.cancel();
+      }
+    }
+  }
+
+  function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.currentTarget.value !== props.utvidetBeskrivelse.tekst) {
+      debouncedLagreUtvidetBeskrivelseFetcher.flush();
+    }
   }
 
   return (
@@ -70,12 +87,9 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           name={"utvidet-beskrivelse"}
           className={styles.container}
           label={props.label}
-          value={verdi}
-          onChange={(event) => lagreUtvidetBeskrivelse(event, 2000)}
-          onBlur={(event) => {
-            if (props.utvidetBeskrivelse.tekst !== event.currentTarget.value)
-              lagreUtvidetBeskrivelse(event, 0);
-          }}
+          value={props.utvidetBeskrivelse.tekst}
+          onChange={lagreUtvidetBeskrivelse}
+          onBlur={handleOnBlur}
           readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>

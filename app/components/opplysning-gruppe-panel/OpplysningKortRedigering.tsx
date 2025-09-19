@@ -79,6 +79,7 @@ export function OpplysningKortRedigering({
     : forrigePeriode?.gyldigFraOgMed
       ? add(new Date(forrigePeriode?.gyldigFraOgMed), { days: 1 })
       : undefined;
+
   const tidligsteTilOgMedDato = nestePeriode?.gyldigFraOgMed
     ? sub(new Date(nestePeriode?.gyldigFraOgMed), { days: 1 })
     : undefined;
@@ -92,6 +93,9 @@ export function OpplysningKortRedigering({
 
   const datepickerTilOgMed = useDatepicker({
     defaultSelected: opplysning.gyldigTilOgMed ? new Date(opplysning.gyldigTilOgMed) : undefined,
+    fromDate: datepickerFraOgMed.selectedDay
+      ? add(datepickerFraOgMed.selectedDay, { days: 1 })
+      : undefined,
     toDate: nestePeriode?.gyldigFraOgMed ? tidligsteTilOgMedDato : undefined,
   });
 

@@ -166,6 +166,22 @@ export async function utsettOppgave(
   });
 }
 
+export async function avbrytOppgave(
+  request: Request,
+  oppgaveId: string,
+  aarsak: components["schemas"]["AvbrytOppgaveAarsak"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/avbryt", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { aarsak },
+    params: {
+      path: { oppgaveId },
+    },
+  });
+}
+
 export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/ferdigstill", {
