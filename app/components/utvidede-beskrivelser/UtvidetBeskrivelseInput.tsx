@@ -14,6 +14,7 @@ import { components } from "../../../openapi/melding-om-vedtak-typer";
 
 export interface IUtvidetBeskrivelseInput {
   label: ReactNode;
+  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
   updateContext: (utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"]) => void;
   readOnly?: boolean;
@@ -22,9 +23,6 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { meldingOmVedtak } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
-  );
   const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof handleActions>();
   const debouncedLagreUtvidetBeskrivelseFetcher = useDebounceCallback(
     lagreUtvidetBeskrivelseFetcher.submit,
@@ -56,8 +54,8 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     });
     debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
 
-    if (!isAlert(meldingOmVedtak) && meldingOmVedtak) {
-      const utvidetBeskrivelse = meldingOmVedtak.utvidedeBeskrivelser.find(
+    if (props.meldingOmVedtak) {
+      const utvidetBeskrivelse = props.meldingOmVedtak.utvidedeBeskrivelser.find(
         (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
       );
       if (utvidetBeskrivelse?.tekst === oppdatertVerdi) {

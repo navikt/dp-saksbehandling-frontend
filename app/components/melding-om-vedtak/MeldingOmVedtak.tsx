@@ -38,11 +38,14 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
-            <UtvidedeBeskrivelser
-              utvidedeBeskrivelser={utvidedeBeskrivelser}
-              setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-              readOnly={readOnly}
-            />
+            {!isAlert(meldingOmVedtak) && (
+              <UtvidedeBeskrivelser
+                meldingOmVedtak={meldingOmVedtak}
+                utvidedeBeskrivelser={utvidedeBeskrivelser}
+                setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
+                readOnly={readOnly}
+              />
+            )}
           </>
         )}
       </div>
