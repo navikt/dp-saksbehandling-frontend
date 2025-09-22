@@ -1,13 +1,13 @@
 import { Detail, Heading, Skeleton, Table } from "@navikt/ds-react";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
 import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
+import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -67,7 +67,7 @@ export function OppgaveListe(props: IProps) {
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
-              <Detail>Behandlingstype</Detail>
+              <Detail>Utløst av</Detail>
             </Table.ColumnHeader>
 
             <Table.ColumnHeader scope="col">
@@ -114,7 +114,7 @@ export function OppgaveListe(props: IProps) {
 
                 <Table.DataCell>
                   <Detail as={lasterOppgaver ? Skeleton : "p"}>
-                    {hentBehandlingTypeTekstForVisning(oppgave.behandlingType)}
+                    {hentUtløstAvTekstForVisning(oppgave.utlostAv, true)}
                   </Detail>
                 </Table.DataCell>
 

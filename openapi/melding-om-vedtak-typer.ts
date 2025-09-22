@@ -324,7 +324,7 @@ export interface components {
             };
         };
         /** @enum {string} */
-        Behandlingstype: "RETT_TIL_DAGPENGER" | "KLAGE" | "MELDEKORT";
+        Behandlingstype: "RETT_TIL_DAGPENGER" | "SØKNAD" | "KLAGE" | "MELDEKORT" | "MANUELL";
         HttpProblem: {
             type?: string;
             title?: string;

@@ -63,7 +63,6 @@ export function OppgaveHandlingAvbryt() {
 
               {oppgave.lovligeEndringer.avbrytAarsaker.map((årsak) => (
                 <option key={årsak} value={årsak}>
-                  {/*// @ts-expect-error Typefeil i backend. */}
                   {hentTekstForAvbrytÅrsak(årsak)}
                 </option>
               ))}

@@ -772,10 +772,10 @@ export interface components {
             behandlingId: string;
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
+            /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
             automatisk: boolean;
             ident: components["schemas"]["Personident"];
-            "vilk\u00E5r": components["schemas"]["Vurderingsresultat"][];
-            fastsettelser: components["schemas"]["Vurderingsresultat"][];
+            /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
             rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
         };
@@ -785,6 +785,8 @@ export interface components {
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
+            /** @enum {string} */
+            type?: "Vilkår" | "Fastsettelse";
             perioder?: components["schemas"]["Rettighetsperiode"][];
             utfall?: components["schemas"]["OpplysningTypeId"][];
             "\u00F8nsketResultat"?: components["schemas"]["OpplysningTypeId"][];
@@ -1256,12 +1258,22 @@ export interface components {
             /** Format: date */
             tilOgMed?: string;
         };
+        /** @description En periode hvor brukeren har fått vurdert sin rett på dagpenger og utfallet av vurderingen */
         Rettighetsperiode: {
-            /** Format: date */
+            /**
+             * Format: date
+             * @description Fra og med dato for rettighetsperioden
+             */
             fraOgMed: string;
-            /** Format: date */
+            /**
+             * Format: date
+             * @description Til og med dato for rettighetsperioden
+             */
             tilOgMed?: string;
+            /** @description Om brukeren har rett på dagpenger i denne perioden */
             harRett: boolean;
+            /** @description Om perioden er endret i denne behandlingen */
+            endret?: boolean;
         };
         Utbetaling: {
             meldeperiode: string;

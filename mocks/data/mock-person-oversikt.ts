@@ -12,18 +12,21 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
         {
           id: "018e2222-9df8-7aa4-94a6-318fada10999",
           behandlingType: "KLAGE",
+          utlostAv: "KLAGE",
           opprettet: "2025-06-24T00:00:00",
           oppgaveId: "018e9999-9df8-7aa4-94a6-318fada10999",
         },
         {
           id: "019353b5-3ee6-7693-8fdd-649153c18f74",
           behandlingType: "RETT_TIL_DAGPENGER",
+          utlostAv: "SØKNAD",
           opprettet: "2025-06-23T11:28:57.936476",
           oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
         },
         {
           id: "019353b5-3ee6-7693-8fdd-649153c18f74",
-          behandlingType: "MELDEKORT",
+          behandlingType: "RETT_TIL_DAGPENGER",
+          utlostAv: "MELDEKORT",
           opprettet: "2025-06-23T11:28:57.936476",
           oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
         },
@@ -35,6 +38,7 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
         {
           id: "019391c0-d9f5-78d9-8704-02f749bfb17b",
           behandlingType: "RETT_TIL_DAGPENGER",
+          utlostAv: "SØKNAD",
           opprettet: "2025-06-23T13:21:35.602787",
           oppgaveId: "018e2229-9df8-7aa4-94a6-318fada10999",
         },

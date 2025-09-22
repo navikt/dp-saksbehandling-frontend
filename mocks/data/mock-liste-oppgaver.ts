@@ -20,6 +20,7 @@ export function konverterOppgaveTilListeOppgave(
     behandlingId: oppgave.behandlingId,
     emneknagger: oppgave.emneknagger,
     oppgaveId: oppgave.oppgaveId,
+    utlostAv: oppgave.utlostAv,
     personIdent: oppgave.person?.ident || "12345678910",
     behandlerIdent:
       oppgave.tilstand === "UNDER_BEHANDLING"

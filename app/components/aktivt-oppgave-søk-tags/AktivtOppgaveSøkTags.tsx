@@ -1,8 +1,8 @@
 import { Tag } from "@navikt/ds-react";
 
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { TILSTANDER } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -13,9 +13,7 @@ interface IProps {
 export function AktivOppgaveSøk({ aktivtOppgaveSok }: IProps) {
   const aktivtSøkParams = new URLSearchParams(aktivtOppgaveSok);
   const emneknagger = aktivtSøkParams.getAll("emneknagg");
-  const behandlingTyper = aktivtSøkParams.getAll(
-    "behandlingType",
-  ) as components["schemas"]["BehandlingType"][];
+  const utløstAv = aktivtSøkParams.getAll("utlostAv") as components["schemas"]["UtlostAvType"][];
   const tilstander = aktivtSøkParams.getAll("tilstand");
   const tom = aktivtSøkParams.get("tom");
   const fom = aktivtSøkParams.get("fom");
@@ -28,9 +26,9 @@ export function AktivOppgaveSøk({ aktivtOppgaveSok }: IProps) {
         </Tag>
       ))}
 
-      {behandlingTyper.map((behandlingType) => (
-        <Tag key={behandlingType} size={"xsmall"} variant={"info"}>
-          {hentBehandlingTypeTekstForVisning(behandlingType)}
+      {utløstAv.map((hendelse) => (
+        <Tag key={hendelse} size={"xsmall"} variant={"info"}>
+          {hentUtløstAvTekstForVisning(hendelse)}
         </Tag>
       ))}
 

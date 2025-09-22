@@ -1,10 +1,10 @@
 import { FolderFileIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton, Detail, Heading, Table } from "@navikt/ds-react";
 
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
 import { RemixLink } from "~/components/RemixLink";
 import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -43,7 +43,7 @@ export function SisteSak({ sak }: IProps) {
               <Detail weight={"semibold"}>Mottatt</Detail>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>Type</Detail>
+              <Detail weight={"semibold"}>Utløst av</Detail>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Detail weight={"semibold"}>BehandlingId</Detail>
@@ -61,7 +61,7 @@ export function SisteSak({ sak }: IProps) {
                 <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
               </Table.DataCell>
               <Table.DataCell>
-                <Detail>{hentBehandlingTypeTekstForVisning(behandling.behandlingType)}</Detail>
+                <Detail>{hentUtløstAvTekstForVisning(behandling.utlostAv, true)}</Detail>
               </Table.DataCell>
               <Table.DataCell>
                 <Detail>
