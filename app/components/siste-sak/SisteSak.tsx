@@ -1,10 +1,7 @@
 import { FolderFileIcon } from "@navikt/aksel-icons";
-import { BodyShort, CopyButton, Detail, Heading, Table } from "@navikt/ds-react";
+import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
 
-import { RemixLink } from "~/components/RemixLink";
-import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
+import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -36,49 +33,7 @@ export function SisteSak({ sak }: IProps) {
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
 
-      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>Mottatt</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>Utløst av</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>BehandlingId</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>OppgaveId</Detail>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {sak.behandlinger.map((behandling) => (
-            <Table.Row key={behandling.id}>
-              <Table.DataCell>
-                <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>{hentUtløstAvTekstForVisning(behandling.utlostAv, true)}</Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>
-                  {behandling.behandlingType !== "KLAGE" && (
-                    <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
-                  )}
-                </Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>
-                  <RemixLink to={hentOppgaveUrl(behandling)}>{behandling.oppgaveId}</RemixLink>
-                </Detail>
-              </Table.DataCell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+      <BehandlingListe behandlinger={sak.behandlinger} />
     </div>
   );
 }
