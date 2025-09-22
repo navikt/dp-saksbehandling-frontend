@@ -22,9 +22,11 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { isAlert } from "~/utils/type-guards";
+import { getEnv } from "~/utils/env.utils";
+import { isAlert, isTekstVerdi } from "~/utils/type-guards";
 
-import { components } from "../../openapi/saksbehandling-typer";
+import { components as behandlingComponents } from "../../openapi/behandling-typer";
+import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -99,6 +101,7 @@ export default function BehandlingRoute() {
                 <OppgaveInformasjon
                   defaultTab={hentDefaultTab(oppgave)}
                   visKontrollFane={oppgave.tilstand === "UNDER_KONTROLL"}
+                  inntektRedigeringUrl={hentInntektRedigeringUrl(behandling)}
                 />
               )}
             </AnimatePresence>
@@ -109,7 +112,7 @@ export default function BehandlingRoute() {
   );
 }
 
-function hentDefaultTab(oppgave: components["schemas"]["Oppgave"]) {
+function hentDefaultTab(oppgave: saksbehandlingComponents["schemas"]["Oppgave"]) {
   if (oppgave.tilstand === "UNDER_KONTROLL") {
     return "kontroll";
   }
@@ -119,6 +122,26 @@ function hentDefaultTab(oppgave: components["schemas"]["Oppgave"]) {
   }
 
   return "dokumenter";
+}
+
+function hentInntektRedigeringUrl(
+  behandling: behandlingComponents["schemas"]["Behandling"],
+): string | undefined {
+  const inntektOpplysningGruppe = behandling.opplysningsgrupper.find(
+    (gruppe) => gruppe.navn === "Inntektsopplysninger",
+  );
+
+  const inntektOpplysning = inntektOpplysningGruppe?.opplysninger?.find(
+    (opplysning) => opplysning.navn === "Inntektsopplysninger",
+  );
+
+  if (inntektOpplysning && inntektOpplysning.verdien && isTekstVerdi(inntektOpplysning.verdien)) {
+    const inntektId = inntektOpplysning.verdien.verdi;
+    console.log(getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL"));
+    return `${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${inntektId}`;
+  }
+
+  return;
 }
 
 export function ErrorBoundary() {

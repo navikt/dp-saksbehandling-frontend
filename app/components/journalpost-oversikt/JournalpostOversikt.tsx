@@ -1,4 +1,5 @@
 import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
+import { Fragment } from "react";
 
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { IAlert } from "~/context/alert-context";
@@ -77,8 +78,8 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
 
               {journalpost &&
                 dokumenterMedTilgang.map((dokument) =>
-                  dokument?.dokumentvarianter.map((variant) => (
-                    <>
+                  dokument?.dokumentvarianter.map((variant, index) => (
+                    <Fragment key={index}>
                       {dokument && variant && (
                         <List.Item>
                           <Button
@@ -99,7 +100,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                           </Button>
                         </List.Item>
                       )}
-                    </>
+                    </Fragment>
                   )),
                 )}
             </List>

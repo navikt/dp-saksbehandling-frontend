@@ -4,6 +4,7 @@ import type { IFormValidationError } from "~/components/oppgave-handlinger/Oppga
 import type { IAlert } from "~/context/alert-context";
 import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
+import { components as behandlingComponents } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
@@ -249,4 +250,10 @@ export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
   }
 
   return typeof extensions.classification === "string";
+}
+
+export function isTekstVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["TekstVerdi"] {
+  return verdi.datatype === "inntekt" || verdi.datatype === "tekst";
 }

@@ -9,6 +9,7 @@ import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 
 interface IProps {
   visKontrollFane?: boolean;
+  inntektRedigeringUrl?: string;
   defaultTab: "dokumenter" | "informasjon" | "historikk" | "kontroll";
 }
 
@@ -42,7 +43,7 @@ export function OppgaveInformasjon(props: IProps) {
       </Tabs.Panel>
 
       <Tabs.Panel value="informasjon">
-        <OppgaveLenker />
+        <OppgaveLenker inntektRedigeringUrl={props.inntektRedigeringUrl} />
       </Tabs.Panel>
 
       <Tabs.Panel value="historikk">

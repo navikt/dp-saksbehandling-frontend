@@ -12,11 +12,13 @@ import invariant from "tiny-invariant";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -30,7 +32,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
+  const { personId } = await hentRapporteringPersonId(request, oppgave.person.ident);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -39,6 +41,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       journalposterPromises,
+      meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
     },
     {
       headers: {
@@ -49,7 +52,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, alert } = useLoaderData<typeof loader>();
+  const { oppgave, alert, meldekortUrl } = useLoaderData<typeof loader>();
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -57,7 +60,7 @@ export default function Oppgave() {
 
   return (
     <Fragment key={oppgave.oppgaveId}>
-      <PersonBoks person={oppgave.person} oppgave={oppgave} />
+      <PersonBoks person={oppgave.person} oppgave={oppgave} meldekortUrl={meldekortUrl} />
 
       <div className={styles.oppgaveContainer}>
         <BeslutterNotatProvider notat={oppgave.notat}>

@@ -19,10 +19,6 @@ const lenker = [
     text: "GRISEN",
   },
   {
-    url: getEnv("MELDEKORT_URL"),
-    text: "Rapporteringer",
-  },
-  {
     url: getEnv("DAGPENGER_NORGE_URL"),
     text: "Dagpenger Norge",
   },
@@ -30,25 +26,30 @@ const lenker = [
     url: getEnv("ARBEID_INNTEKT_URL"),
     text: "Inntekt og arbeidsforhold (fungerer i SKSS)",
   },
-  {
-    url: getEnv("INNTEKTREDIGERING_URL"),
-    text: "Rediger inntektsinformasjon ",
-  },
 ];
 
-export function OppgaveLenker() {
+interface IProps {
+  inntektRedigeringUrl?: string;
+}
+
+export function OppgaveLenker({ inntektRedigeringUrl }: IProps) {
   return (
     <div className={styles.container}>
       {lenker.map(
         (lenke) =>
           lenke.url && (
-            <div key={lenke.url} className={styles.lenke}>
-              <Link href={lenke.url} target="_blank">
-                <Detail>{lenke.text}</Detail>
-                <ExternalLinkIcon />
-              </Link>
-            </div>
+            <Link key={lenke.url} href={lenke.url} target="_blank" className={styles.lenke}>
+              <Detail>{lenke.text}</Detail>
+              <ExternalLinkIcon />
+            </Link>
           ),
+      )}
+
+      {inntektRedigeringUrl && (
+        <Link href={inntektRedigeringUrl} target="_blank" className={styles.lenke}>
+          <Detail>Inntektredigering</Detail>
+          <ExternalLinkIcon />
+        </Link>
       )}
     </div>
   );
