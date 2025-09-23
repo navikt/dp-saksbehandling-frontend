@@ -6,6 +6,7 @@ import { useDebounceCallback } from "usehooks-ts";
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
@@ -16,13 +17,13 @@ export interface IUtvidetBeskrivelseInput {
   label: ReactNode;
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
-  updateContext: (utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"]) => void;
   readOnly?: boolean;
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppdaterUtvidetBeskrivelse } = useUtvidedeBeskrivelser();
   const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof handleActions>();
   const debouncedLagreUtvidetBeskrivelseFetcher = useDebounceCallback(
     lagreUtvidetBeskrivelseFetcher.submit,
@@ -34,7 +35,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
       lagreUtvidetBeskrivelseFetcher.data &&
       isILagreUtvidetBeskrivelseResponse(lagreUtvidetBeskrivelseFetcher.data)
     ) {
-      props.updateContext({
+      oppdaterUtvidetBeskrivelse({
         ...props.utvidetBeskrivelse,
         sistEndretTidspunkt: lagreUtvidetBeskrivelseFetcher.data.sistEndretTidspunkt,
       });
@@ -48,26 +49,22 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>) {
     const oppdatertVerdi = event.currentTarget.value;
 
-    props.updateContext({
+    oppdaterUtvidetBeskrivelse({
       ...props.utvidetBeskrivelse,
       tekst: oppdatertVerdi,
     });
 
     debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
-    //TODO denne må fikses
-    // if (props.meldingOmVedtak) {
-    //   const utvidetBeskrivelse = props.meldingOmVedtak.utvidedeBeskrivelser.find(
-    //     (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
-    //   );
-    //   if (utvidetBeskrivelse?.tekst === oppdatertVerdi) {
-    //     debouncedLagreUtvidetBeskrivelseFetcher.cancel();
-    //   }
-    // }
-  }
 
-  function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
-    if (event.currentTarget.value !== props.utvidetBeskrivelse.tekst) {
-      debouncedLagreUtvidetBeskrivelseFetcher.flush();
+    // Kanseller debounce hvis siste tilstand på server er lik som nåværende tekstverdi
+    if (props.meldingOmVedtak) {
+      const utvidetBeskrivelseFraServer = props.meldingOmVedtak.utvidedeBeskrivelser.find(
+        (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
+      );
+
+      if (utvidetBeskrivelseFraServer?.tekst === oppdatertVerdi) {
+        debouncedLagreUtvidetBeskrivelseFetcher.cancel();
+      }
     }
   }
 
@@ -88,7 +85,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           label={props.label}
           value={props.utvidetBeskrivelse.tekst}
           onChange={lagreUtvidetBeskrivelse}
-          onBlur={handleOnBlur}
+          onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
           readOnly={props.readOnly}
         />
       </lagreUtvidetBeskrivelseFetcher.Form>
