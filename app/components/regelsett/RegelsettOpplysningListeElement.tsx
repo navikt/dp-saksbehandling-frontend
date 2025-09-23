@@ -54,7 +54,9 @@ export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: 
         </BodyShort>
 
         <BodyShort className={"flex items-center gap-1"} as={state === "loading" ? Skeleton : "p"}>
-          {formaterOpplysningVerdi(opplysningGruppe.opplysninger[0])}
+          {formaterOpplysningVerdi(
+            opplysningGruppe.opplysninger[opplysningGruppe.opplysninger.length - 1],
+          )}
           {opplysningGruppe.opplysninger.length > 1 && (
             <Tooltip content="Opplysningen har flere perioder">
               <ClockDashedIcon />
