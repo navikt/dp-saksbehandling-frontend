@@ -1,9 +1,8 @@
-import { JSX, useState } from "react";
-
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { IAlert } from "~/context/alert-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
@@ -15,18 +14,10 @@ interface IProps {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
 }
 
-export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
+export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const initialUtvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][] = !isAlert(
-    meldingOmVedtak,
-  )
-    ? (meldingOmVedtak?.utvidedeBeskrivelser ?? [])
-    : [];
-
-  const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
-    components["schemas"]["UtvidetBeskrivelse"][]
-  >(initialUtvidedeBeskrivelser);
+  const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
   const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
@@ -39,12 +30,7 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
           <>
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
             {!isAlert(meldingOmVedtak) && (
-              <UtvidedeBeskrivelser
-                meldingOmVedtak={meldingOmVedtak}
-                utvidedeBeskrivelser={utvidedeBeskrivelser}
-                setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-                readOnly={readOnly}
-              />
+              <UtvidedeBeskrivelser meldingOmVedtak={meldingOmVedtak} readOnly={readOnly} />
             )}
           </>
         )}

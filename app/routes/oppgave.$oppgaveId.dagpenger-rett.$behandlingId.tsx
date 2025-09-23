@@ -137,7 +137,6 @@ function hentInntektRedigeringUrl(
 
   if (inntektOpplysning && inntektOpplysning.verdien && isTekstVerdi(inntektOpplysning.verdien)) {
     const inntektId = inntektOpplysning.verdien.verdi;
-    console.log(getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL"));
     return `${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${inntektId}`;
   }
 
