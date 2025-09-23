@@ -18,6 +18,7 @@ import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentKlage, hentOppgave } from "~/models/saksbehandling.server";
@@ -106,7 +107,13 @@ export default function Oppgave() {
 
             <Tabs.Panel value="melding-om-vedtak">
               {klage.utfall.verdi !== "IKKE_SATT" ? (
-                <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
+                <UtvidedeBeskrivelserProvider
+                  utvidedeBeskrivelser={
+                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                  }
+                >
+                  <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
+                </UtvidedeBeskrivelserProvider>
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
                   <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
