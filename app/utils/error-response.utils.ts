@@ -19,8 +19,9 @@ export function handleHttpProblem(
     | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
+  logLevel: "error" | "warn" | "info" = "error",
 ): void {
-  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger[logLevel](`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   throw new Response(problem.title, {
     status: problem.status,
@@ -33,11 +34,13 @@ export function getHttpProblemAlert(
     | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
+  logLevel: "error" | "warn" | "info" = "error",
+  variant: IAlert["variant"] = "error",
 ): IAlert {
-  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger[logLevel](`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {
-    variant: "error",
+    variant,
     title: problem.title || "Ukjent feil",
     body: problem.detail,
     service: problem.instance,
