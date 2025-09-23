@@ -47,21 +47,22 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>) {
     const oppdatertVerdi = event.currentTarget.value;
-
+    lagreUtvidetBeskrivelseFetcher.submit(event.target.form);
     props.updateContext({
       ...props.utvidetBeskrivelse,
       tekst: oppdatertVerdi,
     });
-    debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
 
-    if (props.meldingOmVedtak) {
-      const utvidetBeskrivelse = props.meldingOmVedtak.utvidedeBeskrivelser.find(
-        (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
-      );
-      if (utvidetBeskrivelse?.tekst === oppdatertVerdi) {
-        debouncedLagreUtvidetBeskrivelseFetcher.cancel();
-      }
-    }
+    debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
+    //TODO denne må fikses
+    // if (props.meldingOmVedtak) {
+    //   const utvidetBeskrivelse = props.meldingOmVedtak.utvidedeBeskrivelser.find(
+    //     (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
+    //   );
+    //   if (utvidetBeskrivelse?.tekst === oppdatertVerdi) {
+    //     debouncedLagreUtvidetBeskrivelseFetcher.cancel();
+    //   }
+    // }
   }
 
   function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
