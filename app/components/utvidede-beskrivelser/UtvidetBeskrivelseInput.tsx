@@ -47,7 +47,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
   function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>) {
     const oppdatertVerdi = event.currentTarget.value;
-    lagreUtvidetBeskrivelseFetcher.submit(event.target.form);
+
     props.updateContext({
       ...props.utvidetBeskrivelse,
       tekst: oppdatertVerdi,
