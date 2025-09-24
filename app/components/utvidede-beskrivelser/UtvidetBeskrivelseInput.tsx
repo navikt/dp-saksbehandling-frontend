@@ -10,6 +10,7 @@ import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
+import { RikTekstEditor } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
@@ -79,15 +80,20 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           hidden={true}
           readOnly={true}
         />
-        <Textarea
-          name={"utvidet-beskrivelse"}
-          className={styles.container}
-          label={props.label}
-          value={props.utvidetBeskrivelse.tekst}
-          onChange={lagreUtvidetBeskrivelse}
-          onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
-          readOnly={props.readOnly}
-        />
+        {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.begrunnelse-innvilgelsesdato" ? (
+          // TODO Here må vi sjekke mot ny ID for egendefienrt brev
+          <RikTekstEditor tekst={"<h1>Hei på deg</h1><h>H2</h><p>Ballalaika</p>"} />
+        ) : (
+          <Textarea
+            name={"utvidet-beskrivelse"}
+            className={styles.container}
+            label={props.label}
+            value={props.utvidetBeskrivelse.tekst}
+            onChange={lagreUtvidetBeskrivelse}
+            onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
+            readOnly={props.readOnly}
+          />
+        )}
       </lagreUtvidetBeskrivelseFetcher.Form>
 
       {props.utvidetBeskrivelse.sistEndretTidspunkt && (
