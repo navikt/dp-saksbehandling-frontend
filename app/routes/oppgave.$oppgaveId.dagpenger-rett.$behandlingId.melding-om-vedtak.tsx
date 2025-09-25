@@ -3,6 +3,7 @@ import {
   LoaderFunctionArgs,
   useActionData,
   useLoaderData,
+  useLocation,
   useRouteError,
 } from "react-router";
 import invariant from "tiny-invariant";
@@ -45,11 +46,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 export default function MeldingOmVedtakRoute() {
   const { meldingOmVedtak } = useLoaderData<typeof loader>();
+  const location = useLocation();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
   return (
     <UtvidedeBeskrivelserProvider
       utvidedeBeskrivelser={isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser}
+      key={location.key}
     >
       <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
     </UtvidedeBeskrivelserProvider>

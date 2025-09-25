@@ -40,7 +40,6 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
   useEffect(
     () =>
       endreBrevVariantForm.subscribe.value(() => {
-        console.log("hei");
         endreBrevVariantForm.submit();
       }),
     [],
