@@ -29,14 +29,18 @@ export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
       );
 
       if (brevBlokkDiv) {
-        const lines = utvidetBeskrivelse.tekst?.split(/\r\n|\r|\n|\u2028|\u2029/);
-        if (lines) {
-          brevBlokkDiv.innerHTML = "";
-          lines.forEach((line) => {
-            const textNode = document.createTextNode(line);
-            brevBlokkDiv.appendChild(textNode);
-            brevBlokkDiv.appendChild(document.createElement("br"));
-          });
+        if (utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert") {
+          brevBlokkDiv.innerHTML = utvidetBeskrivelse.tekst;
+        } else {
+          const lines = utvidetBeskrivelse.tekst?.split(/\r\n|\r|\n|\u2028|\u2029/);
+          if (lines) {
+            brevBlokkDiv.innerHTML = "";
+            lines.forEach((line) => {
+              const textNode = document.createTextNode(line);
+              brevBlokkDiv.appendChild(textNode);
+              brevBlokkDiv.appendChild(document.createElement("br"));
+            });
+          }
         }
       }
     });

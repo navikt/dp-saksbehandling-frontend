@@ -31,12 +31,14 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
             <hr className="border-(--a-border-subtle)" />
+
             <Select label="Brevvariant" className={"mb-2"}>
               <option value="automatisk">Automatisk</option>
               <option value="egendefienrt">Egendefinert</option>
             </Select>
 
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
+
             {!isAlert(meldingOmVedtak) && (
               <UtvidedeBeskrivelser meldingOmVedtak={meldingOmVedtak} readOnly={readOnly} />
             )}

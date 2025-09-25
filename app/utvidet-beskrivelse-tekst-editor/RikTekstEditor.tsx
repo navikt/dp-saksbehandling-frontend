@@ -11,9 +11,8 @@ import {
   PortableTextEditable,
 } from "@portabletext/editor";
 import { EventListenerPlugin } from "@portabletext/editor/plugins";
-import type { Schema } from "@portabletext/schema";
 import { toHTML } from "@portabletext/to-html";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 import { RikTekstEditorToolbar } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
 
@@ -45,16 +44,13 @@ export const schemaDefinition = defineSchema({
   blockObjects: [],
 });
 
-const blockContentType: Schema = {
+const blockContentType = {
   block: {
     name: "block",
   },
   span: { name: "span" },
-  // @ts-expect-error TODO fix
   styles: schemaDefinition.styles,
-  // @ts-expect-error TODO fix
   lists: schemaDefinition.lists,
-  // @ts-expect-error TODO fix
   decorators: schemaDefinition.decorators,
   annotations: schemaDefinition.annotations,
   blockObjects: schemaDefinition.blockObjects,
@@ -63,24 +59,22 @@ const blockContentType: Schema = {
 
 interface IProps {
   tekst: string;
+  onChange: (tekst: string) => void;
+  readOnly?: boolean;
 }
 
 export function RikTekstEditor(props: IProps) {
   // TODO Konverter HTML til blokker igjen
 
+  // @ts-expect-error // sad panda
   const blocks = htmlToBlocks(props.tekst, blockContentType);
   const [value, setValue] = useState<Array<PortableTextBlock> | undefined>(blocks);
 
-  useEffect(() => {
-    if (value) {
-      console.log(toHTML(value));
-      console.log(props.tekst);
-      console.log(value);
-    }
-  }, [value]);
-
   return (
     <div className={styles.editor}>
+      {value && (
+        <input name={"utvidet-beskrivelse"} value={toHTML(value)} hidden={true} readOnly={true} />
+      )}
       <EditorProvider
         initialConfig={{
           schemaDefinition,
@@ -91,13 +85,19 @@ export function RikTekstEditor(props: IProps) {
           on={(event) => {
             if (event.type === "mutation") {
               setValue(event.value);
+
+              if (event.value) {
+                console.log("change");
+                props.onChange(toHTML(event.value));
+              }
             }
           }}
         />
 
         <RikTekstEditorToolbar />
         <PortableTextEditable
-          style={{ border: "1px solid black", padding: "0.5em" }}
+          readOnly={props.readOnly}
+          className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default) p-2"}
           renderDecorator={renderDecorator}
           renderStyle={renderStyle}
           renderListItem={renderListItem}

@@ -87,7 +87,16 @@
     padding-inline-start: 40px;
   }
 
+  .melding-om-vedtak-tekst-blokk ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
+  }
+
   .melding-om-vedtak-tekst-blokk p {
+    min-height: 16px;
     font-size: 11px;
     line-height: 16px;
     font-weight: normal;
@@ -189,6 +198,7 @@
   }
 
   .melding-om-vedtak-tekst-blokk p {
+    min-height: 16px;
     font-size: 11pt;
     line-height: 16pt;
     font-weight: 400;

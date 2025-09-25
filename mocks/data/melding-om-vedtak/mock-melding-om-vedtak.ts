@@ -13,6 +13,12 @@ export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVed
   html: hentHtmlMedInjectedCss(innvilgetBrev, meldingOmVedtakCss),
   utvidedeBeskrivelser: [
     {
+      brevblokkId: "brev.blokk.egendefinert",
+      tekst: "<h1>Tittel</h1><h2>Undertittel</h2><p>paragraf</p>",
+      tittel: "Egenderfinert",
+      sistEndretTidspunkt: "2025-01-21T11:12:22.825566779",
+    },
+    {
       brevblokkId: "brev.blokk.begrunnelse-innvilgelsesdato",
       tekst: "Kaker",
       tittel: "Hvorfor får du dagpenger fra innvilgelsesdato?",

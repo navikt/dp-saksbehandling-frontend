@@ -1,5 +1,5 @@
 import { Detail, Textarea } from "@navikt/ds-react";
-import { ChangeEvent, ReactNode, useEffect } from "react";
+import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
 import { useFetcher } from "react-router";
 import { useDebounceCallback } from "usehooks-ts";
 
@@ -24,6 +24,8 @@ export interface IUtvidetBeskrivelseInput {
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const { oppdaterUtvidetBeskrivelse } = useUtvidedeBeskrivelser();
   const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof handleActions>();
   const debouncedLagreUtvidetBeskrivelseFetcher = useDebounceCallback(
@@ -69,9 +71,20 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     }
   }
 
+  function lagreUtvidetBeskrivelseRikTekst(tekst: string) {
+    oppdaterUtvidetBeskrivelse({
+      ...props.utvidetBeskrivelse,
+      tekst: tekst,
+    });
+
+    if (formRef) {
+      debouncedLagreUtvidetBeskrivelseFetcher(formRef.current);
+    }
+  }
+
   return (
     <div>
-      <lagreUtvidetBeskrivelseFetcher.Form method="post">
+      <lagreUtvidetBeskrivelseFetcher.Form method="post" ref={formRef}>
         <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
         <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
         <input
@@ -81,7 +94,11 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           readOnly={true}
         />
         {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert" ? (
-          <RikTekstEditor tekst={props.utvidetBeskrivelse.tekst} />
+          <RikTekstEditor
+            tekst={props.utvidetBeskrivelse.tekst}
+            onChange={lagreUtvidetBeskrivelseRikTekst}
+            readOnly={props.readOnly}
+          />
         ) : (
           <Textarea
             name={"utvidet-beskrivelse"}
