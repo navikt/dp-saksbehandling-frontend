@@ -772,6 +772,11 @@ export interface components {
             behandlingId: string;
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
+            /**
+             * Format: uuid
+             * @description Hvilken behandling denne behandlingen er basert på, hvis noen
+             */
+            "basertP\u00E5"?: string;
             /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
             automatisk: boolean;
             ident: components["schemas"]["Personident"];
@@ -915,11 +920,9 @@ export interface components {
             id: components["schemas"]["OpplysningsId"];
             /** Format: date-time */
             opprettet: string;
-            /**
-             * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
-             * @enum {string}
-             */
-            status: "Ny" | "Arvet";
+            /** @deprecated */
+            status: components["schemas"]["Opprinnelse"];
+            opprinnelse?: components["schemas"]["Opprinnelse"];
             /**
              * Format: date
              * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig fra tidens morgen.
@@ -934,6 +937,11 @@ export interface components {
             kilde?: components["schemas"]["Opplysningskilde"];
             utledetAv?: components["schemas"]["Utledning"];
         };
+        /**
+         * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
+         * @enum {string}
+         */
+        Opprinnelse: "Ny" | "Arvet";
         /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
          *      */
         Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
@@ -1272,8 +1280,7 @@ export interface components {
             tilOgMed?: string;
             /** @description Om brukeren har rett på dagpenger i denne perioden */
             harRett: boolean;
-            /** @description Om perioden er endret i denne behandlingen */
-            endret?: boolean;
+            opprinnelse?: components["schemas"]["Opprinnelse"];
         };
         Utbetaling: {
             meldeperiode: string;

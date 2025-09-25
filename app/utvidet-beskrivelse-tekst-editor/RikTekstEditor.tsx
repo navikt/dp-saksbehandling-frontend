@@ -1,5 +1,6 @@
 import { BulletListIcon, NumberListIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
+import { htmlToBlocks } from "@portabletext/block-tools";
 import {
   BlockDecoratorRenderProps,
   BlockListItemRenderProps,
@@ -10,6 +11,7 @@ import {
   PortableTextEditable,
 } from "@portabletext/editor";
 import { EventListenerPlugin } from "@portabletext/editor/plugins";
+import type { Schema } from "@portabletext/schema";
 import { toHTML } from "@portabletext/to-html";
 import { PropsWithChildren, useEffect, useState } from "react";
 
@@ -43,19 +45,37 @@ export const schemaDefinition = defineSchema({
   blockObjects: [],
 });
 
+const blockContentType: Schema = {
+  block: {
+    name: "block",
+  },
+  span: { name: "span" },
+  // @ts-expect-error TODO fix
+  styles: schemaDefinition.styles,
+  // @ts-expect-error TODO fix
+  lists: schemaDefinition.lists,
+  // @ts-expect-error TODO fix
+  decorators: schemaDefinition.decorators,
+  annotations: schemaDefinition.annotations,
+  blockObjects: schemaDefinition.blockObjects,
+  inlineObjects: schemaDefinition.inlineObjects,
+};
+
 interface IProps {
   tekst: string;
 }
 
 export function RikTekstEditor(props: IProps) {
   // TODO Konverter HTML til blokker igjen
-  // const blocks = htmlToBlocks(props.tekst, htmlToBlocksSchema);
-  const [value, setValue] = useState<Array<PortableTextBlock> | undefined>();
+
+  const blocks = htmlToBlocks(props.tekst, blockContentType);
+  const [value, setValue] = useState<Array<PortableTextBlock> | undefined>(blocks);
 
   useEffect(() => {
     if (value) {
       console.log(toHTML(value));
       console.log(props.tekst);
+      console.log(value);
     }
   }, [value]);
 

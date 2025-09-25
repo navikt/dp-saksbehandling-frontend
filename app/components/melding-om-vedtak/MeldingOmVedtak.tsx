@@ -1,3 +1,5 @@
+import { Select } from "@navikt/ds-react";
+
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { IAlert } from "~/context/alert-context";
@@ -28,6 +30,12 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
         <MeldingOmVedtakKilde readOnly={readOnly} />
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
+            <hr className="border-(--a-border-subtle)" />
+            <Select label="Brevvariant" className={"mb-2"}>
+              <option value="automatisk">Automatisk</option>
+              <option value="egendefienrt">Egendefinert</option>
+            </Select>
+
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
             {!isAlert(meldingOmVedtak) && (
               <UtvidedeBeskrivelser meldingOmVedtak={meldingOmVedtak} readOnly={readOnly} />

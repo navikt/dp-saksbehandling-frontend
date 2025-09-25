@@ -312,6 +312,7 @@ export interface components {
             fodselsnummer: string;
             saksbehandler: components["schemas"]["Behandler"];
             beslutter?: components["schemas"]["Behandler"];
+            brevVariant: components["schemas"]["BrevVariant"];
         };
         Behandler: {
             fornavn: string;
@@ -323,6 +324,11 @@ export interface components {
                 postadresse: string;
             };
         };
+        /**
+         * @default GENERERT
+         * @enum {string}
+         */
+        BrevVariant: "GENERERT" | "EGENDEFINERT";
         /** @enum {string} */
         Behandlingstype: "RETT_TIL_DAGPENGER" | "SØKNAD" | "KLAGE" | "MELDEKORT" | "MANUELL";
         HttpProblem: {

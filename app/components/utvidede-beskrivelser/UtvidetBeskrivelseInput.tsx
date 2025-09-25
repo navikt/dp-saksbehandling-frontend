@@ -80,9 +80,8 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           hidden={true}
           readOnly={true}
         />
-        {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.begrunnelse-innvilgelsesdato" ? (
-          // TODO Here må vi sjekke mot ny ID for egendefienrt brev
-          <RikTekstEditor tekst={"<h1>Hei på deg</h1><h>H2</h><p>Ballalaika</p>"} />
+        {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert" ? (
+          <RikTekstEditor tekst={props.utvidetBeskrivelse.tekst} />
         ) : (
           <Textarea
             name={"utvidet-beskrivelse"}

@@ -47,6 +47,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
       behandlingstype: oppgave.behandlingType,
+      brevVariant: "GENERERT",
     });
   }
 
