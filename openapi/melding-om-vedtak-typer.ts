@@ -4,6 +4,68 @@
  */
 
 export interface paths {
+    "/melding-om-vedtak/{behandlingId}/brev-variant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Lagrer brev-variant for behandling
+         * @description Lagrer brev-variant for behandling, slik at dette kan hentes når brev skal produseres som forhåndsvisning eller endelig brev.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for behandling */
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["BrevVariantRequest"];
+                };
+            };
+            responses: {
+                /** @description Brev-variant er lagret */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Behandlingen finnes ikke */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/melding-om-vedtak/{behandlingId}/html": {
         parameters: {
             query?: never;
@@ -78,8 +140,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Hent vedtaks HTML for en gitt behandlingId
-         * @description Henter vedtaksHTML for en gitt behandlingId, bruker garantert samme Sanity innhold som da sa
+         * Henter endelig brev for en gitt behandling
+         * @description Henter endelig brev for en gitt behandling. Garanterer bruk av samme Sanity innhold som da brevet ble laget vha html-endepunktet.
          */
         post: {
             parameters: {
@@ -294,6 +356,7 @@ export interface components {
             /** @description HTML for melding om vedtak */
             html: string;
             utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
+            brevVariant: components["schemas"]["BrevVariant"];
         };
         UtvidetBeskrivelse: {
             brevblokkId: string;
@@ -301,6 +364,9 @@ export interface components {
             /** Format: date-time */
             sistEndretTidspunkt?: string;
             tittel: string;
+        };
+        BrevVariantRequest: {
+            brevVariant: components["schemas"]["BrevVariant"];
         };
         MeldingOmVedtakData: {
             sakId?: string;
@@ -312,7 +378,6 @@ export interface components {
             fodselsnummer: string;
             saksbehandler: components["schemas"]["Behandler"];
             beslutter?: components["schemas"]["Behandler"];
-            brevVariant: components["schemas"]["BrevVariant"];
         };
         Behandler: {
             fornavn: string;

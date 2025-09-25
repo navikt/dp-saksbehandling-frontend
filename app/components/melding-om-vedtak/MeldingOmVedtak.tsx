@@ -1,4 +1,7 @@
 import { Select } from "@navikt/ds-react";
+import { useForm } from "@rvf/react-router";
+import { useEffect } from "react";
+import { Form } from "react-router";
 
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
@@ -6,6 +9,7 @@ import { IAlert } from "~/context/alert-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { isAlert } from "~/utils/type-guards";
+import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 import { MeldingOmVedtakKilde } from "../melding-om-vedtak-kilde/MeldingOmVedtakKilde";
@@ -24,6 +28,24 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
   const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
 
+  const endreBrevVariantForm = useForm({
+    method: "post",
+    schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
+    defaultValues: {
+      behandlingId: oppgave.behandlingId,
+      brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
+    },
+  });
+
+  useEffect(
+    () =>
+      endreBrevVariantForm.subscribe.value(() => {
+        console.log("hei");
+        endreBrevVariantForm.submit();
+      }),
+    [],
+  );
+
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
@@ -32,10 +54,23 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
           <>
             <hr className="border-(--a-border-subtle)" />
 
-            <Select label="Brevvariant" className={"mb-2"}>
-              <option value="automatisk">Automatisk</option>
-              <option value="egendefienrt">Egendefinert</option>
-            </Select>
+            <Form {...endreBrevVariantForm.getFormProps()}>
+              <input name={"_action"} value={"lagre-brev-variant"} hidden={true} readOnly={true} />
+              <input
+                hidden={true}
+                readOnly={true}
+                {...endreBrevVariantForm.field("behandlingId").getInputProps()}
+              />
+
+              <Select
+                {...endreBrevVariantForm.field("brevVariant").getInputProps()}
+                label="Brevvariant"
+                className={"mb-2"}
+              >
+                <option value="GENERERT">Generert</option>
+                <option value="EGENDEFINERT">Egendefinert</option>
+              </Select>
+            </Form>
 
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
 

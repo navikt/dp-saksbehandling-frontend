@@ -6,11 +6,20 @@ import meldingOmVedtakCss from "./mock-melding-om-vedtak.css?raw";
 export const mockMeldingOmVedtakAvslagMinsteinntekt: components["schemas"]["MeldingOmVedtakResponse"] =
   {
     html: "<p>HTML persistert i backend</p>",
-    utvidedeBeskrivelser: [],
+    brevVariant: "EGENDEFINERT",
+    utvidedeBeskrivelser: [
+      {
+        brevblokkId: "brev.blokk.egendefinert",
+        tekst: "",
+        tittel: "Egenderfinert",
+        sistEndretTidspunkt: "2025-01-21T11:12:22.825566779",
+      },
+    ],
   };
 
 export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVedtakResponse"] = {
   html: hentHtmlMedInjectedCss(innvilgetBrev, meldingOmVedtakCss),
+  brevVariant: "GENERERT",
   utvidedeBeskrivelser: [
     {
       brevblokkId: "brev.blokk.egendefinert",
@@ -41,6 +50,7 @@ export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVed
 
 export const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakResponse"] = {
   html: hentHtmlMedInjectedCss(avslagBrev, meldingOmVedtakCss),
+  brevVariant: "GENERERT",
   utvidedeBeskrivelser: [
     {
       brevblokkId: "brev.blokk.vedtak-innvilgelse",

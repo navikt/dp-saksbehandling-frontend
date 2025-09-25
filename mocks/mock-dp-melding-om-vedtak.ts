@@ -65,4 +65,16 @@ export const mockDpMeldingOmVedtak = [
       return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
     },
   ),
+
+  // Lagre brev variant
+  http.put("/melding-om-vedtak/{behandlingId}/brev-variant", async ({ request, response }) => {
+    logger.info(`[MSW]-${request.method} ${request.url}`);
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 ];

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
+import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
@@ -228,6 +229,20 @@ export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     meldingOmVedtakKilde: z.enum(["DP_SAK", "GOSYS", "INGEN"], {
+      message: "Du må velge et alternativ",
+    }),
+  });
+}
+
+export function hentValideringForMeldingOmVedtakBrevVariantSkjema() {
+  const lovligeBrevVarianter: meldingOmVedtakComponents["schemas"]["BrevVariant"][] = [
+    "GENERERT",
+    "EGENDEFINERT",
+  ];
+
+  return z.object({
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    brevVariant: z.enum(lovligeBrevVarianter, {
       message: "Du må velge et alternativ",
     }),
   });
