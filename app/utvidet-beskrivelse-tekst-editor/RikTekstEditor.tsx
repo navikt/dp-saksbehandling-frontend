@@ -1,7 +1,8 @@
-import { BulletListIcon, NumberListIcon } from "@navikt/aksel-icons";
+import { BulletListIcon, LinkIcon, NumberListIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import { htmlToBlocks } from "@portabletext/block-tools";
 import {
+  BlockAnnotationRenderProps,
   BlockDecoratorRenderProps,
   BlockListItemRenderProps,
   BlockStyleRenderProps,
@@ -21,17 +22,24 @@ import styles from "./RikTekstEditor.module.css";
 export const schemaDefinition = defineSchema({
   // Decorators are simple marks that don't hold any data
   decorators: [
-    { name: "strong", title: "B" },
-    { name: "em", title: "I" },
+    { name: "strong", title: "B", description: "Fet" },
+    { name: "em", title: "I", description: "Kursiv" },
   ],
   // Annotations are more complex marks that can hold data
-  annotations: [],
+  annotations: [
+    {
+      name: "link",
+      title: "Lenke",
+      icon: <LinkIcon title={"Lenke"} />,
+      fields: [{ name: "href", type: "string" }],
+    },
+  ],
   // Styles apply to entire text blocks
   // There's always a 'normal' style that can be considered the paragraph style
   styles: [
-    { name: "normal", title: "T" },
-    { name: "h1", title: "H1" },
-    { name: "h2", title: "H2" },
+    { name: "normal", title: "Brødtekst" },
+    { name: "h1", title: "Tittel" },
+    { name: "h2", title: "Undertittel" },
   ],
   // Lists apply to entire text blocks as well
   lists: [
@@ -89,15 +97,17 @@ export function RikTekstEditor(props: IProps) {
             }
           }}
         />
-
-        <RikTekstEditorToolbar />
-        <PortableTextEditable
-          readOnly={props.readOnly}
-          className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default) p-2"}
-          renderDecorator={renderDecorator}
-          renderStyle={renderStyle}
-          renderListItem={renderListItem}
-        />
+        <div className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default)"}>
+          <RikTekstEditorToolbar />
+          <PortableTextEditable
+            className={"p-2"}
+            readOnly={props.readOnly}
+            renderStyle={renderStyle}
+            renderDecorator={renderDecorator}
+            renderAnnotation={renderAnnotation}
+            renderListItem={renderListItem}
+          />
+        </div>
       </EditorProvider>
     </div>
   );
@@ -141,5 +151,13 @@ function renderStyle(props: PropsWithChildren<BlockStyleRenderProps>) {
 
 // CSSen bestemmer hvordan listeelementer skal se ut
 function renderListItem(props: PropsWithChildren<BlockListItemRenderProps>) {
+  return <>{props.children}</>;
+}
+
+function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) {
+  if (props.schemaType.name === "link") {
+    return <span className={"text-(--a-text-action) underline"}>{props.children}</span>;
+  }
+
   return <>{props.children}</>;
 }

@@ -1,4 +1,4 @@
-import { Select } from "@navikt/ds-react";
+import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useEffect } from "react";
 import { Form } from "react-router";
@@ -61,14 +61,15 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
                 {...endreBrevVariantForm.field("behandlingId").getInputProps()}
               />
 
-              <Select
+              <RadioGroup
                 {...endreBrevVariantForm.field("brevVariant").getInputProps()}
-                label="Brevvariant"
-                className={"mb-2"}
+                size={"small"}
+                legend="Variant"
+                onChange={() => endreBrevVariantForm.submit()}
               >
-                <option value="GENERERT">Generert</option>
-                <option value="EGENDEFINERT">Egendefinert</option>
-              </Select>
+                <Radio value="GENERERT">Standardisert tekst</Radio>
+                <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
+              </RadioGroup>
             </Form>
 
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
