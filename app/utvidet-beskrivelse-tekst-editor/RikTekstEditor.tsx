@@ -64,9 +64,7 @@ interface IProps {
 }
 
 export function RikTekstEditor(props: IProps) {
-  // TODO Konverter HTML til blokker igjen
-
-  // @ts-expect-error // sad panda
+  // @ts-expect-error // TODO Må fikes typefeil her
   const blocks = htmlToBlocks(props.tekst, blockContentType);
   const [value, setValue] = useState<Array<PortableTextBlock> | undefined>(blocks);
 
@@ -85,9 +83,7 @@ export function RikTekstEditor(props: IProps) {
           on={(event) => {
             if (event.type === "mutation") {
               setValue(event.value);
-
               if (event.value) {
-                console.log("change");
                 props.onChange(toHTML(event.value));
               }
             }

@@ -1,6 +1,7 @@
-import { Detail, Textarea } from "@navikt/ds-react";
+import { Detail, Loader, Textarea } from "@navikt/ds-react";
 import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
 import { useFetcher } from "react-router";
+import { ClientOnly } from "remix-utils/client-only";
 import { useDebounceCallback } from "usehooks-ts";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
@@ -94,11 +95,15 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
           readOnly={true}
         />
         {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert" ? (
-          <RikTekstEditor
-            tekst={props.utvidetBeskrivelse.tekst}
-            onChange={lagreUtvidetBeskrivelseRikTekst}
-            readOnly={props.readOnly}
-          />
+          <ClientOnly fallback={<Loader />}>
+            {() => (
+              <RikTekstEditor
+                tekst={props.utvidetBeskrivelse.tekst}
+                onChange={lagreUtvidetBeskrivelseRikTekst}
+                readOnly={props.readOnly}
+              />
+            )}
+          </ClientOnly>
         ) : (
           <Textarea
             name={"utvidet-beskrivelse"}
