@@ -1,20 +1,27 @@
-import { BulletListIcon, LinkIcon, NumberListIcon } from "@navikt/aksel-icons";
-import { Heading } from "@navikt/ds-react";
+import {
+  BulletListIcon,
+  LinkIcon,
+  NumberListIcon,
+  QuestionmarkDiamondIcon,
+} from "@navikt/aksel-icons";
+import { Heading, Select, Tooltip } from "@navikt/ds-react";
 import { htmlToBlocks } from "@portabletext/block-tools";
 import {
   BlockAnnotationRenderProps,
+  BlockChildRenderProps,
   BlockDecoratorRenderProps,
   BlockListItemRenderProps,
   BlockStyleRenderProps,
   defineSchema,
   EditorProvider,
-  PortableTextBlock,
   PortableTextEditable,
 } from "@portabletext/editor";
 import { EventListenerPlugin } from "@portabletext/editor/plugins";
 import { toHTML } from "@portabletext/to-html";
-import { PropsWithChildren, useState } from "react";
+import { ChangeEvent, PropsWithChildren, useState } from "react";
 
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { RikTekstEditorToolbar } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
 
 import styles from "./RikTekstEditor.module.css";
@@ -47,7 +54,7 @@ export const schemaDefinition = defineSchema({
     { name: "number", title: "Nummerliste", icon: <NumberListIcon title={"Nummerliste"} /> },
   ],
   // Inline objects hold arbitrary data that can be inserted into the text
-  inlineObjects: [],
+  inlineObjects: [{ name: "opplysningReference", title: "Opplysning" }],
   // Block objects hold arbitrary data that live side-by-side with text blocks
   blockObjects: [],
 });
@@ -72,44 +79,80 @@ interface IProps {
 }
 
 export function RikTekstEditor(props: IProps) {
+  const { sanityBrevMaler } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
+  );
+
+  const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
   // @ts-expect-error // TODO Må fikes typefeil her
-  const blocks = htmlToBlocks(props.tekst, blockContentType);
-  const [value, setValue] = useState<Array<PortableTextBlock> | undefined>(blocks);
+  const initialBlocks = htmlToBlocks(props.tekst, blockContentType);
+  const initialValue = [
+    ...initialBlocks,
+    ...(valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []),
+  ];
+
+  function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
+    const selectedBrevMal = sanityBrevMaler.find(
+      (brevMal) => brevMal.textId === event.currentTarget.value,
+    );
+    setValgtBrevMal(selectedBrevMal);
+  }
 
   return (
-    <div className={styles.editor}>
-      {value && (
-        <input name={"utvidet-beskrivelse"} value={toHTML(value)} hidden={true} readOnly={true} />
-      )}
-      <EditorProvider
-        initialConfig={{
-          schemaDefinition,
-          initialValue: value,
-        }}
-      >
-        <EventListenerPlugin
-          on={(event) => {
-            if (event.type === "mutation") {
-              setValue(event.value);
-              if (event.value) {
+    <>
+      <Select className={"mb-2"} label="Brevmal" onChange={handleBrevmalSelect}>
+        <option value="" hidden={true}>
+          Velg brevmal
+        </option>
+        <option value={"ingen"}>Ingen</option>
+
+        {sanityBrevMaler.map((brevMal) => (
+          <option key={brevMal.textId} value={brevMal.textId}>
+            {brevMal.textId}
+          </option>
+        ))}
+      </Select>
+
+      <div className={styles.editor}>
+        {initialValue && (
+          <input
+            name={"utvidet-beskrivelse"}
+            value={toHTML(initialValue)}
+            hidden={true}
+            readOnly={true}
+          />
+        )}
+        <EditorProvider
+          key={valgtBrevMal?.textId || "default"}
+          initialConfig={{
+            schemaDefinition,
+            initialValue: initialValue,
+          }}
+        >
+          <EventListenerPlugin
+            on={(event) => {
+              if (event.type === "mutation" && event.value) {
                 props.onChange(toHTML(event.value));
               }
-            }
-          }}
-        />
-        <div className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default)"}>
-          <RikTekstEditorToolbar />
-          <PortableTextEditable
-            className={"p-2"}
-            readOnly={props.readOnly}
-            renderStyle={renderStyle}
-            renderDecorator={renderDecorator}
-            renderAnnotation={renderAnnotation}
-            renderListItem={renderListItem}
+            }}
           />
-        </div>
-      </EditorProvider>
-    </div>
+          <div
+            className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default)"}
+          >
+            <RikTekstEditorToolbar />
+            <PortableTextEditable
+              className={"p-2"}
+              readOnly={props.readOnly}
+              renderStyle={renderStyle}
+              renderDecorator={renderDecorator}
+              renderAnnotation={renderAnnotation}
+              renderListItem={renderListItem}
+              renderChild={renderChild}
+            />
+          </div>
+        </EditorProvider>
+      </div>
+    </>
   );
 }
 
@@ -157,6 +200,20 @@ function renderListItem(props: PropsWithChildren<BlockListItemRenderProps>) {
 function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) {
   if (props.schemaType.name === "link") {
     return <span className={"text-(--a-text-action) underline"}>{props.children}</span>;
+  }
+
+  return <>{props.children}</>;
+}
+
+function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
+  if (props.schemaType.name === "opplysningReference") {
+    return (
+      // @ts-expect-error Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts. Usikker på hvordan vi skal få typet det riktig.
+      <Tooltip content={`Mangler opplysning: ${props.value?.reference?.textId}`}>
+        {/* @ts-expect-error Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts. Usikker på hvordan vi skal få typet det riktig.*/}
+        <QuestionmarkDiamondIcon title={`Mangler opplysning: ${props.value?.reference?.textId}`} />
+      </Tooltip>
+    );
   }
 
   return <>{props.children}</>;
