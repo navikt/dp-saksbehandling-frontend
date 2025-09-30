@@ -1,6 +1,5 @@
 import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useEffect } from "react";
 import { Form } from "react-router";
 
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
@@ -36,14 +35,6 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
       brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
     },
   });
-
-  useEffect(
-    () =>
-      endreBrevVariantForm.subscribe.value(() => {
-        endreBrevVariantForm.submit();
-      }),
-    [],
-  );
 
   return (
     <div className={styles.meldingOmVedtakContainer}>
