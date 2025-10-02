@@ -120,9 +120,9 @@ export function RegelsettTidslinje() {
           endDate={tidslinjeStartSlutt.end}
           className={"aksel--compact"}
         >
-          {regelsett.map((sett) => {
-            return (
-              <>
+          <>
+            {regelsett.map((sett) => {
+              return (
                 <Timeline.Row
                   key={sett.navn}
                   label={sett.navn}
@@ -151,43 +151,43 @@ export function RegelsettTidslinje() {
                     );
                   })}
                 </Timeline.Row>
+              );
+            })}
 
-                {aktiveOpplysninger.map((opplysning) => {
-                  return (
-                    <Timeline.Row key={opplysning.opplysningTypeId} label={opplysning.navn}>
-                      {opplysning.opplysninger.map((periode) => {
-                        const start = periode.gyldigFraOgMed
-                          ? new Date(periode.gyldigFraOgMed)
-                          : sub(new Date(), { years: 1 });
+            {aktiveOpplysninger.map((opplysning) => {
+              return (
+                <Timeline.Row key={opplysning.opplysningTypeId} label={opplysning.navn}>
+                  {opplysning.opplysninger.map((periode) => {
+                    const start = periode.gyldigFraOgMed
+                      ? new Date(periode.gyldigFraOgMed)
+                      : sub(new Date(), { years: 1 });
 
-                        const slutt = periode.gyldigTilOgMed
-                          ? new Date(periode.gyldigTilOgMed)
-                          : add(new Date(), { years: 1 });
+                    const slutt = periode.gyldigTilOgMed
+                      ? new Date(periode.gyldigTilOgMed)
+                      : add(new Date(), { years: 1 });
 
-                        return (
-                          <Timeline.Period
-                            key={periode.id}
-                            start={start}
-                            end={slutt}
-                            status={"info"}
-                            icon={
-                              periode.verdien
-                                ? formaterOpplysningVerdi(periode.verdien)
-                                : periode.verdien
-                            }
-                          >
-                            {periode.verdien
-                              ? formaterOpplysningVerdi(periode.verdien)
-                              : periode.verdien}
-                          </Timeline.Period>
-                        );
-                      })}
-                    </Timeline.Row>
-                  );
-                })}
-              </>
-            );
-          })}
+                    return (
+                      <Timeline.Period
+                        key={periode.id}
+                        start={start}
+                        end={slutt}
+                        status={"info"}
+                        icon={
+                          periode.verdien
+                            ? formaterOpplysningVerdi(periode.verdien)
+                            : periode.verdien
+                        }
+                      >
+                        {periode.verdien
+                          ? formaterOpplysningVerdi(periode.verdien)
+                          : periode.verdien}
+                      </Timeline.Period>
+                    );
+                  })}
+                </Timeline.Row>
+              );
+            })}
+          </>
         </Timeline>
       </div>
 
