@@ -8,6 +8,7 @@ import {
   underBehandlingAvslagOppgaveMineOppgave,
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMeldekortOppgaveMineOppgave,
+  underBehandlingPeriodisertMinOppgave,
   underKontrollAnnenSaksbehandler,
   underKontrollMinOppgave,
 } from "./mock-oppgaver";
@@ -38,6 +39,7 @@ export function konverterOppgaveTilListeOppgave(
 
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingPeriodisertMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingAvslagOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMeldekortOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underKontrollMinOppgave),

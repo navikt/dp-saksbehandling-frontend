@@ -848,13 +848,23 @@ export interface components {
             hjemmel: components["schemas"]["Hjemmel"];
             /** @deprecated */
             relevantForVedtak?: boolean;
-            /** @enum {string} */
-            status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
+            status: components["schemas"]["Status"];
             /** @description Hvilke avklaringer som skal vises i dette regelsettet */
             avklaringer: components["schemas"]["Avklaring"][];
             opplysningIder: components["schemas"]["OpplysningsId"][];
             opplysningTypeIder: components["schemas"]["OpplysningTypeId"][];
+            /** @description Vi vet ikke helt hvordan dette skal se ut enda. */
+            perioder?: components["schemas"]["VilkaarPeriode"][];
         };
+        VilkaarPeriode: {
+            status: components["schemas"]["Status"];
+            /** Format: date */
+            gyldigFraOgMed?: string;
+            /** Format: date */
+            gyldigTilOgMed?: string;
+        };
+        /** @enum {string} */
+        Status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
         Hjemmel: {
             /** @description Lov, forskrift, eller rundskriv */
             kilde: components["schemas"]["Lovkilde"];

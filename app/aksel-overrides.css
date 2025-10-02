@@ -1,3 +1,8 @@
+/* Aksel timeline overrides */
+.aksel--compact .navds-timeline__row {
+  margin: var(--a-spacing-1) 0;
+}
+
 /* Aksel expansion overrides */
 .expansion--subtil {
   /*box-shadow: var(--a-shadow-xsmall);*/
