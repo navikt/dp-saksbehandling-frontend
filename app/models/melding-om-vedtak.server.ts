@@ -62,3 +62,18 @@ export async function lagreUtvidetBeskrivelse(
     },
   );
 }
+
+export async function lagreBrevVariant(
+  request: Request,
+  behandlingId: string,
+  brevVariant: components["schemas"]["BrevVariant"],
+) {
+  const onBehalfOfToken = await getMeldingOmVedtakOboToken(request);
+  return await meldingOmVedtakClient.PUT("/melding-om-vedtak/{behandlingId}/brev-variant", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { brevVariant },
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
