@@ -20,7 +20,6 @@ import { EventListenerPlugin } from "@portabletext/editor/plugins";
 import { toHTML } from "@portabletext/to-html";
 import { ChangeEvent, PropsWithChildren, useState } from "react";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { RikTekstEditorToolbar } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
 
@@ -76,13 +75,10 @@ interface IProps {
   tekst: string;
   onChange: (tekst: string) => void;
   readOnly?: boolean;
+  sanityBrevMaler: ISanityBrevMal[];
 }
 
 export function RikTekstEditor(props: IProps) {
-  const { sanityBrevMaler } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak",
-  );
-
   const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
   // @ts-expect-error // TODO Må fikes typefeil her
   const initialBlocks = htmlToBlocks(props.tekst, blockContentType);
@@ -92,7 +88,7 @@ export function RikTekstEditor(props: IProps) {
   ];
 
   function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const selectedBrevMal = sanityBrevMaler.find(
+    const selectedBrevMal = props.sanityBrevMaler.find(
       (brevMal) => brevMal.textId === event.currentTarget.value,
     );
     setValgtBrevMal(selectedBrevMal);
@@ -106,7 +102,7 @@ export function RikTekstEditor(props: IProps) {
         </option>
         <option value={"ingen"}>Ingen</option>
 
-        {sanityBrevMaler.map((brevMal) => (
+        {props.sanityBrevMaler.map((brevMal) => (
           <option key={brevMal.textId} value={brevMal.textId}>
             {brevMal.textId}
           </option>

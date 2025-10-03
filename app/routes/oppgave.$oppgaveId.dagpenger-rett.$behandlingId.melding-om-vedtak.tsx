@@ -50,7 +50,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   };
 }
 export default function MeldingOmVedtakRoute() {
-  const { meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { meldingOmVedtak, sanityBrevMaler } = useLoaderData<typeof loader>();
   const location = useLocation();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -60,7 +60,7 @@ export default function MeldingOmVedtakRoute() {
       utvidedeBeskrivelser={isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser}
       key={location.key}
     >
-      <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
+      <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} sanityBrevMaler={sanityBrevMaler} />
     </UtvidedeBeskrivelserProvider>
   );
 }

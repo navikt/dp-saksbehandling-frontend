@@ -8,6 +8,7 @@ import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.modul
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
+import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
@@ -20,6 +21,7 @@ export interface IUtvidetBeskrivelseInput {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
   readOnly?: boolean;
+  sanityBrevMaler: ISanityBrevMal[];
 }
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
@@ -101,6 +103,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
                 tekst={props.utvidetBeskrivelse.tekst}
                 onChange={lagreUtvidetBeskrivelseRikTekst}
                 readOnly={props.readOnly}
+                sanityBrevMaler={props.sanityBrevMaler}
               />
             )}
           </ClientOnly>

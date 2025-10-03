@@ -7,6 +7,7 @@ import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/M
 import { IAlert } from "~/context/alert-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
+import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
@@ -17,9 +18,10 @@ import styles from "./MeldingOmVedtak.module.css";
 
 interface IProps {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
+  sanityBrevMaler: ISanityBrevMal[];
 }
 
-export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
+export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
@@ -66,7 +68,11 @@ export function MeldingOmVedtak({ meldingOmVedtak }: IProps) {
             {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
 
             {!isAlert(meldingOmVedtak) && (
-              <UtvidedeBeskrivelser meldingOmVedtak={meldingOmVedtak} readOnly={readOnly} />
+              <UtvidedeBeskrivelser
+                meldingOmVedtak={meldingOmVedtak}
+                readOnly={readOnly}
+                sanityBrevMaler={sanityBrevMaler}
+              />
             )}
           </>
         )}
