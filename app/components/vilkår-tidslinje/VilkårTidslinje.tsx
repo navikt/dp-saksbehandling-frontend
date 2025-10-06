@@ -50,7 +50,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     (components["schemas"]["Regelsett"] | components["schemas"]["Opplysningsgruppe"])[]
   >(behandling.vilkår);
 
-  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"], index: number) {
+  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"]) {
     if (aktivtRegelsett?.navn === regelsett.navn) {
       setAktivtRegelsett(undefined);
       setVilkårOgOpplysninger(behandling.vilkår);
@@ -62,6 +62,10 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     const nyeAktiveOpplysninger = behandling.opplysningsgrupper.filter((opplysning) =>
       regelsett.opplysningTypeIder.includes(opplysning.opplysningTypeId),
     );
+
+    const index =
+      behandling.vilkår.findIndex((vilkår) => vilkår.navn === regelsett.navn) ??
+      behandling.vilkår.length - 1;
 
     const oppdatertData = [
       ...behandling.vilkår.slice(0, index + 1),
@@ -90,7 +94,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
           endDate={tidslinjeStartSlutt.end}
           className={"aksel--compact"}
         >
-          {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
+          {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
             if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
               return (
                 <Timeline.Row
@@ -136,7 +140,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
               <Timeline.Row
                 key={vilkårEllerOpplysning.navn}
                 label={"\u00A0"}
-                onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+                onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                 icon={
                   <Button
                     variant={
@@ -151,7 +155,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                         <ChevronDownIcon />
                       )
                     }
-                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                     size="xsmall"
                   >
                     {vilkårEllerOpplysning.navn}
