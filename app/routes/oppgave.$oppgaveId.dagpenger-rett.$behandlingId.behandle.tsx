@@ -1,6 +1,7 @@
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
+  Outlet,
   redirect,
   useActionData,
   useLoaderData,
@@ -10,7 +11,7 @@ import invariant from "tiny-invariant";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RegelsettTidslinje } from "~/components/regelsett-tidslinje/RegelsettTidslinje";
+import { RegelsettMeny } from "~/components/regelsett-meny/RegelsettMeny";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandling } from "~/models/behandling.server";
@@ -19,6 +20,7 @@ import {
   hentOrkestratorLandListe,
 } from "~/models/orkestrator-opplysning.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
+import styles from "~/route-styles/behandling.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -67,12 +69,10 @@ export default function Oppgave() {
         readOnly={oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave}
       />
 
-      <RegelsettTidslinje />
-
-      {/*<div className={styles.container}>*/}
-      {/*  <RegelsettMeny behandling={behandling} />*/}
-      {/*  <Outlet />*/}
-      {/*</div>*/}
+      <div className={styles.container}>
+        <RegelsettMeny behandling={behandling} />
+        <Outlet />
+      </div>
     </>
   );
 }

@@ -189,6 +189,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/behandling/v2/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        /** Hent en spesifikk behandling */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Behandlingens id */
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["BehandlingsresultatV2"];
+                    };
+                };
+                /** @description Feil ved henting av behandling */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/behandling/{behandlingId}/vurderinger": {
         parameters: {
             query?: never;
@@ -784,6 +835,29 @@ export interface components {
             opplysninger: components["schemas"]["Opplysninger"][];
             rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
         };
+        BehandlingsresultatV2: {
+            /** Format: uuid */
+            behandlingId: string;
+            hendelser?: components["schemas"]["Tidslinjehendelse"][];
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse: components["schemas"]["Hendelse"];
+            kreverTotrinnskontroll: boolean;
+            /**
+             * Format: uuid
+             * @description Hvilken behandling denne behandlingen er basert på, hvis noen
+             */
+            "basertP\u00E5"?: string;
+            /** @enum {string} */
+            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
+            /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
+            automatisk: boolean;
+            ident: components["schemas"]["Personident"];
+            avklaringer: components["schemas"]["Avklaring"][];
+            "vilk\u00E5r": components["schemas"]["VurderingsresultatV2"][];
+            fastsettelser: components["schemas"]["VurderingsresultatV2"][];
+            /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
+            opplysninger: components["schemas"]["OpplysningergruppeV2"][];
+        };
         Personident: string;
         Vurderingsresultat: {
             /** @description Kort navn som beskriver regelsettet */
@@ -796,6 +870,25 @@ export interface components {
             utfall?: components["schemas"]["OpplysningTypeId"][];
             "\u00F8nsketResultat"?: components["schemas"]["OpplysningTypeId"][];
             opplysninger?: components["schemas"]["OpplysningTypeId"][];
+        };
+        VurderingsresultatV2: {
+            /** @description Kort navn som beskriver regelsettet */
+            navn: string;
+            /** @description Hvilken hjemmel er regelsettet basert på */
+            hjemmel: components["schemas"]["Hjemmel"];
+            /** @enum {string} */
+            type?: "Vilkår" | "Fastsettelse";
+            perioder?: components["schemas"]["VilkaarPeriode"][];
+        };
+        OpplysningergruppeV2: {
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            datatype: components["schemas"]["DataType"];
+            synlig: boolean;
+            redigerbar?: boolean;
+            redigertAvSaksbehandler?: boolean;
+            "form\u00E5l": components["schemas"]["Form\u00E5l"];
+            perioder: components["schemas"]["Opplysningsperiode"][];
         };
         BehandlingOpplysninger: {
             /** Format: uuid */
@@ -862,6 +955,7 @@ export interface components {
             gyldigFraOgMed?: string;
             /** Format: date */
             gyldigTilOgMed?: string;
+            opplysningsTypeId: components["schemas"]["OpplysningTypeId"][];
         };
         /** @enum {string} */
         Status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";

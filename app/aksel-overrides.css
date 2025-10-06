@@ -3,6 +3,12 @@
   margin: var(--a-spacing-1) 0;
 }
 
+/* Aksel accordion overrides */
+.accordion--subtil {
+  /*--ac-expansioncard-border-color: none;*/
+  --ac-accordion-header-border: none;
+}
+
 /* Aksel expansion overrides */
 .expansion--subtil {
   /*box-shadow: var(--a-shadow-xsmall);*/
