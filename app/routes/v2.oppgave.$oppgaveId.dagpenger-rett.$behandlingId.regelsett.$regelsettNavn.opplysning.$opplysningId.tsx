@@ -13,6 +13,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { OpplysningTidslinjerad } from "~/components/opplysning-tidslinjerad/OpplysningTidslinjerad";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
   AntallUkerITidslinje,
@@ -54,11 +55,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     throw new Response(`Finner ikke opplysning med id ${params.opplysningId}`, { status: 404 });
   }
 
-  return { behandling, regelsett, opplysning };
+  return { behandling, regelsett, opplysning, oppgaveId: params.oppgaveId };
 }
 
 export default function Opplysning() {
-  const { behandling, regelsett, opplysning } = useLoaderData<typeof loader>();
+  const { behandling, regelsett, opplysning, oppgaveId } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -139,43 +140,50 @@ export default function Opplysning() {
             })}
           </Timeline.Row>
           {regelsettOpplysninger.map((opplysning) => (
-            <Timeline.Row
+            // <Timeline.Row
+            //   key={opplysning.opplysningTypeId}
+            //   label={"\u00A0"}
+            //   icon={
+            //     <Link
+            //       to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
+            //       className={"ml-6"}
+            //     >
+            //       {opplysning.navn}
+            //     </Link>
+            //   }
+            // >
+            //   {opplysning.opplysninger.map((periode) => {
+            //     const start = periode.gyldigFraOgMed
+            //       ? new Date(periode.gyldigFraOgMed)
+            //       : sub(new Date(), { years: 1 });
+
+            //     const slutt = periode.gyldigTilOgMed
+            //       ? new Date(periode.gyldigTilOgMed)
+            //       : add(new Date(), { years: 1 });
+
+            //     return (
+            //       <Timeline.Period
+            //         key={periode.id}
+            //         start={start}
+            //         end={slutt}
+            //         // @ts-expect-error Typefeil forsvinner i v2
+            //         status={hentFargeForOpplysningPeriode(periode.verdien)}
+            //         // @ts-expect-error Typefeil forsvinner i v2
+            //         icon={hentIkonForOpplysningPeriode(periode.verdien)}
+            //       >
+            //         {/*// @ts-expect-error Typefeil forsvinner i v2*/}
+            //         {formaterOpplysningVerdi(periode.verdien)}
+            //       </Timeline.Period>
+            //     );
+            //   })}
+            // </Timeline.Row>
+            <OpplysningTidslinjerad
               key={opplysning.opplysningTypeId}
-              label={"\u00A0"}
-              icon={
-                <Link
-                  to={`/v2/oppgave/${opplysning.opplysningTypeId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
-                  className={"ml-6"}
-                >
-                  {opplysning.navn}
-                </Link>
-              }
-            >
-              {opplysning.opplysninger.map((periode) => {
-                const start = periode.gyldigFraOgMed
-                  ? new Date(periode.gyldigFraOgMed)
-                  : sub(new Date(), { years: 1 });
-
-                const slutt = periode.gyldigTilOgMed
-                  ? new Date(periode.gyldigTilOgMed)
-                  : add(new Date(), { years: 1 });
-
-                return (
-                  <Timeline.Period
-                    key={periode.id}
-                    start={start}
-                    end={slutt}
-                    // @ts-expect-error Typefeil forsvinner i v2
-                    status={hentFargeForOpplysningPeriode(periode.verdien)}
-                    // @ts-expect-error Typefeil forsvinner i v2
-                    icon={hentIkonForOpplysningPeriode(periode.verdien)}
-                  >
-                    {/*// @ts-expect-error Typefeil forsvinner i v2*/}
-                    {formaterOpplysningVerdi(periode.verdien)}
-                  </Timeline.Period>
-                );
-              })}
-            </Timeline.Row>
+              opplysning={opplysning}
+              behandlingId={behandling.behandlingId}
+              oppgaveId={oppgaveId}
+              regelsettNavn={regelsett.navn}
+            />
           ))}
         </Timeline>
       </div>
