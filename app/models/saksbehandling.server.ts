@@ -24,6 +24,8 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
     },
   });
 
+  console.log("lol");
+  console.log("lol");
   if (data) {
     return data;
   }
