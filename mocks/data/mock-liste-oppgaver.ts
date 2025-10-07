@@ -1,5 +1,6 @@
 import { components } from "../../openapi/saksbehandling-typer";
 import {
+  behandlingV2Oppgave,
   ferdigBehandlerKlageOppgave,
   ferdigBehandletAutomatiskOppgave,
   ferdigBehandletOppgave,
@@ -49,4 +50,5 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
   konverterOppgaveTilListeOppgave(klageOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandlerKlageOppgave),
+  konverterOppgaveTilListeOppgave(behandlingV2Oppgave),
 ];

@@ -21,7 +21,7 @@ import {
   TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
+import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
@@ -36,8 +36,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const opplysning = behandling.opplysningsgrupper.find(
+  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === params.opplysningId,
   );
 
@@ -53,8 +53,8 @@ export default function Opplysning() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const førsteFraOgMedDato = opplysning.opplysninger
-    .map((opplysning) => opplysning.gyldigFraOgMed)
+  const førsteFraOgMedDato = opplysning.perioder
+    .map((periode) => periode.gyldigFraOgMed)
     .filter((dato) => dato !== null && dato !== undefined)
     .sort()
     .at(0);
@@ -87,26 +87,24 @@ export default function Opplysning() {
         className={"aksel--compact"}
       >
         <Timeline.Row key={opplysning.navn} label={""}>
-          {opplysning.opplysninger.map((opplysning) => {
-            const start = opplysning.gyldigFraOgMed
-              ? new Date(opplysning.gyldigFraOgMed)
+          {opplysning.perioder.map((periode) => {
+            const start = periode.gyldigFraOgMed
+              ? new Date(periode.gyldigFraOgMed)
               : sub(new Date(), { years: 1 });
 
-            const slutt = opplysning.gyldigTilOgMed
-              ? new Date(opplysning.gyldigTilOgMed)
+            const slutt = periode.gyldigTilOgMed
+              ? new Date(periode.gyldigTilOgMed)
               : add(new Date(), { years: 1 });
 
             return (
               <Timeline.Period
-                key={opplysning.id}
+                key={periode.id}
                 start={start}
                 end={slutt}
-                status={
-                  opplysning.verdien ? hentStatusForOpplysningPeriode(opplysning.verdien) : "info"
-                }
-                icon={opplysning?.verdien ? hentIkonForOpplysningPeriode(opplysning.verdien) : ""}
+                status={hentStatusForOpplysningPeriode(periode.verdi)}
+                icon={hentIkonForOpplysningPeriode(periode.verdi)}
               >
-                {opplysning?.verdien ? formaterOpplysningVerdi(opplysning.verdien) : ""}
+                {formaterOpplysningVerdi(periode.verdi)}
               </Timeline.Period>
             );
           })}
@@ -123,16 +121,16 @@ export default function Opplysning() {
         </Table.Header>
 
         <Table.Body>
-          {opplysning.opplysninger.map((o) => (
-            <Table.Row key={o.id}>
+          {opplysning.perioder.map((periode) => (
+            <Table.Row key={periode.id}>
               <Table.DataCell>
-                {o.gyldigFraOgMed ? formaterTilNorskDato(o.gyldigFraOgMed) : "--"}
+                {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
               </Table.DataCell>
               <Table.DataCell>
-                {o.gyldigTilOgMed ? formaterTilNorskDato(o.gyldigTilOgMed) : "--"}
+                {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
               </Table.DataCell>
-              <Table.DataCell>{o.verdien ? formaterOpplysningVerdi(o.verdien) : ""}</Table.DataCell>
-              <Table.DataCell>{o.kilde?.begrunnelse?.verdi}</Table.DataCell>
+              <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+              <Table.DataCell>{periode.kilde?.begrunnelse?.verdi}</Table.DataCell>
               <Table.DataCell>
                 <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<TrashIcon />} />
               </Table.DataCell>

@@ -25,7 +25,7 @@ import {
   TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
+import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
@@ -39,11 +39,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.regelsettNavn, "params.regelsettNavn er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
+  const behandling = await hentBehandlingV2(request, params.behandlingId);
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
     (sett) => sett.navn === params.regelsettNavn,
   );
-  const opplysning = behandling.opplysningsgrupper.find(
+  const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === params.opplysningId,
   );
 
@@ -63,13 +63,15 @@ export default function Opplysning() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const regelsettOpplysninger = behandling.opplysningsgrupper.filter((opplysning) =>
-    regelsett.opplysningTypeIder.includes(opplysning.opplysningTypeId),
+  const regelsettOpplysninger = behandling.opplysninger.filter((opplysning) =>
+    regelsett.perioder
+      ?.flatMap((periode) => periode.opplysningsTypeId)
+      .includes(opplysning.opplysningTypeId),
   );
 
   const førsteFraOgMedDatoRegelsett = regelsettOpplysninger
-    .flatMap((opplysning) => opplysning.opplysninger)
-    .map((opplysning) => opplysning.gyldigFraOgMed)
+    .flatMap((opplysning) => opplysning.perioder)
+    .map((periode) => periode.gyldigFraOgMed)
     .filter((dato): dato is string => dato != null)
     .sort((a, b) => a.localeCompare(b))
     .at(0);
@@ -82,8 +84,8 @@ export default function Opplysning() {
       end: add(new Date(førsteFraOgMedDatoRegelsett ?? new Date()), { weeks: 2 }),
     });
 
-  const førsteFraOgMedDatoOpplysning = opplysning.opplysninger
-    .map((opplysning) => opplysning.gyldigFraOgMed)
+  const førsteFraOgMedDatoOpplysning = opplysning.perioder
+    .map((periode) => periode.gyldigFraOgMed)
     .filter((dato): dato is string => dato != null)
     .sort((a, b) => a.localeCompare(b))
     .at(0);
@@ -140,50 +142,47 @@ export default function Opplysning() {
             })}
           </Timeline.Row>
           {regelsettOpplysninger.map((opplysning) => (
-            // <Timeline.Row
-            //   key={opplysning.opplysningTypeId}
-            //   label={"\u00A0"}
-            //   icon={
-            //     <Link
-            //       to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
-            //       className={"ml-6"}
-            //     >
-            //       {opplysning.navn}
-            //     </Link>
-            //   }
-            // >
-            //   {opplysning.opplysninger.map((periode) => {
-            //     const start = periode.gyldigFraOgMed
-            //       ? new Date(periode.gyldigFraOgMed)
-            //       : sub(new Date(), { years: 1 });
-
-            //     const slutt = periode.gyldigTilOgMed
-            //       ? new Date(periode.gyldigTilOgMed)
-            //       : add(new Date(), { years: 1 });
-
-            //     return (
-            //       <Timeline.Period
-            //         key={periode.id}
-            //         start={start}
-            //         end={slutt}
-            //         // @ts-expect-error Typefeil forsvinner i v2
-            //         status={hentFargeForOpplysningPeriode(periode.verdien)}
-            //         // @ts-expect-error Typefeil forsvinner i v2
-            //         icon={hentIkonForOpplysningPeriode(periode.verdien)}
-            //       >
-            //         {/*// @ts-expect-error Typefeil forsvinner i v2*/}
-            //         {formaterOpplysningVerdi(periode.verdien)}
-            //       </Timeline.Period>
-            //     );
-            //   })}
-            // </Timeline.Row>
-            <OpplysningTidslinjerad
+            <Timeline.Row
               key={opplysning.opplysningTypeId}
-              opplysning={opplysning}
-              behandlingId={behandling.behandlingId}
-              oppgaveId={oppgaveId}
-              regelsettNavn={regelsett.navn}
-            />
+              label={"\u00A0"}
+              icon={
+                <Link
+                  to={`/v2/oppgave/${opplysning.opplysningTypeId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
+                  className={"ml-6"}
+                >
+                  {opplysning.navn}
+                </Link>
+              }
+            >
+              {opplysning.perioder.map((periode) => {
+                const start = periode.gyldigFraOgMed
+                  ? new Date(periode.gyldigFraOgMed)
+                  : sub(new Date(), { years: 1 });
+
+                const slutt = periode.gyldigTilOgMed
+                  ? new Date(periode.gyldigTilOgMed)
+                  : add(new Date(), { years: 1 });
+
+                return (
+                  <Timeline.Period
+                    key={periode.id}
+                    start={start}
+                    end={slutt}
+                    status={hentFargeForOpplysningPeriode(periode.verdi)}
+                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                  >
+                    {formaterOpplysningVerdi(periode.verdi)}
+                  </Timeline.Period>
+                );
+              })}
+            </Timeline.Row>
+        //     <OpplysningTidslinjerad
+        //     key={opplysning.opplysningTypeId}
+        //   opplysning={opplysning}
+        //   behandlingId={behandling.behandlingId}
+        //   oppgaveId={oppgaveId}
+        //   regelsettNavn={regelsett.navn}
+        // />
           ))}
         </Timeline>
       </div>
@@ -204,7 +203,7 @@ export default function Opplysning() {
           className={"aksel--compact"}
         >
           <Timeline.Row key={opplysning.navn} label={""}>
-            {opplysning.opplysninger.map((periode, index) => {
+            {opplysning.perioder.map((periode, index) => {
               const start = periode.gyldigFraOgMed
                 ? new Date(periode.gyldigFraOgMed)
                 : sub(new Date(), { years: 1 });
@@ -218,10 +217,8 @@ export default function Opplysning() {
                   key={index}
                   start={start}
                   end={slutt}
-                  // @ts-expect-error Typefeil forsvinner i v2
-                  status={hentFargeForOpplysningPeriode(periode.verdien)}
-                  // @ts-expect-error Typefeil forsvinner i v2
-                  icon={hentIkonForOpplysningPeriode(periode.verdien)}
+                  status={hentFargeForOpplysningPeriode(periode.verdi)}
+                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
                 ></Timeline.Period>
               );
             })}
@@ -239,18 +236,16 @@ export default function Opplysning() {
           </Table.Header>
 
           <Table.Body>
-            {opplysning.opplysninger.map((o) => (
-              <Table.Row key={o.id}>
+            {opplysning.perioder.map((periode) => (
+              <Table.Row key={periode.id}>
                 <Table.DataCell>
-                  {o.gyldigFraOgMed ? formaterTilNorskDato(o.gyldigFraOgMed) : "--"}
+                  {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
                 </Table.DataCell>
                 <Table.DataCell>
-                  {o.gyldigTilOgMed ? formaterTilNorskDato(o.gyldigTilOgMed) : "--"}
+                  {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
                 </Table.DataCell>
-                <Table.DataCell>
-                  {o.verdien ? formaterOpplysningVerdi(o.verdien) : ""}
-                </Table.DataCell>
-                <Table.DataCell>{o.kilde?.begrunnelse?.verdi}</Table.DataCell>
+                <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+                <Table.DataCell>{periode.kilde?.begrunnelse?.verdi}</Table.DataCell>
                 <Table.DataCell>
                   <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<TrashIcon />} />
                 </Table.DataCell>

@@ -856,7 +856,8 @@ export interface components {
             "vilk\u00E5r": components["schemas"]["VurderingsresultatV2"][];
             fastsettelser: components["schemas"]["VurderingsresultatV2"][];
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
-            opplysninger: components["schemas"]["OpplysningergruppeV2"][];
+            opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
+            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
         };
         Personident: string;
         Vurderingsresultat: {
@@ -880,7 +881,7 @@ export interface components {
             type?: "Vilkår" | "Fastsettelse";
             perioder?: components["schemas"]["VilkaarPeriode"][];
         };
-        OpplysningergruppeV2: {
+        OpplysningsgruppeV2: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
             navn: string;
             datatype: components["schemas"]["DataType"];

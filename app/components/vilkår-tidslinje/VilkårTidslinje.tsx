@@ -26,13 +26,13 @@ export interface TidslinjeStartSlutt {
 }
 
 interface IProps {
-  behandling: components["schemas"]["Behandling"];
+  behandling: components["schemas"]["BehandlingsresultatV2"];
   oppgaveId: string;
 }
 
 export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
-  const sisteOpplysningDato = behandling.opplysningsgrupper
-    .flatMap((gruppe) => gruppe.opplysninger)
+  const sisteOpplysningDato = behandling.opplysninger
+    .flatMap((gruppe) => gruppe.perioder)
     .map((opplysning) => opplysning.gyldigFraOgMed)
     .filter((dato) => dato !== null && dato !== undefined)
     .sort()
@@ -43,14 +43,16 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
   });
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["Regelsett"] | undefined
+    components["schemas"]["VurderingsresultatV2"] | undefined
   >();
 
   const [vilkårOgOpplysninger, setVilkårOgOpplysninger] = useState<
-    (components["schemas"]["Regelsett"] | components["schemas"]["Opplysningsgruppe"])[]
+    (components["schemas"]["VurderingsresultatV2"] | components["schemas"]["OpplysningsgruppeV2"])[]
   >(behandling.vilkår);
 
-  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"]) {
+  function oppdaterVilkårArray(
+    regelsett: components["schemas"]["VurderingsresultatV2"]
+  ) {
     if (aktivtRegelsett?.navn === regelsett.navn) {
       setAktivtRegelsett(undefined);
       setVilkårOgOpplysninger(behandling.vilkår);
@@ -59,8 +61,10 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
 
     setAktivtRegelsett(regelsett);
 
-    const nyeAktiveOpplysninger = behandling.opplysningsgrupper.filter((opplysning) =>
-      regelsett.opplysningTypeIder.includes(opplysning.opplysningTypeId),
+    const nyeAktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
+      regelsett.perioder
+        ?.flatMap((periode) => periode.opplysningsTypeId)
+        .includes(opplysning.opplysningTypeId),
     );
 
     const index =
@@ -77,92 +81,38 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
   }
 
   return (
-    <div className={"p-4"}>
-      <div className={"card p-4"}>
-        <div className={"flex content-center justify-between"}>
-          <Heading size={"medium"}>Vilkårsvurderinger</Heading>
-          <TidslinjeNavigering
-            tidslinjeStartSlutt={tidslinjeStartSlutt}
-            setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-            antallUkerITidslinje={antallUkerITidslinje}
-            setAntallUkerITidslinje={setAntallUkerITidslinje}
-          />
-        </div>
+    <div className={"card p-4"}>
+      <div className={"flex content-center justify-between"}>
+        <Heading size={"medium"}>Vilkårsvurderinger</Heading>
+        <TidslinjeNavigering
+          tidslinjeStartSlutt={tidslinjeStartSlutt}
+          setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+          antallUkerITidslinje={antallUkerITidslinje}
+          setAntallUkerITidslinje={setAntallUkerITidslinje}
+        />
+      </div>
 
-        <Timeline
-          startDate={tidslinjeStartSlutt.start}
-          endDate={tidslinjeStartSlutt.end}
-          className={"aksel--compact"}
-        >
-          {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
-            if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
-              return (
-                <Timeline.Row
-                  key={vilkårEllerOpplysning.opplysningTypeId}
-                  label={"\u00A0"}
-                  icon={
-                    <Link
-                      to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
-                      className={"ml-6"}
-                    >
-                      {vilkårEllerOpplysning.navn}
-                    </Link>
-                  }
-                >
-                  {vilkårEllerOpplysning.opplysninger.map((periode) => {
-                    const start = periode.gyldigFraOgMed
-                      ? new Date(periode.gyldigFraOgMed)
-                      : sub(new Date(), { years: 1 });
-
-                    const slutt = periode.gyldigTilOgMed
-                      ? new Date(periode.gyldigTilOgMed)
-                      : add(new Date(), { years: 1 });
-
-                    return (
-                      <Timeline.Period
-                        key={periode.id}
-                        start={start}
-                        end={slutt}
-                        status={"info"}
-                        // @ts-expect-error Typefeil forsvinner i v2
-                        icon={formaterOpplysningVerdi(periode.verdien)}
-                      >
-                        {/*// @ts-expect-error Typefeil forsvinner i v2*/}
-                        {formaterOpplysningVerdi(periode.verdien)}
-                      </Timeline.Period>
-                    );
-                  })}
-                </Timeline.Row>
-              );
-            }
-
+      <Timeline
+        startDate={tidslinjeStartSlutt.start}
+        endDate={tidslinjeStartSlutt.end}
+        className={"aksel--compact"}
+      >
+        {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
+          if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
             return (
               <Timeline.Row
-                key={vilkårEllerOpplysning.navn}
+                key={vilkårEllerOpplysning.opplysningTypeId}
                 label={"\u00A0"}
-                onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                 icon={
-                  <Button
-                    variant={
-                      vilkårEllerOpplysning.navn === aktivtRegelsett?.navn
-                        ? "primary"
-                        : "tertiary-neutral"
-                    }
-                    icon={
-                      aktivtRegelsett?.navn === vilkårEllerOpplysning.navn ? (
-                        <ChevronUpIcon />
-                      ) : (
-                        <ChevronDownIcon />
-                      )
-                    }
-                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
-                    size="xsmall"
+                  <Link
+                    to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
+                    className={"ml-6"}
                   >
                     {vilkårEllerOpplysning.navn}
-                  </Button>
+                  </Link>
                 }
               >
-                {vilkårEllerOpplysning.perioder?.map((periode, index) => {
+                {vilkårEllerOpplysning.perioder.map((periode) => {
                   const start = periode.gyldigFraOgMed
                     ? new Date(periode.gyldigFraOgMed)
                     : sub(new Date(), { years: 1 });
@@ -173,21 +123,71 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
 
                   return (
                     <Timeline.Period
-                      key={index}
+                      key={periode.id}
                       start={start}
                       end={slutt}
-                      status={hentFargeForVilkårPeriode(periode.status)}
-                      icon={hentIkonForTidslinjeRegelsettPeriode(periode.status)}
+                      status={"info"}
+                      icon={formaterOpplysningVerdi(periode.verdi)}
                     >
-                      {periode.status}
+                      {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>
                   );
                 })}
               </Timeline.Row>
             );
-          })}
-        </Timeline>
-      </div>
+          }
+
+          return (
+            <Timeline.Row
+              key={vilkårEllerOpplysning.navn}
+              label={"\u00A0"}
+              onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+              icon={
+                <Button
+                  variant={
+                    vilkårEllerOpplysning.navn === aktivtRegelsett?.navn
+                      ? "primary"
+                      : "tertiary-neutral"
+                  }
+                  icon={
+                    aktivtRegelsett?.navn === vilkårEllerOpplysning.navn ? (
+                      <ChevronUpIcon />
+                    ) : (
+                      <ChevronDownIcon />
+                    )
+                  }
+                  onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+                  size="xsmall"
+                >
+                  {vilkårEllerOpplysning.navn}
+                </Button>
+              }
+            >
+              {vilkårEllerOpplysning.perioder?.map((periode, index) => {
+                const start = periode.gyldigFraOgMed
+                  ? new Date(periode.gyldigFraOgMed)
+                  : sub(new Date(), { years: 1 });
+
+                const slutt = periode.gyldigTilOgMed
+                  ? new Date(periode.gyldigTilOgMed)
+                  : add(new Date(), { years: 1 });
+
+                return (
+                  <Timeline.Period
+                    key={index}
+                    start={start}
+                    end={slutt}
+                    status={hentFargeForVilkårPeriode(periode.status)}
+                    icon={hentIkonForTidslinjeRegelsettPeriode(periode.status)}
+                  >
+                    {periode.status}
+                  </Timeline.Period>
+                );
+              })}
+            </Timeline.Row>
+          );
+        })}
+      </Timeline>
     </div>
   );
 }
@@ -295,7 +295,9 @@ export function hentIkonForTidslinjeRegelsettPeriode(status: components["schemas
 }
 
 function isOpplysningsgruppe(
-  item: components["schemas"]["Regelsett"] | components["schemas"]["Opplysningsgruppe"],
-): item is components["schemas"]["Opplysningsgruppe"] {
-  return (item as components["schemas"]["Opplysningsgruppe"]).opplysningTypeId !== undefined;
+  item:
+    | components["schemas"]["VurderingsresultatV2"]
+    | components["schemas"]["OpplysningsgruppeV2"],
+): item is components["schemas"]["OpplysningsgruppeV2"] {
+  return (item as components["schemas"]["OpplysningsgruppeV2"]).opplysningTypeId !== undefined;
 }

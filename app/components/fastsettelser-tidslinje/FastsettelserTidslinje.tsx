@@ -13,13 +13,13 @@ import {
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
-  behandling: components["schemas"]["Behandling"];
+  behandling: components["schemas"]["BehandlingsresultatV2"];
   oppgaveId: string;
 }
 
 export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
-  const sisteOpplysningDato = behandling.opplysningsgrupper
-    .flatMap((gruppe) => gruppe.opplysninger)
+  const sisteOpplysningDato = behandling.opplysninger
+    .flatMap((opplysning) => opplysning.perioder)
     .map((opplysning) => opplysning.gyldigFraOgMed)
     .filter((dato) => dato !== null && dato !== undefined)
     .sort()
@@ -30,15 +30,17 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
     end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
   });
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["Regelsett"] | undefined
+    components["schemas"]["VurderingsresultatV2"] | undefined
   >();
 
-  const aktiveOpplysninger = behandling.opplysningsgrupper.filter((opplysning) =>
-    aktivtRegelsett?.opplysningTypeIder.includes(opplysning.opplysningTypeId),
+  const aktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
+    aktivtRegelsett?.perioder
+      ?.flatMap((periode) => periode.opplysningsTypeId)
+      .includes(opplysning.opplysningTypeId),
   );
 
   return (
-    <div className={"card m-4 p-4"}>
+    <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
         <Heading size={"medium"}>Fastsettelser</Heading>
         <TidslinjeNavigering
@@ -84,7 +86,7 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
                         </Link>
                       }
                     >
-                      {opplysning.opplysninger.map((periode) => {
+                      {opplysning.perioder.map((periode) => {
                         const start = periode.gyldigFraOgMed
                           ? new Date(periode.gyldigFraOgMed)
                           : sub(new Date(), { years: 1 });
@@ -99,15 +101,9 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
                             start={start}
                             end={slutt}
                             status={"info"}
-                            icon={
-                              periode.verdien
-                                ? formaterOpplysningVerdi(periode.verdien)
-                                : periode.verdien
-                            }
+                            icon={formaterOpplysningVerdi(periode.verdi)}
                           >
-                            {periode.verdien
-                              ? formaterOpplysningVerdi(periode.verdien)
-                              : periode.verdien}
+                            {formaterOpplysningVerdi(periode.verdi)}
                           </Timeline.Period>
                         );
                       })}
