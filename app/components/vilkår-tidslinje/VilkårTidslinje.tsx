@@ -50,9 +50,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     (components["schemas"]["VurderingsresultatV2"] | components["schemas"]["OpplysningsgruppeV2"])[]
   >(behandling.vilkår);
 
-  function oppdaterVilkårArray(
-    regelsett: components["schemas"]["VurderingsresultatV2"]
-  ) {
+  function oppdaterVilkårArray(regelsett: components["schemas"]["VurderingsresultatV2"]) {
     if (aktivtRegelsett?.navn === regelsett.navn) {
       setAktivtRegelsett(undefined);
       setVilkårOgOpplysninger(behandling.vilkår);
@@ -97,7 +95,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
-        {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
+        {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
             return (
               <Timeline.Row
@@ -141,7 +139,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             <Timeline.Row
               key={vilkårEllerOpplysning.navn}
               label={"\u00A0"}
-              onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+              // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
               icon={
                 <Button
                   variant={
@@ -156,7 +154,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                       <ChevronDownIcon />
                     )
                   }
-                  onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning, index)}
+                  // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                   size="xsmall"
                 >
                   {vilkårEllerOpplysning.navn}
@@ -177,6 +175,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     key={index}
                     start={start}
                     end={slutt}
+                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                     status={hentFargeForVilkårPeriode(periode.status)}
                     icon={hentIkonForTidslinjeRegelsettPeriode(periode.status)}
                   >
