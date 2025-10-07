@@ -33,10 +33,10 @@ export async function hentMeldingOmVedtak(
   if (error) {
     // 501 error skal ut til saksbehandler sånn at gosys brev kan velges, alle andre feil skal kastes
     if (error.status === 501) {
-      return getHttpProblemAlert(error);
+      return getHttpProblemAlert(error, "warn", "warning");
     }
 
-    handleHttpProblem(error);
+    handleHttpProblem(error, "warn");
   }
 
   throw new Error(
