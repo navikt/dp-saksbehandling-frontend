@@ -17,8 +17,6 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
       urlSearchParams,
     );
 
-  console.log("lol");
-
   const { data, error, response } = await saksbehandlerClient.GET("/oppgave", {
     headers: getHeaders(onBehalfOfToken),
     params: {
@@ -26,8 +24,6 @@ export async function hentOppgaver(request: Request, urlSearchParams: URLSearchP
     },
   });
 
-  console.log("lol");
-  console.log("lol");
   if (data) {
     return data;
   }

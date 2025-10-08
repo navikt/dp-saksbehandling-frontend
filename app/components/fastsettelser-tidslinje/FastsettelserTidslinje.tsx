@@ -34,9 +34,7 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
   >();
 
   const aktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
-    aktivtRegelsett?.perioder
-      ?.flatMap((periode) => periode.opplysningsTypeId)
-      .includes(opplysning.opplysningTypeId),
+    aktivtRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
   );
 
   return (
@@ -72,44 +70,46 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
                 endDate={tidslinjeStartSlutt.end}
                 className={"aksel--compact"}
               >
-                {aktiveOpplysninger.map((opplysning) => {
-                  return (
-                    <Timeline.Row
-                      key={opplysning.opplysningTypeId}
-                      label={"\u00A0"}
-                      icon={
-                        <Link
-                          to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${opplysning.opplysningTypeId}`}
-                          className={"ml-6"}
-                        >
-                          {opplysning.navn}
-                        </Link>
-                      }
-                    >
-                      {opplysning.perioder.map((periode) => {
-                        const start = periode.gyldigFraOgMed
-                          ? new Date(periode.gyldigFraOgMed)
-                          : sub(new Date(), { years: 1 });
-
-                        const slutt = periode.gyldigTilOgMed
-                          ? new Date(periode.gyldigTilOgMed)
-                          : add(new Date(), { years: 1 });
-
-                        return (
-                          <Timeline.Period
-                            key={periode.id}
-                            start={start}
-                            end={slutt}
-                            status={"info"}
-                            icon={formaterOpplysningVerdi(periode.verdi)}
+                {aktiveOpplysninger
+                  .filter((opplysning) => opplysning.synlig)
+                  .map((opplysning) => {
+                    return (
+                      <Timeline.Row
+                        key={opplysning.opplysningTypeId}
+                        label={"\u00A0"}
+                        icon={
+                          <Link
+                            to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${opplysning.opplysningTypeId}`}
+                            className={"ml-6"}
                           >
-                            {formaterOpplysningVerdi(periode.verdi)}
-                          </Timeline.Period>
-                        );
-                      })}
-                    </Timeline.Row>
-                  );
-                })}
+                            {opplysning.navn}
+                          </Link>
+                        }
+                      >
+                        {opplysning.perioder.map((periode) => {
+                          const start = periode.gyldigFraOgMed
+                            ? new Date(periode.gyldigFraOgMed)
+                            : sub(new Date(), { years: 1 });
+
+                          const slutt = periode.gyldigTilOgMed
+                            ? new Date(periode.gyldigTilOgMed)
+                            : add(new Date(), { years: 1 });
+
+                          return (
+                            <Timeline.Period
+                              key={periode.id}
+                              start={start}
+                              end={slutt}
+                              status={"info"}
+                              icon={formaterOpplysningVerdi(periode.verdi)}
+                            >
+                              {formaterOpplysningVerdi(periode.verdi)}
+                            </Timeline.Period>
+                          );
+                        })}
+                      </Timeline.Row>
+                    );
+                  })}
               </Timeline>
             </Accordion.Content>
           </Accordion.Item>

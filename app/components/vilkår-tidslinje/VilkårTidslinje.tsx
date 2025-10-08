@@ -96,6 +96,10 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
       >
         {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
+            if (!vilkårEllerOpplysning.synlig) {
+              return;
+            }
+
             return (
               <Timeline.Row
                 key={vilkårEllerOpplysning.opplysningTypeId}
@@ -142,12 +146,21 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             logger.error(
               `Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`,
             );
+
+            // TODO Denne skal jo bort når ting funker
             return (
               <Timeline.Row
                 key={vilkårEllerOpplysning.navn}
-                label={`Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`}
+                label={`Mangler opplysning for vilkår`}
               >
-                <Timeline.Period>lol</Timeline.Period>
+                <Timeline.Period
+                  start={sub(new Date(), { days: 10 })}
+                  end={add(new Date(), { days: 10 })}
+                >
+                  Fant ikke hovedopplysning med id:{" "}
+                  {vilkårEllerOpplysning.opplysningTypeId ?? "har ikke opplysningTypeId"} for vilkår{" "}
+                  {vilkårEllerOpplysning.navn}
+                </Timeline.Period>
               </Timeline.Row>
             );
           }
@@ -156,7 +169,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             <Timeline.Row
               key={vilkårEllerOpplysning.navn}
               label={"\u00A0"}
-              onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
+              // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
               icon={
                 <Button
                   variant={
@@ -195,15 +208,14 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     status={hentFargeForOpplysningPeriode(periode.verdi)}
                     icon={hentIkonForOpplysningPeriode(periode.verdi)}
                   >
+                    <Detail textColor={"subtle"}>Fra og med</Detail>
                     <Detail>
-                      Periode:{" "}
-                      {periode.gyldigFraOgMed
-                        ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                        : "Fra tidenes morgen"}{" "}
-                      –{" "}
-                      {periode.gyldigTilOgMed
-                        ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                        : "Til verdens ende"}
+                      {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
+                    </Detail>
+
+                    <Detail textColor={"subtle"}>Til og med</Detail>
+                    <Detail>
+                      {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
                     </Detail>
                   </Timeline.Period>
                 );
@@ -335,7 +347,6 @@ function isOpplysningsgruppe(
     (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
     (obj.redigertAvSaksbehandler === undefined ||
       typeof obj.redigertAvSaksbehandler === "boolean") &&
-    typeof obj.formål === "string" &&
     Array.isArray(obj.perioder)
   );
 }

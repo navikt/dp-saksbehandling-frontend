@@ -13,15 +13,12 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { OpplysningTidslinjerad } from "~/components/opplysning-tidslinjerad/OpplysningTidslinjerad";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
   AntallUkerITidslinje,
   formaterOpplysningVerdi,
   hentFargeForOpplysningPeriode,
-  hentFargeForVilkårPeriode,
   hentIkonForOpplysningPeriode,
-  hentIkonForTidslinjeRegelsettPeriode,
   TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -63,10 +60,12 @@ export default function Opplysning() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
+  const opplysningForRegelsett = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === regelsett.opplysningTypeId,
+  );
+
   const regelsettOpplysninger = behandling.opplysninger.filter((opplysning) =>
-    regelsett.perioder
-      ?.flatMap((periode) => periode.opplysningsTypeId)
-      .includes(opplysning.opplysningTypeId),
+    regelsett.opplysninger.includes(opplysning.opplysningTypeId),
   );
 
   const førsteFraOgMedDatoRegelsett = regelsettOpplysninger
@@ -121,7 +120,7 @@ export default function Opplysning() {
           className={"aksel--compact"}
         >
           <Timeline.Row key={regelsett.navn} label={regelsett.navn}>
-            {regelsett.perioder?.map((periode, index) => {
+            {opplysningForRegelsett?.perioder.map((periode, index) => {
               const start = periode.gyldigFraOgMed
                 ? new Date(periode.gyldigFraOgMed)
                 : sub(new Date(), { years: 1 });
@@ -135,55 +134,58 @@ export default function Opplysning() {
                   key={index}
                   start={start}
                   end={slutt}
-                  status={hentFargeForVilkårPeriode(periode.status)}
-                  icon={hentIkonForTidslinjeRegelsettPeriode(periode.status)}
-                ></Timeline.Period>
+                  status={hentFargeForOpplysningPeriode(periode.verdi)}
+                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                />
               );
             })}
           </Timeline.Row>
-          {regelsettOpplysninger.map((opplysning) => (
-            <Timeline.Row
-              key={opplysning.opplysningTypeId}
-              label={"\u00A0"}
-              icon={
-                <Link
-                  to={`/v2/oppgave/${opplysning.opplysningTypeId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
-                  className={"ml-6"}
-                >
-                  {opplysning.navn}
-                </Link>
-              }
-            >
-              {opplysning.perioder.map((periode) => {
-                const start = periode.gyldigFraOgMed
-                  ? new Date(periode.gyldigFraOgMed)
-                  : sub(new Date(), { years: 1 });
 
-                const slutt = periode.gyldigTilOgMed
-                  ? new Date(periode.gyldigTilOgMed)
-                  : add(new Date(), { years: 1 });
-
-                return (
-                  <Timeline.Period
-                    key={periode.id}
-                    start={start}
-                    end={slutt}
-                    status={hentFargeForOpplysningPeriode(periode.verdi)}
-                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
+          {regelsettOpplysninger
+            .filter((opplysning) => opplysning.synlig)
+            .map((opplysning) => (
+              <Timeline.Row
+                key={opplysning.opplysningTypeId}
+                label={"\u00A0"}
+                icon={
+                  <Link
+                    to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning/${opplysning.opplysningTypeId}`}
+                    className={"ml-6"}
                   >
-                    {formaterOpplysningVerdi(periode.verdi)}
-                  </Timeline.Period>
-                );
-              })}
-            </Timeline.Row>
-        //     <OpplysningTidslinjerad
-        //     key={opplysning.opplysningTypeId}
-        //   opplysning={opplysning}
-        //   behandlingId={behandling.behandlingId}
-        //   oppgaveId={oppgaveId}
-        //   regelsettNavn={regelsett.navn}
-        // />
-          ))}
+                    {opplysning.navn}
+                  </Link>
+                }
+              >
+                {opplysning.perioder.map((periode) => {
+                  const start = periode.gyldigFraOgMed
+                    ? new Date(periode.gyldigFraOgMed)
+                    : sub(new Date(), { years: 1 });
+
+                  const slutt = periode.gyldigTilOgMed
+                    ? new Date(periode.gyldigTilOgMed)
+                    : add(new Date(), { years: 1 });
+
+                  return (
+                    <Timeline.Period
+                      key={periode.id}
+                      start={start}
+                      end={slutt}
+                      status={hentFargeForOpplysningPeriode(periode.verdi)}
+                      icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                    >
+                      {formaterOpplysningVerdi(periode.verdi)}
+                    </Timeline.Period>
+                  );
+                })}
+              </Timeline.Row>
+              //     <OpplysningTidslinjerad
+              //     key={opplysning.opplysningTypeId}
+              //   opplysning={opplysning}
+              //   behandlingId={behandling.behandlingId}
+              //   oppgaveId={oppgaveId}
+              //   regelsettNavn={regelsett.navn}
+              // />
+            ))}
         </Timeline>
       </div>
 
