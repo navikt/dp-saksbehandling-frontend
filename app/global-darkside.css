@@ -1,6 +1,5 @@
 @import "tailwindcss";
-/*@import "@navikt/ds-css" layer(components);*/
-@import "@navikt/ds-css" layer(dsComponentsLegacy);
+@import "@navikt/ds-css/darkside" layer(dsComponents);
 
 body {
   background-color: var(--a-grayalpha-50);
@@ -8,7 +7,7 @@ body {
 }
 
 .card {
-  background-color: var(--a-white);
+  background-color: var(--ax-bg-default);
   box-shadow: var(--a-shadow-xsmall);
   border-radius: var(--a-border-radius-medium);
 }

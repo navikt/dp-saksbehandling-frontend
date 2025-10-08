@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Table, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
+import { Button, Heading, Table, Theme, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 import {
@@ -66,82 +66,88 @@ export default function Opplysning() {
   });
 
   return (
-    <div className={"card m-4 p-4"}>
-      <Link to={"./../../behandle"} className={"flex items-center gap-1"}>
-        <ArrowLeftIcon />
-        Behandling
-      </Link>
+    <Theme theme={"light"}>
+      <div className={"card m-4 p-4"}>
+        <Link to={"./../../behandle"} className={"flex items-center gap-1"}>
+          <ArrowLeftIcon />
+          Behandling
+        </Link>
 
-      <Heading size={"large"}>{opplysning.navn}</Heading>
+        <Heading size={"large"}>{opplysning.navn}</Heading>
 
-      <TidslinjeNavigering
-        tidslinjeStartSlutt={tidslinjeStartSlutt}
-        setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-        antallUkerITidslinje={antallUkerITidslinje}
-        setAntallUkerITidslinje={setAntallUkerITidslinje}
-      />
+        <TidslinjeNavigering
+          tidslinjeStartSlutt={tidslinjeStartSlutt}
+          setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+          antallUkerITidslinje={antallUkerITidslinje}
+          setAntallUkerITidslinje={setAntallUkerITidslinje}
+        />
 
-      <Timeline
-        startDate={tidslinjeStartSlutt.start}
-        endDate={tidslinjeStartSlutt.end}
-        className={"aksel--compact"}
-      >
-        <Timeline.Row key={opplysning.navn} label={""}>
-          {opplysning.perioder.map((periode) => {
-            const start = periode.gyldigFraOgMed
-              ? new Date(periode.gyldigFraOgMed)
-              : sub(new Date(), { years: 1 });
+        <Timeline
+          startDate={tidslinjeStartSlutt.start}
+          endDate={tidslinjeStartSlutt.end}
+          className={"aksel--compact"}
+        >
+          <Timeline.Row key={opplysning.navn} label={""}>
+            {opplysning.perioder.map((periode) => {
+              const start = periode.gyldigFraOgMed
+                ? new Date(periode.gyldigFraOgMed)
+                : sub(new Date(), { years: 1 });
 
-            const slutt = periode.gyldigTilOgMed
-              ? new Date(periode.gyldigTilOgMed)
-              : add(new Date(), { years: 1 });
+              const slutt = periode.gyldigTilOgMed
+                ? new Date(periode.gyldigTilOgMed)
+                : add(new Date(), { years: 1 });
 
-            return (
-              <Timeline.Period
-                key={periode.id}
-                start={start}
-                end={slutt}
-                status={hentStatusForOpplysningPeriode(periode.verdi)}
-                icon={hentIkonForOpplysningPeriode(periode.verdi)}
-              >
-                {formaterOpplysningVerdi(periode.verdi)}
-              </Timeline.Period>
-            );
-          })}
-        </Timeline.Row>
-      </Timeline>
-      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {opplysning.perioder.map((periode) => (
-            <Table.Row key={periode.id}>
-              <Table.DataCell>
-                {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
-              </Table.DataCell>
-              <Table.DataCell>
-                {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
-              </Table.DataCell>
-              <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
-              <Table.DataCell>{periode.kilde?.begrunnelse?.verdi}</Table.DataCell>
-              <Table.DataCell>
-                <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<TrashIcon />} />
-              </Table.DataCell>
-              <Table.DataCell>
-                <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<PencilIcon />}></Button>
-              </Table.DataCell>
+              return (
+                <Timeline.Period
+                  key={periode.id}
+                  start={start}
+                  end={slutt}
+                  status={hentStatusForOpplysningPeriode(periode.verdi)}
+                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                >
+                  {formaterOpplysningVerdi(periode.verdi)}
+                </Timeline.Period>
+              );
+            })}
+          </Timeline.Row>
+        </Timeline>
+        <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    </div>
+          </Table.Header>
+
+          <Table.Body>
+            {opplysning.perioder.map((periode) => (
+              <Table.Row key={periode.id}>
+                <Table.DataCell>
+                  {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
+                </Table.DataCell>
+                <Table.DataCell>
+                  {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
+                </Table.DataCell>
+                <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+                <Table.DataCell>{periode.kilde?.begrunnelse?.verdi}</Table.DataCell>
+                <Table.DataCell>
+                  <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<TrashIcon />} />
+                </Table.DataCell>
+                <Table.DataCell>
+                  <Button
+                    size={"xsmall"}
+                    variant={"tertiary-neutral"}
+                    icon={<PencilIcon />}
+                  ></Button>
+                </Table.DataCell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </div>
+    </Theme>
   );
 }
 

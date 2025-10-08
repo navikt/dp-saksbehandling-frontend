@@ -1,3 +1,4 @@
+import { Theme } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -36,7 +37,7 @@ export default function Behandle() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <div className={"bg-(--a-grayalpha-50)"}>
+    <Theme theme={"light"} className={"bg-(--ax-bg-sunken)"}>
       <div className={"card m-4 flex gap-4 p-4"}>
         <div className={"flex flex-1 flex-col gap-4"}>
           <VilkårTidslinje behandling={behandling} oppgaveId={oppgave.oppgaveId} />
@@ -50,7 +51,7 @@ export default function Behandle() {
           />
         </div>
       </div>
-    </div>
+    </Theme>
   );
 }
 

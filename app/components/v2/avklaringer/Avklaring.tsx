@@ -3,7 +3,7 @@ import {
   PersonPencilIcon,
   RobotSmileIcon,
 } from "@navikt/aksel-icons";
-import { BodyLong, BodyShort, ExpansionCard, Label, Radio, RadioGroup } from "@navikt/ds-react";
+import { BodyLong, BodyShort, ExpansionCard, Radio, RadioGroup } from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
 import { Form } from "react-router";
@@ -18,7 +18,6 @@ interface IProps {
 }
 
 export function Avklaring(props: IProps) {
-
   const avklaringForm = useForm({
     method: "post",
     schema: hentValideringForAvklaringSkjema(),
@@ -35,10 +34,9 @@ export function Avklaring(props: IProps) {
       className={"expansion--subtil"}
       aria-label={props.avklaring.tittel}
       size={"small"}
-      // TODO Denne funker ikke? Må ses på sammen med å sette bg i css over
       data-color={hentAvklaringFarge(props.avklaring)}
     >
-      <ExpansionCard.Header className={"flex items-center bg-(--a-surface-warning-moderate)"}>
+      <ExpansionCard.Header className={"flex items-center"}>
         <div className={"flex content-center gap-2"}>
           {hentStatusIcon(props.avklaring)}
           <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>

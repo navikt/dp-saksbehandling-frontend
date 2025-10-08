@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Table, Timeline } from "@navikt/ds-react";
+import { Button, Heading, Table, Theme, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 import {
@@ -98,7 +98,7 @@ export default function Opplysning() {
     });
 
   return (
-    <>
+    <Theme theme={"light"}>
       <div className={"card m-4 p-4"}>
         <Link to={"./../../../../behandle"} className={"flex items-center gap-1"}>
           <ArrowLeftIcon />
@@ -263,7 +263,7 @@ export default function Opplysning() {
           </Table.Body>
         </Table>
       </div>
-    </>
+    </Theme>
   );
 }
 
