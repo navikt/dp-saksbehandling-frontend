@@ -5,6 +5,7 @@ import { Form, useNavigation } from "react-router";
 
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { getEnv } from "~/utils/env.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListeValg.module.css";
@@ -120,6 +121,16 @@ export function OppgaveListeValg({ oppgave }: IProps) {
               size="xsmall"
             >
               Se oppgave
+            </RemixLink>
+          )}
+
+          {getEnv("GCP_ENV") === "dev" && (
+            <RemixLink
+              to={`/v2/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${oppgave.behandlingId}/behandle`}
+              asButtonVariant="tertiary-neutral"
+              size="xsmall"
+            >
+              (Midlertidig) Se oppgave V2
             </RemixLink>
           )}
 
