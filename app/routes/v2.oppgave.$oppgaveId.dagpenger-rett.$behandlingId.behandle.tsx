@@ -44,7 +44,10 @@ export default function Behandle() {
         </div>
 
         <div className={"w-[500px]"}>
-          <Avklaringer avklaringer={[...behandling.avklaringer]} />
+          <Avklaringer
+            avklaringer={[...behandling.avklaringer]}
+            behandlingId={behandling.behandlingId}
+          />
         </div>
       </div>
     </div>

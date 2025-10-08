@@ -7,13 +7,14 @@ import {
   InformationSquareIcon,
   XMarkOctagonIcon,
 } from "@navikt/aksel-icons";
-import { Button, Heading, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
+import { Button, Detail, Heading, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 import { Link } from "react-router";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -60,9 +61,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     setAktivtRegelsett(regelsett);
 
     const nyeAktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>
-      regelsett.perioder
-        ?.flatMap((periode) => periode.opplysningsTypeId)
-        .includes(opplysning.opplysningTypeId),
+      regelsett.opplysninger.includes(opplysning.opplysningTypeId),
     );
 
     const index =
@@ -135,11 +134,29 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             );
           }
 
+          const hovedOpplysning = behandling.opplysninger.find(
+            (opplysning) => opplysning.opplysningTypeId === vilkårEllerOpplysning.opplysningTypeId,
+          );
+
+          if (!hovedOpplysning) {
+            logger.error(
+              `Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`,
+            );
+            return (
+              <Timeline.Row
+                key={vilkårEllerOpplysning.navn}
+                label={`Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`}
+              >
+                <Timeline.Period>lol</Timeline.Period>
+              </Timeline.Row>
+            );
+          }
+
           return (
             <Timeline.Row
               key={vilkårEllerOpplysning.navn}
               label={"\u00A0"}
-              // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
+              onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
               icon={
                 <Button
                   variant={
@@ -154,14 +171,14 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                       <ChevronDownIcon />
                     )
                   }
-                  // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
+                  onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                   size="xsmall"
                 >
                   {vilkårEllerOpplysning.navn}
                 </Button>
               }
             >
-              {vilkårEllerOpplysning.perioder?.map((periode, index) => {
+              {hovedOpplysning.perioder.map((periode, index) => {
                 const start = periode.gyldigFraOgMed
                   ? new Date(periode.gyldigFraOgMed)
                   : sub(new Date(), { years: 1 });
@@ -175,11 +192,19 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     key={index}
                     start={start}
                     end={slutt}
-                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
-                    status={hentFargeForVilkårPeriode(periode.status)}
-                    icon={hentIkonForTidslinjeRegelsettPeriode(periode.status)}
+                    status={hentFargeForOpplysningPeriode(periode.verdi)}
+                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
                   >
-                    {periode.status}
+                    <Detail>
+                      Periode:{" "}
+                      {periode.gyldigFraOgMed
+                        ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                        : "Fra tidenes morgen"}{" "}
+                      –{" "}
+                      {periode.gyldigTilOgMed
+                        ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                        : "Til verdens ende"}
+                    </Detail>
                   </Timeline.Period>
                 );
               })}
@@ -294,9 +319,23 @@ export function hentIkonForTidslinjeRegelsettPeriode(status: components["schemas
 }
 
 function isOpplysningsgruppe(
-  item:
-    | components["schemas"]["VurderingsresultatV2"]
-    | components["schemas"]["OpplysningsgruppeV2"],
-): item is components["schemas"]["OpplysningsgruppeV2"] {
-  return (item as components["schemas"]["OpplysningsgruppeV2"]).opplysningTypeId !== undefined;
+  value: unknown,
+): value is components["schemas"]["OpplysningsgruppeV2"] {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  return (
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
+    typeof obj.synlig === "boolean" &&
+    (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
+    (obj.redigertAvSaksbehandler === undefined ||
+      typeof obj.redigertAvSaksbehandler === "boolean") &&
+    typeof obj.formål === "string" &&
+    Array.isArray(obj.perioder)
+  );
 }

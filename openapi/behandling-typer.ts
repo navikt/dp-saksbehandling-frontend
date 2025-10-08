@@ -878,8 +878,9 @@ export interface components {
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
             /** @enum {string} */
-            type?: "Vilkår" | "Fastsettelse";
-            perioder?: components["schemas"]["VilkaarPeriode"][];
+            type: "Vilkår" | "Fastsettelse";
+            opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
+            opplysninger: components["schemas"]["OpplysningTypeId"][];
         };
         OpplysningsgruppeV2: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
