@@ -1,13 +1,20 @@
 @import "tailwindcss";
 @import "@navikt/ds-css/darkside" layer(dsComponents);
 
-body {
-  background-color: var(--a-grayalpha-50);
+.main {
+  background-color: var(--ax-bg-sunken);
+  padding: var(--a-space-16);
   min-height: calc(100vh);
 }
 
 .card {
   background-color: var(--ax-bg-default);
   box-shadow: var(--a-shadow-xsmall);
-  border-radius: var(--a-border-radius-medium);
+  border-radius: var(--ax-border-radius-medium);
+}
+
+.dark .card {
+  box-shadow:
+    0px 1px 3px 0px rgba(107, 107, 138, 0.35),
+    0px 0px 1px 0px rgba(107, 107, 138, 0.5);
 }

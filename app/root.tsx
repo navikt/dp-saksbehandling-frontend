@@ -11,7 +11,6 @@ import {
   useRouteError,
 } from "react-router";
 
-import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import akselOverrides from "~/aksel-overrides.css?url";
 import { Flagg } from "~/components/17-mai/Flagg";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
@@ -21,7 +20,6 @@ import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalCss from "~/global.css?url";
-import globalDarksideCss from "~/global-darkside.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
@@ -55,9 +53,7 @@ export function meta() {
 export function links() {
   return [
     { rel: "stylesheet", href: globalCss },
-    { rel: "stylesheet", href: globalDarksideCss },
     { rel: "stylesheet", href: akselOverrides },
-    { rel: "stylesheet", href: akselDarksideOverrides },
     {
       rel: "icon",
       type: "image/png",

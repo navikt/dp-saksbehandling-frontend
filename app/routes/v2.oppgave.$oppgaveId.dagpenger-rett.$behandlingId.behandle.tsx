@@ -8,11 +8,14 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/FastsettelserTidslinje";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -31,14 +34,22 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { behandling, oppgave };
 }
 
+export function links() {
+  return [
+    { rel: "stylesheet", href: globalDarksideCss },
+    { rel: "stylesheet", href: akselDarksideOverrides },
+  ];
+}
+
 export default function Behandle() {
   const { behandling, oppgave } = useLoaderData<typeof loader>();
+  const { tema } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <Theme theme={"light"} className={"bg-(--ax-bg-sunken)"}>
-      <div className={"card m-4 flex gap-4 p-4"}>
+    <Theme theme={tema} className={"main"}>
+      <div className={"card flex gap-4 p-4"}>
         <div className={"flex flex-1 flex-col gap-4"}>
           <VilkårTidslinje behandling={behandling} oppgaveId={oppgave.oppgaveId} />
           <FastsettelserTidslinje behandling={behandling} oppgaveId={oppgave.oppgaveId} />

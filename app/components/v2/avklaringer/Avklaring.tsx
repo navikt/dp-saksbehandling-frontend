@@ -42,7 +42,7 @@ export function Avklaring(props: IProps) {
           <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
         </div>
       </ExpansionCard.Header>
-      <ExpansionCard.Content className="bg-(--a-surface-subtle)">
+      <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
         <Form>
           <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />

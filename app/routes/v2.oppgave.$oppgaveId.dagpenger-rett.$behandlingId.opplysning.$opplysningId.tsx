@@ -12,6 +12,7 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
@@ -20,7 +21,9 @@ import {
   hentIkonForOpplysningPeriode,
   TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -48,8 +51,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { opplysning };
 }
 
+export function links() {
+  return [
+    { rel: "stylesheet", href: globalDarksideCss },
+    { rel: "stylesheet", href: akselDarksideOverrides },
+  ];
+}
+
 export default function Opplysning() {
   const { opplysning } = useLoaderData<typeof loader>();
+  const { tema } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -66,8 +77,8 @@ export default function Opplysning() {
   });
 
   return (
-    <Theme theme={"light"}>
-      <div className={"card m-4 p-4"}>
+    <Theme theme={tema} className={"main"}>
+      <div className={"card p-4"}>
         <Link to={"./../../behandle"} className={"flex items-center gap-1"}>
           <ArrowLeftIcon />
           Behandling
