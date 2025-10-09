@@ -19,6 +19,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
+import { RettPåDagpenger } from "~/rett-på-dagpenger/RettPåDagpenger";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -56,6 +57,7 @@ export default function Behandle() {
       <Theme theme={tema} className={"main"}>
         <div className={"card flex gap-4 p-4"}>
           <div className={"flex flex-1 flex-col gap-4"}>
+            <RettPåDagpenger behandling={behandling} />
             <VilkårTidslinje behandling={behandling} oppgaveId={oppgave.oppgaveId} />
             <FastsettelserTidslinje behandling={behandling} oppgaveId={oppgave.oppgaveId} />
           </div>
