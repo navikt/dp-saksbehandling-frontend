@@ -1,4 +1,26 @@
 /* Aksel tidslinje overrides */
+.aksel--compact .aksel-timeline__axislabels {
+  margin-bottom: var(--ax-space-20);
+}
 .aksel--compact .aksel-timeline__row {
   margin: var(--ax-space-4) 0;
+}
+.aksel--compact .aksel-timeline__pin-button {
+  margin-bottom: calc(var(--ax-space-4) * -1);
+}
+
+/* Aksel expansion overrides */
+.expansion--subtil.expansion--subtil {
+  border-radius: 0;
+  border-bottom: 1px solid var(--ax-border-neutral);
+  --__axc-expansioncard-border-radius: 0;
+  --__axc-expansioncard-border-button-radius: 0;
+}
+
+.expansion--subtil .aksel-expansioncard__header[data-open="true"]:after {
+  left: 0;
+  width: 100%;
+}
+.expansion--subtil .aksel-expansioncard__content {
+  background-color: var(--ax-bg-default);
 }

@@ -39,23 +39,23 @@ export function Avklaring(props: IProps) {
       <ExpansionCard.Header className={"flex items-center"}>
         <div className={"flex content-center gap-2"}>
           {hentStatusIcon(props.avklaring)}
-          <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
+          <BodyShort>{props.avklaring.tittel}</BodyShort>
         </div>
       </ExpansionCard.Header>
       <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
-        <Form>
+        <Form className={"mt-8"}>
           <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
           <input {...avklaringForm.getInputProps("avklaringId")} readOnly={true} hidden={true} />
           <input {...avklaringForm.getInputProps("behandlingId")} readOnly={true} hidden={true} />
           <RadioGroup
             {...avklaringForm.getInputProps("begrunnelse")}
+            size={"small"}
             legend="Saksbehandlers vurdering"
             onChange={() => {
               // TODO: fix it haha
               avklaringForm.submit();
             }}
-            className="mt-8"
           >
             <Radio value="Vurdert med endringer">Vurdert med endringer</Radio>
             <Radio value="Vurdert, ingen endringer">Vurdert, ingen endringer</Radio>

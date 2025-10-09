@@ -7,7 +7,14 @@ import {
   InformationSquareIcon,
   XMarkOctagonIcon,
 } from "@navikt/aksel-icons";
-import { Button, Detail, Heading, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
+import {
+  BodyShort,
+  Button,
+  Detail,
+  Heading,
+  Timeline,
+  TimelinePeriodProps,
+} from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -77,6 +84,10 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
     setVilkårOgOpplysninger(oppdatertData);
   }
 
+  const prøvingsdato = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+  );
+
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
@@ -94,6 +105,20 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
+        {prøvingsdato?.perioder.map((periode) => {
+          if (periode.verdi.datatype === "dato") {
+            return (
+              <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
+                <BodyShort weight={"semibold"}>Prøvingsdato</BodyShort>
+                <BodyShort>
+                  {periode.gyldigFraOgMed ? periode.gyldigFraOgMed : "--"} –{" "}
+                  {periode.gyldigTilOgMed ? periode.gyldigTilOgMed : "--"}
+                </BodyShort>
+              </Timeline.Pin>
+            );
+          }
+        })}
+
         {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
             if (!vilkårEllerOpplysning.synlig) {
@@ -127,8 +152,8 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                       key={periode.id}
                       start={start}
                       end={slutt}
-                      status={"info"}
-                      icon={formaterOpplysningVerdi(periode.verdi)}
+                      status={hentFargeForOpplysningPeriode(periode.verdi)}
+                      icon={hentIkonForOpplysningPeriode(periode.verdi)}
                     >
                       {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>
@@ -208,15 +233,30 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     status={hentFargeForOpplysningPeriode(periode.verdi)}
                     icon={hentIkonForOpplysningPeriode(periode.verdi)}
                   >
-                    <Detail textColor={"subtle"}>Fra og med</Detail>
-                    <Detail>
-                      {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
-                    </Detail>
-
-                    <Detail textColor={"subtle"}>Til og med</Detail>
-                    <Detail>
-                      {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
-                    </Detail>
+                    <div className={"flex gap-4"}>
+                      <div>
+                        <Detail textColor={"subtle"}>Fra og med</Detail>
+                        <BodyShort size={"small"}>
+                          {periode.gyldigFraOgMed
+                            ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                            : "--"}
+                        </BodyShort>
+                      </div>
+                      <div>
+                        <Detail textColor={"subtle"}>Til og med</Detail>
+                        <BodyShort size={"small"}>
+                          {periode.gyldigTilOgMed
+                            ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                            : "--"}
+                        </BodyShort>
+                      </div>
+                      <div>
+                        <Detail textColor={"subtle"}>Verdi</Detail>
+                        <BodyShort size={"small"}>
+                          {formaterOpplysningVerdi(periode.verdi)}
+                        </BodyShort>
+                      </div>
+                    </div>
                   </Timeline.Period>
                 );
               })}

@@ -1,4 +1,4 @@
-import { Accordion, Heading, Timeline } from "@navikt/ds-react";
+import { Accordion, BodyShort, Heading, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -37,6 +37,10 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
     aktivtRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
   );
 
+  const prøvingsdato = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+  );
+
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
@@ -70,6 +74,20 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
                 endDate={tidslinjeStartSlutt.end}
                 className={"aksel--compact"}
               >
+                {prøvingsdato?.perioder.map((periode) => {
+                  if (periode.verdi.datatype === "dato") {
+                    return (
+                      <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
+                        <BodyShort weight={"semibold"}>Prøvingsdato</BodyShort>
+                        <BodyShort>
+                          {periode.gyldigFraOgMed ? periode.gyldigFraOgMed : "--"} –{" "}
+                          {periode.gyldigTilOgMed ? periode.gyldigTilOgMed : "--"}
+                        </BodyShort>
+                      </Timeline.Pin>
+                    );
+                  }
+                })}
+
                 {aktiveOpplysninger
                   .filter((opplysning) => opplysning.synlig)
                   .map((opplysning) => {

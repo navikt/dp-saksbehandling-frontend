@@ -8,6 +8,7 @@ import type { loader as dagpengerRettBehandlingLoader } from "~/routes/oppgave.$
 import type { loader as meldingOmVedtakLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak";
 import type { loader as klageLoader } from "~/routes/oppgave.$oppgaveId.klage.$behandlingId";
 import type { loader as personLoader } from "~/routes/person.$personUuid";
+import type { loader as dagpengerRettBehandlingLoaderV2 } from "~/routes/v2.oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle";
 
 type Loaders = {
   root: typeof rootLoader;
@@ -17,6 +18,7 @@ type Loaders = {
   "routes/oppgave.$oppgaveId.klage.$behandlingId": typeof klageLoader;
   "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId": typeof dagpengerRettLoader;
   "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle": typeof dagpengerRettBehandlingLoader;
+  "routes/v2/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle": typeof dagpengerRettBehandlingLoaderV2;
   "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.melding-om-vedtak": typeof meldingOmVedtakLoader;
 };
 
