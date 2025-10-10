@@ -1,5 +1,5 @@
 import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
-import { DatePicker, Heading, Timeline, useDatepicker } from "@navikt/ds-react";
+import { BodyShort, DatePicker, Heading, Timeline, useDatepicker } from "@navikt/ds-react";
 import { add } from "date-fns";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
     end: add(new Date(sisteRettighetPeriodeDato ?? new Date()), { weeks: 2 }),
   });
 
-  const { datepickerProps, inputProps } = useDatepicker({
+  const { datepickerProps, inputProps, selectedDay } = useDatepicker({
     onDateChange: console.info,
   });
 
@@ -51,6 +51,12 @@ export function RettPåDagpenger({ behandling }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
+        {selectedDay && (
+          <Timeline.Pin date={selectedDay}>
+            <BodyShort weight={"semibold"}>Innvilgelsesdato</BodyShort>
+          </Timeline.Pin>
+        )}
+
         <Timeline.Row label={"Rett til dagpenger"}>
           {behandling.rettighetsperioder.map((periode, index) => (
             <Timeline.Period
@@ -65,6 +71,10 @@ export function RettPåDagpenger({ behandling }: IProps) {
           ))}
         </Timeline.Row>
       </Timeline>
+
+      <div className={"card bg-(--ax-bg-sunken) p-4"}>
+        <Heading size={"small"}>Generelt</Heading>
+      </div>
     </div>
   );
 }

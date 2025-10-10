@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
+import { ArrowLeftIcon, PencilIcon, PlusCircleIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Table, Theme, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
@@ -273,6 +273,15 @@ export default function Opplysning() {
             ))}
           </Table.Body>
         </Table>
+
+        <Button
+          className={"mt-4"}
+          variant={"secondary"}
+          size={"small"}
+          icon={<PlusCircleIcon aria-hidden />}
+        >
+          Legg til ny periode
+        </Button>
       </div>
     </Theme>
   );
