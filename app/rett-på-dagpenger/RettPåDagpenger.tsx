@@ -6,6 +6,7 @@ import { useState } from "react";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
   AntallUkerITidslinje,
+  formaterOpplysningVerdi,
   TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 
@@ -31,8 +32,29 @@ export function RettPåDagpenger({ behandling }: IProps) {
     onDateChange: console.info,
   });
 
+  const prøvingsdatoVerdi = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+  )?.perioder[0].verdi;
+  const prøvingsdato =
+    prøvingsdatoVerdi && prøvingsdatoVerdi.datatype === "dato"
+      ? prøvingsdatoVerdi.verdi
+      : undefined;
+
+  const opplysningeneViBryrOssOm = [
+    { id: "0194881f-91d1-7df2-ba1d-4533f37fcc76", label: "Vurdert fra" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a767", label: "Arbeidstid før tap" },
+    { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
+    { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
+    { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a764", label: "Beregnet basert på" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a765", label: "Beregnet basert på" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a766", label: "Beregnet basert på" },
+    // TODO: Inntektsgrunnlag, hvordan finne riktig?
+    // TODO: Rettighetsperioder, må kanskje utledes på en annen måte?
+  ];
+
   return (
-    <div className={"card p-4"}>
+    <div className={"card flex flex-col gap-4 p-4"}>
       <Heading size={"medium"}>Har bruker rett på dagpenger?</Heading>
 
       <DatePicker {...datepickerProps}>
@@ -72,9 +94,87 @@ export function RettPåDagpenger({ behandling }: IProps) {
         </Timeline.Row>
       </Timeline>
 
-      <div className={"card bg-(--ax-bg-sunken) p-4"}>
+      <div className={"card card-sunken p-4"}>
         <Heading size={"small"}>Generelt</Heading>
+        <section className="grid grid-cols-4 gap-2">
+          {opplysningeneViBryrOssOm.map(({ id, label }) => (
+            <OpplysningVerdiPåPrøvingstidspunkt
+              key={id}
+              label={label}
+              behandling={behandling}
+              opplysningTypeId={id}
+              prøvingsdato={prøvingsdato}
+            />
+          ))}
+        </section>
       </div>
+    </div>
+  );
+}
+
+function erDatoInnenforPeriode(dato: string, fraOgMed?: string | null, tilOgMed?: string | null) {
+  if (fraOgMed && tilOgMed) {
+    return dato >= fraOgMed && dato <= tilOgMed;
+  }
+  if (fraOgMed && !tilOgMed) {
+    return dato >= fraOgMed;
+  }
+  if (!fraOgMed && tilOgMed) {
+    return dato <= tilOgMed;
+  }
+  return true;
+}
+
+function hentVerdierForOpplysning(
+  behandling: components["schemas"]["BehandlingsresultatV2"],
+  opplysningTypeId: string,
+  prøvingsdato?: string,
+): components["schemas"]["Opplysningsverdi"][] | undefined {
+  const verdier = behandling.opplysninger
+    .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
+    ?.perioder.filter((periode) =>
+      erDatoInnenforPeriode(prøvingsdato ?? "", periode.gyldigFraOgMed, periode.gyldigTilOgMed),
+    )
+    .map((periode) => periode.verdi);
+  return verdier;
+}
+
+function OpplysningVerdiPåPrøvingstidspunkt(props: {
+  label: string;
+  behandling: components["schemas"]["BehandlingsresultatV2"];
+  opplysningTypeId: string;
+  prøvingsdato?: string;
+}) {
+  const verdier = hentVerdierForOpplysning(
+    props.behandling,
+    props.opplysningTypeId,
+    props.prøvingsdato,
+  );
+  if (!verdier) {
+    return;
+  }
+
+  // TODO: kjip spesialhåndtering, og kanskje vi trenger flere? :(
+  const ignorerHvisFalse = [
+    "0194881f-9435-72a8-b1ce-9575cbc2a764",
+    "0194881f-9435-72a8-b1ce-9575cbc2a765",
+    "0194881f-9435-72a8-b1ce-9575cbc2a766",
+  ];
+  if (
+    ignorerHvisFalse.includes(props.opplysningTypeId) &&
+    verdier.every((v) => "verdi" in v && v.verdi === false)
+  ) {
+    return;
+  }
+
+  return (
+    <div className="flex flex-col gap-1">
+      <BodyShort size={"small"} weight={"semibold"}>
+        {props.label}
+      </BodyShort>
+      <BodyShort size={"small"}>
+        {verdier?.map((verdi) => formaterOpplysningVerdi(verdi)).join(", ")}
+      </BodyShort>
     </div>
   );
 }
