@@ -15,7 +15,7 @@ export function OpplysningVerdiForPeriode(props: {
     props.opplysningTypeId,
     props.rettighetsperiode,
   );
-  if (!verdier) {
+  if (!verdier || verdier.length === 0) {
     return;
   }
 

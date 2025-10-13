@@ -126,6 +126,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
           </div>
         </section>
       </div>
+
       {behandling.rettighetsperioder.map((periode, index) => (
         <div key={index} className={"card card-sunken p-4"}>
           <Heading size={"small"}>Rettighetsperiode {index + 1}</Heading>
@@ -136,12 +137,14 @@ export function RettPåDagpenger({ behandling }: IProps) {
               </BodyShort>
               <BodyShort size={"small"}>{periode.harRett ? "Ja" : "Nei"}</BodyShort>
             </div>
+
             <div className="flex flex-col gap-1">
               <BodyShort size={"small"} weight={"semibold"}>
                 Fra og med
               </BodyShort>
               <BodyShort size={"small"}>{formaterTilNorskDato(periode.fraOgMed)}</BodyShort>
             </div>
+
             <div className="flex flex-col gap-1">
               <BodyShort size={"small"} weight={"semibold"}>
                 Til og med
@@ -150,6 +153,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
                 {periode.tilOgMed ? formaterTilNorskDato(periode.tilOgMed) : "--"}
               </BodyShort>
             </div>
+
             {rettighetsperiodeOpplysninger.map(({ id, label }) => (
               <OpplysningVerdiForPeriode
                 key={id}
