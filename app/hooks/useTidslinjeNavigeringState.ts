@@ -19,16 +19,19 @@ export interface TidslinjeNavigeringState {
 export function useTidslinjeNavigeringState(
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
   eksternState?: TidslinjeNavigeringState,
+  eksternFørsteFraOgMedDato?: string,
 ): TidslinjeNavigeringState {
   if (eksternState) {
     return eksternState;
   }
-  const førsteFraOgMedDato = opplysninger
-    .flatMap((opplysning) => opplysning.perioder)
-    .map((opplysning) => opplysning.gyldigFraOgMed)
-    .filter((dato) => dato !== null && dato !== undefined)
-    .sort()
-    .at(0);
+  const førsteFraOgMedDato = eksternFørsteFraOgMedDato
+    ? eksternFørsteFraOgMedDato
+    : opplysninger
+        .flatMap((opplysning) => opplysning.perioder)
+        .map((opplysning) => opplysning.gyldigFraOgMed)
+        .filter((dato) => dato !== null && dato !== undefined)
+        .sort()
+        .at(0);
 
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({

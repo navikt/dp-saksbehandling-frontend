@@ -1,10 +1,9 @@
 import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
 import { BodyShort, DatePicker, Heading, Timeline, useDatepicker } from "@navikt/ds-react";
-import { add, sub } from "date-fns";
-import { useState } from "react";
+import { add } from "date-fns";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
-import { AntallUkerITidslinje, TidslinjeStartSlutt } from "~/hooks/useTidslinjeNavigeringState";
+import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../openapi/behandling-typer";
@@ -39,13 +38,12 @@ export function RettPåDagpenger({ behandling }: IProps) {
     .sort()
     .at(0);
 
-  const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
-  const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
-    start: sisteRettighetPeriodeDato
-      ? sub(new Date(sisteRettighetPeriodeDato), { days: 1 })
-      : new Date(),
-    end: add(new Date(sisteRettighetPeriodeDato ?? new Date()), { weeks: 2 }),
-  });
+  const {
+    antallUkerITidslinje,
+    setAntallUkerITidslinje,
+    tidslinjeStartSlutt,
+    setTidslinjeStartSlutt,
+  } = useTidslinjeNavigeringState([], undefined, sisteRettighetPeriodeDato);
 
   const { datepickerProps, inputProps, selectedDay } = useDatepicker({
     onDateChange: console.info,
