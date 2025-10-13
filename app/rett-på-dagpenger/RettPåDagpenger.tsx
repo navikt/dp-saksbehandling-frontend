@@ -48,11 +48,10 @@ export function RettPåDagpenger({ behandling }: IProps) {
     { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
     { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
     { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a764", label: "Beregnet basert på" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a765", label: "Beregnet basert på" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a766", label: "Beregnet basert på" },
-    // TODO: Inntektsgrunnlag, hvordan finne riktig?
-    // TODO: Rettighetsperioder, må kanskje utledes på en annen måte?
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a764", label: "Beregnet basert på 6 måneder" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a765", label: "Beregnet basert på 12 måneder" },
+    { id: "0194881f-9435-72a8-b1ce-9575cbc2a766", label: "Beregnet basert på 36 måneder" },
+    { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
   ];
 
   return (
@@ -108,6 +107,15 @@ export function RettPåDagpenger({ behandling }: IProps) {
               prøvingsdato={prøvingsdato}
             />
           ))}
+          <div className="flex flex-col gap-1">
+            <BodyShort size={"small"} weight={"semibold"}>
+              Rettighetsperioder
+            </BodyShort>
+            <BodyShort size={"small"}>
+              {behandling.rettighetsperioder.length} periode
+              {behandling.rettighetsperioder.length !== 1 ? "r" : ""}
+            </BodyShort>
+          </div>
         </section>
       </div>
     </div>
