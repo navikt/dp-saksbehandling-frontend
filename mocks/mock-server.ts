@@ -26,10 +26,12 @@ const mswHandlers = [
 
 export async function startMockServer() {
   const server = setupServer(...mswHandlers);
-  server.listen({ onUnhandledRequest: "bypass" });
+
+  server.listen({ onUnhandledRequest: "warn" });
+  server.events.on("request:start", ({ request }) => {
+    logger.info(`[MSW INTERCEPTED]: ${request.method} ${request.url}`);
+  });
 
   process.once("SIGINT", () => server.close());
   process.once("SIGTERM", () => server.close());
-
-  logger.info("🔶 Mock api kjører");
 }

@@ -9,7 +9,7 @@ import { faro } from "@grafana/faro-core";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import type { AppLoadContext, EntryContext } from "react-router";
+import type { EntryContext } from "react-router";
 import { isRouteErrorResponse, ServerRouter } from "react-router";
 
 import { logger } from "~/utils/logger.utils";
@@ -21,9 +21,8 @@ import { getEnv } from "./utils/env.utils";
 export const streamTimeout = 10000;
 
 if (getEnv("USE_MSW") === "true") {
-  import("../mocks/mock-server").then(({ startMockServer }) => {
-    startMockServer();
-  });
+  const { startMockServer } = await import("../mocks/mock-server");
+  await startMockServer();
 }
 
 const csp = {
@@ -57,10 +56,6 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   reactRouterContext: EntryContext,
-  // This is ignored so we can keep it in the template for visibility.  Feel
-  // free to delete this parameter in your app if you're not using it!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loadContext: AppLoadContext,
 ) {
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(request, responseStatusCode, responseHeaders, reactRouterContext)
