@@ -1,6 +1,6 @@
 import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
 import { BodyShort, DatePicker, Heading, Timeline, useDatepicker } from "@navikt/ds-react";
-import { add } from "date-fns";
+import { add, sub } from "date-fns";
 import { useState } from "react";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
@@ -24,7 +24,9 @@ export function RettPåDagpenger({ behandling }: IProps) {
 
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
-    start: new Date(sisteRettighetPeriodeDato ?? new Date()),
+    start: sisteRettighetPeriodeDato
+      ? sub(new Date(sisteRettighetPeriodeDato), { days: 1 })
+      : new Date(),
     end: add(new Date(sisteRettighetPeriodeDato ?? new Date()), { weeks: 2 }),
   });
 

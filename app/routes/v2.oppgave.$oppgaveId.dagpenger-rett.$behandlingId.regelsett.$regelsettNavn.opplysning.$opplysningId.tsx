@@ -90,7 +90,9 @@ export default function Opplysning() {
     useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSluttRegelsett, setTidslinjeStartSluttRegelsett] =
     useState<TidslinjeStartSlutt>({
-      start: new Date(førsteFraOgMedDatoRegelsett ?? new Date()),
+      start: førsteFraOgMedDatoRegelsett
+        ? sub(new Date(førsteFraOgMedDatoRegelsett), { days: 1 })
+        : new Date(),
       end: add(new Date(førsteFraOgMedDatoRegelsett ?? new Date()), { weeks: 2 }),
     });
 
@@ -104,7 +106,9 @@ export default function Opplysning() {
     useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSluttOpplysning, setTidslinjeStartSluttOpplysning] =
     useState<TidslinjeStartSlutt>({
-      start: new Date(førsteFraOgMedDatoOpplysning ?? new Date()),
+      start: førsteFraOgMedDatoOpplysning
+        ? sub(new Date(førsteFraOgMedDatoOpplysning), { days: 1 })
+        : new Date(),
       end: add(new Date(førsteFraOgMedDatoOpplysning ?? new Date()), { weeks: 2 }),
     });
 

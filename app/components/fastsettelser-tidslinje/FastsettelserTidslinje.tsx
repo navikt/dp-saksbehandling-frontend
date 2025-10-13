@@ -26,7 +26,7 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
     .at(0);
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
-    start: new Date(sisteOpplysningDato ?? new Date()),
+    start: sisteOpplysningDato ? sub(new Date(sisteOpplysningDato), { days: 1 }) : new Date(),
     end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
   });
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
