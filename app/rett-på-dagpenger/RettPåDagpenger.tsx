@@ -16,6 +16,16 @@ interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
 }
 
+const opplysningeneViBryrOssOm = [
+  { id: "0194881f-91d1-7df2-ba1d-4533f37fcc76", label: "Vurdert fra" },
+  { id: "0194881f-9435-72a8-b1ce-9575cbc2a767", label: "Arbeidstid før tap" },
+  { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
+  { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
+  { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
+  { id: "0194881f-9410-7481-b263-4606fdd10cba", label: "Beregnet basert på" },
+  { id: "0194881f-9410-7481-b263-4606fdd10cbd", label: "Inntektsgrunnlag" },
+];
+
 export function RettPåDagpenger({ behandling }: IProps) {
   const sisteRettighetPeriodeDato = behandling.rettighetsperioder
     .flatMap((periode) => periode.fraOgMed)
@@ -41,18 +51,6 @@ export function RettPåDagpenger({ behandling }: IProps) {
     prøvingsdatoVerdi && prøvingsdatoVerdi.datatype === "dato"
       ? prøvingsdatoVerdi.verdi
       : undefined;
-
-  const opplysningeneViBryrOssOm = [
-    { id: "0194881f-91d1-7df2-ba1d-4533f37fcc76", label: "Vurdert fra" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a767", label: "Arbeidstid før tap" },
-    { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
-    { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
-    { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a764", label: "Beregnet basert på 6 måneder" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a765", label: "Beregnet basert på 12 måneder" },
-    { id: "0194881f-9435-72a8-b1ce-9575cbc2a766", label: "Beregnet basert på 36 måneder" },
-    { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
-  ];
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
@@ -140,13 +138,12 @@ function hentVerdierForOpplysning(
   opplysningTypeId: string,
   prøvingsdato?: string,
 ): components["schemas"]["Opplysningsverdi"][] | undefined {
-  const verdier = behandling.opplysninger
+  return behandling.opplysninger
     .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
     ?.perioder.filter((periode) =>
       erDatoInnenforPeriode(prøvingsdato ?? "", periode.gyldigFraOgMed, periode.gyldigTilOgMed),
     )
     .map((periode) => periode.verdi);
-  return verdier;
 }
 
 function OpplysningVerdiPåPrøvingstidspunkt(props: {
@@ -161,19 +158,6 @@ function OpplysningVerdiPåPrøvingstidspunkt(props: {
     props.prøvingsdato,
   );
   if (!verdier) {
-    return;
-  }
-
-  // TODO: kjip spesialhåndtering, og kanskje vi trenger flere? :(
-  const ignorerHvisFalse = [
-    "0194881f-9435-72a8-b1ce-9575cbc2a764",
-    "0194881f-9435-72a8-b1ce-9575cbc2a765",
-    "0194881f-9435-72a8-b1ce-9575cbc2a766",
-  ];
-  if (
-    ignorerHvisFalse.includes(props.opplysningTypeId) &&
-    verdier.every((v) => "verdi" in v && v.verdi === false)
-  ) {
     return;
   }
 
