@@ -1,23 +1,17 @@
 import { PencilIcon, PlusCircleIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Table } from "@navikt/ds-react";
+import { Button, Table } from "@navikt/ds-react";
 import { components } from "openapi/behandling-typer";
 
 import { formaterOpplysningVerdi } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
-import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTidslinje";
-
 interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
 }
 
-export function OpplysningTidslinje(props: IProps) {
+export function OpplysningPerioderTabell(props: IProps) {
   return (
-    <div className={"card p-4"}>
-      <Heading size={"large"}>{props.opplysning.navn}</Heading>
-
-      <OpplysningerTidslinje opplysninger={[props.opplysning]} />
-
+    <>
       <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
         <Table.Header>
           <Table.Row>
@@ -60,6 +54,6 @@ export function OpplysningTidslinje(props: IProps) {
       >
         Legg til ny periode
       </Button>
-    </div>
+    </>
   );
 }

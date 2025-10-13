@@ -12,14 +12,14 @@ import invariant from "tiny-invariant";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { OpplysningTidslinje } from "~/components/v2/opplysning-tidslinje/OpplysningTidslinje";
+import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { isAlert } from "~/utils/type-guards";
+import { isAlert, isDefined } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -67,6 +67,18 @@ export default function Opplysning() {
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
 
+  const prøvingsdato = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+  );
+
+  const pins = prøvingsdato?.perioder
+    .map((periode) => {
+      if (periode.verdi.datatype === "dato") {
+        return { date: new Date(periode.verdi.verdi), label: "Prøvingsdato" };
+      }
+    })
+    .filter(isDefined);
+
   return (
     <Theme theme={tema} className={"main flex flex-col gap-4"}>
       <div className={"card p-4"}>
@@ -81,10 +93,16 @@ export default function Opplysning() {
           opplysninger={regelsettOpplysninger}
           medLenkeTilOpplysning={true}
           opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
+          pins={pins}
         />
       </div>
 
-      <OpplysningTidslinje opplysning={opplysning} />
+      <div className={"card p-4"}>
+        <Heading size={"large"}>{opplysning.navn}</Heading>
+        <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
+
+        <OpplysningPerioderTabell opplysning={opplysning} />
+      </div>
     </Theme>
   );
 }

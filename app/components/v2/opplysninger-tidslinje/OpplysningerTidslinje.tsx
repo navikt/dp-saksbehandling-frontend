@@ -59,10 +59,11 @@ export function OpplysningerTidslinje(props: IProps) {
               <BodyShort>{formaterTilNorskDato(pin.date)}</BodyShort>
             </Timeline.Pin>
           ))}
+
         {props.opplysninger.map((opplysning) => (
           <Timeline.Row
             key={opplysning.opplysningTypeId}
-            label={"\u00A0"}
+            label={props.medLenkeTilOpplysning ? "\u00A0" : ""}
             icon={
               props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (

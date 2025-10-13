@@ -36,7 +36,7 @@ export function useTidslinjeNavigeringState(
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
     start: førsteFraOgMedDato ? sub(new Date(førsteFraOgMedDato), { days: 1 }) : new Date(),
-    end: add(new Date(førsteFraOgMedDato ?? new Date()), { weeks: 2 }),
+    end: add(new Date(førsteFraOgMedDato ?? new Date()), { weeks: parseInt(antallUkerITidslinje) }),
   });
 
   return {
