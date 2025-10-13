@@ -1031,14 +1031,14 @@ export interface components {
             opprinnelse?: components["schemas"]["Opprinnelse"];
             /**
              * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig fra tidens morgen.
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig fra tidens morgen.
              */
-            gyldigFraOgMed?: string | null;
+            gyldigFraOgMed?: string;
             /**
              * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig til evig tid.
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig til evig tid.
              */
-            gyldigTilOgMed?: string | null;
+            gyldigTilOgMed?: string;
             verdi: components["schemas"]["Opplysningsverdi"];
             kilde?: components["schemas"]["Opplysningskilde"];
             utledetAv?: components["schemas"]["Utledning"];

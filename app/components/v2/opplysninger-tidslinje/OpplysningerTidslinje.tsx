@@ -5,7 +5,6 @@ import { Link } from "react-router";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
-  formaterOpplysningVerdi,
   hentFargeForOpplysningPeriode,
   hentIkonForOpplysningPeriode,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
@@ -14,6 +13,7 @@ import {
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 interface TimelinePin {
   date: Date;
@@ -112,7 +112,9 @@ export function OpplysningerTidslinje(props: IProps) {
                     </div>
                     <div>
                       <Detail textColor={"subtle"}>Verdi</Detail>
-                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
+                      <BodyShort size={"small"}>
+                        {formaterOpplysningVerdiV2(periode.verdi)}
+                      </BodyShort>
                     </div>
                   </div>
                 </Timeline.Period>

@@ -6,7 +6,10 @@ import { components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
-export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
+export function hentValideringForOpplysningSkjema(
+  datatype: components["schemas"]["DataType"],
+  nyPeriode: boolean,
+) {
   return z.object({
     verdi: hentValideringForOpplysningVerdi(datatype),
     opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
@@ -15,7 +18,7 @@ export function hentValideringForOpplysningSkjema(datatype: components["schemas"
     begrunnelse: z.string().min(1, "Du må skrive en begrunnelse").optional(),
     gyldigFraOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      hentValideringForNorskDato().optional(),
+      nyPeriode ? hentValideringForNorskDato() : hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),

@@ -24,6 +24,7 @@ import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -144,7 +145,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                       status={hentFargeForOpplysningPeriode(periode.verdi)}
                       icon={hentIkonForOpplysningPeriode(periode.verdi)}
                     >
-                      {formaterOpplysningVerdi(periode.verdi)}
+                      {formaterOpplysningVerdiV2(periode.verdi)}
                     </Timeline.Period>
                   );
                 })}
@@ -242,7 +243,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                       <div>
                         <Detail textColor={"subtle"}>Verdi</Detail>
                         <BodyShort size={"small"}>
-                          {formaterOpplysningVerdi(periode.verdi)}
+                          {formaterOpplysningVerdiV2(periode.verdi)}
                         </BodyShort>
                       </div>
                     </div>
@@ -255,33 +256,6 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
       </Timeline>
     </div>
   );
-}
-
-export function formaterOpplysningVerdi(
-  opplysningsverdi: components["schemas"]["Opplysningsverdi"],
-) {
-  switch (opplysningsverdi.datatype) {
-    case "tekst":
-      return opplysningsverdi.verdi;
-    case "inntekt":
-      return `${opplysningsverdi.verdi} inntekt`;
-    case "dato":
-      return formaterTilNorskDato(opplysningsverdi.verdi);
-    case "heltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
-    case "desimaltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
-    case "penger":
-      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} kr`;
-    case "ulid":
-      return `${opplysningsverdi.verdi} ulid`;
-    case "boolsk":
-      return opplysningsverdi.verdi ? "Ja" : "Nei";
-    case "periode":
-      return `${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)}`;
-    case "barn":
-      return `${opplysningsverdi.verdi} barn`;
-  }
 }
 
 export function hentIkonForOpplysningPeriode(

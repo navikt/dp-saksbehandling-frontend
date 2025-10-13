@@ -1,6 +1,6 @@
 import { BodyShort } from "@navikt/ds-react";
 
-import { formaterOpplysningVerdi } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { formaterOpplysningVerdiV2 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 
 import { components } from "../../openapi/behandling-typer";
 
@@ -25,7 +25,7 @@ export function OpplysningVerdiPåPrøvingstidspunkt(props: {
         {props.label}
       </BodyShort>
       <BodyShort size={"small"}>
-        {verdier?.map((verdi) => formaterOpplysningVerdi(verdi)).join(", ")}
+        {verdier?.map((verdi) => formaterOpplysningVerdiV2(verdi)).join(", ")}
       </BodyShort>
     </div>
   );

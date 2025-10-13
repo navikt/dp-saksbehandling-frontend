@@ -1,6 +1,6 @@
 import { Accordion, BodyShort, Heading } from "@navikt/ds-react";
 
-import { formaterOpplysningVerdi } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { formaterOpplysningVerdiV2 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 
 import { components } from "../../../../openapi/behandling-typer";
 import styles from "./EndretOpplysning.module.css";
@@ -35,7 +35,7 @@ export function EndretOpplysninger({ vurderinger }: IProps) {
                 </BodyShort>
                 <BodyShort size={"small"}>
                   {/* @ts-expect-error Fikset i v2 type*/}
-                  {formaterOpplysningVerdi(opplysning.verdien)}
+                  {formaterOpplysningVerdiV2(opplysning.verdien)}
                 </BodyShort>
               </div>
 
