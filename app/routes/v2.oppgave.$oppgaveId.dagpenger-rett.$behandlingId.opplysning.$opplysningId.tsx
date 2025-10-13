@@ -1,7 +1,6 @@
 import { ArrowLeftIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Heading, Table, Theme, Timeline, TimelinePeriodProps } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
-import { useState } from "react";
 import {
   ActionFunctionArgs,
   Link,
@@ -16,14 +15,13 @@ import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
-  AntallUkerITidslinje,
   formaterOpplysningVerdi,
   hentIkonForOpplysningPeriode,
-  TidslinjeStartSlutt,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -64,17 +62,12 @@ export default function Opplysning() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const førsteFraOgMedDato = opplysning.perioder
-    .map((periode) => periode.gyldigFraOgMed)
-    .filter((dato) => dato !== null && dato !== undefined)
-    .sort()
-    .at(0);
-
-  const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
-  const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
-    start: new Date(førsteFraOgMedDato ?? new Date()),
-    end: add(new Date(førsteFraOgMedDato ?? new Date()), { weeks: 2 }),
-  });
+  const {
+    antallUkerITidslinje,
+    setAntallUkerITidslinje,
+    tidslinjeStartSlutt,
+    setTidslinjeStartSlutt,
+  } = useTidslinjeNavigeringState([opplysning]);
 
   return (
     <Theme theme={tema} className={"main"}>

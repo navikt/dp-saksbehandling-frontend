@@ -4,10 +4,7 @@ import { add, sub } from "date-fns";
 import { useState } from "react";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
-import {
-  AntallUkerITidslinje,
-  TidslinjeStartSlutt,
-} from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { AntallUkerITidslinje, TidslinjeStartSlutt } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../openapi/behandling-typer";

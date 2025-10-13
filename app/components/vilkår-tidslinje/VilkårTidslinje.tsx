@@ -20,18 +20,12 @@ import { useState } from "react";
 import { Link } from "react-router";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
+import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 
 import { components } from "../../../openapi/behandling-typer";
-
-export type AntallUkerITidslinje = "2" | "4" | "8" | "16" | "52";
-
-export interface TidslinjeStartSlutt {
-  start: Date;
-  end: Date;
-}
 
 interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
@@ -39,17 +33,12 @@ interface IProps {
 }
 
 export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
-  const sisteOpplysningDato = behandling.opplysninger
-    .flatMap((gruppe) => gruppe.perioder)
-    .map((opplysning) => opplysning.gyldigFraOgMed)
-    .filter((dato) => dato !== null && dato !== undefined)
-    .sort()
-    .at(0);
-  const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("4");
-  const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({
-    start: sisteOpplysningDato ? sub(new Date(sisteOpplysningDato), { days: 1 }) : new Date(),
-    end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
-  });
+  const {
+    antallUkerITidslinje,
+    setAntallUkerITidslinje,
+    tidslinjeStartSlutt,
+    setTidslinjeStartSlutt,
+  } = useTidslinjeNavigeringState(behandling.opplysninger);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
     components["schemas"]["VurderingsresultatV2"] | undefined
   >();

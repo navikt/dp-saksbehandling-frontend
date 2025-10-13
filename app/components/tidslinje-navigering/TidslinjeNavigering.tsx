@@ -4,22 +4,15 @@ import { add, sub } from "date-fns";
 
 import {
   AntallUkerITidslinje,
-  TidslinjeStartSlutt,
-} from "~/components/vilkår-tidslinje/VilkårTidslinje";
-
-interface IProps {
-  tidslinjeStartSlutt: TidslinjeStartSlutt;
-  setTidslinjeStartSlutt: (verdi: TidslinjeStartSlutt) => void;
-  antallUkerITidslinje: AntallUkerITidslinje;
-  setAntallUkerITidslinje: (verdi: AntallUkerITidslinje) => void;
-}
+  TidslinjeNavigeringState,
+} from "~/hooks/useTidslinjeNavigeringState";
 
 export function TidslinjeNavigering({
   tidslinjeStartSlutt,
   setTidslinjeStartSlutt,
   antallUkerITidslinje,
   setAntallUkerITidslinje,
-}: IProps) {
+}: TidslinjeNavigeringState) {
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
