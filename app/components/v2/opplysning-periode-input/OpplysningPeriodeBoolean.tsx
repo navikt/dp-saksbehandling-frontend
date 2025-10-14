@@ -12,7 +12,15 @@ export function OpplysningPeriodeBoolean({
 
   return (
     <>
-      <RadioGroup size="small" {...field.getInputProps()} error={field.error()} readOnly={readonly}>
+      <RadioGroup
+        {...field.getInputProps()}
+        error={field.error()}
+        className={"aksel--horisontal"}
+        size="small"
+        readOnly={readonly}
+        legend={opplysning.navn}
+        hideLegend={true}
+      >
         <Radio value="Ja">Ja</Radio>
         <Radio value="Nei">Nei</Radio>
       </RadioGroup>

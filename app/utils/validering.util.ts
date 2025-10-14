@@ -8,11 +8,12 @@ import { components as saksbehandlingComponents } from "../../openapi/saksbehand
 
 export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
   return z.object({
+    _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
     opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
     datatype: z.string().min(1, "Det mangler datatype i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse").optional(),
+    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),
       hentValideringForNorskDato().optional(),

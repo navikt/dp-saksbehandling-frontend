@@ -10,12 +10,14 @@ import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 import { components } from "../../../../openapi/behandling-typer";
 
 export interface IOpplysningPeriodeProps {
+  opplysning: components["schemas"]["OpplysningsgruppeV2"];
   periodeVerdi: components["schemas"]["Opplysningsverdi"];
   formScope: FormScope<string>;
   readonly?: boolean;
 }
 
 export function OpplysningPeriodeInput({
+  opplysning,
   periodeVerdi,
   formScope,
   readonly,
@@ -34,45 +36,50 @@ export function OpplysningPeriodeInput({
     case "heltall":
       return (
         <OpplysningPeriodeInt
-          readonly={readonly}
+          opplysning={opplysning}
           periodeVerdi={periodeVerdi}
           formScope={formScope}
+          readonly={readonly}
         />
       );
 
     case "penger":
       return (
         <OpplysningPeriodePenger
-          readonly={readonly}
+          opplysning={opplysning}
           periodeVerdi={periodeVerdi}
           formScope={formScope}
+          readonly={readonly}
         />
       );
 
     case "desimaltall":
       return (
         <OpplysningPeriodeDouble
-          readonly={readonly}
+          opplysning={opplysning}
           periodeVerdi={periodeVerdi}
           formScope={formScope}
+          readonly={readonly}
         />
       );
 
     case "boolsk":
       return (
         <OpplysningPeriodeBoolean
-          readonly={readonly}
+          opplysning={opplysning}
           periodeVerdi={periodeVerdi}
           formScope={formScope}
+          readonly={readonly}
         />
       );
 
     case "dato":
       return (
         <OpplysningPeriodeDato
-          readonly={readonly}
+          opplysning={opplysning}
           periodeVerdi={periodeVerdi}
           formScope={formScope}
+          readonly={readonly}
         />
       );
 

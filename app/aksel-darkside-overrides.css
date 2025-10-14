@@ -24,3 +24,10 @@
 .expansion--subtil .aksel-expansioncard__content {
   background-color: var(--ax-bg-default);
 }
+
+/* Aksel radio overrides */
+
+.aksel--horisontal .aksel-radio-buttons {
+  display: flex;
+  gap: var(--ax-space-8);
+}

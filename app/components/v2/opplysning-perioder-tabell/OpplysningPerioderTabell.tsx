@@ -29,13 +29,14 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Header>
 
         <Table.Body>
-          {props.opplysning.perioder.map((periode) => {
+          {props.opplysning.perioder.map((periode, index) => {
             if (periode.id === periodeUnderRedigering?.id) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
                   key={periode.id}
-                  opplysningTypeId={props.opplysning.opplysningTypeId}
+                  opplysning={props.opplysning}
                   periode={periode}
+                  periodeIndex={index}
                 />
               );
             }

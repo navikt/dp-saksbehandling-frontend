@@ -13,11 +13,13 @@ export function OpplysningPeriodeDouble({
   return (
     <>
       <TextField
+        {...field.getInputProps()}
+        error={field.error()}
+        label={opplysning.navn}
+        hideLabel={true}
         size="small"
         type="text"
         inputMode="decimal"
-        {...field.getInputProps()}
-        error={field.error()}
         readOnly={readonly}
       />
     </>

@@ -13,7 +13,7 @@ export function OpplysningPeriodeDato({
 
   const { datepickerProps, inputProps } = useDatepicker({
     // @ts-expect-error TODO rydd opp i typene
-    defaultSelected: new Date(opplysning.verdi.verdi),
+    defaultSelected: new Date(field.value),
     onDateChange: (date) => {
       if (date) {
         const datoBackendFormat = formaterTilBackendDato(date);
@@ -32,12 +32,13 @@ export function OpplysningPeriodeDato({
     <>
       <DatePicker {...datepickerProps}>
         <DatePicker.Input
-          size="small"
-          label={""}
           {...inputProps}
           form={field.getInputProps().form}
           name={field.getInputProps().name}
           error={field.error()}
+          label={opplysning.navn}
+          hideLabel={true}
+          size="small"
           readOnly={readonly}
         />
       </DatePicker>
