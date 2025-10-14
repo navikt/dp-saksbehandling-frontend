@@ -1,10 +1,9 @@
 import { TextField } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
-import { IOpplysningPeriodeProps } from "~/components/v2/opplysning-periode/OpplysningPeriode";
-import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { IOpplysningPeriodeProps } from "~/components/v2/opplysning-periode-input/OpplysningPeriodeInput";
 
-export function OpplysningPeriodePenger({
+export function OpplysningPeriodeDouble({
   opplysning,
   formScope,
   readonly,

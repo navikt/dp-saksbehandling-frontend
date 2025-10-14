@@ -1,7 +1,7 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
-import { IOpplysningPeriodeProps } from "~/components/v2/opplysning-periode/OpplysningPeriode";
+import { IOpplysningPeriodeProps } from "~/components/v2/opplysning-periode-input/OpplysningPeriodeInput";
 import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
 
 export function OpplysningPeriodeDato({

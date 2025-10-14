@@ -271,6 +271,24 @@ export const behandlingV2Oppgave: components["schemas"]["Oppgave"] = {
   kontrollertBrev: "IKKE_RELEVANT",
 };
 
+export const behandlingV2MeldekortOppgave: components["schemas"]["Oppgave"] = {
+  oppgaveId: "118e1119-9df8-7aa4-94a6-318fada10932",
+  behandlingType: "RETT_TIL_DAGPENGER",
+  behandlingId: "0199b8b8-4f28-7926-bfac-4459a0ebb34f",
+  person: mockPerson,
+  lovligeEndringer: mockLovligeEndringer,
+  utlostAv: "MELDEKORT",
+  tidspunktOpprettet: "2024-03-13T10:49:35.580995+01:00",
+  emneknagger: ["Meldekort", "V2", "Behandling"],
+  tilstand: "UNDER_BEHANDLING",
+  journalpostIder: ["598116231", "639664664"],
+  historikk: mockHistorikk,
+  saksbehandler: mockOppgaveSaksbehandler,
+  soknadId: "931f3f80-a41b-4aa4-8d39-7b517dcef44f",
+  meldingOmVedtakKilde: "DP_SAK",
+  kontrollertBrev: "IKKE_RELEVANT",
+};
+
 export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingPeriodisertMinOppgave,
@@ -284,4 +302,5 @@ export const mockOppgaver: components["schemas"]["Oppgave"][] = [
   klageOppgave,
   ferdigBehandlerKlageOppgave,
   behandlingV2Oppgave,
+  behandlingV2MeldekortOppgave,
 ];
