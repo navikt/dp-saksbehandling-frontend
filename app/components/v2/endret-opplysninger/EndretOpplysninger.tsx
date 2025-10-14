@@ -1,6 +1,6 @@
 import { Accordion, BodyShort, Heading } from "@navikt/ds-react";
 
-import { formaterOpplysningVerdiV2 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 import { components } from "../../../../openapi/behandling-typer";
 import styles from "./EndretOpplysning.module.css";

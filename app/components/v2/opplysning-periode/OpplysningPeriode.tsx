@@ -16,7 +16,6 @@ export interface IOpplysningPeriodeProps {
 }
 
 export function OpplysningPeriode({ opplysning, formScope, readonly }: IOpplysningPeriodeProps) {
-  console.log(opplysning);
   switch (opplysning.verdi.datatype) {
     case "heltall":
       return (

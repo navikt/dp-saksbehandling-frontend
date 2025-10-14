@@ -6,10 +6,7 @@ import { components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
-export function hentValideringForOpplysningSkjema(
-  datatype: components["schemas"]["DataType"],
-  nyPeriode: boolean,
-) {
+export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
   return z.object({
     verdi: hentValideringForOpplysningVerdi(datatype),
     opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
@@ -18,7 +15,7 @@ export function hentValideringForOpplysningSkjema(
     begrunnelse: z.string().min(1, "Du må skrive en begrunnelse").optional(),
     gyldigFraOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      nyPeriode ? hentValideringForNorskDato() : hentValideringForNorskDato().optional(),
+      hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
       (val) => (val === "" ? undefined : val),
@@ -32,6 +29,26 @@ export function hentValideringForOpplysningSkjema(
       .string()
       .transform((val) => val === "true")
       .optional(),
+  });
+}
+
+export function hentValideringForNyOpplysningPeriodeSkjema(
+  datatype: components["schemas"]["DataType"],
+) {
+  return z.object({
+    verdi: hentValideringForOpplysningVerdi(datatype),
+    opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
+    datatype: z.string().min(1, "Det mangler datatype i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
+    gyldigFraOgMed: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    gyldigTilOgMed: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
   });
 }
 

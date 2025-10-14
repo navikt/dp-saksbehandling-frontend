@@ -12,11 +12,13 @@ export function OpplysningPeriodeDato({
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
+    // @ts-expect-error TODO rydd opp i typene
     defaultSelected: new Date(opplysning.verdi.verdi),
     onDateChange: (date) => {
       if (date) {
         const datoBackendFormat = formaterTilBackendDato(date);
         field.setValue(formaterTilNorskDato(date));
+        // @ts-expect-error TODO rydd opp i typene
         if (datoBackendFormat !== opplysning.verdi.verdi) {
           field.setDirty(true);
         } else {

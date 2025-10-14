@@ -8,25 +8,28 @@ import { Form, useParams } from "react-router";
 import { OpplysningPeriode } from "~/components/v2/opplysning-periode/OpplysningPeriode";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
-import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
+import { hentValideringForNyOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
 }
 
 export function OpplysningPerioderTabell(props: IProps) {
-  const { oppgaveId, behandlingId, regelsettNavn } = useParams();
+  const { behandlingId } = useParams();
   const [leggTilNyPeriode, setLeggTilNyPeriode] = useState(false);
 
+  const sisteOpplysningPeriodeTilOgMedDato =
+    props.opplysning.perioder[props.opplysning.perioder.length - 1]?.gyldigTilOgMed;
+
   const datepickerFraOgMed = useDatepicker({
-    defaultSelected: props.opplysning.perioder[props.opplysning.perioder.length - 1]?.gyldigTilOgMed
-      ? new Date(props.opplysning.perioder[props.opplysning.perioder.length - 1].gyldigTilOgMed)
+    defaultSelected: sisteOpplysningPeriodeTilOgMedDato
+      ? new Date(sisteOpplysningPeriodeTilOgMedDato)
       : undefined,
   });
 
-  const nyPeriodeOpplysningForm = useForm({
+  const nyOpplysningPeriodeForm = useForm({
     method: "post",
-    schema: hentValideringForOpplysningSkjema(props.opplysning.datatype, true),
+    schema: hentValideringForNyOpplysningPeriodeSkjema(props.opplysning.datatype),
     defaultValues: {
       opplysningTypeId: props.opplysning.opplysningTypeId,
       datatype: props.opplysning.datatype,
@@ -103,27 +106,27 @@ export function OpplysningPerioderTabell(props: IProps) {
 
       {leggTilNyPeriode && (
         <div className={"card-sunken"}>
-          <Form {...nyPeriodeOpplysningForm.getFormProps()}>
+          <Form {...nyOpplysningPeriodeForm.getFormProps()}>
             <input hidden={true} readOnly={true} name="_action" value="lagre-opplysning" />
             <input
               hidden={true}
               readOnly={true}
-              {...nyPeriodeOpplysningForm.field("opplysningTypeId").getInputProps()}
+              {...nyOpplysningPeriodeForm.field("opplysningTypeId").getInputProps()}
             />
             <input
               hidden={true}
               readOnly={true}
-              {...nyPeriodeOpplysningForm.field("datatype").getInputProps()}
+              {...nyOpplysningPeriodeForm.field("datatype").getInputProps()}
             />
             <input
               hidden={true}
               readOnly={true}
-              {...nyPeriodeOpplysningForm.field("behandlingId").getInputProps()}
+              {...nyOpplysningPeriodeForm.field("behandlingId").getInputProps()}
             />
 
             <OpplysningPeriode
               opplysning={nyPeriode}
-              formScope={nyPeriodeOpplysningForm.scope("verdi")}
+              formScope={nyOpplysningPeriodeForm.scope("verdi")}
             />
 
             <Button
@@ -143,12 +146,12 @@ export function OpplysningPerioderTabell(props: IProps) {
                 {...datepickerFraOgMed.inputProps}
                 size={"small"}
                 label="Fra og med"
-                form={nyPeriodeOpplysningForm.field("gyldigFraOgMed").getInputProps().form}
-                name={nyPeriodeOpplysningForm.field("gyldigFraOgMed").getInputProps().name}
-                error={nyPeriodeOpplysningForm.field("gyldigFraOgMed").error()}
+                form={nyOpplysningPeriodeForm.field("gyldigFraOgMed").getInputProps().form}
+                name={nyOpplysningPeriodeForm.field("gyldigFraOgMed").getInputProps().name}
+                error={nyOpplysningPeriodeForm.field("gyldigFraOgMed").error()}
               />
             </DatePicker>
-            <pre>{JSON.stringify(nyPeriodeOpplysningForm.formState.fieldErrors)}</pre>
+            <pre>{JSON.stringify(nyOpplysningPeriodeForm.formState.fieldErrors)}</pre>
           </Form>
         </div>
       )}
