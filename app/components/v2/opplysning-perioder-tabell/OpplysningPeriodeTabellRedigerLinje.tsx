@@ -13,6 +13,7 @@ interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
   periode: components["schemas"]["Opplysningsperiode"];
   periodeIndex: number;
+  setPeriodeUnderRedigering: (periode?: components["schemas"]["Opplysningsperiode"]) => void;
 }
 
 export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
@@ -38,6 +39,8 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     },
   });
 
+  console.log(periodeForm.formState);
+
   const forrigePeriodeTilOgMedDato =
     props.opplysning.perioder[props.periodeIndex - 1]?.gyldigTilOgMed;
 
@@ -53,6 +56,9 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       ? add(new Date(forrigePeriodeTilOgMedDato), { days: 1 })
       : undefined,
     toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : undefined,
+    onDateChange: (dato) => {
+      periodeForm.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
   });
 
   const datepickerTilOgMed = useDatepicker({
@@ -64,16 +70,15 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     toDate: nestePeriodeFraOgMedDato
       ? sub(new Date(nestePeriodeFraOgMedDato), { days: 1 })
       : undefined,
+
+    onDateChange: (dato) => {
+      periodeForm.field("gyldigTilOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
   });
 
   return (
     <Table.Row>
       <Table.DataCell>
-        <input
-          {...periodeForm.field("_action").getInputProps()}
-          type="hidden"
-          value="lagre-opplysning"
-        />
         <DatePicker {...datepickerFraOgMed.datepickerProps}>
           <DatePicker.Input
             {...datepickerFraOgMed.inputProps}
@@ -124,7 +129,11 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <Button size={"xsmall"} variant={"tertiary"}>
+        <Button
+          size={"xsmall"}
+          variant={"tertiary"}
+          onClick={() => props.setPeriodeUnderRedigering(undefined)}
+        >
           Avbryt
         </Button>
       </Table.DataCell>

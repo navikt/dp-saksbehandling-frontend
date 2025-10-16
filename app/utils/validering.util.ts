@@ -37,6 +37,7 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
   return z.object({
+    _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
     opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
     datatype: z.string().min(1, "Det mangler datatype i skjema"),
@@ -285,21 +286,20 @@ export function hentValideringForAvklaringSkjema() {
 }
 
 function hentValideringForNorskDato() {
-  return z
-    .string()
-    .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
-    .refine(
-      (dateString) => {
-        const [day, month, year] = dateString.split(".").map(Number);
-        const date = new Date(year, month - 1, day);
-
-        // Sjekk at dato er gyldig og matcher input.
-        return (
-          date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
-        );
-      },
-      {
-        message: "Ugyldig dato",
-      },
-    );
+  return z.string().min(1, "Du må velge en dato");
+  // .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
+  // .refine(
+  //   (dateString) => {
+  //     const [day, month, year] = dateString.split(".").map(Number);
+  //     const date = new Date(year, month - 1, day);
+  //
+  //     // Sjekk at dato er gyldig og matcher input.
+  //     return (
+  //       date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+  //     );
+  //   },
+  //   {
+  //     message: "Ugyldig dato",
+  //   },
+  // )
 }

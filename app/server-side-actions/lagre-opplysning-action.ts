@@ -22,25 +22,20 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
     return validationError(validertSkjema.error);
   }
 
-  const {
-    behandlingId,
-    opplysningTypeId,
-    verdi,
-    gyldigFraOgMed,
-    ingenFomDato,
-    gyldigTilOgMed,
-    ingenTomDato,
-    begrunnelse,
-  } = validertSkjema.data;
+  const { behandlingId, opplysningTypeId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } =
+    validertSkjema.data;
+
+  console.log("gyldigFraOgMed: ", gyldigFraOgMed);
+  console.log("gyldigTilOgMed: ", gyldigTilOgMed);
 
   let gyldigFraOgMedDato: string | undefined = undefined;
   let gyldigTilOgMedDato: string | undefined = undefined;
 
-  if (gyldigFraOgMed && !ingenFomDato) {
+  if (gyldigFraOgMed) {
     gyldigFraOgMedDato = formaterTilBackendDato(gyldigFraOgMed);
   }
 
-  if (gyldigTilOgMed && !ingenTomDato) {
+  if (gyldigTilOgMed) {
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
   }
 

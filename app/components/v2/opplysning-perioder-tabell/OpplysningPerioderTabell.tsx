@@ -3,7 +3,7 @@ import { Button, Table } from "@navikt/ds-react";
 import { components } from "openapi/behandling-typer";
 import { useState } from "react";
 
-import { LeggTilNyOpplysningPeriode } from "~/components/v2/opplysning-perioder-tabell/LeggTilNyOpplysningPeriode";
+import { OpplysningPeriodeTabellNyPeriode } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
@@ -15,6 +15,16 @@ interface IProps {
 export function OpplysningPerioderTabell(props: IProps) {
   const [periodeUnderRedigering, setPeriodeUnderRedigering] =
     useState<components["schemas"]["Opplysningsperiode"]>();
+
+  const nyPeriode: components["schemas"]["Opplysningsperiode"] = {
+    id: "NY-PERIODE",
+    opprettet: new Date().toISOString(),
+    status: "Ny",
+    verdi: {
+      verdi: "",
+      datatype: props.opplysning.datatype,
+    } as unknown as components["schemas"]["Opplysningsverdi"],
+  };
 
   return (
     <div className={"flex flex-col gap-4"}>
@@ -35,6 +45,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                 <OpplysningPeriodeTabellRedigerLinje
                   key={periode.id}
                   opplysning={props.opplysning}
+                  setPeriodeUnderRedigering={setPeriodeUnderRedigering}
                   periode={periode}
                   periodeIndex={index}
                 />
@@ -67,14 +78,31 @@ export function OpplysningPerioderTabell(props: IProps) {
                     variant={"tertiary-neutral"}
                     icon={<PencilIcon />}
                     onClick={() => setPeriodeUnderRedigering(periode)}
-                  ></Button>
+                  />
                 </Table.DataCell>
               </Table.Row>
             );
           })}
+
+          {periodeUnderRedigering?.id === nyPeriode.id && (
+            <OpplysningPeriodeTabellNyPeriode
+              opplysning={props.opplysning}
+              nyPeriode={nyPeriode}
+              setPeriodeUnderRedigering={setPeriodeUnderRedigering}
+            />
+          )}
         </Table.Body>
       </Table>
-      <LeggTilNyOpplysningPeriode opplysning={props.opplysning} />
+
+      <div>
+        <Button
+          size={"small"}
+          variant={"secondary"}
+          onClick={() => setPeriodeUnderRedigering(nyPeriode)}
+        >
+          Legg til ny periode
+        </Button>
+      </div>
     </div>
   );
 }
