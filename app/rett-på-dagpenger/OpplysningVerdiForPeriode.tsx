@@ -36,7 +36,7 @@ export function OpplysningVerdiForPeriode(props: {
 // Opplysningsperiode kan ha både start- og sluttdato.
 // Hvis opplysningsperiodens start er null, betyr det at opplysningen gjelder fra tidenes morgen.
 // Hvis opplysningsperiodens slutt er null, betyr det at opplysningen gjelder til evig tid.
-function erOpplysningsperiodeInnenforRettighetsperiode(
+export function erOpplysningsperiodeInnenforRettighetsperiode(
   rettighetsperiode: components["schemas"]["Rettighetsperiode"],
   opplysningsperiode: components["schemas"]["Opplysningsperiode"],
 ) {

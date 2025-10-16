@@ -10,7 +10,8 @@
     "prepare": "husky",
     "generate-token": "chmod +x ./token-generator.sh && ./token-generator.sh",
     "generate-openapi-types": "npx openapi-typescript",
-    "grapql-codegen": "graphql-codegen --config codegen.ts"
+    "grapql-codegen": "graphql-codegen --config codegen.ts",
+    "test": "vitest"
   },
   "prettier": {
     "printWidth": 100,
@@ -104,7 +105,8 @@
     "typescript": "5.9.2",
     "typescript-eslint": "8.44.0",
     "vite": "7.1.7",
-    "vite-tsconfig-paths": "5.1.4"
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4"
   },
   "optionalDependencies": {
     "@esbuild/linux-x64": "0.25.10",
