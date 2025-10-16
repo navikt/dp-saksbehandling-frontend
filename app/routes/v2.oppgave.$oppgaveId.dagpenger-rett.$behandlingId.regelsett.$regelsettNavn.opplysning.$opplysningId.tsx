@@ -12,12 +12,14 @@ import invariant from "tiny-invariant";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
+import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert, isDefined } from "~/utils/type-guards";
 
@@ -38,6 +40,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.regelsettNavn, "params.regelsettNavn er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
   const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const vurderinger = await hentVurderinger(request, params.behandlingId);
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
     (sett) => sett.navn === params.regelsettNavn,
   );
@@ -53,11 +56,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     throw new Response(`Finner ikke opplysning med id ${params.opplysningId}`, { status: 404 });
   }
 
-  return { behandling, regelsett, opplysning, oppgaveId: params.oppgaveId };
+  return { behandling, regelsett, opplysning, vurderinger, oppgaveId: params.oppgaveId };
 }
 
 export default function Opplysning() {
-  const { behandling, regelsett, opplysning, oppgaveId } = useLoaderData<typeof loader>();
+  const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
+    useLoaderData<typeof loader>();
   const { tema } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -81,27 +85,38 @@ export default function Opplysning() {
 
   return (
     <Theme theme={tema} className={"main flex flex-col gap-4"}>
-      <div className={"card p-4"}>
-        <Link to={"./../../../../behandle"} className={"flex items-center gap-1"}>
-          <ArrowLeftIcon />
-          Behandling
-        </Link>
+      <div className={"card flex gap-4 p-4"}>
+        <div className={"flex flex-1 flex-col gap-4"}>
+          <div className={"card p-4"}>
+            <Link to={"./../../../../behandle"} className={"flex items-center gap-1"}>
+              <ArrowLeftIcon />
+              Behandling
+            </Link>
 
-        <Heading size={"large"}>{regelsett.navn}</Heading>
+            <Heading size={"large"}>{regelsett.navn}</Heading>
 
-        <OpplysningerTidslinje
-          opplysninger={regelsettOpplysninger}
-          medLenkeTilOpplysning={true}
-          opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
-          pins={pins}
-        />
-      </div>
+            <OpplysningerTidslinje
+              opplysninger={regelsettOpplysninger}
+              medLenkeTilOpplysning={true}
+              opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
+              pins={pins}
+            />
+          </div>
 
-      <div className={"card p-4"}>
-        <Heading size={"large"}>{opplysning.navn}</Heading>
-        <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
+          <div className={"card p-4"}>
+            <Heading size={"large"}>{opplysning.navn}</Heading>
+            <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
+            <OpplysningPerioderTabell opplysning={opplysning} />
+          </div>
+        </div>
 
-        <OpplysningPerioderTabell opplysning={opplysning} />
+        <div className={"flex w-[500px] flex-col gap-4"}>
+          <Avklaringer
+            avklaringer={[...behandling.avklaringer]}
+            behandlingId={behandling.behandlingId}
+          />
+          <EndretOpplysninger vurderinger={vurderinger} />
+        </div>
       </div>
     </Theme>
   );

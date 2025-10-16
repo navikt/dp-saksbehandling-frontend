@@ -123,18 +123,18 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <Button size={"xsmall"} variant={"primary"} onClick={() => periodeForm.submit()}>
-          Lagre
-        </Button>
-      </Table.DataCell>
-
-      <Table.DataCell>
         <Button
           size={"xsmall"}
           variant={"tertiary"}
           onClick={() => props.setPeriodeUnderRedigering(undefined)}
         >
           Avbryt
+        </Button>
+      </Table.DataCell>
+
+      <Table.DataCell>
+        <Button size={"xsmall"} variant={"primary"} onClick={() => periodeForm.submit()}>
+          Lagre
         </Button>
       </Table.DataCell>
     </Table.Row>

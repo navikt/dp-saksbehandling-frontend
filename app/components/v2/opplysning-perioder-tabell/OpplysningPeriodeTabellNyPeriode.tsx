@@ -113,20 +113,20 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       <Table.DataCell>
         <Button
           size={"xsmall"}
-          variant={"primary"}
-          onClick={() => nyOpplysningPeriodeForm.submit()}
+          variant={"tertiary"}
+          onClick={() => props.setPeriodeUnderRedigering(undefined)}
         >
-          Lagre
+          Avbryt
         </Button>
       </Table.DataCell>
 
       <Table.DataCell>
         <Button
           size={"xsmall"}
-          variant={"tertiary"}
-          onClick={() => props.setPeriodeUnderRedigering(undefined)}
+          variant={"primary"}
+          onClick={() => nyOpplysningPeriodeForm.submit()}
         >
-          Avbryt
+          Lagre
         </Button>
       </Table.DataCell>
     </Table.Row>

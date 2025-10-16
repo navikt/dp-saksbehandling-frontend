@@ -69,13 +69,13 @@ export function OpplysningPerioderTabell(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <Button size={"xsmall"} variant={"tertiary-neutral"} icon={<TrashIcon />} />
+                  <Button size={"xsmall"} variant={"tertiary"} icon={<TrashIcon />} />
                 </Table.DataCell>
 
                 <Table.DataCell>
                   <Button
                     size={"xsmall"}
-                    variant={"tertiary-neutral"}
+                    variant={"tertiary"}
                     icon={<PencilIcon />}
                     onClick={() => setPeriodeUnderRedigering(periode)}
                   />
