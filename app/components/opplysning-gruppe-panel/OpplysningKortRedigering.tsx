@@ -17,7 +17,7 @@ import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import {
-  hentValideringForOpplysningSkjema,
+  hentValideringForOpplysningPeriodeSkjema,
   hentValideringForSlettOpplysningSkjema,
 } from "~/utils/validering.util";
 
@@ -51,7 +51,7 @@ export function OpplysningKortRedigering({
   const opplysningForm = useForm({
     method: "post",
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
-    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
+    schema: hentValideringForOpplysningPeriodeSkjema(opplysning.datatype),
     defaultValues: {
       opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,

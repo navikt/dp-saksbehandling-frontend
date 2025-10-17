@@ -48,3 +48,30 @@ export function formaterOpplysningVerdiV2(
       return `${opplysningsverdi.verdi} barn`;
   }
 }
+
+export function konverterOpplysningVerdiTilSkjemaVerdi(
+  verdi: components["schemas"]["Opplysningsverdi"],
+): string {
+  switch (verdi.datatype) {
+    case "tekst":
+      return verdi.verdi;
+    case "inntekt":
+      return verdi.verdi;
+    case "dato":
+      return formaterTilNorskDato(verdi.verdi);
+    case "heltall":
+      return verdi.verdi.toString();
+    case "desimaltall":
+      return verdi.verdi.toString();
+    case "penger":
+      return verdi.verdi.toString();
+    case "ulid":
+      return verdi.verdi;
+    case "boolsk":
+      return verdi.verdi ? "Ja" : "Nei";
+    case "periode":
+      return `${verdi.fom} - ${verdi.tom}`;
+    case "barn":
+      return JSON.stringify(verdi.verdi);
+  }
+}

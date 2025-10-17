@@ -5,7 +5,8 @@ import { useParams } from "react-router";
 
 import { OpplysningPeriodeInput } from "~/components/v2/opplysning-periode-input/OpplysningPeriodeInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
+import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
+import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../../openapi/behandling-typer";
 
@@ -22,7 +23,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
   const periodeForm = useForm({
     method: "post",
     submitSource: "state",
-    schema: hentValideringForOpplysningSkjema(props.periode.verdi.datatype),
+    schema: hentValideringForOpplysningPeriodeSkjema(props.periode.verdi.datatype),
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.opplysning.opplysningTypeId,
@@ -38,8 +39,6 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
         : undefined,
     },
   });
-
-  console.log(periodeForm.formState);
 
   const forrigePeriodeTilOgMedDato =
     props.opplysning.perioder[props.periodeIndex - 1]?.gyldigTilOgMed;
@@ -139,31 +138,4 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
     </Table.Row>
   );
-}
-
-function konverterOpplysningVerdiTilSkjemaVerdi(
-  verdi: components["schemas"]["Opplysningsverdi"],
-): string {
-  switch (verdi.datatype) {
-    case "tekst":
-      return verdi.verdi;
-    case "inntekt":
-      return verdi.verdi;
-    case "dato":
-      return verdi.verdi;
-    case "heltall":
-      return verdi.verdi.toString();
-    case "desimaltall":
-      return verdi.verdi.toString();
-    case "penger":
-      return verdi.verdi.toString();
-    case "ulid":
-      return verdi.verdi;
-    case "boolsk":
-      return verdi.verdi ? "Ja" : "Nei";
-    case "periode":
-      return `${verdi.fom} - ${verdi.tom}`;
-    case "barn":
-      return JSON.stringify(verdi.verdi);
-  }
 }

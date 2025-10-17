@@ -1,9 +1,10 @@
 import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
-import { BodyShort, DatePicker, Heading, Timeline, useDatepicker } from "@navikt/ds-react";
+import { BodyShort, Heading, Timeline } from "@navikt/ds-react";
 import { add } from "date-fns";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
+import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../openapi/behandling-typer";
@@ -45,25 +46,21 @@ export function RettPåDagpenger({ behandling }: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState([], undefined, sisteRettighetPeriodeDato);
 
-  const { datepickerProps, inputProps, selectedDay } = useDatepicker({
-    onDateChange: console.info,
-  });
-
-  const prøvingsdatoVerdi = behandling.opplysninger.find(
+  const prøvingsdatoOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
-  )?.perioder[0].verdi;
-  const prøvingsdato =
-    prøvingsdatoVerdi && prøvingsdatoVerdi.datatype === "dato"
-      ? prøvingsdatoVerdi.verdi
-      : undefined;
+  );
+  const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder[0];
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
       <Heading size={"medium"}>Har bruker rett på dagpenger?</Heading>
 
-      <DatePicker {...datepickerProps}>
-        <DatePicker.Input {...inputProps} label="Vurder retten fra" size={"small"} />
-      </DatePicker>
+      {prøvingsdatoOpplysningPeriode && (
+        <PrøvingsdatoInput
+          behandlingId={behandling.behandlingId}
+          prøvingsdatoOpplysning={prøvingsdatoOpplysning}
+        />
+      )}
 
       <TidslinjeNavigering
         tidslinjeStartSlutt={tidslinjeStartSlutt}
@@ -77,12 +74,6 @@ export function RettPåDagpenger({ behandling }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
-        {selectedDay && (
-          <Timeline.Pin date={selectedDay}>
-            <BodyShort weight={"semibold"}>Innvilgelsesdato</BodyShort>
-          </Timeline.Pin>
-        )}
-
         <Timeline.Row label={"Rett til dagpenger"}>
           {behandling.rettighetsperioder.map((periode, index) => (
             <Timeline.Period
@@ -107,7 +98,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
               label={label}
               opplysninger={behandling.opplysninger}
               opplysningTypeId={id}
-              prøvingsdato={prøvingsdato}
+              prøvingsdato={prøvingsdatoOpplysningPeriode.verdi.verdi}
             />
           ))}
           <div className="flex flex-col gap-1">
