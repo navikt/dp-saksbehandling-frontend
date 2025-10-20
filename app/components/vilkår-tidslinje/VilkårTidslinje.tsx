@@ -25,6 +25,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 
@@ -96,14 +97,13 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
         className={"aksel--compact"}
       >
         {prøvingsdato?.perioder.map((periode) => {
-          if (periode.verdi.datatype === "dato") {
+          if (isDatoVerdi(periode.verdi)) {
             return (
               <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
-                <BodyShort weight={"semibold"}>Prøvingsdato</BodyShort>
-                <BodyShort>
-                  {periode.gyldigFraOgMed ? periode.gyldigFraOgMed : "--"} –{" "}
-                  {periode.gyldigTilOgMed ? periode.gyldigTilOgMed : "--"}
+                <BodyShort size={"small"} weight={"semibold"}>
+                  Prøvingsdato
                 </BodyShort>
+                <BodyShort size={"small"}>{formaterTilNorskDato(periode.verdi.verdi)}</BodyShort>
               </Timeline.Pin>
             );
           }

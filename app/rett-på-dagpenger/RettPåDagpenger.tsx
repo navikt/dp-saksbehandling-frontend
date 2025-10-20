@@ -1,11 +1,12 @@
 import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
-import { BodyShort, Heading, Timeline } from "@navikt/ds-react";
+import { Alert, BodyShort, Heading, Timeline } from "@navikt/ds-react";
 import { add } from "date-fns";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
 import { OpplysningVerdiForPeriode } from "./OpplysningVerdiForPeriode";
@@ -51,16 +52,20 @@ export function RettPåDagpenger({ behandling }: IProps) {
   );
   const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder[0];
 
+  if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
+    return <Alert variant={"error"}>Finner ikke prøvingsdato opplysning</Alert>;
+  }
+
+  const prøvingsdato = new Date(prøvingsdatoOpplysningPeriode.verdi.verdi);
+
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
       <Heading size={"medium"}>Har bruker rett på dagpenger?</Heading>
 
-      {prøvingsdatoOpplysningPeriode && (
-        <PrøvingsdatoInput
-          behandlingId={behandling.behandlingId}
-          prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-        />
-      )}
+      <PrøvingsdatoInput
+        behandlingId={behandling.behandlingId}
+        prøvingsdatoOpplysning={prøvingsdatoOpplysning}
+      />
 
       <TidslinjeNavigering
         tidslinjeStartSlutt={tidslinjeStartSlutt}
@@ -74,6 +79,13 @@ export function RettPåDagpenger({ behandling }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
+        <Timeline.Pin date={prøvingsdato}>
+          <BodyShort size={"small"} weight={"semibold"}>
+            Prøvingsdato
+          </BodyShort>
+          <BodyShort size={"small"}>{formaterTilNorskDato(prøvingsdato)}</BodyShort>
+        </Timeline.Pin>
+
         <Timeline.Row label={"Rett til dagpenger"}>
           {behandling.rettighetsperioder.map((periode, index) => (
             <Timeline.Period
@@ -92,15 +104,18 @@ export function RettPåDagpenger({ behandling }: IProps) {
       <div className={"card card-sunken p-4"}>
         <Heading size={"small"}>Generelt</Heading>
         <section className="grid grid-cols-4 gap-2">
-          {generelleOpplysninger.map(({ id, label }) => (
-            <OpplysningVerdiPåPrøvingstidspunkt
-              key={id}
-              label={label}
-              opplysninger={behandling.opplysninger}
-              opplysningTypeId={id}
-              prøvingsdato={prøvingsdatoOpplysningPeriode.verdi.verdi}
-            />
-          ))}
+          {generelleOpplysninger.map(({ id, label }) => {
+            return (
+              <OpplysningVerdiPåPrøvingstidspunkt
+                key={id}
+                label={label}
+                opplysninger={behandling.opplysninger}
+                opplysningTypeId={id}
+                prøvingsdato={formaterTilNorskDato(prøvingsdato)}
+              />
+            );
+          })}
+
           <div className="flex flex-col gap-1">
             <BodyShort size={"small"} weight={"semibold"}>
               Rettighetsperioder

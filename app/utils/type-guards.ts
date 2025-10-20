@@ -252,8 +252,56 @@ export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
   return typeof extensions.classification === "string";
 }
 
+export function isDatoVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["DatoVerdi"] {
+  return verdi.datatype === "dato";
+}
+
 export function isTekstVerdi(
   verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
 ): verdi is behandlingComponents["schemas"]["TekstVerdi"] {
-  return verdi.datatype === "inntekt" || verdi.datatype === "tekst";
+  return verdi.datatype === "tekst" || verdi.datatype === "inntekt";
+}
+
+export function isHeltallVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["HeltallVerdi"] {
+  return verdi.datatype === "heltall";
+}
+
+export function isDesimaltallVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["DesimaltallVerdi"] {
+  return verdi.datatype === "desimaltall";
+}
+
+export function isPengeVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["PengeVerdi"] {
+  return verdi.datatype === "penger";
+}
+
+export function isUlidVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["UlidVerdi"] {
+  return verdi.datatype === "ulid";
+}
+
+export function isBoolskVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["BoolskVerdi"] {
+  return verdi.datatype === "boolsk";
+}
+
+export function isPeriodeVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["PeriodeVerdi"] {
+  return verdi.datatype === "periode";
+}
+
+export function isBarneliste(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["Barneliste"] {
+  return verdi.datatype === "barn";
 }

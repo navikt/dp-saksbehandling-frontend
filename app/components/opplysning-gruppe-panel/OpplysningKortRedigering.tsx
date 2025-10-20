@@ -53,6 +53,7 @@ export function OpplysningKortRedigering({
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
     schema: hentValideringForOpplysningPeriodeSkjema(opplysning.datatype),
     defaultValues: {
+      _action: "lagre-opplysning",
       opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
@@ -60,8 +61,8 @@ export function OpplysningKortRedigering({
       begrunnelse: erPrøvingsdatoOpplysning
         ? "Prøvingsdato"
         : (opplysning.kilde?.begrunnelse?.verdi ?? ""),
-      gyldigFraOgMed: opplysning.gyldigFraOgMed,
-      gyldigTilOgMed: opplysning.gyldigTilOgMed,
+      gyldigFraOgMed: opplysning.gyldigFraOgMed ?? undefined,
+      gyldigTilOgMed: opplysning.gyldigTilOgMed ?? undefined,
       ingenTomDato: ingenTomDato.toString(),
       ingenFomDato: ingenFomDato.toString(),
     },

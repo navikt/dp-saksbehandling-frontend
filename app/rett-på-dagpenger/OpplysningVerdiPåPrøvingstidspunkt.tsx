@@ -8,13 +8,14 @@ export function OpplysningVerdiPåPrøvingstidspunkt(props: {
   label: string;
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
   opplysningTypeId: string;
-  prøvingsdato?: string;
+  prøvingsdato: string;
 }) {
   const verdier = hentVerdierForOpplysning(
     props.opplysninger,
     props.opplysningTypeId,
     props.prøvingsdato,
   );
+
   if (!verdier) {
     return;
   }
@@ -51,16 +52,12 @@ function erPrøvingsdatoInnenforPeriode(
 function hentVerdierForOpplysning(
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
   opplysningTypeId: string,
-  prøvingsdato?: string,
+  prøvingsdato: string,
 ): components["schemas"]["Opplysningsverdi"][] | undefined {
   return opplysninger
     .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
     ?.perioder.filter((periode) =>
-      erPrøvingsdatoInnenforPeriode(
-        prøvingsdato ?? "",
-        periode.gyldigFraOgMed,
-        periode.gyldigTilOgMed,
-      ),
+      erPrøvingsdatoInnenforPeriode(prøvingsdato, periode.gyldigFraOgMed, periode.gyldigTilOgMed),
     )
     .map((periode) => periode.verdi);
 }

@@ -17,15 +17,25 @@ export function hentValideringForOpplysningPeriodeSkjema(
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
+    // TODO Kan slettes når gammel opplysningredigering fjernes
+    ingenTomDato: z
+      .string()
+      .transform((val) => val === "true")
+      .optional(),
+    // TODO Kan slettes når gammel opplysningredigering fjernes
+    ingenFomDato: z
+      .string()
+      .transform((val) => val === "true")
+      .optional(),
   });
 }
 

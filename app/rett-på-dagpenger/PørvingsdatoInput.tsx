@@ -4,6 +4,7 @@ import { Form } from "react-router";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
+import { isDatoVerdi } from "~/utils/type-guards";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/behandling-typer";
@@ -16,20 +17,20 @@ interface IProps {
 export function PrøvingsdatoInput(props: IProps) {
   const prøvingsdatoOpplysningPeriode = props.prøvingsdatoOpplysning.perioder[0];
 
-  if (!prøvingsdatoOpplysningPeriode) {
+  if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
     return null;
   }
 
   const prøvingsdatoSkjema = useForm({
     method: "post",
     submitSource: "state",
-    schema: hentValideringForOpplysningPeriodeSkjema(prøvingsdatoOpplysningPeriode?.verdi.datatype),
+    schema: hentValideringForOpplysningPeriodeSkjema(prøvingsdatoOpplysningPeriode.verdi.datatype),
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.prøvingsdatoOpplysning.opplysningTypeId,
-      datatype: prøvingsdatoOpplysningPeriode?.verdi.datatype,
+      datatype: prøvingsdatoOpplysningPeriode.verdi.datatype,
       behandlingId: props.behandlingId,
-      verdi: konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode?.verdi),
+      verdi: konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode.verdi),
       begrunnelse: "Prøvingsdato",
       gyldigFraOgMed: undefined,
       gyldigTilOgMed: undefined,
