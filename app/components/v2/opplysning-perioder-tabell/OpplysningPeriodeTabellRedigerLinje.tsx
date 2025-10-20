@@ -56,7 +56,20 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       : undefined,
     toDate: nestePeriodeFraOgMedDato ? new Date(nestePeriodeFraOgMedDato) : undefined,
     onDateChange: (dato) => {
+      periodeForm.field("gyldigFraOgMed").clearError();
       periodeForm.field("gyldigFraOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
+    // Siden aksel bare trigger onDateChange ved gyldige datoer, må vi håndtere ugyldige datoer her
+    onValidate: (validation) => {
+      if (validation.isInvalid) {
+        periodeForm
+          .field("gyldigFraOgMed")
+          .setValue("Ugyldig dato som trigger feil ved submit :sad-panda:");
+      }
+
+      if (validation.isEmpty) {
+        periodeForm.field("gyldigFraOgMed").setValue(undefined);
+      }
     },
   });
 
@@ -71,7 +84,21 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       : undefined,
 
     onDateChange: (dato) => {
+      periodeForm.field("gyldigFraOgMed").clearError();
       periodeForm.field("gyldigTilOgMed").setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
+
+    // Siden aksel bare trigger onDateChange ved gyldige datoer, må vi håndtere ugyldige datoer her
+    onValidate: (validation) => {
+      if (validation.isInvalid) {
+        periodeForm
+          .field("gyldigTilOgMed")
+          .setValue("Ugyldig dato som trigger feil ved submit :sad-panda:");
+      }
+
+      if (validation.isEmpty) {
+        periodeForm.field("gyldigTilOgMed").setValue(undefined);
+      }
     },
   });
 
@@ -81,12 +108,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
         <DatePicker {...datepickerFraOgMed.datepickerProps}>
           <DatePicker.Input
             {...datepickerFraOgMed.inputProps}
-            size={"small"}
-            label="Fra og med"
-            hideLabel={true}
             form={periodeForm.field("gyldigFraOgMed").getInputProps().form}
             name={periodeForm.field("gyldigFraOgMed").getInputProps().name}
             error={periodeForm.field("gyldigFraOgMed").error()}
+            size={"small"}
+            label="Fra og med"
+            hideLabel={true}
           />
         </DatePicker>
       </Table.DataCell>
@@ -95,12 +122,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
         <DatePicker {...datepickerTilOgMed.datepickerProps}>
           <DatePicker.Input
             {...datepickerTilOgMed.inputProps}
-            size={"small"}
-            label="Til og med"
-            hideLabel={true}
             form={periodeForm.field("gyldigTilOgMed").getInputProps().form}
             name={periodeForm.field("gyldigTilOgMed").getInputProps().name}
             error={periodeForm.field("gyldigTilOgMed").error()}
+            size={"small"}
+            label="Til og med"
+            hideLabel={true}
           />
         </DatePicker>
       </Table.DataCell>

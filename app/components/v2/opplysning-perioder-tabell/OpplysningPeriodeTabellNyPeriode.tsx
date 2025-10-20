@@ -34,8 +34,9 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       begrunnelse: "",
       gyldigFraOgMed: sisteOpplysningPeriodeTilOgMedDato
         ? formaterTilNorskDato(add(new Date(sisteOpplysningPeriodeTilOgMedDato), { days: 1 }))
-        : formaterTilNorskDato(new Date()),
-      gyldigTilOgMed: "",
+        : undefined,
+      // Håpløs casting for å gjøre typescript fornøyd. defaultValues scoper ned typen fra "string | undefined" fra  hentValideringForNyOpplysningPeriodeSkjema() til kun "undefined"
+      gyldigTilOgMed: undefined as string | undefined,
     },
   });
 
@@ -47,35 +48,59 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       ? add(new Date(sisteOpplysningPeriodeTilOgMedDato), { days: 1 })
       : undefined,
     onDateChange: (dato) => {
+      nyOpplysningPeriodeForm.field("gyldigFraOgMed").clearError();
       nyOpplysningPeriodeForm
         .field("gyldigFraOgMed")
-        .setValue(dato ? formaterTilNorskDato(dato) : "");
+        .setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
+    // Siden aksel bare trigger onDateChange ved gyldige datoer, må vi håndtere ugyldige datoer her
+    onValidate: (validation) => {
+      if (validation.isInvalid) {
+        nyOpplysningPeriodeForm
+          .field("gyldigFraOgMed")
+          .setValue("Ugyldig dato som trigger feil ved submit :sad-panda:");
+      }
+
+      if (validation.isEmpty) {
+        nyOpplysningPeriodeForm.field("gyldigFraOgMed").setValue(undefined);
+      }
     },
   });
 
   const datepickerTilOgMed = useDatepicker({
     fromDate: datepickerFraOgMed.selectedDay,
-
     onDateChange: (dato) => {
+      nyOpplysningPeriodeForm.field("gyldigFraOgMed").clearError();
       nyOpplysningPeriodeForm
         .field("gyldigTilOgMed")
-        .setValue(dato ? formaterTilNorskDato(dato) : "");
+        .setValue(dato ? formaterTilNorskDato(dato) : undefined);
+    },
+    // Siden aksel bare trigger onDateChange ved gyldige datoer, må vi håndtere ugyldige datoer her
+    onValidate: (validation) => {
+      if (validation.isInvalid) {
+        nyOpplysningPeriodeForm
+          .field("gyldigTilOgMed")
+          .setValue("Ugyldig dato som trigger feil ved submit :sad-panda:");
+      }
+
+      if (validation.isEmpty) {
+        nyOpplysningPeriodeForm.field("gyldigTilOgMed").setValue(undefined);
+      }
     },
   });
 
   return (
     <Table.Row>
       <Table.DataCell>
-        {/*<input {...nyOpplysningPeriodeForm.field("_action").getInputProps()} type="hidden" />*/}
         <DatePicker {...datepickerFraOgMed.datepickerProps}>
           <DatePicker.Input
             {...datepickerFraOgMed.inputProps}
-            size={"small"}
-            label="Fra og med"
-            hideLabel={true}
             form={nyOpplysningPeriodeForm.field("gyldigFraOgMed").getInputProps().form}
             name={nyOpplysningPeriodeForm.field("gyldigFraOgMed").getInputProps().name}
             error={nyOpplysningPeriodeForm.field("gyldigFraOgMed").error()}
+            size={"small"}
+            label="Fra og med"
+            hideLabel={true}
           />
         </DatePicker>
       </Table.DataCell>
@@ -84,12 +109,12 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
         <DatePicker {...datepickerTilOgMed.datepickerProps}>
           <DatePicker.Input
             {...datepickerTilOgMed.inputProps}
-            size={"small"}
-            label="Til og med"
-            hideLabel={true}
             form={nyOpplysningPeriodeForm.field("gyldigTilOgMed").getInputProps().form}
             name={nyOpplysningPeriodeForm.field("gyldigTilOgMed").getInputProps().name}
             error={nyOpplysningPeriodeForm.field("gyldigTilOgMed").error()}
+            size={"small"}
+            label="Til og med"
+            hideLabel={true}
           />
         </DatePicker>
       </Table.DataCell>

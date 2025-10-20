@@ -17,21 +17,15 @@ export function hentValideringForOpplysningPeriodeSkjema(
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
-    ingenTomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
-    ingenFomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
   });
 }
 
@@ -46,11 +40,13 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
-      (val) => (val === "" ? undefined : val),
-      hentValideringForNorskDato(),
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
-      (val) => (val === "" ? undefined : val),
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
   });
@@ -288,20 +284,21 @@ export function hentValideringForAvklaringSkjema() {
 }
 
 function hentValideringForNorskDato() {
-  return z.string().min(1, "Du må velge en dato");
-  // .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
-  // .refine(
-  //   (dateString) => {
-  //     const [day, month, year] = dateString.split(".").map(Number);
-  //     const date = new Date(year, month - 1, day);
-  //
-  //     // Sjekk at dato er gyldig og matcher input.
-  //     return (
-  //       date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
-  //     );
-  //   },
-  //   {
-  //     message: "Ugyldig dato",
-  //   },
-  // )
+  return z
+    .string("Du må velge en dato")
+    .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
+    .refine(
+      (dateString) => {
+        const [day, month, year] = dateString.split(".").map(Number);
+        const date = new Date(year, month - 1, day);
+
+        // Sjekk at dato er gyldig og matcher input.
+        return (
+          date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+        );
+      },
+      {
+        message: "Ugyldig dato",
+      },
+    );
 }
