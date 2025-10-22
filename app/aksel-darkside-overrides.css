@@ -18,9 +18,14 @@
 }
 
 .aksel-timeline__row-label a:hover,
-.aksel-timeline__row-label button:hover {
+.aksel-timeline__row-label button[data-color="neutral"]:hover {
   overflow: visible;
   background-color: var(--ax-bg-default);
+  z-index: 3;
+}
+
+.aksel-timeline__row-label button:hover {
+  overflow: visible;
   z-index: 3;
 }
 
