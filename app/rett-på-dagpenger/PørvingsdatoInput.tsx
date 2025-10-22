@@ -56,8 +56,9 @@ export function PrøvingsdatoInput(props: IProps) {
       <DatePicker {...datepickerProps}>
         <DatePicker.Input
           {...inputProps}
-          {...prøvingsdatoSkjema.getInputProps("verdi")}
-          error={prøvingsdatoSkjema.error("verdi")}
+          form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
+          name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
+          error={prøvingsdatoSkjema.field("verdi").error()}
           label="Vurder retten fra"
           size={"small"}
         />

@@ -35,6 +35,7 @@ export function OpplysningerTidslinje(props: IProps) {
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
+  const dagensDato = new Date();
 
   return (
     <>
@@ -76,11 +77,11 @@ export function OpplysningerTidslinje(props: IProps) {
             {opplysning.perioder.map((periode, index) => {
               const start = periode.gyldigFraOgMed
                 ? new Date(periode.gyldigFraOgMed)
-                : sub(new Date(), { years: 1 });
+                : sub(dagensDato, { years: 1 });
 
               const slutt = periode.gyldigTilOgMed
                 ? new Date(periode.gyldigTilOgMed)
-                : add(new Date(), { years: 1 });
+                : add(dagensDato, { years: 1 });
 
               return (
                 <Timeline.Period
