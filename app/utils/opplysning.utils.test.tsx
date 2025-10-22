@@ -1,7 +1,10 @@
 import { components } from "openapi/behandling-typer";
 import { expect, test } from "vitest";
 
-import { erOpplysningsperiodeInnenforRettighetsperiode } from "./opplysning.utils";
+import {
+  erOpplysningsperiodeInnenforRettighetsperiode,
+  erPrøvingsdatoInnenforPeriode,
+} from "./opplysning.utils";
 
 const testcases = [
   {
@@ -49,6 +52,14 @@ const testcases = [
   },
 ];
 
+const prøvingsdatoTestcases = [
+  {
+    tittel: "Prøvingsdato innenfor rettighetsperiode",
+    opplysningsperiode: opplysningsperiode("2000-01-01", "2000-12-31"),
+    prøvingsdato: "2000-01-01",
+  },
+];
+
 function rettighetsperiode(fom: string, tom?: string): components["schemas"]["Rettighetsperiode"] {
   return {
     fraOgMed: fom,
@@ -81,5 +92,16 @@ testcases.forEach(({ tittel, rettighetsperiode, opplysningsperiode, forventet })
       opplysningsperiode,
     );
     expect(resultat).toBe(forventet);
+  });
+});
+
+prøvingsdatoTestcases.forEach(({ tittel, opplysningsperiode, prøvingsdato }) => {
+  test(tittel, () => {
+    const resultat = erPrøvingsdatoInnenforPeriode(
+      prøvingsdato,
+      opplysningsperiode.gyldigFraOgMed,
+      opplysningsperiode.gyldigTilOgMed,
+    );
+    expect(resultat).toBe(true);
   });
 });

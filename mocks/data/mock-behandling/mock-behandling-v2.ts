@@ -3809,8 +3809,29 @@ export const mockBehandlingPeriodisertV2: components["schemas"]["Behandlingsresu
           status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-12",
+          gyldigTilOgMed: "2025-09-30",
           verdi: {
             verdi: 577523,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HøyesteAv",
+            },
+            opplysninger: [
+              "01993cbf-056d-79df-899a-4e8aa2fd3210",
+              "01993cbf-0570-79ba-82fc-bb6eabebf143",
+            ],
+          },
+        },
+        {
+          id: "01993cbf-0571-7a56-a7b3-cfcc1527b49f",
+          opprettet: "2025-09-12T09:06:15.793351",
+          status: "Arvet",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-10-01",
+          verdi: {
+            verdi: 700000,
             datatype: "penger",
           },
           utledetAv: {

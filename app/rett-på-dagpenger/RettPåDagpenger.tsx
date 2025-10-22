@@ -8,7 +8,7 @@ import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import {
   formaterOpplysningVerdiV2,
-  hentOpplysningsperioderForPrøvingsdato,
+  hentOpplysningsperiodePåPrøvingsdato,
   hentPerioderForOpplysning,
 } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
@@ -111,22 +111,21 @@ export function RettPåDagpenger({ behandling }: IProps) {
         <Heading size={"small"}>Generelt</Heading>
         <section className="grid grid-cols-4 gap-2">
           {generelleOpplysninger.map(({ id, label }) => {
-            const perioder = hentOpplysningsperioderForPrøvingsdato(
+            const periode = hentOpplysningsperiodePåPrøvingsdato(
               behandling.opplysninger,
               id,
-              formaterTilNorskDato(prøvingsdato),
+              prøvingsdato.toISOString(),
             );
 
-            if (perioder.length === 0) {
+            if (!periode) {
               return;
             }
+
             return (
               <Opplysningsverdi
                 key={id}
                 label={label}
-                verdi={perioder
-                  ?.map((periode) => formaterOpplysningVerdiV2(periode.verdi))
-                  .join(", ")}
+                verdi={formaterOpplysningVerdiV2(periode.verdi)}
               />
             );
           })}

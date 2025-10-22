@@ -2,6 +2,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 
 import { components } from "../../openapi/behandling-typer";
+import { logger } from "./logger.utils";
 
 export function formaterOpplysningVerdi(opplysning: components["schemas"]["Opplysning"]): string {
   switch (opplysning.datatype) {
@@ -175,7 +176,7 @@ export function hentPerioderForOpplysning(
   );
 }
 
-function erPrøvingsdatoInnenforPeriode(
+export function erPrøvingsdatoInnenforPeriode(
   prøvingsdato: string,
   fraOgMed?: string | null,
   tilOgMed?: string | null,
@@ -192,16 +193,20 @@ function erPrøvingsdatoInnenforPeriode(
   return true;
 }
 
-export function hentOpplysningsperioderForPrøvingsdato(
+export function hentOpplysningsperiodePåPrøvingsdato(
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
   opplysningTypeId: string,
   prøvingsdato: string,
-): components["schemas"]["Opplysningsperiode"][] {
-  return (
-    opplysninger
-      .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
-      ?.perioder.filter((periode) =>
-        erPrøvingsdatoInnenforPeriode(prøvingsdato, periode.gyldigFraOgMed, periode.gyldigTilOgMed),
-      ) || []
-  );
+): components["schemas"]["Opplysningsperiode"] | undefined {
+  const perioder = opplysninger
+    .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
+    ?.perioder.filter((periode) =>
+      erPrøvingsdatoInnenforPeriode(prøvingsdato, periode.gyldigFraOgMed, periode.gyldigTilOgMed),
+    );
+  if (perioder && perioder.length > 1) {
+    logger.warn(
+      `hentOpplysningsperiodePåPrøvingsdato: Flere opplysningsperioder funnet på prøvingsdato for opplysningTypeId: ${opplysningTypeId}`,
+    );
+  }
+  return perioder && perioder.length > 0 ? perioder[0] : undefined;
 }
