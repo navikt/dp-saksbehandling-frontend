@@ -1,4 +1,4 @@
-import { DatePicker, useDatepicker } from "@navikt/ds-react";
+import { DatePicker, Loader, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { Form } from "react-router";
 
@@ -51,10 +51,8 @@ export function PrøvingsdatoInput(props: IProps) {
     },
   });
 
-  console.log(prøvingsdatoSkjema);
-
   return (
-    <Form {...prøvingsdatoSkjema.getFormProps()}>
+    <Form {...prøvingsdatoSkjema.getFormProps()} className={"flex gap-2"}>
       <DatePicker {...datepickerProps}>
         <DatePicker.Input
           {...inputProps}
@@ -64,6 +62,9 @@ export function PrøvingsdatoInput(props: IProps) {
           size={"small"}
         />
       </DatePicker>
+      {prøvingsdatoSkjema.formState.isSubmitting && (
+        <Loader size={"small"} className={"mb-1.5 self-end"} />
+      )}
     </Form>
   );
 }
