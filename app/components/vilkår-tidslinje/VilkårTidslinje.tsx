@@ -159,7 +159,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
           );
 
           if (!hovedOpplysning) {
-            logger.error(
+            logger.warn(
               `Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`,
             );
 
