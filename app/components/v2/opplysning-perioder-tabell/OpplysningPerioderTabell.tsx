@@ -1,20 +1,31 @@
 import { PencilIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Table } from "@navikt/ds-react";
+import { useForm } from "@rvf/react-router";
 import { components } from "openapi/behandling-typer";
 import { useState } from "react";
+import { Form, useParams } from "react-router";
 
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { hentValideringForSlettOpplysningSkjema } from "~/utils/validering.util";
 
 interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
 }
 
 export function OpplysningPerioderTabell(props: IProps) {
+  const { behandlingId, opplysningId } = useParams();
   const [periodeUnderRedigering, setPeriodeUnderRedigering] =
     useState<components["schemas"]["Opplysningsperiode"]>();
+
+  const slettOpplysningForm = useForm({
+    method: "post",
+    submitSource: "state",
+    schema: hentValideringForSlettOpplysningSkjema(),
+    defaultValues: { _action: "slett-opplysning", behandlingId, opplysningId },
+  });
 
   const nyPeriode: components["schemas"]["Opplysningsperiode"] = {
     id: "NY-PERIODE",
@@ -69,7 +80,14 @@ export function OpplysningPerioderTabell(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <Button size={"xsmall"} variant={"tertiary"} icon={<TrashIcon />} />
+                  <Form {...slettOpplysningForm.getFormProps()}>
+                    <Button
+                      size={"xsmall"}
+                      variant={"tertiary"}
+                      icon={<TrashIcon />}
+                      loading={slettOpplysningForm.formState.isSubmitting}
+                    />
+                  </Form>
                 </Table.DataCell>
 
                 <Table.DataCell>

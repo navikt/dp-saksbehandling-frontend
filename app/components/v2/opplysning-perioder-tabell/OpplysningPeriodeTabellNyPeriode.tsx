@@ -150,6 +150,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
           size={"xsmall"}
           variant={"primary"}
           onClick={() => nyOpplysningPeriodeForm.submit()}
+          loading={nyOpplysningPeriodeForm.formState.isSubmitting}
         >
           Lagre
         </Button>

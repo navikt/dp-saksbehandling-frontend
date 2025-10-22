@@ -159,7 +159,12 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <Button size={"xsmall"} variant={"primary"} onClick={() => periodeForm.submit()}>
+        <Button
+          size={"xsmall"}
+          variant={"primary"}
+          onClick={() => periodeForm.submit()}
+          loading={periodeForm.formState.isSubmitting}
+        >
           Lagre
         </Button>
       </Table.DataCell>

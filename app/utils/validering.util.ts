@@ -64,6 +64,7 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
 
 export function hentValideringForSlettOpplysningSkjema() {
   return z.object({
+    _action: z.literal("slett-opplysning"),
     opplysningId: z.string().min(1, "Det mangler opplysningId i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
   });
