@@ -141,71 +141,67 @@ export function OpplysningKortRedigering({
 
         <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
-        {!erPrøvingsdatoOpplysning && (
-          <>
-            <div className={"mt-4 flex gap-8"}>
-              <div>
-                <DatePicker {...datepickerFraOgMed.datepickerProps}>
-                  <DatePicker.Input
-                    {...datepickerFraOgMed.inputProps}
-                    size={"small"}
-                    label="Fra og med"
-                    form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
-                    name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
-                    error={opplysningForm.field("gyldigFraOgMed").error()}
-                    disabled={ingenFomDato}
-                  />
-                </DatePicker>
+        <div className={"mt-4 flex gap-8"}>
+          <div>
+            <DatePicker {...datepickerFraOgMed.datepickerProps}>
+              <DatePicker.Input
+                {...datepickerFraOgMed.inputProps}
+                size={"small"}
+                label="Fra og med"
+                form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
+                name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
+                error={opplysningForm.field("gyldigFraOgMed").error()}
+                disabled={ingenFomDato}
+              />
+            </DatePicker>
 
-                {!forrigePeriode && (
-                  <Checkbox
-                    size={"small"}
-                    className={"mt-1"}
-                    name={"ingenFomDato"}
-                    value={ingenFomDato}
-                    onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
-                  >
-                    Ingen start
-                  </Checkbox>
-                )}
-              </div>
+            {!forrigePeriode && (
+              <Checkbox
+                size={"small"}
+                className={"mt-1"}
+                name={"ingenFomDato"}
+                value={ingenFomDato}
+                onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
+              >
+                Ingen start
+              </Checkbox>
+            )}
+          </div>
 
-              <div>
-                <DatePicker {...datepickerTilOgMed.datepickerProps}>
-                  <DatePicker.Input
-                    {...datepickerTilOgMed.inputProps}
-                    size={"small"}
-                    label={"Til og med"}
-                    form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
-                    name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
-                    error={opplysningForm.field("gyldigTilOgMed").error()}
-                    disabled={ingenTomDato}
-                  />
-                </DatePicker>
+          <div>
+            <DatePicker {...datepickerTilOgMed.datepickerProps}>
+              <DatePicker.Input
+                {...datepickerTilOgMed.inputProps}
+                size={"small"}
+                label={"Til og med"}
+                form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
+                name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
+                error={opplysningForm.field("gyldigTilOgMed").error()}
+                disabled={ingenTomDato}
+              />
+            </DatePicker>
 
-                {!nestePeriode && (
-                  <Checkbox
-                    size={"small"}
-                    className={"mt-1"}
-                    name={"ingenTomDato"}
-                    value={ingenTomDato}
-                    onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
-                  >
-                    Ingen slutt
-                  </Checkbox>
-                )}
-              </div>
-            </div>
+            {!nestePeriode && (
+              <Checkbox
+                size={"small"}
+                className={"mt-1"}
+                name={"ingenTomDato"}
+                value={ingenTomDato}
+                onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
+              >
+                Ingen slutt
+              </Checkbox>
+            )}
+          </div>
+        </div>
 
-            <Textarea
-              {...opplysningForm.field("begrunnelse").getInputProps()}
-              error={opplysningForm.field("begrunnelse").error()}
-              size={"small"}
-              className={"mt-2"}
-              label={"Begrunnelse"}
-            />
-          </>
-        )}
+        <Textarea
+          {...opplysningForm.field("begrunnelse").getInputProps()}
+          error={opplysningForm.field("begrunnelse").error()}
+          size={"small"}
+          className={"mt-2"}
+          label={"Begrunnelse"}
+        />
       </Form>
 
       <div className={"mt-4 flex gap-2"}>
