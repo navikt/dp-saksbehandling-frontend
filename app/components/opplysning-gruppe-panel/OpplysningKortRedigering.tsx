@@ -72,7 +72,7 @@ export function OpplysningKortRedigering({
     method: "post",
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
     schema: hentValideringForSlettOpplysningSkjema(),
-    defaultValues: { behandlingId, opplysningId: opplysning.id },
+    defaultValues: { _action: "slett-opplysning", behandlingId, opplysningId: opplysning.id },
   });
 
   const tidligsteFraOgMedDato = forrigePeriode?.gyldigTilOgMed
@@ -206,7 +206,11 @@ export function OpplysningKortRedigering({
 
       <div className={"mt-4 flex gap-2"}>
         <Form {...slettOpplysningForm.getFormProps()}>
-          <input hidden={true} readOnly={true} name="_action" value="slett-opplysning" />
+          <input
+            hidden={true}
+            readOnly={true}
+            {...slettOpplysningForm.field("_action").getInputProps()}
+          />
           <input
             hidden={true}
             readOnly={true}
