@@ -6,9 +6,11 @@ import { TidslinjeNavigering } from "~/components/tidslinje-navigering/Tidslinje
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentPerioderForOpplysning } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
+import { OpplysningsVerdierForPerioder } from "./OpplysningsVerdierForPerioder";
 import { OpplysningVerdiForPeriode } from "./OpplysningVerdiForPeriode";
 import { OpplysningVerdiPåPrøvingstidspunkt } from "./OpplysningVerdiPåPrøvingstidspunkt";
 
@@ -32,6 +34,7 @@ const rettighetsperiodeOpplysninger = [
   { id: "0194881f-9434-79e8-a64d-1a23cc5d86eb", label: "Samordnet dagssats uten barnetillegg" },
   { id: "0194881f-9428-74d5-b160-f63a4c61a24d", label: "Samordnet dagssats med barnetillegg" },
   { id: "0194881f-9445-734c-a7ee-045edf29b523", label: "Godkjent unntak for utdanning" },
+  { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
 ];
 
 export function RettPåDagpenger({ behandling }: IProps) {
@@ -155,15 +158,16 @@ export function RettPåDagpenger({ behandling }: IProps) {
               </BodyShort>
             </div>
 
-            {rettighetsperiodeOpplysninger.map(({ id, label }) => (
-              <OpplysningVerdiForPeriode
-                key={id}
-                label={label}
-                opplysninger={behandling.opplysninger}
-                opplysningTypeId={id}
-                rettighetsperiode={periode}
-              />
-            ))}
+            {rettighetsperiodeOpplysninger.map(({ id, label }) => {
+              const perioder = hentPerioderForOpplysning(behandling.opplysninger, id, periode);
+              if (!perioder || perioder.length === 0) {
+                return;
+              }
+              if (perioder.length === 1) {
+                return <OpplysningVerdiForPeriode key={id} label={label} periode={perioder[0]} />;
+              }
+              return <OpplysningsVerdierForPerioder key={id} label={label} perioder={perioder} />;
+            })}
           </section>
         </div>
       ))}

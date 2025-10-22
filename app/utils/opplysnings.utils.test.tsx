@@ -1,7 +1,7 @@
 import { components } from "openapi/behandling-typer";
 import { expect, test } from "vitest";
 
-import { erOpplysningsperiodeInnenforRettighetsperiode } from "./OpplysningVerdiForPeriode";
+import { erOpplysningsperiodeInnenforRettighetsperiode } from "./opplysning.utils";
 
 const testcases = [
   {
