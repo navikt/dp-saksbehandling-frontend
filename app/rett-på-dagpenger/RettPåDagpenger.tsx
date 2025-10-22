@@ -2,7 +2,9 @@ import { CheckmarkCircleFillIcon, XMarkOctagonIcon } from "@navikt/aksel-icons";
 import { Alert, BodyShort, Heading, Timeline } from "@navikt/ds-react";
 import { add } from "date-fns";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
+import { useRequiredParams } from "~/hooks/useRequiredParams";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -41,6 +43,7 @@ const rettighetsperiodeOpplysninger = [
 ];
 
 export function RettPåDagpenger({ behandling }: IProps) {
+  const { behandlingId, oppgaveId } = useRequiredParams();
   const sisteRettighetPeriodeDato = behandling.rettighetsperioder
     .flatMap((periode) => periode.fraOgMed)
     .sort()
@@ -92,7 +95,17 @@ export function RettPåDagpenger({ behandling }: IProps) {
           <BodyShort size={"small"}>{formaterTilNorskDato(prøvingsdato)}</BodyShort>
         </Timeline.Pin>
 
-        <Timeline.Row label={"Rett til dagpenger"}>
+        <Timeline.Row
+          label={"\u00A0"}
+          icon={
+            <LoadingLink
+              to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/Krav på dagpenger/opplysning/01990a09-0eab-7957-b88f-14484a50e194`}
+            >
+              Rett på dagpenger
+            </LoadingLink>
+          }
+        >
+          {/* TODO: Følg datastrukturen ved å bruke "løpende rett på dagpenger"-opplysningen i stedet for rettighetsperioder? */}
           {behandling.rettighetsperioder.map((periode, index) => (
             <Timeline.Period
               key={index}
