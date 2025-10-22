@@ -165,10 +165,43 @@ export function hentPerioderForOpplysning(
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
   opplysningTypeId: string,
   rettighetsperiode: components["schemas"]["Rettighetsperiode"],
-): components["schemas"]["Opplysningsperiode"][] | undefined {
-  return opplysninger
-    .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
-    ?.perioder.filter((periode) =>
-      erOpplysningsperiodeInnenforRettighetsperiode(rettighetsperiode, periode),
-    );
+): components["schemas"]["Opplysningsperiode"][] {
+  return (
+    opplysninger
+      .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
+      ?.perioder.filter((periode) =>
+        erOpplysningsperiodeInnenforRettighetsperiode(rettighetsperiode, periode),
+      ) || []
+  );
+}
+
+function erPrøvingsdatoInnenforPeriode(
+  prøvingsdato: string,
+  fraOgMed?: string | null,
+  tilOgMed?: string | null,
+) {
+  if (fraOgMed && tilOgMed) {
+    return prøvingsdato >= fraOgMed && prøvingsdato <= tilOgMed;
+  }
+  if (fraOgMed && !tilOgMed) {
+    return prøvingsdato >= fraOgMed;
+  }
+  if (!fraOgMed && tilOgMed) {
+    return prøvingsdato <= tilOgMed;
+  }
+  return true;
+}
+
+export function hentOpplysningsperioderForPrøvingsdato(
+  opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
+  opplysningTypeId: string,
+  prøvingsdato: string,
+): components["schemas"]["Opplysningsperiode"][] {
+  return (
+    opplysninger
+      .find((opplysning) => opplysning.opplysningTypeId === opplysningTypeId)
+      ?.perioder.filter((periode) =>
+        erPrøvingsdatoInnenforPeriode(prøvingsdato, periode.gyldigFraOgMed, periode.gyldigTilOgMed),
+      ) || []
+  );
 }

@@ -6,13 +6,16 @@ import { TidslinjeNavigering } from "~/components/tidslinje-navigering/Tidslinje
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentPerioderForOpplysning } from "~/utils/opplysning.utils";
+import {
+  formaterOpplysningVerdiV2,
+  hentOpplysningsperioderForPrøvingsdato,
+  hentPerioderForOpplysning,
+} from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
+import { Opplysningsverdi } from "./Opplysningsverdi";
 import { OpplysningsVerdierForPerioder } from "./OpplysningsVerdierForPerioder";
-import { OpplysningVerdiForPeriode } from "./OpplysningVerdiForPeriode";
-import { OpplysningVerdiPåPrøvingstidspunkt } from "./OpplysningVerdiPåPrøvingstidspunkt";
 
 interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
@@ -104,70 +107,74 @@ export function RettPåDagpenger({ behandling }: IProps) {
         </Timeline.Row>
       </Timeline>
 
-      <div className={"card card-sunken p-4"}>
+      <div className={"card card-sunken flex flex-col gap-4 p-4"}>
         <Heading size={"small"}>Generelt</Heading>
         <section className="grid grid-cols-4 gap-2">
           {generelleOpplysninger.map(({ id, label }) => {
+            const perioder = hentOpplysningsperioderForPrøvingsdato(
+              behandling.opplysninger,
+              id,
+              formaterTilNorskDato(prøvingsdato),
+            );
+
+            if (perioder.length === 0) {
+              return;
+            }
             return (
-              <OpplysningVerdiPåPrøvingstidspunkt
+              <Opplysningsverdi
                 key={id}
                 label={label}
-                opplysninger={behandling.opplysninger}
-                opplysningTypeId={id}
-                prøvingsdato={formaterTilNorskDato(prøvingsdato)}
+                verdi={perioder
+                  ?.map((periode) => formaterOpplysningVerdiV2(periode.verdi))
+                  .join(", ")}
               />
             );
           })}
 
-          <div className="flex flex-col gap-1">
-            <BodyShort size={"small"} weight={"semibold"}>
-              Rettighetsperioder
-            </BodyShort>
-            <BodyShort size={"small"}>
-              {behandling.rettighetsperioder.length} periode
-              {behandling.rettighetsperioder.length !== 1 ? "r" : ""}
-            </BodyShort>
-          </div>
+          <Opplysningsverdi
+            label="Rettighetsperioder"
+            verdi={`${behandling.rettighetsperioder.length} periode
+              ${behandling.rettighetsperioder.length !== 1 ? "r" : ""}`}
+          />
         </section>
       </div>
 
       {behandling.rettighetsperioder.map((periode, index) => (
-        <div key={index} className={"card card-sunken p-4"}>
+        <div key={index} className={"card card-sunken flex flex-col gap-4 p-4"}>
           <Heading size={"small"}>Rettighetsperiode {index + 1}</Heading>
           <section className="grid grid-cols-4 gap-2">
-            <div className="flex flex-col gap-1">
-              <BodyShort size={"small"} weight={"semibold"}>
-                Rett på dagpenger
-              </BodyShort>
-              <BodyShort size={"small"}>{periode.harRett ? "Ja" : "Nei"}</BodyShort>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <BodyShort size={"small"} weight={"semibold"}>
-                Fra og med
-              </BodyShort>
-              <BodyShort size={"small"}>{formaterTilNorskDato(periode.fraOgMed)}</BodyShort>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <BodyShort size={"small"} weight={"semibold"}>
-                Til og med
-              </BodyShort>
-              <BodyShort size={"small"}>
-                {periode.tilOgMed ? formaterTilNorskDato(periode.tilOgMed) : "--"}
-              </BodyShort>
-            </div>
-
-            {rettighetsperiodeOpplysninger.map(({ id, label }) => {
-              const perioder = hentPerioderForOpplysning(behandling.opplysninger, id, periode);
-              if (!perioder || perioder.length === 0) {
-                return;
-              }
-              if (perioder.length === 1) {
-                return <OpplysningVerdiForPeriode key={id} label={label} periode={perioder[0]} />;
-              }
-              return <OpplysningsVerdierForPerioder key={id} label={label} perioder={perioder} />;
-            })}
+            <Opplysningsverdi label="Rett på dagpenger" verdi={periode.harRett ? "Ja" : "Nei"} />
+            <Opplysningsverdi label="Fra og med" verdi={formaterTilNorskDato(periode.fraOgMed)} />
+            <Opplysningsverdi
+              label="Til og med"
+              verdi={periode.tilOgMed ? formaterTilNorskDato(periode.tilOgMed) : "--"}
+            />
+            {rettighetsperiodeOpplysninger
+              .filter(
+                ({ id }) =>
+                  hentPerioderForOpplysning(behandling.opplysninger, id, periode).length === 1,
+              )
+              .map(({ id, label }) => {
+                const perioder = hentPerioderForOpplysning(behandling.opplysninger, id, periode);
+                return (
+                  <Opplysningsverdi
+                    key={id}
+                    label={label}
+                    verdi={formaterOpplysningVerdiV2(perioder[0].verdi)}
+                  />
+                );
+              })}
+          </section>
+          <section className="grid grid-cols-2 gap-2">
+            {rettighetsperiodeOpplysninger
+              .filter(
+                ({ id }) =>
+                  hentPerioderForOpplysning(behandling.opplysninger, id, periode).length > 1,
+              )
+              .map(({ id, label }) => {
+                const perioder = hentPerioderForOpplysning(behandling.opplysninger, id, periode);
+                return <OpplysningsVerdierForPerioder key={id} label={label} perioder={perioder} />;
+              })}
           </section>
         </div>
       ))}
