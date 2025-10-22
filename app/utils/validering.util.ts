@@ -12,10 +12,10 @@ export function hentValideringForOpplysningPeriodeSkjema(
   return z.object({
     _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
-    opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
-    datatype: z.string().min(1, "Det mangler datatype i skjema"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    datatype: z.string("Det mangler datatype i skjema"),
+    behandlingId: z.string("Det mangler behandlingId i skjema"),
+    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
@@ -45,10 +45,10 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
   return z.object({
     _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
-    opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
-    datatype: z.string().min(1, "Det mangler datatype i skjema"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse"),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    datatype: z.string("Det mangler datatype i skjema"),
+    behandlingId: z.string("Det mangler behandlingId i skjema"),
+    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefiend" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
