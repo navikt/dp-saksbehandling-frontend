@@ -123,7 +123,6 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                   <LoadingLink
                     to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
                     className={"ml-8"}
-                    viewTransition
                   >
                     {vilkårEllerOpplysning.navn}
                   </LoadingLink>
@@ -171,7 +170,6 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             <Timeline.Row
               key={vilkårEllerOpplysning.navn}
               label={"\u00A0"}
-              // onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
               icon={
                 <Button
                   variant={

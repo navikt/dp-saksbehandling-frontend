@@ -13,7 +13,7 @@ import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useRequiredParams } from "~/hooks/useRequiredParams";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { RettPåDagpenger } from "~/rett-på-dagpenger/RettPåDagpenger";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -32,7 +32,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { behandling, vurderinger };
 }
 export default function Behandle() {
-  const { oppgaveId } = useRequiredParams();
+  const { oppgaveId } = useTypeSafeParams();
   const { behandling, vurderinger } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);

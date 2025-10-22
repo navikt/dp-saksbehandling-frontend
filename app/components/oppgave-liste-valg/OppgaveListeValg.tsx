@@ -3,6 +3,7 @@ import { Button, Popover } from "@navikt/ds-react";
 import { useRef, useState } from "react";
 import { Form, useNavigation } from "react-router";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getEnv } from "~/utils/env.utils";
@@ -125,13 +126,12 @@ export function OppgaveListeValg({ oppgave }: IProps) {
           )}
 
           {getEnv("GCP_ENV") === "dev" && (
-            <RemixLink
+            <LoadingLink
+              asButtonVariant={"tertiary-neutral"}
               to={`/v2/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${oppgave.behandlingId}/behandle`}
-              asButtonVariant="tertiary-neutral"
-              size="xsmall"
             >
-              (Midlertidig) Se oppgave V2
-            </RemixLink>
+              Se oppgave V2
+            </LoadingLink>
           )}
 
           {kanLeggeTilbakeOppgave && (

@@ -77,7 +77,10 @@ export default function Opplysning() {
       <div className={"card flex gap-4 p-4"}>
         <div className={"flex flex-1 flex-col gap-4"}>
           <div className={"card p-4"}>
-            <LoadingLink to={"./../../../../behandle"} className={"flex items-center gap-1"}>
+            <LoadingLink
+              to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
+              className={"flex items-center gap-1"}
+            >
               <ArrowLeftIcon />
               Behandling
             </LoadingLink>

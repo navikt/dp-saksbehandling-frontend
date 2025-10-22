@@ -4,8 +4,8 @@ import { add } from "date-fns";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
-import { useRequiredParams } from "~/hooks/useRequiredParams";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { PrøvingsdatoInput } from "~/rett-på-dagpenger/PørvingsdatoInput";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import {
@@ -43,7 +43,7 @@ const rettighetsperiodeOpplysninger = [
 ];
 
 export function RettPåDagpenger({ behandling }: IProps) {
-  const { behandlingId, oppgaveId } = useRequiredParams();
+  const { behandlingId, oppgaveId } = useTypeSafeParams();
   const sisteRettighetPeriodeDato = behandling.rettighetsperioder
     .flatMap((periode) => periode.fraOgMed)
     .sort()

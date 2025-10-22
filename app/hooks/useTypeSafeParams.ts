@@ -20,7 +20,7 @@ import { useParams } from "react-router";
  * }
  */
 
-export function useRequiredParams() {
+export function useTypeSafeParams() {
   const params = useParams();
 
   return new Proxy(params, {
