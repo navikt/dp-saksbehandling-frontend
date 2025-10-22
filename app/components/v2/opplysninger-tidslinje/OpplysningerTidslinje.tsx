@@ -67,10 +67,7 @@ export function OpplysningerTidslinje(props: IProps) {
             icon={
               props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (
-                <LoadingLink
-                  to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
-                  className={"ml-6"}
-                >
+                <LoadingLink to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}>
                   {opplysning.navn}
                 </LoadingLink>
               )

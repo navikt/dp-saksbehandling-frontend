@@ -122,7 +122,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                 icon={
                   <LoadingLink
                     to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
-                    className={"ml-6"}
+                    className={"ml-8"}
                     viewTransition
                   >
                     {vilkårEllerOpplysning.navn}
@@ -164,21 +164,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
             );
 
             // TODO Denne skal jo bort når ting funker
-            return (
-              <Timeline.Row
-                key={vilkårEllerOpplysning.navn}
-                label={`Mangler opplysning for vilkår`}
-              >
-                <Timeline.Period
-                  start={sub(new Date(), { days: 10 })}
-                  end={add(new Date(), { days: 10 })}
-                >
-                  Fant ikke hovedopplysning med id:{" "}
-                  {vilkårEllerOpplysning.opplysningTypeId ?? "har ikke opplysningTypeId"} for vilkår{" "}
-                  {vilkårEllerOpplysning.navn}
-                </Timeline.Period>
-              </Timeline.Row>
-            );
+            return null;
           }
 
           return (
