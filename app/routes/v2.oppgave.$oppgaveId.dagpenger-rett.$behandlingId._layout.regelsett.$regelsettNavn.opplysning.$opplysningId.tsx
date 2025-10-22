@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Heading, Theme } from "@navikt/ds-react";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   Link,
@@ -10,28 +10,18 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
-import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
-import globalDarksideCss from "~/global-darkside.css?url";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert, isDefined } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
-}
-
-export function links() {
-  return [
-    { rel: "stylesheet", href: globalDarksideCss },
-    { rel: "stylesheet", href: akselDarksideOverrides },
-  ];
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -62,7 +52,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function Opplysning() {
   const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
     useLoaderData<typeof loader>();
-  const { tema } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -84,7 +73,7 @@ export default function Opplysning() {
     .filter(isDefined);
 
   return (
-    <Theme theme={tema} className={"main flex flex-col gap-4"}>
+    <main className={"main flex flex-col gap-4"}>
       <div className={"card flex gap-4 p-4"}>
         <div className={"flex flex-1 flex-col gap-4"}>
           <div className={"card p-4"}>
@@ -118,7 +107,7 @@ export default function Opplysning() {
           <EndretOpplysninger vurderinger={vurderinger} />
         </div>
       </div>
-    </Theme>
+    </main>
   );
 }
 

@@ -1,31 +1,31 @@
 .container {
   position: sticky;
   top: 48px;
-  z-index: 2;
+  z-index: 3;
 
   display: flex;
-  gap: var(--a-spacing-12);
-  padding: var(--a-spacing-4);
+  gap: var(--ax-space-48, var(--a-spacing-12));
+  padding: var(--ax-space-16, var(--a-spacing-4));
 
-  background-color: var(--a-white);
-  box-shadow: var(--a-shadow-xsmall);
+  background-color: var(--ax-bg-default, var(--a-white));
+  box-shadow: var(--dp-shaddow);
 }
 
 .navnContainer {
   display: flex;
   align-items: center;
-  gap: var(--a-spacing-2);
+  gap: var(--ax-space-8, var(--a-spacing-2));
 }
 
 .infoElement {
   display: flex;
   align-items: center;
-  gap: var(--a-spacing-1);
+  gap: var(--ax-space-4, var(--a-spacing-1));
   white-space: nowrap;
 }
 
 .iconContainer {
-  border-radius: var(--a-border-radius-full);
+  border-radius: var(--ax-border-radius-full, var(--a-border-radius-full));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,11 +35,11 @@
 }
 
 .iconContainerMann {
-  background-color: var(--a-blue-400);
+  background-color: var(--ax-bg-accent-strong, var(--a-blue-400));
 }
 
 .iconContainerKvinne {
-  background-color: var(--a-red-400);
+  background-color: var(--ax-bg-danger-strong, var(--a-red-400));
 }
 
 .utviklerinfo {
