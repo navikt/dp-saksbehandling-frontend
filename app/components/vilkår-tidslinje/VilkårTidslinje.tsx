@@ -17,8 +17,8 @@ import {
 } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { useState } from "react";
-import { Link } from "react-router";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -120,12 +120,13 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                 key={vilkårEllerOpplysning.opplysningTypeId}
                 label={"\u00A0"}
                 icon={
-                  <Link
+                  <LoadingLink
                     to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
                     className={"ml-6"}
+                    viewTransition
                   >
                     {vilkårEllerOpplysning.navn}
-                  </Link>
+                  </LoadingLink>
                 }
               >
                 {vilkårEllerOpplysning.perioder.map((periode) => {

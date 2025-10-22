@@ -1,8 +1,8 @@
 import { BodyShort, Detail, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
-import { Link } from "react-router";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
   hentFargeForOpplysningPeriode,
@@ -67,12 +67,12 @@ export function OpplysningerTidslinje(props: IProps) {
             icon={
               props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (
-                <Link
+                <LoadingLink
                   to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
                   className={"ml-6"}
                 >
                   {opplysning.navn}
-                </Link>
+                </LoadingLink>
               )
             }
           >

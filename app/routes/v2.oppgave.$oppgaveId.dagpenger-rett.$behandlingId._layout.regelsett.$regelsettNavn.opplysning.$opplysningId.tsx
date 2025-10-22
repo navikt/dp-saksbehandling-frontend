@@ -2,7 +2,6 @@ import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
-  Link,
   type LoaderFunctionArgs,
   useActionData,
   useLoaderData,
@@ -11,6 +10,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
@@ -77,10 +77,10 @@ export default function Opplysning() {
       <div className={"card flex gap-4 p-4"}>
         <div className={"flex flex-1 flex-col gap-4"}>
           <div className={"card p-4"}>
-            <Link to={"./../../../../behandle"} className={"flex items-center gap-1"}>
+            <LoadingLink to={"./../../../../behandle"} className={"flex items-center gap-1"}>
               <ArrowLeftIcon />
               Behandling
-            </Link>
+            </LoadingLink>
 
             <Heading size={"large"}>{regelsett.navn}</Heading>
 
