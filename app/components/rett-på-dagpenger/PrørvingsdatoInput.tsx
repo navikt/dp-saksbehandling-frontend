@@ -7,7 +7,7 @@ import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils
 import { isDatoVerdi } from "~/utils/type-guards";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
-import { components } from "../../openapi/behandling-typer";
+import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   behandlingId: string;

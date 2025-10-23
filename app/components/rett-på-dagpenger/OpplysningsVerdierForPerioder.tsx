@@ -1,9 +1,9 @@
 import { BodyShort } from "@navikt/ds-react";
-import { components } from "openapi/behandling-typer";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
+import { components } from "../../../openapi/behandling-typer";
 import { Opplysningsverdi } from "./Opplysningsverdi";
 
 export function OpplysningsVerdierForPerioder(props: {
