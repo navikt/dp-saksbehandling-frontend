@@ -28,7 +28,7 @@ export function OpplysningerForRettighetsperiode({
   index,
 }: IProps) {
   return (
-    <div className={"card card-sunken flex flex-col gap-4 p-4"}>
+    <div className={"card card-raised flex flex-col gap-4 p-4"}>
       <Heading size={"small"}>Rettighetsperiode {index + 1}</Heading>
 
       <section className="grid grid-cols-4 gap-2">

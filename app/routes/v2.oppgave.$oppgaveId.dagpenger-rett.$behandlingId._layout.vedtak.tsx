@@ -82,7 +82,7 @@ export default function Behandle() {
         <div className={"card mb-4 p-4"}>
           <div className="flex justify-between gap-6">
             <LinkTabs className="flex-1" tabs={tabs} />
-            <Button className="ml-auto" onClick={() => alert("TODO!")}>
+            <Button className="ml-auto" size={"xsmall"} onClick={() => alert("TODO!")}>
               Skriv melding om vedtak
             </Button>
           </div>

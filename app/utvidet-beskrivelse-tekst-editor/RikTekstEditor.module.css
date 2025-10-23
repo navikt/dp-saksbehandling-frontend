@@ -1,3 +1,22 @@
+.editorWrapper {
+  background-color: var(--ax-bg-input);
+  border-radius: var(--ax-radius-8);
+  border: 1px solid var(--ax-border-neutral);
+}
+
+.editorToolbar {
+  border-top-right-radius: var(--ax-radius-8);
+  border-top-left-radius: var(--ax-radius-8);
+  background-color: var(--ax-bg-neutral-soft);
+  border-bottom: 1px solid var(--ax-border-neutral);
+  padding: var(--ax-space-4) 0;
+}
+
+.editorToolbarButton:not(:last-child) {
+  border-right: 1px solid var(--ax-border-neutral-subtle);
+  padding: 0 var(--ax-space-4);
+}
+
 .editor [role="textbox"] {
   --list-padding: 1em;
   /**

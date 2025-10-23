@@ -3,13 +3,14 @@
 
 :root .light {
   --dp-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15), 0px 0px 1px 0px rgba(0, 0, 0, 0.2);
-  --dp-shadow-inset: 0px 1px 3px 0px rgba(0, 0, 0, 0.15) inset, 0px 0px 1px 0px rgba(0, 0, 0, 0.2) inset;
-
+  --dp-shadow-inset:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.15) inset, 0px 0px 1px 0px rgba(0, 0, 0, 0.2) inset;
 }
 
 :root .dark {
   --dp-shadow: 0px 1px 3px 0px rgba(107, 107, 138, 0.35), 0px 0px 1px 0px rgba(107, 107, 138, 0.5);
-  --dp-shadow-inset: 0px 1px 3px 0px rgba(107, 107, 138, 0.35) inset, 0px 0px 1px 0px rgba(107, 107, 138, 0.5) inset;
+  --dp-shadow-inset:
+    0px 1px 3px 0px rgba(107, 107, 138, 0.35) inset, 0px 0px 1px 0px rgba(107, 107, 138, 0.5) inset;
 }
 
 .main {
@@ -24,6 +25,6 @@
   border-radius: var(--ax-border-radius-medium);
 }
 
-.card-sunken {
-  background-color: var(--ax-bg-sunken);
+.card-raised {
+  background-color: var(--ax-bg-neutral-soft);
 }

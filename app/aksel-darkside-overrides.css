@@ -1,54 +1,57 @@
 /* Aksel tidslinje overrides */
-.aksel--compact .aksel-timeline {
-  overflow: hidden;
-}
+.aksel--compact {
+  .aksel-timeline {
+    overflow: hidden;
+  }
 
-.aksel--compact .aksel-timeline__axislabels {
-  margin-bottom: var(--ax-space-20);
-}
+  .aksel-timeline__axislabels {
+    margin-bottom: var(--ax-space-20);
+  }
 
-.aksel--compact .aksel-timeline__row {
-  margin: var(--ax-space-4) 0;
-}
+  .aksel-timeline__row {
+    margin: var(--ax-space-4) 0;
+  }
 
-.aksel--compact .aksel-timeline__row-label {
-  width: 220px;
-}
+  .aksel-timeline__row-label {
+    width: 220px;
+  }
 
-.aksel--compact .aksel-timeline__row-label a {
-  display: block;
-}
+  .aksel-timeline__row-label a {
+    display: block;
+  }
 
-.aksel--compact .aksel-timeline__row-label a,
-.aksel--compact .aksel-timeline__row-label button {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .aksel-timeline__row-label a,
+  .aksel-timeline__row-label button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
+  .aksel-timeline__row-label button .aksel-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.aksel--compact .aksel-timeline__row-label button .aksel-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.aksel--compact .aksel-timeline__pin-button {
-  margin-bottom: calc(var(--ax-space-4) * -1);
+  .aksel-timeline__pin-button {
+    margin-bottom: calc(var(--ax-space-4) * -1);
+  }
 }
 
 /* Aksel expansion overrides */
-.expansion--subtil.expansion--subtil {
-  border-radius: 0;
-  border-bottom: 1px solid var(--ax-border-neutral);
-  --__axc-expansioncard-border-radius: 0;
-  --__axc-expansioncard-border-button-radius: 0;
-}
+.expansion--subtil {
+  &.expansion--subtil {
+    border-radius: 0;
+    border-bottom: 1px solid var(--ax-border-neutral);
+    --__axc-expansioncard-border-radius: 0;
+    --__axc-expansioncard-border-button-radius: 0;
+  }
 
-.expansion--subtil .aksel-expansioncard__header[data-open="true"]:after {
-  left: 0;
-  width: 100%;
-}
-.expansion--subtil .aksel-expansioncard__content {
-  background-color: var(--ax-bg-default);
+  .aksel-expansioncard__header[data-open="true"]:after {
+    left: 0;
+    width: 100%;
+  }
+  .aksel-expansioncard__content {
+    background-color: var(--ax-bg-default);
+  }
 }
 
 /* Aksel radio overrides */

@@ -132,9 +132,7 @@ export function RikTekstEditor(props: IProps) {
               }
             }}
           />
-          <div
-            className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default)"}
-          >
+          <div className={styles.editorWrapper}>
             <RikTekstEditorToolbar />
             <PortableTextEditable
               className={"p-2"}
