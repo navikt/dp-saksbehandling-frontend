@@ -73,44 +73,46 @@ export default function Opplysning() {
     .filter(isDefined);
 
   return (
-    <main className={"main flex flex-col gap-4"}>
-      <div className={"card flex gap-4 p-4"}>
-        <div className={"flex flex-1 flex-col gap-4"}>
-          <div className={"card p-4"}>
-            <LoadingLink
-              to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
-              className={"flex items-center gap-1"}
-            >
-              <ArrowLeftIcon />
-              Behandling
-            </LoadingLink>
+    <>
+      <main className={"main flex flex-col gap-4"}>
+        <div className={"card flex gap-4 p-4"}>
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <div className={"card p-4"}>
+              <LoadingLink
+                to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
+                className={"flex items-center gap-1"}
+              >
+                <ArrowLeftIcon />
+                Behandling
+              </LoadingLink>
 
-            <Heading size={"large"}>{regelsett.navn}</Heading>
+              <Heading size={"large"}>{regelsett.navn}</Heading>
 
-            <OpplysningerTidslinje
-              opplysninger={regelsettOpplysninger}
-              medLenkeTilOpplysning={true}
-              opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
-              pins={pins}
+              <OpplysningerTidslinje
+                opplysninger={regelsettOpplysninger}
+                medLenkeTilOpplysning={true}
+                opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
+                pins={pins}
+              />
+            </div>
+
+            <div className={"card p-4"}>
+              <Heading size={"large"}>{opplysning.navn}</Heading>
+              <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
+              <OpplysningPerioderTabell opplysning={opplysning} />
+            </div>
+          </div>
+
+          <div className={"flex w-[500px] flex-col gap-4"}>
+            <Avklaringer
+              avklaringer={[...behandling.avklaringer]}
+              behandlingId={behandling.behandlingId}
             />
-          </div>
-
-          <div className={"card p-4"}>
-            <Heading size={"large"}>{opplysning.navn}</Heading>
-            <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
-            <OpplysningPerioderTabell opplysning={opplysning} />
+            <EndretOpplysninger vurderinger={vurderinger} />
           </div>
         </div>
-
-        <div className={"flex w-[500px] flex-col gap-4"}>
-          <Avklaringer
-            avklaringer={[...behandling.avklaringer]}
-            behandlingId={behandling.behandlingId}
-          />
-          <EndretOpplysninger vurderinger={vurderinger} />
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 

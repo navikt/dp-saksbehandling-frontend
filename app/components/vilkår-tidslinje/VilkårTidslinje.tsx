@@ -123,6 +123,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                   <LoadingLink
                     to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
                     className={"ml-8"}
+                    tittelPåHover={vilkårEllerOpplysning.navn}
                   >
                     {vilkårEllerOpplysning.navn}
                   </LoadingLink>
@@ -172,6 +173,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
               label={"\u00A0"}
               icon={
                 <Button
+                  title={vilkårEllerOpplysning.navn}
                   variant={
                     vilkårEllerOpplysning.navn === aktivtRegelsett?.navn
                       ? "primary"

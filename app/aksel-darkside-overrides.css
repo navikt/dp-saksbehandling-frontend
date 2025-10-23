@@ -25,19 +25,6 @@
   text-overflow: ellipsis;
 }
 
-.aksel--compact .aksel-timeline__row-label a:hover,
-.aksel--compact .aksel-timeline__row-label button[data-color="neutral"]:hover {
-  overflow: visible;
-  background-color: var(--ax-bg-default);
-  z-index: 3;
-  padding-right: 10px;
-  border-radius: var(--ax-border-radius-large);
-}
-
-.aksel--compact .aksel-timeline__row-label button:hover {
-  overflow: visible;
-  z-index: 3;
-}
 
 .aksel--compact .aksel-timeline__row-label button .aksel-label {
   overflow: hidden;

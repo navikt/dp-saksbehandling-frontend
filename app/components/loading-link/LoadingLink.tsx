@@ -4,6 +4,7 @@ import { Link as ReactRouterLink, LinkProps, useNavigation } from "react-router"
 
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
+  tittelPåHover?: string;
 }
 
 export function LoadingLink(props: PropsWithChildren<IProps>) {
@@ -18,6 +19,7 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
         as={ReactRouterLink}
         variant={props.asButtonVariant}
         size={"xsmall"}
+        title={props.tittelPåHover}
         to={props.to}
         className={props.className}
         loading={isNavigatingToThisLink}
@@ -28,7 +30,13 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
   }
 
   return (
-    <Link as={ReactRouterLink} to={props.to} className={props.className} viewTransition>
+    <Link
+      as={ReactRouterLink}
+      to={props.to}
+      className={props.className}
+      title={props.tittelPåHover}
+      viewTransition
+    >
       {props.children}
       {isNavigatingToThisLink && <Loader size={"xsmall"} />}
     </Link>
