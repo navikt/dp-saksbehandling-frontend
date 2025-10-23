@@ -5,7 +5,7 @@ export function VerdiMedTittel(props: { label: string; verdi: string; visBorder?
   return (
     <div
       className={classNames(`flex flex-col gap-1`, {
-        "border-b-1 border-(--ax-border-subtle) pb-2": props.visBorder,
+        "border-b-1 border-(--ax-border-neutral-subtle) pb-2": props.visBorder,
       })}
     >
       <BodyShort size={"small"} weight={"semibold"}>

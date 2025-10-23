@@ -14,26 +14,33 @@ interface IProps {
 export function OppgaveInformasjon({ oppgave }: IProps) {
   return (
     <div className={"card p-4"}>
-      <Heading size={"medium"}>Oppgaveoversikt</Heading>
+      <Heading size={"xsmall"}>Oppgaveoversikt</Heading>
       <div className={"mt-2 flex gap-1"}>
         <OppgaveEmneknagger oppgave={oppgave} />
       </div>
 
-      <div className={"mt-4 grid grid-cols-4"}>
-        <VerdiMedTittel label={"Status"} verdi={hentOppgaveTilstandTekst(oppgave.tilstand)} />
+      <div className={"mt-4 grid grid-cols-4 gap-4"}>
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Status"}
+          verdi={hentOppgaveTilstandTekst(oppgave.tilstand)}
+        />
 
         <VerdiMedTittel
+          visBorder={true}
           label={"Opprettet"}
           verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
         />
 
         <VerdiMedTittel
+          visBorder={true}
           label={"Sist endret (har ikke)"}
           verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
         />
 
         {oppgave.saksbehandler && (
           <VerdiMedTittel
+            visBorder={true}
             label={"Saksbehandler"}
             verdi={`${oppgave.saksbehandler.fornavn} ${oppgave.saksbehandler.etternavn}`}
           />
@@ -41,12 +48,13 @@ export function OppgaveInformasjon({ oppgave }: IProps) {
 
         {oppgave.beslutter && (
           <VerdiMedTittel
+            visBorder={true}
             label={"Beslutter"}
             verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
           />
         )}
 
-        <VerdiMedTittel label={"SakID"} verdi={`HAR IKKE`} />
+        <VerdiMedTittel visBorder={true} label={"SakID"} verdi={`HAR IKKE`} />
       </div>
     </div>
   );

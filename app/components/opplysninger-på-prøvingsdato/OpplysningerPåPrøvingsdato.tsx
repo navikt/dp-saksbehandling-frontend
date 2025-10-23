@@ -42,6 +42,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
           return (
             <VerdiMedTittel
               key={id}
+              visBorder={true}
               label={label}
               verdi={formaterOpplysningVerdiV2(periode.verdi)}
             />
@@ -49,6 +50,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
         })}
 
         <VerdiMedTittel
+          visBorder={true}
           label="Rettighetsperioder"
           verdi={`${behandling.rettighetsperioder.length} periode
               ${behandling.rettighetsperioder.length !== 1 ? "r" : ""}`}

@@ -35,7 +35,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
-      <Heading size={"medium"}>Har bruker rett på dagpenger?</Heading>
+      <Heading size={"xsmall"}>Har bruker rett på dagpenger?</Heading>
 
       {prøvingsdatoOpplysning && (
         <PrøvingsdatoInput

@@ -33,16 +33,19 @@ export function OpplysningerForRettighetsperiode({
 
       <section className="grid grid-cols-4 gap-2">
         <VerdiMedTittel
+          visBorder={true}
           label="Rett på dagpenger"
           verdi={rettighetsperiode.harRett ? "Ja" : "Nei"}
         />
 
         <VerdiMedTittel
+          visBorder={true}
           label="Fra og med"
           verdi={formaterTilNorskDato(rettighetsperiode.fraOgMed)}
         />
 
         <VerdiMedTittel
+          visBorder={true}
           label="Til og med"
           verdi={
             rettighetsperiode.tilOgMed ? formaterTilNorskDato(rettighetsperiode.tilOgMed) : "--"
@@ -57,6 +60,7 @@ export function OpplysningerForRettighetsperiode({
             <VerdiMedTittel
               key={id}
               label={label}
+              visBorder={true}
               verdi={formaterOpplysningVerdiV2(perioder[0].verdi)}
             />
           );

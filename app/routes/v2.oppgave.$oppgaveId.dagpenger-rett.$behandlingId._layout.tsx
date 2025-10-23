@@ -1,4 +1,4 @@
-import { Theme } from "@navikt/ds-react";
+import { Heading, Theme } from "@navikt/ds-react";
 import { type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
@@ -32,7 +32,9 @@ export default function BehandlingLayout() {
       <PersonBoks person={oppgave.person} />
       <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
         <OppgaveInformasjon oppgave={oppgave} />
-        <div className={"card p-4"}>test</div>
+        <div className={"card p-4"}>
+          <Heading size={"xsmall"}>Dokumenter</Heading>
+        </div>
       </div>
       <Outlet />
     </Theme>
