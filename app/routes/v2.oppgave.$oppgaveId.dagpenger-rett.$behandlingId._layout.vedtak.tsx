@@ -100,6 +100,23 @@ export default function Behandle() {
                   opplysninger={behandling.opplysninger}
                 />
               ))}
+
+              <div className={"card p-4"}>
+                <Heading size={"small"} level={"2"} className={"mb-4"}>
+                  Melding om vedtak
+                </Heading>
+                <UtvidedeBeskrivelserProvider
+                  utvidedeBeskrivelser={
+                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                  }
+                >
+                  <MeldingOmVedtak
+                    meldingOmVedtak={meldingOmVedtak}
+                    sanityBrevMaler={sanityBrevMaler}
+                    oppgave={oppgave}
+                  />
+                </UtvidedeBeskrivelserProvider>
+              </div>
             </div>
 
             <div className={"flex w-[500px] flex-col gap-4"}>
@@ -110,22 +127,6 @@ export default function Behandle() {
               <EndretOpplysninger vurderinger={vurderinger} />
             </div>
           </div>
-        </div>
-        <div className={"card p-4"}>
-          <Heading size={"small"} level={"2"} className={"mb-4"}>
-            Melding om vedtak
-          </Heading>
-          <UtvidedeBeskrivelserProvider
-            utvidedeBeskrivelser={
-              isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-            }
-          >
-            <MeldingOmVedtak
-              meldingOmVedtak={meldingOmVedtak}
-              sanityBrevMaler={sanityBrevMaler}
-              oppgave={oppgave}
-            />
-          </UtvidedeBeskrivelserProvider>
         </div>
       </main>
     </>
