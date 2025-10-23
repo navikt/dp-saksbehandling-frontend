@@ -86,7 +86,7 @@ export default function Behandle() {
               Skriv melding om vedtak
             </Button>
           </div>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex gap-4">
             <div className={"flex flex-1 flex-col gap-4"}>
               {prøvingsdato && (
                 <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
