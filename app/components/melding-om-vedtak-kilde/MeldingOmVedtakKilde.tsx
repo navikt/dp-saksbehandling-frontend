@@ -1,5 +1,6 @@
 import { Checkbox, Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
+import { components } from "openapi/saksbehandling-typer";
 import { Form } from "react-router";
 
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -8,8 +9,12 @@ import {
   hentValideringForMeldingOmVedtakKildeSkjema,
 } from "~/utils/validering.util";
 
-export function MeldingOmVedtakKilde(props: { readOnly?: boolean }) {
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+interface IProps {
+  readOnly?: boolean;
+  oppgave: components["schemas"]["Oppgave"];
+}
+
+export function MeldingOmVedtakKilde({ readOnly, oppgave }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
 
   const meldingOmVedtakKildeSkjema = useForm({
@@ -43,7 +48,7 @@ export function MeldingOmVedtakKilde(props: { readOnly?: boolean }) {
         <RadioGroup
           {...meldingOmVedtakKildeSkjema.field("meldingOmVedtakKilde").getInputProps()}
           size="small"
-          readOnly={props.readOnly}
+          readOnly={readOnly}
           onChange={() => meldingOmVedtakKildeSkjema.submit()}
           error={meldingOmVedtakKildeSkjema.field("meldingOmVedtakKilde").error()}
           legend="Send melding om vedtak til bruker"

@@ -6,7 +6,7 @@ import { useDebounceCallback } from "usehooks-ts";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -26,7 +26,7 @@ export interface IUtvidetBeskrivelseInput {
 
 export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
   const { addAlert } = useGlobalAlerts();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { behandlingId } = useTypeSafeParams();
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const { oppdaterUtvidetBeskrivelse } = useUtvidedeBeskrivelser();
@@ -89,7 +89,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     <div>
       <lagreUtvidetBeskrivelseFetcher.Form method="post" ref={formRef}>
         <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
-        <input name="behandling-id" value={oppgave.behandlingId} hidden={true} readOnly={true} />
+        <input name="behandling-id" value={behandlingId} hidden={true} readOnly={true} />
         <input
           name="brevblokk-id"
           value={props.utvidetBeskrivelse.brevblokkId}

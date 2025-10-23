@@ -8,7 +8,7 @@
   padding: var(--ax-space-16, var(--a-spacing-4));
 
   background-color: var(--ax-bg-default, var(--a-white));
-  box-shadow: var(--dp-shaddow);
+  box-shadow: var(--dp-shadow);
 }
 
 .navnContainer {

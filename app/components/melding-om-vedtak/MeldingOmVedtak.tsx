@@ -12,6 +12,7 @@ import { isAlert } from "~/utils/type-guards";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
+import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 import { MeldingOmVedtakKilde } from "../melding-om-vedtak-kilde/MeldingOmVedtakKilde";
 import { UtvidedeBeskrivelser } from "../utvidede-beskrivelser/UtvidedeBeskrivelser";
 import styles from "./MeldingOmVedtak.module.css";
@@ -19,11 +20,11 @@ import styles from "./MeldingOmVedtak.module.css";
 interface IProps {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
   sanityBrevMaler: ISanityBrevMal[];
+  oppgave: saksbehandlingComponents["schemas"]["Oppgave"];
 }
 
-export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
+export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler, oppgave }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
@@ -41,7 +42,7 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
-        <MeldingOmVedtakKilde readOnly={readOnly} />
+        <MeldingOmVedtakKilde readOnly={readOnly} oppgave={oppgave} />
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
             <hr className="border-(--a-border-subtle)" />
