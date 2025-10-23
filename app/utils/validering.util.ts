@@ -288,9 +288,12 @@ export function hentValideringForGodkjentBrevSkjema() {
 
 export function hentValideringForAvklaringSkjema() {
   return z.object({
+    _action: z.literal("kvitter-avklaring"),
     avklaringId: z.string().min(1, "Det mangler avklaringId i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
+    begrunnelse: z
+      .string("Du må skrive en begrunnelse")
+      .min(1, { message: "Du må skrive en begrunnelse" }),
   });
 }
 

@@ -21,7 +21,9 @@ export function Avklaring(props: IProps) {
   const avklaringForm = useForm({
     method: "post",
     schema: hentValideringForAvklaringSkjema(),
+    submitSource: "state",
     defaultValues: {
+      _action: "kvitter-avklaring",
       behandlingId: props.behandlingId,
       avklaringId: props.avklaring.id,
       begrunnelse: "",
@@ -45,15 +47,12 @@ export function Avklaring(props: IProps) {
       <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
         <Form className={"mt-8"}>
-          <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
-          <input {...avklaringForm.getInputProps("avklaringId")} readOnly={true} hidden={true} />
-          <input {...avklaringForm.getInputProps("behandlingId")} readOnly={true} hidden={true} />
           <RadioGroup
             {...avklaringForm.getInputProps("begrunnelse")}
             size={"small"}
             legend="Saksbehandlers vurdering"
-            onChange={() => {
-              // TODO: fix it haha
+            onChange={(verdi: string) => {
+              avklaringForm.field("begrunnelse").setValue(verdi);
               avklaringForm.submit();
             }}
           >
