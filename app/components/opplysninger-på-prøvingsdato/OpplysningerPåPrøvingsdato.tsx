@@ -1,6 +1,6 @@
 import { Heading } from "@navikt/ds-react";
 
-import { Opplysningsverdi } from "~/components/rett-på-dagpenger/Opplysningsverdi";
+import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import {
   formaterOpplysningVerdiV2,
   hentOpplysningsperiodePåPrøvingsdato,
@@ -40,7 +40,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
           }
 
           return (
-            <Opplysningsverdi
+            <VerdiMedTittel
               key={id}
               label={label}
               verdi={formaterOpplysningVerdiV2(periode.verdi)}
@@ -48,7 +48,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
           );
         })}
 
-        <Opplysningsverdi
+        <VerdiMedTittel
           label="Rettighetsperioder"
           verdi={`${behandling.rettighetsperioder.length} periode
               ${behandling.rettighetsperioder.length !== 1 ? "r" : ""}`}

@@ -1,7 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 
-import { Opplysningsverdi } from "~/components/rett-på-dagpenger/Opplysningsverdi";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
+import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2, hentPerioderForOpplysning } from "~/utils/opplysning.utils";
 
@@ -32,17 +32,17 @@ export function OpplysningerForRettighetsperiode({
       <Heading size={"small"}>Rettighetsperiode {index + 1}</Heading>
 
       <section className="grid grid-cols-4 gap-2">
-        <Opplysningsverdi
+        <VerdiMedTittel
           label="Rett på dagpenger"
           verdi={rettighetsperiode.harRett ? "Ja" : "Nei"}
         />
 
-        <Opplysningsverdi
+        <VerdiMedTittel
           label="Fra og med"
           verdi={formaterTilNorskDato(rettighetsperiode.fraOgMed)}
         />
 
-        <Opplysningsverdi
+        <VerdiMedTittel
           label="Til og med"
           verdi={
             rettighetsperiode.tilOgMed ? formaterTilNorskDato(rettighetsperiode.tilOgMed) : "--"
@@ -54,7 +54,7 @@ export function OpplysningerForRettighetsperiode({
         ).map(({ id, label }) => {
           const perioder = hentPerioderForOpplysning(opplysninger, id, rettighetsperiode);
           return (
-            <Opplysningsverdi
+            <VerdiMedTittel
               key={id}
               label={label}
               verdi={formaterOpplysningVerdiV2(perioder[0].verdi)}

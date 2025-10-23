@@ -4,6 +4,7 @@ import invariant from "tiny-invariant";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { OppgaveInformasjon } from "~/components/v2/oppgave-informasjon/OppgaveInformasjon";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -29,6 +30,10 @@ export default function BehandlingLayout() {
   return (
     <Theme theme={tema}>
       <PersonBoks person={oppgave.person} />
+      <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
+        <OppgaveInformasjon oppgave={oppgave} />
+        <div className={"card p-4"}>test</div>
+      </div>
       <Outlet />
     </Theme>
   );

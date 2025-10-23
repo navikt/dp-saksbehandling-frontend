@@ -84,3 +84,24 @@ export function hentUtløstAvTekstForVisning(
       return utløstAv;
   }
 }
+
+export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["OppgaveTilstand"]) {
+  switch (tilstand) {
+    case "PAA_VENT":
+      return "På vent";
+    case "UNDER_BEHANDLING":
+      return "Under behandling";
+    case "FERDIG_BEHANDLET":
+      return "Ferdig behandlet";
+    case "KLAR_TIL_BEHANDLING":
+      return "Klar til behandling";
+    case "KLAR_TIL_KONTROLL":
+      return "Klar til kontroll";
+    case "UNDER_KONTROLL":
+      return "Under kontroll";
+    case "AVBRUTT":
+      return "Avbrutt";
+    default:
+      return tilstand;
+  }
+}

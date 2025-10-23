@@ -4,7 +4,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
-import { Opplysningsverdi } from "./Opplysningsverdi";
+import { VerdiMedTittel } from "../verdi-med-tittel/VerdiMedTittel";
 
 export function OpplysningsVerdierForPerioder(props: {
   label: string;
@@ -18,7 +18,7 @@ export function OpplysningsVerdierForPerioder(props: {
 
       <div className="flex flex-col gap-2 rounded-lg bg-(--ax-bg-accent-moderate) p-2">
         {props.perioder.map((periode, index) => (
-          <Opplysningsverdi
+          <VerdiMedTittel
             key={index}
             label={`Periode: ${
               periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"

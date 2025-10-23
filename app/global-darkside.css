@@ -16,7 +16,6 @@
 .main {
   background-color: var(--ax-bg-sunken);
   padding: var(--a-space-16);
-  min-height: calc(100vh);
 }
 
 .card {
