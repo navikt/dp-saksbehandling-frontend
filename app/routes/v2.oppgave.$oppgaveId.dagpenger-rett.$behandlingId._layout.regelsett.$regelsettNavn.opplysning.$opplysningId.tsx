@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@navikt/aksel-icons";
+import { ArrowLeftIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -97,7 +97,10 @@ export default function Opplysning() {
             </div>
 
             <div className={"card p-4"}>
-              <Heading size={"large"}>{opplysning.navn}</Heading>
+              <Heading size={"large"} className={"flex items-center gap-1"}>
+                {!opplysning.redigerbar && <PadlockLockedIcon />}
+                {opplysning.navn}
+              </Heading>
               <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
               <OpplysningPerioderTabell opplysning={opplysning} />
             </div>

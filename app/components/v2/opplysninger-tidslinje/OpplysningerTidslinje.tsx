@@ -1,3 +1,4 @@
+import { PadlockLockedIcon } from "@navikt/aksel-icons";
 import { BodyShort, Detail, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
@@ -68,12 +69,15 @@ export function OpplysningerTidslinje(props: IProps) {
             icon={
               props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (
-                <LoadingLink
-                  tittelPåHover={opplysning.navn}
-                  to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
-                >
-                  {opplysning.navn}
-                </LoadingLink>
+                <>
+                  {!opplysning.redigerbar && <PadlockLockedIcon fontSize="1.5rem" />}
+                  <LoadingLink
+                    tittelPåHover={opplysning.navn}
+                    to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
+                  >
+                    {opplysning.navn}
+                  </LoadingLink>
+                </>
               )
             }
           >

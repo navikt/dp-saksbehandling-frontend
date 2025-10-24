@@ -5,6 +5,7 @@ import {
   CircleIcon,
   ExclamationmarkTriangleIcon,
   InformationSquareIcon,
+  PadlockLockedIcon,
   XMarkOctagonIcon,
 } from "@navikt/aksel-icons";
 import {
@@ -120,13 +121,15 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                 key={vilkårEllerOpplysning.opplysningTypeId}
                 label={"\u00A0"}
                 icon={
-                  <LoadingLink
-                    to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
-                    className={"ml-8"}
-                    tittelPåHover={vilkårEllerOpplysning.navn}
-                  >
-                    {vilkårEllerOpplysning.navn}
-                  </LoadingLink>
+                  <span className={"ml-8 flex items-center gap-1 overflow-hidden text-ellipsis"}>
+                    {!vilkårEllerOpplysning.redigerbar && <PadlockLockedIcon fontSize="1.5rem" />}
+                    <LoadingLink
+                      to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
+                      tittelPåHover={vilkårEllerOpplysning.navn}
+                    >
+                      {vilkårEllerOpplysning.navn}
+                    </LoadingLink>
+                  </span>
                 }
               >
                 {vilkårEllerOpplysning.perioder.map((periode) => {
