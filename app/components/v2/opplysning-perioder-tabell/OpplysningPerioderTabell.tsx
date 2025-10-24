@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from "@navikt/aksel-icons";
+import { PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { components } from "openapi/behandling-typer";
@@ -79,25 +79,35 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                <Table.DataCell>
-                  <Form {...slettOpplysningForm.getFormProps()}>
-                    <Button
-                      size={"xsmall"}
-                      variant={"tertiary"}
-                      icon={<TrashIcon />}
-                      loading={slettOpplysningForm.formState.isSubmitting}
-                    />
-                  </Form>
-                </Table.DataCell>
+                {props.opplysning.redigerbar && (
+                  <>
+                    <Table.DataCell>
+                      <Form {...slettOpplysningForm.getFormProps()}>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<TrashIcon />}
+                          loading={slettOpplysningForm.formState.isSubmitting}
+                        />
+                      </Form>
+                    </Table.DataCell>
 
-                <Table.DataCell>
-                  <Button
-                    size={"xsmall"}
-                    variant={"tertiary"}
-                    icon={<PencilIcon />}
-                    onClick={() => setPeriodeUnderRedigering(periode)}
-                  />
-                </Table.DataCell>
+                    <Table.DataCell>
+                      <Button
+                        size={"xsmall"}
+                        variant={"tertiary"}
+                        icon={<PencilIcon />}
+                        onClick={() => setPeriodeUnderRedigering(periode)}
+                      />
+                    </Table.DataCell>
+                  </>
+                )}
+
+                {!props.opplysning.redigerbar && (
+                  <Table.DataCell colSpan={2}>
+                    <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
+                  </Table.DataCell>
+                )}
               </Table.Row>
             );
           })}
@@ -112,15 +122,17 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Body>
       </Table>
 
-      <div>
-        <Button
-          size={"small"}
-          variant={"secondary"}
-          onClick={() => setPeriodeUnderRedigering(nyPeriode)}
-        >
-          Legg til ny periode
-        </Button>
-      </div>
+      {props.opplysning.redigerbar && (
+        <div>
+          <Button
+            size={"small"}
+            variant={"secondary"}
+            onClick={() => setPeriodeUnderRedigering(nyPeriode)}
+          >
+            Legg til ny periode
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
