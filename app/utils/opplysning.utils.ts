@@ -63,7 +63,7 @@ export function konverterOpplysningVerdiTilSkjemaVerdi(
     case "heltall":
       return verdi.verdi.toString();
     case "desimaltall":
-      return verdi.verdi.toString();
+      return Number(verdi.verdi).toLocaleString("nb-NO");
     case "penger":
       return verdi.verdi.toString();
     case "ulid":
