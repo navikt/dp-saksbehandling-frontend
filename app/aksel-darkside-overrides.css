@@ -55,8 +55,19 @@
 }
 
 /* Aksel radio overrides */
-
 .aksel--horisontal .aksel-radio-buttons {
   display: flex;
   gap: var(--ax-space-8);
+}
+
+.aksel--font-regular {
+  .aksel-button__icon,
+  .aksel-label {
+    font-weight: var(--ax-font-weight-regular);
+  }
+}
+
+.aksel--full-bredde {
+  width: 100%;
+  justify-content: flex-start;
 }

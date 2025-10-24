@@ -21,6 +21,7 @@ export function OppgaveHandlingAvbryt() {
     schema: hentValideringAvbrytOppgave(),
     method: "post",
     defaultValues: {
+      _action: "avbryt-oppgave",
       oppgaveId: oppgave.oppgaveId,
       // Castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
       // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773

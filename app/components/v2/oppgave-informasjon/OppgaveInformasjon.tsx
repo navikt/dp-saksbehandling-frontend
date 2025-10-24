@@ -1,6 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
+import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
@@ -14,11 +15,14 @@ interface IProps {
 export function OppgaveInformasjon({ oppgave }: IProps) {
   return (
     <div className={"card p-4"}>
-      <Heading size={"xsmall"}>Oppgaveoversikt</Heading>
+      <div className={"flex justify-between"}>
+        <Heading size={"xsmall"}>Oppgaveoversikt</Heading>
+        <OppgaveMeny oppgave={oppgave} />
+      </div>
+
       <div className={"mt-2 flex gap-1"}>
         <OppgaveEmneknagger oppgave={oppgave} />
       </div>
-
       <div className={"mt-4 grid grid-cols-4 gap-4"}>
         <VerdiMedTittel
           visBorder={true}

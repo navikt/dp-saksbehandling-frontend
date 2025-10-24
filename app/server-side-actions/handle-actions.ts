@@ -18,11 +18,11 @@ import { opprettManuellBehandlingAction } from "~/server-side-actions/opprett-ma
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
+import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
 import { slettOpplysningAction } from "~/server-side-actions/slett-opplysning-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
-import { utsettOppgaveAction } from "~/server-side-actions/utsett-oppgave-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
@@ -61,8 +61,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "tildel-oppgave":
       return await tildelOppgaveAction(request, formData);
 
-    case "utsett-oppgave":
-      return await utsettOppgaveAction(request, formData);
+    case "sett-oppgave-på-vent":
+      return await settOppgavePåVentAction(request, formData);
 
     case "kvitter-avklaring":
       return await kvitterAvklaringAction(request, formData);

@@ -181,7 +181,7 @@ export function hentValideringForPersonIdent() {
   });
 }
 
-export function hentValideringUtsettOppgave() {
+export function hentValideringSettOppgavePåVent() {
   const gyldigeAarsaker: saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"][] = [
     "AVVENT_SVAR",
     "AVVENT_DOKUMENTASJON",
@@ -192,10 +192,15 @@ export function hentValideringUtsettOppgave() {
     "ANNET",
   ];
   return z.object({
+    _action: z.literal("sett-oppgave-på-vent"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     aktivtOppgaveSok: z.string().optional(),
     beholdOppgave: z.coerce.boolean(),
-    utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
+    utsettTilDato: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
     paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en begrunnelse" }),
   });
 }
@@ -208,6 +213,7 @@ export function hentValideringAvbrytOppgave() {
     "ANNET",
   ];
   return z.object({
+    _action: z.literal("avbryt-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
@@ -315,4 +321,20 @@ function hentValideringForNorskDato() {
         message: "Ugyldig dato",
       },
     );
+}
+
+export function hentValideringForLeggTilbakeOppgave() {
+  return z.object({
+    _action: z.literal("legg-tilbake-oppgave"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForRekjørBehandling() {
+  return z.object({
+    _action: z.literal("rekjor-behandling"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    ident: z.string().min(1, "Det mangler person ident i skjema"),
+  });
 }
