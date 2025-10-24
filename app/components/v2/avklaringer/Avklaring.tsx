@@ -54,7 +54,7 @@ export function Avklaring(props: IProps) {
       <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
 
-        {props.avklaring.kanKvitteres && (
+        {props.avklaring.status === "Åpen" && (
           <RadioGroup
             {...avklaringForm.getInputProps("begrunnelse")}
             size={"small"}

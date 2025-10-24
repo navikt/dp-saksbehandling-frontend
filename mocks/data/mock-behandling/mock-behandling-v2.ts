@@ -43,6 +43,7 @@ export const mockBehandlingPeriodisertV2: components["schemas"]["Behandlingsresu
       kanKvitteres: false,
       status: "Avklart",
       maskinelt: false,
+      begrunnelse: "Vurdert med endringer",
       sistEndret: "2025-10-08T08:43:07.458435",
     },
     {
