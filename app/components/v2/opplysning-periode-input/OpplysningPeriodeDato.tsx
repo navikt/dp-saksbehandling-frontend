@@ -12,8 +12,7 @@ export function OpplysningPeriodeDato({
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
-    // @ts-expect-error TODO rydd opp i typene
-    defaultSelected: new Date(field.value),
+    defaultSelected: undefined,
     onDateChange: (date) => {
       if (date) {
         const datoBackendFormat = formaterTilBackendDato(date);

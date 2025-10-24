@@ -99,16 +99,12 @@ export async function lagreOpplysning(
   });
 }
 
-export async function slettOpplysning(
-  request: Request,
-  behandlingId: string,
-  opplysningId: string,
-) {
+export async function slettPeriode(request: Request, behandlingId: string, periodeId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.DELETE("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
-      path: { behandlingId, opplysningId },
+      path: { behandlingId, opplysningId: periodeId },
     },
   });
 }

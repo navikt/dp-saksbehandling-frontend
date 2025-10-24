@@ -18,7 +18,7 @@ import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGr
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import {
   hentValideringForOpplysningPeriodeSkjema,
-  hentValideringForSlettOpplysningSkjema,
+  hentValideringForSlettPeriode,
 } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -71,8 +71,8 @@ export function OpplysningKortRedigering({
   const slettOpplysningForm = useForm({
     method: "post",
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
-    schema: hentValideringForSlettOpplysningSkjema(),
-    defaultValues: { _action: "slett-opplysning", behandlingId, opplysningId: opplysning.id },
+    schema: hentValideringForSlettPeriode(),
+    defaultValues: { _action: "slett-periode", behandlingId, periodeId: opplysning.id },
   });
 
   const tidligsteFraOgMedDato = forrigePeriode?.gyldigTilOgMed
@@ -214,7 +214,7 @@ export function OpplysningKortRedigering({
           <input
             hidden={true}
             readOnly={true}
-            {...slettOpplysningForm.field("opplysningId").getInputProps()}
+            {...slettOpplysningForm.field("periodeId").getInputProps()}
           />
           <input
             hidden={true}

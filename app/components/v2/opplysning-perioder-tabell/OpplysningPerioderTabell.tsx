@@ -3,28 +3,28 @@ import { Button, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { components } from "openapi/behandling-typer";
 import { useState } from "react";
-import { Form, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
-import { hentValideringForSlettOpplysningSkjema } from "~/utils/validering.util";
+import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
 }
 
 export function OpplysningPerioderTabell(props: IProps) {
-  const { behandlingId, opplysningId } = useParams();
+  const { behandlingId } = useParams();
   const [periodeUnderRedigering, setPeriodeUnderRedigering] =
     useState<components["schemas"]["Opplysningsperiode"]>();
 
-  const slettOpplysningForm = useForm({
+  const slettPeriodeForm = useForm({
     method: "post",
     submitSource: "state",
-    schema: hentValideringForSlettOpplysningSkjema(),
-    defaultValues: { _action: "slett-opplysning", behandlingId, opplysningId },
+    schema: hentValideringForSlettPeriode(),
+    defaultValues: { _action: "slett-periode", behandlingId, periodeId: "" },
   });
 
   const nyPeriode: components["schemas"]["Opplysningsperiode"] = {
@@ -82,14 +82,16 @@ export function OpplysningPerioderTabell(props: IProps) {
                 {props.opplysning.redigerbar && (
                   <>
                     <Table.DataCell>
-                      <Form {...slettOpplysningForm.getFormProps()}>
-                        <Button
-                          size={"xsmall"}
-                          variant={"tertiary"}
-                          icon={<TrashIcon />}
-                          loading={slettOpplysningForm.formState.isSubmitting}
-                        />
-                      </Form>
+                      <Button
+                        size={"xsmall"}
+                        variant={"tertiary"}
+                        icon={<TrashIcon />}
+                        loading={slettPeriodeForm.formState.isSubmitting}
+                        onClick={() => {
+                          slettPeriodeForm.field("periodeId").setValue(periode.id);
+                          slettPeriodeForm.submit();
+                        }}
+                      />
                     </Table.DataCell>
 
                     <Table.DataCell>

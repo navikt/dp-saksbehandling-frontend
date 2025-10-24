@@ -62,10 +62,10 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
   });
 }
 
-export function hentValideringForSlettOpplysningSkjema() {
+export function hentValideringForSlettPeriode() {
   return z.object({
-    _action: z.literal("slett-opplysning"),
-    opplysningId: z.string().min(1, "Det mangler opplysningId i skjema"),
+    _action: z.literal("slett-periode"),
+    periodeId: z.string().min(1, "Det mangler periodeId i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
   });
 }

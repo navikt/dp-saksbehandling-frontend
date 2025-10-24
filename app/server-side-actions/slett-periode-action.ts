@@ -1,19 +1,19 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
-import { slettOpplysning } from "~/models/behandling.server";
+import { slettPeriode } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForSlettOpplysningSkjema } from "~/utils/validering.util";
+import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
-export async function slettOpplysningAction(request: Request, formData: FormData) {
-  const validertSkjema = await parseFormData(formData, hentValideringForSlettOpplysningSkjema());
+export async function slettPeriodeAction(request: Request, formData: FormData) {
+  const validertSkjema = await parseFormData(formData, hentValideringForSlettPeriode());
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, opplysningId } = validertSkjema.data;
-  const { data, error } = await slettOpplysning(request, behandlingId, opplysningId);
+  const { behandlingId, periodeId } = validertSkjema.data;
+  const { data, error } = await slettPeriode(request, behandlingId, periodeId);
 
   if (error) {
     return getHttpProblemAlert(error);
