@@ -24,6 +24,37 @@ export const mockBehandlingPeriodisertV2: components["schemas"]["Behandlingsresu
       maskinelt: false,
       sistEndret: "2025-10-08T08:43:07.458435",
     },
+    {
+      id: "0199c28f-2e42-798d-9eea-05546fa36963",
+      kode: "ManuellBehandling",
+      tittel: "Manuell behandling",
+      beskrivelse: "Behandlingen er opprettet manuelt og kan ikke automatisk behandles",
+      kanKvitteres: false,
+      status: "Avbrutt",
+      maskinelt: false,
+      sistEndret: "2025-10-08T08:43:07.458435",
+    },
+
+    {
+      id: "0199c28f-2e42-798d-9eea-05546fa36964",
+      kode: "ManuellBehandling",
+      tittel: "Manuell behandling",
+      beskrivelse: "Behandlingen er opprettet manuelt og kan ikke automatisk behandles",
+      kanKvitteres: false,
+      status: "Avklart",
+      maskinelt: false,
+      sistEndret: "2025-10-08T08:43:07.458435",
+    },
+    {
+      id: "0199c28f-2e42-798d-9eea-05546fa36965",
+      kode: "ManuellBehandling",
+      tittel: "Manuell behandling",
+      beskrivelse: "Behandlingen er opprettet manuelt og kan ikke automatisk behandles",
+      kanKvitteres: false,
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-10-08T08:43:07.458435",
+    },
   ],
   vilkår: [
     {

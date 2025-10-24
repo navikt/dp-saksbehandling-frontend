@@ -1,12 +1,12 @@
 import {
+  CheckmarkCircleFillIcon,
+  CircleSlashIcon,
   ExclamationmarkTriangleFillIcon,
-  PersonPencilIcon,
-  RobotSmileIcon,
 } from "@navikt/aksel-icons";
 import { BodyLong, BodyShort, ExpansionCard, Radio, RadioGroup } from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
-import { Form } from "react-router";
+import { useLocation } from "react-router";
 
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
@@ -18,15 +18,17 @@ interface IProps {
 }
 
 export function Avklaring(props: IProps) {
+  const { pathname } = useLocation();
   const avklaringForm = useForm({
     method: "post",
-    schema: hentValideringForAvklaringSkjema(),
+    action: pathname,
     submitSource: "state",
+    schema: hentValideringForAvklaringSkjema(),
     defaultValues: {
       _action: "kvitter-avklaring",
       behandlingId: props.behandlingId,
       avklaringId: props.avklaring.id,
-      begrunnelse: "",
+      begrunnelse: props.avklaring.begrunnelse,
     },
   });
 
@@ -39,14 +41,20 @@ export function Avklaring(props: IProps) {
       data-color={hentAvklaringFarge(props.avklaring)}
     >
       <ExpansionCard.Header className={"flex items-center"}>
-        <div className={"flex content-center gap-2"}>
+        <ExpansionCard.Title className={"flex content-center gap-2"}>
           {hentStatusIcon(props.avklaring)}
-          <BodyShort>{props.avklaring.tittel}</BodyShort>
-        </div>
+          <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
+        </ExpansionCard.Title>
+
+        <ExpansionCard.Description>
+          {hentAvklaringKortBeskrivelse(props.avklaring)}
+        </ExpansionCard.Description>
       </ExpansionCard.Header>
+
       <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
-        <Form className={"mt-8"}>
+
+        {props.avklaring.kanKvitteres && (
           <RadioGroup
             {...avklaringForm.getInputProps("begrunnelse")}
             size={"small"}
@@ -59,7 +67,7 @@ export function Avklaring(props: IProps) {
             <Radio value="Vurdert med endringer">Vurdert med endringer</Radio>
             <Radio value="Vurdert, ingen endringer">Vurdert, ingen endringer</Radio>
           </RadioGroup>
-        </Form>
+        )}
       </ExpansionCard.Content>
     </ExpansionCard>
   );
@@ -68,15 +76,13 @@ export function Avklaring(props: IProps) {
 function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
   switch (avklaring.status) {
     case "Åpen":
-      return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;
-    case "Avklart":
-      return avklaring.maskinelt ? (
-        <RobotSmileIcon fontSize={"1.5rem"} />
-      ) : (
-        <PersonPencilIcon fontSize="1.5rem" />
+      return (
+        <ExclamationmarkTriangleFillIcon color={"var(--ax-text-warning-decoration)"} aria-hidden />
       );
+    case "Avklart":
+      return <CheckmarkCircleFillIcon color={"var(--ax-text-success-decoration)"} aria-hidden />;
     case "Avbrutt":
-      return <RobotSmileIcon fontSize="1.5rem" />;
+      return <CircleSlashIcon color={"var(--ax-text-info-decoration)"} aria-hidden />;
     default:
       return null;
   }
@@ -90,5 +96,14 @@ function hentAvklaringFarge(avklaring: components["schemas"]["Avklaring"]): Akse
       return "info";
     case "Avklart":
       return "success";
+  }
+}
+
+function hentAvklaringKortBeskrivelse(avklaring: components["schemas"]["Avklaring"]) {
+  switch (avklaring.status) {
+    case "Avbrutt":
+      return "Ikke lenger relevant å sjekke";
+    case "Avklart":
+      return avklaring.begrunnelse === "Vurdert med endringer" ? "Endringer" : "Ingen endringer";
   }
 }
