@@ -22,6 +22,7 @@ export function OppgaveSendTilKontroll() {
       oppgaveId: oppgaveId,
     },
   });
+
   return (
     <>
       <Button size="small" variant="primary" onClick={() => modalRef.current?.showModal()}>
