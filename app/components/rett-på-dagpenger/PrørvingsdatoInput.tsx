@@ -1,4 +1,4 @@
-import { DatePicker, Loader, useDatepicker } from "@navikt/ds-react";
+import { DatePicker, Heading, Loader, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { Form } from "react-router";
 
@@ -52,20 +52,24 @@ export function PrøvingsdatoInput(props: IProps) {
   });
 
   return (
-    <Form {...prøvingsdatoSkjema.getFormProps()} className={"flex gap-2"}>
-      <DatePicker {...datepickerProps}>
-        <DatePicker.Input
-          {...inputProps}
-          form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
-          name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
-          error={prøvingsdatoSkjema.field("verdi").error()}
-          label="Vurder retten fra"
-          size={"small"}
-        />
-      </DatePicker>
-      {prøvingsdatoSkjema.formState.isSubmitting && (
-        <Loader size={"small"} className={"mb-1.5 self-end"} />
-      )}
-    </Form>
+    <div className={"card p-4"}>
+      <Heading size={"small"}>Prøvingsdato</Heading>
+
+      <Form {...prøvingsdatoSkjema.getFormProps()} className={"flex gap-2"}>
+        <DatePicker {...datepickerProps}>
+          <DatePicker.Input
+            {...inputProps}
+            form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
+            name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
+            error={prøvingsdatoSkjema.field("verdi").error()}
+            label="Vurder retten fra"
+            size={"small"}
+          />
+        </DatePicker>
+        {prøvingsdatoSkjema.formState.isSubmitting && (
+          <Loader size={"small"} className={"mb-1.5 self-end"} />
+        )}
+      </Form>
+    </div>
   );
 }

@@ -34,14 +34,15 @@ export function RettPåDagpenger({ behandling }: IProps) {
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
-      <Heading size={"small"}>Har bruker rett på dagpenger?</Heading>
-
-      <TidslinjeNavigering
-        tidslinjeStartSlutt={tidslinjeStartSlutt}
-        setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-        antallUkerITidslinje={antallUkerITidslinje}
-        setAntallUkerITidslinje={setAntallUkerITidslinje}
-      />
+      <div className={"flex content-center justify-between"}>
+        <Heading size={"small"}>Har bruker rett på dagpenger?</Heading>
+        <TidslinjeNavigering
+          tidslinjeStartSlutt={tidslinjeStartSlutt}
+          setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+          antallUkerITidslinje={antallUkerITidslinje}
+          setAntallUkerITidslinje={setAntallUkerITidslinje}
+        />
+      </div>
 
       <Timeline
         startDate={tidslinjeStartSlutt.start}

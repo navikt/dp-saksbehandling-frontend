@@ -1,5 +1,4 @@
 import { CogRotationIcon, GavelSoundBlockIcon } from "@navikt/aksel-icons";
-import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -72,24 +71,21 @@ export default function Behandle() {
               Skriv melding om vedtak
             </LoadingLink>
           </div>
+
           <div className="mt-4 flex gap-4">
             <div className={"flex w-[500px] flex-col gap-4"}>
-              <div className={"card p-4"}>
-                {prøvingsdatoOpplysning && (
-                  <>
-                    <Heading size={"small"}>Prøvingsdato</Heading>
-                    <PrøvingsdatoInput
-                      behandlingId={behandling.behandlingId}
-                      prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                    />
-                  </>
-                )}
-              </div>
+              {prøvingsdatoOpplysning && (
+                <PrøvingsdatoInput
+                  behandlingId={behandling.behandlingId}
+                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
+                />
+              )}
 
               <Avklaringer
                 avklaringer={[...behandling.avklaringer]}
                 behandlingId={behandling.behandlingId}
               />
+
               <EndretOpplysninger vurderinger={vurderinger} />
             </div>
 
