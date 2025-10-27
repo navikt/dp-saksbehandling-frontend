@@ -591,11 +591,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /**
-         * Overskriv en opplysning
-         * @deprecated
-         */
-        put: operations["oppdaterOpplysning"];
+        put?: never;
         post?: never;
         /** Fjern en opplysning */
         delete: operations["fjernOpplysning"];
@@ -1048,8 +1044,7 @@ export interface components {
          * @enum {string}
          */
         Opprinnelse: "Ny" | "Arvet";
-        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
-         *      */
+        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har */
         Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
         PengeVerdi: {
             /** Format: bigdecimal */
@@ -1138,8 +1133,7 @@ export interface components {
             statsborgerskap?: string;
             kvalifiserer: boolean;
         };
-        /** @description Kilde for opplysningen
-         *      */
+        /** @description Kilde for opplysningen */
         Opplysningskilde: {
             /** @enum {string} */
             type: "Saksbehandler" | "System";
@@ -1176,7 +1170,6 @@ export interface components {
         };
         /**
          * @description Hvilken datatype opplysningen har, for å kunne validere at verdi er riktig format
-         *
          * @enum {string}
          */
         DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn" | "periode";
@@ -1269,7 +1262,8 @@ export interface components {
                     barn?: components["schemas"]["Barn"][];
                 };
                 samordning?: components["schemas"]["Samordning"][];
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "navn": "Dagpengeperiode",
                  *         "type": "uker",
@@ -1285,10 +1279,12 @@ export interface components {
                  *         "type": "beløp",
                  *         "verdi": 3000
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 kvoter?: components["schemas"]["Kvote"][];
             };
-            /** @example {
+            /**
+             * @example {
              *       "kvoter": [
              *         {
              *           "navn": "Dagpengeperiode",
@@ -1306,11 +1302,13 @@ export interface components {
              *           "verdi": 0
              *         }
              *       ]
-             *     } */
+             *     }
+             */
             "gjenst\u00E5ende"?: {
                 kvoter?: components["schemas"]["Kvote"][];
             };
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "dato": "2021-01-01",
              *         "sats": 1000,
@@ -1323,11 +1321,13 @@ export interface components {
              *         "gradertSats": 500,
              *         "utbetaling": 500
              *       }
-             *     ] */
+             *     ]
+             */
             utbetalinger: components["schemas"]["Utbetaling"][];
             opplysninger: components["schemas"]["Opplysning"][];
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "type": "Sykepenger",
          *         "beløp": 100,
@@ -1338,7 +1338,8 @@ export interface components {
          *         "beløp": 100,
          *         "grad": 0
          *       }
-         *     ] */
+         *     ]
+         */
         Samordning: {
             type: string;
             "bel\u00F8p": number;
@@ -1449,44 +1450,6 @@ export interface operations {
             };
             /** @description Feil ved lagring av begrunnelse */
             400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["HttpProblem"];
-                };
-            };
-        };
-    };
-    oppdaterOpplysning: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Behandlingens id */
-                behandlingId: string;
-                /** @description Opplysningens id */
-                opplysningId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OppdaterOpplysning"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Kvittering"];
-                };
-            };
-            /** @description Feil ved redigering av opplysninger */
-            default: {
                 headers: {
                     [name: string]: unknown;
                 };
