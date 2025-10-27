@@ -37,6 +37,11 @@ export function OpplysningPerioderTabell(props: IProps) {
     } as unknown as components["schemas"]["Opplysningsverdi"],
   };
 
+  // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
+  const kanLeggeTilNyPeriode =
+    props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
+    props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
+
   return (
     <div className={"flex flex-col gap-4"}>
       <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
@@ -130,6 +135,7 @@ export function OpplysningPerioderTabell(props: IProps) {
             size={"small"}
             variant={"secondary"}
             onClick={() => setPeriodeUnderRedigering(nyPeriode)}
+            disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode
           </Button>
