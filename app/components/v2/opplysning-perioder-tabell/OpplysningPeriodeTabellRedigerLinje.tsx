@@ -24,6 +24,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
     method: "post",
     submitSource: "state",
     schema: hentValideringForOpplysningPeriodeSkjema(props.periode.verdi.datatype),
+    onSubmitSuccess: () => props.setPeriodeUnderRedigering(undefined),
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.opplysning.opplysningTypeId,

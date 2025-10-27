@@ -25,6 +25,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
     method: "post",
     submitSource: "state",
     schema: hentValideringForNyOpplysningPeriodeSkjema(props.opplysning.datatype),
+    onSubmitSuccess: () => props.setPeriodeUnderRedigering(undefined),
     defaultValues: {
       _action: "lagre-opplysning",
       opplysningTypeId: props.opplysning.opplysningTypeId,
