@@ -11,7 +11,7 @@ interface IProps {
 export function Avklaringer(props: IProps) {
   return (
     <div className={"card p-4"}>
-      <Heading size={"xsmall"}> Hva som må sjekkes</Heading>
+      <Heading size={"small"}> Hva som må sjekkes</Heading>
 
       <div className={"mt-2 flex flex-col gap-2"}>
         {props.avklaringer.map((avklaring) => (

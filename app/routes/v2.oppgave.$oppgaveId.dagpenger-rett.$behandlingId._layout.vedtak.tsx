@@ -11,7 +11,6 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
-import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
@@ -20,7 +19,6 @@ import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFa
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
@@ -61,7 +59,6 @@ export default function Behandle() {
   const { oppgaveId } = useTypeSafeParams();
   const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave } =
     useLoaderData<typeof loader>();
-  const { prøvingsdato } = usePrøvingsdato(behandling);
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -96,11 +93,15 @@ export default function Behandle() {
           </div>
 
           <div className="mt-4 flex gap-4">
-            <div className={"flex flex-1 flex-col gap-4"}>
-              {prøvingsdato && (
-                <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
-              )}
+            <div className={"flex w-[500px] flex-col gap-4"}>
+              <Avklaringer
+                avklaringer={[...behandling.avklaringer]}
+                behandlingId={behandling.behandlingId}
+              />
+              <EndretOpplysninger vurderinger={vurderinger} />
+            </div>
 
+            <div className={"flex flex-1 flex-col gap-4"}>
               {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
                 <OpplysningerForRettighetsperiode
                   key={index}
@@ -126,14 +127,6 @@ export default function Behandle() {
                   />
                 </UtvidedeBeskrivelserProvider>
               </div>
-            </div>
-
-            <div className={"flex w-[500px] flex-col gap-4"}>
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
-                behandlingId={behandling.behandlingId}
-              />
-              <EndretOpplysninger vurderinger={vurderinger} />
             </div>
           </div>
         </div>

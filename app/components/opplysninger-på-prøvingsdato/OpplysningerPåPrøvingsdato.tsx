@@ -26,7 +26,7 @@ const opplysninger = [
 export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IProps) {
   return (
     <div className={"card card-raised flex flex-col gap-4 p-4"}>
-      <Heading size={"small"}>Opplysninger på prøvingsdato</Heading>
+      <Heading size={"xsmall"}>Opplysninger på prøvingsdato</Heading>
       <section className="grid grid-cols-4 gap-2">
         {opplysninger.map(({ id, label }) => {
           const periode = hentOpplysningsperiodePåPrøvingsdato(

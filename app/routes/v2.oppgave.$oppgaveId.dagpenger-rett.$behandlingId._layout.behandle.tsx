@@ -1,4 +1,5 @@
 import { CogRotationIcon, GavelSoundBlockIcon } from "@navikt/aksel-icons";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -11,6 +12,7 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/FastsettelserTidslinje";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
@@ -18,6 +20,7 @@ import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { OppgaveTildel } from "~/components/v2/oppgave-tildel/OppgaveTildel";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -38,6 +41,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function Behandle() {
   const { oppgaveId } = useTypeSafeParams();
   const { behandling, vurderinger } = useLoaderData<typeof loader>();
+  const { prøvingsdatoOpplysning } = usePrøvingsdato(behandling);
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -69,18 +73,30 @@ export default function Behandle() {
             </LoadingLink>
           </div>
           <div className="mt-4 flex gap-4">
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <RettPåDagpenger behandling={behandling} />
-              <VilkårTidslinje behandling={behandling} oppgaveId={oppgaveId} />
-              <FastsettelserTidslinje behandling={behandling} oppgaveId={oppgaveId} />
-            </div>
-
             <div className={"flex w-[500px] flex-col gap-4"}>
+              <div className={"card p-4"}>
+                {prøvingsdatoOpplysning && (
+                  <>
+                    <Heading size={"small"}>Prøvingsdato</Heading>
+                    <PrøvingsdatoInput
+                      behandlingId={behandling.behandlingId}
+                      prøvingsdatoOpplysning={prøvingsdatoOpplysning}
+                    />
+                  </>
+                )}
+              </div>
+
               <Avklaringer
                 avklaringer={[...behandling.avklaringer]}
                 behandlingId={behandling.behandlingId}
               />
               <EndretOpplysninger vurderinger={vurderinger} />
+            </div>
+
+            <div className={"flex flex-1 flex-col gap-4"}>
+              <RettPåDagpenger behandling={behandling} />
+              <VilkårTidslinje behandling={behandling} oppgaveId={oppgaveId} />
+              <FastsettelserTidslinje behandling={behandling} oppgaveId={oppgaveId} />
             </div>
           </div>
         </div>

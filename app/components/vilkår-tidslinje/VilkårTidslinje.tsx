@@ -83,7 +83,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
-        <Heading size={"medium"}>Vilkårsvurderinger</Heading>
+        <Heading size={"small"}>Vilkårsvurderinger</Heading>
         <TidslinjeNavigering
           tidslinjeStartSlutt={tidslinjeStartSlutt}
           setTidslinjeStartSlutt={setTidslinjeStartSlutt}

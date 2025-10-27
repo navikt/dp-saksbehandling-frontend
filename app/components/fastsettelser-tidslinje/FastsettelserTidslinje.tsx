@@ -39,7 +39,7 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
-        <Heading size={"medium"}>Fastsettelser</Heading>
+        <Heading size={"small"}>Fastsettelser</Heading>
         <TidslinjeNavigering
           tidslinjeStartSlutt={tidslinjeState.tidslinjeStartSlutt}
           setTidslinjeStartSlutt={tidslinjeState.setTidslinjeStartSlutt}

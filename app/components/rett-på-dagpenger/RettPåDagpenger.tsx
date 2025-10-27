@@ -5,7 +5,6 @@ import { add } from "date-fns";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
-import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
@@ -20,7 +19,7 @@ interface IProps {
 
 export function RettPåDagpenger({ behandling }: IProps) {
   const { behandlingId, oppgaveId } = useTypeSafeParams();
-  const { prøvingsdatoOpplysning, prøvingsdato } = usePrøvingsdato(behandling);
+  const { prøvingsdato } = usePrøvingsdato(behandling);
   const sisteRettighetPeriodeDato = behandling.rettighetsperioder
     .flatMap((periode) => periode.fraOgMed)
     .sort()
@@ -35,14 +34,7 @@ export function RettPåDagpenger({ behandling }: IProps) {
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
-      <Heading size={"xsmall"}>Har bruker rett på dagpenger?</Heading>
-
-      {prøvingsdatoOpplysning && (
-        <PrøvingsdatoInput
-          behandlingId={behandling.behandlingId}
-          prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-        />
-      )}
+      <Heading size={"small"}>Har bruker rett på dagpenger?</Heading>
 
       <TidslinjeNavigering
         tidslinjeStartSlutt={tidslinjeStartSlutt}
