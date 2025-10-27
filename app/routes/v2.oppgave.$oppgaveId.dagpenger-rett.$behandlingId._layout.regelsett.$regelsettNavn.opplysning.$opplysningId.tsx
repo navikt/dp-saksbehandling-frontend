@@ -95,7 +95,7 @@ export default function Opplysning() {
 
             <div className={"flex flex-1 flex-col gap-4"}>
               <div className={"card p-4"}>
-                <Heading size={"large"}>{regelsett.navn}</Heading>
+                <Heading size={"small"}>{regelsett.navn}</Heading>
 
                 <OpplysningerTidslinje
                   opplysninger={regelsettOpplysninger}
@@ -106,7 +106,7 @@ export default function Opplysning() {
               </div>
 
               <div className={"card p-4"}>
-                <Heading size={"large"} className={"flex items-center gap-1"}>
+                <Heading size={"small"} className={"flex items-center gap-1"}>
                   {!opplysning.redigerbar && <PadlockLockedIcon />}
                   {opplysning.navn}
                 </Heading>

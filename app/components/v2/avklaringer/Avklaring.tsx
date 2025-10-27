@@ -51,18 +51,18 @@ export function Avklaring(props: IProps) {
       data-color={hentAvklaringFarge(props.avklaring)}
     >
       <ExpansionCard.Header className={"flex items-center"}>
-        <ExpansionCard.Title className={"flex content-center gap-2"}>
-          <HStack wrap={false} gap="space-12" align="center">
-            <div>{hentStatusIcon(props.avklaring)}</div>
-            <div>
-              <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
-            </div>
-          </HStack>
-        </ExpansionCard.Title>
+        <HStack wrap={false} gap="space-12" align="center">
+          <div>{hentStatusIcon(props.avklaring)}</div>
+          <div>
+            <BodyShort size={"small"} weight={"semibold"}>
+              {props.avklaring.tittel}
+            </BodyShort>
+          </div>
+        </HStack>
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
+        <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
         {props.avklaring.kanKvitteres && (
           <>
