@@ -13,6 +13,7 @@ import {
   Button,
   Detail,
   Heading,
+  HStack,
   Timeline,
   TimelinePeriodProps,
 } from "@navikt/ds-react";
@@ -121,15 +122,26 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                 key={vilkårEllerOpplysning.opplysningTypeId}
                 label={"\u00A0"}
                 icon={
-                  <span className={"ml-8 flex items-center gap-1 overflow-hidden text-ellipsis"}>
-                    {!vilkårEllerOpplysning.redigerbar && <PadlockLockedIcon fontSize="1.5rem" />}
-                    <LoadingLink
-                      to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
-                      tittelPåHover={vilkårEllerOpplysning.navn}
-                    >
-                      {vilkårEllerOpplysning.navn}
-                    </LoadingLink>
-                  </span>
+                  <HStack
+                    wrap={false}
+                    gap="space-2"
+                    align="center"
+                    className={"ml-8 overflow-hidden"}
+                  >
+                    {!vilkårEllerOpplysning.redigerbar && (
+                      <div>
+                        <PadlockLockedIcon fontSize="1.5rem" />
+                      </div>
+                    )}
+                    <div className={"overflow-hidden"}>
+                      <LoadingLink
+                        tittelPåHover={vilkårEllerOpplysning.navn}
+                        to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
+                      >
+                        {vilkårEllerOpplysning.navn}
+                      </LoadingLink>
+                    </div>
+                  </HStack>
                 }
               >
                 {vilkårEllerOpplysning.perioder.map((periode) => {
