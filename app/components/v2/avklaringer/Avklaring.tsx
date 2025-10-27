@@ -3,11 +3,13 @@ import {
   CircleSlashIcon,
   ExclamationmarkTriangleFillIcon,
 } from "@navikt/aksel-icons";
-import { BodyLong, BodyShort, ExpansionCard, Radio, RadioGroup } from "@navikt/ds-react";
+import { BodyLong, BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
+import styles from "~/components/avklaringer/Avklaring.module.css";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../../openapi/behandling-typer";
@@ -45,28 +47,31 @@ export function Avklaring(props: IProps) {
           {hentStatusIcon(props.avklaring)}
           <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
         </ExpansionCard.Title>
-
-        <ExpansionCard.Description>
-          {hentAvklaringKortBeskrivelse(props.avklaring)}
-        </ExpansionCard.Description>
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
         <BodyLong>{props.avklaring.beskrivelse}</BodyLong>
 
-        {props.avklaring.status === "Åpen" && (
-          <RadioGroup
-            {...avklaringForm.getInputProps("begrunnelse")}
-            size={"small"}
-            legend="Saksbehandlers vurdering"
-            onChange={(verdi: string) => {
-              avklaringForm.field("begrunnelse").setValue(verdi);
-              avklaringForm.submit();
-            }}
-          >
-            <Radio value="Vurdert med endringer">Vurdert med endringer</Radio>
-            <Radio value="Vurdert, ingen endringer">Vurdert, ingen endringer</Radio>
-          </RadioGroup>
+        {props.avklaring.kanKvitteres && (
+          <>
+            <TextField
+              {...avklaringForm.getInputProps("begrunnelse")}
+              className={styles.begrunnelseInput}
+              size="small"
+              label="Begrunnelse"
+            />
+
+            {props.avklaring.sistEndret && (
+              <Detail>
+                Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                {props.avklaring.avklartAv?.ident}
+              </Detail>
+            )}
+
+            <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
+              Lagre
+            </Button>
+          </>
         )}
       </ExpansionCard.Content>
     </ExpansionCard>
@@ -96,14 +101,5 @@ function hentAvklaringFarge(avklaring: components["schemas"]["Avklaring"]): Akse
       return "info";
     case "Avklart":
       return "success";
-  }
-}
-
-function hentAvklaringKortBeskrivelse(avklaring: components["schemas"]["Avklaring"]) {
-  switch (avklaring.status) {
-    case "Avbrutt":
-      return "Ikke lenger relevant å sjekke";
-    case "Avklart":
-      return avklaring.begrunnelse === "Vurdert med endringer" ? "Endringer" : "Ingen endringer";
   }
 }
