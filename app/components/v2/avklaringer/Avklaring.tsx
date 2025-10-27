@@ -3,7 +3,15 @@ import {
   CircleSlashIcon,
   ExclamationmarkTriangleFillIcon,
 } from "@navikt/aksel-icons";
-import { BodyLong, BodyShort, Button, Detail, ExpansionCard, TextField } from "@navikt/ds-react";
+import {
+  BodyLong,
+  BodyShort,
+  Button,
+  Detail,
+  ExpansionCard,
+  HStack,
+  TextField,
+} from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
@@ -44,8 +52,12 @@ export function Avklaring(props: IProps) {
     >
       <ExpansionCard.Header className={"flex items-center"}>
         <ExpansionCard.Title className={"flex content-center gap-2"}>
-          {hentStatusIcon(props.avklaring)}
-          <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
+          <HStack wrap={false} gap="space-4" align="center">
+            <div>{hentStatusIcon(props.avklaring)}</div>
+            <div>
+              <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
+            </div>
+          </HStack>
         </ExpansionCard.Title>
       </ExpansionCard.Header>
 
