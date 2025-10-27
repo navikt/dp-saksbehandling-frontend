@@ -52,7 +52,7 @@ export function Avklaring(props: IProps) {
     >
       <ExpansionCard.Header className={"flex items-center"}>
         <ExpansionCard.Title className={"flex content-center gap-2"}>
-          <HStack wrap={false} gap="space-4" align="center">
+          <HStack wrap={false} gap="space-12" align="center">
             <div>{hentStatusIcon(props.avklaring)}</div>
             <div>
               <BodyShort weight={"semibold"}>{props.avklaring.tittel}</BodyShort>
