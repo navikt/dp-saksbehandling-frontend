@@ -1,5 +1,5 @@
 import { CogRotationIcon, GavelSoundBlockIcon } from "@navikt/aksel-icons";
-import { Button, Heading } from "@navikt/ds-react";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -16,6 +16,8 @@ import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
@@ -76,16 +78,23 @@ export default function Behandle() {
     },
   ];
 
+  const kanSendeTilKontroll =
+    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
+
+  const kanFatteVedtak =
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
+    oppgave.tilstand === "UNDER_KONTROLL";
+
   return (
     <>
       <main className="main">
         <div className={"card mb-4 p-4"}>
           <div className="flex justify-between gap-6">
             <LinkTabs className="flex-1" tabs={tabs} />
-            <Button className="ml-auto" size={"xsmall"} onClick={() => alert("TODO!")}>
-              Skriv melding om vedtak
-            </Button>
+            {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+            {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
           </div>
+
           <div className="mt-4 flex gap-4">
             <div className={"flex flex-1 flex-col gap-4"}>
               {prøvingsdato && (

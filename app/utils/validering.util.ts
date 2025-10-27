@@ -338,3 +338,17 @@ export function hentValideringForRekjørBehandling() {
     ident: z.string().min(1, "Det mangler person ident i skjema"),
   });
 }
+
+export function hentValideringForSendTilKontroll() {
+  return z.object({
+    _action: z.literal("send-til-kontroll"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+  });
+}
+
+export function hentValideringForFattVedtak() {
+  return z.object({
+    _action: z.literal("fatt-vedtak"),
+    oppgaveId: z.string().min(1, "Det mangler behandlingId i skjema"),
+  });
+}
