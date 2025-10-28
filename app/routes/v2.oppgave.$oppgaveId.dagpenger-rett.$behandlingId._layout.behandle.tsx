@@ -1,4 +1,3 @@
-import { CogRotationIcon, GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -42,26 +41,11 @@ export default function Behandle() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const tabs = [
-    {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`,
-      label: "Behandling",
-      icon: <CogRotationIcon />,
-    },
-    {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/vedtak`,
-      label: "Vedtak",
-      icon: <GavelSoundBlockIcon />,
-    },
-  ];
-
   return (
     <>
       <main className="main">
         <div className={"card p-4"}>
-          <div className="flex justify-between gap-6">
-            <LinkTabs className="flex-1" tabs={tabs} />
-          </div>
+          <LinkTabs />
 
           <div className="mt-4 flex gap-4">
             <div className={"flex w-[500px] flex-col gap-4"}>

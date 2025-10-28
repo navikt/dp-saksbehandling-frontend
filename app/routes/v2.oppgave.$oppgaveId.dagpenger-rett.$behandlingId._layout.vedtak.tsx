@@ -1,4 +1,3 @@
-import { CogRotationIcon, GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -19,7 +18,6 @@ import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFa
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -56,24 +54,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave };
 }
 export default function Behandle() {
-  const { oppgaveId } = useTypeSafeParams();
   const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave } =
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-
-  const tabs = [
-    {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`,
-      label: "Behandling",
-      icon: <CogRotationIcon />,
-    },
-    {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/vedtak`,
-      label: "Vedtak",
-      icon: <GavelSoundBlockIcon />,
-    },
-  ];
 
   const kanSendeTilKontroll =
     oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
@@ -87,7 +71,7 @@ export default function Behandle() {
       <main className="main">
         <div className={"card mb-4 p-4"}>
           <div className="flex justify-between gap-6">
-            <LinkTabs className="flex-1" tabs={tabs} />
+            <LinkTabs className="flex-1" />
             {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
             {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
           </div>
