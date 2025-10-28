@@ -12,7 +12,7 @@ interface IProps {
 export function EndretOpplysninger({ vurderinger }: IProps) {
   return (
     <div className={"card p-4"}>
-      <Heading size={"small"}>Endringer og vurderinger</Heading>
+      <Heading size={"small"}>Saksbehandlers vurderinger</Heading>
 
       <Accordion size={"small"} className={"accordion--subtil mt-2"}>
         {vurderinger.opplysninger.map((opplysning) => (

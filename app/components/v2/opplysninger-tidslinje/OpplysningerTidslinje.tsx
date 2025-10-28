@@ -72,7 +72,7 @@ export function OpplysningerTidslinje(props: IProps) {
                 <HStack wrap={false} gap="space-2" align="center" className={"overflow-hidden"}>
                   {!opplysning.redigerbar && (
                     <div>
-                      <PadlockLockedIcon fontSize="1.5rem" />
+                      <PadlockLockedIcon fontSize="1rem" />
                     </div>
                   )}
                   <div className={"overflow-hidden"}>
