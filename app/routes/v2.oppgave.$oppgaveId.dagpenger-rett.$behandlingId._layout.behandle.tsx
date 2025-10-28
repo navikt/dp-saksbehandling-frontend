@@ -10,13 +10,11 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/FastsettelserTidslinje";
-import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
-import { OppgaveTildel } from "~/components/v2/oppgave-tildel/OppgaveTildel";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
@@ -63,13 +61,6 @@ export default function Behandle() {
         <div className={"card p-4"}>
           <div className="flex justify-between gap-6">
             <LinkTabs className="flex-1" tabs={tabs} />
-            <OppgaveTildel />
-            <LoadingLink
-              to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/vedtak`}
-              asButtonVariant={"primary"}
-            >
-              Skriv melding om vedtak
-            </LoadingLink>
           </div>
 
           <div className="mt-4 flex gap-4">

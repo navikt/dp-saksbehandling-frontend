@@ -6,6 +6,7 @@ import { OppgaveMenyAvbryt } from "~/components/v2/oppgave-meny/OppgaveMenyAvbry
 import { OppgaveMenyLeggTilbake } from "~/components/v2/oppgave-meny/OppgaveMenyLeggTilbake";
 import { OppgaveMenyRekjørBehandling } from "~/components/v2/oppgave-meny/OppgaveMenyRekjørBehandling";
 import { OppgaveMenySettPåVent } from "~/components/v2/oppgave-meny/OppgaveMenySettPåVent";
+import { OppgaveTildel } from "~/components/v2/oppgave-tildel/OppgaveTildel";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 export type IGyldigeOppgaveHandlinger = "legg-tilbake" | "utsett" | "avbryt" | "rekjor-behandling";
@@ -74,6 +75,7 @@ export function OppgaveMeny({ oppgave }: IProps) {
                 {valg === "utsett" && <OppgaveMenySettPåVent oppgave={oppgave} />}
                 {valg === "rekjor-behandling" && <OppgaveMenyRekjørBehandling oppgave={oppgave} />}
                 {valg === "avbryt" && <OppgaveMenyAvbryt oppgave={oppgave} />}
+                {oppgave.tilstand === "KLAR_TIL_BEHANDLING" && <OppgaveTildel />}
               </div>
             ))}
           </ActionMenu.Content>

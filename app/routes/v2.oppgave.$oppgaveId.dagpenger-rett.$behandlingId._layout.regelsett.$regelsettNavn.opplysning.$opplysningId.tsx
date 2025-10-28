@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
-import { Heading } from "@navikt/ds-react";
+import { Detail, Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -11,6 +11,7 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import styles from "~/components/regelsett/Regelsett.module.css";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
@@ -75,14 +76,24 @@ export default function Opplysning() {
   return (
     <>
       <main className={"main flex flex-col gap-4"}>
+        <LoadingLink
+          to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
+          className={"flex items-center gap-1 pb-2"}
+        >
+          <ArrowLeftIcon />
+          Behandling
+        </LoadingLink>
+
         <div className={"card p-4"}>
-          <LoadingLink
-            to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
-            className={"flex items-center gap-1 pb-2"}
-          >
-            <ArrowLeftIcon />
-            Behandling
-          </LoadingLink>
+          <div className={"mb-6"}>
+            <Heading className={styles.hjemmelTittel} size="medium">
+              {regelsett.hjemmel.tittel}
+            </Heading>
+
+            <Detail textColor="subtle" className={styles.hjemmelKilde}>
+              {regelsett.hjemmel.kilde.navn}
+            </Detail>
+          </div>
 
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
