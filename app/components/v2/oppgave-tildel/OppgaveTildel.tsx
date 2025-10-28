@@ -22,8 +22,8 @@ export function OppgaveTildel() {
 
   return (
     <Button
-      variant="secondary"
-      size="small"
+      size="xsmall"
+      variant="tertiary-neutral"
       loading={tildelOppgaveForm.formState.isSubmitting}
       onClick={() => tildelOppgaveForm.submit()}
     >
