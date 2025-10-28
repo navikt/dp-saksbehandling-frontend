@@ -16,7 +16,7 @@ export function OpplysningsVerdierForPerioder(props: {
         {props.label}
       </BodyShort>
 
-      <div className="flex flex-col gap-2 rounded-lg bg-(--ax-bg-accent-moderate) p-2">
+      <div className="flex flex-col gap-2 rounded-lg bg-white p-2">
         {props.perioder.map((periode, index) => (
           <VerdiMedTittel
             key={index}

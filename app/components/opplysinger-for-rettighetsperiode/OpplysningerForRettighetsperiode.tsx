@@ -67,7 +67,7 @@ export function OpplysningerForRettighetsperiode({
         })}
       </section>
 
-      <section className="grid grid-cols-2 gap-2">
+      <section className="grid grid-cols-4 gap-2">
         {RETTIGHETSPERIODE_OPPLYSNINGER.filter(
           ({ id }) => hentPerioderForOpplysning(opplysninger, id, rettighetsperiode).length > 1,
         ).map(({ id, label }) => {
