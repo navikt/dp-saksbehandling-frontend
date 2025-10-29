@@ -82,7 +82,9 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                   dokument?.dokumentvarianter.map((variant, index) => (
                     <Fragment key={index}>
                       {dokument && variant && (
-                        <List.Item icon={<FilePdfIcon color={"var(--ax-text-subtle)"} />}>
+                        <List.Item
+                          icon={<FilePdfIcon color={"var(--ax-text-subtle)"} aria-hidden />}
+                        >
                           <Button
                             className={"text-start"}
                             type="button"

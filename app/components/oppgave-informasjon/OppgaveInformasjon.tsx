@@ -3,9 +3,9 @@ import { Tabs } from "@navikt/ds-react";
 import { useState } from "react";
 
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
+import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
-import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
@@ -45,7 +45,7 @@ export function OppgaveInformasjon(props: IProps) {
       </Tabs.Panel>
 
       <Tabs.Panel value="informasjon">
-        <OppgaveLenker inntektRedigeringUrl={props.inntektRedigeringUrl} />
+        <FagsystemLenker inntektRedigeringUrl={props.inntektRedigeringUrl} />
       </Tabs.Panel>
 
       <Tabs.Panel value="historikk">
