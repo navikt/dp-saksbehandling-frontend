@@ -1,6 +1,6 @@
-import { DatePicker, Heading, Loader, useDatepicker } from "@navikt/ds-react";
+import { Button, DatePicker, Heading, TextField, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { Form } from "react-router";
+import { isSameDay } from "date-fns";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
@@ -31,23 +31,21 @@ export function PrøvingsdatoInput(props: IProps) {
       datatype: prøvingsdatoOpplysningPeriode.verdi.datatype,
       behandlingId: props.behandlingId,
       verdi: konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode.verdi),
-      begrunnelse: "Prøvingsdato",
+      begrunnelse: prøvingsdatoOpplysningPeriode.kilde?.begrunnelse?.verdi,
       gyldigFraOgMed: undefined,
       gyldigTilOgMed: undefined,
     },
   });
 
-  const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: prøvingsdatoOpplysningPeriode.verdi.verdi
-      ? new Date(prøvingsdatoOpplysningPeriode.verdi.verdi)
-      : undefined,
+  const periodeDato = new Date(prøvingsdatoOpplysningPeriode.verdi.verdi);
+  const { selectedDay, datepickerProps, inputProps } = useDatepicker({
+    defaultSelected: periodeDato,
     onDateChange: (date) => {
       if (date) {
         prøvingsdatoSkjema.field("verdi").setValue(formaterTilNorskDato(date));
       } else {
         prøvingsdatoSkjema.field("verdi").setValue("");
       }
-      prøvingsdatoSkjema.submit();
     },
   });
 
@@ -55,21 +53,35 @@ export function PrøvingsdatoInput(props: IProps) {
     <div className={"card p-4"}>
       <Heading size={"small"}>Prøvingsdato</Heading>
 
-      <Form {...prøvingsdatoSkjema.getFormProps()} className={"flex gap-2"}>
-        <DatePicker {...datepickerProps}>
-          <DatePicker.Input
-            {...inputProps}
-            form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
-            name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
-            error={prøvingsdatoSkjema.field("verdi").error()}
-            label="Vurder retten fra"
+      <DatePicker {...datepickerProps}>
+        <DatePicker.Input
+          {...inputProps}
+          form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
+          name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
+          error={prøvingsdatoSkjema.field("verdi").error()}
+          label="Vurder retten fra"
+          size={"small"}
+        />
+      </DatePicker>
+
+      {selectedDay && !isSameDay(selectedDay, periodeDato) && (
+        <>
+          <TextField
+            {...prøvingsdatoSkjema.field("begrunnelse").getInputProps()}
+            error={prøvingsdatoSkjema.field("begrunnelse").error()}
+            className={"my-2"}
             size={"small"}
+            label={"Begrunnelse"}
           />
-        </DatePicker>
-        {prøvingsdatoSkjema.formState.isSubmitting && (
-          <Loader size={"small"} className={"mb-1.5 self-end"} />
-        )}
-      </Form>
+          <Button
+            size={"small"}
+            onClick={() => prøvingsdatoSkjema.submit()}
+            loading={prøvingsdatoSkjema.formState.isSubmitting}
+          >
+            Lagre
+          </Button>
+        </>
+      )}
     </div>
   );
 }
