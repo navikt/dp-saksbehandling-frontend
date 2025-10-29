@@ -81,6 +81,6 @@
   }
   .aksel-process__timestamp {
     font-size: var(--ax-font-size-small);
-    /*margin-bottom: 0;*/
+    margin-bottom: 0;
   }
 }
