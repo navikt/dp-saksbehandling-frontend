@@ -1,5 +1,5 @@
 import { PadlockLockedIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, HStack, Timeline } from "@navikt/ds-react";
+import { BodyShort, Detail, Heading, HStack, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
 
@@ -23,6 +23,8 @@ interface TimelinePin {
 
 interface IProps {
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
+  tittel?: string;
+  readonly?: boolean;
   medLenkeTilOpplysning?: boolean;
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
@@ -41,12 +43,21 @@ export function OpplysningerTidslinje(props: IProps) {
   return (
     <>
       {!props.eksternTidslinjeNavigeringState && (
-        <TidslinjeNavigering
-          tidslinjeStartSlutt={tidslinjeStartSlutt}
-          setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-          antallUkerITidslinje={antallUkerITidslinje}
-          setAntallUkerITidslinje={setAntallUkerITidslinje}
-        />
+        <div className={`flex content-center ${props.tittel ? "justify-between" : "justify-end"}`}>
+          {props.tittel && (
+            <div className={"flex items-center gap-1"}>
+              {props.readonly && <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />}
+              <Heading size={"small"}>{props.tittel}</Heading>
+            </div>
+          )}
+
+          <TidslinjeNavigering
+            tidslinjeStartSlutt={tidslinjeStartSlutt}
+            setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+            antallUkerITidslinje={antallUkerITidslinje}
+            setAntallUkerITidslinje={setAntallUkerITidslinje}
+          />
+        </div>
       )}
 
       <Timeline

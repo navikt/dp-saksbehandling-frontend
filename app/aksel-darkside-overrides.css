@@ -76,7 +76,8 @@
 /*Aksel process override*/
 .aksel--compact {
   .aksel-process__title {
-    font-size: var(--ax-font-size-heading-xsmall);
+    font-size: var(--ax-font-size-medium);
+    line-height: var(--ax-font-line-height-medium);
     padding-bottom: 0;
   }
   .aksel-process__timestamp {

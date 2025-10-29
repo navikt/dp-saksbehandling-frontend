@@ -16,6 +16,7 @@ export function OppgaveHistorikk({ oppgave }: IProps) {
           <Process.Event
             key={index}
             title={hendelse.tittel}
+            status={index === oppgave.historikk.length - 1 ? "uncompleted" : "completed"}
             timestamp={formaterTilNorskDato(hendelse.tidspunkt, true)}
           >
             <BodyLong size={"small"}>{hendelse.body}</BodyLong>

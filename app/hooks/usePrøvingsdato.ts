@@ -11,7 +11,7 @@ export function usePrøvingsdato(behandling: components["schemas"]["Behandlingsr
     prøvingsdatoOpplysning?.perioder[prøvingsdatoOpplysning?.perioder.length - 1];
 
   if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
-    return { prøvingsdatoOpplysning: undefined, prøvingsdato: undefined };
+    throw new Error("Finner ikke prøvingsdato");
   }
 
   return {

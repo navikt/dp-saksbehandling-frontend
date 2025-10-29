@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
+import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Detail, Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -106,10 +106,9 @@ export default function Opplysning() {
 
             <div className={"flex flex-1 flex-col gap-4"}>
               <div className={"card p-4"}>
-                <Heading size={"small"}>{regelsett.navn}</Heading>
-
                 <OpplysningerTidslinje
                   opplysninger={regelsettOpplysninger}
+                  tittel={regelsett.navn}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
                   pins={pins}
@@ -117,11 +116,12 @@ export default function Opplysning() {
               </div>
 
               <div className={"card p-4"}>
-                <Heading size={"small"} className={"flex items-center gap-1"}>
-                  {!opplysning.redigerbar && <PadlockLockedIcon />}
-                  {opplysning.navn}
-                </Heading>
-                <OpplysningerTidslinje opplysninger={[opplysning]} pins={pins} />
+                <OpplysningerTidslinje
+                  tittel={opplysning.navn}
+                  readonly={!opplysning.redigerbar}
+                  opplysninger={[opplysning]}
+                  pins={pins}
+                />
                 <OpplysningPerioderTabell opplysning={opplysning} />
               </div>
             </div>
