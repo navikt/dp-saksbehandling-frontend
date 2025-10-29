@@ -1,20 +1,25 @@
-import { Heading, Theme } from "@navikt/ds-react";
+import { Tabs, Theme } from "@navikt/ds-react";
 import { type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
+import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { OppgaveInformasjon } from "~/components/v2/oppgave-informasjon/OppgaveInformasjon";
+import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
+  const journalposterPromises = Promise.all(
+    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
+  );
 
-  return { oppgave };
+  return { oppgave, journalposterPromises };
 }
 
 export function links() {
@@ -26,14 +31,33 @@ export function links() {
 
 export default function BehandlingLayout() {
   const { tema } = useSaksbehandler();
-  const { oppgave } = useLoaderData<typeof loader>();
+  const { oppgave, journalposterPromises } = useLoaderData<typeof loader>();
   return (
     <Theme theme={tema}>
       <PersonBoks person={oppgave.person} />
       <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-        <OppgaveInformasjon oppgave={oppgave} />
-        <div className={"card p-4"}>
-          <Heading size={"xsmall"}>Dokumenter</Heading>
+        <OppgaveOversikt oppgave={oppgave} />
+
+        <div className={"card p-2"}>
+          <Tabs defaultValue="dokumenter" size={"small"}>
+            <Tabs.List>
+              <Tabs.Tab value="dokumenter" label="Dokumenter" />
+              <Tabs.Tab value="fagsystemer" label="Fagsystemer" />
+              <Tabs.Tab value="historikk" label="Historikk" />
+            </Tabs.List>
+
+            <Tabs.Panel value="dokumenter">
+              <DokumentOversikt journalposterPromises={journalposterPromises} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="fagsystemer">
+              <div>Fagsystemer</div>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="historikk">
+              <div>Historikk</div>
+            </Tabs.Panel>
+          </Tabs>
         </div>
       </div>
       <Outlet />

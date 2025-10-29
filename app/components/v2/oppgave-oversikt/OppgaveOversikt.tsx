@@ -12,7 +12,7 @@ interface IProps {
   oppgave: components["schemas"]["Oppgave"];
 }
 
-export function OppgaveInformasjon({ oppgave }: IProps) {
+export function OppgaveOversikt({ oppgave }: IProps) {
   return (
     <div className={"card p-4"}>
       <div className={"flex justify-between"}>

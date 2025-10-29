@@ -6,6 +6,7 @@ import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversik
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveLenker } from "~/components/oppgave-lenker/OppgaveLenker";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 interface IProps {
   visKontrollFane?: boolean;
@@ -15,6 +16,7 @@ interface IProps {
 
 export function OppgaveInformasjon(props: IProps) {
   const [aktivTab, setAktivTab] = useState<string>(props.defaultTab);
+  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
@@ -39,7 +41,7 @@ export function OppgaveInformasjon(props: IProps) {
       </Tabs.List>
 
       <Tabs.Panel value="dokumenter">
-        <DokumentOversikt />
+        <DokumentOversikt journalposterPromises={journalposterPromises} />
       </Tabs.Panel>
 
       <Tabs.Panel value="informasjon">
