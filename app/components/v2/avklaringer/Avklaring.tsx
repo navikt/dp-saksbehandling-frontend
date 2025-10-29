@@ -57,10 +57,9 @@ export function Avklaring(props: IProps) {
             <BodyShort size={"small"} weight={"semibold"}>
               {props.avklaring.tittel}
             </BodyShort>
-            {props.avklaring.status === "Avklart" ||
-              (props.avklaring.status === "Avbrutt" && (
-                <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
-              ))}
+            {(props.avklaring.status === "Avklart" || props.avklaring.status === "Avbrutt") && (
+              <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
+            )}
           </div>
         </HStack>
       </ExpansionCard.Header>
