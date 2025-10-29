@@ -1,8 +1,4 @@
-import {
-  CheckmarkCircleFillIcon,
-  CircleSlashIcon,
-  ExclamationmarkTriangleFillIcon,
-} from "@navikt/aksel-icons";
+import { CheckmarkCircleFillIcon, ExclamationmarkTriangleFillIcon } from "@navikt/aksel-icons";
 import {
   BodyLong,
   BodyShort,
@@ -57,6 +53,9 @@ export function Avklaring(props: IProps) {
             <BodyShort size={"small"} weight={"semibold"}>
               {props.avklaring.tittel}
             </BodyShort>
+            {props.avklaring.status === "Avklart" && (
+              <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
+            )}
           </div>
         </HStack>
       </ExpansionCard.Header>
@@ -64,30 +63,43 @@ export function Avklaring(props: IProps) {
       <ExpansionCard.Content>
         <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
-        {props.avklaring.kanKvitteres && (
-          <>
-            <TextField
-              {...avklaringForm.getInputProps("begrunnelse")}
-              className={styles.begrunnelseInput}
-              size="small"
-              label="Begrunnelse"
-            />
+        {props.avklaring.kanKvitteres &&
+          (props.avklaring.status === "Åpen" || props.avklaring.status === "Avklart") && (
+            <>
+              <TextField
+                {...avklaringForm.getInputProps("begrunnelse")}
+                className={styles.begrunnelseInput}
+                size="small"
+                label="Begrunnelse"
+              />
 
-            {props.avklaring.sistEndret && (
-              <Detail>
-                Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
-                {props.avklaring.avklartAv?.ident}
-              </Detail>
-            )}
+              {props.avklaring.sistEndret && (
+                <Detail>
+                  Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                  {props.avklaring.avklartAv?.ident}
+                </Detail>
+              )}
 
-            <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
-              Lagre
-            </Button>
-          </>
-        )}
+              <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
+                Lagre
+              </Button>
+            </>
+          )}
       </ExpansionCard.Content>
     </ExpansionCard>
   );
+}
+
+function hentAvklartAv(avklaring: components["schemas"]["Avklaring"]) {
+  if (avklaring.avklartAv) {
+    return avklaring.avklartAv.ident;
+  }
+
+  if (avklaring.maskinelt) {
+    return "regelmotor";
+  }
+
+  return "!&/#% Vi skjønner ikke regelmotor";
 }
 
 function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
@@ -97,9 +109,8 @@ function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
         <ExclamationmarkTriangleFillIcon color={"var(--ax-text-warning-decoration)"} aria-hidden />
       );
     case "Avklart":
-      return <CheckmarkCircleFillIcon color={"var(--ax-text-success-decoration)"} aria-hidden />;
     case "Avbrutt":
-      return <CircleSlashIcon color={"var(--ax-text-info-decoration)"} aria-hidden />;
+      return <CheckmarkCircleFillIcon color={"var(--ax-text-success-decoration)"} aria-hidden />;
     default:
       return null;
   }
@@ -110,7 +121,6 @@ function hentAvklaringFarge(avklaring: components["schemas"]["Avklaring"]): Akse
     case "Åpen":
       return "warning";
     case "Avbrutt":
-      return "info";
     case "Avklart":
       return "success";
   }
