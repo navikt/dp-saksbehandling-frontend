@@ -38,6 +38,11 @@ export function Avklaring(props: IProps) {
     },
   });
 
+  const kanRedigereBegrunnelse =
+    props.avklaring.kanKvitteres &&
+    (props.avklaring.status === "Åpen" ||
+      (props.avklaring.status === "Avklart" && !props.avklaring.maskinelt));
+
   return (
     <ExpansionCard
       key={props.avklaring.id}
@@ -63,28 +68,27 @@ export function Avklaring(props: IProps) {
       <ExpansionCard.Content>
         <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
-        {props.avklaring.kanKvitteres &&
-          (props.avklaring.status === "Åpen" || props.avklaring.status === "Avklart") && (
-            <>
-              <TextField
-                {...avklaringForm.getInputProps("begrunnelse")}
-                className={styles.begrunnelseInput}
-                size="small"
-                label="Begrunnelse"
-              />
+        {kanRedigereBegrunnelse && (
+          <>
+            <TextField
+              {...avklaringForm.getInputProps("begrunnelse")}
+              className={styles.begrunnelseInput}
+              size="small"
+              label="Begrunnelse"
+            />
 
-              {props.avklaring.sistEndret && (
-                <Detail>
-                  Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
-                  {props.avklaring.avklartAv?.ident}
-                </Detail>
-              )}
+            {props.avklaring.sistEndret && (
+              <Detail>
+                Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                {props.avklaring.avklartAv?.ident}
+              </Detail>
+            )}
 
-              <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
-                Lagre
-              </Button>
-            </>
-          )}
+            <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
+              Lagre
+            </Button>
+          </>
+        )}
       </ExpansionCard.Content>
     </ExpansionCard>
   );
