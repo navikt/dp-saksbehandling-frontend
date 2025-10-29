@@ -72,3 +72,15 @@
   width: 100%;
   justify-content: flex-start;
 }
+
+/*Aksel process override*/
+.aksel--compact {
+  .aksel-process__title {
+    font-size: var(--ax-font-size-heading-xsmall);
+    padding-bottom: 0;
+  }
+  .aksel-process__timestamp {
+    font-size: var(--ax-font-size-small);
+    /*margin-bottom: 0;*/
+  }
+}

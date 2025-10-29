@@ -5,6 +5,7 @@ import invariant from "tiny-invariant";
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
+import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
 import globalDarksideCss from "~/global-darkside.css?url";
@@ -59,7 +60,7 @@ export default function BehandlingLayout() {
             </Tabs.Panel>
 
             <Tabs.Panel value="historikk">
-              <div>Historikk</div>
+              <OppgaveHistorikk oppgave={oppgave} />
             </Tabs.Panel>
           </Tabs>
         </div>

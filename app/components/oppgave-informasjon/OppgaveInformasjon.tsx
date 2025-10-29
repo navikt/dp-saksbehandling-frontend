@@ -16,7 +16,7 @@ interface IProps {
 
 export function OppgaveInformasjon(props: IProps) {
   const [aktivTab, setAktivTab] = useState<string>(props.defaultTab);
-  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { oppgave, journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
 
   return (
     <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
@@ -49,7 +49,7 @@ export function OppgaveInformasjon(props: IProps) {
       </Tabs.Panel>
 
       <Tabs.Panel value="historikk">
-        <OppgaveHistorikk />
+        <OppgaveHistorikk oppgave={oppgave} />
       </Tabs.Panel>
 
       <Tabs.Panel value="kontroll">

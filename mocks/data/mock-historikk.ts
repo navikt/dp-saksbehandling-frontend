@@ -52,19 +52,19 @@ export const mockHistorikk: components["schemas"]["OppgaveHistorikk"][] = [
   },
   {
     type: "statusendring",
-    tittel: "nder behandling",
+    tittel: "Under behandling",
     tidspunkt: "2024-09-18T05:43:00",
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
   },
   {
     type: "statusendring",
-    tittel: "att på vent frem til 26.09.24",
+    tittel: "Satt på vent frem til 26.09.24",
     tidspunkt: "2024-09-18T04:43:00",
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
   },
   {
     type: "statusendring",
-    tittel: "nder behandling",
+    tittel: "Under behandling",
     tidspunkt: "2024-09-18T08:43:00",
     behandler: { navn: "Truls Trubadur", rolle: "saksbehandler" },
   },
