@@ -40,8 +40,7 @@ export function Avklaring(props: IProps) {
 
   const kanRedigereBegrunnelse =
     props.avklaring.kanKvitteres &&
-    (props.avklaring.status === "Åpen" ||
-      (props.avklaring.status === "Avklart" && !props.avklaring.maskinelt));
+    (props.avklaring.status === "Åpen" || !props.avklaring.maskinelt);
 
   return (
     <ExpansionCard
@@ -58,9 +57,10 @@ export function Avklaring(props: IProps) {
             <BodyShort size={"small"} weight={"semibold"}>
               {props.avklaring.tittel}
             </BodyShort>
-            {props.avklaring.status === "Avklart" && (
-              <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
-            )}
+            {props.avklaring.status === "Avklart" ||
+              (props.avklaring.status === "Avbrutt" && (
+                <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
+              ))}
           </div>
         </HStack>
       </ExpansionCard.Header>
@@ -95,12 +95,12 @@ export function Avklaring(props: IProps) {
 }
 
 function hentAvklartAv(avklaring: components["schemas"]["Avklaring"]) {
-  if (avklaring.avklartAv) {
-    return avklaring.avklartAv.ident;
-  }
-
   if (avklaring.maskinelt) {
     return "regelmotor";
+  }
+
+  if (avklaring.avklartAv) {
+    return avklaring.avklartAv.ident;
   }
 
   return "!&/#% Vi skjønner ikke regelmotor";
