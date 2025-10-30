@@ -11,20 +11,27 @@ import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversik
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
+import { getEnv } from "~/utils/env.utils";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const { personId } = await hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
-  return { oppgave, behandling, journalposterPromises };
+  return {
+    oppgave,
+    behandling,
+    journalposterPromises,
+    meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
+  };
 }
 
 export function links() {
@@ -36,10 +43,11 @@ export function links() {
 
 export default function BehandlingLayout() {
   const { tema } = useSaksbehandler();
-  const { oppgave, behandling, journalposterPromises } = useLoaderData<typeof loader>();
+  const { oppgave, behandling, journalposterPromises, meldekortUrl } =
+    useLoaderData<typeof loader>();
   return (
     <Theme theme={tema}>
-      <PersonBoks person={oppgave.person} />
+      <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
       <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
         <OppgaveOversikt oppgave={oppgave} />
 
