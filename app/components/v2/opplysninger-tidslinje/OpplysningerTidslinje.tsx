@@ -2,6 +2,7 @@ import { PadlockLockedIcon } from "@navikt/aksel-icons";
 import { BodyShort, Detail, Heading, HStack, Timeline } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
+import { useParams } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
@@ -13,7 +14,6 @@ import {
   TidslinjeNavigeringState,
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
@@ -41,7 +41,7 @@ export function OpplysningerTidslinje(props: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
   const dagensDato = new Date();
-  const { opplysningId } = useTypeSafeParams();
+  const { opplysningId } = useParams();
 
   return (
     <>

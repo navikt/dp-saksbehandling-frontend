@@ -10,13 +10,13 @@ import {
 } from "@navikt/aksel-icons";
 import {
   BodyShort,
-  Button,
   Detail,
   Heading,
   HStack,
   Timeline,
   TimelinePeriodProps,
 } from "@navikt/ds-react";
+import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { useState } from "react";
 
@@ -30,6 +30,7 @@ import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
+import styles from "./VilkårTidslinje.module.css";
 
 interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
@@ -111,7 +112,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
           }
         })}
 
-        {vilkårOgOpplysninger.map((vilkårEllerOpplysning) => {
+        {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
             if (!vilkårEllerOpplysning.synlig) {
               return;
@@ -126,7 +127,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     wrap={false}
                     gap="space-2"
                     align="center"
-                    className={"ml-8 overflow-hidden"}
+                    className={"ml-11 overflow-hidden"}
                   >
                     {!vilkårEllerOpplysning.redigerbar && (
                       <div>
@@ -187,25 +188,28 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
               key={vilkårEllerOpplysning.navn}
               label={"\u00A0"}
               icon={
-                <Button
-                  title={vilkårEllerOpplysning.navn}
-                  variant={
-                    vilkårEllerOpplysning.navn === aktivtRegelsett?.navn
-                      ? "primary"
-                      : "tertiary-neutral"
-                  }
-                  icon={
-                    aktivtRegelsett?.navn === vilkårEllerOpplysning.navn ? (
-                      <ChevronUpIcon />
-                    ) : (
-                      <ChevronDownIcon />
-                    )
-                  }
-                  onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
-                  size="xsmall"
-                >
-                  {vilkårEllerOpplysning.navn}
-                </Button>
+                <div className={"w-full"}>
+                  <button
+                    type={"button"}
+                    className={classnames(styles.vilkårButton, {
+                      siste: index === vilkårOgOpplysninger.length - 1,
+                    })}
+                    title={vilkårEllerOpplysning.navn}
+                    aria-expanded={aktivtRegelsett?.navn === vilkårEllerOpplysning.navn}
+                    onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
+                  >
+                    <span className={styles.vilkårButtonIconWrapper}>
+                      {aktivtRegelsett?.navn === vilkårEllerOpplysning.navn ? (
+                        <ChevronUpIcon className={styles.vilkårButtonIconChevron} />
+                      ) : (
+                        <ChevronDownIcon className={styles.vilkårButtonIconChevron} />
+                      )}
+                    </span>
+                    <span className={styles.vilkårButtonIconChevron}>
+                      {vilkårEllerOpplysning.navn}
+                    </span>
+                  </button>
+                </div>
               }
             >
               {hovedOpplysning.perioder.map((periode, index) => {
