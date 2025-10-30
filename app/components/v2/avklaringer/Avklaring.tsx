@@ -63,7 +63,7 @@ export function Avklaring(props: IProps) {
               {props.avklaring.tittel}
             </BodyShort>
             {(props.avklaring.status === "Avklart" || props.avklaring.status === "Avbrutt") && (
-              <Detail>Avklart av {hentAvklartAv(props.avklaring)}</Detail>
+              <Detail>{hentAvklartAvTekst(props.avklaring)}</Detail>
             )}
           </div>
         </HStack>
@@ -98,13 +98,13 @@ export function Avklaring(props: IProps) {
   );
 }
 
-function hentAvklartAv(avklaring: components["schemas"]["Avklaring"]) {
+function hentAvklartAvTekst(avklaring: components["schemas"]["Avklaring"]) {
   if (avklaring.maskinelt) {
-    return "regelmotor";
+    return "Opplysning endret";
   }
 
   if (avklaring.avklartAv) {
-    return avklaring.avklartAv.ident;
+    return `Avklart av ${avklaring.avklartAv.ident}`;
   }
 
   return "!&/#% Vi skjønner ikke regelmotor";
