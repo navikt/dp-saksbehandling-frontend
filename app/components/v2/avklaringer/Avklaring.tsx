@@ -10,6 +10,7 @@ import {
 } from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
+import { useState } from "react";
 import { useLocation } from "react-router";
 
 import styles from "~/components/avklaringer/Avklaring.module.css";
@@ -25,11 +26,13 @@ interface IProps {
 
 export function Avklaring(props: IProps) {
   const { pathname } = useLocation();
+  const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(false);
   const avklaringForm = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
     schema: hentValideringForAvklaringSkjema(),
+    onSubmitSuccess: () => setÅpenAvklaring(false),
     defaultValues: {
       _action: "kvitter-avklaring",
       behandlingId: props.behandlingId,
@@ -48,6 +51,8 @@ export function Avklaring(props: IProps) {
       className={"expansion--subtil"}
       aria-label={props.avklaring.tittel}
       size={"small"}
+      open={åpenAvklaring}
+      onToggle={() => setÅpenAvklaring(!åpenAvklaring)}
       data-color={hentAvklaringFarge(props.avklaring)}
     >
       <ExpansionCard.Header className={"flex items-center"}>
