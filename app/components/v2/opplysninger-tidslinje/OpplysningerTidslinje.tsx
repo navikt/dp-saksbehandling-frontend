@@ -13,6 +13,7 @@ import {
   TidslinjeNavigeringState,
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
@@ -23,6 +24,7 @@ interface TimelinePin {
 
 interface IProps {
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
+  fremhevØverstTidslinjeRad?: boolean;
   tittel?: string;
   readonly?: boolean;
   medLenkeTilOpplysning?: boolean;
@@ -39,6 +41,7 @@ export function OpplysningerTidslinje(props: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
   const dagensDato = new Date();
+  const { opplysningId } = useTypeSafeParams();
 
   return (
     <>
@@ -63,7 +66,7 @@ export function OpplysningerTidslinje(props: IProps) {
       <Timeline
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
-        className={"aksel--compact"}
+        className={"aksel--compact aksel-timeline--first-row-highlight"}
       >
         {props.pins &&
           props.pins.map((pin) => (
@@ -88,6 +91,9 @@ export function OpplysningerTidslinje(props: IProps) {
                   )}
                   <div className={"overflow-hidden"}>
                     <LoadingLink
+                      className={
+                        opplysningId === opplysning.opplysningTypeId ? "font-bold" : undefined
+                      }
                       tittelPåHover={opplysning.navn}
                       to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
                     >
