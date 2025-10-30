@@ -17,9 +17,10 @@ import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOp
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { isAlert, isDefined } from "~/utils/type-guards";
+import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -55,23 +56,12 @@ export default function Opplysning() {
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const { prøvingsdato } = usePrøvingsdato(behandling);
 
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
-
-  const prøvingsdato = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
-  );
-
-  const pins = prøvingsdato?.perioder
-    .map((periode) => {
-      if (periode.verdi.datatype === "dato") {
-        return { date: new Date(periode.verdi.verdi), label: "Prøvingsdato" };
-      }
-    })
-    .filter(isDefined);
 
   return (
     <>
@@ -107,11 +97,12 @@ export default function Opplysning() {
             <div className={"flex flex-1 flex-col gap-4"}>
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
-                  opplysninger={regelsettOpplysninger}
+                  opplysninger={regelsettOpplysninger.reverse()}
+                  fremhevØverstTidslinjeRad={true}
                   tittel={regelsett.navn}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
-                  pins={pins}
+                  pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />
               </div>
 
@@ -120,7 +111,7 @@ export default function Opplysning() {
                   tittel={opplysning.navn}
                   readonly={!opplysning.redigerbar}
                   opplysninger={[opplysning]}
-                  pins={pins}
+                  pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />
                 <OpplysningPerioderTabell opplysning={opplysning} />
               </div>
