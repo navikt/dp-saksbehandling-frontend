@@ -77,7 +77,7 @@ export default function Behandle() {
           </div>
 
           <div className="mt-4 flex gap-4">
-            <div className={"flex w-[500px] flex-col gap-4"}>
+            <div className={"flex w-[400px] flex-col gap-4"}>
               <Avklaringer
                 avklaringer={[...behandling.avklaringer]}
                 behandlingId={behandling.behandlingId}
