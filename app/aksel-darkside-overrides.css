@@ -1,4 +1,27 @@
 /* Aksel tidslinje overrides */
+.aksel-timeline--first-row-highlight {
+  #timeline-row-tl-row-0 {
+    border-bottom: 2px solid var(--ax-border-neutral-subtleA);
+    align-self: center;
+    padding-bottom: var(--ax-space-12);
+
+    & + .aksel-timeline__row {
+      flex-direction: column;
+    }
+
+    & + .aksel-timeline__row:after {
+      content: "";
+      display: block;
+      background-color: var(--ax-bg-default);
+      height: 0.7rem;
+    }
+
+    & + .aksel-timeline__row:after {
+      border-bottom: 2px solid var(--ax-border-neutral-subtleA);
+    }
+  }
+}
+
 .aksel--compact {
   .aksel-timeline {
     overflow: hidden;
@@ -13,7 +36,7 @@
   }
 
   .aksel-timeline__row-label {
-    width: 250px;
+    width: 300px;
     margin-right: 0;
   }
 
@@ -50,6 +73,7 @@
     left: 0;
     width: 100%;
   }
+
   .aksel-expansioncard__content {
     background-color: var(--ax-bg-default);
   }
@@ -83,5 +107,12 @@
   .aksel-process__timestamp {
     font-size: var(--ax-font-size-small);
     margin-bottom: 0;
+  }
+}
+
+.aksel--compact {
+  .aksel-accordion__header-content {
+    font-size: var(--ax-font-size-medium);
+    font-weight: var(--ax-font-weight-regular);
   }
 }

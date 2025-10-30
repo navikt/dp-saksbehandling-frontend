@@ -48,7 +48,7 @@ export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
         />
       </div>
 
-      <Accordion size={"small"} className={"accordion--subtil"}>
+      <Accordion size={"small"} className={"aksel--compact"}>
         {behandling.fastsettelser.map((fastsettelse) => (
           <Accordion.Item
             key={fastsettelse.navn}
