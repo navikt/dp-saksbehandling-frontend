@@ -12,7 +12,7 @@ export function OppgaveHistorikk({ oppgave }: IProps) {
   return (
     <div className={"px-2 py-4"}>
       <Process className={"aksel--compact"}>
-        {oppgave.historikk.map((hendelse, index) => (
+        {oppgave.historikk.reverse().map((hendelse, index) => (
           <Process.Event
             key={index}
             title={hendelse.tittel}
