@@ -52,7 +52,7 @@ export default function BehandlingLayout() {
       <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
         <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
         <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-          <OppgaveOversikt oppgave={oppgave} />
+          <OppgaveOversikt />
 
           <div className={"card p-2"}>
             <Tabs defaultValue="dokumenter" size={"small"}>

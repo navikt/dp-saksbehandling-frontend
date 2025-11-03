@@ -3,21 +3,18 @@ import { Heading } from "@navikt/ds-react";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
-import { components } from "../../../../openapi/saksbehandling-typer";
+export function OppgaveOversikt() {
+  const { oppgave } = useOppgave();
 
-interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
-}
-
-export function OppgaveOversikt({ oppgave }: IProps) {
   return (
     <div className={"card p-4"}>
       <div className={"flex justify-between"}>
         <Heading size={"xsmall"}>Oppgaveoversikt</Heading>
-        <OppgaveMeny oppgave={oppgave} />
+        <OppgaveMeny />
       </div>
 
       <div className={"mt-2 flex gap-1"}>
