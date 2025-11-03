@@ -1,5 +1,6 @@
 import { Accordion, BodyShort, Heading } from "@navikt/ds-react";
 
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 import { components } from "../../../../openapi/behandling-typer";
@@ -10,13 +11,14 @@ interface IProps {
 }
 
 export function EndretOpplysninger({ vurderinger }: IProps) {
+  const { underKontroll } = useOppgave();
   return (
     <div className={"card p-4"}>
       <Heading size={"small"}>Saksbehandlers vurderinger</Heading>
 
       <Accordion size={"small"} className={"accordion--subtil mt-2"}>
         {vurderinger.opplysninger.map((opplysning) => (
-          <Accordion.Item key={opplysning.id}>
+          <Accordion.Item key={opplysning.id} defaultOpen={underKontroll}>
             <Accordion.Header>{opplysning.navn}</Accordion.Header>
             <Accordion.Content>
               <div className={styles.opplysningDetail}>

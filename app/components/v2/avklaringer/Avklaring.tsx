@@ -27,8 +27,10 @@ interface IProps {
 
 export function Avklaring(props: IProps) {
   const { pathname } = useLocation();
-  const { readonly } = useOppgave();
-  const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(false);
+  const { readonly, underKontroll } = useOppgave();
+  const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(
+    underKontroll && !!props.avklaring?.begrunnelse,
+  );
   const avklaringForm = useForm({
     method: "post",
     action: pathname,

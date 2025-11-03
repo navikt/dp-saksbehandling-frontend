@@ -40,7 +40,7 @@ export const mockBehandlingPeriodisertV2: components["schemas"]["Behandlingsresu
       kode: "ManuellBehandling",
       tittel: "Manuell behandling",
       beskrivelse: "Behandlingen er opprettet manuelt og kan ikke automatisk behandles",
-      kanKvitteres: false,
+      kanKvitteres: true,
       status: "Avklart",
       maskinelt: false,
       begrunnelse: "Vurdert med endringer",
