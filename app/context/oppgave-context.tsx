@@ -12,6 +12,7 @@ export interface IOppgaveContextType {
   oppgave: components["schemas"]["Oppgave"];
   gyldigeOppgaveValg: IGyldigeOppgaveHandlinger[];
   minOppgave: boolean;
+  minBeslutterOppgave: boolean;
   underKontroll: boolean;
   readonly: boolean;
 }
@@ -33,17 +34,27 @@ export function OppgaveProvider({
   saksbehandler: ISaksbehandler;
 }>) {
   const minOppgave =
-    (oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
-      oppgave.tilstand === "UNDER_BEHANDLING") ||
-    (oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
-      oppgave.tilstand === "UNDER_KONTROLL");
+    oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
+    oppgave.tilstand === "UNDER_BEHANDLING";
+
+  const minBeslutterOppgave =
+    oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
+    oppgave.tilstand === "UNDER_KONTROLL";
 
   const underKontroll = oppgave.tilstand === "UNDER_KONTROLL";
   const readonly = !minOppgave || underKontroll || oppgave.tilstand !== "UNDER_BEHANDLING";
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(minOppgave, oppgave);
+
   return (
     <OppgaveContext.Provider
-      value={{ oppgave, gyldigeOppgaveValg, minOppgave, underKontroll, readonly }}
+      value={{
+        oppgave,
+        gyldigeOppgaveValg,
+        minOppgave,
+        minBeslutterOppgave,
+        underKontroll,
+        readonly,
+      }}
     >
       {children}
     </OppgaveContext.Provider>

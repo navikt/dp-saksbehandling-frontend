@@ -14,7 +14,7 @@ export function OppgaveKontroll() {
   const { pathname } = useLocation();
   const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
-  const { oppgave, minOppgave } = useOppgave();
+  const { oppgave, minBeslutterOppgave } = useOppgave();
   const fetcher = useFetcher<typeof action>();
   const debouncedFetcher = useDebounceCallback(fetcher.submit, 2000);
 
@@ -57,7 +57,7 @@ export function OppgaveKontroll() {
         onChange={lagreBeslutterNotat}
         onBlur={handleOnBlur}
         resize="vertical"
-        disabled={!minOppgave}
+        disabled={!minBeslutterOppgave}
         label={
           <>
             <Heading size="small">
