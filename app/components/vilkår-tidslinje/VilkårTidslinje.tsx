@@ -22,6 +22,7 @@ import { useState } from "react";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
@@ -38,6 +39,7 @@ interface IProps {
 }
 
 export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
+  const { readonly } = useOppgave();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
@@ -129,7 +131,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
                     align="center"
                     className={"ml-11 overflow-hidden"}
                   >
-                    {!vilkårEllerOpplysning.redigerbar && (
+                    {(readonly || !vilkårEllerOpplysning.redigerbar) && (
                       <div>
                         <PadlockLockedIcon fontSize="1rem" />
                       </div>

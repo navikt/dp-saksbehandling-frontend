@@ -116,3 +116,23 @@
     font-weight: var(--ax-font-weight-regular);
   }
 }
+
+/* Aksel tabell overrides*/
+.aksel--compact {
+  /*--ac-table-row-zebra: #f8f9fc;*/
+
+  th.aksel-label {
+    font-size: var(--ax-font-size-medium);
+  }
+
+  /* Legg til border under header */
+  thead tr {
+    border-bottom: 1px solid var(--ax-border-subtle);
+  }
+
+  /* Fjern border på alle rader */
+  tr th,
+  tr td {
+    border-bottom: 0;
+  }
+}

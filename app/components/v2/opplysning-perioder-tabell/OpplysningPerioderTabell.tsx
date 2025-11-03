@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 import { hentValideringForSlettPeriode } from "~/utils/validering.util";
@@ -17,9 +18,9 @@ interface IProps {
 
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
+  const { readonly } = useOppgave();
   const [periodeUnderRedigering, setPeriodeUnderRedigering] =
     useState<components["schemas"]["Opplysningsperiode"]>();
-
   const slettPeriodeForm = useForm({
     method: "post",
     submitSource: "state",
@@ -43,14 +44,17 @@ export function OpplysningPerioderTabell(props: IProps) {
     props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 
   return (
-    <div className={"flex flex-col gap-4"}>
-      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
+    <div className={"mt-4 flex flex-col gap-4"}>
+      <Table size="small" className={"aksel--compact"} zebraStripes={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
+            <Table.HeaderCell scope="col" colSpan={2}>
+              Valg
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -84,7 +88,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                {props.opplysning.redigerbar && (
+                {!readonly && props.opplysning.redigerbar && (
                   <>
                     <Table.DataCell>
                       <Button
@@ -110,7 +114,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                   </>
                 )}
 
-                {!props.opplysning.redigerbar && (
+                {(readonly || !props.opplysning.redigerbar) && (
                   <Table.DataCell colSpan={2}>
                     <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
                   </Table.DataCell>

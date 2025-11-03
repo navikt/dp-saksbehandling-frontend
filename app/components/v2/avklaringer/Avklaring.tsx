@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 
 import styles from "~/components/avklaringer/Avklaring.module.css";
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
@@ -26,6 +27,7 @@ interface IProps {
 
 export function Avklaring(props: IProps) {
   const { pathname } = useLocation();
+  const { readonly } = useOppgave();
   const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(false);
   const avklaringForm = useForm({
     method: "post",
@@ -41,9 +43,7 @@ export function Avklaring(props: IProps) {
     },
   });
 
-  const kanRedigereBegrunnelse =
-    props.avklaring.kanKvitteres &&
-    (props.avklaring.status === "Åpen" || !props.avklaring.maskinelt);
+  const kanRedigereBegrunnelse = props.avklaring.kanKvitteres && !props.avklaring.maskinelt;
 
   return (
     <ExpansionCard
@@ -76,6 +76,7 @@ export function Avklaring(props: IProps) {
           <>
             <TextField
               {...avklaringForm.getInputProps("begrunnelse")}
+              readOnly={readonly}
               className={styles.begrunnelseInput}
               size="small"
               label="Begrunnelse"
@@ -88,9 +89,16 @@ export function Avklaring(props: IProps) {
               </Detail>
             )}
 
-            <Button size={"small"} variant={"primary"} onClick={() => avklaringForm.submit()}>
-              Lagre
-            </Button>
+            {!readonly && (
+              <Button
+                size={"small"}
+                variant={"primary"}
+                onClick={() => avklaringForm.submit()}
+                disabled={readonly}
+              >
+                Lagre
+              </Button>
+            )}
           </>
         )}
       </ExpansionCard.Content>

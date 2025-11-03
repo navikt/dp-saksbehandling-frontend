@@ -10,6 +10,7 @@ import {
   hentFargeForOpplysningPeriode,
   hentIkonForOpplysningPeriode,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { useOppgave } from "~/hooks/useOppgave";
 import {
   TidslinjeNavigeringState,
   useTidslinjeNavigeringState,
@@ -26,7 +27,6 @@ interface IProps {
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
   fremhevØverstTidslinjeRad?: boolean;
   tittel?: string;
-  readonly?: boolean;
   medLenkeTilOpplysning?: boolean;
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
@@ -41,6 +41,7 @@ export function OpplysningerTidslinje(props: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
   const dagensDato = new Date();
+  const { readonly } = useOppgave();
   const { opplysningId } = useParams();
 
   return (
@@ -49,7 +50,10 @@ export function OpplysningerTidslinje(props: IProps) {
         <div className={`flex content-center ${props.tittel ? "justify-between" : "justify-end"}`}>
           {props.tittel && (
             <div className={"flex items-center gap-1"}>
-              {props.readonly && <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />}
+              {readonly ||
+                (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
+                  <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+                ))}
               <Heading size={"small"}>{props.tittel}</Heading>
             </div>
           )}
@@ -84,7 +88,7 @@ export function OpplysningerTidslinje(props: IProps) {
               props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (
                 <HStack wrap={false} gap="space-2" align="center" className={"overflow-hidden"}>
-                  {!opplysning.redigerbar && (
+                  {(readonly || !opplysning.redigerbar) && (
                     <div>
                       <PadlockLockedIcon fontSize="1rem" />
                     </div>

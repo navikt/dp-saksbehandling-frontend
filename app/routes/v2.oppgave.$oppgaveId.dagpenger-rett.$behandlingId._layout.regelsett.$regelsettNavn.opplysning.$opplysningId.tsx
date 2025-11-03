@@ -109,7 +109,6 @@ export default function Opplysning() {
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
                   tittel={opplysning.navn}
-                  readonly={!opplysning.redigerbar}
                   opplysninger={[opplysning]}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />

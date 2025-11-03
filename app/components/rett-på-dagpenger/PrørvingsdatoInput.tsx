@@ -2,6 +2,7 @@ import { Button, DatePicker, Heading, TextField, useDatepicker } from "@navikt/d
 import { useForm } from "@rvf/react-router";
 import { isSameDay } from "date-fns";
 
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
@@ -15,6 +16,7 @@ interface IProps {
 }
 
 export function PrøvingsdatoInput(props: IProps) {
+  const { readonly } = useOppgave();
   const prøvingsdatoOpplysningPeriode = props.prøvingsdatoOpplysning.perioder[0];
 
   if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
@@ -56,6 +58,7 @@ export function PrøvingsdatoInput(props: IProps) {
       <DatePicker {...datepickerProps}>
         <DatePicker.Input
           {...inputProps}
+          readOnly={readonly}
           form={prøvingsdatoSkjema.field("verdi").getInputProps().form}
           name={prøvingsdatoSkjema.field("verdi").getInputProps().name}
           error={prøvingsdatoSkjema.field("verdi").error()}

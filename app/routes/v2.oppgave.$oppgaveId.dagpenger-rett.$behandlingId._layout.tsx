@@ -8,8 +8,10 @@ import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
+import { OppgaveProvider } from "~/context/oppgave-context";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -42,37 +44,40 @@ export function links() {
 
 export default function BehandlingLayout() {
   const { tema } = useSaksbehandler();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave, behandling, journalposterPromises, meldekortUrl } =
     useLoaderData<typeof loader>();
   return (
     <Theme theme={tema}>
-      <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
-      <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-        <OppgaveOversikt oppgave={oppgave} />
+      <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
+        <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
+          <OppgaveOversikt oppgave={oppgave} />
 
-        <div className={"card p-2"}>
-          <Tabs defaultValue="dokumenter" size={"small"}>
-            <Tabs.List>
-              <Tabs.Tab value="dokumenter" label="Dokumenter" />
-              <Tabs.Tab value="fagsystemer" label="Fagsystemer" />
-              <Tabs.Tab value="historikk" label="Historikk" />
-            </Tabs.List>
+          <div className={"card p-2"}>
+            <Tabs defaultValue="dokumenter" size={"small"}>
+              <Tabs.List>
+                <Tabs.Tab value="dokumenter" label="Dokumenter" />
+                <Tabs.Tab value="fagsystemer" label="Fagsystemer" />
+                <Tabs.Tab value="historikk" label="Historikk" />
+              </Tabs.List>
 
-            <Tabs.Panel value="dokumenter">
-              <DokumentOversikt journalposterPromises={journalposterPromises} />
-            </Tabs.Panel>
+              <Tabs.Panel value="dokumenter">
+                <DokumentOversikt journalposterPromises={journalposterPromises} />
+              </Tabs.Panel>
 
-            <Tabs.Panel value="fagsystemer">
-              <FagsystemLenker inntektRedigeringUrl={hentInntektRedigeringUrl(behandling)} />
-            </Tabs.Panel>
+              <Tabs.Panel value="fagsystemer">
+                <FagsystemLenker inntektRedigeringUrl={hentInntektRedigeringUrl(behandling)} />
+              </Tabs.Panel>
 
-            <Tabs.Panel value="historikk">
-              <OppgaveHistorikk oppgave={oppgave} />
-            </Tabs.Panel>
-          </Tabs>
+              <Tabs.Panel value="historikk">
+                <OppgaveHistorikk oppgave={oppgave} />
+              </Tabs.Panel>
+            </Tabs>
+          </div>
         </div>
-      </div>
-      <Outlet />
+        <Outlet />
+      </OppgaveProvider>
     </Theme>
   );
 }
