@@ -15,6 +15,7 @@ import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOp
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -66,12 +67,16 @@ export default function Behandle() {
     (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
     oppgave.tilstand === "UNDER_KONTROLL";
 
+  // const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
+  const kanReturnereTilSaksbehandler = true;
+
   return (
     <>
       <main className="main">
         <div className={"card mb-4 p-4"}>
           <div className="flex justify-between gap-6">
             <LinkTabs className="flex-1" />
+            {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
             {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
             {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
           </div>

@@ -6,7 +6,7 @@ import { useDebounceCallback } from "usehooks-ts";
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useOppgave } from "~/hooks/useOppgave";
-import { action } from "~/routes/oppgave.$oppgaveId";
+import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
 
@@ -15,7 +15,7 @@ export function OppgaveKontroll() {
   const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
   const { oppgave, minBeslutterOppgave } = useOppgave();
-  const fetcher = useFetcher<typeof action>();
+  const fetcher = useFetcher<typeof lagreNotatAction>();
   const debouncedFetcher = useDebounceCallback(fetcher.submit, 2000);
 
   useEffect(() => {

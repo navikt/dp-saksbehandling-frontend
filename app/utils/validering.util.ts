@@ -368,3 +368,13 @@ export function hentValideringForBeslutterNotat() {
     notat: z.string(),
   });
 }
+
+export function hentValideringForReturnerTilSaksbehandler() {
+  return z.object({
+    _action: z.literal("returner-oppgave-til-saksbehandler"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    notat: z
+      .string("Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.")
+      .min(1, "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler."),
+  });
+}

@@ -1,30 +1,25 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { ActionFunctionArgs, redirect } from "react-router";
-import invariant from "tiny-invariant";
 
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import { IAlert } from "~/context/alert-context";
 import { returnerOppgaveTilSaksbehandler } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
 
 export async function returnerOppgaveTilSaksbehandlerAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const notat = formData.get("notat") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForReturnerTilSaksbehandler());
 
-  if (!notat) {
-    const error: IFormValidationError = {
-      field: "notat",
-      message: "Du må skrive en begrunnelse for å returnere oppgaven til saksbehandler.",
-    };
-
-    return error;
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  const { error } = await returnerOppgaveTilSaksbehandler(request, params.oppgaveId);
+  const { oppgaveId } = validertSkjema.data;
+  const { error } = await returnerOppgaveTilSaksbehandler(request, oppgaveId);
 
   if (error) {
     return getHttpProblemAlert(error);
