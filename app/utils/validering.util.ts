@@ -349,7 +349,7 @@ export function hentValideringForSendTilKontroll() {
 export function hentValideringForFattVedtak() {
   return z.object({
     _action: z.literal("fatt-vedtak"),
-    oppgaveId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
   });
 }
 
@@ -357,5 +357,13 @@ export function hentValideringForTildelOppgave() {
   return z.object({
     _action: z.literal("v2-tildel-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+  });
+}
+
+export function hentValideringForBeslutterNotat() {
+  return z.object({
+    _action: z.literal("lagre-notat"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    notat: z.string(),
   });
 }

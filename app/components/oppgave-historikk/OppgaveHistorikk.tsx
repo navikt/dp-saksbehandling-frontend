@@ -1,14 +1,11 @@
 import { BodyLong, Detail, Process } from "@navikt/ds-react";
 
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
-import { components } from "../../../openapi/saksbehandling-typer";
+export function OppgaveHistorikk() {
+  const { oppgave } = useOppgave();
 
-interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
-}
-
-export function OppgaveHistorikk({ oppgave }: IProps) {
   return (
     <div className={"px-2 py-4"}>
       <Process className={"aksel--compact"}>

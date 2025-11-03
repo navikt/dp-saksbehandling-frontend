@@ -54,7 +54,13 @@ export default function PersonOversikt() {
   useHandleAlertMessages(alert);
 
   const oppgaverTilBehandling = personOversikt.oppgaver.filter((oppgave) =>
-    ["KLAR_TIL_BEHANDLING", "UNDER_BEHANDLING", "KLAR_TIL_KONTROLL"].includes(oppgave.tilstand),
+    [
+      "KLAR_TIL_BEHANDLING",
+      "UNDER_BEHANDLING",
+      "KLAR_TIL_KONTROLL",
+      "UNDER_KONTROLL",
+      "PAA_VENT",
+    ].includes(oppgave.tilstand),
   );
 
   return (

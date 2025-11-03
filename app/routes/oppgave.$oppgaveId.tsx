@@ -11,7 +11,9 @@ import invariant from "tiny-invariant";
 
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
+import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -53,6 +55,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave, alert, meldekortUrl } = useLoaderData<typeof loader>();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -63,9 +66,11 @@ export default function Oppgave() {
       <PersonBoks person={oppgave.person} oppgave={oppgave} meldekortUrl={meldekortUrl} />
 
       <div className={styles.oppgaveContainer}>
-        <BeslutterNotatProvider notat={oppgave.notat}>
-          <Outlet />
-        </BeslutterNotatProvider>
+        <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+          <BeslutterNotatProvider notat={oppgave.notat}>
+            <Outlet />
+          </BeslutterNotatProvider>
+        </OppgaveProvider>
       </div>
     </Fragment>
   );
