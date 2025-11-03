@@ -278,6 +278,7 @@ export function hentValideringForMeldingOmVedtakBrevVariantSkjema() {
   ];
 
   return z.object({
+    _action: z.literal("lagre-brev-variant"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     brevVariant: z.enum(lovligeBrevVarianter, {
       message: "Du må velge et alternativ",

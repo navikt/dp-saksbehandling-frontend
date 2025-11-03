@@ -34,6 +34,7 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler, oppgave }: I
     method: "post",
     schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
     defaultValues: {
+      _action: "lagre-brev-variant",
       behandlingId: oppgave.behandlingId,
       brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
     },

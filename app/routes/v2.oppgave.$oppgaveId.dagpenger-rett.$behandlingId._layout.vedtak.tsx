@@ -107,7 +107,6 @@ export default function Behandle() {
                   <MeldingOmVedtak
                     meldingOmVedtak={meldingOmVedtak}
                     sanityBrevMaler={sanityBrevMaler}
-                    oppgave={oppgave}
                   />
                 </UtvidedeBeskrivelserProvider>
               </div>
