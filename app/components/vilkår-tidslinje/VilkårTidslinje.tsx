@@ -24,6 +24,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
@@ -35,10 +36,10 @@ import styles from "./VilkårTidslinje.module.css";
 
 interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
-  oppgaveId: string;
 }
 
-export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
+export function VilkårTidslinje({ behandling }: IProps) {
+  const { oppgaveId } = useTypeSafeParams();
   const { readonly } = useOppgave();
   const {
     antallUkerITidslinje,
@@ -73,7 +74,7 @@ export function VilkårTidslinje({ behandling, oppgaveId }: IProps) {
 
     const oppdatertData = [
       ...behandling.vilkår.slice(0, index + 1),
-      ...nyeAktiveOpplysninger,
+      ...nyeAktiveOpplysninger.reverse(),
       ...behandling.vilkår.slice(index + 1),
     ];
 

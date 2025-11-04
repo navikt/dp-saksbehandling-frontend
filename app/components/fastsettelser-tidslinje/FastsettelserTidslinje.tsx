@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { isDefined } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -10,10 +11,10 @@ import { OpplysningerTidslinje } from "../v2/opplysninger-tidslinje/Opplysninger
 
 interface IProps {
   behandling: components["schemas"]["BehandlingsresultatV2"];
-  oppgaveId: string;
 }
 
-export function FastsettelserTidslinje({ behandling, oppgaveId }: IProps) {
+export function FastsettelserTidslinje({ behandling }: IProps) {
+  const { oppgaveId } = useTypeSafeParams();
   const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
