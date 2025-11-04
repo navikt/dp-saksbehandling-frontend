@@ -1,16 +1,18 @@
-import { BodyLong, Button, Detail, Heading, Modal, Textarea } from "@navikt/ds-react";
+import { BodyLong, Button, Detail, Heading, Modal, Select, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { type ChangeEvent, useEffect, useRef } from "react";
 import { useFetcher, useLocation } from "react-router";
 import { useDebounceCallback } from "usehooks-ts";
 
+import { gyldigBegrunnelse, gyldigeBegrunnelser } from "~/const";
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useOppgave } from "~/hooks/useOppgave";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentTekstForBegrunnelse } from "~/utils/tekst.utils";
 import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
-import { hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
+import { v2hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
 
 export function OppgaveReturnerTilSaksbehandler() {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -21,23 +23,24 @@ export function OppgaveReturnerTilSaksbehandler() {
   const lagreNotatFetcher = useFetcher<typeof lagreNotatAction>();
   const debouncedLagreNotatFetcher = useDebounceCallback(lagreNotatFetcher.submit, 2000);
 
-  const returnerTilSaksbhenalderForm = useForm({
+  const returnerTilSaksbehandlerForm = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForReturnerTilSaksbehandler(),
+    schema: v2hentValideringForReturnerTilSaksbehandler(),
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "returner-oppgave-til-saksbehandler",
       oppgaveId: oppgave.oppgaveId,
       notat: notat.tekst,
+      begrunnelse: "" as unknown as gyldigBegrunnelse,
     },
   });
 
   useEffect(() => {
     if (lagreNotatFetcher.data) {
       if (isILagreNotatResponse(lagreNotatFetcher.data)) {
-        returnerTilSaksbhenalderForm.field("notat").setValue(notat.tekst);
+        returnerTilSaksbehandlerForm.field("notat").setValue(notat.tekst);
         setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
       }
 
@@ -50,8 +53,8 @@ export function OppgaveReturnerTilSaksbehandler() {
   function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     const nyVerdi = event.currentTarget.value;
     setNotat({ ...notat, tekst: nyVerdi });
-    if (returnerTilSaksbhenalderForm.field("notat").error()) {
-      returnerTilSaksbhenalderForm.field("notat").clearError();
+    if (returnerTilSaksbehandlerForm.field("notat").error()) {
+      returnerTilSaksbehandlerForm.field("notat").clearError();
     }
 
     debouncedLagreNotatFetcher(
@@ -90,12 +93,25 @@ export function OppgaveReturnerTilSaksbehandler() {
             resize="vertical"
             label={
               <>
-                <Heading size="small">Begrunnelse</Heading>
+                <Heading size="small">Melding</Heading>
                 <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
               </>
             }
-            error={returnerTilSaksbhenalderForm.field("notat").error()}
+            error={returnerTilSaksbehandlerForm.field("notat").error()}
           />
+
+          <Select
+            {...returnerTilSaksbehandlerForm.getInputProps("begrunnelse")}
+            className={"mt-8"}
+            label="Begrunnelse"
+            size="small"
+          >
+            {gyldigeBegrunnelser.map((årsak) => (
+              <option key={årsak} value={årsak}>
+                {hentTekstForBegrunnelse(årsak)}
+              </option>
+            ))}
+          </Select>
 
           {notat.sistEndretTidspunkt && (
             <Detail textColor="subtle">
@@ -117,8 +133,8 @@ export function OppgaveReturnerTilSaksbehandler() {
               size="small"
               variant="primary"
               type="button"
-              onClick={() => returnerTilSaksbhenalderForm.submit()}
-              loading={returnerTilSaksbhenalderForm.formState.isSubmitting}
+              onClick={() => returnerTilSaksbehandlerForm.submit()}
+              loading={returnerTilSaksbehandlerForm.formState.isSubmitting}
             >
               Ja
             </Button>

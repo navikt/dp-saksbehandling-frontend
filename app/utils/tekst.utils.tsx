@@ -5,10 +5,25 @@ import {
   PersonPencilIcon,
 } from "@navikt/aksel-icons";
 
+import { gyldigBegrunnelse } from "~/const";
+
 import {
   components,
   components as saksbehandlingComponents,
 } from "../../openapi/saksbehandling-typer";
+
+export function hentTekstForBegrunnelse(begrunnelse: gyldigBegrunnelse): string {
+  switch (begrunnelse) {
+    case "FEIL_UTFALL":
+      return "Feil utfall";
+    case "FEIL_HJEMMEL":
+      return "Feil hjemmel";
+    case "HAR_MANGLER":
+      return "Har mangler";
+    default:
+      return "Annet";
+  }
+}
 
 export function hentTekstForAvbrytÅrsak(
   avbrytÅrsak: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"],
