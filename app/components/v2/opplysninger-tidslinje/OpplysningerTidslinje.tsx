@@ -1,5 +1,6 @@
 import { PadlockLockedIcon } from "@navikt/aksel-icons";
 import { BodyShort, Detail, Heading, HStack, Timeline } from "@navikt/ds-react";
+import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
 import { useParams } from "react-router";
@@ -70,7 +71,9 @@ export function OpplysningerTidslinje(props: IProps) {
       <Timeline
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
-        className={"aksel--compact aksel-timeline--first-row-highlight"}
+        className={classnames("aksel--compact", {
+          "aksel-timeline--first-row-highlight": props.fremhevØverstTidslinjeRad,
+        })}
       >
         {props.pins &&
           props.pins.map((pin) => (
