@@ -136,3 +136,19 @@
     border-bottom: 0;
   }
 }
+
+/* Aksel tabell overrides*/
+.tabell--subtil {
+  --ac-table-row-zebra: #f8f9fc;
+}
+
+/* Legg til border under header */
+.tabell--subtil thead tr {
+  border-bottom: 1px solid var(--ax-border-subtle);
+}
+
+/* Fjern border på alle rader */
+.tabell--subtil tr th,
+.tabell--subtil tr td {
+  border-bottom: 0;
+}

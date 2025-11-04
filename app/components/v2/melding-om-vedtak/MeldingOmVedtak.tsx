@@ -44,7 +44,7 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
         <MeldingOmVedtakKilde readOnly={readonly} oppgave={oppgave} />
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
-            <hr className="border-(--a-border-subtle)" />
+            <hr className="border-(--ax-border-neutral-subtle)" />
 
             <RadioGroup
               {...endreBrevVariantForm.field("brevVariant").getInputProps()}
@@ -57,7 +57,9 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
               <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
             </RadioGroup>
 
-            {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
+            {utvidedeBeskrivelser.length > 0 && (
+              <hr className="border-(--ax-border-neutral-subtle)" />
+            )}
 
             {!isAlert(meldingOmVedtak) && (
               <UtvidedeBeskrivelser

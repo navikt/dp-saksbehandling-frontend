@@ -5,7 +5,7 @@
     height: 842px; /* A4 høyde */
     padding: 64px 64px 74px;
 
-    box-shadow: var(--a-shadow-medium);
+    box-shadow: var(--dp-shadow);
     background-color: white;
     overflow: auto;
 

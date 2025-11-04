@@ -15,15 +15,22 @@
   --dp-shadow-2: 0 0 1px 1px var(--ax-neutral-300A);
 }
 
+.main-container {
+  min-height: 100vh;
+  background-color: var(--ax-bg-sunken);
+  display: flex;
+  flex-direction: column;
+}
+
 .main {
   background-color: var(--ax-bg-sunken);
-  padding: var(--a-space-16);
+  padding: var(--ax-space-16);
 }
 
 .card {
   background-color: var(--ax-bg-default);
   box-shadow: var(--dp-shadow-2);
-  border-radius: var(--ax-border-radius-medium);
+  border-radius: var(--ax-radius-8);
 }
 
 .card-raised {

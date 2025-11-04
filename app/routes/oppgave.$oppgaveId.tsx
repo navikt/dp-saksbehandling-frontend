@@ -65,7 +65,7 @@ export default function Oppgave() {
     <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} oppgave={oppgave} meldekortUrl={meldekortUrl} />
 
-      <div className={styles.oppgaveContainer}>
+      <div className={`main ${styles.oppgaveContainer}`}>
         <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
           <BeslutterNotatProvider notat={oppgave.notat}>
             <Outlet />

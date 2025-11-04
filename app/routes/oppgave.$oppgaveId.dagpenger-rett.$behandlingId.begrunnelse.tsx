@@ -38,7 +38,7 @@ export default function BegrunnelseRoute() {
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   return (
-    <div className={"bg-(--a-grayalpha-50) p-4"}>
+    <div className={"p-4"}>
       {vurderinger.opplysninger.length === 0 && vurderinger.avklaringer.length === 0 && (
         <Alert variant={"info"}>
           Det er ingen opplysninger som er endret eller avklaringer som er kvittert

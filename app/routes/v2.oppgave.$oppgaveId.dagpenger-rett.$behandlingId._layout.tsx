@@ -1,4 +1,3 @@
-import { Theme } from "@navikt/ds-react";
 import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
@@ -9,7 +8,6 @@ import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversik
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import globalDarksideCss from "~/global-darkside.css?url";
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { hentJournalpost } from "~/models/saf.server";
@@ -46,21 +44,18 @@ export function links() {
 }
 
 export default function BehandlingLayout() {
-  const { tema } = useSaksbehandler();
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave, meldekortUrl } = useLoaderData<typeof loader>();
   return (
-    <Theme theme={tema}>
-      <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-        <BeslutterNotatProvider notat={oppgave.notat}>
-          <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
-          <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-            <OppgaveOversikt />
-            <OppgaveStøtteInformasjon />
-          </div>
-          <Outlet />
-        </BeslutterNotatProvider>
-      </OppgaveProvider>
-    </Theme>
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+      <BeslutterNotatProvider notat={oppgave.notat}>
+        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
+        <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
+          <OppgaveOversikt />
+          <OppgaveStøtteInformasjon />
+        </div>
+        <Outlet />
+      </BeslutterNotatProvider>
+    </OppgaveProvider>
   );
 }

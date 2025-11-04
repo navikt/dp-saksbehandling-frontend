@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: var(--a-spacing-2);
-  padding: var(--a-spacing-4);
+  gap: var(--ax-space-8);
+  padding: var(--ax-space-16);
 }
 
 .loaderContainer {
@@ -15,7 +15,7 @@
 
 .behandling {
   display: grid;
-  gap: var(--a-spacing-2);
+  gap: var(--ax-space-8);
   grid-template-columns: 3fr 2fr;
 }
 
@@ -26,7 +26,7 @@
 
 .modalCenterHeader button {
   position: absolute;
-  right: var(--a-spacing-2);
+  right: var(--ax-space-8);
 }
 
 .modalBody {
@@ -39,16 +39,16 @@
   display: flex;
   align-items: center;
 
-  padding: var(--a-spacing-2);
-  margin-top: var(--a-spacing-2);
+  padding: var(--ax-space-8);
+  margin-top: var(--ax-space-8);
 
-  border: 2px dashed var(--a-border-subtle);
-  border-radius: var(--a-border-radius-large);
+  border: 2px dashed var(--ax-border-neutral-subtle);
+  border-radius: var(--ax-radius-12);
 }
 
 .modalIcon {
-  margin-right: var(--a-spacing-4);
-  font-size: var(--a-font-size-heading-large);
+  margin-right: var(--ax-space-16);
+  font-size: var(--ax-font-size-large);
 }
 
 .modalFooter.modalFooter {

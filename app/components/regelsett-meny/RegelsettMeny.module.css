@@ -5,28 +5,28 @@
   display: flex;
   align-items: center;
 
-  padding: var(--a-spacing-2);
+  padding: var(--ax-space-8);
   color: inherit;
   cursor: pointer;
 }
 
 .lenke:hover {
-  background-color: var(--a-surface-hover);
+  background-color: var(--ax-border-neutral-subtleA);
 }
 
 .lenke svg {
-  margin-right: var(--a-spacing-2);
+  margin-right: var(--ax-space-8);
 }
 
 .regelsettMeny {
-  border-right: 1px solid var(--a-border-subtle);
+  border-right: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .divider {
-  border-bottom: 1px solid var(--a-border-subtle);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .akitvtRegelsett.akitvtRegelsett {
-  background-color: var(--a-bg-subtle);
-  box-shadow: 4px 0 0 0 inset var(--a-border-action-selected);
+  background-color: var(--ax-border-neutral-subtleA);
+  box-shadow: 4px 0 0 0 inset var(--ax-border-accent-strong);
 }

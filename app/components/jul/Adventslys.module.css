@@ -3,7 +3,7 @@
   height: 100%;
   align-items: flex-end;
   overflow: hidden;
-  gap: var(--a-spacing-2);
+  gap: var(--ax-space-8);
 
   margin-left: auto;
   margin-right: 80px;

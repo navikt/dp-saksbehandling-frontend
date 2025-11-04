@@ -82,7 +82,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
   }
 
   return (
-    <div className={classnames(styles.orkestratorBarn, "card m-4 p-2")}>
+    <div className={classnames(styles.orkestratorBarn, "card-raised m-4 p-2")}>
       <Heading
         level="4"
         size="xsmall"

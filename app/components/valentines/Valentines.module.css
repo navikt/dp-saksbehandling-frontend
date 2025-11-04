@@ -3,9 +3,9 @@
   height: 48px;
   align-items: flex-end;
   overflow: hidden;
-  gap: var(--a-spacing-3);
+  gap: var(--ax-space-12);
 
   margin-left: auto;
   margin-right: 80px;
-  padding: 0 var(--a-spacing-6);
+  padding: 0 var(--ax-space-24);
 }

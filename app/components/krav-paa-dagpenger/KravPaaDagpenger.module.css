@@ -1,17 +1,17 @@
 .kravPaaDagpenger {
   display: flex;
   align-items: center;
-  padding: var(--a-spacing-2);
+  padding: var(--ax-space-8);
 }
 
 .kravPaaDagpenger svg {
-  margin-right: var(--a-spacing-1);
+  margin-right: var(--ax-space-4);
 }
 
 .kravPaaDagpengerSuccess {
-  background-color: var(--a-green-100);
+  background-color: var(--ax-bg-success-moderate);
 }
 
 .kravPaaDagpengerError {
-  background-color: var(--a-red-100);
+  background-color: var(--ax-bg-danger-moderate);
 }

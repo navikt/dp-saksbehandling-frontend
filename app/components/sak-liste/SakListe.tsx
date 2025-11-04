@@ -41,7 +41,7 @@ export function SakListe({ saker }: IProps) {
               </ExpansionCard.Description>
             </ExpansionCard.Header>
 
-            <ExpansionCard.Content className={"border-t-1 border-(--a-border-subtle)"}>
+            <ExpansionCard.Content className={"border-t border-(--ax-border-neutral-subtle)"}>
               <div className={"mb-4 flex items-center gap-1"}>
                 <BodyShort>
                   {forsteIdGruppe}-<b>{sisteIdGruppe}</b>

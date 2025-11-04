@@ -74,7 +74,7 @@ export function RegelsettOpplysningListeElement({ opplysningGruppe, readonly }: 
             <ChevronRightIcon
               fontSize={"1.2rem"}
               aria-label={erAktivGruppe ? "Lukk opplysning" : "Åpne opplsyning"}
-              color={"var(--a-blue-400)"}
+              color={"var(--ax-bg-accent-strong)"}
             />
           </motion.span>
         </BodyShort>

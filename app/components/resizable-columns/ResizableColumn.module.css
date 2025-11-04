@@ -1,7 +1,7 @@
 .resizableContainer {
   display: flex;
   position: relative;
-  padding-bottom: var(--a-spacing-1);
+  padding-bottom: var(--ax-space-4);
 }
 
 .resizableContainer :global(.card) {
@@ -9,27 +9,29 @@
 }
 
 .pillHandle {
-  width: var(--a-spacing-5);
+  width: var(--ax-space-20);
 
   cursor: col-resize;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: var(--a-z-index-focus);
+  z-index: 10;
 }
 
 .pillHandle::after {
   content: "";
   height: 40px;
   width: 6px;
-  background-color: var(--a-gray-500);
+  background-color: var(--ax-bg-neutral-strong);
   border-radius: 10px;
 }
 
 .pillHandle:hover::after {
   transform: scale(1.1);
+  background-color: var(--ax-bg-neutral-strong-hover);
 }
 
 .pillHandle:active::after {
   transform: scale(1);
+  background-color: var(--ax-bg-neutral-strong-pressed);
 }

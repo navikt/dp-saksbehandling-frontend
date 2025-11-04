@@ -4,28 +4,28 @@
   z-index: 3;
 
   display: flex;
-  gap: var(--ax-space-48, var(--a-spacing-12));
-  padding: var(--ax-space-16, var(--a-spacing-4));
+  gap: var(--ax-space-48, var(--ax-space-42));
+  padding: var(--ax-space-16, var(--ax-space-16));
 
-  background-color: var(--ax-bg-default, var(--a-white));
+  background-color: var(--ax-bg-default, var(--ax-bg-default));
   box-shadow: var(--dp-shadow);
 }
 
 .navnContainer {
   display: flex;
   align-items: center;
-  gap: var(--ax-space-8, var(--a-spacing-2));
+  gap: var(--ax-space-8, var(--ax-space-8));
 }
 
 .infoElement {
   display: flex;
   align-items: center;
-  gap: var(--ax-space-4, var(--a-spacing-1));
+  gap: var(--ax-space-4, var(--ax-space-4));
   white-space: nowrap;
 }
 
 .iconContainer {
-  border-radius: var(--ax-border-radius-full, var(--a-border-radius-full));
+  border-radius: var(--ax-radius-full);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,11 +35,11 @@
 }
 
 .iconContainerMann {
-  background-color: var(--ax-bg-accent-strong, var(--a-blue-400));
+  background-color: var(--ax-bg-accent-strong);
 }
 
 .iconContainerKvinne {
-  background-color: var(--ax-bg-danger-strong, var(--a-red-400));
+  background-color: var(--ax-bg-danger-strong);
 }
 
 .utviklerinfo {

@@ -1,3 +1,4 @@
+import { Theme } from "@navikt/ds-react";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 interface ISaksbehandlerContext {
@@ -54,7 +55,9 @@ export function SaksbehandlerProvider({ children }: PropsWithChildren) {
         setTema,
       }}
     >
-      {children}
+      <Theme theme={tema} className="main-container">
+        {children}
+      </Theme>
     </SaksbehandlerContext.Provider>
   );
 }

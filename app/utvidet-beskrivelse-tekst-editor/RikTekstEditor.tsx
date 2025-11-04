@@ -193,7 +193,7 @@ function renderListItem(props: PropsWithChildren<BlockListItemRenderProps>) {
 
 function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) {
   if (props.schemaType.name === "link") {
-    return <span className={"text-(--a-text-action) underline"}>{props.children}</span>;
+    return <span className={"text-(--ax-text-accent) underline"}>{props.children}</span>;
   }
 
   return <>{props.children}</>;

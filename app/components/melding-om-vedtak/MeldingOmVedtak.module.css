@@ -1,8 +1,8 @@
 .meldingOmVedtakContainer {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: var(--a-spacing-4);
-  padding: var(--a-spacing-4);
+  gap: var(--ax-space-16);
+  padding: var(--ax-space-16);
   min-height: 220px;
 }
 
@@ -11,12 +11,11 @@
   justify-content: center;
   align-items: start;
   color: rgb(32, 39, 51);
-  padding: var(--a-spacing-4) 0;
-  margin-top: calc(var((--a-spacing-4) * -1));
-  margin-right: calc(var((--a-spacing-4) * -1));
-  margin-bottom: calc(var((--a-spacing-4) * -1));
-  padding: var(--a-spacing-4) 0;
+  padding: var(--ax-space-16) 0;
+  margin-top: calc(var((--ax-space-16) * -1));
+  margin-right: calc(var((--ax-space-16) * -1));
+  margin-bottom: calc(var((--ax-space-16) * -1));
+  padding: var(--ax-space-16) 0;
   background-color: var(--ax-bg-sunken);
-  background-color: var(--a-gray-800);
   box-shadow: var(--dp-shadow-inset);
 }

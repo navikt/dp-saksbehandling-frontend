@@ -46,7 +46,7 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler, oppgave }: I
         <MeldingOmVedtakKilde readOnly={readOnly} oppgave={oppgave} />
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
           <>
-            <hr className="border-(--a-border-subtle)" />
+            <hr className="border-(--ax-border-neutral-subtle)" />
 
             <Form {...endreBrevVariantForm.getFormProps()}>
               <input name={"_action"} value={"lagre-brev-variant"} hidden={true} readOnly={true} />
@@ -67,7 +67,9 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler, oppgave }: I
               </RadioGroup>
             </Form>
 
-            {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
+            {utvidedeBeskrivelser.length > 0 && (
+              <hr className="border-(--ax-border-neutral-subtle)" />
+            )}
 
             {!isAlert(meldingOmVedtak) && (
               <UtvidedeBeskrivelser

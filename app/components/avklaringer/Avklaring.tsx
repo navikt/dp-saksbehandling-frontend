@@ -60,7 +60,6 @@ export function Avklaring({ avklaring, behandlingId, readonly }: IProps) {
             {avklaring.tittel}
           </BodyShort>
         </ExpansionCard.Header>
-
         <ExpansionCard.Content className={styles.content}>
           {avklaring.beskrivelse}
 
@@ -121,7 +120,12 @@ function renderStatusIcon(
 ) {
   switch (status) {
     case "Åpen":
-      return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;
+      return (
+        <ExclamationmarkTriangleFillIcon
+          color={"var(--ax-bg-warning-strong)"}
+          fontSize={"1.5rem"}
+        />
+      );
     case "Avklart":
       return maskinelt ? (
         <RobotSmileIcon fontSize={"1.5rem"} />

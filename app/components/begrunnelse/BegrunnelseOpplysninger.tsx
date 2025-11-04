@@ -13,7 +13,7 @@ interface IProps {
 export function BegrunnelseOpplysninger({ opplysninger, readOnly }: IProps) {
   return (
     <ExpansionCard
-      className={"card expansion--subtil mb-4"}
+      className={"card mb-4 border-0!"}
       aria-label={"Opplysninger som er endret"}
       defaultOpen={true}
       size={"small"}
