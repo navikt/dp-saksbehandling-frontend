@@ -24,11 +24,13 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
       case "RETT_TIL_DAGPENGER":
         if (data.tilstand === "UNDER_KONTROLL") {
           return redirect(
-            `/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/begrunnelse`,
+            `/v2/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vedtak`,
           );
         }
 
-        return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/behandle`);
+        return redirect(
+          `/v2/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/behandle`,
+        );
 
       case "KLAGE":
         return redirect(`/oppgave/${data.oppgaveId}/klage/${data.behandlingId}`);
