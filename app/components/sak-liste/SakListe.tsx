@@ -26,7 +26,7 @@ export function SakListe({ saker }: IProps) {
         return (
           <ExpansionCard
             key={sak.id}
-            className={"expansion--subtil card my-4"}
+            className={"expansion--subtil my-4"}
             aria-label={""}
             size={"small"}
           >

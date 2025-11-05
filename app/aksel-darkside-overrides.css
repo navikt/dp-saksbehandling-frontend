@@ -63,19 +63,12 @@
 /* Aksel expansion overrides */
 .expansion--subtil {
   &.expansion--subtil {
-    border-radius: 0;
-    border-bottom: 1px solid var(--ax-border-neutral);
-    --__axc-expansioncard-border-radius: 0;
-    --__axc-expansioncard-border-button-radius: 0;
+    border: none;
+    box-shadow: var(--dp-shadow-2);
   }
 
   .aksel-expansioncard__header[data-open="true"]:after {
-    left: 0;
-    width: 100%;
-  }
-
-  .aksel-expansioncard__content {
-    background-color: var(--ax-bg-default);
+    display: none;
   }
 }
 
@@ -152,8 +145,6 @@
     max-width: 100%;
   }
 }
-
-
 
 /* Aksel tabell overrides*/
 .tabell--subtil {
