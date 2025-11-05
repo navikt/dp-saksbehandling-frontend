@@ -1,13 +1,11 @@
 import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
-import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { OppgaveStøtteInformasjon } from "~/components/oppgave-støtte-informasjon/OppgaveStøtteInformasjon";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
-import globalDarksideCss from "~/global-darkside.css?url";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { hentJournalpost } from "~/models/saf.server";
@@ -34,13 +32,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     // meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
     meldekortUrl: ``,
   };
-}
-
-export function links() {
-  return [
-    { rel: "stylesheet", href: globalDarksideCss },
-    { rel: "stylesheet", href: akselDarksideOverrides },
-  ];
 }
 
 export default function BehandlingLayout() {

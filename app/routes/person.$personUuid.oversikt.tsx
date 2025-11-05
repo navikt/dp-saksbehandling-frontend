@@ -65,7 +65,7 @@ export default function PersonOversikt() {
 
   return (
     <div className="main">
-      <div className={`card ${styles.container}`}>
+      <div className={`${styles.container}`}>
         <div className={"mb-2 flex items-center justify-between"}>
           <Heading size={"medium"}>Oppgaver</Heading>
           <OpprettBehandling />

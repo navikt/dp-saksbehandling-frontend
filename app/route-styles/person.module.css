@@ -3,7 +3,6 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  background-color: var(--ax-bg-default);
   padding: var(--ax-space-8);
-  border-radius: var(--ax-radius-4)
+  border-radius: var(--ax-radius-4);
 }

@@ -137,6 +137,24 @@
   }
 }
 
+.alert--compact {
+  &.alert--compact {
+    padding: var(--ax-space-4) var(--ax-space-8);
+    border: 0;
+    border-bottom: 1px solid var(--ax-border-neutral-subtle);
+  }
+
+  .navds-alert__icon {
+    align-self: center;
+  }
+
+  .navds-alert__wrapper {
+    max-width: 100%;
+  }
+}
+
+
+
 /* Aksel tabell overrides*/
 .tabell--subtil {
   --ac-table-row-zebra: #f8f9fc;
