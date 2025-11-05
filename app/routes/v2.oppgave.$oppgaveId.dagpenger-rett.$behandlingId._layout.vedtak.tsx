@@ -10,6 +10,7 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
+import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
@@ -19,6 +20,7 @@ import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returne
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -59,6 +61,7 @@ export default function Behandle() {
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+  const { prøvingsdato } = usePrøvingsdato(behandling);
 
   const kanSendeTilKontroll =
     oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
@@ -90,6 +93,10 @@ export default function Behandle() {
             </div>
 
             <div className={"flex flex-1 flex-col gap-4"}>
+              {prøvingsdato && (
+                <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
+              )}
+
               {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
                 <OpplysningerForRettighetsperiode
                   key={index}
