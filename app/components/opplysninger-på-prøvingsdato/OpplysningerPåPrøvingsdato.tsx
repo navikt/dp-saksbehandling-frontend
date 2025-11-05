@@ -31,6 +31,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
       style={{ backgroundColor: "var(--ax-bg-info-soft) " }}
     >
       <Heading size={"xsmall"}>Opplysninger på prøvingsdato</Heading>
+
       <section className="grid grid-cols-4 gap-2">
         {opplysninger.map(({ id, label }) => {
           const periode = hentOpplysningsperiodePåPrøvingsdato(
