@@ -67,8 +67,7 @@ export default function Behandle() {
     (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
     oppgave.tilstand === "UNDER_KONTROLL";
 
-  // const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
-  const kanReturnereTilSaksbehandler = true;
+  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
   return (
     <>
