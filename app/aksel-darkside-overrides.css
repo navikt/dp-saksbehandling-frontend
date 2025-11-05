@@ -1,3 +1,9 @@
+.aksel-alert {
+  &.aksel-alert {
+    color: var(--ax-text-neutral);
+  }
+}
+
 /* Aksel tidslinje overrides */
 .aksel-timeline--first-row-highlight {
   #timeline-row-tl-row-0 {
