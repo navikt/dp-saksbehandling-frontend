@@ -15,7 +15,7 @@ export function OppgaveStøtteInformasjon() {
   const { underKontroll } = useOppgave();
   return (
     <div className={"card p-2"}>
-      <Tabs defaultValue="dokumenter" size={"small"}>
+      <Tabs defaultValue={underKontroll ? "kontroll" : "historikk"} size={"small"}>
         <Tabs.List>
           <Tabs.Tab value="dokumenter" label="Dokumenter" />
           <Tabs.Tab value="fagsystemer" label="Fagsystemer" />
