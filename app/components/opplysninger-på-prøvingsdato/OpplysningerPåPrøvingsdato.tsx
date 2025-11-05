@@ -16,11 +16,12 @@ interface IProps {
 const opplysninger = [
   { id: "0194881f-91d1-7df2-ba1d-4533f37fcc76", label: "Vurdert fra" },
   { id: "0194881f-9435-72a8-b1ce-9575cbc2a767", label: "Arbeidstid før tap" },
-  { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
+  // { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
   { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
   { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
-  { id: "0194881f-9410-7481-b263-4606fdd10cba", label: "Beregnet basert på" },
-  { id: "0194881f-9410-7481-b263-4606fdd10cbd", label: "Inntektsgrunnlag" },
+  { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
+  // { id: "0194881f-9410-7481-b263-4606fdd10cba", label: "Beregnet basert på" },
+  // { id: "0194881f-9410-7481-b263-4606fdd10cbd", label: "Inntektsgrunnlag" },
 ];
 
 export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IProps) {

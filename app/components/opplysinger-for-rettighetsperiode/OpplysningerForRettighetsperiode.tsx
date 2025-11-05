@@ -13,13 +13,13 @@ interface IProps {
   rettighetsperiode: components["schemas"]["Rettighetsperiode"];
 }
 
-const RETTIGHETSPERIODE_OPPLYSNINGER = [
-  { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
-  { id: "0194881f-9435-72a8-b1ce-9575cbc2a76b", label: "Ny arbeidstid per uke" },
-  { id: "0194881f-9434-79e8-a64d-1a23cc5d86eb", label: "Samordnet dagssats uten barnetillegg" },
-  { id: "0194881f-9428-74d5-b160-f63a4c61a24d", label: "Samordnet dagssats med barnetillegg" },
-  { id: "0194881f-9445-734c-a7ee-045edf29b523", label: "Godkjent unntak for utdanning" },
-  { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
+const RETTIGHETSPERIODE_OPPLYSNINGER: { id: string; label: string }[] = [
+  // { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
+  // { id: "0194881f-9435-72a8-b1ce-9575cbc2a76b", label: "Ny arbeidstid per uke" },
+  // { id: "0194881f-9434-79e8-a64d-1a23cc5d86eb", label: "Samordnet dagssats uten barnetillegg" },
+  // { id: "0194881f-9428-74d5-b160-f63a4c61a24d", label: "Samordnet dagssats med barnetillegg" },
+  // { id: "0194881f-9445-734c-a7ee-045edf29b523", label: "Godkjent unntak for utdanning" },
+  // { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
 ];
 
 export function OpplysningerForRettighetsperiode({
