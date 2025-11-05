@@ -29,10 +29,6 @@
 }
 
 .aksel--compact {
-  .aksel-timeline {
-    overflow: hidden;
-  }
-
   .aksel-timeline__axislabels {
     margin-bottom: var(--ax-space-20);
   }
