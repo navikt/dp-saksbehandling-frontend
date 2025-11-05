@@ -1,6 +1,6 @@
 import { parseFormData, validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
-import { IAlert } from "~/context/alert-context";
 import { tildelOppgave } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForTildelOppgave } from "~/utils/validering.util";
@@ -12,20 +12,26 @@ export async function v2TildelOppgaveAction(request: Request, formData: FormData
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId } = validertSkjema.data;
+  const { oppgaveId, behandlingId } = validertSkjema.data;
   const { data, error } = await tildelOppgave(request, oppgaveId);
 
   if (error) {
     return getHttpProblemAlert(error);
   }
 
-  if (data) {
-    const successAlert: IAlert = {
-      variant: "success",
-      title: `Oppgave tildel, ny tilstand: ${data.nyTilstand}`,
-    };
+  switch (data.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      if (data.nyTilstand === "UNDER_BEHANDLING") {
+        return redirect(`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+      }
 
-    return successAlert;
+      if (data.nyTilstand === "UNDER_KONTROLL") {
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/begrunnelse`);
+      }
+      break;
+
+    case "KLAGE":
+      return redirect(`/oppgave/${oppgaveId}/klage/${behandlingId}`);
   }
 
   throw new Error(`Uhåndtert feil i v2TildelOppgaveAction()`);

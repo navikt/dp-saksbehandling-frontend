@@ -1,15 +1,18 @@
-import { PersonIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentValideringForTildelOppgave } from "~/utils/validering.util";
 
-export function OppgaveMenyTildel() {
-  const { pathname } = useLocation();
-  const { oppgaveId, behandlingId } = useTypeSafeParams();
+import { components } from "../../../../openapi/saksbehandling-typer";
 
+interface IProps {
+  listeOppgave: components["schemas"]["OppgaveOversikt"];
+  label: string;
+}
+
+export function ListeOppgaveValgBehandle({ listeOppgave, label }: IProps) {
+  const { pathname } = useLocation();
   const tildelOppgaveForm = useForm({
     method: "post",
     action: pathname,
@@ -17,21 +20,19 @@ export function OppgaveMenyTildel() {
     schema: hentValideringForTildelOppgave(),
     defaultValues: {
       _action: "v2-tildel-oppgave",
-      oppgaveId,
-      behandlingId,
+      oppgaveId: listeOppgave.oppgaveId,
+      behandlingId: listeOppgave.behandlingId,
     },
   });
 
   return (
     <Button
-      size="xsmall"
       variant="tertiary-neutral"
-      icon={<PersonIcon aria-hidden />}
+      size="xsmall"
       loading={tildelOppgaveForm.formState.isSubmitting}
       onClick={() => tildelOppgaveForm.submit()}
-      className={"aksel--font-regular aksel--full-bredde"}
     >
-      Ta oppgave
+      {label}
     </Button>
   );
 }

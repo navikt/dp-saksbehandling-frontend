@@ -359,6 +359,7 @@ export function hentValideringForTildelOppgave() {
   return z.object({
     _action: z.literal("v2-tildel-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
   });
 }
 
