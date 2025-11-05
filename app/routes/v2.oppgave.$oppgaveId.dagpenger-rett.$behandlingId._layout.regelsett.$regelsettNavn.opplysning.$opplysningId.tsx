@@ -65,7 +65,7 @@ export default function Opplysning() {
 
   return (
     <>
-      <main className={"main flex flex-col gap-4"}>
+      <main className={"main"}>
         <LoadingLink
           to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
           className={"flex items-center gap-1 pb-2"}
