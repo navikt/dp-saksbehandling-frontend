@@ -26,7 +26,7 @@ export async function v2TildelOppgaveAction(request: Request, formData: FormData
       }
 
       if (data.nyTilstand === "UNDER_KONTROLL") {
-        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/begrunnelse`);
+        return redirect(`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
       }
       break;
 
