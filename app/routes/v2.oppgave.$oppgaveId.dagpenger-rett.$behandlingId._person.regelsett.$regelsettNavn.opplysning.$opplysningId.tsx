@@ -99,7 +99,6 @@ export default function Opplysning() {
                 <OpplysningerTidslinje
                   opplysninger={regelsettOpplysninger.reverse()}
                   fremhevØverstTidslinjeRad={true}
-                  tittel={regelsett.navn}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}

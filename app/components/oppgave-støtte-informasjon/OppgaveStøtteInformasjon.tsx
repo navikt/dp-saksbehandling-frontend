@@ -10,7 +10,7 @@ import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
 
 export function OppgaveStøtteInformasjon() {
   const { behandling, journalposterPromises } = useTypedRouteLoaderData(
-    "routes/v2.oppgave.$oppgaveId.dagpenger-rett.$behandlingId._layout",
+    "routes/v2.oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
   const { underKontroll } = useOppgave();
   return (

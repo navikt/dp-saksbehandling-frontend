@@ -1,12 +1,8 @@
-import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
+import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet } from "react-router";
 import invariant from "tiny-invariant";
 
 import { OppgaveStøtteInformasjon } from "~/components/oppgave-støtte-informasjon/OppgaveStøtteInformasjon";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
-import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
-import { OppgaveProvider } from "~/context/oppgave-context";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandlingV2 } from "~/models/behandling.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -35,18 +31,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function BehandlingLayout() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, meldekortUrl } = useLoaderData<typeof loader>();
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-      <BeslutterNotatProvider notat={oppgave.notat}>
-        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
-        <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-          <OppgaveOversikt />
-          <OppgaveStøtteInformasjon />
-        </div>
-        <Outlet />
-      </BeslutterNotatProvider>
-    </OppgaveProvider>
+    <>
+      <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
+        <OppgaveOversikt />
+        <OppgaveStøtteInformasjon />
+      </div>
+      <Outlet />
+    </>
   );
 }
