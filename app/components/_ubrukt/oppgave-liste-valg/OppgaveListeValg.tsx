@@ -8,7 +8,7 @@ import { RemixLink } from "~/components/RemixLink";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { getEnv } from "~/utils/env.utils";
 
-import { components } from "../../../openapi/saksbehandling-typer";
+import { components } from "../../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListeValg.module.css";
 
 interface IProps {

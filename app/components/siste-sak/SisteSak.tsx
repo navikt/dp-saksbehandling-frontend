@@ -19,7 +19,7 @@ export function SisteSak({ sak }: IProps) {
       <div className={"flex items-center gap-2 pb-4"}>
         <Heading
           size={"small"}
-          className={"flex items-center gap-1 border-r-1 border-(--ax-border-neutral-subtle) pr-4"}
+          className={"flex items-center gap-1 border-r border-(--ax-border-neutral-subtle) pr-4"}
         >
           <FolderFileIcon aria-hidden /> Siste sak
         </Heading>

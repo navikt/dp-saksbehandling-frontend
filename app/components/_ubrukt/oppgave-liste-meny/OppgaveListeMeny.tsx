@@ -4,9 +4,9 @@ import { Tabs } from "@navikt/ds-react";
 import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter-utløst-av/OppgaveFilterUtløstAv";
 
+import { OppgaveFilterMineOppgaver } from "../../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
+import { OppgaveFilterStatus } from "../../oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveFilterEmneknagger } from "../oppgave-filter-emneknagger/OppgaveFilterEmneknagger";
-import { OppgaveFilterMineOppgaver } from "../oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { OppgaveFilterStatus } from "../oppgave-filter-status/OppgaveFilterStatus";
 import styles from "./OppgaveListeMeny.module.css";
 
 export function OppgaveListeMeny() {
