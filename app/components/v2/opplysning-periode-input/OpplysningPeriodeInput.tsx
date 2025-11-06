@@ -11,18 +11,18 @@ import { components } from "../../../../openapi/behandling-typer";
 
 export interface IOpplysningPeriodeProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
-  periodeVerdi: components["schemas"]["Opplysningsverdi"];
+  datatype: components["schemas"]["DataType"];
   formScope: FormScope<string>;
   readonly?: boolean;
 }
 
 export function OpplysningPeriodeInput({
   opplysning,
-  periodeVerdi,
+  datatype,
   formScope,
   readonly,
 }: IOpplysningPeriodeProps) {
-  switch (periodeVerdi.datatype) {
+  switch (datatype) {
     case "tekst":
       break;
     case "inntekt":
@@ -35,19 +35,13 @@ export function OpplysningPeriodeInput({
       break;
     case "heltall":
       return (
-        <OpplysningPeriodeInt
-          opplysning={opplysning}
-          periodeVerdi={periodeVerdi}
-          formScope={formScope}
-          readonly={readonly}
-        />
+        <OpplysningPeriodeInt opplysning={opplysning} formScope={formScope} readonly={readonly} />
       );
 
     case "penger":
       return (
         <OpplysningPeriodePenger
           opplysning={opplysning}
-          periodeVerdi={periodeVerdi}
           formScope={formScope}
           readonly={readonly}
         />
@@ -57,7 +51,6 @@ export function OpplysningPeriodeInput({
       return (
         <OpplysningPeriodeDouble
           opplysning={opplysning}
-          periodeVerdi={periodeVerdi}
           formScope={formScope}
           readonly={readonly}
         />
@@ -67,7 +60,6 @@ export function OpplysningPeriodeInput({
       return (
         <OpplysningPeriodeBoolean
           opplysning={opplysning}
-          periodeVerdi={periodeVerdi}
           formScope={formScope}
           readonly={readonly}
         />
@@ -75,12 +67,7 @@ export function OpplysningPeriodeInput({
 
     case "dato":
       return (
-        <OpplysningPeriodeDato
-          opplysning={opplysning}
-          periodeVerdi={periodeVerdi}
-          formScope={formScope}
-          readonly={readonly}
-        />
+        <OpplysningPeriodeDato opplysning={opplysning} formScope={formScope} readonly={readonly} />
       );
 
     default:

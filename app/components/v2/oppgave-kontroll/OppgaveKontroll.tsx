@@ -57,7 +57,7 @@ export function OppgaveKontroll() {
         onChange={lagreBeslutterNotat}
         onBlur={handleOnBlur}
         resize="vertical"
-        disabled={!minBeslutterOppgave}
+        readOnly={!minBeslutterOppgave}
         label={
           <>
             <Heading size="small">

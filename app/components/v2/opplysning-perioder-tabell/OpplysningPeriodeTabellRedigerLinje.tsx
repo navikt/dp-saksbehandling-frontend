@@ -14,7 +14,7 @@ interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
   periode: components["schemas"]["Opplysningsperiode"];
   periodeIndex: number;
-  setPeriodeUnderRedigering: (periode?: components["schemas"]["Opplysningsperiode"]) => void;
+  setPeriodeUnderRedigering: (periodeId?: string) => void;
 }
 
 export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
@@ -136,7 +136,7 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       <Table.DataCell>
         <OpplysningPeriodeInput
           opplysning={props.opplysning}
-          periodeVerdi={props.periode.verdi}
+          datatype={props.opplysning.datatype}
           formScope={periodeForm.scope("verdi")}
         />
       </Table.DataCell>

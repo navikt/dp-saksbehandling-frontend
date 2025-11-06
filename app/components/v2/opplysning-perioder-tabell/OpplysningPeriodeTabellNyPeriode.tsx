@@ -10,9 +10,8 @@ import { hentValideringForNyOpplysningPeriodeSkjema } from "~/utils/validering.u
 import { components } from "../../../../openapi/behandling-typer";
 
 interface IProps {
-  nyPeriode: components["schemas"]["Opplysningsperiode"];
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
-  setPeriodeUnderRedigering: (periode?: components["schemas"]["Opplysningsperiode"]) => void;
+  setPeriodeUnderRedigering: (periode?: string) => void;
 }
 
 export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
@@ -123,7 +122,7 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       <Table.DataCell>
         <OpplysningPeriodeInput
           opplysning={props.opplysning}
-          periodeVerdi={props.nyPeriode.verdi}
+          datatype={props.opplysning.datatype}
           formScope={nyOpplysningPeriodeForm.scope("verdi")}
         />
       </Table.DataCell>

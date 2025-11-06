@@ -16,27 +16,18 @@ interface IProps {
   opplysning: components["schemas"]["OpplysningsgruppeV2"];
 }
 
+const NY_PERIODE_ID = "NY-PERIODE";
+
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
   const { readonly } = useOppgave();
-  const [periodeUnderRedigering, setPeriodeUnderRedigering] =
-    useState<components["schemas"]["Opplysningsperiode"]>();
+  const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
   const slettPeriodeForm = useForm({
     method: "post",
     submitSource: "state",
     schema: hentValideringForSlettPeriode(),
     defaultValues: { _action: "slett-periode", behandlingId, periodeId: "" },
   });
-
-  const nyPeriode: components["schemas"]["Opplysningsperiode"] = {
-    id: "NY-PERIODE",
-    opprettet: new Date().toISOString(),
-    status: "Ny",
-    verdi: {
-      verdi: "",
-      datatype: props.opplysning.datatype,
-    } as unknown as components["schemas"]["Opplysningsverdi"],
-  };
 
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
@@ -60,12 +51,12 @@ export function OpplysningPerioderTabell(props: IProps) {
 
         <Table.Body>
           {props.opplysning.perioder.map((periode, index) => {
-            if (periode.id === periodeUnderRedigering?.id) {
+            if (periode.id === periodeIdUnderRedigering) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
                   key={periode.id}
                   opplysning={props.opplysning}
-                  setPeriodeUnderRedigering={setPeriodeUnderRedigering}
+                  setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
                   periode={periode}
                   periodeIndex={index}
                 />
@@ -108,7 +99,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                         size={"xsmall"}
                         variant={"tertiary"}
                         icon={<PencilIcon />}
-                        onClick={() => setPeriodeUnderRedigering(periode)}
+                        onClick={() => setPeriodeIdUnderRedigering(periode.id)}
                       />
                     </Table.DataCell>
                   </>
@@ -123,11 +114,10 @@ export function OpplysningPerioderTabell(props: IProps) {
             );
           })}
 
-          {periodeUnderRedigering?.id === nyPeriode.id && (
+          {periodeIdUnderRedigering === NY_PERIODE_ID && (
             <OpplysningPeriodeTabellNyPeriode
               opplysning={props.opplysning}
-              nyPeriode={nyPeriode}
-              setPeriodeUnderRedigering={setPeriodeUnderRedigering}
+              setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
             />
           )}
         </Table.Body>
@@ -138,7 +128,7 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Button
             size={"small"}
             variant={"secondary"}
-            onClick={() => setPeriodeUnderRedigering(nyPeriode)}
+            onClick={() => setPeriodeIdUnderRedigering(NY_PERIODE_ID)}
             disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode

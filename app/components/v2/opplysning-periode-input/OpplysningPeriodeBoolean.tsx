@@ -7,7 +7,7 @@ export function OpplysningPeriodeBoolean({
   opplysning,
   formScope,
   readonly,
-}: IOpplysningPeriodeProps) {
+}: Omit<IOpplysningPeriodeProps, "datatype">) {
   const field = useField(formScope);
 
   return (

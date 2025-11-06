@@ -3,7 +3,11 @@ import { useField } from "@rvf/react-router";
 
 import { IOpplysningPeriodeProps } from "~/components/v2/opplysning-periode-input/OpplysningPeriodeInput";
 
-export function OpplysningPeriodeInt({ opplysning, formScope, readonly }: IOpplysningPeriodeProps) {
+export function OpplysningPeriodeInt({
+  opplysning,
+  formScope,
+  readonly,
+}: Omit<IOpplysningPeriodeProps, "datatype">) {
   const field = useField(formScope);
 
   return (
