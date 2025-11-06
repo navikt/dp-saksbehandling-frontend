@@ -17,9 +17,15 @@ interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
   readOnly?: boolean;
   formScope: FormScope<string | undefined>;
+  orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: IProps) {
+export function OrkestratorOpplysningLinje({
+  opplysning,
+  readOnly,
+  formScope,
+  orkestratorLandliste,
+}: IProps) {
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
 
   function hentOpplysningVerdi() {
@@ -34,7 +40,7 @@ export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: 
       return maskerVerdi(opplysning.verdi);
     }
 
-    return formatterOrkestratorOpplysningVerdi(opplysning);
+    return formatterOrkestratorOpplysningVerdi(opplysning, orkestratorLandliste);
   }
 
   if (readOnly) {
@@ -52,7 +58,11 @@ export function OrkestratorOpplysningLinje({ opplysning, readOnly, formScope }: 
   return (
     <div className={classNames(styles.orkestratorOpplysningsLinje, styles.korrigering)}>
       <div>
-        <OrkestratorOpplysning opplysning={opplysning} formScope={formScope} />
+        <OrkestratorOpplysning
+          opplysning={opplysning}
+          formScope={formScope}
+          orkestratorLandliste={orkestratorLandliste}
+        />
       </div>
       <div />
       <div className={styles.alightRight}>

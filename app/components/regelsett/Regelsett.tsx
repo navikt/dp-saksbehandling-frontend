@@ -4,6 +4,7 @@ import { useNavigation } from "react-router";
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { RegelsettOpplysningListe } from "~/components/regelsett/RegelsettOpplysningListe";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { isDefined } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -17,6 +18,9 @@ interface IProps {
 
 export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
   const { state } = useNavigation();
+  const { orkestratorBarn, orkestratorLandliste } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
+  );
   const opplysningGrupper = aktivtRegelsett.opplysningTypeIder
     .map((id) =>
       behandling.opplysningsgrupper.find(
@@ -103,8 +107,12 @@ export function Regelsett({ behandling, aktivtRegelsett, readonly }: IProps) {
         />
       )}
 
-      {visOrkestratorBarn && barnOpplysningId && (
-        <OrkestratorBarn opplysningId={barnOpplysningId} />
+      {visOrkestratorBarn && barnOpplysningId && orkestratorBarn && orkestratorLandliste && (
+        <OrkestratorBarn
+          opplysningId={barnOpplysningId}
+          orkestratorBarn={orkestratorBarn}
+          orkestratorLandliste={orkestratorLandliste}
+        />
       )}
     </div>
   );

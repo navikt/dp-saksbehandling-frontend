@@ -6,7 +6,8 @@ import classnames from "classnames";
 import { useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useOppgave } from "~/hooks/useOppgave";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
 
 import {
@@ -16,11 +17,13 @@ import {
 import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
-export function OrkestratorBarn({ opplysningId }: { opplysningId: string }) {
-  const { orkestratorBarn } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
-  );
+interface IProps {
+  opplysningId: string;
+  orkestratorBarn: orkestratorComponents["schemas"]["BarnResponse"][];
+  orkestratorLandliste: components["schemas"]["Land"][];
+}
 
+export function OrkestratorBarn({ opplysningId, orkestratorBarn, orkestratorLandliste }: IProps) {
   if (!orkestratorBarn) {
     return null;
   }
@@ -29,26 +32,31 @@ export function OrkestratorBarn({ opplysningId }: { opplysningId: string }) {
     <>
       {orkestratorBarn.map(
         (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
-          <Barn key={barn.barnId} barnNummer={index + 1} barn={barn} opplysningId={opplysningId} />
+          <Barn
+            key={barn.barnId}
+            barnNummer={index + 1}
+            barn={barn}
+            opplysningId={opplysningId}
+            orkestratorLandliste={orkestratorLandliste}
+          />
         ),
       )}
     </>
   );
 }
 
-interface IProps {
+interface IOrkestratorBarnProps {
   barnNummer: number;
   barn: components["schemas"]["BarnResponse"];
   opplysningId: string;
+  orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-function Barn({ barnNummer, barn, opplysningId }: IProps) {
+function Barn({ barnNummer, barn, opplysningId, orkestratorLandliste }: IOrkestratorBarnProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const { behandling } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId",
-  );
+  const { oppgave } = useOppgave();
+  const { behandlingId } = useTypeSafeParams();
 
   const orkestratorBarnForm = useForm({
     schema: hentValideringOrkestratorBarn(),
@@ -97,6 +105,7 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
             key={index}
             opplysning={opplysning}
             formScope={orkestratorBarnForm.scope(opplysning.id)}
+            orkestratorLandliste={orkestratorLandliste}
             readOnly
           />
         ))}
@@ -130,17 +139,13 @@ function Barn({ barnNummer, barn, opplysningId }: IProps) {
               <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
               <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
               <input hidden={true} readOnly={true} name="opplysningId" value={opplysningId} />
-              <input
-                hidden={true}
-                readOnly={true}
-                name="behandlingId"
-                value={behandling.behandlingId}
-              />
+              <input hidden={true} readOnly={true} name="behandlingId" value={behandlingId} />
               {barn.opplysninger.map((opplysning, index) => (
                 <OrkestratorOpplysningLinje
                   key={index}
                   opplysning={opplysning}
                   formScope={orkestratorBarnForm.scope(opplysning.id)}
+                  orkestratorLandliste={orkestratorLandliste}
                 />
               ))}
             </div>

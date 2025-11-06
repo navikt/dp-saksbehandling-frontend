@@ -1,7 +1,5 @@
 import { components } from "openapi/soknad-orkestrator-typer";
 
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-
 import { formaterTilNorskDato } from "./dato.utils";
 
 export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
@@ -26,6 +24,7 @@ export function hentOrkestratorBarnOpplysningLabel(opplysningId: string) {
 
 export function formatterOrkestratorOpplysningVerdi(
   opplysning: components["schemas"]["BarnOpplysning"],
+  orkestratorLandliste: components["schemas"]["Land"][],
 ): string {
   switch (opplysning.dataType) {
     case "boolsk":
@@ -35,18 +34,14 @@ export function formatterOrkestratorOpplysningVerdi(
       return formaterTilNorskDato(opplysning.verdi);
 
     case "land":
-      return hentLand(opplysning.verdi);
+      return hentLand(opplysning.verdi, orkestratorLandliste);
 
     default:
       return opplysning.verdi;
   }
 }
 
-function hentLand(lankode: string): string {
-  const { orkestratorLandliste } = useTypedRouteLoaderData(
-    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle",
-  );
-
+function hentLand(lankode: string, orkestratorLandliste: components["schemas"]["Land"][]): string {
   return (
     orkestratorLandliste?.find((land: components["schemas"]["Land"]) => land.alpha3kode === lankode)
       ?.navn || ""
