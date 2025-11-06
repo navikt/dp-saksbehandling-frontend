@@ -1,4 +1,4 @@
-import { format, parse } from "date-fns";
+import { differenceInDays, format, parse } from "date-fns";
 import { nb } from "date-fns/locale";
 
 /**
@@ -53,4 +53,12 @@ export function formaterTilBackendDato(inputDato: Date | string, medKlokkeslett?
 
   // 2021-01-31
   return format(dato, "yyyy-MM-dd", { locale: nb });
+}
+
+export function isSameDayOrAfter(dato1: Date, dato2: Date): boolean {
+  return differenceInDays(dato1, dato2) >= 0;
+}
+
+export function isSameDayOrBefore(dato1: Date, dato2: Date): boolean {
+  return differenceInDays(dato1, dato2) <= 0;
 }
