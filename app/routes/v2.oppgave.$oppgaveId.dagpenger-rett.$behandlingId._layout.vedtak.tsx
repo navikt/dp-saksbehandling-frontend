@@ -4,6 +4,7 @@ import {
   type LoaderFunctionArgs,
   useActionData,
   useLoaderData,
+  useLocation,
   useRouteError,
 } from "react-router";
 import invariant from "tiny-invariant";
@@ -57,6 +58,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave };
 }
 export default function Behandle() {
+  const location = useLocation();
   const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave } =
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
@@ -116,6 +118,7 @@ export default function Behandle() {
                   }
                 >
                   <MeldingOmVedtak
+                    key={location.key}
                     meldingOmVedtak={meldingOmVedtak}
                     sanityBrevMaler={sanityBrevMaler}
                   />

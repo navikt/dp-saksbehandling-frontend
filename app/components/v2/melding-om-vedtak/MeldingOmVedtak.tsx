@@ -22,7 +22,7 @@ interface IProps {
 }
 
 export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
-  const { pathname, key } = useLocation();
+  const { pathname } = useLocation();
   const { oppgave, readonly } = useOppgave();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
@@ -66,7 +66,6 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
 
             {!isAlert(meldingOmVedtak) && (
               <UtvidedeBeskrivelser
-                key={key}
                 meldingOmVedtak={meldingOmVedtak}
                 readOnly={readonly}
                 sanityBrevMaler={sanityBrevMaler}
