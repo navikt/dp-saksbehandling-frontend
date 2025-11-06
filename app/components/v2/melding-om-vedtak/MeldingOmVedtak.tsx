@@ -51,7 +51,10 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
               size={"small"}
               legend="Variant"
               readOnly={readonly}
-              onChange={() => endreBrevVariantForm.submit()}
+              onChange={(value) => {
+                endreBrevVariantForm.field("brevVariant").setValue(value);
+                endreBrevVariantForm.submit();
+              }}
             >
               <Radio value="GENERERT">Standardisert tekst</Radio>
               <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
