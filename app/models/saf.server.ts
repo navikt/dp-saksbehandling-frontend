@@ -6,7 +6,7 @@ import { getSaksbehandler } from "~/models/microsoft.server";
 import { getSAFOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
-import { isSAFGraphqlError, isSAFRequestError } from "~/utils/type-guards";
+import { isGraphQLResponseError, isSAFGraphqlError, isSAFRequestError } from "~/utils/type-guards";
 
 import { graphql } from "../../graphql/generated/saf";
 import type { JournalpostQuery } from "../../graphql/generated/saf/graphql";
@@ -57,6 +57,16 @@ export async function hentJournalpost(
     return response.journalpost;
   } catch (error: unknown) {
     logger.error(error);
+
+    // TODO: sjekk at dette ikke fører til noen slags false positives.
+    if (isGraphQLResponseError(error)) {
+      return {
+        variant: "error",
+        title: "GraphQL nettverksfeil",
+        body: `Statuskode: ${error.response.status}`,
+        service: url,
+      };
+    }
 
     if (isSAFRequestError(error)) {
       return {

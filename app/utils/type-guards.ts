@@ -188,6 +188,53 @@ function parseValue(value: string): PrimitiveValue {
   // Keep strings as is
   return value;
 }
+export function isGraphQLResponseError(value: unknown): value is {
+  response: {
+    status: number;
+    headers: Headers;
+  };
+  request: {
+    query: string;
+    variables: Record<string, unknown>;
+  };
+} {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  // Check response object
+  if (typeof obj.response !== "object" || obj.response === null) {
+    return false;
+  }
+
+  const response = obj.response as Record<string, unknown>;
+
+  if (typeof response.status !== "number") {
+    return false;
+  }
+
+  if (!(response.headers instanceof Headers)) {
+    return false;
+  }
+
+  // Check request object
+  if (typeof obj.request !== "object" || obj.request === null) {
+    return false;
+  }
+  const request = obj.request as Record<string, unknown>;
+
+  if (typeof request.query !== "string") {
+    return false;
+  }
+
+  if (typeof request.variables !== "object" || request.variables === null) {
+    return false;
+  }
+
+  return true;
+}
 
 export function isSAFRequestError(value: unknown): value is ISAFRequestError {
   if (typeof value !== "object" || value === null) {
