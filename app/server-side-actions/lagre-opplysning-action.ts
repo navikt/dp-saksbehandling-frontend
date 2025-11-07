@@ -25,9 +25,6 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   const { behandlingId, opplysningTypeId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } =
     validertSkjema.data;
 
-  console.log("gyldigFraOgMed: ", gyldigFraOgMed);
-  console.log("gyldigTilOgMed: ", gyldigTilOgMed);
-
   let gyldigFraOgMedDato: string | undefined = undefined;
   let gyldigTilOgMedDato: string | undefined = undefined;
 
