@@ -14,6 +14,7 @@ import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -33,7 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
-      meldekortUrl: `${personIdResponse?.personId ? `${new URL(request.url).origin}/v2.rapportering.saksbehandling/person/${personIdResponse.personId}/meldekort` : null}`,
+      meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
     },
     {
       headers: {

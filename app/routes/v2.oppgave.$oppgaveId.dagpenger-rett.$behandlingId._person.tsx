@@ -10,6 +10,7 @@ import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -29,7 +30,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     oppgave,
     behandling,
     journalposterPromises,
-    meldekortUrl: `${personIdResponse?.personId ? `${new URL(request.url).origin}/v2.rapportering.saksbehandling/person/${personIdResponse.personId}/meldekort` : null}`,
+    meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
   };
 }
 
