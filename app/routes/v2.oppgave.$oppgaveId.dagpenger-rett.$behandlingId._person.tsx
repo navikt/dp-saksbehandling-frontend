@@ -6,6 +6,7 @@ import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -19,16 +20,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const behandling = await hentBehandlingV2(request, params.behandlingId);
-  // const { personId } = await hentRapporteringPersonId(request, oppgave.person.ident);
+  const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
+
   return {
     oppgave,
     behandling,
     journalposterPromises,
-    // meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
-    meldekortUrl: ``,
+    meldekortUrl: `${personIdResponse?.personId ? `${new URL(request.url).origin}/v2.rapportering.saksbehandling/person/${personIdResponse.personId}/meldekort` : null}`,
   };
 }
 
@@ -39,10 +40,6 @@ export default function BehandlingLayout() {
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <BeslutterNotatProvider notat={oppgave.notat}>
         <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
-        {/*<div className={"main grid grid-cols-[2fr_1fr] gap-4"}>*/}
-        {/*<OppgaveOversikt />*/}
-        {/*<OppgaveStøtteInformasjon />*/}
-        {/*</div>*/}
         <Outlet />
       </BeslutterNotatProvider>
     </OppgaveProvider>

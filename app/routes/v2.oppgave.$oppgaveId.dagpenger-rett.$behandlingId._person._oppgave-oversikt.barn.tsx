@@ -42,6 +42,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   return { behandling, oppgave, orkestratorBarn, orkestratorLandliste };
 }
+
 export default function Behandle() {
   const { behandling, orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const { oppgaveId, behandlingId } = useTypeSafeParams();

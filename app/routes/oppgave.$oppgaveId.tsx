@@ -20,7 +20,6 @@ import { hentOppgave } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/oppgave.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
-import { getEnv } from "~/utils/env.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -34,7 +33,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-  const { personId } = await hentRapporteringPersonId(request, oppgave.person.ident);
+  const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -43,7 +42,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       journalposterPromises,
-      meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
+      meldekortUrl: `${personIdResponse?.personId ? `${new URL(request.url).origin}/v2.rapportering.saksbehandling/person/${personIdResponse.personId}/meldekort` : null}`,
     },
     {
       headers: {

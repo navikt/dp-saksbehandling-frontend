@@ -12,7 +12,7 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
+import { hentBehandlingV2 } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -21,13 +21,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const behandling = await hentBehandlingV2(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
 
-  return { behandling, vurderinger };
+  return { behandling };
 }
+
 export default function Behandle() {
   const { behandling } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
@@ -51,15 +50,10 @@ export default function Behandle() {
               <section className="grid grid-cols-4 gap-4">
                 {nyeOpplysninger.map((opplysning) => (
                   <div key={opplysning.opplysningTypeId}>
-                    {/*<BodyShort weight={"semibold"}>{opplysning.navn}</BodyShort>*/}
                     <OpplysningsVerdierForPerioder
-                      // key={opplysning.}
                       label={opplysning.navn}
                       perioder={opplysning.perioder}
                     />
-                    {/*{opplysning.perioder.map((periode) => (*/}
-                    {/*  <BodyShort key={periode.id}>{formaterOpplysningVerdiV2(periode.verdi)}</BodyShort>*/}
-                    {/*))}*/}
                   </div>
                 ))}
               </section>
