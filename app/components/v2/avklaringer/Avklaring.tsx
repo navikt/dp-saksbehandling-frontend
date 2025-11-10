@@ -6,7 +6,7 @@ import {
   Detail,
   ExpansionCard,
   HStack,
-  TextField,
+  Textarea,
 } from "@navikt/ds-react";
 import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
 import { useForm } from "@rvf/react-router";
@@ -76,8 +76,9 @@ export function Avklaring(props: IProps) {
 
         {kanRedigereBegrunnelse && (
           <>
-            <TextField
+            <Textarea
               {...avklaringForm.getInputProps("begrunnelse")}
+              resize={"vertical"}
               readOnly={readonly}
               className={styles.begrunnelseInput}
               size="small"
