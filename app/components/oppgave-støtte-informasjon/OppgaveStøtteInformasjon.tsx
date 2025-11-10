@@ -8,14 +8,16 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
 
+import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
+
 export function OppgaveStøtteInformasjon() {
   const { behandling, journalposterPromises } = useTypedRouteLoaderData(
     "routes/v2.oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
-  const { underKontroll } = useOppgave();
+  const { oppgave, underKontroll } = useOppgave();
   return (
     <div className={"card p-2"}>
-      <Tabs defaultValue={underKontroll ? "kontroll" : "dokumenter"} size={"small"}>
+      <Tabs defaultValue={hentDefaultStøtteTab(oppgave)} size={"small"}>
         <Tabs.List>
           <Tabs.Tab value="dokumenter" label="Dokumenter" />
           <Tabs.Tab value="fagsystemer" label="Fagsystemer" />
@@ -43,4 +45,16 @@ export function OppgaveStøtteInformasjon() {
       </Tabs>
     </div>
   );
+}
+
+function hentDefaultStøtteTab(oppgave: saksbehandlingComponents["schemas"]["Oppgave"]) {
+  if (oppgave.tilstand === "UNDER_KONTROLL") {
+    return "kontroll";
+  }
+
+  if (oppgave.beslutter) {
+    return "historikk";
+  }
+
+  return "dokumenter";
 }
