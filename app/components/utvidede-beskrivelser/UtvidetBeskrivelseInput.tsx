@@ -74,7 +74,7 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
     }
   }
 
-  function lagreUtvidetBeskrivelseRikTekst(tekst: string) {
+  function lagreUtvidetBeskrivelseRikTekst(tekst: string, flushDebounce?: boolean) {
     oppdaterUtvidetBeskrivelse({
       ...props.utvidetBeskrivelse,
       tekst: tekst,
@@ -82,6 +82,10 @@ export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
 
     if (formRef) {
       debouncedLagreUtvidetBeskrivelseFetcher(formRef.current);
+    }
+
+    if (flushDebounce) {
+      debouncedLagreUtvidetBeskrivelseFetcher.flush();
     }
   }
 

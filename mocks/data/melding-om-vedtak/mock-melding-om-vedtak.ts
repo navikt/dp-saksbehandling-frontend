@@ -92,6 +92,10 @@ export const mockMeldingerOmVedtak = [
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
+    behandlingId: "01997148-5db5-70b4-b4f1-607730450315",
+    melding: mockMeldingOmVedtakInnvilgelse,
+  },
+  {
     behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
     melding: mockMeldingOmVedtakAvslagMinsteinntekt,
   },

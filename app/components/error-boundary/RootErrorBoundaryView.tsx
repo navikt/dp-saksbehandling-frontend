@@ -1,8 +1,6 @@
-import { Alert, BodyLong, Heading, InternalHeader } from "@navikt/ds-react";
+import { Alert, BodyLong, Heading, InternalHeader, Theme } from "@navikt/ds-react";
 import type { JSX } from "react";
 import { isRouteErrorResponse, Link } from "react-router";
-
-import styles from "./RootErrorBoundaryView.module.css";
 
 interface IProps {
   meta: JSX.Element;
@@ -12,25 +10,23 @@ interface IProps {
 
 export function RootErrorBoundaryView({ meta, links, error }: IProps) {
   return (
-    <html lang="en">
+    <Theme>
       <head>
         {meta}
         {links}
         <title>Dagpenger</title>
       </head>
 
-      <body>
-        <InternalHeader>
-          <Link to={"/"} className={styles.headerLogo}>
-            <InternalHeader.Title as="h1">Dagpenger</InternalHeader.Title>
-          </Link>
-        </InternalHeader>
+      <InternalHeader>
+        <Link to={"/"} className={"flex items-center"}>
+          <InternalHeader.Title as="h1">Dagpenger</InternalHeader.Title>
+        </Link>
+      </InternalHeader>
 
-        <div className={styles.container}>
-          <ErrorMessageComponent error={error} />
-        </div>
-      </body>
-    </html>
+      <div className={"p-4"}>
+        <ErrorMessageComponent error={error} />
+      </div>
+    </Theme>
   );
 }
 

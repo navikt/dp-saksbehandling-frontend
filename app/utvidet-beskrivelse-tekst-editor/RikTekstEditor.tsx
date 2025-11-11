@@ -4,7 +4,7 @@ import {
   NumberListIcon,
   QuestionmarkDiamondIcon,
 } from "@navikt/aksel-icons";
-import { Heading, Select, Tooltip } from "@navikt/ds-react";
+import { Alert, Heading, Select, Tooltip } from "@navikt/ds-react";
 import { htmlToBlocks } from "@portabletext/block-tools";
 import {
   BlockAnnotationRenderProps,
@@ -73,30 +73,33 @@ const blockContentType = {
 
 interface IProps {
   tekst: string;
-  onChange: (tekst: string) => void;
+  onChange: (tekst: string, flushDebounce?: boolean) => void;
   readOnly?: boolean;
   sanityBrevMaler: ISanityBrevMal[];
 }
 
 export function RikTekstEditor(props: IProps) {
   const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
-  // @ts-expect-error // TODO Må fikes typefeil her
+  // @ts-expect-error // Det er feil i typene fra Sanity.
   const initialBlocks = htmlToBlocks(props.tekst, blockContentType);
-  const initialValue = [
-    ...initialBlocks,
-    ...(valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []),
-  ];
+  const initialValue = valgtBrevMal
+    ? (valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? [])
+    : initialBlocks;
 
   function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
     const selectedBrevMal = props.sanityBrevMaler.find(
       (brevMal) => brevMal.textId === event.currentTarget.value,
+    );
+    props.onChange(
+      toHTML(valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []),
+      true,
     );
     setValgtBrevMal(selectedBrevMal);
   }
 
   return (
     <>
-      <Select className={"mb-2"} label="Brevmal" onChange={handleBrevmalSelect}>
+      <Select size={"small"} className={"mb-4"} label="Brevmal" onChange={handleBrevmalSelect}>
         <option value="" hidden={true}>
           Velg brevmal
         </option>
@@ -108,6 +111,10 @@ export function RikTekstEditor(props: IProps) {
           </option>
         ))}
       </Select>
+
+      <Alert variant={"info"} size={"small"} className={"mb-4"}>
+        Hvis du endrer brevmal forsvinner all nåværende tekst i editoren.
+      </Alert>
 
       <div className={styles.editor}>
         {initialValue && (
