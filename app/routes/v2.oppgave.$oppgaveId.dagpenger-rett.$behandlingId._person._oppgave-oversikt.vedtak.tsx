@@ -108,7 +108,7 @@ export default function Behandle() {
                 />
               ))}
 
-              <div className={"card p-4"}>
+              <div className={"card p-4"} key={location.key}>
                 <Heading size={"small"} level={"2"} className={"mb-4"}>
                   Melding om vedtak
                 </Heading>
@@ -118,7 +118,6 @@ export default function Behandle() {
                   }
                 >
                   <MeldingOmVedtak
-                    key={location.key}
                     meldingOmVedtak={meldingOmVedtak}
                     sanityBrevMaler={sanityBrevMaler}
                   />

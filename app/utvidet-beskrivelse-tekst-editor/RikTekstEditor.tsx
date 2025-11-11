@@ -91,10 +91,9 @@ export function RikTekstEditor(props: IProps) {
     const selectedBrevMal = props.sanityBrevMaler.find(
       (brevMal) => brevMal.textId === event.currentTarget.value,
     );
-    props.onChange(
-      toHTML(valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []),
-      true,
-    );
+
+    const html = toHTML(selectedBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []);
+    props.onChange(html);
     setValgtBrevMal(selectedBrevMal);
   }
 
@@ -104,6 +103,7 @@ export function RikTekstEditor(props: IProps) {
         size={"small"}
         className={"mb-4"}
         label="Brevmal"
+        value={valgtBrevMal?.textId}
         onChange={handleBrevmalSelect}
         readOnly={props.readOnly}
       >
