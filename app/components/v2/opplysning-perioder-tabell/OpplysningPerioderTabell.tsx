@@ -41,7 +41,7 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Verdi</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{props.opplysning.navn}</Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
             <Table.HeaderCell scope="col" colSpan={2}>
               Valg
