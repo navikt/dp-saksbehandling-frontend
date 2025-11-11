@@ -1,3 +1,4 @@
+import { FilePdfIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
 import { Fragment } from "react";
 
@@ -62,7 +63,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
               key={index}
               size={"small"}
               weight={"semibold"}
-              className={"border-b-1 border-(--a-border-subtle) pb-2"}
+              className={"border-b-1 border-(--ax-border-neutral-subtle) pb-2"}
             >
               Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
             </BodyShort>
@@ -70,7 +71,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
         }
 
         return (
-          <div key={index} className={"border-b-1 border-(--a-border-subtle)"}>
+          <div key={index} className={"border-b-1 border-(--ax-border-neutral-subtle)"}>
             <List as="ul" size="small">
               {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
                 <List.Item>Ingen dokumenter</List.Item>
@@ -81,7 +82,9 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                   dokument?.dokumentvarianter.map((variant, index) => (
                     <Fragment key={index}>
                       {dokument && variant && (
-                        <List.Item>
+                        <List.Item
+                          icon={<FilePdfIcon color={"var(--ax-text-subtle)"} aria-hidden />}
+                        >
                           <Button
                             className={"text-start"}
                             type="button"
@@ -104,9 +107,10 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
                   )),
                 )}
             </List>
+
             {journalpost?.datoOpprettet && (
-              <Detail textColor={"subtle"} className={"m text-right"}>
-                {formaterTilNorskDato(journalpost.datoOpprettet, true)}
+              <Detail textColor={"subtle"} className={"pt-2"}>
+                Mottatt: {formaterTilNorskDato(journalpost.datoOpprettet, true)}
               </Detail>
             )}
           </div>

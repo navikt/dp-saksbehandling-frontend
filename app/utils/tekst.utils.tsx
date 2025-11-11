@@ -5,10 +5,25 @@ import {
   PersonPencilIcon,
 } from "@navikt/aksel-icons";
 
+import { gyldigBegrunnelse } from "~/const";
+
 import {
   components,
   components as saksbehandlingComponents,
 } from "../../openapi/saksbehandling-typer";
+
+export function hentTekstForBegrunnelse(begrunnelse: gyldigBegrunnelse): string {
+  switch (begrunnelse) {
+    case "FEIL_UTFALL":
+      return "Feil utfall";
+    case "FEIL_HJEMMEL":
+      return "Feil hjemmel";
+    case "HAR_MANGLER":
+      return "Har mangler";
+    default:
+      return "Annet";
+  }
+}
 
 export function hentTekstForAvbrytÅrsak(
   avbrytÅrsak: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"],
@@ -82,5 +97,26 @@ export function hentUtløstAvTekstForVisning(
 
     default:
       return utløstAv;
+  }
+}
+
+export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["OppgaveTilstand"]) {
+  switch (tilstand) {
+    case "PAA_VENT":
+      return "På vent";
+    case "UNDER_BEHANDLING":
+      return "Under behandling";
+    case "FERDIG_BEHANDLET":
+      return "Ferdig behandlet";
+    case "KLAR_TIL_BEHANDLING":
+      return "Klar til behandling";
+    case "KLAR_TIL_KONTROLL":
+      return "Klar til kontroll";
+    case "UNDER_KONTROLL":
+      return "Under kontroll";
+    case "AVBRUTT":
+      return "Avbrutt";
+    default:
+      return tilstand;
   }
 }

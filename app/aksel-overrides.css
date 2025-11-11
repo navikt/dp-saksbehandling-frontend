@@ -1,9 +1,20 @@
+/* Aksel timeline overrides */
+.aksel--compact .navds-timeline__row {
+  margin: var(--ax-space-4) 0;
+}
+
+/* Aksel accordion overrides */
+.accordion--subtil {
+  /*--ac-expansioncard-border-color: none;*/
+  --ac-accordion-header-border: none;
+}
+
 /* Aksel expansion overrides */
 .expansion--subtil {
   /*box-shadow: var(--a-shadow-xsmall);*/
   --ac-expansioncard-border-color: none;
   --ac-expansioncard-border-hover-color: none;
-  --ac-expansioncard-border-radius: var(--a-border-radius-medium);
+  --ac-expansioncard-border-radius: var(--ax-radius-8);
 }
 
 /* Fjern border under header når expansion er åpen */
@@ -23,7 +34,7 @@
 
 /* Legg til border under header */
 .tabell--subtil thead tr {
-  border-bottom: 1px solid var(--a-border-subtle);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
 }
 
 /* Fjern border på alle rader */
@@ -77,7 +88,7 @@
 /* Align radio horisontalt istedet for verticalt */
 .aksel--compact .navds-radio-buttons {
   display: flex;
-  gap: var(--a-spacing-2);
+  gap: var(--ax-space-8);
 }
 
 /* Flytt lås for read-only til horisontal linje for tekst/date input felt */
@@ -93,14 +104,14 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: row-reverse;
-  /*margin-left: var(--a-spacing-2);*/
+  /*margin-left: var(--ax-space-8);*/
 }
 
 /* Flytt lås for read-only til horisontal linje for radio input felt og gi min width for å aligne med felter som ikke er read-only*/
 .aksel--compact .navds-fieldset__legend {
   float: right;
   align-self: center;
-  margin-left: var(--a-spacing-4);
+  margin-left: var(--ax-space-16);
 }
 
 .aksel--compact .navds-text-field--error {
@@ -123,10 +134,10 @@
 }
 
 .alert--compact.alert--compact {
-  padding: var(--a-spacing-1) var(--a-spacing-2);
+  padding: var(--ax-space-4) var(--ax-space-8);
 
   border: 0;
-  border-bottom: 1px solid var(--a-border-subtle);
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
 }
 
 .alert--compact .navds-alert__icon {
@@ -139,7 +150,7 @@
 
 /*Legg til luft mellom hver opplysning*/
 .opplysning--compact-vertikal {
-  margin-bottom: var(--a-spacing-6);
+  margin-bottom: var(--ax-space-24);
 }
 
 /*Fjern luft mellom label og input*/
@@ -175,7 +186,7 @@
 .opplysning--compact-horisontal .navds-radio-buttons {
   grid-column: 2;
   display: flex;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
   white-space: nowrap;
 }
 

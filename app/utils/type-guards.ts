@@ -188,6 +188,53 @@ function parseValue(value: string): PrimitiveValue {
   // Keep strings as is
   return value;
 }
+export function isGraphQLResponseError(value: unknown): value is {
+  response: {
+    status: number;
+    headers: Headers;
+  };
+  request: {
+    query: string;
+    variables: Record<string, unknown>;
+  };
+} {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  // Check response object
+  if (typeof obj.response !== "object" || obj.response === null) {
+    return false;
+  }
+
+  const response = obj.response as Record<string, unknown>;
+
+  if (typeof response.status !== "number") {
+    return false;
+  }
+
+  if (!(response.headers instanceof Headers)) {
+    return false;
+  }
+
+  // Check request object
+  if (typeof obj.request !== "object" || obj.request === null) {
+    return false;
+  }
+  const request = obj.request as Record<string, unknown>;
+
+  if (typeof request.query !== "string") {
+    return false;
+  }
+
+  if (typeof request.variables !== "object" || request.variables === null) {
+    return false;
+  }
+
+  return true;
+}
 
 export function isSAFRequestError(value: unknown): value is ISAFRequestError {
   if (typeof value !== "object" || value === null) {
@@ -252,8 +299,56 @@ export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
   return typeof extensions.classification === "string";
 }
 
+export function isDatoVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["DatoVerdi"] {
+  return verdi.datatype === "dato";
+}
+
 export function isTekstVerdi(
   verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
 ): verdi is behandlingComponents["schemas"]["TekstVerdi"] {
-  return verdi.datatype === "inntekt" || verdi.datatype === "tekst";
+  return verdi.datatype === "tekst" || verdi.datatype === "inntekt";
+}
+
+export function isHeltallVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["HeltallVerdi"] {
+  return verdi.datatype === "heltall";
+}
+
+export function isDesimaltallVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["DesimaltallVerdi"] {
+  return verdi.datatype === "desimaltall";
+}
+
+export function isPengeVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["PengeVerdi"] {
+  return verdi.datatype === "penger";
+}
+
+export function isUlidVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["UlidVerdi"] {
+  return verdi.datatype === "ulid";
+}
+
+export function isBoolskVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["BoolskVerdi"] {
+  return verdi.datatype === "boolsk";
+}
+
+export function isPeriodeVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["PeriodeVerdi"] {
+  return verdi.datatype === "periode";
+}
+
+export function isBarneliste(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["Barneliste"] {
+  return verdi.datatype === "barn";
 }

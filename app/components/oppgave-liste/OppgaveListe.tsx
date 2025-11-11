@@ -2,7 +2,7 @@ import { Detail, Heading, Skeleton, Table } from "@navikt/ds-react";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
-import { OppgaveListeValg } from "~/components/oppgave-liste-valg/OppgaveListeValg";
+import { ListeOppgaveValg } from "~/components/v2/liste-oppgave-valg/ListeOppgaveValg";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -144,7 +144,9 @@ export function OppgaveListe(props: IProps) {
                   {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.behandlerIdent}</Detail>}
                 </Table.DataCell>
 
-                <Table.DataCell>{<OppgaveListeValg oppgave={oppgave} />}</Table.DataCell>
+                <Table.DataCell>
+                  <ListeOppgaveValg listeOppgave={oppgave} />
+                </Table.DataCell>
               </Table.Row>
             );
           })}

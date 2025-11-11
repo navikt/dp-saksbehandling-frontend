@@ -3,7 +3,7 @@ import { Alert, BodyShort, CopyButton, Detail, Link } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useLocation } from "react-router";
 
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
@@ -55,11 +55,11 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
 
         <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Fødselsnummer:{" "}
-          <RemixLink to={`/person/${person.id}/oversikt`}>
+          <LoadingLink to={`/person/${person.id}/oversikt`}>
             {skjulSensitiveOpplysninger
               ? maskerVerdi(fødselsnummerMedMellomrom)
               : fødselsnummerMedMellomrom}
-          </RemixLink>
+          </LoadingLink>
           <CopyButton copyText={person.ident} size="xsmall" />
         </BodyShort>
 

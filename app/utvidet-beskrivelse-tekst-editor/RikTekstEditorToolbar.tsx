@@ -5,6 +5,8 @@ import { ReactElement, useRef, useState } from "react";
 
 import { schemaDefinition } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 
+import styles from "./RikTekstEditor.module.css";
+
 export function RikTekstEditorToolbar() {
   const decoratorButtons = schemaDefinition.decorators.map((decorator) => (
     <DecoratorButton key={decorator.name} {...decorator} />
@@ -23,11 +25,11 @@ export function RikTekstEditorToolbar() {
   ));
 
   return (
-    <div className={"border-b-1 border-(--a-border-default) py-1"}>
-      <span className={"border-r-1 border-(--a-border-subtle) px-1"}>{styleButtons}</span>
-      <span className={"border-r-1 border-(--a-border-subtle) px-1"}>{decoratorButtons}</span>
-      <span className={"border-r-1 border-(--a-border-subtle) px-1"}>{annotationButtons}</span>
-      <span className={"px-1"}>{listButtons}</span>
+    <div className={styles.editorToolbar}>
+      <span className={styles.editorToolbarButton}>{styleButtons}</span>
+      <span className={styles.editorToolbarButton}>{decoratorButtons}</span>
+      <span className={styles.editorToolbarButton}>{annotationButtons}</span>
+      <span className={styles.editorToolbarButton}>{listButtons}</span>
     </div>
   );
 }

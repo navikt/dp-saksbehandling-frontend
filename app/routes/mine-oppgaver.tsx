@@ -16,7 +16,6 @@ import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettigh
 import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter-utløst-av/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver, hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
@@ -84,7 +83,7 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
-        <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
+        <Tabs defaultValue="filter" size="small" className={styles.stickyTabs}>
           <Tabs.List>
             <Tabs.Tab
               value="filter"
@@ -98,7 +97,7 @@ export default function Saksbehandling() {
             />
           </Tabs.List>
 
-          <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
+          <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterDato />
             <OppgaveFilterUtløstAv />
             <OppgaveFilterStatus />

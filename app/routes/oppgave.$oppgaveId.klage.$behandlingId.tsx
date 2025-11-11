@@ -122,6 +122,7 @@ export default function Oppgave() {
                   <MeldingOmVedtak
                     meldingOmVedtak={meldingOmVedtak}
                     sanityBrevMaler={sanityBrevMaler}
+                    oppgave={oppgave}
                   />
                 </UtvidedeBeskrivelserProvider>
               ) : (

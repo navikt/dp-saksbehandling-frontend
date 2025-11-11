@@ -11,15 +11,22 @@ import { OrkestratorOpplysningTekst } from "./OrkestratorOpplysningTekst";
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
   formScope: FormScope<string | undefined>;
+  orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-export function OrkestratorOpplysning({ opplysning, formScope }: IProps) {
+export function OrkestratorOpplysning({ opplysning, formScope, orkestratorLandliste }: IProps) {
   switch (opplysning.dataType) {
     case "tekst":
       return <OrkestratorOpplysningTekst opplysning={opplysning} formScope={formScope} />;
 
     case "land":
-      return <OrkestratorOpplysningLand opplysning={opplysning} formScope={formScope} />;
+      return (
+        <OrkestratorOpplysningLand
+          opplysning={opplysning}
+          formScope={formScope}
+          orkestratorLandliste={orkestratorLandliste}
+        />
+      );
 
     case "boolsk":
       return <OrkestratorOpplysningBoolsk opplysning={opplysning} formScope={formScope} />;

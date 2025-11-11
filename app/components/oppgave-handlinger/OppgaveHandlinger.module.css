@@ -1,9 +1,9 @@
 .OppgaveHandlinger {
   display: flex;
-  gap: var(--a-spacing-2);
+  gap: var(--ax-space-8);
   align-items: center;
 
-  padding: var(--a-spacing-2);
+  padding: var(--ax-space-8);
   margin-left: auto;
 }
 
@@ -16,9 +16,9 @@
 }
 
 .formError {
-  margin: var(--a-spacing-2) 0;
+  margin: var(--ax-space-8) 0;
 }
 
 .beholdOppgaveCheckbox {
-  margin: var(--a-spacing-2) 0;
+  margin: var(--ax-space-8) 0;
 }

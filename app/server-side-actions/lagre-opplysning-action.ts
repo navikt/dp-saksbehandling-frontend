@@ -5,7 +5,7 @@ import { IAlert } from "~/context/alert-context";
 import { lagreOpplysning } from "~/models/behandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForOpplysningSkjema } from "~/utils/validering.util";
+import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/behandling-typer";
 
@@ -15,32 +15,24 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
 
   const validertSkjema = await parseFormData(
     formData,
-    hentValideringForOpplysningSkjema(opplysningDatatype),
+    hentValideringForOpplysningPeriodeSkjema(opplysningDatatype),
   );
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }
 
-  const {
-    behandlingId,
-    opplysningTypeId,
-    verdi,
-    gyldigFraOgMed,
-    ingenFomDato,
-    gyldigTilOgMed,
-    ingenTomDato,
-    begrunnelse,
-  } = validertSkjema.data;
+  const { behandlingId, opplysningTypeId, verdi, gyldigFraOgMed, gyldigTilOgMed, begrunnelse } =
+    validertSkjema.data;
 
   let gyldigFraOgMedDato: string | undefined = undefined;
   let gyldigTilOgMedDato: string | undefined = undefined;
 
-  if (gyldigFraOgMed && !ingenFomDato) {
+  if (gyldigFraOgMed) {
     gyldigFraOgMedDato = formaterTilBackendDato(gyldigFraOgMed);
   }
 
-  if (gyldigTilOgMed && !ingenTomDato) {
+  if (gyldigTilOgMed) {
     gyldigTilOgMedDato = formaterTilBackendDato(gyldigTilOgMed);
   }
 

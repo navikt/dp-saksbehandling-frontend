@@ -1,11 +1,11 @@
 .popover.popover {
   border: none;
-  border-radius: var(--a-border-radius-small);
-  box-shadow: var(--a-shadow-small);
+  border-radius: var(--ax-radius-4);
+  box-shadow: var(--dp-shadow-2);
   min-width: 234px;
-  font-weight: var(--a-font-weight-regular);
+  font-weight: var(--ax-font-weight-regular);
 }
 
 .popover p span {
-  font-weight: var(--a-font-weight-regular);
+  font-weight: var(--ax-font-weight-regular);
 }

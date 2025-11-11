@@ -12,7 +12,7 @@ interface IProps {
 export function BegrunnelseAvklaringer({ avklaringer, readOnly }: IProps) {
   return (
     <ExpansionCard
-      className={"expansion--subtil card"}
+      className={"card mb-4 border-0!"}
       aria-label={"Avklaringer"}
       defaultOpen={true}
       size={"small"}

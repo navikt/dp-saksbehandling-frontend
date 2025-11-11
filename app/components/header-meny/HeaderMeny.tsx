@@ -1,3 +1,5 @@
+import { MoonIcon, SunIcon } from "@navikt/aksel-icons";
+import { Button } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
@@ -25,7 +27,7 @@ interface IProps {
 export function HeaderMeny({ saksbehandler }: IProps) {
   const { featureFlags, oppgaverJegHarTilBehandlingPromise } = useTypedRouteLoaderData("root");
   const { response } = useAwaitPromise(oppgaverJegHarTilBehandlingPromise);
-  const { aktivtOppgaveSok } = useSaksbehandler();
+  const { aktivtOppgaveSok, tema, setTema } = useSaksbehandler();
   const [antallOppgaverJegHarTilBehandling, setAntallOppgaverJegHarTilBehandling] =
     useState<number>(0);
 
@@ -79,6 +81,17 @@ export function HeaderMeny({ saksbehandler }: IProps) {
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />
         <HeaderSaksbehandlerMeny saksbehandler={saksbehandler} />
+        <Button
+          variant={"tertiary-neutral"}
+          icon={
+            tema === "light" ? (
+              <SunIcon title={"Endre til mørkt tema"} color={"white"} />
+            ) : (
+              <MoonIcon title={"Endre til lyst tema"} color={"white"} />
+            )
+          }
+          onClick={() => setTema(tema === "light" ? "dark" : "light")}
+        />
       </div>
     </div>
   );

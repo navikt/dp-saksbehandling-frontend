@@ -25,7 +25,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
-  const { personId } = await hentRapporteringPersonId(request, personOversikt.person.ident);
+  const personIdResponse = await hentRapporteringPersonId(request, personOversikt.person.ident);
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -34,7 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
-      meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
+      meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
     },
     {
       headers: {

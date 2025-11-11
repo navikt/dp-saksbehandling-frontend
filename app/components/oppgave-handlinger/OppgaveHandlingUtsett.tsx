@@ -1,13 +1,14 @@
 import { Alert, Button, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { add, format } from "date-fns";
+import { add } from "date-fns";
 import { useRef, useState } from "react";
 import { Form, useNavigation } from "react-router";
 
 import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentValideringUtsettOppgave } from "~/utils/validering.util";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentValideringSettOppgavePåVent } from "~/utils/validering.util";
 
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 
@@ -19,9 +20,10 @@ export function OppgaveHandlingUtsett() {
   const [utsattTilDato, setUtsattTilDato] = useState<Date | undefined>();
 
   const validatedForm = useForm({
-    schema: hentValideringUtsettOppgave(),
+    schema: hentValideringSettOppgavePåVent(),
     method: "post",
     defaultValues: {
+      _action: "sett-oppgave-på-vent",
       oppgaveId: oppgave.oppgaveId,
       beholdOppgave: false,
       utsettTilDato: "",
@@ -62,7 +64,7 @@ export function OppgaveHandlingUtsett() {
       >
         <Modal.Body>
           <Form method="post" {...validatedForm.getFormProps()}>
-            <input name="_action" value="utsett-oppgave" hidden={true} readOnly={true} />
+            <input name="_action" value="sett-oppgave-på-vent" hidden={true} readOnly={true} />
             <input name="oppgaveId" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
             <input name="aktivtOppgaveSok" value={aktivtOppgaveSok} hidden={true} readOnly={true} />
 
@@ -80,7 +82,7 @@ export function OppgaveHandlingUtsett() {
 
             <input
               name="utsettTilDato"
-              value={utsattTilDato ? format(utsattTilDato, "yyyy-MM-dd") : ""}
+              value={utsattTilDato ? formaterTilNorskDato(utsattTilDato) : undefined}
               hidden={true}
               readOnly={true}
             />

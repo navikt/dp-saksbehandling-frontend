@@ -1341,66 +1341,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/person/skal-varsle-om-ettersending": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Sjekker om søknaden er sett på av saksbehandler og ikke sendt til Arena */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    soknadId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["Soknad"];
-                };
-            };
-            responses: {
-                /** @description Vellykket respons med tilstand for oppgaven */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "plain/text": boolean;
-                    };
-                };
-                /** @description Søknaden har ingen korresponderende oppgave */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/oppgaveId": {
         parameters: {
             query?: never;
@@ -1698,11 +1638,6 @@ export interface components {
         PersonId: {
             /** Format: uuid */
             id: string;
-        };
-        Soknad: {
-            ident: string;
-            /** Format: uuid */
-            soknadId: string;
         };
         OppgaveHistorikk: {
             /** @enum {string} */

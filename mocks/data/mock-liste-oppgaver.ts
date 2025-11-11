@@ -1,5 +1,7 @@
 import { components } from "../../openapi/saksbehandling-typer";
 import {
+  behandlingV2MeldekortOppgave,
+  behandlingV2Oppgave,
   ferdigBehandlerKlageOppgave,
   ferdigBehandletAutomatiskOppgave,
   ferdigBehandletOppgave,
@@ -8,6 +10,7 @@ import {
   underBehandlingAvslagOppgaveMineOppgave,
   underBehandlingInnvilgelseMinOppgave,
   underBehandlingMeldekortOppgaveMineOppgave,
+  underBehandlingPeriodisertMinOppgave,
   underKontrollAnnenSaksbehandler,
   underKontrollMinOppgave,
 } from "./mock-oppgaver";
@@ -38,6 +41,7 @@ export function konverterOppgaveTilListeOppgave(
 
 export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(underBehandlingInnvilgelseMinOppgave),
+  konverterOppgaveTilListeOppgave(underBehandlingPeriodisertMinOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingAvslagOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underBehandlingMeldekortOppgaveMineOppgave),
   konverterOppgaveTilListeOppgave(underKontrollMinOppgave),
@@ -47,4 +51,6 @@ export const mockListeOppgaver: components["schemas"]["OppgaveOversikt"][] = [
   konverterOppgaveTilListeOppgave(ferdigBehandletAutomatiskOppgave),
   konverterOppgaveTilListeOppgave(klageOppgave),
   konverterOppgaveTilListeOppgave(ferdigBehandlerKlageOppgave),
+  konverterOppgaveTilListeOppgave(behandlingV2Oppgave),
+  konverterOppgaveTilListeOppgave(behandlingV2MeldekortOppgave),
 ];

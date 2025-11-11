@@ -4,7 +4,7 @@ import {
   NumberListIcon,
   QuestionmarkDiamondIcon,
 } from "@navikt/aksel-icons";
-import { Heading, Select, Tooltip } from "@navikt/ds-react";
+import { Alert, Heading, Select, Tooltip } from "@navikt/ds-react";
 import { htmlToBlocks } from "@portabletext/block-tools";
 import {
   BlockAnnotationRenderProps,
@@ -18,6 +18,7 @@ import {
 } from "@portabletext/editor";
 import { EventListenerPlugin } from "@portabletext/editor/plugins";
 import { toHTML } from "@portabletext/to-html";
+import classnames from "classnames";
 import { ChangeEvent, PropsWithChildren, useState } from "react";
 
 import { ISanityBrevMal } from "~/sanity/sanity-types";
@@ -73,30 +74,39 @@ const blockContentType = {
 
 interface IProps {
   tekst: string;
-  onChange: (tekst: string) => void;
+  onChange: (tekst: string, flushDebounce?: boolean) => void;
   readOnly?: boolean;
   sanityBrevMaler: ISanityBrevMal[];
 }
 
 export function RikTekstEditor(props: IProps) {
   const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
-  // @ts-expect-error // TODO Må fikes typefeil her
+  // @ts-expect-error // Det er feil i typene fra Sanity.
   const initialBlocks = htmlToBlocks(props.tekst, blockContentType);
-  const initialValue = [
-    ...initialBlocks,
-    ...(valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []),
-  ];
+  const initialValue = valgtBrevMal
+    ? (valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? [])
+    : initialBlocks;
 
   function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
     const selectedBrevMal = props.sanityBrevMaler.find(
       (brevMal) => brevMal.textId === event.currentTarget.value,
     );
+
+    const html = toHTML(selectedBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []);
+    props.onChange(html);
     setValgtBrevMal(selectedBrevMal);
   }
 
   return (
     <>
-      <Select className={"mb-2"} label="Brevmal" onChange={handleBrevmalSelect}>
+      <Select
+        size={"small"}
+        className={"mb-4"}
+        label="Brevmal"
+        value={valgtBrevMal?.textId}
+        onChange={handleBrevmalSelect}
+        readOnly={props.readOnly}
+      >
         <option value="" hidden={true}>
           Velg brevmal
         </option>
@@ -109,6 +119,12 @@ export function RikTekstEditor(props: IProps) {
         ))}
       </Select>
 
+      {!props.readOnly && (
+        <Alert variant={"info"} size={"small"} className={"mb-4"}>
+          Hvis du endrer brevmal forsvinner all nåværende tekst i editoren.
+        </Alert>
+      )}
+
       <div className={styles.editor}>
         {initialValue && (
           <input
@@ -118,10 +134,12 @@ export function RikTekstEditor(props: IProps) {
             readOnly={true}
           />
         )}
+
         <EditorProvider
           key={valgtBrevMal?.textId || "default"}
           initialConfig={{
             schemaDefinition,
+            readOnly: props.readOnly,
             initialValue: initialValue,
           }}
         >
@@ -133,9 +151,11 @@ export function RikTekstEditor(props: IProps) {
             }}
           />
           <div
-            className={"rounded-(--a-border-radius-medium) border-1 border-(--a-border-default)"}
+            className={classnames(styles.editorWrapper, {
+              [styles.editorWrapperReadonly]: props.readOnly,
+            })}
           >
-            <RikTekstEditorToolbar />
+            {!props.readOnly && <RikTekstEditorToolbar />}
             <PortableTextEditable
               className={"p-2"}
               readOnly={props.readOnly}
@@ -195,7 +215,7 @@ function renderListItem(props: PropsWithChildren<BlockListItemRenderProps>) {
 
 function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) {
   if (props.schemaType.name === "link") {
-    return <span className={"text-(--a-text-action) underline"}>{props.children}</span>;
+    return <span className={"text-(--ax-text-accent) underline"}>{props.children}</span>;
   }
 
   return <>{props.children}</>;

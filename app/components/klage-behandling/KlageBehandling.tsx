@@ -20,9 +20,10 @@ export function KlageBehandling({ klage, readonly }: IProps) {
     (opplysning) => opplysning.gruppe === "FORMKRAV",
   );
 
+  // TODO: hvorfor er det tabell lol (ser ut som at vi bruker ul og li andre steder, f.eks. i RegelsettOpplysningListeElement)
   return (
     <div className={"p-2"}>
-      <Table className={"tabell--subtil"} zebraStripes>
+      <Table className={"tabell--subtil"}>
         <Table.Body>
           <Table.Row shadeOnHover={false}>
             <Table.HeaderCell colSpan={2}>Klagesak</Table.HeaderCell>

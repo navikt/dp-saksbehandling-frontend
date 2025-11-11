@@ -11,7 +11,9 @@ import invariant from "tiny-invariant";
 
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
+import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -32,7 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-  const { personId } = await hentRapporteringPersonId(request, oppgave.person.ident);
+  const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -41,7 +43,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       oppgave,
       journalposterPromises,
-      meldekortUrl: `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personId}`,
+      meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
     },
     {
       headers: {
@@ -53,6 +55,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { oppgave, alert, meldekortUrl } = useLoaderData<typeof loader>();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -62,10 +65,12 @@ export default function Oppgave() {
     <Fragment key={oppgave.oppgaveId}>
       <PersonBoks person={oppgave.person} oppgave={oppgave} meldekortUrl={meldekortUrl} />
 
-      <div className={styles.oppgaveContainer}>
-        <BeslutterNotatProvider notat={oppgave.notat}>
-          <Outlet />
-        </BeslutterNotatProvider>
+      <div className={`main ${styles.oppgaveContainer}`}>
+        <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+          <BeslutterNotatProvider notat={oppgave.notat}>
+            <Outlet />
+          </BeslutterNotatProvider>
+        </OppgaveProvider>
       </div>
     </Fragment>
   );

@@ -1,0 +1,6 @@
+.opplysningDetail {
+  padding: var(--ax-space-8) 0;
+}
+.opplysningDetail:not(:last-child) {
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+}

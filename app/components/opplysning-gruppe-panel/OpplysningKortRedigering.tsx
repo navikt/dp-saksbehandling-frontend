@@ -17,8 +17,8 @@ import { Opplysning } from "~/components/opplysning/Opplysning";
 import { NY_PERIODE_ID } from "~/components/opplysning-gruppe-panel/OpplysningGruppePanel";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import {
-  hentValideringForOpplysningSkjema,
-  hentValideringForSlettOpplysningSkjema,
+  hentValideringForOpplysningPeriodeSkjema,
+  hentValideringForSlettPeriode,
 } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -51,8 +51,9 @@ export function OpplysningKortRedigering({
   const opplysningForm = useForm({
     method: "post",
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
-    schema: hentValideringForOpplysningSkjema(opplysning.datatype),
+    schema: hentValideringForOpplysningPeriodeSkjema(opplysning.datatype),
     defaultValues: {
+      _action: "lagre-opplysning",
       opplysningTypeId: opplysning.opplysningTypeId,
       datatype: opplysning.datatype,
       behandlingId: behandlingId,
@@ -60,8 +61,8 @@ export function OpplysningKortRedigering({
       begrunnelse: erPrøvingsdatoOpplysning
         ? "Prøvingsdato"
         : (opplysning.kilde?.begrunnelse?.verdi ?? ""),
-      gyldigFraOgMed: opplysning.gyldigFraOgMed,
-      gyldigTilOgMed: opplysning.gyldigTilOgMed,
+      gyldigFraOgMed: opplysning.gyldigFraOgMed ?? undefined,
+      gyldigTilOgMed: opplysning.gyldigTilOgMed ?? undefined,
       ingenTomDato: ingenTomDato.toString(),
       ingenFomDato: ingenFomDato.toString(),
     },
@@ -70,8 +71,8 @@ export function OpplysningKortRedigering({
   const slettOpplysningForm = useForm({
     method: "post",
     action: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle/${regelsettNavn}`,
-    schema: hentValideringForSlettOpplysningSkjema(),
-    defaultValues: { behandlingId, opplysningId: opplysning.id },
+    schema: hentValideringForSlettPeriode(),
+    defaultValues: { _action: "slett-periode", behandlingId, periodeId: opplysning.id },
   });
 
   const tidligsteFraOgMedDato = forrigePeriode?.gyldigTilOgMed
@@ -140,80 +141,80 @@ export function OpplysningKortRedigering({
 
         <Opplysning opplysning={opplysning} formScope={opplysningForm.scope("verdi")} />
 
-        {!erPrøvingsdatoOpplysning && (
-          <>
-            <div className={"mt-4 flex gap-8"}>
-              <div>
-                <DatePicker {...datepickerFraOgMed.datepickerProps}>
-                  <DatePicker.Input
-                    {...datepickerFraOgMed.inputProps}
-                    size={"small"}
-                    label="Fra og med"
-                    form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
-                    name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
-                    error={opplysningForm.field("gyldigFraOgMed").error()}
-                    disabled={ingenFomDato}
-                  />
-                </DatePicker>
+        <div className={"mt-4 flex gap-8"}>
+          <div>
+            <DatePicker {...datepickerFraOgMed.datepickerProps}>
+              <DatePicker.Input
+                {...datepickerFraOgMed.inputProps}
+                size={"small"}
+                label="Fra og med"
+                form={opplysningForm.field("gyldigFraOgMed").getInputProps().form}
+                name={opplysningForm.field("gyldigFraOgMed").getInputProps().name}
+                error={opplysningForm.field("gyldigFraOgMed").error()}
+                disabled={ingenFomDato}
+              />
+            </DatePicker>
 
-                {!forrigePeriode && (
-                  <Checkbox
-                    size={"small"}
-                    className={"mt-1"}
-                    name={"ingenFomDato"}
-                    value={ingenFomDato}
-                    onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
-                  >
-                    Ingen start
-                  </Checkbox>
-                )}
-              </div>
+            {!forrigePeriode && (
+              <Checkbox
+                size={"small"}
+                className={"mt-1"}
+                name={"ingenFomDato"}
+                value={ingenFomDato}
+                onChange={(event) => setIngenFomDato(event.currentTarget.checked)}
+              >
+                Ingen start
+              </Checkbox>
+            )}
+          </div>
 
-              <div>
-                <DatePicker {...datepickerTilOgMed.datepickerProps}>
-                  <DatePicker.Input
-                    {...datepickerTilOgMed.inputProps}
-                    size={"small"}
-                    label={"Til og med"}
-                    form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
-                    name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
-                    error={opplysningForm.field("gyldigTilOgMed").error()}
-                    disabled={ingenTomDato}
-                  />
-                </DatePicker>
+          <div>
+            <DatePicker {...datepickerTilOgMed.datepickerProps}>
+              <DatePicker.Input
+                {...datepickerTilOgMed.inputProps}
+                size={"small"}
+                label={"Til og med"}
+                form={opplysningForm.field("gyldigTilOgMed").getInputProps().form}
+                name={opplysningForm.field("gyldigTilOgMed").getInputProps().name}
+                error={opplysningForm.field("gyldigTilOgMed").error()}
+                disabled={ingenTomDato}
+              />
+            </DatePicker>
 
-                {!nestePeriode && (
-                  <Checkbox
-                    size={"small"}
-                    className={"mt-1"}
-                    name={"ingenTomDato"}
-                    value={ingenTomDato}
-                    onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
-                  >
-                    Ingen slutt
-                  </Checkbox>
-                )}
-              </div>
-            </div>
+            {!nestePeriode && (
+              <Checkbox
+                size={"small"}
+                className={"mt-1"}
+                name={"ingenTomDato"}
+                value={ingenTomDato}
+                onChange={(event) => setIngenTomDato(event.currentTarget.checked)}
+              >
+                Ingen slutt
+              </Checkbox>
+            )}
+          </div>
+        </div>
 
-            <Textarea
-              {...opplysningForm.field("begrunnelse").getInputProps()}
-              error={opplysningForm.field("begrunnelse").error()}
-              size={"small"}
-              className={"mt-2"}
-              label={"Begrunnelse"}
-            />
-          </>
-        )}
+        <Textarea
+          {...opplysningForm.field("begrunnelse").getInputProps()}
+          error={opplysningForm.field("begrunnelse").error()}
+          size={"small"}
+          className={"mt-2"}
+          label={"Begrunnelse"}
+        />
       </Form>
 
       <div className={"mt-4 flex gap-2"}>
         <Form {...slettOpplysningForm.getFormProps()}>
-          <input hidden={true} readOnly={true} name="_action" value="slett-opplysning" />
           <input
             hidden={true}
             readOnly={true}
-            {...slettOpplysningForm.field("opplysningId").getInputProps()}
+            {...slettOpplysningForm.field("_action").getInputProps()}
+          />
+          <input
+            hidden={true}
+            readOnly={true}
+            {...slettOpplysningForm.field("periodeId").getInputProps()}
           />
           <input
             hidden={true}

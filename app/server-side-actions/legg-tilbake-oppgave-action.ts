@@ -1,22 +1,24 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
 import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
 
 export async function leggTilbakeOppgaveAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const oppgaveId = formData.get("oppgaveId") as string;
-  const aktivtOppgaveSok = formData.get("aktivtOppgaveSok") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForLeggTilbakeOppgave());
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
+  const { oppgaveId, aktivtOppgaveSok } = validertSkjema.data;
   const { error } = await leggTilbakeOppgave(request, oppgaveId);
 
   if (error) {

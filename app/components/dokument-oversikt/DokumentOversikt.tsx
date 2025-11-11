@@ -4,11 +4,13 @@ import { Await } from "react-router";
 import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMelding";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentJournalpost } from "~/models/saf.server";
 
-export function DokumentOversikt() {
-  const { journalposterPromises } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+interface IProps {
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
+}
 
+export function DokumentOversikt({ journalposterPromises }: IProps) {
   return (
     <div className={"p-4"}>
       <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>

@@ -38,6 +38,27 @@ export async function hentBehandling(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentBehandlingV2(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const { response, data, error } = await behandlingClient.GET("/behandling/v2/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
+}
+
 export async function avbrytBehandling(
   request: Request,
   behandlingId: string,
@@ -78,16 +99,12 @@ export async function lagreOpplysning(
   });
 }
 
-export async function slettOpplysning(
-  request: Request,
-  behandlingId: string,
-  opplysningId: string,
-) {
+export async function slettPeriode(request: Request, behandlingId: string, periodeId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.DELETE("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
-      path: { behandlingId, opplysningId },
+      path: { behandlingId, opplysningId: periodeId },
     },
   });
 }

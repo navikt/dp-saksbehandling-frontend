@@ -64,13 +64,15 @@ export function RegelsettMeny({ behandling }: IProps) {
 function renderStatusIcon(status: components["schemas"]["Regelsett"]["status"]) {
   switch (status) {
     case "Info":
-      return <CircleIcon fontSize="1.5rem" color={"var(--a-blue-500)"} />;
+      return <CircleIcon fontSize="1.5rem" color={"var(--ax-bg-info-strong)"} />;
     case "Oppfylt":
-      return <CheckmarkCircleIcon fontSize="1.5rem" color={"var(--a-green-500)"} />;
+      return <CheckmarkCircleIcon fontSize="1.5rem" color={"var(--ax-bg-success-strong)"} />;
     case "IkkeOppfylt":
-      return <XMarkOctagonFillIcon fontSize="1.5rem" color={"var(--a-red-500)"} />;
+      return <XMarkOctagonFillIcon fontSize="1.5rem" color={"var(--ax-bg-danger-strong)"} />;
     case "HarAvklaring":
-      return <ExclamationmarkTriangleFillIcon fontSize="1.5rem" color={"var(--a-orange-600)"} />;
+      return (
+        <ExclamationmarkTriangleFillIcon fontSize="1.5rem" color={"var(--ax-bg-warning-strong)"} />
+      );
     case "IkkeRelevant":
       return <CircleSlashIcon fontSize="1.5rem" />;
   }

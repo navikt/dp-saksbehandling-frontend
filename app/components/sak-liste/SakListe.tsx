@@ -26,7 +26,7 @@ export function SakListe({ saker }: IProps) {
         return (
           <ExpansionCard
             key={sak.id}
-            className={"expansion--subtil card my-4"}
+            className={"expansion--subtil my-4"}
             aria-label={""}
             size={"small"}
           >
@@ -41,7 +41,7 @@ export function SakListe({ saker }: IProps) {
               </ExpansionCard.Description>
             </ExpansionCard.Header>
 
-            <ExpansionCard.Content className={"border-t-1 border-(--a-border-subtle)"}>
+            <ExpansionCard.Content className={"border-t border-(--ax-border-neutral-subtle)"}>
               <div className={"mb-4 flex items-center gap-1"}>
                 <BodyShort>
                   {forsteIdGruppe}-<b>{sisteIdGruppe}</b>
