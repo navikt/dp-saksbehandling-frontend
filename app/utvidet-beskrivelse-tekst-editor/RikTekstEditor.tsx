@@ -18,6 +18,7 @@ import {
 } from "@portabletext/editor";
 import { EventListenerPlugin } from "@portabletext/editor/plugins";
 import { toHTML } from "@portabletext/to-html";
+import classnames from "classnames";
 import { ChangeEvent, PropsWithChildren, useState } from "react";
 
 import { ISanityBrevMal } from "~/sanity/sanity-types";
@@ -99,7 +100,13 @@ export function RikTekstEditor(props: IProps) {
 
   return (
     <>
-      <Select size={"small"} className={"mb-4"} label="Brevmal" onChange={handleBrevmalSelect}>
+      <Select
+        size={"small"}
+        className={"mb-4"}
+        label="Brevmal"
+        onChange={handleBrevmalSelect}
+        readOnly={props.readOnly}
+      >
         <option value="" hidden={true}>
           Velg brevmal
         </option>
@@ -112,9 +119,11 @@ export function RikTekstEditor(props: IProps) {
         ))}
       </Select>
 
-      <Alert variant={"info"} size={"small"} className={"mb-4"}>
-        Hvis du endrer brevmal forsvinner all nåværende tekst i editoren.
-      </Alert>
+      {!props.readOnly && (
+        <Alert variant={"info"} size={"small"} className={"mb-4"}>
+          Hvis du endrer brevmal forsvinner all nåværende tekst i editoren.
+        </Alert>
+      )}
 
       <div className={styles.editor}>
         {initialValue && (
@@ -125,10 +134,12 @@ export function RikTekstEditor(props: IProps) {
             readOnly={true}
           />
         )}
+
         <EditorProvider
           key={valgtBrevMal?.textId || "default"}
           initialConfig={{
             schemaDefinition,
+            readOnly: props.readOnly,
             initialValue: initialValue,
           }}
         >
@@ -139,8 +150,12 @@ export function RikTekstEditor(props: IProps) {
               }
             }}
           />
-          <div className={styles.editorWrapper}>
-            <RikTekstEditorToolbar />
+          <div
+            className={classnames(styles.editorWrapper, {
+              [styles.editorWrapperReadonly]: props.readOnly,
+            })}
+          >
+            {!props.readOnly && <RikTekstEditorToolbar />}
             <PortableTextEditable
               className={"p-2"}
               readOnly={props.readOnly}

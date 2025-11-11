@@ -4,6 +4,10 @@
   border: 1px solid var(--ax-border-neutral);
 }
 
+.editorWrapperReadonly {
+  background-color: var(--ax-bg-neutral-moderate);
+}
+
 .editorToolbar {
   border-top-right-radius: var(--ax-radius-8);
   border-top-left-radius: var(--ax-radius-8);
