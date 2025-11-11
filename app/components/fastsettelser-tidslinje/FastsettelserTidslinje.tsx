@@ -50,31 +50,33 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
       </div>
 
       <Accordion size={"small"} className={"aksel--compact"}>
-        {behandling.fastsettelser.map((fastsettelse) => (
-          <Accordion.Item
-            key={fastsettelse.navn}
-            open={aktivtRegelsett?.navn === fastsettelse.navn}
-          >
-            <Accordion.Header
-              onClick={() =>
-                aktivtRegelsett?.navn === fastsettelse.navn
-                  ? setAktivtRegelsett(undefined)
-                  : setAktivtRegelsett(fastsettelse)
-              }
+        {behandling.fastsettelser
+          .filter((fastsettelse) => fastsettelse.opplysninger.length > 0)
+          .map((fastsettelse) => (
+            <Accordion.Item
+              key={fastsettelse.navn}
+              open={aktivtRegelsett?.navn === fastsettelse.navn}
             >
-              {fastsettelse.navn}
-            </Accordion.Header>
-            <Accordion.Content>
-              <OpplysningerTidslinje
-                opplysninger={aktiveOpplysninger}
-                medLenkeTilOpplysning={true}
-                opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning`}
-                pins={pins}
-                eksternTidslinjeNavigeringState={tidslinjeState}
-              />
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
+              <Accordion.Header
+                onClick={() =>
+                  aktivtRegelsett?.navn === fastsettelse.navn
+                    ? setAktivtRegelsett(undefined)
+                    : setAktivtRegelsett(fastsettelse)
+                }
+              >
+                {fastsettelse.navn}
+              </Accordion.Header>
+              <Accordion.Content>
+                <OpplysningerTidslinje
+                  opplysninger={aktiveOpplysninger}
+                  medLenkeTilOpplysning={true}
+                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning`}
+                  pins={pins}
+                  eksternTidslinjeNavigeringState={tidslinjeState}
+                />
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
       </Accordion>
     </div>
   );
