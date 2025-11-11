@@ -13,7 +13,7 @@ interface IProps {
   oppgave: components["schemas"]["Oppgave"];
 }
 
-export function OppgaveMenyAvbryt({ oppgave }: IProps) {
+export function OppgaveValgAvbryt({ oppgave }: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 

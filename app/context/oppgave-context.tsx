@@ -19,11 +19,13 @@ export interface IOppgaveContextType {
 
 export const OppgaveContext = createContext<IOppgaveContextType | undefined>(undefined);
 export type IGyldigeOppgaveHandlinger =
-  | "legg-tilbake"
-  | "utsett"
-  | "avbryt"
+  | "legg-tilbake-oppgave"
+  | "utsett-oppgave"
+  | "avbryt-behandling"
   | "rekjor-behandling"
-  | "tildel-oppgave";
+  | "behandle-oppgave"
+  | "kontroller-oppgave"
+  | "se-oppgave";
 
 export function OppgaveProvider({
   children,
@@ -43,7 +45,7 @@ export function OppgaveProvider({
 
   const underKontroll = oppgave.tilstand === "UNDER_KONTROLL";
   const readonly = !minOppgave || underKontroll || oppgave.tilstand !== "UNDER_BEHANDLING";
-  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(minOppgave, oppgave);
+  const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, minOppgave);
 
   return (
     <OppgaveContext.Provider
@@ -61,36 +63,51 @@ export function OppgaveProvider({
   );
 }
 
-function hentGyldigeOppgaveValg(
+export function hentGyldigeOppgaveValg(
+  oppgave:
+    | saksbehandlingComponent["schemas"]["Oppgave"]
+    | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
-  oppgave: saksbehandlingComponent["schemas"]["Oppgave"],
 ): IGyldigeOppgaveHandlinger[] {
   const handlinger: IGyldigeOppgaveHandlinger[] = [];
 
-  if (oppgave.tilstand === "AVBRUTT") {
-    return handlinger;
+  if (
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+  ) {
+    handlinger.push("behandle-oppgave");
   }
 
-  if (oppgave.tilstand === "KLAR_TIL_BEHANDLING") {
-    handlinger.push("tildel-oppgave");
-    return handlinger;
+  if (
+    oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && minOppgave)
+  ) {
+    handlinger.push("kontroller-oppgave");
   }
 
-  if (!minOppgave) {
-    handlinger.push("legg-tilbake");
-    return handlinger;
+  if (
+    (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") &&
+    minOppgave
+  ) {
+    handlinger.push("utsett-oppgave");
   }
 
-  switch (oppgave.tilstand) {
-    case "UNDER_BEHANDLING":
-      handlinger.push("rekjor-behandling", "legg-tilbake", "utsett", "avbryt");
-
-      return handlinger;
-    case "UNDER_KONTROLL":
-      handlinger.push("legg-tilbake");
-
-      return handlinger;
-    default:
-      return [];
+  if (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") {
+    handlinger.push("legg-tilbake-oppgave");
   }
+
+  if (oppgave.tilstand !== "FERDIG_BEHANDLET" && oppgave.tilstand !== "AVBRUTT") {
+    handlinger.push("rekjor-behandling");
+  }
+
+  if (
+    oppgave.tilstand === "FERDIG_BEHANDLET" ||
+    oppgave.tilstand === "AVBRUTT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave) ||
+    (oppgave.tilstand === "UNDER_KONTROLL" && !minOppgave)
+  ) {
+    handlinger.push("se-oppgave");
+  }
+  return handlinger;
 }

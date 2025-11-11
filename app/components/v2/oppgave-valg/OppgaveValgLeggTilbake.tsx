@@ -6,13 +6,11 @@ import { useLocation } from "react-router";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
 
-import { components } from "../../../../openapi/saksbehandling-typer";
-
 interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
+  oppgaveId: string;
 }
 
-export function OppgaveMenyLeggTilbake({ oppgave }: IProps) {
+export function OppgaveValgLeggTilbake({ oppgaveId }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
@@ -23,7 +21,7 @@ export function OppgaveMenyLeggTilbake({ oppgave }: IProps) {
     schema: hentValideringForLeggTilbakeOppgave(),
     defaultValues: {
       _action: "legg-tilbake-oppgave",
-      oppgaveId: oppgave.oppgaveId,
+      oppgaveId,
       aktivtOppgaveSok,
     },
   });
