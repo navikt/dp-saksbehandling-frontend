@@ -1,4 +1,8 @@
-import { CheckmarkCircleFillIcon, ExclamationmarkTriangleFillIcon } from "@navikt/aksel-icons";
+import {
+  CheckmarkCircleFillIcon,
+  ExclamationmarkTriangleFillIcon,
+  InformationSquareFillIcon,
+} from "@navikt/aksel-icons";
 import {
   BodyLong,
   BodyShort,
@@ -110,15 +114,15 @@ export function Avklaring(props: IProps) {
 }
 
 function hentAvklartAvTekst(avklaring: components["schemas"]["Avklaring"]) {
-  if (avklaring.maskinelt) {
-    return "Opplysning endret";
-  }
-
   if (avklaring.avklartAv) {
     return `Avklart av ${avklaring.avklartAv.ident}`;
   }
 
-  return "!&/#% Vi skjønner ikke regelmotor";
+  if (avklaring.maskinelt) {
+    return "Avklart av regelmotor";
+  }
+
+  return "Regelmotor works in mysterious ways";
 }
 
 function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
@@ -128,8 +132,9 @@ function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
         <ExclamationmarkTriangleFillIcon color={"var(--ax-text-warning-decoration)"} aria-hidden />
       );
     case "Avklart":
-    case "Avbrutt":
       return <CheckmarkCircleFillIcon color={"var(--ax-text-success-decoration)"} aria-hidden />;
+    case "Avbrutt":
+      return <InformationSquareFillIcon color={"var(--ax-text-info-decoration)"} aria-hidden />;
     default:
       return null;
   }
@@ -139,8 +144,9 @@ function hentAvklaringFarge(avklaring: components["schemas"]["Avklaring"]): Akse
   switch (avklaring.status) {
     case "Åpen":
       return "warning";
-    case "Avbrutt":
     case "Avklart":
       return "success";
+    case "Avbrutt":
+      return "info";
   }
 }
