@@ -3,7 +3,6 @@ import { BodyShort, Detail, Heading, HStack, Timeline } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
-import { useMemo } from "react";
 import { useParams } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -17,7 +16,7 @@ import {
   TidslinjeNavigeringState,
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
-import { formaterTilNorskDato, isSameDayOrAfter, isSameDayOrBefore } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 interface TimelinePin {
@@ -45,16 +44,6 @@ export function OpplysningerTidslinje(props: IProps) {
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
-
-  const tidslinjePins = useMemo(
-    () =>
-      props.pins?.filter(
-        (pin) =>
-          isSameDayOrAfter(pin.date, tidslinjeStartSlutt.start) &&
-          isSameDayOrBefore(pin.date, tidslinjeStartSlutt.end),
-      ),
-    [props.pins, tidslinjeStartSlutt],
-  );
 
   return (
     <>
@@ -86,8 +75,8 @@ export function OpplysningerTidslinje(props: IProps) {
           "aksel-timeline--first-row-highlight": props.fremhevØverstTidslinjeRad,
         })}
       >
-        {tidslinjePins &&
-          tidslinjePins.map((pin) => (
+        {props.pins &&
+          props.pins.map((pin) => (
             <Timeline.Pin key={pin.label} date={pin.date}>
               <BodyShort weight={"semibold"}>{pin.label}</BodyShort>
               <BodyShort>{formaterTilNorskDato(pin.date)}</BodyShort>

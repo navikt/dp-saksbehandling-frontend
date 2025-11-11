@@ -12,9 +12,9 @@ import {
 } from "@navikt/ds-react";
 import { nb } from "@navikt/ds-react/locales";
 import { add, sub } from "date-fns";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-import { formaterTilNorskDato, isSameDayOrAfter, isSameDayOrBefore } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -45,18 +45,6 @@ export function OpplysningTidslinje({
     end: add(new Date(sisteOpplysningDato ?? new Date()), { weeks: 2 }),
   });
 
-  const tidslinjePins = useMemo(
-    () =>
-      behandling?.tidslinje?.filter((hendelse) => {
-        const hendelseDato = new Date(hendelse.dato);
-        return (
-          isSameDayOrAfter(hendelseDato, tidslinjeStartSlutt.start) &&
-          isSameDayOrBefore(hendelseDato, tidslinjeStartSlutt.end)
-        );
-      }),
-    [behandling, tidslinjeStartSlutt],
-  );
-
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
@@ -76,7 +64,7 @@ export function OpplysningTidslinje({
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
       >
-        {tidslinjePins?.map((hendelse, index) => (
+        {behandling?.tidslinje?.map((hendelse, index) => (
           <Timeline.Pin date={new Date(hendelse.dato)} key={index}>
             <BodyShort size={"small"}>{hendelse.hendelse}</BodyShort>
             <BodyShort size={"small"}>{formaterTilNorskDato(hendelse.dato)}</BodyShort>

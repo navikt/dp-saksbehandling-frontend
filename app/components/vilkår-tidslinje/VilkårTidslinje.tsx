@@ -18,14 +18,14 @@ import {
 } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { formaterTilNorskDato, isSameDayOrAfter, isSameDayOrBefore } from "~/utils/dato.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
@@ -85,17 +85,6 @@ export function VilkårTidslinje({ behandling }: IProps) {
     (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
   );
 
-  const tidslinjePins = useMemo(
-    () =>
-      prøvingsdato?.perioder?.filter(
-        (periode) =>
-          isDatoVerdi(periode.verdi) &&
-          isSameDayOrAfter(new Date(periode.verdi.verdi), tidslinjeStartSlutt.start) &&
-          isSameDayOrBefore(new Date(periode.verdi.verdi), tidslinjeStartSlutt.end),
-      ),
-    [prøvingsdato?.perioder, tidslinjeStartSlutt],
-  );
-
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
@@ -113,7 +102,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
-        {tidslinjePins?.map((periode) => {
+        {prøvingsdato?.perioder?.map((periode) => {
           if (isDatoVerdi(periode.verdi)) {
             return (
               <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
