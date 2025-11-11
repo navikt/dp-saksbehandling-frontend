@@ -1118,6 +1118,8 @@ export interface components {
             datatype: "periode";
         };
         Barneliste: {
+            /** Format: uuid */
+            "s\u00F8knadBarnId"?: string;
             verdi: components["schemas"]["BarnVerdi"][];
             /**
              * @description discriminator enum property added by openapi-typescript
