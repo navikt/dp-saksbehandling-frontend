@@ -109,5 +109,10 @@ export function hentGyldigeOppgaveValg(
   ) {
     handlinger.push("se-oppgave");
   }
+
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+    handlinger.push("avbryt-behandling");
+  }
+
   return handlinger;
 }
