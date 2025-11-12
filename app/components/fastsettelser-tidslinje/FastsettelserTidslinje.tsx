@@ -53,10 +53,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
         {behandling.fastsettelser
           .filter((fastsettelse) => fastsettelse.opplysninger.length > 0)
           .map((fastsettelse) => (
-            <Accordion.Item
-              key={fastsettelse.navn}
-              open={aktivtRegelsett?.navn === fastsettelse.navn}
-            >
+            <Accordion.Item key={fastsettelse.id} open={aktivtRegelsett?.id === fastsettelse.id}>
               <Accordion.Header
                 onClick={() =>
                   aktivtRegelsett?.navn === fastsettelse.navn
@@ -70,7 +67,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
                 <OpplysningerTidslinje
                   opplysninger={aktiveOpplysninger}
                   medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning`}
+                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
                   pins={pins}
                   eksternTidslinjeNavigeringState={tidslinjeState}
                 />

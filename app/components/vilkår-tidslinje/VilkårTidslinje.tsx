@@ -140,7 +140,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                     <div className={"overflow-hidden"}>
                       <LoadingLink
                         tittelPåHover={vilkårEllerOpplysning.navn}
-                        to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.navn}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
+                        to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
                       >
                         {vilkårEllerOpplysning.navn}
                       </LoadingLink>
@@ -188,7 +188,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
 
           return (
             <Timeline.Row
-              key={vilkårEllerOpplysning.navn}
+              key={vilkårEllerOpplysning.id}
               label={"\u00A0"}
               icon={
                 <div className={"w-full"}>
@@ -198,11 +198,11 @@ export function VilkårTidslinje({ behandling }: IProps) {
                       siste: index === vilkårOgOpplysninger.length - 1,
                     })}
                     title={vilkårEllerOpplysning.navn}
-                    aria-expanded={aktivtRegelsett?.navn === vilkårEllerOpplysning.navn}
+                    aria-expanded={aktivtRegelsett?.id === vilkårEllerOpplysning.id}
                     onClick={() => oppdaterVilkårArray(vilkårEllerOpplysning)}
                   >
                     <span className={styles.vilkårButtonIconWrapper}>
-                      {aktivtRegelsett?.navn === vilkårEllerOpplysning.navn ? (
+                      {aktivtRegelsett?.id === vilkårEllerOpplysning.id ? (
                         <ChevronUpIcon className={styles.vilkårButtonIconChevron} />
                       ) : (
                         <ChevronDownIcon className={styles.vilkårButtonIconChevron} />
@@ -229,7 +229,10 @@ export function VilkårTidslinje({ behandling }: IProps) {
                     key={index}
                     start={start}
                     end={slutt}
-                    status={hentFargeForOpplysningPeriode(periode.verdi)}
+                    status={hentFargeForOpplysningPeriode(
+                      periode.verdi,
+                      vilkårEllerOpplysning.relevantForResultat,
+                    )}
                     icon={hentIkonForOpplysningPeriode(periode.verdi)}
                   >
                     <div className={"flex gap-4"}>
@@ -296,7 +299,12 @@ export function hentIkonForOpplysningPeriode(
 
 export function hentFargeForOpplysningPeriode(
   opplysningsverdi: components["schemas"]["Opplysningsverdi"],
+  relevantForResultat?: boolean,
 ): TimelinePeriodProps["status"] {
+  if (relevantForResultat === false) {
+    return "neutral";
+  }
+
   switch (opplysningsverdi.datatype) {
     case "boolsk":
       return opplysningsverdi.verdi ? "success" : "danger";

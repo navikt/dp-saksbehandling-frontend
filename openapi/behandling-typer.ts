@@ -869,10 +869,14 @@ export interface components {
             opplysninger?: components["schemas"]["OpplysningTypeId"][];
         };
         VurderingsresultatV2: {
+            /** @description Unik identifikator for dette regelsettet */
+            id: string;
             /** @description Kort navn som beskriver regelsettet */
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
+            /** @description Om innholdet i regelsettet påvirker resultatet av behandlingen */
+            relevantForResultat: boolean;
             /** @enum {string} */
             type: "Vilkår" | "Fastsettelse";
             opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
