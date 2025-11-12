@@ -34,9 +34,9 @@ export function formaterOpplysningVerdiV2(
     case "dato":
       return formaterTilNorskDato(opplysningsverdi.verdi);
     case "heltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
+      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
     case "desimaltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
+      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
     case "penger":
       return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} kr`;
     case "ulid":
@@ -47,6 +47,24 @@ export function formaterOpplysningVerdiV2(
       return `${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)}`;
     case "barn":
       return `${opplysningsverdi.verdi} barn`;
+  }
+}
+
+export function formaterOpplysningEnhet(enhet?: components["schemas"]["Enhet"]): string {
+  switch (enhet) {
+    case "timer":
+      return "timer";
+    case "prosent":
+      return "%";
+    case "G":
+      return "G;";
+    case "dager":
+      return "dager";
+    case "uker":
+      return "uker";
+
+    default:
+      return "";
   }
 }
 

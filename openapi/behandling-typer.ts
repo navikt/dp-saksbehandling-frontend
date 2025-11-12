@@ -1044,6 +1044,11 @@ export interface components {
          * @enum {string}
          */
         Opprinnelse: "Ny" | "Arvet";
+        /**
+         * @description Enhet for opplysningen, f.eks. timer, prosent, dager, etc.
+         * @enum {string}
+         */
+        Enhet: "timer" | "prosent" | "G" | "dager" | "uker";
         /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har */
         Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
         PengeVerdi: {
@@ -1080,6 +1085,7 @@ export interface components {
              * @enum {string}
              */
             datatype: "heltall";
+            enhet?: components["schemas"]["Enhet"];
         };
         UlidVerdi: {
             verdi: string;
@@ -1097,6 +1103,7 @@ export interface components {
              * @enum {string}
              */
             datatype: "desimaltall";
+            enhet?: components["schemas"]["Enhet"];
         };
         BoolskVerdi: {
             verdi: boolean;
