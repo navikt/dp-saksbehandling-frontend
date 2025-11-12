@@ -33,12 +33,6 @@ export function OppgaveOversikt() {
           verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
         />
 
-        <VerdiMedTittel
-          visBorder={true}
-          label={"Sist endret (har ikke)"}
-          verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
-        />
-
         {oppgave.saksbehandler && (
           <VerdiMedTittel
             visBorder={true}
@@ -54,8 +48,6 @@ export function OppgaveOversikt() {
             verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
           />
         )}
-
-        <VerdiMedTittel visBorder={true} label={"SakID"} verdi={`HAR IKKE`} />
       </div>
     </div>
   );
