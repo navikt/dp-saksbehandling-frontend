@@ -97,8 +97,8 @@ export default function Opplysning() {
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
                   tittel={opplysning.navn}
-                  visOpplysningKilde={true}
-                  regelsett={regelsett}
+                  regelsettHjemmel={regelsett.hjemmel.tittel}
+                  opplysningKilde={opplysning.formål}
                   opplysninger={[opplysning]}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />

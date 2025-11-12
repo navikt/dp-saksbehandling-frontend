@@ -228,3 +228,19 @@ export function hentOpplysningsperiodePåPrøvingsdato(
   }
   return perioder && perioder.length > 0 ? perioder[0] : undefined;
 }
+
+export function formaterOpplysningFormål(formål: components["schemas"]["Formål"]): string {
+  switch (formål) {
+    case "Legacy":
+      return "Arena";
+    case "Bruker":
+      return "Søknad";
+    case "Register":
+      return "Regelmotor";
+    case "Regel":
+      return "Intern logikk";
+
+    default:
+      return "Ukjent";
+  }
+}

@@ -1,5 +1,5 @@
 import { PadlockLockedIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, Heading, HStack, Timeline } from "@navikt/ds-react";
+import { BodyShort, Detail, Heading, HStack, Tag, Timeline } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
@@ -17,7 +17,7 @@ import {
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningFormål, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 
 interface TimelinePin {
   date: Date;
@@ -28,6 +28,8 @@ interface IProps {
   opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
   fremhevØverstTidslinjeRad?: boolean;
   tittel?: string;
+  regelsettHjemmel?: string;
+  opplysningKilde?: components["schemas"]["Formål"];
   medLenkeTilOpplysning?: boolean;
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
@@ -47,24 +49,58 @@ export function OpplysningerTidslinje(props: IProps) {
 
   return (
     <>
-      {!props.eksternTidslinjeNavigeringState && (
-        <div className={`flex content-center ${props.tittel ? "justify-between" : "justify-end"}`}>
-          {props.tittel && (
-            <div className={"flex items-center gap-1"}>
-              {readonly ||
-                (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                  <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
-                ))}
-              <Heading size={"small"}>{props.tittel}</Heading>
-            </div>
-          )}
+      {props.tittel && props.regelsettHjemmel && props.opplysningKilde && (
+        <>
+          <div className={`flex content-center justify-between`}>
+            <div>
+              <div className={"flex items-center gap-1"}>
+                {readonly ||
+                  (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
+                    <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+                  ))}
+                <Heading size={"small"}>{props.tittel}</Heading>
+              </div>
 
-          <TidslinjeNavigering
-            tidslinjeStartSlutt={tidslinjeStartSlutt}
-            setTidslinjeStartSlutt={setTidslinjeStartSlutt}
-            antallUkerITidslinje={antallUkerITidslinje}
-            setAntallUkerITidslinje={setAntallUkerITidslinje}
-          />
+              <Detail textColor="subtle">{props.regelsettHjemmel}</Detail>
+            </div>
+
+            <BodyShort size={"small"}>
+              Opplysning hentet fra:{" "}
+              <Tag size={"small"} variant={"warning"} className={"ml-1"}>
+                {formaterOpplysningFormål(props.opplysningKilde)}
+              </Tag>
+            </BodyShort>
+          </div>
+
+          {!props.eksternTidslinjeNavigeringState && (
+            <TidslinjeNavigering
+              tidslinjeStartSlutt={tidslinjeStartSlutt}
+              setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+              antallUkerITidslinje={antallUkerITidslinje}
+              setAntallUkerITidslinje={setAntallUkerITidslinje}
+            />
+          )}
+        </>
+      )}
+
+      {props.tittel && !props.regelsettHjemmel && (
+        <div className={`flex content-center justify-between`}>
+          <div className={"flex items-center gap-1"}>
+            {readonly ||
+              (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
+                <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+              ))}
+            <Heading size={"small"}>{props.tittel}</Heading>
+          </div>
+
+          {!props.eksternTidslinjeNavigeringState && (
+            <TidslinjeNavigering
+              tidslinjeStartSlutt={tidslinjeStartSlutt}
+              setTidslinjeStartSlutt={setTidslinjeStartSlutt}
+              antallUkerITidslinje={antallUkerITidslinje}
+              setAntallUkerITidslinje={setAntallUkerITidslinje}
+            />
+          )}
         </div>
       )}
 
