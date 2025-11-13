@@ -236,9 +236,9 @@ export function formaterOpplysningFormål(formål: components["schemas"]["Formå
     case "Bruker":
       return "Søknad";
     case "Register":
-      return "Regelmotor";
+      return "Register";
     case "Regel":
-      return "Intern logikk";
+      return "Regelmotor";
 
     default:
       return "Ukjent";
