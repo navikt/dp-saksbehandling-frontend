@@ -1,9 +1,10 @@
 import { Button, type ButtonProps, Link, Loader } from "@navikt/ds-react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { Link as ReactRouterLink, LinkProps, useNavigation } from "react-router";
 
 interface IProps extends LinkProps {
   asButtonVariant?: ButtonProps["variant"];
+  icon?: ReactNode;
   tittelPåHover?: string;
 }
 
@@ -22,6 +23,7 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
         title={props.tittelPåHover}
         to={props.to}
         className={props.className}
+        icon={props.icon}
         loading={isNavigatingToThisLink}
       >
         {props.children}

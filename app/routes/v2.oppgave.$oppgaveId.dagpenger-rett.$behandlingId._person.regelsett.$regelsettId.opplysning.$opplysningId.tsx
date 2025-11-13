@@ -1,5 +1,4 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Detail, Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -11,7 +10,6 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import styles from "~/components/regelsett/Regelsett.module.css";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
@@ -29,12 +27,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.regelsettNavn, "params.regelsettNavn er påkrevd");
+  invariant(params.regelsettId, "params.regelsettId er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
   const behandling = await hentBehandlingV2(request, params.behandlingId);
   const vurderinger = await hentVurderinger(request, params.behandlingId);
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.navn === params.regelsettNavn,
+    (sett) => sett.id === params.regelsettId,
   );
   const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === params.opplysningId,
@@ -75,16 +73,6 @@ export default function Opplysning() {
         </LoadingLink>
 
         <div className={"card p-4"}>
-          <div className={"mb-6"}>
-            <Heading className={styles.hjemmelTittel} size="medium">
-              {regelsett.hjemmel.tittel}
-            </Heading>
-
-            <Detail textColor="subtle" className={styles.hjemmelKilde}>
-              {regelsett.hjemmel.kilde.navn}
-            </Detail>
-          </div>
-
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
               <Avklaringer
@@ -98,9 +86,10 @@ export default function Opplysning() {
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
                   opplysninger={regelsettOpplysninger.reverse()}
+                  tittel={regelsett.hjemmel.tittel}
                   fremhevØverstTidslinjeRad={true}
                   medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.navn}/opplysning`}
+                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />
               </div>
@@ -108,6 +97,8 @@ export default function Opplysning() {
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
                   tittel={opplysning.navn}
+                  regelsettHjemmel={regelsett.hjemmel.tittel}
+                  opplysningKilde={opplysning.formål}
                   opplysninger={[opplysning]}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
                 />

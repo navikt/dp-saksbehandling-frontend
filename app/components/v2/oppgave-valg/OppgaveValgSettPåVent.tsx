@@ -16,7 +16,7 @@ interface IProps {
   oppgave: components["schemas"]["Oppgave"];
 }
 
-export function OppgaveMenySettPåVent({ oppgave }: IProps) {
+export function OppgaveValgSettPåVent({ oppgave }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const modalRef = useRef<HTMLDialogElement>(null);

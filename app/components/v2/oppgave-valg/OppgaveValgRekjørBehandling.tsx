@@ -6,13 +6,12 @@ import { useLocation } from "react-router";
 
 import { hentValideringForRekjørBehandling } from "~/utils/validering.util";
 
-import { components } from "../../../../openapi/saksbehandling-typer";
-
 interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
+  behandlingId: string;
+  personIdent: string;
 }
 
-export function OppgaveMenyRekjørBehandling({ oppgave }: IProps) {
+export function OppgaveValgRekjørBehandling({ behandlingId, personIdent }: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -24,8 +23,8 @@ export function OppgaveMenyRekjørBehandling({ oppgave }: IProps) {
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "rekjor-behandling",
-      behandlingId: oppgave.behandlingId,
-      ident: oppgave.person.ident,
+      behandlingId: behandlingId,
+      ident: personIdent,
     },
   });
 

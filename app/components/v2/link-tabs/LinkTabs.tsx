@@ -4,6 +4,8 @@ import { useLocation } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { getEnv } from "~/utils/env.utils";
+import { isDefined } from "~/utils/type-guards";
 
 import styles from "./LinkTabs.module.css";
 
@@ -48,10 +50,12 @@ export function getTabs(oppgaveId: string, behandlingId: string) {
       label: "Vedtak",
       icon: <GavelSoundBlockIcon aria-hidden />,
     },
-    {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/lekegrind`,
-      label: "Lekegrind",
-      icon: <SlideIcon aria-hidden />,
-    },
-  ];
+    getEnv("GCP_ENV") === "dev"
+      ? {
+          url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/lekegrind`,
+          label: "Lekegrind",
+          icon: <SlideIcon aria-hidden />,
+        }
+      : undefined,
+  ].filter(isDefined);
 }

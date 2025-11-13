@@ -1,11 +1,10 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { ActionMenu, Button } from "@navikt/ds-react";
 
-import { OppgaveMenyAvbryt } from "~/components/v2/oppgave-meny/OppgaveMenyAvbryt";
-import { OppgaveMenyLeggTilbake } from "~/components/v2/oppgave-meny/OppgaveMenyLeggTilbake";
-import { OppgaveMenyRekjørBehandling } from "~/components/v2/oppgave-meny/OppgaveMenyRekjørBehandling";
-import { OppgaveMenySettPåVent } from "~/components/v2/oppgave-meny/OppgaveMenySettPåVent";
-import { OppgaveMenyTildel } from "~/components/v2/oppgave-meny/OppgaveMenyTildel";
+import { OppgaveValgAvbryt } from "~/components/v2/oppgave-valg/OppgaveValgAvbryt";
+import { OppgaveValgLeggTilbake } from "~/components/v2/oppgave-valg/OppgaveValgLeggTilbake";
+import { OppgaveValgRekjørBehandling } from "~/components/v2/oppgave-valg/OppgaveValgRekjørBehandling";
+import { OppgaveValgSettPåVent } from "~/components/v2/oppgave-valg/OppgaveValgSettPåVent";
 import { useOppgave } from "~/hooks/useOppgave";
 
 export function OppgaveMeny() {
@@ -18,7 +17,7 @@ export function OppgaveMeny() {
           <ActionMenu.Trigger>
             <Button
               variant="secondary"
-              size={"xsmall"}
+              size={"small"}
               icon={<ChevronDownIcon aria-hidden />}
               iconPosition="right"
             >
@@ -29,11 +28,17 @@ export function OppgaveMeny() {
           <ActionMenu.Content>
             {gyldigeOppgaveValg.map((valg) => (
               <div key={valg}>
-                {valg === "legg-tilbake" && <OppgaveMenyLeggTilbake oppgave={oppgave} />}
-                {valg === "utsett" && <OppgaveMenySettPåVent oppgave={oppgave} />}
-                {valg === "rekjor-behandling" && <OppgaveMenyRekjørBehandling oppgave={oppgave} />}
-                {valg === "avbryt" && <OppgaveMenyAvbryt oppgave={oppgave} />}
-                {oppgave.tilstand === "KLAR_TIL_BEHANDLING" && <OppgaveMenyTildel />}
+                {valg === "legg-tilbake-oppgave" && (
+                  <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} />
+                )}
+                {valg === "utsett-oppgave" && <OppgaveValgSettPåVent oppgave={oppgave} />}
+                {valg === "rekjor-behandling" && (
+                  <OppgaveValgRekjørBehandling
+                    behandlingId={oppgave.behandlingId}
+                    personIdent={oppgave.person.ident}
+                  />
+                )}
+                {valg === "avbryt-behandling" && <OppgaveValgAvbryt oppgave={oppgave} />}
               </div>
             ))}
           </ActionMenu.Content>

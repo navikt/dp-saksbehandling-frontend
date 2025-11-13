@@ -4,67 +4,29 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
   behandlingId: "0199b8b8-4f28-7926-bfac-4459a0ebb34f",
   behandletHendelse: {
     datatype: "String",
-    id: "0199b8b7-90ec-7522-96f7-c4e9b2366802",
+    id: "f6e15060-dd4e-4e5b-a1c2-beefb61c6c22",
     type: "Meldekort",
   },
-  kreverTotrinnskontroll: true,
-  basertPå: "0199a9ab-b8e3-78c3-b0f5-9692c6702209",
+  kreverTotrinnskontroll: false,
+  basertPå: "0199296a-4259-71dd-94dc-8210bd670865",
   tilstand: "ForslagTilVedtak",
-  automatisk: false,
-  ident: "28848898122",
+  automatisk: true,
+  ident: "05919599415",
   avklaringer: [
     {
-      id: "0199b8b8-4f28-7926-bfac-4459a0ebb34d",
+      id: "0199298c-ec59-79dd-b4cd-04ce5e793149",
       kode: "MeldekortBehandling",
       tittel: "Beregning av meldekort",
       beskrivelse: "Behandlingen er opprettet av meldekort og kan ikke automatisk behandles",
       kanKvitteres: true,
       status: "Åpen",
       maskinelt: false,
-      sistEndret: "2025-10-06T10:51:50.696966",
+      sistEndret: "2025-09-08T15:38:45.46509",
     },
   ],
   vilkår: [
     {
-      navn: "Alder",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "23",
-        tittel: "§ 4-23. Bortfall på grunn av alder",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-23",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
-      opplysninger: [
-        "0194881f-940b-76ff-acf5-ba7bcb367233",
-        "0194881f-940b-76ff-acf5-ba7bcb367234",
-        "0194881f-940b-76ff-acf5-ba7bcb367235",
-        "0194881f-940b-76ff-acf5-ba7bcb367236",
-        "0194881f-940b-76ff-acf5-ba7bcb367237",
-      ],
-    },
-    {
-      navn: "Fulle ytelser",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "24",
-        tittel:
-          "§ 4-24. Medlem som har fulle ytelser etter folketrygdloven eller avtalefestet pensjon",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-24",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
-      opplysninger: ["0194881f-943f-78d9-b874-00a4944c54f1"],
-    },
-    {
+      id: "2099145502",
       navn: "Krav på dagpenger",
       hjemmel: {
         kilde: {
@@ -76,41 +38,12 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 0-0. Krav på dagpenger",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
       },
+      relevantForResultat: true,
       type: "Vilkår",
       opplysninger: ["01990a09-0eab-7957-b88f-14484a50e194"],
     },
     {
-      navn: "Minsteinntekt",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "4",
-        tittel: "§ 4-4. Krav til minsteinntekt",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
-      opplysninger: [
-        "0194881f-9413-77ce-92ec-d29700f04246",
-        "0194881f-9413-77ce-92ec-d29700f04247",
-        "0194881f-9413-77ce-92ec-d29700f04244",
-        "0194881f-9413-77ce-92ec-d29700f04245",
-        "0194881f-9413-77ce-92ec-d29700f04243",
-        "0194881f-9413-77ce-92ec-d29700f04241",
-        "0194881f-9413-77ce-92ec-d29700f0423f",
-        "0194881f-9413-77ce-92ec-d29700f04248",
-        "0194881f-9413-77ce-92ec-d29700f0424a",
-        "0194881f-9413-77ce-92ec-d29700f04242",
-        "0194881f-9413-77ce-92ec-d29700f04240",
-        "0194881f-9413-77ce-92ec-d29700f04249",
-        "0194881f-9413-77ce-92ec-d29700f0424b",
-        "0194881f-9413-77ce-92ec-d29700f0424c",
-      ],
-    },
-    {
+      id: "-422034844",
       navn: "Opphold",
       hjemmel: {
         kilde: {
@@ -122,6 +55,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-2. Opphold i Norge",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-2",
       },
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
       opplysninger: [
@@ -135,74 +69,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
-      navn: "Reell arbeidssøker",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "5",
-        tittel: "§ 4-5. Reelle arbeidssøkere",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
-      opplysninger: [
-        "0194881f-9435-72a8-b1ce-9575cbc2a75f",
-        "0194881f-9435-72a8-b1ce-9575cbc2a769",
-        "0194881f-9435-72a8-b1ce-9575cbc2a76d",
-        "0194881f-9441-7d1b-a06a-6727543a141e",
-        "0194881f-9441-7d1b-a06a-6727543a141f",
-        "0194881f-9442-707b-a6ee-e96c06877bd9",
-        "0194881f-9442-707b-a6ee-e96c06877bda",
-        "0194881f-9442-707b-a6ee-e96c06877bdc",
-        "0194929e-2036-7ac1-ada3-5cbe05a83f08",
-        "0194881f-9442-707b-a6ee-e96c06877bde",
-        "0194881f-9442-707b-a6ee-e96c06877bd8",
-        "0194881f-9442-707b-a6ee-e96c06877bdb",
-        "0194881f-9442-707b-a6ee-e96c06877bdd",
-        "0194881f-9442-707b-a6ee-e96c06877bdf",
-        "0194881f-9442-707b-a6ee-e96c06877be2",
-      ],
-    },
-    {
-      navn: "Registrert som arbeidssøker",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "5",
-        tittel: "§ 4-5. Reelle arbeidssøkere - registrert som arbeidssøker",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
-      opplysninger: ["0194881f-9442-707b-a6ee-e96c06877be1"],
-    },
-    {
-      navn: "Streik og lock-out",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "22",
-        tittel: "§ 4-22. Bortfall ved streik og lock-out",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-22",
-      },
-      type: "Vilkår",
-      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
-      opplysninger: [
-        "0194881f-91df-746a-a8ac-4a6b2b30685d",
-        "0194881f-91df-746a-a8ac-4a6b2b30685e",
-        "0194881f-91df-746a-a8ac-4a6b2b30685f",
-      ],
-    },
-    {
+      id: "113817629",
       navn: "Tap av arbeidsinntekt og arbeidstid",
       hjemmel: {
         kilde: {
@@ -214,6 +81,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-3. Tap av arbeidsinntekt og arbeidstid",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
       },
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
       opplysninger: [
@@ -235,6 +103,95 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
+      id: "1917405995",
+      navn: "Minsteinntekt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "4",
+        tittel: "§ 4-4. Krav til minsteinntekt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
+      opplysninger: [
+        "0194881f-9413-77ce-92ec-d29700f04246",
+        "0194881f-9413-77ce-92ec-d29700f04247",
+        "0194881f-9413-77ce-92ec-d29700f04244",
+        "0194881f-9413-77ce-92ec-d29700f04245",
+        "0194881f-9413-77ce-92ec-d29700f04243",
+        "0194881f-9413-77ce-92ec-d29700f04241",
+        "0194881f-9413-77ce-92ec-d29700f0423f",
+        "0194881f-9413-77ce-92ec-d29700f04248",
+        "0194881f-9413-77ce-92ec-d29700f0424a",
+        "0194881f-9413-77ce-92ec-d29700f04242",
+        "0194881f-9413-77ce-92ec-d29700f04240",
+        "0194881f-9413-77ce-92ec-d29700f04249",
+        "0194881f-9413-77ce-92ec-d29700f0424b",
+        "0194881f-9413-77ce-92ec-d29700f0424c",
+      ],
+    },
+    {
+      id: "709778893",
+      navn: "Reell arbeidssøker",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "5",
+        tittel: "§ 4-5. Reelle arbeidssøkere",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
+      opplysninger: [
+        "0194881f-9435-72a8-b1ce-9575cbc2a75f",
+        "0194881f-9435-72a8-b1ce-9575cbc2a769",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76d",
+        "0194881f-9441-7d1b-a06a-6727543a141e",
+        "0194881f-9441-7d1b-a06a-6727543a141f",
+        "0194881f-9442-707b-a6ee-e96c06877bd9",
+        "0194881f-9442-707b-a6ee-e96c06877bda",
+        "0194881f-9442-707b-a6ee-e96c06877bdc",
+        "0194929e-2036-7ac1-ada3-5cbe05a83f08",
+        "0194881f-9442-707b-a6ee-e96c06877bde",
+        "0194881f-9442-707b-a6ee-e96c06877bd8",
+        "0194881f-9442-707b-a6ee-e96c06877bdb",
+        "0194881f-9442-707b-a6ee-e96c06877bdd",
+        "0194881f-9442-707b-a6ee-e96c06877bdf",
+        "0194881f-9442-707b-a6ee-e96c06877be2",
+      ],
+    },
+    {
+      id: "1355973545",
+      navn: "Registrert som arbeidssøker",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "5",
+        tittel: "§ 4-5. Reelle arbeidssøkere - registrert som arbeidssøker",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
+      opplysninger: [
+        "0194881f-9442-707b-a6ee-e96c06877be0",
+        "0194881f-9442-707b-a6ee-e96c06877be1",
+      ],
+    },
+    {
+      id: "-735652124",
       navn: "Utdanning",
       hjemmel: {
         kilde: {
@@ -246,6 +203,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-6. Dagpenger under utdanning, opplæring, etablering av egen virksomhet m.v",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-6",
       },
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
       opplysninger: [
@@ -264,6 +222,187 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
+      id: "726763306",
+      navn: "Permittering",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "7",
+        tittel: "§ 4-7. Dagpenger til permitterte",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
+      },
+      relevantForResultat: false,
+      type: "Vilkår",
+      opplysningTypeId: "0194d111-db2f-7395-bcfb-959f245fd2a6",
+      opplysninger: [],
+    },
+    {
+      id: "1696849119",
+      navn: "Permittering fiskeindustri",
+      hjemmel: {
+        kilde: {
+          navn: "Forskrift til Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "6",
+        paragraf: "7",
+        tittel:
+          "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
+      },
+      relevantForResultat: false,
+      type: "Vilkår",
+      opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
+      opplysninger: ["019522d2-9bb1-7960-b1e2-a959566e2428"],
+    },
+    {
+      id: "1257708498",
+      navn: "Meldeplikt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "8",
+        tittel: "§ 4-8. Meldeplikt og møteplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-8",
+      },
+      relevantForResultat: false,
+      type: "Vilkår",
+      opplysninger: [],
+    },
+    {
+      id: "443361892",
+      navn: "Verneplikt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "19",
+        tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
+      },
+      relevantForResultat: false,
+      type: "Vilkår",
+      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
+      opplysninger: ["01948d3c-4bea-7802-9d18-5342a5e2be99"],
+    },
+    {
+      id: "-1464003313",
+      navn: "Streik og lock-out",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "22",
+        tittel: "§ 4-22. Bortfall ved streik og lock-out",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-22",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      opplysninger: [
+        "0194881f-91df-746a-a8ac-4a6b2b30685d",
+        "0194881f-91df-746a-a8ac-4a6b2b30685e",
+        "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      ],
+    },
+    {
+      id: "2068170353",
+      navn: "Alder",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "23",
+        tittel: "§ 4-23. Bortfall på grunn av alder",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-23",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
+      opplysninger: [
+        "0194881f-940b-76ff-acf5-ba7bcb367233",
+        "0194881f-940b-76ff-acf5-ba7bcb367234",
+        "0194881f-940b-76ff-acf5-ba7bcb367235",
+        "0194881f-940b-76ff-acf5-ba7bcb367236",
+        "0194881f-940b-76ff-acf5-ba7bcb367237",
+      ],
+    },
+    {
+      id: "649273752",
+      navn: "Fulle ytelser",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "24",
+        tittel:
+          "§ 4-24. Medlem som har fulle ytelser etter folketrygdloven eller avtalefestet pensjon",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-24",
+      },
+      relevantForResultat: true,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
+      opplysninger: ["0194881f-943f-78d9-b874-00a4944c54f1"],
+    },
+    {
+      id: "-408080329",
+      navn: "Samordning reduserte ytelser",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "25",
+        tittel:
+          "§ 4-25. Samordning med reduserte ytelser fra folketrygden, eller redusert avtalefestet pensjon",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
+      },
+      relevantForResultat: false,
+      type: "Vilkår",
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
+      opplysninger: [
+        "0194881f-9433-70e9-a85b-c246150c45cd",
+        "0194881f-9433-70e9-a85b-c246150c45ce",
+        "0194881f-9433-70e9-a85b-c246150c45cf",
+        "0194881f-9433-70e9-a85b-c246150c45d0",
+        "0194881f-9433-70e9-a85b-c246150c45d2",
+        "0194881f-9433-70e9-a85b-c246150c45d3",
+        "0194881f-9433-70e9-a85b-c246150c45d1",
+        "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ed",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ee",
+        "0194881f-9433-70e9-a85b-c246150c45d4",
+        "0194881f-9433-70e9-a85b-c246150c45d5",
+        "0194881f-9433-70e9-a85b-c246150c45d6",
+        "0194881f-9433-70e9-a85b-c246150c45d7",
+        "0194881f-9433-70e9-a85b-c246150c45d8",
+        "0194881f-9433-70e9-a85b-c246150c45da",
+        "0194881f-9433-70e9-a85b-c246150c45d9",
+        "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
+        "0196afbf-e32d-775a-ad10-f476e26dcb6f",
+        "0194881f-9434-79e8-a64d-1a23cc5d86e9",
+        "0194881f-9434-79e8-a64d-1a23cc5d86eb",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ec",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ef",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ea",
+      ],
+    },
+    {
+      id: "-981023914",
       navn: "Utestengning",
       hjemmel: {
         kilde: {
@@ -275,6 +414,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-28. Utestengning",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-28",
       },
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
       opplysninger: [
@@ -285,6 +425,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
   ],
   fastsettelser: [
     {
+      id: "497240064",
       navn: "Meldekortberegning",
       hjemmel: {
         kilde: {
@@ -295,6 +436,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         paragraf: "0",
         tittel: "§ 0-0. Meldekortberegning",
       },
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "01956abd-2871-7517-a332-b462c0c31292",
@@ -304,14 +446,155 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         "01956ab8-126c-7636-803e-a5d87eda2015",
         "01973a27-d8b3-7ffd-a81a-a3826963b079",
         "01957069-d7d5-7f7c-b359-c00686fbf1f7",
-        "01994cfd-9a27-762e-81fa-61f550467c95",
         "01992934-66e4-7606-bdd3-c6c9dd420ffd",
         "01992956-e349-76b1-8f68-c9d481df3a32",
-        "01997b70-a12c-7622-bff8-82a20687e640",
-        "01997b70-6e6e-702a-a296-18ae5fb9621d",
       ],
     },
     {
+      id: "920476734",
+      navn: "Rettighetstype",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "0",
+        paragraf: "0",
+        tittel: "§ 0-0. Rettighetstype",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
+      },
+      relevantForResultat: true,
+      type: "Fastsettelse",
+      opplysninger: [
+        "0194881f-9444-7a73-a458-0af81c034d86",
+        "0194881f-9444-7a73-a458-0af81c034d85",
+        "0194881f-9444-7a73-a458-0af81c034d87",
+        "0194881f-9444-7a73-a458-0af81c034d88",
+        "0194881f-9444-7a73-a458-0af81c034d89",
+        "0194881f-9444-7a73-a458-0af81c034d8a",
+        "0194881f-9444-7a73-a458-0af81c034d8b",
+        "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
+        "01980cf4-9010-7bcf-b578-ca5a825d64ef",
+      ],
+    },
+    {
+      id: "1938248916",
+      navn: "Søknadstidspunkt",
+      hjemmel: {
+        kilde: {
+          navn: "Forskrift til Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "3",
+        paragraf: "1",
+        tittel: "§ 3-1. Søknadstidspunkt",
+      },
+      relevantForResultat: true,
+      type: "Fastsettelse",
+      opplysninger: [
+        "0194881f-91d1-7df2-ba1d-4533f37fcc77",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc73",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc74",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc75",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+      ],
+    },
+    {
+      id: "1566092562",
+      navn: "Opptjeningsperiode",
+      hjemmel: {
+        kilde: {
+          navn: "A-opplysningsloven",
+          kortnavn: "a-opplysningsloven",
+        },
+        kapittel: "1",
+        paragraf: "2",
+        tittel: "§ 1-2. Frist for levering av opplysninger",
+      },
+      relevantForResultat: true,
+      type: "Fastsettelse",
+      opplysninger: [
+        "0194881f-9414-7823-8d29-0e25b7feb7ce",
+        "0194881f-9414-7823-8d29-0e25b7feb7cf",
+        "0194881f-9414-7823-8d29-0e25b7feb7d0",
+      ],
+    },
+    {
+      id: "-1270428739",
+      navn: "Fastsettelse av arbeidstid",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "3",
+        tittel: "§ 4-3. Fastsettelse av arbeidstid",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
+      },
+      relevantForResultat: true,
+      type: "Fastsettelse",
+      opplysninger: ["0194881f-9435-72a8-b1ce-9575cbc2a76a"],
+    },
+    {
+      id: "726763306",
+      navn: "Permittering",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "7",
+        tittel: "§ 4-7. Dagpenger til permitterte",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
+      },
+      relevantForResultat: false,
+      type: "Fastsettelse",
+      opplysninger: [],
+    },
+    {
+      id: "-1955883769",
+      navn: "Permittering fiskeindustri",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "6",
+        paragraf: "7",
+        tittel:
+          "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§6-7",
+      },
+      relevantForResultat: false,
+      type: "Fastsettelse",
+      opplysninger: [],
+    },
+    {
+      id: "-1866856189",
+      navn: "Egenandel",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "9",
+        tittel: "§ 4-9. Egenandel",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
+      },
+      relevantForResultat: true,
+      type: "Fastsettelse",
+      opplysninger: [
+        "0194881f-943f-78d9-b874-00a4944c54f0",
+        "019523aa-7941-7dd2-8c43-0644d7b43f57",
+        "019523aa-980d-7805-b6ed-d701e7827998",
+        "0194881f-943f-78d9-b874-00a4944c54ef",
+      ],
+    },
+    {
+      id: "-657125179",
       navn: "Dagpengegrunnlag",
       hjemmel: {
         kilde: {
@@ -323,6 +606,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-11. Dagpengegrunnlag",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
       },
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9410-7481-b263-4606fdd10ca9",
@@ -346,6 +630,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         "0194881f-9410-7481-b263-4606fdd10cbb",
         "0194881f-9410-7481-b263-4606fdd10cba",
         "0194881f-9410-7481-b263-4606fdd10cbc",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e03",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e05",
         "0194881f-9410-7481-b263-4606fdd10cbd",
         "0194881f-9410-7481-b263-4606fdd10cb6",
         "0194881f-9410-7481-b263-4606fdd10cb7",
@@ -354,6 +640,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
+      id: "984680770",
       navn: "Sats og barnetillegg",
       hjemmel: {
         kilde: {
@@ -365,6 +652,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-12. Dagpengenes størrelse",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
       },
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -392,6 +680,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
+      id: "46199245",
       navn: "Periode",
       hjemmel: {
         kilde: {
@@ -403,6 +692,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-15. Antall stønadsuker (stønadsperiode)",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-15",
       },
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-943d-77a7-969c-147999f1544a",
@@ -424,69 +714,29 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       ],
     },
     {
-      navn: "Egenandel",
+      id: "-2120647254",
+      navn: "Dagpenger ved verneplikt",
       hjemmel: {
         kilde: {
           navn: "Folketrygdloven",
           kortnavn: "ftrl",
         },
         kapittel: "4",
-        paragraf: "9",
-        tittel: "§ 4-9. Egenandel",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
+        paragraf: "19",
+        tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
+      relevantForResultat: false,
       type: "Fastsettelse",
       opplysninger: [
-        "0194881f-943f-78d9-b874-00a4944c54f0",
-        "019523aa-7941-7dd2-8c43-0644d7b43f57",
-        "019523aa-980d-7805-b6ed-d701e7827998",
-        "0194881f-943f-78d9-b874-00a4944c54ef",
+        "0194881f-9421-766c-9dc6-41fe6c9a1dff",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e00",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e01",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e02",
       ],
     },
     {
-      navn: "Opptjeningsperiode",
-      hjemmel: {
-        kilde: {
-          navn: "A-opplysningsloven",
-          kortnavn: "a-opplysningsloven",
-        },
-        kapittel: "1",
-        paragraf: "2",
-        tittel: "§ 1-2. Frist for levering av opplysninger",
-      },
-      type: "Fastsettelse",
-      opplysninger: [
-        "0194881f-9414-7823-8d29-0e25b7feb7ce",
-        "0194881f-9414-7823-8d29-0e25b7feb7cf",
-        "0194881f-9414-7823-8d29-0e25b7feb7d0",
-      ],
-    },
-    {
-      navn: "Rettighetstype",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "0",
-        paragraf: "0",
-        tittel: "§ 0-0. Rettighetstype",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
-      },
-      type: "Fastsettelse",
-      opplysninger: [
-        "0194881f-9444-7a73-a458-0af81c034d86",
-        "0194881f-9444-7a73-a458-0af81c034d85",
-        "0194881f-9444-7a73-a458-0af81c034d87",
-        "0194881f-9444-7a73-a458-0af81c034d88",
-        "0194881f-9444-7a73-a458-0af81c034d89",
-        "0194881f-9444-7a73-a458-0af81c034d8a",
-        "0194881f-9444-7a73-a458-0af81c034d8b",
-        "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
-        "01980cf4-9010-7bcf-b578-ca5a825d64ef",
-      ],
-    },
-    {
+      id: "-1762604738",
       navn: "Samordning utenfor folketrygden",
       hjemmel: {
         kilde: {
@@ -498,6 +748,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         tittel: "§ 4-26. Samordning med ytelser utenfor folketrygden",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-26",
       },
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-942e-7cb0-aa59-05ea449d88e0",
@@ -524,41 +775,6 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
         "0194881f-942f-7bde-ab16-68ffd19e9a2d",
       ],
     },
-    {
-      navn: "Søknadstidspunkt",
-      hjemmel: {
-        kilde: {
-          navn: "Forskrift til Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "3",
-        paragraf: "1",
-        tittel: "§ 3-1. Søknadstidspunkt",
-      },
-      type: "Fastsettelse",
-      opplysninger: [
-        "0194881f-91d1-7df2-ba1d-4533f37fcc77",
-        "0194881f-91d1-7df2-ba1d-4533f37fcc73",
-        "0194881f-91d1-7df2-ba1d-4533f37fcc74",
-        "0194881f-91d1-7df2-ba1d-4533f37fcc75",
-        "0194881f-91d1-7df2-ba1d-4533f37fcc76",
-      ],
-    },
-    {
-      navn: "Fastsettelse av arbeidstid",
-      hjemmel: {
-        kilde: {
-          navn: "Folketrygdloven",
-          kortnavn: "ftrl",
-        },
-        kapittel: "4",
-        paragraf: "3",
-        tittel: "§ 4-3. Fastsettelse av arbeidstid",
-        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
-      },
-      type: "Fastsettelse",
-      opplysninger: ["0194881f-9435-72a8-b1ce-9575cbc2a76a"],
-    },
   ],
   opplysninger: [
     {
@@ -571,18 +787,18 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-b8e3-78c3-b0f5-9692c6702204",
-          opprettet: "2025-10-03T12:43:47.555133",
+          id: "0199296a-4257-7731-8db2-630695d3ac08",
+          opprettet: "2025-09-08T15:00:53.719237",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: 15576997,
+            verdi: 15538306,
             datatype: "heltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:47.555122",
-            meldingId: "0eafe1ac-aba0-4a24-9039-560bbcc4d631",
+            registrert: "2025-09-08T15:00:53.718",
+            meldingId: "c1da507f-87af-48f2-a7d1-0d4c35cc0879",
           },
         },
       ],
@@ -597,18 +813,18 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-b8e3-78c3-b0f5-9692c6702206",
-          opprettet: "2025-10-03T12:43:47.555159",
+          id: "0199296a-4258-72ec-ab6c-db42802ab358",
+          opprettet: "2025-09-08T15:00:53.720305",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "1246f84a-3946-431b-b633-4826b86e65a8",
+            verdi: "c8472d03-2601-4a6f-adef-ce106032fd88",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:47.555158",
-            meldingId: "0eafe1ac-aba0-4a24-9039-560bbcc4d631",
+            registrert: "2025-09-08T15:00:53.72029",
+            meldingId: "c1da507f-87af-48f2-a7d1-0d4c35cc0879",
           },
         },
       ],
@@ -623,37 +839,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-b8e3-78c3-b0f5-9692c6702208",
-          opprettet: "2025-10-03T12:43:47.555167",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: "SøknadInnsendtHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-10-03T12:43:47.555166",
-            meldingId: "0eafe1ac-aba0-4a24-9039-560bbcc4d631",
-          },
-        },
-        {
-          id: "0199b8b8-4f28-7926-bfac-4459a0ebb34b",
-          opprettet: "2025-10-06T10:51:50.696932",
+          id: "0199298c-ec58-7857-b1a8-c4a5d3df3494",
+          opprettet: "2025-09-08T15:38:45.464875",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-06",
-          gyldigTilOgMed: "2025-10-06",
+          gyldigFraOgMed: "2025-09-08",
+          gyldigTilOgMed: "2025-09-08",
           verdi: {
             verdi: "BeregnMeldekortHendelse",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696926",
-            meldingId: "7f147776-db25-463e-9c96-1817538a1c78",
+            registrert: "2025-09-08T15:38:45.464821",
+            meldingId: "1400a122-36a3-4722-8be1-99af19186877",
           },
         },
       ],
@@ -668,8 +867,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-b8e4-7ea3-82dd-6d6fa03049af",
-          opprettet: "2025-10-03T12:43:47.556332",
+          id: "0199296a-427f-76a7-8f41-280c40150d84",
+          opprettet: "2025-09-08T15:00:53.758999",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -689,26 +888,24 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba26-7c77-8c19-5b93cdda79aa",
-          opprettet: "2025-10-03T12:43:47.878581",
+          id: "0199296a-44df-777d-8cab-41b871f64c44",
+          opprettet: "2025-09-08T15:00:54.367232",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "2025-10-03",
+            verdi: "2025-09-08",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:47.842991",
-            meldingId: "f1945f00-7c92-49de-81c6-8e8cbf1a96fd",
+            registrert: "2025-09-08T15:00:54.304728",
+            meldingId: "7316e976-b18f-4f46-a2c9-887dc98bfdb3",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -723,26 +920,24 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba26-7c77-8c19-5b93cdda79ab",
-          opprettet: "2025-10-03T12:43:47.878638",
+          id: "0199296a-44df-777d-8cab-41b871f64c45",
+          opprettet: "2025-09-08T15:00:54.367472",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "2025-10-03",
+            verdi: "2025-06-02",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:47.843195",
-            meldingId: "f1945f00-7c92-49de-81c6-8e8cbf1a96fd",
+            registrert: "2025-09-08T15:00:54.308652",
+            meldingId: "7316e976-b18f-4f46-a2c9-887dc98bfdb3",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -757,18 +952,18 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-ba26-7c77-8c19-5b93cdda79ac",
-          opprettet: "2025-10-03T12:43:47.878651",
+          id: "0199296a-44df-777d-8cab-41b871f64c46",
+          opprettet: "2025-09-08T15:00:54.367632",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "1988-04-28",
+            verdi: "1995-11-05",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:47.843352",
-            meldingId: "f1945f00-7c92-49de-81c6-8e8cbf1a96fd",
+            registrert: "2025-09-08T15:00:54.309223",
+            meldingId: "7316e976-b18f-4f46-a2c9-887dc98bfdb3",
           },
         },
       ],
@@ -783,12 +978,12 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba27-74e4-bec7-aa658ce67b72",
-          opprettet: "2025-10-03T12:43:47.879053",
+          id: "0199296a-44e1-7c67-886f-4557e2998a24",
+          opprettet: "2025-09-08T15:00:54.369429",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "2025-10-03",
+            verdi: "2025-09-08",
             datatype: "dato",
           },
           utledetAv: {
@@ -796,11 +991,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "SisteAv",
             },
             opplysninger: [
-              "0199a9ab-ba26-7c77-8c19-5b93cdda79aa",
-              "0199a9ab-ba26-7c77-8c19-5b93cdda79ab",
+              "0199296a-44df-777d-8cab-41b871f64c44",
+              "0199296a-44df-777d-8cab-41b871f64c45",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -815,12 +1008,12 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba27-74e4-bec7-aa658ce67b73",
-          opprettet: "2025-10-03T12:43:47.879078",
+          id: "0199296a-44e1-7c67-886f-4557e2998a25",
+          opprettet: "2025-09-08T15:00:54.36959",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "2055-04-28",
+            verdi: "2062-11-05",
             datatype: "dato",
           },
           utledetAv: {
@@ -828,11 +1021,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "LeggTilÅr",
             },
             opplysninger: [
-              "0199a9ab-b8e4-7ea3-82dd-6d6fa03049af",
-              "0199a9ab-ba26-7c77-8c19-5b93cdda79ac",
+              "0199296a-427f-76a7-8f41-280c40150d84",
+              "0199296a-44df-777d-8cab-41b871f64c46",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -847,28 +1038,26 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba27-74e4-bec7-aa658ce67b76",
-          opprettet: "2025-10-03T12:43:47.879183",
+          id: "0199296a-44e2-71c0-869a-ac5ab5cf8d33",
+          opprettet: "2025-09-08T15:00:54.370435",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
-            verdi: "2055-04-30",
+            verdi: "2062-11-30",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "SisteDagIMåned",
             },
-            opplysninger: ["0199a9ab-ba27-74e4-bec7-aa658ce67b73"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-44e1-7c67-886f-4557e2998a25"],
           },
         },
       ],
     },
     {
       opplysningTypeId: "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
-      navn: "Kravet til reell arbeidssøker er vurdert",
+      navn: "Kravet til reell arbeidssøker er relevant",
       datatype: "boolsk",
       synlig: false,
       redigerbar: true,
@@ -876,8 +1065,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba27-74e4-bec7-aa658ce67b7f",
-          opprettet: "2025-10-03T12:43:47.879536",
+          id: "0199296a-44ed-7148-85b9-d02cccef4257",
+          opprettet: "2025-09-08T15:00:54.381175",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -897,8 +1086,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba28-728d-b9f0-b6a69d14f97e",
-          opprettet: "2025-10-03T12:43:47.880494",
+          id: "0199296a-44f2-7aba-bee3-c91c1b3637ce",
+          opprettet: "2025-09-08T15:00:54.386992",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -918,8 +1107,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba28-728d-b9f0-b6a69d14f97f",
-          opprettet: "2025-10-03T12:43:47.8805",
+          id: "0199296a-44f3-7193-be9c-3b8eaaa81933",
+          opprettet: "2025-09-08T15:00:54.387101",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -939,8 +1128,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba28-728d-b9f0-b6a69d14f980",
-          opprettet: "2025-10-03T12:43:47.880506",
+          id: "0199296a-44f3-7193-be9c-3b8eaaa81934",
+          opprettet: "2025-09-08T15:00:54.387189",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -960,8 +1149,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-ba28-728d-b9f0-b6a69d14f981",
-          opprettet: "2025-10-03T12:43:47.880512",
+          id: "0199296a-44f3-7193-be9c-3b8eaaa81935",
+          opprettet: "2025-09-08T15:00:54.38726",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -981,8 +1170,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240ef",
-          opprettet: "2025-10-03T12:43:49.611511",
+          id: "0199296a-4d41-727a-b295-2f9910544473",
+          opprettet: "2025-09-08T15:00:56.513382",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -991,16 +1180,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567197",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.433176",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1015,8 +1202,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f0",
-          opprettet: "2025-10-03T12:43:49.611567",
+          id: "0199296a-4d41-727a-b295-2f9910544474",
+          opprettet: "2025-09-08T15:00:56.513538",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1025,16 +1212,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567367",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.433689",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1049,8 +1234,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f1",
-          opprettet: "2025-10-03T12:43:49.611606",
+          id: "0199296a-4d41-727a-b295-2f9910544475",
+          opprettet: "2025-09-08T15:00:56.513663",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1059,16 +1244,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567477",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.434088",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1083,8 +1266,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f2",
-          opprettet: "2025-10-03T12:43:49.611649",
+          id: "0199296a-4d41-727a-b295-2f9910544476",
+          opprettet: "2025-09-08T15:00:56.51386",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1093,16 +1276,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567599",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.434466",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1117,8 +1298,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f3",
-          opprettet: "2025-10-03T12:43:49.611678",
+          id: "0199296a-4d42-7174-b209-15767a261c73",
+          opprettet: "2025-09-08T15:00:56.51408",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1127,16 +1308,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567704",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.434757",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1151,8 +1330,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f4",
-          opprettet: "2025-10-03T12:43:49.611696",
+          id: "0199296a-4d42-7174-b209-15767a261c74",
+          opprettet: "2025-09-08T15:00:56.514262",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1161,16 +1340,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.5678",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.435162",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1185,8 +1362,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f5",
-          opprettet: "2025-10-03T12:43:49.611729",
+          id: "0199296a-4d42-7174-b209-15767a261c75",
+          opprettet: "2025-09-08T15:00:56.514431",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1195,16 +1372,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.567915",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.435497",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1219,8 +1394,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f6",
-          opprettet: "2025-10-03T12:43:49.611757",
+          id: "0199296a-4d42-7174-b209-15767a261c76",
+          opprettet: "2025-09-08T15:00:56.514553",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1229,16 +1404,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.568032",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.435841",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1253,8 +1426,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f7",
-          opprettet: "2025-10-03T12:43:49.61179",
+          id: "0199296a-4d42-7174-b209-15767a261c77",
+          opprettet: "2025-09-08T15:00:56.514686",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1263,16 +1436,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.568104",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.436284",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1287,8 +1458,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9ab-c0eb-7571-9cea-6e4100c240f8",
-          opprettet: "2025-10-03T12:43:49.611818",
+          id: "0199296a-4d42-7174-b209-15767a261c78",
+          opprettet: "2025-09-08T15:00:56.514866",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1297,16 +1468,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T12:43:49.568187",
-            meldingId: "2fd5dd51-8c0e-43b7-8b52-5b9aca657523",
+            registrert: "2025-09-08T15:00:56.436582",
+            meldingId: "ad259292-bd88-4098-8bb5-8b737659c876",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -1321,8 +1490,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc499",
-          opprettet: "2025-10-03T12:43:49.616266",
+          id: "0199296a-4d45-7902-a0a4-5e8674e1ad3e",
+          opprettet: "2025-09-08T15:00:56.517435",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1334,11 +1503,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9ab-ba28-728d-b9f0-b6a69d14f97e",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240ef",
+              "0199296a-44f2-7aba-bee3-c91c1b3637ce",
+              "0199296a-4d41-727a-b295-2f9910544473",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1353,8 +1520,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc49a",
-          opprettet: "2025-10-03T12:43:49.616281",
+          id: "0199296a-4d45-7902-a0a4-5e8674e1ad3f",
+          opprettet: "2025-09-08T15:00:56.517583",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1366,11 +1533,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9ab-ba28-728d-b9f0-b6a69d14f97f",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f0",
+              "0199296a-44f3-7193-be9c-3b8eaaa81933",
+              "0199296a-4d41-727a-b295-2f9910544474",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1385,8 +1550,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc49b",
-          opprettet: "2025-10-03T12:43:49.616295",
+          id: "0199296a-4d45-7902-a0a4-5e8674e1ad40",
+          opprettet: "2025-09-08T15:00:56.517687",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1398,11 +1563,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9ab-ba28-728d-b9f0-b6a69d14f980",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f1",
+              "0199296a-44f3-7193-be9c-3b8eaaa81934",
+              "0199296a-4d41-727a-b295-2f9910544475",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1417,8 +1580,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc49c",
-          opprettet: "2025-10-03T12:43:49.616308",
+          id: "0199296a-4d45-7902-a0a4-5e8674e1ad41",
+          opprettet: "2025-09-08T15:00:56.517801",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1429,9 +1592,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "EnAv",
             },
-            opplysninger: ["0199a9ab-c0eb-7571-9cea-6e4100c240f2"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4d41-727a-b295-2f9910544476"],
           },
         },
       ],
@@ -1446,8 +1607,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc49d",
-          opprettet: "2025-10-03T12:43:49.616326",
+          id: "0199296a-4d46-7088-95dc-f3fbbe8900b7",
+          opprettet: "2025-09-08T15:00:56.51804",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1459,11 +1620,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9ab-ba28-728d-b9f0-b6a69d14f981",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f3",
+              "0199296a-44f3-7193-be9c-3b8eaaa81935",
+              "0199296a-4d42-7174-b209-15767a261c73",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1478,8 +1637,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc49f",
-          opprettet: "2025-10-03T12:43:49.616358",
+          id: "0199296a-4d46-7088-95dc-f3fbbe8900b9",
+          opprettet: "2025-09-08T15:00:56.51837",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1491,13 +1650,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "IngenAv",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f4",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f5",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f6",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f7",
+              "0199296a-4d42-7174-b209-15767a261c74",
+              "0199296a-4d42-7174-b209-15767a261c75",
+              "0199296a-4d42-7174-b209-15767a261c76",
+              "0199296a-4d42-7174-b209-15767a261c77",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1512,8 +1669,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f0-7209-bbdc-889e2c2bc4a0",
-          opprettet: "2025-10-03T12:43:49.616371",
+          id: "0199296a-4d46-7088-95dc-f3fbbe8900ba",
+          opprettet: "2025-09-08T15:00:56.518477",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1524,9 +1681,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["0199a9ab-c0eb-7571-9cea-6e4100c240f8"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4d42-7174-b209-15767a261c78"],
           },
         },
       ],
@@ -1541,8 +1696,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f1-7865-8dfa-50bab16d03f5",
-          opprettet: "2025-10-03T12:43:49.617345",
+          id: "0199296a-4d4d-7653-8574-503ee49029c4",
+          opprettet: "2025-09-08T15:00:56.525728",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1554,14 +1709,12 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Alle",
             },
             opplysninger: [
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc499",
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc49a",
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc49b",
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc49c",
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc49d",
+              "0199296a-4d45-7902-a0a4-5e8674e1ad3e",
+              "0199296a-4d45-7902-a0a4-5e8674e1ad3f",
+              "0199296a-4d45-7902-a0a4-5e8674e1ad40",
+              "0199296a-4d45-7902-a0a4-5e8674e1ad41",
+              "0199296a-4d46-7088-95dc-f3fbbe8900b7",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1576,8 +1729,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f1-7865-8dfa-50bab16d03f6",
-          opprettet: "2025-10-03T12:43:49.617375",
+          id: "0199296a-4d4d-7653-8574-503ee49029c5",
+          opprettet: "2025-09-08T15:00:56.525864",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1589,11 +1742,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f4",
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc49f",
+              "0199296a-4d42-7174-b209-15767a261c74",
+              "0199296a-4d46-7088-95dc-f3fbbe8900b9",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1608,8 +1759,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9ab-c0f1-7865-8dfa-50bab16d03fa",
-          opprettet: "2025-10-03T12:43:49.617831",
+          id: "0199296a-4d4f-74be-9153-f51f5e2e9079",
+          opprettet: "2025-09-08T15:00:56.527815",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -1621,13 +1772,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f5",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f6",
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f7",
-              "0199a9ab-c0f1-7865-8dfa-50bab16d03f6",
+              "0199296a-4d42-7174-b209-15767a261c75",
+              "0199296a-4d42-7174-b209-15767a261c76",
+              "0199296a-4d42-7174-b209-15767a261c77",
+              "0199296a-4d4d-7653-8574-503ee49029c5",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1642,23 +1791,19 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-289c-712c-9672-a445ca4fac1a",
-          opprettet: "2025-10-03T13:00:39.196526",
+          id: "0199296d-0872-7a76-b9d1-84c534c8f23a",
+          opprettet: "2025-09-08T15:03:55.506082",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "2025-10-03",
+            verdi: "2025-06-02",
             datatype: "dato",
           },
           kilde: {
             type: "Saksbehandler",
-            registrert: "2025-10-03T13:00:39.123597",
-            ident: "Z990310",
-            begrunnelse: {
-              verdi: "ok",
-              sistEndret: "2025-10-03T13:01:54.994826",
-            },
+            registrert: "2025-09-08T15:03:55.44216",
+            ident: "Z994794",
           },
         },
       ],
@@ -1673,11 +1818,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a3-7363-80b4-f1ae2977f8e0",
-          opprettet: "2025-10-03T13:00:39.20371",
+          id: "0199296d-08af-7f76-a2c2-cdd0ee54632f",
+          opprettet: "2025-09-08T15:03:55.567428",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -1687,11 +1832,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "FørEllerLik",
             },
             opplysninger: [
-              "0199a9ab-ba27-74e4-bec7-aa658ce67b76",
-              "0199a9bb-289c-712c-9672-a445ca4fac1a",
+              "0199296a-44e2-71c0-869a-ac5ab5cf8d33",
+              "0199296d-0872-7a76-b9d1-84c534c8f23a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1706,22 +1849,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1cc",
-          opprettet: "2025-10-03T13:00:39.204148",
+          id: "0199296d-08b0-7211-9ddc-cc5164bd8e58",
+          opprettet: "2025-09-08T15:03:55.56841",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "2025-10-05",
+            verdi: "2025-06-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -1736,11 +1877,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1cd",
-          opprettet: "2025-10-03T13:00:39.2042",
+          id: "0199296d-08b0-7211-9ddc-cc5164bd8e59",
+          opprettet: "2025-09-08T15:03:55.568498",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 36,
             datatype: "heltall",
@@ -1749,9 +1890,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -1766,11 +1905,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1ce",
-          opprettet: "2025-10-03T13:00:39.204329",
+          id: "0199296d-08b0-7211-9ddc-cc5164bd8e5a",
+          opprettet: "2025-09-08T15:03:55.568745",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 130160,
             datatype: "penger",
@@ -1779,9 +1918,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -1796,11 +1933,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1cf",
-          opprettet: "2025-10-03T13:00:39.204373",
+          id: "0199296d-08b0-7211-9ddc-cc5164bd8e5b",
+          opprettet: "2025-09-08T15:03:55.56884",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 1.5,
             datatype: "desimaltall",
@@ -1809,9 +1946,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -1826,11 +1961,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1d0",
-          opprettet: "2025-10-03T13:00:39.204407",
+          id: "0199296d-08b0-7211-9ddc-cc5164bd8e5c",
+          opprettet: "2025-09-08T15:03:55.568902",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 3,
             datatype: "desimaltall",
@@ -1839,9 +1974,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -1856,22 +1989,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a4-744f-8735-23c60dacb1d2",
-          opprettet: "2025-10-03T13:00:39.204972",
+          id: "0199296d-08b1-787e-b843-529afc818f33",
+          opprettet: "2025-09-08T15:03:55.569826",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "2025-10-06",
+            verdi: "2025-06-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "FørsteArbeidsdag",
             },
-            opplysninger: ["0199a9bb-28a4-744f-8735-23c60dacb1cc"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-08b0-7211-9ddc-cc5164bd8e58"],
           },
         },
       ],
@@ -1886,11 +2017,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a5-7146-9d3a-43b91ec09d3e",
-          opprettet: "2025-10-03T13:00:39.205062",
+          id: "0199296d-08b1-787e-b843-529afc818f34",
+          opprettet: "2025-09-08T15:03:55.569991",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 195240,
             datatype: "penger",
@@ -1900,11 +2031,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-28a4-744f-8735-23c60dacb1ce",
-              "0199a9bb-28a4-744f-8735-23c60dacb1cf",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5a",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5b",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1919,11 +2048,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a5-7146-9d3a-43b91ec09d3f",
-          opprettet: "2025-10-03T13:00:39.205104",
+          id: "0199296d-08b2-7e80-b5f7-1695027053ab",
+          opprettet: "2025-09-08T15:03:55.570285",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 390480,
             datatype: "penger",
@@ -1933,11 +2062,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-28a4-744f-8735-23c60dacb1ce",
-              "0199a9bb-28a4-744f-8735-23c60dacb1d0",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5a",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5c",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1952,13 +2079,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a5-7146-9d3a-43b91ec09d41",
-          opprettet: "2025-10-03T13:00:39.205393",
+          id: "0199296d-08b2-7e80-b5f7-1695027053ad",
+          opprettet: "2025-09-08T15:03:55.570913",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "2025-08-31",
+            verdi: "2025-04-30",
             datatype: "dato",
           },
           utledetAv: {
@@ -1966,11 +2093,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "SisteavsluttendeKalenderMåned",
             },
             opplysninger: [
-              "0199a9bb-289c-712c-9672-a445ca4fac1a",
-              "0199a9bb-28a4-744f-8735-23c60dacb1d2",
+              "0199296d-0872-7a76-b9d1-84c534c8f23a",
+              "0199296d-08b1-787e-b843-529afc818f33",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -1985,13 +2110,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-28a5-7146-9d3a-43b91ec09d43",
-          opprettet: "2025-10-03T13:00:39.205686",
+          id: "0199296d-08b3-74b9-ba35-01472f276d9f",
+          opprettet: "2025-09-08T15:03:55.571531",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "2022-09-01",
+            verdi: "2022-05-01",
             datatype: "dato",
           },
           utledetAv: {
@@ -1999,11 +2124,43 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "TrekkFraMåned",
             },
             opplysninger: [
-              "0199a9bb-28a4-744f-8735-23c60dacb1cd",
-              "0199a9bb-28a5-7146-9d3a-43b91ec09d41",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e59",
+              "0199296d-08b2-7e80-b5f7-1695027053ad",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+          },
+        },
+      ],
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be0",
+      navn: "Registrert som arbeidssøker",
+      datatype: "boolsk",
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Register",
+      perioder: [
+        {
+          id: "0199296d-0c63-746f-a0d2-27a704fac13a",
+          opprettet: "2025-09-08T15:03:56.515054",
+          status: "Arvet",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-08T15:03:56.449915",
+            meldingId: "66aac101-7eb5-4d7d-9951-142cbfceacea",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2018,31 +2175,29 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Register",
       perioder: [
         {
-          id: "0199a9bb-29f9-798f-8b26-9a11986e5742",
-          opprettet: "2025-10-03T13:00:39.545392",
+          id: "0199296d-0c63-746f-a0d2-27a704fac13b",
+          opprettet: "2025-09-08T15:03:56.515149",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "01K6MTQG4MRA89Y9WN411E6815",
+            verdi: "01K4MPT2ZKJ39E0AMGZ94EDYS7",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:39.481971",
-            meldingId: "35c46011-7150-41f4-b2d4-4bb9b7f47095",
+            registrert: "2025-09-08T15:03:56.450303",
+            meldingId: "66aac101-7eb5-4d7d-9951-142cbfceacea",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
             opplysninger: [
-              "0199a9bb-289c-712c-9672-a445ca4fac1a",
-              "0199a9bb-28a5-7146-9d3a-43b91ec09d41",
-              "0199a9bb-28a5-7146-9d3a-43b91ec09d43",
+              "0199296d-0872-7a76-b9d1-84c534c8f23a",
+              "0199296d-08b2-7e80-b5f7-1695027053ad",
+              "0199296d-08b3-74b9-ba35-01472f276d9f",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -2057,22 +2212,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29f9-798f-8b26-9a11986e5744",
-          opprettet: "2025-10-03T13:00:39.545973",
+          id: "0199296d-0c64-76e1-88be-27bc2341e633",
+          opprettet: "2025-09-08T15:03:56.516382",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "01K6MTQG4MRA89Y9WN411E6815",
+            verdi: "01K4MPT2ZKJ39E0AMGZ94EDYS7",
             datatype: "tekst",
           },
           utledetAv: {
             regel: {
               navn: "FiltrerRelevanteInntekter",
             },
-            opplysninger: ["0199a9bb-29f9-798f-8b26-9a11986e5742"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c63-746f-a0d2-27a704fac13b"],
           },
         },
       ],
@@ -2087,22 +2240,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fa-7437-9b2d-bb8498dc4f17",
-          opprettet: "2025-10-03T13:00:39.546376",
+          id: "0199296d-0c65-7771-9eda-1eb82401b676",
+          opprettet: "2025-09-08T15:03:56.517129",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 300000,
+            verdi: 499995,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29f9-798f-8b26-9a11986e5744"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c64-76e1-88be-27bc2341e633"],
           },
         },
       ],
@@ -2117,22 +2268,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fa-7437-9b2d-bb8498dc4f18",
-          opprettet: "2025-10-03T13:00:39.546632",
+          id: "0199296d-0c65-7771-9eda-1eb82401b677",
+          opprettet: "2025-09-08T15:03:56.5176",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 850000,
+            verdi: 499995,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29f9-798f-8b26-9a11986e5744"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c64-76e1-88be-27bc2341e633"],
           },
         },
       ],
@@ -2147,11 +2296,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fa-7437-9b2d-bb8498dc4f1a",
-          opprettet: "2025-10-03T13:00:39.546996",
+          id: "0199296d-0c66-7bd7-8749-f56aaa64ab90",
+          opprettet: "2025-09-08T15:03:56.518185",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2161,11 +2310,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-28a5-7146-9d3a-43b91ec09d3e",
-              "0199a9bb-29fa-7437-9b2d-bb8498dc4f17",
+              "0199296d-08b1-787e-b843-529afc818f34",
+              "0199296d-0c65-7771-9eda-1eb82401b676",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -2180,11 +2327,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d2924975",
-          opprettet: "2025-10-03T13:00:39.547032",
+          id: "0199296d-0c66-7bd7-8749-f56aaa64ab91",
+          opprettet: "2025-09-08T15:03:56.518261",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2194,11 +2341,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-28a5-7146-9d3a-43b91ec09d3f",
-              "0199a9bb-29fa-7437-9b2d-bb8498dc4f18",
+              "0199296d-08b2-7e80-b5f7-1695027053ab",
+              "0199296d-0c65-7771-9eda-1eb82401b677",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -2213,11 +2358,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d2924977",
-          opprettet: "2025-10-03T13:00:39.547286",
+          id: "0199296d-0c66-7bd7-8749-f56aaa64ab93",
+          opprettet: "2025-09-08T15:03:56.518645",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2227,11 +2372,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-29fa-7437-9b2d-bb8498dc4f1a",
-              "0199a9bb-29fb-7e98-889f-9b02d2924975",
+              "0199296d-0c66-7bd7-8749-f56aaa64ab90",
+              "0199296d-0c66-7bd7-8749-f56aaa64ab91",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -2246,8 +2389,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d2924979",
-          opprettet: "2025-10-03T13:00:39.547674",
+          id: "0199296d-0c67-7240-893c-01eff22cd71f",
+          opprettet: "2025-09-08T15:03:56.519148",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2267,8 +2410,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d292497a",
-          opprettet: "2025-10-03T13:00:39.547695",
+          id: "0199296d-0c67-7240-893c-01eff22cd720",
+          opprettet: "2025-09-08T15:03:56.519243",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2288,8 +2431,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d292497b",
-          opprettet: "2025-10-03T13:00:39.547714",
+          id: "0199296d-0c67-7240-893c-01eff22cd721",
+          opprettet: "2025-09-08T15:03:56.519297",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2309,11 +2452,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d292497c",
-          opprettet: "2025-10-03T13:00:39.547798",
+          id: "0199296d-0c67-7240-893c-01eff22cd722",
+          opprettet: "2025-09-08T15:03:56.519462",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 130160,
             datatype: "penger",
@@ -2322,9 +2465,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2339,22 +2480,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d292497d",
-          opprettet: "2025-10-03T13:00:39.547858",
+          id: "0199296d-0c67-7240-893c-01eff22cd723",
+          opprettet: "2025-09-08T15:03:56.51952",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "01K6MTQG4MRA89Y9WN411E6815",
+            verdi: "01K4MPT2ZKJ39E0AMGZ94EDYS7",
             datatype: "tekst",
           },
           utledetAv: {
             regel: {
               navn: "FiltrerRelevanteInntekter",
             },
-            opplysninger: ["0199a9bb-29f9-798f-8b26-9a11986e5742"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c63-746f-a0d2-27a704fac13b"],
           },
         },
       ],
@@ -2369,11 +2508,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fb-7e98-889f-9b02d292497e",
-          opprettet: "2025-10-03T13:00:39.547899",
+          id: "0199296d-0c67-7240-893c-01eff22cd724",
+          opprettet: "2025-09-08T15:03:56.519559",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 6,
             datatype: "desimaltall",
@@ -2382,9 +2521,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2399,8 +2536,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9388",
-          opprettet: "2025-10-03T13:00:39.548023",
+          id: "0199296d-0c67-7240-893c-01eff22cd725",
+          opprettet: "2025-09-08T15:03:56.519591",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2420,11 +2557,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9389",
-          opprettet: "2025-10-03T13:00:39.548057",
+          id: "0199296d-0c67-7240-893c-01eff22cd726",
+          opprettet: "2025-09-08T15:03:56.519627",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 3,
             datatype: "desimaltall",
@@ -2433,9 +2570,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2444,14 +2579,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e04",
       navn: "Grunnlag for verneplikt hvis kravet ikke er oppfylt",
       datatype: "penger",
-      synlig: false,
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938a",
-          opprettet: "2025-10-03T13:00:39.54808",
+          id: "0199296d-0c67-7240-893c-01eff22cd727",
+          opprettet: "2025-09-08T15:03:56.519658",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2471,11 +2606,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938b",
-          opprettet: "2025-10-03T13:00:39.548129",
+          id: "0199296d-0c67-7240-893c-01eff22cd728",
+          opprettet: "2025-09-08T15:03:56.519701",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0.0024,
             datatype: "desimaltall",
@@ -2484,9 +2619,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2501,11 +2634,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938c",
-          opprettet: "2025-10-03T13:00:39.548181",
+          id: "0199296d-0c67-7240-893c-01eff22cd729",
+          opprettet: "2025-09-08T15:03:56.519769",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 37,
             datatype: "penger",
@@ -2514,9 +2647,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2531,11 +2662,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938d",
-          opprettet: "2025-10-03T13:00:39.548209",
+          id: "0199296d-0c67-7240-893c-01eff22cd72a",
+          opprettet: "2025-09-08T15:03:56.519812",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0.9,
             datatype: "desimaltall",
@@ -2544,9 +2675,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2561,11 +2690,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938e",
-          opprettet: "2025-10-03T13:00:39.548235",
+          id: "0199296d-0c67-7240-893c-01eff22cd72b",
+          opprettet: "2025-09-08T15:03:56.519849",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 260,
             datatype: "heltall",
@@ -2574,9 +2703,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2591,8 +2718,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c938f",
-          opprettet: "2025-10-03T13:00:39.54839",
+          id: "0199296d-0c67-7240-893c-01eff22cd72c",
+          opprettet: "2025-09-08T15:03:56.519884",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2612,8 +2739,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9390",
-          opprettet: "2025-10-03T13:00:39.548422",
+          id: "0199296d-0c67-7240-893c-01eff22cd72d",
+          opprettet: "2025-09-08T15:03:56.519918",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2633,8 +2760,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9391",
-          opprettet: "2025-10-03T13:00:39.548446",
+          id: "0199296d-0c67-7240-893c-01eff22cd72e",
+          opprettet: "2025-09-08T15:03:56.519997",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2654,8 +2781,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9392",
-          opprettet: "2025-10-03T13:00:39.548462",
+          id: "0199296d-0c68-788e-b139-cee042af934f",
+          opprettet: "2025-09-08T15:03:56.520086",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2675,8 +2802,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9393",
-          opprettet: "2025-10-03T13:00:39.548478",
+          id: "0199296d-0c68-788e-b139-cee042af9350",
+          opprettet: "2025-09-08T15:03:56.520147",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2696,8 +2823,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9394",
-          opprettet: "2025-10-03T13:00:39.548495",
+          id: "0199296d-0c68-788e-b139-cee042af9351",
+          opprettet: "2025-09-08T15:03:56.520218",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2717,8 +2844,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9395",
-          opprettet: "2025-10-03T13:00:39.548511",
+          id: "0199296d-0c68-788e-b139-cee042af9352",
+          opprettet: "2025-09-08T15:03:56.520288",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2738,8 +2865,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9396",
-          opprettet: "2025-10-03T13:00:39.548527",
+          id: "0199296d-0c68-788e-b139-cee042af9353",
+          opprettet: "2025-09-08T15:03:56.520345",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2759,8 +2886,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9397",
-          opprettet: "2025-10-03T13:00:39.548545",
+          id: "0199296d-0c68-788e-b139-cee042af9354",
+          opprettet: "2025-09-08T15:03:56.520403",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2780,8 +2907,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9398",
-          opprettet: "2025-10-03T13:00:39.548561",
+          id: "0199296d-0c68-788e-b139-cee042af9355",
+          opprettet: "2025-09-08T15:03:56.520464",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2801,8 +2928,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c9399",
-          opprettet: "2025-10-03T13:00:39.548578",
+          id: "0199296d-0c68-788e-b139-cee042af9356",
+          opprettet: "2025-09-08T15:03:56.52053",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2822,8 +2949,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939a",
-          opprettet: "2025-10-03T13:00:39.548595",
+          id: "0199296d-0c68-788e-b139-cee042af9357",
+          opprettet: "2025-09-08T15:03:56.520583",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2843,11 +2970,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939b",
-          opprettet: "2025-10-03T13:00:39.54868",
+          id: "0199296d-0c68-788e-b139-cee042af9358",
+          opprettet: "2025-09-08T15:03:56.520635",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 40,
             datatype: "desimaltall",
@@ -2856,9 +2983,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2873,11 +2998,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939c",
-          opprettet: "2025-10-03T13:00:39.54871",
+          id: "0199296d-0c68-788e-b139-cee042af9359",
+          opprettet: "2025-09-08T15:03:56.520683",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 37.5,
             datatype: "desimaltall",
@@ -2886,9 +3011,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2903,8 +3026,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939d",
-          opprettet: "2025-10-03T13:00:39.548728",
+          id: "0199296d-0c68-788e-b139-cee042af935a",
+          opprettet: "2025-09-08T15:03:56.520723",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2924,8 +3047,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939e",
-          opprettet: "2025-10-03T13:00:39.54875",
+          id: "0199296d-0c68-788e-b139-cee042af935b",
+          opprettet: "2025-09-08T15:03:56.520764",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -2945,11 +3068,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c939f",
-          opprettet: "2025-10-03T13:00:39.548772",
+          id: "0199296d-0c68-788e-b139-cee042af935c",
+          opprettet: "2025-09-08T15:03:56.520811",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 40,
             datatype: "desimaltall",
@@ -2958,9 +3081,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -2975,11 +3096,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a0",
-          opprettet: "2025-10-03T13:00:39.548794",
+          id: "0199296d-0c68-788e-b139-cee042af935d",
+          opprettet: "2025-09-08T15:03:56.520857",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 50,
             datatype: "desimaltall",
@@ -2988,9 +3109,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -3005,8 +3124,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a1",
-          opprettet: "2025-10-03T13:00:39.548812",
+          id: "0199296d-0c68-788e-b139-cee042af935e",
+          opprettet: "2025-09-08T15:03:56.520905",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3026,8 +3145,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a2",
-          opprettet: "2025-10-03T13:00:39.54883",
+          id: "0199296d-0c68-788e-b139-cee042af935f",
+          opprettet: "2025-09-08T15:03:56.520949",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3047,8 +3166,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a3",
-          opprettet: "2025-10-03T13:00:39.548849",
+          id: "0199296d-0c68-788e-b139-cee042af9360",
+          opprettet: "2025-09-08T15:03:56.520992",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3068,8 +3187,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a4",
-          opprettet: "2025-10-03T13:00:39.548868",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe81",
+          opprettet: "2025-09-08T15:03:56.521055",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3089,8 +3208,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a5",
-          opprettet: "2025-10-03T13:00:39.548891",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe82",
+          opprettet: "2025-09-08T15:03:56.521101",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3110,8 +3229,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a6",
-          opprettet: "2025-10-03T13:00:39.548915",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe83",
+          opprettet: "2025-09-08T15:03:56.521145",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3131,8 +3250,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fc-7f91-bebd-1022811c93a7",
-          opprettet: "2025-10-03T13:00:39.548985",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe84",
+          opprettet: "2025-09-08T15:03:56.52119",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3152,8 +3271,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fd-7233-b596-9bafc47ec7c8",
-          opprettet: "2025-10-03T13:00:39.549019",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe85",
+          opprettet: "2025-09-08T15:03:56.521242",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3173,8 +3292,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fd-7233-b596-9bafc47ec7c9",
-          opprettet: "2025-10-03T13:00:39.549052",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe86",
+          opprettet: "2025-09-08T15:03:56.521328",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3194,8 +3313,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fd-7233-b596-9bafc47ec7ca",
-          opprettet: "2025-10-03T13:00:39.549083",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe87",
+          opprettet: "2025-09-08T15:03:56.521376",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3215,8 +3334,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fd-7233-b596-9bafc47ec7cb",
-          opprettet: "2025-10-03T13:00:39.549118",
+          id: "0199296d-0c69-72ff-a84a-db9db5edbe88",
+          opprettet: "2025-09-08T15:03:56.521424",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3236,8 +3355,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fd-7233-b596-9bafc47ec7cd",
-          opprettet: "2025-10-03T13:00:39.549576",
+          id: "0199296d-0c6a-7ee9-9102-a56e7f353aa0",
+          opprettet: "2025-09-08T15:03:56.522132",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3248,9 +3367,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["0199a9bb-29fb-7e98-889f-9b02d292497b"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c67-7240-893c-01eff22cd721"],
           },
         },
       ],
@@ -3265,13 +3382,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7113",
-          opprettet: "2025-10-03T13:00:39.550243",
+          id: "0199296d-0c6a-7ee9-9102-a56e7f353aa1",
+          opprettet: "2025-09-08T15:03:56.52291",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: "01K6MTQG4MRA89Y9WN411E6815",
+            verdi: "01K4MPT2ZKJ39E0AMGZ94EDYS7",
             datatype: "tekst",
           },
           utledetAv: {
@@ -3279,11 +3396,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Oppjuster",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d292497c",
-              "0199a9bb-29fb-7e98-889f-9b02d292497d",
+              "0199296d-0c67-7240-893c-01eff22cd722",
+              "0199296d-0c67-7240-893c-01eff22cd723",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3298,11 +3413,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-          opprettet: "2025-10-03T13:00:39.550327",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b91",
+          opprettet: "2025-09-08T15:03:56.523031",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 780960,
             datatype: "penger",
@@ -3312,11 +3427,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d292497c",
-              "0199a9bb-29fb-7e98-889f-9b02d292497e",
+              "0199296d-0c67-7240-893c-01eff22cd722",
+              "0199296d-0c67-7240-893c-01eff22cd724",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3331,11 +3444,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7115",
-          opprettet: "2025-10-03T13:00:39.55037",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b92",
+          opprettet: "2025-09-08T15:03:56.523142",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 390480,
             datatype: "penger",
@@ -3345,11 +3458,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d292497c",
-              "0199a9bb-29fc-7f91-bebd-1022811c9389",
+              "0199296d-0c67-7240-893c-01eff22cd722",
+              "0199296d-0c67-7240-893c-01eff22cd726",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3364,8 +3475,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7116",
-          opprettet: "2025-10-03T13:00:39.550411",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b93",
+          opprettet: "2025-09-08T15:03:56.52329",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3376,9 +3487,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["0199a9bb-29fc-7f91-bebd-1022811c9393"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c68-788e-b139-cee042af9350"],
           },
         },
       ],
@@ -3393,8 +3502,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7117",
-          opprettet: "2025-10-03T13:00:39.550459",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b94",
+          opprettet: "2025-09-08T15:03:56.523637",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3406,11 +3515,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "IngenAv",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c9398",
-              "0199a9bb-29fc-7f91-bebd-1022811c9399",
+              "0199296d-0c68-788e-b139-cee042af9355",
+              "0199296d-0c68-788e-b139-cee042af9356",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3425,8 +3532,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7118",
-          opprettet: "2025-10-03T13:00:39.550508",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b95",
+          opprettet: "2025-09-08T15:03:56.523841",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3438,11 +3545,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Substraksjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c939d",
-              "0199a9bb-29fc-7f91-bebd-1022811c939e",
+              "0199296d-0c68-788e-b139-cee042af935a",
+              "0199296d-0c68-788e-b139-cee042af935b",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3457,11 +3562,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a7119",
-          opprettet: "2025-10-03T13:00:39.550552",
+          id: "0199296d-0c6b-72aa-b446-6ca469e76b96",
+          opprettet: "2025-09-08T15:03:56.523944",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 50,
             datatype: "desimaltall",
@@ -3471,12 +3576,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f7",
-              "0199a9bb-29fc-7f91-bebd-1022811c939f",
-              "0199a9bb-29fc-7f91-bebd-1022811c93a0",
+              "0199296a-4d42-7174-b209-15767a261c77",
+              "0199296d-0c68-788e-b139-cee042af935c",
+              "0199296d-0c68-788e-b139-cee042af935d",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3491,8 +3594,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a711a",
-          opprettet: "2025-10-03T13:00:39.550596",
+          id: "0199296d-0c6c-7485-a01b-a37040394f98",
+          opprettet: "2025-09-08T15:03:56.52413",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3504,12 +3607,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c93a1",
-              "0199a9bb-29fc-7f91-bebd-1022811c93a2",
-              "0199a9bb-29fc-7f91-bebd-1022811c93a3",
+              "0199296d-0c68-788e-b139-cee042af935e",
+              "0199296d-0c68-788e-b139-cee042af935f",
+              "0199296d-0c68-788e-b139-cee042af9360",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3524,8 +3625,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a711b",
-          opprettet: "2025-10-03T13:00:39.550648",
+          id: "0199296d-0c6c-7485-a01b-a37040394f99",
+          opprettet: "2025-09-08T15:03:56.524339",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3537,15 +3638,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c93a5",
-              "0199a9bb-29fc-7f91-bebd-1022811c93a6",
-              "0199a9bb-29fc-7f91-bebd-1022811c93a7",
-              "0199a9bb-29fd-7233-b596-9bafc47ec7c8",
-              "0199a9bb-29fd-7233-b596-9bafc47ec7c9",
-              "0199a9bb-29fd-7233-b596-9bafc47ec7ca",
+              "0199296d-0c69-72ff-a84a-db9db5edbe82",
+              "0199296d-0c69-72ff-a84a-db9db5edbe83",
+              "0199296d-0c69-72ff-a84a-db9db5edbe84",
+              "0199296d-0c69-72ff-a84a-db9db5edbe85",
+              "0199296d-0c69-72ff-a84a-db9db5edbe86",
+              "0199296d-0c69-72ff-a84a-db9db5edbe87",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3560,8 +3659,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29fe-7907-ab80-8b8c276a711c",
-          opprettet: "2025-10-03T13:00:39.55069",
+          id: "0199296d-0c6c-7485-a01b-a37040394f9a",
+          opprettet: "2025-09-08T15:03:56.524466",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3572,9 +3671,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "IngenAv",
             },
-            opplysninger: ["0199a9bb-29fd-7233-b596-9bafc47ec7cb"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c69-72ff-a84a-db9db5edbe88"],
           },
         },
       ],
@@ -3589,22 +3686,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29ff-7ae3-b07a-0ddde0fca590",
-          opprettet: "2025-10-03T13:00:39.551441",
+          id: "0199296d-0c6e-7c53-9107-f21ecff65a99",
+          opprettet: "2025-09-08T15:03:56.526171",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888.0897861773,
+            verdi: 524714.9772631986,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fe-7907-ab80-8b8c276a7113"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c6a-7ee9-9102-a56e7f353aa1"],
           },
         },
       ],
@@ -3619,22 +3714,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29ff-7ae3-b07a-0ddde0fca591",
-          opprettet: "2025-10-03T13:00:39.551562",
+          id: "0199296d-0c6e-7c53-9107-f21ecff65a9a",
+          opprettet: "2025-09-08T15:03:56.526478",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 324401.1347598902,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fe-7907-ab80-8b8c276a7113"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c6a-7ee9-9102-a56e7f353aa1"],
           },
         },
       ],
@@ -3649,22 +3742,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29ff-7ae3-b07a-0ddde0fca592",
-          opprettet: "2025-10-03T13:00:39.551716",
+          id: "0199296d-0c6e-7c53-9107-f21ecff65a9b",
+          opprettet: "2025-09-08T15:03:56.526701",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 284867.81132915954,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fe-7907-ab80-8b8c276a7113"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c6a-7ee9-9102-a56e7f353aa1"],
           },
         },
       ],
@@ -3679,11 +3770,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29ff-7ae3-b07a-0ddde0fca593",
-          opprettet: "2025-10-03T13:00:39.551774",
+          id: "0199296d-0c6e-7c53-9107-f21ecff65a9c",
+          opprettet: "2025-09-08T15:03:56.526797",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -3693,12 +3784,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9ab-c0f0-7209-bbdc-889e2c2bc4a0",
-              "0199a9bb-29fc-7f91-bebd-1022811c938a",
-              "0199a9bb-29fe-7907-ab80-8b8c276a7115",
+              "0199296a-4d46-7088-95dc-f3fbbe8900ba",
+              "0199296d-0c67-7240-893c-01eff22cd727",
+              "0199296d-0c6b-72aa-b446-6ca469e76b92",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3713,8 +3802,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-29ff-7ae3-b07a-0ddde0fca594",
-          opprettet: "2025-10-03T13:00:39.551817",
+          id: "0199296d-0c6e-7c53-9107-f21ecff65a9d",
+          opprettet: "2025-09-08T15:03:56.52686",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3726,12 +3815,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c9394",
-              "0199a9bb-29fc-7f91-bebd-1022811c9395",
-              "0199a9bb-29fe-7907-ab80-8b8c276a7116",
+              "0199296d-0c68-788e-b139-cee042af9351",
+              "0199296d-0c68-788e-b139-cee042af9352",
+              "0199296d-0c6b-72aa-b446-6ca469e76b93",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3746,13 +3833,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a00-7558-ab9d-dde25944a787",
-          opprettet: "2025-10-03T13:00:39.552408",
+          id: "0199296d-0c6f-7350-89cf-abb1c71f760d",
+          opprettet: "2025-09-08T15:03:56.527812",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888.0897861773,
+            verdi: 524714.9772631986,
             datatype: "penger",
           },
           utledetAv: {
@@ -3760,11 +3847,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca590",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a99",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3779,13 +3864,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a00-7558-ab9d-dde25944a788",
-          opprettet: "2025-10-03T13:00:39.552461",
+          id: "0199296d-0c6f-7350-89cf-abb1c71f760e",
+          opprettet: "2025-09-08T15:03:56.527921",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888.0897861773,
+            verdi: 524714.9772631986,
             datatype: "penger",
           },
           utledetAv: {
@@ -3793,11 +3878,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca590",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a99",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3812,13 +3895,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a00-7558-ab9d-dde25944a789",
-          opprettet: "2025-10-03T13:00:39.552496",
+          id: "0199296d-0c6f-7350-89cf-abb1c71f760f",
+          opprettet: "2025-09-08T15:03:56.527989",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 324401.1347598902,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -3826,11 +3909,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca591",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3845,13 +3926,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a00-7558-ab9d-dde25944a78a",
-          opprettet: "2025-10-03T13:00:39.552531",
+          id: "0199296d-0c70-73b5-8ea3-a4ac8ee7ed15",
+          opprettet: "2025-09-08T15:03:56.5281",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 284867.81132915954,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -3859,11 +3940,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca592",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9b",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3878,8 +3957,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a00-7558-ab9d-dde25944a78b",
-          opprettet: "2025-10-03T13:00:39.552625",
+          id: "0199296d-0c70-73b5-8ea3-a4ac8ee7ed16",
+          opprettet: "2025-09-08T15:03:56.528256",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -3891,16 +3970,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Addisjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938f",
-              "0199a9bb-29fc-7f91-bebd-1022811c9390",
-              "0199a9bb-29fc-7f91-bebd-1022811c9391",
-              "0199a9bb-29fc-7f91-bebd-1022811c9392",
-              "0199a9bb-29fc-7f91-bebd-1022811c9396",
-              "0199a9bb-29fc-7f91-bebd-1022811c9397",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca594",
+              "0199296d-0c67-7240-893c-01eff22cd72c",
+              "0199296d-0c67-7240-893c-01eff22cd72d",
+              "0199296d-0c67-7240-893c-01eff22cd72e",
+              "0199296d-0c68-788e-b139-cee042af934f",
+              "0199296d-0c68-788e-b139-cee042af9353",
+              "0199296d-0c68-788e-b139-cee042af9354",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9d",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3915,13 +3992,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a01-761f-9433-eb9be531f711",
-          opprettet: "2025-10-03T13:00:39.553325",
+          id: "0199296d-0c71-7a62-908c-4187cddcc8ac",
+          opprettet: "2025-09-08T15:03:56.52933",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 919157.0358752271,
+            verdi: 524714.9772631986,
             datatype: "penger",
           },
           utledetAv: {
@@ -3929,12 +4006,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "SumAv",
             },
             opplysninger: [
-              "0199a9bb-2a00-7558-ab9d-dde25944a788",
-              "0199a9bb-2a00-7558-ab9d-dde25944a789",
-              "0199a9bb-2a00-7558-ab9d-dde25944a78a",
+              "0199296d-0c6f-7350-89cf-abb1c71f760e",
+              "0199296d-0c6f-7350-89cf-abb1c71f760f",
+              "0199296d-0c70-73b5-8ea3-a4ac8ee7ed15",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3949,13 +4024,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a01-761f-9433-eb9be531f713",
-          opprettet: "2025-10-03T13:00:39.553823",
+          id: "0199296d-0c72-733e-a6f2-82494a313ed6",
+          opprettet: "2025-09-08T15:03:56.530258",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 306385.67862507567,
+            verdi: 174904.9924210662,
             datatype: "penger",
           },
           utledetAv: {
@@ -3963,11 +4038,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Divisjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c9388",
-              "0199a9bb-2a01-761f-9433-eb9be531f711",
+              "0199296d-0c67-7240-893c-01eff22cd725",
+              "0199296d-0c71-7a62-908c-4187cddcc8ac",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -3982,13 +4055,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a02-7a57-9789-ef234a524f84",
-          opprettet: "2025-10-03T13:00:39.554507",
+          id: "0199296d-0c73-7524-8349-71e74ad9674a",
+          opprettet: "2025-09-08T15:03:56.531269",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888.0897861773,
+            verdi: 524714.9772631986,
             datatype: "penger",
           },
           utledetAv: {
@@ -3996,11 +4069,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "0199a9bb-2a00-7558-ab9d-dde25944a787",
-              "0199a9bb-2a01-761f-9433-eb9be531f713",
+              "0199296d-0c6f-7350-89cf-abb1c71f760d",
+              "0199296d-0c72-733e-a6f2-82494a313ed6",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4015,22 +4086,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a03-79ff-91fa-52eb59068463",
-          opprettet: "2025-10-03T13:00:39.555306",
+          id: "0199296d-0c74-7b7b-9f99-4b548cc55018",
+          opprettet: "2025-09-08T15:03:56.532204",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888,
+            verdi: 524715,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["0199a9bb-2a02-7a57-9789-ef234a524f84"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c73-7524-8349-71e74ad9674a"],
           },
         },
       ],
@@ -4045,13 +4114,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a03-79ff-91fa-52eb59068465",
-          opprettet: "2025-10-03T13:00:39.555974",
+          id: "0199296d-0c74-7b7b-9f99-4b548cc5501a",
+          opprettet: "2025-09-08T15:03:56.532947",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 309888,
+            verdi: 524715,
             datatype: "penger",
           },
           utledetAv: {
@@ -4059,11 +4128,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca593",
-              "0199a9bb-2a03-79ff-91fa-52eb59068463",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9c",
+              "0199296d-0c74-7b7b-9f99-4b548cc55018",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4078,11 +4145,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a04-7545-8a32-c752461b5229",
-          opprettet: "2025-10-03T13:00:39.556036",
+          id: "0199296d-0c75-787c-86c8-1230499e3eaa",
+          opprettet: "2025-09-08T15:03:56.533041",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -4092,11 +4159,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnn",
             },
             opplysninger: [
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca593",
-              "0199a9bb-2a03-79ff-91fa-52eb59068463",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9c",
+              "0199296d-0c74-7b7b-9f99-4b548cc55018",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4111,13 +4176,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a04-7545-8a32-c752461b522b",
-          opprettet: "2025-10-03T13:00:39.556696",
+          id: "0199296d-0c75-787c-86c8-1230499e3eac",
+          opprettet: "2025-09-08T15:03:56.533956",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 743.7312,
+            verdi: 1259.316,
             datatype: "penger",
           },
           utledetAv: {
@@ -4125,11 +4190,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938b",
-              "0199a9bb-2a03-79ff-91fa-52eb59068465",
+              "0199296d-0c67-7240-893c-01eff22cd728",
+              "0199296d-0c74-7b7b-9f99-4b548cc5501a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4144,13 +4207,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a04-7545-8a32-c752461b522c",
-          opprettet: "2025-10-03T13:00:39.556763",
+          id: "0199296d-0c76-7dbd-af1b-f5a26767bdd3",
+          opprettet: "2025-09-08T15:03:56.534112",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 278899.2,
+            verdi: 472243.5,
             datatype: "penger",
           },
           utledetAv: {
@@ -4158,11 +4221,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938d",
-              "0199a9bb-2a03-79ff-91fa-52eb59068465",
+              "0199296d-0c67-7240-893c-01eff22cd72a",
+              "0199296d-0c74-7b7b-9f99-4b548cc5501a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4177,11 +4238,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a04-7545-8a32-c752461b522d",
-          opprettet: "2025-10-03T13:00:39.556812",
+          id: "0199296d-0c76-7dbd-af1b-f5a26767bdd4",
+          opprettet: "2025-09-08T15:03:56.534198",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 37.5,
             datatype: "desimaltall",
@@ -4191,12 +4252,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c939c",
-              "0199a9bb-29fc-7f91-bebd-1022811c939d",
-              "0199a9bb-2a04-7545-8a32-c752461b5229",
+              "0199296d-0c68-788e-b139-cee042af9359",
+              "0199296d-0c68-788e-b139-cee042af935a",
+              "0199296d-0c75-787c-86c8-1230499e3eaa",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4211,22 +4270,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a05-70df-8d8b-03c3e66bbb2d",
-          opprettet: "2025-10-03T13:00:39.557363",
+          id: "0199296d-0c77-7ee1-8a7c-862b946cf0fc",
+          opprettet: "2025-09-08T15:03:56.535113",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["0199a9bb-2a04-7545-8a32-c752461b522b"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c75-787c-86c8-1230499e3eac"],
           },
         },
       ],
@@ -4241,13 +4298,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a05-70df-8d8b-03c3e66bbb2e",
-          opprettet: "2025-10-03T13:00:39.557456",
+          id: "0199296d-0c77-7ee1-8a7c-862b946cf0fd",
+          opprettet: "2025-09-08T15:03:56.535281",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 1072.6892307692308,
+            verdi: 1816.321153846154,
             datatype: "penger",
           },
           utledetAv: {
@@ -4255,11 +4312,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Divisjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938e",
-              "0199a9bb-2a04-7545-8a32-c752461b522c",
+              "0199296d-0c67-7240-893c-01eff22cd72b",
+              "0199296d-0c76-7dbd-af1b-f5a26767bdd3",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4274,11 +4329,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a05-70df-8d8b-03c3e66bbb2f",
-          opprettet: "2025-10-03T13:00:39.557498",
+          id: "0199296d-0c77-7ee1-8a7c-862b946cf0fe",
+          opprettet: "2025-09-08T15:03:56.535363",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 37.5,
             datatype: "desimaltall",
@@ -4288,13 +4343,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f3",
-              "0199a9bb-29fc-7f91-bebd-1022811c939b",
-              "0199a9bb-29fe-7907-ab80-8b8c276a7118",
-              "0199a9bb-2a04-7545-8a32-c752461b522d",
+              "0199296a-4d42-7174-b209-15767a261c73",
+              "0199296d-0c68-788e-b139-cee042af9358",
+              "0199296d-0c6b-72aa-b446-6ca469e76b95",
+              "0199296d-0c76-7dbd-af1b-f5a26767bdd4",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4309,22 +4362,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a06-73c4-894d-c30f181b5c37",
-          opprettet: "2025-10-03T13:00:39.558092",
+          id: "0199296d-0c78-772f-aad6-cccd04838ea6",
+          opprettet: "2025-09-08T15:03:56.536392",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 1073,
+            verdi: 1816,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["0199a9bb-2a05-70df-8d8b-03c3e66bbb2e"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c77-7ee1-8a7c-862b946cf0fd"],
           },
         },
       ],
@@ -4339,11 +4390,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2a06-73c4-894d-c30f181b5c38",
-          opprettet: "2025-10-03T13:00:39.558156",
+          id: "0199296d-0c78-772f-aad6-cccd04838ea7",
+          opprettet: "2025-09-08T15:03:56.536558",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -4353,12 +4404,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "SjekkAvTerskel",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c939a",
-              "0199a9bb-29fe-7907-ab80-8b8c276a7119",
-              "0199a9bb-2a05-70df-8d8b-03c3e66bbb2f",
+              "0199296d-0c68-788e-b139-cee042af9357",
+              "0199296d-0c6b-72aa-b446-6ca469e76b96",
+              "0199296d-0c77-7ee1-8a7c-862b946cf0fe",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4373,8 +4422,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e71",
-          opprettet: "2025-10-03T13:00:40.424147",
+          id: "0199296d-1085-7d1f-a3cd-a66f5fb195ad",
+          opprettet: "2025-09-08T15:03:57.573123",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4383,16 +4432,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.341489",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.512182",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -4407,8 +4454,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Register",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e72",
-          opprettet: "2025-10-03T13:00:40.424339",
+          id: "0199296d-1085-7d1f-a3cd-a66f5fb195ae",
+          opprettet: "2025-09-08T15:03:57.573306",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4417,16 +4464,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.341643",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.512476",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -4437,27 +4482,28 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       datatype: "boolsk",
       synlig: true,
       redigerbar: true,
-      redigertAvSaksbehandler: true,
+      redigertAvSaksbehandler: false,
       formål: "Bruker",
       perioder: [
         {
-          id: "0199c8da-7f86-7956-b775-58e6d5ad5fe7",
-          opprettet: "2025-10-09T14:03:06.758422",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigTilOgMed: "2025-10-10",
+          id: "0199296d-1085-7d1f-a3cd-a66f5fb195af",
+          opprettet: "2025-09-08T15:03:57.573506",
+          status: "Arvet",
+          opprinnelse: "Arvet",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-10-09T14:03:06.623012",
-            ident: "Z993298",
-            begrunnelse: {
-              verdi: "ø",
-              sistEndret: "2025-10-09T14:03:06.622998",
+            type: "System",
+            registrert: "2025-09-08T15:03:57.512702",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
             },
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -4472,8 +4518,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e74",
-          opprettet: "2025-10-03T13:00:40.42454",
+          id: "0199296d-1085-7d1f-a3cd-a66f5fb195b0",
+          opprettet: "2025-09-08T15:03:57.573691",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4482,16 +4528,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.341854",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.512883",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9ab-b8e3-78c3-b0f5-9692c6702206"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296a-4258-72ec-ab6c-db42802ab358"],
           },
         },
       ],
@@ -4506,27 +4550,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e75",
-          opprettet: "2025-10-03T13:00:40.424606",
+          id: "0199296d-1085-7d1f-a3cd-a66f5fb195b1",
+          opprettet: "2025-09-08T15:03:57.573867",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.341972",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513051",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4541,27 +4583,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e76",
-          opprettet: "2025-10-03T13:00:40.424683",
+          id: "0199296d-1086-7ce7-9666-af53435a29fb",
+          opprettet: "2025-09-08T15:03:57.574132",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.342074",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513239",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4576,27 +4616,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e77",
-          opprettet: "2025-10-03T13:00:40.424751",
+          id: "0199296d-1087-72f7-8735-7f8ef7f70de0",
+          opprettet: "2025-09-08T15:03:57.575091",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.342165",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513394",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4611,27 +4649,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e78",
-          opprettet: "2025-10-03T13:00:40.424823",
+          id: "0199296d-1087-72f7-8735-7f8ef7f70de1",
+          opprettet: "2025-09-08T15:03:57.575364",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.342249",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513586",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4646,27 +4682,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d68-73e6-a076-59258b058e79",
-          opprettet: "2025-10-03T13:00:40.424956",
+          id: "0199296d-1087-72f7-8735-7f8ef7f70de2",
+          opprettet: "2025-09-08T15:03:57.575603",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.342364",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513768",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4681,27 +4715,25 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d69-7a6d-8e5e-1ddda0248fc8",
-          opprettet: "2025-10-03T13:00:40.42503",
+          id: "0199296d-1087-72f7-8735-7f8ef7f70de3",
+          opprettet: "2025-09-08T15:03:57.575783",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:40.342458",
-            meldingId: "f2e574ed-3334-40da-8980-6dc1985c6c9b",
+            registrert: "2025-09-08T15:03:57.513965",
+            meldingId: "95395cf5-1bfc-4409-b0b6-493006289246",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -4716,8 +4748,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Bruker",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c8270c",
-          opprettet: "2025-10-03T13:00:40.426091",
+          id: "0199296d-108a-7dcc-a87c-4bd601599283",
+          opprettet: "2025-09-08T15:03:57.578384",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4728,9 +4760,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["0199a9bb-2d68-73e6-a076-59258b058e71"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-1085-7d1f-a3cd-a66f5fb195ad"],
           },
         },
       ],
@@ -4745,8 +4775,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c8270d",
-          opprettet: "2025-10-03T13:00:40.426161",
+          id: "0199296d-108a-7dcc-a87c-4bd601599284",
+          opprettet: "2025-09-08T15:03:57.578622",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4757,9 +4787,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "AntallAv",
             },
-            opplysninger: ["0199a9bb-2d68-73e6-a076-59258b058e72"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-1085-7d1f-a3cd-a66f5fb195ae"],
           },
         },
       ],
@@ -4774,11 +4802,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c8270e",
-          opprettet: "2025-10-03T13:00:40.426225",
+          id: "0199296d-108a-7dcc-a87c-4bd601599285",
+          opprettet: "2025-09-08T15:03:57.578905",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -4788,16 +4816,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7116",
-              "0199a9bb-2d68-73e6-a076-59258b058e75",
-              "0199a9bb-2d68-73e6-a076-59258b058e76",
-              "0199a9bb-2d68-73e6-a076-59258b058e77",
-              "0199a9bb-2d68-73e6-a076-59258b058e78",
-              "0199a9bb-2d68-73e6-a076-59258b058e79",
-              "0199a9bb-2d69-7a6d-8e5e-1ddda0248fc8",
+              "0199296d-0c6b-72aa-b446-6ca469e76b93",
+              "0199296d-1085-7d1f-a3cd-a66f5fb195b1",
+              "0199296d-1086-7ce7-9666-af53435a29fb",
+              "0199296d-1087-72f7-8735-7f8ef7f70de0",
+              "0199296d-1087-72f7-8735-7f8ef7f70de1",
+              "0199296d-1087-72f7-8735-7f8ef7f70de2",
+              "0199296d-1087-72f7-8735-7f8ef7f70de3",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4812,11 +4838,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8da-7f98-7b50-94d4-92de60ad19d9",
-          opprettet: "2025-10-09T14:03:06.776699",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigTilOgMed: "2025-10-10",
+          id: "0199296d-108b-75b6-911d-ab094403b4b5",
+          opprettet: "2025-09-08T15:03:57.579098",
+          status: "Arvet",
+          opprinnelse: "Arvet",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -4825,9 +4850,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "IngenAv",
             },
-            opplysninger: ["0199c8da-7f86-7956-b775-58e6d5ad5fe7"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.08-16.55-bedb2b5",
+            opplysninger: ["0199296d-1085-7d1f-a3cd-a66f5fb195af"],
           },
         },
       ],
@@ -4842,8 +4865,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c82710",
-          opprettet: "2025-10-03T13:00:40.426302",
+          id: "0199296d-108b-75b6-911d-ab094403b4b6",
+          opprettet: "2025-09-08T15:03:57.579247",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4854,9 +4877,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["0199a9bb-2d68-73e6-a076-59258b058e74"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-1085-7d1f-a3cd-a66f5fb195b0"],
           },
         },
       ],
@@ -4871,8 +4892,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c82711",
-          opprettet: "2025-10-03T13:00:40.426341",
+          id: "0199296d-108b-75b6-911d-ab094403b4b7",
+          opprettet: "2025-09-08T15:03:57.579365",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4883,9 +4904,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "ErUsann",
             },
-            opplysninger: ["0199a9bb-2d68-73e6-a076-59258b058e74"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-1085-7d1f-a3cd-a66f5fb195b0"],
           },
         },
       ],
@@ -4900,8 +4919,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6a-74b0-bef6-1d0097c82713",
-          opprettet: "2025-10-03T13:00:40.426872",
+          id: "0199296d-108c-7753-a08b-8bc370b2f459",
+          opprettet: "2025-09-08T15:03:57.580371",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -4913,11 +4932,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d292497a",
-              "0199a9bb-2d6a-74b0-bef6-1d0097c8270c",
+              "0199296d-0c67-7240-893c-01eff22cd720",
+              "0199296d-108a-7dcc-a87c-4bd601599283",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4932,11 +4949,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6b-771c-88b1-765ef3db2fee",
-          opprettet: "2025-10-03T13:00:40.427024",
+          id: "0199296d-108c-7753-a08b-8bc370b2f45a",
+          opprettet: "2025-09-08T15:03:57.58062",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -4946,11 +4963,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938c",
-              "0199a9bb-2d6a-74b0-bef6-1d0097c8270d",
+              "0199296d-0c67-7240-893c-01eff22cd729",
+              "0199296d-108a-7dcc-a87c-4bd601599284",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -4965,12 +4980,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8da-7f9a-773c-8b83-c3feeec6a4d2",
-          opprettet: "2025-10-09T14:03:06.778772",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-10",
+          id: "0199296d-108c-7753-a08b-8bc370b2f45b",
+          opprettet: "2025-09-08T15:03:57.580764",
+          status: "Arvet",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -4980,13 +4994,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Alle",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c93a4",
-              "0199a9bb-29fe-7907-ab80-8b8c276a711a",
-              "0199a9bb-2a06-73c4-894d-c30f181b5c38",
-              "0199c8da-7f98-7b50-94d4-92de60ad19d9",
+              "0199296d-0c69-72ff-a84a-db9db5edbe81",
+              "0199296d-0c6c-7485-a01b-a37040394f98",
+              "0199296d-0c78-772f-aad6-cccd04838ea7",
+              "0199296d-108b-75b6-911d-ab094403b4b5",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.08-16.55-bedb2b5",
           },
         },
       ],
@@ -5001,8 +5013,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6b-771c-88b1-765ef3db2ff0",
-          opprettet: "2025-10-03T13:00:40.427135",
+          id: "0199296d-108c-7753-a08b-8bc370b2f45c",
+          opprettet: "2025-09-08T15:03:57.580869",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5014,11 +5026,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Alle",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a711b",
-              "0199a9bb-2d6a-74b0-bef6-1d0097c82710",
+              "0199296d-0c6c-7485-a01b-a37040394f99",
+              "0199296d-108b-75b6-911d-ab094403b4b6",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5033,8 +5043,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6b-771c-88b1-765ef3db2ff2",
-          opprettet: "2025-10-03T13:00:40.427695",
+          id: "0199296d-108e-7491-89ce-0adf3018317b",
+          opprettet: "2025-09-08T15:03:57.582143",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5046,11 +5056,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Alle",
             },
             opplysninger: [
-              "0199a9bb-29fd-7233-b596-9bafc47ec7cd",
-              "0199a9bb-2d6a-74b0-bef6-1d0097c82713",
+              "0199296d-0c6a-7ee9-9102-a56e7f353aa0",
+              "0199296d-108c-7753-a08b-8bc370b2f459",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5065,13 +5073,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6b-771c-88b1-765ef3db2ff3",
-          opprettet: "2025-10-03T13:00:40.427801",
+          id: "0199296d-108e-7491-89ce-0adf3018317c",
+          opprettet: "2025-09-08T15:03:57.582437",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -5079,11 +5087,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Addisjon",
             },
             opplysninger: [
-              "0199a9bb-2a05-70df-8d8b-03c3e66bbb2d",
-              "0199a9bb-2d6b-771c-88b1-765ef3db2fee",
+              "0199296d-0c77-7ee1-8a7c-862b946cf0fc",
+              "0199296d-108c-7753-a08b-8bc370b2f45a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5098,11 +5104,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6b-771c-88b1-765ef3db2ff4",
-          opprettet: "2025-10-03T13:00:40.427882",
+          id: "0199296d-108e-7491-89ce-0adf3018317d",
+          opprettet: "2025-09-08T15:03:57.582588",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5112,11 +5118,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-29fc-7f91-bebd-1022811c938c",
-              "0199a9bb-2d6b-771c-88b1-765ef3db2fee",
+              "0199296d-0c67-7240-893c-01eff22cd729",
+              "0199296d-108c-7753-a08b-8bc370b2f45a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5131,8 +5135,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6c-7c5b-a533-3f22432210c2",
-          opprettet: "2025-10-03T13:00:40.428636",
+          id: "0199296d-108e-7491-89ce-0adf3018317e",
+          opprettet: "2025-09-08T15:03:57.582725",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5144,11 +5148,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-2d6a-74b0-bef6-1d0097c82711",
-              "0199a9bb-2d6b-771c-88b1-765ef3db2ff0",
+              "0199296d-108b-75b6-911d-ab094403b4b7",
+              "0199296d-108c-7753-a08b-8bc370b2f45c",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5163,11 +5165,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6d-7380-8eec-98ecf90b594f",
-          opprettet: "2025-10-03T13:00:40.429993",
+          id: "0199296d-1090-78f1-813f-5f2053d66518",
+          opprettet: "2025-09-08T15:03:57.584163",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5177,11 +5179,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Substraksjon",
             },
             opplysninger: [
-              "0199a9bb-2a06-73c4-894d-c30f181b5c37",
-              "0199a9bb-2d6b-771c-88b1-765ef3db2ff3",
+              "0199296d-0c78-772f-aad6-cccd04838ea6",
+              "0199296d-108e-7491-89ce-0adf3018317c",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5196,13 +5196,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d6f-725e-b211-6e3fa93328a7",
-          opprettet: "2025-10-03T13:00:40.431356",
+          id: "0199296d-1091-718f-932c-c0dfb8ba85bd",
+          opprettet: "2025-09-08T15:03:57.585371",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -5210,11 +5210,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Substraksjon",
             },
             opplysninger: [
-              "0199a9bb-2a05-70df-8d8b-03c3e66bbb2d",
-              "0199a9bb-2d6d-7380-8eec-98ecf90b594f",
+              "0199296d-0c77-7ee1-8a7c-862b946cf0fc",
+              "0199296d-1090-78f1-813f-5f2053d66518",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5229,11 +5227,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d70-7144-8147-a04ae61a565e",
-          opprettet: "2025-10-03T13:00:40.432329",
+          id: "0199296d-1092-70e5-b304-cd81e14ba894",
+          opprettet: "2025-09-08T15:03:57.586711",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5243,11 +5241,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-2a00-7558-ab9d-dde25944a78b",
-              "0199a9bb-2d6f-725e-b211-6e3fa93328a7",
+              "0199296d-0c70-73b5-8ea3-a4ac8ee7ed16",
+              "0199296d-1091-718f-932c-c0dfb8ba85bd",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5262,13 +5258,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d70-7144-8147-a04ae61a565f",
-          opprettet: "2025-10-03T13:00:40.432466",
+          id: "0199296d-1092-70e5-b304-cd81e14ba895",
+          opprettet: "2025-09-08T15:03:57.586876",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -5276,11 +5272,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Substraksjon",
             },
             opplysninger: [
-              "0199a9bb-2a00-7558-ab9d-dde25944a78b",
-              "0199a9bb-2d6f-725e-b211-6e3fa93328a7",
+              "0199296d-0c70-73b5-8ea3-a4ac8ee7ed16",
+              "0199296d-1091-718f-932c-c0dfb8ba85bd",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5295,11 +5289,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-2d71-7347-a54e-64a5897d8ae5",
-          opprettet: "2025-10-03T13:00:40.433827",
+          id: "0199296d-1094-743c-8d61-3f6cefe30a8b",
+          opprettet: "2025-09-08T15:03:57.588059",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5309,11 +5303,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-2d6b-771c-88b1-765ef3db2ff4",
-              "0199a9bb-2d70-7144-8147-a04ae61a565e",
+              "0199296d-108e-7491-89ce-0adf3018317d",
+              "0199296d-1092-70e5-b304-cd81e14ba894",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5328,22 +5320,22 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bc-7c78-af8e-c68ea2a01392",
-          opprettet: "2025-10-03T13:00:57.660236",
+          id: "0199296d-466b-7036-ae29-1ce9c016dc23",
+          opprettet: "2025-09-08T15:04:11.371413",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-01",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "Saksbehandler",
-            registrert: "2025-10-03T13:00:57.590818",
-            ident: "Z990310",
+            registrert: "2025-09-08T15:04:11.310602",
+            ident: "Z994794",
             begrunnelse: {
-              verdi: "ok",
-              sistEndret: "2025-10-03T13:00:57.590802",
+              verdi: "aewf",
+              sistEndret: "2025-09-08T15:04:11.310583",
             },
           },
         },
@@ -5359,11 +5351,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec7214c",
-          opprettet: "2025-10-03T13:00:57.662194",
+          id: "0199296d-466e-7a82-8a04-1248ff2ca5be",
+          opprettet: "2025-09-08T15:04:11.374197",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5373,11 +5365,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnn",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca590",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a99",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5392,11 +5382,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec7214d",
-          opprettet: "2025-10-03T13:00:57.662268",
+          id: "0199296d-466e-7a82-8a04-1248ff2ca5bf",
+          opprettet: "2025-09-08T15:04:11.374317",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5406,11 +5396,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnn",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca591",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9a",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5425,11 +5413,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec7214e",
-          opprettet: "2025-10-03T13:00:57.662323",
+          id: "0199296d-466e-7a82-8a04-1248ff2ca5c0",
+          opprettet: "2025-09-08T15:04:11.374379",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5439,11 +5427,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnn",
             },
             opplysninger: [
-              "0199a9bb-29fe-7907-ab80-8b8c276a7114",
-              "0199a9bb-29ff-7ae3-b07a-0ddde0fca592",
+              "0199296d-0c6b-72aa-b446-6ca469e76b91",
+              "0199296d-0c6e-7c53-9107-f21ecff65a9b",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5458,11 +5444,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec7214f",
-          opprettet: "2025-10-03T13:00:57.662379",
+          id: "0199296d-466e-7a82-8a04-1248ff2ca5c1",
+          opprettet: "2025-09-08T15:04:11.374453",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: "Inntekt etter avkortning og oppjustering siste 12 måneder",
             datatype: "tekst",
@@ -5471,9 +5457,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Brukt",
             },
-            opplysninger: ["0199a9bb-2a02-7a57-9789-ef234a524f84"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c73-7524-8349-71e74ad9674a"],
           },
         },
       ],
@@ -5488,22 +5472,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72150",
-          opprettet: "2025-10-03T13:00:57.662548",
+          id: "0199296d-466e-7a82-8a04-1248ff2ca5c2",
+          opprettet: "2025-09-08T15:04:11.374873",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 300000,
+            verdi: 499995,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fb-7e98-889f-9b02d292497d"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c67-7240-893c-01eff22cd723"],
           },
         },
       ],
@@ -5518,22 +5500,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72151",
-          opprettet: "2025-10-03T13:00:57.662693",
+          id: "0199296d-466f-71d5-929b-421c2561af2f",
+          opprettet: "2025-09-08T15:04:11.375169",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 300000,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fb-7e98-889f-9b02d292497d"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c67-7240-893c-01eff22cd723"],
           },
         },
       ],
@@ -5548,22 +5528,20 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72152",
-          opprettet: "2025-10-03T13:00:57.662784",
+          id: "0199296d-466f-71d5-929b-421c2561af30",
+          opprettet: "2025-09-08T15:04:11.375372",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 250000,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["0199a9bb-29fb-7e98-889f-9b02d292497d"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0c67-7240-893c-01eff22cd723"],
           },
         },
       ],
@@ -5578,11 +5556,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72153",
-          opprettet: "2025-10-03T13:00:57.662836",
+          id: "0199296d-466f-71d5-929b-421c2561af31",
+          opprettet: "2025-09-08T15:04:11.375423",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 5,
             datatype: "heltall",
@@ -5591,9 +5569,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5608,11 +5584,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72154",
-          opprettet: "2025-10-03T13:00:57.662916",
+          id: "0199296d-466f-71d5-929b-421c2561af32",
+          opprettet: "2025-09-08T15:04:11.375467",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0.03,
             datatype: "desimaltall",
@@ -5621,9 +5597,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5638,8 +5612,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70be-71f6-b988-0de02ec72155",
-          opprettet: "2025-10-03T13:00:57.662997",
+          id: "0199296d-466f-71d5-929b-421c2561af33",
+          opprettet: "2025-09-08T15:04:11.375533",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5659,8 +5633,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca3b",
-          opprettet: "2025-10-03T13:00:57.663041",
+          id: "0199296d-466f-71d5-929b-421c2561af34",
+          opprettet: "2025-09-08T15:04:11.375571",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5680,8 +5654,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca3c",
-          opprettet: "2025-10-03T13:00:57.663083",
+          id: "0199296d-466f-71d5-929b-421c2561af35",
+          opprettet: "2025-09-08T15:04:11.375606",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5701,8 +5675,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca3d",
-          opprettet: "2025-10-03T13:00:57.66312",
+          id: "0199296d-466f-71d5-929b-421c2561af36",
+          opprettet: "2025-09-08T15:04:11.375642",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5722,8 +5696,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca3e",
-          opprettet: "2025-10-03T13:00:57.663159",
+          id: "0199296d-466f-71d5-929b-421c2561af37",
+          opprettet: "2025-09-08T15:04:11.375677",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5743,8 +5717,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca3f",
-          opprettet: "2025-10-03T13:00:57.663197",
+          id: "0199296d-466f-71d5-929b-421c2561af38",
+          opprettet: "2025-09-08T15:04:11.375712",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5764,11 +5738,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca40",
-          opprettet: "2025-10-03T13:00:57.663245",
+          id: "0199296d-466f-71d5-929b-421c2561af39",
+          opprettet: "2025-09-08T15:04:11.375755",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 2,
             datatype: "desimaltall",
@@ -5777,9 +5751,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5794,11 +5766,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca41",
-          opprettet: "2025-10-03T13:00:57.663289",
+          id: "0199296d-466f-71d5-929b-421c2561af3a",
+          opprettet: "2025-09-08T15:04:11.375795",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 104,
             datatype: "heltall",
@@ -5807,9 +5779,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5824,11 +5794,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca42",
-          opprettet: "2025-10-03T13:00:57.663331",
+          id: "0199296d-466f-71d5-929b-421c2561af3b",
+          opprettet: "2025-09-08T15:04:11.375834",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 52,
             datatype: "heltall",
@@ -5837,9 +5807,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5854,13 +5822,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca43",
-          opprettet: "2025-10-03T13:00:57.663485",
+          id: "0199296d-4670-7b45-84d0-1835440374d5",
+          opprettet: "2025-09-08T15:04:11.376002",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 283333.3333333333,
+            verdi: 166665,
             datatype: "penger",
           },
           utledetAv: {
@@ -5868,11 +5836,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Divisjon",
             },
             opplysninger: [
-              "0199a9bb-29fa-7437-9b2d-bb8498dc4f18",
-              "0199a9bb-29fc-7f91-bebd-1022811c9388",
+              "0199296d-0c65-7771-9eda-1eb82401b677",
+              "0199296d-0c67-7240-893c-01eff22cd725",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -5887,11 +5853,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca44",
-          opprettet: "2025-10-03T13:00:57.663537",
+          id: "0199296d-4670-7b45-84d0-1835440374d6",
+          opprettet: "2025-09-08T15:04:11.376098",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 2,
             datatype: "desimaltall",
@@ -5900,9 +5866,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5917,11 +5881,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca45",
-          opprettet: "2025-10-03T13:00:57.663582",
+          id: "0199296d-4670-7b45-84d0-1835440374d7",
+          opprettet: "2025-09-08T15:04:11.376161",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 0,
             datatype: "heltall",
@@ -5930,9 +5894,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5947,11 +5909,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca46",
-          opprettet: "2025-10-03T13:00:57.66363",
+          id: "0199296d-4670-7b45-84d0-1835440374d8",
+          opprettet: "2025-09-08T15:04:11.376219",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 5,
             datatype: "heltall",
@@ -5960,9 +5922,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -5977,8 +5937,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca47",
-          opprettet: "2025-10-03T13:00:57.663672",
+          id: "0199296d-4670-7b45-84d0-1835440374d9",
+          opprettet: "2025-09-08T15:04:11.37629",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -5998,11 +5958,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca48",
-          opprettet: "2025-10-03T13:00:57.663717",
+          id: "0199296d-4670-7b45-84d0-1835440374da",
+          opprettet: "2025-09-08T15:04:11.37635",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 3,
             datatype: "desimaltall",
@@ -6011,9 +5971,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -6028,8 +5986,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca49",
-          opprettet: "2025-10-03T13:00:57.663757",
+          id: "0199296d-4670-7b45-84d0-1835440374db",
+          opprettet: "2025-09-08T15:04:11.376402",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6049,8 +6007,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca4a",
-          opprettet: "2025-10-03T13:00:57.663801",
+          id: "0199296d-4670-7b45-84d0-1835440374dc",
+          opprettet: "2025-09-08T15:04:11.376449",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6070,8 +6028,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca4b",
-          opprettet: "2025-10-03T13:00:57.663842",
+          id: "0199296d-4670-7b45-84d0-1835440374dd",
+          opprettet: "2025-09-08T15:04:11.376515",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6091,8 +6049,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca4c",
-          opprettet: "2025-10-03T13:00:57.663892",
+          id: "0199296d-4670-7b45-84d0-1835440374de",
+          opprettet: "2025-09-08T15:04:11.376571",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6112,8 +6070,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70bf-7add-9b49-3216e8dbca4d",
-          opprettet: "2025-10-03T13:00:57.663973",
+          id: "0199296d-4670-7b45-84d0-1835440374df",
+          opprettet: "2025-09-08T15:04:11.37661",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6133,8 +6091,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c0-7ec6-adeb-1a944a73071f",
-          opprettet: "2025-10-03T13:00:57.664017",
+          id: "0199296d-4670-7b45-84d0-1835440374e0",
+          opprettet: "2025-09-08T15:04:11.376658",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6154,11 +6112,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c0-7ec6-adeb-1a944a730720",
-          opprettet: "2025-10-03T13:00:57.664069",
+          id: "0199296d-4670-7b45-84d0-1835440374e1",
+          opprettet: "2025-09-08T15:04:11.376709",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 26,
             datatype: "heltall",
@@ -6167,9 +6125,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["0199a9bb-289c-712c-9672-a445ca4fac1a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
+            opplysninger: ["0199296d-0872-7a76-b9d1-84c534c8f23a"],
           },
         },
       ],
@@ -6184,11 +6140,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447c6",
-          opprettet: "2025-10-03T13:00:57.665125",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e61",
+          opprettet: "2025-09-08T15:04:11.378438",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6198,12 +6154,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-70be-71f6-b988-0de02ec7214c",
-              "0199a9bb-70be-71f6-b988-0de02ec7214d",
-              "0199a9bb-70be-71f6-b988-0de02ec7214e",
+              "0199296d-466e-7a82-8a04-1248ff2ca5be",
+              "0199296d-466e-7a82-8a04-1248ff2ca5bf",
+              "0199296d-466e-7a82-8a04-1248ff2ca5c0",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6218,13 +6172,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447c7",
-          opprettet: "2025-10-03T13:00:57.665217",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e62",
+          opprettet: "2025-09-08T15:04:11.378575",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 6295,
             datatype: "penger",
           },
           utledetAv: {
@@ -6232,11 +6186,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-2d70-7144-8147-a04ae61a565f",
-              "0199a9bb-70be-71f6-b988-0de02ec72153",
+              "0199296d-1092-70e5-b304-cd81e14ba895",
+              "0199296d-466f-71d5-929b-421c2561af31",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6251,11 +6203,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447c8",
-          opprettet: "2025-10-03T13:00:57.665282",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e63",
+          opprettet: "2025-09-08T15:04:11.378694",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 3904.8,
             datatype: "penger",
@@ -6265,11 +6217,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d292497c",
-              "0199a9bb-70be-71f6-b988-0de02ec72154",
+              "0199296d-0c67-7240-893c-01eff22cd722",
+              "0199296d-466f-71d5-929b-421c2561af32",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6284,8 +6234,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447c9",
-          opprettet: "2025-10-03T13:00:57.665426",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e64",
+          opprettet: "2025-09-08T15:04:11.378816",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6297,15 +6247,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "SumAv",
             },
             opplysninger: [
-              "0199a9bb-70be-71f6-b988-0de02ec72155",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca3b",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca3c",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca3d",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca3e",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca3f",
+              "0199296d-466f-71d5-929b-421c2561af33",
+              "0199296d-466f-71d5-929b-421c2561af34",
+              "0199296d-466f-71d5-929b-421c2561af35",
+              "0199296d-466f-71d5-929b-421c2561af36",
+              "0199296d-466f-71d5-929b-421c2561af37",
+              "0199296d-466f-71d5-929b-421c2561af38",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6320,13 +6268,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Legacy",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447ca",
-          opprettet: "2025-10-03T13:00:57.665496",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e65",
+          opprettet: "2025-09-08T15:04:11.378878",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 6295,
             datatype: "penger",
           },
           utledetAv: {
@@ -6334,11 +6282,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-2d6b-771c-88b1-765ef3db2ff3",
-              "0199a9bb-70be-71f6-b988-0de02ec72153",
+              "0199296d-108e-7491-89ce-0adf3018317c",
+              "0199296d-466f-71d5-929b-421c2561af31",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6353,11 +6299,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447cb",
-          opprettet: "2025-10-03T13:00:57.665554",
+          id: "0199296d-4672-724f-83d6-a678ab9a9e66",
+          opprettet: "2025-09-08T15:04:11.378961",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 260320,
             datatype: "penger",
@@ -6367,11 +6313,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-28a4-744f-8735-23c60dacb1ce",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca40",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5a",
+              "0199296d-466f-71d5-929b-421c2561af39",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6386,11 +6330,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c1-77a1-8690-3b5a585447cc",
-          opprettet: "2025-10-03T13:00:57.66561",
+          id: "0199296d-4673-7d1d-bf0f-e09d3c57fd1d",
+          opprettet: "2025-09-08T15:04:11.37908",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 260320,
             datatype: "penger",
@@ -6400,11 +6344,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-28a4-744f-8735-23c60dacb1ce",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca44",
+              "0199296d-08b0-7211-9ddc-cc5164bd8e5a",
+              "0199296d-4670-7b45-84d0-1835440374d6",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6419,13 +6361,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c2-7dd4-aaaa-264c05f91897",
-          opprettet: "2025-10-03T13:00:57.666613",
+          id: "0199296d-4674-71f0-90f9-8b875f9b0e15",
+          opprettet: "2025-09-08T15:04:11.380816",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 3904.8,
             datatype: "penger",
           },
           utledetAv: {
@@ -6433,11 +6375,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-70c1-77a1-8690-3b5a585447c7",
-              "0199a9bb-70c1-77a1-8690-3b5a585447c8",
+              "0199296d-4672-724f-83d6-a678ab9a9e62",
+              "0199296d-4672-724f-83d6-a678ab9a9e63",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6452,13 +6392,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c2-7dd4-aaaa-264c05f91898",
-          opprettet: "2025-10-03T13:00:57.666721",
+          id: "0199296d-4674-71f0-90f9-8b875f9b0e16",
+          opprettet: "2025-09-08T15:04:11.38098",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 6295,
             datatype: "penger",
           },
           utledetAv: {
@@ -6466,11 +6406,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Substraksjon",
             },
             opplysninger: [
-              "0199a9bb-70c1-77a1-8690-3b5a585447c7",
-              "0199a9bb-70c1-77a1-8690-3b5a585447c9",
+              "0199296d-4672-724f-83d6-a678ab9a9e62",
+              "0199296d-4672-724f-83d6-a678ab9a9e64",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6485,11 +6423,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c2-7dd4-aaaa-264c05f91899",
-          opprettet: "2025-10-03T13:00:57.666777",
+          id: "0199296d-4675-7aef-a423-b09c34f1030c",
+          opprettet: "2025-09-08T15:04:11.381098",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -6499,11 +6437,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-29fa-7437-9b2d-bb8498dc4f17",
-              "0199a9bb-70c1-77a1-8690-3b5a585447cb",
+              "0199296d-0c65-7771-9eda-1eb82401b676",
+              "0199296d-4672-724f-83d6-a678ab9a9e66",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6518,13 +6454,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c2-7dd4-aaaa-264c05f9189a",
-          opprettet: "2025-10-03T13:00:57.666835",
+          id: "0199296d-4675-7aef-a423-b09c34f1030d",
+          opprettet: "2025-09-08T15:04:11.381176",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -6532,11 +6468,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca43",
-              "0199a9bb-70c1-77a1-8690-3b5a585447cc",
+              "0199296d-4670-7b45-84d0-1835440374d5",
+              "0199296d-4673-7d1d-bf0f-e09d3c57fd1d",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6551,13 +6485,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c3-7328-b5e3-e6a04f182f18",
-          opprettet: "2025-10-03T13:00:57.66795",
+          id: "0199296d-4676-770d-b2f6-64550436a06e",
+          opprettet: "2025-09-08T15:04:11.382925",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 6295,
             datatype: "penger",
           },
           utledetAv: {
@@ -6565,11 +6499,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "0199a9bb-70c2-7dd4-aaaa-264c05f91897",
-              "0199a9bb-70c2-7dd4-aaaa-264c05f91898",
+              "0199296d-4674-71f0-90f9-8b875f9b0e15",
+              "0199296d-4674-71f0-90f9-8b875f9b0e16",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6584,11 +6516,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c4-7080-ae9c-2d87d9d6d9c0",
-          opprettet: "2025-10-03T13:00:57.668088",
+          id: "0199296d-4677-799c-9b8c-d305462d64f4",
+          opprettet: "2025-09-08T15:04:11.38305",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 104,
             datatype: "heltall",
@@ -6598,12 +6530,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca41",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca42",
-              "0199a9bb-70c2-7dd4-aaaa-264c05f91899",
+              "0199296d-466f-71d5-929b-421c2561af3a",
+              "0199296d-466f-71d5-929b-421c2561af3b",
+              "0199296d-4675-7aef-a423-b09c34f1030c",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6618,13 +6548,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c4-7080-ae9c-2d87d9d6d9c1",
-          opprettet: "2025-10-03T13:00:57.668178",
+          id: "0199296d-4677-799c-9b8c-d305462d64f5",
+          opprettet: "2025-09-08T15:04:11.383121",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 104,
+            verdi: 52,
             datatype: "heltall",
           },
           utledetAv: {
@@ -6632,12 +6562,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca41",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca42",
-              "0199a9bb-70c2-7dd4-aaaa-264c05f9189a",
+              "0199296d-466f-71d5-929b-421c2561af3a",
+              "0199296d-466f-71d5-929b-421c2561af3b",
+              "0199296d-4675-7aef-a423-b09c34f1030d",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6652,13 +6580,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c5-7f0a-bfe4-7277031fcbd3",
-          opprettet: "2025-10-03T13:00:57.6692",
+          id: "0199296d-4678-7d97-98b8-a2fa9cce52ca",
+          opprettet: "2025-09-08T15:04:11.384909",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -6666,11 +6594,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Divisjon",
             },
             opplysninger: [
-              "0199a9bb-70be-71f6-b988-0de02ec72153",
-              "0199a9bb-70c3-7328-b5e3-e6a04f182f18",
+              "0199296d-466f-71d5-929b-421c2561af31",
+              "0199296d-4676-770d-b2f6-64550436a06e",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6685,11 +6611,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c5-7f0a-bfe4-7277031fcbd4",
-          opprettet: "2025-10-03T13:00:57.669294",
+          id: "0199296d-4678-7d97-98b8-a2fa9cce52cb",
+          opprettet: "2025-09-08T15:04:11.384995",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 104,
             datatype: "heltall",
@@ -6699,11 +6625,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "0199a9bb-70c4-7080-ae9c-2d87d9d6d9c0",
-              "0199a9bb-70c4-7080-ae9c-2d87d9d6d9c1",
+              "0199296d-4677-799c-9b8c-d305462d64f4",
+              "0199296d-4677-799c-9b8c-d305462d64f5",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6718,13 +6642,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c6-7a3f-8244-835b0a6cd91f",
-          opprettet: "2025-10-03T13:00:57.670403",
+          id: "0199296d-467a-7074-86d2-020dbc2664f9",
+          opprettet: "2025-09-08T15:04:11.386681",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -6732,11 +6656,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Addisjon",
             },
             opplysninger: [
-              "0199a9bb-2d6b-771c-88b1-765ef3db2fee",
-              "0199a9bb-70c5-7f0a-bfe4-7277031fcbd3",
+              "0199296d-108c-7753-a08b-8bc370b2f45a",
+              "0199296d-4678-7d97-98b8-a2fa9cce52ca",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6751,11 +6673,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c6-7a3f-8244-835b0a6cd920",
-          opprettet: "2025-10-03T13:00:57.670478",
+          id: "0199296d-467a-7074-86d2-020dbc2664fa",
+          opprettet: "2025-09-08T15:04:11.38678",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6765,11 +6687,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "ErUlik",
             },
             opplysninger: [
-              "0199a9bb-2d6f-725e-b211-6e3fa93328a7",
-              "0199a9bb-70c5-7f0a-bfe4-7277031fcbd3",
+              "0199296d-1091-718f-932c-c0dfb8ba85bd",
+              "0199296d-4678-7d97-98b8-a2fa9cce52ca",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6784,11 +6704,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c6-7a3f-8244-835b0a6cd921",
-          opprettet: "2025-10-03T13:00:57.670542",
+          id: "0199296d-467a-7074-86d2-020dbc2664fb",
+          opprettet: "2025-09-08T15:04:11.38686",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 104,
             datatype: "heltall",
@@ -6798,12 +6718,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9bb-29fb-7e98-889f-9b02d2924977",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca45",
-              "0199a9bb-70c5-7f0a-bfe4-7277031fcbd4",
+              "0199296d-0c66-7bd7-8749-f56aaa64ab93",
+              "0199296d-4670-7b45-84d0-1835440374d7",
+              "0199296d-4678-7d97-98b8-a2fa9cce52cb",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6818,11 +6736,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c6-7a3f-8244-835b0a6cd922",
-          opprettet: "2025-10-03T13:00:57.670606",
+          id: "0199296d-467a-7074-86d2-020dbc2664fc",
+          opprettet: "2025-09-08T15:04:11.386926",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: 520,
             datatype: "heltall",
@@ -6832,11 +6750,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca46",
-              "0199a9bb-70c5-7f0a-bfe4-7277031fcbd4",
+              "0199296d-4670-7b45-84d0-1835440374d8",
+              "0199296d-4678-7d97-98b8-a2fa9cce52cb",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6851,13 +6767,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c7-7dd7-b2d0-ed05f8c03e82",
-          opprettet: "2025-10-03T13:00:57.671702",
+          id: "0199296d-467c-7f4b-b8d8-8ff3c91833ad",
+          opprettet: "2025-09-08T15:04:11.388484",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 744,
+            verdi: 1259,
             datatype: "penger",
           },
           utledetAv: {
@@ -6865,11 +6781,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "MinstAv",
             },
             opplysninger: [
-              "0199a9bb-2a06-73c4-894d-c30f181b5c37",
-              "0199a9bb-70c6-7a3f-8244-835b0a6cd91f",
+              "0199296d-0c78-772f-aad6-cccd04838ea6",
+              "0199296d-467a-7074-86d2-020dbc2664f9",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6884,13 +6798,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Legacy",
       perioder: [
         {
-          id: "0199a9bb-70c8-76bf-bbcc-7188e3d61c07",
-          opprettet: "2025-10-03T13:00:57.672825",
+          id: "0199296d-467e-712e-a160-c4881190131f",
+          opprettet: "2025-09-08T15:04:11.390098",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 3720,
+            verdi: 6295,
             datatype: "penger",
           },
           utledetAv: {
@@ -6898,11 +6812,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-70be-71f6-b988-0de02ec72153",
-              "0199a9bb-70c7-7dd7-b2d0-ed05f8c03e82",
+              "0199296d-466f-71d5-929b-421c2561af31",
+              "0199296d-467c-7f4b-b8d8-8ff3c91833ad",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6917,13 +6829,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c8-76bf-bbcc-7188e3d61c08",
-          opprettet: "2025-10-03T13:00:57.672951",
+          id: "0199296d-467e-712e-a160-c48811901320",
+          opprettet: "2025-09-08T15:04:11.390416",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 2232,
+            verdi: 3777,
             datatype: "penger",
           },
           utledetAv: {
@@ -6931,11 +6843,9 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca48",
-              "0199a9bb-70c7-7dd7-b2d0-ed05f8c03e82",
+              "0199296d-4670-7b45-84d0-1835440374da",
+              "0199296d-467c-7f4b-b8d8-8ff3c91833ad",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6950,13 +6860,13 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-70c9-76ac-a58d-8026b16ab5ea",
-          opprettet: "2025-10-03T13:00:57.67394",
+          id: "0199296d-4680-7d2b-badc-25ab06776be1",
+          opprettet: "2025-09-08T15:04:11.392795",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
-            verdi: 2232,
+            verdi: 3777,
             datatype: "penger",
           },
           utledetAv: {
@@ -6964,12 +6874,10 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "0199a9ab-c0eb-7571-9cea-6e4100c240f7",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca47",
-              "0199a9bb-70c8-76bf-bbcc-7188e3d61c08",
+              "0199296a-4d42-7174-b209-15767a261c77",
+              "0199296d-4670-7b45-84d0-1835440374d9",
+              "0199296d-467e-712e-a160-c48811901320",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -6984,8 +6892,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-7213-7b07-966c-5baf3b36b032",
-          opprettet: "2025-10-03T13:00:58.003657",
+          id: "0199296d-47cc-704a-8ae3-2f8cc3aeacc3",
+          opprettet: "2025-09-08T15:04:11.724919",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -6994,8 +6902,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-03T13:00:57.940024",
-            meldingId: "46e45eb1-b834-4519-b382-69e7a1bcbe5e",
+            registrert: "2025-09-08T15:04:11.671123",
+            meldingId: "8ce2371f-50ec-496f-8f56-104fdd19b051",
           },
         },
       ],
@@ -7010,8 +6918,8 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bb-7215-702d-8bd6-d4e2342e44de",
-          opprettet: "2025-10-03T13:00:58.005594",
+          id: "0199296d-47cf-7f05-813f-04725d6bbbaa",
+          opprettet: "2025-09-08T15:04:11.727445",
           status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
@@ -7023,16 +6931,14 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
               navn: "EnAv",
             },
             opplysninger: [
-              "0199a9bb-70bf-7add-9b49-3216e8dbca49",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca4a",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca4b",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca4c",
-              "0199a9bb-70bf-7add-9b49-3216e8dbca4d",
-              "0199a9bb-70c0-7ec6-adeb-1a944a73071f",
-              "0199a9bb-7213-7b07-966c-5baf3b36b032",
+              "0199296d-4670-7b45-84d0-1835440374db",
+              "0199296d-4670-7b45-84d0-1835440374dc",
+              "0199296d-4670-7b45-84d0-1835440374dd",
+              "0199296d-4670-7b45-84d0-1835440374de",
+              "0199296d-4670-7b45-84d0-1835440374df",
+              "0199296d-4670-7b45-84d0-1835440374e0",
+              "0199296d-47cc-704a-8ae3-2f8cc3aeacc3",
             ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.10.01-12.54-1557a52",
           },
         },
       ],
@@ -7047,11 +6953,11 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199a9bc-1dd2-7ca5-9a7f-98682c423a88",
-          opprettet: "2025-10-03T13:01:41.970313",
+          id: "0199296d-7068-7aaf-af9c-76e4e2171bfa",
+          opprettet: "2025-09-08T15:04:22.120507",
           status: "Arvet",
           opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -7069,21 +6975,21 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199b8b8-4f28-7926-bfac-4459a0ebb34c",
-          opprettet: "2025-10-06T10:51:50.696947",
+          id: "0199298c-ec58-7857-b1a8-c4a5d3df3495",
+          opprettet: "2025-09-08T15:38:45.46499",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
-            fom: "2025-09-22",
-            tom: "2025-10-05",
+            fom: "2025-06-02",
+            tom: "2025-06-15",
             datatype: "periode",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
       ],
@@ -7098,241 +7004,241 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9dd",
-          opprettet: "2025-10-06T10:51:50.697101",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d754",
+          opprettet: "2025-09-08T15:38:45.468573",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e0",
-          opprettet: "2025-10-06T10:51:50.69711",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d757",
+          opprettet: "2025-09-08T15:38:45.468659",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e3",
-          opprettet: "2025-10-06T10:51:50.697121",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75a",
+          opprettet: "2025-09-08T15:38:45.46868",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e6",
-          opprettet: "2025-10-06T10:51:50.697125",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75d",
+          opprettet: "2025-09-08T15:38:45.468697",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e9",
-          opprettet: "2025-10-06T10:51:50.697131",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d760",
+          opprettet: "2025-09-08T15:38:45.468712",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ec",
-          opprettet: "2025-10-06T10:51:50.697137",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d763",
+          opprettet: "2025-09-08T15:38:45.468726",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ef",
-          opprettet: "2025-10-06T10:51:50.69714",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d766",
+          opprettet: "2025-09-08T15:38:45.46874",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f2",
-          opprettet: "2025-10-06T10:51:50.697143",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d769",
+          opprettet: "2025-09-08T15:38:45.468753",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f5",
-          opprettet: "2025-10-06T10:51:50.697146",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76c",
+          opprettet: "2025-09-08T15:38:45.468767",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f8",
-          opprettet: "2025-10-06T10:51:50.697149",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76f",
+          opprettet: "2025-09-08T15:38:45.46878",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9fb",
-          opprettet: "2025-10-06T10:51:50.697152",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d772",
+          opprettet: "2025-09-08T15:38:45.468794",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9fe",
-          opprettet: "2025-10-06T10:51:50.697155",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d775",
+          opprettet: "2025-09-08T15:38:45.468812",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba01",
-          opprettet: "2025-10-06T10:51:50.697158",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d778",
+          opprettet: "2025-09-08T15:38:45.468831",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba04",
-          opprettet: "2025-10-06T10:51:50.697161",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d77b",
+          opprettet: "2025-09-08T15:38:45.468845",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
       ],
@@ -7347,241 +7253,241 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9de",
-          opprettet: "2025-10-06T10:51:50.697106",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d755",
+          opprettet: "2025-09-08T15:38:45.468613",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e1",
-          opprettet: "2025-10-06T10:51:50.69711",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d758",
+          opprettet: "2025-09-08T15:38:45.468667",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e4",
-          opprettet: "2025-10-06T10:51:50.697122",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75b",
+          opprettet: "2025-09-08T15:38:45.468685",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e7",
-          opprettet: "2025-10-06T10:51:50.697125",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75e",
+          opprettet: "2025-09-08T15:38:45.468701",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ea",
-          opprettet: "2025-10-06T10:51:50.697135",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d761",
+          opprettet: "2025-09-08T15:38:45.468716",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ed",
-          opprettet: "2025-10-06T10:51:50.697138",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d764",
+          opprettet: "2025-09-08T15:38:45.468731",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f0",
-          opprettet: "2025-10-06T10:51:50.697141",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d767",
+          opprettet: "2025-09-08T15:38:45.468744",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f3",
-          opprettet: "2025-10-06T10:51:50.697144",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76a",
+          opprettet: "2025-09-08T15:38:45.468757",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f6",
-          opprettet: "2025-10-06T10:51:50.697147",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76d",
+          opprettet: "2025-09-08T15:38:45.468771",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f9",
-          opprettet: "2025-10-06T10:51:50.69715",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d770",
+          opprettet: "2025-09-08T15:38:45.468784",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9fc",
-          opprettet: "2025-10-06T10:51:50.697153",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d773",
+          opprettet: "2025-09-08T15:38:45.468802",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ff",
-          opprettet: "2025-10-06T10:51:50.697156",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d776",
+          opprettet: "2025-09-08T15:38:45.46882",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba02",
-          opprettet: "2025-10-06T10:51:50.697159",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d779",
+          opprettet: "2025-09-08T15:38:45.468835",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba05",
-          opprettet: "2025-10-06T10:51:50.697162",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d77c",
+          opprettet: "2025-09-08T15:38:45.468849",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
             verdi: 0,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
       ],
@@ -7596,333 +7502,241 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9df",
-          opprettet: "2025-10-06T10:51:50.697107",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d756",
+          opprettet: "2025-09-08T15:38:45.468625",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e2",
-          opprettet: "2025-10-06T10:51:50.697115",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d759",
+          opprettet: "2025-09-08T15:38:45.468672",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e5",
-          opprettet: "2025-10-06T10:51:50.697123",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75c",
+          opprettet: "2025-09-08T15:38:45.46869",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9e8",
-          opprettet: "2025-10-06T10:51:50.697126",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d75f",
+          opprettet: "2025-09-08T15:38:45.468706",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9eb",
-          opprettet: "2025-10-06T10:51:50.697135",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d762",
+          opprettet: "2025-09-08T15:38:45.468721",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9ee",
-          opprettet: "2025-10-06T10:51:50.697138",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d765",
+          opprettet: "2025-09-08T15:38:45.468735",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f1",
-          opprettet: "2025-10-06T10:51:50.697141",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d768",
+          opprettet: "2025-09-08T15:38:45.468748",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f4",
-          opprettet: "2025-10-06T10:51:50.697144",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76b",
+          opprettet: "2025-09-08T15:38:45.468761",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9f7",
-          opprettet: "2025-10-06T10:51:50.697147",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d76e",
+          opprettet: "2025-09-08T15:38:45.468775",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9fa",
-          opprettet: "2025-10-06T10:51:50.69715",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d771",
+          opprettet: "2025-09-08T15:38:45.468788",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2b9fd",
-          opprettet: "2025-10-06T10:51:50.697153",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d774",
+          opprettet: "2025-09-08T15:38:45.468807",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba00",
-          opprettet: "2025-10-06T10:51:50.697156",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d777",
+          opprettet: "2025-09-08T15:38:45.468824",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba03",
-          opprettet: "2025-10-06T10:51:50.697159",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d77a",
+          opprettet: "2025-09-08T15:38:45.468839",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
         {
-          id: "0199b8b8-4f29-7a05-ad6a-064096c2ba06",
-          opprettet: "2025-10-06T10:51:50.697162",
+          id: "0199298c-ec5c-78bb-8389-2ead1cb1d77d",
+          opprettet: "2025-09-08T15:38:45.468853",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-10-06T10:51:50.696832",
-            meldingId: "795d6978-7f33-46fe-a0e7-6f88933eb427",
-          },
-        },
-      ],
-    },
-    {
-      opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
-      navn: "Forbrukt egenandel",
-      datatype: "penger",
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-      perioder: [
-        {
-          id: "0199c8db-3b5d-71a3-bdcf-5875c929371f",
-          opprettet: "2025-10-09T14:03:54.845975",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-      ],
-    },
-    {
-      opplysningTypeId: "01994cfd-9a27-762e-81fa-61f550467c95",
-      navn: "Penger som skal utbetales for perioden",
-      datatype: "penger",
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-      perioder: [
-        {
-          id: "0199c8db-3b5e-7012-a8b1-0d2ebcd84f9a",
-          opprettet: "2025-10-09T14:03:54.846252",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 744,
-            datatype: "penger",
-          },
-        },
-      ],
-    },
-    {
-      opplysningTypeId: "01997b70-a12c-7622-bff8-82a20687e640",
-      navn: "Gjenstående egenandel",
-      datatype: "penger",
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-      perioder: [
-        {
-          id: "0199c8db-3b5e-7012-a8b1-0d2ebcd84f9b",
-          opprettet: "2025-10-09T14:03:54.846616",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-      ],
-    },
-    {
-      opplysningTypeId: "01997b70-6e6e-702a-a296-18ae5fb9621d",
-      navn: "Oppfyller kravet til tapt arbeidstid i perioden",
-      datatype: "boolsk",
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-      perioder: [
-        {
-          id: "0199c8db-3b5e-7012-a8b1-0d2ebcd84f9c",
-          opprettet: "2025-10-09T14:03:54.846815",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
+            registrert: "2025-09-08T15:38:45.463409",
+            meldingId: "1cba30c5-1919-48f7-9fa6-2c1688949245",
           },
         },
       ],
@@ -7937,168 +7751,168 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8db-3b5e-7012-a8b1-0d2ebcd84f9d",
-          opprettet: "2025-10-09T14:03:54.846979",
+          id: "0199298c-ecc1-78e2-ae16-22f11d51781d",
+          opprettet: "2025-09-08T15:38:45.56928",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b5f-7d16-ace6-ce70915b1cd3",
-          opprettet: "2025-10-09T14:03:54.847397",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b5f-7d16-ace6-ce70915b1cd5",
-          opprettet: "2025-10-09T14:03:54.847944",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09763",
-          opprettet: "2025-10-09T14:03:54.848253",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09765",
-          opprettet: "2025-10-09T14:03:54.848676",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09767",
-          opprettet: "2025-10-09T14:03:54.848987",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b61-7f99-8105-c426e7920bf1",
-          opprettet: "2025-10-09T14:03:54.849486",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b61-7f99-8105-c426e7920bf3",
-          opprettet: "2025-10-09T14:03:54.849836",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b62-70a2-8359-c49b7264f889",
-          opprettet: "2025-10-09T14:03:54.850111",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b62-70a2-8359-c49b7264f88b",
-          opprettet: "2025-10-09T14:03:54.850551",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b62-70a2-8359-c49b7264f88d",
-          opprettet: "2025-10-09T14:03:54.850988",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "0199c8db-3b63-7e0e-a370-ec05b83a1558",
-          opprettet: "2025-10-09T14:03:54.851412",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
         },
         {
-          id: "0199c8db-3b63-7e0e-a370-ec05b83a155a",
-          opprettet: "2025-10-09T14:03:54.851857",
+          id: "0199298c-ecc4-79bc-86de-362b7550a5c1",
+          opprettet: "2025-09-08T15:38:45.57207",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecc6-71d4-8a2e-4fe65445b74e",
+          opprettet: "2025-09-08T15:38:45.574059",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecca-7060-a230-a1bd7f4f9ab4",
+          opprettet: "2025-09-08T15:38:45.578085",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-eccc-7255-8216-0103f03f13c2",
+          opprettet: "2025-09-08T15:38:45.580084",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecce-7afc-9dff-81a78105894d",
+          opprettet: "2025-09-08T15:38:45.582144",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
         },
         {
-          id: "0199c8db-3b64-7399-8dc8-34637193430e",
-          opprettet: "2025-10-09T14:03:54.852365",
+          id: "0199298c-eccf-7c9a-b4bd-45f8f0be88fa",
+          opprettet: "2025-09-08T15:38:45.583889",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecd2-75cb-b618-192fc539c176",
+          opprettet: "2025-09-08T15:38:45.586872",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecd5-7461-b02d-84f4fbd85f22",
+          opprettet: "2025-09-08T15:38:45.589358",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecd6-7f3b-a164-fe8ae6ddbfb9",
+          opprettet: "2025-09-08T15:38:45.590827",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecd8-76a7-8d5b-acf76eaa6010",
+          opprettet: "2025-09-08T15:38:45.592676",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecda-7949-bba4-546c2c01978a",
+          opprettet: "2025-09-08T15:38:45.594262",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecdb-70ef-8746-9905ff6abb0a",
+          opprettet: "2025-09-08T15:38:45.595085",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "0199298c-ecdc-704b-8d95-b2b279ec1122",
+          opprettet: "2025-09-08T15:38:45.596114",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -8116,168 +7930,347 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8db-3b5f-7d16-ace6-ce70915b1cd2",
-          opprettet: "2025-10-09T14:03:54.847206",
+          id: "0199298c-ecc2-7fd1-baf3-c1359a9471c7",
+          opprettet: "2025-09-08T15:38:45.570362",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecc4-79bc-86de-362b7550a5c2",
+          opprettet: "2025-09-08T15:38:45.572641",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecc7-7d26-934c-ffc405ea2eeb",
+          opprettet: "2025-09-08T15:38:45.575245",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecca-7060-a230-a1bd7f4f9ab5",
+          opprettet: "2025-09-08T15:38:45.578703",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-eccc-7255-8216-0103f03f13c3",
+          opprettet: "2025-09-08T15:38:45.580887",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecce-7afc-9dff-81a78105894e",
+          opprettet: "2025-09-08T15:38:45.582722",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b5f-7d16-ace6-ce70915b1cd4",
-          opprettet: "2025-10-09T14:03:54.847739",
+          id: "0199298c-ecd0-74ab-b714-b8af87eab8e8",
+          opprettet: "2025-09-08T15:38:45.584388",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09762",
-          opprettet: "2025-10-09T14:03:54.848099",
+          id: "0199298c-ecd3-790a-9585-47b5f8b94e77",
+          opprettet: "2025-09-08T15:38:45.587823",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd5-7461-b02d-84f4fbd85f23",
+          opprettet: "2025-09-08T15:38:45.589789",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd7-7b54-a171-2fdec7429415",
+          opprettet: "2025-09-08T15:38:45.591412",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd9-7e36-9e92-ebce1a20ab6b",
+          opprettet: "2025-09-08T15:38:45.593407",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
+          verdi: {
+            verdi: 882,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecda-7949-bba4-546c2c01978b",
+          opprettet: "2025-09-08T15:38:45.594557",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
+          verdi: {
+            verdi: 875,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecdb-70ef-8746-9905ff6abb0b",
+          opprettet: "2025-09-08T15:38:45.595383",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09764",
-          opprettet: "2025-10-09T14:03:54.848469",
+          id: "0199298c-ecdd-7c62-9ff5-0d82bd67a251",
+          opprettet: "2025-09-08T15:38:45.597033",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+    },
+    {
+      opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
+      navn: "Forbrukt egenandel",
+      datatype: "penger",
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+      perioder: [
+        {
+          id: "0199298c-ecc3-7628-8f7d-98a2aa02c7f0",
+          opprettet: "2025-09-08T15:38:45.571129",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecc5-7987-a045-3dd6cf5f07d6",
+          opprettet: "2025-09-08T15:38:45.573284",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecc8-777d-8194-9eafa8792068",
+          opprettet: "2025-09-08T15:38:45.576669",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-eccb-76fc-a753-7a2b02333045",
+          opprettet: "2025-09-08T15:38:45.579301",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-eccd-74b4-a7b2-5e063c250012",
+          opprettet: "2025-09-08T15:38:45.581529",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-eccf-7c9a-b4bd-45f8f0be88f9",
+          opprettet: "2025-09-08T15:38:45.583289",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b60-7702-a7a6-a15cd8a09766",
-          opprettet: "2025-10-09T14:03:54.848844",
+          id: "0199298c-ecd1-7aaa-ba20-6a1d3fd6e074",
+          opprettet: "2025-09-08T15:38:45.585001",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b61-7f99-8105-c426e7920bf0",
-          opprettet: "2025-10-09T14:03:54.849304",
+          id: "0199298c-ecd4-79e3-a559-74b7fd8f10d6",
+          opprettet: "2025-09-08T15:38:45.588475",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd6-7f3b-a164-fe8ae6ddbfb8",
+          opprettet: "2025-09-08T15:38:45.590134",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd8-76a7-8d5b-acf76eaa600f",
+          opprettet: "2025-09-08T15:38:45.592038",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecd9-7e36-9e92-ebce1a20ab6c",
+          opprettet: "2025-09-08T15:38:45.593762",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
+          verdi: {
+            verdi: 377,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecda-7949-bba4-546c2c01978c",
+          opprettet: "2025-09-08T15:38:45.594798",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
+          verdi: {
+            verdi: 384,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "0199298c-ecdb-70ef-8746-9905ff6abb0c",
+          opprettet: "2025-09-08T15:38:45.595682",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
           verdi: {
             verdi: 0,
             datatype: "penger",
           },
         },
         {
-          id: "0199c8db-3b61-7f99-8105-c426e7920bf2",
-          opprettet: "2025-10-09T14:03:54.849691",
+          id: "0199298c-ecdd-7c62-9ff5-0d82bd67a252",
+          opprettet: "2025-09-08T15:38:45.597591",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b61-7f99-8105-c426e7920bf4",
-          opprettet: "2025-10-09T14:03:54.849975",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b62-70a2-8359-c49b7264f88a",
-          opprettet: "2025-10-09T14:03:54.850287",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b62-70a2-8359-c49b7264f88c",
-          opprettet: "2025-10-09T14:03:54.850781",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b63-7e0e-a370-ec05b83a1557",
-          opprettet: "2025-10-09T14:03:54.851195",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b63-7e0e-a370-ec05b83a1559",
-          opprettet: "2025-10-09T14:03:54.851657",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: 744,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b64-7399-8dc8-34637193430d",
-          opprettet: "2025-10-09T14:03:54.852097",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "0199c8db-3b64-7399-8dc8-34637193430f",
-          opprettet: "2025-10-09T14:03:54.85278",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -8295,170 +8288,170 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8db-3b73-7fe9-8b94-819f0dda2571",
-          opprettet: "2025-10-09T14:03:54.867245",
+          id: "0199298c-ed6e-7aeb-8fc9-86ec603138d1",
+          opprettet: "2025-09-08T15:38:45.742239",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b73-7fe9-8b94-819f0dda2573",
-          opprettet: "2025-10-09T14:03:54.86769",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b73-7fe9-8b94-819f0dda2575",
-          opprettet: "2025-10-09T14:03:54.867996",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24b",
-          opprettet: "2025-10-09T14:03:54.868255",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24d",
-          opprettet: "2025-10-09T14:03:54.868568",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24f",
-          opprettet: "2025-10-09T14:03:54.86884",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16ae",
-          opprettet: "2025-10-09T14:03:54.869119",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16b0",
-          opprettet: "2025-10-09T14:03:54.869425",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16b2",
-          opprettet: "2025-10-09T14:03:54.869722",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2eff",
-          opprettet: "2025-10-09T14:03:54.870016",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f01",
-          opprettet: "2025-10-09T14:03:54.870279",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 0,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f03",
-          opprettet: "2025-10-09T14:03:54.870576",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: 1,
             datatype: "heltall",
           },
         },
         {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f05",
-          opprettet: "2025-10-09T14:03:54.870893",
+          id: "0199298c-ed6e-7aeb-8fc9-86ec603138d3",
+          opprettet: "2025-09-08T15:38:45.742889",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
           verdi: {
-            verdi: 1,
+            verdi: 2,
             datatype: "heltall",
           },
         },
         {
-          id: "0199c8db-3b77-7f33-b81d-2f2dd83053f4",
-          opprettet: "2025-10-09T14:03:54.871151",
+          id: "0199298c-ed6f-796e-a422-5f7fcc4d8556",
+          opprettet: "2025-09-08T15:38:45.74351",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
           verdi: {
-            verdi: 1,
+            verdi: 3,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed70-707f-a43b-db893a3a916d",
+          opprettet: "2025-09-08T15:38:45.744322",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
+          verdi: {
+            verdi: 4,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed70-707f-a43b-db893a3a916f",
+          opprettet: "2025-09-08T15:38:45.74498",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
+          verdi: {
+            verdi: 5,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed71-70ce-8686-0f509cd5d1d6",
+          opprettet: "2025-09-08T15:38:45.745526",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
+          verdi: {
+            verdi: 5,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed72-72d9-be1f-0cb0580375db",
+          opprettet: "2025-09-08T15:38:45.746039",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
+          verdi: {
+            verdi: 5,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed72-72d9-be1f-0cb0580375dd",
+          opprettet: "2025-09-08T15:38:45.746618",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
+          verdi: {
+            verdi: 6,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed73-75cd-8306-827be6d3439b",
+          opprettet: "2025-09-08T15:38:45.747209",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
+          verdi: {
+            verdi: 7,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed73-75cd-8306-827be6d3439d",
+          opprettet: "2025-09-08T15:38:45.747841",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
+          verdi: {
+            verdi: 8,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed74-797e-92ab-4f5a26623261",
+          opprettet: "2025-09-08T15:38:45.748591",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
+          verdi: {
+            verdi: 9,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed75-703a-89b8-2715fcc95585",
+          opprettet: "2025-09-08T15:38:45.749277",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
+          verdi: {
+            verdi: 10,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed75-703a-89b8-2715fcc95587",
+          opprettet: "2025-09-08T15:38:45.749928",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
+          verdi: {
+            verdi: 10,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed76-7793-84a3-500a1df18ece",
+          opprettet: "2025-09-08T15:38:45.750608",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
+          verdi: {
+            verdi: 10,
             datatype: "heltall",
           },
         },
@@ -8474,170 +8467,170 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
       formål: "Regel",
       perioder: [
         {
-          id: "0199c8db-3b73-7fe9-8b94-819f0dda2572",
-          opprettet: "2025-10-09T14:03:54.867448",
+          id: "0199298c-ed6e-7aeb-8fc9-86ec603138d2",
+          opprettet: "2025-09-08T15:38:45.742577",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-22",
-          gyldigTilOgMed: "2025-09-22",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b73-7fe9-8b94-819f0dda2574",
-          opprettet: "2025-10-09T14:03:54.867864",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-23",
-          gyldigTilOgMed: "2025-09-23",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24a",
-          opprettet: "2025-10-09T14:03:54.868124",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-24",
-          gyldigTilOgMed: "2025-09-24",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24c",
-          opprettet: "2025-10-09T14:03:54.868386",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-25",
-          gyldigTilOgMed: "2025-09-25",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca24e",
-          opprettet: "2025-10-09T14:03:54.868704",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-26",
-          gyldigTilOgMed: "2025-09-26",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b74-7653-8fca-44057f9ca250",
-          opprettet: "2025-10-09T14:03:54.868988",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-27",
-          gyldigTilOgMed: "2025-09-27",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16af",
-          opprettet: "2025-10-09T14:03:54.869292",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-28",
-          gyldigTilOgMed: "2025-09-28",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16b1",
-          opprettet: "2025-10-09T14:03:54.869591",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b75-7748-be9e-a62faa6b16b3",
-          opprettet: "2025-10-09T14:03:54.869888",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f00",
-          opprettet: "2025-10-09T14:03:54.870153",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f02",
-          opprettet: "2025-10-09T14:03:54.870405",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 520,
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "0199c8db-3b76-799b-a659-cf1c56fc2f04",
-          opprettet: "2025-10-09T14:03:54.870746",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
+          gyldigFraOgMed: "2025-06-02",
+          gyldigTilOgMed: "2025-06-02",
           verdi: {
             verdi: 519,
             datatype: "heltall",
           },
         },
         {
-          id: "0199c8db-3b77-7f33-b81d-2f2dd83053f3",
-          opprettet: "2025-10-09T14:03:54.871023",
+          id: "0199298c-ed6f-796e-a422-5f7fcc4d8555",
+          opprettet: "2025-09-08T15:38:45.743206",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
+          gyldigFraOgMed: "2025-06-03",
+          gyldigTilOgMed: "2025-06-03",
           verdi: {
-            verdi: 519,
+            verdi: 518,
             datatype: "heltall",
           },
         },
         {
-          id: "0199c8db-3b77-7f33-b81d-2f2dd83053f5",
-          opprettet: "2025-10-09T14:03:54.871308",
+          id: "0199298c-ed6f-796e-a422-5f7fcc4d8557",
+          opprettet: "2025-09-08T15:38:45.743781",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
+          gyldigFraOgMed: "2025-06-04",
+          gyldigTilOgMed: "2025-06-04",
           verdi: {
-            verdi: 519,
+            verdi: 517,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed70-707f-a43b-db893a3a916e",
+          opprettet: "2025-09-08T15:38:45.744708",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-05",
+          gyldigTilOgMed: "2025-06-05",
+          verdi: {
+            verdi: 516,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed71-70ce-8686-0f509cd5d1d5",
+          opprettet: "2025-09-08T15:38:45.745263",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-06",
+          gyldigTilOgMed: "2025-06-06",
+          verdi: {
+            verdi: 515,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed71-70ce-8686-0f509cd5d1d7",
+          opprettet: "2025-09-08T15:38:45.74577",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-07",
+          gyldigTilOgMed: "2025-06-07",
+          verdi: {
+            verdi: 515,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed72-72d9-be1f-0cb0580375dc",
+          opprettet: "2025-09-08T15:38:45.746341",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-08",
+          gyldigTilOgMed: "2025-06-08",
+          verdi: {
+            verdi: 515,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed72-72d9-be1f-0cb0580375de",
+          opprettet: "2025-09-08T15:38:45.746798",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-09",
+          gyldigTilOgMed: "2025-06-09",
+          verdi: {
+            verdi: 514,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed73-75cd-8306-827be6d3439c",
+          opprettet: "2025-09-08T15:38:45.747536",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-10",
+          gyldigTilOgMed: "2025-06-10",
+          verdi: {
+            verdi: 513,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed74-797e-92ab-4f5a26623260",
+          opprettet: "2025-09-08T15:38:45.748198",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-11",
+          gyldigTilOgMed: "2025-06-11",
+          verdi: {
+            verdi: 512,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed74-797e-92ab-4f5a26623262",
+          opprettet: "2025-09-08T15:38:45.748924",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-12",
+          gyldigTilOgMed: "2025-06-12",
+          verdi: {
+            verdi: 511,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed75-703a-89b8-2715fcc95586",
+          opprettet: "2025-09-08T15:38:45.749594",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-13",
+          gyldigTilOgMed: "2025-06-13",
+          verdi: {
+            verdi: 510,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed76-7793-84a3-500a1df18ecd",
+          opprettet: "2025-09-08T15:38:45.750278",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-14",
+          gyldigTilOgMed: "2025-06-14",
+          verdi: {
+            verdi: 510,
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "0199298c-ed76-7793-84a3-500a1df18ecf",
+          opprettet: "2025-09-08T15:38:45.750928",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-06-15",
+          gyldigTilOgMed: "2025-06-15",
+          verdi: {
+            verdi: 510,
             datatype: "heltall",
           },
         },
@@ -8646,7 +8639,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
   ],
   rettighetsperioder: [
     {
-      fraOgMed: "2025-10-03",
+      fraOgMed: "2025-06-02",
       harRett: true,
       opprinnelse: "Arvet",
     },
