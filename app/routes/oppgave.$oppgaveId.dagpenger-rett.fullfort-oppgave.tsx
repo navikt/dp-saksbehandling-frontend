@@ -10,6 +10,7 @@ import {
   useNavigation,
   useRouteError,
 } from "react-router";
+import invariant from "tiny-invariant";
 
 import { AktivOppgaveSøk } from "~/components/aktivt-oppgave-søk-tags/AktivtOppgaveSøkTags";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
@@ -18,7 +19,7 @@ import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
 import { RemixLink } from "~/components/RemixLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -27,12 +28,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  const oppgave = await hentOppgave(request, params.oppgaveId);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
-    { alert },
+    { oppgave, alert },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -43,11 +46,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function NesteOppgave() {
   const navigation = useNavigation();
-  const { alert } = useLoaderData<typeof loader>();
+  const { oppgave, alert } = useLoaderData<typeof loader>();
   const [kaffepause, setKaffepause] = useState(false);
   const actionData = useActionData<typeof action>();
   const { aktivtOppgaveSok } = useSaksbehandler();
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (

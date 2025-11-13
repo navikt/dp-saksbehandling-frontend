@@ -21,7 +21,7 @@
 .stickyTabs > * {
   position: sticky;
   top: 48px;
-  background-color: var(--ax-color-background-default);
+  background-color: var(--ax-bg-default);
   z-index: 2;
 }
 

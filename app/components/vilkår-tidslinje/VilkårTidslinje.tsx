@@ -140,7 +140,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                     <div className={"overflow-hidden"}>
                       <LoadingLink
                         tittelPåHover={vilkårEllerOpplysning.navn}
-                        to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
+                        to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning/${vilkårEllerOpplysning.opplysningTypeId}`}
                       >
                         {vilkårEllerOpplysning.navn}
                       </LoadingLink>

@@ -333,6 +333,24 @@ export function hentValideringForLeggTilbakeOppgave() {
   });
 }
 
+export function hentValideringForTrekkKlage() {
+  return z.object({
+    _action: z.literal("trekk-klage"),
+    ident: z.string().min(1, "Det mangler ident i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+  });
+}
+
+export function hentValideringForFerdigstillKlage() {
+  return z.object({
+    _action: z.literal("ferdigstill-klage"),
+    ident: z.string().min(1, "Det mangler ident i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+  });
+}
+
 export function hentValideringForRekjørBehandling() {
   return z.object({
     _action: z.literal("rekjor-behandling"),

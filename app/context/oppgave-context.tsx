@@ -25,7 +25,9 @@ export type IGyldigeOppgaveHandlinger =
   | "rekjor-behandling"
   | "behandle-oppgave"
   | "kontroller-oppgave"
-  | "se-oppgave";
+  | "se-oppgave"
+  | "trekk-klage"
+  | "ferdigstill-klage";
 
 export function OppgaveProvider({
   children,
@@ -64,6 +66,23 @@ export function OppgaveProvider({
 }
 
 export function hentGyldigeOppgaveValg(
+  oppgave:
+    | saksbehandlingComponent["schemas"]["Oppgave"]
+    | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
+  minOppgave: boolean,
+): IGyldigeOppgaveHandlinger[] {
+  switch (oppgave.behandlingType) {
+    case "RETT_TIL_DAGPENGER":
+      return hentGyldigeDagpengerRettOppgaveValg(oppgave, minOppgave);
+    case "KLAGE":
+      return hentGyldigeKlageOppgaveValg(oppgave, minOppgave);
+
+    default:
+      return [];
+  }
+}
+
+export function hentGyldigeDagpengerRettOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
@@ -112,6 +131,37 @@ export function hentGyldigeOppgaveValg(
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("avbryt-behandling");
+  }
+
+  return handlinger;
+}
+
+export function hentGyldigeKlageOppgaveValg(
+  oppgave:
+    | saksbehandlingComponent["schemas"]["Oppgave"]
+    | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
+  minOppgave: boolean,
+): IGyldigeOppgaveHandlinger[] {
+  const handlinger: IGyldigeOppgaveHandlinger[] = [];
+
+  if (
+    oppgave.tilstand === "FERDIG_BEHANDLET" ||
+    oppgave.tilstand === "AVBRUTT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+  ) {
+    handlinger.push("se-oppgave");
+  }
+
+  if (
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+  ) {
+    handlinger.push("behandle-oppgave");
+  }
+
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage");
   }
 
   return handlinger;

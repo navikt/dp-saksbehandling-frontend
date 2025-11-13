@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
-import { Alert, BodyLong, Button, Modal, Select } from "@navikt/ds-react";
+import { Alert, BodyLong, Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -11,9 +11,11 @@ import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
   oppgave: components["schemas"]["Oppgave"];
+  buttonSize?: ButtonProps["size"];
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgAvbryt({ oppgave }: IProps) {
+export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -35,8 +37,8 @@ export function OppgaveValgAvbryt({ oppgave }: IProps) {
   return (
     <>
       <Button
-        size="xsmall"
-        variant="tertiary-neutral"
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         onClick={() => modalRef.current?.showModal()}
         loading={avbrytOppgaveForm.formState.isSubmitting}
         icon={<XMarkIcon aria-hidden />}

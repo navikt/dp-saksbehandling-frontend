@@ -1,6 +1,5 @@
 import { AlertProps } from "@navikt/ds-react";
 
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
 import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
@@ -68,20 +67,6 @@ export function isILagreUtvidetBeskrivelseResponse(
   >;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
-}
-
-export function isFormValidationError(data: unknown): data is IFormValidationError {
-  if (typeof data !== "object" || data === null) {
-    return false;
-  }
-
-  const maybeError = data as Partial<IFormValidationError>;
-
-  if (typeof maybeError.field !== "string") {
-    return false;
-  }
-
-  return typeof maybeError.message === "string";
 }
 
 export function isDefined<T>(value: T | undefined | null): value is T {

@@ -1,29 +1,32 @@
-import { ArrowUndoIcon } from "@navikt/aksel-icons";
+import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
 import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
+import { hentValideringForFerdigstillKlage } from "~/utils/validering.util";
+
+import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  oppgaveId: string;
+  oppgave: components["schemas"]["Oppgave"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgFerdigstillKlage({ oppgave, buttonVariant, buttonSize }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
-  const leggTilbakeForm = useForm({
+  const ferdigstillKlageForm = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForLeggTilbakeOppgave(),
+    schema: hentValideringForFerdigstillKlage(),
     defaultValues: {
-      _action: "legg-tilbake-oppgave",
-      oppgaveId,
+      _action: "ferdigstill-klage",
+      ident: oppgave.person.ident,
+      behandlingId: oppgave.behandlingId,
       aktivtOppgaveSok,
     },
   });
@@ -32,12 +35,12 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
     <Button
       size={buttonSize ? buttonSize : "xsmall"}
       variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      onClick={() => leggTilbakeForm.submit()}
-      loading={leggTilbakeForm.formState.isSubmitting}
-      icon={<ArrowUndoIcon aria-hidden />}
+      onClick={() => ferdigstillKlageForm.submit()}
+      loading={ferdigstillKlageForm.formState.isSubmitting}
+      icon={<GavelSoundBlockIcon aria-hidden />}
       className={"aksel--font-regular aksel--full-bredde"}
     >
-      Legg tilbake
+      Ferdigstill klage
     </Button>
   );
 }

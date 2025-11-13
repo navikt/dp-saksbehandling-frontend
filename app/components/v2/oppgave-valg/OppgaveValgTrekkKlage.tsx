@@ -1,29 +1,32 @@
-import { ArrowUndoIcon } from "@navikt/aksel-icons";
+import { XMarkIcon } from "@navikt/aksel-icons";
 import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
+import { hentValideringForTrekkKlage } from "~/utils/validering.util";
+
+import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  oppgaveId: string;
+  oppgave: components["schemas"]["Oppgave"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgTrekkKlage({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
-  const leggTilbakeForm = useForm({
+  const trekkKlageForm = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForLeggTilbakeOppgave(),
+    schema: hentValideringForTrekkKlage(),
     defaultValues: {
-      _action: "legg-tilbake-oppgave",
-      oppgaveId,
+      _action: "trekk-klage",
+      ident: oppgave.person.ident,
+      behandlingId: oppgave.behandlingId,
       aktivtOppgaveSok,
     },
   });
@@ -32,12 +35,12 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
     <Button
       size={buttonSize ? buttonSize : "xsmall"}
       variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      onClick={() => leggTilbakeForm.submit()}
-      loading={leggTilbakeForm.formState.isSubmitting}
-      icon={<ArrowUndoIcon aria-hidden />}
+      onClick={() => trekkKlageForm.submit()}
+      loading={trekkKlageForm.formState.isSubmitting}
+      icon={<XMarkIcon aria-hidden />}
       className={"aksel--font-regular aksel--full-bredde"}
     >
-      Legg tilbake
+      Trekk klage
     </Button>
   );
 }

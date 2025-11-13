@@ -1,5 +1,5 @@
 import { ArrowCirclepathIcon } from "@navikt/aksel-icons";
-import { Button, Modal } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -9,9 +9,16 @@ import { hentValideringForRekjørBehandling } from "~/utils/validering.util";
 interface IProps {
   behandlingId: string;
   personIdent: string;
+  buttonSize?: ButtonProps["size"];
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgRekjørBehandling({ behandlingId, personIdent }: IProps) {
+export function OppgaveValgRekjørBehandling({
+  behandlingId,
+  personIdent,
+  buttonSize,
+  buttonVariant,
+}: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -31,8 +38,8 @@ export function OppgaveValgRekjørBehandling({ behandlingId, personIdent }: IPro
   return (
     <>
       <Button
-        size="xsmall"
-        variant="tertiary-neutral"
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         icon={<ArrowCirclepathIcon aria-hidden />}
         onClick={() => modalRef.current?.showModal()}
         className={"aksel--font-regular aksel--full-bredde"}

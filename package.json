@@ -15,7 +15,7 @@
   },
   "prettier": {
     "printWidth": 100,
-    "tailwindStylesheet": "./app/global.css",
+    "tailwindStylesheet": "./app/global-darkside.css",
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]
