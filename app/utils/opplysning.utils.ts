@@ -62,6 +62,10 @@ export function formaterOpplysningEnhet(enhet?: components["schemas"]["Enhet"]):
       return "dager";
     case "uker":
       return "uker";
+    case "måneder":
+      return "måneder";
+    case "år":
+      return "år";
 
     default:
       return "";
