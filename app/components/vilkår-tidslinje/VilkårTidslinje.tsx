@@ -2,9 +2,6 @@ import {
   CheckmarkCircleFillIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-  CircleIcon,
-  ExclamationmarkTriangleIcon,
-  InformationSquareIcon,
   PadlockLockedIcon,
   XMarkOctagonIcon,
 } from "@navikt/aksel-icons";
@@ -29,7 +26,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { formaterOpplysningEnhet, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
-import { isDatoVerdi } from "~/utils/type-guards";
+import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./VilkårTidslinje.module.css";
@@ -311,62 +308,4 @@ export function hentFargeForOpplysningPeriode(
     default:
       return "info";
   }
-}
-
-export function hentFargeForVilkårPeriode(
-  status: components["schemas"]["Status"],
-): TimelinePeriodProps["status"] {
-  switch (status) {
-    case "Oppfylt":
-      return "success";
-    case "HarAvklaring":
-      return "warning";
-    case "IkkeOppfylt":
-      return "danger";
-    case "Info":
-      return "info";
-    case "IkkeRelevant":
-      return "neutral";
-
-    default:
-      return "info";
-  }
-}
-
-export function hentIkonForTidslinjeRegelsettPeriode(status: components["schemas"]["Status"]) {
-  switch (status) {
-    case "Oppfylt":
-      return <CheckmarkCircleFillIcon />;
-    case "HarAvklaring":
-      return <ExclamationmarkTriangleIcon />;
-    case "IkkeOppfylt":
-      return <XMarkOctagonIcon />;
-    case "Info":
-      return <InformationSquareIcon />;
-    case "IkkeRelevant":
-      return <CircleIcon />;
-    default:
-      return <span>Mangler ikon for status</span>;
-  }
-}
-
-function isOpplysningsgruppe(
-  value: unknown,
-): value is components["schemas"]["OpplysningsgruppeV2"] {
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-
-  const obj = value as Record<string, unknown>;
-
-  return (
-    typeof obj.opplysningTypeId === "string" &&
-    typeof obj.navn === "string" &&
-    typeof obj.datatype === "string" &&
-    typeof obj.synlig === "boolean" &&
-    (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
-    (obj.redigertAvSaksbehandler === undefined ||
-      typeof obj.redigertAvSaksbehandler === "boolean") &&
-    Array.isArray(obj.perioder)
-  );
 }

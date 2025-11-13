@@ -2,7 +2,7 @@ import { components } from "../../openapi/saksbehandling-typer";
 import { mockHistorikk } from "./mock-historikk";
 import { mockGradertPerson, mockPerson } from "./mock-person";
 
-export const mockOppgaveSaksbehandler: components["schemas"]["Behandler"] = {
+const mockOppgaveSaksbehandler: components["schemas"]["Behandler"] = {
   fornavn: "Saksbehandler",
   etternavn: "Behandlersen",
   ident: "Z993298",
@@ -13,7 +13,7 @@ export const mockOppgaveSaksbehandler: components["schemas"]["Behandler"] = {
   },
 };
 
-export const mockOppgaveBeslutter: components["schemas"]["Behandler"] = {
+const mockOppgaveBeslutter: components["schemas"]["Behandler"] = {
   fornavn: "Saksbehandler",
   etternavn: "Besluttersen",
   ident: "Z993298",

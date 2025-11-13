@@ -16,7 +16,7 @@ import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
-export interface IUtvidetBeskrivelseInput {
+interface IProps {
   label: ReactNode;
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
@@ -24,7 +24,7 @@ export interface IUtvidetBeskrivelseInput {
   sanityBrevMaler: ISanityBrevMal[];
 }
 
-export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
+export function UtvidetBeskrivelseInput(props: IProps) {
   const { addAlert } = useGlobalAlerts();
   const { behandlingId } = useTypeSafeParams();
   const formRef = useRef<HTMLFormElement | null>(null);

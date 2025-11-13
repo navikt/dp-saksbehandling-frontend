@@ -1,8 +1,0 @@
-.oppgaveContainer {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  gap: var(--ax-space-8);
-  padding: var(--ax-space-16);
-}
-

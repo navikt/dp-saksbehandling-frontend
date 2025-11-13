@@ -71,7 +71,7 @@ export function hentValideringForSlettPeriode() {
   });
 }
 
-export function hentValideringForOpplysningVerdi(datatype: components["schemas"]["DataType"]) {
+function hentValideringForOpplysningVerdi(datatype: components["schemas"]["DataType"]) {
   switch (datatype) {
     case "heltall":
       return z
@@ -125,7 +125,7 @@ export function hentValideringForKlageOpplysningSkjema(
   });
 }
 
-export function hentValideringForKlageOpplysningVerdi(
+function hentValideringForKlageOpplysningVerdi(
   opplysning: saksbehandlingComponents["schemas"]["KlageOpplysning"],
 ) {
   switch (opplysning.type) {

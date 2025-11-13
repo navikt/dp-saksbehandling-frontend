@@ -8,7 +8,7 @@ import {
   components as saksbehandlingComponent,
 } from "../../openapi/saksbehandling-typer";
 
-export interface IOppgaveContextType {
+interface IOppgaveContextType {
   oppgave: components["schemas"]["Oppgave"];
   gyldigeOppgaveValg: IGyldigeOppgaveHandlinger[];
   minOppgave: boolean;
@@ -82,7 +82,7 @@ export function hentGyldigeOppgaveValg(
   }
 }
 
-export function hentGyldigeDagpengerRettOppgaveValg(
+function hentGyldigeDagpengerRettOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
@@ -136,7 +136,7 @@ export function hentGyldigeDagpengerRettOppgaveValg(
   return handlinger;
 }
 
-export function hentGyldigeKlageOppgaveValg(
+function hentGyldigeKlageOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],

@@ -38,7 +38,7 @@ export function LinkTabs(props: IProps) {
   );
 }
 
-export function getTabs(oppgaveId: string, behandlingId: string) {
+function getTabs(oppgaveId: string, behandlingId: string) {
   return [
     {
       url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`,

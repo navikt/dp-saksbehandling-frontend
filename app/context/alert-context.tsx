@@ -9,7 +9,7 @@ export interface IAlert {
   service?: string;
 }
 
-export interface AlertContextType {
+interface AlertContextType {
   alerts: IAlert[];
   addAlert: (alert: IAlert) => void;
   removeAlert: (index: number) => void;

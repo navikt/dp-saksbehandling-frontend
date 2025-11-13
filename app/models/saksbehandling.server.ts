@@ -302,14 +302,6 @@ export async function hentPersonOversikt(request: Request, personId: string) {
   throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentOppgaverForPerson(request: Request, ident: string) {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.POST("/person/oppgaver", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ident },
-  });
-}
-
 export async function hentStatistikkForSaksbehandler(request: Request) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { data, error, response } = await saksbehandlerClient.GET("/statistikk", {
