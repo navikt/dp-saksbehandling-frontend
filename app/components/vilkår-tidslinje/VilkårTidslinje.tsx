@@ -28,7 +28,7 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningEnhet, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -281,9 +281,9 @@ export function hentIkonForOpplysningPeriode(
     case "dato":
       return formaterTilNorskDato(opplysningsverdi.verdi);
     case "heltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
+      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
     case "desimaltall":
-      return formaterTallMedTusenSeperator(opplysningsverdi.verdi);
+      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
     case "penger":
       return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} kr`;
     case "ulid":
