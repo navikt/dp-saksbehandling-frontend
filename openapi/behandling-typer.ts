@@ -1052,7 +1052,7 @@ export interface components {
          * @description Enhet for opplysningen, f.eks. timer, prosent, dager, etc.
          * @enum {string}
          */
-        Enhet: "timer" | "prosent" | "G" | "dager" | "uker";
+        Enhet: "timer" | "prosent" | "G" | "dager" | "uker" | "måneder" | "år";
         /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har */
         Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
         PengeVerdi: {

@@ -33,7 +33,7 @@ export function KlageOpplysning({ opplysning, behandlingId, readonly, visningTyp
     schema: hentValideringForKlageOpplysningSkjema(opplysning),
     method: "post",
     defaultValues: {
-      verdi: formaterOpplysningVerdi(opplysning),
+      verdi: formaterKlageOpplysningVerdi(opplysning),
       opplysningId: opplysning.opplysningId,
       datatype: opplysning.type,
       behandlingId: behandlingId,
@@ -114,7 +114,9 @@ function OpplysningType({ opplysning, formScope, readonly }: IKlageOpplysningPro
   }
 }
 
-function formaterOpplysningVerdi(opplysning: components["schemas"]["KlageOpplysning"]): string {
+function formaterKlageOpplysningVerdi(
+  opplysning: components["schemas"]["KlageOpplysning"],
+): string {
   if (opplysning.verdi === undefined) {
     return "";
   }

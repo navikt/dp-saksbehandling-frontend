@@ -1,10 +1,9 @@
 import { AlertProps } from "@navikt/ds-react";
 
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
 import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
-import { components as behandlingComponents } from "../../openapi/behandling-typer";
+import { components as behandlingComponents, components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
@@ -68,20 +67,6 @@ export function isILagreUtvidetBeskrivelseResponse(
   >;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
-}
-
-export function isFormValidationError(data: unknown): data is IFormValidationError {
-  if (typeof data !== "object" || data === null) {
-    return false;
-  }
-
-  const maybeError = data as Partial<IFormValidationError>;
-
-  if (typeof maybeError.field !== "string") {
-    return false;
-  }
-
-  return typeof maybeError.message === "string";
 }
 
 export function isDefined<T>(value: T | undefined | null): value is T {
@@ -311,44 +296,23 @@ export function isTekstVerdi(
   return verdi.datatype === "tekst" || verdi.datatype === "inntekt";
 }
 
-export function isHeltallVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["HeltallVerdi"] {
-  return verdi.datatype === "heltall";
-}
+export function isOpplysningsgruppe(
+  value: unknown,
+): value is components["schemas"]["OpplysningsgruppeV2"] {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
 
-export function isDesimaltallVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["DesimaltallVerdi"] {
-  return verdi.datatype === "desimaltall";
-}
+  const obj = value as Record<string, unknown>;
 
-export function isPengeVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["PengeVerdi"] {
-  return verdi.datatype === "penger";
-}
-
-export function isUlidVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["UlidVerdi"] {
-  return verdi.datatype === "ulid";
-}
-
-export function isBoolskVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["BoolskVerdi"] {
-  return verdi.datatype === "boolsk";
-}
-
-export function isPeriodeVerdi(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["PeriodeVerdi"] {
-  return verdi.datatype === "periode";
-}
-
-export function isBarneliste(
-  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
-): verdi is behandlingComponents["schemas"]["Barneliste"] {
-  return verdi.datatype === "barn";
+  return (
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
+    typeof obj.synlig === "boolean" &&
+    (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
+    (obj.redigertAvSaksbehandler === undefined ||
+      typeof obj.redigertAvSaksbehandler === "boolean") &&
+    Array.isArray(obj.perioder)
+  );
 }

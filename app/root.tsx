@@ -12,11 +12,11 @@ import {
 } from "react-router";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
-import { Flagg } from "~/components/17-mai/Flagg";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
+import { Flagg } from "~/components/høytid-og-morro/17-mai/Flagg";
+import { PumpkinSvg } from "~/components/høytid-og-morro/halloween/PumpkinSvg";
+import { MistelteinSvg } from "~/components/høytid-og-morro/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalDarksideCss from "~/global-darkside.css?url";

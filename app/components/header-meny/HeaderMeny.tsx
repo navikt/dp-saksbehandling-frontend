@@ -4,11 +4,11 @@ import classnames from "classnames";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
-import { HippHippHurra } from "~/components/17-mai/HippHippHurra";
-import { Ghosts } from "~/components/halloween/Ghosts";
 import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
-import { Adventslys } from "~/components/jul/Adventslys";
-import { Valentines } from "~/components/valentines/Valentines";
+import { HippHippHurra } from "~/components/høytid-og-morro/17-mai/HippHippHurra";
+import { Ghosts } from "~/components/høytid-og-morro/halloween/Ghosts";
+import { Adventslys } from "~/components/høytid-og-morro/jul/Adventslys";
+import { Valentines } from "~/components/høytid-og-morro/valentines/Valentines";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";

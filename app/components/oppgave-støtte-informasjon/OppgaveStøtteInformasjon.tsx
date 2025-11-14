@@ -5,15 +5,18 @@ import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/v2/oppgave-kontroll/OppgaveKontroll";
 import { useOppgave } from "~/hooks/useOppgave";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentJournalpost } from "~/models/saf.server";
 import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
 
+import { components } from "../../../openapi/behandling-typer";
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 
-export function OppgaveStøtteInformasjon() {
-  const { behandling, journalposterPromises } = useTypedRouteLoaderData(
-    "routes/v2.oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
-  );
+interface IProps {
+  behandling?: components["schemas"]["BehandlingsresultatV2"];
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
+}
+
+export function OppgaveStøtteInformasjon({ behandling, journalposterPromises }: IProps) {
   const { oppgave, underKontroll } = useOppgave();
   return (
     <div className={"card p-2"}>
@@ -30,7 +33,9 @@ export function OppgaveStøtteInformasjon() {
         </Tabs.Panel>
 
         <Tabs.Panel value="fagsystemer">
-          <FagsystemLenker inntektRedigeringUrl={hentInntektRedigeringUrl(behandling)} />
+          <FagsystemLenker
+            inntektRedigeringUrl={behandling ? hentInntektRedigeringUrl(behandling) : undefined}
+          />
         </Tabs.Panel>
 
         <Tabs.Panel value="historikk">

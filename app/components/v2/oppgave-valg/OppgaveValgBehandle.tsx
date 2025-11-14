@@ -1,4 +1,4 @@
-import { Button } from "@navikt/ds-react";
+import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { ReactNode } from "react";
 import { useLocation } from "react-router";
@@ -11,9 +11,17 @@ interface IProps {
   listeOppgave: components["schemas"]["OppgaveOversikt"];
   label: string;
   icon: ReactNode;
+  buttonSize?: ButtonProps["size"];
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgBehandle({ listeOppgave, label, icon }: IProps) {
+export function OppgaveValgBehandle({
+  listeOppgave,
+  label,
+  icon,
+  buttonVariant,
+  buttonSize,
+}: IProps) {
   const { pathname } = useLocation();
   const tildelOppgaveForm = useForm({
     method: "post",
@@ -29,8 +37,8 @@ export function OppgaveValgBehandle({ listeOppgave, label, icon }: IProps) {
 
   return (
     <Button
-      variant="tertiary-neutral"
-      size="xsmall"
+      size={buttonSize ? buttonSize : "xsmall"}
+      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
       loading={tildelOppgaveForm.formState.isSubmitting}
       onClick={() => tildelOppgaveForm.submit()}
       className={"aksel--font-regular aksel--full-bredde"}

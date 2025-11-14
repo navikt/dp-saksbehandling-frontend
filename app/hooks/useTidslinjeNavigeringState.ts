@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export type AntallUkerITidslinje = "2" | "4" | "8" | "16" | "52";
 
-export interface TidslinjeStartSlutt {
+interface TidslinjeStartSlutt {
   start: Date;
   end: Date;
 }

@@ -5,15 +5,6 @@ import { components as behandlingComponent } from "../../openapi/behandling-type
 import { components as meldingOmVedtakComponent } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
-export function handleErrorResponse(response: Response): void {
-  logger.error(`${response.status} - Feil ved kall til ${response.url}`);
-
-  throw new Response(`Feil ved kall til ${response.url}`, {
-    status: response.status,
-    statusText: response.statusText,
-  });
-}
-
 export function handleHttpProblem(
   problem:
     | meldingOmVedtakComponent["schemas"]["HttpProblem"]

@@ -1,5 +1,5 @@
 import { ArrowUndoIcon } from "@navikt/aksel-icons";
-import { Button } from "@navikt/ds-react";
+import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
@@ -8,9 +8,11 @@ import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
 
 interface IProps {
   oppgaveId: string;
+  buttonSize?: ButtonProps["size"];
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgLeggTilbake({ oppgaveId }: IProps) {
+export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
@@ -28,8 +30,8 @@ export function OppgaveValgLeggTilbake({ oppgaveId }: IProps) {
 
   return (
     <Button
-      size="xsmall"
-      variant="tertiary-neutral"
+      size={buttonSize ? buttonSize : "xsmall"}
+      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
       onClick={() => leggTilbakeForm.submit()}
       loading={leggTilbakeForm.formState.isSubmitting}
       icon={<ArrowUndoIcon aria-hidden />}

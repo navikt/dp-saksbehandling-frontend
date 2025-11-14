@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client";
 
-export const sanityConfig = {
+const sanityConfig = {
   dataset: process.env.SANITY_DATASET || "development",
   projectId: process.env.SANITY_PROJECT_ID || "rt6o382n",
   token: process.env.SANITY_ACCESS_TOKEN || "",

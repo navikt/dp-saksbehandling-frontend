@@ -42,20 +42,6 @@ export function hentTekstForAvbrytÅrsak(
   }
 }
 
-export function hentBehandlingTypeTekstForVisning(
-  behandlingType: components["schemas"]["BehandlingType"],
-) {
-  switch (behandlingType) {
-    case "RETT_TIL_DAGPENGER":
-      return "Rett til dagpenger";
-    case "KLAGE":
-      return "Klage";
-
-    default:
-      return behandlingType;
-  }
-}
-
 export function hentUtløstAvTekstForVisning(
   utløstAv: components["schemas"]["UtlostAvType"],
   medIkon?: boolean,

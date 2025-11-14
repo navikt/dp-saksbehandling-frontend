@@ -10,7 +10,6 @@ import { lagreKlageOpplysningAction } from "~/server-side-actions/lagre-klage-op
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
-import { lagreVurderingAction } from "~/server-side-actions/lagre-vurdering-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
 import { oppdaterOrkestratorBarnAction } from "~/server-side-actions/oppdater-orkestrator-barn-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
@@ -21,7 +20,6 @@ import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-a
 import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
-import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { v2TildelOppgaveAction } from "~/server-side-actions/v2-tildel-oppgave-action";
 import { getEnv } from "~/utils/env.utils";
@@ -59,9 +57,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "legg-tilbake-oppgave":
       return await leggTilbakeOppgaveAction(request, params, formData);
 
-    case "tildel-oppgave":
-      return await tildelOppgaveAction(request, formData);
-
     case "v2-tildel-oppgave":
       return await v2TildelOppgaveAction(request, formData);
 
@@ -82,9 +77,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "rekjor-behandling":
       return await rekjorBehandlingAction(request, formData);
-
-    case "lagre-vurdering":
-      return await lagreVurderingAction(request, formData);
 
     case "lagre-klage-opplysning":
       return await lagreKlageOpplysningAction(request, formData);

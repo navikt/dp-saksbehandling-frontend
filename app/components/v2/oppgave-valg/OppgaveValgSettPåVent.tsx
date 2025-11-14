@@ -1,11 +1,10 @@
 import { HourglassTopFilledIcon } from "@navikt/aksel-icons";
-import { Alert, Button, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
+import { Alert, Button, ButtonProps, Checkbox, DatePicker, Modal, Select } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { add } from "date-fns";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
-import styles from "~/components/oppgave-handlinger/OppgaveHandlinger.module.css";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringSettOppgavePåVent } from "~/utils/validering.util";
@@ -14,9 +13,11 @@ import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
   oppgave: components["schemas"]["Oppgave"];
+  buttonSize?: ButtonProps["size"];
+  buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgSettPåVent({ oppgave }: IProps) {
+export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -40,8 +41,8 @@ export function OppgaveValgSettPåVent({ oppgave }: IProps) {
   return (
     <>
       <Button
-        size="xsmall"
-        variant="tertiary-neutral"
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         icon={<HourglassTopFilledIcon aria-hidden />}
         onClick={() => modalRef.current?.showModal()}
         className={"aksel--font-regular aksel--full-bredde"}
@@ -49,12 +50,7 @@ export function OppgaveValgSettPåVent({ oppgave }: IProps) {
         Sett på vent
       </Button>
 
-      <Modal
-        ref={modalRef}
-        className={styles.modal}
-        header={{ heading: "Sett på vent" }}
-        closeOnBackdropClick
-      >
+      <Modal ref={modalRef} header={{ heading: "Sett på vent" }} closeOnBackdropClick>
         <Modal.Body>
           <DatePicker.Standalone
             fromDate={add(new Date(), { days: 1 })}
@@ -68,7 +64,7 @@ export function OppgaveValgSettPåVent({ oppgave }: IProps) {
           />
 
           {utsettOppgaveForm.error("utsettTilDato") && (
-            <Alert variant={"error"} size="small" className={styles.formError}>
+            <Alert variant={"error"} size="small" className={"my-2"}>
               {utsettOppgaveForm.error("utsettTilDato")}
             </Alert>
           )}
@@ -89,6 +85,7 @@ export function OppgaveValgSettPåVent({ oppgave }: IProps) {
             <option hidden={true} value={""}>
               Velg årsak
             </option>
+
             {oppgave.lovligeEndringer.paaVentAarsaker.map((aarsak) => (
               <option key={aarsak} value={aarsak}>
                 {aarsak.charAt(0).toUpperCase() +
@@ -98,18 +95,19 @@ export function OppgaveValgSettPåVent({ oppgave }: IProps) {
           </Select>
 
           {utsettOppgaveForm.error("paaVentAarsak") && (
-            <Alert variant={"error"} size="small" className={styles.formError}>
+            <Alert variant={"error"} size="small" className={"my-2"}>
               {utsettOppgaveForm.error("paaVentAarsak")}
             </Alert>
           )}
 
-          <Checkbox name="beholdOppgave" size="small" className={styles.beholdOppgaveCheckbox}>
+          <Checkbox name="beholdOppgave" size="small" className={"mt-2"}>
             Behold oppgave
           </Checkbox>
 
           <Button
             size="small"
             variant="primary"
+            className={"mt-2"}
             onClick={() => utsettOppgaveForm.submit()}
             loading={utsettOppgaveForm.formState.isSubmitting}
           >

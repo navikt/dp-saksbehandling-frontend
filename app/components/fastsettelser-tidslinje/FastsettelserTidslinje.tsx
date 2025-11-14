@@ -67,7 +67,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
                 <OpplysningerTidslinje
                   opplysninger={aktiveOpplysninger}
                   medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
+                  opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
                   pins={pins}
                   eksternTidslinjeNavigeringState={tidslinjeState}
                 />

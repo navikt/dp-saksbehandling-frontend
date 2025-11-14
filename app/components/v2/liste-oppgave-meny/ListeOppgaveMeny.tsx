@@ -37,44 +37,47 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
           </ActionMenu.Trigger>
 
           <ActionMenu.Content>
-            {gyldigeOppgaveValg.map((valg) => (
-              <div key={valg}>
-                {valg === "behandle-oppgave" && (
-                  <OppgaveValgBehandle
-                    listeOppgave={listeOppgave}
-                    label={"Behandle oppgave"}
-                    icon={<PersonPencilIcon aria-hidden={true} />}
-                  />
-                )}
+            {gyldigeOppgaveValg.map((valg) => {
+              switch (valg) {
+                case "legg-tilbake-oppgave":
+                  return <OppgaveValgLeggTilbake oppgaveId={listeOppgave.oppgaveId} />;
 
-                {valg === "kontroller-oppgave" && (
-                  <OppgaveValgBehandle
-                    listeOppgave={listeOppgave}
-                    label={"Kontroller oppgave"}
-                    icon={<PersonGavelIcon aria-hidden={true} />}
-                  />
-                )}
+                case "rekjor-behandling":
+                  return (
+                    <OppgaveValgRekjørBehandling
+                      behandlingId={listeOppgave.behandlingId}
+                      personIdent={listeOppgave.personIdent}
+                    />
+                  );
 
-                {valg === "se-oppgave" && (
-                  <OppgaveValgSe
-                    oppgaveId={listeOppgave.oppgaveId}
-                    behandlingId={listeOppgave.behandlingId}
-                    behandlingType={listeOppgave.behandlingType}
-                  />
-                )}
+                case "behandle-oppgave":
+                  return (
+                    <OppgaveValgBehandle
+                      listeOppgave={listeOppgave}
+                      label={"Behandle oppgave"}
+                      icon={<PersonPencilIcon aria-hidden={true} />}
+                    />
+                  );
 
-                {valg === "legg-tilbake-oppgave" && (
-                  <OppgaveValgLeggTilbake oppgaveId={listeOppgave.oppgaveId} />
-                )}
+                case "kontroller-oppgave":
+                  return (
+                    <OppgaveValgBehandle
+                      listeOppgave={listeOppgave}
+                      label={"Kontroller oppgave"}
+                      icon={<PersonGavelIcon aria-hidden={true} />}
+                    />
+                  );
 
-                {valg === "rekjor-behandling" && (
-                  <OppgaveValgRekjørBehandling
-                    behandlingId={listeOppgave.behandlingId}
-                    personIdent={listeOppgave.personIdent}
-                  />
-                )}
-              </div>
-            ))}
+                case "se-oppgave":
+                  return (
+                    <OppgaveValgSe
+                      oppgaveId={listeOppgave.oppgaveId}
+                      behandlingId={listeOppgave.behandlingId}
+                      behandlingType={listeOppgave.behandlingType}
+                    />
+                  );
+              }
+            })}
           </ActionMenu.Content>
         </ActionMenu>
       )}

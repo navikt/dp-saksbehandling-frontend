@@ -137,7 +137,7 @@ export default function PersonOversikt() {
 export function hentOppgaveUrl(behandling: components["schemas"]["Behandling"]) {
   switch (behandling.behandlingType) {
     case "RETT_TIL_DAGPENGER":
-      return `/v2/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
+      return `/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
     case "KLAGE":
       return `/oppgave/${behandling.oppgaveId}/klage/${behandling.id}`;
   }
