@@ -28,7 +28,6 @@ COPY ./package.json ./
 COPY ./package-lock.json  ./
 
 RUN npm ci --ignore-scripts --omit dev
-RUN npm prune --production
 
 
 # export build to filesystem (GitHub)
