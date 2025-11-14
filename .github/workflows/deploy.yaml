@@ -56,12 +56,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup node
-        uses: actions/setup-node@v5
-        with:
-          node-version: "22.x"
-          cache: "npm"
-          registry-url: "https://npm.pkg.github.com"
       - name: Cache node_modules
         uses: actions/cache@v4
         id: node_modules
@@ -69,7 +63,6 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
       
-
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
@@ -98,9 +91,6 @@ jobs:
           destination: "/dp-saksbehandling-frontend/"
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-
-
-
 
   deploy-dev:
     name: Deploy til dev-gcp
