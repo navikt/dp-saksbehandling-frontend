@@ -8,8 +8,42 @@ env:
   LATEST_IMAGE: ghcr.io/${{ github.repository }}:latest
 
 jobs:
+  test:
+    name: Kjør tester
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: node_modules
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Setup node
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22.x"
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      
+      - name: Run tests
+        run: npm test run
+
   build:
     name: Bygg
+    needs: [ test ]
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -22,11 +56,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup node
-        uses: actions/setup-node@v5
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: node_modules
         with:
-          node-version: "22.x"
-
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
@@ -55,9 +91,6 @@ jobs:
           destination: "/dp-saksbehandling-frontend/"
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-
-
-
 
   deploy-dev:
     name: Deploy til dev-gcp
