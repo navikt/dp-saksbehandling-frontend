@@ -45,6 +45,8 @@ jobs:
   test:
     name: Kjør tester
     runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
     needs: [ install ]
     steps:
       - name: Checkout code
