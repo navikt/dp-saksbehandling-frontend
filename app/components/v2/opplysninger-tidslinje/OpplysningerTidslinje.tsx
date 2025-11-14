@@ -30,6 +30,7 @@ interface IProps {
   tittel?: string;
   regelsettHjemmel?: string;
   opplysningKilde?: components["schemas"]["Formål"];
+  redigertAvSaksbehandler?: boolean;
   medLenkeTilOpplysning?: boolean;
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
@@ -65,10 +66,23 @@ export function OpplysningerTidslinje(props: IProps) {
             </div>
 
             <BodyShort size={"small"}>
-              Opplysning hentet fra:{" "}
-              <Tag size={"small"} variant={"warning"} className={"ml-1"}>
-                {formaterOpplysningFormål(props.opplysningKilde)}
-              </Tag>
+              {props.redigertAvSaksbehandler && (
+                <>
+                  Opplysning redigert av:{" "}
+                  <Tag size={"small"} variant={"warning"} className={"ml-1"}>
+                    Saksbehandler
+                  </Tag>
+                </>
+              )}
+
+              {!props.redigertAvSaksbehandler && (
+                <>
+                  Opplysning hentet fra:{" "}
+                  <Tag size={"small"} variant={"warning"} className={"ml-1"}>
+                    {formaterOpplysningFormål(props.opplysningKilde)}
+                  </Tag>
+                </>
+              )}
             </BodyShort>
           </div>
 

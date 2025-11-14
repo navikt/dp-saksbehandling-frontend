@@ -97,6 +97,7 @@ export default function Opplysning() {
               <div className={"card p-4"}>
                 <OpplysningerTidslinje
                   tittel={opplysning.navn}
+                  redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
                   regelsettHjemmel={regelsett.hjemmel.tittel}
                   opplysningKilde={opplysning.formål}
                   opplysninger={[opplysning]}
