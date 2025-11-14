@@ -8,14 +8,11 @@ env:
   LATEST_IMAGE: ghcr.io/${{ github.repository }}:latest
 
 jobs:
-  install:
-    name: Sett opp node
+  test:
+    name: Kjør tester
     runs-on: ubuntu-latest
-    
     permissions:
       contents: "read"
-      id-token: "write"
-      packages: "write"
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -35,34 +32,11 @@ jobs:
           cache: "npm"
           registry-url: "https://npm.pkg.github.com"
 
-
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-  test:
-    name: Kjør tester
-    runs-on: ubuntu-latest
-    permissions:
-      contents: "read"
-    needs: [ install ]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-      
-      - name: Setup node
-        uses: actions/setup-node@v5
-        with:
-          node-version: "22.x"
-      
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        id: node_modules
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
       
       - name: Run tests
         run: npm test run
