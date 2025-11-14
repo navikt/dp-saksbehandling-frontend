@@ -78,7 +78,7 @@
     "@graphql-codegen/client-preset": "5.1.1",
     "@graphql-codegen/typescript": "5.0.2",
     "@parcel/watcher": "2.5.1",
-    "@portabletext/types": "2.0.15",
+    "@portabletext/types": "3.0.0",
     "@react-router/dev": "7.9.4",
     "@react-router/fs-routes": "7.9.4",
     "@types/canvas-confetti": "1.9.0",
