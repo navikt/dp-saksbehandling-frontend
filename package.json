@@ -42,7 +42,7 @@
     "@portabletext/block-tools": "3.5.12",
     "@portabletext/editor": "2.15.5",
     "@portabletext/keyboard-shortcuts": "1.1.1",
-    "@portabletext/react": "4.0.3",
+    "@portabletext/react": "5.0.0",
     "@portabletext/to-html": "3.0.0",
     "@portabletext/toolbar": "2.2.32",
     "@react-router/node": "7.9.4",
