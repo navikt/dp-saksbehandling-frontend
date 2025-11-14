@@ -77,7 +77,7 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
 
         {meldekortUrl && (
           <BodyShort size={"small"} textColor={"subtle"} className={styles.infoElement}>
-            <Link href={meldekortUrl}>
+            <Link href={meldekortUrl} target="_blank">
               Meldekort <ExternalLinkIcon aria-hidden />
             </Link>
           </BodyShort>
