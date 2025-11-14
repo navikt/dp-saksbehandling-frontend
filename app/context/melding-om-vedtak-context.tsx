@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 
 import { components } from "../../openapi/melding-om-vedtak-typer";
 
-export type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
+type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
 
 interface IUtvidedeBeskrivelserContextType {
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];

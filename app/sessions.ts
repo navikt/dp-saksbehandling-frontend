@@ -7,7 +7,7 @@ interface ISessionData {
   aktivtOppgaveFilter: string;
 }
 
-const { getSession, commitSession, destroySession } = createCookieSessionStorage<ISessionData>({
+const { getSession, commitSession } = createCookieSessionStorage<ISessionData>({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
     name: "dp-saksbehandling-frontend",
@@ -25,4 +25,4 @@ const { getSession, commitSession, destroySession } = createCookieSessionStorage
   },
 });
 
-export { commitSession, destroySession, getSession };
+export { commitSession, getSession };

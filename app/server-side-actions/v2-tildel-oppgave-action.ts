@@ -22,11 +22,11 @@ export async function v2TildelOppgaveAction(request: Request, formData: FormData
   switch (data.behandlingType) {
     case "RETT_TIL_DAGPENGER":
       if (data.nyTilstand === "UNDER_BEHANDLING") {
-        return redirect(`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
       }
 
       if (data.nyTilstand === "UNDER_KONTROLL") {
-        return redirect(`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
       }
       break;
 

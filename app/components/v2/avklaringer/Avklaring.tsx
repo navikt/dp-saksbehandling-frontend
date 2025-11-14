@@ -17,7 +17,6 @@ import { useForm } from "@rvf/react-router";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
-import styles from "~/components/avklaringer/Avklaring.module.css";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
@@ -84,7 +83,6 @@ export function Avklaring(props: IProps) {
               {...avklaringForm.getInputProps("begrunnelse")}
               resize={"vertical"}
               readOnly={readonly}
-              className={styles.begrunnelseInput}
               size="small"
               label="Begrunnelse"
             />

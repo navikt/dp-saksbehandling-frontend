@@ -65,7 +65,7 @@ export async function getSAFOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getOnBehalfOfToken(request: Request, audience: string) {
+async function getOnBehalfOfToken(request: Request, audience: string) {
   const token = getToken(request);
 
   if (!token) {

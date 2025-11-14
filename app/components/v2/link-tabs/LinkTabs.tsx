@@ -38,21 +38,21 @@ export function LinkTabs(props: IProps) {
   );
 }
 
-export function getTabs(oppgaveId: string, behandlingId: string) {
+function getTabs(oppgaveId: string, behandlingId: string) {
   return [
     {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`,
+      url: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`,
       label: "Behandling",
       icon: <CogRotationIcon aria-hidden />,
     },
     {
-      url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`,
+      url: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`,
       label: "Vedtak",
       icon: <GavelSoundBlockIcon aria-hidden />,
     },
     getEnv("GCP_ENV") === "dev"
       ? {
-          url: `/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/lekegrind`,
+          url: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/lekegrind`,
           label: "Lekegrind",
           icon: <SlideIcon aria-hidden />,
         }

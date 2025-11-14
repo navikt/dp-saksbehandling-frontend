@@ -26,21 +26,26 @@ export function OppgaveMeny() {
           </ActionMenu.Trigger>
 
           <ActionMenu.Content>
-            {gyldigeOppgaveValg.map((valg) => (
-              <div key={valg}>
-                {valg === "legg-tilbake-oppgave" && (
-                  <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} />
-                )}
-                {valg === "utsett-oppgave" && <OppgaveValgSettPåVent oppgave={oppgave} />}
-                {valg === "rekjor-behandling" && (
-                  <OppgaveValgRekjørBehandling
-                    behandlingId={oppgave.behandlingId}
-                    personIdent={oppgave.person.ident}
-                  />
-                )}
-                {valg === "avbryt-behandling" && <OppgaveValgAvbryt oppgave={oppgave} />}
-              </div>
-            ))}
+            {gyldigeOppgaveValg.map((valg) => {
+              switch (valg) {
+                case "legg-tilbake-oppgave":
+                  return <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} />;
+
+                case "rekjor-behandling":
+                  return (
+                    <OppgaveValgRekjørBehandling
+                      behandlingId={oppgave.behandlingId}
+                      personIdent={oppgave.person.ident}
+                    />
+                  );
+
+                case "utsett-oppgave":
+                  return <OppgaveValgSettPåVent oppgave={oppgave} />;
+
+                case "avbryt-behandling":
+                  return <OppgaveValgAvbryt oppgave={oppgave} />;
+              }
+            })}
           </ActionMenu.Content>
         </ActionMenu>
       )}

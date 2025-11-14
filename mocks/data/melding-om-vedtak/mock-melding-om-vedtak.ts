@@ -4,33 +4,32 @@ import egendefinert from "./mock-egendefinert-brev.html?raw";
 import innvilgetBrev from "./mock-innvilget-brev.html?raw";
 import meldingOmVedtakCss from "./mock-melding-om-vedtak.css?raw";
 
-export const mockMeldingOmVedtakAvslagMinsteinntekt: components["schemas"]["MeldingOmVedtakResponse"] =
-  {
-    html: hentHtmlMedInjectedCss(avslagBrev, meldingOmVedtakCss),
-    brevVariant: "GENERERT",
-    utvidedeBeskrivelser: [
-      {
-        brevblokkId: "brev.blokk.vedtak-innvilgelse",
-        tekst: "Fisk",
-        tittel: "Nav har innvilget søknaden din om dagpenger",
-        sistEndretTidspunkt: "2025-01-21T11:12:22.825566779",
-      },
-      {
-        brevblokkId: "brev.blokk.hvor-lenge-kan-du-faa-dagpenger",
-        tekst: "",
-        tittel: "Hvor lenge kan du få dagpenger?",
-        sistEndretTidspunkt: "2025-01-21T11:12:22.825607189",
-      },
-      {
-        brevblokkId: "brev.blokk.arbeidstiden-din",
-        tekst: "",
-        tittel: "Arbeidstiden din",
-        sistEndretTidspunkt: "2025-01-21T11:12:22.825621949",
-      },
-    ],
-  };
+const mockMeldingOmVedtakAvslagMinsteinntekt: components["schemas"]["MeldingOmVedtakResponse"] = {
+  html: hentHtmlMedInjectedCss(avslagBrev, meldingOmVedtakCss),
+  brevVariant: "GENERERT",
+  utvidedeBeskrivelser: [
+    {
+      brevblokkId: "brev.blokk.vedtak-innvilgelse",
+      tekst: "Fisk",
+      tittel: "Nav har innvilget søknaden din om dagpenger",
+      sistEndretTidspunkt: "2025-01-21T11:12:22.825566779",
+    },
+    {
+      brevblokkId: "brev.blokk.hvor-lenge-kan-du-faa-dagpenger",
+      tekst: "",
+      tittel: "Hvor lenge kan du få dagpenger?",
+      sistEndretTidspunkt: "2025-01-21T11:12:22.825607189",
+    },
+    {
+      brevblokkId: "brev.blokk.arbeidstiden-din",
+      tekst: "",
+      tittel: "Arbeidstiden din",
+      sistEndretTidspunkt: "2025-01-21T11:12:22.825621949",
+    },
+  ],
+};
 
-export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVedtakResponse"] = {
+const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVedtakResponse"] = {
   html: hentHtmlMedInjectedCss(innvilgetBrev, meldingOmVedtakCss),
   brevVariant: "EGENDEFINERT",
   utvidedeBeskrivelser: [
@@ -61,7 +60,7 @@ export const mockMeldingOmVedtakInnvilgelse: components["schemas"]["MeldingOmVed
   ],
 };
 
-export const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakResponse"] = {
+const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakResponse"] = {
   html: hentHtmlMedInjectedCss(egendefinert, meldingOmVedtakCss),
   brevVariant: "EGENDEFINERT",
   utvidedeBeskrivelser: [

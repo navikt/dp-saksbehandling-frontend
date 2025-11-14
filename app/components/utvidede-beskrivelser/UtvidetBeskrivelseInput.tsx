@@ -5,6 +5,7 @@ import { ClientOnly } from "remix-utils/client-only";
 import { useDebounceCallback } from "usehooks-ts";
 
 import styles from "~/components/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
+import { RikTekstEditor } from "~/components/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
@@ -12,11 +13,10 @@ import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
-import { RikTekstEditor } from "~/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 
-export interface IUtvidetBeskrivelseInput {
+interface IProps {
   label: ReactNode;
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"];
   utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
@@ -24,7 +24,7 @@ export interface IUtvidetBeskrivelseInput {
   sanityBrevMaler: ISanityBrevMal[];
 }
 
-export function UtvidetBeskrivelseInput(props: IUtvidetBeskrivelseInput) {
+export function UtvidetBeskrivelseInput(props: IProps) {
   const { addAlert } = useGlobalAlerts();
   const { behandlingId } = useTypeSafeParams();
   const formRef = useRef<HTMLFormElement | null>(null);

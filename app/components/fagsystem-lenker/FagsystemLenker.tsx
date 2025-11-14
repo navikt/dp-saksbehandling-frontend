@@ -56,7 +56,7 @@ export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
       )}
 
       <List.Item icon={<></>}>
-        <LoadingLink to={`/v2/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/barn`}>
+        <LoadingLink to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/barn`}>
           Rediger barn
         </LoadingLink>
       </List.Item>

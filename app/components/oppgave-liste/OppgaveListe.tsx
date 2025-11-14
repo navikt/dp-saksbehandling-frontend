@@ -160,7 +160,7 @@ export function OppgaveListe(props: IProps) {
   );
 }
 
-export function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand"]) {
+function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand"]) {
   switch (tilstand) {
     case "PAA_VENT":
       return "På vent";

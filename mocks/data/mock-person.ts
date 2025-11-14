@@ -1,6 +1,6 @@
 import { components } from "../../openapi/saksbehandling-typer";
 
-export const mockSikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][] = [
+const mockSikkerhetstiltak: components["schemas"]["Sikkerhetstiltak"][] = [
   { beskrivelse: "To i samtale", gyldigTom: "2025-12-01" },
   { beskrivelse: "Ikke fysisk", gyldigTom: "2025-12-01" },
 ];
