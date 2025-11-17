@@ -1,8 +1,10 @@
 import createClient from "openapi-fetch";
+import { redirect } from "react-router";
 
+import { commitSession, getSession } from "~/sessions";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
+import { getHttpProblemAlert, handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
@@ -318,5 +320,40 @@ export async function hentStatistikkForSaksbehandler(request: Request) {
 
   throw new Error(
     `Uhåndtert feil i hentStatistikkForSaksbehandler(). ${response.status} - ${response.statusText}`,
+  );
+}
+
+export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.GET(
+    "/behandling/{behandlingId}/oppgaveId",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { behandlingId },
+      },
+    },
+  );
+
+  if (error) {
+    const alert = getHttpProblemAlert(error);
+
+    const session = await getSession(request.headers.get("Cookie"));
+    session.flash("alert", alert);
+
+    return redirect(`/`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
+  if (data) {
+    // @ts-expect-error type skal endres i backend
+    return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentOppgaveIdForBehandlingId(). ${response.status} - ${response.statusText}`,
   );
 }

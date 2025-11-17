@@ -189,57 +189,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/behandling/v2/{behandlingId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Behandlingens id */
-                behandlingId: string;
-            };
-            cookie?: never;
-        };
-        /** Hent en spesifikk behandling */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description Behandlingens id */
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["BehandlingsresultatV2"];
-                    };
-                };
-                /** @description Feil ved henting av behandling */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/vurderinger": {
         parameters: {
             query?: never;
@@ -818,9 +767,7 @@ export interface components {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
         };
-        Behandling: components["schemas"]["BehandlingsresultatV2"];
-        /** @deprecated */
-        BehandlingsresultatV2: components["schemas"]["Behandlingskonvolutt"] & {
+        Behandling: components["schemas"]["Behandlingskonvolutt"] & {
             kreverTotrinnskontroll: boolean;
             tilstand: components["schemas"]["BehandlingTilstand"];
             avklaringer: components["schemas"]["Avklaring"][];
@@ -831,11 +778,9 @@ export interface components {
         };
         /** @enum {string} */
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-        Regelsett: components["schemas"]["VurderingsresultatV2"];
         /** @enum {string} */
         RegelsettType: "Vilkår" | "Fastsettelse";
-        /** @deprecated */
-        VurderingsresultatV2: {
+        Regelsett: {
             /** @description Unik identifikator for dette regelsettet */
             id: string;
             /** @description Kort navn som beskriver regelsettet */

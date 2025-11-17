@@ -1,6 +1,6 @@
 import { components } from "../../../openapi/behandling-typer";
 
-export const mockBehandlingV2Meldekort: components["schemas"]["BehandlingsresultatV2"] = {
+export const mockBehandlingV2Meldekort: components["schemas"]["Behandling"] = {
   behandlingId: "0199b8b8-4f28-7926-bfac-4459a0ebb34f",
   behandletHendelse: {
     datatype: "String",

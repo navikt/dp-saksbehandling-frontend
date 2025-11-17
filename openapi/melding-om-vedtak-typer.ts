@@ -395,7 +395,7 @@ export interface components {
          */
         BrevVariant: "GENERERT" | "EGENDEFINERT";
         /** @enum {string} */
-        Behandlingstype: "RETT_TIL_DAGPENGER" | "SØKNAD" | "KLAGE" | "MELDEKORT" | "MANUELL";
+        Behandlingstype: "RETT_TIL_DAGPENGER" | "SØKNAD" | "KLAGE" | "MELDEKORT" | "MANUELL" | "INNSENDING";
         HttpProblem: {
             type?: string;
             title?: string;

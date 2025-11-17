@@ -51,7 +51,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       fodselsnummer: oppgave.person.ident,
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
-      // @ts-expect-error Feil typer i dp-mov
       behandlingstype: oppgave.behandlingType,
     });
   }

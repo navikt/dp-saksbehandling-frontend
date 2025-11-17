@@ -12,7 +12,7 @@ import { components } from "../../../openapi/behandling-typer";
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  behandling?: components["schemas"]["BehandlingsresultatV2"];
+  behandling?: components["schemas"]["Behandling"];
   journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
 }
 

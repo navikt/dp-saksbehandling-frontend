@@ -1,7 +1,7 @@
 import { components } from "../../../openapi/behandling-typer";
 
 // behandlingId: "01997148-5db5-70b4-b4f1-607730450315",
-export const mockBehandlingPeriodisertV2: components["schemas"]["BehandlingsresultatV2"] = {
+export const mockBehandlingPeriodisertV2: components["schemas"]["Behandling"] = {
   behandlingId: "01997148-5db5-70b4-b4f1-607730450315",
   behandletHendelse: {
     datatype: "UUID",

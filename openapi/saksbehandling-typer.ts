@@ -1746,9 +1746,9 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT";
         /** @enum {string} */
-        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL";
+        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2013,8 +2013,8 @@ export interface components {
         FerdigstillInnsendingRequest: {
             /** Format: uuid */
             sakId: string;
-            vurdering?: string;
-            behandlingsType?: components["schemas"]["BehandlingType"];
+            vurdering: string;
+            behandlingType?: components["schemas"]["BehandlingType"];
         };
         HttpProblem: {
             type: string;

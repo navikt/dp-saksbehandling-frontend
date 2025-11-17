@@ -353,4 +353,21 @@ export const mockDpSaksbehandling = [
 
     return response(200).json(mockStatistikk);
   }),
+
+  http.get("/behandling/{behandlingId}/oppgaveId", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+    const { behandlingId } = params;
+    const oppgave = mockOppgaver.find((oppgave) => oppgave.behandlingId === behandlingId);
+
+    if (!oppgave) {
+      return get404Error(`/behandling/${behandlingId}/oppgaveId`);
+    }
+
+    // @ts-expect-error type skal endres i backend
+    return response(200).json({ oppgaveId: oppgave.oppgaveId });
+  }),
 ];
