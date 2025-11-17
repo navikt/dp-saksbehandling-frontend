@@ -1,3 +1,5 @@
+import { getISOWeek } from "date-fns";
+
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 
@@ -25,7 +27,7 @@ export function formaterOpplysningVerdi(
     case "boolsk":
       return opplysningsverdi.verdi ? "Ja" : "Nei";
     case "periode":
-      return `${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)}`;
+      return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
     case "barn":
       return `${opplysningsverdi.verdi} barn`;
   }
