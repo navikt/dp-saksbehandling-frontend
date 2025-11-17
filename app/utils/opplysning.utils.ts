@@ -38,7 +38,7 @@ export function formaterOpplysningEnhet(enhet?: components["schemas"]["Enhet"]):
     case "prosent":
       return "%";
     case "G":
-      return "G;";
+      return "G";
     case "dager":
       return "dager";
     case "uker":

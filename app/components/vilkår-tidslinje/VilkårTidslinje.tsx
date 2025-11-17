@@ -45,17 +45,14 @@ export function VilkårTidslinje({ behandling }: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(behandling.opplysninger);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["VurderingsresultatV2"] | undefined
+    components["schemas"]["Regelsett"] | undefined
   >();
 
   const [vilkårOgOpplysninger, setVilkårOgOpplysninger] = useState<
-    (
-      | components["schemas"]["VurderingsresultatV2"]
-      | components["schemas"]["RedigerbareOpplysninger"]
-    )[]
+    (components["schemas"]["Regelsett"] | components["schemas"]["RedigerbareOpplysninger"])[]
   >(behandling.vilkår);
 
-  function oppdaterVilkårArray(regelsett: components["schemas"]["VurderingsresultatV2"]) {
+  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"]) {
     if (aktivtRegelsett?.navn === regelsett.navn) {
       setAktivtRegelsett(undefined);
       setVilkårOgOpplysninger(behandling.vilkår);

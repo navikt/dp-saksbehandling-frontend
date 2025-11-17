@@ -18,7 +18,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
   const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["VurderingsresultatV2"] | undefined
+    components["schemas"]["Regelsett"] | undefined
   >();
 
   const aktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>

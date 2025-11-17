@@ -29,7 +29,7 @@ export function OppgaveValgBehandle({
     submitSource: "state",
     schema: hentValideringForTildelOppgave(),
     defaultValues: {
-      _action: "v2-tildel-oppgave",
+      _action: "tildel-oppgave",
       oppgaveId: listeOppgave.oppgaveId,
       behandlingId: listeOppgave.behandlingId,
     },
