@@ -9,11 +9,11 @@ import { OpplysningPeriodeTabellNyPeriode } from "~/components/v2/opplysning-per
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/v2/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
-  opplysning: components["schemas"]["OpplysningsgruppeV2"];
+  opplysning: components["schemas"]["RedigerbareOpplysninger"];
 }
 
 const NY_PERIODE_ID = "NY-PERIODE";
@@ -73,7 +73,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
                 </Table.DataCell>
 
-                <Table.DataCell>{formaterOpplysningVerdiV2(periode.verdi)}</Table.DataCell>
+                <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
 
                 <Table.DataCell>
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}

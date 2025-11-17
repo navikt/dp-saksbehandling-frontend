@@ -25,14 +25,14 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { formaterOpplysningEnhet, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningEnhet, formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./VilkårTidslinje.module.css";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function VilkårTidslinje({ behandling }: IProps) {
@@ -49,7 +49,10 @@ export function VilkårTidslinje({ behandling }: IProps) {
   >();
 
   const [vilkårOgOpplysninger, setVilkårOgOpplysninger] = useState<
-    (components["schemas"]["VurderingsresultatV2"] | components["schemas"]["OpplysningsgruppeV2"])[]
+    (
+      | components["schemas"]["VurderingsresultatV2"]
+      | components["schemas"]["RedigerbareOpplysninger"]
+    )[]
   >(behandling.vilkår);
 
   function oppdaterVilkårArray(regelsett: components["schemas"]["VurderingsresultatV2"]) {
@@ -162,7 +165,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                       status={hentFargeForOpplysningPeriode(periode.verdi)}
                       icon={hentIkonForOpplysningPeriode(periode.verdi)}
                     >
-                      {formaterOpplysningVerdiV2(periode.verdi)}
+                      {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>
                   );
                 })}
@@ -252,7 +255,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                       <div>
                         <Detail textColor={"subtle"}>Verdi</Detail>
                         <BodyShort size={"small"}>
-                          {formaterOpplysningVerdiV2(periode.verdi)}
+                          {formaterOpplysningVerdi(periode.verdi)}
                         </BodyShort>
                       </div>
                     </div>

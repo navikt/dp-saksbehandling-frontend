@@ -11,12 +11,12 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
+import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
+import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -29,7 +29,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.regelsettId, "params.regelsettId er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
   const vurderinger = await hentVurderinger(request, params.behandlingId);
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
     (sett) => sett.id === params.regelsettId,

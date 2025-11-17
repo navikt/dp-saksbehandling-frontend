@@ -17,10 +17,10 @@ export async function opprettManuellBehandling(request: Request, ident: string) 
   });
 }
 
-export async function hentBehandlingV2(request: Request, behandlingId: string) {
+export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 
-  const { response, data, error } = await behandlingClient.GET("/behandling/v2/{behandlingId}", {
+  const { response, data, error } = await behandlingClient.GET("/behandling/{behandlingId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       path: { behandlingId },

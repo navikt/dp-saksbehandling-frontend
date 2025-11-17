@@ -5,7 +5,7 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentBehandling } from "~/models/behandling.server";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -20,7 +20,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
   const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),

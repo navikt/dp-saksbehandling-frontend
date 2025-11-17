@@ -14,7 +14,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentBehandling } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
@@ -31,7 +31,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
   let orkestratorBarn;
   let orkestratorLandliste;
 

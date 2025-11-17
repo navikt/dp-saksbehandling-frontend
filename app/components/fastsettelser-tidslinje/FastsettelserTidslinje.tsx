@@ -10,7 +10,7 @@ import { components } from "../../../openapi/behandling-typer";
 import { OpplysningerTidslinje } from "../v2/opplysninger-tidslinje/OpplysningerTidslinje";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function FastsettelserTidslinje({ behandling }: IProps) {

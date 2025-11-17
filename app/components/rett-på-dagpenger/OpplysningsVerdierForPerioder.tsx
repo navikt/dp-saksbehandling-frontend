@@ -1,7 +1,7 @@
 import { BodyShort } from "@navikt/ds-react";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import { VerdiMedTittel } from "../verdi-med-tittel/VerdiMedTittel";
@@ -23,7 +23,7 @@ export function OpplysningsVerdierForPerioder(props: {
             label={`Periode: ${
               periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"
             } – ${periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}`}
-            verdi={formaterOpplysningVerdiV2(periode.verdi)}
+            verdi={formaterOpplysningVerdi(periode.verdi)}
             visBorder={index !== props.perioder.length - 1}
           />
         ))}

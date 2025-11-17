@@ -298,7 +298,7 @@ export function isTekstVerdi(
 
 export function isOpplysningsgruppe(
   value: unknown,
-): value is components["schemas"]["OpplysningsgruppeV2"] {
+): value is components["schemas"]["RedigerbareOpplysninger"] {
   if (typeof value !== "object" || value === null) {
     return false;
   }

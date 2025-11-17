@@ -140,5 +140,8 @@ export function hentOppgaveUrl(behandling: components["schemas"]["Behandling"]) 
       return `/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
     case "KLAGE":
       return `/oppgave/${behandling.oppgaveId}/klage/${behandling.id}`;
+
+    default:
+      return "";
   }
 }

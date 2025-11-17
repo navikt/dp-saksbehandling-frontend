@@ -17,7 +17,7 @@ export interface TidslinjeNavigeringState {
 }
 
 export function useTidslinjeNavigeringState(
-  opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
+  opplysninger: components["schemas"]["RedigerbareOpplysninger"][],
   eksternState?: TidslinjeNavigeringState,
   eksternFørsteFraOgMedDato?: string,
 ): TidslinjeNavigeringState {

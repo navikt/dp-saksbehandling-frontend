@@ -4,7 +4,7 @@ import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
 import { components } from "../../openapi/behandling-typer";
 import { logger } from "./logger.utils";
 
-export function formaterOpplysningVerdiV2(
+export function formaterOpplysningVerdi(
   opplysningsverdi: components["schemas"]["Opplysningsverdi"],
 ) {
   switch (opplysningsverdi.datatype) {
@@ -166,7 +166,7 @@ export function erOpplysningsperiodeInnenforRettighetsperiode(
 }
 
 export function hentPerioderForOpplysning(
-  opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
+  opplysninger: components["schemas"]["RedigerbareOpplysninger"][],
   opplysningTypeId: string,
   rettighetsperiode: components["schemas"]["Rettighetsperiode"],
 ): components["schemas"]["Opplysningsperiode"][] {
@@ -197,7 +197,7 @@ export function erPrøvingsdatoInnenforPeriode(
 }
 
 export function hentOpplysningsperiodePåPrøvingsdato(
-  opplysninger: components["schemas"]["OpplysningsgruppeV2"][],
+  opplysninger: components["schemas"]["RedigerbareOpplysninger"][],
   opplysningTypeId: string,
   prøvingsdato: string,
 ): components["schemas"]["Opplysningsperiode"] | undefined {

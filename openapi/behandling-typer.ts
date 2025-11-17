@@ -798,23 +798,8 @@ export interface components {
         AvklaringKvittering: {
             begrunnelse: string;
         };
-        Behandling: {
-            /** Format: uuid */
-            behandlingId: string;
-            tidslinje?: components["schemas"]["Tidslinjehendelse"][];
-            /** @enum {string} */
-            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-            /** @description Hvilken hendelse som utløste behandlingen */
-            behandletHendelse?: components["schemas"]["Hendelse"];
-            kreverTotrinnskontroll: boolean;
-            utfall?: boolean;
-            "vilk\u00E5r": components["schemas"]["Regelsett"][];
-            fastsettelser: components["schemas"]["Regelsett"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysninger: components["schemas"]["Opplysning"][];
-            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
-        };
-        Behandlingsresultat: {
+        Personident: string;
+        Behandlingskonvolutt: {
             /** Format: uuid */
             behandlingId: string;
             /** @description Hvilken hendelse som utløste behandlingen */
@@ -827,47 +812,29 @@ export interface components {
             /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
             automatisk: boolean;
             ident: components["schemas"]["Personident"];
+            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+        };
+        Behandlingsresultat: components["schemas"]["Behandlingskonvolutt"] & {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
-            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
         };
-        BehandlingsresultatV2: {
-            /** Format: uuid */
-            behandlingId: string;
-            hendelser?: components["schemas"]["Tidslinjehendelse"][];
-            /** @description Hvilken hendelse som utløste behandlingen */
-            behandletHendelse: components["schemas"]["Hendelse"];
+        Behandling: components["schemas"]["BehandlingsresultatV2"];
+        /** @deprecated */
+        BehandlingsresultatV2: components["schemas"]["Behandlingskonvolutt"] & {
             kreverTotrinnskontroll: boolean;
-            /**
-             * Format: uuid
-             * @description Hvilken behandling denne behandlingen er basert på, hvis noen
-             */
-            "basertP\u00E5"?: string;
-            /** @enum {string} */
-            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-            /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
-            automatisk: boolean;
-            ident: components["schemas"]["Personident"];
+            tilstand: components["schemas"]["BehandlingTilstand"];
             avklaringer: components["schemas"]["Avklaring"][];
-            "vilk\u00E5r": components["schemas"]["VurderingsresultatV2"][];
-            fastsettelser: components["schemas"]["VurderingsresultatV2"][];
+            "vilk\u00E5r": components["schemas"]["Regelsett"][];
+            fastsettelser: components["schemas"]["Regelsett"][];
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
-            opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
-            rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+            opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
         };
-        Personident: string;
-        Vurderingsresultat: {
-            /** @description Kort navn som beskriver regelsettet */
-            navn: string;
-            /** @description Hvilken hjemmel er regelsettet basert på */
-            hjemmel: components["schemas"]["Hjemmel"];
-            /** @enum {string} */
-            type?: "Vilkår" | "Fastsettelse";
-            perioder?: components["schemas"]["Rettighetsperiode"][];
-            utfall?: components["schemas"]["OpplysningTypeId"][];
-            "\u00F8nsketResultat"?: components["schemas"]["OpplysningTypeId"][];
-            opplysninger?: components["schemas"]["OpplysningTypeId"][];
-        };
+        /** @enum {string} */
+        BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
+        Regelsett: components["schemas"]["VurderingsresultatV2"];
+        /** @enum {string} */
+        RegelsettType: "Vilkår" | "Fastsettelse";
+        /** @deprecated */
         VurderingsresultatV2: {
             /** @description Unik identifikator for dette regelsettet */
             id: string;
@@ -877,38 +844,20 @@ export interface components {
             hjemmel: components["schemas"]["Hjemmel"];
             /** @description Om innholdet i regelsettet påvirker resultatet av behandlingen */
             relevantForResultat: boolean;
-            /** @enum {string} */
-            type: "Vilkår" | "Fastsettelse";
+            type: components["schemas"]["RegelsettType"];
             opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
             opplysninger: components["schemas"]["OpplysningTypeId"][];
         };
-        OpplysningsgruppeV2: {
-            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
-            navn: string;
-            datatype: components["schemas"]["DataType"];
+        RedigerbareOpplysninger: components["schemas"]["Opplysninger"] & {
             synlig: boolean;
-            redigerbar?: boolean;
-            redigertAvSaksbehandler?: boolean;
+            redigerbar: boolean;
+            redigertAvSaksbehandler: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
-            perioder: components["schemas"]["Opplysningsperiode"][];
-        };
-        BehandlingOpplysninger: {
-            /** Format: uuid */
-            behandlingId: string;
-            /** @enum {string} */
-            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-            opplysning: components["schemas"]["Opplysning"][];
-            kreverTotrinnskontroll: boolean;
-            aktiveAvklaringer: components["schemas"]["Avklaring"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
         };
         SaksbehandlersVurderinger: {
             /** Format: uuid */
             behandlingId: string;
-            regelsett: components["schemas"]["Regelsett"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysninger: components["schemas"]["Opplysning"][];
+            opplysninger: components["schemas"]["Opplysninger"][];
         };
         Avklaring: {
             /** Format: uuid */
@@ -936,31 +885,6 @@ export interface components {
         /** Format: uuid */
         OpplysningTypeId: string;
         AvklaringKode: string;
-        Regelsett: {
-            /** @description Kort navn som beskriver regelsettet */
-            navn: string;
-            /** @description Hvilken hjemmel er regelsettet basert på */
-            hjemmel: components["schemas"]["Hjemmel"];
-            /** @deprecated */
-            relevantForVedtak?: boolean;
-            status: components["schemas"]["Status"];
-            /** @description Hvilke avklaringer som skal vises i dette regelsettet */
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysningIder: components["schemas"]["OpplysningsId"][];
-            opplysningTypeIder: components["schemas"]["OpplysningTypeId"][];
-            /** @description Vi vet ikke helt hvordan dette skal se ut enda. */
-            perioder?: components["schemas"]["VilkaarPeriode"][];
-        };
-        VilkaarPeriode: {
-            status: components["schemas"]["Status"];
-            /** Format: date */
-            gyldigFraOgMed?: string;
-            /** Format: date */
-            gyldigTilOgMed?: string;
-            opplysningsTypeId: components["schemas"]["OpplysningTypeId"][];
-        };
-        /** @enum {string} */
-        Status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
         Hjemmel: {
             /** @description Lov, forskrift, eller rundskriv */
             kilde: components["schemas"]["Lovkilde"];
@@ -986,8 +910,33 @@ export interface components {
             kanOppfriskes: boolean;
             opplysninger: components["schemas"]["Opplysning"][];
         };
-        /** @enum {string} */
-        "Form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+        Opplysninger: {
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            datatype: components["schemas"]["DataType"];
+            perioder: components["schemas"]["Opplysningsperiode"][];
+        };
+        Opplysningsperiode: {
+            id: components["schemas"]["OpplysningsId"];
+            /** Format: date-time */
+            opprettet: string;
+            /** @deprecated */
+            status: components["schemas"]["Opprinnelse"];
+            opprinnelse?: components["schemas"]["Opprinnelse"];
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig fra tidens morgen.
+             */
+            gyldigFraOgMed?: string;
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig til evig tid.
+             */
+            gyldigTilOgMed?: string;
+            verdi: components["schemas"]["Opplysningsverdi"];
+            kilde?: components["schemas"]["Opplysningskilde"];
+            utledetAv?: components["schemas"]["Utledning"];
+        };
         Opplysning: {
             id: components["schemas"]["OpplysningsId"];
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -1017,32 +966,8 @@ export interface components {
             synlig: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
         };
-        Opplysninger: {
-            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
-            navn: string;
-            perioder?: components["schemas"]["Opplysningsperiode"][];
-        };
-        Opplysningsperiode: {
-            id: components["schemas"]["OpplysningsId"];
-            /** Format: date-time */
-            opprettet: string;
-            /** @deprecated */
-            status: components["schemas"]["Opprinnelse"];
-            opprinnelse?: components["schemas"]["Opprinnelse"];
-            /**
-             * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig fra tidens morgen.
-             */
-            gyldigFraOgMed?: string;
-            /**
-             * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig til evig tid.
-             */
-            gyldigTilOgMed?: string;
-            verdi: components["schemas"]["Opplysningsverdi"];
-            kilde?: components["schemas"]["Opplysningskilde"];
-            utledetAv?: components["schemas"]["Utledning"];
-        };
+        /** @enum {string} */
+        "Form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
         /**
          * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
          * @enum {string}
@@ -1424,6 +1349,11 @@ export interface components {
             id: string;
             /** @enum {string} */
             type: "Søknad" | "Meldekort" | "Manuell";
+            /**
+             * Format: date
+             * @description Når hendelsen skjedde på utsiden av vårt system
+             */
+            skjedde: string;
         };
         /** @enum {string} */
         VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";

@@ -4,6 +4,120 @@
  */
 
 export interface paths {
+    "/innsending/{behandlingId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill innsending for en gitt id */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillInnsendingRequest"];
+                };
+            };
+            responses: {
+                /** @description Innsending ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Innsending informasjon for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/innsending/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent innsending for en gitt id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med innsending */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Innsending"];
+                    };
+                };
+                /** @description Innsending informasjon for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/oppgave": {
         parameters: {
             query?: never;
@@ -1518,6 +1632,22 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Innsending: {
+            /** Format: uuid */
+            behandlingId: string;
+            journalpostId: string;
+            lovligeSaker: components["schemas"]["TynnSak"][];
+            /** Format: uuid */
+            sakId?: string;
+            vurdering?: string;
+            nyBehandling?: components["schemas"]["Behandling"];
+        };
+        TynnSak: {
+            /** Format: uuid */
+            sakId: string;
+            /** Format: date-time */
+            opprettetDato: string;
+        };
         Person: {
             ident: string;
             /** Format: uuid */
@@ -1618,7 +1748,7 @@ export interface components {
         /** @enum {string} */
         UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -1879,6 +2009,12 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
+        };
+        FerdigstillInnsendingRequest: {
+            /** Format: uuid */
+            sakId: string;
+            vurdering?: string;
+            behandlingsType?: components["schemas"]["BehandlingType"];
         };
         HttpProblem: {
             type: string;

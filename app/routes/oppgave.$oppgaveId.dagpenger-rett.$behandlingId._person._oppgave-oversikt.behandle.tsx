@@ -12,12 +12,12 @@ import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/Fas
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
+import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
+import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -28,7 +28,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
   const vurderinger = await hentVurderinger(request, params.behandlingId);
 
   return { behandling, vurderinger };

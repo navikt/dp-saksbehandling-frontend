@@ -4,6 +4,7 @@ export const mockBehandlingV2Meldekort: components["schemas"]["Behandlingsresult
   behandlingId: "0199b8b8-4f28-7926-bfac-4459a0ebb34f",
   behandletHendelse: {
     datatype: "String",
+    skjedde: "",
     id: "f6e15060-dd4e-4e5b-a1c2-beefb61c6c22",
     type: "Meldekort",
   },
