@@ -17,7 +17,7 @@ import {
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningFormål, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningFormål, formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 interface TimelinePin {
   date: Date;
@@ -25,7 +25,7 @@ interface TimelinePin {
 }
 
 interface IProps {
-  opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
+  opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
   fremhevØverstTidslinjeRad?: boolean;
   tittel?: string;
   regelsettHjemmel?: string;
@@ -197,9 +197,7 @@ export function OpplysningerTidslinje(props: IProps) {
                     </div>
                     <div>
                       <Detail textColor={"subtle"}>Verdi</Detail>
-                      <BodyShort size={"small"}>
-                        {formaterOpplysningVerdiV2(periode.verdi)}
-                      </BodyShort>
+                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
                     </div>
                   </div>
                 </Timeline.Period>

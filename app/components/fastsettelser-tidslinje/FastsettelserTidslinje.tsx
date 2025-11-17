@@ -10,7 +10,7 @@ import { components } from "../../../openapi/behandling-typer";
 import { OpplysningerTidslinje } from "../v2/opplysninger-tidslinje/OpplysningerTidslinje";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function FastsettelserTidslinje({ behandling }: IProps) {
@@ -18,7 +18,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
   const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["VurderingsresultatV2"] | undefined
+    components["schemas"]["Regelsett"] | undefined
   >();
 
   const aktiveOpplysninger = behandling.opplysninger.filter((opplysning) =>

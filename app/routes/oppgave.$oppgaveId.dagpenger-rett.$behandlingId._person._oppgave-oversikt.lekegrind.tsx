@@ -12,7 +12,7 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandlingV2 } from "~/models/behandling.server";
+import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -22,7 +22,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
 
   return { behandling };
 }

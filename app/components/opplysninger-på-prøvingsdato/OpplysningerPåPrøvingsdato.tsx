@@ -2,14 +2,14 @@ import { Heading } from "@navikt/ds-react";
 
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import {
-  formaterOpplysningVerdiV2,
+  formaterOpplysningVerdi,
   hentOpplysningsperiodePåPrøvingsdato,
 } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
   prøvingsdato: Date;
 }
 
@@ -49,7 +49,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
               key={id}
               visBorder={true}
               label={label}
-              verdi={formaterOpplysningVerdiV2(periode.verdi)}
+              verdi={formaterOpplysningVerdi(periode.verdi)}
             />
           );
         })}

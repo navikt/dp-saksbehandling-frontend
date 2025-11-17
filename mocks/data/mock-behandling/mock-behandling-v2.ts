@@ -5,6 +5,7 @@ export const mockBehandlingPeriodisertV2: components["schemas"]["Behandlingsresu
   behandlingId: "01997148-5db5-70b4-b4f1-607730450315",
   behandletHendelse: {
     datatype: "UUID",
+    skjedde: "",
     id: "037231f5-0511-410c-8a96-00223aba5e3c",
     type: "Søknad",
   },

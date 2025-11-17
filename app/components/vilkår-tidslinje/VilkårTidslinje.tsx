@@ -24,15 +24,14 @@ import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { logger } from "~/utils/logger.utils";
-import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { formaterOpplysningEnhet, formaterOpplysningVerdiV2 } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./VilkårTidslinje.module.css";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function VilkårTidslinje({ behandling }: IProps) {
@@ -45,14 +44,14 @@ export function VilkårTidslinje({ behandling }: IProps) {
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(behandling.opplysninger);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
-    components["schemas"]["VurderingsresultatV2"] | undefined
+    components["schemas"]["Regelsett"] | undefined
   >();
 
   const [vilkårOgOpplysninger, setVilkårOgOpplysninger] = useState<
-    (components["schemas"]["VurderingsresultatV2"] | components["schemas"]["OpplysningsgruppeV2"])[]
+    (components["schemas"]["Regelsett"] | components["schemas"]["RedigerbareOpplysninger"])[]
   >(behandling.vilkår);
 
-  function oppdaterVilkårArray(regelsett: components["schemas"]["VurderingsresultatV2"]) {
+  function oppdaterVilkårArray(regelsett: components["schemas"]["Regelsett"]) {
     if (aktivtRegelsett?.navn === regelsett.navn) {
       setAktivtRegelsett(undefined);
       setVilkårOgOpplysninger(behandling.vilkår);
@@ -162,7 +161,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                       status={hentFargeForOpplysningPeriode(periode.verdi)}
                       icon={hentIkonForOpplysningPeriode(periode.verdi)}
                     >
-                      {formaterOpplysningVerdiV2(periode.verdi)}
+                      {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>
                   );
                 })}
@@ -252,7 +251,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
                       <div>
                         <Detail textColor={"subtle"}>Verdi</Detail>
                         <BodyShort size={"small"}>
-                          {formaterOpplysningVerdiV2(periode.verdi)}
+                          {formaterOpplysningVerdi(periode.verdi)}
                         </BodyShort>
                       </div>
                     </div>
@@ -271,26 +270,11 @@ export function hentIkonForOpplysningPeriode(
   opplysningsverdi: components["schemas"]["Opplysningsverdi"],
 ) {
   switch (opplysningsverdi.datatype) {
-    case "tekst":
-      return opplysningsverdi.verdi;
-    case "inntekt":
-      return `${opplysningsverdi.verdi} inntekt`;
-    case "dato":
-      return formaterTilNorskDato(opplysningsverdi.verdi);
-    case "heltall":
-      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
-    case "desimaltall":
-      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} ${formaterOpplysningEnhet(opplysningsverdi.enhet)}`;
-    case "penger":
-      return `${formaterTallMedTusenSeperator(opplysningsverdi.verdi)} kr`;
-    case "ulid":
-      return `${opplysningsverdi.verdi} ulid`;
     case "boolsk":
       return opplysningsverdi.verdi ? <CheckmarkCircleFillIcon /> : <XMarkOctagonIcon />;
-    case "periode":
-      return `${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)}`;
-    case "barn":
-      return `${opplysningsverdi.verdi} barn`;
+
+    default:
+      return formaterOpplysningVerdi(opplysningsverdi);
   }
 }
 

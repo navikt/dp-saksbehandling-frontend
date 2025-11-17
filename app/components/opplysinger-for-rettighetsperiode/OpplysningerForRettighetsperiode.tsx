@@ -3,13 +3,13 @@ import { Heading } from "@navikt/ds-react";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdiV2, hentPerioderForOpplysning } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, hentPerioderForOpplysning } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   index: number;
-  opplysninger: components["schemas"]["OpplysningsgruppeV2"][];
+  opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
   rettighetsperiode: components["schemas"]["Rettighetsperiode"];
 }
 
@@ -61,7 +61,7 @@ export function OpplysningerForRettighetsperiode({
               key={id}
               label={label}
               visBorder={true}
-              verdi={formaterOpplysningVerdiV2(perioder[0].verdi)}
+              verdi={formaterOpplysningVerdi(perioder[0].verdi)}
             />
           );
         })}

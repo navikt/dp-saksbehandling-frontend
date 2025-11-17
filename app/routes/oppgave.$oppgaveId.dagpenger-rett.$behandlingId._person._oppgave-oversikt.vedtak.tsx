@@ -13,7 +13,7 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import { EndretOpplysninger } from "~/components/v2/endret-opplysninger/EndretOpplysninger";
+import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
@@ -22,7 +22,7 @@ import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontrol
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandlingV2, hentVurderinger } from "~/models/behandling.server";
+import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
@@ -38,7 +38,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandlingV2(request, params.behandlingId);
+  const behandling = await hentBehandling(request, params.behandlingId);
   const vurderinger = await hentVurderinger(request, params.behandlingId);
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
@@ -51,6 +51,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       fodselsnummer: oppgave.person.ident,
       saksbehandler: oppgave.saksbehandler,
       beslutter: oppgave.beslutter,
+      // @ts-expect-error Feil typer i dp-mov
       behandlingstype: oppgave.behandlingType,
     });
   }

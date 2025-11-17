@@ -6,7 +6,7 @@ import { useLocation } from "react-router";
 import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import {
-  formaterOpplysningVerdiV2,
+  formaterOpplysningVerdi,
   hentOpplysningsperiodePåPrøvingsdato,
 } from "~/utils/opplysning.utils";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
@@ -14,7 +14,7 @@ import { hentValideringForFattVedtak } from "~/utils/validering.util";
 import { components } from "../../../../openapi/behandling-typer";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function OppgaveFattVedtak({ behandling }: IProps) {
@@ -57,7 +57,7 @@ export function OppgaveFattVedtak({ behandling }: IProps) {
             <BodyLong>
               Ønsker du å fatte vedtak med utfall{" "}
               <strong>
-                {formaterOpplysningVerdiV2(harLøpendeRettPåDagpengerPeriode.verdi) === "Ja"
+                {formaterOpplysningVerdi(harLøpendeRettPåDagpengerPeriode.verdi) === "Ja"
                   ? "Innvilgelse"
                   : "Avslag"}
               </strong>

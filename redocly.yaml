@@ -1,6 +1,6 @@
 apis:
   behandling@v1:
-    root: https://dp-behandling.intern.dev.nav.no/openapi/behandling-api.yaml
+    root: https://raw.githubusercontent.com/navikt/dp-behandling/refs/heads/feature/api-rydding/openapi/src/main/resources/behandling-api.yaml
     x-openapi-ts:
       output: ./openapi/behandling-typer.ts
 

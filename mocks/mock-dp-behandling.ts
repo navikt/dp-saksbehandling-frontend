@@ -4,7 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
-import { mockBehandlinger, mockBehandlinger2 } from "./data/mock-behandling/mock-behandling";
+import { mockBehandlinger } from "./data/mock-behandling/mock-behandling";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
@@ -36,27 +36,6 @@ export const mockDpBehandling = [
 
     const { behandlingId } = params;
     const mockBehandling = mockBehandlinger.find(
-      (behandling) => behandling.behandlingId === behandlingId,
-    );
-
-    if (apiError) {
-      return response("default").json(defaultError, { status: 500 });
-    }
-
-    if (mockBehandling) {
-      return response(200).json(mockBehandling);
-    }
-
-    return response("default").json(getError404(`Fant ikke behandling med id: ${behandlingId}`), {
-      status: 404,
-    });
-  }),
-
-  http.get("/behandling/v2/{behandlingId}", async ({ params, response }) => {
-    await delay();
-
-    const { behandlingId } = params;
-    const mockBehandling = mockBehandlinger2.find(
       (behandling) => behandling.behandlingId === behandlingId,
     );
 

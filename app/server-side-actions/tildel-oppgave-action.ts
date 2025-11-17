@@ -5,7 +5,7 @@ import { tildelOppgave } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForTildelOppgave } from "~/utils/validering.util";
 
-export async function v2TildelOppgaveAction(request: Request, formData: FormData) {
+export async function tildelOppgaveAction(request: Request, formData: FormData) {
   const validertSkjema = await parseFormData(formData, hentValideringForTildelOppgave());
 
   if (validertSkjema.error) {

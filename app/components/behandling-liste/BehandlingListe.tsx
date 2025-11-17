@@ -1,6 +1,6 @@
 import { Detail, Table } from "@navikt/ds-react";
 
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
@@ -39,15 +39,15 @@ export function BehandlingListe({ behandlinger }: IProps) {
             </Table.DataCell>
 
             <Table.DataCell className={"w-1/8"}>
-              <RemixLink
+              <LoadingLink
                 asButtonVariant={"tertiary"}
-                size={"xsmall"}
+                buttonSize={"xsmall"}
                 to={
                   behandling.oppgaveId ? hentOppgaveUrl(behandling) : `/behandling/${behandling.id}`
                 }
               >
                 {behandling.oppgaveId ? "Se oppgave" : "Se behandling"}
-              </RemixLink>
+              </LoadingLink>
             </Table.DataCell>
           </Table.Row>
         ))}

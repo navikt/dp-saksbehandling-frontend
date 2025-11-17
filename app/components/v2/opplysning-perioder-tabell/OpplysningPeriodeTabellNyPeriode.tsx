@@ -10,7 +10,7 @@ import { hentValideringForNyOpplysningPeriodeSkjema } from "~/utils/validering.u
 import { components } from "../../../../openapi/behandling-typer";
 
 interface IProps {
-  opplysning: components["schemas"]["OpplysningsgruppeV2"];
+  opplysning: components["schemas"]["RedigerbareOpplysninger"];
   setPeriodeUnderRedigering: (periode?: string) => void;
 }
 

@@ -12,7 +12,7 @@ import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
   behandlingId: string;
-  prøvingsdatoOpplysning: components["schemas"]["OpplysningsgruppeV2"];
+  prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
 }
 
 export function PrøvingsdatoInput(props: IProps) {

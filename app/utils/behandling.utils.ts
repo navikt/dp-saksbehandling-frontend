@@ -4,7 +4,7 @@ import { isTekstVerdi } from "~/utils/type-guards";
 import { components } from "../../openapi/behandling-typer";
 
 export function hentInntektRedigeringUrl(
-  behandling: components["schemas"]["BehandlingsresultatV2"],
+  behandling: components["schemas"]["Behandling"],
 ): string | undefined {
   const inntektOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-9413-77ce-92ec-d29700f04244",

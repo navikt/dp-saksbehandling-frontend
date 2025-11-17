@@ -7,7 +7,7 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
-  behandling: components["schemas"]["BehandlingsresultatV2"];
+  behandling: components["schemas"]["Behandling"];
 }
 
 export function RettPåDagpenger({ behandling }: IProps) {
