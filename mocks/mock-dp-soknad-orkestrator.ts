@@ -3,8 +3,8 @@ import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
 
-import { mockOrkestratorBarn } from "./data/mock-orkestrator-barn";
-import { mockOrkestratorLandListe } from "./data/mock-orkestrator-land-lister";
+import { mockOrkestratorBarn } from "./data/mock-orkestrator/mock-orkestrator-barn";
+import { mockOrkestratorLandListe } from "./data/mock-orkestrator/mock-orkestrator-land-lister";
 
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
 

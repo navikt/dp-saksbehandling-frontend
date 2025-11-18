@@ -1,4 +1,4 @@
-import { components } from "openapi/soknad-orkestrator-typer";
+import { components } from "../../../openapi/soknad-orkestrator-typer";
 
 export const mockOrkestratorLandListe: components["schemas"]["Land"][] = [
   {

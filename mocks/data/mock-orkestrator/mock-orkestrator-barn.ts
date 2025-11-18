@@ -1,4 +1,4 @@
-import { components } from "openapi/soknad-orkestrator-typer";
+import { components } from "../../../openapi/soknad-orkestrator-typer";
 
 const barn1: components["schemas"]["BarnResponse"] = {
   barnId: "f4a7aa9c-7291-4d97-ae01-9fc0acef78ed",

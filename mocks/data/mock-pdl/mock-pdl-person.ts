@@ -1,4 +1,4 @@
-import type { HentPersonQuery, Vegadresse } from "../../graphql/generated/pdl/graphql";
+import type { HentPersonQuery, Vegadresse } from "../../../graphql/generated/pdl/graphql";
 
 const vegadresse: Vegadresse = {
   husnummer: "111",

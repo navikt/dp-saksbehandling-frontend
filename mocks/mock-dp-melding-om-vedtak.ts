@@ -4,7 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/melding-om-vedtak-typer";
-import { mockMeldingerOmVedtak } from "./data/melding-om-vedtak/mock-melding-om-vedtak";
+import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
 
 const apiError = false;
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_MELDING_OM_VEDTAK_URL") });

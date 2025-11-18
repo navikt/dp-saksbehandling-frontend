@@ -1480,10 +1480,10 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": string;
+                        "application/json": components["schemas"]["OppgaveId"];
                     };
                 };
-                /** @description Fant ikke oppgaveId for behandlingId */
+                /** @description OppgaveId for behandlingId ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1768,6 +1768,10 @@ export interface components {
         PersonId: {
             /** Format: uuid */
             id: string;
+        };
+        OppgaveId: {
+            /** Format: uuid */
+            oppgaveId: string;
         };
         OppgaveHistorikk: {
             /** @enum {string} */

@@ -2,7 +2,14 @@ import type { ISaksbehandler } from "~/models/microsoft.server";
 
 export const mockSaksbehandler: ISaksbehandler = {
   onPremisesSamAccountName: "Z993298",
-  givenName: "Frans Kake Jaeger",
-  displayName: "franz",
-  mail: "fran@kake.jaeger",
+  givenName: "Donald Dægg Duck",
+  displayName: "Donald Duck",
+  mail: "donald@duck.no",
+};
+
+export const mockAnnenSaksbehandler: ISaksbehandler = {
+  onPremisesSamAccountName: "Z123456",
+  givenName: "Dolly Dægg Duck",
+  displayName: "Dolly Duck",
+  mail: "dolly@duck.no",
 };

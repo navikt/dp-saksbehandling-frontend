@@ -325,15 +325,12 @@ export async function hentStatistikkForSaksbehandler(request: Request) {
 
 export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.GET(
-    "/behandling/{behandlingId}/oppgaveId",
-    {
-      headers: getHeaders(onBehalfOfToken),
-      params: {
-        path: { behandlingId },
-      },
+  const { data, error } = await saksbehandlerClient.GET("/behandling/{behandlingId}/oppgaveId", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
     },
-  );
+  });
 
   if (error) {
     const alert = getHttpProblemAlert(error);
@@ -349,11 +346,6 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
   }
 
   if (data) {
-    // @ts-expect-error type skal endres i backend
     return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
   }
-
-  throw new Error(
-    `Uhåndtert feil i hentOppgaveIdForBehandlingId(). ${response.status} - ${response.statusText}`,
-  );
 }

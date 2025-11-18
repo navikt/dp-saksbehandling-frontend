@@ -4,7 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
-import { mockBehandlinger } from "./data/mock-behandling/mock-behandling";
+import { mockBehandlinger } from "./data/mock-dagpenger-rett-behandling/mock-behandlinger";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;

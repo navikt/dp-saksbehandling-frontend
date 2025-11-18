@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from "msw";
 
-import { mockPdlPerson } from "./data/mock-pdl-person";
+import { mockPdlPerson } from "./mock-pdl-person";
 
 export const mockPdl = [
   graphql.query("hentPerson", () => {

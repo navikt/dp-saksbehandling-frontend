@@ -1,4 +1,4 @@
-import { components } from "../../openapi/saksbehandling-typer";
+import { components } from "../../../openapi/saksbehandling-typer";
 
 const behandlingOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   {
@@ -136,7 +136,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
   },
 ];
 
-const klage: components["schemas"]["Klage"] = {
+export const klage: components["schemas"]["Klage"] = {
   behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
   utfall: {
     verdi: "OPPRETTHOLDELSE",

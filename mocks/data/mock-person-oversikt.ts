@@ -1,5 +1,5 @@
 import { components } from "../../openapi/saksbehandling-typer";
-import { mockListeOppgaver } from "./mock-liste-oppgaver";
+import { mockListeOppgaver } from "./mock-oppgaver/mock-liste-oppgaver";
 import { mockPerson } from "./mock-person";
 
 export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {

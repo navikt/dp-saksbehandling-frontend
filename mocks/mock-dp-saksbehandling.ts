@@ -4,9 +4,13 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { klager } from "./data/mock-klage";
-import { konverterOppgaveTilListeOppgave, mockListeOppgaver } from "./data/mock-liste-oppgaver";
-import { klageOppgave, mockOppgaver } from "./data/mock-oppgaver";
+import { klager } from "./data/mock-klage-behandling/mock-klage";
+import { klage } from "./data/mock-oppgaver/klage";
+import {
+  konverterOppgaveTilListeOppgave,
+  mockListeOppgaver,
+} from "./data/mock-oppgaver/mock-liste-oppgaver";
+import { mockOppgaver } from "./data/mock-oppgaver/mock-oppgaver";
 import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
 import { mockStatistikk } from "./data/mock-statistikk";
@@ -264,7 +268,7 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(konverterOppgaveTilListeOppgave(klageOppgave));
+    return response(200).json(konverterOppgaveTilListeOppgave(klage));
   }),
 
   // Ferdigstill en klage med behandlingId
@@ -364,10 +368,13 @@ export const mockDpSaksbehandling = [
     const oppgave = mockOppgaver.find((oppgave) => oppgave.behandlingId === behandlingId);
 
     if (!oppgave) {
-      return get404Error(`/behandling/${behandlingId}/oppgaveId`);
+      return response(404).json(get404Error(`/behandling/${behandlingId}/oppgaveId`));
     }
 
-    // @ts-expect-error type skal endres i backend
-    return response(200).json({ oppgaveId: oppgave.oppgaveId });
+    if (oppgave) {
+      return response(200).json({ oppgaveId: oppgave.oppgaveId });
+    }
+
+    return response("default").json(defaultError, { status: 500 });
   }),
 ];
