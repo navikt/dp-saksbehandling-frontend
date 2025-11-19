@@ -5,34 +5,21 @@ import { Fragment } from "react/jsx-runtime";
 
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { hentJournalpost } from "~/models/saf.server";
+import { IValgtDokument } from "~/routes/oppgave.$oppgaveId.innsending.$behandlingId";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isDefined } from "~/utils/type-guards";
 
 interface IProps {
-  setValgtDokument: (dokumentUrl: string) => void;
+  valgtDokument?: IValgtDokument;
   journalposter: Awaited<ReturnType<typeof hentJournalpost>>[];
-}
-
-export function InnsendingDokumentOversikt({ setValgtDokument, journalposter }: IProps) {
-  async function aapneDokument(
+  åpneDokument: (
     journalpostId: string,
     dokumentInfoId: string,
     variantFormat: Variantformat,
-  ) {
-    const url = `/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-    const response = await fetch(url);
+  ) => void;
+}
 
-    if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
-    }
-
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-    setValgtDokument(blobUrl);
-  }
+export function InnsendingDokumentOversikt({ valgtDokument, åpneDokument, journalposter }: IProps) {
   return (
     <div className={"p-4"}>
       <div className={"flex flex-col gap-2"}>
@@ -88,9 +75,13 @@ export function InnsendingDokumentOversikt({ setValgtDokument, journalposter }: 
                               className={"text-start"}
                               type="button"
                               size="xsmall"
-                              variant="tertiary"
+                              variant={
+                                valgtDokument?.dokumentId === dokument.dokumentInfoId
+                                  ? "tertiary-neutral"
+                                  : "tertiary"
+                              }
                               onClick={() =>
-                                aapneDokument(
+                                åpneDokument(
                                   journalpost?.journalpostId,
                                   dokument.dokumentInfoId,
                                   variant.variantformat,
