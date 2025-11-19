@@ -1,3 +1,4 @@
+import { BodyShort } from "@navikt/ds-react";
 import { components } from "openapi/saksbehandling-typer";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
@@ -17,11 +18,14 @@ export function InnsendingInfo({ oppgave }: IProps) {
         label="Innsendt"
         verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
       />
-      <VerdiMedTittel
-        visBorder={true}
-        label="Emne"
-        verdi={<OppgaveEmneknagger oppgave={oppgave} />}
-      />
+      <div className="flex flex-col gap-1 border-b border-(--ax-border-neutral-subtle) pb-2">
+        <BodyShort size={"small"} weight={"semibold"}>
+          Emne
+        </BodyShort>
+        <div>
+          <OppgaveEmneknagger oppgave={oppgave} />
+        </div>
+      </div>
       <VerdiMedTittel
         visBorder={true}
         label="Status"

@@ -29,7 +29,7 @@ export const innsending: components["schemas"]["Oppgave"] = {
   tidspunktOpprettet: "2025-09-11T00:00:00",
   behandlingType: "INNSENDING",
   utlostAv: "INNSENDING",
-  journalpostIder: ["624863376"],
+  journalpostIder: ["55555555555555"],
   historikk: [
     {
       type: "statusendring",

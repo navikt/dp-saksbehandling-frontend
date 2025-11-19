@@ -1,9 +1,11 @@
-import { components } from "openapi/saksbehandling-typer";
-
 interface IProps {
-  innsending: components["schemas"]["Innsending"];
+  valgtDokument: string;
 }
 
-export function PdfViewer({ innsending }: IProps) {
-  return <div className="card h-full p-4">{JSON.stringify(innsending)}</div>;
+export function PdfViewer({ valgtDokument }: IProps) {
+  return (
+    <div className="card h-full min-h-screen p-4">
+      <embed src={valgtDokument} type="application/pdf" width="100%" height="100%" />
+    </div>
+  );
 }
