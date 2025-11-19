@@ -40,7 +40,7 @@ export default function BehandlingLayout() {
   return (
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <BeslutterNotatProvider notat={oppgave.notat}>
-        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} />
+        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} oppgave={oppgave} />
         <Outlet />
       </BeslutterNotatProvider>
     </OppgaveProvider>
