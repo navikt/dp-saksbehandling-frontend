@@ -1,16 +1,23 @@
-import { BodyShort } from "@navikt/ds-react";
+import { BodyShort, Button } from "@navikt/ds-react";
 import { components } from "openapi/saksbehandling-typer";
+import { useState } from "react";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
+import { OppgaveValgLeggTilbake } from "~/components/v2/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
+import { FerdigstillInnsendingSkjema } from "../ferdigstill-innsending-skjema/FerdigstillInnsendingSkjema";
+
 interface IProps {
   oppgave: components["schemas"]["Oppgave"];
+  innsending: components["schemas"]["Innsending"];
 }
 
-export function InnsendingInfo({ oppgave }: IProps) {
+export function InnsendingInfo({ oppgave, innsending }: IProps) {
+  const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<boolean>();
+
   return (
     <div className="card flex flex-col gap-4 p-4">
       <VerdiMedTittel
@@ -45,6 +52,39 @@ export function InnsendingInfo({ oppgave }: IProps) {
           verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
         />
       )}
+      <div className="mt-2 flex flex-col gap-2">
+        {ferdigstillMedBehandling === undefined && (
+          <>
+            <div>
+              <Button
+                variant="primary"
+                size="small"
+                onClick={() => setFerdigstillMedBehandling(true)}
+              >
+                Opprett ny behandling
+              </Button>
+            </div>
+            <div>
+              <Button
+                variant="secondary"
+                size="small"
+                onClick={() => setFerdigstillMedBehandling(false)}
+              >
+                Ferdigstill uten behandling
+              </Button>
+            </div>
+            <div>
+              <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} />
+            </div>
+          </>
+        )}
+        {ferdigstillMedBehandling !== undefined && (
+          <FerdigstillInnsendingSkjema
+            medBehandling={ferdigstillMedBehandling}
+            lovligeSaker={innsending.lovligeSaker}
+          />
+        )}
+      </div>
     </div>
   );
 }

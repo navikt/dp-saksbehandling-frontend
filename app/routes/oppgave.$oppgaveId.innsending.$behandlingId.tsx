@@ -50,7 +50,7 @@ export interface IValgtDokument {
 
 export default function Innsending() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, journalposter } = useLoaderData<typeof loader>();
+  const { oppgave, innsending, journalposter } = useLoaderData<typeof loader>();
   const [valgtDokument, setValgtDokument] = useState<IValgtDokument>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -94,7 +94,7 @@ export default function Innsending() {
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
         <section className="flex flex-col gap-4">
-          <InnsendingInfo oppgave={oppgave} />
+          <InnsendingInfo oppgave={oppgave} innsending={innsending} />
 
           <div className="card p-4">
             <InnsendingDokumentOversikt

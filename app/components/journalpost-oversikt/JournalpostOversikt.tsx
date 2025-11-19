@@ -63,7 +63,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
               key={index}
               size={"small"}
               weight={"semibold"}
-              className={"border-b-1 border-(--ax-border-neutral-subtle) pb-2"}
+              className={"border-b border-(--ax-border-neutral-subtle) pb-2"}
             >
               Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
             </BodyShort>
@@ -71,7 +71,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
         }
 
         return (
-          <div key={index} className={"border-b-1 border-(--ax-border-neutral-subtle)"}>
+          <div key={index} className={"border-b border-(--ax-border-neutral-subtle)"}>
             <List as="ul" size="small">
               {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
                 <List.Item>Ingen dokumenter</List.Item>
