@@ -57,6 +57,26 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentInnsending(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET("/innsending/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
+}
+
 export async function hentKlage(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET("/klage/{behandlingId}", {

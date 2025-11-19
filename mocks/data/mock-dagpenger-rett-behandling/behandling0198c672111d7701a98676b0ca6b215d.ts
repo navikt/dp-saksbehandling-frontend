@@ -8,6 +8,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
     type: "Manuell",
     skjedde: "2025-08-20",
   },
+  behandlingskjedeId: "01997540-0ad3-763a-aa60-21546135aa55",
   basertPå: "01982c00-4476-7636-b147-2d0b9f4ee60d",
   automatisk: false,
   ident: "11888199359",

@@ -2,10 +2,11 @@ import { components } from "../../../openapi/saksbehandling-typer";
 import { arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellArbeidssøkerVerneplikt } from "./arbeidsinntekt-avslag-gjenopptak-ikke-registrert-opphold-utland-ordinær-reell-arbeidssøker-verneplikt";
 import { avslagManuellOrdinærReellArbeidssøkerVerneplikt } from "./avslag-manuell-ordinær-reell-arbeidssøker-verneplikt";
 import { avslagMinsteinntektOrdinær } from "./avslag-minsteinntekt-ordinær";
+import { innsending } from "./innsending";
 import { klage } from "./klage";
 import { ordinærAvslagReellArbeidssøker } from "./ordinær-avslag-reell-arbeidssøker";
 import { ordinærInnvilgelse } from "./ordinær-innvilgelse";
-
+import { ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt } from "./ordinær-verneplikt-avslag-ikke-registrert-minsteinntekt";
 export function konverterOppgaveTilListeOppgave(
   oppgave: components["schemas"]["Oppgave"],
 ): components["schemas"]["OppgaveOversikt"] {
@@ -38,5 +39,7 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(ordinærAvslagReellArbeidssøker),
   konverterOppgaveTilListeOppgave(avslagManuellOrdinærReellArbeidssøkerVerneplikt),
   konverterOppgaveTilListeOppgave(klage),
+  konverterOppgaveTilListeOppgave(innsending),
   konverterOppgaveTilListeOppgave(avslagMinsteinntektOrdinær),
+  konverterOppgaveTilListeOppgave(ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt),
 ];

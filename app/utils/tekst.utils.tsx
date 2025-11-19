@@ -1,4 +1,5 @@
 import {
+  BooksIcon,
   CalendarIcon,
   ChatExclamationmarkIcon,
   FileTextIcon,
@@ -54,6 +55,14 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Klage"
+      );
+    case "INNSENDING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <BooksIcon aria-hidden fontSize="1.5rem" /> Innsending
+        </span>
+      ) : (
+        "Innsending"
       );
     case "MELDEKORT":
       return medIkon ? (

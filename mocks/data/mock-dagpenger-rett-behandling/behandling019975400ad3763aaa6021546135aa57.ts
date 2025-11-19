@@ -1,20 +1,20 @@
 import type { components } from "../../../openapi/behandling-typer";
 
-export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["Behandling"] = {
-  behandlingId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
+export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["Behandling"] = {
+  behandlingId: "01997540-0ad3-763a-aa60-21546135aa57",
   behandletHendelse: {
     datatype: "UUID",
-    id: "037231f5-0511-410c-8a96-00223aba5e3c",
+    id: "ac4b34e5-8d8e-4410-a321-6123a99e56fb",
     type: "Søknad",
-    skjedde: "2025-11-11",
+    skjedde: "2025-09-23",
   },
-  behandlingskjedeId: "01997540-0ad3-763a-aa60-21546135aa52",
-  automatisk: false,
-  ident: "28528148753",
+  behandlingskjedeId: "01997540-0ad3-763a-aa60-21546135aa57",
+  automatisk: true,
+  ident: "02479329608",
   rettighetsperioder: [
     {
-      fraOgMed: "2025-11-11",
-      tilOgMed: "2025-11-17",
+      fraOgMed: "2025-09-22",
+      tilOgMed: "2025-09-22",
       harRett: false,
       opprinnelse: "Ny",
     },
@@ -23,17 +23,17 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
   tilstand: "ForslagTilVedtak",
   avklaringer: [
     {
-      id: "019a71dd-03ae-7459-9eab-24c875cfda8a",
+      id: "01997540-0ad5-740c-a7e2-a29c6977527b",
       kode: "HarTilleggsopplysninger",
       tittel: "Sjekk hva bruker har oppgitt som tilleggsopplysninger i søknaden",
       beskrivelse: "Du må vurdere om tilleggsopplysninger har betydning for saken",
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-11-11T08:41:41.379936",
+      sistEndret: "2025-09-23T08:25:55.920728",
     },
     {
-      id: "019a71dd-0508-7cbe-8588-af19e134f762",
+      id: "01997540-0d56-7724-82bb-cceabbabbca1",
       kode: "HattLukkedeSakerSiste8Uker",
       tittel: "Sjekk om nylig lukkede saker i Arena kan påvirke behandlingen",
       beskrivelse:
@@ -41,10 +41,10 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-11-11T08:41:45.95706",
+      sistEndret: "2025-09-23T08:25:56.487127",
     },
     {
-      id: "019a71dd-0508-7cbe-8588-af19e134f764",
+      id: "01997540-0d56-7724-82bb-cceabbabbca3",
       kode: "MuligGjenopptak",
       tittel: "Sjekk om det er sak som kan gjenopptas i Arena",
       beskrivelse:
@@ -52,21 +52,31 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-11-11T08:41:46.223764",
+      sistEndret: "2025-09-23T08:25:56.626756",
     },
     {
-      id: "019a723b-379c-7504-b6c4-20f684bd7946",
+      id: "01997540-10a3-7da7-8864-928251de7835",
       kode: "EØSArbeid",
       tittel: "Sjekk om arbeid i EØS fører til sammenlegging",
       beskrivelse:
         "Personen har oppgitt arbeid fra EØS i søknaden. Det må vurderes om det skal være sammenlegging.",
       kanKvitteres: true,
-      status: "Åpen",
-      maskinelt: false,
-      sistEndret: "2025-11-11T10:24:34.844478",
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-09-23T08:25:57.315814",
     },
     {
-      id: "019a723b-379c-7504-b6c4-20f684bd794a",
+      id: "01997540-10a3-7da7-8864-928251de7839",
+      kode: "IkkeRegistrertSomArbeidsøker",
+      tittel: "Søker er ikke registrert som arbeidssøker",
+      beskrivelse: "Søker er ikke registrert som arbeidssøker.",
+      kanKvitteres: true,
+      status: "Åpen",
+      maskinelt: false,
+      sistEndret: "2025-09-23T08:25:56.899727",
+    },
+    {
+      id: "01997540-10a3-7da7-8864-928251de783b",
       kode: "InntektNesteKalendermåned",
       tittel: "Sjekk om inntekt for neste måned er relevant",
       beskrivelse:
@@ -74,10 +84,10 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-11-11T10:24:39.630826",
+      sistEndret: "2025-09-23T08:25:57.744297",
     },
     {
-      id: "019a723b-379c-7504-b6c4-20f684bd794c",
+      id: "01997540-10a3-7da7-8864-928251de783d",
       kode: "JobbetUtenforNorge",
       tittel: "Sjekk om arbeid utenfor Norge påvirker retten til dagpenger",
       beskrivelse:
@@ -85,20 +95,21 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-11-11T10:24:41.958863",
+      sistEndret: "2025-09-23T08:25:57.464024",
     },
     {
-      id: "019a723b-5428-7784-bfdb-73cd6aa0527b",
-      kode: "SjekkPrøvingsdato",
-      tittel: "Sjekk om valgt prøvingsdato er riktig",
-      beskrivelse: "Sjekk at valgt prøvingsdato er riktig",
+      id: "01997540-10a3-7da7-8864-928251de7843",
+      kode: "Verneplikt",
+      tittel: "Sjekk om søker oppfyller vilkåret til dagpenger ved avtjent verneplikt",
+      beskrivelse:
+        "Søker har oppgitt at de har avtjent verneplikt. Det må sjekkes om kravet til dagpenger ved avtjent verneplikt er oppfylt.",
       kanKvitteres: true,
-      status: "Avbrutt",
-      maskinelt: true,
-      sistEndret: "2025-11-12T13:54:16.860636",
+      status: "Åpen",
+      maskinelt: false,
+      sistEndret: "2025-09-23T08:25:56.899733",
     },
     {
-      id: "019a723b-5428-7784-bfdb-73cd6aa0527f",
+      id: "01997540-10a3-7da7-8864-928251de7845",
       kode: "BeregnetArbeidstid",
       tittel: "Sjekk om beregnet arbeidstid er korrekt",
       beskrivelse:
@@ -106,17 +117,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       kanKvitteres: true,
       status: "Åpen",
       maskinelt: false,
-      sistEndret: "2025-11-11T10:24:42.152966",
-    },
-    {
-      id: "019a7821-901c-728b-8416-d2fb02cbdb09",
-      kode: "ReellArbeidssøkerUnntak",
-      tittel: "Sjekk om søker oppfyller unntak til å være reell arbeidssøker",
-      beskrivelse: "Det må vurderes om søker kvalifiserer til unntakene til reell arbeidssøker",
-      kanKvitteres: true,
-      status: "Åpen",
-      maskinelt: false,
-      sistEndret: "2025-11-12T13:54:16.860749",
+      sistEndret: "2025-09-23T08:25:56.899734",
     },
   ],
   vilkår: [
@@ -210,7 +211,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-4. Krav til minsteinntekt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
       },
-      relevantForResultat: true,
+      relevantForResultat: false,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
       opplysninger: [
@@ -350,7 +351,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       relevantForResultat: false,
       type: "Vilkår",
       opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
-      opplysninger: [],
+      opplysninger: ["019522d2-9bb1-7960-b1e2-a959566e2428"],
     },
     {
       id: "1257708498",
@@ -382,7 +383,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
       opplysninger: [
@@ -487,6 +488,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         "0194881f-9433-70e9-a85b-c246150c45d5",
         "0194881f-9433-70e9-a85b-c246150c45d6",
         "0194881f-9433-70e9-a85b-c246150c45d7",
+        "0194881f-9433-70e9-a85b-c246150c45d8",
         "0194881f-9433-70e9-a85b-c246150c45da",
         "0194881f-9433-70e9-a85b-c246150c45d9",
         "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
@@ -688,7 +690,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-11. Dagpengegrunnlag",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
       },
-      relevantForResultat: true,
+      relevantForResultat: false,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9410-7481-b263-4606fdd10ca9",
@@ -777,9 +779,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Fastsettelse",
-      opplysninger: [],
+      opplysninger: [
+        "0194881f-9421-766c-9dc6-41fe6c9a1dff",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e00",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e02",
+      ],
     },
     {
       id: "-1762604738",
@@ -806,18 +812,18 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "019a71dd-03ab-7fbe-9714-c9472667f87b",
-          opprettet: "2025-11-11T08:41:41.163447",
+          id: "01997540-0ad3-763a-aa60-21546135aa52",
+          opprettet: "2025-09-23T08:25:55.411886",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
-            verdi: 15606218,
+            verdi: 15576616,
             datatype: "heltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.163439",
-            meldingId: "2142907b-5b3d-4a10-bdf3-0d75f7955174",
+            registrert: "2025-09-23T08:25:55.411881",
+            meldingId: "09175956-1e3b-4cf5-bd4e-8ff69959eaef",
           },
         },
       ],
@@ -832,19 +838,18 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "tekst",
       perioder: [
         {
-          id: "019a71dd-03ab-7fbe-9714-c9472667f87f",
-          opprettet: "2025-11-11T08:41:41.163833",
+          id: "01997540-0ad3-763a-aa60-21546135aa54",
+          opprettet: "2025-09-23T08:25:55.411898",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: "037231f5-0511-410c-8a96-00223aba5e3c",
+            verdi: "ac4b34e5-8d8e-4410-a321-6123a99e56fb",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.163797",
-            meldingId: "2142907b-5b3d-4a10-bdf3-0d75f7955174",
+            registrert: "2025-09-23T08:25:55.411897",
+            meldingId: "09175956-1e3b-4cf5-bd4e-8ff69959eaef",
           },
         },
       ],
@@ -859,20 +864,20 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "tekst",
       perioder: [
         {
-          id: "019a71dd-03ab-7fbe-9714-c9472667f881",
-          opprettet: "2025-11-11T08:41:41.163914",
+          id: "01997540-0ad3-763a-aa60-21546135aa56",
+          opprettet: "2025-09-23T08:25:55.411903",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-23",
+          gyldigTilOgMed: "2025-09-23",
           verdi: {
             verdi: "SøknadInnsendtHendelse",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.163913",
-            meldingId: "2142907b-5b3d-4a10-bdf3-0d75f7955174",
+            registrert: "2025-09-23T08:25:55.411902",
+            meldingId: "09175956-1e3b-4cf5-bd4e-8ff69959eaef",
           },
         },
       ],
@@ -887,8 +892,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "019a71dd-03ad-746e-b54a-24f40482c19f",
-          opprettet: "2025-11-11T08:41:41.165251",
+          id: "01997540-0ad5-740c-a7e2-a29c69775277",
+          opprettet: "2025-09-23T08:25:55.41301",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -909,27 +914,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0503-76e4-9cae-51d5c103d19b",
-          opprettet: "2025-11-11T08:41:41.507504",
+          id: "01997540-0d53-7497-90a6-ec2b5e6583fb",
+          opprettet: "2025-09-23T08:25:56.051432",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: "2025-11-11",
+            verdi: "2025-09-22",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.458443",
-            meldingId: "24f5db5b-377c-4633-aeb9-6402ec8c5b85",
+            registrert: "2025-09-23T08:25:55.994642",
+            meldingId: "63456478-d42b-438d-b1c2-4c925b9bf574",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -944,27 +948,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0503-76e4-9cae-51d5c103d19c",
-          opprettet: "2025-11-11T08:41:41.507709",
+          id: "01997540-0d53-7497-90a6-ec2b5e6583fc",
+          opprettet: "2025-09-23T08:25:56.051494",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: "2025-11-11",
+            verdi: "2025-09-01",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.458627",
-            meldingId: "24f5db5b-377c-4633-aeb9-6402ec8c5b85",
+            registrert: "2025-09-23T08:25:55.994822",
+            meldingId: "63456478-d42b-438d-b1c2-4c925b9bf574",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -979,18 +982,18 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0503-76e4-9cae-51d5c103d19d",
-          opprettet: "2025-11-11T08:41:41.507776",
+          id: "01997540-0d53-7497-90a6-ec2b5e6583fd",
+          opprettet: "2025-09-23T08:25:56.051532",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
-            verdi: "1981-12-28",
+            verdi: "1993-07-02",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T08:41:41.458823",
-            meldingId: "24f5db5b-377c-4633-aeb9-6402ec8c5b85",
+            registrert: "2025-09-23T08:25:55.994953",
+            meldingId: "63456478-d42b-438d-b1c2-4c925b9bf574",
           },
         },
       ],
@@ -1005,13 +1008,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0504-70b4-b922-62b312da5570",
-          opprettet: "2025-11-11T08:41:41.508438",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d0",
+          opprettet: "2025-09-23T08:25:56.052083",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: "2025-11-11",
+            verdi: "2025-09-22",
             datatype: "dato",
           },
           utledetAv: {
@@ -1019,11 +1021,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "SisteAv",
             },
             opplysninger: [
-              "019a71dd-0503-76e4-9cae-51d5c103d19b",
-              "019a71dd-0503-76e4-9cae-51d5c103d19c",
+              "01997540-0d53-7497-90a6-ec2b5e6583fb",
+              "01997540-0d53-7497-90a6-ec2b5e6583fc",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1038,12 +1040,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0504-70b4-b922-62b312da5571",
-          opprettet: "2025-11-11T08:41:41.50847",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d1",
+          opprettet: "2025-09-23T08:25:56.052104",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
-            verdi: "2048-12-28",
+            verdi: "2060-07-02",
             datatype: "dato",
           },
           utledetAv: {
@@ -1051,11 +1053,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "LeggTilÅr",
             },
             opplysninger: [
-              "019a71dd-03ad-746e-b54a-24f40482c19f",
-              "019a71dd-0503-76e4-9cae-51d5c103d19d",
+              "01997540-0ad5-740c-a7e2-a29c69775277",
+              "01997540-0d53-7497-90a6-ec2b5e6583fd",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1070,22 +1072,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0504-70b4-b922-62b312da5573",
-          opprettet: "2025-11-11T08:41:41.508606",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d3",
+          opprettet: "2025-09-23T08:25:56.052206",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "2025-11-11",
+            verdi: "2025-09-22",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "SisteAv",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5570"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d0"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1100,21 +1102,21 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0504-70b4-b922-62b312da5574",
-          opprettet: "2025-11-11T08:41:41.508786",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d4",
+          opprettet: "2025-09-23T08:25:56.052217",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
-            verdi: "2048-12-31",
+            verdi: "2060-07-31",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "SisteDagIMåned",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5571"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d1"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1129,11 +1131,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a71dd-0504-70b4-b922-62b312da5576",
-          opprettet: "2025-11-11T08:41:41.508975",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d6",
+          opprettet: "2025-09-23T08:25:56.052421",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -1143,11 +1145,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "FørEllerLik",
             },
             opplysninger: [
-              "019a71dd-0504-70b4-b922-62b312da5573",
-              "019a71dd-0504-70b4-b922-62b312da5574",
+              "01997540-0d54-776e-8d23-2fc5ca1e96d3",
+              "01997540-0d54-776e-8d23-2fc5ca1e96d4",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1162,22 +1164,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eeb7",
-          opprettet: "2025-11-11T08:41:41.509317",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d8",
+          opprettet: "2025-09-23T08:25:56.052552",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "2025-11-05",
+            verdi: "2025-09-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1192,11 +1194,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eeb8",
-          opprettet: "2025-11-11T08:41:41.50935",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96d9",
+          opprettet: "2025-09-23T08:25:56.05257",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 36,
             enhet: "måneder",
@@ -1206,9 +1208,9 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1223,11 +1225,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eeb9",
-          opprettet: "2025-11-11T08:41:41.509664",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96da",
+          opprettet: "2025-09-23T08:25:56.052708",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 130160,
             datatype: "penger",
@@ -1236,9 +1238,9 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1253,11 +1255,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eeba",
-          opprettet: "2025-11-11T08:41:41.509884",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96db",
+          opprettet: "2025-09-23T08:25:56.052734",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 1.5,
             enhet: "G",
@@ -1267,9 +1269,9 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1284,11 +1286,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eebb",
-          opprettet: "2025-11-11T08:41:41.509908",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96dc",
+          opprettet: "2025-09-23T08:25:56.052749",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 3,
             enhet: "G",
@@ -1298,9 +1300,9 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1315,8 +1317,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a71dd-0505-74f1-851a-bf356318eebc",
-          opprettet: "2025-11-11T08:41:41.509927",
+          id: "01997540-0d54-776e-8d23-2fc5ca1e96dd",
+          opprettet: "2025-09-23T08:25:56.052759",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -1336,22 +1338,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0506-73cc-be38-f0cdcc7e654e",
-          opprettet: "2025-11-11T08:41:41.510888",
+          id: "01997540-0d55-7355-8d71-64bfa2b79e97",
+          opprettet: "2025-09-23T08:25:56.053141",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "2025-11-05",
+            verdi: "2025-09-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "FørsteArbeidsdag",
             },
-            opplysninger: ["019a71dd-0505-74f1-851a-bf356318eeb7"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d8"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1366,11 +1368,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a71dd-0507-7f2a-af76-cc5c8bb4b01e",
-          opprettet: "2025-11-11T08:41:41.511305",
+          id: "01997540-0d55-7355-8d71-64bfa2b79e98",
+          opprettet: "2025-09-23T08:25:56.053223",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 195240,
             datatype: "penger",
@@ -1380,11 +1382,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a71dd-0505-74f1-851a-bf356318eeb9",
-              "019a71dd-0505-74f1-851a-bf356318eeba",
+              "01997540-0d54-776e-8d23-2fc5ca1e96da",
+              "01997540-0d54-776e-8d23-2fc5ca1e96db",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1399,11 +1401,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a71dd-0507-7f2a-af76-cc5c8bb4b01f",
-          opprettet: "2025-11-11T08:41:41.511446",
+          id: "01997540-0d55-7355-8d71-64bfa2b79e99",
+          opprettet: "2025-09-23T08:25:56.053249",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 390480,
             datatype: "penger",
@@ -1413,11 +1415,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a71dd-0505-74f1-851a-bf356318eeb9",
-              "019a71dd-0505-74f1-851a-bf356318eebb",
+              "01997540-0d54-776e-8d23-2fc5ca1e96da",
+              "01997540-0d54-776e-8d23-2fc5ca1e96dc",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1427,13 +1429,76 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141f",
+      navn: "Det er godkjent at bruker kun søker deltidsarbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-0d55-7355-8d71-64bfa2b79e9a",
+          opprettet: "2025-09-23T08:25:56.05326",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bda",
+      navn: "Det er godkjent at bruker kun søker arbeid lokalt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-0d55-7355-8d71-64bfa2b79e9b",
+          opprettet: "2025-09-23T08:25:56.053268",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194929e-2036-7ac1-ada3-5cbe05a83f08",
+      navn: "Har helsemessige begrensninger og kan ikke ta alle typer arbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-0d55-7355-8d71-64bfa2b79e9c",
+          opprettet: "2025-09-23T08:25:56.053275",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a769",
       navn: "Minimum vanlig arbeidstid",
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a71dd-0507-7f2a-af76-cc5c8bb4b020",
-          opprettet: "2025-11-11T08:41:41.511456",
+          id: "01997540-0d55-7355-8d71-64bfa2b79e9d",
+          opprettet: "2025-09-23T08:25:56.053317",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -1454,13 +1519,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0507-7f2a-af76-cc5c8bb4b022",
-          opprettet: "2025-11-11T08:41:41.511714",
+          id: "01997540-0d55-7355-8d71-64bfa2b79e9f",
+          opprettet: "2025-09-23T08:25:56.053571",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "2025-10-31",
+            verdi: "2025-08-31",
             datatype: "dato",
           },
           utledetAv: {
@@ -1468,11 +1533,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "SisteavsluttendeKalenderMåned",
             },
             opplysninger: [
-              "019a71dd-0504-70b4-b922-62b312da5573",
-              "019a71dd-0506-73cc-be38-f0cdcc7e654e",
+              "01997540-0d54-776e-8d23-2fc5ca1e96d3",
+              "01997540-0d55-7355-8d71-64bfa2b79e97",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1487,13 +1552,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "019a71dd-0508-7cbe-8588-af19e134f75f",
-          opprettet: "2025-11-11T08:41:41.512011",
+          id: "01997540-0d55-7355-8d71-64bfa2b79ea1",
+          opprettet: "2025-09-23T08:25:56.053783",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "2022-11-01",
+            verdi: "2022-09-01",
             datatype: "dato",
           },
           utledetAv: {
@@ -1501,11 +1566,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "TrekkFraMåned",
             },
             opplysninger: [
-              "019a71dd-0505-74f1-851a-bf356318eeb8",
-              "019a71dd-0507-7f2a-af76-cc5c8bb4b022",
+              "01997540-0d54-776e-8d23-2fc5ca1e96d9",
+              "01997540-0d55-7355-8d71-64bfa2b79e9f",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1515,32 +1580,99 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdc",
-      navn: "Kan ta alle typer arbeid",
+      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141e",
+      navn: "Kan jobbe heltid og deltid",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85bc",
-          opprettet: "2025-11-11T10:24:34.830164",
+          id: "01997540-1092-7dee-b394-a33ca5c2392d",
+          opprettet: "2025-09-23T08:25:56.882663",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.762571",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.826191",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd9",
+      navn: "Kan jobbe i hele Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1092-7dee-b394-a33ca5c2392e",
+          opprettet: "2025-09-23T08:25:56.882701",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:56.826463",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdc",
+      navn: "Kan ta alle typer arbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1092-7dee-b394-a33ca5c2392f",
+          opprettet: "2025-09-23T08:25:56.882719",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:56.826575",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1555,27 +1687,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85bd",
-          opprettet: "2025-11-11T10:24:34.830193",
+          id: "01997540-1092-7dee-b394-a33ca5c23930",
+          opprettet: "2025-09-23T08:25:56.882748",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.762648",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.826661",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1590,31 +1721,30 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85be",
-          opprettet: "2025-11-11T10:24:34.830211",
+          id: "01997540-1092-7dee-b394-a33ca5c23931",
+          opprettet: "2025-09-23T08:25:56.882765",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: 40,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.762713",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.82676",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
@@ -1625,27 +1755,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85bf",
-          opprettet: "2025-11-11T10:24:34.830229",
+          id: "01997540-1092-7dee-b394-a33ca5c23932",
+          opprettet: "2025-09-23T08:25:56.88278",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.762924",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.826856",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1660,27 +1789,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c0",
-          opprettet: "2025-11-11T10:24:34.830246",
+          id: "01997540-1092-7dee-b394-a33ca5c23933",
+          opprettet: "2025-09-23T08:25:56.882797",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.763057",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.827051",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1690,67 +1818,33 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Bruker",
     },
     {
-      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d87",
-      navn: "Forskutterte lønnsgarantimidler i form av dagpenger",
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be0",
+      navn: "Registrert som arbeidssøker",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c1",
-          opprettet: "2025-11-11T10:24:34.830264",
+          id: "01997540-1092-7dee-b394-a33ca5c23934",
+          opprettet: "2025-09-23T08:25:56.882815",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
+          gyldigTilOgMed: "2025-09-22",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.763169",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.827206",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be0",
-      navn: "Registrert som arbeidssøker",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c2",
-          opprettet: "2025-11-11T10:24:34.830281",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-07-31",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:34.76329",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1760,32 +1854,65 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Register",
     },
     {
-      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d88",
-      navn: "Permittert fra fiskeindustrien",
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d87",
+      navn: "Forskutterte lønnsgarantimidler i form av dagpenger",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c3",
-          opprettet: "2025-11-11T10:24:34.830302",
+          id: "01997540-1092-7dee-b394-a33ca5c23935",
+          opprettet: "2025-09-23T08:25:56.882834",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.763398",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.827304",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d88",
+      navn: "Permittert fra fiskeindustrien",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1092-7dee-b394-a33ca5c23936",
+          opprettet: "2025-09-23T08:25:56.882851",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:56.827384",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1800,27 +1927,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c4",
-          opprettet: "2025-11-11T10:24:34.830321",
+          id: "01997540-1092-7dee-b394-a33ca5c23937",
+          opprettet: "2025-09-23T08:25:56.882868",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.763492",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.827476",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1835,31 +1961,31 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "019a723b-378e-756a-a8ed-2c87038e85c5",
-          opprettet: "2025-11-11T10:24:34.830346",
+          id: "01997540-1092-7dee-b394-a33ca5c23938",
+          opprettet: "2025-09-23T08:25:56.88289",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "01K9RXT29QE02NYE1AD3F9C1B5",
+            verdi: "01K5TM040QSNVJGSKRY3F13061",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:34.763599",
-            meldingId: "1373eb87-2877-4272-b730-32e37632870e",
+            registrert: "2025-09-23T08:25:56.827543",
+            meldingId: "fecb6283-6d9d-4fef-9eb6-f92386976078",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
             opplysninger: [
-              "019a71dd-0504-70b4-b922-62b312da5573",
-              "019a71dd-0507-7f2a-af76-cc5c8bb4b022",
-              "019a71dd-0508-7cbe-8588-af19e134f75f",
+              "01997540-0d54-776e-8d23-2fc5ca1e96d3",
+              "01997540-0d55-7355-8d71-64bfa2b79e9f",
+              "01997540-0d55-7355-8d71-64bfa2b79ea1",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1874,22 +2000,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c88",
-          opprettet: "2025-11-11T10:24:34.831128",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce37",
+          opprettet: "2025-09-23T08:25:56.883475",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "01K9RXT29QE02NYE1AD3F9C1B5",
+            verdi: "01K5TM040QSNVJGSKRY3F13061",
             datatype: "tekst",
           },
           utledetAv: {
             regel: {
               navn: "FiltrerRelevanteInntekter",
             },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85c5"],
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23938"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1899,32 +2025,98 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194929e-2036-7ac1-ada3-5cbe05a83f08",
-      navn: "Har helsemessige begrensninger og kan ikke ta alle typer arbeid",
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd8",
+      navn: "Oppfyller kravet til heltid- og deltidsarbeid",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c8b",
-          opprettet: "2025-11-11T10:24:34.831197",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce38",
+          opprettet: "2025-09-23T08:25:56.883503",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
             regel: {
-              navn: "Utgangspunkt",
+              navn: "EnAv",
             },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85bc"],
+            opplysninger: [
+              "01997540-0d55-7355-8d71-64bfa2b79e9a",
+              "01997540-1092-7dee-b394-a33ca5c2392d",
+            ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: false,
-      redigerbar: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdb",
+      navn: "Oppfyller kravet til mobilitet",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1093-7c4e-a9d4-84749d0bce39",
+          opprettet: "2025-09-23T08:25:56.883517",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-0d55-7355-8d71-64bfa2b79e9b",
+              "01997540-1092-7dee-b394-a33ca5c2392e",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdd",
+      navn: "Oppfyller kravet til å være arbeidsfør",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3a",
+          opprettet: "2025-09-23T08:25:56.883529",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-0d55-7355-8d71-64bfa2b79e9c",
+              "01997540-1092-7dee-b394-a33ca5c2392f",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -1934,11 +2126,10 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c8c",
-          opprettet: "2025-11-11T10:24:34.831222",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3b",
+          opprettet: "2025-09-23T08:25:56.883541",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -1947,9 +2138,9 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "EnAv",
             },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85bd"],
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23930"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -1964,11 +2155,10 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c8d",
-          opprettet: "2025-11-11T10:24:34.8313",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3c",
+          opprettet: "2025-09-23T08:25:56.883556",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -1978,15 +2168,15 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "019a71dd-0507-7f2a-af76-cc5c8bb4b020",
-              "019a723b-378e-756a-a8ed-2c87038e85be",
+              "01997540-0d55-7355-8d71-64bfa2b79e9d",
+              "01997540-1092-7dee-b394-a33ca5c23931",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -1997,22 +2187,23 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c8e",
-          opprettet: "2025-11-11T10:24:34.831335",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3d",
+          opprettet: "2025-09-23T08:25:56.88357",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-07-31",
+          gyldigFraOgMed: "2025-09-22",
+          gyldigTilOgMed: "2025-09-22",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85c2"],
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23934"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2027,13 +2218,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c8f",
-          opprettet: "2025-11-11T10:24:34.831437",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3e",
+          opprettet: "2025-09-23T08:25:56.883586",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2041,13 +2231,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "IngenAv",
             },
             opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85bf",
-              "019a723b-378e-756a-a8ed-2c87038e85c0",
-              "019a723b-378e-756a-a8ed-2c87038e85c1",
-              "019a723b-378e-756a-a8ed-2c87038e85c3",
+              "01997540-1092-7dee-b394-a33ca5c23932",
+              "01997540-1092-7dee-b394-a33ca5c23933",
+              "01997540-1092-7dee-b394-a33ca5c23935",
+              "01997540-1092-7dee-b394-a33ca5c23936",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2062,52 +2252,21 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c90",
-          opprettet: "2025-11-11T10:24:34.831465",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce3f",
+          opprettet: "2025-09-23T08:25:56.883599",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85c4"],
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23937"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
-      navn: "Oppfyller kravet til verneplikt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-378f-75c2-bfe1-d99fac0c0c91",
-          opprettet: "2025-11-11T10:24:34.831486",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErSann",
-            },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85c4"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2122,22 +2281,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3791-703d-8d22-0fabb2fc2c24",
-          opprettet: "2025-11-11T10:24:34.833273",
+          id: "01997540-1093-7c4e-a9d4-84749d0bce41",
+          opprettet: "2025-09-23T08:25:56.883983",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 499995,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["019a723b-378f-75c2-bfe1-d99fac0c0c88"],
+            opplysninger: ["01997540-1093-7c4e-a9d4-84749d0bce37"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2152,22 +2311,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3792-7c7f-9ef3-0a7ae218a759",
-          opprettet: "2025-11-11T10:24:34.834167",
+          id: "01997540-1094-7ee3-8e48-34952c720222",
+          opprettet: "2025-09-23T08:25:56.884122",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1833315,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["019a723b-378f-75c2-bfe1-d99fac0c0c88"],
+            opplysninger: ["01997540-1093-7c4e-a9d4-84749d0bce37"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2177,34 +2336,36 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdd",
-      navn: "Oppfyller kravet til å være arbeidsfør",
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
+      navn: "Reell arbeidssøker",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3792-7c7f-9ef3-0a7ae218a75c",
-          opprettet: "2025-11-11T10:24:34.834272",
+          id: "01997540-1094-7ee3-8e48-34952c720223",
+          opprettet: "2025-09-23T08:25:56.884154",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
             regel: {
-              navn: "EnAv",
+              navn: "Alle",
             },
             opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85bc",
-              "019a723b-378f-75c2-bfe1-d99fac0c0c8b",
+              "01997540-1093-7c4e-a9d4-84749d0bce38",
+              "01997540-1093-7c4e-a9d4-84749d0bce39",
+              "01997540-1093-7c4e-a9d4-84749d0bce3a",
+              "01997540-1093-7c4e-a9d4-84749d0bce3b",
+              "01997540-1093-7c4e-a9d4-84749d0bce3c",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
-      synlig: false,
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -2215,11 +2376,10 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3792-7c7f-9ef3-0a7ae218a75d",
-          opprettet: "2025-11-11T10:24:34.834298",
+          id: "01997540-1094-7ee3-8e48-34952c720224",
+          opprettet: "2025-09-23T08:25:56.884174",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2229,11 +2389,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85bf",
-              "019a723b-378f-75c2-bfe1-d99fac0c0c8f",
+              "01997540-1092-7dee-b394-a33ca5c23932",
+              "01997540-1093-7c4e-a9d4-84749d0bce3e",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2243,18 +2403,68 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
+      navn: "Oppfyller kravet til verneplikt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c720225",
+          opprettet: "2025-09-23T08:25:56.88419",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23937"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
+      navn: "Oppfyller vilkåret om å ikke motta andre fulle ytelser",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c720227",
+          opprettet: "2025-09-23T08:25:56.884658",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424a",
       navn: "Arbeidsinntekt er over kravet for siste 12 måneder",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3796-7648-9a5e-315f5683d68a",
-          opprettet: "2025-11-11T10:24:34.838525",
+          id: "01997540-1094-7ee3-8e48-34952c720228",
+          opprettet: "2025-09-23T08:25:56.884709",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2262,11 +2472,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "019a71dd-0507-7f2a-af76-cc5c8bb4b01e",
-              "019a723b-3791-703d-8d22-0fabb2fc2c24",
+              "01997540-0d55-7355-8d71-64bfa2b79e98",
+              "01997540-1093-7c4e-a9d4-84749d0bce41",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2281,13 +2491,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3796-7648-9a5e-315f5683d68b",
-          opprettet: "2025-11-11T10:24:34.838574",
+          id: "01997540-1094-7ee3-8e48-34952c720229",
+          opprettet: "2025-09-23T08:25:56.884738",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2295,11 +2505,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "019a71dd-0507-7f2a-af76-cc5c8bb4b01f",
-              "019a723b-3792-7c7f-9ef3-0a7ae218a759",
+              "01997540-0d55-7355-8d71-64bfa2b79e99",
+              "01997540-1094-7ee3-8e48-34952c720222",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -2309,90 +2519,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8b",
-      navn: "Rettighetstype",
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54a",
+      navn: "Oppfyller unntak for opphold i Norge",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3796-7648-9a5e-315f5683d68d",
-          opprettet: "2025-11-11T10:24:34.838846",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85c0",
-              "019a723b-378e-756a-a8ed-2c87038e85c1",
-              "019a723b-378e-756a-a8ed-2c87038e85c3",
-              "019a723b-3792-7c7f-9ef3-0a7ae218a75d",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
-      navn: "Oppfyller kravet til minsteinntekt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4e9",
-          opprettet: "2025-11-11T10:24:34.839247",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-3796-7648-9a5e-315f5683d68a",
-              "019a723b-3796-7648-9a5e-315f5683d68b",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
-      navn: "Oppfyller vilkåret om å ikke motta andre fulle ytelser",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4eb",
-          opprettet: "2025-11-11T10:24:34.839723",
+          id: "01997540-1094-7ee3-8e48-34952c72022a",
+          opprettet: "2025-09-23T08:25:56.884758",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -2403,8 +2545,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4ec",
-          opprettet: "2025-11-11T10:24:34.839775",
+          id: "01997540-1094-7ee3-8e48-34952c72022b",
+          opprettet: "2025-09-23T08:25:56.884775",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2419,13 +2561,333 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8b",
+      navn: "Rettighetstype",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c72022c",
+          opprettet: "2025-09-23T08:25:56.884806",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1092-7dee-b394-a33ca5c23933",
+              "01997540-1092-7dee-b394-a33ca5c23935",
+              "01997540-1092-7dee-b394-a33ca5c23936",
+              "01997540-1094-7ee3-8e48-34952c720224",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ee",
+      navn: "Grunnbeløp for grunnlag",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c72022d",
+          opprettet: "2025-09-23T08:25:56.884908",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 130160,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ed",
+      navn: "Tellende inntekt",
+      datatype: "inntekt",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c72022e",
+          opprettet: "2025-09-23T08:25:56.884945",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: "01K5TM040QSNVJGSKRY3F13061",
+            datatype: "tekst",
+          },
+          utledetAv: {
+            regel: {
+              navn: "FiltrerRelevanteInntekter",
+            },
+            opplysninger: ["01997540-1092-7dee-b394-a33ca5c23938"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca7",
+      navn: "Faktor for maksimalt mulig grunnlag",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c72022f",
+          opprettet: "2025-09-23T08:25:56.884969",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 6,
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca9",
+      navn: "Antall år i 36 måneder",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1094-7ee3-8e48-34952c720230",
+          opprettet: "2025-09-23T08:25:56.884989",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 3,
+            enhet: "år",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1dff",
+      navn: "Antall G som gis som grunnlag ved verneplikt",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a6c",
+          opprettet: "2025-09-23T08:25:56.885013",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 3,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e04",
+      navn: "Grunnlag for verneplikt hvis kravet ikke er oppfylt",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a6d",
+          opprettet: "2025-09-23T08:25:56.885038",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23e",
+      navn: "Faktor for utregning av dagsats etter dagpengegrunnlaget",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a6e",
+          opprettet: "2025-09-23T08:25:56.885093",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 0.0024,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23d",
+      navn: "Barnetilleggets størrelse i kroner per dag for hvert barn",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a6f",
+          opprettet: "2025-09-23T08:25:56.885154",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 37,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a246",
+      navn: "90% av grunnlag for dagpenger",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a70",
+          opprettet: "2025-09-23T08:25:56.885184",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 0.9,
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a247",
+      navn: "Antall arbeidsdager per år",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a71",
+          opprettet: "2025-09-23T08:25:56.885207",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 260,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d4",
       navn: "Sykepenger dagsats",
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4ed",
-          opprettet: "2025-11-11T10:24:34.839805",
+          id: "01997540-1095-7035-a5e5-e57487929a72",
+          opprettet: "2025-09-23T08:25:56.885228",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2445,8 +2907,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4ee",
-          opprettet: "2025-11-11T10:24:34.839825",
+          id: "01997540-1095-7035-a5e5-e57487929a73",
+          opprettet: "2025-09-23T08:25:56.885249",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2466,8 +2928,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4ef",
-          opprettet: "2025-11-11T10:24:34.839851",
+          id: "01997540-1095-7035-a5e5-e57487929a74",
+          opprettet: "2025-09-23T08:25:56.885272",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2487,8 +2949,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f0",
-          opprettet: "2025-11-11T10:24:34.839866",
+          id: "01997540-1095-7035-a5e5-e57487929a75",
+          opprettet: "2025-09-23T08:25:56.885326",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2508,8 +2970,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f1",
-          opprettet: "2025-11-11T10:24:34.839882",
+          id: "01997540-1095-7035-a5e5-e57487929a76",
+          opprettet: "2025-09-23T08:25:56.885344",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2524,13 +2986,55 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d8",
+      navn: "Uføre dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a77",
+          opprettet: "2025-09-23T08:25:56.885362",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
+      navn: "Sum hvis Uføre ikke skal samordnes",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a78",
+          opprettet: "2025-09-23T08:25:56.885379",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d9",
       navn: "Foreldrepenger dagsats",
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f2",
-          opprettet: "2025-11-11T10:24:34.839897",
+          id: "01997540-1095-7035-a5e5-e57487929a79",
+          opprettet: "2025-09-23T08:25:56.885397",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2550,8 +3054,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f3",
-          opprettet: "2025-11-11T10:24:34.839912",
+          id: "01997540-1095-7035-a5e5-e57487929a7a",
+          opprettet: "2025-09-23T08:25:56.885415",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2571,8 +3075,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f4",
-          opprettet: "2025-11-11T10:24:34.839934",
+          id: "01997540-1095-7035-a5e5-e57487929a7b",
+          opprettet: "2025-09-23T08:25:56.885434",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2592,8 +3096,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f5",
-          opprettet: "2025-11-11T10:24:34.839959",
+          id: "01997540-1095-7035-a5e5-e57487929a7c",
+          opprettet: "2025-09-23T08:25:56.885453",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2613,8 +3117,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-3797-7201-b026-9f74bd9fa4f6",
-          opprettet: "2025-11-11T10:24:34.839984",
+          id: "01997540-1095-7035-a5e5-e57487929a7d",
+          opprettet: "2025-09-23T08:25:56.88547",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -2626,1449 +3130,6 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       ],
       synlig: true,
       redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "019522d6-846d-7173-a892-67f10016d8d2",
-      navn: "Ordinært krav til prosentvis tap av arbeidstid",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31da",
-          opprettet: "2025-11-11T10:24:34.840032",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 50,
-            enhet: "prosent",
-            datatype: "desimaltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a764",
-      navn: "Beregningsregel: Arbeidstid siste 6 måneder",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31db",
-          opprettet: "2025-11-11T10:24:34.840063",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a765",
-      navn: "Beregningsregel: Arbeidstid siste 12 måneder",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31dc",
-          opprettet: "2025-11-11T10:24:34.84009",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a766",
-      navn: "Beregningsregel: Arbeidstid siste 36 måneder",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31dd",
-          opprettet: "2025-11-11T10:24:34.840118",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0196b4a7-23b5-7b2c-aa95-e4167d900de8",
-      navn: "Arbeidstidsreduksjonen er ikke brukt tidligere i en full stønadsperiode",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31de",
-          opprettet: "2025-11-11T10:24:34.840144",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b527",
-      navn: "Deltar i arbeidsmarkedstiltak",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31df",
-          opprettet: "2025-11-11T10:24:34.840173",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b528",
-      navn: "Deltar i opplæring for innvandrere",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e0",
-          opprettet: "2025-11-11T10:24:34.840197",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b529",
-      navn: "Deltar i grunnskoleopplæring, videregående opplæring og opplæring i grunnleggende ferdigheter",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e1",
-          opprettet: "2025-11-11T10:24:34.840216",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52a",
-      navn: "Deltar i høyere yrkesfaglig utdanning",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e2",
-          opprettet: "2025-11-11T10:24:34.840337",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52b",
-      navn: "Deltar i høyere utdanning",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e3",
-          opprettet: "2025-11-11T10:24:34.840367",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52c",
-      navn: "Deltar på kurs mv",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e4",
-          opprettet: "2025-11-11T10:24:34.840398",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f6",
-      navn: "Bruker er utestengt fra dagpenger",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e5",
-          opprettet: "2025-11-11T10:24:34.840431",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54d",
-      navn: "Oppfyller kravet til medlemskap",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3798-77e1-8cd0-e60fd3ca31e7",
-          opprettet: "2025-11-11T10:24:34.840951",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErSann",
-            },
-            opplysninger: ["019a723b-3797-7201-b026-9f74bd9fa4ec"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
-      navn: "Uføretrygden er gitt med virkningstidspunkt i inneværende år eller innenfor de to siste kalenderår",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e3b",
-          opprettet: "2025-11-11T10:24:34.841019",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErSann",
-            },
-            opplysninger: ["019a723b-3797-7201-b026-9f74bd9fa4f1"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
-      navn: "Brukeren er ikke påvirket av streik eller lock-out",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e3c",
-          opprettet: "2025-11-11T10:24:34.841063",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "IngenAv",
-            },
-            opplysninger: [
-              "019a723b-3797-7201-b026-9f74bd9fa4f4",
-              "019a723b-3797-7201-b026-9f74bd9fa4f5",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a762",
-      navn: "Krav til prosentvis tap av arbeidstid",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e3d",
-          opprettet: "2025-11-11T10:24:34.841091",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 50,
-            enhet: "prosent",
-            datatype: "desimaltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "HvisSannMedResultat",
-            },
-            opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85c3",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31da",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a763",
-      navn: "Beregningsregel: Tapt arbeidstid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e3e",
-          opprettet: "2025-11-11T10:24:34.84114",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-3798-77e1-8cd0-e60fd3ca31db",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31dc",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31dd",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b523",
-      navn: "Godkjent unntak for utdanning eller opplæring?",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e3f",
-          opprettet: "2025-11-11T10:24:34.841191",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-3798-77e1-8cd0-e60fd3ca31df",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e0",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e1",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e2",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e3",
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e4",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
-      navn: "Oppfyller krav til ikke utestengt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e40",
-          opprettet: "2025-11-11T10:24:34.841216",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "IngenAv",
-            },
-            opplysninger: ["019a723b-3798-77e1-8cd0-e60fd3ca31e5"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
-      navn: "Sum hvis Uføre ikke skal samordnes",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-3799-735f-932d-cc8dc1715e42",
-          opprettet: "2025-11-11T10:24:34.841862",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0196afbf-e32d-775a-ad10-f476e26dcb6f",
-      navn: "Uførebeløp som skal samordnes",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-379a-711b-a949-4a48d2d38f7e",
-          opprettet: "2025-11-11T10:24:34.842349",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "HvisSannMedResultat",
-            },
-            opplysninger: [
-              "019a723b-3799-735f-932d-cc8dc1715e3b",
-              "019a723b-3799-735f-932d-cc8dc1715e42",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86e9",
-      navn: "Sum andre ytelser",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-379b-74f0-aecb-c1ab89e00533",
-          opprettet: "2025-11-11T10:24:34.843128",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Addisjon",
-            },
-            opplysninger: [
-              "019a723b-3797-7201-b026-9f74bd9fa4ed",
-              "019a723b-3797-7201-b026-9f74bd9fa4ee",
-              "019a723b-3797-7201-b026-9f74bd9fa4ef",
-              "019a723b-3797-7201-b026-9f74bd9fa4f0",
-              "019a723b-3797-7201-b026-9f74bd9fa4f2",
-              "019a723b-3797-7201-b026-9f74bd9fa4f3",
-              "019a723b-379a-711b-a949-4a48d2d38f7e",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d2",
-      navn: "Foreldrepenger etter lovens kapittel 14",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa3",
-          opprettet: "2025-11-11T10:24:42.114041",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.048442",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cf",
-      navn: "Omsorgspenger etter lovens kapittel 9",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa4",
-          opprettet: "2025-11-11T10:24:42.114112",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.048628",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45ce",
-      navn: "Pleiepenger etter lovens kapittel 9",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa5",
-          opprettet: "2025-11-11T10:24:42.11416",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.048735",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d3",
-      navn: "Svangerskapspenger etter lovens kapittel 14",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa6",
-          opprettet: "2025-11-11T10:24:42.114202",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.048858",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d0",
-      navn: "Opplæringspenger etter lovens kapittel 9",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa7",
-          opprettet: "2025-11-11T10:24:42.11424",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.048943",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0196ab10-0cff-7301-99d6-65be50a50201",
-      navn: "Bostedsland er Norge",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa8",
-          opprettet: "2025-11-11T10:24:42.114278",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.049036",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
-      navn: "Har krav på lønn fra arbeidsgiver",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafa9",
-          opprettet: "2025-11-11T10:24:42.114318",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.049124",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cd",
-      navn: "Sykepenger etter lovens kapittel 8",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafaa",
-          opprettet: "2025-11-11T10:24:42.114356",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.049205",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
-      navn: "Brukeren er under utdanning eller opplæring",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5402-7641-b908-ae46e33cafab",
-          opprettet: "2025-11-11T10:24:42.114393",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-11-11T10:24:42.049288",
-            meldingId: "7bec3806-4336-4b55-ab00-21b48c37f8f5",
-          },
-          utledetAv: {
-            regel: {
-              navn: "innhentMed",
-            },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d549",
-      navn: "Bruker oppholder seg i Norge",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f6853a",
-          opprettet: "2025-11-11T10:24:42.115195",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErSann",
-            },
-            opplysninger: ["019a723b-5402-7641-b908-ae46e33cafa8"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ea",
-      navn: "Medlem har reduserte ytelser fra folketrygden (Samordning)",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f6853b",
-          opprettet: "2025-11-11T10:24:42.115247",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-3799-735f-932d-cc8dc1715e3b",
-              "019a723b-5402-7641-b908-ae46e33cafa3",
-              "019a723b-5402-7641-b908-ae46e33cafa4",
-              "019a723b-5402-7641-b908-ae46e33cafa5",
-              "019a723b-5402-7641-b908-ae46e33cafa6",
-              "019a723b-5402-7641-b908-ae46e33cafa7",
-              "019a723b-5402-7641-b908-ae46e33cafaa",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
-      navn: "Oppfyller vilkåret til tap av arbeidsinntekt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f6853c",
-          opprettet: "2025-11-11T10:24:42.115276",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "IngenAv",
-            },
-            opplysninger: ["019a723b-5402-7641-b908-ae46e33cafa9"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b524",
-      navn: "Har svart ja på spørsmål om utdanning eller opplæring",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f6853d",
-          opprettet: "2025-11-11T10:24:42.115301",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErSann",
-            },
-            opplysninger: ["019a723b-5402-7641-b908-ae46e33cafab"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b525",
-      navn: "Har svart nei på spørsmål om utdanning eller opplæring",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f6853e",
-          opprettet: "2025-11-11T10:24:42.115434",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "ErUsann",
-            },
-            opplysninger: ["019a723b-5402-7641-b908-ae46e33cafab"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54a",
-      navn: "Oppfyller unntak for opphold i Norge",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f68540",
-          opprettet: "2025-11-11T10:24:42.115947",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Utgangspunkt",
-            },
-            opplysninger: ["019a723b-5403-7bfb-afe7-ac3cf9f6853a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b526",
-      navn: "Oppfyller kravet på unntak for utdanning eller opplæring",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5403-7bfb-afe7-ac3cf9f68541",
-          opprettet: "2025-11-11T10:24:42.115986",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Alle",
-            },
-            opplysninger: [
-              "019a723b-3799-735f-932d-cc8dc1715e3f",
-              "019a723b-5403-7bfb-afe7-ac3cf9f6853d",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54b",
-      navn: "Oppfyller kravet til opphold i Norge eller unntak",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5404-74c6-99fb-0bb9041b056c",
-          opprettet: "2025-11-11T10:24:42.116461",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-5403-7bfb-afe7-ac3cf9f6853a",
-              "019a723b-5403-7bfb-afe7-ac3cf9f68540",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
-      navn: "Oppfyller krav til utdanning eller opplæring",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5404-74c6-99fb-0bb9041b056d",
-          opprettet: "2025-11-11T10:24:42.116514",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a723b-5403-7bfb-afe7-ac3cf9f6853e",
-              "019a723b-5403-7bfb-afe7-ac3cf9f68541",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
-      navn: "Kravet til opphold i Norge er oppfylt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a723b-5405-7515-b025-77e4f42b8320",
-          opprettet: "2025-11-11T10:24:42.117263",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Alle",
-            },
-            opplysninger: [
-              "019a723b-3798-77e1-8cd0-e60fd3ca31e7",
-              "019a723b-5404-74c6-99fb-0bb9041b056c",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ee",
-      navn: "Grunnbeløp for grunnlag",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-5406-7361-abfb-5c5761efd597",
-          opprettet: "2025-11-11T10:24:42.118614",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 130160,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ed",
-      navn: "Tellende inntekt",
-      datatype: "inntekt",
-      perioder: [
-        {
-          id: "019a723b-5406-7361-abfb-5c5761efd598",
-          opprettet: "2025-11-11T10:24:42.118712",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: "01K9RXT29QE02NYE1AD3F9C1B5",
-            datatype: "tekst",
-          },
-          utledetAv: {
-            regel: {
-              navn: "FiltrerRelevanteInntekter",
-            },
-            opplysninger: ["019a723b-378e-756a-a8ed-2c87038e85c5"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca7",
-      navn: "Faktor for maksimalt mulig grunnlag",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-5406-7361-abfb-5c5761efd599",
-          opprettet: "2025-11-11T10:24:42.118777",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 6,
-            datatype: "desimaltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca9",
-      navn: "Antall år i 36 måneder",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-5406-7361-abfb-5c5761efd59a",
-          opprettet: "2025-11-11T10:24:42.118828",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: 3,
-            enhet: "år",
-            datatype: "desimaltall",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23e",
-      navn: "Faktor for utregning av dagsats etter dagpengegrunnlaget",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-5406-7361-abfb-5c5761efd59b",
-          opprettet: "2025-11-11T10:24:42.11895",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 0.0024,
-            enhet: "G",
-            datatype: "desimaltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23d",
-      navn: "Barnetilleggets størrelse i kroner per dag for hvert barn",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-5407-7904-b28f-9b6c2b9315e5",
-          opprettet: "2025-11-11T10:24:42.119066",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 37,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a246",
-      navn: "90% av grunnlag for dagpenger",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019a723b-5407-7904-b28f-9b6c2b9315e6",
-          opprettet: "2025-11-11T10:24:42.11915",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 0.9,
-            datatype: "desimaltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a247",
-      navn: "Antall arbeidsdager per år",
-      datatype: "heltall",
-      perioder: [
-        {
-          id: "019a723b-5407-7904-b28f-9b6c2b9315e7",
-          opprettet: "2025-11-11T10:24:42.119199",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 260,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Oppslag",
-            },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -4078,11 +3139,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5408-7ca2-ab52-abdc33e5e2f2",
-          opprettet: "2025-11-11T10:24:42.120608",
+          id: "01997540-1095-7035-a5e5-e57487929a7e",
+          opprettet: "2025-09-23T08:25:56.885495",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 40,
             enhet: "timer",
@@ -4092,13 +3153,44 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["019a71dd-0504-70b4-b922-62b312da5573"],
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e02",
+      navn: "Fastsatt vanlig arbeidstid for verneplikt",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a7f",
+          opprettet: "2025-09-23T08:25:56.885516",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 37.5,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -4109,8 +3201,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5408-7ca2-ab52-abdc33e5e2f3",
-          opprettet: "2025-11-11T10:24:42.120653",
+          id: "01997540-1095-7035-a5e5-e57487929a80",
+          opprettet: "2025-09-23T08:25:56.885533",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -4131,8 +3223,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5408-7ca2-ab52-abdc33e5e2f4",
-          opprettet: "2025-11-11T10:24:42.120698",
+          id: "01997540-1095-7035-a5e5-e57487929a81",
+          opprettet: "2025-09-23T08:25:56.885551",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -4148,18 +3240,373 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "019522d2-9bb1-7960-b1e2-a959566e2428",
+      navn: "Krav til prosentvis tap av arbeidstid ved permittering fra fiskeindustrien",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a82",
+          opprettet: "2025-09-23T08:25:56.885573",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 40,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019522d6-846d-7173-a892-67f10016d8d2",
+      navn: "Ordinært krav til prosentvis tap av arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a83",
+          opprettet: "2025-09-23T08:25:56.885593",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 50,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a764",
+      navn: "Beregningsregel: Arbeidstid siste 6 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a84",
+          opprettet: "2025-09-23T08:25:56.885612",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a765",
+      navn: "Beregningsregel: Arbeidstid siste 12 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a85",
+          opprettet: "2025-09-23T08:25:56.885632",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a766",
+      navn: "Beregningsregel: Arbeidstid siste 36 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a86",
+          opprettet: "2025-09-23T08:25:56.885651",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196b4a7-23b5-7b2c-aa95-e4167d900de8",
+      navn: "Arbeidstidsreduksjonen er ikke brukt tidligere i en full stønadsperiode",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a87",
+          opprettet: "2025-09-23T08:25:56.885672",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b527",
+      navn: "Deltar i arbeidsmarkedstiltak",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a88",
+          opprettet: "2025-09-23T08:25:56.885691",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b528",
+      navn: "Deltar i opplæring for innvandrere",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a89",
+          opprettet: "2025-09-23T08:25:56.88571",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b529",
+      navn: "Deltar i grunnskoleopplæring, videregående opplæring og opplæring i grunnleggende ferdigheter",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a8a",
+          opprettet: "2025-09-23T08:25:56.88573",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52a",
+      navn: "Deltar i høyere yrkesfaglig utdanning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a8b",
+          opprettet: "2025-09-23T08:25:56.88575",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52b",
+      navn: "Deltar i høyere utdanning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a8c",
+          opprettet: "2025-09-23T08:25:56.88577",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52c",
+      navn: "Deltar på kurs mv",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a8d",
+          opprettet: "2025-09-23T08:25:56.885792",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f6",
+      navn: "Bruker er utestengt fra dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1095-7035-a5e5-e57487929a8e",
+          opprettet: "2025-09-23T08:25:56.885813",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
+      navn: "Oppfyller kravet til minsteinntekt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525158",
+          opprettet: "2025-09-23T08:25:56.88646",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1094-7ee3-8e48-34952c720228",
+              "01997540-1094-7ee3-8e48-34952c720229",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54d",
+      navn: "Oppfyller kravet til medlemskap",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525159",
+          opprettet: "2025-09-23T08:25:56.886519",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01997540-1094-7ee3-8e48-34952c72022b"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ec",
       navn: "Oppjustert inntekt",
       datatype: "inntekt",
       perioder: [
         {
-          id: "019a723b-540c-7ce6-82cb-0e20eb0f37ae",
-          opprettet: "2025-11-11T10:24:42.124429",
+          id: "01997540-1096-784d-80a6-56221a52515a",
+          opprettet: "2025-09-23T08:25:56.886569",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: "01K9RXT29QE02NYE1AD3F9C1B5",
+            verdi: "01K5TM040QSNVJGSKRY3F13061",
             datatype: "tekst",
           },
           utledetAv: {
@@ -4167,11 +3614,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Oppjuster",
             },
             opplysninger: [
-              "019a723b-5406-7361-abfb-5c5761efd597",
-              "019a723b-5406-7361-abfb-5c5761efd598",
+              "01997540-1094-7ee3-8e48-34952c72022d",
+              "01997540-1094-7ee3-8e48-34952c72022e",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4186,11 +3633,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-540c-7ce6-82cb-0e20eb0f37af",
-          opprettet: "2025-11-11T10:24:42.124553",
+          id: "01997540-1096-784d-80a6-56221a52515b",
+          opprettet: "2025-09-23T08:25:56.886651",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 780960,
             datatype: "penger",
@@ -4200,11 +3647,105 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a723b-5406-7361-abfb-5c5761efd597",
-              "019a723b-5406-7361-abfb-5c5761efd599",
+              "01997540-1094-7ee3-8e48-34952c72022d",
+              "01997540-1094-7ee3-8e48-34952c72022f",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e00",
+      navn: "Grunnlag for gis ved verneplikt",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a52515c",
+          opprettet: "2025-09-23T08:25:56.886702",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 390480,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "01997540-1094-7ee3-8e48-34952c72022d",
+              "01997540-1095-7035-a5e5-e57487929a6c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
+      navn: "Uføretrygden er gitt med virkningstidspunkt i inneværende år eller innenfor de to siste kalenderår",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a52515d",
+          opprettet: "2025-09-23T08:25:56.886743",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01997540-1095-7035-a5e5-e57487929a76"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      navn: "Brukeren er ikke påvirket av streik eller lock-out",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a52515e",
+          opprettet: "2025-09-23T08:25:56.886787",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a7b",
+              "01997540-1095-7035-a5e5-e57487929a7c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4219,8 +3760,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5411-7c66-b896-fc26acfcecf7",
-          opprettet: "2025-11-11T10:24:42.129491",
+          id: "01997540-1096-784d-80a6-56221a52515f",
+          opprettet: "2025-09-23T08:25:56.886834",
           status: "Ny",
           opprinnelse: "Ny",
           verdi: {
@@ -4233,11 +3774,144 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "019a723b-5408-7ca2-ab52-abdc33e5e2f3",
-              "019a723b-5408-7ca2-ab52-abdc33e5e2f4",
+              "01997540-1095-7035-a5e5-e57487929a80",
+              "01997540-1095-7035-a5e5-e57487929a81",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a762",
+      navn: "Krav til prosentvis tap av arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525160",
+          opprettet: "2025-09-23T08:25:56.886877",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 50,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "01997540-1092-7dee-b394-a33ca5c23936",
+              "01997540-1095-7035-a5e5-e57487929a82",
+              "01997540-1095-7035-a5e5-e57487929a83",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a763",
+      navn: "Beregningsregel: Tapt arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525161",
+          opprettet: "2025-09-23T08:25:56.886914",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a84",
+              "01997540-1095-7035-a5e5-e57487929a85",
+              "01997540-1095-7035-a5e5-e57487929a86",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b523",
+      navn: "Godkjent unntak for utdanning eller opplæring?",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525162",
+          opprettet: "2025-09-23T08:25:56.886947",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a88",
+              "01997540-1095-7035-a5e5-e57487929a89",
+              "01997540-1095-7035-a5e5-e57487929a8a",
+              "01997540-1095-7035-a5e5-e57487929a8b",
+              "01997540-1095-7035-a5e5-e57487929a8c",
+              "01997540-1095-7035-a5e5-e57487929a8d",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
+      navn: "Oppfyller krav til ikke utestengt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1096-784d-80a6-56221a525163",
+          opprettet: "2025-09-23T08:25:56.886979",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: ["01997540-1095-7035-a5e5-e57487929a8e"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4252,22 +3926,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5413-7306-a558-1f9a6320bffd",
-          opprettet: "2025-11-11T10:24:42.131283",
+          id: "01997540-1097-799b-9da7-7380726e96e9",
+          opprettet: "2025-09-23T08:25:56.887902",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 516474.9848421324,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["019a723b-540c-7ce6-82cb-0e20eb0f37ae"],
+            opplysninger: ["01997540-1096-784d-80a6-56221a52515a"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4282,22 +3956,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5413-7306-a558-1f9a6320bffe",
-          opprettet: "2025-11-11T10:24:42.13149",
+          id: "01997540-1098-7aa7-a883-372ef071ad69",
+          opprettet: "2025-09-23T08:25:56.888011",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 715568.1436686373,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["019a723b-540c-7ce6-82cb-0e20eb0f37ae"],
+            opplysninger: ["01997540-1096-784d-80a6-56221a52515a"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4312,22 +3986,89 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5413-7306-a558-1f9a6320bfff",
-          opprettet: "2025-11-11T10:24:42.131659",
+          id: "01997540-1098-7aa7-a883-372ef071ad6a",
+          opprettet: "2025-09-23T08:25:56.888107",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 754952.6366111599,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["019a723b-540c-7ce6-82cb-0e20eb0f37ae"],
+            opplysninger: ["01997540-1096-784d-80a6-56221a52515a"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e03",
+      navn: "Grunnlag for verneplikt hvis kravet er oppfylt",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1098-7aa7-a883-372ef071ad6b",
+          opprettet: "2025-09-23T08:25:56.888145",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 390480,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "01997540-1093-7c4e-a9d4-84749d0bce3f",
+              "01997540-1095-7035-a5e5-e57487929a6d",
+              "01997540-1096-784d-80a6-56221a52515c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afbf-e32d-775a-ad10-f476e26dcb6f",
+      navn: "Uførebeløp som skal samordnes",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1098-7aa7-a883-372ef071ad6c",
+          opprettet: "2025-09-23T08:25:56.888176",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a77",
+              "01997540-1095-7035-a5e5-e57487929a78",
+              "01997540-1096-784d-80a6-56221a52515d",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4342,13 +4083,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5414-7c3f-89f6-7bfc3e48e850",
-          opprettet: "2025-11-11T10:24:42.132816",
+          id: "01997540-1098-7aa7-a883-372ef071ad6e",
+          opprettet: "2025-09-23T08:25:56.888887",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 516474.9848421324,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4356,11 +4097,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "019a723b-540c-7ce6-82cb-0e20eb0f37af",
-              "019a723b-5413-7306-a558-1f9a6320bffd",
+              "01997540-1096-784d-80a6-56221a52515b",
+              "01997540-1097-799b-9da7-7380726e96e9",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4375,13 +4116,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5414-7c3f-89f6-7bfc3e48e851",
-          opprettet: "2025-11-11T10:24:42.132865",
+          id: "01997540-1098-7aa7-a883-372ef071ad6f",
+          opprettet: "2025-09-23T08:25:56.888924",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 516474.9848421324,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4389,11 +4130,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "019a723b-540c-7ce6-82cb-0e20eb0f37af",
-              "019a723b-5413-7306-a558-1f9a6320bffd",
+              "01997540-1096-784d-80a6-56221a52515b",
+              "01997540-1097-799b-9da7-7380726e96e9",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4408,13 +4149,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5414-7c3f-89f6-7bfc3e48e852",
-          opprettet: "2025-11-11T10:24:42.13291",
+          id: "01997540-1098-7aa7-a883-372ef071ad70",
+          opprettet: "2025-09-23T08:25:56.888958",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 715568.1436686373,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4422,11 +4163,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "019a723b-540c-7ce6-82cb-0e20eb0f37af",
-              "019a723b-5413-7306-a558-1f9a6320bffe",
+              "01997540-1096-784d-80a6-56221a52515b",
+              "01997540-1098-7aa7-a883-372ef071ad69",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4441,13 +4182,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5414-7c3f-89f6-7bfc3e48e853",
-          opprettet: "2025-11-11T10:24:42.132953",
+          id: "01997540-1098-7aa7-a883-372ef071ad71",
+          opprettet: "2025-09-23T08:25:56.888988",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 754952.6366111599,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4455,11 +4196,48 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "019a723b-540c-7ce6-82cb-0e20eb0f37af",
-              "019a723b-5413-7306-a558-1f9a6320bfff",
+              "01997540-1096-784d-80a6-56221a52515b",
+              "01997540-1098-7aa7-a883-372ef071ad6a",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86e9",
+      navn: "Sum andre ytelser",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1099-722b-a56a-683f7315e4a2",
+          opprettet: "2025-09-23T08:25:56.889497",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Addisjon",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a72",
+              "01997540-1095-7035-a5e5-e57487929a73",
+              "01997540-1095-7035-a5e5-e57487929a74",
+              "01997540-1095-7035-a5e5-e57487929a75",
+              "01997540-1095-7035-a5e5-e57487929a79",
+              "01997540-1095-7035-a5e5-e57487929a7a",
+              "01997540-1098-7aa7-a883-372ef071ad6c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4474,13 +4252,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5416-7467-9259-d64303ae1391",
-          opprettet: "2025-11-11T10:24:42.134338",
+          id: "01997540-109a-7093-9119-98f5dd75654c",
+          opprettet: "2025-09-23T08:25:56.890876",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1986995.7651219296,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4488,12 +4266,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "SumAv",
             },
             opplysninger: [
-              "019a723b-5414-7c3f-89f6-7bfc3e48e851",
-              "019a723b-5414-7c3f-89f6-7bfc3e48e852",
-              "019a723b-5414-7c3f-89f6-7bfc3e48e853",
+              "01997540-1098-7aa7-a883-372ef071ad6f",
+              "01997540-1098-7aa7-a883-372ef071ad70",
+              "01997540-1098-7aa7-a883-372ef071ad71",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4508,13 +4286,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5418-7afc-87af-d635f801f4b6",
-          opprettet: "2025-11-11T10:24:42.136",
+          id: "01997540-109c-7092-8bd1-d41d7b34184c",
+          opprettet: "2025-09-23T08:25:56.892043",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 662331.9217073099,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4522,11 +4300,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "019a723b-5406-7361-abfb-5c5761efd59a",
-              "019a723b-5416-7467-9259-d64303ae1391",
+              "01997540-1094-7ee3-8e48-34952c720230",
+              "01997540-109a-7093-9119-98f5dd75654c",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4541,13 +4319,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5419-7ea8-bfe3-fa08ef5760d4",
-          opprettet: "2025-11-11T10:24:42.137843",
+          id: "01997540-109c-7092-8bd1-d41d7b34184e",
+          opprettet: "2025-09-23T08:25:56.892774",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 662331.9217073099,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4555,11 +4333,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "019a723b-5414-7c3f-89f6-7bfc3e48e850",
-              "019a723b-5418-7afc-87af-d635f801f4b6",
+              "01997540-1098-7aa7-a883-372ef071ad6e",
+              "01997540-109c-7092-8bd1-d41d7b34184c",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4574,59 +4352,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-541b-77d5-9373-889d009a88a7",
-          opprettet: "2025-11-11T10:24:42.139831",
+          id: "01997540-109d-7dd8-9e05-ca6b1b7bf4a8",
+          opprettet: "2025-09-23T08:25:56.893691",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 662332,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["019a723b-5419-7ea8-bfe3-fa08ef5760d4"],
+            opplysninger: ["01997540-109c-7092-8bd1-d41d7b34184e"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e03",
-      navn: "Grunnlag for verneplikt hvis kravet er oppfylt",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-541d-7a2e-b638-be6514e5ca37",
-          opprettet: "2025-11-11T10:24:42.141373",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 662332,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "HvisSannMedResultat",
-            },
-            opplysninger: [
-              "019a723b-378f-75c2-bfe1-d99fac0c0c90",
-              "019a723b-541b-77d5-9373-889d009a88a7",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -4637,13 +4382,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-541e-7341-80d4-23f7870adbe0",
-          opprettet: "2025-11-11T10:24:42.142978",
+          id: "01997540-109e-7215-8322-5faec1bac138",
+          opprettet: "2025-09-23T08:25:56.894385",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 662332,
+            verdi: 390480,
             datatype: "penger",
           },
           utledetAv: {
@@ -4651,11 +4396,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "019a723b-541b-77d5-9373-889d009a88a7",
-              "019a723b-541d-7a2e-b638-be6514e5ca37",
+              "01997540-1098-7aa7-a883-372ef071ad6b",
+              "01997540-109d-7dd8-9e05-ca6b1b7bf4a8",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4670,13 +4415,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-541f-7561-8a67-d7281f79d33d",
-          opprettet: "2025-11-11T10:24:42.14306",
+          id: "01997540-109e-7215-8322-5faec1bac139",
+          opprettet: "2025-09-23T08:25:56.894442",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -4684,15 +4429,15 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnn",
             },
             opplysninger: [
-              "019a723b-541b-77d5-9373-889d009a88a7",
-              "019a723b-541d-7a2e-b638-be6514e5ca37",
+              "01997540-1098-7aa7-a883-372ef071ad6b",
+              "01997540-109d-7dd8-9e05-ca6b1b7bf4a8",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
-      synlig: false,
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -4703,13 +4448,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5420-7c49-bfce-9387b4cfea3e",
-          opprettet: "2025-11-11T10:24:42.144701",
+          id: "01997540-109f-7c77-a966-1d08c3bb76ca",
+          opprettet: "2025-09-23T08:25:56.895119",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1589.5968,
+            verdi: 937.152,
             datatype: "penger",
           },
           utledetAv: {
@@ -4717,11 +4462,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a723b-5406-7361-abfb-5c5761efd59b",
-              "019a723b-541e-7341-80d4-23f7870adbe0",
+              "01997540-1095-7035-a5e5-e57487929a6e",
+              "01997540-109e-7215-8322-5faec1bac138",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4736,13 +4481,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5420-7c49-bfce-9387b4cfea3f",
-          opprettet: "2025-11-11T10:24:42.144841",
+          id: "01997540-109f-7c77-a966-1d08c3bb76cb",
+          opprettet: "2025-09-23T08:25:56.895162",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 596098.8,
+            verdi: 351432,
             datatype: "penger",
           },
           utledetAv: {
@@ -4750,11 +4495,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a723b-5407-7904-b28f-9b6c2b9315e6",
-              "019a723b-541e-7341-80d4-23f7870adbe0",
+              "01997540-1095-7035-a5e5-e57487929a70",
+              "01997540-109e-7215-8322-5faec1bac138",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4769,11 +4514,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5420-7c49-bfce-9387b4cfea40",
-          opprettet: "2025-11-11T10:24:42.144915",
+          id: "01997540-109f-7c77-a966-1d08c3bb76cc",
+          opprettet: "2025-09-23T08:25:56.895198",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -4784,11 +4529,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "019a723b-5408-7ca2-ab52-abdc33e5e2f3",
-              "019a723b-541f-7561-8a67-d7281f79d33d",
+              "01997540-1095-7035-a5e5-e57487929a7f",
+              "01997540-1095-7035-a5e5-e57487929a80",
+              "01997540-109e-7215-8322-5faec1bac139",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4803,22 +4549,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5422-7610-8502-8886e83ec220",
-          opprettet: "2025-11-11T10:24:42.14635",
+          id: "01997540-109f-7c77-a966-1d08c3bb76ce",
+          opprettet: "2025-09-23T08:25:56.895931",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1590,
+            verdi: 937,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["019a723b-5420-7c49-bfce-9387b4cfea3e"],
+            opplysninger: ["01997540-109f-7c77-a966-1d08c3bb76ca"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4833,13 +4579,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5422-7610-8502-8886e83ec221",
-          opprettet: "2025-11-11T10:24:42.146473",
+          id: "01997540-10a0-7141-8269-b4552a1d7f2a",
+          opprettet: "2025-09-23T08:25:56.896016",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 2292.6876923076925,
+            verdi: 1351.6615384615384,
             datatype: "penger",
           },
           utledetAv: {
@@ -4847,11 +4593,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "019a723b-5407-7904-b28f-9b6c2b9315e7",
-              "019a723b-5420-7c49-bfce-9387b4cfea3f",
+              "01997540-1095-7035-a5e5-e57487929a71",
+              "01997540-109f-7c77-a966-1d08c3bb76cb",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4866,11 +4612,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "019a723b-5422-7610-8502-8886e83ec222",
-          opprettet: "2025-11-11T10:24:42.146569",
+          id: "01997540-10a0-7141-8269-b4552a1d7f2b",
+          opprettet: "2025-09-23T08:25:56.89606",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -4881,13 +4627,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "019a723b-378e-756a-a8ed-2c87038e85be",
-              "019a723b-5408-7ca2-ab52-abdc33e5e2f2",
-              "019a723b-5411-7c66-b896-fc26acfcecf7",
-              "019a723b-5420-7c49-bfce-9387b4cfea40",
+              "01997540-1092-7dee-b394-a33ca5c23931",
+              "01997540-1095-7035-a5e5-e57487929a7e",
+              "01997540-1096-784d-80a6-56221a52515f",
+              "01997540-109f-7c77-a966-1d08c3bb76cc",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4902,22 +4648,22 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-5424-7816-bbc3-502e72035544",
-          opprettet: "2025-11-11T10:24:42.148229",
+          id: "01997540-10a0-7141-8269-b4552a1d7f2d",
+          opprettet: "2025-09-23T08:25:56.896777",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 2293,
+            verdi: 1352,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["019a723b-5422-7610-8502-8886e83ec221"],
+            opplysninger: ["01997540-10a0-7141-8269-b4552a1d7f2a"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4932,11 +4678,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-5424-7816-bbc3-502e72035545",
-          opprettet: "2025-11-11T10:24:42.148336",
+          id: "01997540-10a0-7141-8269-b4552a1d7f2e",
+          opprettet: "2025-09-23T08:25:56.896823",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -4946,12 +4692,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "SjekkAvTerskel",
             },
             opplysninger: [
-              "019a723b-3797-7201-b026-9f74bd9fa4f6",
-              "019a723b-3799-735f-932d-cc8dc1715e3d",
-              "019a723b-5422-7610-8502-8886e83ec222",
+              "01997540-1095-7035-a5e5-e57487929a7d",
+              "01997540-1096-784d-80a6-56221a525160",
+              "01997540-10a0-7141-8269-b4552a1d7f2b",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -4961,39 +4707,38 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
-      navn: "Oppfyller vilkåret om tap av arbeidsinntekt og arbeidstid",
+      opplysningTypeId: "0196ab10-0cff-7301-99d6-65be50a50201",
+      navn: "Bostedsland er Norge",
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-5425-75af-92ba-81bced56daa1",
-          opprettet: "2025-11-11T10:24:42.149999",
+          id: "01997540-1a53-757c-8ba5-13c1a413e46d",
+          opprettet: "2025-09-23T08:25:59.379151",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.319962",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
           utledetAv: {
             regel: {
-              navn: "Alle",
+              navn: "innhentMed",
             },
-            opplysninger: [
-              "019a723b-3798-77e1-8cd0-e60fd3ca31de",
-              "019a723b-3799-735f-932d-cc8dc1715e3e",
-              "019a723b-5403-7bfb-afe7-ac3cf9f6853c",
-              "019a723b-5424-7816-bbc3-502e72035545",
-            ],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
-      synlig: false,
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
-      formål: "Regel",
+      formål: "Bruker",
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -5001,28 +4746,26 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "barn",
       perioder: [
         {
-          id: "019a723b-6339-7606-87a1-795af682015e",
-          opprettet: "2025-11-11T10:24:46.009483",
+          id: "01997540-1a53-757c-8ba5-13c1a413e46e",
+          opprettet: "2025-09-23T08:25:59.379247",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
-            søknadBarnId: "9051b8f0-9b73-4dd4-9240-e5e346aeacbb",
             verdi: [],
             datatype: "barn",
           },
           kilde: {
             type: "System",
-            registrert: "2025-11-11T10:24:45.93772",
-            meldingId: "dbe93574-5576-4ace-a288-fe3923b98e0a",
+            registrert: "2025-09-23T08:25:59.320116",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["019a71dd-03ab-7fbe-9714-c9472667f87f"],
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -5032,16 +4775,322 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Register",
     },
     {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
+      navn: "Har krav på lønn fra arbeidsgiver",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e46f",
+          opprettet: "2025-09-23T08:25:59.379353",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.32024",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
+      navn: "Brukeren er under utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e470",
+          opprettet: "2025-09-23T08:25:59.379425",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320362",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0ad3-763a-aa60-21546135aa54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d2",
+      navn: "Foreldrepenger etter lovens kapittel 14",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e471",
+          opprettet: "2025-09-23T08:25:59.379474",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320448",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cf",
+      navn: "Omsorgspenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e472",
+          opprettet: "2025-09-23T08:25:59.379527",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320543",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45ce",
+      navn: "Pleiepenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e473",
+          opprettet: "2025-09-23T08:25:59.379576",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320634",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d3",
+      navn: "Svangerskapspenger etter lovens kapittel 14",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e474",
+          opprettet: "2025-09-23T08:25:59.379628",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320691",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d0",
+      navn: "Opplæringspenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e475",
+          opprettet: "2025-09-23T08:25:59.379677",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320745",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cd",
+      navn: "Sykepenger etter lovens kapittel 8",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a53-757c-8ba5-13c1a413e476",
+          opprettet: "2025-09-23T08:25:59.379728",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-23T08:25:59.320793",
+            meldingId: "84e7083d-c50f-4fb0-8977-74e2623f9f82",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01997540-0d54-776e-8d23-2fc5ca1e96d3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d549",
+      navn: "Bruker oppholder seg i Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a55-70a3-a463-c469f630fd38",
+          opprettet: "2025-09-23T08:25:59.381005",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01997540-1a53-757c-8ba5-13c1a413e46d"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23c",
       navn: "Antall barn som gir rett til barnetillegg",
       datatype: "heltall",
       perioder: [
         {
-          id: "019a723b-633c-7930-b677-8ce725935496",
-          opprettet: "2025-11-11T10:24:46.012145",
+          id: "01997540-1a55-70a3-a463-c469f630fd39",
+          opprettet: "2025-09-23T08:25:59.381059",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: 0,
             datatype: "heltall",
@@ -5050,13 +5099,170 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
             regel: {
               navn: "AntallAv",
             },
-            opplysninger: ["019a723b-6339-7606-87a1-795af682015e"],
+            opplysninger: ["01997540-1a53-757c-8ba5-13c1a413e46e"],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ea",
+      navn: "Medlem har reduserte ytelser fra folketrygden (Samordning)",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a55-70a3-a463-c469f630fd3a",
+          opprettet: "2025-09-23T08:25:59.381126",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1096-784d-80a6-56221a52515d",
+              "01997540-1a53-757c-8ba5-13c1a413e471",
+              "01997540-1a53-757c-8ba5-13c1a413e472",
+              "01997540-1a53-757c-8ba5-13c1a413e473",
+              "01997540-1a53-757c-8ba5-13c1a413e474",
+              "01997540-1a53-757c-8ba5-13c1a413e475",
+              "01997540-1a53-757c-8ba5-13c1a413e476",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
+      navn: "Oppfyller vilkåret til tap av arbeidsinntekt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a55-70a3-a463-c469f630fd3b",
+          opprettet: "2025-09-23T08:25:59.381168",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: ["01997540-1a53-757c-8ba5-13c1a413e46f"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b524",
+      navn: "Har svart ja på spørsmål om utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a55-70a3-a463-c469f630fd3c",
+          opprettet: "2025-09-23T08:25:59.381206",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01997540-1a53-757c-8ba5-13c1a413e470"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b525",
+      navn: "Har svart nei på spørsmål om utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a55-70a3-a463-c469f630fd3d",
+          opprettet: "2025-09-23T08:25:59.381242",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErUsann",
+            },
+            opplysninger: ["01997540-1a53-757c-8ba5-13c1a413e470"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54b",
+      navn: "Oppfyller kravet til opphold i Norge eller unntak",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a56-7167-b52a-5c7601694b88",
+          opprettet: "2025-09-23T08:25:59.382088",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1094-7ee3-8e48-34952c72022a",
+              "01997540-1a55-70a3-a463-c469f630fd38",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -5067,11 +5273,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-633e-7c37-8d7e-ab6cb9bf985e",
-          opprettet: "2025-11-11T10:24:46.014116",
+          id: "01997540-1a56-7167-b52a-5c7601694b89",
+          opprettet: "2025-09-23T08:25:59.382181",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5081,15 +5287,114 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "019a723b-5407-7904-b28f-9b6c2b9315e5",
-              "019a723b-633c-7930-b677-8ce725935496",
+              "01997540-1095-7035-a5e5-e57487929a6f",
+              "01997540-1a55-70a3-a463-c469f630fd39",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
+      navn: "Oppfyller vilkåret om tap av arbeidsinntekt og arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a56-7167-b52a-5c7601694b8a",
+          opprettet: "2025-09-23T08:25:59.382233",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "01997540-1095-7035-a5e5-e57487929a87",
+              "01997540-1096-784d-80a6-56221a525161",
+              "01997540-10a0-7141-8269-b4552a1d7f2e",
+              "01997540-1a55-70a3-a463-c469f630fd3b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b526",
+      navn: "Oppfyller kravet på unntak for utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a56-7167-b52a-5c7601694b8b",
+          opprettet: "2025-09-23T08:25:59.382298",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "01997540-1096-784d-80a6-56221a525162",
+              "01997540-1a55-70a3-a463-c469f630fd3c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
+      navn: "Kravet til opphold i Norge er oppfylt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a57-73c5-854a-174c738a3abf",
+          opprettet: "2025-09-23T08:25:59.383105",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "01997540-1096-784d-80a6-56221a525159",
+              "01997540-1a56-7167-b52a-5c7601694b88",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -5100,13 +5405,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-633f-779c-b62d-5807fbe001ac",
-          opprettet: "2025-11-11T10:24:46.015959",
+          id: "01997540-1a57-73c5-854a-174c738a3ac0",
+          opprettet: "2025-09-23T08:25:59.383237",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1590,
+            verdi: 937,
             datatype: "penger",
           },
           utledetAv: {
@@ -5114,11 +5419,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Addisjon",
             },
             opplysninger: [
-              "019a723b-5422-7610-8502-8886e83ec220",
-              "019a723b-633e-7c37-8d7e-ab6cb9bf985e",
+              "01997540-109f-7c77-a966-1d08c3bb76ce",
+              "01997540-1a56-7167-b52a-5c7601694b89",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -5133,11 +5438,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-6340-7ed0-82ba-793de9e19769",
-          opprettet: "2025-11-11T10:24:46.016087",
+          id: "01997540-1a57-73c5-854a-174c738a3ac1",
+          opprettet: "2025-09-23T08:25:59.383314",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5147,15 +5452,47 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "019a723b-5407-7904-b28f-9b6c2b9315e5",
-              "019a723b-633e-7c37-8d7e-ab6cb9bf985e",
+              "01997540-1095-7035-a5e5-e57487929a6f",
+              "01997540-1a56-7167-b52a-5c7601694b89",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
+      navn: "Oppfyller krav til utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01997540-1a57-73c5-854a-174c738a3ac2",
+          opprettet: "2025-09-23T08:25:59.38336",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "01997540-1a55-70a3-a463-c469f630fd3d",
+              "01997540-1a56-7167-b52a-5c7601694b8b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -5166,11 +5503,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-6341-775b-8fae-05563bf13270",
-          opprettet: "2025-11-11T10:24:46.017904",
+          id: "01997540-1a58-7b8b-b0b4-7bfa41fe87df",
+          opprettet: "2025-09-23T08:25:59.384355",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5180,11 +5517,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "019a723b-5424-7816-bbc3-502e72035544",
-              "019a723b-633f-779c-b62d-5807fbe001ac",
+              "01997540-10a0-7141-8269-b4552a1d7f2d",
+              "01997540-1a57-73c5-854a-174c738a3ac0",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -5199,13 +5536,13 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "019a723b-6343-73ae-a490-ce7228d4cfd5",
-          opprettet: "2025-11-11T10:24:46.019753",
+          id: "01997540-1a59-7447-bcd4-f200cee4124a",
+          opprettet: "2025-09-23T08:25:59.385423",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
-            verdi: 1590,
+            verdi: 937,
             datatype: "penger",
           },
           utledetAv: {
@@ -5213,44 +5550,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "019a723b-5422-7610-8502-8886e83ec220",
-              "019a723b-6341-775b-8fae-05563bf13270",
+              "01997540-109f-7c77-a966-1d08c3bb76ce",
+              "01997540-1a58-7b8b-b0b4-7bfa41fe87df",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86eb",
-      navn: "Samordnet dagsats uten barnetillegg",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019a723b-6345-7cc4-8651-5a935417dae1",
-          opprettet: "2025-11-11T10:24:46.02144",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: 1590,
-            datatype: "penger",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Substraksjon",
-            },
-            opplysninger: [
-              "019a723b-379b-74f0-aecb-c1ab89e00533",
-              "019a723b-6343-73ae-a490-ce7228d4cfd5",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -5265,11 +5569,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-6345-7cc4-8651-5a935417dae2",
-          opprettet: "2025-11-11T10:24:46.021553",
+          id: "01997540-1a5a-73ca-a2e0-89da909f9400",
+          opprettet: "2025-09-23T08:25:59.386326",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5279,11 +5583,44 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "019a723b-379b-74f0-aecb-c1ab89e00533",
-              "019a723b-6343-73ae-a490-ce7228d4cfd5",
+              "01997540-1099-722b-a56a-683f7315e4a2",
+              "01997540-1a59-7447-bcd4-f200cee4124a",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86eb",
+      navn: "Samordnet dagsats uten barnetillegg",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "01997540-1a5a-73ca-a2e0-89da909f9401",
+          opprettet: "2025-09-23T08:25:59.38644",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-22",
+          verdi: {
+            verdi: 937,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "01997540-1099-722b-a56a-683f7315e4a2",
+              "01997540-1a59-7447-bcd4-f200cee4124a",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
@@ -5298,11 +5635,11 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a723b-6348-7e64-ab03-c02cf8ca80c2",
-          opprettet: "2025-11-11T10:24:46.024307",
+          id: "01997540-1a5b-7659-b55e-0ce01edf4527",
+          opprettet: "2025-09-23T08:25:59.387519",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
+          gyldigFraOgMed: "2025-09-22",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5312,285 +5649,15 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "019a723b-6340-7ed0-82ba-793de9e19769",
-              "019a723b-6345-7cc4-8651-5a935417dae2",
+              "01997540-1a57-73c5-854a-174c738a3ac1",
+              "01997540-1a5a-73ca-a2e0-89da909f9400",
             ],
             versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.10-14.22-9b7b492",
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.09.22-11.40-d6b7360",
           },
         },
       ],
       synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141e",
-      navn: "Kan jobbe heltid og deltid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a7821-8fd7-7094-b1c6-32431bf53c3a",
-          opprettet: "2025-11-12T13:54:16.791905",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-11-12T13:54:16.62552",
-            ident: "Z993298",
-            begrunnelse: {
-              verdi: "asd",
-              sistEndret: "2025-11-12T13:54:16.625442",
-            },
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: true,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141f",
-      navn: "Det er godkjent at bruker kun søker deltidsarbeid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a7821-8fe2-7ca4-bc99-d7a2fe67a9cb",
-          opprettet: "2025-11-12T13:54:16.802719",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Utgangspunkt",
-            },
-            opplysninger: ["019a7821-8fd7-7094-b1c6-32431bf53c3a"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.12-12.10-7924d25",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd8",
-      navn: "Oppfyller kravet til heltid- og deltidsarbeid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a7821-8fec-7970-9a5e-181c6078599f",
-          opprettet: "2025-11-12T13:54:16.812564",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a7821-8fd7-7094-b1c6-32431bf53c3a",
-              "019a7821-8fe2-7ca4-bc99-d7a2fe67a9cb",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.12-12.10-7924d25",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd9",
-      navn: "Kan jobbe i hele Norge",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a90d4-4c54-77fa-b7ab-a5ceefa9bb42",
-          opprettet: "2025-11-17T09:00:23.6361",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-17",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-11-17T09:00:23.55114",
-            ident: "Z993298",
-            begrunnelse: {
-              verdi: "123",
-              sistEndret: "2025-11-17T09:00:23.551132",
-            },
-          },
-        },
-        {
-          id: "019a90d4-748d-7e4b-b6aa-c711789b394b",
-          opprettet: "2025-11-17T09:00:33.933452",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-18",
-          gyldigTilOgMed: "2025-11-20",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-11-17T09:00:33.857874",
-            ident: "Z993298",
-            begrunnelse: {
-              verdi: "je",
-              sistEndret: "2025-11-17T09:00:33.857867",
-            },
-          },
-        },
-        {
-          id: "019a90d4-8cf8-7f55-8525-19f6f18ebc20",
-          opprettet: "2025-11-17T09:00:40.184232",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-21",
-          gyldigTilOgMed: "2025-11-30",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-11-17T09:00:40.118947",
-            ident: "Z993298",
-            begrunnelse: {
-              verdi: "aaa",
-              sistEndret: "2025-11-17T09:00:40.11894",
-            },
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: true,
-      formål: "Bruker",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bda",
-      navn: "Det er godkjent at bruker kun søker arbeid lokalt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a90d4-4c56-7818-ba0c-a9e16ea1e442",
-          opprettet: "2025-11-17T09:00:23.638148",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-17",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Utgangspunkt",
-            },
-            opplysninger: ["019a90d4-4c54-77fa-b7ab-a5ceefa9bb42"],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.14-09.52-763aab9",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdb",
-      navn: "Oppfyller kravet til mobilitet",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a90d4-4c57-7b9b-8740-39b13e2a2990",
-          opprettet: "2025-11-17T09:00:23.639234",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-17",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "019a90d4-4c54-77fa-b7ab-a5ceefa9bb42",
-              "019a90d4-4c56-7818-ba0c-a9e16ea1e442",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.14-09.52-763aab9",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
-      navn: "Reell arbeidssøker",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019a90d4-4c5b-7e6b-a793-6e86a139ff91",
-          opprettet: "2025-11-17T09:00:23.643131",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-17",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Alle",
-            },
-            opplysninger: [
-              "019a723b-378f-75c2-bfe1-d99fac0c0c8c",
-              "019a723b-378f-75c2-bfe1-d99fac0c0c8d",
-              "019a723b-3792-7c7f-9ef3-0a7ae218a75c",
-              "019a7821-8fec-7970-9a5e-181c6078599f",
-              "019a90d4-4c57-7b9b-8740-39b13e2a2990",
-            ],
-            versjon:
-              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2025.11.14-09.52-763aab9",
-          },
-        },
-      ],
-      synlig: true,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -5601,12 +5668,12 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "019a90d4-8cfe-7cf2-a7df-b72caca1de42",
-          opprettet: "2025-11-17T09:00:40.190716",
+          id: "01997540-1a60-72ac-b26e-4c3fddbb2556",
+          opprettet: "2025-09-23T08:25:59.392162",
           status: "Ny",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-11",
-          gyldigTilOgMed: "2025-11-17",
+          gyldigFraOgMed: "2025-09-22",
+          gyldigTilOgMed: "2025-09-22",
           verdi: {
             verdi: false,
             datatype: "boolsk",

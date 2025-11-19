@@ -4,6 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { klage } from "./data/mock-oppgaver/klage";
 import {
@@ -373,6 +374,28 @@ export const mockDpSaksbehandling = [
 
     if (oppgave) {
       return response(200).json({ oppgaveId: oppgave.oppgaveId });
+    }
+
+    return response("default").json(defaultError, { status: 500 });
+  }),
+
+  http.get("/innsending/{behandlingId}", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+    const { behandlingId } = params;
+    const innsending = mockInnsendinger.find(
+      (innsending) => innsending.behandlingId === behandlingId,
+    );
+
+    if (!innsending) {
+      return response(404).json(get404Error(`/innsending/${behandlingId}`));
+    }
+
+    if (innsending) {
+      return response(200).json(innsending);
     }
 
     return response("default").json(defaultError, { status: 500 });

@@ -9,7 +9,11 @@ import { isDefined } from "~/utils/type-guards";
 
 import { mockJournalposter } from "../mocks/data/mock-journalposter";
 import { mockGradertPerson, mockPerson } from "../mocks/data/mock-person";
-import { mockAnnenSaksbehandler, mockSaksbehandler } from "../mocks/data/mock-saksbehandler";
+import {
+  konverterSSOBrukerTilBehandler,
+  mockAnnenSaksbehandler,
+  mockSaksbehandler,
+} from "../mocks/data/mock-saksbehandler";
 import { components as BehandlingComponents } from "../openapi/behandling-typer";
 import { components as SaksbehandlingComponents } from "../openapi/saksbehandling-typer";
 
@@ -93,14 +97,16 @@ async function genererMockOppgave() {
       name: "saksbehandler",
       message: "Velg saksbehandler:",
       choices: [
-        { value: oppgave.saksbehandler, name: "Fra dev oppgave" },
-        { value: mockSaksbehandler, name: mockSaksbehandler.displayName },
         {
-          value: mockAnnenSaksbehandler,
+          value: konverterSSOBrukerTilBehandler(mockSaksbehandler),
+          name: mockSaksbehandler.displayName,
+        },
+        {
+          value: konverterSSOBrukerTilBehandler(mockAnnenSaksbehandler),
           name: mockAnnenSaksbehandler.displayName,
         },
+        { value: oppgave.saksbehandler, name: "Fra dev oppgave" },
       ],
-      default: [oppgave.saksbehandler],
     },
     {
       type: "select",
@@ -163,18 +169,20 @@ async function genererMockOppgave() {
       name: "emneknagger",
       message: "Overstyr emneknagger:",
       choices: [
+        "Alder",
         "Arbeidsinntekt",
         "Avslag",
-        "Alder",
-        "Innvilgelse",
         "Gjenopptak",
         "Ikke registrert",
+        "Innvilgelse",
+        "Innsending",
+        "Klage",
+        "Minsteinntekt",
         "Opphold utland",
         "Ordinær",
+        "Permitert fisk",
         "Reell arbeidssøker",
         "Verneplikt",
-        "Permitert fisk",
-        "Klage",
       ],
       default: oppgave.emneknagger,
     },

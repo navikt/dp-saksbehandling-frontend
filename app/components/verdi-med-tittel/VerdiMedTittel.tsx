@@ -1,7 +1,12 @@
 import { BodyShort } from "@navikt/ds-react";
 import classNames from "classnames";
+import { ReactNode } from "react";
 
-export function VerdiMedTittel(props: { label: string; verdi: string; visBorder?: boolean }) {
+export function VerdiMedTittel(props: {
+  label: string;
+  verdi: string | ReactNode;
+  visBorder?: boolean;
+}) {
   return (
     <div
       className={classNames(`flex flex-col gap-1`, {

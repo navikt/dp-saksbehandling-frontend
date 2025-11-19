@@ -755,6 +755,11 @@ export interface components {
             behandletHendelse: components["schemas"]["Hendelse"];
             /**
              * Format: uuid
+             * @description Hvilken behandlingskjede denne behandlingen tilhører. Dette tilsvarer en sammenhengende rettighetsperiode eller sak om du vil.
+             */
+            behandlingskjedeId: string;
+            /**
+             * Format: uuid
              * @description Hvilken behandling denne behandlingen er basert på, hvis noen
              */
             "basertP\u00E5"?: string;
@@ -766,6 +771,10 @@ export interface components {
         Behandlingsresultat: components["schemas"]["Behandlingskonvolutt"] & {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
+            /** @description Alle utbetalinger som er beregnet i behandlingskjeden */
+            utbetalinger: components["schemas"]["Utbetaling"][];
+            /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
+            behandletAv: components["schemas"]["BehandletAv"][];
         };
         Behandling: components["schemas"]["Behandlingskonvolutt"] & {
             kreverTotrinnskontroll: boolean;
