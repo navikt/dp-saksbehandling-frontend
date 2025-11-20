@@ -2,6 +2,7 @@ import { arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellA
 import { avslagManuellOrdinærReellArbeidssøkerVerneplikt } from "./avslag-manuell-ordinær-reell-arbeidssøker-verneplikt";
 import { avslagMinsteinntektOrdinær } from "./avslag-minsteinntekt-ordinær";
 import { klage } from "./klage";
+import { ordinærAvslagMinsteinntekt } from "./ordinær-avslag-minsteinntekt";
 import { ordinærAvslagReellArbeidssøker } from "./ordinær-avslag-reell-arbeidssøker";
 import { ordinærInnvilgelse } from "./ordinær-innvilgelse";
 
@@ -12,4 +13,5 @@ export const mockOppgaver = [
   avslagManuellOrdinærReellArbeidssøkerVerneplikt,
   klage,
   avslagMinsteinntektOrdinær,
+  ordinærAvslagMinsteinntekt,
 ];

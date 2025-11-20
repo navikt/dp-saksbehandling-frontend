@@ -8,6 +8,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
     type: "Søknad",
     skjedde: "2025-11-18",
   },
+  behandlingskjedeId: "019a9714-9968-731e-8918-779b5d1e8727",
   automatisk: false,
   ident: "44827400804",
   rettighetsperioder: [
@@ -7255,4 +7256,5 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       formål: "Regel",
     },
   ],
+  forslagOm: "Innvilgelse",
 };
