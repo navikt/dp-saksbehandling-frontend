@@ -32,15 +32,17 @@ export function OppgaveValgTrekkKlage({ oppgave, buttonSize, buttonVariant }: IP
   });
 
   return (
-    <Button
-      size={buttonSize ? buttonSize : "xsmall"}
-      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      onClick={() => trekkKlageForm.submit()}
-      loading={trekkKlageForm.formState.isSubmitting}
-      icon={<XMarkIcon aria-hidden />}
-      className={"aksel--font-regular aksel--full-bredde"}
-    >
-      Trekk klage
-    </Button>
+    <div>
+      <Button
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
+        onClick={() => trekkKlageForm.submit()}
+        loading={trekkKlageForm.formState.isSubmitting}
+        icon={<XMarkIcon aria-hidden />}
+        className={"aksel--font-regular aksel--full-bredde"}
+      >
+        Trekk klage
+      </Button>
+    </div>
   );
 }

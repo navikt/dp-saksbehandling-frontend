@@ -3,7 +3,7 @@ import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import {
   formaterOpplysningVerdi,
@@ -20,7 +20,7 @@ interface IProps {
 export function OppgaveFattVedtak({ behandling }: IProps) {
   const { pathname } = useLocation();
   const { oppgaveId } = useTypeSafeParams();
-  const { prøvingsdato } = usePrøvingsdato(behandling);
+  const { prøvingsdato } = useBehandling();
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const fattVedtakForm = useForm({

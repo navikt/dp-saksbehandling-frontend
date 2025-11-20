@@ -37,31 +37,29 @@ export default function Behandle() {
   );
 
   return (
-    <>
-      <main className="main">
-        <div className={"card flex flex-col gap-4 p-4"}>
-          <LinkTabs />
+    <main>
+      <div className={"card flex flex-col gap-4 p-4"}>
+        <LinkTabs />
 
-          <div className="mt-4">
-            <Heading size={"small"}>Utvikler lekegrind</Heading>
+        <div className="mt-4">
+          <Heading size={"small"}>Utvikler lekegrind</Heading>
 
-            <div className={"card p-4"}>
-              <Heading size={"xsmall"}>Opplysninger som har periode med opprinnelse Ny</Heading>
-              <section className="grid grid-cols-4 gap-4">
-                {nyeOpplysninger.map((opplysning) => (
-                  <div key={opplysning.opplysningTypeId}>
-                    <OpplysningsVerdierForPerioder
-                      label={opplysning.navn}
-                      perioder={opplysning.perioder}
-                    />
-                  </div>
-                ))}
-              </section>
-            </div>
+          <div className={"card p-4"}>
+            <Heading size={"xsmall"}>Opplysninger som har periode med opprinnelse Ny</Heading>
+            <section className="grid grid-cols-4 gap-4">
+              {nyeOpplysninger.map((opplysning) => (
+                <div key={opplysning.opplysningTypeId}>
+                  <OpplysningsVerdierForPerioder
+                    label={opplysning.navn}
+                    perioder={opplysning.perioder}
+                  />
+                </div>
+              ))}
+            </section>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

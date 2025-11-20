@@ -775,6 +775,8 @@ export interface components {
             utbetalinger: components["schemas"]["Utbetaling"][];
             /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
             behandletAv: components["schemas"]["BehandletAv"][];
+            /** @description Hvilken avgjørelse behandlingen førte til */
+            "f\u00F8rteTil": components["schemas"]["Avgj\u00F8relse"];
         };
         Behandling: components["schemas"]["Behandlingskonvolutt"] & {
             kreverTotrinnskontroll: boolean;
@@ -784,7 +786,11 @@ export interface components {
             fastsettelser: components["schemas"]["Regelsett"][];
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
+            /** @description Hvilken avgjørelse behandlingen foreslår */
+            forslagOm: components["schemas"]["Avgj\u00F8relse"];
         };
+        /** @enum {string} */
+        "Avgj\u00F8relse": "Innvilgelse" | "Avslag" | "Stans" | "Gjenopptak" | "Endring";
         /** @enum {string} */
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
         /** @enum {string} */

@@ -1,4 +1,4 @@
-import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
+import { BodyShort, Detail, List, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, Fragment, useEffect } from "react";
 import { useFetcher, useLocation } from "react-router";
 import { useDebounceCallback } from "usehooks-ts";
@@ -51,7 +51,7 @@ export function OppgaveKontroll() {
   }
 
   return (
-    <div className={"p-4"}>
+    <div>
       <Textarea
         value={notat.tekst}
         onChange={lagreBeslutterNotat}
@@ -60,9 +60,9 @@ export function OppgaveKontroll() {
         readOnly={!minBeslutterOppgave}
         label={
           <>
-            <Heading size="small">
+            <BodyShort size="small" weight={"semibold"}>
               Notat - hvorfor returneres oppgaven tilbake fra kontroll?
-            </Heading>
+            </BodyShort>
             <Detail textColor="subtle">Notat kan være synlig for bruker ved innsyn.</Detail>
           </>
         }
@@ -75,7 +75,10 @@ export function OppgaveKontroll() {
       )}
 
       <div className={"mt-4"}>
-        <Heading size={"small"}>Sjekkliste</Heading>
+        <BodyShort className={"mb-2"} size={"small"} weight={"semibold"}>
+          Sjekkliste
+        </BodyShort>
+
         <List className={""} as="ol" size="small">
           {sjekkliste.map((punkt) => (
             <Fragment key={punkt.navn}>

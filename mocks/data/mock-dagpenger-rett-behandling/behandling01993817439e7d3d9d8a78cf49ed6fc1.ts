@@ -1,43 +1,122 @@
 import type { components } from "../../../openapi/behandling-typer";
 
-export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["Behandling"] = {
-  behandlingId: "0198c672-111d-7701-a986-76b0ca6b215d",
+export const behandling01993817439e7d3d9d8a78cf49ed6fc1: components["schemas"]["Behandling"] = {
+  behandlingId: "01993817-439e-7d3d-9d8a-78cf49ed6fc1",
   behandletHendelse: {
     datatype: "UUID",
-    id: "0198c672-0c80-7b39-a412-abee6a332d93",
-    type: "Manuell",
-    skjedde: "2025-08-20",
+    id: "0de73f03-5a38-43f3-960c-1d66e586ce8f",
+    type: "Søknad",
+    skjedde: "2025-09-11",
   },
-  behandlingskjedeId: "01982c00-4476-7636-b147-2d0b9f4ee60d",
-  basertPå: "01982c00-4476-7636-b147-2d0b9f4ee60d",
+  behandlingskjedeId: "01993817-439e-7d3d-9d8a-78cf49ed6fc1",
   automatisk: false,
-  ident: "11888199359",
-  rettighetsperioder: [],
+  ident: "13856996896",
+  rettighetsperioder: [
+    {
+      fraOgMed: "2025-09-11",
+      harRett: true,
+      opprinnelse: "Ny",
+    },
+  ],
   kreverTotrinnskontroll: true,
-  tilstand: "Avbrutt",
+  tilstand: "TilBeslutning",
   avklaringer: [
     {
-      id: "0198c672-111d-7701-a986-76b0ca6b215b",
-      kode: "ManuellBehandling",
-      tittel: "Manuell behandling",
-      beskrivelse: "Behandlingen er opprettet manuelt og kan ikke automatisk behandles",
+      id: "01993817-43a0-7abc-8230-ebb38a9a3802",
+      kode: "HarTilleggsopplysninger",
+      tittel: "Sjekk hva bruker har oppgitt som tilleggsopplysninger i søknaden",
+      beskrivelse: "Du må vurdere om tilleggsopplysninger har betydning for saken",
       kanKvitteres: true,
-      status: "Avbrutt",
+      status: "Avklart",
       maskinelt: true,
-      sistEndret: "2025-08-20T09:49:42.149634",
+      sistEndret: "2025-09-11T11:24:33.015204",
     },
     {
-      id: "0198c674-8685-79c6-909b-0ae6cb05d9a8",
-      kode: "ReellArbeidssøkerUnntak",
-      tittel: "Sjekk om søker oppfyller unntak til å være reell arbeidssøker",
-      beskrivelse: "Det må vurderes om søker kvalifiserer til unntakene til reell arbeidssøker",
+      id: "01993817-44ee-7d94-b917-99577b9bb004",
+      kode: "HattLukkedeSakerSiste8Uker",
+      tittel: "Sjekk om nylig lukkede saker i Arena kan påvirke behandlingen",
+      beskrivelse:
+        "Personen har lukkede saker i Arena siste 8 uker. Har vi nylig gitt avslag bør vi sjekke om det er nødvendig med ekstra \nveiledning.",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-09-11T11:24:33.615286",
+    },
+    {
+      id: "01993817-44ee-7d94-b917-99577b9bb006",
+      kode: "MuligGjenopptak",
+      tittel: "Sjekk om det er sak som kan gjenopptas i Arena",
+      beskrivelse:
+        "Personen har åpne saker i Arena som kan være gjenopptak. Saker som skal gjenopptas må håndteres i Arena.",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-09-11T11:24:33.783544",
+    },
+    {
+      id: "01993817-4a4b-7238-90f6-2344a1d19f34",
+      kode: "EØSArbeid",
+      tittel: "Sjekk om arbeid i EØS fører til sammenlegging",
+      beskrivelse:
+        "Personen har oppgitt arbeid fra EØS i søknaden. Det må vurderes om det skal være sammenlegging.",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-09-11T11:24:34.951869",
+    },
+    {
+      id: "01993817-4a4b-7238-90f6-2344a1d19f38",
+      kode: "InntektNesteKalendermåned",
+      tittel: "Sjekk om inntekt for neste måned er relevant",
+      beskrivelse:
+        "Personen har inntekt som tilhører neste inntektsperiode. Vurder om det er tilstrekkelige inntekter til at utfallet vil \nendre seg i neste inntektsperiode.",
       kanKvitteres: true,
       status: "Avklart",
       maskinelt: false,
-      begrunnelse: "Ikke villig til å flytte",
-      sistEndret: "2025-08-20T09:50:12.551011",
+      begrunnelse: "ok",
+      sistEndret: "2025-09-18T13:55:51.615568",
       avklartAv: {
-        ident: "Z994714",
+        ident: "Z994854",
+      },
+    },
+    {
+      id: "01993817-4a4b-7238-90f6-2344a1d19f3a",
+      kode: "JobbetUtenforNorge",
+      tittel: "Sjekk om arbeid utenfor Norge påvirker retten til dagpenger",
+      beskrivelse:
+        "Personen har oppgitt arbeid utenfor Norge i søknaden. Sjekk om arbeidsforholdene som er oppgitt i søknaden skal være \nmed i vurderingen av retten til dagpenger.",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: true,
+      sistEndret: "2025-09-11T11:24:35.100249",
+    },
+    {
+      id: "01993817-4a4b-7238-90f6-2344a1d19f40",
+      kode: "BeregnetArbeidstid",
+      tittel: "Sjekk om beregnet arbeidstid er korrekt",
+      beskrivelse:
+        "Du må sjekke om beregnet vanlig arbeidstid er korrekt og at det er brukt riktig beregningsregel. \nDu må også sjekke om ny vanlig arbeidstid er korrekt",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: false,
+      begrunnelse: "ok",
+      sistEndret: "2025-09-18T13:55:56.303999",
+      avklartAv: {
+        ident: "Z994854",
+      },
+    },
+    {
+      id: "01993817-51a3-751c-9c3b-75d60691dd23",
+      kode: "SjekkPrøvingsdato",
+      tittel: "Sjekk om valgt prøvingsdato er riktig",
+      beskrivelse: "Sjekk at valgt prøvingsdato er riktig",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: false,
+      begrunnelse: "ok",
+      sistEndret: "2025-09-18T13:55:46.752992",
+      avklartAv: {
+        ident: "Z994854",
       },
     },
   ],
@@ -57,7 +136,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       },
       relevantForResultat: true,
       type: "Vilkår",
-      opplysninger: [],
+      opplysninger: ["01990a09-0eab-7957-b88f-14484a50e194"],
     },
     {
       id: "-422034844",
@@ -132,7 +211,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-4. Krav til minsteinntekt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Vilkår",
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
       opplysninger: [
@@ -304,13 +383,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: true,
+      relevantForResultat: false,
       type: "Vilkår",
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
-      opplysninger: [
-        "01948d3c-4bea-7802-9d18-5342a5e2be99",
-        "01948d43-e218-76f1-b29b-7e604241d98a",
-      ],
+      opplysninger: ["01948d3c-4bea-7802-9d18-5342a5e2be99"],
     },
     {
       id: "-1464003313",
@@ -594,7 +670,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-9. Egenandel",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-943f-78d9-b874-00a4944c54f0",
@@ -616,7 +692,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-11. Dagpengegrunnlag",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9410-7481-b263-4606fdd10ca9",
@@ -662,7 +738,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-12. Dagpengenes størrelse",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
       },
-      relevantForResultat: false,
+      relevantForResultat: true,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -736,7 +812,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: true,
+      relevantForResultat: false,
       type: "Fastsettelse",
       opplysninger: [
         "0194881f-9421-766c-9dc6-41fe6c9a1dff",
@@ -793,18 +869,18 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982c00-4476-7636-b147-2d0b9f4ee608",
-          opprettet: "2025-07-21T10:01:11.7989",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-439e-7d3d-9d8a-78cf49ed6fbc",
+          opprettet: "2025-09-11T11:24:32.798201",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: 15480694,
+            verdi: 15538405,
             datatype: "heltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:11.798895",
-            meldingId: "32c2e336-6958-478f-9d46-14b1cb3ed42c",
+            registrert: "2025-09-11T11:24:32.798169",
+            meldingId: "08e4db81-e611-4259-a540-137300f51801",
           },
         },
       ],
@@ -819,18 +895,18 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "tekst",
       perioder: [
         {
-          id: "01982c00-4476-7636-b147-2d0b9f4ee60a",
-          opprettet: "2025-07-21T10:01:11.798911",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-439e-7d3d-9d8a-78cf49ed6fbe",
+          opprettet: "2025-09-11T11:24:32.798227",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "5801a5b4-f901-49e6-af66-f67aec525303",
+            verdi: "0de73f03-5a38-43f3-960c-1d66e586ce8f",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:11.798911",
-            meldingId: "32c2e336-6958-478f-9d46-14b1cb3ed42c",
+            registrert: "2025-09-11T11:24:32.798226",
+            meldingId: "08e4db81-e611-4259-a540-137300f51801",
           },
         },
       ],
@@ -845,36 +921,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "tekst",
       perioder: [
         {
-          id: "01982c00-4476-7636-b147-2d0b9f4ee60c",
-          opprettet: "2025-07-21T10:01:11.798917",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
-          gyldigTilOgMed: "2025-08-19",
+          id: "01993817-439e-7d3d-9d8a-78cf49ed6fc0",
+          opprettet: "2025-09-11T11:24:32.798237",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
+          gyldigTilOgMed: "2025-09-11",
           verdi: {
             verdi: "SøknadInnsendtHendelse",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:11.798916",
-            meldingId: "32c2e336-6958-478f-9d46-14b1cb3ed42c",
-          },
-        },
-        {
-          id: "0198c672-111c-746e-889f-83e4505bd9a4",
-          opprettet: "2025-08-20T09:47:01.020841",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-08-20",
-          verdi: {
-            verdi: "OpprettBehandlingHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-08-20T09:47:01.020669",
-            meldingId: "0198c672-0c80-7b39-a412-abee6a332d94",
+            registrert: "2025-09-11T11:24:32.798237",
+            meldingId: "08e4db81-e611-4259-a540-137300f51801",
           },
         },
       ],
@@ -889,10 +949,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982c00-4478-7591-b3e0-06da9e3e5325",
-          opprettet: "2025-07-21T10:01:11.800678",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-43a0-7abc-8230-ebb38a9a37fe",
+          opprettet: "2025-09-11T11:24:32.800187",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 67,
             enhet: "år",
@@ -906,55 +966,29 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367233",
-      navn: "Fødselsdato",
-      datatype: "dato",
-      perioder: [
-        {
-          id: "01982c00-51ad-7715-a3c5-30291f3cd44d",
-          opprettet: "2025-07-21T10:01:15.181596",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: "1981-08-11",
-            datatype: "dato",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-07-21T10:01:14.348074",
-            meldingId: "2541115e-785c-432f-8a03-c7ac0f8ea463",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
-    },
-    {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc73",
       navn: "Søknadsdato",
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ad-7715-a3c5-30291f3cd44e",
-          opprettet: "2025-07-21T10:01:15.181669",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44e9-75b3-ad7b-345d4f244084",
+          opprettet: "2025-09-11T11:24:33.129711",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "2025-07-21",
+            verdi: "2025-09-11",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:14.348263",
-            meldingId: "2541115e-785c-432f-8a03-c7ac0f8ea463",
+            registrert: "2025-09-11T11:24:33.079795",
+            meldingId: "a8d85fc1-2ff0-49aa-985d-cfb187b6c85b",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -969,24 +1003,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ad-7715-a3c5-30291f3cd44f",
-          opprettet: "2025-07-21T10:01:15.181694",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44e9-75b3-ad7b-345d4f244085",
+          opprettet: "2025-09-11T11:24:33.129806",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "2025-06-10",
+            verdi: "2025-09-11",
             datatype: "dato",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:14.348408",
-            meldingId: "2541115e-785c-432f-8a03-c7ac0f8ea463",
+            registrert: "2025-09-11T11:24:33.079988",
+            meldingId: "a8d85fc1-2ff0-49aa-985d-cfb187b6c85b",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -996,17 +1030,43 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367233",
+      navn: "Fødselsdato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "01993817-44e9-75b3-ad7b-345d4f244086",
+          opprettet: "2025-09-11T11:24:33.129847",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: "1969-05-13",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-11T11:24:33.080089",
+            meldingId: "a8d85fc1-2ff0-49aa-985d-cfb187b6c85b",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc75",
       navn: "Søknadstidspunkt",
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ae-7cd6-9ea4-1d766a4bfd0d",
-          opprettet: "2025-07-21T10:01:15.182461",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ea-73d9-840c-8eb267235af8",
+          opprettet: "2025-09-11T11:24:33.130516",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "2025-07-21",
+            verdi: "2025-09-11",
             datatype: "dato",
           },
           utledetAv: {
@@ -1014,8 +1074,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "SisteAv",
             },
             opplysninger: [
-              "01982c00-51ad-7715-a3c5-30291f3cd44e",
-              "01982c00-51ad-7715-a3c5-30291f3cd44f",
+              "01993817-44e9-75b3-ad7b-345d4f244084",
+              "01993817-44e9-75b3-ad7b-345d4f244085",
             ],
           },
         },
@@ -1031,12 +1091,12 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ae-7cd6-9ea4-1d766a4bfd0e",
-          opprettet: "2025-07-21T10:01:15.182488",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ea-73d9-840c-8eb267235af9",
+          opprettet: "2025-09-11T11:24:33.130545",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "2048-08-11",
+            verdi: "2036-05-13",
             datatype: "dato",
           },
           utledetAv: {
@@ -1044,8 +1104,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "LeggTilÅr",
             },
             opplysninger: [
-              "01982c00-4478-7591-b3e0-06da9e3e5325",
-              "01982c00-51ad-7715-a3c5-30291f3cd44d",
+              "01993817-43a0-7abc-8230-ebb38a9a37fe",
+              "01993817-44e9-75b3-ad7b-345d4f244086",
             ],
           },
         },
@@ -1061,20 +1121,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ae-7cd6-9ea4-1d766a4bfd10",
-          opprettet: "2025-07-21T10:01:15.182664",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ea-73d9-840c-8eb267235afb",
+          opprettet: "2025-09-11T11:24:33.130746",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "2025-07-21",
+            verdi: "2025-09-11",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "SisteAv",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd0d"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235af8"],
           },
         },
       ],
@@ -1089,19 +1149,19 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51ae-7cd6-9ea4-1d766a4bfd11",
-          opprettet: "2025-07-21T10:01:15.182679",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ea-73d9-840c-8eb267235afc",
+          opprettet: "2025-09-11T11:24:33.130856",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: "2048-08-31",
+            verdi: "2036-05-31",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "SisteDagIMåned",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd0e"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235af9"],
           },
         },
       ],
@@ -1116,11 +1176,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-51ae-7cd6-9ea4-1d766a4bfd13",
-          opprettet: "2025-07-21T10:01:15.182872",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da50",
+          opprettet: "2025-09-11T11:24:33.131034",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -1130,8 +1190,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "FørEllerLik",
             },
             opplysninger: [
-              "01982c00-51ae-7cd6-9ea4-1d766a4bfd10",
-              "01982c00-51ae-7cd6-9ea4-1d766a4bfd11",
+              "01993817-44ea-73d9-840c-8eb267235afb",
+              "01993817-44ea-73d9-840c-8eb267235afc",
             ],
           },
         },
@@ -1147,20 +1207,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038561",
-          opprettet: "2025-07-21T10:01:15.183114",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da52",
+          opprettet: "2025-09-11T11:24:33.131292",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "2025-07-05",
+            verdi: "2025-09-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1175,11 +1235,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038562",
-          opprettet: "2025-07-21T10:01:15.183127",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da53",
+          opprettet: "2025-09-11T11:24:33.131314",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 36,
             enhet: "måneder",
@@ -1189,7 +1249,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1204,11 +1264,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038563",
-          opprettet: "2025-07-21T10:01:15.183241",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da54",
+          opprettet: "2025-09-11T11:24:33.131536",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 130160,
             datatype: "penger",
@@ -1217,7 +1277,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1232,11 +1292,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038564",
-          opprettet: "2025-07-21T10:01:15.183267",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da55",
+          opprettet: "2025-09-11T11:24:33.13157",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 1.5,
             enhet: "G",
@@ -1246,7 +1306,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1261,11 +1321,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038565",
-          opprettet: "2025-07-21T10:01:15.183281",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44eb-74bf-93df-e91f5119da56",
+          opprettet: "2025-09-11T11:24:33.131587",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 3,
             enhet: "G",
@@ -1275,7 +1335,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1290,17 +1350,17 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-51af-7297-a1b9-69c67e038566",
-          opprettet: "2025-07-21T10:01:15.183286",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44eb-74bf-93df-e91f5119da57",
+          opprettet: "2025-09-11T11:24:33.131599",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -1311,20 +1371,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc1",
-          opprettet: "2025-07-21T10:01:15.184027",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba0",
+          opprettet: "2025-09-11T11:24:33.132203",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "2025-07-07",
+            verdi: "2025-09-05",
             datatype: "dato",
           },
           utledetAv: {
             regel: {
               navn: "FørsteArbeidsdag",
             },
-            opplysninger: ["01982c00-51af-7297-a1b9-69c67e038561"],
+            opplysninger: ["01993817-44eb-74bf-93df-e91f5119da52"],
           },
         },
       ],
@@ -1339,11 +1399,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc2",
-          opprettet: "2025-07-21T10:01:15.184141",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba1",
+          opprettet: "2025-09-11T11:24:33.132354",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 195240,
             datatype: "penger",
@@ -1353,8 +1413,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982c00-51af-7297-a1b9-69c67e038563",
-              "01982c00-51af-7297-a1b9-69c67e038564",
+              "01993817-44eb-74bf-93df-e91f5119da54",
+              "01993817-44eb-74bf-93df-e91f5119da55",
             ],
           },
         },
@@ -1370,11 +1430,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc3",
-          opprettet: "2025-07-21T10:01:15.18418",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba2",
+          opprettet: "2025-09-11T11:24:33.13239",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 390480,
             datatype: "penger",
@@ -1384,8 +1444,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982c00-51af-7297-a1b9-69c67e038563",
-              "01982c00-51af-7297-a1b9-69c67e038565",
+              "01993817-44eb-74bf-93df-e91f5119da54",
+              "01993817-44eb-74bf-93df-e91f5119da56",
             ],
           },
         },
@@ -1401,10 +1461,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc4",
-          opprettet: "2025-07-21T10:01:15.184188",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba3",
+          opprettet: "2025-09-11T11:24:33.132406",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -1422,17 +1482,17 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc5",
-          opprettet: "2025-07-21T10:01:15.184193",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba4",
+          opprettet: "2025-09-11T11:24:33.13242",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -1443,10 +1503,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc6",
-          opprettet: "2025-07-21T10:01:15.184196",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba5",
+          opprettet: "2025-09-11T11:24:33.132434",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -1464,10 +1524,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc7",
-          opprettet: "2025-07-21T10:01:15.184199",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba6",
+          opprettet: "2025-09-11T11:24:33.132458",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 18.75,
             enhet: "timer",
@@ -1486,13 +1546,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0cc9",
-          opprettet: "2025-07-21T10:01:15.184501",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ec-7c9d-aff0-462eeb605ba8",
+          opprettet: "2025-09-11T11:24:33.132935",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "2025-06-30",
+            verdi: "2025-08-31",
             datatype: "dato",
           },
           utledetAv: {
@@ -1500,8 +1560,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "SisteavsluttendeKalenderMåned",
             },
             opplysninger: [
-              "01982c00-51ae-7cd6-9ea4-1d766a4bfd10",
-              "01982c00-51b0-722d-ac3a-00e867ff0cc1",
+              "01993817-44ea-73d9-840c-8eb267235afb",
+              "01993817-44ec-7c9d-aff0-462eeb605ba0",
             ],
           },
         },
@@ -1517,13 +1577,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "dato",
       perioder: [
         {
-          id: "01982c00-51b0-722d-ac3a-00e867ff0ccb",
-          opprettet: "2025-07-21T10:01:15.184814",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-44ed-7483-a097-2146b164976c",
+          opprettet: "2025-09-11T11:24:33.133198",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "2022-07-01",
+            verdi: "2022-09-01",
             datatype: "dato",
           },
           utledetAv: {
@@ -1531,8 +1591,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "TrekkFraMåned",
             },
             opplysninger: [
-              "01982c00-51af-7297-a1b9-69c67e038562",
-              "01982c00-51b0-722d-ac3a-00e867ff0cc9",
+              "01993817-44eb-74bf-93df-e91f5119da53",
+              "01993817-44ec-7c9d-aff0-462eeb605ba8",
             ],
           },
         },
@@ -1548,24 +1608,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc91230846",
-          opprettet: "2025-07-21T10:01:17.526723",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a26-7318-9bd1-d86a94c76381",
+          opprettet: "2025-09-11T11:24:34.470986",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.747564",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.396433",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1580,51 +1640,30 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc91230847",
-          opprettet: "2025-07-21T10:01:17.526852",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigTilOgMed: "2025-08-28",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd366",
+          opprettet: "2025-09-11T11:24:34.471085",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.747827",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.396607",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
-          },
-        },
-        {
-          id: "0198c674-867e-7e76-8b2b-bc2d99f6b7cd",
-          opprettet: "2025-08-20T09:49:42.142933",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-08-29",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-08-20T09:49:40.787788",
-            ident: "Z994714",
-            begrunnelse: {
-              verdi: "Har kjøpt et veldig dyrt hus i Askim",
-              sistEndret: "2025-08-20T09:49:40.787772",
-            },
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
       synlig: true,
       redigerbar: true,
-      redigertAvSaksbehandler: true,
+      redigertAvSaksbehandler: false,
       formål: "Bruker",
     },
     {
@@ -1633,24 +1672,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc91230848",
-          opprettet: "2025-07-21T10:01:17.526885",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd367",
+          opprettet: "2025-09-11T11:24:34.471138",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.747997",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.396737",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1665,24 +1704,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc91230849",
-          opprettet: "2025-07-21T10:01:17.526908",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd368",
+          opprettet: "2025-09-11T11:24:34.471199",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748131",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.396896",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1697,24 +1736,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc9123084a",
-          opprettet: "2025-07-21T10:01:17.526927",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd369",
+          opprettet: "2025-09-11T11:24:34.471261",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 40,
             datatype: "desimaltall",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748215",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.397037",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1729,24 +1768,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc9123084b",
-          opprettet: "2025-07-21T10:01:17.526946",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36a",
+          opprettet: "2025-09-11T11:24:34.471326",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748312",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.39716",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1761,24 +1800,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc9123084c",
-          opprettet: "2025-07-21T10:01:17.526964",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36b",
+          opprettet: "2025-09-11T11:24:34.47139",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748385",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.39726",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1793,24 +1832,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad6-76d5-88f4-8bfc9123084d",
-          opprettet: "2025-07-21T10:01:17.526985",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36c",
+          opprettet: "2025-09-11T11:24:34.471452",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748457",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.397546",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1825,24 +1864,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad7-7445-b4e3-c12edca039ad",
-          opprettet: "2025-07-21T10:01:17.527004",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36d",
+          opprettet: "2025-09-11T11:24:34.471524",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748525",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.397677",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1857,24 +1896,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad7-7445-b4e3-c12edca039ae",
-          opprettet: "2025-07-21T10:01:17.527024",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36e",
+          opprettet: "2025-09-11T11:24:34.471584",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748604",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.397791",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -1889,25 +1928,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad7-7445-b4e3-c12edca039af",
-          opprettet: "2025-07-21T10:01:17.527042",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-06-25",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd36f",
+          opprettet: "2025-09-11T11:24:34.471646",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748775",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.397916",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -1922,28 +1961,28 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "01982c00-5ad7-7445-b4e3-c12edca039b0",
-          opprettet: "2025-07-21T10:01:17.52707",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a27-708a-bbb8-4e338b5dd370",
+          opprettet: "2025-09-11T11:24:34.471712",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "01K0P00NWXWBPS6K97A4W49PWQ",
+            verdi: "01K4W1EJCJB4QC76TC3AWCQXZ6",
             datatype: "tekst",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T10:01:16.748922",
-            meldingId: "93fafeb8-8252-4715-8e76-f6452d2ad878",
+            registrert: "2025-09-11T11:24:34.398013",
+            meldingId: "86b91218-1015-4bfb-aae9-e6ff17230a88",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
             opplysninger: [
-              "01982c00-51ae-7cd6-9ea4-1d766a4bfd10",
-              "01982c00-51b0-722d-ac3a-00e867ff0cc9",
-              "01982c00-51b0-722d-ac3a-00e867ff0ccb",
+              "01993817-44ea-73d9-840c-8eb267235afb",
+              "01993817-44ec-7c9d-aff0-462eeb605ba8",
+              "01993817-44ed-7483-a097-2146b164976c",
             ],
           },
         },
@@ -1959,20 +1998,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914192",
-          opprettet: "2025-07-21T10:01:17.528069",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a28-7420-9581-a2ea106b5ed4",
+          opprettet: "2025-09-11T11:24:34.472838",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "01K0P00NWXWBPS6K97A4W49PWQ",
+            verdi: "01K4W1EJCJB4QC76TC3AWCQXZ6",
             datatype: "tekst",
           },
           utledetAv: {
             regel: {
               navn: "FiltrerRelevanteInntekter",
             },
-            opplysninger: ["01982c00-5ad7-7445-b4e3-c12edca039b0"],
+            opplysninger: ["01993817-4a27-708a-bbb8-4e338b5dd370"],
           },
         },
       ],
@@ -1987,10 +2026,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914193",
-          opprettet: "2025-07-21T10:01:17.528106",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a28-7420-9581-a2ea106b5ed5",
+          opprettet: "2025-09-11T11:24:34.472914",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2000,8 +2039,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc4",
-              "01982c00-5ad6-76d5-88f4-8bfc91230846",
+              "01993817-44ec-7c9d-aff0-462eeb605ba3",
+              "01993817-4a26-7318-9bd1-d86a94c76381",
             ],
           },
         },
@@ -2017,11 +2056,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914194",
-          opprettet: "2025-07-21T10:01:17.528124",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigTilOgMed: "2025-08-28",
+          id: "01993817-4a28-7420-9581-a2ea106b5ed6",
+          opprettet: "2025-09-11T11:24:34.472961",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2031,28 +2069,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc5",
-              "01982c00-5ad6-76d5-88f4-8bfc91230847",
-            ],
-          },
-        },
-        {
-          id: "0198c674-8681-73bd-9fe9-3f31e72eac12",
-          opprettet: "2025-08-20T09:49:42.145302",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-08-29",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "EnAv",
-            },
-            opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc5",
-              "0198c674-867e-7e76-8b2b-bc2d99f6b7cd",
+              "01993817-44ec-7c9d-aff0-462eeb605ba4",
+              "01993817-4a27-708a-bbb8-4e338b5dd366",
             ],
           },
         },
@@ -2068,10 +2086,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914195",
-          opprettet: "2025-07-21T10:01:17.528141",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a29-727b-9d88-33b5c3954638",
+          opprettet: "2025-09-11T11:24:34.473014",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2081,8 +2099,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc6",
-              "01982c00-5ad6-76d5-88f4-8bfc91230848",
+              "01993817-44ec-7c9d-aff0-462eeb605ba5",
+              "01993817-4a27-708a-bbb8-4e338b5dd367",
             ],
           },
         },
@@ -2098,10 +2116,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914196",
-          opprettet: "2025-07-21T10:01:17.528153",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a29-727b-9d88-33b5c3954639",
+          opprettet: "2025-09-11T11:24:34.47306",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2110,7 +2128,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "EnAv",
             },
-            opplysninger: ["01982c00-5ad6-76d5-88f4-8bfc91230849"],
+            opplysninger: ["01993817-4a27-708a-bbb8-4e338b5dd368"],
           },
         },
       ],
@@ -2125,10 +2143,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914197",
-          opprettet: "2025-07-21T10:01:17.528167",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a29-727b-9d88-33b5c395463a",
+          opprettet: "2025-09-11T11:24:34.473113",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2138,8 +2156,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc7",
-              "01982c00-5ad6-76d5-88f4-8bfc9123084a",
+              "01993817-44ec-7c9d-aff0-462eeb605ba6",
+              "01993817-4a27-708a-bbb8-4e338b5dd369",
             ],
           },
         },
@@ -2155,11 +2173,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914198",
-          opprettet: "2025-07-21T10:01:17.528176",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-06-25",
+          id: "01993817-4a29-727b-9d88-33b5c395463b",
+          opprettet: "2025-09-11T11:24:34.473152",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2168,7 +2186,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["01982c00-5ad7-7445-b4e3-c12edca039af"],
+            opplysninger: ["01993817-4a27-708a-bbb8-4e338b5dd36f"],
           },
         },
       ],
@@ -2183,12 +2201,12 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe2914199",
-          opprettet: "2025-07-21T10:01:17.528205",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a29-727b-9d88-33b5c395463c",
+          opprettet: "2025-09-11T11:24:34.47325",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2196,10 +2214,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "IngenAv",
             },
             opplysninger: [
-              "01982c00-5ad6-76d5-88f4-8bfc9123084b",
-              "01982c00-5ad6-76d5-88f4-8bfc9123084c",
-              "01982c00-5ad6-76d5-88f4-8bfc9123084d",
-              "01982c00-5ad7-7445-b4e3-c12edca039ad",
+              "01993817-4a27-708a-bbb8-4e338b5dd36a",
+              "01993817-4a27-708a-bbb8-4e338b5dd36b",
+              "01993817-4a27-708a-bbb8-4e338b5dd36c",
+              "01993817-4a27-708a-bbb8-4e338b5dd36d",
             ],
           },
         },
@@ -2210,25 +2228,52 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "01980cf4-9010-7bcf-b578-ca5a825d64ef",
+      navn: "Skal kravet til verneplikt vurderes",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01993817-4a29-727b-9d88-33b5c395463d",
+          opprettet: "2025-09-11T11:24:34.473301",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["01993817-4a27-708a-bbb8-4e338b5dd36e"],
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04241",
       navn: "Arbeidsinntekt siste 12 måneder",
       datatype: "penger",
       perioder: [
         {
-          id: "01982c00-5ad8-7905-9303-d8dfe291419c",
-          opprettet: "2025-07-21T10:01:17.528766",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2a-7258-9f46-24cb656903c2",
+          opprettet: "2025-09-11T11:24:34.474203",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 238524,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982c00-5ad8-7905-9303-d8dfe2914192"],
+            opplysninger: ["01993817-4a28-7420-9581-a2ea106b5ed4"],
           },
         },
       ],
@@ -2243,20 +2288,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff929d",
-          opprettet: "2025-07-21T10:01:17.529148",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2a-7258-9f46-24cb656903c3",
+          opprettet: "2025-09-11T11:24:34.474849",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 388885,
+            verdi: 715572,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982c00-5ad8-7905-9303-d8dfe2914192"],
+            opplysninger: ["01993817-4a28-7420-9581-a2ea106b5ed4"],
           },
         },
       ],
@@ -2271,11 +2316,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff929e",
-          opprettet: "2025-07-21T10:01:17.529209",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigTilOgMed: "2025-08-28",
+          id: "01993817-4a2a-7258-9f46-24cb656903c4",
+          opprettet: "2025-09-11T11:24:34.474943",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2285,34 +2329,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Alle",
             },
             opplysninger: [
-              "01982c00-5ad8-7905-9303-d8dfe2914193",
-              "01982c00-5ad8-7905-9303-d8dfe2914194",
-              "01982c00-5ad8-7905-9303-d8dfe2914195",
-              "01982c00-5ad8-7905-9303-d8dfe2914196",
-              "01982c00-5ad8-7905-9303-d8dfe2914197",
-            ],
-          },
-        },
-        {
-          id: "0198c674-8682-7be9-9ede-187bb708bb16",
-          opprettet: "2025-08-20T09:49:42.146501",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-08-29",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Alle",
-            },
-            opplysninger: [
-              "01982c00-5ad8-7905-9303-d8dfe2914193",
-              "01982c00-5ad8-7905-9303-d8dfe2914195",
-              "01982c00-5ad8-7905-9303-d8dfe2914196",
-              "01982c00-5ad8-7905-9303-d8dfe2914197",
-              "0198c674-8681-73bd-9fe9-3f31e72eac12",
+              "01993817-4a28-7420-9581-a2ea106b5ed5",
+              "01993817-4a28-7420-9581-a2ea106b5ed6",
+              "01993817-4a29-727b-9d88-33b5c3954638",
+              "01993817-4a29-727b-9d88-33b5c3954639",
+              "01993817-4a29-727b-9d88-33b5c395463a",
             ],
           },
         },
@@ -2328,10 +2349,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff929f",
-          opprettet: "2025-07-21T10:01:17.52923",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2a-7258-9f46-24cb656903c5",
+          opprettet: "2025-09-11T11:24:34.474981",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2341,8 +2362,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-5ad6-76d5-88f4-8bfc9123084b",
-              "01982c00-5ad8-7905-9303-d8dfe2914199",
+              "01993817-4a27-708a-bbb8-4e338b5dd36a",
+              "01993817-4a29-727b-9d88-33b5c395463c",
             ],
           },
         },
@@ -2358,13 +2379,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff92a1",
-          opprettet: "2025-07-21T10:01:17.529606",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2b-7845-9645-88f6cb154b6f",
+          opprettet: "2025-09-11T11:24:34.475486",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2372,8 +2393,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc2",
-              "01982c00-5ad8-7905-9303-d8dfe291419c",
+              "01993817-44ec-7c9d-aff0-462eeb605ba1",
+              "01993817-4a2a-7258-9f46-24cb656903c2",
             ],
           },
         },
@@ -2389,13 +2410,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff92a2",
-          opprettet: "2025-07-21T10:01:17.529623",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2b-7845-9645-88f6cb154b70",
+          opprettet: "2025-09-11T11:24:34.475562",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2403,8 +2424,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982c00-51b0-722d-ac3a-00e867ff0cc3",
-              "01982c00-5ad9-7d3f-ba93-6e5099ff929d",
+              "01993817-44ec-7c9d-aff0-462eeb605ba2",
+              "01993817-4a2a-7258-9f46-24cb656903c3",
             ],
           },
         },
@@ -2420,10 +2441,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ad9-7d3f-ba93-6e5099ff92a3",
-          opprettet: "2025-07-21T10:01:17.529656",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2b-7845-9645-88f6cb154b71",
+          opprettet: "2025-09-11T11:24:34.475632",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2433,10 +2454,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-5ad6-76d5-88f4-8bfc9123084c",
-              "01982c00-5ad6-76d5-88f4-8bfc9123084d",
-              "01982c00-5ad7-7445-b4e3-c12edca039ad",
-              "01982c00-5ad9-7d3f-ba93-6e5099ff929f",
+              "01993817-4a27-708a-bbb8-4e338b5dd36b",
+              "01993817-4a27-708a-bbb8-4e338b5dd36c",
+              "01993817-4a27-708a-bbb8-4e338b5dd36d",
+              "01993817-4a2a-7258-9f46-24cb656903c5",
             ],
           },
         },
@@ -2452,13 +2473,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982c00-5ada-7a5f-88d9-21d939e15432",
-          opprettet: "2025-07-21T10:01:17.530002",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2c-757e-9635-6227cbb74a9e",
+          opprettet: "2025-09-11T11:24:34.476126",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: false,
+            verdi: true,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -2466,8 +2487,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982c00-5ad9-7d3f-ba93-6e5099ff92a1",
-              "01982c00-5ad9-7d3f-ba93-6e5099ff92a2",
+              "01993817-4a2b-7845-9645-88f6cb154b6f",
+              "01993817-4a2b-7845-9645-88f6cb154b70",
             ],
           },
         },
@@ -2478,71 +2499,15 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "01980cf4-9010-7bcf-b578-ca5a825d64ef",
-      navn: "Skal kravet til verneplikt vurderes",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-0f4d-70e0-b920-d5f603445d3b",
-          opprettet: "2025-07-21T12:57:55.021731",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-07-21T12:57:54.061895",
-            ident: "Z994714",
-            begrunnelse: {
-              verdi: "test",
-              sistEndret: "2025-08-06T09:50:56.65345",
-            },
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: true,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
-      navn: "Oppfyller kravet til verneplikt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-29ea-73e0-90e5-c8baa53ed791",
-          opprettet: "2025-07-21T12:58:01.834654",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "Saksbehandler",
-            registrert: "2025-07-21T12:58:01.10984",
-            ident: "Z994714",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: true,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
       navn: "Oppfyller vilkåret om å ikke motta andre fulle ytelser",
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29ed-796d-9dce-c222d259dbb0",
-          opprettet: "2025-07-21T12:58:01.837282",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c824841e",
+          opprettet: "2025-09-11T11:24:34.477007",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2560,10 +2525,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29ed-796d-9dce-c222d259dbb1",
-          opprettet: "2025-07-21T12:58:01.837298",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c824841f",
+          opprettet: "2025-09-11T11:24:34.47707",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -2581,10 +2546,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29ed-796d-9dce-c222d259dbb2",
-          opprettet: "2025-07-21T12:58:01.837304",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c8248420",
+          opprettet: "2025-09-11T11:24:34.477125",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -2602,11 +2567,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c405",
-          opprettet: "2025-07-21T12:58:01.840524",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248421",
+          opprettet: "2025-09-11T11:24:34.47729",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 130160,
             datatype: "penger",
@@ -2615,7 +2580,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2630,20 +2595,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c406",
-          opprettet: "2025-07-21T12:58:01.84063",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248422",
+          opprettet: "2025-09-11T11:24:34.477399",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "01K0P00NWXWBPS6K97A4W49PWQ",
+            verdi: "01K4W1EJCJB4QC76TC3AWCQXZ6",
             datatype: "tekst",
           },
           utledetAv: {
             regel: {
               navn: "FiltrerRelevanteInntekter",
             },
-            opplysninger: ["01982c00-5ad7-7445-b4e3-c12edca039b0"],
+            opplysninger: ["01993817-4a27-708a-bbb8-4e338b5dd370"],
           },
         },
       ],
@@ -2658,11 +2623,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c407",
-          opprettet: "2025-07-21T12:58:01.840662",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248423",
+          opprettet: "2025-09-11T11:24:34.477466",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 6,
             datatype: "desimaltall",
@@ -2671,7 +2636,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2686,10 +2651,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c408",
-          opprettet: "2025-07-21T12:58:01.840669",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c8248424",
+          opprettet: "2025-09-11T11:24:34.477518",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 3,
             enhet: "år",
@@ -2708,11 +2673,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c409",
-          opprettet: "2025-07-21T12:58:01.840688",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248425",
+          opprettet: "2025-09-11T11:24:34.477561",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 3,
             enhet: "G",
@@ -2722,7 +2687,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2737,10 +2702,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f0-7c97-ad1c-202bcd94c40a",
-          opprettet: "2025-07-21T12:58:01.840693",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c8248426",
+          opprettet: "2025-09-11T11:24:34.477601",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2758,11 +2723,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1ba7",
-          opprettet: "2025-07-21T12:58:01.841064",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248427",
+          opprettet: "2025-09-11T11:24:34.477644",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 0.0024,
             enhet: "G",
@@ -2772,7 +2737,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2787,11 +2752,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1ba8",
-          opprettet: "2025-07-21T12:58:01.841408",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248428",
+          opprettet: "2025-09-11T11:24:34.477725",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 37,
             datatype: "penger",
@@ -2800,7 +2765,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2815,11 +2780,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1ba9",
-          opprettet: "2025-07-21T12:58:01.841439",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c8248429",
+          opprettet: "2025-09-11T11:24:34.477797",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 0.9,
             datatype: "desimaltall",
@@ -2828,7 +2793,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2843,11 +2808,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1baa",
-          opprettet: "2025-07-21T12:58:01.841465",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2d-7577-8771-1514c824842a",
+          opprettet: "2025-09-11T11:24:34.477913",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 260,
             enhet: "dager",
@@ -2857,7 +2822,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -2872,10 +2837,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bab",
-          opprettet: "2025-07-21T12:58:01.841472",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c824842b",
+          opprettet: "2025-09-11T11:24:34.477949",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2893,10 +2858,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bac",
-          opprettet: "2025-07-21T12:58:01.841476",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2d-7577-8771-1514c824842c",
+          opprettet: "2025-09-11T11:24:34.477984",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2914,10 +2879,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bad",
-          opprettet: "2025-07-21T12:58:01.84148",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82d6",
+          opprettet: "2025-09-11T11:24:34.47802",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2935,10 +2900,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bae",
-          opprettet: "2025-07-21T12:58:01.841483",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82d7",
+          opprettet: "2025-09-11T11:24:34.478071",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2956,10 +2921,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1baf",
-          opprettet: "2025-07-21T12:58:01.841498",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82d8",
+          opprettet: "2025-09-11T11:24:34.478121",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -2977,10 +2942,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb0",
-          opprettet: "2025-07-21T12:58:01.841504",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82d9",
+          opprettet: "2025-09-11T11:24:34.478168",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -2998,10 +2963,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb1",
-          opprettet: "2025-07-21T12:58:01.841508",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82da",
+          opprettet: "2025-09-11T11:24:34.478208",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -3019,10 +2984,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb2",
-          opprettet: "2025-07-21T12:58:01.841513",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82db",
+          opprettet: "2025-09-11T11:24:34.478263",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -3040,10 +3005,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb3",
-          opprettet: "2025-07-21T12:58:01.841516",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82dc",
+          opprettet: "2025-09-11T11:24:34.47832",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -3061,10 +3026,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb4",
-          opprettet: "2025-07-21T12:58:01.84152",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82dd",
+          opprettet: "2025-09-11T11:24:34.478379",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3082,10 +3047,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb5",
-          opprettet: "2025-07-21T12:58:01.841524",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82de",
+          opprettet: "2025-09-11T11:24:34.478424",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3096,48 +3061,6 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75d",
-      navn: "Har tapt arbeid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb6",
-          opprettet: "2025-07-21T12:58:01.841528",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
-      navn: "Har krav på lønn fra arbeidsgiver",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb7",
-          opprettet: "2025-07-21T12:58:01.841532",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Bruker",
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76b",
@@ -3145,10 +3068,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb8",
-          opprettet: "2025-07-21T12:58:01.841535",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82df",
+          opprettet: "2025-09-11T11:24:34.478506",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             enhet: "timer",
@@ -3167,11 +3090,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bb9",
-          opprettet: "2025-07-21T12:58:01.841556",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82e0",
+          opprettet: "2025-09-11T11:24:34.478584",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 40,
             enhet: "timer",
@@ -3181,7 +3104,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -3196,11 +3119,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bba",
-          opprettet: "2025-07-21T12:58:01.841574",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82e1",
+          opprettet: "2025-09-11T11:24:34.478657",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -3210,11 +3133,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -3225,10 +3148,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bbb",
-          opprettet: "2025-07-21T12:58:01.841579",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82e2",
+          opprettet: "2025-09-11T11:24:34.478722",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -3247,10 +3170,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bbc",
-          opprettet: "2025-07-21T12:58:01.841583",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2e-71a5-8f2a-649cf2ed82e3",
+          opprettet: "2025-09-11T11:24:34.478813",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             enhet: "timer",
@@ -3269,11 +3192,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bbd",
-          opprettet: "2025-07-21T12:58:01.8416",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2f-754c-9765-93f95df800d5",
+          opprettet: "2025-09-11T11:24:34.479325",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 40,
             enhet: "prosent",
@@ -3283,7 +3206,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -3298,11 +3221,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bbe",
-          opprettet: "2025-07-21T12:58:01.841616",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a2f-754c-9765-93f95df800d6",
+          opprettet: "2025-09-11T11:24:34.479537",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 50,
             enhet: "prosent",
@@ -3312,7 +3235,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -3327,10 +3250,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bbf",
-          opprettet: "2025-07-21T12:58:01.84162",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2f-754c-9765-93f95df800d7",
+          opprettet: "2025-09-11T11:24:34.479655",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3348,10 +3271,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc0",
-          opprettet: "2025-07-21T12:58:01.841624",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2f-754c-9765-93f95df800d8",
+          opprettet: "2025-09-11T11:24:34.479843",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3369,10 +3292,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc1",
-          opprettet: "2025-07-21T12:58:01.841628",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a2f-754c-9765-93f95df800d9",
+          opprettet: "2025-09-11T11:24:34.479952",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3390,10 +3313,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc2",
-          opprettet: "2025-07-21T12:58:01.841631",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d69b",
+          opprettet: "2025-09-11T11:24:34.480022",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3411,10 +3334,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc3",
-          opprettet: "2025-07-21T12:58:01.841635",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d69c",
+          opprettet: "2025-09-11T11:24:34.480102",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3432,10 +3355,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc4",
-          opprettet: "2025-07-21T12:58:01.841638",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d69d",
+          opprettet: "2025-09-11T11:24:34.480172",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3453,10 +3376,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc5",
-          opprettet: "2025-07-21T12:58:01.841642",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d69e",
+          opprettet: "2025-09-11T11:24:34.480262",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3474,10 +3397,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc6",
-          opprettet: "2025-07-21T12:58:01.841645",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d69f",
+          opprettet: "2025-09-11T11:24:34.480352",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3495,10 +3418,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc7",
-          opprettet: "2025-07-21T12:58:01.841648",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d6a0",
+          opprettet: "2025-09-11T11:24:34.480424",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3516,10 +3439,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc8",
-          opprettet: "2025-07-21T12:58:01.841652",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d6a1",
+          opprettet: "2025-09-11T11:24:34.480821",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3537,10 +3460,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f1-773f-bb2a-10129f4a1bc9",
-          opprettet: "2025-07-21T12:58:01.841655",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a30-7015-ab77-0ab7c4d7d6a2",
+          opprettet: "2025-09-11T11:24:34.480957",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3558,10 +3481,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f3-7f3d-b221-f9da17fcf31f",
-          opprettet: "2025-07-21T12:58:01.843812",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a32-7271-8ba8-0e556c90644a",
+          opprettet: "2025-09-11T11:24:34.482547",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3570,7 +3493,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["01982ca2-29ed-796d-9dce-c222d259dbb2"],
+            opplysninger: ["01993817-4a2d-7577-8771-1514c8248420"],
           },
         },
       ],
@@ -3585,13 +3508,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "inntekt",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe37",
-          opprettet: "2025-07-21T12:58:01.845157",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a35-7c7b-93fe-20a296e4b382",
+          opprettet: "2025-09-11T11:24:34.485586",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: "01K0P00NWXWBPS6K97A4W49PWQ",
+            verdi: "01K4W1EJCJB4QC76TC3AWCQXZ6",
             datatype: "tekst",
           },
           utledetAv: {
@@ -3599,8 +3522,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Oppjuster",
             },
             opplysninger: [
-              "01982ca2-29f0-7c97-ad1c-202bcd94c405",
-              "01982ca2-29f0-7c97-ad1c-202bcd94c406",
+              "01993817-4a2d-7577-8771-1514c8248421",
+              "01993817-4a2d-7577-8771-1514c8248422",
             ],
           },
         },
@@ -3616,11 +3539,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe38",
-          opprettet: "2025-07-21T12:58:01.845324",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a35-7c7b-93fe-20a296e4b383",
+          opprettet: "2025-09-11T11:24:34.48588",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 780960,
             datatype: "penger",
@@ -3630,8 +3553,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f0-7c97-ad1c-202bcd94c405",
-              "01982ca2-29f0-7c97-ad1c-202bcd94c407",
+              "01993817-4a2d-7577-8771-1514c8248421",
+              "01993817-4a2d-7577-8771-1514c8248423",
             ],
           },
         },
@@ -3647,11 +3570,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe39",
-          opprettet: "2025-07-21T12:58:01.845352",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a36-7bfe-853f-bf6d39e54419",
+          opprettet: "2025-09-11T11:24:34.486055",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 390480,
             datatype: "penger",
@@ -3661,13 +3584,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f0-7c97-ad1c-202bcd94c405",
-              "01982ca2-29f0-7c97-ad1c-202bcd94c409",
+              "01993817-4a2d-7577-8771-1514c8248421",
+              "01993817-4a2d-7577-8771-1514c8248425",
             ],
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -3678,10 +3601,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3a",
-          opprettet: "2025-07-21T12:58:01.845384",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441a",
+          opprettet: "2025-09-11T11:24:34.486155",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3690,7 +3613,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["01982ca2-29f1-773f-bb2a-10129f4a1baf"],
+            opplysninger: ["01993817-4a2e-71a5-8f2a-649cf2ed82d8"],
           },
         },
       ],
@@ -3705,10 +3628,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3b",
-          opprettet: "2025-07-21T12:58:01.84544",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441b",
+          opprettet: "2025-09-11T11:24:34.486264",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3718,8 +3641,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "IngenAv",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb4",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb5",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82dd",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82de",
             ],
           },
         },
@@ -3730,42 +3653,15 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a760",
-      navn: "Ikke krav på lønn fra tidligere arbeidsgiver",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3c",
-          opprettet: "2025-07-21T12:58:01.84547",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "IngenAv",
-            },
-            opplysninger: ["01982ca2-29f1-773f-bb2a-10129f4a1bb7"],
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ee",
       navn: "Samordnet fastsatt arbeidstid",
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3d",
-          opprettet: "2025-07-21T12:58:01.845562",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441c",
+          opprettet: "2025-09-11T11:24:34.486376",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -3776,8 +3672,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbb",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbc",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82e2",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82e3",
             ],
           },
         },
@@ -3793,11 +3689,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3e",
-          opprettet: "2025-07-21T12:58:01.845592",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441d",
+          opprettet: "2025-09-11T11:24:34.486627",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 50,
             enhet: "prosent",
@@ -3808,9 +3704,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982c00-5ad7-7445-b4e3-c12edca039ad",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbd",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbe",
+              "01993817-4a27-708a-bbb8-4e338b5dd36d",
+              "01993817-4a2f-754c-9765-93f95df800d5",
+              "01993817-4a2f-754c-9765-93f95df800d6",
             ],
           },
         },
@@ -3826,10 +3722,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe3f",
-          opprettet: "2025-07-21T12:58:01.84565",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441e",
+          opprettet: "2025-09-11T11:24:34.486748",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3839,9 +3735,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbf",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc0",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc1",
+              "01993817-4a2f-754c-9765-93f95df800d7",
+              "01993817-4a2f-754c-9765-93f95df800d8",
+              "01993817-4a2f-754c-9765-93f95df800d9",
             ],
           },
         },
@@ -3857,10 +3753,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe40",
-          opprettet: "2025-07-21T12:58:01.845725",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e5441f",
+          opprettet: "2025-09-11T11:24:34.486891",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -3870,12 +3766,12 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc3",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc4",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc5",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc6",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc7",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc8",
+              "01993817-4a30-7015-ab77-0ab7c4d7d69c",
+              "01993817-4a30-7015-ab77-0ab7c4d7d69d",
+              "01993817-4a30-7015-ab77-0ab7c4d7d69e",
+              "01993817-4a30-7015-ab77-0ab7c4d7d69f",
+              "01993817-4a30-7015-ab77-0ab7c4d7d6a0",
+              "01993817-4a30-7015-ab77-0ab7c4d7d6a1",
             ],
           },
         },
@@ -3891,10 +3787,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-29f5-742d-a79c-6ed0476abe41",
-          opprettet: "2025-07-21T12:58:01.845745",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a36-7bfe-853f-bf6d39e54420",
+          opprettet: "2025-09-11T11:24:34.486987",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -3903,7 +3799,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "IngenAv",
             },
-            opplysninger: ["01982ca2-29f1-773f-bb2a-10129f4a1bc9"],
+            opplysninger: ["01993817-4a30-7015-ab77-0ab7c4d7d6a2"],
           },
         },
       ],
@@ -3918,20 +3814,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f9-7cc2-aa4c-87119ecf44a0",
-          opprettet: "2025-07-21T12:58:01.84961",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a38-7498-9cfc-4ffb696413f4",
+          opprettet: "2025-09-11T11:24:34.4886",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 246385.82242719387,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f5-742d-a79c-6ed0476abe37"],
+            opplysninger: ["01993817-4a35-7c7b-93fe-20a296e4b382"],
           },
         },
       ],
@@ -3946,20 +3842,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29f9-7cc2-aa4c-87119ecf44a1",
-          opprettet: "2025-07-21T12:58:01.849901",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a39-78a1-92e0-f4f5751b9a97",
+          opprettet: "2025-09-11T11:24:34.489103",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 257924.8542248935,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f5-742d-a79c-6ed0476abe37"],
+            opplysninger: ["01993817-4a35-7c7b-93fe-20a296e4b382"],
           },
         },
       ],
@@ -3974,20 +3870,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fa-7192-b01b-474de1c69929",
-          opprettet: "2025-07-21T12:58:01.850287",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a39-78a1-92e0-f4f5751b9a98",
+          opprettet: "2025-09-11T11:24:34.489409",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 454060.22408209764,
+            verdi: 272909.27540690143,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f5-742d-a79c-6ed0476abe37"],
+            opplysninger: ["01993817-4a35-7c7b-93fe-20a296e4b382"],
           },
         },
       ],
@@ -4002,13 +3898,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fa-7192-b01b-474de1c6992a",
-          opprettet: "2025-07-21T12:58:01.850319",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a39-78a1-92e0-f4f5751b9a99",
+          opprettet: "2025-09-11T11:24:34.489524",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 390480,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -4016,9 +3912,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982ca2-0f4d-70e0-b920-d5f603445d3b",
-              "01982ca2-29f0-7c97-ad1c-202bcd94c40a",
-              "01982ca2-29f5-742d-a79c-6ed0476abe39",
+              "01993817-4a29-727b-9d88-33b5c395463d",
+              "01993817-4a2d-7577-8771-1514c8248426",
+              "01993817-4a36-7bfe-853f-bf6d39e54419",
             ],
           },
         },
@@ -4034,10 +3930,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fa-7192-b01b-474de1c6992b",
-          opprettet: "2025-07-21T12:58:01.85035",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a39-78a1-92e0-f4f5751b9a9a",
+          opprettet: "2025-09-11T11:24:34.489624",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -4047,9 +3943,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb0",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb1",
-              "01982ca2-29f5-742d-a79c-6ed0476abe3a",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82d9",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82da",
+              "01993817-4a36-7bfe-853f-bf6d39e5441a",
             ],
           },
         },
@@ -4060,45 +3956,18 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
-      navn: "Oppfyller vilkåret til tap av arbeidsinntekt",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "0198c672-1121-772a-82a9-3e5182ca0337",
-          opprettet: "2025-08-20T09:47:01.02597",
-          status: "Ny",
-          opprinnelse: "Ny",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "IngenAv",
-            },
-            opplysninger: ["01982ca2-29f1-773f-bb2a-10129f4a1bb7"],
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10caa",
       navn: "Inntekt etter avkortning og oppjustering siste 12 måneder",
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fc-764e-b794-9ac5e3901457",
-          opprettet: "2025-07-21T12:58:01.852018",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3a-720f-8a9f-6ceeb22acd2a",
+          opprettet: "2025-09-11T11:24:34.490556",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 246385.82242719387,
             datatype: "penger",
           },
           utledetAv: {
@@ -4106,8 +3975,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29f9-7cc2-aa4c-87119ecf44a0",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a38-7498-9cfc-4ffb696413f4",
             ],
           },
         },
@@ -4123,13 +3992,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fc-764e-b794-9ac5e3901458",
-          opprettet: "2025-07-21T12:58:01.852051",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3a-720f-8a9f-6ceeb22acd2b",
+          opprettet: "2025-09-11T11:24:34.490664",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 246385.82242719387,
             datatype: "penger",
           },
           utledetAv: {
@@ -4137,8 +4006,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29f9-7cc2-aa4c-87119ecf44a0",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a38-7498-9cfc-4ffb696413f4",
             ],
           },
         },
@@ -4154,13 +4023,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fc-764e-b794-9ac5e3901459",
-          opprettet: "2025-07-21T12:58:01.85207",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3a-720f-8a9f-6ceeb22acd2c",
+          opprettet: "2025-09-11T11:24:34.490748",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 257924.8542248935,
             datatype: "penger",
           },
           utledetAv: {
@@ -4168,8 +4037,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29f9-7cc2-aa4c-87119ecf44a1",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a39-78a1-92e0-f4f5751b9a97",
             ],
           },
         },
@@ -4185,13 +4054,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fc-764e-b794-9ac5e390145a",
-          opprettet: "2025-07-21T12:58:01.8521",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3a-720f-8a9f-6ceeb22acd2d",
+          opprettet: "2025-09-11T11:24:34.490874",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 454060.22408209764,
+            verdi: 272909.27540690143,
             datatype: "penger",
           },
           utledetAv: {
@@ -4199,8 +4068,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29fa-7192-b01b-474de1c69929",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a39-78a1-92e0-f4f5751b9a98",
             ],
           },
         },
@@ -4216,10 +4085,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fc-764e-b794-9ac5e390145b",
-          opprettet: "2025-07-21T12:58:01.852222",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-4a3b-7205-bfd8-2d5ad50b9d21",
+          opprettet: "2025-09-11T11:24:34.491038",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -4229,13 +4098,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Addisjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bab",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bac",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bad",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bae",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb2",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb3",
-              "01982ca2-29fa-7192-b01b-474de1c6992b",
+              "01993817-4a2d-7577-8771-1514c824842b",
+              "01993817-4a2d-7577-8771-1514c824842c",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82d6",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82d7",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82db",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82dc",
+              "01993817-4a39-78a1-92e0-f4f5751b9a9a",
             ],
           },
         },
@@ -4251,13 +4120,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fd-7823-9118-19abbd6cec96",
-          opprettet: "2025-07-21T12:58:01.853727",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3c-7fc4-9909-ed01d61c49af",
+          opprettet: "2025-09-11T11:24:34.492048",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 454060.22408209764,
+            verdi: 777219.9520589889,
             datatype: "penger",
           },
           utledetAv: {
@@ -4265,9 +4134,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "SumAv",
             },
             opplysninger: [
-              "01982ca2-29fc-764e-b794-9ac5e3901458",
-              "01982ca2-29fc-764e-b794-9ac5e3901459",
-              "01982ca2-29fc-764e-b794-9ac5e390145a",
+              "01993817-4a3a-720f-8a9f-6ceeb22acd2b",
+              "01993817-4a3a-720f-8a9f-6ceeb22acd2c",
+              "01993817-4a3a-720f-8a9f-6ceeb22acd2d",
             ],
           },
         },
@@ -4283,13 +4152,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29fe-7be3-a4d8-dee23da7244d",
-          opprettet: "2025-07-21T12:58:01.854874",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3d-7d9d-8562-911dad9f7fac",
+          opprettet: "2025-09-11T11:24:34.493121",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 151353.4080273659,
+            verdi: 259073.31735299627,
             datatype: "penger",
           },
           utledetAv: {
@@ -4297,8 +4166,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "01982ca2-29f0-7c97-ad1c-202bcd94c408",
-              "01982ca2-29fd-7823-9118-19abbd6cec96",
+              "01993817-4a2d-7577-8771-1514c8248424",
+              "01993817-4a3c-7fc4-9909-ed01d61c49af",
             ],
           },
         },
@@ -4314,13 +4183,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-29ff-7ad8-8d99-89e1d6005715",
-          opprettet: "2025-07-21T12:58:01.855965",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3e-7527-bc08-a53eb07f3495",
+          opprettet: "2025-09-11T11:24:34.494214",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 151353.4080273659,
+            verdi: 259073.31735299627,
             datatype: "penger",
           },
           utledetAv: {
@@ -4328,8 +4197,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "01982ca2-29fc-764e-b794-9ac5e3901457",
-              "01982ca2-29fe-7be3-a4d8-dee23da7244d",
+              "01993817-4a3a-720f-8a9f-6ceeb22acd2a",
+              "01993817-4a3d-7d9d-8562-911dad9f7fac",
             ],
           },
         },
@@ -4345,20 +4214,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a02-76d6-b65e-600a5eb3e113",
-          opprettet: "2025-07-21T12:58:01.85855",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a3f-74e9-8a46-34e7eac55b37",
+          opprettet: "2025-09-11T11:24:34.495447",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 151353,
+            verdi: 259073,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["01982ca2-29ff-7ad8-8d99-89e1d6005715"],
+            opplysninger: ["01993817-4a3e-7527-bc08-a53eb07f3495"],
           },
         },
       ],
@@ -4373,13 +4242,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a03-7802-8502-2f1d75ea9901",
-          opprettet: "2025-07-21T12:58:01.859635",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a40-774c-b5cc-39fdad862653",
+          opprettet: "2025-09-11T11:24:34.496583",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 390480,
+            verdi: 259073,
             datatype: "penger",
           },
           utledetAv: {
@@ -4387,8 +4256,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "01982ca2-29fa-7192-b01b-474de1c6992a",
-              "01982ca2-2a02-76d6-b65e-600a5eb3e113",
+              "01993817-4a39-78a1-92e0-f4f5751b9a99",
+              "01993817-4a3f-74e9-8a46-34e7eac55b37",
             ],
           },
         },
@@ -4404,13 +4273,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-2a03-7802-8502-2f1d75ea9902",
-          opprettet: "2025-07-21T12:58:01.859693",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a40-774c-b5cc-39fdad862654",
+          opprettet: "2025-09-11T11:24:34.496706",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -4418,13 +4287,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnn",
             },
             opplysninger: [
-              "01982ca2-29fa-7192-b01b-474de1c6992a",
-              "01982ca2-2a02-76d6-b65e-600a5eb3e113",
+              "01993817-4a39-78a1-92e0-f4f5751b9a99",
+              "01993817-4a3f-74e9-8a46-34e7eac55b37",
             ],
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -4435,13 +4304,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a04-7963-93bf-6c55ce8cd4e0",
-          opprettet: "2025-07-21T12:58:01.86077",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a41-77ee-949c-b8bde67afb96",
+          opprettet: "2025-09-11T11:24:34.497533",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 937.152,
+            verdi: 621.7752,
             datatype: "penger",
           },
           utledetAv: {
@@ -4449,8 +4318,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1ba7",
-              "01982ca2-2a03-7802-8502-2f1d75ea9901",
+              "01993817-4a2d-7577-8771-1514c8248427",
+              "01993817-4a40-774c-b5cc-39fdad862653",
             ],
           },
         },
@@ -4466,13 +4335,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a04-7963-93bf-6c55ce8cd4e1",
-          opprettet: "2025-07-21T12:58:01.860823",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a41-77ee-949c-b8bde67afb97",
+          opprettet: "2025-09-11T11:24:34.497663",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 351432,
+            verdi: 233165.7,
             datatype: "penger",
           },
           utledetAv: {
@@ -4480,8 +4349,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1ba9",
-              "01982ca2-2a03-7802-8502-2f1d75ea9901",
+              "01993817-4a2d-7577-8771-1514c8248429",
+              "01993817-4a40-774c-b5cc-39fdad862653",
             ],
           },
         },
@@ -4497,11 +4366,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-2a04-7963-93bf-6c55ce8cd4e2",
-          opprettet: "2025-07-21T12:58:01.86087",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a41-77ee-949c-b8bde67afb98",
+          opprettet: "2025-09-11T11:24:34.497789",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -4512,9 +4381,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bba",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bbb",
-              "01982ca2-2a03-7802-8502-2f1d75ea9902",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82e1",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82e2",
+              "01993817-4a40-774c-b5cc-39fdad862654",
             ],
           },
         },
@@ -4530,20 +4399,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a06-74f7-b7d4-c806b23cfacc",
-          opprettet: "2025-07-21T12:58:01.862009",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a42-7920-a9a6-fed46c97a92d",
+          opprettet: "2025-09-11T11:24:34.498634",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 937,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["01982ca2-2a04-7963-93bf-6c55ce8cd4e0"],
+            opplysninger: ["01993817-4a41-77ee-949c-b8bde67afb96"],
           },
         },
       ],
@@ -4558,13 +4427,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a06-74f7-b7d4-c806b23cfacd",
-          opprettet: "2025-07-21T12:58:01.862117",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a42-7920-a9a6-fed46c97a92e",
+          opprettet: "2025-09-11T11:24:34.498829",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 1351.6615384615384,
+            verdi: 896.7911538461539,
             datatype: "penger",
           },
           utledetAv: {
@@ -4572,8 +4441,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1baa",
-              "01982ca2-2a04-7963-93bf-6c55ce8cd4e1",
+              "01993817-4a2d-7577-8771-1514c824842a",
+              "01993817-4a41-77ee-949c-b8bde67afb97",
             ],
           },
         },
@@ -4589,11 +4458,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-2a06-74f7-b7d4-c806b23cface",
-          opprettet: "2025-07-21T12:58:01.862151",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a42-7920-a9a6-fed46c97a92f",
+          opprettet: "2025-09-11T11:24:34.498932",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 37.5,
             enhet: "timer",
@@ -4604,10 +4473,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982c00-5ad6-76d5-88f4-8bfc9123084a",
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb9",
-              "01982ca2-29f5-742d-a79c-6ed0476abe3d",
-              "01982ca2-2a04-7963-93bf-6c55ce8cd4e2",
+              "01993817-4a27-708a-bbb8-4e338b5dd369",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82e0",
+              "01993817-4a36-7bfe-853f-bf6d39e5441c",
+              "01993817-4a41-77ee-949c-b8bde67afb98",
             ],
           },
         },
@@ -4623,20 +4492,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-2a07-73fb-936c-fa8227315177",
-          opprettet: "2025-07-21T12:58:01.863263",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a44-7eba-ab1f-2d169af3d415",
+          opprettet: "2025-09-11T11:24:34.500443",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 1352,
+            verdi: 897,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "Avrund",
             },
-            opplysninger: ["01982ca2-2a06-74f7-b7d4-c806b23cfacd"],
+            opplysninger: ["01993817-4a42-7920-a9a6-fed46c97a92e"],
           },
         },
       ],
@@ -4651,11 +4520,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-2a07-73fb-936c-fa8227315178",
-          opprettet: "2025-07-21T12:58:01.863317",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-4a44-7eba-ab1f-2d169af3d416",
+          opprettet: "2025-09-11T11:24:34.500637",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -4665,9 +4534,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "SjekkAvTerskel",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bb8",
-              "01982ca2-29f5-742d-a79c-6ed0476abe3e",
-              "01982ca2-2a06-74f7-b7d4-c806b23cface",
+              "01993817-4a2e-71a5-8f2a-649cf2ed82df",
+              "01993817-4a36-7bfe-853f-bf6d39e5441d",
+              "01993817-4a42-7920-a9a6-fed46c97a92f",
             ],
           },
         },
@@ -4678,62 +4547,29 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
-      navn: "Oppfyller vilkåret om tap av arbeidsinntekt og arbeidstid",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "0198c672-1123-7321-872d-e5284ff5d6b6",
-          opprettet: "2025-08-20T09:47:01.027317",
-          status: "Ny",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-07-21",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-          utledetAv: {
-            regel: {
-              navn: "Alle",
-            },
-            opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1bc2",
-              "01982ca2-29f5-742d-a79c-6ed0476abe3f",
-              "01982ca2-2a07-73fb-936c-fa8227315178",
-              "0198c672-1121-772a-82a9-3e5182ca0337",
-            ],
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0196ab10-0cff-7301-99d6-65be50a50201",
       navn: "Bostedsland er Norge",
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fddfb",
-          opprettet: "2025-07-21T12:58:06.11214",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5185-7f39-8716-c204287b3bbc",
+          opprettet: "2025-09-11T11:24:36.357163",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.436043",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.289283",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -4748,46 +4584,24 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "barn",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fddfc",
-          opprettet: "2025-07-21T12:58:06.112235",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5185-7f39-8716-c204287b3bbd",
+          opprettet: "2025-09-11T11:24:36.357312",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: [
-              {
-                fødselsdato: "2011-12-27",
-                fornavnOgMellomnavn: "VIKTIG",
-                etternavn: "DOKTOR",
-                statsborgerskap: "NOR",
-                kvalifiserer: true,
-              },
-              {
-                fødselsdato: "2016-01-13",
-                fornavnOgMellomnavn: "VASSEN",
-                etternavn: "OPPTAKSPRØVE",
-                statsborgerskap: "NOR",
-                kvalifiserer: true,
-              },
-              {
-                fødselsdato: "2018-04-15",
-                fornavnOgMellomnavn: "ANALYSERENDE",
-                etternavn: "PREST",
-                statsborgerskap: "NOR",
-                kvalifiserer: true,
-              },
-            ],
+            verdi: [],
             datatype: "barn",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.436325",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.289435",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -4797,29 +4611,61 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Register",
     },
     {
-      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
-      navn: "Brukeren er under utdanning eller opplæring",
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
+      navn: "Har krav på lønn fra arbeidsgiver",
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fddfd",
-          opprettet: "2025-07-21T12:58:06.112291",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5185-7f39-8716-c204287b3bbe",
+          opprettet: "2025-09-11T11:24:36.357393",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.437747",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.289614",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-4476-7636-b147-2d0b9f4ee60a"],
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
+      navn: "Brukeren er under utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01993817-5185-7f39-8716-c204287b3bbf",
+          opprettet: "2025-09-11T11:24:36.357457",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-09-11T11:24:36.289756",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["01993817-439e-7d3d-9d8a-78cf49ed6fbe"],
           },
         },
       ],
@@ -4834,25 +4680,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fddfe",
-          opprettet: "2025-07-21T12:58:06.112342",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5185-7f39-8716-c204287b3bc0",
+          opprettet: "2025-09-11T11:24:36.35753",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.438031",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.289896",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -4867,25 +4713,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fddff",
-          opprettet: "2025-07-21T12:58:06.11239",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5185-7f39-8716-c204287b3bc1",
+          opprettet: "2025-09-11T11:24:36.357593",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.438294",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.290031",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -4900,25 +4746,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fde00",
-          opprettet: "2025-07-21T12:58:06.112442",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5185-7f39-8716-c204287b3bc2",
+          opprettet: "2025-09-11T11:24:36.357684",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.438597",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.290134",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -4933,25 +4779,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fde01",
-          opprettet: "2025-07-21T12:58:06.11249",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5185-7f39-8716-c204287b3bc3",
+          opprettet: "2025-09-11T11:24:36.35779",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.438837",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.29024",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -4966,25 +4812,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fde02",
-          opprettet: "2025-07-21T12:58:06.112543",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5185-7f39-8716-c204287b3bc4",
+          opprettet: "2025-09-11T11:24:36.357923",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.439098",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.290341",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -4999,25 +4845,25 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa0-7aed-b500-18331b6fde03",
-          opprettet: "2025-07-21T12:58:06.11259",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5186-74f5-aada-cad274bf8be2",
+          opprettet: "2025-09-11T11:24:36.358006",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:05.439318",
-            meldingId: "c43ea46f-fe91-4dd5-87b8-a86e299a7479",
+            registrert: "2025-09-11T11:24:36.29042",
+            meldingId: "08c05c59-4f5c-46b8-8733-d9f5a0ea76d4",
           },
           utledetAv: {
             regel: {
               navn: "innhentMed",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5032,10 +4878,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa2-7c56-8824-9db326007f3f",
-          opprettet: "2025-07-21T12:58:06.114497",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5187-704e-9ff0-6b628023710a",
+          opprettet: "2025-09-11T11:24:36.359212",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5044,7 +4890,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["01982ca2-3aa0-7aed-b500-18331b6fddfb"],
+            opplysninger: ["01993817-5185-7f39-8716-c204287b3bbc"],
           },
         },
       ],
@@ -5059,19 +4905,19 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa2-7c56-8824-9db326007f40",
-          opprettet: "2025-07-21T12:58:06.114592",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5187-704e-9ff0-6b628023710b",
+          opprettet: "2025-09-11T11:24:36.359274",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
-            verdi: 3,
+            verdi: 0,
             datatype: "heltall",
           },
           utledetAv: {
             regel: {
               navn: "AntallAv",
             },
-            opplysninger: ["01982ca2-3aa0-7aed-b500-18331b6fddfc"],
+            opplysninger: ["01993817-5185-7f39-8716-c204287b3bbd"],
           },
         },
       ],
@@ -5086,11 +4932,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa2-7c56-8824-9db326007f41",
-          opprettet: "2025-07-21T12:58:06.114724",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5187-704e-9ff0-6b628023710c",
+          opprettet: "2025-09-11T11:24:36.35935",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5100,13 +4946,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe3a",
-              "01982ca2-3aa0-7aed-b500-18331b6fddfe",
-              "01982ca2-3aa0-7aed-b500-18331b6fddff",
-              "01982ca2-3aa0-7aed-b500-18331b6fde00",
-              "01982ca2-3aa0-7aed-b500-18331b6fde01",
-              "01982ca2-3aa0-7aed-b500-18331b6fde02",
-              "01982ca2-3aa0-7aed-b500-18331b6fde03",
+              "01993817-4a36-7bfe-853f-bf6d39e5441a",
+              "01993817-5185-7f39-8716-c204287b3bc0",
+              "01993817-5185-7f39-8716-c204287b3bc1",
+              "01993817-5185-7f39-8716-c204287b3bc2",
+              "01993817-5185-7f39-8716-c204287b3bc3",
+              "01993817-5185-7f39-8716-c204287b3bc4",
+              "01993817-5186-74f5-aada-cad274bf8be2",
             ],
           },
         },
@@ -5117,15 +4963,42 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       formål: "Regel",
     },
     {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
+      navn: "Oppfyller vilkåret til tap av arbeidsinntekt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01993817-5187-704e-9ff0-6b628023710d",
+          opprettet: "2025-09-11T11:24:36.359393",
+          status: "Ny",
+          opprinnelse: "Ny",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: ["01993817-5185-7f39-8716-c204287b3bbe"],
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b524",
       navn: "Har svart ja på spørsmål om utdanning eller opplæring",
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa2-7c56-8824-9db326007f42",
-          opprettet: "2025-07-21T12:58:06.114739",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5187-704e-9ff0-6b628023710e",
+          opprettet: "2025-09-11T11:24:36.359428",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5134,7 +5007,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErSann",
             },
-            opplysninger: ["01982ca2-3aa0-7aed-b500-18331b6fddfd"],
+            opplysninger: ["01993817-5185-7f39-8716-c204287b3bbf"],
           },
         },
       ],
@@ -5149,10 +5022,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa2-7c56-8824-9db326007f43",
-          opprettet: "2025-07-21T12:58:06.114814",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5187-704e-9ff0-6b628023710f",
+          opprettet: "2025-09-11T11:24:36.359466",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5161,7 +5034,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "ErUsann",
             },
-            opplysninger: ["01982ca2-3aa0-7aed-b500-18331b6fddfd"],
+            opplysninger: ["01993817-5185-7f39-8716-c204287b3bbf"],
           },
         },
       ],
@@ -5176,10 +5049,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa3-76e2-8952-cd020bc43826",
-          opprettet: "2025-07-21T12:58:06.11582",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5188-7de9-b55a-0f27ebd58e96",
+          opprettet: "2025-09-11T11:24:36.360191",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5189,8 +5062,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-29ed-796d-9dce-c222d259dbb1",
-              "01982ca2-3aa2-7c56-8824-9db326007f3f",
+              "01993817-4a2d-7577-8771-1514c824841f",
+              "01993817-5187-704e-9ff0-6b628023710a",
             ],
           },
         },
@@ -5206,13 +5079,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa3-76e2-8952-cd020bc43827",
-          opprettet: "2025-07-21T12:58:06.115913",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5188-7de9-b55a-0f27ebd58e97",
+          opprettet: "2025-09-11T11:24:36.360294",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 111,
+            verdi: 0,
             datatype: "penger",
           },
           utledetAv: {
@@ -5220,8 +5093,41 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1ba8",
-              "01982ca2-3aa2-7c56-8824-9db326007f40",
+              "01993817-4a2d-7577-8771-1514c8248428",
+              "01993817-5187-704e-9ff0-6b628023710b",
+            ],
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
+      navn: "Oppfyller vilkåret om tap av arbeidsinntekt og arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01993817-5188-7de9-b55a-0f27ebd58e98",
+          opprettet: "2025-09-11T11:24:36.360356",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "01993817-4a30-7015-ab77-0ab7c4d7d69b",
+              "01993817-4a36-7bfe-853f-bf6d39e5441e",
+              "01993817-4a44-7eba-ab1f-2d169af3d416",
+              "01993817-5187-704e-9ff0-6b628023710d",
             ],
           },
         },
@@ -5237,10 +5143,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa3-76e2-8952-cd020bc43828",
-          opprettet: "2025-07-21T12:58:06.115968",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5188-7de9-b55a-0f27ebd58e99",
+          opprettet: "2025-09-11T11:24:36.3604",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5250,8 +5156,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Alle",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe40",
-              "01982ca2-3aa2-7c56-8824-9db326007f42",
+              "01993817-4a36-7bfe-853f-bf6d39e5441f",
+              "01993817-5187-704e-9ff0-6b628023710e",
             ],
           },
         },
@@ -5267,10 +5173,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa4-75de-8177-e60237fb7d22",
-          opprettet: "2025-07-21T12:58:06.116982",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5189-7e1b-8287-c49cc55403ba",
+          opprettet: "2025-09-11T11:24:36.361181",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5280,8 +5186,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Alle",
             },
             opplysninger: [
-              "01982ca2-29f3-7f3d-b221-f9da17fcf31f",
-              "01982ca2-3aa3-76e2-8952-cd020bc43826",
+              "01993817-4a32-7271-8ba8-0e556c90644a",
+              "01993817-5188-7de9-b55a-0f27ebd58e96",
             ],
           },
         },
@@ -5297,13 +5203,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa5-7a5e-a968-9ec5997d1877",
-          opprettet: "2025-07-21T12:58:06.117084",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5189-7e1b-8287-c49cc55403bb",
+          opprettet: "2025-09-11T11:24:36.361339",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 1048,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -5311,8 +5217,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Addisjon",
             },
             opplysninger: [
-              "01982ca2-2a06-74f7-b7d4-c806b23cfacc",
-              "01982ca2-3aa3-76e2-8952-cd020bc43827",
+              "01993817-4a42-7920-a9a6-fed46c97a92d",
+              "01993817-5188-7de9-b55a-0f27ebd58e97",
             ],
           },
         },
@@ -5328,13 +5234,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa5-7a5e-a968-9ec5997d1878",
-          opprettet: "2025-07-21T12:58:06.117179",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5189-7e1b-8287-c49cc55403bc",
+          opprettet: "2025-09-11T11:24:36.361401",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: true,
+            verdi: false,
             datatype: "boolsk",
           },
           utledetAv: {
@@ -5342,8 +5248,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982ca2-29f1-773f-bb2a-10129f4a1ba8",
-              "01982ca2-3aa3-76e2-8952-cd020bc43827",
+              "01993817-4a2d-7577-8771-1514c8248428",
+              "01993817-5188-7de9-b55a-0f27ebd58e97",
             ],
           },
         },
@@ -5359,10 +5265,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa5-7a5e-a968-9ec5997d1879",
-          opprettet: "2025-07-21T12:58:06.117241",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5189-7e1b-8287-c49cc55403bd",
+          opprettet: "2025-09-11T11:24:36.36145",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -5372,8 +5278,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-3aa2-7c56-8824-9db326007f43",
-              "01982ca2-3aa3-76e2-8952-cd020bc43828",
+              "01993817-5187-704e-9ff0-6b628023710f",
+              "01993817-5188-7de9-b55a-0f27ebd58e99",
             ],
           },
         },
@@ -5389,11 +5295,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa6-7f41-8c32-4f1849d774c6",
-          opprettet: "2025-07-21T12:58:06.118826",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518a-7f32-8355-8d8835ed43cd",
+          opprettet: "2025-09-11T11:24:36.362601",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5403,8 +5309,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnn",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29f9-7cc2-aa4c-87119ecf44a0",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a38-7498-9cfc-4ffb696413f4",
             ],
           },
         },
@@ -5420,11 +5326,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa6-7f41-8c32-4f1849d774c7",
-          opprettet: "2025-07-21T12:58:06.118869",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518a-7f32-8355-8d8835ed43ce",
+          opprettet: "2025-09-11T11:24:36.362666",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5434,8 +5340,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnn",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29f9-7cc2-aa4c-87119ecf44a1",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a39-78a1-92e0-f4f5751b9a97",
             ],
           },
         },
@@ -5451,11 +5357,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa6-7f41-8c32-4f1849d774c8",
-          opprettet: "2025-07-21T12:58:06.118897",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518a-7f32-8355-8d8835ed43cf",
+          opprettet: "2025-09-11T11:24:36.362719",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -5465,8 +5371,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnn",
             },
             opplysninger: [
-              "01982ca2-29f5-742d-a79c-6ed0476abe38",
-              "01982ca2-29fa-7192-b01b-474de1c69929",
+              "01993817-4a35-7c7b-93fe-20a296e4b383",
+              "01993817-4a39-78a1-92e0-f4f5751b9a98",
             ],
           },
         },
@@ -5482,11 +5388,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "tekst",
       perioder: [
         {
-          id: "01982ca2-3aa6-7f41-8c32-4f1849d774c9",
-          opprettet: "2025-07-21T12:58:06.118951",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518a-7f32-8355-8d8835ed43d0",
+          opprettet: "2025-09-11T11:24:36.36281",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: "Gjennomsnittlig inntekt etter avkortning og oppjustering siste 36 måneder",
             datatype: "tekst",
@@ -5495,7 +5401,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Brukt",
             },
-            opplysninger: ["01982ca2-29ff-7ad8-8d99-89e1d6005715"],
+            opplysninger: ["01993817-4a3e-7527-bc08-a53eb07f3495"],
           },
         },
       ],
@@ -5510,20 +5416,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49169",
-          opprettet: "2025-07-21T12:58:06.119155",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e83695",
+          opprettet: "2025-09-11T11:24:36.363112",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 238524,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f0-7c97-ad1c-202bcd94c406"],
+            opplysninger: ["01993817-4a2d-7577-8771-1514c8248422"],
           },
         },
       ],
@@ -5538,20 +5444,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916a",
-          opprettet: "2025-07-21T12:58:06.119268",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e83696",
+          opprettet: "2025-09-11T11:24:36.3633",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 238524,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f0-7c97-ad1c-202bcd94c406"],
+            opplysninger: ["01993817-4a2d-7577-8771-1514c8248422"],
           },
         },
       ],
@@ -5566,20 +5472,20 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916b",
-          opprettet: "2025-07-21T12:58:06.11939",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e83697",
+          opprettet: "2025-09-11T11:24:36.363487",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 388885,
+            verdi: 238524,
             datatype: "penger",
           },
           utledetAv: {
             regel: {
               navn: "SummerPeriode",
             },
-            opplysninger: ["01982ca2-29f0-7c97-ad1c-202bcd94c406"],
+            opplysninger: ["01993817-4a2d-7577-8771-1514c8248422"],
           },
         },
       ],
@@ -5594,11 +5500,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916c",
-          opprettet: "2025-07-21T12:58:06.119647",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e83698",
+          opprettet: "2025-09-11T11:24:36.363591",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5608,8 +5514,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "01982ca2-2a07-73fb-936c-fa8227315177",
-              "01982ca2-3aa5-7a5e-a968-9ec5997d1877",
+              "01993817-4a44-7eba-ab1f-2d169af3d415",
+              "01993817-5189-7e1b-8287-c49cc55403bb",
             ],
           },
         },
@@ -5625,11 +5531,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916d",
-          opprettet: "2025-07-21T12:58:06.119682",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e83699",
+          opprettet: "2025-09-11T11:24:36.363644",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 5,
             enhet: "dager",
@@ -5639,7 +5545,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5654,11 +5560,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916e",
-          opprettet: "2025-07-21T12:58:06.11971",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518b-72ce-961b-c80043e8369a",
+          opprettet: "2025-09-11T11:24:36.363686",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 0.03,
             enhet: "prosent",
@@ -5668,7 +5574,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5683,10 +5589,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4916f",
-          opprettet: "2025-07-21T12:58:06.119716",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e8369b",
+          opprettet: "2025-09-11T11:24:36.363756",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5704,10 +5610,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49170",
-          opprettet: "2025-07-21T12:58:06.119721",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e8369c",
+          opprettet: "2025-09-11T11:24:36.363814",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5725,10 +5631,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49171",
-          opprettet: "2025-07-21T12:58:06.119725",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e8369d",
+          opprettet: "2025-09-11T11:24:36.36385",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5746,10 +5652,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49172",
-          opprettet: "2025-07-21T12:58:06.11973",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e8369e",
+          opprettet: "2025-09-11T11:24:36.363887",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5767,10 +5673,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49173",
-          opprettet: "2025-07-21T12:58:06.119739",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e8369f",
+          opprettet: "2025-09-11T11:24:36.363926",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5788,10 +5694,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49174",
-          opprettet: "2025-07-21T12:58:06.119743",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518b-72ce-961b-c80043e836a0",
+          opprettet: "2025-09-11T11:24:36.363963",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -5809,11 +5715,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49175",
-          opprettet: "2025-07-21T12:58:06.119762",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7ce7",
+          opprettet: "2025-09-11T11:24:36.364011",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 2,
             enhet: "G",
@@ -5823,7 +5729,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5838,11 +5744,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49176",
-          opprettet: "2025-07-21T12:58:06.119778",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7ce8",
+          opprettet: "2025-09-11T11:24:36.364089",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 104,
             enhet: "uker",
@@ -5852,7 +5758,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5867,11 +5773,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49177",
-          opprettet: "2025-07-21T12:58:06.119792",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7ce9",
+          opprettet: "2025-09-11T11:24:36.364149",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 52,
             enhet: "uker",
@@ -5881,7 +5787,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5896,13 +5802,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49178",
-          opprettet: "2025-07-21T12:58:06.11988",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7cea",
+          opprettet: "2025-09-11T11:24:36.364369",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 129628.3333333333,
+            verdi: 238524,
             datatype: "penger",
           },
           utledetAv: {
@@ -5910,8 +5816,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "01982c00-5ad9-7d3f-ba93-6e5099ff929d",
-              "01982ca2-29f0-7c97-ad1c-202bcd94c408",
+              "01993817-4a2a-7258-9f46-24cb656903c3",
+              "01993817-4a2d-7577-8771-1514c8248424",
             ],
           },
         },
@@ -5927,11 +5833,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49179",
-          opprettet: "2025-07-21T12:58:06.119907",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7ceb",
+          opprettet: "2025-09-11T11:24:36.364441",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 2,
             enhet: "G",
@@ -5941,7 +5847,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5956,11 +5862,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917a",
-          opprettet: "2025-07-21T12:58:06.119932",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7cec",
+          opprettet: "2025-09-11T11:24:36.364493",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 0,
             enhet: "uker",
@@ -5970,7 +5876,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -5985,11 +5891,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917b",
-          opprettet: "2025-07-21T12:58:06.11995",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7ced",
+          opprettet: "2025-09-11T11:24:36.364548",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 5,
             enhet: "dager",
@@ -5999,7 +5905,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -6014,10 +5920,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917c",
-          opprettet: "2025-07-21T12:58:06.119956",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518c-78f2-8735-173edcaf7cee",
+          opprettet: "2025-09-11T11:24:36.364609",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -6035,11 +5941,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "desimaltall",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917d",
-          opprettet: "2025-07-21T12:58:06.119975",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518c-78f2-8735-173edcaf7cef",
+          opprettet: "2025-09-11T11:24:36.36468",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 3,
             enhet: "dager",
@@ -6049,7 +5955,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
@@ -6064,10 +5970,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917e",
-          opprettet: "2025-07-21T12:58:06.11998",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518c-78f2-8735-173edcaf7cf0",
+          opprettet: "2025-09-11T11:24:36.364753",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6085,10 +5991,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b4917f",
-          opprettet: "2025-07-21T12:58:06.119984",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518c-78f2-8735-173edcaf7cf1",
+          opprettet: "2025-09-11T11:24:36.364843",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6106,10 +6012,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49180",
-          opprettet: "2025-07-21T12:58:06.119989",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518c-78f2-8735-173edcaf7cf2",
+          opprettet: "2025-09-11T11:24:36.364908",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6127,10 +6033,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49181",
-          opprettet: "2025-07-21T12:58:06.119993",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518f-7a41-abf0-9618afaff3f4",
+          opprettet: "2025-09-11T11:24:36.367185",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6148,10 +6054,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa7-7cd0-89c8-31a976b49182",
-          opprettet: "2025-07-21T12:58:06.119996",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518f-7a41-abf0-9618afaff3f5",
+          opprettet: "2025-09-11T11:24:36.367308",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6169,10 +6075,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa8-7f45-b3f8-cbf3516bb165",
-          opprettet: "2025-07-21T12:58:06.120006",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-518f-7a41-abf0-9618afaff3f6",
+          opprettet: "2025-09-11T11:24:36.367379",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6190,11 +6096,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aa8-7f45-b3f8-cbf3516bb166",
-          opprettet: "2025-07-21T12:58:06.120032",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-518f-7a41-abf0-9618afaff3f7",
+          opprettet: "2025-09-11T11:24:36.367478",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 26,
             enhet: "uker",
@@ -6204,11 +6110,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
             regel: {
               navn: "Oppslag",
             },
-            opplysninger: ["01982c00-51ae-7cd6-9ea4-1d766a4bfd10"],
+            opplysninger: ["01993817-44ea-73d9-840c-8eb267235afb"],
           },
         },
       ],
-      synlig: true,
+      synlig: false,
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
@@ -6219,11 +6125,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aa9-73c7-9bd2-7a365922426d",
-          opprettet: "2025-07-21T12:58:06.121739",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5191-7b9c-910d-4cd94d9d4ccc",
+          opprettet: "2025-09-11T11:24:36.369519",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6233,9 +6139,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-3aa6-7f41-8c32-4f1849d774c6",
-              "01982ca2-3aa6-7f41-8c32-4f1849d774c7",
-              "01982ca2-3aa6-7f41-8c32-4f1849d774c8",
+              "01993817-518a-7f32-8355-8d8835ed43cd",
+              "01993817-518a-7f32-8355-8d8835ed43ce",
+              "01993817-518a-7f32-8355-8d8835ed43cf",
             ],
           },
         },
@@ -6251,13 +6157,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa9-73c7-9bd2-7a365922426e",
-          opprettet: "2025-07-21T12:58:06.121824",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5191-7b9c-910d-4cd94d9d4ccd",
+          opprettet: "2025-09-11T11:24:36.369757",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 937,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -6265,8 +6171,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "01982ca2-2a06-74f7-b7d4-c806b23cfacc",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916c",
+              "01993817-4a42-7920-a9a6-fed46c97a92d",
+              "01993817-518b-72ce-961b-c80043e83698",
             ],
           },
         },
@@ -6282,11 +6188,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa9-73c7-9bd2-7a365922426f",
-          opprettet: "2025-07-21T12:58:06.121884",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5192-716b-b191-42da357c5de8",
+          opprettet: "2025-09-11T11:24:36.370069",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 3904.8,
             datatype: "penger",
@@ -6296,8 +6202,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-29f0-7c97-ad1c-202bcd94c405",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916e",
+              "01993817-4a2d-7577-8771-1514c8248421",
+              "01993817-518b-72ce-961b-c80043e8369a",
             ],
           },
         },
@@ -6313,10 +6219,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa9-73c7-9bd2-7a3659224270",
-          opprettet: "2025-07-21T12:58:06.121952",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-5192-716b-b191-42da357c5de9",
+          opprettet: "2025-09-11T11:24:36.370212",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: 0,
             datatype: "penger",
@@ -6326,12 +6232,12 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "SumAv",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916f",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49170",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49171",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49172",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49173",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49174",
+              "01993817-518b-72ce-961b-c80043e8369b",
+              "01993817-518b-72ce-961b-c80043e8369c",
+              "01993817-518b-72ce-961b-c80043e8369d",
+              "01993817-518b-72ce-961b-c80043e8369e",
+              "01993817-518b-72ce-961b-c80043e8369f",
+              "01993817-518b-72ce-961b-c80043e836a0",
             ],
           },
         },
@@ -6347,13 +6253,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aa9-73c7-9bd2-7a3659224271",
-          opprettet: "2025-07-21T12:58:06.121997",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5192-716b-b191-42da357c5dea",
+          opprettet: "2025-09-11T11:24:36.37028",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 5240,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -6361,8 +6267,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-3aa5-7a5e-a968-9ec5997d1877",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916d",
+              "01993817-5189-7e1b-8287-c49cc55403bb",
+              "01993817-518b-72ce-961b-c80043e83699",
             ],
           },
         },
@@ -6378,11 +6284,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aaa-76e4-b2ce-40395e0e5fc3",
-          opprettet: "2025-07-21T12:58:06.122053",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5192-716b-b191-42da357c5deb",
+          opprettet: "2025-09-11T11:24:36.370341",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 260320,
             datatype: "penger",
@@ -6392,8 +6298,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982c00-51af-7297-a1b9-69c67e038563",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49175",
+              "01993817-44eb-74bf-93df-e91f5119da54",
+              "01993817-518c-78f2-8735-173edcaf7ce7",
             ],
           },
         },
@@ -6409,11 +6315,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aaa-76e4-b2ce-40395e0e5fc4",
-          opprettet: "2025-07-21T12:58:06.122084",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5192-716b-b191-42da357c5dec",
+          opprettet: "2025-09-11T11:24:36.370393",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 260320,
             datatype: "penger",
@@ -6423,8 +6329,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982c00-51af-7297-a1b9-69c67e038563",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49179",
+              "01993817-44eb-74bf-93df-e91f5119da54",
+              "01993817-518c-78f2-8735-173edcaf7ceb",
             ],
           },
         },
@@ -6440,13 +6346,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aab-7ea2-a372-44d4b7ce4421",
-          opprettet: "2025-07-21T12:58:06.123753",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5193-7e19-92e0-7baec9a49241",
+          opprettet: "2025-09-11T11:24:36.37167",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 937,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -6454,8 +6360,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "01982ca2-29fc-764e-b794-9ac5e390145b",
-              "01982ca2-3aa9-73c7-9bd2-7a365922426e",
+              "01993817-4a3b-7205-bfd8-2d5ad50b9d21",
+              "01993817-5191-7b9c-910d-4cd94d9d4ccd",
             ],
           },
         },
@@ -6471,11 +6377,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aab-7ea2-a372-44d4b7ce4422",
-          opprettet: "2025-07-21T12:58:06.123831",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5193-7e19-92e0-7baec9a49242",
+          opprettet: "2025-09-11T11:24:36.371738",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6485,8 +6391,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982c00-5ad8-7905-9303-d8dfe291419c",
-              "01982ca2-3aaa-76e4-b2ce-40395e0e5fc3",
+              "01993817-4a2a-7258-9f46-24cb656903c2",
+              "01993817-5192-716b-b191-42da357c5deb",
             ],
           },
         },
@@ -6502,11 +6408,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aab-7ea2-a372-44d4b7ce4423",
-          opprettet: "2025-07-21T12:58:06.123885",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5193-7e19-92e0-7baec9a49243",
+          opprettet: "2025-09-11T11:24:36.37183",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6516,8 +6422,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b49178",
-              "01982ca2-3aaa-76e4-b2ce-40395e0e5fc4",
+              "01993817-518c-78f2-8735-173edcaf7cea",
+              "01993817-5192-716b-b191-42da357c5dec",
             ],
           },
         },
@@ -6533,11 +6439,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aab-7ea2-a372-44d4b7ce4424",
-          opprettet: "2025-07-21T12:58:06.123921",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5193-7e19-92e0-7baec9a49244",
+          opprettet: "2025-09-11T11:24:36.371884",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -6547,8 +6453,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "StørreEnnEllerLik",
             },
             opplysninger: [
-              "01982ca2-29fc-764e-b794-9ac5e390145b",
-              "01982ca2-3aa9-73c7-9bd2-7a365922426e",
+              "01993817-4a3b-7205-bfd8-2d5ad50b9d21",
+              "01993817-5191-7b9c-910d-4cd94d9d4ccd",
             ],
           },
         },
@@ -6564,13 +6470,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aad-714f-9f8b-a56333f20b82",
-          opprettet: "2025-07-21T12:58:06.12543",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5195-772f-af5c-689ca72554ac",
+          opprettet: "2025-09-11T11:24:36.373009",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 4685,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -6578,8 +6484,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916d",
-              "01982ca2-3aab-7ea2-a372-44d4b7ce4421",
+              "01993817-518b-72ce-961b-c80043e83699",
+              "01993817-5193-7e19-92e0-7baec9a49241",
             ],
           },
         },
@@ -6595,11 +6501,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aad-714f-9f8b-a56333f20b83",
-          opprettet: "2025-07-21T12:58:06.125463",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5195-772f-af5c-689ca72554ad",
+          opprettet: "2025-09-11T11:24:36.373073",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 52,
             enhet: "uker",
@@ -6610,9 +6516,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b49176",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49177",
-              "01982ca2-3aab-7ea2-a372-44d4b7ce4422",
+              "01993817-518c-78f2-8735-173edcaf7ce8",
+              "01993817-518c-78f2-8735-173edcaf7ce9",
+              "01993817-5193-7e19-92e0-7baec9a49242",
             ],
           },
         },
@@ -6628,11 +6534,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aad-714f-9f8b-a56333f20b84",
-          opprettet: "2025-07-21T12:58:06.125488",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5195-772f-af5c-689ca72554ae",
+          opprettet: "2025-09-11T11:24:36.373126",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 52,
             enhet: "uker",
@@ -6643,9 +6549,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b49176",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49177",
-              "01982ca2-3aab-7ea2-a372-44d4b7ce4423",
+              "01993817-518c-78f2-8735-173edcaf7ce8",
+              "01993817-518c-78f2-8735-173edcaf7ce9",
+              "01993817-5193-7e19-92e0-7baec9a49243",
             ],
           },
         },
@@ -6661,11 +6567,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3aad-714f-9f8b-a56333f20b85",
-          opprettet: "2025-07-21T12:58:06.12554",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5195-772f-af5c-689ca72554af",
+          opprettet: "2025-09-11T11:24:36.373185",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -6675,8 +6581,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-3aa5-7a5e-a968-9ec5997d1878",
-              "01982ca2-3aab-7ea2-a372-44d4b7ce4424",
+              "01993817-5189-7e1b-8287-c49cc55403bc",
+              "01993817-5193-7e19-92e0-7baec9a49244",
             ],
           },
         },
@@ -6692,13 +6598,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aaf-7b3c-8025-e9188c2c3ed7",
-          opprettet: "2025-07-21T12:58:06.127125",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5196-7049-8837-188a61db8750",
+          opprettet: "2025-09-11T11:24:36.374469",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 3904.8,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -6706,8 +6612,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-3aa9-73c7-9bd2-7a365922426f",
-              "01982ca2-3aad-714f-9f8b-a56333f20b82",
+              "01993817-5192-716b-b191-42da357c5de8",
+              "01993817-5195-772f-af5c-689ca72554ac",
             ],
           },
         },
@@ -6723,13 +6629,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aaf-7b3c-8025-e9188c2c3ed8",
-          opprettet: "2025-07-21T12:58:06.127237",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5196-7049-8837-188a61db8751",
+          opprettet: "2025-09-11T11:24:36.374628",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 4685,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -6737,8 +6643,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Substraksjon",
             },
             opplysninger: [
-              "01982ca2-3aa9-73c7-9bd2-7a3659224270",
-              "01982ca2-3aad-714f-9f8b-a56333f20b82",
+              "01993817-5192-716b-b191-42da357c5de9",
+              "01993817-5195-772f-af5c-689ca72554ac",
             ],
           },
         },
@@ -6754,11 +6660,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3aaf-7b3c-8025-e9188c2c3ed9",
-          opprettet: "2025-07-21T12:58:06.127281",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5196-7049-8837-188a61db8752",
+          opprettet: "2025-09-11T11:24:36.374698",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 52,
             enhet: "uker",
@@ -6769,8 +6675,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "01982ca2-3aad-714f-9f8b-a56333f20b83",
-              "01982ca2-3aad-714f-9f8b-a56333f20b84",
+              "01993817-5195-772f-af5c-689ca72554ad",
+              "01993817-5195-772f-af5c-689ca72554ae",
             ],
           },
         },
@@ -6786,13 +6692,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab1-7508-9920-b9894e54d8e0",
-          opprettet: "2025-07-21T12:58:06.129231",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5197-75c5-afff-56410d2b00a7",
+          opprettet: "2025-09-11T11:24:36.375934",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 4685,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -6800,8 +6706,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HøyesteAv",
             },
             opplysninger: [
-              "01982ca2-3aaf-7b3c-8025-e9188c2c3ed7",
-              "01982ca2-3aaf-7b3c-8025-e9188c2c3ed8",
+              "01993817-5196-7049-8837-188a61db8750",
+              "01993817-5196-7049-8837-188a61db8751",
             ],
           },
         },
@@ -6817,13 +6723,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3ab1-7508-9920-b9894e54d8e1",
-          opprettet: "2025-07-21T12:58:06.129287",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5198-7921-bef0-ab667111f708",
+          opprettet: "2025-09-11T11:24:36.376002",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 0,
+            verdi: 52,
             enhet: "uker",
             datatype: "heltall",
           },
@@ -6832,9 +6738,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982c00-5ada-7a5f-88d9-21d939e15432",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917a",
-              "01982ca2-3aaf-7b3c-8025-e9188c2c3ed9",
+              "01993817-4a2c-757e-9635-6227cbb74a9e",
+              "01993817-518c-78f2-8735-173edcaf7cec",
+              "01993817-5196-7049-8837-188a61db8752",
             ],
           },
         },
@@ -6850,11 +6756,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "heltall",
       perioder: [
         {
-          id: "01982ca2-3ab1-7508-9920-b9894e54d8e2",
-          opprettet: "2025-07-21T12:58:06.12934",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5198-7921-bef0-ab667111f709",
+          opprettet: "2025-09-11T11:24:36.376142",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: 260,
             enhet: "dager",
@@ -6865,8 +6771,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917b",
-              "01982ca2-3aaf-7b3c-8025-e9188c2c3ed9",
+              "01993817-518c-78f2-8735-173edcaf7ced",
+              "01993817-5196-7049-8837-188a61db8752",
             ],
           },
         },
@@ -6882,13 +6788,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab3-7df0-8357-e7112a1fbc75",
-          opprettet: "2025-07-21T12:58:06.131426",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-5199-7d1a-8704-945a3bad0b5d",
+          opprettet: "2025-09-11T11:24:36.377645",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 937,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -6896,8 +6802,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Divisjon",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916d",
-              "01982ca2-3ab1-7508-9920-b9894e54d8e0",
+              "01993817-518b-72ce-961b-c80043e83699",
+              "01993817-5197-75c5-afff-56410d2b00a7",
             ],
           },
         },
@@ -6913,13 +6819,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab5-7ef1-9c3d-bf7aa90ccbd3",
-          opprettet: "2025-07-21T12:58:06.133171",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519b-7666-b05e-02438cd9b03d",
+          opprettet: "2025-09-11T11:24:36.379451",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 1048,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -6927,8 +6833,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Addisjon",
             },
             opplysninger: [
-              "01982ca2-3aa3-76e2-8952-cd020bc43827",
-              "01982ca2-3ab3-7df0-8357-e7112a1fbc75",
+              "01993817-5188-7de9-b55a-0f27ebd58e97",
+              "01993817-5199-7d1a-8704-945a3bad0b5d",
             ],
           },
         },
@@ -6944,11 +6850,11 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-3ab5-7ef1-9c3d-bf7aa90ccbd4",
-          opprettet: "2025-07-21T12:58:06.13323",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519b-7666-b05e-02438cd9b03e",
+          opprettet: "2025-09-11T11:24:36.379658",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -6958,8 +6864,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "ErUlik",
             },
             opplysninger: [
-              "01982ca2-3aa9-73c7-9bd2-7a365922426e",
-              "01982ca2-3ab3-7df0-8357-e7112a1fbc75",
+              "01993817-5191-7b9c-910d-4cd94d9d4ccd",
+              "01993817-5199-7d1a-8704-945a3bad0b5d",
             ],
           },
         },
@@ -6975,13 +6881,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab6-74e9-a1f0-b4cc6bb28ec2",
-          opprettet: "2025-07-21T12:58:06.134699",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519d-7ab8-bd6a-376118be10ac",
+          opprettet: "2025-09-11T11:24:36.381238",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 1048,
+            verdi: 622,
             datatype: "penger",
           },
           utledetAv: {
@@ -6989,8 +6895,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "MinstAv",
             },
             opplysninger: [
-              "01982ca2-2a07-73fb-936c-fa8227315177",
-              "01982ca2-3ab5-7ef1-9c3d-bf7aa90ccbd3",
+              "01993817-4a44-7eba-ab1f-2d169af3d415",
+              "01993817-519b-7666-b05e-02438cd9b03d",
             ],
           },
         },
@@ -7006,13 +6912,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab8-744f-8eb0-d58ed8ef7402",
-          opprettet: "2025-07-21T12:58:06.13634",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519e-7f4a-8804-559374ef159e",
+          opprettet: "2025-09-11T11:24:36.38257",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 5240,
+            verdi: 3110,
             datatype: "penger",
           },
           utledetAv: {
@@ -7020,8 +6926,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4916d",
-              "01982ca2-3ab6-74e9-a1f0-b4cc6bb28ec2",
+              "01993817-518b-72ce-961b-c80043e83699",
+              "01993817-519d-7ab8-bd6a-376118be10ac",
             ],
           },
         },
@@ -7037,13 +6943,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3ab8-744f-8eb0-d58ed8ef7403",
-          opprettet: "2025-07-21T12:58:06.13638",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519e-7f4a-8804-559374ef159f",
+          opprettet: "2025-09-11T11:24:36.382683",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 3144,
+            verdi: 1866,
             datatype: "penger",
           },
           utledetAv: {
@@ -7051,8 +6957,8 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "Multiplikasjon",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917d",
-              "01982ca2-3ab6-74e9-a1f0-b4cc6bb28ec2",
+              "01993817-518c-78f2-8735-173edcaf7cef",
+              "01993817-519d-7ab8-bd6a-376118be10ac",
             ],
           },
         },
@@ -7068,13 +6974,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "penger",
       perioder: [
         {
-          id: "01982ca2-3aba-7747-a048-b40d1a5f0869",
-          opprettet: "2025-07-21T12:58:06.138117",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-07-21",
+          id: "01993817-519f-711a-8e1f-d0fcccab6ff9",
+          opprettet: "2025-09-11T11:24:36.383909",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
           verdi: {
-            verdi: 3144,
+            verdi: 1866,
             datatype: "penger",
           },
           utledetAv: {
@@ -7082,9 +6988,9 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "HvisSannMedResultat",
             },
             opplysninger: [
-              "01982c00-5ad7-7445-b4e3-c12edca039ad",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917c",
-              "01982ca2-3ab8-744f-8eb0-d58ed8ef7403",
+              "01993817-4a27-708a-bbb8-4e338b5dd36d",
+              "01993817-518c-78f2-8735-173edcaf7cee",
+              "01993817-519e-7f4a-8804-559374ef159f",
             ],
           },
         },
@@ -7100,44 +7006,18 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-40dc-702b-b35a-f7076821f113",
-          opprettet: "2025-07-21T12:58:07.708474",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-53d5-77c6-a8f4-413580d1c34e",
+          opprettet: "2025-09-11T11:24:36.94943",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
           },
           kilde: {
             type: "System",
-            registrert: "2025-07-21T12:58:07.06839",
-            meldingId: "0ac28afe-a254-4daa-9072-56145fe4fd0b",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2a",
-      navn: "Mottar andre økonomiske ytelser fra arbeidsgiver eller tidligere arbeidsgiver enn lønn",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "01982ca2-40dc-702b-b35a-f7076821f114",
-          opprettet: "2025-07-21T12:58:07.70853",
-          status: "Arvet",
-          opprinnelse: "Arvet",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-07-21T12:58:07.06855",
-            meldingId: "0ac28afe-a254-4daa-9072-56145fe4fd0b",
+            registrert: "2025-09-11T11:24:36.871326",
+            meldingId: "5e54ec27-9ca3-48a1-8b3d-287555370187",
           },
         },
       ],
@@ -7152,10 +7032,10 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
-          id: "01982ca2-40de-7c6c-ad28-30f2c6b13227",
-          opprettet: "2025-07-21T12:58:07.71063",
-          status: "Arvet",
-          opprinnelse: "Arvet",
+          id: "01993817-53d8-7a83-b3dd-d4852a93b4e0",
+          opprettet: "2025-09-11T11:24:36.952503",
+          status: "Ny",
+          opprinnelse: "Ny",
           verdi: {
             verdi: false,
             datatype: "boolsk",
@@ -7165,14 +7045,13 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
               navn: "EnAv",
             },
             opplysninger: [
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917e",
-              "01982ca2-3aa7-7cd0-89c8-31a976b4917f",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49180",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49181",
-              "01982ca2-3aa7-7cd0-89c8-31a976b49182",
-              "01982ca2-3aa8-7f45-b3f8-cbf3516bb165",
-              "01982ca2-40dc-702b-b35a-f7076821f113",
-              "01982ca2-40dc-702b-b35a-f7076821f114",
+              "01993817-518c-78f2-8735-173edcaf7cf0",
+              "01993817-518c-78f2-8735-173edcaf7cf1",
+              "01993817-518c-78f2-8735-173edcaf7cf2",
+              "01993817-518f-7a41-abf0-9618afaff3f4",
+              "01993817-518f-7a41-abf0-9618afaff3f5",
+              "01993817-518f-7a41-abf0-9618afaff3f6",
+              "01993817-53d5-77c6-a8f4-413580d1c34e",
             ],
           },
         },
@@ -7182,6 +7061,28 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
+    {
+      opplysningTypeId: "01990a09-0eab-7957-b88f-14484a50e194",
+      navn: "Har løpende rett på dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "01995cb0-e740-7de3-8404-e0d63aa69a6e",
+          opprettet: "2025-09-18T13:58:41.472794",
+          status: "Ny",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
   ],
-  forslagOm: "Endring",
+  forslagOm: "Innvilgelse",
 };

@@ -10,12 +10,13 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -54,7 +55,7 @@ export default function Opplysning() {
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato } = usePrøvingsdato(behandling);
+  const { prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
 
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
@@ -75,6 +76,13 @@ export default function Opplysning() {
         <div className={"card p-4"}>
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
+              {prøvingsdatoOpplysning && (
+                <PrøvingsdatoInput
+                  behandlingId={behandling.behandlingId}
+                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
+                />
+              )}
+
               <Avklaringer
                 avklaringer={[...behandling.avklaringer]}
                 behandlingId={behandling.behandlingId}

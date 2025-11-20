@@ -15,8 +15,8 @@ import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -35,42 +35,40 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 export default function Behandle() {
   const { behandling, vurderinger } = useLoaderData<typeof loader>();
-  const { prøvingsdatoOpplysning } = usePrøvingsdato(behandling);
+  const { prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <>
-      <main className="main">
-        <div className={"card p-4"}>
-          <LinkTabs />
+    <main>
+      <div className={"card p-4"}>
+        <LinkTabs />
 
-          <div className="mt-4 flex gap-4">
-            <div className={"flex w-[400px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
-
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
+        <div className="mt-4 flex gap-4">
+          <div className={"flex w-[400px] flex-col gap-4"}>
+            {prøvingsdatoOpplysning && (
+              <PrøvingsdatoInput
                 behandlingId={behandling.behandlingId}
+                prøvingsdatoOpplysning={prøvingsdatoOpplysning}
               />
+            )}
 
-              <EndretOpplysninger vurderinger={vurderinger} />
-            </div>
+            <Avklaringer
+              avklaringer={[...behandling.avklaringer]}
+              behandlingId={behandling.behandlingId}
+            />
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <RettPåDagpenger behandling={behandling} />
-              <VilkårTidslinje behandling={behandling} />
-              <FastsettelserTidslinje behandling={behandling} />
-            </div>
+            <EndretOpplysninger vurderinger={vurderinger} />
+          </div>
+
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <RettPåDagpenger behandling={behandling} />
+            <VilkårTidslinje behandling={behandling} />
+            <FastsettelserTidslinje behandling={behandling} />
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

@@ -1,7 +1,7 @@
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -12,7 +12,7 @@ interface IProps {
 
 export function RettPåDagpenger({ behandling }: IProps) {
   const { behandlingId, oppgaveId } = useTypeSafeParams();
-  const { prøvingsdato } = usePrøvingsdato(behandling);
+  const { prøvingsdato } = useBehandling();
   const rettPåDagpengerOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194",
   );

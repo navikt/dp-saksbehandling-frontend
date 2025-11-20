@@ -8,7 +8,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
     type: "Søknad",
     skjedde: "2025-11-11",
   },
-  behandlingskjedeId: "01997540-0ad3-763a-aa60-21546135aa52",
+  behandlingskjedeId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
   automatisk: false,
   ident: "28528148753",
   rettighetsperioder: [
@@ -5619,4 +5619,5 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       formål: "Regel",
     },
   ],
+  forslagOm: "Avslag",
 };

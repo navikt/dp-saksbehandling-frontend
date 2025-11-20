@@ -39,7 +39,7 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
   });
 
   return (
-    <>
+    <div>
       <Button
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
@@ -115,6 +115,6 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
           </Button>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }
