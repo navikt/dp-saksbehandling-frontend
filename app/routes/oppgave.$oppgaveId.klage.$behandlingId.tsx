@@ -101,10 +101,10 @@ export default function Oppgave() {
   return (
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
-      <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
+      <div className={`main flex gap-4`}>
         <OppgaveOversikt journalposterPromises={journalposterPromises} />
 
-        <main className={"card"}>
+        <main className={"card flex-1"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <Tabs.List>
               {tabs.map(({ value, label, icon }, index) => (

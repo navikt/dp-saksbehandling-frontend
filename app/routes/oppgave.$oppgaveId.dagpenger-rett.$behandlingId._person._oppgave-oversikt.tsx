@@ -29,10 +29,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function BehandlingLayout() {
   const { behandling, journalposterPromises } = useLoaderData<typeof loader>();
+
   return (
-    <div className={"main grid grid-cols-[350px_1fr] gap-4"}>
+    <div className={"main flex gap-4"}>
       <OppgaveOversikt journalposterPromises={journalposterPromises} behandling={behandling} />
-      <Outlet />
+      <div className={"flex-1"}>
+        <Outlet />
+      </div>
     </div>
   );
 }
