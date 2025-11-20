@@ -40,6 +40,8 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
           >
             <aside className={"flex flex-col gap-4"}>
               <div className={"card flex flex-col gap-4 p-4"}>
+                <Heading size={"small"}>Oppgaveinformasjon</Heading>
+
                 <VerdiMedTittel
                   visBorder={true}
                   label={"Opprettet"}
@@ -83,13 +85,26 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
                 </div>
               </div>
 
+              {underKontroll && (
+                <div className={"card p-4"}>
+                  <Heading className={"pb-2"} size={"small"}>
+                    Kontroll
+                  </Heading>
+                  <OppgaveKontroll />
+                </div>
+              )}
+
               <div className={"card p-4"}>
-                <Heading size={"small"}>Dokumenter</Heading>
+                <Heading className={"pb-2"} size={"small"}>
+                  Dokumenter
+                </Heading>
                 <DokumentOversikt journalposterPromises={journalposterPromises} />
               </div>
 
               <div className={"card p-4"}>
-                <Heading size={"small"}>Fagsystemer</Heading>
+                <Heading className={"pb-2"} size={"small"}>
+                  Fagsystemer
+                </Heading>
                 <FagsystemLenker
                   inntektRedigeringUrl={
                     behandling ? hentInntektRedigeringUrl(behandling) : undefined
@@ -98,16 +113,11 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
               </div>
 
               <div className={"card p-4"}>
-                <Heading size={"small"}>Historikk</Heading>
+                <Heading className={"pb-2"} size={"small"}>
+                  Historikk
+                </Heading>
                 <OppgaveHistorikk />
               </div>
-
-              {underKontroll && (
-                <div className={"card p-4"}>
-                  <Heading size={"small"}>Kontroll</Heading>
-                  <OppgaveKontroll />
-                </div>
-              )}
             </aside>
           </motion.div>
         )}

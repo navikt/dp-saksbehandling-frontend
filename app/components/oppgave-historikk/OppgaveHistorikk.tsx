@@ -7,7 +7,7 @@ export function OppgaveHistorikk() {
   const { oppgave } = useOppgave();
 
   return (
-    <div className={"px-2 py-4"}>
+    <div className={"py-2"}>
       <Process className={"aksel--compact"}>
         {oppgave.historikk.reverse().map((hendelse, index) => (
           <Process.Event

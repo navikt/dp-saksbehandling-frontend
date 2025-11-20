@@ -12,17 +12,15 @@ interface IProps {
 
 export function DokumentOversikt({ journalposterPromises }: IProps) {
   return (
-    <div className={"p-4"}>
-      <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>
-        <Await
-          resolve={journalposterPromises}
-          errorElement={
-            <AsyncErrorMelding tittel={"En feil oppsto når vi skulle hente ut dokumentene 🤖"} />
-          }
-        >
-          {(journalposter) => <JournalpostOversikt journalposterResponse={journalposter} />}
-        </Await>
-      </Suspense>
-    </div>
+    <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>
+      <Await
+        resolve={journalposterPromises}
+        errorElement={
+          <AsyncErrorMelding tittel={"En feil oppsto når vi skulle hente ut dokumentene 🤖"} />
+        }
+      >
+        {(journalposter) => <JournalpostOversikt journalposterResponse={journalposter} />}
+      </Await>
+    </Suspense>
   );
 }

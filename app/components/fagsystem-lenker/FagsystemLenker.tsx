@@ -35,7 +35,7 @@ interface IProps {
 export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
   const { oppgaveId, behandlingId } = useTypeSafeParams();
   return (
-    <List as="ul" size="small" className={"p-4"}>
+    <List as="ul" size="small">
       {eksterneLenker.map(
         (lenke) =>
           lenke.url && (
