@@ -80,6 +80,7 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
         )}
         {ferdigstillMedBehandling !== undefined && (
           <FerdigstillInnsendingSkjema
+            setFerdigstillMedBehandling={setFerdigstillMedBehandling}
             medBehandling={ferdigstillMedBehandling}
             lovligeSaker={innsending.lovligeSaker}
           />

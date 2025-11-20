@@ -10,10 +10,15 @@ import { hentValideringForFerdigstillInnsending } from "~/utils/validering.util"
 
 interface IProps {
   medBehandling: boolean;
+  setFerdigstillMedBehandling: (ferdigstillBehandling: boolean | undefined) => void;
   lovligeSaker: components["schemas"]["Innsending"]["lovligeSaker"];
 }
 
-export function FerdigstillInnsendingSkjema({ medBehandling, lovligeSaker }: IProps) {
+export function FerdigstillInnsendingSkjema({
+  medBehandling,
+  lovligeSaker,
+  setFerdigstillMedBehandling,
+}: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
@@ -38,6 +43,7 @@ export function FerdigstillInnsendingSkjema({ medBehandling, lovligeSaker }: IPr
       <Heading size="xsmall" level="3">
         {medBehandling ? "Opprett ny behandling" : "Ferdigstill uten behandling"}
       </Heading>
+
       <Form {...ferdigstillInnsendingSkjema.getFormProps()} className="flex flex-col gap-4">
         <Select
           {...ferdigstillInnsendingSkjema.field("sakId").getInputProps()}
@@ -49,12 +55,14 @@ export function FerdigstillInnsendingSkjema({ medBehandling, lovligeSaker }: IPr
           <option hidden={true} value="">
             Velg sak
           </option>
+
           {lovligeSaker.map(({ sakId, opprettetDato }) => (
             <option key={sakId} value={sakId}>
               {formaterTilNorskDato(opprettetDato)} – {sakId}
             </option>
           ))}
         </Select>
+
         {medBehandling && (
           <RadioGroup
             {...ferdigstillInnsendingSkjema.field("behandlingType").getInputProps()}
@@ -73,10 +81,17 @@ export function FerdigstillInnsendingSkjema({ medBehandling, lovligeSaker }: IPr
           resize="vertical"
           label="Vurdering"
         />
+
         <div className="flex gap-2">
-          <Button type="button" variant="secondary" size="small">
+          <Button
+            type="button"
+            variant="secondary"
+            size="small"
+            onClick={() => setFerdigstillMedBehandling(undefined)}
+          >
             Avbryt
           </Button>
+
           <Button
             type="submit"
             variant="primary"
