@@ -32,15 +32,17 @@ export function OppgaveValgFerdigstillKlage({ oppgave, buttonVariant, buttonSize
   });
 
   return (
-    <Button
-      size={buttonSize ? buttonSize : "xsmall"}
-      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      onClick={() => ferdigstillKlageForm.submit()}
-      loading={ferdigstillKlageForm.formState.isSubmitting}
-      icon={<GavelSoundBlockIcon aria-hidden />}
-      className={"aksel--font-regular aksel--full-bredde"}
-    >
-      Ferdigstill klage
-    </Button>
+    <div>
+      <Button
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
+        onClick={() => ferdigstillKlageForm.submit()}
+        loading={ferdigstillKlageForm.formState.isSubmitting}
+        icon={<GavelSoundBlockIcon aria-hidden />}
+        className={"aksel--font-regular aksel--full-bredde"}
+      >
+        Ferdigstill klage
+      </Button>
+    </div>
   );
 }

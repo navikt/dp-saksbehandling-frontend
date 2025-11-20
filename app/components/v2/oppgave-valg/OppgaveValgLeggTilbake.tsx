@@ -29,15 +29,17 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
   });
 
   return (
-    <Button
-      size={buttonSize ? buttonSize : "xsmall"}
-      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      onClick={() => leggTilbakeForm.submit()}
-      loading={leggTilbakeForm.formState.isSubmitting}
-      icon={<ArrowUndoIcon aria-hidden />}
-      className={"aksel--font-regular aksel--full-bredde"}
-    >
-      Legg tilbake
-    </Button>
+    <div>
+      <Button
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
+        onClick={() => leggTilbakeForm.submit()}
+        loading={leggTilbakeForm.formState.isSubmitting}
+        icon={<ArrowUndoIcon aria-hidden />}
+        className={"aksel--font-regular aksel--full-bredde"}
+      >
+        Legg tilbake
+      </Button>
+    </div>
   );
 }

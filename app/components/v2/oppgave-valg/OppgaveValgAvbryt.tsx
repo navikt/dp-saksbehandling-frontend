@@ -35,14 +35,14 @@ export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps
   });
 
   return (
-    <>
+    <div>
       <Button
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         onClick={() => modalRef.current?.showModal()}
         loading={avbrytOppgaveForm.formState.isSubmitting}
         icon={<XMarkIcon aria-hidden />}
-        className={"aksel--font-regular aksel--full-bredde"}
+        className={"aksel--font-regular"}
       >
         Avbryt oppgave
       </Button>
@@ -95,6 +95,6 @@ export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }

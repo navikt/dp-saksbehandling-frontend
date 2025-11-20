@@ -36,7 +36,7 @@ export function OppgaveValgRekjørBehandling({
   });
 
   return (
-    <>
+    <div>
       <Button
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
@@ -68,6 +68,6 @@ export function OppgaveValgRekjørBehandling({
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }

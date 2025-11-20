@@ -36,15 +36,17 @@ export function OppgaveValgBehandle({
   });
 
   return (
-    <Button
-      size={buttonSize ? buttonSize : "xsmall"}
-      variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-      loading={tildelOppgaveForm.formState.isSubmitting}
-      onClick={() => tildelOppgaveForm.submit()}
-      className={"aksel--font-regular aksel--full-bredde"}
-      icon={icon}
-    >
-      {label}
-    </Button>
+    <div>
+      <Button
+        size={buttonSize ? buttonSize : "xsmall"}
+        variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
+        loading={tildelOppgaveForm.formState.isSubmitting}
+        onClick={() => tildelOppgaveForm.submit()}
+        className={"aksel--font-regular aksel--full-bredde"}
+        icon={icon}
+      >
+        {label}
+      </Button>
+    </div>
   );
 }
