@@ -338,7 +338,7 @@ export function hentValideringForTrekkKlage() {
     _action: z.literal("trekk-klage"),
     ident: z.string().min(1, "Det mangler ident i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+    aktivtOppgaveSok: z.string(),
   });
 }
 
@@ -347,7 +347,18 @@ export function hentValideringForFerdigstillKlage() {
     _action: z.literal("ferdigstill-klage"),
     ident: z.string().min(1, "Det mangler ident i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForFerdigstillInnsending() {
+  return z.object({
+    _action: z.literal("ferdigstill-innsending"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    sakId: z.string().min(1, "Det mangler sakId i skjema"),
+    behandlingType: z.enum(["RETT_TIL_DAGPENGER", "KLAGE"]).optional(),
+    vurdering: z.string().min(1, "Du må skrive en vurdering"),
+    aktivtOppgaveSok: z.string(),
   });
 }
 
