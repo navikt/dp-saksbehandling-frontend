@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@navikt/aksel-icons";
+import { ChevronLeftIcon, ChevronRightIcon, LocationPinIcon } from "@navikt/aksel-icons";
 import { Button, HStack, Spacer, ToggleGroup } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 
@@ -25,6 +25,12 @@ export function TidslinjeNavigering({
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
+  function hoppTilPrøvingsdato() {
+    const nyStartDato = sub(new Date("2025-09-17"), { days: 1 });
+    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
+    setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
+  }
+
   return (
     <HStack
       className={"mb-2"}
@@ -35,6 +41,15 @@ export function TidslinjeNavigering({
     >
       <Spacer />
       <HStack gap="space-2" align="center">
+        <Button
+          icon={<LocationPinIcon title="Hopp til prøvingsdato" />}
+          variant="secondary-neutral"
+          size="small"
+          onClick={() => {
+            hoppTilPrøvingsdato();
+          }}
+        />
+
         <Button
           icon={<ChevronLeftIcon title="Forrige periode" />}
           variant="secondary-neutral"

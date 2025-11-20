@@ -15,8 +15,8 @@ import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -35,7 +35,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 export default function Behandle() {
   const { behandling, vurderinger } = useLoaderData<typeof loader>();
-  const { prøvingsdatoOpplysning } = usePrøvingsdato(behandling);
+  const { prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 

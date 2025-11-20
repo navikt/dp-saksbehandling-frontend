@@ -2,6 +2,7 @@ import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } fr
 import invariant from "tiny-invariant";
 
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { BehandlingProvider } from "~/context/behandling-context";
 import { BeslutterNotatProvider } from "~/context/beslutter-notat-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -36,12 +37,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function BehandlingLayout() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, meldekortUrl } = useLoaderData<typeof loader>();
+  const { oppgave, behandling, meldekortUrl } = useLoaderData<typeof loader>();
   return (
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <BeslutterNotatProvider notat={oppgave.notat}>
-        <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} oppgave={oppgave} />
-        <Outlet />
+        <BehandlingProvider behandling={behandling}>
+          <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} oppgave={oppgave} />
+          <Outlet />
+        </BehandlingProvider>
       </BeslutterNotatProvider>
     </OppgaveProvider>
   );

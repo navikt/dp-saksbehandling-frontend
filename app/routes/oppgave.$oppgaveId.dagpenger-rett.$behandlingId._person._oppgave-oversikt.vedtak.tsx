@@ -20,8 +20,8 @@ import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFa
 import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -63,7 +63,7 @@ export default function Behandle() {
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato } = usePrøvingsdato(behandling);
+  const { prøvingsdato } = useBehandling();
 
   const kanSendeTilKontroll =
     oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
