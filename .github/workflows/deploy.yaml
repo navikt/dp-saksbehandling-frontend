@@ -9,7 +9,7 @@ env:
 
 jobs:
   test:
-    name: Kjør tester
+    name: test
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -94,6 +94,7 @@ jobs:
 
   deploy-dev:
     name: Deploy til dev-gcp
+    if: if: github.actor != 'dependabot[bot]'
     needs: [ build ]
     runs-on: ubuntu-latest
     environment:
