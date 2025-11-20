@@ -75,59 +75,57 @@ export default function Behandle() {
   const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
   return (
-    <>
-      <main className="main">
-        <div className={"card mb-4 p-4"}>
-          <div className="flex justify-between gap-6">
-            <LinkTabs className="flex-1" />
-            {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
-            {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
-            {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
+    <main>
+      <div className={"card mb-4 p-4"}>
+        <div className="flex justify-between gap-6">
+          <LinkTabs className="flex-1" />
+          {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+          {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+          {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
+        </div>
+
+        <div className="mt-4 flex gap-4">
+          <div className={"flex w-[400px] flex-col gap-4"}>
+            <Avklaringer
+              avklaringer={[...behandling.avklaringer]}
+              behandlingId={behandling.behandlingId}
+            />
+            <EndretOpplysninger vurderinger={vurderinger} />
           </div>
 
-          <div className="mt-4 flex gap-4">
-            <div className={"flex w-[400px] flex-col gap-4"}>
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
-                behandlingId={behandling.behandlingId}
+          <div className={"flex flex-1 flex-col gap-4"}>
+            {prøvingsdato && (
+              <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
+            )}
+
+            {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
+              <OpplysningerForRettighetsperiode
+                key={index}
+                index={index}
+                rettighetsperiode={rettighetsperiode}
+                opplysninger={behandling.opplysninger}
               />
-              <EndretOpplysninger vurderinger={vurderinger} />
-            </div>
+            ))}
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              {prøvingsdato && (
-                <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
-              )}
-
-              {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
-                <OpplysningerForRettighetsperiode
-                  key={index}
-                  index={index}
-                  rettighetsperiode={rettighetsperiode}
-                  opplysninger={behandling.opplysninger}
+            <div className={"card p-4"} key={location.key}>
+              <Heading size={"small"} level={"2"} className={"mb-4"}>
+                Melding om vedtak
+              </Heading>
+              <UtvidedeBeskrivelserProvider
+                utvidedeBeskrivelser={
+                  isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                }
+              >
+                <MeldingOmVedtak
+                  meldingOmVedtak={meldingOmVedtak}
+                  sanityBrevMaler={sanityBrevMaler}
                 />
-              ))}
-
-              <div className={"card p-4"} key={location.key}>
-                <Heading size={"small"} level={"2"} className={"mb-4"}>
-                  Melding om vedtak
-                </Heading>
-                <UtvidedeBeskrivelserProvider
-                  utvidedeBeskrivelser={
-                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                  }
-                >
-                  <MeldingOmVedtak
-                    meldingOmVedtak={meldingOmVedtak}
-                    sanityBrevMaler={sanityBrevMaler}
-                  />
-                </UtvidedeBeskrivelserProvider>
-              </div>
+              </UtvidedeBeskrivelserProvider>
             </div>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

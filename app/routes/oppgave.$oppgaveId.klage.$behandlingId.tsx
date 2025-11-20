@@ -5,7 +5,6 @@ import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
-  Outlet,
   useActionData,
   useLoaderData,
   useRouteError,
@@ -14,11 +13,10 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
-import KlageOppgaveValg from "~/components/klage-oppgave-valg/KlageOppgaveValg";
 import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
 import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveStøtteInformasjon } from "~/components/oppgave-støtte-informasjon/OppgaveStøtteInformasjon";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -103,60 +101,46 @@ export default function Oppgave() {
   return (
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
-      <div className={`main flex flex-col gap-4`}>
-        <KlageOppgaveValg />
+      <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
+        <OppgaveOversikt journalposterPromises={journalposterPromises} />
 
-        <div className={"grid grid-cols-[3fr_2fr] gap-4"}>
-          <div className={"card"}>
-            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-              <Tabs.List>
-                {tabs.map(({ value, label, icon }, index) => (
-                  <Tabs.Tab
-                    key={value}
-                    value={value}
-                    label={`${index + 1}. ${label}`}
-                    icon={icon}
+        <main className={"card"}>
+          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+            <Tabs.List>
+              {tabs.map(({ value, label, icon }, index) => (
+                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
+              ))}
+            </Tabs.List>
+
+            <Tabs.Panel value="behandling">
+              <KlageBehandling klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="utfall">
+              <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+            </Tabs.Panel>
+
+            <Tabs.Panel value="melding-om-vedtak">
+              {klage.utfall.verdi !== "IKKE_SATT" ? (
+                <UtvidedeBeskrivelserProvider
+                  utvidedeBeskrivelser={
+                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                  }
+                >
+                  <MeldingOmVedtak
+                    meldingOmVedtak={meldingOmVedtak}
+                    sanityBrevMaler={sanityBrevMaler}
+                    oppgave={oppgave}
                   />
-                ))}
-              </Tabs.List>
-
-              <Tabs.Panel value="behandling">
-                <KlageBehandling klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
-              </Tabs.Panel>
-
-              <Tabs.Panel value="utfall">
-                <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
-              </Tabs.Panel>
-
-              <Tabs.Panel value="melding-om-vedtak">
-                {klage.utfall.verdi !== "IKKE_SATT" ? (
-                  <UtvidedeBeskrivelserProvider
-                    utvidedeBeskrivelser={
-                      isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                    }
-                  >
-                    <MeldingOmVedtak
-                      meldingOmVedtak={meldingOmVedtak}
-                      sanityBrevMaler={sanityBrevMaler}
-                      oppgave={oppgave}
-                    />
-                  </UtvidedeBeskrivelserProvider>
-                ) : (
-                  <Alert size={"small"} variant={"info"} className={"m-2"}>
-                    <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
-                  </Alert>
-                )}
-              </Tabs.Panel>
-            </Tabs>
-          </div>
-
-          <div className={"card"}>
-            {/*<OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />*/}
-            <OppgaveStøtteInformasjon journalposterPromises={journalposterPromises} />
-          </div>
-
-          <Outlet />
-        </div>
+                </UtvidedeBeskrivelserProvider>
+              ) : (
+                <Alert size={"small"} variant={"info"} className={"m-2"}>
+                  <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
+                </Alert>
+              )}
+            </Tabs.Panel>
+          </Tabs>
+        </main>
       </div>
     </OppgaveProvider>
   );

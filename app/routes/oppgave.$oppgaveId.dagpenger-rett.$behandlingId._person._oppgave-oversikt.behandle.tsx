@@ -40,37 +40,35 @@ export default function Behandle() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <>
-      <main className="main">
-        <div className={"card p-4"}>
-          <LinkTabs />
+    <main>
+      <div className={"card p-4"}>
+        <LinkTabs />
 
-          <div className="mt-4 flex gap-4">
-            <div className={"flex w-[400px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
-
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
+        <div className="mt-4 flex gap-4">
+          <div className={"flex w-[400px] flex-col gap-4"}>
+            {prøvingsdatoOpplysning && (
+              <PrøvingsdatoInput
                 behandlingId={behandling.behandlingId}
+                prøvingsdatoOpplysning={prøvingsdatoOpplysning}
               />
+            )}
 
-              <EndretOpplysninger vurderinger={vurderinger} />
-            </div>
+            <Avklaringer
+              avklaringer={[...behandling.avklaringer]}
+              behandlingId={behandling.behandlingId}
+            />
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <RettPåDagpenger behandling={behandling} />
-              <VilkårTidslinje behandling={behandling} />
-              <FastsettelserTidslinje behandling={behandling} />
-            </div>
+            <EndretOpplysninger vurderinger={vurderinger} />
+          </div>
+
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <RettPåDagpenger behandling={behandling} />
+            <VilkårTidslinje behandling={behandling} />
+            <FastsettelserTidslinje behandling={behandling} />
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 
