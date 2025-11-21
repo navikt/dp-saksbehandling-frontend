@@ -25,6 +25,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-08-20T09:49:42.149634",
+      regelsett: [],
     },
     {
       id: "0198c674-8685-79c6-909b-0ae6cb05d9a8",
@@ -39,6 +40,7 @@ export const behandling0198c672111d7701a98676b0ca6b215d: components["schemas"]["
       avklartAv: {
         ident: "Z994714",
       },
+      regelsett: ["Reell arbeidssøker"],
     },
   ],
   vilkår: [

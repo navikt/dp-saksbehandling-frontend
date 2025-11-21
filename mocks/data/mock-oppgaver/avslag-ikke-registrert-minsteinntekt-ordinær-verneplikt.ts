@@ -1,6 +1,6 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt: components["schemas"]["Oppgave"] =
+export const avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt: components["schemas"]["Oppgave"] =
   {
     oppgaveId: "01997540-1b3b-7756-ae1d-946dba3e81a9",
     behandlingId: "01997540-0ad3-763a-aa60-21546135aa57",

@@ -4,19 +4,19 @@ export const innvilgelseOrdinærTidligereKontrollert: components["schemas"]["Opp
   oppgaveId: "01993817-55d6-7409-b117-04c38f110ddc",
   behandlingId: "01993817-439e-7d3d-9d8a-78cf49ed6fc1",
   saksbehandler: {
-    ident: "Z994854",
-    fornavn: "F_Z994854",
-    etternavn: "E_Z994854",
+    ident: "Z993298",
+    fornavn: "Donald",
+    etternavn: "Duck",
     enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
+      navn: "Mock Enhet",
+      enhetNr: "1337",
+      postadresse: "Apalveien 111, 1337 Andeby",
     },
   },
   beslutter: {
-    ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    ident: "Z993809",
+    fornavn: "F_Z993809",
+    etternavn: "E_Z993809",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -41,6 +41,24 @@ export const innvilgelseOrdinærTidligereKontrollert: components["schemas"]["Opp
   utlostAv: "SØKNAD",
   journalpostIder: ["717265620", "717265621"],
   historikk: [
+    {
+      type: "statusendring",
+      tidspunkt: "2025-11-20T14:49:42.583",
+      tittel: "Under kontroll",
+      behandler: {
+        navn: "F_Z993809 E_Z993809",
+        rolle: "saksbehandler",
+      },
+    },
+    {
+      type: "statusendring",
+      tidspunkt: "2025-11-20T14:25:05.142",
+      tittel: "Klar til kontroll",
+      behandler: {
+        navn: "F_Z993298 E_Z993298",
+        rolle: "saksbehandler",
+      },
+    },
     {
       type: "statusendring",
       tidspunkt: "2025-09-18T13:59:53.413",

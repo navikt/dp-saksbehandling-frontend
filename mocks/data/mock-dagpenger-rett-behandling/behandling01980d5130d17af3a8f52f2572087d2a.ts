@@ -24,6 +24,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:01:24.519387",
+      regelsett: [],
     },
     {
       id: "01980d51-39d4-7bea-80ca-cffa5d65da3e",
@@ -35,6 +36,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:01:51.853276",
+      regelsett: [],
     },
     {
       id: "01980d51-39d4-7bea-80ca-cffa5d65da40",
@@ -46,6 +48,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:03:25.893497",
+      regelsett: [],
     },
     {
       id: "01980d51-42f8-7f82-8d18-a20b622357b4",
@@ -57,6 +60,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:01:27.859277",
+      regelsett: [],
     },
     {
       id: "01980d51-42f8-7f82-8d18-a20b622357b8",
@@ -68,6 +72,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:01:29.026174",
+      regelsett: ["Minsteinntekt"],
     },
     {
       id: "01980d51-42f8-7f82-8d18-a20b622357ba",
@@ -79,6 +84,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-07-15T11:01:28.439232",
+      regelsett: [],
     },
     {
       id: "01980d51-42f8-7f82-8d18-a20b622357c0",
@@ -94,6 +100,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       avklartAv: {
         ident: "Z994276",
       },
+      regelsett: ["Verneplikt"],
     },
     {
       id: "01980d51-42f8-7f82-8d18-a20b622357c2",
@@ -105,6 +112,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-07-15T13:33:31.838618",
+      regelsett: ["Tap av arbeidsinntekt og arbeidstid"],
     },
     {
       id: "01980d51-5a56-73cf-964a-3b511af0dc33",
@@ -115,6 +123,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-07-15T13:33:31.838625",
+      regelsett: [],
     },
   ],
   vilkår: [

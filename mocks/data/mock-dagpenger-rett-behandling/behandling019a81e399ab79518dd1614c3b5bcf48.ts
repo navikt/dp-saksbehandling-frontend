@@ -32,6 +32,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-11-14T11:22:48.310266",
+      regelsett: [],
     },
     {
       id: "019a81e3-99f6-790d-9d65-e03b6225dff7",
@@ -42,6 +43,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:22:48.310302",
+      regelsett: [],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137b1",
@@ -52,6 +54,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:24:13.955472",
+      regelsett: ["Sats og barnetillegg"],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137b3",
@@ -63,6 +66,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:24:13.955514",
+      regelsett: ["Opphold"],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137b5",
@@ -74,6 +78,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-14T11:28:21.898614",
+      regelsett: [],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137b7",
@@ -85,6 +90,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-14T11:28:23.642162",
+      regelsett: [],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137b9",
@@ -95,6 +101,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:24:13.95553",
+      regelsett: ["Reell arbeidssøker"],
     },
     {
       id: "019a81e4-e883-7e74-8828-fcce94c137bd",
@@ -106,6 +113,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:24:13.95554",
+      regelsett: ["Verneplikt"],
     },
     {
       id: "019a81e8-bd48-7373-b172-dc2a5e3e97ef",
@@ -116,6 +124,7 @@ export const behandling019a81e399ab79518dd1614c3b5bcf48: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-14T11:28:25.032646",
+      regelsett: ["Reell arbeidssøker"],
     },
   ],
   vilkår: [

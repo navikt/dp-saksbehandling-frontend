@@ -36,7 +36,7 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
         onClick={() => leggTilbakeForm.submit()}
         loading={leggTilbakeForm.formState.isSubmitting}
         icon={<ArrowUndoIcon aria-hidden />}
-        className={"aksel--font-regular aksel--full-bredde"}
+        className={"aksel--font-regular"}
       >
         Legg tilbake
       </Button>

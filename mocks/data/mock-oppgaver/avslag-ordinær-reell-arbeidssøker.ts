@@ -1,16 +1,16 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinærAvslagReellArbeidssøker: components["schemas"]["Oppgave"] = {
+export const avslagOrdinærReellArbeidssøker: components["schemas"]["Oppgave"] = {
   oppgaveId: "019a723b-643a-7179-8259-0b1142683727",
   behandlingId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
   saksbehandler: {
     ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    fornavn: "Donald",
+    etternavn: "Duck",
     enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
+      navn: "Mock Enhet",
+      enhetNr: "1337",
+      postadresse: "Apalveien 111, 1337 Andeby",
     },
   },
   person: {

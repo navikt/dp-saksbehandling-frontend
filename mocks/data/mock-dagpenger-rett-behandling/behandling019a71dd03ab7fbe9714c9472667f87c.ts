@@ -31,6 +31,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:41.379936",
+      regelsett: [],
     },
     {
       id: "019a71dd-0508-7cbe-8588-af19e134f762",
@@ -42,6 +43,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:45.95706",
+      regelsett: [],
     },
     {
       id: "019a71dd-0508-7cbe-8588-af19e134f764",
@@ -53,6 +55,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:46.223764",
+      regelsett: [],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd7946",
@@ -64,6 +67,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-11T10:24:34.844478",
+      regelsett: [],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd794a",
@@ -75,6 +79,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T10:24:39.630826",
+      regelsett: ["Minsteinntekt"],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd794c",
@@ -86,6 +91,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T10:24:41.958863",
+      regelsett: [],
     },
     {
       id: "019a723b-5428-7784-bfdb-73cd6aa0527b",
@@ -96,6 +102,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-11-12T13:54:16.860636",
+      regelsett: [],
     },
     {
       id: "019a723b-5428-7784-bfdb-73cd6aa0527f",
@@ -107,6 +114,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-11T10:24:42.152966",
+      regelsett: ["Tap av arbeidsinntekt og arbeidstid"],
     },
     {
       id: "019a7821-901c-728b-8416-d2fb02cbdb09",
@@ -117,6 +125,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-12T13:54:16.860749",
+      regelsett: ["Reell arbeidssøker"],
     },
   ],
   vilkår: [

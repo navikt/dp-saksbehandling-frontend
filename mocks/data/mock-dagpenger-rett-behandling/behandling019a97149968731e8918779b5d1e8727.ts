@@ -31,6 +31,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:21.297367",
+      regelsett: [],
     },
     {
       id: "019a9714-9b3b-7e6c-84d4-5b69c3786684",
@@ -42,6 +43,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:21.845261",
+      regelsett: [],
     },
     {
       id: "019a9714-9b3b-7e6c-84d4-5b69c3786686",
@@ -53,6 +55,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:22.076095",
+      regelsett: [],
     },
     {
       id: "019a9714-a04d-7bd5-8484-924cf604f774",
@@ -64,6 +67,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:23.04652",
+      regelsett: [],
     },
     {
       id: "019a9714-a04d-7bd5-8484-924cf604f778",
@@ -75,6 +79,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:23.286172",
+      regelsett: ["Minsteinntekt"],
     },
     {
       id: "019a9714-a04d-7bd5-8484-924cf604f77a",
@@ -86,6 +91,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-18T14:08:23.166381",
+      regelsett: [],
     },
     {
       id: "019a9714-a448-70bd-adac-b51c28040a03",
@@ -100,6 +106,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       avklartAv: {
         ident: "Z994794",
       },
+      regelsett: [],
     },
     {
       id: "019a9714-a448-70bd-adac-b51c28040a07",
@@ -115,6 +122,7 @@ export const behandling019a97149968731e8918779b5d1e8727: components["schemas"]["
       avklartAv: {
         ident: "Z994794",
       },
+      regelsett: ["Tap av arbeidsinntekt og arbeidstid"],
     },
   ],
   vilkår: [

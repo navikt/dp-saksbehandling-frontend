@@ -833,6 +833,8 @@ export interface components {
             /** Format: date-time */
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
+            /** @description Hvilke regelsett avklaringen påvirker */
+            regelsett: string[];
         };
         Opplysningstype: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];

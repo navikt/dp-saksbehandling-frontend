@@ -32,7 +32,7 @@ export function FerdigstillInnsendingSkjema({
       _action: "ferdigstill-innsending",
       behandlingId,
       sakId: "",
-      behandlingType: !medBehandling ? "INGEN" : "",
+      behandlingType: medBehandling ? ("" as unknown as "RETT_TIL_DAGPENGER" | "KLAGE") : "INGEN",
       vurdering: "",
       aktivtOppgaveSok,
     },

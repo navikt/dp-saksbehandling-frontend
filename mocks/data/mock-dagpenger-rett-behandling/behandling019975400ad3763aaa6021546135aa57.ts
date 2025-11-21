@@ -31,6 +31,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:55.920728",
+      regelsett: [],
     },
     {
       id: "01997540-0d56-7724-82bb-cceabbabbca1",
@@ -42,6 +43,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:56.487127",
+      regelsett: [],
     },
     {
       id: "01997540-0d56-7724-82bb-cceabbabbca3",
@@ -53,6 +55,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:56.626756",
+      regelsett: [],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de7835",
@@ -64,6 +67,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:57.315814",
+      regelsett: [],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de7839",
@@ -74,6 +78,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-09-23T08:25:56.899727",
+      regelsett: ["Reell arbeidssøker"],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de783b",
@@ -85,6 +90,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:57.744297",
+      regelsett: ["Minsteinntekt"],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de783d",
@@ -96,6 +102,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-09-23T08:25:57.464024",
+      regelsett: [],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de7843",
@@ -107,6 +114,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-09-23T08:25:56.899733",
+      regelsett: ["Verneplikt"],
     },
     {
       id: "01997540-10a3-7da7-8864-928251de7845",
@@ -118,6 +126,7 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-09-23T08:25:56.899734",
+      regelsett: ["Tap av arbeidsinntekt og arbeidstid"],
     },
   ],
   vilkår: [
@@ -5686,4 +5695,5 @@ export const behandling019975400ad3763aaa6021546135aa57: components["schemas"]["
       formål: "Regel",
     },
   ],
+  forslagOm: "Avslag",
 };
