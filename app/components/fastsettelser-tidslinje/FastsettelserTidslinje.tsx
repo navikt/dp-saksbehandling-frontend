@@ -2,6 +2,7 @@ import { Accordion, Heading } from "@navikt/ds-react";
 import { useState } from "react";
 
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { isDefined } from "~/utils/type-guards";
@@ -15,6 +16,7 @@ interface IProps {
 
 export function FastsettelserTidslinje({ behandling }: IProps) {
   const { oppgaveId } = useTypeSafeParams();
+  const { prøvingsdatoOpplysning } = useBehandling();
   const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
@@ -25,11 +27,7 @@ export function FastsettelserTidslinje({ behandling }: IProps) {
     aktivtRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
   );
 
-  const prøvingsdato = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
-  );
-
-  const pins = prøvingsdato?.perioder
+  const pins = prøvingsdatoOpplysning?.perioder
     .map((periode) => {
       if (periode.verdi.datatype === "dato") {
         return { date: new Date(periode.verdi.verdi), label: "Prøvingsdato" };

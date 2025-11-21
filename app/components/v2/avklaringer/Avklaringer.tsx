@@ -1,4 +1,4 @@
-import { Heading } from "@navikt/ds-react";
+import { BodyShort, Heading } from "@navikt/ds-react";
 
 import { components } from "../../../../openapi/behandling-typer";
 import { Avklaring } from "./Avklaring";
@@ -18,6 +18,7 @@ export function Avklaringer(props: IProps) {
     <div className={"card p-4"}>
       <Heading size={"small"}> Hva som må sjekkes</Heading>
 
+      {avklaringer.length === 0 && <BodyShort>Det er ingen avklaringer</BodyShort>}
       <div className={"mt-2 flex flex-col gap-2"}>
         {avklaringer.map((avklaring) => (
           <Avklaring avklaring={avklaring} behandlingId={props.behandlingId} key={avklaring.id} />

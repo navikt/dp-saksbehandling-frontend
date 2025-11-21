@@ -9,7 +9,7 @@ export function OppgaveHistorikk() {
   return (
     <div className={"py-2"}>
       <Process className={"aksel--compact"}>
-        {oppgave.historikk.reverse().map((hendelse, index) => (
+        {oppgave.historikk.map((hendelse, index) => (
           <Process.Event
             key={index}
             title={hendelse.tittel}

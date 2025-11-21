@@ -89,12 +89,10 @@ export default function Opplysning() {
                 />
               )}
 
-              {regelsettAvklaringer.length > 0 && (
-                <Avklaringer
-                  avklaringer={regelsettAvklaringer}
-                  behandlingId={behandling.behandlingId}
-                />
-              )}
+              <Avklaringer
+                avklaringer={regelsettAvklaringer}
+                behandlingId={behandling.behandlingId}
+              />
 
               <EndretOpplysninger vurderinger={vurderinger} />
             </div>

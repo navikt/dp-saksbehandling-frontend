@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon, LocationPinIcon } from "@navikt/akse
 import { Button, HStack, Spacer, ToggleGroup } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 
+import { useBehandling } from "~/hooks/useBehandling";
 import {
   AntallUkerITidslinje,
   TidslinjeNavigeringState,
@@ -13,6 +14,8 @@ export function TidslinjeNavigering({
   antallUkerITidslinje,
   setAntallUkerITidslinje,
 }: TidslinjeNavigeringState) {
+  const { prøvingsdato } = useBehandling();
+
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
@@ -26,7 +29,7 @@ export function TidslinjeNavigering({
   }
 
   function hoppTilPrøvingsdato() {
-    const nyStartDato = sub(new Date("2025-09-17"), { days: 1 });
+    const nyStartDato = sub(prøvingsdato, { days: 1 });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
