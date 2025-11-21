@@ -28,7 +28,7 @@ function uuidTilVariabelNavn(uuid: string, prefix: string): string {
   return `${prefix}${uuidUtenBindestrek}`;
 }
 
-async function genererMockDagpengerRettBehandling(behandlingId?: string) {
+export async function genererMockDagpengerRettBehandling(behandlingId?: string) {
   const { hentBehandling } = await import("~/models/behandling.server");
 
   const answers = await inquirer.prompt([
@@ -74,15 +74,24 @@ async function genererMockDagpengerRettBehandling(behandlingId?: string) {
   return behandling;
 }
 
-async function genererMockOppgave() {
-  const { oppgaveId } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "oppgaveId",
-      message: "Skriv inn oppgaveId:",
-      validate: (input) => input.length > 0 || "OppgaveId er påkrevd",
-    },
-  ]);
+export async function genererMockOppgave(id?: string) {
+  let oppgaveId = id;
+
+  if (!oppgaveId) {
+    const answers = await inquirer.prompt([
+      {
+        type: "input",
+        name: "oppgaveId",
+        message: "Skriv inn oppgaveId:",
+        validate: (input) => input.length > 0 || "OppgaveId er påkrevd",
+      },
+    ]);
+    oppgaveId = answers.oppgaveId;
+  }
+
+  if (!oppgaveId) {
+    throw new Error("OppgaveId er påkrevd");
+  }
 
   const { hentOppgave } = await import("~/models/saksbehandling.server");
   const oppgave = await hentOppgave(new Request(getEnv("DP_SAKSBEHANDLING_URL")), oppgaveId);

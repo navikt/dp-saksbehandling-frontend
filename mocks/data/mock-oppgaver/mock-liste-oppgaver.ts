@@ -5,6 +5,7 @@ import { avslagManuellOrdinærReellArbeidssøkerVerneplikt } from "./avslag-manu
 import { avslagMinsteinntektOrdinær } from "./avslag-minsteinntekt-ordinær";
 import { avslagOrdinærReellArbeidssøker } from "./avslag-ordinær-reell-arbeidssøker";
 import { innsending } from "./innsending";
+import { innvilgelseOrdinær } from "./innvilgelse-ordinær";
 import { innvilgelseOrdinærTidligereKontrollert } from "./innvilgelse-ordinær-tidligere-kontrollert";
 import { klage } from "./klage";
 
@@ -43,4 +44,5 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(innvilgelseOrdinærTidligereKontrollert),
   konverterOppgaveTilListeOppgave(avslagOrdinærReellArbeidssøker),
   konverterOppgaveTilListeOppgave(avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt),
+  konverterOppgaveTilListeOppgave(innvilgelseOrdinær),
 ];

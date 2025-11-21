@@ -11,6 +11,7 @@
     "generate-token": "chmod +x ./token-generator.sh && ./token-generator.sh",
     "generate-openapi-types": "npx openapi-typescript",
     "generate-mock-data": "npx tsx scripts/generer-mock-data.ts",
+    "oppdater-mock-data": "npx tsx scripts/oppdater-mock-data.ts",
     "grapql-codegen": "graphql-codegen --config codegen.ts",
     "test": "vitest"
   },

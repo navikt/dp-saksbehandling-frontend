@@ -795,16 +795,18 @@ export interface components {
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
         /** @enum {string} */
         RegelsettType: "Vilkår" | "Fastsettelse";
-        Regelsett: {
+        RegelsettMeta: {
             /** @description Unik identifikator for dette regelsettet */
             id: string;
             /** @description Kort navn som beskriver regelsettet */
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
+            type: components["schemas"]["RegelsettType"];
+        };
+        Regelsett: components["schemas"]["RegelsettMeta"] & {
             /** @description Om innholdet i regelsettet påvirker resultatet av behandlingen */
             relevantForResultat: boolean;
-            type: components["schemas"]["RegelsettType"];
             opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
             opplysninger: components["schemas"]["OpplysningTypeId"][];
         };
@@ -834,7 +836,7 @@ export interface components {
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
             /** @description Hvilke regelsett avklaringen påvirker */
-            regelsett: string[];
+            regelsett: components["schemas"]["RegelsettMeta"][];
         };
         Opplysningstype: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];

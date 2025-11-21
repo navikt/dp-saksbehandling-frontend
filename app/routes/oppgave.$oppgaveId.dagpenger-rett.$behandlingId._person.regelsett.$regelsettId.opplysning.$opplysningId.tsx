@@ -17,6 +17,7 @@ import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-ta
 import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -53,6 +54,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 export default function Opplysning() {
   const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
     useLoaderData<typeof loader>();
+  const { regelsettId } = useTypeSafeParams();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   const { prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
@@ -60,6 +62,10 @@ export default function Opplysning() {
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
+  );
+
+  const regelsettAvklaringer = behandling.avklaringer.filter((avklaring) =>
+    avklaring.regelsett.some((sett) => sett.id === regelsettId),
   );
 
   return (
@@ -83,10 +89,13 @@ export default function Opplysning() {
                 />
               )}
 
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
-                behandlingId={behandling.behandlingId}
-              />
+              {regelsettAvklaringer.length > 0 && (
+                <Avklaringer
+                  avklaringer={regelsettAvklaringer}
+                  behandlingId={behandling.behandlingId}
+                />
+              )}
+
               <EndretOpplysninger vurderinger={vurderinger} />
             </div>
 

@@ -17,7 +17,9 @@ import { useForm } from "@rvf/react-router";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useOppgave } from "~/hooks/useOppgave";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
@@ -31,6 +33,7 @@ interface IProps {
 export function Avklaring(props: IProps) {
   const { pathname } = useLocation();
   const { readonly, underKontroll } = useOppgave();
+  const { oppgaveId, behandlingId } = useTypeSafeParams();
   const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(
     underKontroll && !!props.avklaring?.begrunnelse,
   );
@@ -67,6 +70,7 @@ export function Avklaring(props: IProps) {
             <BodyShort size={"small"} weight={"semibold"}>
               {props.avklaring.tittel}
             </BodyShort>
+
             {(props.avklaring.status === "Avklart" || props.avklaring.status === "Avbrutt") && (
               <Detail>{hentAvklartAvTekst(props.avklaring)}</Detail>
             )}
@@ -75,37 +79,48 @@ export function Avklaring(props: IProps) {
       </ExpansionCard.Header>
 
       <ExpansionCard.Content>
-        <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
+        <div className={"flex flex-col gap-4"}>
+          <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
-        {kanRedigereBegrunnelse && (
-          <>
-            <Textarea
-              {...avklaringForm.getInputProps("begrunnelse")}
-              resize={"vertical"}
-              readOnly={readonly}
-              size="small"
-              label="Begrunnelse"
-            />
+          {props.avklaring.regelsett.map((regelsett) => (
+            <LoadingLink
+              key={regelsett.id}
+              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
+            >
+              {regelsett.hjemmel.tittel}
+            </LoadingLink>
+          ))}
 
-            {props.avklaring.sistEndret && (
-              <Detail>
-                Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
-                {props.avklaring.avklartAv?.ident}
-              </Detail>
-            )}
+          {kanRedigereBegrunnelse && (
+            <>
+              <Textarea
+                {...avklaringForm.getInputProps("begrunnelse")}
+                resize={"vertical"}
+                readOnly={readonly}
+                size="small"
+                label="Begrunnelse"
+              />
 
-            {!readonly && (
-              <Button
-                size={"small"}
-                variant={"primary"}
-                onClick={() => avklaringForm.submit()}
-                disabled={readonly}
-              >
-                Lagre
-              </Button>
-            )}
-          </>
-        )}
+              {props.avklaring.sistEndret && (
+                <Detail>
+                  Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                  {props.avklaring.avklartAv?.ident}
+                </Detail>
+              )}
+
+              {!readonly && (
+                <Button
+                  size={"small"}
+                  variant={"primary"}
+                  onClick={() => avklaringForm.submit()}
+                  disabled={readonly}
+                >
+                  Lagre
+                </Button>
+              )}
+            </>
+          )}
+        </div>
       </ExpansionCard.Content>
     </ExpansionCard>
   );
