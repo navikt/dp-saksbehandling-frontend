@@ -103,6 +103,13 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
 
               <div className={"card p-4"}>
                 <Heading className={"pb-2"} size={"small"}>
+                  Historikk
+                </Heading>
+                <OppgaveHistorikk />
+              </div>
+
+              <div className={"card p-4"}>
+                <Heading className={"pb-2"} size={"small"}>
                   Fagsystemer
                 </Heading>
                 <FagsystemLenker
@@ -110,13 +117,6 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
                     behandling ? hentInntektRedigeringUrl(behandling) : undefined
                   }
                 />
-              </div>
-
-              <div className={"card p-4"}>
-                <Heading className={"pb-2"} size={"small"}>
-                  Historikk
-                </Heading>
-                <OppgaveHistorikk />
               </div>
             </aside>
           </motion.div>
