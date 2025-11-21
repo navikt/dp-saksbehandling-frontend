@@ -8,7 +8,6 @@ import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/v2/oppgave-kontroll/OppgaveKontroll";
-import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { hentJournalpost } from "~/models/saf.server";
@@ -74,15 +73,10 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
 
                 {oppgave.beslutter && (
                   <VerdiMedTittel
-                    visBorder={true}
                     label={"Beslutter"}
                     verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
                   />
                 )}
-
-                <div>
-                  <OppgaveMeny />
-                </div>
               </div>
 
               {underKontroll && (

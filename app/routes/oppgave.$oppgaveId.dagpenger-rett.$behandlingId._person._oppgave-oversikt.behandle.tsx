@@ -14,6 +14,7 @@ import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpeng
 import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
+import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -42,7 +43,10 @@ export default function Behandle() {
   return (
     <main>
       <div className={"card p-4"}>
-        <LinkTabs />
+        <div className="flex justify-between gap-6">
+          <LinkTabs className="flex-1" />
+          <OppgaveMeny />
+        </div>
 
         <div className="mt-4 flex gap-4">
           <div className={"flex w-[400px] flex-col gap-4"}>

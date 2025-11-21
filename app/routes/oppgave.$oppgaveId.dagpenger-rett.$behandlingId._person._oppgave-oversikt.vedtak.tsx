@@ -17,6 +17,7 @@ import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplys
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
 import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
 import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
@@ -79,9 +80,7 @@ export default function Behandle() {
       <div className={"card mb-4 p-4"}>
         <div className="flex justify-between gap-6">
           <LinkTabs className="flex-1" />
-          {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
-          {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
-          {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
+          <OppgaveMeny />
         </div>
 
         <div className="mt-4 flex gap-4">
@@ -120,6 +119,14 @@ export default function Behandle() {
                   meldingOmVedtak={meldingOmVedtak}
                   sanityBrevMaler={sanityBrevMaler}
                 />
+
+                <div
+                  className={"mt-4 flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}
+                >
+                  {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+                  {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+                  {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
+                </div>
               </UtvidedeBeskrivelserProvider>
             </div>
           </div>

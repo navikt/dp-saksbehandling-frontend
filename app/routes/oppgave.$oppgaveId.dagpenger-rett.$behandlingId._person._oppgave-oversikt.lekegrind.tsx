@@ -11,6 +11,7 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
 import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
+import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -39,7 +40,10 @@ export default function Behandle() {
   return (
     <main>
       <div className={"card flex flex-col gap-4 p-4"}>
-        <LinkTabs />
+        <div className="flex justify-between gap-6">
+          <LinkTabs className="flex-1" />
+          <OppgaveMeny />
+        </div>
 
         <div className="mt-4">
           <Heading size={"small"}>Utvikler lekegrind</Heading>
