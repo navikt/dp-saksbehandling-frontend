@@ -25,19 +25,23 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
         label="Innsendt"
         verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
       />
+
       <div className="flex flex-col gap-1 border-b border-(--ax-border-neutral-subtle) pb-2">
         <BodyShort size={"small"} weight={"semibold"}>
           Emne
         </BodyShort>
+
         <div>
           <OppgaveEmneknagger oppgave={oppgave} />
         </div>
       </div>
+
       <VerdiMedTittel
         visBorder={true}
         label="Status"
         verdi={hentOppgaveTilstandTekst(oppgave.tilstand)}
       />
+
       {oppgave.saksbehandler && (
         <VerdiMedTittel
           visBorder={true}
@@ -45,6 +49,7 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
           verdi={`${oppgave.saksbehandler.fornavn} ${oppgave.saksbehandler.etternavn}`}
         />
       )}
+
       {oppgave.beslutter && (
         <VerdiMedTittel
           visBorder={true}
@@ -52,6 +57,7 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
           verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
         />
       )}
+
       <div className="mt-2 flex flex-col gap-2">
         {ferdigstillMedBehandling === undefined && (
           <>
@@ -64,6 +70,7 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
                 Opprett ny behandling
               </Button>
             </div>
+
             <div>
               <Button
                 variant="secondary"
@@ -78,6 +85,7 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
             </div>
           </>
         )}
+
         {ferdigstillMedBehandling !== undefined && (
           <FerdigstillInnsendingSkjema
             setFerdigstillMedBehandling={setFerdigstillMedBehandling}

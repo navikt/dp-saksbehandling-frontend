@@ -400,4 +400,12 @@ export const mockDpSaksbehandling = [
 
     return response("default").json(defaultError, { status: 500 });
   }),
+
+  http.put("/innsending/{behandlingId}/ferdigstill", async ({ response }) => {
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 ];

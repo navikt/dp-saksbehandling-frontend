@@ -17,7 +17,10 @@ export async function ferdigstillInnsendingAction(request: Request, formData: Fo
 
   const body: components["schemas"]["FerdigstillInnsendingRequest"] = {
     sakId: validertSkjema.data.sakId,
-    behandlingType: validertSkjema.data.behandlingType,
+    behandlingType:
+      validertSkjema.data.behandlingType === "INGEN"
+        ? undefined
+        : validertSkjema.data.behandlingType,
     vurdering: validertSkjema.data.vurdering,
   };
 

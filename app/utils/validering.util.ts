@@ -356,7 +356,10 @@ export function hentValideringForFerdigstillInnsending() {
     _action: z.literal("ferdigstill-innsending"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: z.string().min(1, "Det mangler sakId i skjema"),
-    behandlingType: z.enum(["RETT_TIL_DAGPENGER", "KLAGE"]).optional(),
+    behandlingType: z.enum(
+      ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"],
+      "Du må velge en behandlingstype",
+    ),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
   });
