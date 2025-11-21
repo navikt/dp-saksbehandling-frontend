@@ -55,7 +55,7 @@ export function TidslinjeNavigering({
           variant="secondary-neutral"
           size="small"
           onClick={() => {
-            navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.25);
+            navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.5);
           }}
         />
         <Button
@@ -63,7 +63,7 @@ export function TidslinjeNavigering({
           variant="secondary-neutral"
           size="small"
           onClick={() => {
-            navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.25);
+            navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.5);
           }}
         />
       </HStack>
