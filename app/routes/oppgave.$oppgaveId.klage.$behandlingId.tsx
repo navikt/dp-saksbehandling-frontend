@@ -12,11 +12,11 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
-import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { KlageBehandling } from "~/components/klage/klage-behandling/KlageBehandling";
+import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
+import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -127,7 +127,7 @@ export default function Oppgave() {
                     isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
                   }
                 >
-                  <MeldingOmVedtak
+                  <MeldingOmVedtakKlage
                     meldingOmVedtak={meldingOmVedtak}
                     sanityBrevMaler={sanityBrevMaler}
                     oppgave={oppgave}

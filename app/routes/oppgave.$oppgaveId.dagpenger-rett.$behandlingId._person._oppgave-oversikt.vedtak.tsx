@@ -9,14 +9,14 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
-import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
-import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";

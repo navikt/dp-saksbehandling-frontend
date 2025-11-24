@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
-import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { hentBehandling } from "~/models/behandling.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";

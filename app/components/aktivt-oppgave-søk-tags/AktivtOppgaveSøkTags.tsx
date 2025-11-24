@@ -1,6 +1,6 @@
 import { Tag } from "@navikt/ds-react";
 
-import { TILSTANDER } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { TILSTANDER } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 

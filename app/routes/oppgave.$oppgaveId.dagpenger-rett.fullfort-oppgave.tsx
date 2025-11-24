@@ -16,7 +16,7 @@ import { AktivOppgaveSøk } from "~/components/aktivt-oppgave-søk-tags/AktivtOp
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { Kaffepause } from "~/components/kaffepause/Kaffepause";
 import { KonfettiKanon } from "~/components/konfetti-kanon/KonfettiKanon";
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentOppgave } from "~/models/saksbehandling.server";
@@ -76,12 +76,12 @@ export default function NesteOppgave() {
         </Form>
 
         <div className="flex gap-6">
-          <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+          <LoadingLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
             Gå til oppgaveliste
-          </RemixLink>
-          <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
+          </LoadingLink>
+          <LoadingLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
             Gå til personoversikt
-          </RemixLink>
+          </LoadingLink>
           <Button variant="secondary" onClick={() => setKaffepause(true)}>
             Ta en kaffepause
           </Button>
