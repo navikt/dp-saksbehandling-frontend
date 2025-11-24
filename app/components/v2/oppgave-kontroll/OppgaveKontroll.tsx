@@ -127,8 +127,7 @@ const sjekkliste: ISjekkliste[] = [
   {
     navn: "Sanksjon",
     underpunkter: [
-      "I saker hvor bruker har sagt opp selv/er selvforskyldt ledig",
-      "er det skrevet forvaltningsnotat med begrunnelse for hvorfor det ikke er ilagt sanksjonsperiode?",
+      "I saker hvor bruker har sagt opp selv/er selvforskyldt ledig er det skrevet forvaltningsnotat med begrunnelse for hvorfor det ikke er ilagt sanksjonsperiode?",
     ],
   },
   {
