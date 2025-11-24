@@ -7,7 +7,11 @@ import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAle
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak-kilde/MeldingOmVedtakKilde";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
 import { UtvidedeBeskrivelser } from "~/components/utvidede-beskrivelser/UtvidedeBeskrivelser";
+import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
+import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { IAlert } from "~/context/alert-context";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
@@ -24,7 +28,17 @@ interface IProps {
 export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
   const { pathname } = useLocation();
   const { oppgave, readonly } = useOppgave();
+  const { behandling } = useBehandling();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
+
+  const kanSendeTilKontroll =
+    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
+
+  const kanFatteVedtak =
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
+    oppgave.tilstand === "UNDER_KONTROLL";
+
+  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
   const endreBrevVariantForm = useForm({
     method: "post",
@@ -71,6 +85,12 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
                 sanityBrevMaler={sanityBrevMaler}
               />
             )}
+
+            <div className={"mt-4 flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
+              {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+              {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+              {kanFatteVedtak && <OppgaveFattVedtak />}
+            </div>
           </>
         )}
       </div>

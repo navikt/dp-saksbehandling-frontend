@@ -11,16 +11,10 @@ import {
 } from "~/utils/opplysning.utils";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
 
-import { components } from "../../../../openapi/behandling-typer";
-
-interface IProps {
-  behandling: components["schemas"]["Behandling"];
-}
-
-export function OppgaveFattVedtak({ behandling }: IProps) {
+export function OppgaveFattVedtak() {
   const { pathname } = useLocation();
   const { oppgaveId } = useTypeSafeParams();
-  const { prøvingsdato } = useBehandling();
+  const { behandling, prøvingsdato } = useBehandling();
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const fattVedtakForm = useForm({
