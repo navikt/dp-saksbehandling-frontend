@@ -35,7 +35,6 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
             animate={{ width: 350, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            style={{ overflow: "hidden" }}
           >
             <aside className={"flex flex-col gap-4"}>
               <div className={"card flex flex-col gap-4 p-4"}>
