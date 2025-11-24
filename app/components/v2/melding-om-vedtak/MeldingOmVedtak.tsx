@@ -86,7 +86,7 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
               />
             )}
 
-            <div className={"mt-4 flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
+            <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
               {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
               {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
               {kanFatteVedtak && <OppgaveFattVedtak />}
