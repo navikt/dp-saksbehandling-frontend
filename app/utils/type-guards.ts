@@ -196,7 +196,7 @@ export function isGraphQLResponseError(value: unknown): value is {
 
   const response = obj.response as Record<string, unknown>;
 
-  if (typeof response.status !== "number") {
+  if (typeof response.status !== "number" || response.status === 200) {
     return false;
   }
 
