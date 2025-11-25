@@ -13,7 +13,7 @@ COPY ./deno.jsonc ./
 COPY ./deno.lock ./
 
 RUN deno install
-RUN deno run build
+RUN deno task build
 
 # export build to filesystem (GitHub)
 FROM scratch AS build-export
@@ -30,7 +30,9 @@ EXPOSE 3000
 
 COPY ./public ./public/
 COPY ./package.json ./package.json
+COPY ./deno.jsonc ./
 COPY --from=app-build /app/build/ ./build/
 COPY --from=app-build /app/node_modules ./node_modules
+ENV NODE_ENV=production
 
-CMD ["./node_modules/@react-router/serve/dist/cli.js", "./build/server/index.js"]
+CMD ["--allow-env", "--allow-read", "--no-prompt","-P", "./node_modules/@react-router/serve/dist/cli.js", "./build/server/index.js"]

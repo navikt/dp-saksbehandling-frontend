@@ -3,25 +3,21 @@
   Dette er boilerplate fra Remix.
 */
 
-import { PassThrough } from "node:stream";
-
 import { faro } from "@grafana/faro-core";
-import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
+import { renderToReadableStream } from "react-dom/server";
 import type { EntryContext } from "react-router";
 import { isRouteErrorResponse, ServerRouter } from "react-router";
 
-import { logger } from "~/utils/logger.utils";
-
-import { unleash } from "./unleash";
-import { getEnv } from "./utils/env.utils";
+import { unleash } from "~/unleash.ts";
+import { getEnv } from "~/utils/env.utils.ts";
+import { logger } from "~/utils/logger.utils.ts";
 
 // Reject all pending promises from handler functions after 10 seconds
 export const streamTimeout = 10000;
 
 if (getEnv("USE_MSW") === "true") {
-  const { startMockServer } = await import("../mocks/mock-server");
+  const { startMockServer } = await import("../mocks/mock-server.ts");
   await startMockServer();
 }
 
@@ -40,7 +36,9 @@ const csp = {
     "https://telemetry.nav.no/collect",
   ],
 };
-let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${csp["img-src"].join(" ")};`;
+let cspString = `connect-src ${csp["connect-src"].join(" ")}; img-src ${
+  csp["img-src"].join(" ")
+};`;
 
 if (getEnv("IS_LOCALHOST") === "true") {
   cspString =
@@ -51,112 +49,38 @@ unleash.on("synchronized", () => {
   logger.info("Unleash is ready");
 });
 
-export default function handleRequest(
+export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   reactRouterContext: EntryContext,
 ) {
-  return isbot(request.headers.get("user-agent") || "")
-    ? handleBotRequest(request, responseStatusCode, responseHeaders, reactRouterContext)
-    : handleBrowserRequest(request, responseStatusCode, responseHeaders, reactRouterContext);
-}
+  const bot = isbot(request.headers.get("user-agent") ?? "");
 
-function handleBotRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  reactRouterContext: EntryContext,
-) {
-  return new Promise((resolve, reject) => {
-    let shellRendered = false;
-    const { pipe, abort } = renderToPipeableStream(
-      <ServerRouter context={reactRouterContext} url={request.url} />,
-      {
-        onAllReady() {
-          shellRendered = true;
-          const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), streamTimeout + 1000);
 
-          responseHeaders.set("Content-Type", "text/html");
-          responseHeaders.set("Content-Security-Policy", cspString);
-
-          resolve(
-            new Response(stream, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
-
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            logger.error(error);
-          }
-        },
+  const stream = await renderToReadableStream(
+    <ServerRouter context={reactRouterContext} url={request.url} />,
+    {
+      signal: controller.signal,
+      onError(err) {
+        console.error(err);
       },
-    );
-    // Abort the streaming render pass after 11 seconds to allow the rejected
-    // boundaries to be flushed
-    setTimeout(abort, streamTimeout + 1000);
-  });
-}
+    },
+  );
 
-function handleBrowserRequest(
-  request: Request,
-  responseStatusCode: number,
-  responseHeaders: Headers,
-  reactRouterContext: EntryContext,
-) {
-  return new Promise((resolve, reject) => {
-    let shellRendered = false;
+  if (bot) {
+    await stream.allReady;
+  }
 
-    const { pipe, abort } = renderToPipeableStream(
-      <ServerRouter context={reactRouterContext} url={request.url} />,
-      {
-        onShellReady() {
-          shellRendered = true;
-          const body = new PassThrough();
-          const stream = createReadableStreamFromReadable(body);
+  clearTimeout(timeout);
 
-          responseHeaders.set("Content-Type", "text/html");
-          responseHeaders.set("Content-Security-Policy", cspString);
-
-          resolve(
-            new Response(stream, {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            }),
-          );
-
-          pipe(body);
-        },
-        onShellError(error: unknown) {
-          reject(error);
-        },
-        onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
-          if (shellRendered) {
-            logger.error(error);
-          }
-        },
-      },
-    );
-
-    // Abort the streaming render pass after 11 seconds to allow the rejected
-    // boundaries to be flushed
-    setTimeout(abort, streamTimeout + 1000);
+  responseHeaders.set("Content-Type", "text/html");
+  responseHeaders.set("Content-Security-Policy", cspString);
+  return new Response(stream, {
+    headers: responseHeaders,
+    status: responseStatusCode,
   });
 }
 
@@ -164,7 +88,9 @@ export function handleError(error: unknown) {
   logger.error(error);
 
   if (isRouteErrorResponse(error)) {
-    faro.api?.pushError(new Error(error.data), { type: `${error.status} ${error.statusText}` });
+    faro.api?.pushError(new Error(error.data), {
+      type: `${error.status} ${error.statusText}`,
+    });
   }
 
   if (error instanceof Error) {
