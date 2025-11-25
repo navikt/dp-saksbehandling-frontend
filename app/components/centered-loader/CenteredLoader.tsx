@@ -1,5 +1,5 @@
 import { Loader } from "@navikt/ds-react";
-import { LoaderProps } from "@navikt/ds-react/";
+import { LoaderProps } from "@navikt/ds-react";
 
 import styles from "./CenteredLoader.module.css";
 

@@ -1,7 +1,7 @@
 import { BodyShort, Button } from "@navikt/ds-react";
-import { components } from "openapi/saksbehandling-typer";
 import { useState } from "react";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
@@ -16,7 +16,9 @@ interface IProps {
 }
 
 export function InnsendingInfo({ oppgave, innsending }: IProps) {
-  const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<boolean>();
+  const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<
+    boolean
+  >();
 
   return (
     <div className="card flex flex-col gap-4 p-4">
@@ -81,7 +83,10 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
               </Button>
             </div>
             <div>
-              <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} buttonSize={"small"} />
+              <OppgaveValgLeggTilbake
+                oppgaveId={oppgave.oppgaveId}
+                buttonSize={"small"}
+              />
             </div>
           </>
         )}

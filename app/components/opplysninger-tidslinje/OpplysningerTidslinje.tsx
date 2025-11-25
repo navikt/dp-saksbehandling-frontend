@@ -1,10 +1,17 @@
 import { PadlockLockedIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, Heading, HStack, Tag, Timeline } from "@navikt/ds-react";
+import {
+  BodyShort,
+  Detail,
+  Heading,
+  HStack,
+  Tag,
+  Timeline,
+} from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
-import { components } from "openapi/behandling-typer";
 import { useParams } from "react-router";
 
+import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {
@@ -17,7 +24,10 @@ import {
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningFormål, formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import {
+  formaterOpplysningFormål,
+  formaterOpplysningVerdi,
+} from "~/utils/opplysning.utils";
 
 interface TimelinePin {
   date: Date;
@@ -43,7 +53,10 @@ export function OpplysningerTidslinje(props: IProps) {
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
+  } = useTidslinjeNavigeringState(
+    props.opplysninger,
+    props.eksternTidslinjeNavigeringState,
+  );
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
@@ -56,8 +69,11 @@ export function OpplysningerTidslinje(props: IProps) {
             <div>
               <div className={"flex items-center gap-1"}>
                 {readonly ||
-                  (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                    <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+                  (props.opplysninger.length === 1 &&
+                    !props.opplysninger[0].redigerbar && (
+                    <PadlockLockedIcon
+                      aria-label={"Opplysning er ikke redigerbar"}
+                    />
                   ))}
                 <Heading size={"small"}>{props.tittel}</Heading>
               </div>
@@ -101,8 +117,11 @@ export function OpplysningerTidslinje(props: IProps) {
         <div className={`flex content-center justify-between`}>
           <div className={"flex items-center gap-1"}>
             {readonly ||
-              (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+              (props.opplysninger.length === 1 &&
+                !props.opplysninger[0].redigerbar && (
+                <PadlockLockedIcon
+                  aria-label={"Opplysning er ikke redigerbar"}
+                />
               ))}
             <Heading size={"small"}>{props.tittel}</Heading>
           </div>
@@ -122,7 +141,8 @@ export function OpplysningerTidslinje(props: IProps) {
         startDate={tidslinjeStartSlutt.start}
         endDate={tidslinjeStartSlutt.end}
         className={classnames("aksel--compact", {
-          "aksel-timeline--first-row-highlight": props.fremhevØverstTidslinjeRad,
+          "aksel-timeline--first-row-highlight":
+            props.fremhevØverstTidslinjeRad,
         })}
       >
         {props.pins &&
@@ -137,29 +157,32 @@ export function OpplysningerTidslinje(props: IProps) {
           <Timeline.Row
             key={opplysning.opplysningTypeId}
             label={props.medLenkeTilOpplysning ? "\u00A0" : ""}
-            icon={
-              props.medLenkeTilOpplysning &&
+            icon={props.medLenkeTilOpplysning &&
               props.opplysningGrunnUrl && (
-                <HStack wrap={false} gap="space-2" align="center" className={"overflow-hidden"}>
-                  {(readonly || !opplysning.redigerbar) && (
-                    <div>
-                      <PadlockLockedIcon fontSize="1rem" />
-                    </div>
-                  )}
-                  <div className={"overflow-hidden"}>
-                    <LoadingLink
-                      className={
-                        opplysningId === opplysning.opplysningTypeId ? "font-bold" : undefined
-                      }
-                      tittelPåHover={opplysning.navn}
-                      to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
-                    >
-                      {opplysning.navn}
-                    </LoadingLink>
+              <HStack
+                wrap={false}
+                gap="space-2"
+                align="center"
+                className={"overflow-hidden"}
+              >
+                {(readonly || !opplysning.redigerbar) && (
+                  <div>
+                    <PadlockLockedIcon fontSize="1rem" />
                   </div>
-                </HStack>
-              )
-            }
+                )}
+                <div className={"overflow-hidden"}>
+                  <LoadingLink
+                    className={opplysningId === opplysning.opplysningTypeId
+                      ? "font-bold"
+                      : undefined}
+                    tittelPåHover={opplysning.navn}
+                    to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}
+                  >
+                    {opplysning.navn}
+                  </LoadingLink>
+                </div>
+              </HStack>
+            )}
           >
             {opplysning.perioder.map((periode, index) => {
               const start = periode.gyldigFraOgMed
@@ -197,7 +220,9 @@ export function OpplysningerTidslinje(props: IProps) {
                     </div>
                     <div>
                       <Detail textColor={"subtle"}>Verdi</Detail>
-                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
+                      <BodyShort size={"small"}>
+                        {formaterOpplysningVerdi(periode.verdi)}
+                      </BodyShort>
                     </div>
                   </div>
                 </Timeline.Period>

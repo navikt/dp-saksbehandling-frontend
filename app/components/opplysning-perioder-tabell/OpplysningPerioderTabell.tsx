@@ -1,10 +1,10 @@
 import { PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { components } from "openapi/behandling-typer";
 import { useState } from "react";
 import { useParams } from "react-router";
 
+import { components } from "@/openapi/behandling-typer";
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { useOppgave } from "~/hooks/useOppgave";
@@ -21,7 +21,9 @@ const NY_PERIODE_ID = "NY-PERIODE";
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
   const { readonly } = useOppgave();
-  const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
+  const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<
+    string
+  >();
   const slettPeriodeForm = useForm({
     method: "post",
     submitSource: "state",
@@ -41,7 +43,9 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{props.opplysning.navn}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              {props.opplysning.navn}
+            </Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
             <Table.HeaderCell scope="col" colSpan={2}>
               Valg
@@ -66,17 +70,25 @@ export function OpplysningPerioderTabell(props: IProps) {
             return (
               <Table.Row key={periode.id}>
                 <Table.DataCell>
-                  {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}
+                  {periode.gyldigFraOgMed
+                    ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                    : "--"}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
+                  {periode.gyldigTilOgMed
+                    ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                    : "--"}
                 </Table.DataCell>
 
-                <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+                <Table.DataCell>
+                  {formaterOpplysningVerdi(periode.verdi)}
+                </Table.DataCell>
 
                 <Table.DataCell>
-                  {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
+                  {periode.kilde?.begrunnelse
+                    ? periode.kilde?.begrunnelse.verdi
+                    : "--"}
                 </Table.DataCell>
 
                 {!readonly && props.opplysning.redigerbar && (
@@ -88,7 +100,9 @@ export function OpplysningPerioderTabell(props: IProps) {
                         icon={<TrashIcon />}
                         loading={slettPeriodeForm.formState.isSubmitting}
                         onClick={() => {
-                          slettPeriodeForm.field("periodeId").setValue(periode.id);
+                          slettPeriodeForm.field("periodeId").setValue(
+                            periode.id,
+                          );
                           slettPeriodeForm.submit();
                         }}
                       />

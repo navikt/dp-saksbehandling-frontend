@@ -1,8 +1,15 @@
-import { Button, Heading, Radio, RadioGroup, Select, Textarea } from "@navikt/ds-react";
+import {
+  Button,
+  Heading,
+  Radio,
+  RadioGroup,
+  Select,
+  Textarea,
+} from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -10,7 +17,9 @@ import { hentValideringForFerdigstillInnsending } from "~/utils/validering.util"
 
 interface IProps {
   medBehandling: boolean;
-  setFerdigstillMedBehandling: (ferdigstillBehandling: boolean | undefined) => void;
+  setFerdigstillMedBehandling: (
+    ferdigstillBehandling: boolean | undefined,
+  ) => void;
   lovligeSaker: components["schemas"]["Innsending"]["lovligeSaker"];
 }
 
@@ -32,7 +41,9 @@ export function FerdigstillInnsendingSkjema({
       _action: "ferdigstill-innsending",
       behandlingId,
       sakId: "",
-      behandlingType: medBehandling ? ("" as unknown as "RETT_TIL_DAGPENGER" | "KLAGE") : "INGEN",
+      behandlingType: medBehandling
+        ? ("" as unknown as "RETT_TIL_DAGPENGER" | "KLAGE")
+        : "INGEN",
       vurdering: "",
       aktivtOppgaveSok,
     },
@@ -41,10 +52,15 @@ export function FerdigstillInnsendingSkjema({
   return (
     <div className="flex flex-col gap-4 rounded-(--ax-radius-8) border border-(--ax-border-info-subtle)! bg-(--ax-bg-info-moderate)! p-2">
       <Heading size="xsmall" level="3">
-        {medBehandling ? "Opprett ny behandling" : "Ferdigstill uten behandling"}
+        {medBehandling
+          ? "Opprett ny behandling"
+          : "Ferdigstill uten behandling"}
       </Heading>
 
-      <Form {...ferdigstillInnsendingSkjema.getFormProps()} className="flex flex-col gap-4">
+      <Form
+        {...ferdigstillInnsendingSkjema.getFormProps()}
+        className="flex flex-col gap-4"
+      >
         <Select
           {...ferdigstillInnsendingSkjema.field("sakId").getInputProps()}
           label="SakID"
@@ -65,7 +81,8 @@ export function FerdigstillInnsendingSkjema({
 
         {medBehandling && (
           <RadioGroup
-            {...ferdigstillInnsendingSkjema.field("behandlingType").getInputProps()}
+            {...ferdigstillInnsendingSkjema.field("behandlingType")
+              .getInputProps()}
             error={ferdigstillInnsendingSkjema.field("behandlingType").error()}
             size="small"
             className="aksel--horisontal"

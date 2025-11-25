@@ -2,7 +2,7 @@ import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
-import { components } from "~/../openapi/melding-om-vedtak-typer";
+import { components } from "@/openapi/melding-om-vedtak-typer";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
@@ -31,11 +31,11 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
   const { behandling } = useBehandling();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
-  const kanSendeTilKontroll =
-    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
+  const kanSendeTilKontroll = oppgave.tilstand === "UNDER_BEHANDLING" &&
+    behandling.kreverTotrinnskontroll;
 
-  const kanFatteVedtak =
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
+  const kanFatteVedtak = (oppgave.tilstand === "UNDER_BEHANDLING" &&
+    !behandling.kreverTotrinnskontroll) ||
     oppgave.tilstand === "UNDER_KONTROLL";
 
   const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
@@ -48,7 +48,9 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
     defaultValues: {
       _action: "lagre-brev-variant",
       behandlingId: oppgave.behandlingId,
-      brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
+      brevVariant: !isAlert(meldingOmVedtak)
+        ? meldingOmVedtak?.brevVariant
+        : "GENERERT",
     },
   });
 
@@ -86,8 +88,12 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
               />
             )}
 
-            <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
-              {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+            <div
+              className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}
+            >
+              {kanReturnereTilSaksbehandler && (
+                <OppgaveReturnerTilSaksbehandler />
+              )}
               {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
               {kanFatteVedtak && <OppgaveFattVedtak />}
             </div>
@@ -97,14 +103,14 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
 
       <div className={styles.previewContainer}>
         {oppgave.meldingOmVedtakKilde === "DP_SAK" &&
-          (isAlert(meldingOmVedtak) ? (
-            <HttpProblemAlert error={meldingOmVedtak} />
-          ) : (
-            <MeldingOmVedtakPreview
-              utvidedeBeskrivelser={utvidedeBeskrivelser}
-              html={meldingOmVedtak?.html || ""}
-            />
-          ))}
+          (isAlert(meldingOmVedtak)
+            ? <HttpProblemAlert error={meldingOmVedtak} />
+            : (
+              <MeldingOmVedtakPreview
+                utvidedeBeskrivelser={utvidedeBeskrivelser}
+                html={meldingOmVedtak?.html || ""}
+              />
+            ))}
       </div>
     </div>
   );

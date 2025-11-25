@@ -1,5 +1,7 @@
-import { components } from "openapi/behandling-typer";
-import { expect, test } from "vitest";
+/// <reference lib="deno.ns" />
+import { assertEquals } from "@std/assert";
+
+import { components } from "@/openapi/behandling-typer";
 
 import {
   erOpplysningsperiodeInnenforRettighetsperiode,
@@ -21,25 +23,29 @@ const testcases = [
     forventet: true,
   },
   {
-    tittel: "Opplysningsperiode og rettighetsperiode med samme start er innenfor",
+    tittel:
+      "Opplysningsperiode og rettighetsperiode med samme start er innenfor",
     rettighetsperiode: rettighetsperiode("2000-01-01", undefined),
     opplysningsperiode: opplysningsperiode("2000-01-01", undefined),
     forventet: true,
   },
   {
-    tittel: "Opplysningsperiode med start dagen før rettighetsperiodens start er utenfor",
+    tittel:
+      "Opplysningsperiode med start dagen før rettighetsperiodens start er utenfor",
     rettighetsperiode: rettighetsperiode("2000-01-01", undefined),
     opplysningsperiode: opplysningsperiode("1999-12-31", undefined),
     forventet: false,
   },
   {
-    tittel: "Opplysningsperiode med start dagen etter rettighetsperiodens start er innenfor",
+    tittel:
+      "Opplysningsperiode med start dagen etter rettighetsperiodens start er innenfor",
     rettighetsperiode: rettighetsperiode("2000-01-01", undefined),
     opplysningsperiode: opplysningsperiode("2000-01-02", undefined),
     forventet: true,
   },
   {
-    tittel: "Definert opplysningsperiode er innenfor definert rettighetsperiode",
+    tittel:
+      "Definert opplysningsperiode er innenfor definert rettighetsperiode",
     rettighetsperiode: rettighetsperiode("2000-01-01", "2000-12-31"),
     opplysningsperiode: opplysningsperiode("2000-02-01", "2000-11-30"),
     forventet: true,
@@ -60,7 +66,10 @@ const prøvingsdatoTestcases = [
   },
 ];
 
-function rettighetsperiode(fom: string, tom?: string): components["schemas"]["Rettighetsperiode"] {
+function rettighetsperiode(
+  fom: string,
+  tom?: string,
+): components["schemas"]["Rettighetsperiode"] {
   return {
     fraOgMed: fom,
     tilOgMed: tom,
@@ -85,23 +94,27 @@ function opplysningsperiode(
   };
 }
 
-testcases.forEach(({ tittel, rettighetsperiode, opplysningsperiode, forventet }) => {
-  test(tittel, () => {
-    const resultat = erOpplysningsperiodeInnenforRettighetsperiode(
-      rettighetsperiode,
-      opplysningsperiode,
-    );
-    expect(resultat).toBe(forventet);
-  });
-});
+testcases.forEach(
+  ({ tittel, rettighetsperiode, opplysningsperiode, forventet }) => {
+    Deno.test(tittel, () => {
+      const resultat = erOpplysningsperiodeInnenforRettighetsperiode(
+        rettighetsperiode,
+        opplysningsperiode,
+      );
+      assertEquals(resultat, forventet);
+    });
+  },
+);
 
-prøvingsdatoTestcases.forEach(({ tittel, opplysningsperiode, prøvingsdato }) => {
-  test(tittel, () => {
-    const resultat = erPrøvingsdatoInnenforPeriode(
-      prøvingsdato,
-      opplysningsperiode.gyldigFraOgMed,
-      opplysningsperiode.gyldigTilOgMed,
-    );
-    expect(resultat).toBe(true);
-  });
-});
+prøvingsdatoTestcases.forEach(
+  ({ tittel, opplysningsperiode, prøvingsdato }) => {
+    Deno.test(tittel, () => {
+      const resultat = erPrøvingsdatoInnenforPeriode(
+        prøvingsdato,
+        opplysningsperiode.gyldigFraOgMed,
+        opplysningsperiode.gyldigTilOgMed,
+      );
+      assertEquals(resultat, true);
+    });
+  },
+);

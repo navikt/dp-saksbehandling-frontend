@@ -1,4 +1,4 @@
-import { components } from "openapi/soknad-orkestrator-typer";
+import { components } from "@/openapi/soknad-orkestrator-typer";
 
 import { formaterTilNorskDato } from "./dato.utils";
 
@@ -41,9 +41,14 @@ export function formatterOrkestratorOpplysningVerdi(
   }
 }
 
-function hentLand(lankode: string, orkestratorLandliste: components["schemas"]["Land"][]): string {
+function hentLand(
+  lankode: string,
+  orkestratorLandliste: components["schemas"]["Land"][],
+): string {
   return (
-    orkestratorLandliste?.find((land: components["schemas"]["Land"]) => land.alpha3kode === lankode)
+    orkestratorLandliste?.find((land: components["schemas"]["Land"]) =>
+      land.alpha3kode === lankode
+    )
       ?.navn || ""
   );
 }

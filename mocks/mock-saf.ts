@@ -21,12 +21,12 @@ export const mockSaf = [
     `https://saf.dev-fss-pub.nais.io/rest/hentdokument/:journalpostId/:dokumentInfoId/:variantFormat`,
     async () => {
       await delay();
-      const buffer = fs.readFileSync(path.resolve(process.cwd(), "public", `sample.pdf`)).buffer;
-      return HttpResponse.arrayBuffer(buffer, {
-        headers: {
-          "Content-Type": "application/pdf",
-        },
-      });
+      const buffer =
+        fs.readFileSync(path.resolve(process.cwd(), "public", `sample.pdf`))
+          .buffer;
+      const response = HttpResponse.arrayBuffer(buffer);
+      response.headers.set("Content-Type", "application/pdf");
+      return response;
     },
   ),
 ];

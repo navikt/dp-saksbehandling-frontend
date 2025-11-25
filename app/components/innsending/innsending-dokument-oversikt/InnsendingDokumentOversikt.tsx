@@ -1,8 +1,8 @@
 import { FilePdfIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
-import { Variantformat } from "graphql/generated/saf/graphql";
 import { Fragment } from "react/jsx-runtime";
 
+import { Variantformat } from "@/graphql/generated/saf/graphql";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { hentJournalpost } from "~/models/saf.server";
 import { IValgtDokument } from "~/routes/oppgave.$oppgaveId.innsending.$behandlingId";
@@ -19,7 +19,9 @@ interface IProps {
   ) => void;
 }
 
-export function InnsendingDokumentOversikt({ valgtDokument, åpneDokument, journalposter }: IProps) {
+export function InnsendingDokumentOversikt(
+  { valgtDokument, åpneDokument, journalposter }: IProps,
+) {
   return (
     <div className={"p-4"}>
       <div className={"flex flex-col gap-2"}>
@@ -33,13 +35,18 @@ export function InnsendingDokumentOversikt({ valgtDokument, åpneDokument, journ
               if (!dokument) return null;
 
               // Filtrer ut dokumentvarianter hvor saksbehandler ikke har tilgang eller hvor variantformat er "ORIGINAL". Vi er usikre på hva original er, men den kan ikke åpnes som et dokument. Ser heller ikke ut til å finnesi Gosys
-              const dokumentvarianterMedTilgang = dokument.dokumentvarianter.filter(
-                (variant) =>
-                  variant?.saksbehandlerHarTilgang && variant?.variantformat !== "ORIGINAL",
-              );
+              const dokumentvarianterMedTilgang = dokument.dokumentvarianter
+                .filter(
+                  (variant) =>
+                    variant?.saksbehandlerHarTilgang &&
+                    variant?.variantformat !== "ORIGINAL",
+                );
 
               if (dokumentvarianterMedTilgang.length === 0) return null;
-              return { ...dokument, dokumentvarianter: dokumentvarianterMedTilgang };
+              return {
+                ...dokument,
+                dokumentvarianter: dokumentvarianterMedTilgang,
+              };
             })
             .filter(isDefined);
 
@@ -51,15 +58,20 @@ export function InnsendingDokumentOversikt({ valgtDokument, åpneDokument, journ
                 weight={"semibold"}
                 className={"border-b border-(--ax-border-neutral-subtle) pb-2"}
               >
-                Du har ikke tilgang til journalpost med id {journalpost?.journalpostId}
+                Du har ikke tilgang til journalpost med id{" "}
+                {journalpost?.journalpostId}
               </BodyShort>
             );
           }
 
           return (
-            <div key={index} className={"border-b border-(--ax-border-neutral-subtle)"}>
+            <div
+              key={index}
+              className={"border-b border-(--ax-border-neutral-subtle)"}
+            >
               <List as="ul" size="small">
-                {journalpost?.dokumenter && journalpost.dokumenter.length === 0 && (
+                {journalpost?.dokumenter &&
+                  journalpost.dokumenter.length === 0 && (
                   <List.Item>Ingen dokumenter</List.Item>
                 )}
 
@@ -69,38 +81,43 @@ export function InnsendingDokumentOversikt({ valgtDokument, åpneDokument, journ
                       <Fragment key={index}>
                         {dokument && variant && (
                           <List.Item
-                            icon={<FilePdfIcon color={"var(--ax-text-subtle)"} aria-hidden />}
+                            icon={
+                              <FilePdfIcon
+                                color={"var(--ax-text-subtle)"}
+                                aria-hidden
+                              />
+                            }
                           >
                             <Button
                               className={"text-start"}
                               type="button"
                               size="xsmall"
-                              variant={
-                                valgtDokument?.dokumentId === dokument.dokumentInfoId
-                                  ? "tertiary-neutral"
-                                  : "tertiary"
-                              }
+                              variant={valgtDokument?.dokumentId ===
+                                  dokument.dokumentInfoId
+                                ? "tertiary-neutral"
+                                : "tertiary"}
                               onClick={() =>
                                 åpneDokument(
                                   journalpost?.journalpostId,
                                   dokument.dokumentInfoId,
                                   variant.variantformat,
-                                )
-                              }
+                                )}
                             >
                               {dokument.tittel}{" "}
-                              {variant.variantformat !== "ARKIV" && `[${variant.variantformat}]`}
+                              {variant.variantformat !== "ARKIV" &&
+                                `[${variant.variantformat}]`}
                             </Button>
                           </List.Item>
                         )}
                       </Fragment>
-                    )),
+                    ))
                   )}
               </List>
 
               {journalpost?.datoOpprettet && (
                 <Detail textColor={"subtle"} className={"pt-2"}>
-                  Mottatt: {formaterTilNorskDato(journalpost.datoOpprettet, true)}
+                  Mottatt:{" "}
+                  {formaterTilNorskDato(journalpost.datoOpprettet, true)}
                 </Detail>
               )}
             </div>
