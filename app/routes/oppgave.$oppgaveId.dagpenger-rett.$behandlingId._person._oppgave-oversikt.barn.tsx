@@ -12,9 +12,9 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { hentBehandling } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
@@ -31,7 +31,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, params.behandlingId);
   let orkestratorBarn;
   let orkestratorLandliste;
 
@@ -40,12 +39,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     orkestratorLandliste = await hentOrkestratorLandListe(request);
   }
 
-  return { behandling, oppgave, orkestratorBarn, orkestratorLandliste };
+  return { oppgave, orkestratorBarn, orkestratorLandliste };
 }
 
 export default function Behandle() {
-  const { behandling, orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const { oppgaveId, behandlingId } = useTypeSafeParams();
+  const { behandling } = useBehandling();
+  const { orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 

@@ -10,13 +10,9 @@ import { isDefined } from "~/utils/type-guards";
 import { components } from "../../../openapi/behandling-typer";
 import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTidslinje";
 
-interface IProps {
-  behandling: components["schemas"]["Behandling"];
-}
-
-export function FastsettelserTidslinje({ behandling }: IProps) {
+export function FastsettelserTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
-  const { prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, prøvingsdatoOpplysning } = useBehandling();
   const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<

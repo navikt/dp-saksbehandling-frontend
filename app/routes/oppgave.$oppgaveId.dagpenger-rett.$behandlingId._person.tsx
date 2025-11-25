@@ -20,8 +20,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, params.behandlingId);
+  const [oppgave, behandling] = await Promise.all([
+    hentOppgave(request, params.oppgaveId),
+    hentBehandling(request, params.behandlingId),
+  ]);
+
   const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),

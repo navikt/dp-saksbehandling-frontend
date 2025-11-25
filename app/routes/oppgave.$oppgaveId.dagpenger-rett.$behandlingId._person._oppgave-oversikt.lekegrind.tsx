@@ -1,19 +1,12 @@
 import { Heading } from "@navikt/ds-react";
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -21,15 +14,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-
-  return { behandling };
-}
-
 export default function Behandle() {
-  const { behandling } = useLoaderData<typeof loader>();
+  const { behandling } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 

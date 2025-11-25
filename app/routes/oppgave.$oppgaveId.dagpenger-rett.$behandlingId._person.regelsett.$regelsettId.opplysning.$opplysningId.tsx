@@ -31,8 +31,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.regelsettId, "params.regelsettId er påkrevd");
   invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
+
+  const [behandling, vurderinger] = await Promise.all([
+    hentBehandling(request, params.behandlingId),
+    hentVurderinger(request, params.behandlingId),
+  ]);
+
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
     (sett) => sett.id === params.regelsettId,
   );
@@ -52,12 +56,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Opplysning() {
+  const { regelsettId } = useTypeSafeParams();
+  const { prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
   const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
     useLoaderData<typeof loader>();
-  const { regelsettId } = useTypeSafeParams();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
 
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
@@ -82,12 +86,7 @@ export default function Opplysning() {
         <div className={"card p-4"}>
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
+              {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
 
               <Avklaringer
                 avklaringer={regelsettAvklaringer}

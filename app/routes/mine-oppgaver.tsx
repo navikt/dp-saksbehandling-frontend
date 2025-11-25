@@ -53,8 +53,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const oppgaverResponse = await hentOppgaver(request, url.searchParams);
-  const statistikk = await hentStatistikkForSaksbehandler(request);
+  const [oppgaverResponse, statistikk] = await Promise.all([
+    hentOppgaver(request, url.searchParams),
+    hentStatistikkForSaksbehandler(request),
+  ]);
+
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 

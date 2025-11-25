@@ -38,9 +38,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const klage = await hentKlage(request, params.behandlingId);
-  const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
+
+  const [oppgave, klage, sanityBrevMaler] = await Promise.all([
+    hentOppgave(request, params.oppgaveId),
+    hentKlage(request, params.behandlingId),
+    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+  ]);
+
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
