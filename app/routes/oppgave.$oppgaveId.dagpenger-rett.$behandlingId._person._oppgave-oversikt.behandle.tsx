@@ -1,11 +1,4 @@
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
@@ -18,7 +11,6 @@ import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpeng
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -26,17 +18,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
-
-  return { behandling, vurderinger };
-}
 export default function Behandle() {
-  const { behandling, vurderinger } = useLoaderData<typeof loader>();
-  const { prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, vurderinger, prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -50,15 +33,10 @@ export default function Behandle() {
 
         <div className="mt-4 flex gap-4">
           <div className={"flex w-[400px] flex-col gap-4"}>
-            {prøvingsdatoOpplysning && (
-              <PrøvingsdatoInput
-                behandlingId={behandling.behandlingId}
-                prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-              />
-            )}
+            {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
 
             <Avklaringer
-              avklaringer={[...behandling.avklaringer]}
+              avklaringer={behandling.avklaringer}
               behandlingId={behandling.behandlingId}
             />
 
@@ -66,9 +44,9 @@ export default function Behandle() {
           </div>
 
           <div className={"flex flex-1 flex-col gap-4"}>
-            <RettPåDagpenger behandling={behandling} />
-            <VilkårTidslinje behandling={behandling} />
-            <FastsettelserTidslinje behandling={behandling} />
+            <RettPåDagpenger />
+            <VilkårTidslinje />
+            <FastsettelserTidslinje />
           </div>
         </div>
       </div>

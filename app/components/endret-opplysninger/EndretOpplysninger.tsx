@@ -12,6 +12,7 @@ interface IProps {
 
 function EndretOpplysninger({ vurderinger }: IProps) {
   const { underKontroll } = useOppgave();
+
   return (
     <div className={"card p-4"}>
       <Heading size={"small"}>Saksbehandlers vurderinger</Heading>

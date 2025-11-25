@@ -31,20 +31,16 @@ import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./VilkårTidslinje.module.css";
 
-interface IProps {
-  behandling: components["schemas"]["Behandling"];
-}
-
-export function VilkårTidslinje({ behandling }: IProps) {
+export function VilkårTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
   const { readonly } = useOppgave();
+  const { behandling, prøvingsdatoOpplysning } = useBehandling();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
   } = useTidslinjeNavigeringState(behandling.opplysninger);
-  const { prøvingsdatoOpplysning } = useBehandling();
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
     components["schemas"]["Regelsett"] | undefined
   >();

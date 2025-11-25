@@ -12,14 +12,13 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { hentBehandling } from "~/models/behandling.server";
 import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
 } from "~/models/orkestrator-opplysning.server";
-import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -28,24 +27,20 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const behandling = await hentBehandling(request, params.behandlingId);
-  let orkestratorBarn;
-  let orkestratorLandliste;
+  invariant(params.soknadId, "params.soknadId er påkrevd");
 
-  if (oppgave.soknadId) {
-    orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
-    orkestratorLandliste = await hentOrkestratorLandListe(request);
-  }
+  const [orkestratorBarn, orkestratorLandliste] = await Promise.all([
+    hentOrkestratorBarn(request, params.soknadId),
+    hentOrkestratorLandListe(request),
+  ]);
 
-  return { behandling, oppgave, orkestratorBarn, orkestratorLandliste };
+  return { orkestratorBarn, orkestratorLandliste };
 }
 
 export default function Behandle() {
-  const { behandling, orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const { oppgaveId, behandlingId } = useTypeSafeParams();
+  const { behandling } = useBehandling();
+  const { orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 

@@ -1,12 +1,6 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { Alert, Heading } from "@navikt/ds-react";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
@@ -18,7 +12,6 @@ import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/Prørvingsda
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -26,38 +19,40 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.regelsettId, "params.regelsettId er påkrevd");
-  invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
+export default function Opplysning() {
+  const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
+  const { behandling, vurderinger, prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
+
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
   const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.id === params.regelsettId,
+    (sett) => sett.id === regelsettId,
   );
+
   const opplysning = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === params.opplysningId,
+    (opplysning) => opplysning.opplysningTypeId === opplysningId,
   );
 
   if (!regelsett) {
-    throw new Response(`Finner ikke regelsett med navn ${params.regelsettNavn}`, { status: 404 });
+    return (
+      <Alert className={"m-4"} variant="error">
+        <Heading spacing size="medium" level="1">
+          {`404 Finner ikke regelsett med id ${regelsettId}`}
+        </Heading>
+      </Alert>
+    );
   }
 
   if (!opplysning) {
-    throw new Response(`Finner ikke opplysning med id ${params.opplysningId}`, { status: 404 });
+    return (
+      <Alert className={"m-4"} variant="error">
+        <Heading spacing size="medium" level="1">
+          {`404 Finner ikke opplysning med id ${opplysningId}`}
+        </Heading>
+      </Alert>
+    );
   }
-
-  return { behandling, regelsett, opplysning, vurderinger, oppgaveId: params.oppgaveId };
-}
-
-export default function Opplysning() {
-  const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
-    useLoaderData<typeof loader>();
-  const { regelsettId } = useTypeSafeParams();
-  const actionData = useActionData<typeof action>();
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
 
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
@@ -82,12 +77,7 @@ export default function Opplysning() {
         <div className={"card p-4"}>
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
+              {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
 
               <Avklaringer
                 avklaringer={regelsettAvklaringer}

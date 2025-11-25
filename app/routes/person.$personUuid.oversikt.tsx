@@ -138,8 +138,12 @@ export function hentOppgaveUrl(behandling: components["schemas"]["Behandling"]) 
   switch (behandling.behandlingType) {
     case "RETT_TIL_DAGPENGER":
       return `/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
+
     case "KLAGE":
       return `/oppgave/${behandling.oppgaveId}/klage/${behandling.id}`;
+
+    case "INNSENDING":
+      return `/oppgave/${behandling.oppgaveId}/innsending/${behandling.id}`;
 
     default:
       return "";
