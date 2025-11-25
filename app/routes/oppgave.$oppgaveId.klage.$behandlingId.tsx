@@ -103,7 +103,11 @@ export default function Oppgave() {
   ];
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+    <OppgaveProvider
+      oppgave={oppgave}
+      saksbehandler={saksbehandler}
+      journalposterPromises={journalposterPromises}
+    >
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
       <div className={`main flex gap-4`}>
         <OppgaveOversikt journalposterPromises={journalposterPromises} />
