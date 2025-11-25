@@ -17,6 +17,7 @@ export interface ISAFGraphqlError {
       message: string;
       extensions: {
         code: "bad_request" | "forbidden" | "not_found" | "server_error";
+        reason_message: string;
         classification: string;
       };
     },
@@ -82,7 +83,7 @@ export async function hentJournalpost(
       return {
         variant: "error",
         title: first?.extensions.classification || "Ukjent feil",
-        body: first?.message,
+        body: first?.extensions.reason_message || first?.message,
         service: url,
       };
     }
