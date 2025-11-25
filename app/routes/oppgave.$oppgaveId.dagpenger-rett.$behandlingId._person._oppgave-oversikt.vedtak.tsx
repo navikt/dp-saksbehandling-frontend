@@ -20,7 +20,6 @@ import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prø
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
@@ -35,13 +34,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
 
-  const [oppgave, vurderinger] = await Promise.all([
-    hentOppgave(request, params.oppgaveId),
-    hentVurderinger(request, params.behandlingId),
-  ]);
-
+  const oppgave = await hentOppgave(request, params.oppgaveId);
   const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
   let meldingOmVedtak;
 
@@ -57,12 +51,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     });
   }
 
-  return { vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave };
+  return { sanityBrevMaler, meldingOmVedtak };
 }
 export default function Behandle() {
   const location = useLocation();
-  const { behandling } = useBehandling();
-  const { vurderinger, sanityBrevMaler, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { behandling, vurderinger } = useBehandling();
+  const { sanityBrevMaler, meldingOmVedtak } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   const { prøvingsdato } = useBehandling();

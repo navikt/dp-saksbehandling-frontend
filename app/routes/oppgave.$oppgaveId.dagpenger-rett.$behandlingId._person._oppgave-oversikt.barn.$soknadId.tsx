@@ -19,7 +19,6 @@ import {
   hentOrkestratorBarn,
   hentOrkestratorLandListe,
 } from "~/models/orkestrator-opplysning.server";
-import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -28,18 +27,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  let orkestratorBarn;
-  let orkestratorLandliste;
+  invariant(params.soknadId, "params.soknadId er påkrevd");
 
-  if (oppgave.soknadId) {
-    orkestratorBarn = await hentOrkestratorBarn(request, oppgave.soknadId);
-    orkestratorLandliste = await hentOrkestratorLandListe(request);
-  }
+  const [orkestratorBarn, orkestratorLandliste] = await Promise.all([
+    hentOrkestratorBarn(request, params.soknadId),
+    hentOrkestratorLandListe(request),
+  ]);
 
-  return { oppgave, orkestratorBarn, orkestratorLandliste };
+  return { orkestratorBarn, orkestratorLandliste };
 }
 
 export default function Behandle() {

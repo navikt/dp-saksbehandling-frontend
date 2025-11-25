@@ -2,6 +2,7 @@ import { ExternalLinkIcon } from "@navikt/aksel-icons";
 import { Link, List } from "@navikt/ds-react";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { getEnv } from "~/utils/env.utils";
 
@@ -34,6 +35,7 @@ interface IProps {
 
 export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
   const { oppgaveId, behandlingId } = useTypeSafeParams();
+  const { oppgave } = useOppgave();
   return (
     <List as="ul" size="small">
       {eksterneLenker.map(
@@ -56,7 +58,9 @@ export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
       )}
 
       <List.Item icon={<></>}>
-        <LoadingLink to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/barn`}>
+        <LoadingLink
+          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/barn/${oppgave.soknadId}`}
+        >
           Rediger barn
         </LoadingLink>
       </List.Item>

@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import { createContext } from "react";
 
 import { ISaksbehandler } from "~/models/microsoft.server";
+import { hentJournalpost } from "~/models/saf.server";
 
 import {
   components,
@@ -10,11 +11,18 @@ import {
 
 interface IOppgaveContextType {
   oppgave: components["schemas"]["Oppgave"];
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
   gyldigeOppgaveValg: IGyldigeOppgaveHandlinger[];
   minOppgave: boolean;
   minBeslutterOppgave: boolean;
   underKontroll: boolean;
   readonly: boolean;
+}
+
+interface IOppgaveProviderType {
+  oppgave: components["schemas"]["Oppgave"];
+  saksbehandler: ISaksbehandler;
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
 }
 
 export const OppgaveContext = createContext<IOppgaveContextType | undefined>(undefined);
@@ -33,10 +41,8 @@ export function OppgaveProvider({
   children,
   oppgave,
   saksbehandler,
-}: PropsWithChildren<{
-  oppgave: components["schemas"]["Oppgave"];
-  saksbehandler: ISaksbehandler;
-}>) {
+  journalposterPromises,
+}: PropsWithChildren<IOppgaveProviderType>) {
   const minOppgave =
     oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
     oppgave.tilstand === "UNDER_BEHANDLING";
@@ -54,6 +60,7 @@ export function OppgaveProvider({
       value={{
         oppgave,
         gyldigeOppgaveValg,
+        journalposterPromises,
         minOppgave,
         minBeslutterOppgave,
         underKontroll,

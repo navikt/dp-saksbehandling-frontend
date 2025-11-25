@@ -1,11 +1,4 @@
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
 import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
@@ -18,7 +11,6 @@ import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpeng
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -26,16 +18,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
-
-  return { vurderinger };
-}
 export default function Behandle() {
-  const { vurderinger } = useLoaderData<typeof loader>();
-  const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, vurderinger, prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
