@@ -9,17 +9,14 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
-import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
-import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
-import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
-import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
-import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -60,25 +57,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 export default function Behandle() {
   const location = useLocation();
-  const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave } =
+  const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak } =
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   const { prøvingsdato } = useBehandling();
 
-  const kanSendeTilKontroll =
-    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
-
-  const kanFatteVedtak =
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
-    oppgave.tilstand === "UNDER_KONTROLL";
-
-  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
-
   return (
     <main>
       <div className={"card mb-4 p-4"}>
-        <div className="flex justify-between gap-6">
+        <div className="flex justify-between gap-4">
           <LinkTabs className="flex-1" />
           <OppgaveMeny />
         </div>
@@ -119,14 +107,6 @@ export default function Behandle() {
                   meldingOmVedtak={meldingOmVedtak}
                   sanityBrevMaler={sanityBrevMaler}
                 />
-
-                <div
-                  className={"mt-4 flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}
-                >
-                  {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
-                  {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
-                  {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
-                </div>
               </UtvidedeBeskrivelserProvider>
             </div>
           </div>

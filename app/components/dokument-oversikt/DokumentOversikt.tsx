@@ -3,7 +3,7 @@ import { Await } from "react-router";
 
 import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMelding";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
-import { JournalpostOversikt } from "~/components/journalpost-oversikt/JournalpostOversikt";
+import { JournalpostOversikt } from "~/components/dokument-oversikt/JournalpostOversikt";
 import { hentJournalpost } from "~/models/saf.server";
 
 interface IProps {

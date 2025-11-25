@@ -3,7 +3,7 @@ import { components } from "openapi/saksbehandling-typer";
 import { useState } from "react";
 
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
-import { OppgaveValgLeggTilbake } from "~/components/v2/oppgave-valg/OppgaveValgLeggTilbake";
+import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";

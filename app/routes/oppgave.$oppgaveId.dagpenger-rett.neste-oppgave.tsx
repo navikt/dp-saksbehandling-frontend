@@ -12,7 +12,7 @@ import invariant from "tiny-invariant";
 
 import { AktivOppgaveSøk } from "~/components/aktivt-oppgave-søk-tags/AktivtOppgaveSøkTags";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -61,12 +61,12 @@ export default function NesteOppgave() {
           </Form>
 
           <div className="flex gap-6">
-            <RemixLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
+            <LoadingLink asButtonVariant={"secondary"} to={`/?${aktivtOppgaveSok}`}>
               Gå til oppgaveliste
-            </RemixLink>
-            <RemixLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
+            </LoadingLink>
+            <LoadingLink asButtonVariant="secondary" to={`/person/${oppgave.person.id}/oversikt`}>
               Gå til personoversikt
-            </RemixLink>
+            </LoadingLink>
           </div>
         </div>
       </div>

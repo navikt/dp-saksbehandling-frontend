@@ -11,7 +11,7 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { OrkestratorBarn } from "~/components/orkestrator-barn/OrkestratorBarn";
+import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandling } from "~/models/behandling.server";

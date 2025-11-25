@@ -9,9 +9,9 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
-import { OppgaveMeny } from "~/components/v2/oppgave-meny/OppgaveMeny";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";

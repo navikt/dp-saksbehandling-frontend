@@ -3,7 +3,7 @@ import { BodyLong, BodyShort, Button, Heading, Modal, Popover } from "@navikt/ds
 import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { isAlert } from "~/utils/type-guards";
@@ -64,13 +64,12 @@ export function OpprettBehandling() {
             </Button>
           </BodyShort>
           <BodyShort size={"small"}>
-            <RemixLink
+            <LoadingLink
               to={`/person/${personOversikt.person.id}/ny-behandling/klage`}
-              size={"xsmall"}
               asButtonVariant={"tertiary-neutral"}
             >
               Klage
-            </RemixLink>
+            </LoadingLink>
           </BodyShort>
         </Popover.Content>
       </Popover>

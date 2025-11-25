@@ -8,7 +8,7 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { isDefined } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
-import { OpplysningerTidslinje } from "../v2/opplysninger-tidslinje/OpplysningerTidslinje";
+import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTidslinje";
 
 interface IProps {
   behandling: components["schemas"]["Behandling"];
