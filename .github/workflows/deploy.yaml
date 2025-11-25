@@ -36,7 +36,7 @@ jobs:
         run: deno install
       
       - name: Run tests
-        run: deno test -P
+        run: deno task test
 
   build:
     name: Bygg
