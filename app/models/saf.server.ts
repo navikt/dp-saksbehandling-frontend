@@ -95,7 +95,7 @@ export async function hentJournalpost(
       const first = response.errors?.[0];
       return {
         variant: "error",
-        title: first?.extensions.classification || "Ukjent feil",
+        title: "Feil ved henting av dokumenter",
         body: first?.extensions.reason_message || first?.message,
         service: url,
       };
