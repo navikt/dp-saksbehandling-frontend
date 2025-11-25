@@ -69,17 +69,30 @@ export async function hentJournalpost(
       };
     }
 
-    if (isSAFRequestError(error)) {
+    if (typeof error !== "object" || error === null) {
       return {
         variant: "error",
-        title: error.error,
-        body: error.message,
+        title: "Ukjent feil",
+        body: `I tillegg er feilmeldingen på et format vi ikke kjenner igjen: ${JSON.stringify(error)}`,
         service: url,
       };
     }
 
-    if (isSAFGraphqlError(error)) {
-      const first = error.errors?.[0];
+    const obj = error as Record<string, unknown>;
+
+    const response = obj.response as Record<string, unknown>;
+
+    if (isSAFRequestError(response)) {
+      return {
+        variant: "error",
+        title: response.error,
+        body: response.message,
+        service: url,
+      };
+    }
+
+    if (isSAFGraphqlError(response)) {
+      const first = response.errors?.[0];
       return {
         variant: "error",
         title: first?.extensions.classification || "Ukjent feil",
@@ -91,7 +104,7 @@ export async function hentJournalpost(
     return {
       variant: "error",
       title: "Ukjent feil",
-      body: JSON.stringify(error),
+      body: JSON.stringify(response),
       service: url,
     };
   }
