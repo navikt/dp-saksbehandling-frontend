@@ -5,17 +5,18 @@ import { useState } from "react";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
+import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
 import { FerdigstillInnsendingSkjema } from "../ferdigstill-innsending-skjema/FerdigstillInnsendingSkjema";
 
 interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
   innsending: components["schemas"]["Innsending"];
 }
 
-export function InnsendingInfo({ oppgave, innsending }: IProps) {
+export function InnsendingInfo({ innsending }: IProps) {
+  const { oppgave, readonly } = useOppgave();
   const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<boolean>();
 
   return (
@@ -58,42 +59,49 @@ export function InnsendingInfo({ oppgave, innsending }: IProps) {
         />
       )}
 
-      <div className="mt-2 flex flex-col gap-2">
-        {ferdigstillMedBehandling === undefined && (
-          <>
-            <div>
-              <Button
-                variant="primary"
-                size="small"
-                onClick={() => setFerdigstillMedBehandling(true)}
-              >
-                Opprett ny behandling
-              </Button>
-            </div>
+      {innsending.vurdering && (
+        <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={innsending.vurdering} />
+      )}
 
-            <div>
-              <Button
-                variant="secondary"
-                size="small"
-                onClick={() => setFerdigstillMedBehandling(false)}
-              >
-                Ferdigstill uten behandling
-              </Button>
-            </div>
-            <div>
-              <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} buttonSize={"small"} />
-            </div>
-          </>
-        )}
+      {!readonly && (
+        <div className="mt-2 flex flex-col gap-2">
+          {ferdigstillMedBehandling === undefined && (
+            <>
+              <div>
+                <Button
+                  variant="primary"
+                  size="small"
+                  onClick={() => setFerdigstillMedBehandling(true)}
+                >
+                  Opprett ny behandling
+                </Button>
+              </div>
 
-        {ferdigstillMedBehandling !== undefined && (
-          <FerdigstillInnsendingSkjema
-            setFerdigstillMedBehandling={setFerdigstillMedBehandling}
-            medBehandling={ferdigstillMedBehandling}
-            lovligeSaker={innsending.lovligeSaker}
-          />
-        )}
-      </div>
+              <div>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={() => setFerdigstillMedBehandling(false)}
+                >
+                  Ferdigstill uten behandling
+                </Button>
+              </div>
+
+              <div>
+                <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} buttonSize={"small"} />
+              </div>
+            </>
+          )}
+
+          {ferdigstillMedBehandling !== undefined && (
+            <FerdigstillInnsendingSkjema
+              setFerdigstillMedBehandling={setFerdigstillMedBehandling}
+              medBehandling={ferdigstillMedBehandling}
+              lovligeSaker={innsending.lovligeSaker}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -99,7 +99,7 @@ export default function Innsending() {
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
         <section className="flex flex-col gap-4">
-          <InnsendingInfo oppgave={oppgave} innsending={innsending} />
+          <InnsendingInfo innsending={innsending} />
 
           <div className="card p-4">
             <InnsendingDokumentOversikt
