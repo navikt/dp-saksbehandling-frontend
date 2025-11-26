@@ -94,7 +94,7 @@ jobs:
 
   deploy-dev:
     name: Deploy til dev-gcp
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' || github.ref == 'refs/heads/main'
     needs: [ build ]
     runs-on: ubuntu-latest
     environment:
