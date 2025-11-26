@@ -59,7 +59,7 @@ export function InnsendingInfo({ innsending }: IProps) {
         />
       )}
 
-      {innsending.vurdering && (
+      {innsending.vurdering && readonly && (
         <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={innsending.vurdering} />
       )}
 
