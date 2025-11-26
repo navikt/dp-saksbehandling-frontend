@@ -8,7 +8,7 @@ import { innsending } from "./innsending";
 import { innvilgelseOrdinær } from "./innvilgelse-ordinær";
 import { innvilgelseOrdinærTidligereKontrollert } from "./innvilgelse-ordinær-tidligere-kontrollert";
 import { klage } from "./klage";
-
+import { ordinær } from "./ordinær";
 export function konverterOppgaveTilListeOppgave(
   oppgave: components["schemas"]["Oppgave"],
 ): components["schemas"]["OppgaveOversikt"] {
@@ -45,4 +45,5 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(avslagOrdinærReellArbeidssøker),
   konverterOppgaveTilListeOppgave(avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt),
   konverterOppgaveTilListeOppgave(innvilgelseOrdinær),
+  konverterOppgaveTilListeOppgave(ordinær),
 ];

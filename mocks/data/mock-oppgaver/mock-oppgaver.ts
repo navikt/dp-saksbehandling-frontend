@@ -7,7 +7,7 @@ import { innsending } from "./innsending";
 import { innvilgelseOrdinær } from "./innvilgelse-ordinær";
 import { innvilgelseOrdinærTidligereKontrollert } from "./innvilgelse-ordinær-tidligere-kontrollert";
 import { klage } from "./klage";
-
+import { ordinær } from "./ordinær";
 export const mockOppgaver = [
   klage,
   innsending,
@@ -18,4 +18,5 @@ export const mockOppgaver = [
   innvilgelseOrdinær,
   avslagOrdinærReellArbeidssøker,
   avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt,
+  ordinær,
 ];

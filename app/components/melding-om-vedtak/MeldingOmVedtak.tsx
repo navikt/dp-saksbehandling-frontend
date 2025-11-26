@@ -1,12 +1,8 @@
-import { Radio, RadioGroup } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
-import { useLocation } from "react-router";
-
 import { components } from "~/../openapi/melding-om-vedtak-typer";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
+import { MeldingOmVedtakDPSak } from "~/components/melding-om-vedtak/MeldingOmVedtakDPSak";
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
-import { UtvidedeBeskrivelser } from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidedeBeskrivelser";
 import { OppgaveFattVedtak } from "~/components/oppgave-fatt-vedtak/OppgaveFattVedtak";
 import { OppgaveReturnerTilSaksbehandler } from "~/components/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
 import { OppgaveSendTilKontroll } from "~/components/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
@@ -16,7 +12,6 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
-import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
 import styles from "./MeldingOmVedtak.module.css";
 
@@ -26,7 +21,6 @@ interface IProps {
 }
 
 export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
-  const { pathname } = useLocation();
   const { oppgave, readonly } = useOppgave();
   const { behandling } = useBehandling();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
@@ -40,59 +34,23 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
 
   const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
-  const endreBrevVariantForm = useForm({
-    method: "post",
-    action: pathname,
-    submitSource: "state",
-    schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
-    defaultValues: {
-      _action: "lagre-brev-variant",
-      behandlingId: oppgave.behandlingId,
-      brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
-    },
-  });
-
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
         <MeldingOmVedtakKilde readOnly={readonly} oppgave={oppgave} />
+
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
-          <>
-            <hr className="border-(--ax-border-neutral-subtle)" />
-
-            <RadioGroup
-              {...endreBrevVariantForm.field("brevVariant").getInputProps()}
-              size={"small"}
-              legend="Variant"
-              readOnly={readonly}
-              onChange={(value) => {
-                endreBrevVariantForm.field("brevVariant").setValue(value);
-                endreBrevVariantForm.submit();
-              }}
-            >
-              <Radio value="GENERERT">Standardisert tekst</Radio>
-              <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
-            </RadioGroup>
-
-            {utvidedeBeskrivelser.length > 0 && (
-              <hr className="border-(--ax-border-neutral-subtle)" />
-            )}
-
-            {!isAlert(meldingOmVedtak) && (
-              <UtvidedeBeskrivelser
-                meldingOmVedtak={meldingOmVedtak}
-                readOnly={readonly}
-                sanityBrevMaler={sanityBrevMaler}
-              />
-            )}
-
-            <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
-              {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
-              {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
-              {kanFatteVedtak && <OppgaveFattVedtak />}
-            </div>
-          </>
+          <MeldingOmVedtakDPSak
+            meldingOmVedtak={meldingOmVedtak}
+            sanityBrevMaler={sanityBrevMaler}
+          />
         )}
+
+        <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
+          {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+          {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+          {kanFatteVedtak && <OppgaveFattVedtak />}
+        </div>
       </div>
 
       <div className={styles.previewContainer}>
