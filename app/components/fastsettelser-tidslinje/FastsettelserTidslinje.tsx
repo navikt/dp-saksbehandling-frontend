@@ -13,7 +13,7 @@ import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTid
 export function FastsettelserTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
   const { behandling, prøvingsdatoOpplysning } = useBehandling();
-  const tidslinjeState = useTidslinjeNavigeringState(behandling.opplysninger);
+  const tidslinjeState = useTidslinjeNavigeringState(behandling);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
     components["schemas"]["Regelsett"] | undefined

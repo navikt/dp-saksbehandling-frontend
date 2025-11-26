@@ -40,7 +40,7 @@ export function VilkårTidslinje() {
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(behandling.opplysninger);
+  } = useTidslinjeNavigeringState(behandling);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
     components["schemas"]["Regelsett"] | undefined
   >();

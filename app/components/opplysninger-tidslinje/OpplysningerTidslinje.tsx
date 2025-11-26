@@ -11,6 +11,7 @@ import {
   hentFargeForOpplysningPeriode,
   hentIkonForOpplysningPeriode,
 } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import {
   TidslinjeNavigeringState,
@@ -38,12 +39,13 @@ interface IProps {
 }
 
 export function OpplysningerTidslinje(props: IProps) {
+  const { behandling } = useBehandling();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(props.opplysninger, props.eksternTidslinjeNavigeringState);
+  } = useTidslinjeNavigeringState(behandling, props.eksternTidslinjeNavigeringState);
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
