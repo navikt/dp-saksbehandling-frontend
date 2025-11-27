@@ -20,7 +20,6 @@ interface IEnv {
   ARBEID_INNTEKT_URL: string;
   GOSYS_URL: string;
   MODIA_URL: string;
-  GRISEN_URL: string;
   DAGPENGER_NORGE_URL: string;
   NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: string;
   UNLEASH_SERVER_API_URL: string;

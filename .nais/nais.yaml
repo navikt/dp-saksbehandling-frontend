@@ -64,8 +64,6 @@ spec:
       value: "{{gosys_url}}"
     - name: MODIA_URL
       value: "{{modia_url}}"
-    - name: GRISEN_URL
-      value: "{{grisen_url}}"
     - name: DAGPENGER_NORGE_URL
       value: "{{dagpenger-norge_url}}"
     - name: SAF_AUDIENCE

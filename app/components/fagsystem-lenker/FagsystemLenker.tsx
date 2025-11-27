@@ -16,10 +16,6 @@ const eksterneLenker = [
     text: "MODIA",
   },
   {
-    url: getEnv("GRISEN_URL"),
-    text: "GRISEN",
-  },
-  {
     url: getEnv("DAGPENGER_NORGE_URL"),
     text: "Dagpenger Norge",
   },

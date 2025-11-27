@@ -113,7 +113,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ARBEID_INNTEKT_URL: process.env.ARBEID_INNTEKT_URL,
       GOSYS_URL: process.env.GOSYS_URL,
       MODIA_URL: process.env.MODIA_URL,
-      GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
