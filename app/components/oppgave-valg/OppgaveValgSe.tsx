@@ -19,9 +19,20 @@ export function OppgaveValgSe({
   buttonVariant,
   buttonSize,
 }: IProps) {
+  function hentBehandlingPath(behandlingType: components["schemas"]["BehandlingType"]) {
+    switch (behandlingType) {
+      case "RETT_TIL_DAGPENGER":
+        return `oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`;
+      case "KLAGE":
+        return `/oppgave/${oppgaveId}/klage/${behandlingId}`;
+      case "INNSENDING":
+        return `/oppgave/${oppgaveId}/innsending/${behandlingId}`;
+    }
+  }
+
   return (
     <LoadingLink
-      to={`${behandlingType === "RETT_TIL_DAGPENGER" ? `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle` : `/oppgave/${oppgaveId}/klage/${behandlingId}`}`}
+      to={hentBehandlingPath(behandlingType)}
       asButtonVariant={buttonVariant ? buttonVariant : "tertiary-neutral"}
       buttonSize={buttonSize}
       className={"aksel--font-regular aksel--full-bredde"}
