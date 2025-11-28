@@ -1,8 +1,8 @@
 import { Detail, Loader, Textarea } from "@navikt/ds-react";
-import { ChangeEvent, ReactNode, useEffect, useRef } from "react";
-import { useFetcher } from "react-router";
+import { ReactNode, useEffect } from "react";
+import { useFetcher, useLocation } from "react-router";
 import { ClientOnly } from "remix-utils/client-only";
-import { useDebounceCallback } from "usehooks-ts";
+import { useDebouncedCallback } from "use-debounce";
 
 import styles from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidetBeskrivelser.module.css";
 import { RikTekstEditor } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
@@ -10,7 +10,7 @@ import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
-import { handleActions } from "~/server-side-actions/handle-actions";
+import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
@@ -27,14 +27,21 @@ interface IProps {
 export function UtvidetBeskrivelseInput(props: IProps) {
   const { addAlert } = useGlobalAlerts();
   const { behandlingId } = useTypeSafeParams();
-  const formRef = useRef<HTMLFormElement | null>(null);
+  const { pathname } = useLocation();
 
   const { oppdaterUtvidetBeskrivelse } = useUtvidedeBeskrivelser();
-  const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof handleActions>();
-  const debouncedLagreUtvidetBeskrivelseFetcher = useDebounceCallback(
-    lagreUtvidetBeskrivelseFetcher.submit,
-    2000,
-  );
+  const lagreUtvidetBeskrivelseFetcher = useFetcher<typeof lagreUtvidetBeskrivelseAction>();
+  const debouncedLagreUtvidetBeskrivelseFetcher = useDebouncedCallback((verdi) => {
+    lagreUtvidetBeskrivelseFetcher.submit(
+      {
+        _action: "lagre-utvidet-beskrivelse",
+        behandlingId,
+        brevBlokkId: props.utvidetBeskrivelse.brevblokkId,
+        utvidetBeskrivelse: verdi,
+      },
+      { method: "post", action: pathname },
+    );
+  }, 2000);
 
   useEffect(() => {
     if (
@@ -52,15 +59,13 @@ export function UtvidetBeskrivelseInput(props: IProps) {
     }
   }, [lagreUtvidetBeskrivelseFetcher.data]);
 
-  function lagreUtvidetBeskrivelse(event: ChangeEvent<HTMLTextAreaElement>) {
-    const oppdatertVerdi = event.currentTarget.value;
-
+  function lagreUtvidetBeskrivelse(nyTekst: string) {
     oppdaterUtvidetBeskrivelse({
       ...props.utvidetBeskrivelse,
-      tekst: oppdatertVerdi,
+      tekst: nyTekst,
     });
 
-    debouncedLagreUtvidetBeskrivelseFetcher(event.target.form);
+    debouncedLagreUtvidetBeskrivelseFetcher(nyTekst);
 
     // Kanseller debounce hvis siste tilstand på server er lik som nåværende tekstverdi
     if (props.meldingOmVedtak) {
@@ -68,57 +73,36 @@ export function UtvidetBeskrivelseInput(props: IProps) {
         (beskrivelse) => beskrivelse.brevblokkId === props.utvidetBeskrivelse.brevblokkId,
       );
 
-      if (utvidetBeskrivelseFraServer?.tekst === oppdatertVerdi) {
+      if (utvidetBeskrivelseFraServer?.tekst === nyTekst) {
         debouncedLagreUtvidetBeskrivelseFetcher.cancel();
       }
     }
   }
 
-  function lagreUtvidetBeskrivelseRikTekst(tekst: string) {
-    oppdaterUtvidetBeskrivelse({
-      ...props.utvidetBeskrivelse,
-      tekst: tekst,
-    });
-
-    if (formRef) {
-      debouncedLagreUtvidetBeskrivelseFetcher(formRef.current);
-    }
-  }
-
   return (
     <div>
-      <lagreUtvidetBeskrivelseFetcher.Form method="post" ref={formRef}>
-        <input name="_action" value="lagre-utvidet-beskrivelse" hidden={true} readOnly={true} />
-        <input name="behandling-id" value={behandlingId} hidden={true} readOnly={true} />
-        <input
-          name="brevblokk-id"
-          value={props.utvidetBeskrivelse.brevblokkId}
-          hidden={true}
-          readOnly={true}
+      {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert" ? (
+        <ClientOnly fallback={<Loader />}>
+          {() => (
+            <RikTekstEditor
+              tekst={props.utvidetBeskrivelse.tekst}
+              onChange={lagreUtvidetBeskrivelse}
+              readOnly={props.readOnly}
+              sanityBrevMaler={props.sanityBrevMaler}
+            />
+          )}
+        </ClientOnly>
+      ) : (
+        <Textarea
+          name={"utvidet-beskrivelse"}
+          className={styles.container}
+          label={props.label}
+          value={props.utvidetBeskrivelse.tekst}
+          onChange={(event) => lagreUtvidetBeskrivelse(event.currentTarget.value)}
+          onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
+          readOnly={props.readOnly}
         />
-        {props.utvidetBeskrivelse.brevblokkId === "brev.blokk.egendefinert" ? (
-          <ClientOnly fallback={<Loader />}>
-            {() => (
-              <RikTekstEditor
-                tekst={props.utvidetBeskrivelse.tekst}
-                onChange={lagreUtvidetBeskrivelseRikTekst}
-                readOnly={props.readOnly}
-                sanityBrevMaler={props.sanityBrevMaler}
-              />
-            )}
-          </ClientOnly>
-        ) : (
-          <Textarea
-            name={"utvidet-beskrivelse"}
-            className={styles.container}
-            label={props.label}
-            value={props.utvidetBeskrivelse.tekst}
-            onChange={lagreUtvidetBeskrivelse}
-            onBlur={() => debouncedLagreUtvidetBeskrivelseFetcher.flush()}
-            readOnly={props.readOnly}
-          />
-        )}
-      </lagreUtvidetBeskrivelseFetcher.Form>
+      )}
 
       {props.utvidetBeskrivelse.sistEndretTidspunkt && (
         <Detail textColor="subtle">

@@ -425,3 +425,12 @@ export function v2hentValideringForReturnerTilSaksbehandler() {
     }),
   });
 }
+
+export function hentValideringForUtvidetBeskrivelse() {
+  return z.object({
+    _action: z.literal("lagre-utvidet-beskrivelse"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    brevBlokkId: z.string().min(1, "Det mangler brevBlokkId i skjema"),
+    utvidetBeskrivelse: z.string(),
+  });
+}
