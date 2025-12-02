@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
 const rettighetstype = ["Ordinær", "Verneplikt", "Permittert"];
@@ -17,9 +17,8 @@ export function OppgaveFilterRettighetstype() {
   }
 
   return (
-    <div>
-      <Detail textColor="subtle">Rettighetstype</Detail>
-      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
+    <ReadMore size="small" header="Rettighetstype" className="readmore--with-checkboxes">
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact checkbox--in-readmore"}>
         {rettighetstype.map((emneknagg) => (
           <Checkbox
             key={emneknagg}
@@ -38,6 +37,6 @@ export function OppgaveFilterRettighetstype() {
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </div>
+    </ReadMore>
   );
 }

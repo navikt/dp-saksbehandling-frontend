@@ -1,17 +1,11 @@
-import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
 import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
-const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
-  "MELDEKORT",
-  "INNSENDING",
-  "SØKNAD",
-  "KLAGE",
-  "MANUELL",
-];
+const utløstAvTyper: components["schemas"]["UtlostAvType"][] = ["SØKNAD", "MANUELL"];
 
 export function OppgaveFilterUtløstAv() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,9 +21,8 @@ export function OppgaveFilterUtløstAv() {
   }
 
   return (
-    <div>
-      <Detail textColor="subtle">Utløst av</Detail>
-      <CheckboxGroup className="checkbox--compact" size="small" legend={""}>
+    <ReadMore size="small" header="Utløst av" className="readmore--with-checkboxes">
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact checkbox--in-readmore"}>
         {utløstAvTyper.map((type) => (
           <Checkbox
             key={type}
@@ -44,6 +37,6 @@ export function OppgaveFilterUtløstAv() {
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </div>
+    </ReadMore>
   );
 }

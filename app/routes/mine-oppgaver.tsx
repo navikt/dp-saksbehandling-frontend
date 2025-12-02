@@ -10,8 +10,8 @@ import {
   useNavigation,
 } from "react-router";
 
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
@@ -102,10 +102,10 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterDato />
-            <OppgaveFilterUtløstAv />
+            <OppgaveFilterPrioritert />
             <OppgaveFilterStatus />
+            <OppgaveFilterUtløstAv />
             <OppgaveFilterRettighetstype />
-            <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
 
           <Tabs.Panel value="statistikk">

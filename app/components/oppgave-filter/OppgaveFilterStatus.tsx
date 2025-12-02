@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -41,9 +41,8 @@ export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
   }
 
   return (
-    <div>
-      <Detail textColor="subtle">Status</Detail>
-      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
+    <ReadMore size="small" header="Status" className="readmore--with-checkboxes">
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact checkbox--in-readmore"}>
         {tilstander.map((status) => (
           <Checkbox
             name="tilstand"
@@ -58,6 +57,6 @@ export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </div>
+    </ReadMore>
   );
 }
