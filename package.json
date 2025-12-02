@@ -38,7 +38,7 @@
     "@navikt/ds-react": "7.33.5",
     "@navikt/ds-tailwind": "7.33.5",
     "@navikt/oasis": "4.1.1",
-    "@opentelemetry/auto-instrumentations-node": "0.67.0",
+    "@opentelemetry/auto-instrumentations-node": "0.67.1",
     "@opentelemetry/sdk-node": "0.208.0",
     "@opentelemetry/sdk-trace-node": "2.2.0",
     "@portabletext/block-tools": "4.1.0",
