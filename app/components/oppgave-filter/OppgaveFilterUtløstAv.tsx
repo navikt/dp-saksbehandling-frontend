@@ -6,11 +6,11 @@ import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 import { components } from "../../../openapi/saksbehandling-typer";
 
 const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
+  "MELDEKORT",
+  "INNSENDING",
   "SØKNAD",
   "KLAGE",
-  "MELDEKORT",
   "MANUELL",
-  "INNSENDING",
 ];
 
 export function OppgaveFilterUtløstAv() {
