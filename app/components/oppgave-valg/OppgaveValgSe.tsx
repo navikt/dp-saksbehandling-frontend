@@ -22,7 +22,7 @@ export function OppgaveValgSe({
   function hentBehandlingPath(behandlingType: components["schemas"]["BehandlingType"]) {
     switch (behandlingType) {
       case "RETT_TIL_DAGPENGER":
-        return `oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`;
+        return `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`;
       case "KLAGE":
         return `/oppgave/${oppgaveId}/klage/${behandlingId}`;
       case "INNSENDING":
