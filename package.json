@@ -41,7 +41,7 @@
     "@opentelemetry/auto-instrumentations-node": "0.67.1",
     "@opentelemetry/sdk-node": "0.208.0",
     "@opentelemetry/sdk-trace-node": "2.2.0",
-    "@portabletext/block-tools": "4.1.1",
+    "@portabletext/block-tools": "4.1.2",
     "@portabletext/editor": "3.0.4",
     "@portabletext/keyboard-shortcuts": "2.1.0",
     "@portabletext/react": "5.0.0",
