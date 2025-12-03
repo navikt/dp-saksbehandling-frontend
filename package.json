@@ -85,7 +85,7 @@
     "@tailwindcss/vite": "4.1.17",
     "@types/canvas-confetti": "1.9.0",
     "@types/compression": "1.8.1",
-    "@types/react": "19.2.6",
+    "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "dotenv": "17.2.3",
     "eslint": "9.39.1",
