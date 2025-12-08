@@ -26,11 +26,14 @@ export default function Opplysning() {
   const { meldekortUrl } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
+  const meldekortId =
+    behandling.behandletHendelse.type === "Meldekort" ? behandling.behandletHendelse.id : null;
+
   const direkteMeldekortUrl =
-    regelsettId === "497240064" && meldekortUrl
-      ? `${meldekortUrl}` // TODO: legg på det ekstra vi trenger på denne url'en
-      : // alternativ 1: `/perioder?variant=A&aar=2025&aktivtMeldekort=${meldekortId}` (krever endring fra ramp og pjs)
-        // alternativ 2: `/periode/${meldekortId}/korriger?variant=A` (krever endring fra pjs)
+    regelsettId === "497240064" && meldekortUrl && meldekortId
+      ? `${meldekortUrl}/periode/${meldekortId}/korriger?variant=A` // TODO: legg på det ekstra vi trenger på denne url'en
+      : // alternativ 1: `/perioder?variant=A&aar=2025&aktivtMeldekort (eller noe)=${meldekortId}` (krever endring fra ramp)
+        // alternativ 2: `/periode/${meldekortId}/korriger?variant=A` (vi må hente meldekortId fra payload)
         undefined;
 
   const actionData = useActionData<typeof action>();
