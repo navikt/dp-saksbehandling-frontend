@@ -27,7 +27,7 @@ export default function Opplysning() {
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
   const direkteMeldekortUrl =
-    regelsettId !== "497240064" && meldekortUrl
+    regelsettId === "497240064" && meldekortUrl
       ? `${meldekortUrl}` // TODO: legg på det ekstra vi trenger på denne url'en
       : // alternativ 1: `/perioder?variant=A&aar=2025&aktivtMeldekort=${meldekortId}` (krever endring fra ramp og pjs)
         // alternativ 2: `/periode/${meldekortId}/korriger?variant=A` (krever endring fra pjs)
