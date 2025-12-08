@@ -11,6 +11,7 @@ import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/Opply
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -22,6 +23,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
   const { behandling, vurderinger, prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
+  const { meldekortUrl } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
+  );
+  const direkteMeldekortUrl =
+    regelsettId !== "497240064" && meldekortUrl
+      ? `${meldekortUrl}` // TODO: legg på det ekstra vi trenger på denne url'en
+      : // alternativ 1: `/perioder?variant=A&aar=2025&aktivtMeldekort=${meldekortId}` (krever endring fra ramp og pjs)
+        // alternativ 2: `/periode/${meldekortId}/korriger?variant=A` (krever endring fra pjs)
+        undefined;
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -93,6 +103,7 @@ export default function Opplysning() {
                   opplysninger={regelsettOpplysninger.reverse()}
                   tittel={regelsett.hjemmel.tittel}
                   fremhevØverstTidslinjeRad={true}
+                  meldekortUrl={direkteMeldekortUrl}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
