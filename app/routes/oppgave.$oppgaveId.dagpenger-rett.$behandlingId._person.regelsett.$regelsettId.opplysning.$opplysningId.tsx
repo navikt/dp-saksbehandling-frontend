@@ -31,10 +31,8 @@ export default function Opplysning() {
 
   const direkteMeldekortUrl =
     regelsettId === "497240064" && meldekortUrl && meldekortId
-      ? `${meldekortUrl}/periode/${meldekortId}/korriger?variant=A` // TODO: legg på det ekstra vi trenger på denne url'en
-      : // alternativ 1: `/perioder?variant=A&aar=2025&aktivtMeldekort (eller noe)=${meldekortId}` (krever endring fra ramp)
-        // alternativ 2: `/periode/${meldekortId}/korriger?variant=A` (vi må hente meldekortId fra payload)
-        undefined;
+      ? `${meldekortUrl}/perioder?meldekortId=${meldekortId}`
+      : undefined;
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
