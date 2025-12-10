@@ -80,7 +80,6 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
 
                 case "avbryt-behandling":
                   return (
-                    // TODO: få lovligeEndringer på listeOppgave? :innocent:
                     <OppgaveValgAvbryt
                       oppgaveId={listeOppgave.oppgaveId}
                       lovligeEndringer={
