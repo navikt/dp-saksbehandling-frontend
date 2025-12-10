@@ -71,7 +71,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await fattVedtakAction(request, params, formData);
 
     case "avbryt-oppgave":
-      return await avbrytOppgaveAction(request, params, formData);
+      return await avbrytOppgaveAction(request, formData);
 
     case "send-til-kontroll":
       return await sendTilKontrollAction(request, params, formData);
