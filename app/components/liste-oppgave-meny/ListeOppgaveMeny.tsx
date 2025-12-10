@@ -83,7 +83,9 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                     // TODO: få lovligeEndringer på listeOppgave? :innocent:
                     <OppgaveValgAvbryt
                       oppgaveId={listeOppgave.oppgaveId}
-                      lovligeEndringer={{ paaVentAarsaker: [], avbrytAarsaker: [] }}
+                      lovligeEndringer={
+                        listeOppgave.lovligeEndringer || { avbrytAarsaker: [], paaVentAarsaker: [] }
+                      }
                     />
                   );
               }

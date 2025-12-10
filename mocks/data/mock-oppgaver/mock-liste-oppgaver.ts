@@ -30,6 +30,7 @@ export function konverterOppgaveTilListeOppgave(
     tidspunktOpprettet: oppgave.tidspunktOpprettet,
     tilstand: oppgave.tilstand,
     utsattTilDato: oppgave.utsattTilDato,
+    lovligeEndringer: oppgave.lovligeEndringer,
   };
 }
 
