@@ -8,6 +8,8 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
     type: "Manuell",
     skjedde: "2025-11-06",
   },
+  opprettet: "2025-11-06",
+  sistEndret: "2025-11-06",
   behandlingskjedeId: "019a584d-966b-794d-b2a5-d5bd87cb6e4f",
   basertPå: "019a584d-966b-794d-b2a5-d5bd87cb6e4f",
   automatisk: false,

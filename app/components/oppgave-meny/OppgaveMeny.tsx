@@ -43,7 +43,12 @@ export function OppgaveMeny() {
                   return <OppgaveValgSettPåVent oppgave={oppgave} />;
 
                 case "avbryt-behandling":
-                  return <OppgaveValgAvbryt oppgave={oppgave} />;
+                  return (
+                    <OppgaveValgAvbryt
+                      oppgaveId={oppgave.oppgaveId}
+                      lovligeEndringer={oppgave.lovligeEndringer}
+                    />
+                  );
               }
             })}
           </ActionMenu.Content>
