@@ -8,6 +8,8 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
     type: "Søknad",
     skjedde: "2025-07-15",
   },
+  opprettet: "2025-07-15",
+  sistEndret: "2025-07-15",
   behandlingskjedeId: "01980d51-30d1-7af3-a8f5-2f2572087d2a",
   automatisk: false,
   ident: "04810098363",

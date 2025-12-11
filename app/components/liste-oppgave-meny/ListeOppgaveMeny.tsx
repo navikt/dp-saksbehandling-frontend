@@ -12,6 +12,7 @@ import { hentGyldigeOppgaveValg } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
 import { components } from "../../../openapi/saksbehandling-typer";
+import { OppgaveValgAvbryt } from "../oppgave-valg/OppgaveValgAvbryt";
 import { OppgaveValgSe } from "../oppgave-valg/OppgaveValgSe";
 
 interface IProps {
@@ -74,6 +75,16 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                       oppgaveId={listeOppgave.oppgaveId}
                       behandlingId={listeOppgave.behandlingId}
                       behandlingType={listeOppgave.behandlingType}
+                    />
+                  );
+
+                case "avbryt-behandling":
+                  return (
+                    <OppgaveValgAvbryt
+                      oppgaveId={listeOppgave.oppgaveId}
+                      lovligeEndringer={
+                        listeOppgave.lovligeEndringer || { avbrytAarsaker: [], paaVentAarsaker: [] }
+                      }
                     />
                   );
               }

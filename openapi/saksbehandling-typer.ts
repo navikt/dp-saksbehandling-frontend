@@ -1640,13 +1640,18 @@ export interface components {
             /** Format: uuid */
             sakId?: string;
             vurdering?: string;
-            nyBehandling?: components["schemas"]["Behandling"];
+            nyBehandling?: components["schemas"]["TynnBehandling"];
         };
         TynnSak: {
             /** Format: uuid */
             sakId: string;
             /** Format: date-time */
             opprettetDato: string;
+        };
+        TynnBehandling: {
+            /** Format: uuid */
+            behandlingId: string;
+            behandlingType: components["schemas"]["BehandlingType"];
         };
         Person: {
             ident: string;
@@ -1703,6 +1708,7 @@ export interface components {
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             tilstand: components["schemas"]["OppgaveTilstand"];
+            lovligeEndringer?: components["schemas"]["LovligeEndringer"];
             /** Format: date */
             utsattTilDato?: string;
         };
@@ -2016,7 +2022,7 @@ export interface components {
         };
         FerdigstillInnsendingRequest: {
             /** Format: uuid */
-            sakId: string;
+            sakId?: string;
             vurdering: string;
             behandlingType?: components["schemas"]["BehandlingType"];
         };

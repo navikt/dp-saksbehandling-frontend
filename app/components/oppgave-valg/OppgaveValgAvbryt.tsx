@@ -10,12 +10,18 @@ import { hentValideringAvbrytOppgave } from "~/utils/validering.util";
 import { components } from "../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  oppgave: components["schemas"]["Oppgave"];
+  oppgaveId: string;
+  lovligeEndringer: components["schemas"]["LovligeEndringer"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgAvbryt({
+  oppgaveId,
+  lovligeEndringer,
+  buttonSize,
+  buttonVariant,
+}: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -27,7 +33,7 @@ export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "avbryt-oppgave",
-      oppgaveId: oppgave.oppgaveId,
+      oppgaveId: oppgaveId,
       // Castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
       // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773
       avbrytAarsak: "" as unknown as components["schemas"]["AvbrytOppgaveAarsak"],
@@ -60,7 +66,7 @@ export function OppgaveValgAvbryt({ oppgave, buttonSize, buttonVariant }: IProps
               Velg årsak
             </option>
 
-            {oppgave.lovligeEndringer.avbrytAarsaker.map((årsak) => (
+            {lovligeEndringer.avbrytAarsaker.map((årsak) => (
               <option key={årsak} value={årsak}>
                 {hentTekstForAvbrytÅrsak(årsak)}
               </option>
