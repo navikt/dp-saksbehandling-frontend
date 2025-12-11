@@ -1,5 +1,5 @@
-import { PadlockLockedIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, Heading, HStack, Tag, Timeline } from "@navikt/ds-react";
+import { ExternalLinkIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
+import { BodyShort, Detail, Heading, HStack, Link, Tag, Timeline } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
@@ -36,6 +36,7 @@ interface IProps {
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
   eksternTidslinjeNavigeringState?: TidslinjeNavigeringState;
+  meldekortUrl?: string;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -100,15 +101,23 @@ export function OpplysningerTidslinje(props: IProps) {
       )}
 
       {props.tittel && !props.regelsettHjemmel && (
-        <div className={`flex content-center justify-between`}>
-          <div className={"flex items-center gap-1"}>
-            {readonly ||
-              (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
-                <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
-              ))}
-            <Heading size={"small"}>{props.tittel}</Heading>
+        <div className="flex flex-col gap-4">
+          <div className={`flex content-center justify-between`}>
+            <div className={"flex grow items-center gap-1"}>
+              {readonly ||
+                (props.opplysninger.length === 1 && !props.opplysninger[0].redigerbar && (
+                  <PadlockLockedIcon aria-label={"Opplysning er ikke redigerbar"} />
+                ))}
+              <Heading size={"small"}>{props.tittel}</Heading>
+            </div>
+            {props.meldekortUrl && (
+              <div className="flex justify-end">
+                <Link href={props.meldekortUrl} target="_blank">
+                  Meldekort for perioden <ExternalLinkIcon />
+                </Link>
+              </div>
+            )}
           </div>
-
           {!props.eksternTidslinjeNavigeringState && (
             <TidslinjeNavigering
               tidslinjeStartSlutt={tidslinjeStartSlutt}
