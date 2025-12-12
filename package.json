@@ -46,7 +46,7 @@
     "@portabletext/keyboard-shortcuts": "2.1.0",
     "@portabletext/react": "5.0.0",
     "@portabletext/to-html": "4.0.1",
-    "@portabletext/toolbar": "4.0.15",
+    "@portabletext/toolbar": "4.0.18",
     "@react-router/node": "7.10.1",
     "@react-router/serve": "7.10.1",
     "@rvf/react-router": "8.1.0",
