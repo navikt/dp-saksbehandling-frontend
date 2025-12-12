@@ -42,7 +42,7 @@
     "@opentelemetry/sdk-node": "0.208.0",
     "@opentelemetry/sdk-trace-node": "2.2.0",
     "@portabletext/block-tools": "4.1.4",
-    "@portabletext/editor": "3.2.2",
+    "@portabletext/editor": "3.2.5",
     "@portabletext/keyboard-shortcuts": "2.1.0",
     "@portabletext/react": "5.0.0",
     "@portabletext/to-html": "4.0.1",
