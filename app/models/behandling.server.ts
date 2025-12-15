@@ -38,6 +38,27 @@ export async function hentBehandling(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentRettighetsstatus(request: Request, personIdent: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+
+  const { data, error, response } = await behandlingClient.POST("/person/rettighetsstatus", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ident: personIdent },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentRettighetsstatus(). ${response.status} - ${response.statusText}`,
+  );
+}
+
 export async function lagreOpplysning(
   request: Request,
   behandlingId: string,

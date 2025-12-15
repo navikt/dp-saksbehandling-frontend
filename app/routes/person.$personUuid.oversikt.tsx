@@ -14,6 +14,7 @@ import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehand
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { hentBehandling, hentRettighetsstatus } from "~/models/behandling.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -30,6 +31,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
+  const rettighetsstatus = await hentRettighetsstatus(request, personOversikt.person.ident);
+  const relevantRettighetsstatus = rettighetsstatus.find((status) =>
+    personOversikt.saker[0]?.behandlinger.some((b) => b.id === status.behandlingId),
+  );
+
+  const sisteBehandling = await hentBehandling(
+    request,
+    relevantRettighetsstatus?.behandlingId ?? personOversikt.saker[0]?.behandlinger[0].id,
+  );
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -38,6 +48,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
+      relevantRettighetsstatus,
+      sisteBehandling,
     },
     {
       headers: {
@@ -48,7 +60,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personOversikt, alert } = useLoaderData<typeof loader>();
+  const { personOversikt, alert, relevantRettighetsstatus, sisteBehandling } =
+    useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -106,7 +119,13 @@ export default function PersonOversikt() {
           </Tabs.List>
 
           <Tabs.Panel value="siste-sak">
-            {personOversikt.saker[0] && <SisteSak sak={personOversikt.saker[0]} />}
+            {personOversikt.saker[0] && (
+              <SisteSak
+                sak={personOversikt.saker[0]}
+                rettighetsstatus={relevantRettighetsstatus}
+                sisteBehandling={sisteBehandling}
+              />
+            )}
             {!personOversikt.saker[0] && (
               <div className={"card my-4 p-4"}>
                 <BodyShort>Personen har ingen saker</BodyShort>

@@ -1,18 +1,38 @@
 import { FolderFileIcon } from "@navikt/aksel-icons";
-import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
+import { BodyShort, CopyButton, Heading, ReadMore, Tag } from "@navikt/ds-react";
+import { useState } from "react";
 
 import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
+import { tilKnaddBehandling } from "~/utils/behandling.utils";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 
+import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
+import { VerdiMedTittel } from "../verdi-med-tittel/VerdiMedTittel";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
+  rettighetsstatus?: behandlingComponents["schemas"]["Rettighetsstatus"];
+  sisteBehandling: behandlingComponents["schemas"]["Behandling"];
 }
 
-export function SisteSak({ sak }: IProps) {
+export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
+
+  const knaddBehandling = tilKnaddBehandling(sisteBehandling);
+
+  const rettighetsperiode = sisteBehandling?.rettighetsperioder.find(
+    (rettighetsperiode) => rettighetsstatus?.virkningsdato === rettighetsperiode.fraOgMed,
+  );
+
+  // Synd at vi må gjøre det kontrollert.. :(
+  const [isOpen, setisOpen] = useState(false);
+
+  function onOpenChange(open: boolean) {
+    setisOpen(open);
+  }
 
   return (
     <div className={"card my-4 p-4"}>
@@ -32,8 +52,48 @@ export function SisteSak({ sak }: IProps) {
         </BodyShort>
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
-
-      <BehandlingListe behandlinger={sak.behandlinger} />
+      <div className="card-raised my-4 rounded-md border border-(--ax-border-neutral-subtle) p-4">
+        <div className="flex items-center gap-2 pb-4">
+          <Heading size="xsmall" level="2">
+            Status på sak
+          </Heading>
+          {rettighetsstatus && rettighetsstatus.harRett && (
+            <Tag size="small" variant="info">
+              Innvilgelse
+            </Tag>
+          )}
+        </div>
+        <hr className="border-(--ax-border-neutral-subtle)" />
+        <div className="mt-4 flex flex-wrap gap-4">
+          {knaddBehandling.prøvingsdato && (
+            <VerdiMedTittel
+              label={"Vedtaksdato"}
+              verdi={formaterTilNorskDato(knaddBehandling.prøvingsdato)}
+            />
+          )}
+          {rettighetsperiode && (
+            <VerdiMedTittel
+              label="Fra og med"
+              verdi={formaterTilNorskDato(new Date(rettighetsperiode.fraOgMed))}
+            />
+          )}
+          <VerdiMedTittel
+            label="Til og med"
+            verdi={
+              rettighetsperiode?.tilOgMed
+                ? formaterTilNorskDato(new Date(rettighetsperiode.tilOgMed))
+                : "--"
+            }
+          />
+        </div>
+      </div>
+      <ReadMore
+        header={isOpen ? "Skjul alle behandlinger" : "Vis alle behandlinger"}
+        open={isOpen}
+        onOpenChange={onOpenChange}
+      >
+        <BehandlingListe behandlinger={sak.behandlinger} />
+      </ReadMore>
     </div>
   );
 }
