@@ -290,6 +290,18 @@ export function isDatoVerdi(
   return verdi.datatype === "dato";
 }
 
+export function isBoolskVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["BoolskVerdi"] {
+  return verdi.datatype === "boolsk";
+}
+
+export function isHeltallVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["HeltallVerdi"] {
+  return verdi.datatype === "heltall";
+}
+
 export function isTekstVerdi(
   verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
 ): verdi is behandlingComponents["schemas"]["TekstVerdi"] {

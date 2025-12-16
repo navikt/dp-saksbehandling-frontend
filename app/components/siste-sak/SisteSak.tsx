@@ -28,10 +28,10 @@ export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
   );
 
   // Synd at vi må gjøre det kontrollert.. :(
-  const [isOpen, setisOpen] = useState(false);
+  const [viserAlleBehandlinger, setViserAlleBehandlinger] = useState(false);
 
   function onOpenChange(open: boolean) {
-    setisOpen(open);
+    setViserAlleBehandlinger(open);
   }
 
   return (
@@ -65,12 +65,6 @@ export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
         </div>
         <hr className="border-(--ax-border-neutral-subtle)" />
         <div className="mt-4 flex flex-wrap gap-4">
-          {knaddBehandling.prøvingsdato && (
-            <VerdiMedTittel
-              label={"Vedtaksdato"}
-              verdi={formaterTilNorskDato(knaddBehandling.prøvingsdato)}
-            />
-          )}
           {rettighetsperiode && (
             <VerdiMedTittel
               label="Fra og med"
@@ -85,11 +79,27 @@ export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
                 : "--"
             }
           />
+          {knaddBehandling.harLøpendeRett && (
+            <VerdiMedTittel
+              label="Har løpende rett"
+              verdi={knaddBehandling.harLøpendeRett ? "Ja" : "Nei"}
+            />
+          )}
+          {knaddBehandling.harLøpendeRett === undefined && (
+            <VerdiMedTittel label="Har løpende rett" verdi="Nei" />
+          )}
+          <VerdiMedTittel
+            label="Sist endret"
+            verdi={formaterTilNorskDato(new Date(sisteBehandling.sistEndret))}
+          />
+          {knaddBehandling.dagerSomGjenstår && (
+            <VerdiMedTittel label="Gjenstår" verdi={knaddBehandling.dagerSomGjenstår.toString()} />
+          )}
         </div>
       </div>
       <ReadMore
-        header={isOpen ? "Skjul alle behandlinger" : "Vis alle behandlinger"}
-        open={isOpen}
+        header={viserAlleBehandlinger ? "Skjul alle behandlinger" : "Vis alle behandlinger"}
+        open={viserAlleBehandlinger}
         onOpenChange={onOpenChange}
       >
         <BehandlingListe behandlinger={sak.behandlinger} />

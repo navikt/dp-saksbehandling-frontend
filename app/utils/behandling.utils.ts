@@ -1,11 +1,13 @@
 import { getEnv } from "~/utils/env.utils";
-import { isDatoVerdi, isTekstVerdi } from "~/utils/type-guards";
+import { isBoolskVerdi, isDatoVerdi, isHeltallVerdi, isTekstVerdi } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
 
 export interface KnaddBehandling {
   inntektsRedigeringUrl?: string;
   prøvingsdato?: Date;
+  harLøpendeRett?: boolean;
+  dagerSomGjenstår?: number;
 }
 
 export function tilKnaddBehandling(
@@ -14,6 +16,8 @@ export function tilKnaddBehandling(
   return {
     inntektsRedigeringUrl: hentInntektRedigeringUrl(behandling),
     prøvingsdato: hentPrøvingsdato(behandling),
+    harLøpendeRett: hentHarLøpendeRett(behandling),
+    dagerSomGjenstår: hentDagerSomGjenstår(behandling),
   };
 }
 
@@ -44,6 +48,39 @@ export function hentPrøvingsdato(
     prøvingsdatoOpplysning?.perioder[prøvingsdatoOpplysning?.perioder.length - 1];
   if (prøvingsdatoOpplysningPeriode && isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
     return new Date(prøvingsdatoOpplysningPeriode.verdi.verdi);
+  }
+
+  return;
+}
+
+export function hentHarLøpendeRett(
+  behandling: components["schemas"]["Behandling"],
+): boolean | undefined {
+  const løpendeRettOpplysning = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194",
+  );
+  const løpendeRettOpplysningPeriode =
+    løpendeRettOpplysning?.perioder[løpendeRettOpplysning?.perioder.length - 1];
+  if (løpendeRettOpplysningPeriode && isBoolskVerdi(løpendeRettOpplysningPeriode.verdi)) {
+    return løpendeRettOpplysningPeriode.verdi.verdi;
+  }
+
+  return;
+}
+
+export function hentDagerSomGjenstår(
+  behandling: components["schemas"]["Behandling"],
+): number | undefined {
+  const dagerSomGjenstårOpplysning = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+  );
+  const dagerSomGjenstårOpplysningPeriode =
+    dagerSomGjenstårOpplysning?.perioder[dagerSomGjenstårOpplysning?.perioder.length - 1];
+  if (
+    dagerSomGjenstårOpplysningPeriode &&
+    isHeltallVerdi(dagerSomGjenstårOpplysningPeriode.verdi)
+  ) {
+    return dagerSomGjenstårOpplysningPeriode.verdi.verdi;
   }
 
   return;
