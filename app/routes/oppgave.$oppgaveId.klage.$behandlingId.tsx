@@ -121,11 +121,19 @@ export default function Oppgave() {
             </Tabs.List>
 
             <Tabs.Panel value="behandling">
-              <KlageBehandling klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              <KlageBehandling
+                klage={klage}
+                readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+                setAktivTab={setAktivTab}
+              />
             </Tabs.Panel>
 
             <Tabs.Panel value="utfall">
-              <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              <KlageUtfall
+                klage={klage}
+                readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
+                setAktivTab={setAktivTab}
+              />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">

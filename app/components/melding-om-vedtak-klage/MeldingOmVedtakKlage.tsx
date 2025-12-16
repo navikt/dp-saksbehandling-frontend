@@ -15,6 +15,7 @@ import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/valid
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
+import { OppgaveSendTilKontroll } from "../oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import styles from "./MeldingOmVedtakKlage.module.css";
 
 interface IProps {
@@ -80,6 +81,9 @@ export function MeldingOmVedtakKlage({ meldingOmVedtak, sanityBrevMaler, oppgave
             )}
           </>
         )}
+        <div>
+          <OppgaveSendTilKontroll />
+        </div>
       </div>
 
       <div className={styles.previewContainer}>
