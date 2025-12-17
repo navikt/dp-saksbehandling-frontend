@@ -1,4 +1,4 @@
-import { Select } from "@navikt/ds-react";
+import { Radio, RadioGroup, Select } from "@navikt/ds-react";
 import { useField } from "@rvf/react-router";
 
 import { IKlageOpplysningProps } from "~/components/klage/klage-opplysning/KlageOpplysning";
@@ -19,7 +19,7 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
         <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>
       )}
 
-      {opplysning.redigerbar && (
+      {opplysning.redigerbar && opplysning.valgmuligheter.length > 15 && (
         <Select
           size="small"
           {...field.getInputProps()}
@@ -33,6 +33,21 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
             </option>
           ))}
         </Select>
+      )}
+      {opplysning.redigerbar && opplysning.valgmuligheter.length <= 15 && (
+        <RadioGroup
+          size="small"
+          {...field.getInputProps()}
+          legend={opplysning.navn}
+          error={field.error()}
+          readOnly={readonly}
+        >
+          {opplysning.valgmuligheter.map((valg) => (
+            <Radio key={valg} value={valg}>
+              {konverterValgmulighetEnumTilVisningVerdi(valg)}
+            </Radio>
+          ))}
+        </RadioGroup>
       )}
     </>
   );
