@@ -15,7 +15,7 @@ import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/valid
 
 import { components } from "../../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
-import { OppgaveSendTilKontroll } from "../oppgave-send-til-kontroll/OppgaveSendTilKontroll";
+import { OppgaveValgFerdigstillKlage } from "../oppgave-valg/OppgaveValgFerdigstillKlage";
 import styles from "./MeldingOmVedtakKlage.module.css";
 
 interface IProps {
@@ -61,6 +61,7 @@ export function MeldingOmVedtakKlage({ meldingOmVedtak, sanityBrevMaler, oppgave
                 {...endreBrevVariantForm.field("brevVariant").getInputProps()}
                 size={"small"}
                 legend="Variant"
+                readOnly={readOnly}
                 onChange={() => endreBrevVariantForm.submit()}
               >
                 <Radio value="GENERERT">Standardisert tekst</Radio>
@@ -81,9 +82,13 @@ export function MeldingOmVedtakKlage({ meldingOmVedtak, sanityBrevMaler, oppgave
             )}
           </>
         )}
-        <div>
-          <OppgaveSendTilKontroll />
-        </div>
+        <OppgaveValgFerdigstillKlage
+          oppgave={oppgave}
+          buttonSize="small"
+          buttonVariant="primary"
+          className=" "
+          readOnly={readOnly}
+        />
       </div>
 
       <div className={styles.previewContainer}>

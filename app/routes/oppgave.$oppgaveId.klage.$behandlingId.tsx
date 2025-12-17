@@ -13,6 +13,7 @@ import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { KlageBehandling } from "~/components/klage/klage-behandling/KlageBehandling";
+import KlageOppgaveMeny from "~/components/klage/klage-oppgave-meny/KlageOppgaveMeny";
 import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
 import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
@@ -94,6 +95,9 @@ export default function Oppgave() {
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
 
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
+
   const tabs = [
     { value: "behandling", label: "Behandling", icon: <DocPencilIcon /> },
     ...(harUtfallOpplysninger
@@ -111,29 +115,27 @@ export default function Oppgave() {
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
       <div className={`main flex gap-4`}>
         <OppgaveOversikt journalposterPromises={journalposterPromises} />
-
-        <main className={"card flex-1"}>
+        <main className={"card flex flex-1 flex-col gap-4 p-2"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <Tabs.List>
-              {tabs.map(({ value, label, icon }, index) => (
-                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
-              ))}
-            </Tabs.List>
-
+            <div className="flex items-center justify-between gap-6">
+              <Tabs.List>
+                {tabs.map(({ value, label, icon }, index) => (
+                  <Tabs.Tab
+                    key={value}
+                    value={value}
+                    label={`${index + 1}. ${label}`}
+                    icon={icon}
+                  />
+                ))}
+              </Tabs.List>
+              <KlageOppgaveMeny />
+            </div>
             <Tabs.Panel value="behandling">
-              <KlageBehandling
-                klage={klage}
-                readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
-                setAktivTab={setAktivTab}
-              />
+              <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
             </Tabs.Panel>
 
             <Tabs.Panel value="utfall">
-              <KlageUtfall
-                klage={klage}
-                readonly={oppgave.tilstand !== "UNDER_BEHANDLING"}
-                setAktivTab={setAktivTab}
-              />
+              <KlageUtfall klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
