@@ -79,7 +79,7 @@
     "@graphql-codegen/client-preset": "5.2.1",
     "@graphql-codegen/typescript": "5.0.6",
     "@parcel/watcher": "2.5.1",
-    "@portabletext/types": "3.0.0",
+    "@portabletext/types": "4.0.0",
     "@react-router/dev": "7.10.1",
     "@react-router/fs-routes": "7.10.1",
     "@tailwindcss/vite": "4.1.17",
