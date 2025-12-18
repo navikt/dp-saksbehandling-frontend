@@ -27,7 +27,7 @@ export function FerdigstillInnsendingSkjema({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillInnsending(),
+    schema: hentValideringForFerdigstillInnsending(medBehandling),
     defaultValues: {
       _action: "ferdigstill-innsending",
       behandlingId,
