@@ -5,6 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
 import { mockBehandlinger } from "./data/mock-dagpenger-rett-behandling/mock-behandlinger";
+import { mockRettighetsstatuser } from "./data/mock-rettighetsstatuser";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
@@ -29,6 +30,16 @@ export const mockDpBehandling = [
     }
 
     return response(200).json(mockBehandlinger[0]);
+  }),
+
+  http.post("/person/rettighetsstatus", async ({ response }) => {
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockRettighetsstatuser[0]);
   }),
 
   http.get("/behandling/{behandlingId}", async ({ params, response }) => {

@@ -10,7 +10,7 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
       id: "01979c1e-9005-76d8-8efa-99370d5e77e5",
       behandlinger: [
         {
-          id: "018e2222-9df8-7aa4-94a6-318fada10999",
+          id: "019a71dd-03ab-7fbe-9714-c9472667f87c",
           behandlingType: "KLAGE",
           utlostAv: "KLAGE",
           opprettet: "2025-06-24T00:00:00",
