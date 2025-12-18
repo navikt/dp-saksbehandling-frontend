@@ -8,6 +8,7 @@ export interface KnaddBehandling {
   prøvingsdato?: Date;
   harLøpendeRett?: boolean;
   dagerSomGjenstår?: number;
+  sistUtbetalt?: string;
 }
 
 export function tilKnaddBehandling(
@@ -18,6 +19,7 @@ export function tilKnaddBehandling(
     prøvingsdato: hentPrøvingsdato(behandling),
     harLøpendeRett: hentHarLøpendeRett(behandling),
     dagerSomGjenstår: hentDagerSomGjenstår(behandling),
+    sistUtbetalt: hentSistUtbetalt(behandling),
   };
 }
 
@@ -72,7 +74,7 @@ export function hentDagerSomGjenstår(
   behandling: components["schemas"]["Behandling"],
 ): number | undefined {
   const dagerSomGjenstårOpplysning = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+    (opplysning) => opplysning.opplysningTypeId === "01992956-e349-76b1-8f68-c9d481df3a32",
   );
   const dagerSomGjenstårOpplysningPeriode =
     dagerSomGjenstårOpplysning?.perioder[dagerSomGjenstårOpplysning?.perioder.length - 1];
@@ -81,6 +83,23 @@ export function hentDagerSomGjenstår(
     isHeltallVerdi(dagerSomGjenstårOpplysningPeriode.verdi)
   ) {
     return dagerSomGjenstårOpplysningPeriode.verdi.verdi;
+  }
+
+  return;
+}
+
+export function hentSistUtbetalt(
+  behandling: components["schemas"]["Behandling"],
+): string | undefined {
+  const pengerSomSkalUtbetalesOpplysning = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+  );
+  const pengerSomSkalUtbetalesOpplysningPeriode =
+    pengerSomSkalUtbetalesOpplysning?.perioder[
+      pengerSomSkalUtbetalesOpplysning?.perioder.length - 1
+    ];
+  if (pengerSomSkalUtbetalesOpplysningPeriode) {
+    return pengerSomSkalUtbetalesOpplysning.perioder[0].gyldigFraOgMed;
   }
 
   return;

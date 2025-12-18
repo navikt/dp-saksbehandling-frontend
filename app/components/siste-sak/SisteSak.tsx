@@ -12,20 +12,16 @@ import { VerdiMedTittel } from "../verdi-med-tittel/VerdiMedTittel";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
-  rettighetsstatus?: behandlingComponents["schemas"]["Rettighetsstatus"];
-  sisteBehandling: behandlingComponents["schemas"]["Behandling"];
+  rettighetsperiode?: behandlingComponents["schemas"]["Rettighetsperiode"];
+  behandling: behandlingComponents["schemas"]["Behandling"];
 }
 
-export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
+export function SisteSak({ sak, rettighetsperiode, behandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
 
-  const knaddBehandling = tilKnaddBehandling(sisteBehandling);
-
-  const rettighetsperiode = sisteBehandling?.rettighetsperioder.find(
-    (rettighetsperiode) => rettighetsstatus?.virkningsdato === rettighetsperiode.fraOgMed,
-  );
+  const knaddBehandling = tilKnaddBehandling(behandling);
 
   // Synd at vi må gjøre det kontrollert.. :(
   const [viserAlleBehandlinger, setViserAlleBehandlinger] = useState(false);
@@ -57,7 +53,7 @@ export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
           <Heading size="xsmall" level="2">
             Status på sak
           </Heading>
-          {rettighetsstatus && rettighetsstatus.harRett && (
+          {rettighetsperiode?.harRett && (
             <Tag size="small" variant="info">
               Innvilgelse
             </Tag>
@@ -90,10 +86,16 @@ export function SisteSak({ sak, rettighetsstatus, sisteBehandling }: IProps) {
           )}
           <VerdiMedTittel
             label="Sist endret"
-            verdi={formaterTilNorskDato(new Date(sisteBehandling.sistEndret))}
+            verdi={formaterTilNorskDato(new Date(behandling.sistEndret))}
           />
           {knaddBehandling.dagerSomGjenstår && (
             <VerdiMedTittel label="Gjenstår" verdi={knaddBehandling.dagerSomGjenstår.toString()} />
+          )}
+          {knaddBehandling.sistUtbetalt && (
+            <VerdiMedTittel
+              label="Sist utbetalt"
+              verdi={formaterTilNorskDato(new Date(knaddBehandling.sistUtbetalt))}
+            />
           )}
         </div>
       </div>

@@ -31,14 +31,21 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
+
   const rettighetsstatus = await hentRettighetsstatus(request, personOversikt.person.ident);
   const relevantRettighetsstatus = rettighetsstatus.find((status) =>
-    personOversikt.saker[0]?.behandlinger.some((b) => b.id === status.behandlingId),
+    personOversikt.saker[0]?.behandlinger.some(
+      (behandling) => behandling.id === status.behandlingId,
+    ),
   );
 
   const sisteBehandling = await hentBehandling(
     request,
     relevantRettighetsstatus?.behandlingId ?? personOversikt.saker[0]?.behandlinger[0].id,
+  );
+
+  const rettighetsperiode = sisteBehandling.rettighetsperioder.find(
+    (periode) => periode.fraOgMed === relevantRettighetsstatus?.virkningsdato,
   );
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -48,7 +55,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
-      relevantRettighetsstatus,
+      rettighetsperiode,
       sisteBehandling,
     },
     {
@@ -60,7 +67,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personOversikt, alert, relevantRettighetsstatus, sisteBehandling } =
+  const { personOversikt, alert, rettighetsperiode, sisteBehandling } =
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -122,8 +129,8 @@ export default function PersonOversikt() {
             {personOversikt.saker[0] && (
               <SisteSak
                 sak={personOversikt.saker[0]}
-                rettighetsstatus={relevantRettighetsstatus}
-                sisteBehandling={sisteBehandling}
+                rettighetsperiode={rettighetsperiode}
+                behandling={sisteBehandling}
               />
             )}
             {!personOversikt.saker[0] && (

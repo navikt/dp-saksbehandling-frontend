@@ -308,6 +308,12 @@ export function isTekstVerdi(
   return verdi.datatype === "tekst" || verdi.datatype === "inntekt";
 }
 
+export function isPengeVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["PengeVerdi"] {
+  return verdi.datatype === "penger";
+}
+
 export function isOpplysningsgruppe(
   value: unknown,
 ): value is components["schemas"]["RedigerbareOpplysninger"] {
