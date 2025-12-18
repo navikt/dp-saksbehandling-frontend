@@ -12,9 +12,17 @@ interface IProps {
   oppgave: components["schemas"]["Oppgave"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
+  className?: string;
+  readOnly?: boolean;
 }
 
-export function OppgaveValgFerdigstillKlage({ oppgave, buttonVariant, buttonSize }: IProps) {
+export function OppgaveValgFerdigstillKlage({
+  oppgave,
+  buttonVariant,
+  buttonSize,
+  className,
+  readOnly,
+}: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
@@ -37,9 +45,10 @@ export function OppgaveValgFerdigstillKlage({ oppgave, buttonVariant, buttonSize
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         onClick={() => ferdigstillKlageForm.submit()}
+        disabled={readOnly ? readOnly : false}
         loading={ferdigstillKlageForm.formState.isSubmitting}
         icon={<GavelSoundBlockIcon aria-hidden />}
-        className={"aksel--font-regular aksel--full-bredde"}
+        className={className ? className : "aksel--font-regular aksel--full-bredde"}
       >
         Ferdigstill klage
       </Button>

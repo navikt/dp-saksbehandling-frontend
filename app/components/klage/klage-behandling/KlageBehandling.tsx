@@ -1,4 +1,4 @@
-import { Table } from "@navikt/ds-react";
+import { Button, Table } from "@navikt/ds-react";
 
 import { KlageOpplysning } from "~/components/klage/klage-opplysning/KlageOpplysning";
 import { hentKlage } from "~/models/saksbehandling.server";
@@ -6,9 +6,10 @@ import { hentKlage } from "~/models/saksbehandling.server";
 interface IProps {
   klage: Awaited<ReturnType<typeof hentKlage>>;
   readonly?: boolean;
+  setAktivTab: (tab: string) => void;
 }
 
-export function KlageBehandling({ klage, readonly }: IProps) {
+export function KlageBehandling({ klage, readonly, setAktivTab }: IProps) {
   const klageSakOpplysninger = klage.behandlingOpplysninger.filter(
     (opplysning) => opplysning.gruppe === "KLAGESAK",
   );
@@ -77,6 +78,15 @@ export function KlageBehandling({ klage, readonly }: IProps) {
           ))}
         </Table.Body>
       </Table>
+      <Button
+        variant="primary"
+        size="small"
+        className="mt-4"
+        disabled={readonly}
+        onClick={() => setAktivTab("utfall")}
+      >
+        Sett utfall
+      </Button>
     </div>
   );
 }

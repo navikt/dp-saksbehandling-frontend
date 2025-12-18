@@ -1,3 +1,6 @@
+import { ChevronDownIcon } from "@navikt/aksel-icons";
+import { ActionMenu, Button } from "@navikt/ds-react";
+
 import { OppgaveValgFerdigstillKlage } from "~/components/oppgave-valg/OppgaveValgFerdigstillKlage";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
@@ -7,19 +10,44 @@ import { useOppgave } from "~/hooks/useOppgave";
 
 import { components } from "../../../../openapi/saksbehandling-typer";
 
-function KlageOppgaveValg() {
+function KlageOppgaveMeny() {
   const { gyldigeOppgaveValg, oppgave } = useOppgave();
 
+  const relevanteOppgaveValg = gyldigeOppgaveValg.filter((valg) =>
+    ["legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage"].includes(valg),
+  );
+
   return (
-    <div className={"card flex justify-end gap-2 p-2"}>
-      {gyldigeOppgaveValg.map((valg) => (
-        <div key={valg}>{renderOppgaveValg(oppgave, valg)}</div>
-      ))}
-    </div>
+    <>
+      {relevanteOppgaveValg.length > 0 && (
+        <ActionMenu>
+          <ActionMenu.Trigger>
+            <Button
+              variant="secondary"
+              size="small"
+              icon={<ChevronDownIcon aria-hidden />}
+              iconPosition="right"
+            >
+              Oppgavemeny
+            </Button>
+          </ActionMenu.Trigger>
+          <ActionMenu.Content>
+            {relevanteOppgaveValg.map((valg) => {
+              return renderOppgaveValg(oppgave, valg);
+            })}
+          </ActionMenu.Content>
+        </ActionMenu>
+      )}
+    </>
+    // <div className={"card flex justify-end gap-2 p-2"}>
+    //   {gyldigeOppgaveValg.map((valg) => (
+    //     <div key={valg}>{renderOppgaveValg(oppgave, valg)}</div>
+    //   ))}
+    // </div>
   );
 }
 
-export default KlageOppgaveValg;
+export default KlageOppgaveMeny;
 
 function renderOppgaveValg(
   oppgave: components["schemas"]["Oppgave"],
