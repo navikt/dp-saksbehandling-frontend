@@ -29,7 +29,7 @@ export async function avbrytOppgaveAction(request: Request, formData: FormData) 
   const session = await getSession(request.headers.get("Cookie"));
   session.flash("alert", successAlert);
 
-  return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/neste-oppgave`, {
+  return redirect(`/oppgave/${oppgaveId}/fullfort-oppgave`, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

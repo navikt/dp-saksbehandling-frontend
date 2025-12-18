@@ -92,10 +92,10 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await lagreGodkjentBrevIGosysAction(request, formData);
 
     case "ferdigstill-klage":
-      return await ferdigstillKlageAction(request, formData);
+      return await ferdigstillKlageAction(request, params, formData);
 
     case "trekk-klage":
-      return await trekkKlageAction(request, formData);
+      return await trekkKlageAction(request, params, formData);
 
     case "opprett-klage":
       return await opprettKlageAction(request, formData);
@@ -107,7 +107,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await oppdaterOrkestratorBarnAction(request, formData);
 
     case "ferdigstill-innsending":
-      return await ferdigstillInnsendingAction(request, formData);
+      return await ferdigstillInnsendingAction(request, params, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

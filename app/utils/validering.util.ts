@@ -7,6 +7,8 @@ import { components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
+export type NyBehandlingType = "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
+
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
@@ -352,14 +354,12 @@ export function hentValideringForFerdigstillKlage() {
 }
 
 export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
+  const nyBehandlingTyper: NyBehandlingType[] = ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"];
   return z.object({
     _action: z.literal("ferdigstill-innsending"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
-    behandlingType: z.enum(
-      ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"],
-      "Du må velge en behandlingstype",
-    ),
+    behandlingType: z.enum(nyBehandlingTyper, "Du må velge en behandlingstype"),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
   });
