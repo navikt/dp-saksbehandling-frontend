@@ -9,7 +9,10 @@ import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForFerdigstillInnsending } from "~/utils/validering.util";
 
 export async function ferdigstillInnsendingAction(request: Request, formData: FormData) {
-  const validertSkjema = await parseFormData(formData, hentValideringForFerdigstillInnsending());
+  const validertSkjema = await parseFormData(
+    formData,
+    hentValideringForFerdigstillInnsending(false),
+  );
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);

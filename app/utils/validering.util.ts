@@ -351,11 +351,11 @@ export function hentValideringForFerdigstillKlage() {
   });
 }
 
-export function hentValideringForFerdigstillInnsending() {
+export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
   return z.object({
     _action: z.literal("ferdigstill-innsending"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    sakId: z.string().min(1, "Det mangler sakId i skjema"),
+    sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
     behandlingType: z.enum(
       ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"],
       "Du må velge en behandlingstype",
