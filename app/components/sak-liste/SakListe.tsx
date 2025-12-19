@@ -22,6 +22,8 @@ export function SakListe({ saker }: IProps) {
         const idGrupper = sak.id.split("-");
         const sisteIdGruppe = idGrupper.pop();
         const forsteIdGruppe = idGrupper.join("-");
+        const førsteBehandling = sak.behandlinger.at(-1);
+        const sisteBehandling = sak.behandlinger.at(0);
 
         return (
           <ExpansionCard
@@ -32,13 +34,22 @@ export function SakListe({ saker }: IProps) {
           >
             <ExpansionCard.Header>
               <ExpansionCard.Title size={"small"} className={"flex items-center gap-1"}>
-                <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
-                  SakID ...{sisteIdGruppe}
-                </BodyShort>
+                {førsteBehandling && (
+                  <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
+                    Sak opprettet: {formaterTilNorskDato(førsteBehandling.opprettet)}
+                  </BodyShort>
+                )}
+                {!førsteBehandling && (
+                  <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
+                    SakID ...{sisteIdGruppe}
+                  </BodyShort>
+                )}
               </ExpansionCard.Title>
-              <ExpansionCard.Description>
-                Siste endret: {formaterTilNorskDato(new Date())}
-              </ExpansionCard.Description>
+              {sisteBehandling && (
+                <ExpansionCard.Description>
+                  Siste behandling opprettet: {formaterTilNorskDato(sisteBehandling.opprettet)}
+                </ExpansionCard.Description>
+              )}
             </ExpansionCard.Header>
 
             <ExpansionCard.Content className={"border-t border-(--ax-border-neutral-subtle)"}>
