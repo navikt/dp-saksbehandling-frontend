@@ -5,6 +5,7 @@ import { TidslinjeNavigering } from "~/components/tidslinje-navigering/Tidslinje
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { skalViseRegelsett } from "~/utils/behandling.utils";
 import { isDefined } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -12,7 +13,7 @@ import { OpplysningerTidslinje } from "../opplysninger-tidslinje/OpplysningerTid
 
 export function FastsettelserTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
-  const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
   const tidslinjeState = useTidslinjeNavigeringState(behandling);
 
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
@@ -31,6 +32,14 @@ export function FastsettelserTidslinje() {
     })
     .filter(isDefined);
 
+  const fastsettelserSomSkalVises = behandling.fastsettelser.filter((fastsettelse) =>
+    skalViseRegelsett(fastsettelse, behandling.opplysninger, visArvedeOpplysninger),
+  );
+
+  if (fastsettelserSomSkalVises.length === 0) {
+    return null;
+  }
+
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
@@ -44,30 +53,28 @@ export function FastsettelserTidslinje() {
       </div>
 
       <Accordion size={"small"} className={"aksel--compact"}>
-        {behandling.fastsettelser
-          .filter((fastsettelse) => fastsettelse.opplysninger.length > 0)
-          .map((fastsettelse) => (
-            <Accordion.Item key={fastsettelse.id} open={aktivtRegelsett?.id === fastsettelse.id}>
-              <Accordion.Header
-                onClick={() =>
-                  aktivtRegelsett?.navn === fastsettelse.navn
-                    ? setAktivtRegelsett(undefined)
-                    : setAktivtRegelsett(fastsettelse)
-                }
-              >
-                {fastsettelse.navn}
-              </Accordion.Header>
-              <Accordion.Content>
-                <OpplysningerTidslinje
-                  opplysninger={aktiveOpplysninger}
-                  medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
-                  pins={pins}
-                  eksternTidslinjeNavigeringState={tidslinjeState}
-                />
-              </Accordion.Content>
-            </Accordion.Item>
-          ))}
+        {fastsettelserSomSkalVises.map((fastsettelse) => (
+          <Accordion.Item key={fastsettelse.id} open={aktivtRegelsett?.id === fastsettelse.id}>
+            <Accordion.Header
+              onClick={() =>
+                aktivtRegelsett?.navn === fastsettelse.navn
+                  ? setAktivtRegelsett(undefined)
+                  : setAktivtRegelsett(fastsettelse)
+              }
+            >
+              {fastsettelse.navn}
+            </Accordion.Header>
+            <Accordion.Content>
+              <OpplysningerTidslinje
+                opplysninger={aktiveOpplysninger}
+                medLenkeTilOpplysning={true}
+                opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
+                pins={pins}
+                eksternTidslinjeNavigeringState={tidslinjeState}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
       </Accordion>
     </div>
   );

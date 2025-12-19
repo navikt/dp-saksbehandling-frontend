@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import { createContext } from "react";
 
 import { isDatoVerdi } from "~/utils/type-guards";
@@ -10,6 +10,8 @@ interface IBehandlingContextType {
   vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
   prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
   prøvingsdato: Date;
+  visArvedeOpplysninger: boolean;
+  setVisArvedeOpplysninger: (visArvedeOpplysninger: boolean) => void;
 }
 
 interface IBehandlingProviderType {
@@ -24,6 +26,7 @@ export function BehandlingProvider({
   behandling,
   vurderinger,
 }: PropsWithChildren<IBehandlingProviderType>) {
+  const [visArvedeOpplysninger, setVisArvedeOpplysninger] = useState(false);
   const prøvingsdatoOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
   );
@@ -42,6 +45,8 @@ export function BehandlingProvider({
         vurderinger,
         prøvingsdatoOpplysning,
         prøvingsdato: new Date(prøvingsdatoOpplysningPeriode.verdi.verdi),
+        visArvedeOpplysninger,
+        setVisArvedeOpplysninger,
       }}
     >
       {children}

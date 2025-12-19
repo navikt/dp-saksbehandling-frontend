@@ -316,3 +316,20 @@ export function isOpplysningsgruppe(
     Array.isArray(obj.perioder)
   );
 }
+
+export function isRedigerbareOpplysninger(
+  value: unknown,
+): value is components["schemas"]["RedigerbareOpplysninger"] {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.synlig === "boolean" &&
+    typeof obj.redigerbar === "boolean" &&
+    typeof obj.redigertAvSaksbehandler === "boolean" &&
+    typeof obj["formål"] === "string" &&
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
+    Array.isArray(obj.perioder)
+  );
+}

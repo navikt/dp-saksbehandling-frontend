@@ -1,7 +1,8 @@
 import { Accordion, BodyShort, Heading } from "@navikt/ds-react";
 
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./EndretOpplysning.module.css";
@@ -12,17 +13,22 @@ interface IProps {
 
 function EndretOpplysninger({ vurderinger }: IProps) {
   const { underKontroll } = useOppgave();
+  const { visArvedeOpplysninger } = useBehandling();
+
+  const opplysningerSomSkalVises = vurderinger.opplysninger.filter((opplysning) =>
+    skalViseOpplysning(opplysning, visArvedeOpplysninger),
+  );
 
   return (
     <div className={"card p-4"}>
       <Heading size={"small"}>Saksbehandlers vurderinger</Heading>
-      {vurderinger.opplysninger.length === 0 && (
+      {opplysningerSomSkalVises.length === 0 && (
         <BodyShort className={"pt-2"}>Ingen vurderinger</BodyShort>
       )}
 
-      {vurderinger.opplysninger.length > 0 && (
+      {opplysningerSomSkalVises.length > 0 && (
         <Accordion size={"small"} className={"accordion--subtil mt-2"}>
-          {vurderinger.opplysninger.map((opplysning) =>
+          {opplysningerSomSkalVises.map((opplysning) =>
             opplysning.perioder.map((periode) => (
               <Accordion.Item key={periode.id} defaultOpen={underKontroll}>
                 <Accordion.Header>{opplysning.navn}</Accordion.Header>

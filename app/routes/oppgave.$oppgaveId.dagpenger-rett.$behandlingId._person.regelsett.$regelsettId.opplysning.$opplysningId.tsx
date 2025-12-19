@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Alert, Heading } from "@navikt/ds-react";
+import { Alert, Heading, Switch } from "@navikt/ds-react";
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { Avklaringer } from "~/components/avklaringer/Avklaringer";
@@ -22,7 +22,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
-  const { behandling, vurderinger, prøvingsdato, prøvingsdatoOpplysning } = useBehandling();
+  const {
+    behandling,
+    vurderinger,
+    prøvingsdato,
+    prøvingsdatoOpplysning,
+    visArvedeOpplysninger,
+    setVisArvedeOpplysninger,
+  } = useBehandling();
   const { meldekortUrl } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
@@ -96,6 +103,16 @@ export default function Opplysning() {
               />
 
               <EndretOpplysninger vurderinger={vurderinger} />
+
+              <div className={"card p-4"}>
+                <Switch
+                  size={"small"}
+                  checked={visArvedeOpplysninger}
+                  onChange={() => setVisArvedeOpplysninger(!visArvedeOpplysninger)}
+                >
+                  Vis arvede opplysninger og vurderinger
+                </Switch>
+              </div>
             </div>
 
             <div className={"flex flex-1 flex-col gap-4"}>

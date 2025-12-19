@@ -23,9 +23,9 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { skalViseRegelsett } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { logger } from "~/utils/logger.utils";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
 import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -34,7 +34,7 @@ import styles from "./VilkårTidslinje.module.css";
 export function VilkårTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
   const { readonly } = useOppgave();
-  const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
@@ -75,6 +75,15 @@ export function VilkårTidslinje() {
     setVilkårOgOpplysninger(oppdatertData);
   }
 
+  const skalViseTidslinje =
+    behandling.vilkår.filter((vilkår) =>
+      skalViseRegelsett(vilkår, behandling.opplysninger, visArvedeOpplysninger),
+    ).length > 0;
+
+  if (!skalViseTidslinje) {
+    return null;
+  }
+
   return (
     <div className={"card p-4"}>
       <div className={"flex content-center justify-between"}>
@@ -107,8 +116,8 @@ export function VilkårTidslinje() {
 
         {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
-            if (!vilkårEllerOpplysning.synlig) {
-              return;
+            if (!skalViseOpplysning(vilkårEllerOpplysning, visArvedeOpplysninger)) {
+              return null;
             }
 
             return (
@@ -163,16 +172,21 @@ export function VilkårTidslinje() {
             );
           }
 
+          if (
+            !skalViseRegelsett(
+              vilkårEllerOpplysning,
+              behandling.opplysninger,
+              visArvedeOpplysninger,
+            )
+          ) {
+            return null;
+          }
+
           const hovedOpplysning = behandling.opplysninger.find(
             (opplysning) => opplysning.opplysningTypeId === vilkårEllerOpplysning.opplysningTypeId,
           );
 
           if (!hovedOpplysning) {
-            logger.warn(
-              `Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`,
-            );
-
-            // TODO Denne skal jo bort når ting funker
             return null;
           }
 

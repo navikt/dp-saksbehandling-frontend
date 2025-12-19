@@ -1,5 +1,14 @@
 import { ExternalLinkIcon, PadlockLockedIcon } from "@navikt/aksel-icons";
-import { BodyShort, Detail, Heading, HStack, Link, Tag, Timeline } from "@navikt/ds-react";
+import {
+  BodyShort,
+  Detail,
+  Heading,
+  HStack,
+  InlineMessage,
+  Link,
+  Tag,
+  Timeline,
+} from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
@@ -18,7 +27,12 @@ import {
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningFormål, formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import {
+  formaterOpplysningFormål,
+  formaterOpplysningVerdi,
+  skalViseOpplysning,
+  skalVisePeriode,
+} from "~/utils/opplysning.utils";
 
 interface TimelinePin {
   date: Date;
@@ -40,7 +54,7 @@ interface IProps {
 }
 
 export function OpplysningerTidslinje(props: IProps) {
-  const { behandling } = useBehandling();
+  const { behandling, visArvedeOpplysninger } = useBehandling();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
@@ -50,6 +64,14 @@ export function OpplysningerTidslinje(props: IProps) {
   const dagensDato = new Date();
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
+
+  const opplysningerSomSkalVises = props.opplysninger.filter((opplysning) =>
+    skalViseOpplysning(opplysning, visArvedeOpplysninger),
+  );
+
+  if (opplysningerSomSkalVises.length === 0) {
+    return <InlineMessage status="warning">Ingen opplysninger å vise</InlineMessage>;
+  }
 
   return (
     <>
@@ -144,7 +166,7 @@ export function OpplysningerTidslinje(props: IProps) {
             </Timeline.Pin>
           ))}
 
-        {props.opplysninger.map((opplysning) => (
+        {opplysningerSomSkalVises.map((opplysning) => (
           <Timeline.Row
             key={opplysning.opplysningTypeId}
             label={props.medLenkeTilOpplysning ? "\u00A0" : ""}
@@ -172,48 +194,52 @@ export function OpplysningerTidslinje(props: IProps) {
               )
             }
           >
-            {opplysning.perioder.map((periode, index) => {
-              const start = periode.gyldigFraOgMed
-                ? new Date(periode.gyldigFraOgMed)
-                : sub(dagensDato, { years: 1 });
+            {opplysning.perioder
+              .filter((periode) => skalVisePeriode(periode, visArvedeOpplysninger))
+              .map((periode, index) => {
+                const start = periode.gyldigFraOgMed
+                  ? new Date(periode.gyldigFraOgMed)
+                  : sub(dagensDato, { years: 1 });
 
-              const slutt = periode.gyldigTilOgMed
-                ? new Date(periode.gyldigTilOgMed)
-                : add(dagensDato, { years: 1 });
+                const slutt = periode.gyldigTilOgMed
+                  ? new Date(periode.gyldigTilOgMed)
+                  : add(dagensDato, { years: 1 });
 
-              return (
-                <Timeline.Period
-                  key={index}
-                  start={start}
-                  end={slutt}
-                  status={hentFargeForOpplysningPeriode(periode.verdi)}
-                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
-                >
-                  <div className={"flex gap-4"}>
-                    <div>
-                      <Detail textColor={"subtle"}>Fra og med</Detail>
-                      <BodyShort size={"small"}>
-                        {periode.gyldigFraOgMed
-                          ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                          : "--"}
-                      </BodyShort>
+                return (
+                  <Timeline.Period
+                    key={index}
+                    start={start}
+                    end={slutt}
+                    status={hentFargeForOpplysningPeriode(periode.verdi)}
+                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                  >
+                    <div className={"flex gap-4"}>
+                      <div>
+                        <Detail textColor={"subtle"}>Fra og med</Detail>
+                        <BodyShort size={"small"}>
+                          {periode.gyldigFraOgMed
+                            ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                            : "--"}
+                        </BodyShort>
+                      </div>
+                      <div>
+                        <Detail textColor={"subtle"}>Til og med</Detail>
+                        <BodyShort size={"small"}>
+                          {periode.gyldigTilOgMed
+                            ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                            : "--"}
+                        </BodyShort>
+                      </div>
+                      <div>
+                        <Detail textColor={"subtle"}>Verdi</Detail>
+                        <BodyShort size={"small"}>
+                          {formaterOpplysningVerdi(periode.verdi)}
+                        </BodyShort>
+                      </div>
                     </div>
-                    <div>
-                      <Detail textColor={"subtle"}>Til og med</Detail>
-                      <BodyShort size={"small"}>
-                        {periode.gyldigTilOgMed
-                          ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                          : "--"}
-                      </BodyShort>
-                    </div>
-                    <div>
-                      <Detail textColor={"subtle"}>Verdi</Detail>
-                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
-                    </div>
-                  </div>
-                </Timeline.Period>
-              );
-            })}
+                  </Timeline.Period>
+                );
+              })}
           </Timeline.Row>
         ))}
       </Timeline>

@@ -7,9 +7,10 @@ import { useParams } from "react-router";
 
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, skalVisePeriode } from "~/utils/opplysning.utils";
 import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
@@ -21,6 +22,7 @@ const NY_PERIODE_ID = "NY-PERIODE";
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
   const { readonly } = useOppgave();
+  const { visArvedeOpplysninger } = useBehandling();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
   const slettPeriodeForm = useForm({
     method: "post",
@@ -33,6 +35,14 @@ export function OpplysningPerioderTabell(props: IProps) {
   const kanLeggeTilNyPeriode =
     props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
     props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
+
+  const perioderSomSkalVises = props.opplysning.perioder.filter((periode) =>
+    skalVisePeriode(periode, visArvedeOpplysninger),
+  );
+
+  if (perioderSomSkalVises.length === 0) {
+    return null;
+  }
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
@@ -50,7 +60,7 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Header>
 
         <Table.Body>
-          {props.opplysning.perioder.map((periode, index) => {
+          {perioderSomSkalVises.map((periode, index) => {
             if (periode.id === periodeIdUnderRedigering) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
