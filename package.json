@@ -36,7 +36,7 @@
     "@navikt/aksel-icons": "7.35.3",
     "@navikt/ds-css": "7.35.3",
     "@navikt/ds-react": "7.35.3",
-    "@navikt/ds-tailwind": "7.35.2",
+    "@navikt/ds-tailwind": "7.35.3",
     "@navikt/oasis": "4.1.1",
     "@opentelemetry/auto-instrumentations-node": "0.67.3",
     "@opentelemetry/sdk-node": "0.208.0",
