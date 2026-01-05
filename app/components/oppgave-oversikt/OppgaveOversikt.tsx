@@ -1,5 +1,5 @@
 import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Switch } from "@navikt/ds-react";
+import { Button, Heading } from "@navikt/ds-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -8,8 +8,8 @@ import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
+import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
-import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
@@ -26,7 +26,6 @@ interface IProps {
 export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
-  const { visArvedeOpplysninger, setVisArvedeOpplysninger } = useBehandling();
 
   return (
     <div className="relative">
@@ -90,15 +89,7 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
               )}
 
               {oppgave.behandlingType === "RETT_TIL_DAGPENGER" && (
-                <div className={"card p-4"}>
-                  <Switch
-                    size={"small"}
-                    checked={visArvedeOpplysninger}
-                    onChange={() => setVisArvedeOpplysninger(!visArvedeOpplysninger)}
-                  >
-                    Vis arvede opplysninger og vurderinger
-                  </Switch>
-                </div>
+                <OppgaveOversiktVisArvedeOpplysninger />
               )}
 
               <div className={"card p-4"}>
