@@ -1,7 +1,13 @@
+import { Suspense } from "react";
+import { Await } from "react-router";
+
 import { components } from "~/../openapi/melding-om-vedtak-typer";
+import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMelding";
+import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { MeldingOmVedtakDPSak } from "~/components/melding-om-vedtak/MeldingOmVedtakDPSak";
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
+import MeldingOmVedtakPDF from "~/components/melding-om-vedtak/MeldingOmVedtakPDF";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
 import { OppgaveFattVedtak } from "~/components/oppgave-fatt-vedtak/OppgaveFattVedtak";
 import { OppgaveReturnerTilSaksbehandler } from "~/components/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
@@ -21,7 +27,7 @@ interface IProps {
 }
 
 export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
-  const { oppgave, readonly } = useOppgave();
+  const { oppgave, readonly, journalposterPromises } = useOppgave();
   const { behandling } = useBehandling();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
@@ -53,17 +59,32 @@ export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
         </div>
       </div>
 
-      <div className={styles.previewContainer}>
-        {oppgave.meldingOmVedtakKilde === "DP_SAK" &&
-          (isAlert(meldingOmVedtak) ? (
-            <HttpProblemAlert error={meldingOmVedtak} />
-          ) : (
-            <MeldingOmVedtakPreview
-              utvidedeBeskrivelser={utvidedeBeskrivelser}
-              html={meldingOmVedtak?.html || ""}
-            />
-          ))}
-      </div>
+      {oppgave.tilstand === "FERDIG_BEHANDLET" && (
+        <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter vedtak"} />}>
+          <Await
+            resolve={journalposterPromises}
+            errorElement={
+              <AsyncErrorMelding tittel={"En feil oppstod når vi skulle hente vedtak 🤖"} />
+            }
+          >
+            {(journalposter) => <MeldingOmVedtakPDF journalposter={journalposter} />}
+          </Await>
+        </Suspense>
+      )}
+
+      {oppgave.tilstand !== "FERDIG_BEHANDLET" && (
+        <div className={styles.previewContainer}>
+          {oppgave.meldingOmVedtakKilde === "DP_SAK" &&
+            (isAlert(meldingOmVedtak) ? (
+              <HttpProblemAlert error={meldingOmVedtak} />
+            ) : (
+              <MeldingOmVedtakPreview
+                utvidedeBeskrivelser={utvidedeBeskrivelser}
+                html={meldingOmVedtak?.html || ""}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

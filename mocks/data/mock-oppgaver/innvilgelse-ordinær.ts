@@ -39,7 +39,7 @@ export const innvilgelseOrdinær: components["schemas"]["Oppgave"] = {
   tidspunktOpprettet: "2025-11-18T14:08:20.989828",
   behandlingType: "RETT_TIL_DAGPENGER",
   utlostAv: "SØKNAD",
-  journalpostIder: ["717502681", "717502657"],
+  journalpostIder: ["717502681", "717502657", "77777777777777"],
   historikk: [
     {
       type: "statusendring",

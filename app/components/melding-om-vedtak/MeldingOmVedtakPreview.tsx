@@ -1,3 +1,4 @@
+import { Heading } from "@navikt/ds-react";
 import { useEffect, useRef } from "react";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -47,7 +48,20 @@ export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {
     });
   }, [utvidedeBeskrivelser]);
 
-  return <div ref={containerRef} />;
+  return (
+    <div className={"relative"}>
+      <Heading
+        size={"medium"}
+        className={
+          "absolute left-1/2 mt-4 -translate-x-1/2 rounded-(--ax-radius-12) px-[10%] tracking-widest text-(--ax-text-neutral-decoration) backdrop-blur-sm"
+        }
+      >
+        Forhåndsvisning
+      </Heading>
+
+      <div ref={containerRef} />
+    </div>
+  );
 }
 
 function maskerSensitivHtml(html: string): string {

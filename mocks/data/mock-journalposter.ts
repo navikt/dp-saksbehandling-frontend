@@ -257,4 +257,24 @@ export const mockJournalposter: JournalpostQuery["journalpost"][] = [
       },
     ],
   },
+  {
+    journalpostId: "77777777777777",
+    tittel: "Vedtak om dagpenger",
+    datoOpprettet: "2025-12-18T14:17:05",
+    dokumenter: [
+      {
+        dokumentInfoId: "753095018",
+        tittel: "Vedtak om dagpenger",
+        brevkode: "NAV-DAGPENGER-VEDTAK",
+        originalJournalpostId: "717550336",
+        dokumentvarianter: [
+          {
+            variantformat: Variantformat.Arkiv,
+            saksbehandlerHarTilgang: true,
+            skjerming: null,
+          },
+        ],
+      },
+    ],
+  },
 ];
