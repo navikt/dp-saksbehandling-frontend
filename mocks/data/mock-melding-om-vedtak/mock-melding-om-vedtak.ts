@@ -75,31 +75,31 @@ const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakResponse"]
 
 export const mockMeldingerOmVedtak = [
   {
-    behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+    behandlingId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "019353b5-3ee6-7693-8fdd-649153c18f74",
+    behandlingId: "019a81e3-99ab-7951-8dd1-614c3b5bcf48",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "0196f70d-baf3-708a-8741-6e9c5e03448a",
+    behandlingId: "019a9714-9968-731e-8918-779b5d1e8727",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "0199b8b8-4f28-7926-bfac-4459a0ebb34f",
+    behandlingId: "0198c672-111d-7701-a986-76b0ca6b215d",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "01997148-5db5-70b4-b4f1-607730450315",
+    behandlingId: "01980d51-30d1-7af3-a8f5-2f2572087d2a",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "019391c0-d9f5-78d9-8704-02f749bfb17b",
+    behandlingId: "01997540-0ad3-763a-aa60-21546135aa57",
     melding: mockMeldingOmVedtakAvslagMinsteinntekt,
   },
   {
-    behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
+    behandlingId: "01993817-439e-7d3d-9d8a-78cf49ed6fc1",
     melding: mockMeldingOmVedtakKlage,
   },
 ];

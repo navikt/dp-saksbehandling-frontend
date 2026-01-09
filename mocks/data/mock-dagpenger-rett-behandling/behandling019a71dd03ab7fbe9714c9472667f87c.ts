@@ -8,6 +8,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
     type: "Søknad",
     skjedde: "2025-11-11",
   },
+  opprettet: "2025-11-11",
+  sistEndret: "2025-11-11",
   behandlingskjedeId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
   automatisk: false,
   ident: "28528148753",
@@ -31,6 +33,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:41.379936",
+      regelsett: [],
     },
     {
       id: "019a71dd-0508-7cbe-8588-af19e134f762",
@@ -42,6 +45,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:45.95706",
+      regelsett: [],
     },
     {
       id: "019a71dd-0508-7cbe-8588-af19e134f764",
@@ -53,6 +57,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T08:41:46.223764",
+      regelsett: [],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd7946",
@@ -64,6 +69,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-11T10:24:34.844478",
+      regelsett: [],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd794a",
@@ -75,6 +81,23 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T10:24:39.630826",
+      regelsett: [
+        {
+          id: "1917405995",
+          navn: "Minsteinntekt",
+          hjemmel: {
+            kilde: {
+              navn: "Folketrygdloven",
+              kortnavn: "ftrl",
+            },
+            kapittel: "4",
+            paragraf: "4",
+            tittel: "§ 4-4. Krav til minsteinntekt",
+            url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
+          },
+          type: "Vilkår",
+        },
+      ],
     },
     {
       id: "019a723b-379c-7504-b6c4-20f684bd794c",
@@ -86,6 +109,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avklart",
       maskinelt: true,
       sistEndret: "2025-11-11T10:24:41.958863",
+      regelsett: [],
     },
     {
       id: "019a723b-5428-7784-bfdb-73cd6aa0527b",
@@ -96,6 +120,7 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Avbrutt",
       maskinelt: true,
       sistEndret: "2025-11-12T13:54:16.860636",
+      regelsett: [],
     },
     {
       id: "019a723b-5428-7784-bfdb-73cd6aa0527f",
@@ -107,6 +132,23 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-11T10:24:42.152966",
+      regelsett: [
+        {
+          id: "113817629",
+          navn: "Tap av arbeidsinntekt og arbeidstid",
+          hjemmel: {
+            kilde: {
+              navn: "Folketrygdloven",
+              kortnavn: "ftrl",
+            },
+            kapittel: "4",
+            paragraf: "3",
+            tittel: "§ 4-3. Tap av arbeidsinntekt og arbeidstid",
+            url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
+          },
+          type: "Vilkår",
+        },
+      ],
     },
     {
       id: "019a7821-901c-728b-8416-d2fb02cbdb09",
@@ -117,6 +159,23 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
       status: "Åpen",
       maskinelt: false,
       sistEndret: "2025-11-12T13:54:16.860749",
+      regelsett: [
+        {
+          id: "-709778893",
+          navn: "Reell arbeidssøker",
+          hjemmel: {
+            kilde: {
+              navn: "Folketrygdloven",
+              kortnavn: "ftrl",
+            },
+            kapittel: "4",
+            paragraf: "5",
+            tittel: "§ 4-5. Reelle arbeidssøkere",
+            url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
+          },
+          type: "Vilkår",
+        },
+      ],
     },
   ],
   vilkår: [
@@ -133,8 +192,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 0-0. Krav på dagpenger",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysninger: ["01990a09-0eab-7957-b88f-14484a50e194"],
     },
     {
@@ -150,8 +209,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-2. Opphold i Norge",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-2",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
       opplysninger: [
         "0196ab10-0cff-7301-99d6-65be50a50201",
@@ -176,8 +235,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-3. Tap av arbeidsinntekt og arbeidstid",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
       opplysninger: [
         "0194881f-9435-72a8-b1ce-9575cbc2a75e",
@@ -210,8 +269,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-4. Krav til minsteinntekt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
       opplysninger: [
         "0194881f-9413-77ce-92ec-d29700f04246",
@@ -243,8 +302,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-5. Reelle arbeidssøkere",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
       opplysninger: [
         "0194881f-9435-72a8-b1ce-9575cbc2a75f",
@@ -277,8 +336,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-5. Reelle arbeidssøkere - registrert som arbeidssøker",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
       opplysninger: [
         "0194881f-9442-707b-a6ee-e96c06877be0",
@@ -298,8 +357,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-6. Dagpenger under utdanning, opplæring, etablering av egen virksomhet m.v",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-6",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
       opplysninger: [
         "0194881f-9445-734c-a7ee-045edf29b522",
@@ -329,8 +388,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-7. Dagpenger til permitterte",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
       },
-      relevantForResultat: false,
       type: "Vilkår",
+      relevantForResultat: false,
       opplysningTypeId: "0194d111-db2f-7395-bcfb-959f245fd2a6",
       opplysninger: [],
     },
@@ -347,8 +406,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel:
           "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
       },
-      relevantForResultat: false,
       type: "Vilkår",
+      relevantForResultat: false,
       opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
       opplysninger: [],
     },
@@ -365,8 +424,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-8. Meldeplikt og møteplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-8",
       },
-      relevantForResultat: false,
       type: "Vilkår",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -382,8 +441,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: false,
       type: "Vilkår",
+      relevantForResultat: false,
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
       opplysninger: [
         "01948d3c-4bea-7802-9d18-5342a5e2be99",
@@ -403,8 +462,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-22. Bortfall ved streik og lock-out",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-22",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
       opplysninger: [
         "0194881f-91df-746a-a8ac-4a6b2b30685d",
@@ -425,8 +484,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-23. Bortfall på grunn av alder",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-23",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
       opplysninger: [
         "0194881f-940b-76ff-acf5-ba7bcb367233",
@@ -450,8 +509,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
           "§ 4-24. Medlem som har fulle ytelser etter folketrygdloven eller avtalefestet pensjon",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-24",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
       opplysninger: ["0194881f-943f-78d9-b874-00a4944c54f1"],
     },
@@ -469,8 +528,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
           "§ 4-25. Samordning med reduserte ytelser fra folketrygden, eller redusert avtalefestet pensjon",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
       },
-      relevantForResultat: false,
       type: "Vilkår",
+      relevantForResultat: false,
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
       opplysninger: [
         "0194881f-9433-70e9-a85b-c246150c45cd",
@@ -511,8 +570,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-28. Utestengning",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-28",
       },
-      relevantForResultat: true,
       type: "Vilkår",
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
       opplysninger: [
         "0194881f-9447-7e36-a569-3e9f42bff9f6",
@@ -533,8 +592,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         paragraf: "0",
         tittel: "§ 0-0. Meldekortberegning",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -550,8 +609,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 0-0. Rettighetstype",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-9444-7a73-a458-0af81c034d86",
         "0194881f-9444-7a73-a458-0af81c034d85",
@@ -576,8 +635,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         paragraf: "1",
         tittel: "§ 3-1. Søknadstidspunkt",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-91d1-7df2-ba1d-4533f37fcc77",
         "0194881f-91d1-7df2-ba1d-4533f37fcc73",
@@ -598,8 +657,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         paragraf: "2",
         tittel: "§ 1-2. Frist for levering av opplysninger",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-9414-7823-8d29-0e25b7feb7ce",
         "0194881f-9414-7823-8d29-0e25b7feb7cf",
@@ -619,8 +678,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-3. Fastsettelse av arbeidstid",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: ["0194881f-9435-72a8-b1ce-9575cbc2a76a"],
     },
     {
@@ -636,8 +695,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-7. Dagpenger til permitterte",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -654,8 +713,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
           "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§6-7",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -671,8 +730,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-9. Egenandel",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -688,8 +747,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-11. Dagpengegrunnlag",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-9410-7481-b263-4606fdd10ca9",
         "0194881f-9410-7481-b263-4606fdd10ca7",
@@ -726,8 +785,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-12. Dagpengenes størrelse",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [
         "0194881f-9428-74d5-b160-f63a4c61a23b",
         "0194881f-9428-74d5-b160-f63a4c61a23c",
@@ -760,8 +819,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-15. Antall stønadsuker (stønadsperiode)",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-15",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [],
     },
     {
@@ -777,8 +836,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
-      relevantForResultat: false,
       type: "Fastsettelse",
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -794,8 +853,8 @@ export const behandling019a71dd03ab7fbe9714c9472667f87c: components["schemas"]["
         tittel: "§ 4-26. Samordning med ytelser utenfor folketrygden",
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-26",
       },
-      relevantForResultat: true,
       type: "Fastsettelse",
+      relevantForResultat: true,
       opplysninger: [],
     },
   ],

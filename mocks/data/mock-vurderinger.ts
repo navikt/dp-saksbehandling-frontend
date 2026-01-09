@@ -12,7 +12,7 @@ export const mockVurderinger: components["schemas"]["SaksbehandlersVurderinger"]
           id: "019a71dd-0505-74f1-851a-bf356318eebc",
           opprettet: "2025-11-11T08:41:41.509927",
           status: "Ny",
-          opprinnelse: "Ny",
+          opprinnelse: "Arvet",
           verdi: {
             verdi: true,
             datatype: "boolsk",
@@ -29,7 +29,7 @@ export const mockVurderinger: components["schemas"]["SaksbehandlersVurderinger"]
           id: "019a71dd-0506-73cc-be38-f0cdcc7e654e",
           opprettet: "2025-11-11T08:41:41.510888",
           status: "Ny",
-          opprinnelse: "Ny",
+          opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-11",
           verdi: {
             verdi: "2025-11-05",

@@ -17,21 +17,17 @@ export interface TidslinjeNavigeringState {
 }
 
 export function useTidslinjeNavigeringState(
-  opplysninger: components["schemas"]["RedigerbareOpplysninger"][],
+  behandling: components["schemas"]["Behandling"],
   eksternState?: TidslinjeNavigeringState,
   eksternFørsteFraOgMedDato?: string,
 ): TidslinjeNavigeringState {
   if (eksternState) {
     return eksternState;
   }
+
   const førsteFraOgMedDato = eksternFørsteFraOgMedDato
     ? eksternFørsteFraOgMedDato
-    : opplysninger
-        .flatMap((opplysning) => opplysning.perioder)
-        .map((opplysning) => opplysning.gyldigFraOgMed)
-        .filter((dato) => dato !== null && dato !== undefined)
-        .sort()
-        .at(0);
+    : behandling.behandletHendelse.skjedde;
 
   const [antallUkerITidslinje, setAntallUkerITidslinje] = useState<AntallUkerITidslinje>("2");
   const [tidslinjeStartSlutt, setTidslinjeStartSlutt] = useState<TidslinjeStartSlutt>({

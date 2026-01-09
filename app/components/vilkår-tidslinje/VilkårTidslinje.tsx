@@ -19,30 +19,28 @@ import { useState } from "react";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTidslinjeNavigeringState } from "~/hooks/useTidslinjeNavigeringState";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { skalViseRegelsett } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { logger } from "~/utils/logger.utils";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
 import { isDatoVerdi, isOpplysningsgruppe } from "~/utils/type-guards";
 
 import { components } from "../../../openapi/behandling-typer";
 import styles from "./VilkårTidslinje.module.css";
 
-interface IProps {
-  behandling: components["schemas"]["Behandling"];
-}
-
-export function VilkårTidslinje({ behandling }: IProps) {
+export function VilkårTidslinje() {
   const { oppgaveId } = useTypeSafeParams();
   const { readonly } = useOppgave();
+  const { behandling, prøvingsdatoOpplysning, visArvedeOpplysninger } = useBehandling();
   const {
     antallUkerITidslinje,
     setAntallUkerITidslinje,
     tidslinjeStartSlutt,
     setTidslinjeStartSlutt,
-  } = useTidslinjeNavigeringState(behandling.opplysninger);
+  } = useTidslinjeNavigeringState(behandling);
   const [aktivtRegelsett, setAktivtRegelsett] = useState<
     components["schemas"]["Regelsett"] | undefined
   >();
@@ -77,9 +75,14 @@ export function VilkårTidslinje({ behandling }: IProps) {
     setVilkårOgOpplysninger(oppdatertData);
   }
 
-  const prøvingsdato = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
-  );
+  const skalViseTidslinje =
+    behandling.vilkår.filter((vilkår) =>
+      skalViseRegelsett(vilkår, behandling.opplysninger, visArvedeOpplysninger),
+    ).length > 0;
+
+  if (!skalViseTidslinje) {
+    return null;
+  }
 
   return (
     <div className={"card p-4"}>
@@ -98,7 +101,7 @@ export function VilkårTidslinje({ behandling }: IProps) {
         endDate={tidslinjeStartSlutt.end}
         className={"aksel--compact"}
       >
-        {prøvingsdato?.perioder?.map((periode) => {
+        {prøvingsdatoOpplysning?.perioder?.map((periode) => {
           if (isDatoVerdi(periode.verdi)) {
             return (
               <Timeline.Pin key={periode.id} date={new Date(periode.verdi.verdi)}>
@@ -113,8 +116,8 @@ export function VilkårTidslinje({ behandling }: IProps) {
 
         {vilkårOgOpplysninger.map((vilkårEllerOpplysning, index) => {
           if (isOpplysningsgruppe(vilkårEllerOpplysning)) {
-            if (!vilkårEllerOpplysning.synlig) {
-              return;
+            if (!skalViseOpplysning(vilkårEllerOpplysning, visArvedeOpplysninger)) {
+              return null;
             }
 
             return (
@@ -169,16 +172,21 @@ export function VilkårTidslinje({ behandling }: IProps) {
             );
           }
 
+          if (
+            !skalViseRegelsett(
+              vilkårEllerOpplysning,
+              behandling.opplysninger,
+              visArvedeOpplysninger,
+            )
+          ) {
+            return null;
+          }
+
           const hovedOpplysning = behandling.opplysninger.find(
             (opplysning) => opplysning.opplysningTypeId === vilkårEllerOpplysning.opplysningTypeId,
           );
 
           if (!hovedOpplysning) {
-            logger.warn(
-              `Fant ikke hovedopplysning med id ${vilkårEllerOpplysning.opplysningTypeId} for vilkår ${vilkårEllerOpplysning.navn}`,
-            );
-
-            // TODO Denne skal jo bort når ting funker
             return null;
           }
 

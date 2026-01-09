@@ -1,8 +1,8 @@
 import { Detail, Heading, Skeleton, Table } from "@navikt/ds-react";
 
+import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
-import { OppgaveListePaginering } from "~/components/oppgave-liste-paginering/OppgaveListePaginering";
-import { ListeOppgaveMeny } from "~/components/v2/liste-oppgave-meny/ListeOppgaveMeny";
+import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -119,7 +119,7 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <div className={"flex gap-2"}>
+                  <div className={"flex flex-wrap gap-2"}>
                     <OppgaveEmneknagger oppgave={oppgave} laster={lasterOppgaver} />
                   </div>
                 </Table.DataCell>

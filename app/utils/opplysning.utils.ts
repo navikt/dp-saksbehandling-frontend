@@ -2,6 +2,7 @@ import { getISOWeek } from "date-fns";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
+import { isRedigerbareOpplysninger } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
 import { logger } from "./logger.utils";
@@ -230,4 +231,28 @@ export function formaterOpplysningFormål(formål: components["schemas"]["Formå
     default:
       return "Ukjent";
   }
+}
+
+export function skalViseOpplysning(
+  opplysning:
+    | components["schemas"]["RedigerbareOpplysninger"]
+    | components["schemas"]["Opplysninger"],
+  visArvedeOpplysninger: boolean,
+) {
+  if (isRedigerbareOpplysninger(opplysning) && !opplysning.synlig) {
+    return false;
+  }
+
+  const harVisbarePerioder =
+    opplysning.perioder.filter((periode) => skalVisePeriode(periode, visArvedeOpplysninger))
+      .length > 0;
+
+  return harVisbarePerioder;
+}
+
+export function skalVisePeriode(
+  periode: components["schemas"]["Opplysningsperiode"],
+  visArvedeOpplysninger: boolean,
+) {
+  return periode.opprinnelse === "Ny" || (visArvedeOpplysninger && periode.opprinnelse === "Arvet");
 }

@@ -196,7 +196,7 @@ export function isGraphQLResponseError(value: unknown): value is {
 
   const response = obj.response as Record<string, unknown>;
 
-  if (typeof response.status !== "number") {
+  if (typeof response.status !== "number" || response.status === 200) {
     return false;
   }
 
@@ -313,6 +313,23 @@ export function isOpplysningsgruppe(
     (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
     (obj.redigertAvSaksbehandler === undefined ||
       typeof obj.redigertAvSaksbehandler === "boolean") &&
+    Array.isArray(obj.perioder)
+  );
+}
+
+export function isRedigerbareOpplysninger(
+  value: unknown,
+): value is components["schemas"]["RedigerbareOpplysninger"] {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.synlig === "boolean" &&
+    typeof obj.redigerbar === "boolean" &&
+    typeof obj.redigertAvSaksbehandler === "boolean" &&
+    typeof obj["formål"] === "string" &&
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
     Array.isArray(obj.perioder)
   );
 }

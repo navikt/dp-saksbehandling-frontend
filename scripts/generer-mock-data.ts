@@ -9,7 +9,11 @@ import { isDefined } from "~/utils/type-guards";
 
 import { mockJournalposter } from "../mocks/data/mock-journalposter";
 import { mockGradertPerson, mockPerson } from "../mocks/data/mock-person";
-import { mockAnnenSaksbehandler, mockSaksbehandler } from "../mocks/data/mock-saksbehandler";
+import {
+  konverterSSOBrukerTilBehandler,
+  mockAnnenSaksbehandler,
+  mockSaksbehandler,
+} from "../mocks/data/mock-saksbehandler";
 import { components as BehandlingComponents } from "../openapi/behandling-typer";
 import { components as SaksbehandlingComponents } from "../openapi/saksbehandling-typer";
 
@@ -24,7 +28,7 @@ function uuidTilVariabelNavn(uuid: string, prefix: string): string {
   return `${prefix}${uuidUtenBindestrek}`;
 }
 
-async function genererMockDagpengerRettBehandling(behandlingId?: string) {
+export async function genererMockDagpengerRettBehandling(behandlingId?: string) {
   const { hentBehandling } = await import("~/models/behandling.server");
 
   const answers = await inquirer.prompt([
@@ -70,15 +74,24 @@ async function genererMockDagpengerRettBehandling(behandlingId?: string) {
   return behandling;
 }
 
-async function genererMockOppgave() {
-  const { oppgaveId } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "oppgaveId",
-      message: "Skriv inn oppgaveId:",
-      validate: (input) => input.length > 0 || "OppgaveId er påkrevd",
-    },
-  ]);
+export async function genererMockOppgave(id?: string) {
+  let oppgaveId = id;
+
+  if (!oppgaveId) {
+    const answers = await inquirer.prompt([
+      {
+        type: "input",
+        name: "oppgaveId",
+        message: "Skriv inn oppgaveId:",
+        validate: (input) => input.length > 0 || "OppgaveId er påkrevd",
+      },
+    ]);
+    oppgaveId = answers.oppgaveId;
+  }
+
+  if (!oppgaveId) {
+    throw new Error("OppgaveId er påkrevd");
+  }
 
   const { hentOppgave } = await import("~/models/saksbehandling.server");
   const oppgave = await hentOppgave(new Request(getEnv("DP_SAKSBEHANDLING_URL")), oppgaveId);
@@ -93,14 +106,16 @@ async function genererMockOppgave() {
       name: "saksbehandler",
       message: "Velg saksbehandler:",
       choices: [
-        { value: oppgave.saksbehandler, name: "Fra dev oppgave" },
-        { value: mockSaksbehandler, name: mockSaksbehandler.displayName },
         {
-          value: mockAnnenSaksbehandler,
+          value: konverterSSOBrukerTilBehandler(mockSaksbehandler),
+          name: mockSaksbehandler.displayName,
+        },
+        {
+          value: konverterSSOBrukerTilBehandler(mockAnnenSaksbehandler),
           name: mockAnnenSaksbehandler.displayName,
         },
+        { value: oppgave.saksbehandler, name: "Fra dev oppgave" },
       ],
-      default: [oppgave.saksbehandler],
     },
     {
       type: "select",
@@ -163,18 +178,20 @@ async function genererMockOppgave() {
       name: "emneknagger",
       message: "Overstyr emneknagger:",
       choices: [
+        "Alder",
         "Arbeidsinntekt",
         "Avslag",
-        "Alder",
-        "Innvilgelse",
         "Gjenopptak",
         "Ikke registrert",
+        "Innvilgelse",
+        "Innsending",
+        "Klage",
+        "Minsteinntekt",
         "Opphold utland",
         "Ordinær",
+        "Permitert fisk",
         "Reell arbeidssøker",
         "Verneplikt",
-        "Permitert fisk",
-        "Klage",
       ],
       default: oppgave.emneknagger,
     },

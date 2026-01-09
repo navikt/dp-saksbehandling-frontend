@@ -1,17 +1,22 @@
 import { arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellArbeidssøkerVerneplikt } from "./arbeidsinntekt-avslag-gjenopptak-ikke-registrert-opphold-utland-ordinær-reell-arbeidssøker-verneplikt";
+import { avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt } from "./avslag-ikke-registrert-minsteinntekt-ordinær-verneplikt";
 import { avslagManuellOrdinærReellArbeidssøkerVerneplikt } from "./avslag-manuell-ordinær-reell-arbeidssøker-verneplikt";
 import { avslagMinsteinntektOrdinær } from "./avslag-minsteinntekt-ordinær";
+import { avslagOrdinærReellArbeidssøker } from "./avslag-ordinær-reell-arbeidssøker";
+import { innsending } from "./innsending";
+import { innvilgelseOrdinær } from "./innvilgelse-ordinær";
+import { innvilgelseOrdinærTidligereKontrollert } from "./innvilgelse-ordinær-tidligere-kontrollert";
 import { klage } from "./klage";
-import { ordinærAvslagMinsteinntekt } from "./ordinær-avslag-minsteinntekt";
-import { ordinærAvslagReellArbeidssøker } from "./ordinær-avslag-reell-arbeidssøker";
-import { ordinærInnvilgelse } from "./ordinær-innvilgelse";
-
+import { ordinær } from "./ordinær";
 export const mockOppgaver = [
-  ordinærInnvilgelse,
-  arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellArbeidssøkerVerneplikt,
-  ordinærAvslagReellArbeidssøker,
-  avslagManuellOrdinærReellArbeidssøkerVerneplikt,
   klage,
+  innsending,
+  arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellArbeidssøkerVerneplikt,
+  avslagManuellOrdinærReellArbeidssøkerVerneplikt,
   avslagMinsteinntektOrdinær,
-  ordinærAvslagMinsteinntekt,
+  innvilgelseOrdinærTidligereKontrollert,
+  innvilgelseOrdinær,
+  avslagOrdinærReellArbeidssøker,
+  avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt,
+  ordinær,
 ];

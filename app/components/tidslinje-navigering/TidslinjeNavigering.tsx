@@ -1,7 +1,8 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@navikt/aksel-icons";
+import { ChevronLeftIcon, ChevronRightIcon, LocationPinIcon } from "@navikt/aksel-icons";
 import { Button, HStack, Spacer, ToggleGroup } from "@navikt/ds-react";
 import { add, sub } from "date-fns";
 
+import { useBehandling } from "~/hooks/useBehandling";
 import {
   AntallUkerITidslinje,
   TidslinjeNavigeringState,
@@ -13,6 +14,8 @@ export function TidslinjeNavigering({
   antallUkerITidslinje,
   setAntallUkerITidslinje,
 }: TidslinjeNavigeringState) {
+  const { prøvingsdato } = useBehandling();
+
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
@@ -21,6 +24,12 @@ export function TidslinjeNavigering({
 
   function navigerFremITidslinje(antallUker: number) {
     const nyStartDato = add(tidslinjeStartSlutt.start, { weeks: antallUker });
+    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
+    setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
+  }
+
+  function hoppTilPrøvingsdato() {
+    const nyStartDato = sub(prøvingsdato, { days: 1 });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
@@ -36,11 +45,20 @@ export function TidslinjeNavigering({
       <Spacer />
       <HStack gap="space-2" align="center">
         <Button
+          icon={<LocationPinIcon title="Hopp til prøvingsdato" />}
+          variant="secondary-neutral"
+          size="small"
+          onClick={() => {
+            hoppTilPrøvingsdato();
+          }}
+        />
+
+        <Button
           icon={<ChevronLeftIcon title="Forrige periode" />}
           variant="secondary-neutral"
           size="small"
           onClick={() => {
-            navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.25);
+            navigerTilbakeITidslinje(parseInt(antallUkerITidslinje) * 0.5);
           }}
         />
         <Button
@@ -48,7 +66,7 @@ export function TidslinjeNavigering({
           variant="secondary-neutral"
           size="small"
           onClick={() => {
-            navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.25);
+            navigerFremITidslinje(parseInt(antallUkerITidslinje) * 0.5);
           }}
         />
       </HStack>

@@ -1,23 +1,16 @@
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/FastsettelserTidslinje";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
-import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -25,52 +18,39 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
-
-  return { behandling, vurderinger };
-}
 export default function Behandle() {
-  const { behandling, vurderinger } = useLoaderData<typeof loader>();
-  const { prøvingsdatoOpplysning } = usePrøvingsdato(behandling);
+  const { behandling, vurderinger, prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <>
-      <main className="main">
-        <div className={"card p-4"}>
-          <LinkTabs />
+    <main>
+      <div className={"card p-4"}>
+        <div className="flex justify-between gap-6">
+          <LinkTabs className="flex-1" />
+          <OppgaveMeny />
+        </div>
 
-          <div className="mt-4 flex gap-4">
-            <div className={"flex w-[400px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
+        <div className="mt-4 flex gap-4">
+          <div className={"flex w-[400px] flex-col gap-4"}>
+            {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
 
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
-                behandlingId={behandling.behandlingId}
-              />
+            <Avklaringer
+              avklaringer={behandling.avklaringer}
+              behandlingId={behandling.behandlingId}
+            />
 
-              <EndretOpplysninger vurderinger={vurderinger} />
-            </div>
+            <EndretOpplysninger vurderinger={vurderinger} />
+          </div>
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <RettPåDagpenger behandling={behandling} />
-              <VilkårTidslinje behandling={behandling} />
-              <FastsettelserTidslinje behandling={behandling} />
-            </div>
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <RettPåDagpenger />
+            <VilkårTidslinje />
+            <FastsettelserTidslinje />
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

@@ -7,6 +7,8 @@ import { components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
+export type NyBehandlingType = "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
+
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
@@ -338,7 +340,7 @@ export function hentValideringForTrekkKlage() {
     _action: z.literal("trekk-klage"),
     ident: z.string().min(1, "Det mangler ident i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+    aktivtOppgaveSok: z.string(),
   });
 }
 
@@ -347,7 +349,19 @@ export function hentValideringForFerdigstillKlage() {
     _action: z.literal("ferdigstill-klage"),
     ident: z.string().min(1, "Det mangler ident i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    aktivtOppgaveSok: z.string().min(1, "Det mangler aktivtOppgaveSok i skjema"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
+  const nyBehandlingTyper: NyBehandlingType[] = ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"];
+  return z.object({
+    _action: z.literal("ferdigstill-innsending"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
+    behandlingType: z.enum(nyBehandlingTyper, "Du må velge en behandlingstype"),
+    vurdering: z.string().min(1, "Du må skrive en vurdering"),
+    aktivtOppgaveSok: z.string(),
   });
 }
 
@@ -409,5 +423,14 @@ export function v2hentValideringForReturnerTilSaksbehandler() {
     begrunnelse: z.enum(gyldigeBegrunnelser, {
       message: "Du må velge en begrunnelse for å returnere oppgaven til saksbehandler.",
     }),
+  });
+}
+
+export function hentValideringForUtvidetBeskrivelse() {
+  return z.object({
+    _action: z.literal("lagre-utvidet-beskrivelse"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    brevBlokkId: z.string().min(1, "Det mangler brevBlokkId i skjema"),
+    utvidetBeskrivelse: z.string(),
   });
 }

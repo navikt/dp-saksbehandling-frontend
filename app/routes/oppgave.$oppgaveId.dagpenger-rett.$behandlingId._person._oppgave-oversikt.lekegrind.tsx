@@ -1,18 +1,12 @@
 import { Heading } from "@navikt/ds-react";
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -20,15 +14,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-
-  return { behandling };
-}
-
 export default function Behandle() {
-  const { behandling } = useLoaderData<typeof loader>();
+  const { behandling } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -37,31 +24,32 @@ export default function Behandle() {
   );
 
   return (
-    <>
-      <main className="main">
-        <div className={"card flex flex-col gap-4 p-4"}>
-          <LinkTabs />
+    <main>
+      <div className={"card flex flex-col gap-4 p-4"}>
+        <div className="flex justify-between gap-6">
+          <LinkTabs className="flex-1" />
+          <OppgaveMeny />
+        </div>
 
-          <div className="mt-4">
-            <Heading size={"small"}>Utvikler lekegrind</Heading>
+        <div className="mt-4">
+          <Heading size={"small"}>Utvikler lekegrind</Heading>
 
-            <div className={"card p-4"}>
-              <Heading size={"xsmall"}>Opplysninger som har periode med opprinnelse Ny</Heading>
-              <section className="grid grid-cols-4 gap-4">
-                {nyeOpplysninger.map((opplysning) => (
-                  <div key={opplysning.opplysningTypeId}>
-                    <OpplysningsVerdierForPerioder
-                      label={opplysning.navn}
-                      perioder={opplysning.perioder}
-                    />
-                  </div>
-                ))}
-              </section>
-            </div>
+          <div className={"card p-4"}>
+            <Heading size={"xsmall"}>Opplysninger som har periode med opprinnelse Ny</Heading>
+            <section className="grid grid-cols-4 gap-4">
+              {nyeOpplysninger.map((opplysning) => (
+                <div key={opplysning.opplysningTypeId}>
+                  <OpplysningsVerdierForPerioder
+                    label={opplysning.navn}
+                    perioder={opplysning.perioder}
+                  />
+                </div>
+              ))}
+            </section>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

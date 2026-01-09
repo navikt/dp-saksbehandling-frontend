@@ -25,6 +25,7 @@ import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
+import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
 
@@ -70,7 +71,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await fattVedtakAction(request, params, formData);
 
     case "avbryt-oppgave":
-      return await avbrytOppgaveAction(request, params, formData);
+      return await avbrytOppgaveAction(request, formData);
 
     case "send-til-kontroll":
       return await sendTilKontrollAction(request, params, formData);
@@ -91,10 +92,10 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await lagreGodkjentBrevIGosysAction(request, formData);
 
     case "ferdigstill-klage":
-      return await ferdigstillKlageAction(request, formData);
+      return await ferdigstillKlageAction(request, params, formData);
 
     case "trekk-klage":
-      return await trekkKlageAction(request, formData);
+      return await trekkKlageAction(request, params, formData);
 
     case "opprett-klage":
       return await opprettKlageAction(request, formData);
@@ -104,6 +105,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "oppdater-orkestrator-barn":
       return await oppdaterOrkestratorBarnAction(request, formData);
+
+    case "ferdigstill-innsending":
+      return await ferdigstillInnsendingAction(request, params, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

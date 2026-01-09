@@ -6,12 +6,12 @@ export const arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærRe
     behandlingId: "019a81e3-99ab-7951-8dd1-614c3b5bcf48",
     saksbehandler: {
       ident: "Z993298",
-      fornavn: "F_Z993298",
-      etternavn: "E_Z993298",
+      fornavn: "Donald",
+      etternavn: "Duck",
       enhet: {
-        navn: "IT-avdelingen",
-        enhetNr: "2970",
-        postadresse: "",
+        navn: "Mock Enhet",
+        enhetNr: "1337",
+        postadresse: "Apalveien 111, 1337 Andeby",
       },
     },
     person: {

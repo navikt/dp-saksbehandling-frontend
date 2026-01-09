@@ -9,20 +9,17 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
+import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
+import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
-import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
-import { LinkTabs } from "~/components/v2/link-tabs/LinkTabs";
-import { MeldingOmVedtak } from "~/components/v2/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveFattVedtak } from "~/components/v2/oppgave-fatt-vedtak/OppgaveFattVedtak";
-import { OppgaveReturnerTilSaksbehandler } from "~/components/v2/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
-import { OppgaveSendTilKontroll } from "~/components/v2/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
@@ -37,12 +34,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
+
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
   let meldingOmVedtak;
+
   if (oppgave.saksbehandler) {
     meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
       fornavn: oppgave.person.fornavn,
@@ -55,79 +51,66 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     });
   }
 
-  return { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave };
+  return { sanityBrevMaler, meldingOmVedtak };
 }
 export default function Behandle() {
   const location = useLocation();
-  const { behandling, vurderinger, sanityBrevMaler, meldingOmVedtak, oppgave } =
-    useLoaderData<typeof loader>();
+  const { behandling, vurderinger } = useBehandling();
+  const { sanityBrevMaler, meldingOmVedtak } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato } = usePrøvingsdato(behandling);
-
-  const kanSendeTilKontroll =
-    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
-
-  const kanFatteVedtak =
-    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
-    oppgave.tilstand === "UNDER_KONTROLL";
-
-  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
+  const { prøvingsdato } = useBehandling();
 
   return (
-    <>
-      <main className="main">
-        <div className={"card mb-4 p-4"}>
-          <div className="flex justify-between gap-6">
-            <LinkTabs className="flex-1" />
-            {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
-            {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
-            {kanFatteVedtak && <OppgaveFattVedtak behandling={behandling} />}
+    <main>
+      <div className={"card mb-4 p-4"}>
+        <div className="flex justify-between gap-4">
+          <LinkTabs className="flex-1" />
+          <OppgaveMeny />
+        </div>
+
+        <div className="mt-4 flex gap-4">
+          <div className={"flex w-[400px] flex-col gap-4"}>
+            <Avklaringer
+              avklaringer={[...behandling.avklaringer]}
+              behandlingId={behandling.behandlingId}
+            />
+            <EndretOpplysninger vurderinger={vurderinger} />
           </div>
 
-          <div className="mt-4 flex gap-4">
-            <div className={"flex w-[400px] flex-col gap-4"}>
-              <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
-                behandlingId={behandling.behandlingId}
+          <div className={"flex flex-1 flex-col gap-4"}>
+            {prøvingsdato && (
+              <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
+            )}
+
+            {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
+              <OpplysningerForRettighetsperiode
+                key={index}
+                index={index}
+                rettighetsperiode={rettighetsperiode}
+                opplysninger={behandling.opplysninger}
               />
-              <EndretOpplysninger vurderinger={vurderinger} />
-            </div>
+            ))}
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              {prøvingsdato && (
-                <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
-              )}
-
-              {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
-                <OpplysningerForRettighetsperiode
-                  key={index}
-                  index={index}
-                  rettighetsperiode={rettighetsperiode}
-                  opplysninger={behandling.opplysninger}
+            <div className={"card p-4"} key={location.key}>
+              <Heading size={"small"} level={"2"} className={"mb-4"}>
+                Melding om vedtak
+              </Heading>
+              <UtvidedeBeskrivelserProvider
+                utvidedeBeskrivelser={
+                  isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                }
+              >
+                <MeldingOmVedtak
+                  meldingOmVedtak={meldingOmVedtak}
+                  sanityBrevMaler={sanityBrevMaler}
                 />
-              ))}
-
-              <div className={"card p-4"} key={location.key}>
-                <Heading size={"small"} level={"2"} className={"mb-4"}>
-                  Melding om vedtak
-                </Heading>
-                <UtvidedeBeskrivelserProvider
-                  utvidedeBeskrivelser={
-                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                  }
-                >
-                  <MeldingOmVedtak
-                    meldingOmVedtak={meldingOmVedtak}
-                    sanityBrevMaler={sanityBrevMaler}
-                  />
-                </UtvidedeBeskrivelserProvider>
-              </div>
+              </UtvidedeBeskrivelserProvider>
             </div>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

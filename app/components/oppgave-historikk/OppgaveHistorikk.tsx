@@ -7,13 +7,13 @@ export function OppgaveHistorikk() {
   const { oppgave } = useOppgave();
 
   return (
-    <div className={"px-2 py-4"}>
+    <div className={"py-2"}>
       <Process className={"aksel--compact"}>
-        {oppgave.historikk.reverse().map((hendelse, index) => (
+        {oppgave.historikk.map((hendelse, index) => (
           <Process.Event
             key={index}
             title={hendelse.tittel}
-            status={index === oppgave.historikk.length - 1 ? "uncompleted" : "completed"}
+            status={index === 0 ? "uncompleted" : "completed"}
             timestamp={formaterTilNorskDato(hendelse.tidspunkt, true)}
           >
             <BodyLong size={"small"}>{hendelse.body}</BodyLong>

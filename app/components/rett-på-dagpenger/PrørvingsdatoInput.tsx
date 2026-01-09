@@ -2,22 +2,17 @@ import { Button, DatePicker, Heading, TextField, useDatepicker } from "@navikt/d
 import { useForm } from "@rvf/react-router";
 import { isSameDay } from "date-fns";
 
+import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { konverterOpplysningVerdiTilSkjemaVerdi } from "~/utils/opplysning.utils";
 import { isDatoVerdi } from "~/utils/type-guards";
 import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.util";
 
-import { components } from "../../../openapi/behandling-typer";
-
-interface IProps {
-  behandlingId: string;
-  prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
-}
-
-export function PrøvingsdatoInput(props: IProps) {
+export function PrøvingsdatoInput() {
   const { readonly } = useOppgave();
-  const prøvingsdatoOpplysningPeriode = props.prøvingsdatoOpplysning.perioder[0];
+  const { behandling, prøvingsdatoOpplysning } = useBehandling();
+  const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning.perioder[0];
 
   if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
     return null;
@@ -29,9 +24,9 @@ export function PrøvingsdatoInput(props: IProps) {
     schema: hentValideringForOpplysningPeriodeSkjema(prøvingsdatoOpplysningPeriode.verdi.datatype),
     defaultValues: {
       _action: "lagre-opplysning",
-      opplysningTypeId: props.prøvingsdatoOpplysning.opplysningTypeId,
+      opplysningTypeId: prøvingsdatoOpplysning.opplysningTypeId,
       datatype: prøvingsdatoOpplysningPeriode.verdi.datatype,
-      behandlingId: props.behandlingId,
+      behandlingId: behandling.behandlingId,
       verdi: konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode.verdi),
       begrunnelse: prøvingsdatoOpplysningPeriode.kilde?.begrunnelse?.verdi,
       gyldigFraOgMed: undefined,

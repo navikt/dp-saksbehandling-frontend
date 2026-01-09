@@ -10,12 +10,12 @@ import {
   useNavigation,
 } from "react-router";
 
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
-import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterRettighetstype";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter-utløst-av/OppgaveFilterUtløstAv";
+import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter/OppgaveFilterMineOppgaver";
+import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
+import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/saksbehandling.server";
@@ -88,10 +88,10 @@ export default function Saksbehandling() {
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
-            <OppgaveFilterUtløstAv />
+            <OppgaveFilterPrioritert />
             <OppgaveFilterStatus />
+            <OppgaveFilterUtløstAv />
             <OppgaveFilterRettighetstype />
-            <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
         </Tabs>
       </aside>

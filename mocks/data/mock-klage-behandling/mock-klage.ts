@@ -137,7 +137,7 @@ const utfallOpplysninger: components["schemas"]["KlageOpplysning"][] = [
 ];
 
 export const klage: components["schemas"]["Klage"] = {
-  behandlingId: "018e2222-9df8-7aa4-94a6-318fada10999",
+  behandlingId: "0199390e-35aa-7f47-9e95-2c384bcb2e93",
   utfall: {
     verdi: "OPPRETTHOLDELSE",
     tilgjengeligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],

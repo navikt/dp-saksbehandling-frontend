@@ -1,39 +1,39 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
 export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
-  oppgaveId: "019a6e1a-80b2-76a7-ab6a-a980186c7894",
-  behandlingId: "019a6e1a-7c65-7ddb-b9ad-66fdd0b928e4",
+  oppgaveId: "01980d51-63be-7176-a08e-68d44ca639ef",
+  behandlingId: "01980d51-30d1-7af3-a8f5-2f2572087d2a",
   saksbehandler: {
     ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    fornavn: "Donald",
+    etternavn: "Duck",
     enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
+      navn: "Mock Enhet",
+      enhetNr: "1337",
+      postadresse: "Apalveien 111, 1337 Andeby",
     },
   },
   person: {
-    ident: "22867098546",
-    id: "019a6e1a-7f45-7fa2-b5eb-a0f356fbf52c",
-    fornavn: "FIOLETT",
-    etternavn: "HORISONT",
-    fodselsdato: "1970-06-22",
-    alder: 55,
+    ident: "04810098363",
+    id: "018eeb95-d6b4-7b85-af13-9f24bdab030e",
+    fornavn: "DRIFTIG",
+    etternavn: "APPELSIN",
+    fodselsdato: "2000-01-04",
+    alder: 25,
     statsborgerskap: "NOR",
     kjonn: "MANN",
     skjermesSomEgneAnsatte: false,
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
   },
-  tidspunktOpprettet: "2025-11-10T15:10:20.902401",
+  tidspunktOpprettet: "2025-07-15T11:01:21.500665",
   behandlingType: "RETT_TIL_DAGPENGER",
   utlostAv: "SØKNAD",
-  journalpostIder: ["717289552"],
+  journalpostIder: ["691134178"],
   historikk: [
     {
       type: "statusendring",
-      tidspunkt: "2025-11-19T08:40:33.69",
+      tidspunkt: "2025-11-20T10:42:59.498",
       tittel: "Under behandling",
       behandler: {
         navn: "F_Z993298 E_Z993298",
@@ -42,7 +42,7 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2025-11-19T08:40:29.163",
+      tidspunkt: "2025-11-20T10:42:53.261",
       tittel: "Klar til behandling",
       behandler: {
         navn: "F_Z993298 E_Z993298",
@@ -51,16 +51,16 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2025-11-10T15:10:30.923",
+      tidspunkt: "2025-07-15T11:01:51.303",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z990286 E_Z990286",
+        navn: "F_Z994276 E_Z994276",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2025-11-10T15:10:22.002",
+      tidspunkt: "2025-07-15T11:01:34.526",
       tittel: "Klar til behandling",
       behandler: {
         navn: "dp-behandling",
@@ -68,7 +68,7 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
       },
     },
   ],
-  emneknagger: ["Avslag", "Ordinær"],
+  emneknagger: ["Avslag", "Minsteinntekt", "Ordinær"],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [
@@ -82,7 +82,7 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
     ],
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
   },
-  soknadId: "9ce3225d-ada0-4627-9248-914afee110c4",
+  soknadId: "02387802-0322-4f2f-abb8-183d50637713",
   meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",
 };

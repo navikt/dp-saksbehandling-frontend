@@ -1,0 +1,20 @@
+.meldingOmVedtakContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--ax-space-16);
+  padding: var(--ax-space-16);
+  min-height: 220px;
+}
+
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  color: rgb(32, 39, 51);
+  padding: var(--ax-space-16) 0;
+  margin-top: calc(var(--ax-space-16) * -1);
+  margin-right: calc(var(--ax-space-16) * -1);
+  margin-bottom: calc(var(--ax-space-16) * -1);
+  background-color: var(--ax-bg-sunken);
+  box-shadow: var(--dp-shadow-inset);
+}

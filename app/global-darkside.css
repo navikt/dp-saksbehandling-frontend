@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import '@navikt/ds-css/darkside' layer(components);
+@import "tailwindcss";
+@import "@navikt/ds-css/darkside" layer(components);
 
 :root .light {
   --dp-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15), 0px 0px 1px 0px rgba(0, 0, 0, 0.2);
@@ -35,4 +35,8 @@
 
 .card-raised {
   background-color: var(--ax-bg-neutral-soft);
+}
+
+.readmore--with-checkboxes .aksel-read-more__content .checkbox--in-readmore .aksel-checkboxes {
+  margin-top: 0;
 }

@@ -1,85 +1,56 @@
-import { Radio, RadioGroup } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
-import { Form } from "react-router";
-
+import { components } from "~/../openapi/melding-om-vedtak-typer";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
+import { MeldingOmVedtakDPSak } from "~/components/melding-om-vedtak/MeldingOmVedtakDPSak";
+import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
+import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
+import { OppgaveFattVedtak } from "~/components/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveReturnerTilSaksbehandler } from "~/components/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
+import { OppgaveSendTilKontroll } from "~/components/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
 import { IAlert } from "~/context/alert-context";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useBehandling } from "~/hooks/useBehandling";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
-import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
-import { components } from "../../../openapi/melding-om-vedtak-typer";
-import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
-import { MeldingOmVedtakKilde } from "../melding-om-vedtak-kilde/MeldingOmVedtakKilde";
-import { UtvidedeBeskrivelser } from "../utvidede-beskrivelser/UtvidedeBeskrivelser";
 import styles from "./MeldingOmVedtak.module.css";
 
 interface IProps {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
   sanityBrevMaler: ISanityBrevMal[];
-  oppgave: saksbehandlingComponents["schemas"]["Oppgave"];
 }
 
-export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler, oppgave }: IProps) {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
+export function MeldingOmVedtak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
+  const { oppgave, readonly } = useOppgave();
+  const { behandling } = useBehandling();
   const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
 
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
-  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
+  const kanSendeTilKontroll =
+    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
 
-  const endreBrevVariantForm = useForm({
-    method: "post",
-    schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
-    defaultValues: {
-      _action: "lagre-brev-variant",
-      behandlingId: oppgave.behandlingId,
-      brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
-    },
-  });
+  const kanFatteVedtak =
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
+    oppgave.tilstand === "UNDER_KONTROLL";
+
+  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
-        <MeldingOmVedtakKilde readOnly={readOnly} oppgave={oppgave} />
+        <MeldingOmVedtakKilde readOnly={readonly} oppgave={oppgave} />
+
         {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
-          <>
-            <hr className="border-(--ax-border-neutral-subtle)" />
-
-            <Form {...endreBrevVariantForm.getFormProps()}>
-              <input name={"_action"} value={"lagre-brev-variant"} hidden={true} readOnly={true} />
-              <input
-                hidden={true}
-                readOnly={true}
-                {...endreBrevVariantForm.field("behandlingId").getInputProps()}
-              />
-
-              <RadioGroup
-                {...endreBrevVariantForm.field("brevVariant").getInputProps()}
-                size={"small"}
-                legend="Variant"
-                onChange={() => endreBrevVariantForm.submit()}
-              >
-                <Radio value="GENERERT">Standardisert tekst</Radio>
-                <Radio value="EGENDEFINERT">Skriv tekst selv</Radio>
-              </RadioGroup>
-            </Form>
-
-            {utvidedeBeskrivelser.length > 0 && (
-              <hr className="border-(--ax-border-neutral-subtle)" />
-            )}
-
-            {!isAlert(meldingOmVedtak) && (
-              <UtvidedeBeskrivelser
-                meldingOmVedtak={meldingOmVedtak}
-                readOnly={readOnly}
-                sanityBrevMaler={sanityBrevMaler}
-              />
-            )}
-          </>
+          <MeldingOmVedtakDPSak
+            meldingOmVedtak={meldingOmVedtak}
+            sanityBrevMaler={sanityBrevMaler}
+          />
         )}
+
+        <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
+          {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+          {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+          {kanFatteVedtak && <OppgaveFattVedtak />}
+        </div>
       </div>
 
       <div className={styles.previewContainer}>

@@ -4,13 +4,13 @@ export const avslagManuellOrdinærReellArbeidssøkerVerneplikt: components["sche
   oppgaveId: "0198c672-16fe-72b8-b886-da85111e4714",
   behandlingId: "0198c672-111d-7701-a986-76b0ca6b215d",
   saksbehandler: {
-    ident: "Z993082",
-    fornavn: "F_Z993082",
-    etternavn: "E_Z993082",
+    ident: "Z993298",
+    fornavn: "Donald",
+    etternavn: "Duck",
     enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
+      navn: "Mock Enhet",
+      enhetNr: "1337",
+      postadresse: "Apalveien 111, 1337 Andeby",
     },
   },
   person: {

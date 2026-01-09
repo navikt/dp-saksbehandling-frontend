@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import { createContext } from "react";
 
 import { ISaksbehandler } from "~/models/microsoft.server";
+import { hentJournalpost } from "~/models/saf.server";
 
 import {
   components,
@@ -10,11 +11,18 @@ import {
 
 interface IOppgaveContextType {
   oppgave: components["schemas"]["Oppgave"];
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
   gyldigeOppgaveValg: IGyldigeOppgaveHandlinger[];
   minOppgave: boolean;
   minBeslutterOppgave: boolean;
   underKontroll: boolean;
   readonly: boolean;
+}
+
+interface IOppgaveProviderType {
+  oppgave: components["schemas"]["Oppgave"];
+  saksbehandler: ISaksbehandler;
+  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
 }
 
 export const OppgaveContext = createContext<IOppgaveContextType | undefined>(undefined);
@@ -33,10 +41,8 @@ export function OppgaveProvider({
   children,
   oppgave,
   saksbehandler,
-}: PropsWithChildren<{
-  oppgave: components["schemas"]["Oppgave"];
-  saksbehandler: ISaksbehandler;
-}>) {
+  journalposterPromises,
+}: PropsWithChildren<IOppgaveProviderType>) {
   const minOppgave =
     oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
     oppgave.tilstand === "UNDER_BEHANDLING";
@@ -54,6 +60,7 @@ export function OppgaveProvider({
       value={{
         oppgave,
         gyldigeOppgaveValg,
+        journalposterPromises,
         minOppgave,
         minBeslutterOppgave,
         underKontroll,
@@ -76,7 +83,8 @@ export function hentGyldigeOppgaveValg(
       return hentGyldigeDagpengerRettOppgaveValg(oppgave, minOppgave);
     case "KLAGE":
       return hentGyldigeKlageOppgaveValg(oppgave, minOppgave);
-
+    case "INNSENDING":
+      return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave);
     default:
       return [];
   }
@@ -162,6 +170,37 @@ function hentGyldigeKlageOppgaveValg(
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage");
+  }
+
+  return handlinger;
+}
+
+function hentGyldigeInnsendingOppgaveValg(
+  oppgave:
+    | saksbehandlingComponent["schemas"]["Oppgave"]
+    | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
+  minOppgave: boolean,
+): IGyldigeOppgaveHandlinger[] {
+  const handlinger: IGyldigeOppgaveHandlinger[] = [];
+
+  if (
+    oppgave.tilstand === "FERDIG_BEHANDLET" ||
+    oppgave.tilstand === "AVBRUTT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+  ) {
+    handlinger.push("se-oppgave");
+  }
+
+  if (
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+  ) {
+    handlinger.push("behandle-oppgave");
+  }
+
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
   }
 
   return handlinger;

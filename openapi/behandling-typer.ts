@@ -40,6 +40,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person/rettighetsstatus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Rettighetsstatus på bruker */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["IdentForesporsel"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Rettighetsstatus"][];
+                    };
+                };
+                /** @description Feil ved oppretting av behandling */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/behandling": {
         parameters: {
             query?: never;
@@ -611,55 +660,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/behandling/{behandlingId}/vedtak": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                behandlingId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Viser et vedtak / resultat av en behandling */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["Vedtak"];
-                    };
-                };
-                /** @description Feil ved uthenting av vedtak */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/behandlingsresultat": {
         parameters: {
             query?: never;
@@ -709,6 +709,61 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/dataprodukt/behandling": {
+        parameters: {
+            query: {
+                fraOgMed: string;
+                tilOgMed?: string;
+                /** @description Om dataproduktet skal produseres som en dry-run uten publisering til destinasjon */
+                dryRun?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Produserer behandlingsresultater for alle behandlinger i en gitt periode */
+        post: {
+            parameters: {
+                query: {
+                    fraOgMed: string;
+                    tilOgMed?: string;
+                    /** @description Om dataproduktet skal produseres som en dry-run uten publisering til destinasjon */
+                    dryRun?: boolean;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DatalastKvittering"];
+                    };
+                };
+                /** @description Feil ved produksjon av dataprodukt */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -748,25 +803,24 @@ export interface components {
             begrunnelse: string;
         };
         Personident: string;
+        /** Format: uuid */
+        BehandlingId: string;
         Behandlingskonvolutt: {
-            /** Format: uuid */
-            behandlingId: string;
+            behandlingId: components["schemas"]["BehandlingId"];
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
-            /**
-             * Format: uuid
-             * @description Hvilken behandlingskjede denne behandlingen tilhører. Dette tilsvarer en sammenhengende rettighetsperiode eller sak om du vil.
-             */
-            behandlingskjedeId: string;
-            /**
-             * Format: uuid
-             * @description Hvilken behandling denne behandlingen er basert på, hvis noen
-             */
-            "basertP\u00E5"?: string;
+            /** @description Hvilken behandlingskjede denne behandlingen tilhører. Dette tilsvarer en sammenhengende rettighetsperiode eller sak om du vil. */
+            behandlingskjedeId: components["schemas"]["BehandlingId"];
+            /** @description Hvilken behandling denne behandlingen er basert på, hvis noen */
+            "basertP\u00E5"?: components["schemas"]["BehandlingId"];
             /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
             automatisk: boolean;
             ident: components["schemas"]["Personident"];
             rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+            /** Format: date-time */
+            opprettet: string;
+            /** Format: date-time */
+            sistEndret: string;
         };
         Behandlingsresultat: components["schemas"]["Behandlingskonvolutt"] & {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
@@ -795,16 +849,18 @@ export interface components {
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
         /** @enum {string} */
         RegelsettType: "Vilkår" | "Fastsettelse";
-        Regelsett: {
+        RegelsettMeta: {
             /** @description Unik identifikator for dette regelsettet */
             id: string;
             /** @description Kort navn som beskriver regelsettet */
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
+            type: components["schemas"]["RegelsettType"];
+        };
+        Regelsett: components["schemas"]["RegelsettMeta"] & {
             /** @description Om innholdet i regelsettet påvirker resultatet av behandlingen */
             relevantForResultat: boolean;
-            type: components["schemas"]["RegelsettType"];
             opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
             opplysninger: components["schemas"]["OpplysningTypeId"][];
         };
@@ -833,6 +889,8 @@ export interface components {
             /** Format: date-time */
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
+            /** @description Hvilke regelsett avklaringen påvirker */
+            regelsett: components["schemas"]["RegelsettMeta"][];
         };
         Opplysningstype: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -1314,6 +1372,31 @@ export interface components {
              * @description Når hendelsen skjedde på utsiden av vårt system
              */
             skjedde: string;
+        };
+        DatalastKvittering: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date */
+            fraOgMed: string;
+            /** Format: date */
+            tilOgMed: string;
+            behandlinger: number;
+            tidBrukt?: string;
+        };
+        Person: {
+            rettighetsstatus: components["schemas"]["Rettighetsperiode"][];
+        };
+        /** @description En periode hvor brukeren har fått vurdert sin rett på dagpenger og utfallet av vurderingen */
+        Rettighetsstatus: {
+            /**
+             * Format: date
+             * @description Fra og med dato denne status har effekt
+             */
+            virkningsdato: string;
+            /** @description Om brukeren har rett på dagpenger */
+            harRett: boolean;
+            behandlingId: components["schemas"]["BehandlingId"];
+            behandlingskjedeId: components["schemas"]["BehandlingId"];
         };
         /** @enum {string} */
         VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";

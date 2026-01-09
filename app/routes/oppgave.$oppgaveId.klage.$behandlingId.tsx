@@ -5,7 +5,6 @@ import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
-  Outlet,
   useActionData,
   useLoaderData,
   useRouteError,
@@ -13,11 +12,11 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
-import KlageOppgaveValg from "~/components/klage-oppgave-valg/KlageOppgaveValg";
-import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveStøtteInformasjon } from "~/components/oppgave-støtte-informasjon/OppgaveStøtteInformasjon";
+import { KlageBehandling } from "~/components/klage/klage-behandling/KlageBehandling";
+import KlageOppgaveMeny from "~/components/klage/klage-oppgave-meny/KlageOppgaveMeny";
+import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
+import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
@@ -40,9 +39,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const klage = await hentKlage(request, params.behandlingId);
-  const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
+
+  const [oppgave, klage, sanityBrevMaler] = await Promise.all([
+    hentOppgave(request, params.oppgaveId),
+    hentKlage(request, params.behandlingId),
+    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+  ]);
+
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
@@ -92,6 +95,9 @@ export default function Oppgave() {
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
 
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
+
   const tabs = [
     { value: "behandling", label: "Behandling", icon: <DocPencilIcon /> },
     ...(harUtfallOpplysninger
@@ -101,14 +107,17 @@ export default function Oppgave() {
   ];
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
+    <OppgaveProvider
+      oppgave={oppgave}
+      saksbehandler={saksbehandler}
+      journalposterPromises={journalposterPromises}
+    >
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
-      <div className={`main flex flex-col gap-4`}>
-        <KlageOppgaveValg />
-
-        <div className={"grid grid-cols-[3fr_2fr] gap-4"}>
-          <div className={"card"}>
-            <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+      <div className={`main flex gap-4`}>
+        <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        <main className={"card flex flex-1 flex-col gap-4 p-2"}>
+          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+            <div className="flex items-center justify-between gap-6">
               <Tabs.List>
                 {tabs.map(({ value, label, icon }, index) => (
                   <Tabs.Tab
@@ -119,44 +128,37 @@ export default function Oppgave() {
                   />
                 ))}
               </Tabs.List>
+              <KlageOppgaveMeny />
+            </div>
+            <Tabs.Panel value="behandling">
+              <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
+            </Tabs.Panel>
 
-              <Tabs.Panel value="behandling">
-                <KlageBehandling klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
-              </Tabs.Panel>
+            <Tabs.Panel value="utfall">
+              <KlageUtfall klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
+            </Tabs.Panel>
 
-              <Tabs.Panel value="utfall">
-                <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
-              </Tabs.Panel>
-
-              <Tabs.Panel value="melding-om-vedtak">
-                {klage.utfall.verdi !== "IKKE_SATT" ? (
-                  <UtvidedeBeskrivelserProvider
-                    utvidedeBeskrivelser={
-                      isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                    }
-                  >
-                    <MeldingOmVedtak
-                      meldingOmVedtak={meldingOmVedtak}
-                      sanityBrevMaler={sanityBrevMaler}
-                      oppgave={oppgave}
-                    />
-                  </UtvidedeBeskrivelserProvider>
-                ) : (
-                  <Alert size={"small"} variant={"info"} className={"m-2"}>
-                    <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
-                  </Alert>
-                )}
-              </Tabs.Panel>
-            </Tabs>
-          </div>
-
-          <div className={"card"}>
-            {/*<OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />*/}
-            <OppgaveStøtteInformasjon journalposterPromises={journalposterPromises} />
-          </div>
-
-          <Outlet />
-        </div>
+            <Tabs.Panel value="melding-om-vedtak">
+              {klage.utfall.verdi !== "IKKE_SATT" ? (
+                <UtvidedeBeskrivelserProvider
+                  utvidedeBeskrivelser={
+                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
+                  }
+                >
+                  <MeldingOmVedtakKlage
+                    meldingOmVedtak={meldingOmVedtak}
+                    sanityBrevMaler={sanityBrevMaler}
+                    oppgave={oppgave}
+                  />
+                </UtvidedeBeskrivelserProvider>
+              ) : (
+                <Alert size={"small"} variant={"info"} className={"m-2"}>
+                  <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
+                </Alert>
+              )}
+            </Tabs.Panel>
+          </Tabs>
+        </main>
       </div>
     </OppgaveProvider>
   );

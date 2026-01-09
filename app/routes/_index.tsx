@@ -13,11 +13,11 @@ import {
   useSearchParams,
 } from "react-router";
 
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
-import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterRettighetstype";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
-import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter-utløst-av/OppgaveFilterUtløstAv";
+import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
+import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -53,8 +53,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const oppgaverResponse = await hentOppgaver(request, url.searchParams);
-  const statistikk = await hentStatistikkForSaksbehandler(request);
+  const [oppgaverResponse, statistikk] = await Promise.all([
+    hentOppgaver(request, url.searchParams),
+    hentStatistikkForSaksbehandler(request),
+  ]);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -106,12 +108,12 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterDato />
+            <OppgaveFilterPrioritert />
             <OppgaveFilterStatus
               tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
             />
             <OppgaveFilterUtløstAv />
             <OppgaveFilterRettighetstype />
-            <OppgaveFilterAvslagsgrunner />
           </Tabs.Panel>
 
           <Tabs.Panel value="statistikk">

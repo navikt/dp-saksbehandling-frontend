@@ -1,23 +1,18 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useActionData,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
-import invariant from "tiny-invariant";
+import { Alert, Heading, Switch } from "@navikt/ds-react";
+import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
+import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
-import { Avklaringer } from "~/components/v2/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/v2/endret-opplysninger/EndretOpplysninger";
-import { OpplysningPerioderTabell } from "~/components/v2/opplysning-perioder-tabell/OpplysningPerioderTabell";
-import { OpplysningerTidslinje } from "~/components/v2/opplysninger-tidslinje/OpplysningerTidslinje";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { usePrøvingsdato } from "~/hooks/usePrøvingsdato";
-import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -25,41 +20,65 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.regelsettId, "params.regelsettId er påkrevd");
-  invariant(params.opplysningId, "params.opplysningId er påkrevd");
-  const behandling = await hentBehandling(request, params.behandlingId);
-  const vurderinger = await hentVurderinger(request, params.behandlingId);
-  const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.id === params.regelsettId,
+export default function Opplysning() {
+  const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
+  const {
+    behandling,
+    vurderinger,
+    prøvingsdato,
+    prøvingsdatoOpplysning,
+    visArvedeOpplysninger,
+    setVisArvedeOpplysninger,
+  } = useBehandling();
+  const { meldekortUrl } = useTypedRouteLoaderData(
+    "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
+  const meldekortId =
+    behandling.behandletHendelse.type === "Meldekort" ? behandling.behandletHendelse.id : null;
+
+  const direkteMeldekortUrl =
+    regelsettId === "497240064" && meldekortUrl && meldekortId
+      ? `${meldekortUrl}/perioder?meldekortId=${meldekortId}`
+      : undefined;
+
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
+  const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
+    (sett) => sett.id === regelsettId,
+  );
+
   const opplysning = behandling.opplysninger.find(
-    (opplysning) => opplysning.opplysningTypeId === params.opplysningId,
+    (opplysning) => opplysning.opplysningTypeId === opplysningId,
   );
 
   if (!regelsett) {
-    throw new Response(`Finner ikke regelsett med navn ${params.regelsettNavn}`, { status: 404 });
+    return (
+      <Alert className={"m-4"} variant="error">
+        <Heading spacing size="medium" level="1">
+          {`404 Finner ikke regelsett med id ${regelsettId}`}
+        </Heading>
+      </Alert>
+    );
   }
 
   if (!opplysning) {
-    throw new Response(`Finner ikke opplysning med id ${params.opplysningId}`, { status: 404 });
+    return (
+      <Alert className={"m-4"} variant="error">
+        <Heading spacing size="medium" level="1">
+          {`404 Finner ikke opplysning med id ${opplysningId}`}
+        </Heading>
+      </Alert>
+    );
   }
-
-  return { behandling, regelsett, opplysning, vurderinger, oppgaveId: params.oppgaveId };
-}
-
-export default function Opplysning() {
-  const { behandling, vurderinger, regelsett, opplysning, oppgaveId } =
-    useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
-  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato, prøvingsdatoOpplysning } = usePrøvingsdato(behandling);
 
   const regelsettOpplysninger = behandling.opplysninger.filter(
     (opplysning) =>
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
+  );
+
+  const regelsettAvklaringer = behandling.avklaringer.filter((avklaring) =>
+    avklaring.regelsett.some((sett) => sett.id === regelsettId),
   );
 
   return (
@@ -76,18 +95,24 @@ export default function Opplysning() {
         <div className={"card p-4"}>
           <div className={"flex gap-4"}>
             <div className={"flex w-[500px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && (
-                <PrøvingsdatoInput
-                  behandlingId={behandling.behandlingId}
-                  prøvingsdatoOpplysning={prøvingsdatoOpplysning}
-                />
-              )}
+              {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
 
               <Avklaringer
-                avklaringer={[...behandling.avklaringer]}
+                avklaringer={regelsettAvklaringer}
                 behandlingId={behandling.behandlingId}
               />
+
               <EndretOpplysninger vurderinger={vurderinger} />
+
+              <div className={"card p-4"}>
+                <Switch
+                  size={"small"}
+                  checked={visArvedeOpplysninger}
+                  onChange={() => setVisArvedeOpplysninger(!visArvedeOpplysninger)}
+                >
+                  Vis arvede opplysninger og vurderinger
+                </Switch>
+              </div>
             </div>
 
             <div className={"flex flex-1 flex-col gap-4"}>
@@ -96,6 +121,7 @@ export default function Opplysning() {
                   opplysninger={regelsettOpplysninger.reverse()}
                   tittel={regelsett.hjemmel.tittel}
                   fremhevØverstTidslinjeRad={true}
+                  meldekortUrl={direkteMeldekortUrl}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
                   pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}

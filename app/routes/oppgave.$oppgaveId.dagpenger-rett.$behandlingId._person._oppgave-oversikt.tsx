@@ -1,38 +1,24 @@
-import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
-import invariant from "tiny-invariant";
+import { ActionFunctionArgs, Outlet } from "react-router";
 
-import { OppgaveStøtteInformasjon } from "~/components/oppgave-støtte-informasjon/OppgaveStøtteInformasjon";
-import { OppgaveOversikt } from "~/components/v2/oppgave-oversikt/OppgaveOversikt";
-import { hentJournalpost } from "~/models/saf.server";
-import { hentOppgave } from "~/models/saksbehandling.server";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
+import { useBehandling } from "~/hooks/useBehandling";
+import { useOppgave } from "~/hooks/useOppgave";
 import { handleActions } from "~/server-side-actions/handle-actions";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const journalposterPromises = Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
-
-  return {
-    oppgave,
-    journalposterPromises,
-  };
-}
-
 export default function BehandlingLayout() {
-  const { journalposterPromises } = useLoaderData<typeof loader>();
+  const { journalposterPromises } = useOppgave();
+  const { behandling } = useBehandling();
+
   return (
-    <>
-      <div className={"main grid grid-cols-[2fr_1fr] gap-4"}>
-        <OppgaveOversikt />
-        <OppgaveStøtteInformasjon journalposterPromises={journalposterPromises} />
+    <div className={"main flex gap-4"}>
+      <OppgaveOversikt journalposterPromises={journalposterPromises} behandling={behandling} />
+      <div className={"flex-1"}>
+        <Outlet />
       </div>
-      <Outlet />
-    </>
+    </div>
   );
 }
