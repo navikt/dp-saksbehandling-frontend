@@ -84,7 +84,7 @@ export function OppgaveReturnerTilSaksbehandler() {
           <BodyLong>Du er i ferd med å returnere oppgaven tilbake til saksbehandler.</BodyLong>
 
           <Textarea
-            name="notat"
+            {...returnerTilSaksbehandlerForm.getInputProps("notat")}
             size={"small"}
             className="mt-4"
             value={notat.tekst}
@@ -105,7 +105,11 @@ export function OppgaveReturnerTilSaksbehandler() {
             className={"mt-8"}
             label="Begrunnelse"
             size="small"
+            error={returnerTilSaksbehandlerForm.field("begrunnelse").error()}
           >
+            <option hidden={true} value={""}>
+              Velg begrunnelse
+            </option>
             {gyldigeBegrunnelser.map((årsak) => (
               <option key={årsak} value={årsak}>
                 {hentTekstForBegrunnelse(årsak)}
