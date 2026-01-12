@@ -50,6 +50,10 @@ export function OppgaveReturnerTilSaksbehandler() {
     }
   }, [lagreNotatFetcher.data]);
 
+  useEffect(() => {
+    returnerTilSaksbehandlerForm.field("notat").setValue(notat.tekst);
+  }, [notat.tekst]);
+
   function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     const nyVerdi = event.currentTarget.value;
     setNotat({ ...notat, tekst: nyVerdi });
