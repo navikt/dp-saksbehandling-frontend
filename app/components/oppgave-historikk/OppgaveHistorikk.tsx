@@ -13,7 +13,7 @@ export function OppgaveHistorikk() {
           <Process.Event
             key={index}
             title={hendelse.tittel}
-            status={index === 0 ? "uncompleted" : "completed"}
+            status={"completed"}
             timestamp={formaterTilNorskDato(hendelse.tidspunkt, true)}
           >
             <BodyLong size={"small"}>{hendelse.body}</BodyLong>
