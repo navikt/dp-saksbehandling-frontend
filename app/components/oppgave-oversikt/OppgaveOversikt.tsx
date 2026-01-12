@@ -12,18 +12,14 @@ import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-overs
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { hentJournalpost } from "~/models/saf.server";
-import { hentInntektRedigeringUrl } from "~/utils/behandling.utils";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
-import { components } from "../../../openapi/behandling-typer";
-
 interface IProps {
-  behandling?: components["schemas"]["Behandling"];
   journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
 }
 
-export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
+export function OppgaveOversikt({ journalposterPromises }: IProps) {
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
 
@@ -110,11 +106,8 @@ export function OppgaveOversikt({ behandling, journalposterPromises }: IProps) {
                 <Heading className={"pb-2"} size={"small"}>
                   Fagsystemer
                 </Heading>
-                <FagsystemLenker
-                  inntektRedigeringUrl={
-                    behandling ? hentInntektRedigeringUrl(behandling) : undefined
-                  }
-                />
+
+                <FagsystemLenker />
               </div>
             </aside>
           </motion.div>

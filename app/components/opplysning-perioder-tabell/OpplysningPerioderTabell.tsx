@@ -1,5 +1,5 @@
-import { PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
-import { Button, Table } from "@navikt/ds-react";
+import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
+import { Button, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { components } from "openapi/behandling-typer";
 import { useState } from "react";
@@ -10,7 +10,9 @@ import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-per
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { getEnv } from "~/utils/env.utils";
 import { formaterOpplysningVerdi, skalVisePeriode } from "~/utils/opplysning.utils";
+import { isTekstVerdi } from "~/utils/type-guards";
 import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
@@ -115,11 +117,23 @@ export function OpplysningPerioderTabell(props: IProps) {
                   </>
                 )}
 
-                {(readonly || !props.opplysning.redigerbar) && (
+                {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
-                    <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
+                    <Link
+                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${periode.id}&behandlingId=${behandlingId}`}
+                      target="_blank"
+                    >
+                      Inntektredigering <ExternalLinkIcon aria-hidden />
+                    </Link>
                   </Table.DataCell>
                 )}
+
+                {(readonly || !props.opplysning.redigerbar) &&
+                  props.opplysning.datatype !== "inntekt" && (
+                    <Table.DataCell colSpan={2}>
+                      <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
+                    </Table.DataCell>
+                  )}
               </Table.Row>
             );
           })}

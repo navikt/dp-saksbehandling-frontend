@@ -25,13 +25,10 @@ const eksterneLenker = [
   },
 ];
 
-interface IProps {
-  inntektRedigeringUrl?: string;
-}
-
-export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
+export function FagsystemLenker() {
   const { oppgaveId, behandlingId } = useTypeSafeParams();
   const { oppgave } = useOppgave();
+
   return (
     <List as="ul" size="small">
       {eksterneLenker.map(
@@ -43,14 +40,6 @@ export function FagsystemLenker({ inntektRedigeringUrl }: IProps) {
               </Link>
             </List.Item>
           ),
-      )}
-
-      {inntektRedigeringUrl && (
-        <List.Item icon={<ExternalLinkIcon aria-hidden />}>
-          <Link href={inntektRedigeringUrl} target="_blank">
-            Inntektredigering
-          </Link>
-        </List.Item>
       )}
 
       <List.Item icon={<></>}>
