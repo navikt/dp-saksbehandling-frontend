@@ -35,7 +35,7 @@
     "@grafana/faro-web-tracing": "2.1.0",
     "@navikt/aksel-icons": "7.37.0",
     "@navikt/ds-css": "7.36.0",
-    "@navikt/ds-react": "7.36.0",
+    "@navikt/ds-react": "7.37.0",
     "@navikt/ds-tailwind": "7.37.0",
     "@navikt/oasis": "4.1.1",
     "@opentelemetry/auto-instrumentations-node": "0.67.3",
