@@ -1,13 +1,16 @@
-import { Button, Popover, TextField, Tooltip } from "@navikt/ds-react";
+import { Button, Popover, TextField, Tooltip, UNSAFE_Combobox } from "@navikt/ds-react";
 import { useEditor, useEditorSelector } from "@portabletext/editor";
 import * as selectors from "@portabletext/editor/selectors";
 import { ReactElement, useRef, useState } from "react";
 
 import { schemaDefinition } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
+import { ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 
 import styles from "./RikTekstEditor.module.css";
 
 export function RikTekstEditorToolbar() {
+  const { sanityRegelmotorOpplysninger } = useMeldingOmVedtak();
   const decoratorButtons = schemaDefinition.decorators.map((decorator) => (
     <DecoratorButton key={decorator.name} {...decorator} />
   ));
@@ -30,7 +33,77 @@ export function RikTekstEditorToolbar() {
       <span className={styles.editorToolbarButton}>{decoratorButtons}</span>
       <span className={styles.editorToolbarButton}>{annotationButtons}</span>
       <span className={styles.editorToolbarButton}>{listButtons}</span>
+      <span className={styles.editorToolbarButton}>
+        <OpplysningInlineButton opplysninger={sanityRegelmotorOpplysninger} />
+      </span>
     </div>
+  );
+}
+
+function OpplysningInlineButton({ opplysninger }: { opplysninger: ISanityRegelmotorOpplysning[] }) {
+  const editor = useEditor();
+  const [erÅpen, setErÅpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  function handleInsertOpplysning(opplysning: ISanityRegelmotorOpplysning) {
+    editor.send({
+      type: "insert.inline object",
+      inlineObject: {
+        name: "regelmotorOpplysning",
+        value: {
+          opplysningTypeId: opplysning.opplysningTypeId,
+          navn: opplysning.navn,
+          datatype: opplysning.datatype,
+        },
+      },
+    });
+    setErÅpen(false);
+    editor.send({ type: "focus" });
+  }
+
+  function handleOpplysningToggle(opplysningTypeId: string) {
+    const opplysning = opplysninger.find((o) => o.opplysningTypeId === opplysningTypeId);
+    if (opplysning) {
+      handleInsertOpplysning(opplysning);
+    }
+  }
+
+  return (
+    <>
+      <Button
+        className={"ml-1"}
+        ref={buttonRef}
+        size="xsmall"
+        variant="tertiary-neutral"
+        onClick={() => setErÅpen(!erÅpen)}
+        aria-expanded={erÅpen}
+      >
+        Sett inn opplysning
+      </Button>
+
+      <Popover
+        className={"w-[450px]"}
+        open={erÅpen}
+        onClose={() => setErÅpen(false)}
+        anchorEl={buttonRef.current}
+        placement={"bottom-start"}
+      >
+        <Popover.Content>
+          <UNSAFE_Combobox
+            size={"small"}
+            label="Velg opplysning"
+            isListOpen={true}
+            hideLabel={false}
+            options={opplysninger.map((o) => ({
+              label: o.navn,
+              value: o.opplysningTypeId,
+            }))}
+            selectedOptions={[]}
+            onToggleSelected={handleOpplysningToggle}
+          />
+        </Popover.Content>
+      </Popover>
+    </>
   );
 }
 

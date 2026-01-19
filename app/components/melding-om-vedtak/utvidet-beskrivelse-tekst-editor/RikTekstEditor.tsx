@@ -21,7 +21,11 @@ import { toHTML } from "@portabletext/to-html";
 import classnames from "classnames";
 import { ChangeEvent, PropsWithChildren, useState } from "react";
 
+import { BrevPeriodeVerdiSelect } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/PeriodeVerdiSelect";
 import { RikTekstEditorToolbar } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditorToolbar";
+import { IOpplysningPeriodeVerdi } from "~/context/melding-om-vedtak-context";
+import { useBehandling } from "~/hooks/useBehandling";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { ISanityBrevMal } from "~/sanity/sanity-types";
 
 import styles from "./RikTekstEditor.module.css";
@@ -47,6 +51,7 @@ export const schemaDefinition = defineSchema({
     { name: "normal", title: "Brødtekst" },
     { name: "h1", title: "Tittel" },
     { name: "h2", title: "Undertittel" },
+    { name: "h3", title: "Deloverskrift" },
   ],
   // Lists apply to entire text blocks as well
   lists: [
@@ -54,7 +59,27 @@ export const schemaDefinition = defineSchema({
     { name: "number", title: "Nummerliste", icon: <NumberListIcon title={"Nummerliste"} /> },
   ],
   // Inline objects hold arbitrary data that can be inserted into the text
-  inlineObjects: [{ name: "opplysningReference", title: "Opplysning" }],
+  inlineObjects: [
+    {
+      name: "regelmotorOpplysningReference",
+      title: "RegelmotorOpplysning",
+      fields: [
+        { name: "opplysningTypeId", type: "string" },
+        { name: "navn", type: "string" },
+        { name: "datatype", type: "string" },
+      ],
+    },
+
+    {
+      name: "regelmotorOpplysning",
+      title: "RegelmotorOpplysning",
+      fields: [
+        { name: "opplysningTypeId", type: "string" },
+        { name: "navn", type: "string" },
+        { name: "datatype", type: "string" },
+      ],
+    },
+  ],
   // Block objects hold arbitrary data that live side-by-side with text blocks
   blockObjects: [],
 });
@@ -72,27 +97,67 @@ const blockContentType = {
   inlineObjects: schemaDefinition.inlineObjects,
 };
 
+function lagHtmlKomponenter(opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[]) {
+  return {
+    components: {
+      types: {
+        regelmotorOpplysningReference: ({
+          value,
+        }: {
+          value: { reference?: { opplysningTypeId?: string; navn?: string } };
+        }) => {
+          const verdi = opplysningPeriodeVerdier.find(
+            (o) => o.opplysningTypeId === value?.reference?.opplysningTypeId,
+          )?.verdi;
+
+          if (!verdi) {
+            return `<span class="regelmotor-opplysning">** MANGLER VERDI FOR OPPLYSNING ${value?.reference?.navn ?? ""} **</span>`;
+          }
+          return `<span class="regelmotor-opplysning">${verdi}</span>`;
+        },
+        regelmotorOpplysning: ({
+          value,
+        }: {
+          value: { reference?: { opplysningTypeId?: string; navn?: string } };
+        }) => {
+          const verdi = opplysningPeriodeVerdier.find(
+            (o) => o.opplysningTypeId === value?.reference?.opplysningTypeId,
+          )?.verdi;
+
+          if (!verdi) {
+            return `<span class="regelmotor-opplysning">** MANGLER VERDI FOR OPPLYSNING ${value?.reference?.navn ?? ""} **</span>`;
+          }
+          return `<span class="regelmotor-opplysning">${verdi}</span>`;
+        },
+      },
+    },
+  };
+}
+
 interface IProps {
   tekst: string;
   onChange: (tekst: string, flushDebounce?: boolean) => void;
   readOnly?: boolean;
-  sanityBrevMaler: ISanityBrevMal[];
 }
 
 export function RikTekstEditor(props: IProps) {
+  const { opplysningPeriodeVerdier, sanityBrevMaler } = useMeldingOmVedtak();
   const [valgtBrevMal, setValgtBrevMal] = useState<ISanityBrevMal | undefined>();
   // @ts-expect-error // Det er feil i typene fra Sanity.
   const initialBlocks = htmlToBlocks(props.tekst, blockContentType);
+  const htmlKomponenter = lagHtmlKomponenter(opplysningPeriodeVerdier);
   const initialValue = valgtBrevMal
     ? (valgtBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? [])
     : initialBlocks;
 
   function handleBrevmalSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const selectedBrevMal = props.sanityBrevMaler.find(
+    const selectedBrevMal = sanityBrevMaler.find(
       (brevMal) => brevMal.textId === event.currentTarget.value,
     );
-
-    const html = toHTML(selectedBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? []);
+    const html = toHTML(
+      selectedBrevMal?.brevBlokker?.flatMap((blokk) => blokk.innhold) ?? [],
+      htmlKomponenter,
+    );
     props.onChange(html);
     setValgtBrevMal(selectedBrevMal);
   }
@@ -112,9 +177,9 @@ export function RikTekstEditor(props: IProps) {
         </option>
         <option value={"ingen"}>Ingen</option>
 
-        {props.sanityBrevMaler.map((brevMal) => (
+        {sanityBrevMaler.map((brevMal) => (
           <option key={brevMal.textId} value={brevMal.textId}>
-            {brevMal.textId}
+            {brevMal.navn}
           </option>
         ))}
       </Select>
@@ -129,7 +194,7 @@ export function RikTekstEditor(props: IProps) {
         {initialValue && (
           <input
             name={"utvidet-beskrivelse"}
-            value={toHTML(initialValue)}
+            value={toHTML(initialValue, htmlKomponenter)}
             hidden={true}
             readOnly={true}
           />
@@ -146,7 +211,7 @@ export function RikTekstEditor(props: IProps) {
           <EventListenerPlugin
             on={(event) => {
               if (event.type === "mutation" && event.value) {
-                props.onChange(toHTML(event.value));
+                props.onChange(toHTML(event.value, htmlKomponenter));
               }
             }}
           />
@@ -205,6 +270,14 @@ function renderStyle(props: PropsWithChildren<BlockStyleRenderProps>) {
     );
   }
 
+  if (props.schemaType.value === "h3") {
+    return (
+      <Heading size={"small"} level={"3"}>
+        {props.children}
+      </Heading>
+    );
+  }
+
   return <>{props.children}</>;
 }
 
@@ -222,14 +295,46 @@ function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) 
 }
 
 function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
-  if (props.schemaType.name === "opplysningReference") {
-    return (
-      // @ts-expect-error Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts. Usikker på hvordan vi skal få typet det riktig.
-      <Tooltip content={`Mangler opplysning: ${props.value?.reference?.textId}`}>
-        {/* @ts-expect-error Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts. Usikker på hvordan vi skal få typet det riktig.*/}
-        <QuestionmarkDiamondIcon title={`Mangler opplysning: ${props.value?.reference?.textId}`} />
-      </Tooltip>
+  const { behandling } = useBehandling();
+
+  if (props.schemaType.name === "regelmotorOpplysning") {
+    const value = props.value as { opplysningTypeId?: string; navn?: string };
+    const opplysning = behandling.opplysninger.find(
+      (opplysning) => opplysning.opplysningTypeId === value?.opplysningTypeId,
     );
+
+    if (!opplysning) {
+      return (
+        <Tooltip content={`Finner ikke opplysning: ${value?.navn} i denne behandlingen`}>
+          <QuestionmarkDiamondIcon
+            title={`Finner ikke opplysning: ${value?.navn} i denne behandlingen`}
+          />
+        </Tooltip>
+      );
+    }
+
+    return <BrevPeriodeVerdiSelect opplysning={opplysning} />;
+  }
+
+  if (props.schemaType.name === "regelmotorOpplysningReference") {
+    // Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts
+    const value = props.value as { reference?: { opplysningTypeId?: string; navn?: string } };
+
+    const opplysning = behandling.opplysninger.find(
+      (opplysning) => opplysning.opplysningTypeId === value?.reference?.opplysningTypeId,
+    );
+
+    if (!opplysning) {
+      return (
+        <Tooltip content={`Finner ikke opplysning: ${value?.reference?.navn} i denne behandlingen`}>
+          <QuestionmarkDiamondIcon
+            title={`Finner ikke opplysning: ${value?.reference?.navn} i denne behandlingen`}
+          />
+        </Tooltip>
+      );
+    }
+
+    return <BrevPeriodeVerdiSelect opplysning={opplysning} />;
   }
 
   return <>{props.children}</>;
