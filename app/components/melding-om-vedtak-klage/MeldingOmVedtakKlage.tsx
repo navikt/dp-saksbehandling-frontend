@@ -6,27 +6,22 @@ import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAle
 import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
 import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
 import { UtvidedeBeskrivelser } from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidedeBeskrivelser";
-import { IAlert } from "~/context/alert-context";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
-import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
-import { components } from "../../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../../openapi/saksbehandling-typer";
 import { OppgaveValgFerdigstillKlage } from "../oppgave-valg/OppgaveValgFerdigstillKlage";
 import styles from "./MeldingOmVedtakKlage.module.css";
 
 interface IProps {
-  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
-  sanityBrevMaler: ISanityBrevMal[];
   oppgave: saksbehandlingComponents["schemas"]["Oppgave"];
 }
 
-export function MeldingOmVedtakKlage({ meldingOmVedtak, sanityBrevMaler, oppgave }: IProps) {
+export function MeldingOmVedtakKlage({ oppgave }: IProps) {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
+  const { utvidedeBeskrivelser, meldingOmVedtak } = useMeldingOmVedtak();
 
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
   const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
@@ -73,13 +68,7 @@ export function MeldingOmVedtakKlage({ meldingOmVedtak, sanityBrevMaler, oppgave
               <hr className="border-(--ax-border-neutral-subtle)" />
             )}
 
-            {!isAlert(meldingOmVedtak) && (
-              <UtvidedeBeskrivelser
-                meldingOmVedtak={meldingOmVedtak}
-                readOnly={readOnly}
-                sanityBrevMaler={sanityBrevMaler}
-              />
-            )}
+            {!isAlert(meldingOmVedtak) && <UtvidedeBeskrivelser readOnly={readOnly} />}
           </>
         )}
         <OppgaveValgFerdigstillKlage

@@ -3,24 +3,15 @@ import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
 import { UtvidedeBeskrivelser } from "~/components/melding-om-vedtak/utvidede-beskrivelser/UtvidedeBeskrivelser";
-import { IAlert } from "~/context/alert-context";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useOppgave } from "~/hooks/useOppgave";
-import { useUtvidedeBeskrivelser } from "~/hooks/useUtvidedeBeskrivelser";
-import { ISanityBrevMal } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
-import { components } from "../../../openapi/melding-om-vedtak-typer";
-
-interface IProps {
-  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
-  sanityBrevMaler: ISanityBrevMal[];
-}
-
-export function MeldingOmVedtakDPSak({ meldingOmVedtak, sanityBrevMaler }: IProps) {
+export function MeldingOmVedtakDPSak() {
   const { pathname } = useLocation();
   const { oppgave, readonly } = useOppgave();
-  const { utvidedeBeskrivelser } = useUtvidedeBeskrivelser();
+  const { utvidedeBeskrivelser, meldingOmVedtak } = useMeldingOmVedtak();
 
   const endreBrevVariantForm = useForm({
     method: "post",
@@ -54,13 +45,7 @@ export function MeldingOmVedtakDPSak({ meldingOmVedtak, sanityBrevMaler }: IProp
 
       {utvidedeBeskrivelser.length > 0 && <hr className="border-(--ax-border-neutral-subtle)" />}
 
-      {!isAlert(meldingOmVedtak) && (
-        <UtvidedeBeskrivelser
-          meldingOmVedtak={meldingOmVedtak}
-          readOnly={readonly}
-          sanityBrevMaler={sanityBrevMaler}
-        />
-      )}
+      {!isAlert(meldingOmVedtak) && <UtvidedeBeskrivelser readOnly={readonly} />}
     </>
   );
 }

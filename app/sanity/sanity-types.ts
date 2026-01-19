@@ -8,4 +8,11 @@ interface ISanityBrevBlokk {
 export interface ISanityBrevMal {
   brevBlokker: ISanityBrevBlokk[];
   textId: string;
+  navn: string;
+}
+
+export interface ISanityRegelmotorOpplysning {
+  opplysningTypeId: string;
+  navn: string;
+  datatype: string;
 }

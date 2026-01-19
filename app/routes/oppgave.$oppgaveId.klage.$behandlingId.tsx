@@ -18,7 +18,7 @@ import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
 import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -26,8 +26,8 @@ import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentKlage, hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
-import { brevMalQuery } from "~/sanity/sanity-queries";
-import { ISanityBrevMal } from "~/sanity/sanity-types";
+import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
+import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -40,10 +40,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [oppgave, klage, sanityBrevMaler] = await Promise.all([
+  const [oppgave, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
     hentOppgave(request, params.oppgaveId),
     hentKlage(request, params.behandlingId),
     sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+    sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
   ]);
 
   const journalposterPromises = Promise.all(
@@ -74,6 +75,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       klage,
       meldingOmVedtak,
       sanityBrevMaler,
+      sanityRegelmotorOpplysninger,
       journalposterPromises,
     },
     {
@@ -86,8 +88,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, meldingOmVedtak, klage, alert, sanityBrevMaler, journalposterPromises } =
-    useLoaderData<typeof loader>();
+  const {
+    oppgave,
+    meldingOmVedtak,
+    klage,
+    alert,
+    sanityBrevMaler,
+    sanityRegelmotorOpplysninger,
+    journalposterPromises,
+  } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -139,18 +148,14 @@ export default function Oppgave() {
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
-              {klage.utfall.verdi !== "IKKE_SATT" ? (
-                <UtvidedeBeskrivelserProvider
-                  utvidedeBeskrivelser={
-                    isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                  }
+              {klage.utfall.verdi !== "IKKE_SATT" && meldingOmVedtak ? (
+                <MeldingOmVedtakProvider
+                  meldingOmVedtak={meldingOmVedtak}
+                  sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
+                  sanityBrevMaler={sanityBrevMaler}
                 >
-                  <MeldingOmVedtakKlage
-                    meldingOmVedtak={meldingOmVedtak}
-                    sanityBrevMaler={sanityBrevMaler}
-                    oppgave={oppgave}
-                  />
-                </UtvidedeBeskrivelserProvider>
+                  <MeldingOmVedtakKlage oppgave={oppgave} />
+                </MeldingOmVedtakProvider>
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
                   <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>

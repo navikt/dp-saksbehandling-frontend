@@ -8,11 +8,21 @@ export const brevMalQuery = `*[_type == "brevMal"]{
       ...,
         _type == "opplysningReference" => {
           "reference": @->{ 
-      
+     
+            ...
+          }
+        },
+        _type == "regelmotorOpplysningReference" => {
+          "reference": @->{ 
+     
             ...
           }
         }
       }
     }
   }
+}`;
+
+export const regelmotorOpplysningQuery = `*[_type == "regelmotorOpplysning"]{
+...
 }`;

@@ -17,14 +17,14 @@ import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak"
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { OpplysningerForRettighetsperiode } from "~/components/opplysinger-for-rettighetsperiode/OpplysningerForRettighetsperiode";
 import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prøvingsdato/OpplysningerPåPrøvingsdato";
-import { UtvidedeBeskrivelserProvider } from "~/context/melding-om-vedtak-context";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
-import { brevMalQuery } from "~/sanity/sanity-queries";
-import { ISanityBrevMal } from "~/sanity/sanity-types";
+import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
+import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -35,8 +35,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const sanityBrevMaler = await sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery);
+  const [oppgave, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
+    hentOppgave(request, params.oppgaveId),
+    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+    sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
+  ]);
   let meldingOmVedtak;
 
   if (oppgave.saksbehandler) {
@@ -51,12 +54,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     });
   }
 
-  return { sanityBrevMaler, meldingOmVedtak };
+  return { sanityBrevMaler, sanityRegelmotorOpplysninger, meldingOmVedtak };
 }
 export default function Behandle() {
   const location = useLocation();
   const { behandling, vurderinger } = useBehandling();
-  const { sanityBrevMaler, meldingOmVedtak } = useLoaderData<typeof loader>();
+  const { sanityBrevMaler, sanityRegelmotorOpplysninger, meldingOmVedtak } =
+    useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   const { prøvingsdato } = useBehandling();
@@ -96,16 +100,16 @@ export default function Behandle() {
               <Heading size={"small"} level={"2"} className={"mb-4"}>
                 Melding om vedtak
               </Heading>
-              <UtvidedeBeskrivelserProvider
-                utvidedeBeskrivelser={
-                  isAlert(meldingOmVedtak) ? [] : meldingOmVedtak?.utvidedeBeskrivelser
-                }
-              >
-                <MeldingOmVedtak
+
+              {meldingOmVedtak && (
+                <MeldingOmVedtakProvider
                   meldingOmVedtak={meldingOmVedtak}
                   sanityBrevMaler={sanityBrevMaler}
-                />
-              </UtvidedeBeskrivelserProvider>
+                  sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
+                >
+                  <MeldingOmVedtak />
+                </MeldingOmVedtakProvider>
+              )}
             </div>
           </div>
         </div>

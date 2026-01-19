@@ -1,49 +1,94 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useState } from "react";
 
+import { IAlert } from "~/context/alert-context";
+import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
+import { isAlert } from "~/utils/type-guards";
+
 import { components } from "../../openapi/melding-om-vedtak-typer";
 
-type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
-
-interface IUtvidedeBeskrivelserContextType {
+interface IMeldingOmVedtakContext {
+  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
+  sanityBrevMaler: ISanityBrevMal[];
+  sanityRegelmotorOpplysninger: ISanityRegelmotorOpplysning[];
   utvidedeBeskrivelser: IUtvidetBeskrivelse[];
   oppdaterUtvidetBeskrivelse: (utvidetBeskrivelse: IUtvidetBeskrivelse) => void;
+  opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[];
+  oppdaterOpplysningPeriodeVerdier: (verdi: IOpplysningPeriodeVerdi) => void;
 }
 
-export const UtvidedeBeskrivelserContext = createContext<
-  IUtvidedeBeskrivelserContextType | undefined
->(undefined);
+type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
+export interface IOpplysningPeriodeVerdi {
+  opplysningTypeId: string;
+  verdi: string;
+}
 
-export function UtvidedeBeskrivelserProvider(
+export const MeldingOmVedtakContext = createContext<IMeldingOmVedtakContext | undefined>(undefined);
+
+export function MeldingOmVedtakProvider(
   props: PropsWithChildren<{
-    utvidedeBeskrivelser?: IUtvidetBeskrivelse[];
+    meldingOmVedtak: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
+    sanityBrevMaler: ISanityBrevMal[];
+    sanityRegelmotorOpplysninger: ISanityRegelmotorOpplysning[];
   }>,
 ) {
   const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<IUtvidetBeskrivelse[]>(
-    props.utvidedeBeskrivelser ?? [],
+    (!isAlert(props.meldingOmVedtak) && props.meldingOmVedtak.utvidedeBeskrivelser) || [],
   );
 
+  const [opplysningPeriodeVerdier, setOpplysningPeriodeVerdier] = useState<
+    IOpplysningPeriodeVerdi[]
+  >([]);
+
   function oppdaterUtvidetBeskrivelse(oppdatertBeskrivelse: IUtvidetBeskrivelse) {
-    let oppdatertUtvidedeBeskrivelser = [...utvidedeBeskrivelser];
-
-    const utvidetBeskrivelseIndex = oppdatertUtvidedeBeskrivelser.findIndex(
+    oppdaterListe(
+      utvidedeBeskrivelser,
+      oppdatertBeskrivelse,
       (beskrivelse) => beskrivelse.brevblokkId === oppdatertBeskrivelse.brevblokkId,
+      setUtvidedeBeskrivelser,
     );
+  }
 
-    if (utvidetBeskrivelseIndex !== -1) {
-      oppdatertUtvidedeBeskrivelser[utvidetBeskrivelseIndex] = oppdatertBeskrivelse;
+  function oppdaterOpplysningPeriodeVerdier(opplysningPeriodeVerdi: IOpplysningPeriodeVerdi) {
+    oppdaterListe(
+      opplysningPeriodeVerdier,
+      opplysningPeriodeVerdi,
+      (periode) => periode.opplysningTypeId === opplysningPeriodeVerdi.opplysningTypeId,
+      setOpplysningPeriodeVerdier,
+    );
+  }
+
+  function oppdaterListe<T>(
+    liste: T[],
+    nyVerdi: T,
+    finnMatch: (item: T) => boolean,
+    setListe: (oppdatertListe: T[]) => void,
+  ) {
+    const oppdatertListe = [...liste];
+    const eksisterendeIndex = oppdatertListe.findIndex(finnMatch);
+
+    if (eksisterendeIndex !== -1) {
+      oppdatertListe[eksisterendeIndex] = nyVerdi;
     } else {
-      oppdatertUtvidedeBeskrivelser = [...oppdatertUtvidedeBeskrivelser, oppdatertBeskrivelse];
+      oppdatertListe.push(nyVerdi);
     }
 
-    setUtvidedeBeskrivelser(oppdatertUtvidedeBeskrivelser);
+    setListe(oppdatertListe);
   }
 
   return (
-    <UtvidedeBeskrivelserContext.Provider
-      value={{ utvidedeBeskrivelser, oppdaterUtvidetBeskrivelse }}
+    <MeldingOmVedtakContext.Provider
+      value={{
+        sanityBrevMaler: props.sanityBrevMaler,
+        sanityRegelmotorOpplysninger: props.sanityRegelmotorOpplysninger,
+        meldingOmVedtak: props.meldingOmVedtak,
+        utvidedeBeskrivelser,
+        oppdaterUtvidetBeskrivelse,
+        opplysningPeriodeVerdier,
+        oppdaterOpplysningPeriodeVerdier,
+      }}
     >
       {props.children}
-    </UtvidedeBeskrivelserContext.Provider>
+    </MeldingOmVedtakContext.Provider>
   );
 }
