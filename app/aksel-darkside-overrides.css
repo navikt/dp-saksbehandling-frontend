@@ -46,6 +46,11 @@
     display: block;
   }
 
+  .aksel-select__input {
+    min-height: 1rem;
+    margin: 0 var(--ax-space-4);
+  }
+
   .aksel-timeline__row-label a,
   .aksel-timeline__row-label button {
     overflow: hidden;
