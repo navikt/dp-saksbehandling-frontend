@@ -118,14 +118,14 @@ function lagHtmlKomponenter(opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[])
         regelmotorOpplysning: ({
           value,
         }: {
-          value: { reference?: { opplysningTypeId?: string; navn?: string } };
+          value: { opplysningTypeId?: string; navn?: string };
         }) => {
           const verdi = opplysningPeriodeVerdier.find(
-            (o) => o.opplysningTypeId === value?.reference?.opplysningTypeId,
+            (o) => o.opplysningTypeId === value?.opplysningTypeId,
           )?.verdi;
 
           if (!verdi) {
-            return `<span class="regelmotor-opplysning">** MANGLER VERDI FOR OPPLYSNING ${value?.reference?.navn ?? ""} **</span>`;
+            return `<span class="regelmotor-opplysning">** MANGLER VERDI FOR OPPLYSNING ${value?.navn ?? ""} **</span>`;
           }
           return `<span class="regelmotor-opplysning">${verdi}</span>`;
         },

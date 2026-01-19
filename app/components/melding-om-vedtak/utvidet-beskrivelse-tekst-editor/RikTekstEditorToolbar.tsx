@@ -4,12 +4,14 @@ import * as selectors from "@portabletext/editor/selectors";
 import { ReactElement, useRef, useState } from "react";
 
 import { schemaDefinition } from "~/components/melding-om-vedtak/utvidet-beskrivelse-tekst-editor/RikTekstEditor";
+import { useBehandling } from "~/hooks/useBehandling";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 
 import styles from "./RikTekstEditor.module.css";
 
 export function RikTekstEditorToolbar() {
+  const { behandling } = useBehandling();
   const { sanityRegelmotorOpplysninger } = useMeldingOmVedtak();
   const decoratorButtons = schemaDefinition.decorators.map((decorator) => (
     <DecoratorButton key={decorator.name} {...decorator} />
@@ -27,6 +29,10 @@ export function RikTekstEditorToolbar() {
     <AnnotationButton key={annotation.name} {...annotation} />
   ));
 
+  const tilgjengeligeOpplysninger = sanityRegelmotorOpplysninger.filter((opplysning) =>
+    behandling.opplysninger.some((o) => o.opplysningTypeId === opplysning.opplysningTypeId),
+  );
+
   return (
     <div className={styles.editorToolbar}>
       <span className={styles.editorToolbarButton}>{styleButtons}</span>
@@ -34,7 +40,7 @@ export function RikTekstEditorToolbar() {
       <span className={styles.editorToolbarButton}>{annotationButtons}</span>
       <span className={styles.editorToolbarButton}>{listButtons}</span>
       <span className={styles.editorToolbarButton}>
-        <OpplysningInlineButton opplysninger={sanityRegelmotorOpplysninger} />
+        <OpplysningInlineButton opplysninger={tilgjengeligeOpplysninger} />
       </span>
     </div>
   );
