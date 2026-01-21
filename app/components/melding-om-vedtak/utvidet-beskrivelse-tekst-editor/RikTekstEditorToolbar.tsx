@@ -106,6 +106,7 @@ function OpplysningInlineButton({ opplysninger }: { opplysninger: ISanityRegelmo
               value: o.opplysningTypeId,
             }))}
             selectedOptions={[]}
+            shouldAutocomplete={true}
             onToggleSelected={handleOpplysningToggle}
           />
         </Popover.Content>
