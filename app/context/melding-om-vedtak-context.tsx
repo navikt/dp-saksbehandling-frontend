@@ -19,6 +19,7 @@ interface IMeldingOmVedtakContext {
 
 type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
 export interface IOpplysningPeriodeVerdi {
+  uuid: string;
   opplysningTypeId: string;
   verdi: string;
 }
@@ -53,7 +54,7 @@ export function MeldingOmVedtakProvider(
     oppdaterListe(
       opplysningPeriodeVerdier,
       opplysningPeriodeVerdi,
-      (periode) => periode.opplysningTypeId === opplysningPeriodeVerdi.opplysningTypeId,
+      (periode) => periode.uuid === opplysningPeriodeVerdi.uuid,
       setOpplysningPeriodeVerdier,
     );
   }
