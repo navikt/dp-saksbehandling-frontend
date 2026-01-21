@@ -78,7 +78,7 @@
     "@graphql-codegen/cli": "6.1.1",
     "@graphql-codegen/client-preset": "5.2.2",
     "@graphql-codegen/typescript": "5.0.7",
-    "@parcel/watcher": "2.5.1",
+    "@parcel/watcher": "2.5.4",
     "@portabletext/types": "4.0.1",
     "@react-router/dev": "7.12.0",
     "@react-router/fs-routes": "7.12.0",
