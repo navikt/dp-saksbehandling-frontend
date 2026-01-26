@@ -25,7 +25,7 @@ sanity_access_token: ""
 faro_url: "https://telemetry.nav.no/collect"
 
 unleash:
-  url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: production
 
 azure:

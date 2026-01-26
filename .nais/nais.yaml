@@ -111,7 +111,7 @@ spec:
         - host: saf.dev-fss-pub.nais.io
         - host: saf.prod-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
-        - host: dagpenger-unleash-api.nav.cloud.nais.io
+        - host: teamdagpenger-unleash-api.nav.cloud.nais.io
         - host: rt6o382n.apicdn.sanity.io
 
       rules:
