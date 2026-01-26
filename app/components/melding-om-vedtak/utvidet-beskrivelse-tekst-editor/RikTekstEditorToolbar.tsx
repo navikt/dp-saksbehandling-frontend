@@ -57,6 +57,7 @@ function OpplysningInlineButton({ opplysninger }: { opplysninger: ISanityRegelmo
       inlineObject: {
         name: "regelmotorOpplysning",
         value: {
+          uuid: crypto.randomUUID(),
           opplysningTypeId: opplysning.opplysningTypeId,
           navn: opplysning.navn,
           datatype: opplysning.datatype,
@@ -105,6 +106,7 @@ function OpplysningInlineButton({ opplysninger }: { opplysninger: ISanityRegelmo
               value: o.opplysningTypeId,
             }))}
             selectedOptions={[]}
+            shouldAutocomplete={true}
             onToggleSelected={handleOpplysningToggle}
           />
         </Popover.Content>

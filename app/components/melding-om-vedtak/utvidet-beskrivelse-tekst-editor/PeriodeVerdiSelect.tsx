@@ -8,24 +8,22 @@ import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { components } from "../../../../openapi/behandling-typer";
 
 interface IProps {
+  uuid: string;
   opplysning: components["schemas"]["Opplysninger"];
 }
 
-export function BrevPeriodeVerdiSelect({ opplysning }: IProps) {
+export function BrevPeriodeVerdiSelect({ opplysning, uuid }: IProps) {
   const { opplysningPeriodeVerdier, oppdaterOpplysningPeriodeVerdier } = useMeldingOmVedtak();
 
   useEffect(() => {
     if (opplysning.perioder.length === 1) {
       oppdaterOpplysningPeriodeVerdier({
+        uuid,
         opplysningTypeId: opplysning.opplysningTypeId,
         verdi: formaterOpplysningVerdi(opplysning.perioder[0].verdi),
       });
     }
   }, []);
-
-  const periodeVerdier = opplysningPeriodeVerdier.find(
-    (periode) => periode.opplysningTypeId === opplysning.opplysningTypeId,
-  );
 
   if (opplysning.perioder.length === 1) {
     return (
@@ -43,9 +41,10 @@ export function BrevPeriodeVerdiSelect({ opplysning }: IProps) {
       label={"Velg verdi"}
       hideLabel={true}
       size="small"
-      value={periodeVerdier?.verdi || ""}
+      value={opplysningPeriodeVerdier.find((periode) => periode.uuid === uuid)?.verdi || ""}
       onChange={(event) =>
         oppdaterOpplysningPeriodeVerdier({
+          uuid,
           opplysningTypeId: opplysning.opplysningTypeId,
           verdi: event.currentTarget.value,
         })

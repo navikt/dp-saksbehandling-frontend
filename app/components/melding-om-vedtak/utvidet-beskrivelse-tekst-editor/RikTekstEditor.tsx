@@ -74,6 +74,7 @@ export const schemaDefinition = defineSchema({
       name: "regelmotorOpplysning",
       title: "RegelmotorOpplysning",
       fields: [
+        { name: "uuid", type: "string" },
         { name: "opplysningTypeId", type: "string" },
         { name: "navn", type: "string" },
         { name: "datatype", type: "string" },
@@ -104,10 +105,10 @@ function lagHtmlKomponenter(opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[])
         regelmotorOpplysningReference: ({
           value,
         }: {
-          value: { reference?: { opplysningTypeId?: string; navn?: string } };
+          value: { _key: string; reference?: { opplysningTypeId?: string; navn?: string } };
         }) => {
           const verdi = opplysningPeriodeVerdier.find(
-            (o) => o.opplysningTypeId === value?.reference?.opplysningTypeId,
+            (periode) => periode.uuid === value?._key,
           )?.verdi;
 
           if (!verdi) {
@@ -118,10 +119,10 @@ function lagHtmlKomponenter(opplysningPeriodeVerdier: IOpplysningPeriodeVerdi[])
         regelmotorOpplysning: ({
           value,
         }: {
-          value: { opplysningTypeId?: string; navn?: string };
+          value: { uuid?: string; opplysningTypeId?: string; navn?: string };
         }) => {
           const verdi = opplysningPeriodeVerdier.find(
-            (o) => o.opplysningTypeId === value?.opplysningTypeId,
+            (periode) => periode.uuid === value?.uuid,
           )?.verdi;
 
           if (!verdi) {
@@ -211,6 +212,7 @@ export function RikTekstEditor(props: IProps) {
           <EventListenerPlugin
             on={(event) => {
               if (event.type === "mutation" && event.value) {
+                console.log(toHTML(event.value, htmlKomponenter));
                 props.onChange(toHTML(event.value, htmlKomponenter));
               }
             }}
@@ -297,8 +299,13 @@ function renderAnnotation(props: PropsWithChildren<BlockAnnotationRenderProps>) 
 function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
   const { behandling } = useBehandling();
 
+  // Denne blir generert basert på spørringen regelmotorOpplysningQuery i sanity-queries.ts
   if (props.schemaType.name === "regelmotorOpplysning") {
-    const value = props.value as { opplysningTypeId?: string; navn?: string };
+    const value = props.value as unknown as {
+      uuid: string;
+      opplysningTypeId?: string;
+      navn: string;
+    };
     const opplysning = behandling.opplysninger.find(
       (opplysning) => opplysning.opplysningTypeId === value?.opplysningTypeId,
     );
@@ -313,12 +320,15 @@ function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
       );
     }
 
-    return <BrevPeriodeVerdiSelect opplysning={opplysning} />;
+    return <BrevPeriodeVerdiSelect opplysning={opplysning} uuid={value.uuid} />;
   }
 
   if (props.schemaType.name === "regelmotorOpplysningReference") {
-    // Denne blir generert basert på spørringen brevMalQuery i sanity-queries.ts
-    const value = props.value as { reference?: { opplysningTypeId?: string; navn?: string } };
+    // Denne blir generert basert på spørringen regelmotorOpplysningQuery i sanity-queries.ts
+    const value = props.value as unknown as {
+      _key: string;
+      reference: { opplysningTypeId: string; navn: string };
+    };
 
     const opplysning = behandling.opplysninger.find(
       (opplysning) => opplysning.opplysningTypeId === value?.reference?.opplysningTypeId,
@@ -334,7 +344,7 @@ function renderChild(props: PropsWithChildren<BlockChildRenderProps>) {
       );
     }
 
-    return <BrevPeriodeVerdiSelect opplysning={opplysning} />;
+    return <BrevPeriodeVerdiSelect opplysning={opplysning} uuid={value._key} />;
   }
 
   return <>{props.children}</>;
