@@ -129,6 +129,13 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
+                    /**
+                     * @description Filtrer på emneknagger ved å bruke visningsnavn (f.eks. "Avslag", "Innvilgelse"). Responsen returnerer fulle Emneknagg-objekter med både visningsnavn og kategori.
+                     * @example [
+                     *       "Avslag",
+                     *       "Innvilgelse"
+                     *     ]
+                     */
                     emneknagg?: string[];
                     tilstand?: components["schemas"]["OppgaveTilstand"][];
                     utlostAv?: components["schemas"]["UtlostAvType"][];
@@ -1704,7 +1711,7 @@ export interface components {
             tidspunktOpprettet: string;
             behandlingType: components["schemas"]["BehandlingType"];
             utlostAv: components["schemas"]["UtlostAvType"];
-            emneknagger: string[];
+            emneknagger: components["schemas"]["Emneknagg"][];
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             tilstand: components["schemas"]["OppgaveTilstand"];
@@ -1728,7 +1735,7 @@ export interface components {
             utsattTilDato?: string;
             journalpostIder: string[];
             historikk: components["schemas"]["OppgaveHistorikk"][];
-            emneknagger: string[];
+            emneknagger: components["schemas"]["Emneknagg"][];
             tilstand: components["schemas"]["OppgaveTilstand"];
             notat?: components["schemas"]["Notat"];
             lovligeEndringer: components["schemas"]["LovligeEndringer"];
@@ -1749,8 +1756,26 @@ export interface components {
         };
         /** @enum {string} */
         MeldingOmVedtakKilde: "DP_SAK" | "GOSYS" | "INGEN";
+        /**
+         * @description Emneknagg med visningsnavn og kategori.
+         *     Når du filtrerer oppgaver med query parameter 'emneknagg', bruk kun visningsnavnet (string).
+         *     Responsen vil returnere fulle Emneknagg-objekter med både visningsnavn og kategori.
+         */
+        Emneknagg: {
+            /**
+             * @description Det lesbare navnet på emneknaggen (f.eks. "Avslag", "Innvilgelse")
+             * @example Avslag
+             */
+            visningsnavn: string;
+            kategori: components["schemas"]["EmneknaggKategori"];
+        };
+        /**
+         * @description Kategorisering av emneknagger for enklere gruppering og filtrering i frontend
+         * @enum {string}
+         */
+        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SØKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PÅ_VENT" | "ETTERSENDING" | "UDEFINERT";
         /** @enum {string} */
-        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT";
+        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
         UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING";
         /** @enum {string} */
