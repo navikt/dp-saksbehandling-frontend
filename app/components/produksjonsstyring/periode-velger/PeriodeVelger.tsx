@@ -25,6 +25,7 @@ export function PeriodeVelger() {
     if (!periode) {
       searchParams.delete("fom");
       searchParams.delete("tom");
+      setSearchParams(searchParams);
     }
 
     if (periode) {
@@ -65,7 +66,11 @@ export function PeriodeVelger() {
               <Chips.Toggle
                 key={periode.label}
                 selected={fom === periodeFom && tom === periodeTom}
-                onClick={() => togglePeriode(periode.value)}
+                onClick={() =>
+                  togglePeriode(
+                    fom === periodeFom && tom === periodeTom ? undefined : periode.value,
+                  )
+                }
               >
                 {periode.label}
               </Chips.Toggle>

@@ -3,28 +3,28 @@ import { useSearchParams } from "react-router";
 
 import { FilterKnapp, IEmneknagg } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
 
-export function OppgaveStatusVelger() {
+export function OppgaveTypeVelger() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div>
-      <BodyShort weight={"semibold"}>Status</BodyShort>
+      <BodyShort weight={"semibold"}>Oppgavetyper</BodyShort>
       <div className={"flex gap-2"}>
         <Button
           className={"h-[120px] w-[120px] text-left"}
-          variant={searchParams.get("tilstand") ? "secondary" : "primary"}
+          variant={searchParams.get("oppgavetype") ? "secondary" : "primary"}
           onClick={() => {
-            searchParams.delete("tilstand");
+            searchParams.delete("oppgavetype");
             setSearchParams(searchParams);
           }}
         >
-          <Detail>Alle statuser</Detail>
+          <Detail>Alle oppgavetyper</Detail>
           <BodyShort weight={"semibold"} className={"mt-2"}>
             16
           </BodyShort>
         </Button>
 
-        {statusEmneknagger.map((emneknagg) => (
+        {RettighetEmneknagger.map((emneknagg) => (
           <FilterKnapp
             key={emneknagg.navn}
             emneknagg={emneknagg}
@@ -36,33 +36,25 @@ export function OppgaveStatusVelger() {
   );
 }
 
-const statusEmneknagger: IEmneknagg[] = [
+const RettighetEmneknagger: IEmneknagg[] = [
   {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_BEHANDLING",
+    kategori: "oppgavetype",
+    navn: "Søknader",
   },
   {
-    kategori: "tilstand",
-    navn: "UNDER_BEHANDLING",
+    kategori: "oppgavetype",
+    navn: "Klager",
   },
   {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_KONTROLL",
+    kategori: "oppgavetype",
+    navn: "Innsendinger",
   },
   {
-    kategori: "tilstand",
-    navn: "UNDER_KONTROLL",
+    kategori: "oppgavetype",
+    navn: "Meldekort",
   },
   {
-    kategori: "tilstand",
-    navn: "FERDIG_BEHANDLET",
-  },
-  {
-    kategori: "tilstand",
-    navn: "PAA_VENT",
-  },
-  {
-    kategori: "tilstand",
-    navn: "AVBRUTT",
+    kategori: "oppgavetype",
+    navn: "Manuelle",
   },
 ];

@@ -8,7 +8,9 @@ import {
   useLoaderData,
 } from "react-router";
 
+import { OppgaveRettighetVelger } from "~/components/produksjonsstyring/oppgave-rettighet-velger/oppgaveRettighetVelger";
 import { OppgaveStatusVelger } from "~/components/produksjonsstyring/oppgave-status-velger/OppgaveStatusVelger";
+import { OppgaveTypeVelger } from "~/components/produksjonsstyring/oppgave-type-velger/OppgaveTypeVelger";
 import { PeriodeVelger } from "~/components/produksjonsstyring/periode-velger/PeriodeVelger";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/saksbehandling.server";
@@ -66,13 +68,21 @@ export default function Produksjonsstyring() {
 
   return (
     <main className={"m-4 flex flex-col gap-2"}>
-      <div className={"card flex' flex-col gap-4 p-4"}>
+      <div className={"card flex flex-col gap-6 p-4"}>
         <Heading level={"1"} size={"medium"}>
           Statistikk
         </Heading>
 
         <PeriodeVelger />
         <OppgaveStatusVelger />
+
+        <div className={"border-l-10 border-(--ax-border-accent) pl-8"}>
+          <OppgaveRettighetVelger />
+        </div>
+
+        <div className={"ml-8 border-l-10 border-(--ax-border-accent) pl-8"}>
+          <OppgaveTypeVelger />
+        </div>
       </div>
     </main>
   );

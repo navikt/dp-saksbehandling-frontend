@@ -3,28 +3,28 @@ import { useSearchParams } from "react-router";
 
 import { FilterKnapp, IEmneknagg } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
 
-export function OppgaveStatusVelger() {
+export function OppgaveRettighetVelger() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div>
-      <BodyShort weight={"semibold"}>Status</BodyShort>
+      <BodyShort weight={"semibold"}>Rettighetstyper</BodyShort>
       <div className={"flex gap-2"}>
         <Button
           className={"h-[120px] w-[120px] text-left"}
-          variant={searchParams.get("tilstand") ? "secondary" : "primary"}
+          variant={searchParams.get("rettighetstype") ? "secondary" : "primary"}
           onClick={() => {
-            searchParams.delete("tilstand");
+            searchParams.delete("rettighetstype");
             setSearchParams(searchParams);
           }}
         >
-          <Detail>Alle statuser</Detail>
+          <Detail>Alle rettighetstyper</Detail>
           <BodyShort weight={"semibold"} className={"mt-2"}>
             16
           </BodyShort>
         </Button>
 
-        {statusEmneknagger.map((emneknagg) => (
+        {RettighetEmneknagger.map((emneknagg) => (
           <FilterKnapp
             key={emneknagg.navn}
             emneknagg={emneknagg}
@@ -36,33 +36,37 @@ export function OppgaveStatusVelger() {
   );
 }
 
-const statusEmneknagger: IEmneknagg[] = [
+const RettighetEmneknagger: IEmneknagg[] = [
   {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_BEHANDLING",
+    kategori: "rettighetstype",
+    navn: "Ordinære",
   },
   {
-    kategori: "tilstand",
-    navn: "UNDER_BEHANDLING",
+    kategori: "rettighetstype",
+    navn: "Permitering",
   },
   {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_KONTROLL",
+    kategori: "rettighetstype",
+    navn: "Verneplikt",
   },
   {
-    kategori: "tilstand",
-    navn: "UNDER_KONTROLL",
+    kategori: "rettighetstype",
+    navn: "Fiske-permitering",
   },
   {
-    kategori: "tilstand",
-    navn: "FERDIG_BEHANDLET",
+    kategori: "rettighetstype",
+    navn: "Konkurs",
   },
   {
-    kategori: "tilstand",
-    navn: "PAA_VENT",
+    kategori: "rettighetstype",
+    navn: "Utdanning",
   },
   {
-    kategori: "tilstand",
-    navn: "AVBRUTT",
+    kategori: "rettighetstype",
+    navn: "Etablering",
+  },
+  {
+    kategori: "rettighetstype",
+    navn: "Eøs",
   },
 ];
