@@ -94,6 +94,10 @@ export function OppgaveListe(props: IProps) {
               (emneknagg) => emneknagg.kategori === "SOKNADSRESULTAT",
             );
 
+            const gjenopptakEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "GJENOPPTAK",
+            );
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -105,20 +109,16 @@ export function OppgaveListe(props: IProps) {
                 <Table.DataCell>
                   <Detail as={lasterOppgaver ? Skeleton : "p"} className={"flex gap-2"}>
                     {hentUtløstAvTekstForVisning(oppgave.utlostAv, true)}
-                    {oppgave.emneknagger
-                      .filter((emneknagg) => emneknagg.kategori === "GJENOPPTAK")
-                      .map((emneknagg) => (
-                        <Tag
-                          key={emneknagg.visningsnavn}
-                          size={"xsmall"}
-                          variant={"neutral"}
-                          className={"whitespace-nowrap"}
-                        >
-                          <Detail as={lasterOppgaver ? Skeleton : "p"}>
-                            {emneknagg.visningsnavn}
-                          </Detail>
-                        </Tag>
-                      ))}
+                    {gjenopptakEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={"neutral"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail>{emneknagg.visningsnavn}</Detail>
+                      </Tag>
+                    ))}
                   </Detail>
                 </Table.DataCell>
 
@@ -141,17 +141,18 @@ export function OppgaveListe(props: IProps) {
                 )}
 
                 <Table.DataCell>
-                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                  <Detail
+                    as={lasterOppgaver ? Skeleton : "p"}
+                    className={"flex gap-2 whitespace-nowrap"}
+                  >
                     {hentOppgaveTilstandTekst(tilstand)}
-                  </Detail>
 
-                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                    <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
-                      <Detail
-                        as={lasterOppgaver ? Skeleton : "p"}
-                      >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
-                    </Tag>
-                  )}
+                    {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                      <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
+                        <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                      </Tag>
+                    )}
+                  </Detail>
                 </Table.DataCell>
 
                 <Table.DataCell>
@@ -159,7 +160,10 @@ export function OppgaveListe(props: IProps) {
                     <Tag
                       key={emneknagg.visningsnavn}
                       size={"xsmall"}
-                      variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                      variant={hentFargevariantForSøknadsresultat(
+                        emneknagg.visningsnavn,
+                        lasterOppgaver,
+                      )}
                       className={"whitespace-nowrap"}
                     >
                       <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg.visningsnavn}</Detail>
@@ -173,10 +177,12 @@ export function OppgaveListe(props: IProps) {
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={"error"}
+                        variant={lasterOppgaver ? "error-moderate" : "error"}
                         className={"whitespace-nowrap"}
                       >
-                        <Detail>{emneknagg.visningsnavn}</Detail>
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
                       </Tag>
                     ))}
 
@@ -184,10 +190,12 @@ export function OppgaveListe(props: IProps) {
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={"warning"}
+                        variant={lasterOppgaver ? "warning-moderate" : "warning"}
                         className={"whitespace-nowrap"}
                       >
-                        {emneknagg.visningsnavn}
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
                       </Tag>
                     ))}
 
@@ -195,10 +203,12 @@ export function OppgaveListe(props: IProps) {
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={"alt1"}
+                        variant={lasterOppgaver ? "alt1-moderate" : "alt1"}
                         className={"whitespace-nowrap"}
                       >
-                        {emneknagg.visningsnavn}
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
                       </Tag>
                     ))}
                   </div>

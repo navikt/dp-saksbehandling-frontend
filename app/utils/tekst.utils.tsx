@@ -118,13 +118,14 @@ export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["Oppgav
 
 export function hentFargevariantForSøknadsresultat(
   visningsnavn: string,
-): "error" | "success" | "neutral" {
+  laster?: boolean,
+): "success" | "success-moderate" | "error" | "error-moderate" | "neutral" | "neutral-moderate" {
   switch (visningsnavn) {
     case "Innvilgelse":
-      return "success";
+      return laster ? "success-moderate" : "success";
     case "Avslag":
-      return "error";
+      return laster ? "error-moderate" : "error";
     default:
-      return "neutral";
+      return laster ? "neutral-moderate" : "neutral";
   }
 }
