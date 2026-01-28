@@ -1,13 +1,20 @@
-import { Detail, Heading, Skeleton, Table } from "@navikt/ds-react";
+import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
+import { differenceInCalendarDays } from "date-fns";
+import { Fragment } from "react";
 
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
-import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
+import { OppgaveÅrsakEmneknagger } from "~/components/oppgave-årsak-emneknagger/OppgaveÅrsakEmneknagger";
+import { OppgaveListeHeader } from "~/components/oppgave-liste/OppgaveListeHeader";
 import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
-import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
+import {
+  hentFargevariantForSøknadsresultat,
+  hentOppgaveTilstandTekst,
+  hentUtløstAvTekstForVisning,
+} from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -56,53 +63,20 @@ export function OppgaveListe(props: IProps) {
           sortKey && handleSort(sortKey as keyof components["schemas"]["OppgaveOversikt"])
         }
       >
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader
-              scope="col"
-              sortKey="tidspunktOpprettet"
-              sortable={!!props.sortState}
-            >
-              <Detail>Opprettet</Detail>
-            </Table.ColumnHeader>
-
-            <Table.ColumnHeader scope="col">
-              <Detail>Utløst av</Detail>
-            </Table.ColumnHeader>
-
-            <Table.ColumnHeader scope="col">
-              <Detail>Emne</Detail>
-            </Table.ColumnHeader>
-
-            {visPersonIdent && (
-              <Table.ColumnHeader scope="col">
-                <Detail>Fødselsnummer</Detail>
-              </Table.ColumnHeader>
-            )}
-
-            <Table.ColumnHeader scope="col">
-              <Detail>Status</Detail>
-            </Table.ColumnHeader>
-
-            <Table.ColumnHeader scope="col">
-              <Detail>Saksbehandler</Detail>
-            </Table.ColumnHeader>
-
-            <Table.ColumnHeader scope="col" textSize="small">
-              <Detail>Valg</Detail>
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
+        <OppgaveListeHeader visPersonIdent={visPersonIdent} sortState={sortState} />
 
         <Table.Body>
           {sortedData.length === 0 && (
             <Table.Row shadeOnHover={false}>
-              <Table.DataCell colSpan={visPersonIdent ? 7 : 6}>Fant ingen oppgaver</Table.DataCell>
+              <Table.DataCell colSpan={visPersonIdent ? 9 : 8}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
           {sortedData?.map((oppgave) => {
-            const { tidspunktOpprettet, tilstand } = oppgave;
+            const { tidspunktOpprettet, tilstand, utsattTilDato } = oppgave;
+            const dagerIgjenTilUtsattDato = utsattTilDato
+              ? differenceInCalendarDays(utsattTilDato, new Date())
+              : undefined;
 
             return (
               <Table.Row key={oppgave.oppgaveId}>
@@ -113,15 +87,28 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"} className={"flex gap-2"}>
                     {hentUtløstAvTekstForVisning(oppgave.utlostAv, true)}
+                    {oppgave.emneknagger
+                      .filter((emneknagg) => emneknagg.kategori === "GJENOPPTAK")
+                      .map((emneknagg) => (
+                        <Tag key={emneknagg.visningsnavn} size={"xsmall"} variant={"neutral"}>
+                          <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                            {emneknagg.visningsnavn}
+                          </Detail>
+                        </Tag>
+                      ))}
                   </Detail>
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <div className={"flex flex-wrap gap-2"}>
-                    <OppgaveEmneknagger oppgave={oppgave} laster={lasterOppgaver} />
-                  </div>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                    {oppgave.emneknagger
+                      .filter((emneknagg) => emneknagg.kategori === "RETTIGHET")
+                      .map((emneknagg) => (
+                        <Fragment key={emneknagg.visningsnavn}>{emneknagg.visningsnavn}</Fragment>
+                      ))}
+                  </Detail>
                 </Table.DataCell>
 
                 {visPersonIdent && (
@@ -137,7 +124,37 @@ export function OppgaveListe(props: IProps) {
                 )}
 
                 <Table.DataCell>
-                  <Detail as={lasterOppgaver ? Skeleton : "p"}>{getTilstandText(tilstand)}</Detail>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                    {hentOppgaveTilstandTekst(tilstand)}
+                  </Detail>
+
+                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                    <Tag size={"xsmall"} variant={"alt1"}>
+                      <Detail
+                        as={lasterOppgaver ? Skeleton : "p"}
+                      >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                    </Tag>
+                  )}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {oppgave.emneknagger
+                    .filter((emneknagg) => emneknagg.kategori === "SØKNADSRESULTAT")
+                    .map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <OppgaveÅrsakEmneknagger oppgave={oppgave} lasterOppgaver={lasterOppgaver} />
                 </Table.DataCell>
 
                 <Table.DataCell>
@@ -158,23 +175,4 @@ export function OppgaveListe(props: IProps) {
       )}
     </div>
   );
-}
-
-function getTilstandText(tilstand: components["schemas"]["OppgaveTilstand"]) {
-  switch (tilstand) {
-    case "PAA_VENT":
-      return "På vent";
-    case "UNDER_BEHANDLING":
-      return "Under behandling";
-    case "FERDIG_BEHANDLET":
-      return "Ferdig behandlet";
-    case "KLAR_TIL_BEHANDLING":
-      return "Klar til behandling";
-    case "KLAR_TIL_KONTROLL":
-      return "Klar til kontroll";
-    case "UNDER_KONTROLL":
-      return "Under kontroll";
-    case "AVBRUTT":
-      return "Avbrutt";
-  }
 }

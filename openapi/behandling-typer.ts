@@ -778,7 +778,10 @@ export interface components {
         NyBehandling: {
             ident: components["schemas"]["Personident"];
             hendelse?: components["schemas"]["Hendelse"];
-            /** Format: date */
+            /**
+             * Format: date
+             * @deprecated
+             */
             "pr\u00F8vingsdato"?: string;
             begrunnelse?: string;
         };
@@ -938,9 +941,7 @@ export interface components {
             id: components["schemas"]["OpplysningsId"];
             /** Format: date-time */
             opprettet: string;
-            /** @deprecated */
-            status: components["schemas"]["Opprinnelse"];
-            opprinnelse?: components["schemas"]["Opprinnelse"];
+            opprinnelse: components["schemas"]["Opprinnelse"];
             /**
              * Format: date
              * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig fra tidens morgen.
@@ -1351,6 +1352,7 @@ export interface components {
             dato: string;
             sats: number;
             utbetaling: number;
+            opprinnelse?: components["schemas"]["Opprinnelse"];
         };
         BehandletAv: {
             /** @enum {string} */
@@ -1399,7 +1401,7 @@ export interface components {
             behandlingskjedeId: components["schemas"]["BehandlingId"];
         };
         /** @enum {string} */
-        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet til ikke gi mangelfull informasjon";
     };
     responses: never;
     parameters: never;

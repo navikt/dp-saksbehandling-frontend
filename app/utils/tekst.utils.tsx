@@ -115,3 +115,16 @@ export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["Oppgav
       return tilstand;
   }
 }
+
+export function hentFargevariantForSøknadsresultat(
+  visningsnavn: string,
+): "error" | "success" | "neutral" {
+  switch (visningsnavn) {
+    case "Innvilgelse":
+      return "success";
+    case "Avslag":
+      return "error";
+    default:
+      return "neutral";
+  }
+}
