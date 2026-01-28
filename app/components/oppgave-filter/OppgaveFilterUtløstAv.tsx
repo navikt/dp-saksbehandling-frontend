@@ -1,6 +1,6 @@
-import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
-import { useSearchParams } from "react-router";
+import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -8,35 +8,25 @@ import { components } from "../../../openapi/saksbehandling-typer";
 const utløstAvTyper: components["schemas"]["UtlostAvType"][] = ["SØKNAD", "MANUELL"];
 
 export function OppgaveFilterUtløstAv() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, toggleSearchParam } = useToggleSearchParam();
   const utløstAv = searchParams.getAll("utlostAv");
 
-  function updateSearchParams(key: string, value: string, checked: boolean) {
-    if (!checked) {
-      searchParams.delete(key, value);
-    } else {
-      searchParams.append(key, value);
-    }
-    setSearchParams(searchParams);
-  }
-
   return (
-    <ReadMore size="small" header="Utløst av" className="readmore--with-checkboxes">
-      <CheckboxGroup legend="" size="small" className={"checkbox--compact checkbox--in-readmore"}>
+    <div>
+      <Detail textColor="subtle">Utløst av</Detail>
+      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
         {utløstAvTyper.map((type) => (
           <Checkbox
             key={type}
             name="utløstAv"
             value={type}
             defaultChecked={utløstAv.includes(type)}
-            onChange={(event) =>
-              updateSearchParams("utlostAv", event.currentTarget.value, event.currentTarget.checked)
-            }
+            onChange={(event) => toggleSearchParam("utlostAv", event.currentTarget.value)}
           >
             {hentUtløstAvTekstForVisning(type)}
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </ReadMore>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ import {
   useSearchParams,
 } from "react-router";
 
-import { OppgaveRettighetVelger } from "~/components/produksjonsstyring/oppgave-rettighet-velger/oppgaveRettighetVelger";
+import { OppgaveRettighetVelger } from "~/components/produksjonsstyring/oppgave-rettighet-velger/OppgaveRettighetVelger";
 import { OppgaveStatusVelger } from "~/components/produksjonsstyring/oppgave-status-velger/OppgaveStatusVelger";
 import { OppgaveTypeVelger } from "~/components/produksjonsstyring/oppgave-type-velger/OppgaveTypeVelger";
 import { PeriodeVelger } from "~/components/produksjonsstyring/periode-velger/PeriodeVelger";
