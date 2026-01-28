@@ -1,14 +1,15 @@
 import { components } from "../../../openapi/saksbehandling-typer";
 import { arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærReellArbeidssøkerVerneplikt } from "./arbeidsinntekt-avslag-gjenopptak-ikke-registrert-opphold-utland-ordinær-reell-arbeidssøker-verneplikt";
-import { avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt } from "./avslag-ikke-registrert-minsteinntekt-ordinær-verneplikt";
 import { avslagManuellOrdinærReellArbeidssøkerVerneplikt } from "./avslag-manuell-ordinær-reell-arbeidssøker-verneplikt";
 import { avslagMinsteinntektOrdinær } from "./avslag-minsteinntekt-ordinær";
-import { avslagOrdinærReellArbeidssøker } from "./avslag-ordinær-reell-arbeidssøker";
 import { innsending } from "./innsending";
-import { innvilgelseOrdinær } from "./innvilgelse-ordinær";
 import { innvilgelseOrdinærTidligereKontrollert } from "./innvilgelse-ordinær-tidligere-kontrollert";
 import { klage } from "./klage";
 import { ordinær } from "./ordinær";
+import { ordinærAvslagReellArbeidssøker } from "./ordinær-avslag-reell-arbeidssøker";
+import { ordinærInnvilgelse } from "./ordinær-innvilgelse";
+import { ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt } from "./ordinær-verneplikt-avslag-ikke-registrert-minsteinntekt";
+
 export function konverterOppgaveTilListeOppgave(
   oppgave: components["schemas"]["Oppgave"],
 ): components["schemas"]["OppgaveOversikt"] {
@@ -43,8 +44,8 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(avslagManuellOrdinærReellArbeidssøkerVerneplikt),
   konverterOppgaveTilListeOppgave(avslagMinsteinntektOrdinær),
   konverterOppgaveTilListeOppgave(innvilgelseOrdinærTidligereKontrollert),
-  konverterOppgaveTilListeOppgave(avslagOrdinærReellArbeidssøker),
-  konverterOppgaveTilListeOppgave(avslagIkkeRegistrertMinsteinntektOrdinærVerneplikt),
-  konverterOppgaveTilListeOppgave(innvilgelseOrdinær),
   konverterOppgaveTilListeOppgave(ordinær),
+  konverterOppgaveTilListeOppgave(ordinærInnvilgelse),
+  konverterOppgaveTilListeOppgave(ordinærAvslagReellArbeidssøker),
+  konverterOppgaveTilListeOppgave(ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt),
 ];

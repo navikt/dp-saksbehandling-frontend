@@ -8,12 +8,12 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
     type: "Søknad",
     skjedde: "2025-07-15",
   },
-  opprettet: "2025-07-15",
-  sistEndret: "2025-07-15",
   behandlingskjedeId: "01980d51-30d1-7af3-a8f5-2f2572087d2a",
   automatisk: false,
   ident: "04810098363",
   rettighetsperioder: [],
+  opprettet: "2025-07-15T11:01:21.528037",
+  sistEndret: "2025-07-15T13:33:31.838679",
   kreverTotrinnskontroll: false,
   tilstand: "TilGodkjenning",
   avklaringer: [
@@ -191,7 +191,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
       },
       type: "Vilkår",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -370,6 +370,24 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
       type: "Vilkår",
       relevantForResultat: false,
       opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
+      opplysninger: [],
+    },
+    {
+      id: "628695927",
+      navn: "Manglende og uriktige opplysninger",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "21",
+        paragraf: "7",
+        tittel: "§ 21-7. Uriktige opplysninger m.m. - følger for ytelser fra trygden",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§21-7",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
       opplysninger: [],
     },
     {
@@ -678,7 +696,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
       },
       type: "Fastsettelse",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysninger: [],
     },
     {
@@ -759,7 +777,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-30d1-7af3-a8f5-2f2572087d25",
           opprettet: "2025-07-15T11:01:21.489064",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: 15480621,
@@ -785,7 +802,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-30d1-7af3-a8f5-2f2572087d27",
           opprettet: "2025-07-15T11:01:21.489157",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "02387802-0322-4f2f-abb8-183d50637713",
@@ -811,7 +827,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-30d1-7af3-a8f5-2f2572087d29",
           opprettet: "2025-07-15T11:01:21.489179",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -838,7 +853,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-30e7-7554-b776-7e39f614d153",
           opprettet: "2025-07-15T11:01:21.511321",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: 67,
@@ -860,7 +874,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c0-7156-a682-43cb1a30ae99",
           opprettet: "2025-07-15T11:01:23.776584",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2025-07-15",
@@ -892,7 +905,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c0-7156-a682-43cb1a30ae9a",
           opprettet: "2025-07-15T11:01:23.77668",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2025-07-15",
@@ -924,7 +936,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c0-7156-a682-43cb1a30ae9b",
           opprettet: "2025-07-15T11:01:23.776729",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2000-01-04",
@@ -950,7 +961,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c2-715f-b4d9-7d298fc3c6f5",
           opprettet: "2025-07-15T11:01:23.77819",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2025-07-15",
@@ -980,7 +990,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c2-715f-b4d9-7d298fc3c6f6",
           opprettet: "2025-07-15T11:01:23.778269",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2067-01-04",
@@ -1010,7 +1019,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c2-715f-b4d9-7d298fc3c6f8",
           opprettet: "2025-07-15T11:01:23.778806",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1038,7 +1046,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c2-715f-b4d9-7d298fc3c6f9",
           opprettet: "2025-07-15T11:01:23.778869",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: "2067-01-31",
@@ -1065,7 +1072,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c3-7ebe-8ab4-237599be607a",
           opprettet: "2025-07-15T11:01:23.779625",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1096,7 +1102,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c5-7212-b259-3354c944fc28",
           opprettet: "2025-07-15T11:01:23.781153",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1124,7 +1129,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39c5-7212-b259-3354c944fc29",
           opprettet: "2025-07-15T11:01:23.78122",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1153,7 +1157,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ca-7d78-b712-cbe5ddbc4af5",
           opprettet: "2025-07-15T11:01:23.786108",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1181,7 +1184,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39cc-7f10-934e-3c7b2d71c4c1",
           opprettet: "2025-07-15T11:01:23.788023",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1210,7 +1212,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39cc-7f10-934e-3c7b2d71c4c2",
           opprettet: "2025-07-15T11:01:23.788107",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1239,7 +1240,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39cc-7f10-934e-3c7b2d71c4c3",
           opprettet: "2025-07-15T11:01:23.788151",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1260,7 +1260,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c3985068535f",
           opprettet: "2025-07-15T11:01:23.790446",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1288,7 +1287,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685360",
           opprettet: "2025-07-15T11:01:23.790666",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1319,7 +1317,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685361",
           opprettet: "2025-07-15T11:01:23.790746",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1350,7 +1347,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685362",
           opprettet: "2025-07-15T11:01:23.790763",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1371,7 +1367,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685363",
           opprettet: "2025-07-15T11:01:23.790771",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1392,7 +1387,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685364",
           opprettet: "2025-07-15T11:01:23.790777",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1413,7 +1407,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39ce-7882-a49e-c39850685365",
           opprettet: "2025-07-15T11:01:23.790784",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: 18.75,
@@ -1435,7 +1428,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39d0-7b09-849b-932fbc9a6f3d",
           opprettet: "2025-07-15T11:01:23.791961",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1466,7 +1458,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-39d1-7106-90a9-68c12f9d8259",
           opprettet: "2025-07-15T11:01:23.793018",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1497,7 +1488,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f8e",
           opprettet: "2025-07-15T11:01:26.092552",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1529,7 +1519,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f8f",
           opprettet: "2025-07-15T11:01:26.092647",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1561,7 +1550,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f90",
           opprettet: "2025-07-15T11:01:26.09271",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1593,7 +1581,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f91",
           opprettet: "2025-07-15T11:01:26.092759",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1625,7 +1612,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f92",
           opprettet: "2025-07-15T11:01:26.092806",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1646,7 +1632,7 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         },
       ],
       synlig: true,
-      redigerbar: false,
+      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Register",
     },
@@ -1658,7 +1644,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f93",
           opprettet: "2025-07-15T11:01:26.092851",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: 40,
@@ -1690,7 +1675,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f94",
           opprettet: "2025-07-15T11:01:26.092898",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1722,7 +1706,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cc-702e-a27f-eab23a6d0f95",
           opprettet: "2025-07-15T11:01:26.092958",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1754,7 +1737,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cd-74ab-8c36-9e99df12f230",
           opprettet: "2025-07-15T11:01:26.093022",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1786,7 +1768,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cd-74ab-8c36-9e99df12f231",
           opprettet: "2025-07-15T11:01:26.093071",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -1818,7 +1799,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cd-74ab-8c36-9e99df12f232",
           opprettet: "2025-07-15T11:01:26.093119",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1850,7 +1830,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42cd-74ab-8c36-9e99df12f233",
           opprettet: "2025-07-15T11:01:26.093219",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1887,7 +1866,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb3c",
           opprettet: "2025-07-15T11:01:26.094617",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -1915,7 +1893,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb3d",
           opprettet: "2025-07-15T11:01:26.094693",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1945,7 +1922,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb3e",
           opprettet: "2025-07-15T11:01:26.094724",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -1975,7 +1951,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb3f",
           opprettet: "2025-07-15T11:01:26.09475",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2005,7 +1980,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb40",
           opprettet: "2025-07-15T11:01:26.09477",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2032,7 +2006,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb41",
           opprettet: "2025-07-15T11:01:26.094818",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2062,7 +2035,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb42",
           opprettet: "2025-07-15T11:01:26.094835",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2090,7 +2062,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42ce-757f-8edc-690d8b78eb43",
           opprettet: "2025-07-15T11:01:26.094898",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2122,7 +2093,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d2-7e96-9804-e0d42514628d",
           opprettet: "2025-07-15T11:01:26.098729",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2150,7 +2120,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d3-7d23-88c0-af0872b04c49",
           opprettet: "2025-07-15T11:01:26.09957",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2178,7 +2147,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d3-7d23-88c0-af0872b04c4a",
           opprettet: "2025-07-15T11:01:26.099694",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2211,7 +2179,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d3-7d23-88c0-af0872b04c4b",
           opprettet: "2025-07-15T11:01:26.099732",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2241,7 +2208,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d5-76a8-8d79-d137f665175e",
           opprettet: "2025-07-15T11:01:26.10109",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2272,7 +2238,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d5-76a8-8d79-d137f665175f",
           opprettet: "2025-07-15T11:01:26.101115",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2303,7 +2268,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d5-76a8-8d79-d137f6651762",
           opprettet: "2025-07-15T11:01:26.101227",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2335,7 +2299,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980d51-42d8-7551-b047-61cce0f63a91",
           opprettet: "2025-07-15T11:01:26.10487",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-07-15",
           verdi: {
@@ -2366,7 +2329,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980dd2-fc71-7cca-b4c6-4207d0d60c95",
           opprettet: "2025-07-15T13:23:07.761741",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -2392,7 +2354,6 @@ export const behandling01980d5130d17af3a8f52f2572087d2a: components["schemas"]["
         {
           id: "01980ddc-822f-782d-bb16-2bfcb6c6437c",
           opprettet: "2025-07-15T13:33:31.823495",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,

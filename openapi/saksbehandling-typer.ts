@@ -130,13 +130,51 @@ export interface paths {
             parameters: {
                 query?: {
                     /**
-                     * @description Filtrer på emneknagger ved å bruke visningsnavn (f.eks. "Avslag", "Innvilgelse"). Responsen returnerer fulle Emneknagg-objekter med både visningsnavn og kategori.
+                     * @description Filtrer på rettighetsknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
+                     * @example [
+                     *       "Ordinær",
+                     *       "Verneplikt"
+                     *     ]
+                     */
+                    rettighet?: string[];
+                    /**
+                     * @description Filtrer på søknadsresultatknagger (f.eks. "Avslag", "Innvilgelse")
                      * @example [
                      *       "Avslag",
                      *       "Innvilgelse"
                      *     ]
                      */
-                    emneknagg?: string[];
+                    soknadsresultat?: string[];
+                    /**
+                     * @description Filtrer på avslagsgrunner (f.eks. "Minsteinntekt", "Arbeidstid")
+                     * @example [
+                     *       "Minsteinntekt"
+                     *     ]
+                     */
+                    avslagsgrunn?: string[];
+                    /**
+                     * @description Filtrer på gjenopptakknagger
+                     * @example [
+                     *       "Gjenopptak"
+                     *     ]
+                     */
+                    gjenopptak?: string[];
+                    /**
+                     * @description Filtrer på på-vent årsaker (f.eks. "Avvent svar", "Avvent dokumentasjon")
+                     * @example [
+                     *       "Avvent svar"
+                     *     ]
+                     */
+                    paa_vent?: string[];
+                    /**
+                     * @description Filtrer på avbruddsårsaker
+                     * @example [
+                     *       "Trukket søknad"
+                     *     ]
+                     */
+                    avbrutt_grunn?: string[];
+                    /** @description Filtrer på ettersendinger */
+                    ettersending?: string[];
                     tilstand?: components["schemas"]["OppgaveTilstand"][];
                     utlostAv?: components["schemas"]["UtlostAvType"][];
                     fom?: string;
@@ -1773,7 +1811,7 @@ export interface components {
          * @description Kategorisering av emneknagger for enklere gruppering og filtrering i frontend
          * @enum {string}
          */
-        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SØKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PÅ_VENT" | "ETTERSENDING" | "UDEFINERT";
+        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "UDEFINERT";
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */

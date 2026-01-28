@@ -1,12 +1,11 @@
 import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, Heading, Tag } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
-import { OppgaveÅrsakEmneknagger } from "~/components/oppgave-årsak-emneknagger/OppgaveÅrsakEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
@@ -31,6 +30,28 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
   const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
     ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
     : undefined;
+
+  const avslagsGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "AVSLAGSGRUNN",
+  );
+  const avbruttGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "AVBRUTT_GRUNN",
+  );
+  const påVentGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "PAA_VENT",
+  );
+
+  const søknadResultatEmneknagger = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "SOKNADSRESULTAT",
+  );
+
+  const rettighetEmneknagger = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "RETTIGHET",
+  );
+
+  if (!oppgave) {
+    return <Skeleton className="h-64 w-72" />;
+  }
 
   return (
     <div className="relative">
@@ -61,10 +82,7 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                 <VerdiMedTittel
                   visBorder={true}
                   label={"Rettighet"}
-                  verdi={oppgave.emneknagger
-                    .filter((emneknagg) => emneknagg.kategori === "RETTIGHET")
-                    .map((emneknagg) => emneknagg.visningsnavn)
-                    .join(", ")}
+                  verdi={rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
                 />
 
                 <VerdiMedTittel
@@ -77,7 +95,7 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                       </BodyShort>
 
                       {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                        <Tag size={"xsmall"} variant={"alt1"}>
+                        <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
                           <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                         </Tag>
                       )}
@@ -90,26 +108,64 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                   label={"Søknadsresultat"}
                   verdi={
                     <div>
-                      {oppgave.emneknagger
-                        .filter((emneknagg) => emneknagg.kategori === "SØKNADSRESULTAT")
-                        .map((emneknagg) => (
-                          <Tag
-                            key={emneknagg.visningsnavn}
-                            size={"xsmall"}
-                            variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
-                          >
-                            <Detail>{emneknagg.visningsnavn}</Detail>
-                          </Tag>
-                        ))}
+                      {søknadResultatEmneknagger.map((emneknagg) => (
+                        <Tag
+                          key={emneknagg.visningsnavn}
+                          size={"xsmall"}
+                          variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                          className={"whitespace-nowrap"}
+                        >
+                          <Detail>{emneknagg.visningsnavn}</Detail>
+                        </Tag>
+                      ))}
                     </div>
                   }
                 />
 
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Årsak"}
-                  verdi={<OppgaveÅrsakEmneknagger oppgave={oppgave} />}
-                />
+                {(avslagsGrunner.length > 0 ||
+                  avbruttGrunner.length > 0 ||
+                  påVentGrunner.length > 0) && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Årsak"}
+                    verdi={
+                      <div className={"flex flex-wrap gap-2"}>
+                        {avslagsGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"error"}
+                            className={"whitespace-nowrap"}
+                          >
+                            <Detail>{emneknagg.visningsnavn}</Detail>
+                          </Tag>
+                        ))}
+
+                        {avbruttGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"warning"}
+                            className={"whitespace-nowrap"}
+                          >
+                            {emneknagg.visningsnavn}
+                          </Tag>
+                        ))}
+
+                        {påVentGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"alt1"}
+                            className={"whitespace-nowrap"}
+                          >
+                            {emneknagg.visningsnavn}
+                          </Tag>
+                        ))}
+                      </div>
+                    }
+                  />
+                )}
 
                 {oppgave.saksbehandler && (
                   <VerdiMedTittel

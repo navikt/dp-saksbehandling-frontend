@@ -1,6 +1,6 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const avslagOrdinærReellArbeidssøker: components["schemas"]["Oppgave"] = {
+export const ordinærAvslagReellArbeidssøker: components["schemas"]["Oppgave"] = {
   oppgaveId: "019a723b-643a-7179-8259-0b1142683727",
   behandlingId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
   saksbehandler: {
@@ -19,7 +19,7 @@ export const avslagOrdinærReellArbeidssøker: components["schemas"]["Oppgave"] 
     fornavn: "SLAPP",
     etternavn: "BROSME",
     fodselsdato: "1981-12-28",
-    alder: 43,
+    alder: 44,
     statsborgerskap: "NOR",
     kjonn: "MANN",
     skjermesSomEgneAnsatte: false,
@@ -50,7 +50,20 @@ export const avslagOrdinærReellArbeidssøker: components["schemas"]["Oppgave"] 
       },
     },
   ],
-  emneknagger: ["Avslag", "Ordinær", "Reell arbeidssøker"],
+  emneknagger: [
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+    {
+      visningsnavn: "Avslag",
+      kategori: "SOKNADSRESULTAT",
+    },
+    {
+      visningsnavn: "Reell arbeidssøker",
+      kategori: "AVSLAGSGRUNN",
+    },
+  ],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [

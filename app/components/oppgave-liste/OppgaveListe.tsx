@@ -1,9 +1,7 @@
 import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
-import { Fragment } from "react";
 
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
-import { OppgaveÅrsakEmneknagger } from "~/components/oppgave-årsak-emneknagger/OppgaveÅrsakEmneknagger";
 import { OppgaveListeHeader } from "~/components/oppgave-liste/OppgaveListeHeader";
 import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -78,6 +76,24 @@ export function OppgaveListe(props: IProps) {
               ? differenceInCalendarDays(utsattTilDato, new Date())
               : undefined;
 
+            const avslagsGrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "AVSLAGSGRUNN",
+            );
+            const avbruttGrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "AVBRUTT_GRUNN",
+            );
+            const påVentGrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "PAA_VENT",
+            );
+
+            const rettighetEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "RETTIGHET",
+            );
+
+            const søknadResultatEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "SOKNADSRESULTAT",
+            );
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -92,7 +108,12 @@ export function OppgaveListe(props: IProps) {
                     {oppgave.emneknagger
                       .filter((emneknagg) => emneknagg.kategori === "GJENOPPTAK")
                       .map((emneknagg) => (
-                        <Tag key={emneknagg.visningsnavn} size={"xsmall"} variant={"neutral"}>
+                        <Tag
+                          key={emneknagg.visningsnavn}
+                          size={"xsmall"}
+                          variant={"neutral"}
+                          className={"whitespace-nowrap"}
+                        >
                           <Detail as={lasterOppgaver ? Skeleton : "p"}>
                             {emneknagg.visningsnavn}
                           </Detail>
@@ -103,11 +124,7 @@ export function OppgaveListe(props: IProps) {
 
                 <Table.DataCell>
                   <Detail as={lasterOppgaver ? Skeleton : "p"}>
-                    {oppgave.emneknagger
-                      .filter((emneknagg) => emneknagg.kategori === "RETTIGHET")
-                      .map((emneknagg) => (
-                        <Fragment key={emneknagg.visningsnavn}>{emneknagg.visningsnavn}</Fragment>
-                      ))}
+                    {rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
                   </Detail>
                 </Table.DataCell>
 
@@ -129,7 +146,7 @@ export function OppgaveListe(props: IProps) {
                   </Detail>
 
                   {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                    <Tag size={"xsmall"} variant={"alt1"}>
+                    <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
                       <Detail
                         as={lasterOppgaver ? Skeleton : "p"}
                       >{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
@@ -138,23 +155,53 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  {oppgave.emneknagger
-                    .filter((emneknagg) => emneknagg.kategori === "SØKNADSRESULTAT")
-                    .map((emneknagg) => (
-                      <Tag
-                        key={emneknagg.visningsnavn}
-                        size={"xsmall"}
-                        variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
-                      >
-                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
-                          {emneknagg.visningsnavn}
-                        </Detail>
-                      </Tag>
-                    ))}
+                  {søknadResultatEmneknagger.map((emneknagg) => (
+                    <Tag
+                      key={emneknagg.visningsnavn}
+                      size={"xsmall"}
+                      variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                      className={"whitespace-nowrap"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg.visningsnavn}</Detail>
+                    </Tag>
+                  ))}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <OppgaveÅrsakEmneknagger oppgave={oppgave} lasterOppgaver={lasterOppgaver} />
+                  <div className={"flex gap-2"}>
+                    {avslagsGrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={"error"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail>{emneknagg.visningsnavn}</Detail>
+                      </Tag>
+                    ))}
+
+                    {avbruttGrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={"warning"}
+                        className={"whitespace-nowrap"}
+                      >
+                        {emneknagg.visningsnavn}
+                      </Tag>
+                    ))}
+
+                    {påVentGrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={"alt1"}
+                        className={"whitespace-nowrap"}
+                      >
+                        {emneknagg.visningsnavn}
+                      </Tag>
+                    ))}
+                  </div>
                 </Table.DataCell>
 
                 <Table.DataCell>

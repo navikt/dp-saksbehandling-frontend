@@ -39,8 +39,17 @@ export const innvilgelseOrdinærTidligereKontrollert: components["schemas"]["Opp
   tidspunktOpprettet: "2025-09-11T11:24:32.799021",
   behandlingType: "RETT_TIL_DAGPENGER",
   utlostAv: "SØKNAD",
-  journalpostIder: ["717265620", "717265621"],
+  journalpostIder: ["717538168", "717538169", "717538170"],
   historikk: [
+    {
+      type: "statusendring",
+      tidspunkt: "2025-12-02T14:30:36.919",
+      tittel: "Ferdig behandlet",
+      behandler: {
+        navn: "F_Z993809 E_Z993809",
+        rolle: "saksbehandler",
+      },
+    },
     {
       type: "statusendring",
       tidspunkt: "2025-11-20T14:49:42.583",
@@ -152,8 +161,21 @@ export const innvilgelseOrdinærTidligereKontrollert: components["schemas"]["Opp
       },
     },
   ],
-  emneknagger: ["Innvilgelse", "Ordinær"],
-  tilstand: "UNDER_KONTROLL",
+  emneknagger: [
+    {
+      visningsnavn: "Innvilgelse",
+      kategori: "SOKNADSRESULTAT",
+    },
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+    {
+      visningsnavn: "Tidligere kontrollert",
+      kategori: "UDEFINERT",
+    },
+  ],
+  tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

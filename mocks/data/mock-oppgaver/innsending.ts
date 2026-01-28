@@ -50,7 +50,7 @@ export const innsending: components["schemas"]["Oppgave"] = {
       },
     },
   ],
-  emneknagger: ["Innsending"],
+  emneknagger: [],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [

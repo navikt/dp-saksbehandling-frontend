@@ -8,8 +8,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
     type: "Manuell",
     skjedde: "2025-11-06",
   },
-  opprettet: "2025-11-06",
-  sistEndret: "2025-11-06",
   behandlingskjedeId: "019a584d-966b-794d-b2a5-d5bd87cb6e4f",
   basertPå: "019a584d-966b-794d-b2a5-d5bd87cb6e4f",
   automatisk: false,
@@ -22,8 +20,10 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
       opprinnelse: "Ny",
     },
   ],
+  opprettet: "2025-11-06T10:56:39.060545",
+  sistEndret: "2025-11-27T09:12:03.768898",
   kreverTotrinnskontroll: true,
-  tilstand: "TilGodkjenning",
+  tilstand: "Ferdig",
   avklaringer: [
     {
       id: "019a5898-c805-7a2f-bb17-25cb89f1eac2",
@@ -270,9 +270,27 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
           "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
       },
       type: "Vilkår",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
       opplysninger: ["019522d2-9bb1-7960-b1e2-a959566e2428"],
+    },
+    {
+      id: "628695927",
+      navn: "Manglende og uriktige opplysninger",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "21",
+        paragraf: "7",
+        tittel: "§ 21-7. Uriktige opplysninger m.m. - følger for ytelser fra trygden",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§21-7",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
+      opplysninger: [],
     },
     {
       id: "1257708498",
@@ -305,7 +323,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
       type: "Vilkår",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
       opplysninger: [
         "01948d3c-4bea-7802-9d18-5342a5e2be99",
@@ -392,7 +410,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
       },
       type: "Vilkår",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
       opplysninger: [
         "0194881f-9433-70e9-a85b-c246150c45cd",
@@ -595,7 +613,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
       },
       type: "Fastsettelse",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-943f-78d9-b874-00a4944c54f0",
         "019523aa-7941-7dd2-8c43-0644d7b43f57",
@@ -663,7 +681,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
       },
       type: "Fastsettelse",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-9428-74d5-b160-f63a4c61a23b",
         "0194881f-9428-74d5-b160-f63a4c61a23c",
@@ -737,7 +755,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
       type: "Fastsettelse",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysninger: [
         "0194881f-9421-766c-9dc6-41fe6c9a1dff",
         "0194881f-9421-766c-9dc6-41fe6c9a1e00",
@@ -795,7 +813,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-966b-794d-b2a5-d5bd87cb6e4a",
           opprettet: "2025-11-06T09:34:31.147086",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 15605825,
@@ -821,7 +838,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-966b-794d-b2a5-d5bd87cb6e4c",
           opprettet: "2025-11-06T09:34:31.147118",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "5884f33e-53b3-4a7a-9b51-c3ed0c86f29e",
@@ -847,7 +863,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5898-c805-7a2f-bb17-25cb89f1eac1",
           opprettet: "2025-11-06T10:56:39.045242",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-06",
@@ -875,7 +890,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-966c-79e9-82ac-7715fdbc6a65",
           opprettet: "2025-11-06T09:34:31.148505",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 67,
@@ -897,7 +911,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b3585a",
           opprettet: "2025-11-06T09:34:31.46508",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "1988-06-05",
@@ -923,7 +936,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b3585b",
           opprettet: "2025-11-06T09:34:31.465223",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2025-11-06",
@@ -957,7 +969,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b3585c",
           opprettet: "2025-11-06T09:34:31.465259",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2025-11-06",
@@ -991,7 +1002,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b3585e",
           opprettet: "2025-11-06T09:34:31.465808",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2025-11-06",
@@ -1023,7 +1033,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b3585f",
           opprettet: "2025-11-06T09:34:31.465843",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2055-06-05",
@@ -1055,7 +1064,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b35861",
           opprettet: "2025-11-06T09:34:31.465945",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1085,7 +1093,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97a9-705f-8fd0-f72bb6b35862",
           opprettet: "2025-11-06T09:34:31.465977",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2055-06-30",
@@ -1114,7 +1121,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f44",
           opprettet: "2025-11-06T09:34:31.466099",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1147,7 +1153,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f46",
           opprettet: "2025-11-06T09:34:31.466364",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1177,7 +1182,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f47",
           opprettet: "2025-11-06T09:34:31.466386",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1208,7 +1212,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f48",
           opprettet: "2025-11-06T09:34:31.466572",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1238,7 +1241,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f49",
           opprettet: "2025-11-06T09:34:31.466621",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1269,7 +1271,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f4a",
           opprettet: "2025-11-06T09:34:31.466639",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1300,7 +1301,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97aa-75d4-b39f-a1c0b1ed5f4b",
           opprettet: "2025-11-06T09:34:31.466649",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1321,7 +1321,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f69613a",
           opprettet: "2025-11-06T09:34:31.467381",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1351,7 +1350,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f69613b",
           opprettet: "2025-11-06T09:34:31.46754",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1384,7 +1382,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f69613c",
           opprettet: "2025-11-06T09:34:31.467568",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1417,7 +1414,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f69613d",
           opprettet: "2025-11-06T09:34:31.467577",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 18.75,
@@ -1439,7 +1435,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f69613f",
           opprettet: "2025-11-06T09:34:31.467768",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1472,7 +1467,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-97ab-762e-89a0-45a85f696141",
           opprettet: "2025-11-06T09:34:31.467894",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1505,7 +1499,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1658",
           opprettet: "2025-11-06T09:34:37.608533",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1539,7 +1532,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1659",
           opprettet: "2025-11-06T09:34:37.608617",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1573,7 +1565,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165a",
           opprettet: "2025-11-06T09:34:37.608654",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1607,7 +1598,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165b",
           opprettet: "2025-11-06T09:34:37.608686",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1641,7 +1631,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165c",
           opprettet: "2025-11-06T09:34:37.608713",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 40,
@@ -1675,7 +1664,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165d",
           opprettet: "2025-11-06T09:34:37.60874",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1709,7 +1697,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165e",
           opprettet: "2025-11-06T09:34:37.608773",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1743,7 +1730,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b165f",
           opprettet: "2025-11-06T09:34:37.608801",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1777,7 +1763,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1660",
           opprettet: "2025-11-06T09:34:37.608835",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1811,7 +1796,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1661",
           opprettet: "2025-11-06T09:34:37.608867",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1845,7 +1829,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1662",
           opprettet: "2025-11-06T09:34:37.608905",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-05",
           verdi: {
@@ -1868,7 +1851,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         },
       ],
       synlig: true,
-      redigerbar: false,
+      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Register",
     },
@@ -1880,7 +1863,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa8-7c3a-b773-dcf1265b1663",
           opprettet: "2025-11-06T09:34:37.608977",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1919,7 +1901,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3f8",
           opprettet: "2025-11-06T09:34:37.609744",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -1949,7 +1930,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3f9",
           opprettet: "2025-11-06T09:34:37.609777",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1978,7 +1958,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3fa",
           opprettet: "2025-11-06T09:34:37.609797",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2007,7 +1986,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3fb",
           opprettet: "2025-11-06T09:34:37.609811",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2036,7 +2014,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3fc",
           opprettet: "2025-11-06T09:34:37.609843",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2065,7 +2042,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3fd",
           opprettet: "2025-11-06T09:34:37.609884",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2097,7 +2073,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3fe",
           opprettet: "2025-11-06T09:34:37.609906",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-05",
           verdi: {
@@ -2127,7 +2102,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b3ff",
           opprettet: "2025-11-06T09:34:37.609935",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2161,7 +2135,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afa9-7151-ad30-f4a89778b400",
           opprettet: "2025-11-06T09:34:37.60995",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2190,7 +2163,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afaa-70c1-8d94-26dde9036074",
           opprettet: "2025-11-06T09:34:37.610687",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2220,7 +2192,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afab-72cd-8afc-dcb7dd5e36da",
           opprettet: "2025-11-06T09:34:37.611997",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2250,7 +2221,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cd9f",
           opprettet: "2025-11-06T09:34:37.612036",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2282,7 +2252,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda0",
           opprettet: "2025-11-06T09:34:37.612094",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2314,7 +2283,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda1",
           opprettet: "2025-11-06T09:34:37.612123",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2346,7 +2314,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda2",
           opprettet: "2025-11-06T09:34:37.612147",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2378,7 +2345,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda4",
           opprettet: "2025-11-06T09:34:37.612363",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2411,7 +2377,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda5",
           opprettet: "2025-11-06T09:34:37.612387",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2444,7 +2409,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda6",
           opprettet: "2025-11-06T09:34:37.612623",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2479,7 +2443,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afac-7f2c-80c8-c2de8dd1cda7",
           opprettet: "2025-11-06T09:34:37.612678",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2513,7 +2476,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d189407",
           opprettet: "2025-11-06T09:34:37.613025",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2546,7 +2508,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d189409",
           opprettet: "2025-11-06T09:34:37.613501",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2567,7 +2528,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940a",
           opprettet: "2025-11-06T09:34:37.613521",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2588,7 +2548,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940b",
           opprettet: "2025-11-06T09:34:37.613761",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2618,7 +2577,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940c",
           opprettet: "2025-11-06T09:34:37.613863",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2648,7 +2606,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940d",
           opprettet: "2025-11-06T09:34:37.61389",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2678,7 +2635,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940e",
           opprettet: "2025-11-06T09:34:37.613908",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 3,
@@ -2700,7 +2656,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d18940f",
           opprettet: "2025-11-06T09:34:37.613928",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2731,7 +2686,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d189410",
           opprettet: "2025-11-06T09:34:37.613948",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2752,7 +2706,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afad-70cd-9165-102f3d189411",
           opprettet: "2025-11-06T09:34:37.613993",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2783,7 +2736,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5820",
           opprettet: "2025-11-06T09:34:37.614028",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2800,8 +2752,8 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
           },
         },
       ],
-      synlig: false,
-      redigerbar: false,
+      synlig: true,
+      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -2813,7 +2765,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5821",
           opprettet: "2025-11-06T09:34:37.614085",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2843,7 +2794,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5822",
           opprettet: "2025-11-06T09:34:37.614108",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -2874,7 +2824,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5823",
           opprettet: "2025-11-06T09:34:37.614131",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2895,7 +2844,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5824",
           opprettet: "2025-11-06T09:34:37.614149",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2916,7 +2864,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5825",
           opprettet: "2025-11-06T09:34:37.614166",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2937,7 +2884,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5826",
           opprettet: "2025-11-06T09:34:37.614184",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2958,7 +2904,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5827",
           opprettet: "2025-11-06T09:34:37.614201",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2979,7 +2924,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5828",
           opprettet: "2025-11-06T09:34:37.614219",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3000,7 +2944,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5829",
           opprettet: "2025-11-06T09:34:37.614237",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3021,7 +2964,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582a",
           opprettet: "2025-11-06T09:34:37.614255",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3042,7 +2984,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582b",
           opprettet: "2025-11-06T09:34:37.614273",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3063,7 +3004,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582c",
           opprettet: "2025-11-06T09:34:37.614289",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3084,7 +3024,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582d",
           opprettet: "2025-11-06T09:34:37.614306",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3105,7 +3044,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582e",
           opprettet: "2025-11-06T09:34:37.614323",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3127,7 +3065,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e582f",
           opprettet: "2025-11-06T09:34:37.614346",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3158,7 +3095,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5830",
           opprettet: "2025-11-06T09:34:37.614389",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3189,7 +3125,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5832",
           opprettet: "2025-11-06T09:34:37.614428",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3211,7 +3146,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5833",
           opprettet: "2025-11-06T09:34:37.614451",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3242,7 +3176,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5834",
           opprettet: "2025-11-06T09:34:37.614474",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3273,7 +3206,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5835",
           opprettet: "2025-11-06T09:34:37.614493",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3294,7 +3226,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5836",
           opprettet: "2025-11-06T09:34:37.614513",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3315,7 +3246,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5837",
           opprettet: "2025-11-06T09:34:37.614531",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3336,7 +3266,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5838",
           opprettet: "2025-11-06T09:34:37.61455",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3357,7 +3286,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e5839",
           opprettet: "2025-11-06T09:34:37.614569",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3378,7 +3306,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583a",
           opprettet: "2025-11-06T09:34:37.614588",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3399,7 +3326,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583b",
           opprettet: "2025-11-06T09:34:37.614608",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3420,7 +3346,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583c",
           opprettet: "2025-11-06T09:34:37.614628",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3441,7 +3366,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583d",
           opprettet: "2025-11-06T09:34:37.614647",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3462,7 +3386,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583e",
           opprettet: "2025-11-06T09:34:37.614668",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3483,7 +3406,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afae-7f59-8499-e725db4e583f",
           opprettet: "2025-11-06T09:34:37.614689",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3504,7 +3426,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afaf-7cbf-a1d7-305132295a0e",
           opprettet: "2025-11-06T09:34:37.615255",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3533,7 +3454,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a798060fd",
           opprettet: "2025-11-06T09:34:37.616038",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3566,7 +3486,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a798060fe",
           opprettet: "2025-11-06T09:34:37.616146",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3599,7 +3518,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a798060ff",
           opprettet: "2025-11-06T09:34:37.616187",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3632,7 +3550,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806100",
           opprettet: "2025-11-06T09:34:37.616217",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3661,7 +3578,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806101",
           opprettet: "2025-11-06T09:34:37.616249",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3693,7 +3609,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806103",
           opprettet: "2025-11-06T09:34:37.616315",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3728,7 +3643,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806104",
           opprettet: "2025-11-06T09:34:37.616346",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3761,7 +3675,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806105",
           opprettet: "2025-11-06T09:34:37.616383",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3797,7 +3710,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb0-716c-a594-0b8a79806106",
           opprettet: "2025-11-06T09:34:37.61641",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3826,7 +3738,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb1-7ea3-b17e-d1727ee661c4",
           opprettet: "2025-11-06T09:34:37.617134",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3856,7 +3767,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb1-7ea3-b17e-d1727ee661c5",
           opprettet: "2025-11-06T09:34:37.617402",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3886,7 +3796,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb1-7ea3-b17e-d1727ee661c6",
           opprettet: "2025-11-06T09:34:37.617637",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3916,7 +3825,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb1-7ea3-b17e-d1727ee661c7",
           opprettet: "2025-11-06T09:34:37.617701",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -3950,7 +3858,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb1-7ea3-b17e-d1727ee661c8",
           opprettet: "2025-11-06T09:34:37.617748",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3983,7 +3890,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb3-7234-a5f4-b19880c39276",
           opprettet: "2025-11-06T09:34:37.619",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4016,7 +3922,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb3-7234-a5f4-b19880c39277",
           opprettet: "2025-11-06T09:34:37.619193",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4049,7 +3954,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb3-7234-a5f4-b19880c39278",
           opprettet: "2025-11-06T09:34:37.61926",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4082,7 +3986,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb3-7234-a5f4-b19880c39279",
           opprettet: "2025-11-06T09:34:37.619299",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4115,7 +4018,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb3-7234-a5f4-b19880c3927a",
           opprettet: "2025-11-06T09:34:37.619473",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4152,7 +4054,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb4-77c5-b630-85e12f21a8d6",
           opprettet: "2025-11-06T09:34:37.62031",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4186,7 +4087,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb4-77c5-b630-85e12f21a8d8",
           opprettet: "2025-11-06T09:34:37.620966",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4219,7 +4119,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb5-7d71-9a02-8357424ac93c",
           opprettet: "2025-11-06T09:34:37.621646",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4252,7 +4151,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb6-7d5c-abac-7be84b7c10eb",
           opprettet: "2025-11-06T09:34:37.622647",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4282,7 +4180,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb7-7d11-b2d2-4d31f2c893ea",
           opprettet: "2025-11-06T09:34:37.623424",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4303,7 +4200,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         },
       ],
       synlig: true,
-      redigerbar: true,
+      redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -4315,7 +4212,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb7-7d11-b2d2-4d31f2c893eb",
           opprettet: "2025-11-06T09:34:37.623502",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4348,7 +4244,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb8-73d7-8db5-f8ed54be5096",
           opprettet: "2025-11-06T09:34:37.624082",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4381,7 +4276,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb8-73d7-8db5-f8ed54be5097",
           opprettet: "2025-11-06T09:34:37.624153",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4414,7 +4308,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb8-73d7-8db5-f8ed54be509a",
           opprettet: "2025-11-06T09:34:37.624743",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4444,7 +4337,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb8-73d7-8db5-f8ed54be509b",
           opprettet: "2025-11-06T09:34:37.624863",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4477,7 +4369,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-afb9-7c1c-ac17-ef973a88315b",
           opprettet: "2025-11-06T09:34:37.625619",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4507,7 +4398,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08f7",
           opprettet: "2025-11-06T09:34:39.471575",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -4541,7 +4431,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08f8",
           opprettet: "2025-11-06T09:34:39.471638",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4576,7 +4465,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08f9",
           opprettet: "2025-11-06T09:34:39.471685",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4611,7 +4499,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08fa",
           opprettet: "2025-11-06T09:34:39.471731",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: [],
@@ -4645,7 +4532,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08fb",
           opprettet: "2025-11-06T09:34:39.471776",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigTilOgMed: "2025-11-12",
           verdi: {
@@ -4669,7 +4555,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019abf04-5798-789f-b440-204e085a8796",
           opprettet: "2025-11-26T08:15:24.184388",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-11-13",
           verdi: {
@@ -4700,7 +4585,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08fc",
           opprettet: "2025-11-06T09:34:39.471817",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4734,7 +4618,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08fd",
           opprettet: "2025-11-06T09:34:39.471862",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4769,7 +4652,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08fe",
           opprettet: "2025-11-06T09:34:39.471904",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4804,7 +4686,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba08ff",
           opprettet: "2025-11-06T09:34:39.471948",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4839,7 +4720,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ef-750e-91bd-3709daba0900",
           opprettet: "2025-11-06T09:34:39.471993",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4874,7 +4754,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a50",
           opprettet: "2025-11-06T09:34:39.473064",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -4903,7 +4782,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a51",
           opprettet: "2025-11-06T09:34:39.473159",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4932,7 +4810,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a52",
           opprettet: "2025-11-06T09:34:39.473245",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -4970,7 +4847,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a53",
           opprettet: "2025-11-06T09:34:39.473288",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigTilOgMed: "2025-11-12",
           verdi: {
@@ -4989,7 +4865,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019abf04-579d-7ef7-a8d1-4877581a025a",
           opprettet: "2025-11-26T08:15:24.18919",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-11-13",
           verdi: {
@@ -5019,7 +4894,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a54",
           opprettet: "2025-11-06T09:34:39.473322",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -5048,7 +4922,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a55",
           opprettet: "2025-11-06T09:34:39.473356",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -5077,7 +4950,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a57",
           opprettet: "2025-11-06T09:34:39.473849",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -5106,7 +4978,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f1-7ca3-95f0-789296bb8a58",
           opprettet: "2025-11-06T09:34:39.473925",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5139,7 +5010,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f2-7d05-916f-10e511e2ebc2",
           opprettet: "2025-11-06T09:34:39.474009",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -5171,7 +5041,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f2-7d05-916f-10e511e2ebc4",
           opprettet: "2025-11-06T09:34:39.47453",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -5203,7 +5072,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f2-7d05-916f-10e511e2ebc5",
           opprettet: "2025-11-06T09:34:39.474647",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5236,7 +5104,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f2-7d05-916f-10e511e2ebc6",
           opprettet: "2025-11-06T09:34:39.474726",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5269,7 +5136,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f2-7d05-916f-10e511e2ebc7",
           opprettet: "2025-11-06T09:34:39.474769",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -5301,7 +5167,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f3-7e90-a454-54c863fa8f77",
           opprettet: "2025-11-06T09:34:39.47535",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -5333,7 +5198,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f3-7e90-a454-54c863fa8f78",
           opprettet: "2025-11-06T09:34:39.475551",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5366,7 +5230,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00540",
           opprettet: "2025-11-06T09:34:39.476395",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5399,7 +5262,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00541",
           opprettet: "2025-11-06T09:34:39.476444",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5432,7 +5294,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00542",
           opprettet: "2025-11-06T09:34:39.476484",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5465,7 +5326,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00543",
           opprettet: "2025-11-06T09:34:39.476579",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5495,7 +5355,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00544",
           opprettet: "2025-11-06T09:34:39.476822",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5525,7 +5384,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f4-7d9c-bdfc-58d50ce00545",
           opprettet: "2025-11-06T09:34:39.476986",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5555,7 +5413,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3409",
           opprettet: "2025-11-06T09:34:39.477171",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5585,7 +5442,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340a",
           opprettet: "2025-11-06T09:34:39.4773",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5618,7 +5474,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340b",
           opprettet: "2025-11-06T09:34:39.477358",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5649,7 +5504,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340c",
           opprettet: "2025-11-06T09:34:39.477399",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5680,7 +5534,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340d",
           opprettet: "2025-11-06T09:34:39.477447",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5701,7 +5554,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340e",
           opprettet: "2025-11-06T09:34:39.477482",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5722,7 +5574,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e340f",
           opprettet: "2025-11-06T09:34:39.477516",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5743,7 +5594,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3410",
           opprettet: "2025-11-06T09:34:39.477558",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5764,7 +5614,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3411",
           opprettet: "2025-11-06T09:34:39.477594",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5785,7 +5634,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3412",
           opprettet: "2025-11-06T09:34:39.477629",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5806,7 +5654,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3413",
           opprettet: "2025-11-06T09:34:39.477671",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5837,7 +5684,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3414",
           opprettet: "2025-11-06T09:34:39.477711",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5868,7 +5714,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3415",
           opprettet: "2025-11-06T09:34:39.47775",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5899,7 +5744,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3416",
           opprettet: "2025-11-06T09:34:39.477896",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5932,7 +5776,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3417",
           opprettet: "2025-11-06T09:34:39.477943",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5963,7 +5806,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f5-76e9-b750-d35eb80e3418",
           opprettet: "2025-11-06T09:34:39.477984",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -5994,7 +5836,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b2",
           opprettet: "2025-11-06T09:34:39.478024",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6025,7 +5866,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b3",
           opprettet: "2025-11-06T09:34:39.478101",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -6046,7 +5886,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b4",
           opprettet: "2025-11-06T09:34:39.478146",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6077,7 +5916,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b5",
           opprettet: "2025-11-06T09:34:39.478182",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6098,7 +5936,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b6",
           opprettet: "2025-11-06T09:34:39.478218",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6119,7 +5956,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b7",
           opprettet: "2025-11-06T09:34:39.478254",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6140,7 +5976,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b8",
           opprettet: "2025-11-06T09:34:39.478291",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6161,7 +5996,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46b9",
           opprettet: "2025-11-06T09:34:39.478327",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6182,7 +6016,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46ba",
           opprettet: "2025-11-06T09:34:39.478364",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6203,7 +6036,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f6-7e4f-9e08-1f92113f46bb",
           opprettet: "2025-11-06T09:34:39.478407",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6234,7 +6066,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51691",
           opprettet: "2025-11-06T09:34:39.479415",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6268,7 +6099,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51692",
           opprettet: "2025-11-06T09:34:39.479511",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6301,7 +6131,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51693",
           opprettet: "2025-11-06T09:34:39.47959",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6334,7 +6163,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51694",
           opprettet: "2025-11-06T09:34:39.479662",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -6370,7 +6198,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51695",
           opprettet: "2025-11-06T09:34:39.479723",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6403,7 +6230,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51696",
           opprettet: "2025-11-06T09:34:39.479775",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6436,7 +6262,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51697",
           opprettet: "2025-11-06T09:34:39.479823",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6469,7 +6294,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f7-7a84-9ae7-3a3c0ac51698",
           opprettet: "2025-11-06T09:34:39.479872",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6502,7 +6326,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f8-7935-8bc5-b9b915f7eee3",
           opprettet: "2025-11-06T09:34:39.480834",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6535,7 +6358,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f8-7935-8bc5-b9b915f7eee4",
           opprettet: "2025-11-06T09:34:39.480892",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6568,7 +6390,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f8-7935-8bc5-b9b915f7eee5",
           opprettet: "2025-11-06T09:34:39.48094",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6601,7 +6422,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f8-7935-8bc5-b9b915f7eee6",
           opprettet: "2025-11-06T09:34:39.480989",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6634,7 +6454,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6f9-7ad9-a1f1-ce9a86fdfe8f",
           opprettet: "2025-11-06T09:34:39.481988",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6667,7 +6486,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6fa-7c07-bbfb-6e6382dd9c82",
           opprettet: "2025-11-06T09:34:39.482098",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6700,7 +6518,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6fa-7c07-bbfb-6e6382dd9c83",
           opprettet: "2025-11-06T09:34:39.482156",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6735,7 +6552,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6fa-7c07-bbfb-6e6382dd9c84",
           opprettet: "2025-11-06T09:34:39.482205",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6770,7 +6586,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6fb-78d4-8c25-e20bc9807d03",
           opprettet: "2025-11-06T09:34:39.483211",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6803,7 +6618,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b6ff-73bd-bccb-70a30fee2554",
           opprettet: "2025-11-06T09:34:39.487931",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6837,7 +6651,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b701-7e59-a284-43ff8b0c099a",
           opprettet: "2025-11-06T09:34:39.48942",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6870,7 +6683,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b701-7e59-a284-43ff8b0c099b",
           opprettet: "2025-11-06T09:34:39.489496",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6905,7 +6717,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b701-7e59-a284-43ff8b0c099c",
           opprettet: "2025-11-06T09:34:39.489558",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6939,7 +6750,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b702-70c8-a6f6-1f9fb20face9",
           opprettet: "2025-11-06T09:34:39.490654",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -6972,7 +6782,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b702-70c8-a6f6-1f9fb20facea",
           opprettet: "2025-11-06T09:34:39.490736",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7005,7 +6814,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b703-70f7-a372-2a2f57adf5f6",
           opprettet: "2025-11-06T09:34:39.491726",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7026,7 +6834,7 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         },
       ],
       synlig: true,
-      redigerbar: true,
+      redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -7038,7 +6846,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b704-75bc-88ba-9d2e6f0b960a",
           opprettet: "2025-11-06T09:34:39.492764",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7071,7 +6878,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b704-75bc-88ba-9d2e6f0b960b",
           opprettet: "2025-11-06T09:34:39.492855",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7104,7 +6910,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b705-7b6d-b1db-797bc5a49e46",
           opprettet: "2025-11-06T09:34:39.49388",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7138,7 +6943,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b7c5-741b-b7b5-7fa792a14b56",
           opprettet: "2025-11-06T09:34:39.685875",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -7164,7 +6968,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a584d-b7c8-7f03-ae25-26daa87162ff",
           opprettet: "2025-11-06T09:34:39.688099",
-          status: "Arvet",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -7201,7 +7004,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed2-7216-8528-7eaa3ebf9466",
           opprettet: "2025-11-06T10:34:45.970948",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7233,7 +7035,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed5-7f62-b90b-2704e381e18f",
           opprettet: "2025-11-06T10:34:45.973264",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7268,7 +7069,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed5-7f62-b90b-2704e381e190",
           opprettet: "2025-11-06T10:34:45.973376",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7302,7 +7102,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed6-7ba1-b0c5-94cb878129d3",
           opprettet: "2025-11-06T10:34:45.974397",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7338,7 +7137,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed7-7208-a073-fbec6721e49b",
           opprettet: "2025-11-06T10:34:45.975249",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           verdi: {
@@ -7372,7 +7170,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019a5884-bed8-7cce-9bff-ff1e0e29ddf9",
           opprettet: "2025-11-06T10:34:45.976041",
-          status: "Arvet",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-12",
@@ -7397,7 +7194,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019abf04-57a0-7376-b8e3-df76a941221f",
           opprettet: "2025-11-26T08:15:24.192113",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-11-13",
           verdi: {
@@ -7432,7 +7228,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019abf07-f464-7934-aeef-7b226cf05dc1",
           opprettet: "2025-11-26T08:19:20.932541",
-          status: "Ny",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-12",
@@ -7464,7 +7259,6 @@ export const behandling019a5898c8057a2fbb1725cb89f1eac4: components["schemas"]["
         {
           id: "019abef9-7b69-7424-9dee-edf14c9b26ad",
           opprettet: "2025-11-26T08:03:32.457147",
-          status: "Ny",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
