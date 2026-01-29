@@ -5,6 +5,7 @@ import {
   FileTextIcon,
   PersonPencilIcon,
 } from "@navikt/aksel-icons";
+import { AkselColor } from "@navikt/ds-react/types/theme";
 
 import { gyldigBegrunnelse } from "~/const";
 
@@ -116,16 +117,13 @@ export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["Oppgav
   }
 }
 
-export function hentFargevariantForSøknadsresultat(
-  visningsnavn: string,
-  laster?: boolean,
-): "success" | "success-moderate" | "error" | "error-moderate" | "neutral" | "neutral-moderate" {
+export function hentFargevariantForSøknadsresultat(visningsnavn: string): AkselColor {
   switch (visningsnavn) {
     case "Innvilgelse":
-      return laster ? "success-moderate" : "success";
+      return "success";
     case "Avslag":
-      return laster ? "error-moderate" : "error";
+      return "danger";
     default:
-      return laster ? "neutral-moderate" : "neutral";
+      return "neutral";
   }
 }

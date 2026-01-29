@@ -76,10 +76,10 @@ export function OppgaveListe(props: IProps) {
               ? differenceInCalendarDays(utsattTilDato, new Date())
               : undefined;
 
-            const avslagsGrunner = oppgave.emneknagger.filter(
+            const avslagsgrunner = oppgave.emneknagger.filter(
               (emneknagg) => emneknagg.kategori === "AVSLAGSGRUNN",
             );
-            const avbruttGrunner = oppgave.emneknagger.filter(
+            const avbruttgrunner = oppgave.emneknagger.filter(
               (emneknagg) => emneknagg.kategori === "AVBRUTT_GRUNN",
             );
             const påVentGrunner = oppgave.emneknagger.filter(
@@ -116,7 +116,8 @@ export function OppgaveListe(props: IProps) {
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={"neutral"}
+                        variant={"outline"}
+                        data-color={"neutral"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail>{emneknagg.visningsnavn}</Detail>
@@ -151,7 +152,12 @@ export function OppgaveListe(props: IProps) {
                     {hentOppgaveTilstandTekst(tilstand)}
 
                     {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                      <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
+                      <Tag
+                        size={"xsmall"}
+                        variant={"outline"}
+                        data-color={"brand-magenta"}
+                        className={"whitespace-nowrap"}
+                      >
                         <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                       </Tag>
                     )}
@@ -163,10 +169,8 @@ export function OppgaveListe(props: IProps) {
                     <Tag
                       key={emneknagg.visningsnavn}
                       size={"xsmall"}
-                      variant={hentFargevariantForSøknadsresultat(
-                        emneknagg.visningsnavn,
-                        lasterOppgaver,
-                      )}
+                      variant={lasterOppgaver ? "moderate" : "outline"}
+                      data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
                       className={"whitespace-nowrap"}
                     >
                       <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg.visningsnavn}</Detail>
@@ -176,11 +180,12 @@ export function OppgaveListe(props: IProps) {
 
                 <Table.DataCell>
                   <div className={"flex flex-wrap gap-2"}>
-                    {avslagsGrunner.map((emneknagg) => (
+                    {avslagsgrunner.map((emneknagg) => (
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={lasterOppgaver ? "error-moderate" : "error"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"danger"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>
@@ -189,11 +194,12 @@ export function OppgaveListe(props: IProps) {
                       </Tag>
                     ))}
 
-                    {avbruttGrunner.map((emneknagg) => (
+                    {avbruttgrunner.map((emneknagg) => (
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={lasterOppgaver ? "warning-moderate" : "warning"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"warning"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>
@@ -206,7 +212,8 @@ export function OppgaveListe(props: IProps) {
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
-                        variant={lasterOppgaver ? "alt1-moderate" : "alt1"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"brand-magenta"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>

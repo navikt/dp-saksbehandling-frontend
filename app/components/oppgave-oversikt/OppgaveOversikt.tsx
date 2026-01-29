@@ -95,7 +95,12 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                       </BodyShort>
 
                       {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
-                        <Tag size={"xsmall"} variant={"alt1"} className={"whitespace-nowrap"}>
+                        <Tag
+                          size={"xsmall"}
+                          variant={"outline"}
+                          data-color={"brand-magenta"}
+                          className={"whitespace-nowrap"}
+                        >
                           <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
                         </Tag>
                       )}
@@ -112,7 +117,8 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                         <Tag
                           key={emneknagg.visningsnavn}
                           size={"xsmall"}
-                          variant={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                          variant={"outline"}
+                          data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
                           className={"whitespace-nowrap"}
                         >
                           <Detail>{emneknagg.visningsnavn}</Detail>
@@ -134,7 +140,8 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                           <Tag
                             key={emneknagg.visningsnavn}
                             size={"xsmall"}
-                            variant={"error"}
+                            variant={"outline"}
+                            data-color={"danger"}
                             className={"whitespace-nowrap"}
                           >
                             <Detail>{emneknagg.visningsnavn}</Detail>
@@ -145,7 +152,8 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                           <Tag
                             key={emneknagg.visningsnavn}
                             size={"xsmall"}
-                            variant={"warning"}
+                            variant={"outline"}
+                            data-color={"warning"}
                             className={"whitespace-nowrap"}
                           >
                             {emneknagg.visningsnavn}
@@ -156,7 +164,8 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                           <Tag
                             key={emneknagg.visningsnavn}
                             size={"xsmall"}
-                            variant={"alt1"}
+                            variant={"outline"}
+                            data-color={"brand-magenta"}
                             className={"whitespace-nowrap"}
                           >
                             {emneknagg.visningsnavn}
