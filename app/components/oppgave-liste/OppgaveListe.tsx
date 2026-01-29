@@ -107,7 +107,10 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <Detail as={lasterOppgaver ? Skeleton : "p"} className={"flex gap-2"}>
+                  <Detail
+                    as={lasterOppgaver ? Skeleton : "p"}
+                    className={"flex items-center gap-2"}
+                  >
                     {hentUtløstAvTekstForVisning(oppgave.utlostAv, true)}
                     {gjenopptakEmneknagger.map((emneknagg) => (
                       <Tag

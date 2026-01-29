@@ -14,7 +14,7 @@ export function OppgaveFilterGjenopptak() {
         value={"Gjenopptak"}
         onChange={(event) => toggleSearchParam("GJENOPPTAK", event.target.value)}
       >
-        Vis gjenopptak
+        Vis kun gjenopptak
       </Switch>
     </div>
   );
