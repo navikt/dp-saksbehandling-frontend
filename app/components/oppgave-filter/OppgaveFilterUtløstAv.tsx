@@ -5,7 +5,13 @@ import { hentUtløstAvTekstForVisning } from "~/utils/tekst.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
-const utløstAvTyper: components["schemas"]["UtlostAvType"][] = ["SØKNAD", "MANUELL"];
+const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
+  "SØKNAD",
+  "MANUELL",
+  "MELDEKORT",
+  "KLAGE",
+  "INNSENDING",
+];
 
 export function OppgaveFilterUtløstAv() {
   const { searchParams, toggleSearchParam } = useToggleSearchParam();
