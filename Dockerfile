@@ -13,6 +13,7 @@ COPY ./mocks ./mocks
 COPY ./public ./public/
 COPY ./graphql ./graphql
 COPY ./vite.config.ts ./
+COPY ./tailwind.config.js  ./
 COPY ./package.json ./
 COPY ./package-lock.json  ./
 
