@@ -10,10 +10,12 @@ import {
   useNavigation,
 } from "react-router";
 
+import { OppgaveFilterAvbruttgrunner } from "~/components/oppgave-filter/OppgaveFilterAvbruttgrunner";
 import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter/OppgaveFilterMineOppgaver";
+import { OppgaveFilterPåVentGrunner } from "~/components/oppgave-filter/OppgaveFilterPåVentGrunner";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
@@ -96,6 +98,8 @@ export default function Saksbehandling() {
             <OppgaveFilterGjenopptak />
             <OppgaveFilterRettighetstype />
             <OppgaveFilterSøknadresultat />
+            <OppgaveFilterAvbruttgrunner />
+            <OppgaveFilterPåVentGrunner />
           </Tabs.Panel>
         </Tabs>
       </aside>
