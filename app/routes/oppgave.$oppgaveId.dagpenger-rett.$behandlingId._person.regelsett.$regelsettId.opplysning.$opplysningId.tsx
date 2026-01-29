@@ -25,7 +25,7 @@ export default function Opplysning() {
   const {
     behandling,
     vurderinger,
-    prøvingsdato,
+    sistePrøvingsdato,
     prøvingsdatoOpplysning,
     visArvedeOpplysninger,
     setVisArvedeOpplysninger,
@@ -124,7 +124,7 @@ export default function Opplysning() {
                   meldekortUrl={direkteMeldekortUrl}
                   medLenkeTilOpplysning={true}
                   opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
-                  pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
+                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
                 />
               </div>
 
@@ -135,7 +135,7 @@ export default function Opplysning() {
                   regelsettHjemmel={regelsett.hjemmel.tittel}
                   opplysningKilde={opplysning.formål}
                   opplysninger={[opplysning]}
-                  pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
+                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
                 />
                 <OpplysningPerioderTabell opplysning={opplysning} />
               </div>

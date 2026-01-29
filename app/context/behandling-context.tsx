@@ -9,7 +9,7 @@ interface IBehandlingContextType {
   behandling: components["schemas"]["Behandling"];
   vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
   prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
-  prøvingsdato: Date;
+  sistePrøvingsdato: Date;
   visArvedeOpplysninger: boolean;
   setVisArvedeOpplysninger: (visArvedeOpplysninger: boolean) => void;
 }
@@ -31,10 +31,13 @@ export function BehandlingProvider({
     (opplysning) => opplysning.opplysningTypeId === "0194881f-91d1-7df2-ba1d-4533f37fcc76",
   );
 
-  const prøvingsdatoOpplysningPeriode =
-    prøvingsdatoOpplysning?.perioder[prøvingsdatoOpplysning?.perioder.length - 1];
+  const sistePrøvingsdatoOpplysningperiode = prøvingsdatoOpplysning?.perioder.at(-1);
 
-  if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
+  if (
+    !prøvingsdatoOpplysning ||
+    !sistePrøvingsdatoOpplysningperiode ||
+    !isDatoVerdi(sistePrøvingsdatoOpplysningperiode.verdi)
+  ) {
     throw new Error("Finner ikke prøvingsdato");
   }
 
@@ -44,7 +47,7 @@ export function BehandlingProvider({
         behandling,
         vurderinger,
         prøvingsdatoOpplysning,
-        prøvingsdato: new Date(prøvingsdatoOpplysningPeriode.verdi.verdi),
+        sistePrøvingsdato: new Date(sistePrøvingsdatoOpplysningperiode.verdi.verdi),
         visArvedeOpplysninger,
         setVisArvedeOpplysninger,
       }}
