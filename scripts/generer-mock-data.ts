@@ -97,7 +97,7 @@ export async function genererMockOppgave(id?: string) {
   const oppgave = await hentOppgave(new Request(getEnv("DP_SAKSBEHANDLING_URL")), oppgaveId);
 
   const defaultFilnavn = oppgave.emneknagger
-    .map((emneknagg) => emneknagg.toLowerCase().replace(/\s+/g, "-"))
+    .map((emneknagg) => emneknagg.visningsnavn.toLowerCase().replace(/\s+/g, "-"))
     .join("-");
 
   const answers = await inquirer.prompt([
@@ -174,28 +174,6 @@ export async function genererMockOppgave(id?: string) {
       when: (answers) => answers.meldingOmVedtakKilde === "DP_SAK",
     },
     {
-      type: "checkbox",
-      name: "emneknagger",
-      message: "Overstyr emneknagger:",
-      choices: [
-        "Alder",
-        "Arbeidsinntekt",
-        "Avslag",
-        "Gjenopptak",
-        "Ikke registrert",
-        "Innvilgelse",
-        "Innsending",
-        "Klage",
-        "Minsteinntekt",
-        "Opphold utland",
-        "Ordinær",
-        "Permitert fisk",
-        "Reell arbeidssøker",
-        "Verneplikt",
-      ],
-      default: oppgave.emneknagger,
-    },
-    {
       type: "input",
       name: "filnavn",
       message: "Oversriv filnavn i mock-kebab-case (uten .ts):",
@@ -207,7 +185,6 @@ export async function genererMockOppgave(id?: string) {
     ...oppgave,
     saksbehandler: answers.saksbehandler,
     person: answers.person,
-    emneknagger: answers.emneknagger,
     tilstand: answers.tilstand,
     journalpostIder: answers.journalpostIder,
     meldingOmVedtakKilde: answers.meldingOmVedtakKilde,

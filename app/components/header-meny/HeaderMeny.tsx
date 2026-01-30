@@ -71,6 +71,15 @@ export function HeaderMeny({ saksbehandler }: IProps) {
         >
           Alle oppgaver
         </NavLink>
+
+        <NavLink
+          to={`/produksjonsstyring`}
+          className={({ isActive }) =>
+            classnames(styles.linkItem, { [styles.linkItemActive]: isActive })
+          }
+        >
+          Produksjonsstyring
+        </NavLink>
       </div>
 
       {featureFlags.halloween && <Ghosts />}

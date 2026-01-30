@@ -86,7 +86,28 @@ export const avslagManuellOrdinærReellArbeidssøkerVerneplikt: components["sche
       },
     },
   ],
-  emneknagger: ["Avslag", "Ordinær", "Reell arbeidssøker", "Verneplikt"],
+  emneknagger: [
+    {
+      visningsnavn: "Avslag",
+      kategori: "SOKNADSRESULTAT",
+    },
+    {
+      visningsnavn: "Manuell",
+      kategori: "UDEFINERT",
+    },
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+    {
+      visningsnavn: "Reell arbeidssøker",
+      kategori: "AVSLAGSGRUNN",
+    },
+    {
+      visningsnavn: "Verneplikt",
+      kategori: "RETTIGHET",
+    },
+  ],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [

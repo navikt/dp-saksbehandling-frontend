@@ -1,42 +1,29 @@
-import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
-import { useSearchParams } from "react-router";
+import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 
-const rettighetstype = ["Ordinær", "Verneplikt", "Permittert"];
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
+
+const rettighetstype = ["Ordinær", "Verneplikt", "Permittert", "Permittert fisk", "Konkurs"];
 
 export function OppgaveFilterRettighetstype() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const emneknaggerParams = searchParams.getAll("emneknagg");
-
-  function updateSearchParams(key: string, value: string, checked: boolean) {
-    if (!checked) {
-      searchParams.delete(key, value);
-    } else {
-      searchParams.append(key, value);
-    }
-    setSearchParams(searchParams);
-  }
+  const { searchParams, toggleSearchParam } = useToggleSearchParam();
+  const emneknaggerParams = searchParams.getAll("RETTIGHET");
 
   return (
-    <ReadMore size="small" header="Rettighetstype" className="readmore--with-checkboxes">
+    <div>
+      <Detail textColor="subtle">Rettighet</Detail>
       <CheckboxGroup legend="" size="small" className={"checkbox--compact checkbox--in-readmore"}>
         {rettighetstype.map((emneknagg) => (
           <Checkbox
             key={emneknagg}
-            name="emneknagg"
+            name="RETTIGHET"
             value={emneknagg}
             defaultChecked={emneknaggerParams.includes(emneknagg)}
-            onChange={(event) =>
-              updateSearchParams(
-                "emneknagg",
-                event.currentTarget.value,
-                event.currentTarget.checked,
-              )
-            }
+            onChange={(event) => toggleSearchParam("RETTIGHET", event.currentTarget.value)}
           >
             {emneknagg}
           </Checkbox>
         ))}
       </CheckboxGroup>
-    </ReadMore>
+    </div>
   );
 }

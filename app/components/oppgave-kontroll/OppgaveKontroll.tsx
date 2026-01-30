@@ -82,7 +82,7 @@ export function OppgaveKontroll() {
         <List className={""} as="ol" size="small">
           {sjekkliste.map((punkt) => (
             <Fragment key={punkt.navn}>
-              <List.Item className={"font-bold"}>{punkt.navn}</List.Item>
+              <List.Item className={"font-ax-bold"}>{punkt.navn}</List.Item>
               {punkt.underpunkter && (
                 <List size="small">
                   {punkt.underpunkter.map((underpunkt) => (

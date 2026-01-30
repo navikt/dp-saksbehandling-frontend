@@ -6,7 +6,7 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 
 export function RettPåDagpenger() {
   const { behandlingId, oppgaveId } = useTypeSafeParams();
-  const { behandling, prøvingsdato } = useBehandling();
+  const { behandling, sistePrøvingsdato } = useBehandling();
   const rettPåDagpengerOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194",
   );
@@ -14,29 +14,30 @@ export function RettPåDagpenger() {
   if (!rettPåDagpengerOpplysning) {
     return null;
   }
+  const sisteRettighetsperiode = behandling.rettighetsperioder.at(-1);
+  const sisteRettighetsperiodeIndex = behandling.rettighetsperioder.length - 1;
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
       <OpplysningerTidslinje
         opplysninger={[rettPåDagpengerOpplysning]}
         tittel={rettPåDagpengerOpplysning.navn}
-        pins={[{ label: "Prøvingsdato", date: prøvingsdato }]}
+        pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
         medLenkeTilOpplysning={true}
         opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/2099145502/opplysning`}
       />
 
-      {prøvingsdato && (
-        <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
+      {sistePrøvingsdato && (
+        <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={sistePrøvingsdato} />
       )}
 
-      {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
+      {sisteRettighetsperiode && (
         <OpplysningerForRettighetsperiode
-          key={index}
-          index={index}
-          rettighetsperiode={rettighetsperiode}
+          index={sisteRettighetsperiodeIndex}
+          rettighetsperiode={sisteRettighetsperiode}
           opplysninger={behandling.opplysninger}
         />
-      ))}
+      )}
     </div>
   );
 }

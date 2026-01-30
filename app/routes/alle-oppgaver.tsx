@@ -10,10 +10,14 @@ import {
   useNavigation,
 } from "react-router";
 
+import { OppgaveFilterAvbruttgrunner } from "~/components/oppgave-filter/OppgaveFilterAvbruttgrunner";
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter/OppgaveFilterMineOppgaver";
-import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
+import { OppgaveFilterPåVentGrunner } from "~/components/oppgave-filter/OppgaveFilterPåVentGrunner";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -88,10 +92,14 @@ export default function Saksbehandling() {
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterMineOppgaver />
             <OppgaveFilterDato />
-            <OppgaveFilterPrioritert />
+            <OppgaveFilterAvslagsgrunner />
             <OppgaveFilterStatus />
             <OppgaveFilterUtløstAv />
+            <OppgaveFilterGjenopptak />
             <OppgaveFilterRettighetstype />
+            <OppgaveFilterSøknadresultat />
+            <OppgaveFilterAvbruttgrunner />
+            <OppgaveFilterPåVentGrunner />
           </Tabs.Panel>
         </Tabs>
       </aside>

@@ -5,6 +5,7 @@ import {
   FileTextIcon,
   PersonPencilIcon,
 } from "@navikt/aksel-icons";
+import { AkselColor } from "@navikt/ds-react/types/theme";
 
 import { gyldigBegrunnelse } from "~/const";
 
@@ -113,5 +114,16 @@ export function hentOppgaveTilstandTekst(tilstand: components["schemas"]["Oppgav
       return "Avbrutt";
     default:
       return tilstand;
+  }
+}
+
+export function hentFargevariantForSøknadsresultat(visningsnavn: string): AkselColor {
+  switch (visningsnavn) {
+    case "Innvilgelse":
+      return "success";
+    case "Avslag":
+      return "danger";
+    default:
+      return "neutral";
   }
 }

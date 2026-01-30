@@ -20,13 +20,14 @@ export function OppgaveEmneknagger({ oppgave, laster }: IProps) {
       {oppgave.emneknagger.map((emneknagg) => (
         <Tag
           className={"whitespace-nowrap"}
-          key={emneknagg}
+          key={emneknagg.visningsnavn}
           size={"xsmall"}
           variant={laster ? "info-moderate" : "info"}
         >
-          <Detail as={laster ? Skeleton : "p"}>{emneknagg}</Detail>
+          <Detail as={laster ? Skeleton : "p"}>{emneknagg.visningsnavn}</Detail>
         </Tag>
       ))}
+
       {oppgave.utsattTilDato && (
         <Tag
           className={"whitespace-nowrap"}

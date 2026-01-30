@@ -182,7 +182,7 @@ export function OpplysningerTidslinje(props: IProps) {
                   <div className={"overflow-hidden"}>
                     <LoadingLink
                       className={
-                        opplysningId === opplysning.opplysningTypeId ? "font-bold" : undefined
+                        opplysningId === opplysning.opplysningTypeId ? "font-ax-bold" : undefined
                       }
                       tittelPåHover={opplysning.navn}
                       to={`${props.opplysningGrunnUrl}/${opplysning.opplysningTypeId}`}

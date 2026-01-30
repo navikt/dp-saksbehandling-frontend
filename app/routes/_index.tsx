@@ -13,9 +13,11 @@ import {
   useSearchParams,
 } from "react-router";
 
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
-import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
+import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -108,12 +110,14 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterDato />
-            <OppgaveFilterPrioritert />
+            <OppgaveFilterAvslagsgrunner />
             <OppgaveFilterStatus
               tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
             />
             <OppgaveFilterUtløstAv />
+            <OppgaveFilterGjenopptak />
             <OppgaveFilterRettighetstype />
+            <OppgaveFilterSøknadresultat />
           </Tabs.Panel>
 
           <Tabs.Panel value="statistikk">

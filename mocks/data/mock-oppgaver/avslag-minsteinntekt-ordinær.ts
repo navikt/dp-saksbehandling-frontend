@@ -19,7 +19,7 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
     fornavn: "DRIFTIG",
     etternavn: "APPELSIN",
     fodselsdato: "2000-01-04",
-    alder: 25,
+    alder: 26,
     statsborgerskap: "NOR",
     kjonn: "MANN",
     skjermesSomEgneAnsatte: false,
@@ -68,7 +68,20 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
       },
     },
   ],
-  emneknagger: ["Avslag", "Minsteinntekt", "Ordinær"],
+  emneknagger: [
+    {
+      visningsnavn: "Avslag",
+      kategori: "SOKNADSRESULTAT",
+    },
+    {
+      visningsnavn: "Minsteinntekt",
+      kategori: "AVSLAGSGRUNN",
+    },
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+  ],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [
@@ -83,6 +96,6 @@ export const avslagMinsteinntektOrdinær: components["schemas"]["Oppgave"] = {
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
   },
   soknadId: "02387802-0322-4f2f-abb8-183d50637713",
-  meldingOmVedtakKilde: "DP_SAK",
+  meldingOmVedtakKilde: "GOSYS",
   kontrollertBrev: "IKKE_RELEVANT",
 };

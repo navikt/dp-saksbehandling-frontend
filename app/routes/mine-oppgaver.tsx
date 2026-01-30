@@ -11,7 +11,6 @@ import {
 } from "react-router";
 
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
-import { OppgaveFilterPrioritert } from "~/components/oppgave-filter/OppgaveFilterPrioritert";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
@@ -102,7 +101,6 @@ export default function Saksbehandling() {
 
           <Tabs.Panel value="filter" className={styles.tabPanel}>
             <OppgaveFilterDato />
-            <OppgaveFilterPrioritert />
             <OppgaveFilterStatus />
             <OppgaveFilterUtløstAv />
             <OppgaveFilterRettighetstype />

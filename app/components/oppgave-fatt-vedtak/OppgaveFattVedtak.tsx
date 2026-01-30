@@ -14,7 +14,7 @@ import { hentValideringForFattVedtak } from "~/utils/validering.util";
 export function OppgaveFattVedtak() {
   const { pathname } = useLocation();
   const { oppgaveId } = useTypeSafeParams();
-  const { behandling, prøvingsdato } = useBehandling();
+  const { behandling, sistePrøvingsdato } = useBehandling();
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const fattVedtakForm = useForm({
@@ -29,14 +29,14 @@ export function OppgaveFattVedtak() {
     },
   });
 
-  if (!prøvingsdato) {
+  if (!sistePrøvingsdato) {
     return null;
   }
 
   const harLøpendeRettPåDagpengerPeriode = hentOpplysningsperiodePåPrøvingsdato(
     behandling.opplysninger,
     "01990a09-0eab-7957-b88f-14484a50e194",
-    prøvingsdato.toISOString(),
+    sistePrøvingsdato.toISOString(),
   );
 
   return (

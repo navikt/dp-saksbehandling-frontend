@@ -1,11 +1,11 @@
 import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
-import { Button, Heading } from "@navikt/ds-react";
+import { BodyShort, Button, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
+import { differenceInCalendarDays } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
-import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
@@ -13,7 +13,11 @@ import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { hentJournalpost } from "~/models/saf.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
+import {
+  hentFargevariantForSøknadsresultat,
+  hentOppgaveTilstandTekst,
+  hentUtløstAvTekstForVisning,
+} from "~/utils/tekst.utils";
 
 interface IProps {
   journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
@@ -22,6 +26,32 @@ interface IProps {
 export function OppgaveOversikt({ journalposterPromises }: IProps) {
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
+
+  const dagerIgjenTilUtsattDato = oppgave.utsattTilDato
+    ? differenceInCalendarDays(oppgave.utsattTilDato, new Date())
+    : undefined;
+
+  const avslagsGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "AVSLAGSGRUNN",
+  );
+  const avbruttGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "AVBRUTT_GRUNN",
+  );
+  const påVentGrunner = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "PAA_VENT",
+  );
+
+  const søknadResultatEmneknagger = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "SOKNADSRESULTAT",
+  );
+
+  const rettighetEmneknagger = oppgave.emneknagger.filter(
+    (emneknagg) => emneknagg.kategori === "RETTIGHET",
+  );
+
+  if (!oppgave) {
+    return <Skeleton className="h-64 w-72" />;
+  }
 
   return (
     <div className="relative">
@@ -44,20 +74,107 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                 />
 
                 <VerdiMedTittel
-                  label={"Emne"}
                   visBorder={true}
-                  verdi={
-                    <div className={"flex flex-wrap gap-1"}>
-                      <OppgaveEmneknagger oppgave={oppgave} />
-                    </div>
-                  }
+                  label={"Utløst av"}
+                  verdi={hentUtløstAvTekstForVisning(oppgave.utlostAv)}
+                />
+
+                <VerdiMedTittel
+                  visBorder={true}
+                  label={"Rettighet"}
+                  verdi={rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
                 />
 
                 <VerdiMedTittel
                   visBorder={true}
                   label={"Status"}
-                  verdi={hentOppgaveTilstandTekst(oppgave.tilstand)}
+                  verdi={
+                    <>
+                      <BodyShort size={"small"}>
+                        {hentOppgaveTilstandTekst(oppgave.tilstand)}
+                      </BodyShort>
+
+                      {oppgave.tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                        <Tag
+                          size={"xsmall"}
+                          variant={"outline"}
+                          data-color={"brand-magenta"}
+                          className={"whitespace-nowrap"}
+                        >
+                          <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                        </Tag>
+                      )}
+                    </>
+                  }
                 />
+
+                <VerdiMedTittel
+                  visBorder={true}
+                  label={"Søknadsresultat"}
+                  verdi={
+                    <div>
+                      {søknadResultatEmneknagger.map((emneknagg) => (
+                        <Tag
+                          key={emneknagg.visningsnavn}
+                          size={"xsmall"}
+                          variant={"outline"}
+                          data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                          className={"whitespace-nowrap"}
+                        >
+                          <Detail>{emneknagg.visningsnavn}</Detail>
+                        </Tag>
+                      ))}
+                    </div>
+                  }
+                />
+
+                {(avslagsGrunner.length > 0 ||
+                  avbruttGrunner.length > 0 ||
+                  påVentGrunner.length > 0) && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Årsak"}
+                    verdi={
+                      <div className={"flex flex-wrap gap-2"}>
+                        {avslagsGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"outline"}
+                            data-color={"danger"}
+                            className={"whitespace-nowrap"}
+                          >
+                            <Detail>{emneknagg.visningsnavn}</Detail>
+                          </Tag>
+                        ))}
+
+                        {avbruttGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"outline"}
+                            data-color={"warning"}
+                            className={"whitespace-nowrap"}
+                          >
+                            {emneknagg.visningsnavn}
+                          </Tag>
+                        ))}
+
+                        {påVentGrunner.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"outline"}
+                            data-color={"brand-magenta"}
+                            className={"whitespace-nowrap"}
+                          >
+                            {emneknagg.visningsnavn}
+                          </Tag>
+                        ))}
+                      </div>
+                    }
+                  />
+                )}
 
                 {oppgave.saksbehandler && (
                   <VerdiMedTittel

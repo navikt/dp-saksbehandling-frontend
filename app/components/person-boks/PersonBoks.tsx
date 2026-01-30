@@ -103,6 +103,27 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
           <Detail>Gjelder til og med {formaterTilNorskDato(tiltak.gyldigTom)}</Detail>
         </Alert>
       ))}
+
+      {person.adressebeskyttelseGradering !== "UGRADERT" && (
+        <Alert className={"alert--compact"} variant="warning" fullWidth={true}>
+          Personen har adressebeskyttelse:{" "}
+          {hentTekstForAdressebeskyttelse(person.adressebeskyttelseGradering)}
+        </Alert>
+      )}
     </>
   );
+}
+function hentTekstForAdressebeskyttelse(
+  grading: components["schemas"]["AdressebeskyttelseGradering"],
+) {
+  switch (grading) {
+    case "UGRADERT":
+      return "Ugradert";
+    case "FORTROLIG":
+      return "Fortrolig";
+    case "STRENGT_FORTROLIG":
+      return "Strengt fortrolig";
+    case "STRENGT_FORTROLIG_UTLAND":
+      return "Strengt fortrolig utland";
+  }
 }

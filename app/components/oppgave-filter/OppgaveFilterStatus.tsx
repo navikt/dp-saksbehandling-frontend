@@ -1,5 +1,6 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "react-router";
+
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -23,22 +24,13 @@ interface ITilstander {
 }
 
 export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, toggleSearchParam } = useToggleSearchParam();
   const tilstand = searchParams.getAll("tilstand");
 
   const tilstander =
     tilgjengeligTilstander && tilgjengeligTilstander.length > 0
       ? TILSTANDER.filter((tilstand) => tilgjengeligTilstander.includes(tilstand.id))
       : TILSTANDER;
-
-  function updateSearchParams(key: string, value: string, checked: boolean) {
-    if (!checked) {
-      searchParams.delete(key, value);
-    } else {
-      searchParams.append(key, value);
-    }
-    setSearchParams(searchParams);
-  }
 
   return (
     <div>
@@ -50,9 +42,7 @@ export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
             key={status.id}
             value={status.id}
             defaultChecked={tilstand.includes(status.id)}
-            onChange={(event) =>
-              updateSearchParams("tilstand", event.currentTarget.value, event.currentTarget.checked)
-            }
+            onChange={(event) => toggleSearchParam("tilstand", event.currentTarget.value)}
           >
             {status.tekst}
           </Checkbox>

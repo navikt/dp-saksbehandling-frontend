@@ -1,15 +1,16 @@
-import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "react-router";
+import { Detail, Switch } from "@navikt/ds-react";
+
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 
 export function OppgaveFilterMineOppgaver() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, setSearchParams } = useToggleSearchParam();
   const mineOppgaver = searchParams.get("mineOppgaver");
 
-  function updateSearchParams(key: string, value: string, checked: boolean) {
-    if (!checked) {
-      searchParams.delete(key, value);
+  function handleChange(checked: boolean) {
+    if (checked) {
+      searchParams.set("mineOppgaver", "true");
     } else {
-      searchParams.append(key, value);
+      searchParams.delete("mineOppgaver");
     }
     setSearchParams(searchParams);
   }
@@ -17,22 +18,14 @@ export function OppgaveFilterMineOppgaver() {
   return (
     <div>
       <Detail textColor="subtle">Mine oppgaver</Detail>
-      <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
-        <Checkbox
-          name="mineOppgaver"
-          value="true"
-          defaultChecked={mineOppgaver === "true"}
-          onChange={(event) =>
-            updateSearchParams(
-              "mineOppgaver",
-              event.currentTarget.value,
-              event.currentTarget.checked,
-            )
-          }
-        >
-          Se kun mine oppgaver
-        </Checkbox>
-      </CheckboxGroup>
+
+      <Switch
+        size={"small"}
+        checked={mineOppgaver === "true"}
+        onChange={(event) => handleChange(event.target.checked)}
+      >
+        Vis kun mine oppgaver
+      </Switch>
     </div>
   );
 }

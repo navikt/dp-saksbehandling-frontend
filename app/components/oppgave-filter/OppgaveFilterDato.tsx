@@ -1,12 +1,13 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { format } from "date-fns";
 import { nb } from "date-fns/locale";
-import { useSearchParams } from "react-router";
+
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 
 import styles from "./OppgaveFilterDato.module.css";
 
 export function OppgaveFilterDato() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, setSearchParams } = useToggleSearchParam();
   const tom = searchParams.get("tom");
   const fom = searchParams.get("fom");
   const tomDato = tom ? new Date(tom) : undefined;

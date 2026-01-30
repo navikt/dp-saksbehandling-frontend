@@ -1,6 +1,6 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const innvilgelseOrdinær: components["schemas"]["Oppgave"] = {
+export const ordinærInnvilgelse: components["schemas"]["Oppgave"] = {
   oppgaveId: "019a9714-a7e7-7387-ac8b-16136fcb6175",
   behandlingId: "019a9714-9968-731e-8918-779b5d1e8727",
   saksbehandler: {
@@ -87,7 +87,16 @@ export const innvilgelseOrdinær: components["schemas"]["Oppgave"] = {
       },
     },
   ],
-  emneknagger: ["Innvilgelse", "Ordinær"],
+  emneknagger: [
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+    {
+      visningsnavn: "Innvilgelse",
+      kategori: "SOKNADSRESULTAT",
+    },
+  ],
   tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
     paaVentAarsaker: [],

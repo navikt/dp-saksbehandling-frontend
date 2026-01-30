@@ -14,7 +14,7 @@ export function TidslinjeNavigering({
   antallUkerITidslinje,
   setAntallUkerITidslinje,
 }: TidslinjeNavigeringState) {
-  const { prøvingsdato } = useBehandling();
+  const { sistePrøvingsdato } = useBehandling();
 
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
@@ -29,7 +29,7 @@ export function TidslinjeNavigering({
   }
 
   function hoppTilPrøvingsdato() {
-    const nyStartDato = sub(prøvingsdato, { days: 1 });
+    const nyStartDato = sub(sistePrøvingsdato, { days: 1 });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
@@ -72,7 +72,7 @@ export function TidslinjeNavigering({
       </HStack>
 
       <ToggleGroup
-        variant="neutral"
+        data-color="neutral"
         size="small"
         value={antallUkerITidslinje}
         onChange={(value) => {

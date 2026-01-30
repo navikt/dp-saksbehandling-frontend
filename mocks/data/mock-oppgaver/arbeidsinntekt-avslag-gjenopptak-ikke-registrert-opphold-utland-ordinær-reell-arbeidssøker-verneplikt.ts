@@ -70,14 +70,38 @@ export const arbeidsinntektAvslagGjenopptakIkkeRegistrertOppholdUtlandOrdinærRe
       },
     ],
     emneknagger: [
-      "Arbeidsinntekt",
-      "Avslag",
-      "Gjenopptak",
-      "Ikke registrert",
-      "Opphold utland",
-      "Ordinær",
-      "Reell arbeidssøker",
-      "Verneplikt",
+      {
+        visningsnavn: "Arbeidsinntekt",
+        kategori: "AVSLAGSGRUNN",
+      },
+      {
+        visningsnavn: "Avslag",
+        kategori: "SOKNADSRESULTAT",
+      },
+      {
+        visningsnavn: "Gjenopptak",
+        kategori: "GJENOPPTAK",
+      },
+      {
+        visningsnavn: "Ikke registrert",
+        kategori: "AVSLAGSGRUNN",
+      },
+      {
+        visningsnavn: "Opphold utland",
+        kategori: "AVSLAGSGRUNN",
+      },
+      {
+        visningsnavn: "Ordinær",
+        kategori: "RETTIGHET",
+      },
+      {
+        visningsnavn: "Reell arbeidssøker",
+        kategori: "AVSLAGSGRUNN",
+      },
+      {
+        visningsnavn: "Verneplikt",
+        kategori: "RETTIGHET",
+      },
     ],
     tilstand: "UNDER_BEHANDLING",
     lovligeEndringer: {

@@ -1,20 +1,12 @@
 import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
-import { useSearchParams } from "react-router";
 
-const AVSLAGSGRUNNER = ["Minsteinntekt"];
+import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
+
+const AVSLAGSGRUNNER = ["Minsteinntekt", "Reell arbeidssøker"];
 
 export function OppgaveFilterAvslagsgrunner() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const emneknaggerParams = searchParams.getAll("emneknagg");
-
-  function updateSearchParams(key: string, value: string, checked: boolean) {
-    if (!checked) {
-      searchParams.delete(key, value);
-    } else {
-      searchParams.append(key, value);
-    }
-    setSearchParams(searchParams);
-  }
+  const { searchParams, toggleSearchParam } = useToggleSearchParam();
+  const emneknaggerParams = searchParams.getAll("AVSLAGSGRUNN");
 
   return (
     <div>
@@ -23,16 +15,10 @@ export function OppgaveFilterAvslagsgrunner() {
         {AVSLAGSGRUNNER.map((emneknagg) => (
           <Checkbox
             key={emneknagg}
-            name="emneknagg"
+            name="AVSLAGSGRUNN"
             value={emneknagg}
             defaultChecked={emneknaggerParams.includes(emneknagg)}
-            onChange={(event) =>
-              updateSearchParams(
-                "emneknagg",
-                event.currentTarget.value,
-                event.currentTarget.checked,
-              )
-            }
+            onChange={(event) => toggleSearchParam("AVSLAGSGRUNN", event.currentTarget.value)}
           >
             {emneknagg}
           </Checkbox>

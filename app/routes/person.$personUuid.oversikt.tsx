@@ -76,7 +76,7 @@ export default function PersonOversikt() {
             tittel={"Oppgave til behandling"}
             icon={<PencilWritingIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaverTilBehandling}
-            totaltAntallOppgaver={personOversikt.oppgaver.length}
+            totaltAntallOppgaver={oppgaverTilBehandling.length}
             sortState={{
               orderBy: "tidspunktOpprettet",
               direction: "descending",

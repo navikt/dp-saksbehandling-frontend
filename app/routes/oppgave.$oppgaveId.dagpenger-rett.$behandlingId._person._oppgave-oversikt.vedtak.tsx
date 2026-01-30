@@ -63,7 +63,10 @@ export default function Behandle() {
     useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-  const { prøvingsdato } = useBehandling();
+  const { sistePrøvingsdato } = useBehandling();
+
+  const sisteRettighetsperiode = behandling.rettighetsperioder.at(-1);
+  const sisteRettighetsperiodeIndex = behandling.rettighetsperioder.length - 1;
 
   return (
     <main>
@@ -83,18 +86,20 @@ export default function Behandle() {
           </div>
 
           <div className={"flex flex-1 flex-col gap-4"}>
-            {prøvingsdato && (
-              <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={prøvingsdato} />
+            {sistePrøvingsdato && (
+              <OpplysningerPåPrøvingsdato
+                behandling={behandling}
+                prøvingsdato={sistePrøvingsdato}
+              />
             )}
 
-            {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
+            {sisteRettighetsperiode && (
               <OpplysningerForRettighetsperiode
-                key={index}
-                index={index}
-                rettighetsperiode={rettighetsperiode}
+                index={sisteRettighetsperiodeIndex}
+                rettighetsperiode={sisteRettighetsperiode}
                 opplysninger={behandling.opplysninger}
               />
-            ))}
+            )}
 
             <div className={"card p-4"} key={location.key}>
               <Heading size={"small"} level={"2"} className={"mb-4"}>

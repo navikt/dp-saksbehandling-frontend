@@ -75,9 +75,9 @@ function opplysningsperiode(
   return {
     gyldigFraOgMed: fom,
     gyldigTilOgMed: tom,
+    opprinnelse: "Ny",
     id: "",
     opprettet: "",
-    status: "Ny",
     verdi: {
       verdi: "",
       datatype: "inntekt",
