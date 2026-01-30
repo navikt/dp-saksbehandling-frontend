@@ -2,6 +2,7 @@ import { Accordion, BodyShort, Heading } from "@navikt/ds-react";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { useOppgave } from "~/hooks/useOppgave";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi, skalViseOpplysning } from "~/utils/opplysning.utils";
 
 import { components } from "../../../openapi/behandling-typer";
@@ -38,8 +39,9 @@ function EndretOpplysninger({ vurderinger }: IProps) {
                       Periode
                     </BodyShort>
                     <BodyShort size={"small"}>
-                      {periode.gyldigFraOgMed ? periode.gyldigFraOgMed : "--"} –{" "}
-                      {periode.gyldigTilOgMed ? periode.gyldigTilOgMed : "--"}
+                      {periode.gyldigFraOgMed ? formaterTilNorskDato(periode.gyldigFraOgMed) : "--"}{" "}
+                      –{" "}
+                      {periode.gyldigTilOgMed ? formaterTilNorskDato(periode.gyldigTilOgMed) : "--"}
                     </BodyShort>
                   </div>
 
