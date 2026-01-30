@@ -71,7 +71,7 @@
     "remix-utils": "9.0.0",
     "tiny-invariant": "1.3.3",
     "tinyduration": "3.4.1",
-    "unleash-client": "6.9.0",
+    "unleash-client": "6.9.5",
     "use-debounce": "10.1.0",
     "usehooks-ts": "3.1.1",
     "uuid": "13.0.0",
@@ -112,7 +112,7 @@
     "tailwindcss": "4.1.18",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.53.0",
+    "typescript-eslint": "8.53.1",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.0.4",
     "vitest": "4.0.17"
