@@ -1612,6 +1612,76 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/statistikk": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Hent statistikk for oppgaver
+         * @description Henter statistikk for oppgaver.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /**
+                     * @description Filtrer på rettighetsknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
+                     * @example [
+                     *       "Ordinær",
+                     *       "Verneplikt"
+                     *     ]
+                     */
+                    rettighet?: string[];
+                    tilstand?: components["schemas"]["OppgaveTilstand"][];
+                    utlostAv?: components["schemas"]["UtlostAvType"][];
+                    fom?: string;
+                    tom?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Statistikk hentet */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["StatistikkV2"];
+                    };
+                };
+                /** @description Uautorisert tilgang */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/statistikk": {
         parameters: {
             query?: never;
@@ -1918,6 +1988,20 @@ export interface components {
              * @example 200
              */
             totalt: number;
+        };
+        StatistikkV2: {
+            grupper?: components["schemas"]["StatistikkV2Gruppe"][];
+            serier?: components["schemas"]["StatistikkV2Serie"][];
+        };
+        StatistikkV2Gruppe: {
+            navn?: string;
+            total?: number;
+            /** Format: date-time */
+            eldsteOppgave?: string;
+        };
+        StatistikkV2Serie: {
+            navn?: string;
+            verdier?: number[];
         };
         BeholdningsInfo: {
             /**

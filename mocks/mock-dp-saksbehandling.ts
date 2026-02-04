@@ -14,7 +14,7 @@ import {
 import { mockOppgaver } from "./data/mock-oppgaver/mock-oppgaver";
 import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
-import { mockStatistikk } from "./data/mock-statistikk";
+import { mockStatistikk, mockStatistikkV2 } from "./data/mock-statistikk";
 
 const apiError = false;
 const delayMs = 0;
@@ -407,5 +407,15 @@ export const mockDpSaksbehandling = [
     }
 
     return response(204).empty();
+  }),
+
+  http.get(`/v2/statistikk`, async ({ response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockStatistikkV2);
   }),
 ];

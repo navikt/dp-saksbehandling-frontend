@@ -386,3 +386,28 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
     return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
   }
 }
+
+export async function hentStatistikk(request: Request, urlSearchParams: URLSearchParams) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const queryParams =
+    parseSearchParamsToOpenApiQuery<paths["/v2/statistikk"]["get"]["parameters"]["query"]>(
+      urlSearchParams,
+    );
+
+  const { data, error, response } = await saksbehandlerClient.GET("/v2/statistikk", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      query: queryParams,
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentStatistikk(). ${response.status} - ${response.statusText}`);
+}
