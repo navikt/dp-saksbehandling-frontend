@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ActionFunctionArgs, useFetcher, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { useBehandling } from "~/hooks/useBehandling";
 import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -55,7 +56,8 @@ export default function Diff() {
 
   return (
     <main className="card p-4">
-      <VStack gap="space-6">
+      <LinkTabs className="flex-1" />
+      <VStack gap="space-8" className={"card mt-4 p-4"}>
         <Heading size="medium">Sammenlign behandlinger</Heading>
 
         <HStack gap="space-4" align="end">
