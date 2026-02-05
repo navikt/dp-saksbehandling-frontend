@@ -181,12 +181,23 @@ function OpplysningVisning({ opplysning }: OpplysningVisningProps) {
   );
 }
 
+interface PeriodeEndring {
+  periodeId?: string;
+  type: "lagt-til" | "fjernet" | "endret";
+  felt?: "fraOgMed" | "tilOgMed" | "verdi";
+  gammelVerdi?: string;
+  nyVerdi?: string;
+  // For nye/fjernede perioder
+  verdi?: string;
+  fraOgMed?: string;
+  tilOgMed?: string;
+}
+
 interface OpplysningForskjell {
   opplysningTypeId: string;
   navn: string;
   type: "lagt-til" | "fjernet" | "endret" | "uendret";
-  venstreVerdi?: string;
-  høyreVerdi?: string;
+  periodeEndringer: PeriodeEndring[];
 }
 
 function DiffPanel({ forskjeller }: { forskjeller: OpplysningForskjell[] }) {
@@ -239,33 +250,84 @@ function DiffLinje({ forskjell }: { forskjell: OpplysningForskjell }) {
     }
   };
 
+  const hentFeltNavn = (felt?: string) => {
+    switch (felt) {
+      case "fraOgMed":
+        return "Fra og med";
+      case "tilOgMed":
+        return "Til og med";
+      case "verdi":
+        return "Verdi";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className={`rounded border-l-4 p-3 ${hentBakgrunnsfarge()}`}>
       <HStack justify="space-between" align="start">
-        <VStack gap="space-1">
+        <VStack gap="space-2">
           <BodyShort size="small" weight="semibold">
             {forskjell.navn}
           </BodyShort>
-          {forskjell.type === "endret" && (
-            <>
-              <BodyShort size="small" className="text-(--ax-text-danger-decoration) line-through">
-                {forskjell.venstreVerdi || "(tom)"}
-              </BodyShort>
-              <BodyShort size="small" className="text-(--ax-text-success-decoration)">
-                {forskjell.høyreVerdi || "(tom)"}
-              </BodyShort>
-            </>
-          )}
-          {forskjell.type === "lagt-til" && (
-            <BodyShort size="small" className="text-(--ax-text-success-decoration)">
-              {forskjell.høyreVerdi || "(tom)"}
-            </BodyShort>
-          )}
-          {forskjell.type === "fjernet" && (
-            <BodyShort size="small" className="text-(--ax-text-danger)">
-              {forskjell.venstreVerdi || "(tom)"}
-            </BodyShort>
-          )}
+
+          {forskjell.periodeEndringer.map((endring, index) => (
+            <div key={index} className="ml-2 rounded bg-(--ax-bg-default) p-2">
+              {endring.type === "lagt-til" && (
+                <VStack gap="space-1">
+                  <BodyShort size="small" className="text-(--ax-text-success-decoration)">
+                    + Ny periode
+                  </BodyShort>
+                  {endring.verdi && <BodyShort size="small">Verdi: {endring.verdi}</BodyShort>}
+                  {endring.fraOgMed && (
+                    <BodyShort size="small">Fra og med: {endring.fraOgMed}</BodyShort>
+                  )}
+                  {endring.tilOgMed && (
+                    <BodyShort size="small">Til og med: {endring.tilOgMed}</BodyShort>
+                  )}
+                </VStack>
+              )}
+              {endring.type === "fjernet" && (
+                <VStack gap="space-1">
+                  <BodyShort size="small" className="text-(--ax-text-danger)">
+                    - Fjernet periode
+                  </BodyShort>
+                  {endring.verdi && (
+                    <BodyShort size="small" className="line-through">
+                      Verdi: {endring.verdi}
+                    </BodyShort>
+                  )}
+                  {endring.fraOgMed && (
+                    <BodyShort size="small" className="line-through">
+                      Fra og med: {endring.fraOgMed}
+                    </BodyShort>
+                  )}
+                  {endring.tilOgMed && (
+                    <BodyShort size="small" className="line-through">
+                      Til og med: {endring.tilOgMed}
+                    </BodyShort>
+                  )}
+                </VStack>
+              )}
+              {endring.type === "endret" && endring.felt && (
+                <HStack gap="space-2" align="center">
+                  <BodyShort size="small" weight="semibold">
+                    {hentFeltNavn(endring.felt)}:
+                  </BodyShort>
+                  <BodyShort
+                    size="small"
+                    className="text-(--ax-text-danger-decoration) line-through"
+                  >
+                    {endring.gammelVerdi || "(tom)"}
+                  </BodyShort>
+                  <BodyShort size="small">→</BodyShort>
+                  <BodyShort size="small" className="text-(--ax-text-success-decoration)">
+                    {endring.nyVerdi || "(tom)"}
+                  </BodyShort>
+                </HStack>
+              )}
+            </div>
+          ))}
         </VStack>
         <BodyShort size="small" className="font-mono text-xs">
           {hentEtikett()}
@@ -288,31 +350,41 @@ function sammenlignOpplysninger(
     const høyreOpplysning = høyreMap.get(id);
 
     if (!høyreOpplysning) {
+      // Hele opplysningen er fjernet
+      const periodeEndringer: PeriodeEndring[] = venstreOpplysning.perioder.map((periode) => ({
+        periodeId: periode.id,
+        type: "fjernet" as const,
+        verdi: formaterOpplysningVerdi(periode.verdi),
+        fraOgMed: periode.gyldigFraOgMed,
+        tilOgMed: periode.gyldigTilOgMed,
+      }));
+
       forskjeller.push({
         opplysningTypeId: id,
         navn: venstreOpplysning.navn,
         type: "fjernet",
-        venstreVerdi: hentSammenslåttVerdi(venstreOpplysning),
+        periodeEndringer,
       });
     } else {
-      const venstreVerdi = hentSammenslåttVerdi(venstreOpplysning);
-      const høyreVerdi = hentSammenslåttVerdi(høyreOpplysning);
+      // Sammenlign perioder
+      const periodeEndringer = sammenlignPerioder(
+        venstreOpplysning.perioder,
+        høyreOpplysning.perioder,
+      );
 
-      if (venstreVerdi !== høyreVerdi) {
+      if (periodeEndringer.length > 0) {
         forskjeller.push({
           opplysningTypeId: id,
           navn: venstreOpplysning.navn,
           type: "endret",
-          venstreVerdi,
-          høyreVerdi,
+          periodeEndringer,
         });
       } else {
         forskjeller.push({
           opplysningTypeId: id,
           navn: venstreOpplysning.navn,
           type: "uendret",
-          venstreVerdi,
-          høyreVerdi,
+          periodeEndringer: [],
         });
       }
     }
@@ -321,11 +393,19 @@ function sammenlignOpplysninger(
   // Finn opplysninger som kun finnes i høyre
   for (const [id, høyreOpplysning] of høyreMap) {
     if (!venstreMap.has(id)) {
+      const periodeEndringer: PeriodeEndring[] = høyreOpplysning.perioder.map((periode) => ({
+        periodeId: periode.id,
+        type: "lagt-til" as const,
+        verdi: formaterOpplysningVerdi(periode.verdi),
+        fraOgMed: periode.gyldigFraOgMed,
+        tilOgMed: periode.gyldigTilOgMed,
+      }));
+
       forskjeller.push({
         opplysningTypeId: id,
         navn: høyreOpplysning.navn,
         type: "lagt-til",
-        høyreVerdi: hentSammenslåttVerdi(høyreOpplysning),
+        periodeEndringer,
       });
     }
   }
@@ -333,18 +413,72 @@ function sammenlignOpplysninger(
   return forskjeller;
 }
 
-function hentSammenslåttVerdi(
-  opplysning: components["schemas"]["RedigerbareOpplysninger"],
-): string {
-  return opplysning.perioder
-    .map((periode) => {
-      const verdi = formaterOpplysningVerdi(periode.verdi);
-      const fra = periode.gyldigFraOgMed ? `fra ${periode.gyldigFraOgMed}` : "";
-      const til = periode.gyldigTilOgMed ? `til ${periode.gyldigTilOgMed}` : "";
-      const periodeStr = [fra, til].filter(Boolean).join(" ");
-      return periodeStr ? `${verdi} (${periodeStr})` : verdi;
-    })
-    .join(", ");
+function sammenlignPerioder(
+  venstrePerioder: components["schemas"]["Opplysningsperiode"][],
+  høyrePerioder: components["schemas"]["Opplysningsperiode"][],
+): PeriodeEndring[] {
+  const endringer: PeriodeEndring[] = [];
+  const maxLength = Math.max(venstrePerioder.length, høyrePerioder.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    const venstrePeriode = venstrePerioder[i];
+    const høyrePeriode = høyrePerioder[i];
+
+    if (!venstrePeriode && høyrePeriode) {
+      // Ny periode lagt til (flere perioder i høyre enn venstre)
+      endringer.push({
+        periodeId: høyrePeriode.id,
+        type: "lagt-til",
+        verdi: formaterOpplysningVerdi(høyrePeriode.verdi),
+        fraOgMed: høyrePeriode.gyldigFraOgMed,
+        tilOgMed: høyrePeriode.gyldigTilOgMed,
+      });
+    } else if (venstrePeriode && !høyrePeriode) {
+      // Periode fjernet (flere perioder i venstre enn høyre)
+      endringer.push({
+        periodeId: venstrePeriode.id,
+        type: "fjernet",
+        verdi: formaterOpplysningVerdi(venstrePeriode.verdi),
+        fraOgMed: venstrePeriode.gyldigFraOgMed,
+        tilOgMed: venstrePeriode.gyldigTilOgMed,
+      });
+    } else if (venstrePeriode && høyrePeriode) {
+      // Sammenlign feltene i eksisterende periode
+      if (venstrePeriode.gyldigFraOgMed !== høyrePeriode.gyldigFraOgMed) {
+        endringer.push({
+          periodeId: høyrePeriode.id,
+          type: "endret",
+          felt: "fraOgMed",
+          gammelVerdi: venstrePeriode.gyldigFraOgMed,
+          nyVerdi: høyrePeriode.gyldigFraOgMed,
+        });
+      }
+
+      if (venstrePeriode.gyldigTilOgMed !== høyrePeriode.gyldigTilOgMed) {
+        endringer.push({
+          periodeId: høyrePeriode.id,
+          type: "endret",
+          felt: "tilOgMed",
+          gammelVerdi: venstrePeriode.gyldigTilOgMed,
+          nyVerdi: høyrePeriode.gyldigTilOgMed,
+        });
+      }
+
+      const venstreVerdi = formaterOpplysningVerdi(venstrePeriode.verdi);
+      const høyreVerdi = formaterOpplysningVerdi(høyrePeriode.verdi);
+      if (venstreVerdi !== høyreVerdi) {
+        endringer.push({
+          periodeId: høyrePeriode.id,
+          type: "endret",
+          felt: "verdi",
+          gammelVerdi: venstreVerdi,
+          nyVerdi: høyreVerdi,
+        });
+      }
+    }
+  }
+
+  return endringer;
 }
 
 export function ErrorBoundary() {
