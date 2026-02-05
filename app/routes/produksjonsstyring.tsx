@@ -71,10 +71,10 @@ export default function Produksjonsstyring() {
 
   function toggleTab(tab: string) {
     if (tab === "søknader") {
-      searchParams.set("oppgavetype", "søknad");
+      searchParams.set("grupperEtter", "RETTIGHETSTYPE");
       setSearchParams(searchParams);
     } else {
-      searchParams.delete("oppgavetype");
+      searchParams.delete("grupperEtter");
       setSearchParams(searchParams);
     }
   }
