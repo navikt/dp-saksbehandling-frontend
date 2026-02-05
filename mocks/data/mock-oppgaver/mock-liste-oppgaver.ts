@@ -9,7 +9,7 @@ import { ordinær } from "./ordinær";
 import { ordinærAvslagReellArbeidssøker } from "./ordinær-avslag-reell-arbeidssøker";
 import { ordinærInnvilgelse } from "./ordinær-innvilgelse";
 import { ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt } from "./ordinær-verneplikt-avslag-ikke-registrert-minsteinntekt";
-
+import { vernepliktOrdinærInnvilgelseGjenopptak } from "./verneplikt-ordinær-innvilgelse-gjenopptak";
 export function konverterOppgaveTilListeOppgave(
   oppgave: components["schemas"]["Oppgave"],
 ): components["schemas"]["OppgaveOversikt"] {
@@ -48,4 +48,5 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(ordinærInnvilgelse),
   konverterOppgaveTilListeOppgave(ordinærAvslagReellArbeidssøker),
   konverterOppgaveTilListeOppgave(ordinærVernepliktAvslagIkkeRegistrertMinsteinntekt),
+  konverterOppgaveTilListeOppgave(vernepliktOrdinærInnvilgelseGjenopptak),
 ];
