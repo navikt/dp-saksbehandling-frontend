@@ -1638,6 +1638,7 @@ export interface paths {
                     utlostAv?: components["schemas"]["UtlostAvType"][];
                     fom?: string;
                     tom?: string;
+                    grupperEtter?: components["schemas"]["GrupperEtter"];
                 };
                 header?: never;
                 path?: never;
@@ -1852,6 +1853,8 @@ export interface components {
             meldingOmVedtakKilde: components["schemas"]["MeldingOmVedtakKilde"];
             kontrollertBrev: components["schemas"]["KontrollertBrev"];
         };
+        /** @enum {string} */
+        GrupperEtter: "RETTIGHETSTYPE" | "OPPGAVETYPE";
         /** @enum {string} */
         Kjonn: "MANN" | "KVINNE" | "UKJENT";
         KontrollertBrevRequest: {

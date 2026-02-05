@@ -83,6 +83,8 @@ export default function Produksjonsstyring() {
     return <div>Ingen statistikk tilgjengelig</div>;
   }
 
+  console.log(statistikk);
+
   return (
     <main className={"m-4 flex flex-col gap-2"}>
       <div className={"card p-4"}>
@@ -97,13 +99,13 @@ export default function Produksjonsstyring() {
           </Tabs.List>
           <Tabs.Panel value="alle" className={"flex flex-col gap-4 py-4"}>
             <PeriodeVelger />
-            <OppgaveStatusVelger />
-            <OppgaveTypeVelger />
+            <OppgaveStatusVelger grupper={statistikk.grupper} />
+            <OppgaveTypeVelger serier={statistikk.serier} />
           </Tabs.Panel>
           <Tabs.Panel value="søknader" className={"flex flex-col gap-4 py-4"}>
             <PeriodeVelger />
-            <OppgaveStatusVelger />
-            <OppgaveRettighetVelger />
+            <OppgaveStatusVelger grupper={statistikk.grupper} />
+            <OppgaveRettighetVelger serier={statistikk.serier} />
           </Tabs.Panel>
         </Tabs>
       </div>

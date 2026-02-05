@@ -1,9 +1,15 @@
 import { BodyShort, Button, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-import { FilterKnapp, IEmneknagg } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
+import { FilterKnapp } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
 
-export function OppgaveStatusVelger() {
+import { components } from "../../../../openapi/saksbehandling-typer";
+
+interface IProps {
+  grupper: components["schemas"]["StatistikkV2Gruppe"][];
+}
+
+export function OppgaveStatusVelger({ grupper }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
@@ -20,49 +26,18 @@ export function OppgaveStatusVelger() {
         >
           <Detail>Alle statuser</Detail>
           <BodyShort weight={"semibold"} className={"mt-2"}>
-            16
+            {grupper.reduce((acc, gruppe) => acc + gruppe.total, 0)}
           </BodyShort>
         </Button>
 
-        {statusEmneknagger.map((emneknagg) => (
+        {grupper.map((gruppe) => (
           <FilterKnapp
-            key={emneknagg.navn}
-            emneknagg={emneknagg}
-            antallOppgaver={Math.floor(Math.random() * 401)}
+            key={gruppe.navn}
+            emneknagg={{ navn: gruppe.navn, kategori: "tilstand" }}
+            antallOppgaver={gruppe.total}
           />
         ))}
       </div>
     </div>
   );
 }
-
-const statusEmneknagger: IEmneknagg[] = [
-  {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_BEHANDLING",
-  },
-  {
-    kategori: "tilstand",
-    navn: "UNDER_BEHANDLING",
-  },
-  {
-    kategori: "tilstand",
-    navn: "KLAR_TIL_KONTROLL",
-  },
-  {
-    kategori: "tilstand",
-    navn: "UNDER_KONTROLL",
-  },
-  {
-    kategori: "tilstand",
-    navn: "FERDIG_BEHANDLET",
-  },
-  {
-    kategori: "tilstand",
-    navn: "PAA_VENT",
-  },
-  {
-    kategori: "tilstand",
-    navn: "AVBRUTT",
-  },
-];
