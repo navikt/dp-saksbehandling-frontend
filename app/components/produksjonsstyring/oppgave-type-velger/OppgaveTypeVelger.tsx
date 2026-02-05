@@ -1,9 +1,15 @@
 import { BodyShort, Button, Detail } from "@navikt/ds-react";
 import { useSearchParams } from "react-router";
 
-import { FilterKnapp, IEmneknagg } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
+import { FilterKnapp } from "~/components/produksjonsstyring/filter-knapp/FilterKnapp";
 
-export function OppgaveTypeVelger() {
+import { components } from "../../../../openapi/saksbehandling-typer";
+
+interface IProps {
+  serier: components["schemas"]["StatistikkV2Serie"][];
+}
+
+export function OppgaveTypeVelger({ serier }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
@@ -20,41 +26,21 @@ export function OppgaveTypeVelger() {
         >
           <Detail>Alle oppgavetyper</Detail>
           <BodyShort weight={"semibold"} className={"mt-2"}>
-            16
+            {serier.reduce(
+              (acc, serie) => acc + serie.verdier.reduce((sum, verdi) => sum + verdi, 0),
+              0,
+            )}
           </BodyShort>
         </Button>
 
-        {RettighetEmneknagger.map((emneknagg) => (
+        {serier.map((serie) => (
           <FilterKnapp
-            key={emneknagg.navn}
-            emneknagg={emneknagg}
-            antallOppgaver={Math.floor(Math.random() * 401)}
+            key={serie.navn}
+            emneknagg={{ navn: serie.navn, kategori: "oppgavetype" }}
+            antallOppgaver={serie.verdier.reduce((acc, verdi) => acc + verdi, 0)}
           />
         ))}
       </div>
     </div>
   );
 }
-
-const RettighetEmneknagger: IEmneknagg[] = [
-  {
-    kategori: "oppgavetype",
-    navn: "Søknader",
-  },
-  {
-    kategori: "oppgavetype",
-    navn: "Klager",
-  },
-  {
-    kategori: "oppgavetype",
-    navn: "Innsendinger",
-  },
-  {
-    kategori: "oppgavetype",
-    navn: "Meldekort",
-  },
-  {
-    kategori: "oppgavetype",
-    navn: "Manuelle",
-  },
-];

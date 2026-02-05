@@ -71,10 +71,10 @@ export default function Produksjonsstyring() {
 
   function toggleTab(tab: string) {
     if (tab === "søknader") {
-      searchParams.set("oppgavetype", "søknad");
+      searchParams.set("grupperEtter", "RETTIGHETSTYPE");
       setSearchParams(searchParams);
     } else {
-      searchParams.delete("oppgavetype");
+      searchParams.delete("grupperEtter");
       setSearchParams(searchParams);
     }
   }
@@ -82,6 +82,8 @@ export default function Produksjonsstyring() {
   if (!statistikk.grupper || !statistikk.serier) {
     return <div>Ingen statistikk tilgjengelig</div>;
   }
+
+  console.log(statistikk);
 
   return (
     <main className={"m-4 flex flex-col gap-2"}>
@@ -97,13 +99,13 @@ export default function Produksjonsstyring() {
           </Tabs.List>
           <Tabs.Panel value="alle" className={"flex flex-col gap-4 py-4"}>
             <PeriodeVelger />
-            <OppgaveStatusVelger />
-            <OppgaveTypeVelger />
+            <OppgaveStatusVelger grupper={statistikk.grupper} />
+            <OppgaveTypeVelger serier={statistikk.serier} />
           </Tabs.Panel>
           <Tabs.Panel value="søknader" className={"flex flex-col gap-4 py-4"}>
             <PeriodeVelger />
-            <OppgaveStatusVelger />
-            <OppgaveRettighetVelger />
+            <OppgaveStatusVelger grupper={statistikk.grupper} />
+            <OppgaveRettighetVelger serier={statistikk.serier} />
           </Tabs.Panel>
         </Tabs>
       </div>

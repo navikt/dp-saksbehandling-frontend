@@ -1638,6 +1638,7 @@ export interface paths {
                     utlostAv?: components["schemas"]["UtlostAvType"][];
                     fom?: string;
                     tom?: string;
+                    grupperEtter?: components["schemas"]["GrupperEtter"];
                 };
                 header?: never;
                 path?: never;
@@ -1853,6 +1854,8 @@ export interface components {
             kontrollertBrev: components["schemas"]["KontrollertBrev"];
         };
         /** @enum {string} */
+        GrupperEtter: "RETTIGHETSTYPE" | "OPPGAVETYPE";
+        /** @enum {string} */
         Kjonn: "MANN" | "KVINNE" | "UKJENT";
         KontrollertBrevRequest: {
             kontrollert: components["schemas"]["KontrollertBrev"];
@@ -1990,18 +1993,18 @@ export interface components {
             totalt: number;
         };
         StatistikkV2: {
-            grupper?: components["schemas"]["StatistikkV2Gruppe"][];
-            serier?: components["schemas"]["StatistikkV2Serie"][];
+            grupper: components["schemas"]["StatistikkV2Gruppe"][];
+            serier: components["schemas"]["StatistikkV2Serie"][];
         };
         StatistikkV2Gruppe: {
-            navn?: string;
-            total?: number;
+            navn: string;
+            total: number;
             /** Format: date-time */
-            eldsteOppgave?: string;
+            eldsteOppgave: string;
         };
         StatistikkV2Serie: {
-            navn?: string;
-            verdier?: number[];
+            navn: string;
+            verdier: number[];
         };
         BeholdningsInfo: {
             /**
