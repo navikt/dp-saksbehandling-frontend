@@ -1,6 +1,7 @@
 import {
   ArrowRightIcon,
   ArrowsSquarepathIcon,
+  CalendarIcon,
   CheckmarkIcon,
   ChevronDownIcon,
   ChevronRightIcon,
@@ -59,6 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     if (!behandlingId) {
       return { error: "Behandling ID er påkrevd" };
     }
+    console.log(`Henter behandling for diff: ${behandlingId}`);
 
     try {
       const behandling = await hentBehandling(request, behandlingId);
@@ -79,13 +81,19 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 interface PeriodeEndring {
   periodeId?: string;
-  type: "lagt-til" | "fjernet" | "endret";
-  felt?: "fraOgMed" | "tilOgMed" | "verdi";
-  gammelVerdi?: string;
-  nyVerdi?: string;
+  type: "lagt-til" | "fjernet" | "endret-verdi" | "endret-datoer";
+  // For added/removed periods - show the full period info
   verdi?: string;
   fraOgMed?: string;
   tilOgMed?: string;
+  // For changed values
+  gammelVerdi?: string;
+  nyVerdi?: string;
+  // For changed dates
+  gammelFraOgMed?: string;
+  nyFraOgMed?: string;
+  gammelTilOgMed?: string;
+  nyTilOgMed?: string;
 }
 
 interface OpplysningForskjell {
@@ -95,6 +103,11 @@ interface OpplysningForskjell {
   periodeEndringer: PeriodeEndring[];
   gammelOpplysning?: Opplysning;
   nyOpplysning?: Opplysning;
+  // Summary of changes for easy display
+  harNyePerioder: boolean;
+  harFjernedePerioder: boolean;
+  harEndredeVerdier: boolean;
+  harEndredeDatoer: boolean;
 }
 
 // ============================================================================
@@ -124,12 +137,21 @@ function sammenlignOpplysninger(venstre: Opplysning[], høyre: Opplysning[]): Op
         type: "fjernet",
         periodeEndringer,
         gammelOpplysning: venstreOpplysning,
+        harNyePerioder: false,
+        harFjernedePerioder: true,
+        harEndredeVerdier: false,
+        harEndredeDatoer: false,
       });
     } else {
       const periodeEndringer = sammenlignPerioder(
         venstreOpplysning.perioder,
         høyreOpplysning.perioder,
       );
+
+      const harNyePerioder = periodeEndringer.some((e) => e.type === "lagt-til");
+      const harFjernedePerioder = periodeEndringer.some((e) => e.type === "fjernet");
+      const harEndredeVerdier = periodeEndringer.some((e) => e.type === "endret-verdi");
+      const harEndredeDatoer = periodeEndringer.some((e) => e.type === "endret-datoer");
 
       forskjeller.push({
         opplysningTypeId: id,
@@ -138,6 +160,10 @@ function sammenlignOpplysninger(venstre: Opplysning[], høyre: Opplysning[]): Op
         periodeEndringer,
         gammelOpplysning: venstreOpplysning,
         nyOpplysning: høyreOpplysning,
+        harNyePerioder,
+        harFjernedePerioder,
+        harEndredeVerdier,
+        harEndredeDatoer,
       });
     }
   }
@@ -158,6 +184,10 @@ function sammenlignOpplysninger(venstre: Opplysning[], høyre: Opplysning[]): Op
         type: "lagt-til",
         periodeEndringer,
         nyOpplysning: høyreOpplysning,
+        harNyePerioder: true,
+        harFjernedePerioder: false,
+        harEndredeVerdier: false,
+        harEndredeDatoer: false,
       });
     }
   }
@@ -171,66 +201,219 @@ function sammenlignPerioder(
 ): PeriodeEndring[] {
   const endringer: PeriodeEndring[] = [];
 
-  // Simple approach: compare by index
-  const maxLength = Math.max(venstrePerioder.length, høyrePerioder.length);
+  // Use IDs for tracking matched periods (more reliable than Set with objects)
+  const matchedVenstreIds = new Set<string>();
+  const matchedHøyreIds = new Set<string>();
 
-  for (let i = 0; i < maxLength; i++) {
-    const venstrePeriode = venstrePerioder[i];
-    const høyrePeriode = høyrePerioder[i];
+  // Helper to create a value fingerprint for comparison
+  const getVerdiFingeravtrykk = (p: Periode) => JSON.stringify(p.verdi);
 
-    if (!venstrePeriode && høyrePeriode) {
-      // New period added
+  // Helper to create a date fingerprint for comparison
+  const getDatoFingeravtrykk = (p: Periode) =>
+    `${p.gyldigFraOgMed || ""}|${p.gyldigTilOgMed || ""}`;
+
+  // Create map for quick lookup by ID
+  const høyreById = new Map(høyrePerioder.map((p) => [p.id, p]));
+
+  // STRATEGY 0: Match periods by SAME ID first (most reliable)
+  // This catches cases where the same period exists in both but has changed
+  for (const vp of venstrePerioder) {
+    const hp = høyreById.get(vp.id);
+    if (hp) {
+      // Same period ID exists in both - check for changes
+      matchedVenstreIds.add(vp.id);
+      matchedHøyreIds.add(hp.id);
+
+      const verdiEndret = getVerdiFingeravtrykk(vp) !== getVerdiFingeravtrykk(hp);
+      const datoEndret = getDatoFingeravtrykk(vp) !== getDatoFingeravtrykk(hp);
+
+      if (verdiEndret) {
+        endringer.push({
+          periodeId: hp.id,
+          type: "endret-verdi",
+          gammelVerdi: formaterOpplysningVerdi(vp.verdi),
+          nyVerdi: formaterOpplysningVerdi(hp.verdi),
+          fraOgMed: hp.gyldigFraOgMed,
+          tilOgMed: hp.gyldigTilOgMed,
+        });
+      }
+
+      if (datoEndret) {
+        endringer.push({
+          periodeId: hp.id,
+          type: "endret-datoer",
+          verdi: formaterOpplysningVerdi(hp.verdi),
+          gammelFraOgMed: vp.gyldigFraOgMed,
+          nyFraOgMed: hp.gyldigFraOgMed,
+          gammelTilOgMed: vp.gyldigTilOgMed,
+          nyTilOgMed: hp.gyldigTilOgMed,
+        });
+      }
+      // If neither changed, it's an exact match (no change to report)
+    }
+  }
+
+  // Strategy 1: Find exact matches (same value AND same dates) for remaining unmatched
+  for (const vp of venstrePerioder) {
+    if (matchedVenstreIds.has(vp.id)) continue;
+
+    const vpVerdi = getVerdiFingeravtrykk(vp);
+    const vpDato = getDatoFingeravtrykk(vp);
+
+    for (const hp of høyrePerioder) {
+      if (matchedHøyreIds.has(hp.id)) continue;
+
+      const hpVerdi = getVerdiFingeravtrykk(hp);
+      const hpDato = getDatoFingeravtrykk(hp);
+
+      if (vpVerdi === hpVerdi && vpDato === hpDato) {
+        // Perfect match - no changes to report
+        matchedVenstreIds.add(vp.id);
+        matchedHøyreIds.add(hp.id);
+        break;
+      }
+    }
+  }
+
+  // Strategy 2: Find periods with same value but different dates (date changed)
+  for (const vp of venstrePerioder) {
+    if (matchedVenstreIds.has(vp.id)) continue;
+
+    const vpVerdi = getVerdiFingeravtrykk(vp);
+
+    for (const hp of høyrePerioder) {
+      if (matchedHøyreIds.has(hp.id)) continue;
+
+      const hpVerdi = getVerdiFingeravtrykk(hp);
+
+      if (vpVerdi === hpVerdi) {
+        // Same value, dates must be different (otherwise would be exact match)
+        matchedVenstreIds.add(vp.id);
+        matchedHøyreIds.add(hp.id);
+
+        endringer.push({
+          periodeId: hp.id,
+          type: "endret-datoer",
+          verdi: formaterOpplysningVerdi(vp.verdi),
+          gammelFraOgMed: vp.gyldigFraOgMed,
+          nyFraOgMed: hp.gyldigFraOgMed,
+          gammelTilOgMed: vp.gyldigTilOgMed,
+          nyTilOgMed: hp.gyldigTilOgMed,
+        });
+        break;
+      }
+    }
+  }
+
+  // Strategy 3: Find periods with same dates but different value (value changed)
+  for (const vp of venstrePerioder) {
+    if (matchedVenstreIds.has(vp.id)) continue;
+
+    const vpDato = getDatoFingeravtrykk(vp);
+
+    for (const hp of høyrePerioder) {
+      if (matchedHøyreIds.has(hp.id)) continue;
+
+      const hpDato = getDatoFingeravtrykk(hp);
+
+      if (vpDato === hpDato) {
+        // Same dates, value must be different
+        matchedVenstreIds.add(vp.id);
+        matchedHøyreIds.add(hp.id);
+
+        endringer.push({
+          periodeId: hp.id,
+          type: "endret-verdi",
+          gammelVerdi: formaterOpplysningVerdi(vp.verdi),
+          nyVerdi: formaterOpplysningVerdi(hp.verdi),
+          fraOgMed: hp.gyldigFraOgMed,
+          tilOgMed: hp.gyldigTilOgMed,
+        });
+        break;
+      }
+    }
+  }
+
+  // Strategy 4: Try to match remaining by overlapping date ranges
+  // (periods that changed both value and dates)
+  for (const vp of venstrePerioder) {
+    if (matchedVenstreIds.has(vp.id)) continue;
+
+    // Try to find an overlapping period in høyre
+    let bestMatch: Periode | null = null;
+
+    for (const hp of høyrePerioder) {
+      if (matchedHøyreIds.has(hp.id)) continue;
+
+      // Check if date ranges overlap
+      const vpStart = vp.gyldigFraOgMed || "0000-01-01";
+      const vpEnd = vp.gyldigTilOgMed || "9999-12-31";
+      const hpStart = hp.gyldigFraOgMed || "0000-01-01";
+      const hpEnd = hp.gyldigTilOgMed || "9999-12-31";
+
+      const overlaps = vpStart <= hpEnd && hpStart <= vpEnd;
+
+      if (overlaps) {
+        bestMatch = hp;
+        break;
+      }
+    }
+
+    if (bestMatch) {
+      matchedVenstreIds.add(vp.id);
+      matchedHøyreIds.add(bestMatch.id);
+
+      const verdiEndret = getVerdiFingeravtrykk(vp) !== getVerdiFingeravtrykk(bestMatch);
+      const datoEndret = getDatoFingeravtrykk(vp) !== getDatoFingeravtrykk(bestMatch);
+
+      if (verdiEndret) {
+        endringer.push({
+          periodeId: bestMatch.id,
+          type: "endret-verdi",
+          gammelVerdi: formaterOpplysningVerdi(vp.verdi),
+          nyVerdi: formaterOpplysningVerdi(bestMatch.verdi),
+          fraOgMed: bestMatch.gyldigFraOgMed,
+          tilOgMed: bestMatch.gyldigTilOgMed,
+        });
+      }
+
+      if (datoEndret) {
+        endringer.push({
+          periodeId: bestMatch.id,
+          type: "endret-datoer",
+          verdi: formaterOpplysningVerdi(bestMatch.verdi),
+          gammelFraOgMed: vp.gyldigFraOgMed,
+          nyFraOgMed: bestMatch.gyldigFraOgMed,
+          gammelTilOgMed: vp.gyldigTilOgMed,
+          nyTilOgMed: bestMatch.gyldigTilOgMed,
+        });
+      }
+    }
+  }
+
+  // Strategy 5: Any remaining unmatched in venstre are removed
+  for (const vp of venstrePerioder) {
+    if (!matchedVenstreIds.has(vp.id)) {
       endringer.push({
-        periodeId: høyrePeriode.id,
-        type: "lagt-til",
-        verdi: formaterOpplysningVerdi(høyrePeriode.verdi),
-        fraOgMed: høyrePeriode.gyldigFraOgMed,
-        tilOgMed: høyrePeriode.gyldigTilOgMed,
-      });
-    } else if (venstrePeriode && !høyrePeriode) {
-      // Period removed
-      endringer.push({
-        periodeId: venstrePeriode.id,
+        periodeId: vp.id,
         type: "fjernet",
-        verdi: formaterOpplysningVerdi(venstrePeriode.verdi),
-        fraOgMed: venstrePeriode.gyldigFraOgMed,
-        tilOgMed: venstrePeriode.gyldigTilOgMed,
+        verdi: formaterOpplysningVerdi(vp.verdi),
+        fraOgMed: vp.gyldigFraOgMed,
+        tilOgMed: vp.gyldigTilOgMed,
       });
-    } else if (venstrePeriode && høyrePeriode) {
-      // Compare all fields
-      if (venstrePeriode.gyldigFraOgMed !== høyrePeriode.gyldigFraOgMed) {
-        endringer.push({
-          periodeId: høyrePeriode.id,
-          type: "endret",
-          felt: "fraOgMed",
-          gammelVerdi: venstrePeriode.gyldigFraOgMed || "(ingen)",
-          nyVerdi: høyrePeriode.gyldigFraOgMed || "(ingen)",
-        });
-      }
+    }
+  }
 
-      if (venstrePeriode.gyldigTilOgMed !== høyrePeriode.gyldigTilOgMed) {
-        endringer.push({
-          periodeId: høyrePeriode.id,
-          type: "endret",
-          felt: "tilOgMed",
-          gammelVerdi: venstrePeriode.gyldigTilOgMed || "(ingen)",
-          nyVerdi: høyrePeriode.gyldigTilOgMed || "(ingen)",
-        });
-      }
-
-      // Compare verdi - use JSON.stringify for deep comparison
-      const venstreVerdiJson = JSON.stringify(venstrePeriode.verdi);
-      const høyreVerdiJson = JSON.stringify(høyrePeriode.verdi);
-
-      if (venstreVerdiJson !== høyreVerdiJson) {
-        endringer.push({
-          periodeId: høyrePeriode.id,
-          type: "endret",
-          felt: "verdi",
-          gammelVerdi: formaterOpplysningVerdi(venstrePeriode.verdi),
-          nyVerdi: formaterOpplysningVerdi(høyrePeriode.verdi),
-        });
-      }
+  // Strategy 6: Any remaining unmatched in høyre are added
+  for (const hp of høyrePerioder) {
+    if (!matchedHøyreIds.has(hp.id)) {
+      endringer.push({
+        periodeId: hp.id,
+        type: "lagt-til",
+        verdi: formaterOpplysningVerdi(hp.verdi),
+        fraOgMed: hp.gyldigFraOgMed,
+        tilOgMed: hp.gyldigTilOgMed,
+      });
     }
   }
 
@@ -247,7 +430,9 @@ function formatDato(dato?: string): string {
 
 export default function Diff() {
   const { behandling: gjeldeneBehandling } = useBehandling();
-  const [sammenligningsBehandlingId, setSammenligningsBehandlingId] = useState("");
+  const [sammenligningsBehandlingId, setSammenligningsBehandlingId] = useState(
+    gjeldeneBehandling.basertPå,
+  );
   const [aktivtDesign, setAktivtDesign] = useState<string>("1");
   const fetcher = useFetcher<{ behandling?: Behandling; error?: string }>();
 
@@ -266,8 +451,8 @@ export default function Diff() {
   const forskjeller = useMemo(() => {
     if (!sammenligningsBehandling) return [];
     return sammenlignOpplysninger(
-      sammenligningsBehandling.opplysninger,
-      gjeldeneBehandling.opplysninger,
+      sammenligningsBehandling.opplysninger.filter((o) => o.synlig),
+      gjeldeneBehandling.opplysninger.filter((o) => o.synlig),
     );
   }, [sammenligningsBehandling, gjeldeneBehandling]);
 
@@ -377,12 +562,134 @@ interface DesignProps {
   nyBehandling: Behandling;
 }
 
+// Helper component to show change type badges
+function EndringsBadges({ forskjell }: { forskjell: OpplysningForskjell }) {
+  if (forskjell.type === "uendret") return null;
+
+  return (
+    <HStack gap="space-1" wrap>
+      {forskjell.harNyePerioder && (
+        <Tag variant="success" size="xsmall">
+          +Ny periode
+        </Tag>
+      )}
+      {forskjell.harFjernedePerioder && (
+        <Tag variant="error" size="xsmall">
+          -Fjernet periode
+        </Tag>
+      )}
+      {forskjell.harEndredeVerdier && (
+        <Tag variant="warning" size="xsmall">
+          ~Verdi endret
+        </Tag>
+      )}
+      {forskjell.harEndredeDatoer && (
+        <Tag variant="info" size="xsmall">
+          📅 Datoer endret
+        </Tag>
+      )}
+    </HStack>
+  );
+}
+
+// Helper component to show period change details
+function PeriodeEndringDetaljer({ endring }: { endring: PeriodeEndring }) {
+  if (endring.type === "lagt-til") {
+    return (
+      <div className="rounded border-l-2 border-l-(--ax-border-success) bg-(--ax-bg-success-soft) p-2">
+        <HStack gap="space-2" align="center">
+          <PlusIcon aria-hidden className="text-(--ax-text-success)" />
+          <VStack gap="space-0">
+            <BodyShort size="small" weight="semibold" className="text-(--ax-text-success)">
+              Ny periode lagt til
+            </BodyShort>
+            <Detail>
+              Verdi: {endring.verdi} | {formatDato(endring.fraOgMed)} –{" "}
+              {formatDato(endring.tilOgMed)}
+            </Detail>
+          </VStack>
+        </HStack>
+      </div>
+    );
+  }
+
+  if (endring.type === "fjernet") {
+    return (
+      <div className="rounded border-l-2 border-l-(--ax-border-danger) bg-(--ax-bg-danger-soft) p-2">
+        <HStack gap="space-2" align="center">
+          <MinusIcon aria-hidden className="text-(--ax-text-danger)" />
+          <VStack gap="space-0">
+            <BodyShort size="small" weight="semibold" className="text-(--ax-text-danger)">
+              Periode fjernet
+            </BodyShort>
+            <Detail className="line-through">
+              Verdi: {endring.verdi} | {formatDato(endring.fraOgMed)} –{" "}
+              {formatDato(endring.tilOgMed)}
+            </Detail>
+          </VStack>
+        </HStack>
+      </div>
+    );
+  }
+
+  if (endring.type === "endret-verdi") {
+    return (
+      <div className="rounded border-l-2 border-l-(--ax-border-warning) bg-(--ax-bg-warning-soft) p-2">
+        <HStack gap="space-2" align="center">
+          <ArrowsSquarepathIcon aria-hidden className="text-(--ax-text-warning)" />
+          <VStack gap="space-0">
+            <BodyShort size="small" weight="semibold">
+              Verdi endret
+            </BodyShort>
+            <HStack gap="space-2" align="center">
+              <BodyShort size="small" className="text-(--ax-text-danger) line-through">
+                {endring.gammelVerdi}
+              </BodyShort>
+              <ArrowRightIcon aria-hidden />
+              <BodyShort size="small" weight="semibold" className="text-(--ax-text-success)">
+                {endring.nyVerdi}
+              </BodyShort>
+            </HStack>
+          </VStack>
+        </HStack>
+      </div>
+    );
+  }
+
+  if (endring.type === "endret-datoer") {
+    return (
+      <div className="rounded border-l-2 border-l-(--ax-border-info) bg-(--ax-bg-info-soft) p-2">
+        <HStack gap="space-2" align="center">
+          <CalendarIcon aria-hidden className="text-(--ax-text-info)" />
+          <VStack gap="space-0">
+            <BodyShort size="small" weight="semibold">
+              Gyldighetsperiode endret
+            </BodyShort>
+            <Detail>Verdi: {endring.verdi}</Detail>
+            <HStack gap="space-2" align="center">
+              <Detail className="text-(--ax-text-neutral) line-through">
+                {formatDato(endring.gammelFraOgMed)} – {formatDato(endring.gammelTilOgMed)}
+              </Detail>
+              <ArrowRightIcon aria-hidden />
+              <Detail weight="semibold">
+                {formatDato(endring.nyFraOgMed)} – {formatDato(endring.nyTilOgMed)}
+              </Detail>
+            </HStack>
+          </VStack>
+        </HStack>
+      </div>
+    );
+  }
+
+  return null;
+}
+
 function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: DesignProps) {
   const [filterType, setFilterType] = useState<"alle" | "endret" | "uendret">("alle");
   const [søk, setSøk] = useState("");
 
   const filtrertForskjeller = useMemo(() => {
-    let result = forskjeller.filter((f) => f.gammelOpplysning?.synlig || f.nyOpplysning?.synlig);
+    let result = forskjeller;
 
     if (filterType === "endret") {
       result = result.filter((f) => f.type !== "uendret");
@@ -397,13 +704,22 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
     return result;
   }, [forskjeller, filterType, søk]);
 
-  const antallEndringer = forskjeller.filter((f) => f.type !== "uendret").length;
+  const stats = useMemo(() => {
+    const endrede = forskjeller.filter((f) => f.type !== "uendret");
+    return {
+      totaltEndret: endrede.length,
+      nyePerioder: endrede.filter((f) => f.harNyePerioder).length,
+      fjernedePerioder: endrede.filter((f) => f.harFjernedePerioder).length,
+      endredeVerdier: endrede.filter((f) => f.harEndredeVerdier).length,
+      endredeDatoer: endrede.filter((f) => f.harEndredeDatoer).length,
+    };
+  }, [forskjeller]);
 
   return (
     <VStack gap="space-4">
       {/* Header Stats */}
       <div className="rounded-lg bg-(--ax-bg-info-soft) p-4">
-        <HStack gap="space-8" align="center">
+        <HStack gap="space-8" align="center" wrap>
           <VStack gap="space-1">
             <Detail uppercase>Sammenligner</Detail>
             <HStack gap="space-2" align="center">
@@ -418,14 +734,28 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
           </VStack>
           <div className="h-8 w-px bg-(--ax-border-neutral)" />
           <VStack gap="space-1">
-            <Detail uppercase>Endringer funnet</Detail>
-            <HStack gap="space-2">
-              <Tag variant="warning" size="small">
-                {antallEndringer} endret
-              </Tag>
-              <Tag variant="neutral" size="small">
-                {forskjeller.filter((f) => f.type === "uendret").length} uendret
-              </Tag>
+            <Detail uppercase>Oppsummering av endringer</Detail>
+            <HStack gap="space-2" wrap>
+              {stats.nyePerioder > 0 && (
+                <Tag variant="success" size="xsmall">
+                  +{stats.nyePerioder} nye perioder
+                </Tag>
+              )}
+              {stats.fjernedePerioder > 0 && (
+                <Tag variant="error" size="xsmall">
+                  -{stats.fjernedePerioder} fjernede perioder
+                </Tag>
+              )}
+              {stats.endredeVerdier > 0 && (
+                <Tag variant="warning" size="xsmall">
+                  ~{stats.endredeVerdier} endrede verdier
+                </Tag>
+              )}
+              {stats.endredeDatoer > 0 && (
+                <Tag variant="info" size="xsmall">
+                  📅{stats.endredeDatoer} endrede datoer
+                </Tag>
+              )}
             </HStack>
           </VStack>
         </HStack>
@@ -443,10 +773,10 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
         />
         <Chips>
           <Chips.Toggle selected={filterType === "alle"} onClick={() => setFilterType("alle")}>
-            Alle
+            Alle ({forskjeller.length})
           </Chips.Toggle>
           <Chips.Toggle selected={filterType === "endret"} onClick={() => setFilterType("endret")}>
-            Kun endrede
+            Kun endrede ({stats.totaltEndret})
           </Chips.Toggle>
           <Chips.Toggle
             selected={filterType === "uendret"}
@@ -489,42 +819,32 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
               }`}
             >
               <VStack gap="space-2">
-                <HStack justify="space-between">
+                <HStack justify="space-between" align="start" wrap>
                   <BodyShort size="small" weight="semibold">
                     {forskjell.navn}
                   </BodyShort>
-                  {forskjell.type === "fjernet" && (
-                    <Tag variant="error" size="xsmall">
-                      Fjernet
-                    </Tag>
-                  )}
-                  {forskjell.type === "endret" && (
-                    <Tag variant="warning" size="xsmall">
-                      Endret
-                    </Tag>
-                  )}
+                  <EndringsBadges forskjell={forskjell} />
                 </HStack>
+
+                {/* Show change details */}
+                {forskjell.periodeEndringer.length > 0 && (
+                  <VStack gap="space-1">
+                    {forskjell.periodeEndringer.map((endring, idx) => (
+                      <PeriodeEndringDetaljer key={idx} endring={endring} />
+                    ))}
+                  </VStack>
+                )}
+
+                {/* Show original periods for context */}
                 {forskjell.gammelOpplysning?.perioder.map((periode, idx) => (
                   <div
                     key={periode.id || idx}
-                    className={`rounded p-2 ${
-                      forskjell.type === "endret"
-                        ? "bg-(--ax-bg-warning-softA)"
-                        : "bg-(--ax-bg-default)"
-                    }`}
+                    className="rounded bg-(--ax-bg-default) p-2 opacity-60"
                   >
                     <Detail>
-                      Periode: {formatDato(periode.gyldigFraOgMed)} –{" "}
-                      {formatDato(periode.gyldigTilOgMed)}
+                      {formatDato(periode.gyldigFraOgMed)} – {formatDato(periode.gyldigTilOgMed)}
                     </Detail>
-                    <BodyShort
-                      size="small"
-                      className={
-                        forskjell.type === "endret" ? "text-(--ax-text-neutral) line-through" : ""
-                      }
-                    >
-                      {formaterOpplysningVerdi(periode.verdi)}
-                    </BodyShort>
+                    <BodyShort size="small">{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
                   </div>
                 ))}
                 {!forskjell.gammelOpplysning && (
@@ -541,7 +861,7 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
                 forskjell.type === "lagt-til"
                   ? "border-(--ax-border-success) bg-(--ax-bg-success-soft)"
                   : forskjell.type === "endret"
-                    ? "border-(--ax-border-warning) bg-(--ax-bg-success-soft)"
+                    ? "border-(--ax-border-success) bg-(--ax-bg-success-soft)"
                     : "border-(--ax-border-neutral) bg-(--ax-bg-neutral-soft)"
               }`}
             >
@@ -552,7 +872,7 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
                   </BodyShort>
                   {forskjell.type === "lagt-til" && (
                     <Tag variant="success" size="xsmall">
-                      Ny
+                      Ny opplysning
                     </Tag>
                   )}
                 </HStack>
@@ -560,18 +880,17 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
                   <div
                     key={periode.id || idx}
                     className={`rounded p-2 ${
-                      forskjell.type === "endret"
+                      forskjell.type !== "uendret"
                         ? "bg-(--ax-bg-success-softA)"
                         : "bg-(--ax-bg-default)"
                     }`}
                   >
                     <Detail>
-                      Periode: {formatDato(periode.gyldigFraOgMed)} –{" "}
-                      {formatDato(periode.gyldigTilOgMed)}
+                      {formatDato(periode.gyldigFraOgMed)} – {formatDato(periode.gyldigTilOgMed)}
                     </Detail>
                     <BodyShort
                       size="small"
-                      weight={forskjell.type === "endret" ? "semibold" : "regular"}
+                      weight={forskjell.type !== "uendret" ? "semibold" : "regular"}
                     >
                       {formaterOpplysningVerdi(periode.verdi)}
                     </BodyShort>
@@ -599,6 +918,17 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
 function Design2GitStyleUnifiedDiff({ forskjeller, gammelBehandling, nyBehandling }: DesignProps) {
   const [visSamlet, setVisSamlet] = useState(true);
   const endringer = forskjeller.filter((f) => f.type !== "uendret");
+
+  // Calculate stats for change types
+  const stats = useMemo(
+    () => ({
+      nyePerioder: endringer.filter((f) => f.harNyePerioder).length,
+      fjernedePerioder: endringer.filter((f) => f.harFjernedePerioder).length,
+      endredeVerdier: endringer.filter((f) => f.harEndredeVerdier).length,
+      endredeDatoer: endringer.filter((f) => f.harEndredeDatoer).length,
+    }),
+    [endringer],
+  );
 
   return (
     <VStack gap="space-4">
@@ -643,91 +973,133 @@ function Design2GitStyleUnifiedDiff({ forskjeller, gammelBehandling, nyBehandlin
 
         {/* Diff lines */}
         <div className="divide-y divide-(--ax-border-neutral)">
-          {(visSamlet ? endringer : forskjeller)
-            .filter((f) => f.gammelOpplysning?.synlig || f.nyOpplysning?.synlig)
-            .map((forskjell, idx) => (
-              <div key={forskjell.opplysningTypeId}>
-                {/* Hunk header */}
-                <div className="bg-(--ax-bg-info-soft) px-4 py-1 text-(--ax-text-neutral)">
-                  @@ {forskjell.navn} @@
+          {(visSamlet ? endringer : forskjeller).map((forskjell, idx) => (
+            <div key={forskjell.opplysningTypeId}>
+              {/* Hunk header with change type indicators */}
+              <div className="flex items-center justify-between bg-(--ax-bg-info-soft) px-4 py-1">
+                <span className="text-(--ax-text-neutral)">@@ {forskjell.navn} @@</span>
+                <HStack gap="space-1">
+                  {forskjell.harNyePerioder && (
+                    <span className="rounded bg-(--ax-bg-success-moderate) px-1 text-xs">
+                      +periode
+                    </span>
+                  )}
+                  {forskjell.harFjernedePerioder && (
+                    <span className="rounded bg-(--ax-bg-danger-moderate) px-1 text-xs">
+                      -periode
+                    </span>
+                  )}
+                  {forskjell.harEndredeVerdier && (
+                    <span className="rounded bg-(--ax-bg-warning-moderate) px-1 text-xs">
+                      ~verdi
+                    </span>
+                  )}
+                  {forskjell.harEndredeDatoer && (
+                    <span className="rounded bg-(--ax-bg-info-moderate) px-1 text-xs">📅dato</span>
+                  )}
+                </HStack>
+              </div>
+
+              {forskjell.type === "uendret" && (
+                <div className="px-4 py-1 text-(--ax-text-neutral)">
+                  <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
+                  <span className="mr-2"> </span>
+                  {forskjell.nyOpplysning?.perioder
+                    .map((p) => formaterOpplysningVerdi(p.verdi))
+                    .join(", ")}
                 </div>
+              )}
 
-                {forskjell.type === "uendret" && (
-                  <div className="px-4 py-1 text-(--ax-text-neutral)">
-                    <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
-                    <span className="mr-2"> </span>
-                    {forskjell.nyOpplysning?.perioder
-                      .map((p) => formaterOpplysningVerdi(p.verdi))
-                      .join(", ")}
-                  </div>
-                )}
-
-                {forskjell.type === "endret" && (
-                  <>
-                    {forskjell.gammelOpplysning?.perioder.map((periode, pIdx) => (
-                      <div key={`old-${pIdx}`} className="bg-(--ax-bg-danger-soft) px-4 py-1">
-                        <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
-                        <span className="mr-2 text-(--ax-text-danger)">-</span>
-                        <span className="text-(--ax-text-danger)">
-                          verdi: &quot;{formaterOpplysningVerdi(periode.verdi)}&quot; | periode:{" "}
-                          {formatDato(periode.gyldigFraOgMed)} →{" "}
-                          {formatDato(periode.gyldigTilOgMed)}
-                        </span>
-                      </div>
-                    ))}
-                    {forskjell.nyOpplysning?.perioder.map((periode, pIdx) => (
-                      <div key={`new-${pIdx}`} className="bg-(--ax-bg-success-soft) px-4 py-1">
-                        <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
-                        <span className="mr-2 text-(--ax-text-success)">+</span>
-                        <span className="text-(--ax-text-success)">
-                          verdi: &quot;{formaterOpplysningVerdi(periode.verdi)}&quot; | periode:{" "}
-                          {formatDato(periode.gyldigFraOgMed)} →{" "}
-                          {formatDato(periode.gyldigTilOgMed)}
-                        </span>
-                      </div>
-                    ))}
-                  </>
-                )}
-
-                {forskjell.type === "lagt-til" &&
-                  forskjell.nyOpplysning?.perioder.map((periode, pIdx) => (
-                    <div key={pIdx} className="bg-(--ax-bg-success-soft) px-4 py-1">
+              {/* Show specific changes */}
+              {forskjell.periodeEndringer.map((endring, eIdx) => {
+                if (endring.type === "lagt-til") {
+                  return (
+                    <div key={eIdx} className="bg-(--ax-bg-success-soft) px-4 py-1">
                       <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
                       <span className="mr-2 text-(--ax-text-success)">+</span>
                       <span className="text-(--ax-text-success)">
-                        [NY] verdi: &quot;{formaterOpplysningVerdi(periode.verdi)}&quot;
+                        [NY PERIODE] verdi: &quot;{endring.verdi}&quot; |{" "}
+                        {formatDato(endring.fraOgMed)} → {formatDato(endring.tilOgMed)}
                       </span>
                     </div>
-                  ))}
-
-                {forskjell.type === "fjernet" &&
-                  forskjell.gammelOpplysning?.perioder.map((periode, pIdx) => (
-                    <div key={pIdx} className="bg-(--ax-bg-danger-soft) px-4 py-1">
+                  );
+                }
+                if (endring.type === "fjernet") {
+                  return (
+                    <div key={eIdx} className="bg-(--ax-bg-danger-soft) px-4 py-1">
                       <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
                       <span className="mr-2 text-(--ax-text-danger)">-</span>
                       <span className="text-(--ax-text-danger)">
-                        [FJERNET] verdi: &quot;{formaterOpplysningVerdi(periode.verdi)}&quot;
+                        [FJERNET PERIODE] verdi: &quot;{endring.verdi}&quot; |{" "}
+                        {formatDato(endring.fraOgMed)} → {formatDato(endring.tilOgMed)}
                       </span>
                     </div>
-                  ))}
-              </div>
-            ))}
+                  );
+                }
+                if (endring.type === "endret-verdi") {
+                  return (
+                    <Fragment key={eIdx}>
+                      <div className="bg-(--ax-bg-danger-soft) px-4 py-1">
+                        <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
+                        <span className="mr-2 text-(--ax-text-danger)">-</span>
+                        <span className="text-(--ax-text-danger)">
+                          verdi: &quot;{endring.gammelVerdi}&quot;
+                        </span>
+                      </div>
+                      <div className="bg-(--ax-bg-success-soft) px-4 py-1">
+                        <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
+                        <span className="mr-2 text-(--ax-text-success)">+</span>
+                        <span className="text-(--ax-text-success)">
+                          verdi: &quot;{endring.nyVerdi}&quot;
+                        </span>
+                      </div>
+                    </Fragment>
+                  );
+                }
+                if (endring.type === "endret-datoer") {
+                  return (
+                    <Fragment key={eIdx}>
+                      <div className="bg-(--ax-bg-info-soft) px-4 py-1">
+                        <span className="mr-4 text-(--ax-text-neutral) select-none">{idx + 1}</span>
+                        <span className="mr-2 text-(--ax-text-info)">~</span>
+                        <span className="text-(--ax-text-info)">
+                          [DATO ENDRET] verdi: &quot;{endring.verdi}&quot; |
+                          {formatDato(endring.gammelFraOgMed)}→{formatDato(endring.gammelTilOgMed)}{" "}
+                          ⇒{formatDato(endring.nyFraOgMed)}→{formatDato(endring.nyTilOgMed)}
+                        </span>
+                      </div>
+                    </Fragment>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Stats footer */}
-      <HStack gap="space-4">
-        <Tag variant="success" size="small">
-          <PlusIcon aria-hidden /> {forskjeller.filter((f) => f.type === "lagt-til").length} lagt
-          til
-        </Tag>
-        <Tag variant="error" size="small">
-          <MinusIcon aria-hidden /> {forskjeller.filter((f) => f.type === "fjernet").length} fjernet
-        </Tag>
-        <Tag variant="warning" size="small">
-          <ArrowsSquarepathIcon aria-hidden />{" "}
-          {forskjeller.filter((f) => f.type === "endret").length} endret
-        </Tag>
+      <HStack gap="space-4" wrap>
+        {stats.nyePerioder > 0 && (
+          <Tag variant="success" size="small">
+            <PlusIcon aria-hidden /> {stats.nyePerioder} nye perioder
+          </Tag>
+        )}
+        {stats.fjernedePerioder > 0 && (
+          <Tag variant="error" size="small">
+            <MinusIcon aria-hidden /> {stats.fjernedePerioder} fjernede perioder
+          </Tag>
+        )}
+        {stats.endredeVerdier > 0 && (
+          <Tag variant="warning" size="small">
+            <ArrowsSquarepathIcon aria-hidden /> {stats.endredeVerdier} endrede verdier
+          </Tag>
+        )}
+        {stats.endredeDatoer > 0 && (
+          <Tag variant="info" size="small">
+            <CalendarIcon aria-hidden /> {stats.endredeDatoer} endrede datoer
+          </Tag>
+        )}
       </HStack>
     </VStack>
   );
@@ -739,9 +1111,7 @@ function Design2GitStyleUnifiedDiff({ forskjeller, gammelBehandling, nyBehandlin
 // ============================================================================
 
 function Design3CardBasedTimeline({ forskjeller, gammelBehandling, nyBehandling }: DesignProps) {
-  const endringer = forskjeller.filter(
-    (f) => f.type !== "uendret" && (f.gammelOpplysning?.synlig || f.nyOpplysning?.synlig),
-  );
+  const endringer = forskjeller.filter((f) => f.type !== "uendret");
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
 
   const toggleCard = (id: string) => {
@@ -858,27 +1228,24 @@ function Design3CardBasedTimeline({ forskjeller, gammelBehandling, nyBehandling 
                       <div className={`rounded-full p-2 ${colors.bg}`}>{colors.icon}</div>
                       <VStack gap="space-0">
                         <BodyShort weight="semibold">{forskjell.navn}</BodyShort>
-                        <Detail className="text-(--ax-text-neutral)">
-                          {forskjell.type === "lagt-til" && "Ny opplysning lagt til"}
-                          {forskjell.type === "fjernet" && "Opplysning fjernet"}
-                          {forskjell.type === "endret" &&
-                            `${forskjell.periodeEndringer.length} periode-endring(er)`}
-                        </Detail>
+                        <HStack gap="space-1" wrap>
+                          {forskjell.harNyePerioder && (
+                            <Detail className="text-(--ax-text-success)">+ny periode</Detail>
+                          )}
+                          {forskjell.harFjernedePerioder && (
+                            <Detail className="text-(--ax-text-danger)">-fjernet periode</Detail>
+                          )}
+                          {forskjell.harEndredeVerdier && (
+                            <Detail className="text-(--ax-text-warning)">~endret verdi</Detail>
+                          )}
+                          {forskjell.harEndredeDatoer && (
+                            <Detail className="text-(--ax-text-info)">📅endret dato</Detail>
+                          )}
+                        </HStack>
                       </VStack>
                     </HStack>
                     <HStack gap="space-2" align="center">
-                      <Tag
-                        variant={
-                          forskjell.type === "lagt-til"
-                            ? "success"
-                            : forskjell.type === "fjernet"
-                              ? "error"
-                              : "warning"
-                        }
-                        size="xsmall"
-                      >
-                        {forskjell.type}
-                      </Tag>
+                      <EndringsBadges forskjell={forskjell} />
                       {isExpanded ? (
                         <ChevronDownIcon aria-hidden />
                       ) : (
@@ -889,12 +1256,21 @@ function Design3CardBasedTimeline({ forskjeller, gammelBehandling, nyBehandling 
 
                   {/* Expanded Content */}
                   {isExpanded && (
-                    <div className="mt-4 rounded-lg bg-(--ax-bg-neutral-soft) p-4">
-                      <div className="grid grid-cols-2 gap-4">
+                    <div className="mt-4 space-y-4">
+                      {/* Show specific changes */}
+                      <VStack gap="space-2">
+                        <Label size="small">Hva endret seg?</Label>
+                        {forskjell.periodeEndringer.map((endring, idx) => (
+                          <PeriodeEndringDetaljer key={idx} endring={endring} />
+                        ))}
+                      </VStack>
+
+                      {/* Before/After comparison */}
+                      <div className="grid grid-cols-2 gap-4 rounded-lg bg-(--ax-bg-neutral-soft) p-4">
                         <VStack gap="space-2">
                           <Label size="small">Før</Label>
                           {forskjell.gammelOpplysning?.perioder.map((p, idx) => (
-                            <div key={idx} className="rounded bg-(--ax-bg-danger-soft) p-2">
+                            <div key={idx} className="rounded bg-(--ax-bg-default) p-2 opacity-70">
                               <Detail>
                                 {formatDato(p.gyldigFraOgMed)} – {formatDato(p.gyldigTilOgMed)}
                               </Detail>
@@ -905,11 +1281,13 @@ function Design3CardBasedTimeline({ forskjeller, gammelBehandling, nyBehandling 
                         <VStack gap="space-2">
                           <Label size="small">Etter</Label>
                           {forskjell.nyOpplysning?.perioder.map((p, idx) => (
-                            <div key={idx} className="rounded bg-(--ax-bg-success-soft) p-2">
+                            <div key={idx} className="rounded bg-(--ax-bg-default) p-2">
                               <Detail>
                                 {formatDato(p.gyldigFraOgMed)} – {formatDato(p.gyldigTilOgMed)}
                               </Detail>
-                              <BodyShort size="small">{formaterOpplysningVerdi(p.verdi)}</BodyShort>
+                              <BodyShort size="small" weight="semibold">
+                                {formaterOpplysningVerdi(p.verdi)}
+                              </BodyShort>
                             </div>
                           )) || <Detail className="text-(--ax-text-neutral)">—</Detail>}
                         </VStack>
@@ -938,12 +1316,8 @@ function Design4InteractiveExplorer({ forskjeller }: DesignProps) {
   );
   const [søk, setSøk] = useState("");
 
-  const synligeForskjeller = forskjeller.filter(
-    (f) => f.gammelOpplysning?.synlig || f.nyOpplysning?.synlig,
-  );
-
   const filtrert = useMemo(() => {
-    let result = synligeForskjeller;
+    let result = forskjeller;
     if (visningstype !== "alle") {
       result = result.filter((f) => f.type === visningstype);
     }
@@ -951,14 +1325,14 @@ function Design4InteractiveExplorer({ forskjeller }: DesignProps) {
       result = result.filter((f) => f.navn.toLowerCase().includes(søk.toLowerCase()));
     }
     return result;
-  }, [synligeForskjeller, visningstype, søk]);
+  }, [forskjeller, visningstype, søk]);
 
   const stats = {
-    totalt: synligeForskjeller.length,
-    endret: synligeForskjeller.filter((f) => f.type === "endret").length,
-    lagtTil: synligeForskjeller.filter((f) => f.type === "lagt-til").length,
-    fjernet: synligeForskjeller.filter((f) => f.type === "fjernet").length,
-    uendret: synligeForskjeller.filter((f) => f.type === "uendret").length,
+    totalt: forskjeller.length,
+    endret: forskjeller.filter((f) => f.type === "endret").length,
+    lagtTil: forskjeller.filter((f) => f.type === "lagt-til").length,
+    fjernet: forskjeller.filter((f) => f.type === "fjernet").length,
+    uendret: forskjeller.filter((f) => f.type === "uendret").length,
   };
 
   return (
@@ -1225,50 +1599,12 @@ function Design4InteractiveExplorer({ forskjeller }: DesignProps) {
               {selectedOpplysning.periodeEndringer.length > 0 && (
                 <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-4">
                   <VStack gap="space-4">
-                    <Label>Detaljerte endringer</Label>
+                    <HStack justify="space-between" align="center">
+                      <Label>Hva endret seg?</Label>
+                      <EndringsBadges forskjell={selectedOpplysning} />
+                    </HStack>
                     {selectedOpplysning.periodeEndringer.map((endring, idx) => (
-                      <HStack
-                        key={idx}
-                        gap="space-4"
-                        align="center"
-                        className="rounded bg-(--ax-bg-default) p-2"
-                      >
-                        {endring.type === "endret" && endring.felt && (
-                          <>
-                            <Tag variant="warning" size="xsmall">
-                              {endring.felt}
-                            </Tag>
-                            <BodyShort
-                              size="small"
-                              className="text-(--ax-text-neutral) line-through"
-                            >
-                              {endring.gammelVerdi || "—"}
-                            </BodyShort>
-                            <ArrowRightIcon aria-hidden />
-                            <BodyShort size="small" weight="semibold">
-                              {endring.nyVerdi || "—"}
-                            </BodyShort>
-                          </>
-                        )}
-                        {endring.type === "lagt-til" && (
-                          <>
-                            <Tag variant="success" size="xsmall">
-                              Ny periode
-                            </Tag>
-                            <BodyShort size="small">{endring.verdi}</BodyShort>
-                          </>
-                        )}
-                        {endring.type === "fjernet" && (
-                          <>
-                            <Tag variant="error" size="xsmall">
-                              Fjernet periode
-                            </Tag>
-                            <BodyShort size="small" className="line-through">
-                              {endring.verdi}
-                            </BodyShort>
-                          </>
-                        )}
-                      </HStack>
+                      <PeriodeEndringDetaljer key={idx} endring={endring} />
                     ))}
                   </VStack>
                 </div>
@@ -1302,14 +1638,8 @@ function Design5CompactSummary({ forskjeller, gammelBehandling, nyBehandling }: 
   const [sortering, setSortering] = useState<"navn" | "type" | "endringer">("type");
   const [visUendret, setVisUendret] = useState(false);
 
-  const synligeForskjeller = forskjeller.filter(
-    (f) => f.gammelOpplysning?.synlig || f.nyOpplysning?.synlig,
-  );
-
   const sortert = useMemo(() => {
-    const filtered = visUendret
-      ? synligeForskjeller
-      : synligeForskjeller.filter((f) => f.type !== "uendret");
+    const filtered = visUendret ? forskjeller : forskjeller.filter((f) => f.type !== "uendret");
     return [...filtered].sort((a, b) => {
       if (sortering === "navn") return a.navn.localeCompare(b.navn);
       if (sortering === "type") {
@@ -1318,13 +1648,13 @@ function Design5CompactSummary({ forskjeller, gammelBehandling, nyBehandling }: 
       }
       return b.periodeEndringer.length - a.periodeEndringer.length;
     });
-  }, [synligeForskjeller, sortering, visUendret]);
+  }, [forskjeller, sortering, visUendret]);
 
   const oppsummering = {
-    totalt: synligeForskjeller.length,
-    endret: synligeForskjeller.filter((f) => f.type === "endret").length,
-    lagtTil: synligeForskjeller.filter((f) => f.type === "lagt-til").length,
-    fjernet: synligeForskjeller.filter((f) => f.type === "fjernet").length,
+    totalt: forskjeller.length,
+    endret: forskjeller.filter((f) => f.type === "endret").length,
+    lagtTil: forskjeller.filter((f) => f.type === "lagt-til").length,
+    fjernet: forskjeller.filter((f) => f.type === "fjernet").length,
   };
 
   return (
@@ -1400,17 +1730,11 @@ function Design5CompactSummary({ forskjeller, gammelBehandling, nyBehandling }: 
               Status
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">Opplysning</Table.HeaderCell>
-            <Table.HeaderCell scope="col" className="w-48">
-              Før
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col" className="w-12 text-center">
-              →
+            <Table.HeaderCell scope="col" className="w-64">
+              Hva endret seg?
             </Table.HeaderCell>
             <Table.HeaderCell scope="col" className="w-48">
-              Etter
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col" className="w-24 text-center">
-              Endringer
+              Før → Etter
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -1484,40 +1808,45 @@ function Design5CompactSummary({ forskjeller, gammelBehandling, nyBehandling }: 
                   </VStack>
                 </Table.DataCell>
                 <Table.DataCell>
-                  <BodyShort
-                    size="small"
-                    className={
-                      forskjell.type === "endret" ? "text-(--ax-text-neutral) line-through" : ""
-                    }
-                  >
-                    {gammelVerdi}
-                  </BodyShort>
-                </Table.DataCell>
-                <Table.DataCell className="text-center">
-                  {forskjell.type !== "uendret" && (
-                    <ArrowRightIcon aria-hidden className="text-(--ax-text-neutral)" />
-                  )}
+                  <HStack gap="space-1" wrap>
+                    {forskjell.harNyePerioder && (
+                      <Tag variant="success" size="xsmall">
+                        +Ny periode
+                      </Tag>
+                    )}
+                    {forskjell.harFjernedePerioder && (
+                      <Tag variant="error" size="xsmall">
+                        -Fjernet
+                      </Tag>
+                    )}
+                    {forskjell.harEndredeVerdier && (
+                      <Tag variant="warning" size="xsmall">
+                        ~Verdi
+                      </Tag>
+                    )}
+                    {forskjell.harEndredeDatoer && (
+                      <Tag variant="info" size="xsmall">
+                        📅Dato
+                      </Tag>
+                    )}
+                    {forskjell.type === "uendret" && (
+                      <Detail className="text-(--ax-text-neutral)">Ingen endringer</Detail>
+                    )}
+                  </HStack>
                 </Table.DataCell>
                 <Table.DataCell>
-                  <BodyShort
-                    size="small"
-                    weight={forskjell.type === "endret" ? "semibold" : "regular"}
-                    className={
-                      forskjell.type === "lagt-til"
-                        ? "text-(--ax-text-success)"
-                        : forskjell.type === "fjernet"
-                          ? "text-(--ax-text-neutral) line-through"
-                          : ""
-                    }
-                  >
-                    {nyVerdi}
-                  </BodyShort>
-                </Table.DataCell>
-                <Table.DataCell className="text-center">
-                  {forskjell.periodeEndringer.length > 0 && (
-                    <Tag variant="info" size="xsmall">
-                      {forskjell.periodeEndringer.length}
-                    </Tag>
+                  {forskjell.type !== "uendret" ? (
+                    <HStack gap="space-2" align="center">
+                      <BodyShort size="small" className="text-(--ax-text-neutral) line-through">
+                        {gammelVerdi}
+                      </BodyShort>
+                      <ArrowRightIcon aria-hidden className="shrink-0" />
+                      <BodyShort size="small" weight="semibold">
+                        {nyVerdi}
+                      </BodyShort>
+                    </HStack>
+                  ) : (
+                    <BodyShort size="small">{nyVerdi}</BodyShort>
                   )}
                 </Table.DataCell>
               </Table.Row>
@@ -1528,30 +1857,30 @@ function Design5CompactSummary({ forskjeller, gammelBehandling, nyBehandling }: 
 
       {/* Quick Legend */}
       <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-3">
-        <HStack gap="space-8" justify="center">
-          <HStack gap="space-2" align="center">
-            <Tag variant="warning" size="xsmall">
-              ~
-            </Tag>
-            <Detail>Endret verdi</Detail>
-          </HStack>
+        <HStack gap="space-8" justify="center" wrap>
           <HStack gap="space-2" align="center">
             <Tag variant="success" size="xsmall">
-              +
+              +Ny periode
             </Tag>
-            <Detail>Ny opplysning</Detail>
+            <Detail>Periode lagt til</Detail>
           </HStack>
           <HStack gap="space-2" align="center">
             <Tag variant="error" size="xsmall">
-              −
+              -Fjernet
             </Tag>
-            <Detail>Fjernet opplysning</Detail>
+            <Detail>Periode fjernet</Detail>
           </HStack>
           <HStack gap="space-2" align="center">
-            <Tag variant="neutral" size="xsmall">
-              =
+            <Tag variant="warning" size="xsmall">
+              ~Verdi
             </Tag>
-            <Detail>Uendret</Detail>
+            <Detail>Verdi endret</Detail>
+          </HStack>
+          <HStack gap="space-2" align="center">
+            <Tag variant="info" size="xsmall">
+              📅Dato
+            </Tag>
+            <Detail>Gyldighetsperiode endret</Detail>
           </HStack>
         </HStack>
       </div>

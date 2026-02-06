@@ -1,0 +1,75 @@
+import type { components } from "../../../openapi/saksbehandling-typer";
+
+export const oppgave019b2ce1aecd715eb6043ba49ebe3abc: components["schemas"]["Oppgave"] = {
+  oppgaveId: "019b2ce1-aecd-715e-b604-3ba49ebe3abc",
+  behandlingId: "019b2ce1-ad27-79b8-addd-4db6eee05452",
+  saksbehandler: {
+    ident: "Z993298",
+    fornavn: "Donald",
+    etternavn: "Duck",
+    enhet: {
+      navn: "Mock Enhet",
+      enhetNr: "1337",
+      postadresse: "Apalveien 111, 1337 Andeby",
+    },
+  },
+  person: {
+    ident: "24838299217",
+    id: "019b2cbf-a28c-758a-b64e-ad9e1377d5c5",
+    fornavn: "TILFELDIG",
+    etternavn: "BARON",
+    fodselsdato: "1982-03-24",
+    alder: 43,
+    statsborgerskap: "NOR",
+    kjonn: "KVINNE",
+    skjermesSomEgneAnsatte: false,
+    adressebeskyttelseGradering: "UGRADERT",
+    sikkerhetstiltak: [],
+  },
+  tidspunktOpprettet: "2025-12-17T16:15:46.117589",
+  behandlingType: "RETT_TIL_DAGPENGER",
+  utlostAv: "MELDEKORT",
+  journalpostIder: [],
+  historikk: [
+    {
+      type: "statusendring",
+      tidspunkt: "2025-12-17T16:16:13.515",
+      tittel: "Ferdig behandlet",
+      behandler: {
+        navn: "F_Z994714 E_Z994714",
+        rolle: "saksbehandler",
+      },
+    },
+    {
+      type: "statusendring",
+      tidspunkt: "2025-12-17T16:15:49.847",
+      tittel: "Under behandling",
+      behandler: {
+        navn: "F_Z994714 E_Z994714",
+        rolle: "saksbehandler",
+      },
+    },
+    {
+      type: "statusendring",
+      tidspunkt: "2025-12-17T16:15:46.509",
+      tittel: "Klar til behandling",
+      behandler: {
+        navn: "dp-behandling",
+        rolle: "system",
+      },
+    },
+  ],
+  emneknagger: [
+    {
+      visningsnavn: "Ordinær",
+      kategori: "RETTIGHET",
+    },
+  ],
+  tilstand: "FERDIG_BEHANDLET",
+  lovligeEndringer: {
+    paaVentAarsaker: [],
+    avbrytAarsaker: [],
+  },
+  meldingOmVedtakKilde: "INGEN",
+  kontrollertBrev: "IKKE_RELEVANT",
+};
