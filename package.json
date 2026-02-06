@@ -52,7 +52,7 @@
     "@portabletext/to-html": "5.0.1",
     "@portabletext/toolbar": "5.0.14",
     "@react-router/node": "7.12.0",
-    "@react-router/serve": "7.12.0",
+    "@react-router/serve": "7.13.0",
     "@rvf/react-router": "8.1.1",
     "@sanity/client": "7.14.1",
     "canvas-confetti": "1.9.4",
