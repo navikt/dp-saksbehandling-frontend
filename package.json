@@ -85,7 +85,7 @@
     "@parcel/watcher": "2.5.6",
     "@portabletext/types": "4.0.1",
     "@react-router/dev": "7.12.0",
-    "@react-router/fs-routes": "7.12.0",
+    "@react-router/fs-routes": "7.13.0",
     "@tailwindcss/vite": "4.1.18",
     "@types/canvas-confetti": "1.9.0",
     "@types/compression": "1.8.1",
