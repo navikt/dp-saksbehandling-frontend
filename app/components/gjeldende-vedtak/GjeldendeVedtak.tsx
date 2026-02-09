@@ -18,9 +18,10 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
     ?.perioder?.at(-1);
 
   // Opplysning "Antall dager som gjenstår"
-  const antallDagperSomGjentår = dagpengerRettBehandling?.opplysninger
-    ?.find((opplysning) => opplysning.opplysningTypeId === "019bfed4-7bba-7665-9ec2-17dfa2201be7")
+  const antallDagerSomGjenstår = dagpengerRettBehandling?.opplysninger
+    ?.find((opplysning) => opplysning.opplysningTypeId === "01992956-e349-76b1-8f68-c9d481df3a32")
     ?.perioder?.at(-1)?.verdi;
+
   return (
     <div className={"card card-raised my-4 p-4"}>
       <Heading className={"border-b-1 border-ax-border-neutral-subtle pb-2"} size={"small"}>
@@ -75,7 +76,7 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
         <VerdiMedTittel
           visBorder={false}
           label={"Gjenstående"}
-          verdi={antallDagperSomGjentår ? formaterOpplysningVerdi(antallDagperSomGjentår) : "--"}
+          verdi={antallDagerSomGjenstår ? formaterOpplysningVerdi(antallDagerSomGjenstår) : "--"}
         />
 
         <VerdiMedTittel
