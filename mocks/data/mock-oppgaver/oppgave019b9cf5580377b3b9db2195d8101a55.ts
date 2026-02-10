@@ -1,8 +1,8 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinær: components["schemas"]["Oppgave"] = {
-  oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
-  behandlingId: "019c28d4-8633-7b7a-b67c-60dd74c7dba1",
+export const oppgave019b9cf5580377b3b9db2195d8101a55: components["schemas"]["Oppgave"] = {
+  oppgaveId: "019b9cf5-5803-77b3-b9db-2195d8101a55",
+  behandlingId: "019b9cf5-56da-726e-bfee-b4d4847a6bde",
   saksbehandler: {
     ident: "Z993298",
     fornavn: "Donald",
@@ -36,14 +36,14 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
   },
-  tidspunktOpprettet: "2026-02-04T14:25:42.587006",
+  tidspunktOpprettet: "2026-01-08T10:34:42.907414",
   behandlingType: "RETT_TIL_DAGPENGER",
   utlostAv: "MANUELL",
   journalpostIder: [],
   historikk: [
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:57.086",
+      tidspunkt: "2026-01-08T11:16:09.028",
       tittel: "Ferdig behandlet",
       behandler: {
         navn: "F_Z994276 E_Z994276",
@@ -52,7 +52,7 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:45.385",
+      tidspunkt: "2026-01-08T11:16:03.722",
       tittel: "Under kontroll",
       behandler: {
         navn: "F_Z994276 E_Z994276",
@@ -61,7 +61,7 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:21:51.993",
+      tidspunkt: "2026-01-08T11:15:52.37",
       tittel: "Klar til kontroll",
       behandler: {
         navn: "F_Z994794 E_Z994794",
@@ -70,7 +70,7 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:20.165",
+      tidspunkt: "2026-01-08T10:35:01.142",
       tittel: "Under behandling",
       behandler: {
         navn: "F_Z994794 E_Z994794",
@@ -79,7 +79,7 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:03.419",
+      tidspunkt: "2026-01-08T10:34:43.203",
       tittel: "Klar til behandling",
       behandler: {
         navn: "dp-behandling",
@@ -98,6 +98,6 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
   },
-  meldingOmVedtakKilde: "INGEN",
+  meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",
 };

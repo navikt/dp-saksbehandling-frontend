@@ -1,4 +1,4 @@
-import { CogRotationIcon, GavelSoundBlockIcon, SlideIcon } from "@navikt/aksel-icons";
+import { CogRotationIcon, CompassIcon, GavelSoundBlockIcon, SlideIcon } from "@navikt/aksel-icons";
 import classnames from "classnames";
 import { useLocation } from "react-router";
 
@@ -55,6 +55,13 @@ function getTabs(oppgaveId: string, behandlingId: string) {
           url: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/lekegrind`,
           label: "Lekegrind",
           icon: <SlideIcon aria-hidden />,
+        }
+      : undefined,
+    getEnv("GCP_ENV") === "dev"
+      ? {
+          url: `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/diff`,
+          label: "Diff",
+          icon: <CompassIcon aria-hidden />,
         }
       : undefined,
   ].filter(isDefined);

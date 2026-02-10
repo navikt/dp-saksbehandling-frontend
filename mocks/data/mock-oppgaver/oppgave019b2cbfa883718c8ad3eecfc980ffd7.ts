@@ -1,8 +1,8 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinær: components["schemas"]["Oppgave"] = {
-  oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
-  behandlingId: "019c28d4-8633-7b7a-b67c-60dd74c7dba1",
+export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Oppgave"] = {
+  oppgaveId: "019b2cbf-a883-718c-8ad3-eecfc980ffd7",
+  behandlingId: "019b2cbf-a124-77ab-8944-496c1856f599",
   saksbehandler: {
     ident: "Z993298",
     fornavn: "Donald",
@@ -14,9 +14,9 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
   },
   beslutter: {
-    ident: "Z994276",
-    fornavn: "F_Z994276",
-    etternavn: "E_Z994276",
+    ident: "Z990599",
+    fornavn: "F_Z990599",
+    etternavn: "E_Z990599",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -36,50 +36,50 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
   },
-  tidspunktOpprettet: "2026-02-04T14:25:42.587006",
+  tidspunktOpprettet: "2025-12-17T15:38:34.789597",
   behandlingType: "RETT_TIL_DAGPENGER",
-  utlostAv: "MANUELL",
-  journalpostIder: [],
+  utlostAv: "SØKNAD",
+  journalpostIder: ["717550198", "717550199"],
   historikk: [
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:57.086",
+      tidspunkt: "2025-12-17T15:52:01.34",
       tittel: "Ferdig behandlet",
       behandler: {
-        navn: "F_Z994276 E_Z994276",
+        navn: "F_Z990599 E_Z990599",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:45.385",
+      tidspunkt: "2025-12-17T15:51:33.058",
       tittel: "Under kontroll",
       behandler: {
-        navn: "F_Z994276 E_Z994276",
+        navn: "F_Z990599 E_Z990599",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:21:51.993",
+      tidspunkt: "2025-12-17T15:51:09.408",
       tittel: "Klar til kontroll",
       behandler: {
-        navn: "F_Z994794 E_Z994794",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:20.165",
+      tidspunkt: "2025-12-17T15:39:24.958",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994794 E_Z994794",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:03.419",
+      tidspunkt: "2025-12-17T15:38:36.675",
       tittel: "Klar til behandling",
       behandler: {
         navn: "dp-behandling",
@@ -92,12 +92,17 @@ export const ordinær: components["schemas"]["Oppgave"] = {
       visningsnavn: "Ordinær",
       kategori: "RETTIGHET",
     },
+    {
+      visningsnavn: "Innvilgelse",
+      kategori: "SOKNADSRESULTAT",
+    },
   ],
   tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
   },
-  meldingOmVedtakKilde: "INGEN",
+  soknadId: "e834ef80-00b3-46d8-998b-686054309444",
+  meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",
 };

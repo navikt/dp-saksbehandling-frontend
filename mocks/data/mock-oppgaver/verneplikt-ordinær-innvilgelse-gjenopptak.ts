@@ -1,8 +1,8 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinær: components["schemas"]["Oppgave"] = {
-  oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
-  behandlingId: "019c28d4-8633-7b7a-b67c-60dd74c7dba1",
+export const vernepliktOrdinærInnvilgelseGjenopptak: components["schemas"]["Oppgave"] = {
+  oppgaveId: "019b9dad-fbb9-777b-94fa-33f01dfa6bb0",
+  behandlingId: "019b9d9a-0239-70fb-9962-4ddd56d3d266",
   saksbehandler: {
     ident: "Z993298",
     fornavn: "Donald",
@@ -11,16 +11,6 @@ export const ordinær: components["schemas"]["Oppgave"] = {
       navn: "Mock Enhet",
       enhetNr: "1337",
       postadresse: "Apalveien 111, 1337 Andeby",
-    },
-  },
-  beslutter: {
-    ident: "Z994276",
-    fornavn: "F_Z994276",
-    etternavn: "E_Z994276",
-    enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
     },
   },
   person: {
@@ -36,41 +26,59 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
   },
-  tidspunktOpprettet: "2026-02-04T14:25:42.587006",
+  tidspunktOpprettet: "2026-01-08T13:34:34.703999",
   behandlingType: "RETT_TIL_DAGPENGER",
-  utlostAv: "MANUELL",
-  journalpostIder: [],
+  utlostAv: "SØKNAD",
+  journalpostIder: ["717556510"],
   historikk: [
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:57.086",
-      tittel: "Ferdig behandlet",
+      tidspunkt: "2026-02-05T08:04:13.603",
+      tittel: "Avbrutt",
       behandler: {
-        navn: "F_Z994276 E_Z994276",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:45.385",
-      tittel: "Under kontroll",
+      tidspunkt: "2026-02-05T08:04:03.276",
+      tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994276 E_Z994276",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:21:51.993",
-      tittel: "Klar til kontroll",
+      tidspunkt: "2026-02-05T08:03:57.017",
+      tittel: "Klar til behandling",
       behandler: {
-        navn: "F_Z994794 E_Z994794",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:20.165",
+      tidspunkt: "2026-02-04T15:23:34.135",
+      tittel: "Under behandling",
+      behandler: {
+        navn: "F_Z993212 E_Z993212",
+        rolle: "saksbehandler",
+      },
+    },
+    {
+      type: "statusendring",
+      tidspunkt: "2026-02-04T14:17:40.655",
+      tittel: "Klar til behandling",
+      behandler: {
+        navn: "F_Z994714 E_Z994714",
+        rolle: "saksbehandler",
+      },
+    },
+    {
+      type: "statusendring",
+      tidspunkt: "2026-01-08T13:59:03.811",
       tittel: "Under behandling",
       behandler: {
         navn: "F_Z994794 E_Z994794",
@@ -79,7 +87,7 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:03.419",
+      tidspunkt: "2026-01-08T13:56:23.737",
       tittel: "Klar til behandling",
       behandler: {
         navn: "dp-behandling",
@@ -89,15 +97,28 @@ export const ordinær: components["schemas"]["Oppgave"] = {
   ],
   emneknagger: [
     {
+      visningsnavn: "Verneplikt",
+      kategori: "RETTIGHET",
+    },
+    {
       visningsnavn: "Ordinær",
       kategori: "RETTIGHET",
     },
+    {
+      visningsnavn: "Innvilgelse",
+      kategori: "SOKNADSRESULTAT",
+    },
+    {
+      visningsnavn: "Gjenopptak",
+      kategori: "GJENOPPTAK",
+    },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
   },
-  meldingOmVedtakKilde: "INGEN",
+  soknadId: "61dab51a-9a1c-4117-b143-930a650d2ca4",
+  meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",
 };

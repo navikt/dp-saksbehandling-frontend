@@ -1,6 +1,6 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinær: components["schemas"]["Oppgave"] = {
+export const oppgave019c28e8fbdb7466b5e6f6466f89d054: components["schemas"]["Oppgave"] = {
   oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
   behandlingId: "019c28d4-8633-7b7a-b67c-60dd74c7dba1",
   saksbehandler: {

@@ -1,8 +1,8 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const ordinær: components["schemas"]["Oppgave"] = {
-  oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
-  behandlingId: "019c28d4-8633-7b7a-b67c-60dd74c7dba1",
+export const oppgave019b2ce1aecd715eb6043ba49ebe3abc: components["schemas"]["Oppgave"] = {
+  oppgaveId: "019b2ce1-aecd-715e-b604-3ba49ebe3abc",
+  behandlingId: "019b2ce1-ad27-79b8-addd-4db6eee05452",
   saksbehandler: {
     ident: "Z993298",
     fornavn: "Donald",
@@ -11,16 +11,6 @@ export const ordinær: components["schemas"]["Oppgave"] = {
       navn: "Mock Enhet",
       enhetNr: "1337",
       postadresse: "Apalveien 111, 1337 Andeby",
-    },
-  },
-  beslutter: {
-    ident: "Z994276",
-    fornavn: "F_Z994276",
-    etternavn: "E_Z994276",
-    enhet: {
-      navn: "IT-avdelingen",
-      enhetNr: "2970",
-      postadresse: "",
     },
   },
   person: {
@@ -36,50 +26,32 @@ export const ordinær: components["schemas"]["Oppgave"] = {
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
   },
-  tidspunktOpprettet: "2026-02-04T14:25:42.587006",
+  tidspunktOpprettet: "2025-12-17T16:15:46.117589",
   behandlingType: "RETT_TIL_DAGPENGER",
-  utlostAv: "MANUELL",
+  utlostAv: "MELDEKORT",
   journalpostIder: [],
   historikk: [
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:57.086",
+      tidspunkt: "2025-12-17T16:16:13.515",
       tittel: "Ferdig behandlet",
       behandler: {
-        navn: "F_Z994276 E_Z994276",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T15:22:45.385",
-      tittel: "Under kontroll",
-      behandler: {
-        navn: "F_Z994276 E_Z994276",
-        rolle: "saksbehandler",
-      },
-    },
-    {
-      type: "statusendring",
-      tidspunkt: "2026-02-04T15:21:51.993",
-      tittel: "Klar til kontroll",
-      behandler: {
-        navn: "F_Z994794 E_Z994794",
-        rolle: "saksbehandler",
-      },
-    },
-    {
-      type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:20.165",
+      tidspunkt: "2025-12-17T16:15:49.847",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994794 E_Z994794",
+        navn: "F_Z994714 E_Z994714",
         rolle: "saksbehandler",
       },
     },
     {
       type: "statusendring",
-      tidspunkt: "2026-02-04T14:48:03.419",
+      tidspunkt: "2025-12-17T16:15:46.509",
       tittel: "Klar til behandling",
       behandler: {
         navn: "dp-behandling",

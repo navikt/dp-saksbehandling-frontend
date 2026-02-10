@@ -46,15 +46,7 @@ export async function genererMockDagpengerRettBehandling(behandlingId?: string) 
     answers.behandlingId,
   );
 
-  const defaultFilnavn = uuidTilVariabelNavn(answers.behandlingId, "behandling");
-  const { filnavn } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "filnavn",
-      message: "Overskriv filnavn i mock-kebab-case (uten .ts):",
-      default: defaultFilnavn,
-    },
-  ]);
+  const filnavn = uuidTilVariabelNavn(answers.behandlingId, "behandling");
 
   await lagMockFil<BehandlingComponents["schemas"]["Behandling"]>({
     data: behandling,
@@ -96,10 +88,7 @@ export async function genererMockOppgave(id?: string) {
   const { hentOppgave } = await import("~/models/saksbehandling.server");
   const oppgave = await hentOppgave(new Request(getEnv("DP_SAKSBEHANDLING_URL")), oppgaveId);
 
-  const defaultFilnavn = oppgave.emneknagger
-    .map((emneknagg) => emneknagg.visningsnavn.toLowerCase().replace(/\s+/g, "-"))
-    .join("-");
-
+  const filnavn = uuidTilVariabelNavn(oppgave.oppgaveId, "oppgave");
   const answers = await inquirer.prompt([
     {
       type: "select",
@@ -173,12 +162,6 @@ export async function genererMockOppgave(id?: string) {
       default: oppgave.meldingOmVedtakKilde,
       when: (answers) => answers.meldingOmVedtakKilde === "DP_SAK",
     },
-    {
-      type: "input",
-      name: "filnavn",
-      message: "Oversriv filnavn i mock-kebab-case (uten .ts):",
-      default: defaultFilnavn,
-    },
   ]);
 
   const mockOppgave: SaksbehandlingComponents["schemas"]["Oppgave"] = {
@@ -192,8 +175,8 @@ export async function genererMockOppgave(id?: string) {
 
   await lagMockFil<SaksbehandlingComponents["schemas"]["Oppgave"]>({
     data: mockOppgave,
-    filnavn: answers.filnavn,
-    variabelNavn: kebabToCamelCase(answers.filnavn),
+    filnavn: filnavn,
+    variabelNavn: kebabToCamelCase(filnavn),
     mockDataType: "OPPGAVE",
     mockMappe: "mock-oppgaver",
   });
@@ -201,15 +184,15 @@ export async function genererMockOppgave(id?: string) {
   await leggTilIMockListe({
     mockListeFilsti: "mocks/data/mock-oppgaver/mock-oppgaver.ts",
     mockListeVariabelNavn: "mockOppgaver",
-    mockFilnavn: answers.filnavn,
-    mockVariabelNavn: kebabToCamelCase(answers.filnavn),
+    mockFilnavn: filnavn,
+    mockVariabelNavn: kebabToCamelCase(filnavn),
   });
 
   await leggTilIMockListe({
     mockListeFilsti: "mocks/data/mock-oppgaver/mock-liste-oppgaver.ts",
     mockListeVariabelNavn: "mockListeOppgaver",
-    mockFilnavn: answers.filnavn,
-    mockVariabelNavn: kebabToCamelCase(answers.filnavn),
+    mockFilnavn: filnavn,
+    mockVariabelNavn: kebabToCamelCase(filnavn),
     variabelNavnFunction: "konverterOppgaveTilListeOppgave",
   });
 
