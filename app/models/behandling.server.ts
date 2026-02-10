@@ -5,15 +5,19 @@ import { getEnv } from "~/utils/env.utils";
 import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { paths } from "../../openapi/behandling-typer";
+import { components, paths } from "../../openapi/behandling-typer";
 
 const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
-export async function opprettManuellBehandling(request: Request, ident: string) {
+export async function opprettBehandling(
+  request: Request,
+  ident: string,
+  behandlingstype: components["schemas"]["Behandlingstype"],
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident },
+    body: { ident, behandlingstype },
   });
 }
 

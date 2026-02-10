@@ -434,3 +434,13 @@ export function hentValideringForUtvidetBeskrivelse() {
     utvidetBeskrivelse: z.string(),
   });
 }
+
+export function hentValideringForOpprettBehandling() {
+  return z.object({
+    _action: z.literal("opprett-behandling"),
+    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
+    behandlingstype: z.enum(["Revurdering", "Manuell"], {
+      message: "Du må velge en behandlingstype",
+    }),
+  });
+}

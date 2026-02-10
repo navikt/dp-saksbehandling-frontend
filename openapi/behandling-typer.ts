@@ -776,15 +776,12 @@ export interface components {
             ident: components["schemas"]["Personident"];
         };
         NyBehandling: {
+            behandlingstype?: components["schemas"]["Behandlingstype"];
             ident: components["schemas"]["Personident"];
-            hendelse?: components["schemas"]["Hendelse"];
-            /**
-             * Format: date
-             * @deprecated
-             */
-            "pr\u00F8vingsdato"?: string;
             begrunnelse?: string;
         };
+        /** @enum {string} */
+        Behandlingstype: "Revurdering" | "Manuell";
         NyOpplysning: {
             opplysningstype: components["schemas"]["OpplysningTypeId"];
             verdi: string;

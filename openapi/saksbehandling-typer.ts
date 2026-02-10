@@ -1627,10 +1627,11 @@ export interface paths {
             parameters: {
                 query?: {
                     /**
-                     * @description Filtrer på rettighetsknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
+                     * @description Filtrer på rettighet-emneknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
                      * @example [
                      *       "Ordinær",
-                     *       "Verneplikt"
+                     *       "Verneplikt",
+                     *       "Permittert"
                      *     ]
                      */
                     rettighet?: string[];
@@ -1995,16 +1996,32 @@ export interface components {
         StatistikkV2: {
             grupper: components["schemas"]["StatistikkV2Gruppe"][];
             serier: components["schemas"]["StatistikkV2Serie"][];
+            resultat: components["schemas"]["StatistikkV2Resultat"][];
         };
         StatistikkV2Gruppe: {
             navn: string;
             total: number;
             /** Format: date-time */
-            eldsteOppgave: string;
+            eldsteOppgave?: string;
         };
         StatistikkV2Serie: {
             navn: string;
-            verdier: number[];
+            total: number;
+        };
+        StatistikkV2Resultat: {
+            grupper: components["schemas"]["V2StatusNavn"][];
+            serier: components["schemas"]["V2Serie"][];
+        };
+        V2StatusNavn: {
+            navn: string;
+        };
+        V2Serie: {
+            navn: string;
+            verdier: unknown[];
+        };
+        V2GruppeMedAntall: {
+            gruppe: string;
+            antall: number;
         };
         BeholdningsInfo: {
             /**
