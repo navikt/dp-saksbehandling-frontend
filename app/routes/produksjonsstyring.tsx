@@ -83,8 +83,6 @@ export default function Produksjonsstyring() {
     return <div>Ingen statistikk tilgjengelig</div>;
   }
 
-  console.log(statistikk);
-
   return (
     <main className={"m-4 flex flex-col gap-2"}>
       <div className={"card p-4"}>
@@ -115,11 +113,11 @@ export default function Produksjonsstyring() {
           xAxis={[
             {
               scaleType: "band",
-              data: statistikk.grupper.map((gruppe) => gruppe.navn),
+              data: statistikk.resultat.grupper.map((gruppe) => gruppe.navn),
             },
           ]}
-          series={statistikk.serier.map((serie) => ({
-            data: serie.verdier,
+          series={statistikk.resultat.serier.map((serie) => ({
+            data: serie.verdier.map((verdi) => verdi.antall),
             label: serie.navn,
             stack: "total",
           }))}

@@ -26,10 +26,7 @@ export function OppgaveTypeVelger({ serier }: IProps) {
         >
           <Detail>Alle oppgavetyper</Detail>
           <BodyShort weight={"semibold"} className={"mt-2"}>
-            {serier.reduce(
-              (acc, serie) => acc + serie.verdier.reduce((sum, verdi) => sum + verdi, 0),
-              0,
-            )}
+            {serier.reduce((acc, serie) => acc + serie.total, 0)}
           </BodyShort>
         </Button>
 
@@ -37,7 +34,7 @@ export function OppgaveTypeVelger({ serier }: IProps) {
           <FilterKnapp
             key={serie.navn}
             emneknagg={{ navn: serie.navn, kategori: "oppgavetype" }}
-            antallOppgaver={serie.verdier.reduce((acc, verdi) => acc + verdi, 0)}
+            antallOppgaver={serie.total}
           />
         ))}
       </div>

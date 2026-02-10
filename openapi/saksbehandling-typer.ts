@@ -1996,7 +1996,7 @@ export interface components {
         StatistikkV2: {
             grupper: components["schemas"]["StatistikkV2Gruppe"][];
             serier: components["schemas"]["StatistikkV2Serie"][];
-            resultat: components["schemas"]["StatistikkV2Resultat"][];
+            resultat: components["schemas"]["StatistikkV2Resultat"];
         };
         StatistikkV2Gruppe: {
             navn: string;
@@ -2017,7 +2017,7 @@ export interface components {
         };
         V2Serie: {
             navn: string;
-            verdier: unknown[];
+            verdier: components["schemas"]["V2GruppeMedAntall"][];
         };
         V2GruppeMedAntall: {
             gruppe: string;
