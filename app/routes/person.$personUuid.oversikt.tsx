@@ -14,6 +14,7 @@ import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehand
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { hentBehandling } from "~/models/behandling.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -30,6 +31,15 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
+  const sisteDagpengerRettBehandlingId = personOversikt.saker[0].behandlinger.find(
+    (behandling) => behandling.behandlingType === "RETT_TIL_DAGPENGER",
+  )?.id;
+
+  console.log(sisteDagpengerRettBehandlingId);
+  let sisteDagpengerRettBehandling;
+  if (sisteDagpengerRettBehandlingId) {
+    sisteDagpengerRettBehandling = await hentBehandling(request, sisteDagpengerRettBehandlingId);
+  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -38,6 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     {
       alert,
       personOversikt,
+      sisteDagpengerRettBehandling,
     },
     {
       headers: {
@@ -48,7 +59,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personOversikt, alert } = useLoaderData<typeof loader>();
+  const { personOversikt, sisteDagpengerRettBehandling, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -106,7 +117,12 @@ export default function PersonOversikt() {
           </Tabs.List>
 
           <Tabs.Panel value="siste-sak">
-            {personOversikt.saker[0] && <SisteSak sak={personOversikt.saker[0]} />}
+            {personOversikt.saker[0] && (
+              <SisteSak
+                sak={personOversikt.saker[0]}
+                dagpengerRettBehandling={sisteDagpengerRettBehandling}
+              />
+            )}
             {!personOversikt.saker[0] && (
               <div className={"card my-4 p-4"}>
                 <BodyShort>Personen har ingen saker</BodyShort>

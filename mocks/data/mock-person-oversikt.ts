@@ -17,14 +17,14 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
           oppgaveId: "018e9999-9df8-7aa4-94a6-318fada10999",
         },
         {
-          id: "019353b5-3ee6-7693-8fdd-649153c18f74",
+          id: "019a81e3-99ab-7951-8dd1-614c3b5bcf48",
           behandlingType: "RETT_TIL_DAGPENGER",
           utlostAv: "SØKNAD",
           opprettet: "2025-06-23T11:28:57.936476",
           oppgaveId: "018f05a0-667a-7597-a835-fab53189d051",
         },
         {
-          id: "019353b5-3ee6-7693-8fdd-649153c18f74",
+          id: "019a71dd03ab7fbe9714c9472667f87c",
           behandlingType: "RETT_TIL_DAGPENGER",
           utlostAv: "MELDEKORT",
           opprettet: "2025-06-23T11:28:57.936476",
