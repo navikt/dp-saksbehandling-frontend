@@ -9,6 +9,7 @@ import { components as behandlingComponents } from "../../../openapi/behandling-
 interface IProps {
   dagpengerRettBehandling: behandlingComponents["schemas"]["Behandling"];
 }
+
 export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
   const sisteRettighetsPeriode = dagpengerRettBehandling?.rettighetsperioder.at(-1);
 
@@ -25,7 +26,7 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
   return (
     <div className={"card card-raised my-4 p-4"}>
       <Heading className={"border-b-1 border-ax-border-neutral-subtle pb-2"} size={"small"}>
-        Gjeldende vedtak
+        Siste opprettede behandling
       </Heading>
 
       <div className={"flex gap-12 pt-2"}>
