@@ -62,20 +62,20 @@ export function OppgaveFattVedtak() {
         <Modal.Footer>
           <Button
             size="small"
-            type="button"
-            variant="secondary"
-            onClick={() => modalRef.current?.close()}
-          >
-            Avbryt
-          </Button>
-
-          <Button
-            size="small"
             variant="primary"
             loading={fattVedtakForm.formState.isSubmitting}
             onClick={() => fattVedtakForm.submit()}
           >
             Ja
+          </Button>
+
+          <Button
+            size="small"
+            type="button"
+            variant="secondary"
+            onClick={() => modalRef.current?.close()}
+          >
+            Avbryt
           </Button>
         </Modal.Footer>
       </Modal>

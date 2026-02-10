@@ -37,20 +37,20 @@ export function OppgaveSendTilKontroll() {
         <Modal.Footer>
           <Button
             size="small"
-            type="button"
-            variant="secondary"
-            onClick={() => modalRef.current?.close()}
-          >
-            Avbryt
-          </Button>
-
-          <Button
-            size="small"
             variant="primary"
             loading={sendTilKontrollForm.formState.isSubmitting}
             onClick={() => sendTilKontrollForm.submit()}
           >
             Ja
+          </Button>
+
+          <Button
+            size="small"
+            type="button"
+            variant="secondary"
+            onClick={() => modalRef.current?.close()}
+          >
+            Avbryt
           </Button>
         </Modal.Footer>
       </Modal>

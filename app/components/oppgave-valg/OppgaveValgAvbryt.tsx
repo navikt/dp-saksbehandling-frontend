@@ -83,21 +83,21 @@ export function OppgaveValgAvbryt({
         <Modal.Footer>
           <Button
             size="small"
-            type="button"
-            variant="secondary"
-            onClick={() => modalRef.current?.close()}
-          >
-            Nei, behold oppgaven
-          </Button>
-
-          <Button
-            size="small"
             variant="primary"
             type={"button"}
             loading={avbrytOppgaveForm.formState.isSubmitting}
             onClick={() => avbrytOppgaveForm.submit()}
           >
             Ja, avbryt oppgaven
+          </Button>
+
+          <Button
+            size="small"
+            type="button"
+            variant="secondary"
+            onClick={() => modalRef.current?.close()}
+          >
+            Nei, behold oppgaven
           </Button>
         </Modal.Footer>
       </Modal>

@@ -152,23 +152,25 @@ function Barn({ barnNummer, barn, opplysningId, orkestratorLandliste }: IOrkestr
           </Modal.Body>
           <Modal.Footer>
             <Button
-              type="button"
-              variant="tertiary"
-              size="small"
-              onClick={() => ref.current?.close()}
-            >
-              Lukk
-            </Button>
-            <Button type="button" variant="secondary" size="small" onClick={avbryt}>
-              Avbryt
-            </Button>
-            <Button
               type="submit"
               size="small"
               loading={state !== "idle"}
               disabled={!orkestratorBarnForm.formState.isDirty}
             >
               Lagre endringer
+            </Button>
+
+            <Button type="button" variant="secondary" size="small" onClick={avbryt}>
+              Avbryt
+            </Button>
+
+            <Button
+              type="button"
+              variant="tertiary"
+              size="small"
+              onClick={() => ref.current?.close()}
+            >
+              Lukk
             </Button>
           </Modal.Footer>
         </Form>
