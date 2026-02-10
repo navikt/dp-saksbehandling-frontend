@@ -431,7 +431,7 @@ function formatDato(dato?: string): string {
 export default function Diff() {
   const { behandling: gjeldeneBehandling } = useBehandling();
   const [sammenligningsBehandlingId, setSammenligningsBehandlingId] = useState(
-    gjeldeneBehandling.basertPå,
+    gjeldeneBehandling.basertPå ?? "",
   );
   const [aktivtDesign, setAktivtDesign] = useState<string>("1");
   const fetcher = useFetcher<{ behandling?: Behandling; error?: string }>();
@@ -773,10 +773,10 @@ function Design1SideBySide({ gammelBehandling, nyBehandling, forskjeller }: Desi
         />
         <Chips>
           <Chips.Toggle selected={filterType === "alle"} onClick={() => setFilterType("alle")}>
-            Alle ({forskjeller.length})
+            {`Alle (${forskjeller.length})`}
           </Chips.Toggle>
           <Chips.Toggle selected={filterType === "endret"} onClick={() => setFilterType("endret")}>
-            Kun endrede ({stats.totaltEndret})
+            {`Kun endrede (${stats.totaltEndret})`}
           </Chips.Toggle>
           <Chips.Toggle
             selected={filterType === "uendret"}
