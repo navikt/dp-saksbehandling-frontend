@@ -19,7 +19,7 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
         <div className={styles.opplysningVerdi}>{opplysning.verdi}</div>
       )}
 
-      {opplysning.redigerbar && opplysning.valgmuligheter.length > 15 && (
+      {opplysning.redigerbar && opplysning.valgmuligheter.length > 8 && (
         <Select
           size="small"
           {...field.getInputProps()}
@@ -34,7 +34,8 @@ export function KlageOpplysningValg({ opplysning, formScope, readonly }: IProps)
           ))}
         </Select>
       )}
-      {opplysning.redigerbar && opplysning.valgmuligheter.length <= 15 && (
+
+      {opplysning.redigerbar && opplysning.valgmuligheter.length <= 8 && (
         <RadioGroup
           size="small"
           {...field.getInputProps()}

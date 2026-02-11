@@ -1,4 +1,4 @@
-import { Button, Table } from "@navikt/ds-react";
+import { Button, Heading } from "@navikt/ds-react";
 
 import { KlageOpplysning } from "~/components/klage/klage-opplysning/KlageOpplysning";
 import { hentKlage } from "~/models/saksbehandling.server";
@@ -21,63 +21,60 @@ export function KlageBehandling({ klage, readonly, setAktivTab }: IProps) {
     (opplysning) => opplysning.gruppe === "FORMKRAV",
   );
 
-  // TODO: hvorfor er det tabell lol (ser ut som at vi bruker ul og li andre steder, f.eks. i RegelsettOpplysningListeElement)
   return (
-    <div className={"p-2"}>
-      <Table className={"tabell--subtil"}>
-        <Table.Body>
-          <Table.Row shadeOnHover={false}>
-            <Table.HeaderCell colSpan={2}>Klagesak</Table.HeaderCell>
-          </Table.Row>
+    <div className={"flex flex-col gap-8 p-4"}>
+      <div>
+        <Heading size={"small"} spacing={true}>
+          Klagesak
+        </Heading>
 
+        <div className={"flex flex-col gap-4"}>
           {klageSakOpplysninger.map((opplysning) => (
-            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-              <Table.DataCell>
-                <KlageOpplysning
-                  opplysning={opplysning}
-                  behandlingId={klage.behandlingId}
-                  readonly={readonly}
-                  visningType={"horisontal"}
-                />
-              </Table.DataCell>
-            </Table.Row>
+            <KlageOpplysning
+              key={opplysning.opplysningId}
+              opplysning={opplysning}
+              behandlingId={klage.behandlingId}
+              readonly={readonly}
+              visningType={"horisontal"}
+            />
           ))}
+        </div>
+      </div>
 
-          <Table.Row shadeOnHover={false}>
-            <Table.HeaderCell colSpan={2}>Frist</Table.HeaderCell>
-          </Table.Row>
-
+      <div>
+        <Heading size={"small"} spacing={true}>
+          Frist
+        </Heading>
+        <div className={"flex flex-col gap-4"}>
           {fristOpplysninger.map((opplysning) => (
-            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-              <Table.DataCell>
-                <KlageOpplysning
-                  opplysning={opplysning}
-                  behandlingId={klage.behandlingId}
-                  readonly={readonly}
-                  visningType={"horisontal"}
-                />
-              </Table.DataCell>
-            </Table.Row>
+            <KlageOpplysning
+              key={opplysning.opplysningId}
+              opplysning={opplysning}
+              behandlingId={klage.behandlingId}
+              readonly={readonly}
+              visningType={"horisontal"}
+            />
           ))}
+        </div>
+      </div>
 
-          <Table.Row shadeOnHover={false}>
-            <Table.HeaderCell colSpan={2}>Formkrav</Table.HeaderCell>
-          </Table.Row>
-
+      <div>
+        <Heading size={"small"} spacing={true}>
+          Formkrav
+        </Heading>
+        <div className={"flex flex-col gap-4"}>
           {formkravOpplysninger.map((opplysning) => (
-            <Table.Row key={opplysning.opplysningId} shadeOnHover={false}>
-              <Table.DataCell>
-                <KlageOpplysning
-                  opplysning={opplysning}
-                  behandlingId={klage.behandlingId}
-                  readonly={readonly}
-                  visningType={"horisontal"}
-                />
-              </Table.DataCell>
-            </Table.Row>
+            <KlageOpplysning
+              key={opplysning.opplysningId}
+              opplysning={opplysning}
+              behandlingId={klage.behandlingId}
+              readonly={readonly}
+              visningType={"horisontal"}
+            />
           ))}
-        </Table.Body>
-      </Table>
+        </div>
+      </div>
+
       <Button
         variant="primary"
         size="small"
