@@ -1,7 +1,7 @@
 import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";

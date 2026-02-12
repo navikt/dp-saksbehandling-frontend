@@ -5,7 +5,7 @@
 
 import { PassThrough } from "node:stream";
 
-import { faro } from "@grafana/faro-core";
+import { faro } from "@grafana/faro-web-sdk";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
