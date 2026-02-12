@@ -18,29 +18,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Cache node_modules
         uses: actions/cache@v5
         id: node_modules
         with:
           path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Setup node
         if: steps.node_modules.outputs.cache-hit != 'true'
         uses: actions/setup-node@v6
         with:
           node-version: "24.x"
-          cache: "npm"
+          cache: "pnpm"
           registry-url: "https://npm.pkg.github.com"
 
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
-        run: npm ci --ignore-scripts
+        run: pnpm install --ignore-scripts
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       
       - name: Run tests
-        run: npm test run
+        run: pnpm test run
 
   build:
     name: Bygg
@@ -57,12 +60,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Cache node_modules
         uses: actions/cache@v5
         id: node_modules
         with:
           path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('pnpm-lock.yaml') }}
       
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
