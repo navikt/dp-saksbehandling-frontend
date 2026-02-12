@@ -1612,7 +1612,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v2/statistikk": {
+    "/produksjonsstatistikk": {
         parameters: {
             query?: never;
             header?: never;
@@ -1653,68 +1653,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["StatistikkV2"];
-                    };
-                };
-                /** @description Uautorisert tilgang */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/statistikk": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Hent statistikk
-         * @description Henter statistikk for innlogget saksbehandler samt generell statistikk.
-         */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Statistikk hentet */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            individuellStatistikk: components["schemas"]["Statistikk"];
-                            generellStatistikk: components["schemas"]["Statistikk"];
-                            beholdningsinfo: components["schemas"]["BeholdningsInfo"];
-                        };
+                        "application/json": components["schemas"]["Produksjonsstatistikk"];
                     };
                 };
                 /** @description Uautorisert tilgang */
@@ -1889,7 +1828,7 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING";
+        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING" | "OMGJØRING";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
         LovligeEndringer: {
@@ -1993,33 +1932,33 @@ export interface components {
              */
             totalt: number;
         };
-        StatistikkV2: {
-            grupper: components["schemas"]["StatistikkV2Gruppe"][];
-            serier: components["schemas"]["StatistikkV2Serie"][];
-            resultat: components["schemas"]["StatistikkV2Resultat"];
+        Produksjonsstatistikk: {
+            grupper: components["schemas"]["StatistikkGruppe"][];
+            serier: components["schemas"]["StatistikkSerie"][];
+            resultat: components["schemas"]["StatistikkResultat"];
         };
-        StatistikkV2Gruppe: {
+        StatistikkGruppe: {
             navn: string;
             total: number;
             /** Format: date-time */
             eldsteOppgave?: string;
         };
-        StatistikkV2Serie: {
+        StatistikkSerie: {
             navn: string;
             total: number;
         };
-        StatistikkV2Resultat: {
-            grupper: components["schemas"]["V2StatusNavn"][];
-            serier: components["schemas"]["V2Serie"][];
+        StatistikkResultat: {
+            grupper: components["schemas"]["TilstandNavn"][];
+            serier: components["schemas"]["StatistikkResultatSerie"][];
         };
-        V2StatusNavn: {
+        TilstandNavn: {
             navn: string;
         };
-        V2Serie: {
+        StatistikkResultatSerie: {
             navn: string;
-            verdier: components["schemas"]["V2GruppeMedAntall"][];
+            verdier: components["schemas"]["StatistikkGruppeMedAntall"][];
         };
-        V2GruppeMedAntall: {
+        StatistikkGruppeMedAntall: {
             gruppe: string;
             antall: number;
         };

@@ -341,25 +341,6 @@ export async function hentPersonOversikt(request: Request, personId: string) {
   throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentStatistikkForSaksbehandler(request: Request) {
-  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.GET("/statistikk", {
-    headers: getHeaders(onBehalfOfToken),
-  });
-
-  if (data) {
-    return data;
-  }
-
-  if (error) {
-    handleHttpProblem(error);
-  }
-
-  throw new Error(
-    `Uhåndtert feil i hentStatistikkForSaksbehandler(). ${response.status} - ${response.statusText}`,
-  );
-}
-
 export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { data, error } = await saksbehandlerClient.GET("/behandling/{behandlingId}/oppgaveId", {
@@ -390,11 +371,11 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
 export async function hentStatistikk(request: Request, urlSearchParams: URLSearchParams) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const queryParams =
-    parseSearchParamsToOpenApiQuery<paths["/v2/statistikk"]["get"]["parameters"]["query"]>(
+    parseSearchParamsToOpenApiQuery<paths["/produksjonsstatistikk"]["get"]["parameters"]["query"]>(
       urlSearchParams,
     );
 
-  const { data, error, response } = await saksbehandlerClient.GET("/v2/statistikk", {
+  const { data, error, response } = await saksbehandlerClient.GET("/produksjonsstatistikk", {
     headers: getHeaders(onBehalfOfToken),
     params: {
       query: queryParams,

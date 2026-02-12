@@ -1,5 +1,4 @@
-import { BarChartIcon, FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { LayersIcon } from "@navikt/aksel-icons";
 import {
   type ActionFunctionArgs,
   data,
@@ -15,9 +14,8 @@ import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/Oppgave
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentOppgaver, hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
+import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -52,20 +50,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const [oppgaverResponse, statistikk] = await Promise.all([
-    hentOppgaver(request, url.searchParams),
-    hentStatistikkForSaksbehandler(request),
-  ]);
-
+  const { oppgaver, totaltAntallOppgaver } = await hentOppgaver(request, url.searchParams);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
-      statistikk,
-      oppgaver: oppgaverResponse.oppgaver,
-      totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+      oppgaver,
+      totaltAntallOppgaver,
     },
     {
       headers: {
@@ -78,38 +71,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
-  const { alert, oppgaver, totaltAntallOppgaver, statistikk } = useLoaderData<typeof loader>();
+  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
-        <Tabs defaultValue="filter" size="small" className={styles.stickyTabs}>
-          <Tabs.List>
-            <Tabs.Tab
-              value="filter"
-              label="Filter"
-              icon={<FunnelIcon title="filter" aria-hidden />}
-            />
-            <Tabs.Tab
-              value="statistikk"
-              label="Statistikk"
-              icon={<BarChartIcon title="statistikk" aria-hidden />}
-            />
-          </Tabs.List>
-
-          <Tabs.Panel value="filter" className={styles.tabPanel}>
-            <OppgaveFilterDato />
-            <OppgaveFilterStatus />
-            <OppgaveFilterUtløstAv />
-            <OppgaveFilterRettighetstype />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="statistikk">
-            <Statistikk statistikk={statistikk} />
-          </Tabs.Panel>
-        </Tabs>
+        <OppgaveFilterDato />
+        <OppgaveFilterStatus />
+        <OppgaveFilterUtløstAv />
+        <OppgaveFilterRettighetstype />
       </aside>
 
       <main>

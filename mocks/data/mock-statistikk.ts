@@ -1,17 +1,6 @@
-import { components, paths } from "../../openapi/saksbehandling-typer";
+import { components } from "../../openapi/saksbehandling-typer";
 
-export const mockStatistikk: paths["/statistikk"]["get"]["responses"]["200"]["content"]["application/json"] =
-  {
-    individuellStatistikk: { dag: 4, uke: 12, totalt: 623 },
-    generellStatistikk: { dag: 400, uke: 1200, totalt: 6230 },
-    beholdningsinfo: {
-      antallOppgaverKlarTilBehandling: 1401,
-      antallOppgaverKlarTilKontroll: 7,
-      datoEldsteUbehandledeOppgave: "2025-02-12T13:26:19.548108",
-    },
-  };
-
-export const mockStatistikkOppgaveTypeV2: components["schemas"]["StatistikkV2"] = {
+export const mockStatistikkOppgaveTypeV2: components["schemas"]["Produksjonsstatistikk"] = {
   grupper: [
     { navn: "Klar til behandling", total: 18, eldsteOppgave: "2026-01-20T09:30:00Z" },
     { navn: "Klar til kontroll", total: 6, eldsteOppgave: "2026-01-28T10:00:00Z" },
@@ -85,7 +74,7 @@ export const mockStatistikkOppgaveTypeV2: components["schemas"]["StatistikkV2"] 
   },
 };
 
-export const mockStatistikkRettighetV2: components["schemas"]["StatistikkV2"] = {
+export const mockStatistikkRettighetV2: components["schemas"]["Produksjonsstatistikk"] = {
   grupper: [
     { navn: "Klar til behandling", total: 18, eldsteOppgave: "2026-01-20T09:30:00Z" },
     { navn: "Klar til kontroll", total: 6, eldsteOppgave: "2026-01-28T10:00:00Z" },

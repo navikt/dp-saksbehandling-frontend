@@ -6,7 +6,7 @@ import { FilterKnapp } from "~/components/produksjonsstyring/filter-knapp/Filter
 import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  serier: components["schemas"]["StatistikkV2Serie"][];
+  serier: components["schemas"]["StatistikkSerie"][];
 }
 export function OppgaveRettighetVelger({ serier }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();

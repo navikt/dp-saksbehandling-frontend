@@ -1,5 +1,4 @@
-import { FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { LayersIcon } from "@navikt/aksel-icons";
 import {
   type ActionFunctionArgs,
   data,
@@ -80,28 +79,16 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
-        <Tabs defaultValue="filter" size="small" className={styles.stickyTabs}>
-          <Tabs.List>
-            <Tabs.Tab
-              value="filter"
-              label="Filter"
-              icon={<FunnelIcon title="filter" aria-hidden />}
-            />
-          </Tabs.List>
-
-          <Tabs.Panel value="filter" className={styles.tabPanel}>
-            <OppgaveFilterMineOppgaver />
-            <OppgaveFilterDato />
-            <OppgaveFilterAvslagsgrunner />
-            <OppgaveFilterStatus />
-            <OppgaveFilterUtløstAv />
-            <OppgaveFilterGjenopptak />
-            <OppgaveFilterRettighetstype />
-            <OppgaveFilterSøknadresultat />
-            <OppgaveFilterAvbruttgrunner />
-            <OppgaveFilterPåVentGrunner />
-          </Tabs.Panel>
-        </Tabs>
+        <OppgaveFilterMineOppgaver />
+        <OppgaveFilterDato />
+        <OppgaveFilterAvslagsgrunner />
+        <OppgaveFilterStatus />
+        <OppgaveFilterUtløstAv />
+        <OppgaveFilterGjenopptak />
+        <OppgaveFilterRettighetstype />
+        <OppgaveFilterSøknadresultat />
+        <OppgaveFilterAvbruttgrunner />
+        <OppgaveFilterPåVentGrunner />
       </aside>
 
       <main>

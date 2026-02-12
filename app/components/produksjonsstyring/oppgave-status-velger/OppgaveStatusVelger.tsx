@@ -6,7 +6,7 @@ import { FilterKnapp } from "~/components/produksjonsstyring/filter-knapp/Filter
 import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
-  grupper: components["schemas"]["StatistikkV2Gruppe"][];
+  grupper: components["schemas"]["StatistikkGruppe"][];
 }
 
 export function OppgaveStatusVelger({ grupper }: IProps) {

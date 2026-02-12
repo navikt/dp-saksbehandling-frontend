@@ -14,11 +14,7 @@ import {
 import { mockOppgaver } from "./data/mock-oppgaver/mock-oppgaver";
 import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
-import {
-  mockStatistikk,
-  mockStatistikkOppgaveTypeV2,
-  mockStatistikkRettighetV2,
-} from "./data/mock-statistikk";
+import { mockStatistikkOppgaveTypeV2, mockStatistikkRettighetV2 } from "./data/mock-statistikk";
 
 const apiError = false;
 const delayMs = 0;
@@ -352,17 +348,6 @@ export const mockDpSaksbehandling = [
     return response(200).json(mockListeOppgaver);
   }),
 
-  // Hent statistikk
-  http.get(`/statistikk`, async ({ response }) => {
-    await delay(delayMs);
-
-    if (apiError) {
-      return response("default").json(defaultError, { status: 500 });
-    }
-
-    return response(200).json(mockStatistikk);
-  }),
-
   http.get("/behandling/{behandlingId}/oppgaveId", async ({ response, params }) => {
     await delay(delayMs);
 
@@ -413,7 +398,7 @@ export const mockDpSaksbehandling = [
     return response(204).empty();
   }),
 
-  http.get(`/v2/statistikk`, async ({ request, response }) => {
+  http.get(`/produksjonsstatistikk`, async ({ request, response }) => {
     await delay(delayMs);
 
     if (apiError) {
