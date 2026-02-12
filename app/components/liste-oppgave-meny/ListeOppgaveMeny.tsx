@@ -41,11 +41,12 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
             {gyldigeOppgaveValg.map((valg) => {
               switch (valg) {
                 case "legg-tilbake-oppgave":
-                  return <OppgaveValgLeggTilbake oppgaveId={listeOppgave.oppgaveId} />;
+                  return <OppgaveValgLeggTilbake key={valg} oppgaveId={listeOppgave.oppgaveId} />;
 
                 case "rekjor-behandling":
                   return (
                     <OppgaveValgRekjørBehandling
+                      key={valg}
                       behandlingId={listeOppgave.behandlingId}
                       personIdent={listeOppgave.personIdent}
                     />
@@ -54,6 +55,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                 case "behandle-oppgave":
                   return (
                     <OppgaveValgBehandle
+                      key={valg}
                       listeOppgave={listeOppgave}
                       label={"Behandle oppgave"}
                       icon={<PersonPencilIcon aria-hidden={true} />}
@@ -63,6 +65,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                 case "kontroller-oppgave":
                   return (
                     <OppgaveValgBehandle
+                      key={valg}
                       listeOppgave={listeOppgave}
                       label={"Kontroller oppgave"}
                       icon={<PersonGavelIcon aria-hidden={true} />}
@@ -72,6 +75,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                 case "se-oppgave":
                   return (
                     <OppgaveValgSe
+                      key={valg}
                       oppgaveId={listeOppgave.oppgaveId}
                       behandlingId={listeOppgave.behandlingId}
                       behandlingType={listeOppgave.behandlingType}
@@ -81,6 +85,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                 case "avbryt-behandling":
                   return (
                     <OppgaveValgAvbryt
+                      key={valg}
                       oppgaveId={listeOppgave.oppgaveId}
                       lovligeEndringer={
                         listeOppgave.lovligeEndringer || { avbrytAarsaker: [], paaVentAarsaker: [] }
