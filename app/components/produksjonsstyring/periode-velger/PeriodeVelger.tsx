@@ -12,8 +12,12 @@ import {
 } from "date-fns";
 import { nb } from "date-fns/locale";
 import { useState } from "react";
-import { DateRange } from "react-day-picker";
 import { useSearchParams } from "react-router";
+
+type DateRange = {
+  from: Date | undefined;
+  to?: Date | undefined;
+};
 
 export function PeriodeVelger() {
   const [åpen, setÅpen] = useState(false);
