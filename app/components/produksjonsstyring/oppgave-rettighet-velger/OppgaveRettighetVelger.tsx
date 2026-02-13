@@ -17,9 +17,9 @@ export function OppgaveRettighetVelger({ serier }: IProps) {
       <div className={"flex gap-2"}>
         <Button
           className={"h-[120px] w-[120px] text-left"}
-          variant={searchParams.get("rettighetstype") ? "secondary" : "primary"}
+          variant={searchParams.get("rettighet") ? "secondary" : "primary"}
           onClick={() => {
-            searchParams.delete("rettighetstype");
+            searchParams.delete("rettighet");
             setSearchParams(searchParams);
           }}
         >
@@ -32,7 +32,7 @@ export function OppgaveRettighetVelger({ serier }: IProps) {
         {serier.map((serie) => (
           <FilterKnapp
             key={serie.navn}
-            emneknagg={{ navn: serie.navn, kategori: "rettighetstype" }}
+            emneknagg={{ navn: serie.navn, kategori: "rettighet" }}
             antallOppgaver={serie.total}
           />
         ))}

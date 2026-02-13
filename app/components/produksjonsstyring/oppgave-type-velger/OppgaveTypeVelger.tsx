@@ -18,9 +18,9 @@ export function OppgaveTypeVelger({ serier }: IProps) {
       <div className={"flex gap-2"}>
         <Button
           className={"h-[120px] w-[120px] text-left"}
-          variant={searchParams.get("oppgavetype") ? "secondary" : "primary"}
+          variant={searchParams.get("utlostAv") ? "secondary" : "primary"}
           onClick={() => {
-            searchParams.delete("oppgavetype");
+            searchParams.delete("utlostAv");
             setSearchParams(searchParams);
           }}
         >
@@ -33,7 +33,7 @@ export function OppgaveTypeVelger({ serier }: IProps) {
         {serier.map((serie) => (
           <FilterKnapp
             key={serie.navn}
-            emneknagg={{ navn: serie.navn, kategori: "oppgavetype" }}
+            emneknagg={{ navn: serie.navn, kategori: "utlostAv" }}
             antallOppgaver={serie.total}
           />
         ))}
