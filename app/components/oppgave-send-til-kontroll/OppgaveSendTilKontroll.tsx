@@ -1,14 +1,20 @@
-import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, InlineMessage, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useLocation } from "react-router";
 
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
+import { isAlert } from "~/utils/type-guards";
 import { hentValideringForSendTilKontroll } from "~/utils/validering.util";
 
 export function OppgaveSendTilKontroll() {
   const { pathname } = useLocation();
   const { oppgaveId } = useTypeSafeParams();
+  const { meldingOmVedtak } = useMeldingOmVedtak();
+  const { oppgave } = useOppgave();
+  const [visFeilmelding, setVisFeilmelding] = useState(false);
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const sendTilKontrollForm = useForm({
@@ -23,11 +29,28 @@ export function OppgaveSendTilKontroll() {
     },
   });
 
+  function handleOnClick() {
+    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && !isAlert(meldingOmVedtak)) {
+      modalRef.current?.showModal();
+    }
+
+    setVisFeilmelding(true);
+  }
+
   return (
     <>
-      <Button size="small" variant="primary" onClick={() => modalRef.current?.showModal()}>
-        Send til kontroll
-      </Button>
+      <div>
+        <Button size="small" variant="primary" onClick={() => handleOnClick()}>
+          Send til kontroll
+        </Button>
+
+        {visFeilmelding && (
+          <InlineMessage status="error" className={"mt-4"}>
+            Kan ikke sende oppgave til kontroll fordi melding om vedtak feiler. Endre melding om
+            vedtak kilde og prøv igjen.
+          </InlineMessage>
+        )}
+      </div>
 
       <Modal ref={modalRef} header={{ heading: "Send til kontroll" }}>
         <Modal.Body>

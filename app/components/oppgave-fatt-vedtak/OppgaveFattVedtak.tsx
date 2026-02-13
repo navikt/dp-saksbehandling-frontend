@@ -1,20 +1,26 @@
-import { BodyLong, Button, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, InlineMessage, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
+import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import {
   formaterOpplysningVerdi,
   hentOpplysningsperiodePåPrøvingsdato,
 } from "~/utils/opplysning.utils";
+import { isAlert } from "~/utils/type-guards";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
 
 export function OppgaveFattVedtak() {
   const { pathname } = useLocation();
   const { oppgaveId } = useTypeSafeParams();
   const { behandling, sistePrøvingsdato } = useBehandling();
+  const { meldingOmVedtak } = useMeldingOmVedtak();
+  const { oppgave } = useOppgave();
+  const [visFeilmelding, setVisFeilmelding] = useState(false);
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const fattVedtakForm = useForm({
@@ -29,6 +35,10 @@ export function OppgaveFattVedtak() {
     },
   });
 
+  useEffect(() => {
+    setVisFeilmelding(false);
+  }, [oppgave.meldingOmVedtakKilde]);
+
   if (!sistePrøvingsdato) {
     return null;
   }
@@ -39,11 +49,26 @@ export function OppgaveFattVedtak() {
     sistePrøvingsdato.toISOString(),
   );
 
+  function handleOnClick() {
+    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && !isAlert(meldingOmVedtak)) {
+      modalRef.current?.showModal();
+    }
+
+    setVisFeilmelding(true);
+  }
+
   return (
     <>
-      <Button size="small" onClick={() => modalRef.current?.showModal()}>
+      <Button size="small" onClick={() => handleOnClick()}>
         Fatt vedtak
       </Button>
+
+      {visFeilmelding && (
+        <InlineMessage status="error">
+          Kan ikke fatte vedtak fordi melding om vedtak er feiler. Endre melding om vedtak kilde og
+          prøv igjen.
+        </InlineMessage>
+      )}
 
       <Modal ref={modalRef} header={{ heading: "Fatt vedtak" }}>
         <Modal.Body>
