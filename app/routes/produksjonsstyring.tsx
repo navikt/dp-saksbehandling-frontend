@@ -4,7 +4,6 @@ import {
   type ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
-  redirect,
   useActionData,
   useLoaderData,
   useSearchParams,
@@ -19,12 +18,6 @@ import { hentStatistikk } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
-import { appendSearchParamIfNotExists } from "~/utils/url.utils";
-
-export const produksjonsstyringDefaultParams = [
-  { key: "side", value: "1" },
-  { key: "antallOppgaver", value: "99999" },
-];
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -32,17 +25,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-
-  if (!url.search) {
-    let appended = false;
-    for (const { key, value } of produksjonsstyringDefaultParams) {
-      appended = appendSearchParamIfNotExists(url.searchParams, key, value) || appended;
-    }
-
-    if (appended) {
-      return redirect(url.toString());
-    }
-  }
 
   const statistikk = await hentStatistikk(request, url.searchParams);
 
