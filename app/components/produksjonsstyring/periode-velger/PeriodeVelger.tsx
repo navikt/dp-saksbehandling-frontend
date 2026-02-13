@@ -14,6 +14,8 @@ import { nb } from "date-fns/locale";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
 
+import { formaterTilNorskDato } from "~/utils/dato.utils";
+
 type DateRange = {
   from: Date | undefined;
   to?: Date | undefined;
@@ -97,6 +99,12 @@ export function PeriodeVelger() {
             Velg dager
           </Button>
         </DatePicker>
+
+        {(fom || tom) && (
+          <Chips.Removable onClick={() => togglePeriode()}>
+            {`${fom ? formaterTilNorskDato(fom) : "--"} – ${tom ? formaterTilNorskDato(tom) : "--"}`}
+          </Chips.Removable>
+        )}
       </div>
     </div>
   );
