@@ -47,7 +47,7 @@ export default function Oppgave() {
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
-            label="Klage motatt"
+            label="Klage mottatt"
             name={"opprettetDato"}
             size={"small"}
             error={klageForm.error("opprettetDato")}
