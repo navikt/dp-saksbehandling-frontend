@@ -1,4 +1,5 @@
 import {
+  ArrowsSquarepathIcon,
   BooksIcon,
   CalendarIcon,
   ChatExclamationmarkIcon,
@@ -89,6 +90,15 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Manuell"
+      );
+
+    case "OMGJØRING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ArrowsSquarepathIcon aria-hidden fontSize="1.5rem" /> Omgjøring
+        </span>
+      ) : (
+        "Omgjøring"
       );
 
     default:

@@ -779,6 +779,16 @@ export interface components {
             behandlingstype?: components["schemas"]["Behandlingstype"];
             ident: components["schemas"]["Personident"];
             begrunnelse?: string;
+            /**
+             * Format: uuid
+             * @description Valgfritt id for hendelsen, hvis ikke genereres det en uuid
+             */
+            id?: string;
+            /**
+             * Format: date
+             * @description Når hendelsen skjedde, hvis ikke settes det til nåværende tidspunkt
+             */
+            skjedde?: string;
         };
         /** @enum {string} */
         Behandlingstype: "Revurdering" | "Manuell";
