@@ -40,7 +40,7 @@ export function OppgaveValgSendTilKontroll({ oppgaveId, buttonSize, buttonVarian
         Send til kontroll
       </Button>
 
-      <Modal ref={modalRef} header={{ heading: "Vil du kjøre behandlingen på nytt?" }}>
+      <Modal ref={modalRef} header={{ heading: "Vil du sende oppgaven til kontroll?" }}>
         <Modal.Footer>
           <Button
             size="small"
