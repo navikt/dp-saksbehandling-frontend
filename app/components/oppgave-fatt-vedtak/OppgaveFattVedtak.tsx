@@ -50,10 +50,10 @@ export function OppgaveFattVedtak() {
   );
 
   function handleOnClick() {
-    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && !isAlert(meldingOmVedtak)) {
-      modalRef.current?.showModal();
-    } else {
+    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
       setVisFeilmelding(true);
+    } else {
+      modalRef.current?.showModal();
     }
   }
 
