@@ -4,6 +4,7 @@ import { ActionMenu, Button } from "@navikt/ds-react";
 import { OppgaveValgAvbryt } from "~/components/oppgave-valg/OppgaveValgAvbryt";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { OppgaveValgRekjørBehandling } from "~/components/oppgave-valg/OppgaveValgRekjørBehandling";
+import { OppgaveValgSendTilKontroll } from "~/components/oppgave-valg/OppgaveValgSendTilKontroll";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
 import { useOppgave } from "~/hooks/useOppgave";
 
@@ -12,7 +13,7 @@ export function OppgaveMeny() {
 
   return (
     <>
-      {gyldigeOppgaveValg.length > 0 && (
+      {gyldigeOppgaveValg.filter((valg) => valg !== "se-oppgave").length > 0 && (
         <ActionMenu>
           <ActionMenu.Trigger>
             <Button
@@ -41,6 +42,9 @@ export function OppgaveMeny() {
 
                 case "utsett-oppgave":
                   return <OppgaveValgSettPåVent oppgave={oppgave} />;
+
+                case "send-til-kontroll":
+                  return <OppgaveValgSendTilKontroll oppgaveId={oppgave.oppgaveId} />;
 
                 case "avbryt-behandling":
                   return (

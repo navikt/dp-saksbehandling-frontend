@@ -40,7 +40,7 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
         onClick={() => modalRef.current?.showModal()}
         loading={leggTilbakeForm.formState.isSubmitting}
         icon={<ArrowUndoIcon aria-hidden />}
-        className={"aksel--font-regular"}
+        className={"aksel--font-regular aksel--full-bredde"}
       >
         Legg tilbake
       </Button>

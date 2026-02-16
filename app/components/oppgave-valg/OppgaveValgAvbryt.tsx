@@ -48,7 +48,7 @@ export function OppgaveValgAvbryt({
         onClick={() => modalRef.current?.showModal()}
         loading={avbrytOppgaveForm.formState.isSubmitting}
         icon={<XMarkIcon aria-hidden />}
-        className={"aksel--font-regular"}
+        className={"aksel--font-regular aksel--full-bredde"}
       >
         Avbryt oppgave
       </Button>

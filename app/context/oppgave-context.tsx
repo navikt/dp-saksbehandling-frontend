@@ -35,6 +35,7 @@ export type IGyldigeOppgaveHandlinger =
   | "kontroller-oppgave"
   | "se-oppgave"
   | "trekk-klage"
+  | "send-til-kontroll"
   | "ferdigstill-klage";
 
 export function OppgaveProvider({
@@ -118,6 +119,10 @@ function hentGyldigeDagpengerRettOppgaveValg(
     minOppgave
   ) {
     handlinger.push("utsett-oppgave");
+  }
+
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+    handlinger.push("send-til-kontroll");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") {
