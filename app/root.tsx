@@ -164,6 +164,7 @@ export default function App() {
             src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
             data-host-url="https://umami.nav.no"
             data-website-id={env.UMAMI_TRACKING_ID}
+            data-before-send="umamiBeforeSend"
           />
         </SaksbehandlerProvider>
       </body>
