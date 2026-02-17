@@ -94,8 +94,8 @@ spec:
       value: "{{faro_url}}"
     - name: GITHUB_SHA
       value: "{{githubSha}}"
-    # TODO - name: UMAMI_ID
-    # TODO   value: "{{umami_id}}"
+    - name: UMAMI_TRACKING_ID
+      value: "{{umami_tracking_id}}"
 
   envFrom:
     - secret: dp-saksbehandling-frontend-unleash-api-token

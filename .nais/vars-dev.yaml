@@ -34,4 +34,4 @@ azure:
     saksbehandler: "3e28466f-c53d-46da-8b44-a4abc2ad4593" # 0000-GA-Dagpenger-Saksbehandler
     beslutter: "11b8475a-fb12-41aa-b1f6-8497c1b5385b" # 0000-GA-Dagpenger-Beslutter
 
-# TODO: få tak i umami_id fra et trygt sted, eller er vi ok med å ha det i plaintekst? :thinking:
+umami_tracking_id: "072c4398-e1a9-4207-86aa-14c1c72361a0"
