@@ -1,16 +1,16 @@
 .oppgavelisteHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--ax-space-8);
 }
 
 .heading {
   display: flex;
   align-items: center;
-  gap: var(--a-spacing-1);
+  gap: var(--ax-space-4);
 }
 
 .antallOppgaver.antallOppgaver {
   margin-left: auto;
-  margin-right: var(--a-spacing-2);
+  margin-right: var(--ax-space-8);
 }

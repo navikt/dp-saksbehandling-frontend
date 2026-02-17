@@ -1,5 +1,4 @@
-import { FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
-import { Tabs } from "@navikt/ds-react";
+import { LayersIcon } from "@navikt/aksel-icons";
 import {
   type ActionFunctionArgs,
   data,
@@ -10,14 +9,17 @@ import {
   useNavigation,
 } from "react-router";
 
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
-import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
-import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter-mine-oppgaver/OppgaveFilterMineOppgaver";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterRettighetstype";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveFilterAvbruttgrunner } from "~/components/oppgave-filter/OppgaveFilterAvbruttgrunner";
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
+import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
+import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter/OppgaveFilterMineOppgaver";
+import { OppgaveFilterPåVentGrunner } from "~/components/oppgave-filter/OppgaveFilterPåVentGrunner";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
+import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
@@ -77,24 +79,16 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
-        <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
-          <Tabs.List>
-            <Tabs.Tab
-              value="filter"
-              label="Filter"
-              icon={<FunnelIcon title="filter" aria-hidden />}
-            />
-          </Tabs.List>
-
-          <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
-            <OppgaveFilterMineOppgaver />
-            <OppgaveFilterDato />
-            <OppgaveFilterBehandlingType />
-            <OppgaveFilterStatus />
-            <OppgaveFilterRettighetstype />
-            <OppgaveFilterAvslagsgrunner />
-          </Tabs.Panel>
-        </Tabs>
+        <OppgaveFilterMineOppgaver />
+        <OppgaveFilterDato />
+        <OppgaveFilterAvslagsgrunner />
+        <OppgaveFilterStatus />
+        <OppgaveFilterUtløstAv />
+        <OppgaveFilterGjenopptak />
+        <OppgaveFilterRettighetstype />
+        <OppgaveFilterSøknadresultat />
+        <OppgaveFilterAvbruttgrunner />
+        <OppgaveFilterPåVentGrunner />
       </aside>
 
       <main>

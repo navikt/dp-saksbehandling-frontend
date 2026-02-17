@@ -1,136 +1,165 @@
 import {
+  CheckmarkCircleFillIcon,
   ExclamationmarkTriangleFillIcon,
-  PersonPencilIcon,
-  RobotSmileIcon,
+  InformationSquareFillIcon,
 } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, ExpansionCard, Skeleton, TextField } from "@navikt/ds-react";
-import classnames from "classnames";
-import { useEffect, useState } from "react";
-import { Form, useActionData, useNavigation } from "react-router";
+import {
+  BodyLong,
+  BodyShort,
+  Button,
+  Detail,
+  ExpansionCard,
+  HStack,
+  Textarea,
+} from "@navikt/ds-react";
+import { AkselStatusColorRole } from "@navikt/ds-tokens/types";
+import { useForm } from "@rvf/react-router";
+import { useState } from "react";
+import { useLocation } from "react-router";
 
-import { handleActions } from "~/server-side-actions/handle-actions";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { useOppgave } from "~/hooks/useOppgave";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { isAlert } from "~/utils/type-guards";
+import { hentValideringForAvklaringSkjema } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/behandling-typer";
-import styles from "./Avklaring.module.css";
 
 interface IProps {
   avklaring: components["schemas"]["Avklaring"];
   behandlingId: string;
-  readonly?: boolean;
 }
 
-export function Avklaring({ avklaring, behandlingId, readonly }: IProps) {
-  const actionData = useActionData<typeof handleActions>();
-  const { state } = useNavigation();
-  const [visBeskrivelse, setVisBeskrivelse] = useState<boolean>(false);
+export function Avklaring(props: IProps) {
+  const { pathname } = useLocation();
+  const { readonly, underKontroll } = useOppgave();
+  const { oppgaveId, behandlingId } = useTypeSafeParams();
+  const [åpenAvklaring, setÅpenAvklaring] = useState<boolean>(
+    underKontroll && !!props.avklaring?.begrunnelse,
+  );
+  const avklaringForm = useForm({
+    method: "post",
+    action: pathname,
+    submitSource: "state",
+    schema: hentValideringForAvklaringSkjema(),
+    onSubmitSuccess: () => setÅpenAvklaring(false),
+    defaultValues: {
+      _action: "kvitter-avklaring",
+      behandlingId: props.behandlingId,
+      avklaringId: props.avklaring.id,
+      begrunnelse: props.avklaring.begrunnelse,
+    },
+  });
 
-  let avklartAv = "";
-  if (avklaring.maskinelt) avklartAv = "av regelmotor";
-  if (avklaring.avklartAv?.ident) avklartAv = `av ${avklaring.avklartAv?.ident}`;
-
-  useEffect(() => {
-    if (isAlert(actionData)) {
-      setVisBeskrivelse(false);
-    }
-  }, [actionData]);
+  const kanRedigereBegrunnelse = props.avklaring.kanKvitteres && !props.avklaring.maskinelt;
 
   return (
-    <>
-      <ExpansionCard
-        size="small"
-        aria-label=""
-        className={styles.alertCard}
-        open={visBeskrivelse}
-        onToggle={() => setVisBeskrivelse(!visBeskrivelse)}
-      >
-        <ExpansionCard.Header
-          className={classnames(styles.heading, {
-            [styles.headingWarning]: avklaring.status === "Åpen",
-          })}
-        >
-          <BodyShort
-            className={"flex items-center"}
-            size="small"
-            weight="semibold"
-            as={state === "loading" ? Skeleton : "p"}
-          >
-            {renderStatusIcon(avklaring.status, avklaring.maskinelt)}
-            {avklaring.tittel}
-          </BodyShort>
-        </ExpansionCard.Header>
+    <ExpansionCard
+      key={props.avklaring.id}
+      className={"expansion--subtil"}
+      aria-label={props.avklaring.tittel}
+      size={"small"}
+      open={åpenAvklaring}
+      onToggle={() => setÅpenAvklaring(!åpenAvklaring)}
+      data-color={hentAvklaringFarge(props.avklaring)}
+    >
+      <ExpansionCard.Header className={"flex items-center"}>
+        <HStack wrap={false} gap="space-12" align="center">
+          <div>{hentStatusIcon(props.avklaring)}</div>
+          <div>
+            <BodyShort size={"small"} weight={"semibold"}>
+              {props.avklaring.tittel}
+            </BodyShort>
 
-        <ExpansionCard.Content className={styles.content}>
-          {avklaring.beskrivelse}
+            {(props.avklaring.status === "Avklart" || props.avklaring.status === "Avbrutt") && (
+              <Detail>{hentAvklartAvTekst(props.avklaring)}</Detail>
+            )}
+          </div>
+        </HStack>
+      </ExpansionCard.Header>
 
-          {avklaring.kanKvitteres && (
-            <Form method="post">
-              <input name="_action" value="kvitter-avklaring" readOnly={true} hidden={true} />
-              <input name="avklaring-id" value={avklaring.id} readOnly={true} hidden={true} />
-              <input name="behandling-id" value={behandlingId} readOnly={true} hidden={true} />
+      <ExpansionCard.Content>
+        <div className={"flex flex-col gap-4"}>
+          <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
-              <TextField
-                className={styles.begrunnelseInput}
+          {props.avklaring.regelsett.map((regelsett) => (
+            <LoadingLink
+              key={regelsett.id}
+              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
+            >
+              {regelsett.hjemmel.tittel}
+            </LoadingLink>
+          ))}
+
+          {kanRedigereBegrunnelse && (
+            <>
+              <Textarea
+                {...avklaringForm.getInputProps("begrunnelse")}
+                resize={"vertical"}
+                readOnly={readonly}
                 size="small"
                 label="Begrunnelse"
-                name="begrunnelse"
-                defaultValue={avklaring.begrunnelse ?? ""}
-                readOnly={readonly}
               />
 
-              {avklaring.sistEndret && (
+              {props.avklaring.sistEndret && (
                 <Detail>
-                  Sist endret {formaterTilNorskDato(avklaring.sistEndret, true)} {avklartAv}
+                  Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                  {props.avklaring.avklartAv?.ident}
                 </Detail>
               )}
 
               {!readonly && (
-                <>
-                  <Button
-                    variant="secondary-neutral"
-                    size="xsmall"
-                    loading={state !== "idle"}
-                    type="button"
-                  >
-                    Lukk
-                  </Button>
-
-                  <Button
-                    variant="primary"
-                    size="xsmall"
-                    loading={state !== "idle"}
-                    type="submit"
-                    onClick={() => setVisBeskrivelse(true)}
-                  >
-                    Lagre
-                  </Button>
-                </>
+                <Button
+                  size={"small"}
+                  variant={"primary"}
+                  onClick={() => avklaringForm.submit()}
+                  disabled={readonly}
+                >
+                  Lagre
+                </Button>
               )}
-            </Form>
+            </>
           )}
-        </ExpansionCard.Content>
-      </ExpansionCard>
-    </>
+        </div>
+      </ExpansionCard.Content>
+    </ExpansionCard>
   );
 }
 
-function renderStatusIcon(
-  status: components["schemas"]["Avklaring"]["status"],
-  maskinelt: boolean,
-) {
-  switch (status) {
+function hentAvklartAvTekst(avklaring: components["schemas"]["Avklaring"]) {
+  if (avklaring.avklartAv) {
+    return `Avklart av ${avklaring.avklartAv.ident}`;
+  }
+
+  if (avklaring.maskinelt) {
+    return "Avklart av regelmotor";
+  }
+
+  return "Regelmotor works in mysterious ways";
+}
+
+function hentStatusIcon(avklaring: components["schemas"]["Avklaring"]) {
+  switch (avklaring.status) {
     case "Åpen":
-      return <ExclamationmarkTriangleFillIcon color={"var(--a-orange-600)"} fontSize={"1.5rem"} />;
-    case "Avklart":
-      return maskinelt ? (
-        <RobotSmileIcon fontSize={"1.5rem"} />
-      ) : (
-        <PersonPencilIcon fontSize="1.5rem" />
+      return (
+        <ExclamationmarkTriangleFillIcon color={"var(--ax-text-warning-decoration)"} aria-hidden />
       );
+    case "Avklart":
+      return <CheckmarkCircleFillIcon color={"var(--ax-text-success-decoration)"} aria-hidden />;
     case "Avbrutt":
-      return <RobotSmileIcon fontSize="1.5rem" />;
+      return <InformationSquareFillIcon color={"var(--ax-text-info-decoration)"} aria-hidden />;
     default:
       return null;
+  }
+}
+
+function hentAvklaringFarge(avklaring: components["schemas"]["Avklaring"]): AkselStatusColorRole {
+  switch (avklaring.status) {
+    case "Åpen":
+      return "warning";
+    case "Avklart":
+      return "success";
+    case "Avbrutt":
+      return "info";
   }
 }

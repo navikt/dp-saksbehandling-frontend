@@ -1,0 +1,6 @@
+.opplysningVerdi {
+  font-size: var(--ax-font-size-medium);
+  letter-spacing: 0.002em;
+  line-height: var(--ax-font-line-height-medium);
+  margin-left: var(--ax-space-8);
+}

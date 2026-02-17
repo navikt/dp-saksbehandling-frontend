@@ -1,25 +1,20 @@
+import { parseFormData, validationError } from "@rvf/react-router";
+
 import { IAlert } from "~/context/alert-context";
 import { rekjorBehandling } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForRekjørBehandling } from "~/utils/validering.util";
 
 export async function rekjorBehandlingAction(request: Request, formData: FormData) {
-  const behandlingId = formData.get("behandlingId") as string;
-  const ident = formData.get("ident") as string;
-  const opplysningerSomSkalOppfriskes = formData.getAll("opplysninger") as string[];
+  const validertSkjema = await parseFormData(formData, hentValideringForRekjørBehandling());
 
-  if (!behandlingId) {
-    throw new Error("Mangler behandlingId");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!ident) {
-    throw new Error("Mangler ident");
-  }
-  const { error } = await rekjorBehandling(
-    request,
-    behandlingId,
-    ident,
-    opplysningerSomSkalOppfriskes,
-  );
+  const { behandlingId, ident } = validertSkjema.data;
+
+  const { error } = await rekjorBehandling(request, behandlingId, ident, []);
 
   if (error) {
     return getHttpProblemAlert(error);

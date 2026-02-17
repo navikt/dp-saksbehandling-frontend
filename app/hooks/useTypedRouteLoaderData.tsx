@@ -1,21 +1,15 @@
 import { useRouteLoaderData } from "react-router";
 
 import type { loader as rootLoader } from "~/root";
-import type { loader as behandlingLoader } from "~/routes/behandling.$behandlingId";
-import type { loader as oppgaveLoader } from "~/routes/oppgave.$oppgaveId";
-import type { loader as dagpengerRettLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId";
-import type { loader as dagpengerRettBehandlingLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle";
+import type { loader as personBehandlingLoader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person";
 import type { loader as klageLoader } from "~/routes/oppgave.$oppgaveId.klage.$behandlingId";
 import type { loader as personLoader } from "~/routes/person.$personUuid";
 
 type Loaders = {
   root: typeof rootLoader;
   "routes/person.$personUuid": typeof personLoader;
-  "routes/behandling.$behandlingId": typeof behandlingLoader;
-  "routes/oppgave.$oppgaveId": typeof oppgaveLoader;
+  "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person": typeof personBehandlingLoader;
   "routes/oppgave.$oppgaveId.klage.$behandlingId": typeof klageLoader;
-  "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId": typeof dagpengerRettLoader;
-  "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId.behandle": typeof dagpengerRettBehandlingLoader;
 };
 
 export function useTypedRouteLoaderData<T extends keyof Loaders>(route: T) {

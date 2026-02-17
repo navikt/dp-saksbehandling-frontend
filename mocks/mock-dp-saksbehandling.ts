@@ -2,15 +2,19 @@ import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
-import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { klager } from "./data/mock-klage";
-import { konverterOppgaveTilListeOppgave, mockListeOppgaver } from "./data/mock-liste-oppgaver";
-import { klageOppgave, mockOppgaver } from "./data/mock-oppgaver";
+import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
+import { klager } from "./data/mock-klage-behandling/mock-klage";
+import { klage } from "./data/mock-oppgaver/klage";
+import {
+  konverterOppgaveTilListeOppgave,
+  mockListeOppgaver,
+} from "./data/mock-oppgaver/mock-liste-oppgaver";
+import { mockOppgaver } from "./data/mock-oppgaver/mock-oppgaver";
 import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
-import { mockStatistikk } from "./data/mock-statistikk";
+import { mockStatistikkOppgaveTypeV2, mockStatistikkRettighetV2 } from "./data/mock-statistikk";
 
 const apiError = false;
 const delayMs = 0;
@@ -34,8 +38,7 @@ function get404Error(apiKall: string): components["schemas"]["HttpProblem"] {
 
 export const mockDpSaksbehandling = [
   // Hent alle oppgaver
-  http.get(`/oppgave`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get(`/oppgave`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -49,8 +52,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent neste oppgave og tildel denne til saksbehandler
-  http.put(`/oppgave/neste`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/neste`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -61,8 +63,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent en oppgave med oppgaveId
-  http.get(`/oppgave/{oppgaveId}`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get(`/oppgave/{oppgaveId}`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -80,8 +81,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Tildel en oppgave med oppgaveId
-  http.put(`/oppgave/{oppgaveId}/tildel`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/tildel`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -94,20 +94,20 @@ export const mockDpSaksbehandling = [
     if (mockOppgave) {
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
         return response(200).json({
+          ...mockOppgave,
           nyTilstand: "UNDER_BEHANDLING",
-          behandlingType: mockOppgave.behandlingType,
         });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
         return response(200).json({
+          ...mockOppgave,
           nyTilstand: "UNDER_KONTROLL",
-          behandlingType: mockOppgave.behandlingType,
         });
       }
 
       return response(200).json({
+        ...mockOppgave,
         nyTilstand: mockOppgave.tilstand,
-        behandlingType: mockOppgave.behandlingType,
       });
     }
 
@@ -115,8 +115,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Legg oppgave med oppgaveId tilbake i køen
-  http.put(`/oppgave/{oppgaveId}/legg-tilbake`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/legg-tilbake`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -134,8 +133,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Ferdigstille oppgave
-  http.put(`/oppgave/{oppgaveId}/ferdigstill`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/ferdigstill`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -146,8 +144,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Utsett oppgave med oppgaveId
-  http.put(`/oppgave/{oppgaveId}/utsett`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/utsett`, async ({ response, params }) => {
     await delay();
 
     if (apiError) {
@@ -164,9 +161,26 @@ export const mockDpSaksbehandling = [
     return response(404).json(get404Error("/oppgave/{oppgaveId}/utsett"));
   }),
 
+  // Avbryt oppgave med oppgaveId
+  http.put(`/oppgave/{oppgaveId}/avbryt`, async ({ response, params }) => {
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (mockOppgave) {
+      return response(204).empty();
+    }
+
+    return response(404).json(get404Error("/oppgave/{oppgaveId}/avbryt"));
+  }),
+
   // Send oppgave til kontroll
-  http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/send-til-kontroll`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -177,8 +191,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Send oppgave tilbake til saksbehandler fra kontroll
-  http.put(`/oppgave/{oppgaveId}/returner-til-saksbehandler`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/returner-til-saksbehandler`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -189,8 +202,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Lagre notat på oppgave
-  http.put(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/notat`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -201,8 +213,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Slett notat på oppgave
-  http.delete(`/oppgave/{oppgaveId}/notat`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.delete(`/oppgave/{oppgaveId}/notat`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -212,8 +223,7 @@ export const mockDpSaksbehandling = [
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
   }),
 
-  http.put(`/oppgave/{oppgaveId}/melding-om-vedtak-kilde`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/melding-om-vedtak-kilde`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -223,8 +233,7 @@ export const mockDpSaksbehandling = [
     return response(204).empty();
   }),
 
-  http.put(`/oppgave/{oppgaveId}/kontrollert-brev`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/oppgave/{oppgaveId}/kontrollert-brev`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -235,8 +244,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent en klage med behandlingId
-  http.get(`/klage/{behandlingId}`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get(`/klage/{behandlingId}`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -254,20 +262,18 @@ export const mockDpSaksbehandling = [
   }),
 
   // Opprett en klage
-  http.post(`/klage/opprett-manuelt`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/klage/opprett-manuelt`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(konverterOppgaveTilListeOppgave(klageOppgave));
+    return response(200).json(konverterOppgaveTilListeOppgave(klage));
   }),
 
   // Ferdigstill en klage med behandlingId
-  http.put(`/klage/{behandlingId}/ferdigstill`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/klage/{behandlingId}/ferdigstill`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -285,8 +291,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Trekk en klage med behandlingId
-  http.put(`/klage/{behandlingId}/trekk`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/klage/{behandlingId}/trekk`, async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -304,16 +309,14 @@ export const mockDpSaksbehandling = [
   }),
 
   // Lagre opplysning på klage
-  http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ response }) => {
     await delay(delayMs);
 
     return response(201).empty();
   }),
 
   // Hent person med fnr i body
-  http.post(`/person/personId`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/person/personId`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -324,8 +327,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent person med uuid i url
-  http.get(`/person/{personId}`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get(`/person/{personId}`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -336,8 +338,7 @@ export const mockDpSaksbehandling = [
   }),
 
   // Hent alle oppgaver til en person
-  http.post(`/person/oppgaver`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/person/oppgaver`, async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -347,15 +348,70 @@ export const mockDpSaksbehandling = [
     return response(200).json(mockListeOppgaver);
   }),
 
-  // Hent statistikk
-  http.get(`/statistikk`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get("/behandling/{behandlingId}/oppgaveId", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+    const { behandlingId } = params;
+    const oppgave = mockOppgaver.find((oppgave) => oppgave.behandlingId === behandlingId);
+
+    if (!oppgave) {
+      return response(404).json(get404Error(`/behandling/${behandlingId}/oppgaveId`));
+    }
+
+    if (oppgave) {
+      return response(200).json({ oppgaveId: oppgave.oppgaveId });
+    }
+
+    return response("default").json(defaultError, { status: 500 });
+  }),
+
+  http.get("/innsending/{behandlingId}", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+    const { behandlingId } = params;
+    const innsending = mockInnsendinger.find(
+      (innsending) => innsending.behandlingId === behandlingId,
+    );
+
+    if (!innsending) {
+      return response(404).json(get404Error(`/innsending/${behandlingId}`));
+    }
+
+    if (innsending) {
+      return response(200).json(innsending);
+    }
+
+    return response("default").json(defaultError, { status: 500 });
+  }),
+
+  http.put("/innsending/{behandlingId}/ferdigstill", async ({ response }) => {
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
+
+  http.get(`/produksjonsstatistikk`, async ({ request, response }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockStatistikk);
+    const url = new URL(request.url);
+    const grupperEtter = url.searchParams.get("grupperEtter");
+
+    if (grupperEtter === "RETTIGHETSTYPE") {
+      return response(200).json(mockStatistikkRettighetV2);
+    }
+
+    return response(200).json(mockStatistikkOppgaveTypeV2);
   }),
 ];

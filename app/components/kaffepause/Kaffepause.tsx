@@ -43,11 +43,11 @@ export function Kaffepause(props: IProps) {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button size="small" variant="secondary" onClick={() => hentNyKatt()}>
-            Ny katt
-          </Button>
           <Button size="small" variant="primary" onClick={() => props.setKaffepause(false)}>
             Nok kaffe
+          </Button>
+          <Button size="small" variant="secondary" onClick={() => hentNyKatt()}>
+            Ny katt
           </Button>
         </Modal.Footer>
       </>

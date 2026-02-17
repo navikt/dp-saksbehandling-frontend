@@ -2,10 +2,9 @@ import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
-import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
-import { mockBehandlinger } from "./data/mock-behandling/mock-behandling";
+import { mockBehandlinger } from "./data/mock-dagpenger-rett-behandling/mock-behandlinger";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
@@ -24,9 +23,7 @@ function getError404(detail: string): components["schemas"]["HttpProblem"] {
 }
 
 export const mockDpBehandling = [
-  http.post("/person/behandling", async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
-
+  http.post("/person/behandling", async ({ response }) => {
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
@@ -34,8 +31,7 @@ export const mockDpBehandling = [
     return response(200).json(mockBehandlinger[0]);
   }),
 
-  http.get("/behandling/{behandlingId}", async ({ request, params, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get("/behandling/{behandlingId}", async ({ params, response }) => {
     await delay();
 
     const { behandlingId } = params;
@@ -56,8 +52,7 @@ export const mockDpBehandling = [
     });
   }),
 
-  http.post(`/behandling/{behandlingId}/avbryt`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/behandling/{behandlingId}/avbryt`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -67,8 +62,7 @@ export const mockDpBehandling = [
     return response(201).empty();
   }),
 
-  http.post(`/behandling/{behandlingId}/godkjenn`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/behandling/{behandlingId}/godkjenn`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -78,8 +72,7 @@ export const mockDpBehandling = [
     return response(201).empty();
   }),
 
-  http.post(`/behandling/{behandlingId}/rekjor`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/behandling/{behandlingId}/rekjor`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -89,8 +82,7 @@ export const mockDpBehandling = [
     return response(201).empty();
   }),
 
-  http.post(`/behandling/{behandlingId}/opplysning/`, async ({ request, response, params }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post(`/behandling/{behandlingId}/opplysning/`, async ({ response, params }) => {
     await delay();
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
@@ -101,8 +93,7 @@ export const mockDpBehandling = [
 
   http.delete(
     `/behandling/{behandlingId}/opplysning/{opplysningId}`,
-    async ({ request, response, params }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
+    async ({ response, params }) => {
       await delay();
       if (apiError) {
         return response("default").json(defaultError, { status: 500 });
@@ -112,8 +103,7 @@ export const mockDpBehandling = [
     },
   ),
 
-  http.put(`/behandling/{behandlingId}/avklaring/{avklaringId}`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.put(`/behandling/{behandlingId}/avklaring/{avklaringId}`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -123,8 +113,7 @@ export const mockDpBehandling = [
     return response(204).empty();
   }),
 
-  http.get(`/behandling/{behandlingId}/vurderinger`, async ({ request, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.get(`/behandling/{behandlingId}/vurderinger`, async ({ response }) => {
     await delay();
 
     if (apiError) {
@@ -134,17 +123,13 @@ export const mockDpBehandling = [
     return response(200).json(mockVurderinger);
   }),
 
-  http.put(
-    `/behandling/{behandlingId}/vurderinger/{opplysningId}`,
-    async ({ request, response }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
-      await delay();
+  http.put(`/behandling/{behandlingId}/vurderinger/{opplysningId}`, async ({ response }) => {
+    await delay();
 
-      if (apiError) {
-        return response(400).json(defaultError);
-      }
+    if (apiError) {
+      return response(400).json(defaultError);
+    }
 
-      return response(204).empty();
-    },
-  ),
+    return response(204).empty();
+  }),
 ];

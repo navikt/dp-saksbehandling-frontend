@@ -1,9 +1,9 @@
 import { AlertProps } from "@navikt/ds-react";
 
-import type { IFormValidationError } from "~/components/oppgave-handlinger/OppgaveHandlinger";
 import type { IAlert } from "~/context/alert-context";
 import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
+import { components as behandlingComponents, components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
@@ -67,20 +67,6 @@ export function isILagreUtvidetBeskrivelseResponse(
   >;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";
-}
-
-export function isFormValidationError(data: unknown): data is IFormValidationError {
-  if (typeof data !== "object" || data === null) {
-    return false;
-  }
-
-  const maybeError = data as Partial<IFormValidationError>;
-
-  if (typeof maybeError.field !== "string") {
-    return false;
-  }
-
-  return typeof maybeError.message === "string";
 }
 
 export function isDefined<T>(value: T | undefined | null): value is T {
@@ -187,6 +173,53 @@ function parseValue(value: string): PrimitiveValue {
   // Keep strings as is
   return value;
 }
+export function isGraphQLResponseError(value: unknown): value is {
+  response: {
+    status: number;
+    headers: Headers;
+  };
+  request: {
+    query: string;
+    variables: Record<string, unknown>;
+  };
+} {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  // Check response object
+  if (typeof obj.response !== "object" || obj.response === null) {
+    return false;
+  }
+
+  const response = obj.response as Record<string, unknown>;
+
+  if (typeof response.status !== "number" || response.status === 200) {
+    return false;
+  }
+
+  if (!(response.headers instanceof Headers)) {
+    return false;
+  }
+
+  // Check request object
+  if (typeof obj.request !== "object" || obj.request === null) {
+    return false;
+  }
+  const request = obj.request as Record<string, unknown>;
+
+  if (typeof request.query !== "string") {
+    return false;
+  }
+
+  if (typeof request.variables !== "object" || request.variables === null) {
+    return false;
+  }
+
+  return true;
+}
 
 export function isSAFRequestError(value: unknown): value is ISAFRequestError {
   if (typeof value !== "object" || value === null) {
@@ -249,4 +282,54 @@ export function isSAFGraphqlError(value: unknown): value is ISAFGraphqlError {
   }
 
   return typeof extensions.classification === "string";
+}
+
+export function isDatoVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["DatoVerdi"] {
+  return verdi.datatype === "dato";
+}
+
+export function isTekstVerdi(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["TekstVerdi"] {
+  return verdi.datatype === "tekst" || verdi.datatype === "inntekt";
+}
+
+export function isOpplysningsgruppe(
+  value: unknown,
+): value is components["schemas"]["RedigerbareOpplysninger"] {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const obj = value as Record<string, unknown>;
+
+  return (
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
+    typeof obj.synlig === "boolean" &&
+    (obj.redigerbar === undefined || typeof obj.redigerbar === "boolean") &&
+    (obj.redigertAvSaksbehandler === undefined ||
+      typeof obj.redigertAvSaksbehandler === "boolean") &&
+    Array.isArray(obj.perioder)
+  );
+}
+
+export function isRedigerbareOpplysninger(
+  value: unknown,
+): value is components["schemas"]["RedigerbareOpplysninger"] {
+  if (typeof value !== "object" || value === null) return false;
+  const obj = value as Record<string, unknown>;
+  return (
+    typeof obj.synlig === "boolean" &&
+    typeof obj.redigerbar === "boolean" &&
+    typeof obj.redigertAvSaksbehandler === "boolean" &&
+    typeof obj["formål"] === "string" &&
+    typeof obj.opplysningTypeId === "string" &&
+    typeof obj.navn === "string" &&
+    typeof obj.datatype === "string" &&
+    Array.isArray(obj.perioder)
+  );
 }

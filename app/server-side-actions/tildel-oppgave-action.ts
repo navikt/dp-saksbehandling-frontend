@@ -1,20 +1,18 @@
+import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
 import { tildelOppgave } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForTildelOppgave } from "~/utils/validering.util";
 
 export async function tildelOppgaveAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgaveId") as string;
-  const behandlingId = formData.get("behandlingId") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForTildelOppgave());
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!behandlingId) {
-    throw new Error(`Mangler behandlingId på oppgave med ID: ${oppgaveId}`);
-  }
-
+  const { oppgaveId, behandlingId } = validertSkjema.data;
   const { data, error } = await tildelOppgave(request, oppgaveId);
 
   if (error) {
@@ -22,22 +20,22 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
   }
 
   switch (data.behandlingType) {
-    case "MELDEKORT":
     case "RETT_TIL_DAGPENGER":
       if (data.nyTilstand === "UNDER_BEHANDLING") {
         return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
       }
 
       if (data.nyTilstand === "UNDER_KONTROLL") {
-        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/begrunnelse`);
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
       }
       break;
 
     case "KLAGE":
       return redirect(`/oppgave/${oppgaveId}/klage/${behandlingId}`);
+
+    case "INNSENDING":
+      return redirect(`/oppgave/${oppgaveId}/innsending/${behandlingId}`);
   }
 
-  throw new Error(
-    `Oppgave med id ${oppgaveId} har uventet tilstand. Forventet tilstand er UNDER_BEHANDLING eller UNDER_KONTROLL, fikk ${data.nyTilstand}`,
-  );
+  throw new Error(`Uhåndtert feil i v2TildelOppgaveAction()`);
 }

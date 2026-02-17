@@ -2,10 +2,9 @@ import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
 import { getEnv } from "~/utils/env.utils";
-import { logger } from "~/utils/logger.utils";
 
 import { components, paths } from "../openapi/melding-om-vedtak-typer";
-import { mockMeldingerOmVedtak } from "./data/melding-om-vedtak/mock-melding-om-vedtak";
+import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
 
 const apiError = false;
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_MELDING_OM_VEDTAK_URL") });
@@ -30,8 +29,7 @@ function getError404(detail: string): components["schemas"]["HttpProblem"] {
 
 export const mockDpMeldingOmVedtak = [
   // Hent melding om vedtak for behandlingId
-  http.post("/melding-om-vedtak/{behandlingId}/html", async ({ request, params, response }) => {
-    logger.info(`[MSW]-${request.method} ${request.url}`);
+  http.post("/melding-om-vedtak/{behandlingId}/html", async ({ params, response }) => {
     await delay();
 
     const meldingOmVedtak = mockMeldingerOmVedtak.find(
@@ -54,8 +52,7 @@ export const mockDpMeldingOmVedtak = [
   // Lagre utvidet beskrivelse tekst
   http.put(
     "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse-json",
-    async ({ request, response }) => {
-      logger.info(`[MSW]-${request.method} ${request.url}`);
+    async ({ response }) => {
       await delay();
 
       if (apiError) {
@@ -65,4 +62,15 @@ export const mockDpMeldingOmVedtak = [
       return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
     },
   ),
+
+  // Lagre brev variant
+  http.put("/melding-om-vedtak/{behandlingId}/brev-variant", async ({ response }) => {
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
+  }),
 ];

@@ -7,6 +7,7 @@ dp-melding-om-vedtak_url: "http://dp-melding-om-vedtak"
 dp-soknad-orkestrator_url: "http://dp-soknad-orkestrator"
 dp-rapportering-personregister_url: "http://dp-rapportering-personregister"
 dp-rapportering-saksbehandling-frontend_url: "https://rapportering-dagpenger.ansatt.dev.nav.no"
+dp-inntekt-redigering-frontend_url: "https://dagpenger-inntekt.ansatt.dev.nav.no"
 saf_url: "https://saf.dev-fss-pub.nais.io"
 
 saf_audience: "api://dev-fss.teamdokumenthandtering.saf-q1/.default"
@@ -15,16 +16,16 @@ pdl_audience: "api://dev-fss.pdl.pdl-api/.default"
 arbeid_inntekt_url: "https://arbeid-og-inntekt-q2.dev.adeo.no/"
 gosys_url: "https://gosys.dev.intern.nav.no/gosys/bruker/brukeroversikt.jsf"
 modia_url: ""
-meldekort_url: ""
-inntektredigering_url: ""
-grisen_url: "https://navno.sharepoint.com/:x:/r/sites/44/NAYDP/_layouts/15/Doc.aspx?sourcedoc=%7B07D70AE2-B079-434E-9B24-379F9E77C1E3%7D&file=Regneark---dagpenger---01.11.24-til-bruk.xlsm&action=default&mobileredirect=true"
 dagpenger-norge_url: "https://navno.sharepoint.com/:u:/r/sites/44/NAYDP/SitePages/CollabHome.aspx?csf=1&web=1&e=kfxUeP"
 
+sanity_project_id: "rt6o382n"
+sanity_dataset: "production"
+sanity_access_token: ""
 
 faro_url: "https://telemetry.ekstern.dev.nav.no/collect"
 
 unleash:
-  url: https://dagpenger-unleash-api.nav.cloud.nais.io/api
+  url: https://teamdagpenger-unleash-api.nav.cloud.nais.io/api
   environment: development
 
 azure:

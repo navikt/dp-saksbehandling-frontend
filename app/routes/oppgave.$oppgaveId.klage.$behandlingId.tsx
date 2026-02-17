@@ -1,11 +1,10 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Alert, Heading, Tabs } from "@navikt/ds-react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
   ActionFunctionArgs,
   data,
   LoaderFunctionArgs,
-  Outlet,
   useActionData,
   useLoaderData,
   useRouteError,
@@ -13,15 +12,22 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { KlageBehandling } from "~/components/klage-behandling/KlageBehandling";
-import { KlageUtfall } from "~/components/klage-utfall/KlageUtfall";
-import { MeldingOmVedtak } from "~/components/melding-om-vedtak/MeldingOmVedtak";
-import { OppgaveHandlinger } from "~/components/oppgave-handlinger/OppgaveHandlinger";
-import { OppgaveInformasjon } from "~/components/oppgave-informasjon/OppgaveInformasjon";
+import { KlageBehandling } from "~/components/klage/klage-behandling/KlageBehandling";
+import KlageOppgaveMeny from "~/components/klage/klage-oppgave-meny/KlageOppgaveMeny";
+import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
+import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
+import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
+import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
+import { hentJournalpost } from "~/models/saf.server";
 import { hentKlage, hentOppgave } from "~/models/saksbehandling.server";
-import styles from "~/route-styles/oppgave.module.css";
+import { sanityClient } from "~/sanity/sanity.config";
+import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
+import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
@@ -33,8 +39,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
-  const klage = await hentKlage(request, params.behandlingId);
+
+  const [oppgave, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
+    hentOppgave(request, params.oppgaveId),
+    hentKlage(request, params.behandlingId),
+    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+    sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
+  ]);
+
+  const journalposterPromises = Promise.all(
+    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
+  );
+
   let meldingOmVedtak;
 
   if (oppgave.saksbehandler) {
@@ -58,6 +74,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       oppgave,
       klage,
       meldingOmVedtak,
+      sanityBrevMaler,
+      sanityRegelmotorOpplysninger,
+      journalposterPromises,
     },
     {
       headers: {
@@ -68,13 +87,25 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function Oppgave() {
-  const { oppgave, meldingOmVedtak, klage, alert } = useLoaderData<typeof loader>();
+  const { saksbehandler } = useTypedRouteLoaderData("root");
+  const {
+    oppgave,
+    meldingOmVedtak,
+    klage,
+    alert,
+    sanityBrevMaler,
+    sanityRegelmotorOpplysninger,
+    journalposterPromises,
+  } = useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
+
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
+  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
 
   const tabs = [
     { value: "behandling", label: "Behandling", icon: <DocPencilIcon /> },
@@ -85,28 +116,46 @@ export default function Oppgave() {
   ];
 
   return (
-    <Fragment key={klage.behandlingId}>
-      <OppgaveHandlinger />
-      <div className={styles.behandling}>
-        <div className={"card"}>
+    <OppgaveProvider
+      oppgave={oppgave}
+      saksbehandler={saksbehandler}
+      journalposterPromises={journalposterPromises}
+    >
+      <PersonBoks person={oppgave.person} oppgave={oppgave} />
+      <div className={`main flex gap-4`}>
+        <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        <main className={"card flex flex-1 flex-col gap-4 p-2"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <Tabs.List>
-              {tabs.map(({ value, label, icon }, index) => (
-                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
-              ))}
-            </Tabs.List>
-
+            <div className="flex items-center justify-between gap-6">
+              <Tabs.List>
+                {tabs.map(({ value, label, icon }, index) => (
+                  <Tabs.Tab
+                    key={value}
+                    value={value}
+                    label={`${index + 1}. ${label}`}
+                    icon={icon}
+                  />
+                ))}
+              </Tabs.List>
+              <KlageOppgaveMeny />
+            </div>
             <Tabs.Panel value="behandling">
-              <KlageBehandling klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
             </Tabs.Panel>
 
             <Tabs.Panel value="utfall">
-              <KlageUtfall klage={klage} readonly={oppgave.tilstand !== "UNDER_BEHANDLING"} />
+              <KlageUtfall klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
             </Tabs.Panel>
 
             <Tabs.Panel value="melding-om-vedtak">
-              {klage.utfall.verdi !== "IKKE_SATT" ? (
-                <MeldingOmVedtak meldingOmVedtak={meldingOmVedtak} />
+              {klage.utfall.verdi !== "IKKE_SATT" && meldingOmVedtak ? (
+                <MeldingOmVedtakProvider
+                  meldingOmVedtak={meldingOmVedtak}
+                  sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
+                  sanityBrevMaler={sanityBrevMaler}
+                >
+                  <MeldingOmVedtakKlage oppgave={oppgave} />
+                </MeldingOmVedtakProvider>
               ) : (
                 <Alert size={"small"} variant={"info"} className={"m-2"}>
                   <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
@@ -114,15 +163,9 @@ export default function Oppgave() {
               )}
             </Tabs.Panel>
           </Tabs>
-        </div>
-
-        <div className={"card"}>
-          <OppgaveInformasjon defaultTab={oppgave.beslutter ? "historikk" : "dokumenter"} />
-        </div>
-
-        <Outlet />
+        </main>
       </div>
-    </Fragment>
+    </OppgaveProvider>
   );
 }
 

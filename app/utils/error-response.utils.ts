@@ -5,22 +5,14 @@ import { components as behandlingComponent } from "../../openapi/behandling-type
 import { components as meldingOmVedtakComponent } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
-export function handleErrorResponse(response: Response): void {
-  logger.error(`${response.status} - Feil ved kall til ${response.url}`);
-
-  throw new Response(`Feil ved kall til ${response.url}`, {
-    status: response.status,
-    statusText: response.statusText,
-  });
-}
-
 export function handleHttpProblem(
   problem:
     | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
+  logLevel: "error" | "warn" | "info" = "error",
 ): void {
-  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger[logLevel](`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   throw new Response(problem.title, {
     status: problem.status,
@@ -33,11 +25,13 @@ export function getHttpProblemAlert(
     | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
+  logLevel: "error" | "warn" | "info" = "error",
+  variant: IAlert["variant"] = "error",
 ): IAlert {
-  logger.error(`${problem.status} - ${problem.title}: ${problem.detail}`);
+  logger[logLevel](`${problem.status} - ${problem.title}: ${problem.detail}`);
 
   return {
-    variant: "error",
+    variant,
     title: problem.title || "Ukjent feil",
     body: problem.detail,
     service: problem.instance,

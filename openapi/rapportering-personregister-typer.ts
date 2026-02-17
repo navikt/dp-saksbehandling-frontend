@@ -64,6 +64,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/arbeidssokerperioder/{personId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Hent arbeidssøkerperioder for en person
+         * @description Hent alle arbeidssøkerperioder for en person basert på personId
+         */
+        get: operations["get-arbeidssokerperioder"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -84,6 +104,27 @@ export interface components {
         Status: "DAGPENGERBRUKER" | "IKKE_DAGPENGERBRUKER";
         /** @enum {string} */
         AnsvarligSystem: "ARENA" | "DP";
+        Arbeidssokerperiode: {
+            /** @description Unik ID for arbeidssøkerperioden */
+            periodeId: string;
+            /** @description Ident til personen arbeidssøkerperioden tilhører */
+            ident: string;
+            /**
+             * Format: date-time
+             * @description Startdato for arbeidssøkerperioden
+             */
+            startDato: string;
+            /**
+             * Format: date-time
+             * @description Sluttdato for arbeidssøkerperioden, kan være null hvis perioden er aktiv
+             */
+            sluttDato?: string;
+            /**
+             * @description Status for arbeidssøkerperioden
+             * @enum {string}
+             */
+            status: "Startet" | "Avsluttet";
+        };
         /** @description Implementasjon av Problem Details for HTTP APIs [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) */
         Problem: {
             /**
@@ -191,6 +232,36 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IdentBody"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "get-arbeidssokerperioder": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description personId til personen du vil hente arbeidssøkerperioder for */
+                personId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Arbeidssokerperiode"][];
                 };
             };
             /** @description Not Found */

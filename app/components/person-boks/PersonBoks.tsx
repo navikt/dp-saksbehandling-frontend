@@ -3,7 +3,7 @@ import { Alert, BodyShort, CopyButton, Detail, Link } from "@navikt/ds-react";
 import classnames from "classnames";
 import { useLocation } from "react-router";
 
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
@@ -55,11 +55,11 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
 
         <BodyShort size="small" textColor="subtle" className={styles.infoElement}>
           Fødselsnummer:{" "}
-          <RemixLink to={`/person/${person.id}/oversikt`}>
+          <LoadingLink to={`/person/${person.id}/oversikt`}>
             {skjulSensitiveOpplysninger
               ? maskerVerdi(fødselsnummerMedMellomrom)
               : fødselsnummerMedMellomrom}
-          </RemixLink>
+          </LoadingLink>
           <CopyButton copyText={person.ident} size="xsmall" />
         </BodyShort>
 
@@ -77,7 +77,7 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
 
         {meldekortUrl && (
           <BodyShort size={"small"} textColor={"subtle"} className={styles.infoElement}>
-            <Link href={meldekortUrl}>
+            <Link href={meldekortUrl} target="_blank">
               Meldekort <ExternalLinkIcon aria-hidden />
             </Link>
           </BodyShort>
@@ -103,6 +103,27 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
           <Detail>Gjelder til og med {formaterTilNorskDato(tiltak.gyldigTom)}</Detail>
         </Alert>
       ))}
+
+      {person.adressebeskyttelseGradering !== "UGRADERT" && (
+        <Alert className={"alert--compact"} variant="warning" fullWidth={true}>
+          Personen har adressebeskyttelse:{" "}
+          {hentTekstForAdressebeskyttelse(person.adressebeskyttelseGradering)}
+        </Alert>
+      )}
     </>
   );
+}
+function hentTekstForAdressebeskyttelse(
+  grading: components["schemas"]["AdressebeskyttelseGradering"],
+) {
+  switch (grading) {
+    case "UGRADERT":
+      return "Ugradert";
+    case "FORTROLIG":
+      return "Fortrolig";
+    case "STRENGT_FORTROLIG":
+      return "Strengt fortrolig";
+    case "STRENGT_FORTROLIG_UTLAND":
+      return "Strengt fortrolig utland";
+  }
 }

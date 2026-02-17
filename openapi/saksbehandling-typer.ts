@@ -4,6 +4,120 @@
  */
 
 export interface paths {
+    "/innsending/{behandlingId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill innsending for en gitt id */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillInnsendingRequest"];
+                };
+            };
+            responses: {
+                /** @description Innsending ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Innsending informasjon for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/innsending/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent innsending for en gitt id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med innsending */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Innsending"];
+                    };
+                };
+                /** @description Innsending informasjon for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/oppgave": {
         parameters: {
             query?: never;
@@ -15,9 +129,54 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    emneknagg?: string[];
+                    /**
+                     * @description Filtrer på rettighetsknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
+                     * @example [
+                     *       "Ordinær",
+                     *       "Verneplikt"
+                     *     ]
+                     */
+                    rettighet?: string[];
+                    /**
+                     * @description Filtrer på søknadsresultatknagger (f.eks. "Avslag", "Innvilgelse")
+                     * @example [
+                     *       "Avslag",
+                     *       "Innvilgelse"
+                     *     ]
+                     */
+                    soknadsresultat?: string[];
+                    /**
+                     * @description Filtrer på avslagsgrunner (f.eks. "Minsteinntekt", "Arbeidstid")
+                     * @example [
+                     *       "Minsteinntekt"
+                     *     ]
+                     */
+                    avslagsgrunn?: string[];
+                    /**
+                     * @description Filtrer på gjenopptakknagger
+                     * @example [
+                     *       "Gjenopptak"
+                     *     ]
+                     */
+                    gjenopptak?: string[];
+                    /**
+                     * @description Filtrer på på-vent årsaker (f.eks. "Avvent svar", "Avvent dokumentasjon")
+                     * @example [
+                     *       "Avvent svar"
+                     *     ]
+                     */
+                    paa_vent?: string[];
+                    /**
+                     * @description Filtrer på avbruddsårsaker
+                     * @example [
+                     *       "Trukket søknad"
+                     *     ]
+                     */
+                    avbrutt_grunn?: string[];
+                    /** @description Filtrer på ettersendinger */
+                    ettersending?: string[];
                     tilstand?: components["schemas"]["OppgaveTilstand"][];
-                    behandlingType?: components["schemas"]["BehandlingType"][];
+                    utlostAv?: components["schemas"]["UtlostAvType"][];
                     fom?: string;
                     tom?: string;
                     mineOppgaver?: boolean;
@@ -214,6 +373,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Notat kan ikke lagres på oppgaven i denne tilstanden */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
                 /** @description Feil */
                 default: {
                     headers: {
@@ -249,6 +417,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Notat kan ikke slettes fra oppgaven i denne tilstanden */
+                409: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -321,6 +498,15 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
+                /** @description Oppgaven kan ikke endre kontrollertBrev i denne tilstanden */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
                 /** @description Feil */
                 default: {
                     headers: {
@@ -372,6 +558,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppgaven kan ikke endre kilde for melding om vedtak i denne tilstanden */
+                409: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -433,7 +628,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Oppgaven er allerede sendt til kontroll eller den krever ikke kontroll. */
+                /** @description Oppgaven kan ikke sendes til kontroll i denne tilstanden */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -496,7 +691,74 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Oppgaven er allerede sendt tilbake til saksbehandler */
+                /** @description Oppgaven kan ikke returneres til saksbehandler i denne tilstanden */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppgave/{oppgaveId}/avbryt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Avbryter en oppgave. */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["AvbrytOppgave"];
+                };
+            };
+            responses: {
+                /** @description Oppgaven er avbrutt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppgaven ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppgaven kan ikke avbrytes i denne tilstanden */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -552,6 +814,15 @@ export interface paths {
                 };
                 /** @description Oppgaven ble ikke funnet */
                 404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppgaven kan ikke ferdigstilles i denne tilstanden */
+                409: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -617,7 +888,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Oppgaven er allerede tatt til behandling */
+                /** @description Oppgaven kan ikke utsettes i denne tilstanden */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -682,7 +953,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["HttpProblem"];
                     };
                 };
-                /** @description Oppgaven er allerede tatt til behandling */
+                /** @description Oppgaven kan ikke tildeles i denne tilstanden */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -1229,66 +1500,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/person/skal-varsle-om-ettersending": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Sjekker om søknaden er sett på av saksbehandler og ikke sendt til Arena */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    soknadId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["Soknad"];
-                };
-            };
-            responses: {
-                /** @description Vellykket respons med tilstand for oppgaven */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "plain/text": boolean;
-                    };
-                };
-                /** @description Søknaden har ingen korresponderende oppgave */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/oppgaveId": {
         parameters: {
             query?: never;
@@ -1314,10 +1525,10 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": string;
+                        "application/json": components["schemas"]["OppgaveId"];
                     };
                 };
-                /** @description Fant ikke oppgaveId for behandlingId */
+                /** @description OppgaveId for behandlingId ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -1345,7 +1556,63 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/statistikk": {
+    "/behandling/{behandlingId}/sakId": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Henter sakId basert på en behandlingId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Fant sakId for behandlingId */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                    };
+                };
+                /** @description Fant ikke sakId for behandlingId */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/produksjonsstatistikk": {
         parameters: {
             query?: never;
             header?: never;
@@ -1353,12 +1620,27 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Hent statistikk
-         * @description Henter statistikk for innlogget saksbehandler samt generell statistikk.
+         * Hent statistikk for oppgaver
+         * @description Henter statistikk for oppgaver.
          */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /**
+                     * @description Filtrer på rettighet-emneknagger (f.eks. "Ordinær", "Verneplikt", "Permittert")
+                     * @example [
+                     *       "Ordinær",
+                     *       "Verneplikt",
+                     *       "Permittert"
+                     *     ]
+                     */
+                    rettighet?: string[];
+                    tilstand?: components["schemas"]["OppgaveTilstand"][];
+                    utlostAv?: components["schemas"]["UtlostAvType"][];
+                    fom?: string;
+                    tom?: string;
+                    grupperEtter?: components["schemas"]["GrupperEtter"];
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -1371,11 +1653,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            individuellStatistikk: components["schemas"]["Statistikk"];
-                            generellStatistikk: components["schemas"]["Statistikk"];
-                            beholdningsinfo: components["schemas"]["BeholdningsInfo"];
-                        };
+                        "application/json": components["schemas"]["Produksjonsstatistikk"];
                     };
                 };
                 /** @description Uautorisert tilgang */
@@ -1410,6 +1688,27 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Innsending: {
+            /** Format: uuid */
+            behandlingId: string;
+            journalpostId: string;
+            lovligeSaker: components["schemas"]["TynnSak"][];
+            /** Format: uuid */
+            sakId?: string;
+            vurdering?: string;
+            nyBehandling?: components["schemas"]["TynnBehandling"];
+        };
+        TynnSak: {
+            /** Format: uuid */
+            sakId: string;
+            /** Format: date-time */
+            opprettetDato: string;
+        };
+        TynnBehandling: {
+            /** Format: uuid */
+            behandlingId: string;
+            behandlingType: components["schemas"]["BehandlingType"];
+        };
         Person: {
             ident: string;
             /** Format: uuid */
@@ -1440,6 +1739,7 @@ export interface components {
             /** Format: uuid */
             id: string;
             behandlingType: components["schemas"]["BehandlingType"];
+            utlostAv: components["schemas"]["UtlostAvType"];
             /** Format: date-time */
             opprettet: string;
             /** Format: uuid */
@@ -1459,10 +1759,12 @@ export interface components {
             /** Format: date-time */
             tidspunktOpprettet: string;
             behandlingType: components["schemas"]["BehandlingType"];
-            emneknagger: string[];
+            utlostAv: components["schemas"]["UtlostAvType"];
+            emneknagger: components["schemas"]["Emneknagg"][];
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             tilstand: components["schemas"]["OppgaveTilstand"];
+            lovligeEndringer?: components["schemas"]["LovligeEndringer"];
             /** Format: date */
             utsattTilDato?: string;
         };
@@ -1477,11 +1779,12 @@ export interface components {
             /** Format: date-time */
             tidspunktOpprettet: string;
             behandlingType: components["schemas"]["BehandlingType"];
+            utlostAv: components["schemas"]["UtlostAvType"];
             /** Format: date */
             utsattTilDato?: string;
             journalpostIder: string[];
             historikk: components["schemas"]["OppgaveHistorikk"][];
-            emneknagger: string[];
+            emneknagger: components["schemas"]["Emneknagg"][];
             tilstand: components["schemas"]["OppgaveTilstand"];
             notat?: components["schemas"]["Notat"];
             lovligeEndringer: components["schemas"]["LovligeEndringer"];
@@ -1490,6 +1793,8 @@ export interface components {
             meldingOmVedtakKilde: components["schemas"]["MeldingOmVedtakKilde"];
             kontrollertBrev: components["schemas"]["KontrollertBrev"];
         };
+        /** @enum {string} */
+        GrupperEtter: "RETTIGHETSTYPE" | "OPPGAVETYPE";
         /** @enum {string} */
         Kjonn: "MANN" | "KVINNE" | "UKJENT";
         KontrollertBrevRequest: {
@@ -1502,13 +1807,35 @@ export interface components {
         };
         /** @enum {string} */
         MeldingOmVedtakKilde: "DP_SAK" | "GOSYS" | "INGEN";
+        /**
+         * @description Emneknagg med visningsnavn og kategori.
+         *     Når du filtrerer oppgaver med query parameter 'emneknagg', bruk kun visningsnavnet (string).
+         *     Responsen vil returnere fulle Emneknagg-objekter med både visningsnavn og kategori.
+         */
+        Emneknagg: {
+            /**
+             * @description Det lesbare navnet på emneknaggen (f.eks. "Avslag", "Innvilgelse")
+             * @example Avslag
+             */
+            visningsnavn: string;
+            kategori: components["schemas"]["EmneknaggKategori"];
+        };
+        /**
+         * @description Kategorisering av emneknagger for enklere gruppering og filtrering i frontend
+         * @enum {string}
+         */
+        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "UDEFINERT";
         /** @enum {string} */
-        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "BEHANDLES_I_ARENA";
+        OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "MELDEKORT";
+        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING" | "OMGJØRING";
+        /** @enum {string} */
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
-            paaVentAarsaker: string[];
+            paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
+            /** @description Årsaker til at oppgaven avbrytes */
+            avbrytAarsaker: components["schemas"]["AvbrytOppgaveAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1524,10 +1851,9 @@ export interface components {
             /** Format: uuid */
             id: string;
         };
-        Soknad: {
-            ident: string;
+        OppgaveId: {
             /** Format: uuid */
-            soknadId: string;
+            oppgaveId: string;
         };
         OppgaveHistorikk: {
             /** @enum {string} */
@@ -1545,6 +1871,11 @@ export interface components {
         NesteOppgave: {
             queryParams: string;
         };
+        AvbrytOppgave: {
+            aarsak: components["schemas"]["AvbrytOppgaveAarsak"];
+        };
+        /** @enum {string} */
+        AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;
@@ -1601,6 +1932,36 @@ export interface components {
              */
             totalt: number;
         };
+        Produksjonsstatistikk: {
+            grupper: components["schemas"]["StatistikkGruppe"][];
+            serier: components["schemas"]["StatistikkSerie"][];
+            resultat: components["schemas"]["StatistikkResultat"];
+        };
+        StatistikkGruppe: {
+            navn: string;
+            total: number;
+            /** Format: date-time */
+            eldsteOppgave?: string;
+        };
+        StatistikkSerie: {
+            navn: string;
+            total: number;
+        };
+        StatistikkResultat: {
+            grupper: components["schemas"]["TilstandNavn"][];
+            serier: components["schemas"]["StatistikkResultatSerie"][];
+        };
+        TilstandNavn: {
+            navn: string;
+        };
+        StatistikkResultatSerie: {
+            navn: string;
+            verdier: components["schemas"]["StatistikkGruppeMedAntall"][];
+        };
+        StatistikkGruppeMedAntall: {
+            gruppe: string;
+            antall: number;
+        };
         BeholdningsInfo: {
             /**
              * @description Antall oppgaver som er klar til behandling
@@ -1621,6 +1982,7 @@ export interface components {
         TildeltOppgave: {
             nyTilstand: components["schemas"]["OppgaveTilstand"];
             behandlingType: components["schemas"]["BehandlingType"];
+            utlostAv: components["schemas"]["UtlostAvType"];
         };
         Klage: {
             /** Format: uuid */
@@ -1763,6 +2125,12 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
+        };
+        FerdigstillInnsendingRequest: {
+            /** Format: uuid */
+            sakId?: string;
+            vurdering: string;
+            behandlingType?: components["schemas"]["BehandlingType"];
         };
         HttpProblem: {
             type: string;

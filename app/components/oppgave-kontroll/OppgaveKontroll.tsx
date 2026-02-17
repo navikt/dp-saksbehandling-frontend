@@ -1,23 +1,22 @@
-import { Detail, Heading, List, Textarea } from "@navikt/ds-react";
+import { BodyShort, Detail, List, Textarea } from "@navikt/ds-react";
 import { type ChangeEvent, Fragment, useEffect } from "react";
-import { useDebounceFetcher } from "remix-utils/use-debounce-fetcher";
+import { useFetcher, useLocation } from "react-router";
+import { useDebounceCallback } from "usehooks-ts";
 
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { action } from "~/routes/oppgave.$oppgaveId";
+import { useOppgave } from "~/hooks/useOppgave";
+import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
 
-import styles from "./OppgaveKontroll.module.css";
-
 export function OppgaveKontroll() {
+  const { pathname } = useLocation();
   const { addAlert } = useGlobalAlerts();
   const { notat, setNotat } = useBeslutterNotat();
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const fetcher = useDebounceFetcher<typeof action>();
-  const minOppgave = oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName;
+  const { oppgave, minBeslutterOppgave } = useOppgave();
+  const fetcher = useFetcher<typeof lagreNotatAction>();
+  const debouncedFetcher = useDebounceCallback(fetcher.submit, 2000);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -31,56 +30,70 @@ export function OppgaveKontroll() {
     }
   }, [fetcher.data]);
 
-  function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>, delayInMs: number) {
-    setNotat({ ...notat, tekst: event.currentTarget.value });
+  function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>) {
+    const nyVerdi = event.currentTarget.value;
+    setNotat({ ...notat, tekst: nyVerdi });
 
-    fetcher.submit(event.target.form, {
-      debounceTimeout: delayInMs,
-    });
+    debouncedFetcher(
+      { _action: "lagre-notat", notat: nyVerdi, oppgaveId: oppgave.oppgaveId },
+      { method: "post", action: pathname },
+    );
+
+    if (nyVerdi === oppgave.notat?.tekst) {
+      debouncedFetcher.cancel();
+    }
+  }
+
+  function handleOnBlur(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.currentTarget.value !== oppgave.notat?.tekst) {
+      debouncedFetcher.flush();
+    }
   }
 
   return (
-    <div className={styles.container}>
-      <fetcher.Form method="post">
-        <input name="_action" value="lagre-notat" hidden={true} readOnly={true} />
-        <input name="oppgave-id" value={oppgave.oppgaveId} hidden={true} readOnly={true} />
-        <Textarea
-          name="notat"
-          value={notat.tekst}
-          onChange={(event) => lagreBeslutterNotat(event, 2000)}
-          onBlur={(event) => lagreBeslutterNotat(event, 0)}
-          resize="vertical"
-          disabled={!minOppgave}
-          label={
-            <>
-              <Heading size="small">
-                Notat - hvorfor returneres oppgaven tilbake fra kontroll?
-              </Heading>
-              <Detail textColor="subtle">Notat kan være synlig for bruker ved innsyn.</Detail>
-            </>
-          }
-        />
-        {notat.sistEndretTidspunkt && (
-          <Detail textColor="subtle">
-            Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
-          </Detail>
-        )}
-      </fetcher.Form>
+    <div>
+      <Textarea
+        value={notat.tekst}
+        onChange={lagreBeslutterNotat}
+        onBlur={handleOnBlur}
+        resize="vertical"
+        readOnly={!minBeslutterOppgave}
+        label={
+          <>
+            <BodyShort size="small" weight={"semibold"}>
+              Notat - hvorfor returneres oppgaven tilbake fra kontroll?
+            </BodyShort>
+            <Detail textColor="subtle">Notat kan være synlig for bruker ved innsyn.</Detail>
+          </>
+        }
+      />
 
-      <List className={styles.sjekkliste} as="ol" title="Sjekkliste" size="small">
-        {sjekkliste.map((punkt) => (
-          <Fragment key={punkt.navn}>
-            <List.Item>{punkt.navn}</List.Item>
-            {punkt.underpunkter && (
-              <List size="small">
-                {punkt.underpunkter.map((underpunkt) => (
-                  <List.Item key={underpunkt}>{underpunkt}</List.Item>
-                ))}
-              </List>
-            )}
-          </Fragment>
-        ))}
-      </List>
+      {notat.sistEndretTidspunkt && (
+        <Detail textColor="subtle">
+          Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
+        </Detail>
+      )}
+
+      <div className={"mt-4"}>
+        <BodyShort className={"mb-2"} size={"small"} weight={"semibold"}>
+          Sjekkliste
+        </BodyShort>
+
+        <List className={""} as="ol" size="small">
+          {sjekkliste.map((punkt) => (
+            <Fragment key={punkt.navn}>
+              <List.Item className={"font-ax-bold"}>{punkt.navn}</List.Item>
+              {punkt.underpunkter && (
+                <List size="small">
+                  {punkt.underpunkter.map((underpunkt) => (
+                    <List.Item key={underpunkt}>{underpunkt}</List.Item>
+                  ))}
+                </List>
+              )}
+            </Fragment>
+          ))}
+        </List>
+      </div>
     </div>
   );
 }
@@ -92,34 +105,38 @@ interface ISjekkliste {
 
 const sjekkliste: ISjekkliste[] = [
   {
-    navn: "Se raskt gjennom søknad, relevante dokumenter og vedtak: Er det noe spesielt ved saken/ røde flagg/ grensesnitt (konkurs, sammenlegging og grensearbeidere etc)?",
-  },
-  {
-    navn: "Skal det være gjenopptak/ny rettighet?",
-  },
-  {
-    navn: "Er det riktig antall barnetillegg?",
-  },
-  {
-    navn: "Er virkningstidspunkt satt riktig, og begrunnelse i vedtak stemmer med Arena? (Se om dato og tekst er lik i Arena og melding om vedtak.)",
-  },
-  {
-    navn: "FVA",
+    navn: "Prøvingsdato",
     underpunkter: [
-      "Riktig beregningsregel? (Ikke dobbeltkontroll av selve beregningen)",
-      "Stemmer begrunnelsen i vedtak med Arena?",
+      "Er prøvingsdato begrunnet og hjemmel riktig?",
+      "Rask sjekk på at prøvingsdato ikke er lørdag eller søndag og at det ikke er ført aktivitet på meldekort.",
     ],
   },
   {
-    navn: "Sanksjon",
-    underpunkter: ["Er det riktig å gi sanksjon?", "Er sanksjonen begrunnet?"],
+    navn: "Er avklaringer og endringer i saken begrunnet godt nok?",
+    underpunkter: [
+      "Begrunnelse oppsigelsestid/sluttpakke",
+      "Begrunnelse for vanlig arbeidstid",
+      "Antall barnetillegg",
+      "Begrunnelse sanksjonsperiode (ikke ilagt sanksjon/ilagt sanksjon)",
+    ],
   },
   {
-    navn: "Ved permitteringssaker",
+    navn: "Meldekort",
+    underpunkter: ["Kommer det frem i avklaringer om meldekort er kontrollert?"],
+  },
+  {
+    navn: "Sanksjon",
     underpunkter: [
-      "Er telleverk justert for permittering siste 18 måneder? (ikke dobbeltkontroll av antall uker justert)",
-      "Var det riktig å godkjenne eller avslå permitteringsårsak (hvis saksbehandler også har gjort førstegangsvurdering av permitteringsårsak)?",
-      "Ved avslag: Er alt vurdert korrekt og tilstrekkelig dokumentert?",
+      "I saker hvor bruker har sagt opp selv/er selvforskyldt ledig er det skrevet forvaltningsnotat med begrunnelse for hvorfor det ikke er ilagt sanksjonsperiode?",
+    ],
+  },
+  {
+    navn: "Se over vedtaksbrevet og kontroller at tekst for:",
+    underpunkter: [
+      "«Hvorfor får du dagpenger fra» stemmer med begrunnelse i prøvingsdato.",
+      "Tekst og begrunnelse for vanlig arbeidstid er riktig.",
+      "Ved fritekstbrev og til og med dato; sjekk at dato i brevet stemmer med til og med dato i personoversikten.",
+      "Sjekk at til og med dato er begrunnet og har riktig hjemmel.",
     ],
   },
 ];

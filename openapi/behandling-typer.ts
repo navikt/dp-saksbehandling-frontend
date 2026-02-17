@@ -40,6 +40,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/person/rettighetsstatus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Rettighetsstatus på bruker */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["IdentForesporsel"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Rettighetsstatus"][];
+                    };
+                };
+                /** @description Feil ved oppretting av behandling */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/person/behandling": {
         parameters: {
             query?: never;
@@ -540,11 +589,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /**
-         * Overskriv en opplysning
-         * @deprecated
-         */
-        put: operations["oppdaterOpplysning"];
+        put?: never;
         post?: never;
         /** Fjern en opplysning */
         delete: operations["fjernOpplysning"];
@@ -615,55 +660,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/behandling/{behandlingId}/vedtak": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                behandlingId: string;
-            };
-            cookie?: never;
-        };
-        /** @description Viser et vedtak / resultat av en behandling */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["Vedtak"];
-                    };
-                };
-                /** @description Feil ved uthenting av vedtak */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/behandling/{behandlingId}/behandlingsresultat": {
         parameters: {
             query?: never;
@@ -713,6 +709,61 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/dataprodukt/behandling": {
+        parameters: {
+            query: {
+                fraOgMed: string;
+                tilOgMed?: string;
+                /** @description Om dataproduktet skal produseres som en dry-run uten publisering til destinasjon */
+                dryRun?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Produserer behandlingsresultater for alle behandlinger i en gitt periode */
+        post: {
+            parameters: {
+                query: {
+                    fraOgMed: string;
+                    tilOgMed?: string;
+                    /** @description Om dataproduktet skal produseres som en dry-run uten publisering til destinasjon */
+                    dryRun?: boolean;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DatalastKvittering"];
+                    };
+                };
+                /** @description Feil ved produksjon av dataprodukt */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -725,12 +776,22 @@ export interface components {
             ident: components["schemas"]["Personident"];
         };
         NyBehandling: {
+            behandlingstype?: components["schemas"]["Behandlingstype"];
             ident: components["schemas"]["Personident"];
-            hendelse?: components["schemas"]["Hendelse"];
-            /** Format: date */
-            "pr\u00F8vingsdato"?: string;
             begrunnelse?: string;
+            /**
+             * Format: uuid
+             * @description Valgfritt id for hendelsen, hvis ikke genereres det en uuid
+             */
+            id?: string;
+            /**
+             * Format: date
+             * @description Når hendelsen skjedde, hvis ikke settes det til nåværende tidspunkt
+             */
+            skjedde?: string;
         };
+        /** @enum {string} */
+        Behandlingstype: "Revurdering" | "Manuell";
         NyOpplysning: {
             opplysningstype: components["schemas"]["OpplysningTypeId"];
             verdi: string;
@@ -751,62 +812,78 @@ export interface components {
         AvklaringKvittering: {
             begrunnelse: string;
         };
-        Behandling: {
-            /** Format: uuid */
-            behandlingId: string;
-            tidslinje?: components["schemas"]["Tidslinjehendelse"][];
-            /** @enum {string} */
-            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-            /** @description Hvilken hendelse som utløste behandlingen */
-            behandletHendelse?: components["schemas"]["Hendelse"];
-            kreverTotrinnskontroll: boolean;
-            utfall?: boolean;
-            "vilk\u00E5r": components["schemas"]["Regelsett"][];
-            fastsettelser: components["schemas"]["Regelsett"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysninger: components["schemas"]["Opplysning"][];
-            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
-        };
-        Behandlingsresultat: {
-            /** Format: uuid */
-            behandlingId: string;
+        Personident: string;
+        /** Format: uuid */
+        BehandlingId: string;
+        Behandlingskonvolutt: {
+            behandlingId: components["schemas"]["BehandlingId"];
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
+            /** @description Hvilken behandlingskjede denne behandlingen tilhører. Dette tilsvarer en sammenhengende rettighetsperiode eller sak om du vil. */
+            behandlingskjedeId: components["schemas"]["BehandlingId"];
+            /** @description Hvilken behandling denne behandlingen er basert på, hvis noen */
+            "basertP\u00E5"?: components["schemas"]["BehandlingId"];
+            /** @description Om behandlingen har blitt behandlet automatisk uten en saksbehandler */
             automatisk: boolean;
             ident: components["schemas"]["Personident"];
-            "vilk\u00E5r": components["schemas"]["Vurderingsresultat"][];
-            fastsettelser: components["schemas"]["Vurderingsresultat"][];
-            opplysninger: components["schemas"]["Opplysninger"][];
             rettighetsperioder: components["schemas"]["Rettighetsperiode"][];
+            /** Format: date-time */
+            opprettet: string;
+            /** Format: date-time */
+            sistEndret: string;
         };
-        Personident: string;
-        Vurderingsresultat: {
+        Behandlingsresultat: components["schemas"]["Behandlingskonvolutt"] & {
+            /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
+            opplysninger: components["schemas"]["Opplysninger"][];
+            /** @description Alle utbetalinger som er beregnet i behandlingskjeden */
+            utbetalinger: components["schemas"]["Utbetaling"][];
+            /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
+            behandletAv: components["schemas"]["BehandletAv"][];
+            /** @description Hvilken avgjørelse behandlingen førte til */
+            "f\u00F8rteTil": components["schemas"]["Avgj\u00F8relse"];
+        };
+        Behandling: components["schemas"]["Behandlingskonvolutt"] & {
+            kreverTotrinnskontroll: boolean;
+            tilstand: components["schemas"]["BehandlingTilstand"];
+            avklaringer: components["schemas"]["Avklaring"][];
+            "vilk\u00E5r": components["schemas"]["Regelsett"][];
+            fastsettelser: components["schemas"]["Regelsett"][];
+            /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
+            opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
+            /** @description Hvilken avgjørelse behandlingen foreslår */
+            forslagOm: components["schemas"]["Avgj\u00F8relse"];
+        };
+        /** @enum {string} */
+        "Avgj\u00F8relse": "Innvilgelse" | "Avslag" | "Stans" | "Gjenopptak" | "Endring";
+        /** @enum {string} */
+        BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
+        /** @enum {string} */
+        RegelsettType: "Vilkår" | "Fastsettelse";
+        RegelsettMeta: {
+            /** @description Unik identifikator for dette regelsettet */
+            id: string;
             /** @description Kort navn som beskriver regelsettet */
             navn: string;
             /** @description Hvilken hjemmel er regelsettet basert på */
             hjemmel: components["schemas"]["Hjemmel"];
-            perioder?: components["schemas"]["Rettighetsperiode"][];
-            utfall?: components["schemas"]["OpplysningTypeId"][];
-            "\u00F8nsketResultat"?: components["schemas"]["OpplysningTypeId"][];
-            opplysninger?: components["schemas"]["OpplysningTypeId"][];
+            type: components["schemas"]["RegelsettType"];
         };
-        BehandlingOpplysninger: {
-            /** Format: uuid */
-            behandlingId: string;
-            /** @enum {string} */
-            tilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
-            opplysning: components["schemas"]["Opplysning"][];
-            kreverTotrinnskontroll: boolean;
-            aktiveAvklaringer: components["schemas"]["Avklaring"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysningsgrupper: components["schemas"]["Opplysningsgruppe"][];
+        Regelsett: components["schemas"]["RegelsettMeta"] & {
+            /** @description Om innholdet i regelsettet påvirker resultatet av behandlingen */
+            relevantForResultat: boolean;
+            opplysningTypeId?: components["schemas"]["OpplysningTypeId"];
+            opplysninger: components["schemas"]["OpplysningTypeId"][];
+        };
+        RedigerbareOpplysninger: components["schemas"]["Opplysninger"] & {
+            synlig: boolean;
+            redigerbar: boolean;
+            redigertAvSaksbehandler: boolean;
+            "form\u00E5l": components["schemas"]["Form\u00E5l"];
         };
         SaksbehandlersVurderinger: {
             /** Format: uuid */
             behandlingId: string;
-            regelsett: components["schemas"]["Regelsett"][];
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysninger: components["schemas"]["Opplysning"][];
+            opplysninger: components["schemas"]["Opplysninger"][];
         };
         Avklaring: {
             /** Format: uuid */
@@ -822,6 +899,8 @@ export interface components {
             /** Format: date-time */
             sistEndret: string;
             avklartAv?: components["schemas"]["Saksbehandler"];
+            /** @description Hvilke regelsett avklaringen påvirker */
+            regelsett: components["schemas"]["RegelsettMeta"][];
         };
         Opplysningstype: {
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -834,20 +913,6 @@ export interface components {
         /** Format: uuid */
         OpplysningTypeId: string;
         AvklaringKode: string;
-        Regelsett: {
-            /** @description Kort navn som beskriver regelsettet */
-            navn: string;
-            /** @description Hvilken hjemmel er regelsettet basert på */
-            hjemmel: components["schemas"]["Hjemmel"];
-            /** @deprecated */
-            relevantForVedtak?: boolean;
-            /** @enum {string} */
-            status: "Oppfylt" | "HarAvklaring" | "IkkeOppfylt" | "Info" | "IkkeRelevant";
-            /** @description Hvilke avklaringer som skal vises i dette regelsettet */
-            avklaringer: components["schemas"]["Avklaring"][];
-            opplysningIder: components["schemas"]["OpplysningsId"][];
-            opplysningTypeIder: components["schemas"]["OpplysningTypeId"][];
-        };
         Hjemmel: {
             /** @description Lov, forskrift, eller rundskriv */
             kilde: components["schemas"]["Lovkilde"];
@@ -869,10 +934,35 @@ export interface components {
             redigerbar?: boolean;
             redigertAvSaksbehandler?: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
+            /** @description Indikerer om opplysningen kan oppfriskes (enten hentes inn eller utledes på nytt) */
+            kanOppfriskes: boolean;
             opplysninger: components["schemas"]["Opplysning"][];
         };
-        /** @enum {string} */
-        "Form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+        Opplysninger: {
+            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
+            navn: string;
+            datatype: components["schemas"]["DataType"];
+            perioder: components["schemas"]["Opplysningsperiode"][];
+        };
+        Opplysningsperiode: {
+            id: components["schemas"]["OpplysningsId"];
+            /** Format: date-time */
+            opprettet: string;
+            opprinnelse: components["schemas"]["Opprinnelse"];
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig fra tidens morgen.
+             */
+            gyldigFraOgMed?: string;
+            /**
+             * Format: date
+             * @description Om opplysningen er gyldig fra en bestemt dato. Mangler feltet, er den gyldig til evig tid.
+             */
+            gyldigTilOgMed?: string;
+            verdi: components["schemas"]["Opplysningsverdi"];
+            kilde?: components["schemas"]["Opplysningskilde"];
+            utledetAv?: components["schemas"]["Utledning"];
+        };
         Opplysning: {
             id: components["schemas"]["OpplysningsId"];
             opplysningTypeId: components["schemas"]["OpplysningTypeId"];
@@ -902,36 +992,19 @@ export interface components {
             synlig: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
         };
-        Opplysninger: {
-            opplysningTypeId: components["schemas"]["OpplysningTypeId"];
-            navn: string;
-            perioder?: components["schemas"]["Opplysningsperiode"][];
-        };
-        Opplysningsperiode: {
-            id: components["schemas"]["OpplysningsId"];
-            /** Format: date-time */
-            opprettet: string;
-            /**
-             * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
-             * @enum {string}
-             */
-            status: "Ny" | "Arvet";
-            /**
-             * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig fra tidens morgen.
-             */
-            gyldigFraOgMed?: string | null;
-            /**
-             * Format: date
-             * @description Om opplysningen er gyldig fra en bestemt dato. Er den null, er den gyldig til evig tid.
-             */
-            gyldigTilOgMed?: string | null;
-            verdi: components["schemas"]["Opplysningsverdi"];
-            kilde?: components["schemas"]["Opplysningskilde"];
-            utledetAv?: components["schemas"]["Utledning"];
-        };
-        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har
-         *      */
+        /** @enum {string} */
+        "Form\u00E5l": "Legacy" | "Bruker" | "Register" | "Regel";
+        /**
+         * @description Om opplysningen ble opprettet i denne behandlingen eller arvet fra tidligere behandlinger
+         * @enum {string}
+         */
+        Opprinnelse: "Ny" | "Arvet";
+        /**
+         * @description Enhet for opplysningen, f.eks. timer, prosent, dager, etc.
+         * @enum {string}
+         */
+        Enhet: "timer" | "prosent" | "G" | "dager" | "uker" | "måneder" | "år";
+        /** @description Verdi for opplysningen. Kan være en av flere datatyper, se datatype for å se hvilken datatype opplysningen har */
         Opplysningsverdi: components["schemas"]["TekstVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["HeltallVerdi"] | components["schemas"]["DesimaltallVerdi"] | components["schemas"]["PengeVerdi"] | components["schemas"]["UlidVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["PeriodeVerdi"] | components["schemas"]["Barneliste"];
         PengeVerdi: {
             /** Format: bigdecimal */
@@ -967,6 +1040,7 @@ export interface components {
              * @enum {string}
              */
             datatype: "heltall";
+            enhet?: components["schemas"]["Enhet"];
         };
         UlidVerdi: {
             verdi: string;
@@ -984,6 +1058,7 @@ export interface components {
              * @enum {string}
              */
             datatype: "desimaltall";
+            enhet?: components["schemas"]["Enhet"];
         };
         BoolskVerdi: {
             verdi: boolean;
@@ -1005,6 +1080,8 @@ export interface components {
             datatype: "periode";
         };
         Barneliste: {
+            /** Format: uuid */
+            "s\u00F8knadBarnId"?: string;
             verdi: components["schemas"]["BarnVerdi"][];
             /**
              * @description discriminator enum property added by openapi-typescript
@@ -1020,8 +1097,7 @@ export interface components {
             statsborgerskap?: string;
             kvalifiserer: boolean;
         };
-        /** @description Kilde for opplysningen
-         *      */
+        /** @description Kilde for opplysningen */
         Opplysningskilde: {
             /** @enum {string} */
             type: "Saksbehandler" | "System";
@@ -1040,6 +1116,7 @@ export interface components {
         Utledning: {
             regel: components["schemas"]["Regel"];
             opplysninger: string[];
+            versjon?: string;
         };
         Regel: {
             navn: string;
@@ -1057,7 +1134,6 @@ export interface components {
         };
         /**
          * @description Hvilken datatype opplysningen har, for å kunne validere at verdi er riktig format
-         *
          * @enum {string}
          */
         DataType: "dato" | "desimaltall" | "heltall" | "boolsk" | "ulid" | "penger" | "inntekt" | "tekst" | "barn" | "periode";
@@ -1150,7 +1226,8 @@ export interface components {
                     barn?: components["schemas"]["Barn"][];
                 };
                 samordning?: components["schemas"]["Samordning"][];
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "navn": "Dagpengeperiode",
                  *         "type": "uker",
@@ -1166,10 +1243,12 @@ export interface components {
                  *         "type": "beløp",
                  *         "verdi": 3000
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 kvoter?: components["schemas"]["Kvote"][];
             };
-            /** @example {
+            /**
+             * @example {
              *       "kvoter": [
              *         {
              *           "navn": "Dagpengeperiode",
@@ -1187,11 +1266,13 @@ export interface components {
              *           "verdi": 0
              *         }
              *       ]
-             *     } */
+             *     }
+             */
             "gjenst\u00E5ende"?: {
                 kvoter?: components["schemas"]["Kvote"][];
             };
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "dato": "2021-01-01",
              *         "sats": 1000,
@@ -1204,11 +1285,13 @@ export interface components {
              *         "gradertSats": 500,
              *         "utbetaling": 500
              *       }
-             *     ] */
+             *     ]
+             */
             utbetalinger: components["schemas"]["Utbetaling"][];
             opplysninger: components["schemas"]["Opplysning"][];
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "type": "Sykepenger",
          *         "beløp": 100,
@@ -1219,7 +1302,8 @@ export interface components {
          *         "beløp": 100,
          *         "grad": 0
          *       }
-         *     ] */
+         *     ]
+         */
         Samordning: {
             type: string;
             "bel\u00F8p": number;
@@ -1253,12 +1337,21 @@ export interface components {
             /** Format: date */
             tilOgMed?: string;
         };
+        /** @description En periode hvor brukeren har fått vurdert sin rett på dagpenger og utfallet av vurderingen */
         Rettighetsperiode: {
-            /** Format: date */
+            /**
+             * Format: date
+             * @description Fra og med dato for rettighetsperioden
+             */
             fraOgMed: string;
-            /** Format: date */
+            /**
+             * Format: date
+             * @description Til og med dato for rettighetsperioden
+             */
             tilOgMed?: string;
+            /** @description Om brukeren har rett på dagpenger i denne perioden */
             harRett: boolean;
+            opprinnelse?: components["schemas"]["Opprinnelse"];
         };
         Utbetaling: {
             meldeperiode: string;
@@ -1266,6 +1359,7 @@ export interface components {
             dato: string;
             sats: number;
             utbetaling: number;
+            opprinnelse?: components["schemas"]["Opprinnelse"];
         };
         BehandletAv: {
             /** @enum {string} */
@@ -1281,10 +1375,40 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort" | "Manuell";
+            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring";
+            /**
+             * Format: date
+             * @description Når hendelsen skjedde på utsiden av vårt system
+             */
+            skjedde: string;
+        };
+        DatalastKvittering: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date */
+            fraOgMed: string;
+            /** Format: date */
+            tilOgMed: string;
+            behandlinger: number;
+            tidBrukt?: string;
+        };
+        Person: {
+            rettighetsstatus: components["schemas"]["Rettighetsperiode"][];
+        };
+        /** @description En periode hvor brukeren har fått vurdert sin rett på dagpenger og utfallet av vurderingen */
+        Rettighetsstatus: {
+            /**
+             * Format: date
+             * @description Fra og med dato denne status har effekt
+             */
+            virkningsdato: string;
+            /** @description Om brukeren har rett på dagpenger */
+            harRett: boolean;
+            behandlingId: components["schemas"]["BehandlingId"];
+            behandlingskjedeId: components["schemas"]["BehandlingId"];
         };
         /** @enum {string} */
-        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning";
     };
     responses: never;
     parameters: never;
@@ -1321,44 +1445,6 @@ export interface operations {
             };
             /** @description Feil ved lagring av begrunnelse */
             400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["HttpProblem"];
-                };
-            };
-        };
-    };
-    oppdaterOpplysning: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Behandlingens id */
-                behandlingId: string;
-                /** @description Opplysningens id */
-                opplysningId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OppdaterOpplysning"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Kvittering"];
-                };
-            };
-            /** @description Feil ved redigering av opplysninger */
-            default: {
                 headers: {
                     [name: string]: unknown;
                 };

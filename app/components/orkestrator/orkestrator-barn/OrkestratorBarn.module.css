@@ -1,0 +1,44 @@
+.orkestratorBarn {
+  margin-top: var(--ax-space-32);
+}
+
+.opplysningBarnHeader {
+  margin-left: var(--ax-space-12);
+}
+
+.orkestratorOpplysning {
+  padding: var(--ax-space-8);
+}
+
+.orkestratorOpplysningsLinje {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--ax-border-neutral);
+  padding: var(--ax-space-8);
+}
+
+.korrigering {
+  grid-template-columns: 1fr 0.1fr 1fr;
+}
+
+.bakgrunn:nth-child(odd) {
+  background-color: #f8f9fc;
+}
+
+.bakgrunn:nth-child(even) {
+  background-color: var(--ax-bg-default);
+}
+
+.alightRight {
+  display: flex;
+  justify-content: end;
+  align-items: baseline;
+}
+
+.endreKnapp {
+  margin: var(--ax-space-16) 0 0 var(--ax-space-12);
+}
+
+.modal {
+  min-width: 600px;
+}

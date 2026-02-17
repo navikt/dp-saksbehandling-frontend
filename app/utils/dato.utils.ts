@@ -14,7 +14,9 @@ export function formaterTilNorskDato(inputDato: Date | string, medKlokkeslett?: 
   const dato = inputDato instanceof Date ? inputDato : new Date(inputDato);
 
   if (isNaN(dato.getTime())) {
-    throw new Error("Ugyldig datoformat. Forventet ISO-streng, f.eks. '2021-01-31T12:00:00'.");
+    throw new Error(
+      `Ugyldig datoformat: ${inputDato}, forventet ISO-streng, f.eks. '2021-01-31T12:00:00'.`,
+    );
   }
 
   if (medKlokkeslett) {

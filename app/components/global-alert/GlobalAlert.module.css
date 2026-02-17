@@ -10,8 +10,8 @@
 
 .alert.alert {
   border: none;
-  border-radius: var(--a-border-radius-xlarge);
-  margin-bottom: var(--a-spacing-2);
+  border-radius: var(--ax-radius-12);
+  margin-bottom: var(--ax-space-8);
 
   opacity: 0;
 }

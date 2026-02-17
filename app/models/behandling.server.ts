@@ -5,15 +5,19 @@ import { getEnv } from "~/utils/env.utils";
 import { handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 
-import { paths } from "../../openapi/behandling-typer";
+import { components, paths } from "../../openapi/behandling-typer";
 
 const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_URL") });
 
-export async function opprettManuellBehandling(request: Request, ident: string) {
+export async function opprettBehandling(
+  request: Request,
+  ident: string,
+  behandlingstype: components["schemas"]["Behandlingstype"],
+) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident },
+    body: { ident, behandlingstype },
   });
 }
 
@@ -36,21 +40,6 @@ export async function hentBehandling(request: Request, behandlingId: string) {
   }
 
   throw new Error(`Uhåndtert feil i hentBehandling(). ${response.status} - ${response.statusText}`);
-}
-
-export async function avbrytBehandling(
-  request: Request,
-  behandlingId: string,
-  personIdent: string,
-) {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-  return await behandlingClient.POST("/behandling/{behandlingId}/avbryt", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ident: personIdent },
-    params: {
-      path: { behandlingId },
-    },
-  });
 }
 
 export async function lagreOpplysning(
@@ -78,16 +67,12 @@ export async function lagreOpplysning(
   });
 }
 
-export async function slettOpplysning(
-  request: Request,
-  behandlingId: string,
-  opplysningId: string,
-) {
+export async function slettPeriode(request: Request, behandlingId: string, periodeId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.DELETE("/behandling/{behandlingId}/opplysning/{opplysningId}", {
     headers: getHeaders(onBehalfOfToken),
     params: {
-      path: { behandlingId, opplysningId },
+      path: { behandlingId, opplysningId: periodeId },
     },
   });
 }
@@ -112,12 +97,12 @@ export async function rekjorBehandling(
   request: Request,
   behandlingId: string,
   ident: string,
-  opplysningerSomSkalOppfriskes?: string[],
+  opplysningIderSomSkalOppfriskes?: string[],
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident: ident, opplysninger: opplysningerSomSkalOppfriskes },
+    body: { ident: ident, opplysninger: opplysningIderSomSkalOppfriskes },
     params: {
       path: { behandlingId },
     },
@@ -147,20 +132,4 @@ export async function hentVurderinger(request: Request, behandlingId: string) {
   throw new Error(
     `Uhåndtert feil i hentVurderinger(). ${response.status} - ${response.statusText}`,
   );
-}
-
-export async function lagreVurdering(
-  request: Request,
-  behandlingId: string,
-  opplysningId: string,
-  begrunnelse: string,
-) {
-  const onBehalfOfToken = await getBehandlingOboToken(request);
-  return await behandlingClient.PUT("/behandling/{behandlingId}/vurderinger/{opplysningId}", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { begrunnelse },
-    params: {
-      path: { behandlingId, opplysningId },
-    },
-  });
 }

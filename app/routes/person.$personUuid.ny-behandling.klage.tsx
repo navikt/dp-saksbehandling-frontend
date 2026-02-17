@@ -3,7 +3,7 @@ import { useForm } from "@rvf/react-router";
 import classnames from "classnames";
 import { ActionFunctionArgs, Form, useActionData } from "react-router";
 
-import { RemixLink } from "~/components/RemixLink";
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -47,7 +47,7 @@ export default function Oppgave() {
         <DatePicker {...datepickerProps}>
           <DatePicker.Input
             {...inputProps}
-            label="Klage motatt"
+            label="Klage mottatt"
             name={"opprettetDato"}
             size={"small"}
             error={klageForm.error("opprettetDato")}
@@ -71,13 +71,13 @@ export default function Oppgave() {
         />
 
         <div className={"mt-4 flex gap-2"}>
-          <RemixLink
+          <LoadingLink
             to={`/person/${personOversikt.person.id}/oversikt`}
             asButtonVariant={"secondary"}
-            size={"small"}
+            buttonSize={"small"}
           >
             Tilbake
-          </RemixLink>
+          </LoadingLink>
 
           <Button
             variant={"primary"}

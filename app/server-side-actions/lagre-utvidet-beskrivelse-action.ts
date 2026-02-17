@@ -1,23 +1,22 @@
+import { parseFormData, validationError } from "@rvf/react-router";
+
 import { lagreUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForUtvidetBeskrivelse } from "~/utils/validering.util";
 
 export async function lagreUtvidetBeskrivelseAction(request: Request, formData: FormData) {
-  const brevblokkId = formData.get("brevblokk-id") as string;
-  const behandlingId = formData.get("behandling-id") as string;
-  const utvidetBeskrivelse = formData.get("utvidet-beskrivelse") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForUtvidetBeskrivelse());
 
-  if (!brevblokkId) {
-    throw new Error("Mangler brevblokkId");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!behandlingId) {
-    throw new Error("Mangler behandlingId");
-  }
+  const { behandlingId, brevBlokkId, utvidetBeskrivelse } = validertSkjema.data;
 
   const { data, error } = await lagreUtvidetBeskrivelse(
     request,
     behandlingId,
-    brevblokkId,
+    brevBlokkId,
     utvidetBeskrivelse,
   );
 

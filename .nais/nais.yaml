@@ -52,6 +52,8 @@ spec:
       value: "{{dp-rapportering-personregister_url}}"
     - name: DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL
       value: "{{dp-rapportering-saksbehandling-frontend_url}}"
+    - name: DP_INNTEKT_REDIGERING_FRONTEND_URL
+      value: "{{dp-inntekt-redigering-frontend_url}}"
     - name: SAF_URL
       value: "{{saf_url}}"
     - name: DP_SOKNAD_ORKESTRATOR_URL
@@ -62,18 +64,19 @@ spec:
       value: "{{gosys_url}}"
     - name: MODIA_URL
       value: "{{modia_url}}"
-    - name: MELDEKORT_URL
-      value: "{{meldekort_url}}"
-    - name: INNTEKTREDIGERING_URL
-      value: "{{inntektredigering_url}}"
-    - name: GRISEN_URL
-      value: "{{grisen_url}}"
     - name: DAGPENGER_NORGE_URL
       value: "{{dagpenger-norge_url}}"
     - name: SAF_AUDIENCE
       value: "{{saf_audience}}"
     - name: PDL_AUDIENCE
       value: "{{PDL_audience}}"
+
+    - name: SANITY_PROJECT_ID
+      value: {{sanity_project_id}}
+    - name: SANITY_ACCESS_TOKEN
+      value: {{sanity_access_token}}
+    - name: SANITY_DATASET
+      value: {{sanity_dataset}}
 
     - name: OTEL_METRICS_EXPORTER
       value: otlp
@@ -110,7 +113,8 @@ spec:
         - host: saf.dev-fss-pub.nais.io
         - host: saf.prod-fss-pub.nais.io
         - host: pdl-api.dev-fss-pub.nais.io
-        - host: dagpenger-unleash-api.nav.cloud.nais.io
+        - host: teamdagpenger-unleash-api.nav.cloud.nais.io
+        - host: rt6o382n.apicdn.sanity.io
 
       rules:
         - application: dp-saksbehandling

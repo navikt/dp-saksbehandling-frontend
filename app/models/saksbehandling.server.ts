@@ -1,8 +1,10 @@
 import createClient from "openapi-fetch";
+import { redirect } from "react-router";
 
+import { commitSession, getSession } from "~/sessions";
 import { getSaksbehandlingOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
-import { handleHttpProblem } from "~/utils/error-response.utils";
+import { getHttpProblemAlert, handleHttpProblem } from "~/utils/error-response.utils";
 import { getHeaders } from "~/utils/fetch.utils";
 import { parseSearchParamsToOpenApiQuery } from "~/utils/type-guards";
 
@@ -53,6 +55,43 @@ export async function hentOppgave(request: Request, oppgaveId: string) {
   }
 
   throw new Error(`Uhåndtert feil i hentOppgave(). ${response.status} - ${response.statusText}`);
+}
+
+export async function hentInnsending(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET("/innsending/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
+}
+
+export async function ferdigstillInnsending(
+  request: Request,
+  body: components["schemas"]["FerdigstillInnsendingRequest"],
+  behandlingId: string,
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/innsending/{behandlingId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+    params: {
+      path: {
+        behandlingId,
+      },
+    },
+  });
 }
 
 export async function hentKlage(request: Request, behandlingId: string) {
@@ -160,6 +199,22 @@ export async function utsettOppgave(
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/utsett", {
     headers: getHeaders(onBehalfOfToken),
     body: { utsettTilDato, beholdOppgave, aarsak: paaVentAarsak },
+    params: {
+      path: { oppgaveId },
+    },
+  });
+}
+
+export async function avbrytOppgave(
+  request: Request,
+  oppgaveId: string,
+  aarsak: components["schemas"]["AvbrytOppgaveAarsak"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/avbryt", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { aarsak },
     params: {
       path: { oppgaveId },
     },
@@ -286,18 +341,45 @@ export async function hentPersonOversikt(request: Request, personId: string) {
   throw new Error(`Uhåndtert feil i hentPersonUuid(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentOppgaverForPerson(request: Request, ident: string) {
+export async function hentOppgaveIdForBehandlingId(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.POST("/person/oppgaver", {
+  const { data, error } = await saksbehandlerClient.GET("/behandling/{behandlingId}/oppgaveId", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident },
+    params: {
+      path: { behandlingId },
+    },
   });
+
+  if (error) {
+    const alert = getHttpProblemAlert(error);
+
+    const session = await getSession(request.headers.get("Cookie"));
+    session.flash("alert", alert);
+
+    return redirect(`/`, {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
+  if (data) {
+    return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
+  }
 }
 
-export async function hentStatistikkForSaksbehandler(request: Request) {
+export async function hentStatistikk(request: Request, urlSearchParams: URLSearchParams) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { data, error, response } = await saksbehandlerClient.GET("/statistikk", {
+  const queryParams =
+    parseSearchParamsToOpenApiQuery<paths["/produksjonsstatistikk"]["get"]["parameters"]["query"]>(
+      urlSearchParams,
+    );
+
+  const { data, error, response } = await saksbehandlerClient.GET("/produksjonsstatistikk", {
     headers: getHeaders(onBehalfOfToken),
+    params: {
+      query: queryParams,
+    },
   });
 
   if (data) {
@@ -308,7 +390,5 @@ export async function hentStatistikkForSaksbehandler(request: Request) {
     handleHttpProblem(error);
   }
 
-  throw new Error(
-    `Uhåndtert feil i hentStatistikkForSaksbehandler(). ${response.status} - ${response.statusText}`,
-  );
+  throw new Error(`Uhåndtert feil i hentStatistikk(). ${response.status} - ${response.statusText}`);
 }

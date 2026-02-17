@@ -21,12 +21,9 @@ export async function hentNesteOppgaveAction(request: Request, formData: FormDat
 
   if (data) {
     switch (data.behandlingType) {
-      case "MELDEKORT":
       case "RETT_TIL_DAGPENGER":
         if (data.tilstand === "UNDER_KONTROLL") {
-          return redirect(
-            `/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/begrunnelse`,
-          );
+          return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/vedtak`);
         }
 
         return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${data.behandlingId}/behandle`);

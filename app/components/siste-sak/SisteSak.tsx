@@ -1,18 +1,18 @@
 import { FolderFileIcon } from "@navikt/aksel-icons";
-import { BodyShort, CopyButton, Detail, Heading, Table } from "@navikt/ds-react";
+import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
 
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
-import { RemixLink } from "~/components/RemixLink";
-import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
+import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
+import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
+  dagpengerRettBehandling?: behandlingComponents["schemas"]["Behandling"];
 }
 
-export function SisteSak({ sak }: IProps) {
+export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
@@ -22,7 +22,7 @@ export function SisteSak({ sak }: IProps) {
       <div className={"flex items-center gap-2 pb-4"}>
         <Heading
           size={"small"}
-          className={"flex items-center gap-1 border-r-1 border-(--a-border-subtle) pr-4"}
+          className={"flex items-center gap-1 border-r border-(--ax-border-neutral-subtle) pr-4"}
         >
           <FolderFileIcon aria-hidden /> Siste sak
         </Heading>
@@ -36,49 +36,11 @@ export function SisteSak({ sak }: IProps) {
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
 
-      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>Mottatt</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>Type</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>BehandlingId</Detail>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Detail weight={"semibold"}>OppgaveId</Detail>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+      {dagpengerRettBehandling && (
+        <GjeldendeVedtak dagpengerRettBehandling={dagpengerRettBehandling} />
+      )}
 
-        <Table.Body>
-          {sak.behandlinger.map((behandling) => (
-            <Table.Row key={behandling.id}>
-              <Table.DataCell>
-                <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>{hentBehandlingTypeTekstForVisning(behandling.behandlingType)}</Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>
-                  {behandling.behandlingType !== "KLAGE" && (
-                    <RemixLink to={`/behandling/${behandling.id}`}>{behandling.id}</RemixLink>
-                  )}
-                </Detail>
-              </Table.DataCell>
-              <Table.DataCell>
-                <Detail>
-                  <RemixLink to={hentOppgaveUrl(behandling)}>{behandling.oppgaveId}</RemixLink>
-                </Detail>
-              </Table.DataCell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+      <BehandlingListe behandlinger={sak.behandlinger} />
     </div>
   );
 }

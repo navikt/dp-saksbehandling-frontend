@@ -1,5 +1,5 @@
-import { BarChartIcon, FunnelIcon, LayersIcon } from "@navikt/aksel-icons";
-import { Button, Tabs } from "@navikt/ds-react";
+import { LayersIcon } from "@navikt/aksel-icons";
+import { Button } from "@navikt/ds-react";
 import { useEffect } from "react";
 import {
   ActionFunctionArgs,
@@ -13,17 +13,17 @@ import {
   useSearchParams,
 } from "react-router";
 
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter-avslagsgrunner/OppgaveFilterAvslagsgrunner";
-import { OppgaveFilterBehandlingType } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
-import { OppgaveFilterDato } from "~/components/oppgave-filter-dato/OppgaveFilterDato";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter-rettighetstype/OppgaveFilterRettighetstype";
-import { OppgaveFilterStatus } from "~/components/oppgave-filter-status/OppgaveFilterStatus";
+import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
+import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
+import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
+import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
+import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
+import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
+import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
-import tabStyles from "~/components/oppgave-liste-meny/OppgaveListeMeny.module.css";
-import { Statistikk } from "~/components/statistikk/Statistikk";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentOppgaver, hentStatistikkForSaksbehandler } from "~/models/saksbehandling.server";
+import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -53,18 +53,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
       return redirect(url.toString());
     }
   }
-
-  const oppgaverResponse = await hentOppgaver(request, url.searchParams);
-  const statistikk = await hentStatistikkForSaksbehandler(request);
+  const { oppgaver, totaltAntallOppgaver } = await hentOppgaver(request, url.searchParams);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
-      statistikk,
-      oppgaver: oppgaverResponse.oppgaver,
-      totaltAntallOppgaver: oppgaverResponse.totaltAntallOppgaver,
+      oppgaver,
+      totaltAntallOppgaver,
     },
     {
       headers: {
@@ -79,7 +76,7 @@ export default function Saksbehandling() {
   const [searchParams] = useSearchParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
-  const { alert, oppgaver, statistikk, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
   const { setAktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -91,34 +88,15 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <aside className={styles.venstreMeny}>
-        <Tabs defaultValue="filter" size="small" className={tabStyles.stickyTabs}>
-          <Tabs.List>
-            <Tabs.Tab
-              value="filter"
-              label="Filter"
-              icon={<FunnelIcon title="filter" aria-hidden />}
-            />
-            <Tabs.Tab
-              value="statistikk"
-              label="Statistikk"
-              icon={<BarChartIcon title="statistikk" aria-hidden />}
-            />
-          </Tabs.List>
-
-          <Tabs.Panel value="filter" className={tabStyles.tabPanel}>
-            <OppgaveFilterDato />
-            <OppgaveFilterStatus
-              tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
-            />
-            <OppgaveFilterBehandlingType />
-            <OppgaveFilterRettighetstype />
-            <OppgaveFilterAvslagsgrunner />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="statistikk">
-            <Statistikk statistikk={statistikk} />
-          </Tabs.Panel>
-        </Tabs>
+        <OppgaveFilterDato />
+        <OppgaveFilterAvslagsgrunner />
+        <OppgaveFilterStatus
+          tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
+        />
+        <OppgaveFilterUtløstAv />
+        <OppgaveFilterGjenopptak />
+        <OppgaveFilterRettighetstype />
+        <OppgaveFilterSøknadresultat />
       </aside>
 
       <main>

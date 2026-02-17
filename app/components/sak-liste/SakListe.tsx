@@ -1,8 +1,6 @@
-import { BodyShort, CopyButton, Detail, ExpansionCard, Table } from "@navikt/ds-react";
+import { BodyShort, CopyButton, ExpansionCard } from "@navikt/ds-react";
 
-import { hentBehandlingTypeTekstForVisning } from "~/components/oppgave-filter-behandling-type/OppgaveFilterBehandlingType";
-import { RemixLink } from "~/components/RemixLink";
-import { hentOppgaveUrl } from "~/routes/person.$personUuid.oversikt";
+import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -24,26 +22,37 @@ export function SakListe({ saker }: IProps) {
         const idGrupper = sak.id.split("-");
         const sisteIdGruppe = idGrupper.pop();
         const forsteIdGruppe = idGrupper.join("-");
+        const førsteBehandling = sak.behandlinger.at(-1);
+        const sisteBehandling = sak.behandlinger.at(0);
 
         return (
           <ExpansionCard
             key={sak.id}
-            className={"expansion--subtil card my-4"}
+            className={"expansion--subtil my-4"}
             aria-label={""}
             size={"small"}
           >
             <ExpansionCard.Header>
               <ExpansionCard.Title size={"small"} className={"flex items-center gap-1"}>
-                <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
-                  SakID ...{sisteIdGruppe}
-                </BodyShort>
+                {førsteBehandling && (
+                  <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
+                    Sak opprettet: {formaterTilNorskDato(førsteBehandling.opprettet)}
+                  </BodyShort>
+                )}
+                {!førsteBehandling && (
+                  <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
+                    SakID ...{sisteIdGruppe}
+                  </BodyShort>
+                )}
               </ExpansionCard.Title>
-              <ExpansionCard.Description>
-                Siste endret: {formaterTilNorskDato(new Date())}
-              </ExpansionCard.Description>
+              {sisteBehandling && (
+                <ExpansionCard.Description>
+                  Siste behandling opprettet: {formaterTilNorskDato(sisteBehandling.opprettet)}
+                </ExpansionCard.Description>
+              )}
             </ExpansionCard.Header>
 
-            <ExpansionCard.Content className={"border-t-1 border-(--a-border-subtle)"}>
+            <ExpansionCard.Content className={"border-t border-(--ax-border-neutral-subtle)"}>
               <div className={"mb-4 flex items-center gap-1"}>
                 <BodyShort>
                   {forsteIdGruppe}-<b>{sisteIdGruppe}</b>
@@ -51,55 +60,7 @@ export function SakListe({ saker }: IProps) {
                 <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
               </div>
 
-              <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell scope="col">
-                      <Detail weight={"semibold"}>Mottatt</Detail>
-                    </Table.HeaderCell>
-                    <Table.HeaderCell scope="col">
-                      <Detail weight={"semibold"}>Type</Detail>
-                    </Table.HeaderCell>
-                    <Table.HeaderCell scope="col">
-                      <Detail weight={"semibold"}>BehandlingId</Detail>
-                    </Table.HeaderCell>
-                    <Table.HeaderCell scope="col">
-                      <Detail weight={"semibold"}>OppgaveId</Detail>
-                    </Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  {sak.behandlinger.map((behandling) => (
-                    <Table.Row key={behandling.id}>
-                      <Table.DataCell>
-                        <Detail>{formaterTilNorskDato(behandling.opprettet)}</Detail>
-                      </Table.DataCell>
-                      <Table.DataCell>
-                        <Detail>
-                          {hentBehandlingTypeTekstForVisning(behandling.behandlingType)}
-                        </Detail>
-                      </Table.DataCell>
-                      <Table.DataCell>
-                        <Detail>
-                          {behandling.behandlingType !== "KLAGE" && (
-                            <RemixLink to={`/behandling/${behandling.id}`}>
-                              {behandling.id}
-                            </RemixLink>
-                          )}
-                        </Detail>
-                      </Table.DataCell>
-                      <Table.DataCell>
-                        <Detail>
-                          <RemixLink to={hentOppgaveUrl(behandling)}>
-                            {behandling.oppgaveId}
-                          </RemixLink>
-                        </Detail>
-                      </Table.DataCell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
+              <BehandlingListe behandlinger={sak.behandlinger} />
             </ExpansionCard.Content>
           </ExpansionCard>
         );

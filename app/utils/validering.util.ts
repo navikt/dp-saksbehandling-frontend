@@ -1,30 +1,40 @@
-import { withZod } from "@rvf/zod";
 import { z } from "zod";
 
+import { gyldigeBegrunnelser } from "~/const";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
+import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
-export function hentValideringForOpplysningSkjema(datatype: components["schemas"]["DataType"]) {
+export type NyBehandlingType = "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
+
+export function hentValideringForOpplysningPeriodeSkjema(
+  datatype: components["schemas"]["DataType"],
+) {
   return z.object({
+    _action: z.literal("lagre-opplysning"),
     verdi: hentValideringForOpplysningVerdi(datatype),
-    opplysningTypeId: z.string().min(1, "Det mangler opplysningTypeId i skjema"),
-    datatype: z.string().min(1, "Det mangler datatype i skjema"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    begrunnelse: z.string().min(1, "Du må skrive en begrunnelse").optional(),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    datatype: z.string("Det mangler datatype i skjema"),
+    behandlingId: z.string("Det mangler behandlingId i skjema"),
+    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
     gyldigFraOgMed: z.preprocess(
-      (val) => (val === "" ? undefined : val),
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
     gyldigTilOgMed: z.preprocess(
-      (val) => (val === "" ? undefined : val),
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
+    // TODO Kan slettes når gammel opplysningredigering fjernes
     ingenTomDato: z
       .string()
       .transform((val) => val === "true")
       .optional(),
+    // TODO Kan slettes når gammel opplysningredigering fjernes
     ingenFomDato: z
       .string()
       .transform((val) => val === "true")
@@ -32,14 +42,38 @@ export function hentValideringForOpplysningSkjema(datatype: components["schemas"
   });
 }
 
-export function hentValideringForSlettOpplysningSkjema() {
+export function hentValideringForNyOpplysningPeriodeSkjema(
+  datatype: components["schemas"]["DataType"],
+) {
   return z.object({
-    opplysningId: z.string().min(1, "Det mangler opplysningId i skjema"),
+    _action: z.literal("lagre-opplysning"),
+    verdi: hentValideringForOpplysningVerdi(datatype),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    datatype: z.string("Det mangler datatype i skjema"),
+    behandlingId: z.string("Det mangler behandlingId i skjema"),
+    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
+    gyldigFraOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+    gyldigTilOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefiend" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+  });
+}
+
+export function hentValideringForSlettPeriode() {
+  return z.object({
+    _action: z.literal("slett-periode"),
+    periodeId: z.string().min(1, "Det mangler periodeId i skjema"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
   });
 }
 
-export function hentValideringForOpplysningVerdi(datatype: components["schemas"]["DataType"]) {
+function hentValideringForOpplysningVerdi(datatype: components["schemas"]["DataType"]) {
   switch (datatype) {
     case "heltall":
       return z
@@ -71,8 +105,7 @@ export function hentValideringForOpplysningVerdi(datatype: components["schemas"]
 
     case "boolsk":
       return z.enum(["Ja", "Nei"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+        message: "Du må velge et svar",
       });
 
     case "dato":
@@ -94,7 +127,7 @@ export function hentValideringForKlageOpplysningSkjema(
   });
 }
 
-export function hentValideringForKlageOpplysningVerdi(
+function hentValideringForKlageOpplysningVerdi(
   opplysning: saksbehandlingComponents["schemas"]["KlageOpplysning"],
 ) {
   switch (opplysning.type) {
@@ -103,17 +136,15 @@ export function hentValideringForKlageOpplysningVerdi(
 
     case "BOOLSK":
       return z.enum(["Ja", "Nei"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+        message: "Du må velge et svar",
       });
 
     case "DATO":
       return hentValideringForNorskDato();
 
     case "LISTEVALG":
-      return z.enum(["", ...opplysning.valgmuligheter], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
+      return z.enum(opplysning.valgmuligheter, {
+        message: "Du må velge et svar",
       });
 
     case "FLER_LISTEVALG":
@@ -153,48 +184,73 @@ export function hentValideringForPersonIdent() {
   });
 }
 
-export function hentValideringUtsettOppgave() {
-  return withZod(
-    z.object({
-      utsettTilDato: z.string().min(1, { message: "Du må velge en dato" }),
-      paaVentAarsak: z.string().min(1, { message: "Du må velge en begrunnelse" }),
-    }),
-  );
+export function hentValideringSettOppgavePåVent() {
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["UtsettOppgaveAarsak"][] = [
+    "AVVENT_SVAR",
+    "AVVENT_DOKUMENTASJON",
+    "AVVENT_MELDEKORT",
+    "AVVENT_PERMITTERINGSÅRSAK",
+    "AVVENT_RAPPORTERINGSFRIST",
+    "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "ANNET",
+  ];
+  return z.object({
+    _action: z.literal("sett-oppgave-på-vent"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    aktivtOppgaveSok: z.string().optional(),
+    beholdOppgave: z.coerce.boolean(),
+    utsettTilDato: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en begrunnelse" }),
+  });
+}
+
+export function hentValideringAvbrytOppgave() {
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"][] = [
+    "BEHANDLES_I_ARENA",
+    "FLERE_SØKNADER",
+    "TRUKKET_SØKNAD",
+    "ANNET",
+  ];
+  return z.object({
+    _action: z.literal("avbryt-oppgave"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+  });
 }
 
 export function hentValideringOrkestratorBarn() {
-  return withZod(
-    z.object({
-      fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-      etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-      fodselsdato: z.string().regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+  return z.object({
+    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
+    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
+    fodselsdato: z.string().regex(
+      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
+      "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
+    ),
+    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
+    forsorgerBarnet: z.enum(["true", "false"], {
+      message: "Du må velge et svar",
+    }),
+    kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
+      message: "Du må velge et svar",
+    }),
+    barnetilleggFom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
         "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
       ),
-      oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-      forsorgerBarnet: z.enum(["true", "false"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
-      }),
-      kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
-        required_error: "Du må velge et svar",
-        invalid_type_error: "Ugyldig svar",
-      }),
-      barnetilleggFom: z
-        .string()
-        .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-          "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
-        ),
-      barnetilleggTom: z
-        .string()
-        .regex(
-          new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-          "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
-        ),
-      begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-    }),
-  );
+    barnetilleggTom: z
+      .string()
+      .regex(
+        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
+        "Ugyldig dato. Gyldige datoformat er dd.mm.åååå",
+      ),
+    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+  });
 }
 
 export function hentValideringForNyKlageSkjema() {
@@ -213,8 +269,22 @@ export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     meldingOmVedtakKilde: z.enum(["DP_SAK", "GOSYS", "INGEN"], {
-      required_error: "Du må velge et alternativ",
-      invalid_type_error: "Ugyldig valg",
+      message: "Du må velge et alternativ",
+    }),
+  });
+}
+
+export function hentValideringForMeldingOmVedtakBrevVariantSkjema() {
+  const lovligeBrevVarianter: meldingOmVedtakComponents["schemas"]["BrevVariant"][] = [
+    "GENERERT",
+    "EGENDEFINERT",
+  ];
+
+  return z.object({
+    _action: z.literal("lagre-brev-variant"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    brevVariant: z.enum(lovligeBrevVarianter, {
+      message: "Du må velge et alternativ",
     }),
   });
 }
@@ -226,9 +296,20 @@ export function hentValideringForGodkjentBrevSkjema() {
   });
 }
 
+export function hentValideringForAvklaringSkjema() {
+  return z.object({
+    _action: z.literal("kvitter-avklaring"),
+    avklaringId: z.string().min(1, "Det mangler avklaringId i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    begrunnelse: z
+      .string("Du må skrive en begrunnelse")
+      .min(1, { message: "Du må skrive en begrunnelse" }),
+  });
+}
+
 function hentValideringForNorskDato() {
   return z
-    .string()
+    .string("Du må velge en dato")
     .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Dato må være i format DD.MM.YYYY")
     .refine(
       (dateString) => {
@@ -244,4 +325,129 @@ function hentValideringForNorskDato() {
         message: "Ugyldig dato",
       },
     );
+}
+
+export function hentValideringForLeggTilbakeOppgave() {
+  // const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AarsakerFraEtFeltViIkkeHarIBackend"][] = [
+  //   "BEHANDLES_I_ARENA",
+  //   "FLERE_SØKNADER",
+  //   "TRUKKET_SØKNAD",
+  //   "ANNET",
+  // ];
+  return z.object({
+    _action: z.literal("legg-tilbake-oppgave"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    // aarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForTrekkKlage() {
+  return z.object({
+    _action: z.literal("trekk-klage"),
+    ident: z.string().min(1, "Det mangler ident i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForFerdigstillKlage() {
+  return z.object({
+    _action: z.literal("ferdigstill-klage"),
+    ident: z.string().min(1, "Det mangler ident i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
+  const nyBehandlingTyper: NyBehandlingType[] = ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"];
+  return z.object({
+    _action: z.literal("ferdigstill-innsending"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
+    behandlingType: z.enum(nyBehandlingTyper, "Du må velge en behandlingstype"),
+    vurdering: z.string().min(1, "Du må skrive en vurdering"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
+export function hentValideringForRekjørBehandling() {
+  return z.object({
+    _action: z.literal("rekjor-behandling"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    ident: z.string().min(1, "Det mangler person ident i skjema"),
+  });
+}
+
+export function hentValideringForSendTilKontroll() {
+  return z.object({
+    _action: z.literal("send-til-kontroll"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+  });
+}
+
+export function hentValideringForFattVedtak() {
+  return z.object({
+    _action: z.literal("fatt-vedtak"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+  });
+}
+
+export function hentValideringForTildelOppgave() {
+  return z.object({
+    _action: z.literal("tildel-oppgave"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+  });
+}
+
+export function hentValideringForBeslutterNotat() {
+  return z.object({
+    _action: z.literal("lagre-notat"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    notat: z.string(),
+  });
+}
+
+export function hentValideringForReturnerTilSaksbehandler() {
+  return z.object({
+    _action: z.literal("returner-oppgave-til-saksbehandler"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    notat: z
+      .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
+      .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
+  });
+}
+
+export function v2hentValideringForReturnerTilSaksbehandler() {
+  return z.object({
+    _action: z.literal("returner-oppgave-til-saksbehandler"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    notat: z
+      .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
+      .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
+    begrunnelse: z.enum(gyldigeBegrunnelser, {
+      message: "Du må velge en begrunnelse for å returnere oppgaven til saksbehandler.",
+    }),
+  });
+}
+
+export function hentValideringForUtvidetBeskrivelse() {
+  return z.object({
+    _action: z.literal("lagre-utvidet-beskrivelse"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    brevBlokkId: z.string().min(1, "Det mangler brevBlokkId i skjema"),
+    utvidetBeskrivelse: z.string(),
+  });
+}
+
+export function hentValideringForOpprettBehandling() {
+  return z.object({
+    _action: z.literal("opprett-behandling"),
+    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
+    behandlingstype: z.enum(["Revurdering", "Manuell"], {
+      message: "Du må velge en behandlingstype",
+    }),
+  });
 }

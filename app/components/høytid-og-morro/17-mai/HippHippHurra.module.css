@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container svg {
+  --size: 1;
+  --rotation: 1;
+  transform: scale(calc(0.5 + 0.8 * var(--size))) rotate(calc(-60deg + 120deg * var(--rotation)));
+  margin: 0 var(--ax-space-8);
+}

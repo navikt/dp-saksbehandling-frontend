@@ -1,50 +1,43 @@
-import { JSX, useState } from "react";
-
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak-preview/MeldingOmVedtakPreview";
-import { IAlert } from "~/context/alert-context";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { MeldingOmVedtakDPSak } from "~/components/melding-om-vedtak/MeldingOmVedtakDPSak";
+import { MeldingOmVedtakKilde } from "~/components/melding-om-vedtak/MeldingOmVedtakKilde";
+import { MeldingOmVedtakPreview } from "~/components/melding-om-vedtak/MeldingOmVedtakPreview";
+import { OppgaveFattVedtak } from "~/components/oppgave-fatt-vedtak/OppgaveFattVedtak";
+import { OppgaveReturnerTilSaksbehandler } from "~/components/oppgave-returner-til-saksbehandler/OppgaveReturnerTilSaksbehandler";
+import { OppgaveSendTilKontroll } from "~/components/oppgave-send-til-kontroll/OppgaveSendTilKontroll";
+import { useBehandling } from "~/hooks/useBehandling";
+import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
+import { useOppgave } from "~/hooks/useOppgave";
 import { isAlert } from "~/utils/type-guards";
 
-import { components } from "../../../openapi/melding-om-vedtak-typer";
-import { MeldingOmVedtakKilde } from "../melding-om-vedtak-kilde/MeldingOmVedtakKilde";
-import { UtvidedeBeskrivelser } from "../utvidede-beskrivelser/UtvidedeBeskrivelser";
 import styles from "./MeldingOmVedtak.module.css";
 
-interface IProps {
-  meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
-}
+export function MeldingOmVedtak() {
+  const { oppgave, readonly } = useOppgave();
+  const { behandling } = useBehandling();
+  const { utvidedeBeskrivelser, meldingOmVedtak } = useMeldingOmVedtak();
 
-export function MeldingOmVedtak({ meldingOmVedtak }: IProps): JSX.Element {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
-  const initialUtvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][] = !isAlert(
-    meldingOmVedtak,
-  )
-    ? (meldingOmVedtak?.utvidedeBeskrivelser ?? [])
-    : [];
+  const kanSendeTilKontroll =
+    oppgave.tilstand === "UNDER_BEHANDLING" && behandling.kreverTotrinnskontroll;
 
-  const [utvidedeBeskrivelser, setUtvidedeBeskrivelser] = useState<
-    components["schemas"]["UtvidetBeskrivelse"][]
-  >(initialUtvidedeBeskrivelser);
+  const kanFatteVedtak =
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !behandling.kreverTotrinnskontroll) ||
+    oppgave.tilstand === "UNDER_KONTROLL";
 
-  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
-  const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
+  const kanReturnereTilSaksbehandler = oppgave.tilstand === "UNDER_KONTROLL";
 
   return (
     <div className={styles.meldingOmVedtakContainer}>
       <div className="flex flex-col gap-6">
-        <MeldingOmVedtakKilde readOnly={readOnly} />
-        {oppgave.meldingOmVedtakKilde === "DP_SAK" && (
-          <>
-            {utvidedeBeskrivelser.length > 0 && <hr className="border-(--a-border-subtle)" />}
-            <UtvidedeBeskrivelser
-              utvidedeBeskrivelser={utvidedeBeskrivelser}
-              setUtvidedeBeskrivelser={setUtvidedeBeskrivelser}
-              readOnly={readOnly}
-            />
-          </>
-        )}
+        <MeldingOmVedtakKilde readOnly={readonly} oppgave={oppgave} />
+
+        {oppgave.meldingOmVedtakKilde === "DP_SAK" && <MeldingOmVedtakDPSak />}
+
+        <div className={"flex gap-2 border-t-1 border-(--ax-border-neutral-subtle) pt-4"}>
+          {kanReturnereTilSaksbehandler && <OppgaveReturnerTilSaksbehandler />}
+          {kanSendeTilKontroll && <OppgaveSendTilKontroll />}
+          {kanFatteVedtak && <OppgaveFattVedtak />}
+        </div>
       </div>
 
       <div className={styles.previewContainer}>

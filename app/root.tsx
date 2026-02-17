@@ -11,15 +11,15 @@ import {
   useRouteError,
 } from "react-router";
 
-import akselOverrides from "~/aksel-overrides.css?url";
-import { Flagg } from "~/components/17-mai/Flagg";
+import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
-import { PumpkinSvg } from "~/components/halloween/PumpkinSvg";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
-import { MistelteinSvg } from "~/components/jul/MistelteinSvg";
+import { Flagg } from "~/components/høytid-og-morro/17-mai/Flagg";
+import { PumpkinSvg } from "~/components/høytid-og-morro/halloween/PumpkinSvg";
+import { MistelteinSvg } from "~/components/høytid-og-morro/jul/MistelteinSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
-import globalCss from "~/global.css?url";
+import globalDarksideCss from "~/global-darkside.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
@@ -52,8 +52,8 @@ export function meta() {
 
 export function links() {
   return [
-    { rel: "stylesheet", href: globalCss },
-    { rel: "stylesheet", href: akselOverrides },
+    { rel: "stylesheet", href: globalDarksideCss },
+    { rel: "stylesheet", href: akselDarksideOverrides },
     {
       rel: "icon",
       type: "image/png",
@@ -109,12 +109,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       IS_LOCALHOST: process.env.IS_LOCALHOST,
       GCP_ENV: process.env.GCP_ENV,
       NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
+      DP_INNTEKT_REDIGERING_FRONTEND_URL: process.env.DP_INNTEKT_REDIGERING_FRONTEND_URL,
       ARBEID_INNTEKT_URL: process.env.ARBEID_INNTEKT_URL,
       GOSYS_URL: process.env.GOSYS_URL,
       MODIA_URL: process.env.MODIA_URL,
-      MELDEKORT_URL: process.env.MELDEKORT_URL,
-      INNTEKTREDIGERING_URL: process.env.INNTEKTREDIGERING_URL,
-      GRISEN_URL: process.env.GRISEN_URL,
       DAGPENGER_NORGE_URL: process.env.DAGPENGER_NORGE_URL,
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,

@@ -1,0 +1,64 @@
+.vilkårButton {
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--ax-space-12);
+  width: 100%;
+  padding: var(--ax-space-8);
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--ax-radius-8);
+  color: var(--ax-text-subtle);
+  background: none;
+  border: none;
+  display: flex;
+  position: relative;
+}
+
+.vilkårButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--ax-border-subtle);
+  transition: opacity 0.2s ease;
+}
+
+.vilkårButton:hover::before {
+  opacity: 0;
+}
+
+/*Dette burde funke for å kunne fjerne border på elementet under, men det gjøre det ikke  :sad-panda:*/
+.aksel-timeline__row-label:has(.vilkårButton:hover),
+~ .aksel-timeline__row-label,
+.vilkårButton:hover::before {
+  opacity: 0;
+}
+
+.vilkårButton:hover {
+  background-color: var(--ax-bg-moderate-hoverA);
+}
+
+.vilkårButton:hover > .vilkårButtonIconWrapper {
+  background-color: var(--ax-bg-strong-hover);
+  color: var(--ax-text-contrast);
+}
+
+.vilkårButtonIconWrapper {
+  border-radius: var(--ax-radius-8);
+  font-weight: var(--ax-font-weight-regular);
+  font-size: var(--ax-font-size-medium);
+  background-color: var(--ax-bg-moderateA);
+  width: 22px;
+  height: 22px;
+  color: var(--ax-text-subtle);
+  align-self: center;
+}
+
+.vilkårButtonIconChevron {
+  height: inherit;
+  width: inherit;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+}

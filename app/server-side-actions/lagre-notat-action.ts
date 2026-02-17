@@ -1,18 +1,17 @@
+import { parseFormData, validationError } from "@rvf/react-router";
+
 import { lagreNotat } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
+import { hentValideringForBeslutterNotat } from "~/utils/validering.util";
 
 export async function lagreNotatAction(request: Request, formData: FormData) {
-  const oppgaveId = formData.get("oppgave-id") as string;
-  const notat = formData.get("notat") as string;
+  const validertSkjema = await parseFormData(formData, hentValideringForBeslutterNotat());
 
-  if (notat == null) {
-    throw new Error("Mangler notat");
+  if (validertSkjema.error) {
+    return validationError(validertSkjema.error);
   }
 
-  if (!oppgaveId) {
-    throw new Error("Mangler oppgaveId");
-  }
-
+  const { oppgaveId, notat } = validertSkjema.data;
   const { data, error } = await lagreNotat(request, oppgaveId, notat);
 
   if (error) {
