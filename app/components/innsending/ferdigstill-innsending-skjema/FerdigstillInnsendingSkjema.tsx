@@ -32,7 +32,12 @@ export function FerdigstillInnsendingSkjema({
       _action: "ferdigstill-innsending",
       behandlingId,
       sakId: "",
-      behandlingType: medBehandling ? ("" as unknown as "RETT_TIL_DAGPENGER" | "KLAGE") : "INGEN",
+      behandlingsvariant: medBehandling
+        ? ("" as unknown as
+            | "RETT_TIL_DAGPENGER_MANUELL"
+            | "RETT_TIL_DAGPENGER_REVURDERING"
+            | "KLAGE")
+        : "INGEN",
       vurdering: "",
       aktivtOppgaveSok,
     },
@@ -65,13 +70,13 @@ export function FerdigstillInnsendingSkjema({
 
         {medBehandling && (
           <RadioGroup
-            {...ferdigstillInnsendingSkjema.field("behandlingType").getInputProps()}
-            error={ferdigstillInnsendingSkjema.field("behandlingType").error()}
+            {...ferdigstillInnsendingSkjema.field("behandlingsvariant").getInputProps()}
+            error={ferdigstillInnsendingSkjema.field("behandlingsvariant").error()}
             size="small"
-            className="aksel--horisontal"
             legend="Behandlingstype"
           >
-            <Radio value="RETT_TIL_DAGPENGER">Rett til dagpenger</Radio>
+            <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
+            <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
             <Radio value="KLAGE">Klage</Radio>
           </RadioGroup>
         )}
