@@ -63,7 +63,7 @@ export function OpprettBehandling() {
               size={"xsmall"}
               onClick={() => manuellBehandlingModal.current?.showModal()}
             >
-              Ny manuell behandling
+              Manuell behandling
             </Button>
           </BodyShort>
 

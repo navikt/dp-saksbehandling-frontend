@@ -1831,6 +1831,8 @@ export interface components {
         UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING" | "OMGJØRING";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
+        /** @enum {string} */
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2130,7 +2132,7 @@ export interface components {
             /** Format: uuid */
             sakId?: string;
             vurdering: string;
-            behandlingType?: components["schemas"]["BehandlingType"];
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
         };
         HttpProblem: {
             type: string;
