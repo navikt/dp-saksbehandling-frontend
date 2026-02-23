@@ -1,11 +1,11 @@
 import { FolderFileIcon } from "@navikt/aksel-icons";
 import { BodyShort, CopyButton, Heading } from "@navikt/ds-react";
 
-import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
 import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
+import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
@@ -40,7 +40,7 @@ export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
         <GjeldendeVedtak dagpengerRettBehandling={dagpengerRettBehandling} />
       )}
 
-      <BehandlingListe behandlinger={sak.behandlinger} />
+      <OppgaveListe oppgaver={sak.oppgaver} totaltAntallOppgaver={sak.oppgaver.length} />
     </div>
   );
 }

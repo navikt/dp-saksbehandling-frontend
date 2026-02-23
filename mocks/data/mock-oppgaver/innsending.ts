@@ -63,6 +63,7 @@ export const innsending: components["schemas"]["Oppgave"] = {
       "ANNET",
     ],
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
+    leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "HABILITET", "FRAVÆR", "ANNET"],
   },
   meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",

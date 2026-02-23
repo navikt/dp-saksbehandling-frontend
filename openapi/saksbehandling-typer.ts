@@ -991,7 +991,9 @@ export interface paths {
         /** Saksbehandler/beslutter fjernes som ansvarlig for oppgaven, og oppgaven går tilbake til oppgavelisten */
         put: {
             parameters: {
-                query?: never;
+                query?: {
+                    aarsak?: components["schemas"]["LeggTilbakeAarsak"];
+                };
                 header?: never;
                 path: {
                     oppgaveId: string;
@@ -1733,17 +1735,7 @@ export interface components {
         Sak: {
             /** Format: uuid */
             id: string;
-            behandlinger: components["schemas"]["Behandling"][];
-        };
-        Behandling: {
-            /** Format: uuid */
-            id: string;
-            behandlingType: components["schemas"]["BehandlingType"];
-            utlostAv: components["schemas"]["UtlostAvType"];
-            /** Format: date-time */
-            opprettet: string;
-            /** Format: uuid */
-            oppgaveId?: string;
+            oppgaver: components["schemas"]["OppgaveOversikt"][];
         };
         OppgaveOversiktResultat: {
             oppgaver: components["schemas"]["OppgaveOversikt"][];
@@ -1838,6 +1830,8 @@ export interface components {
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
             /** @description Årsaker til at oppgaven avbrytes */
             avbrytAarsaker: components["schemas"]["AvbrytOppgaveAarsak"][];
+            /** @description Årsaker til at oppgaven legges tilbake i oppgavelisten */
+            leggTilbakeAarsaker: components["schemas"]["LeggTilbakeAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1878,6 +1872,8 @@ export interface components {
         };
         /** @enum {string} */
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
+        /** @enum {string} */
+        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "HABILITET" | "FRAVÆR" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;

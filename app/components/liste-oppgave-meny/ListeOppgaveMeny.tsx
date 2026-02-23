@@ -88,7 +88,11 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                       key={valg}
                       oppgaveId={listeOppgave.oppgaveId}
                       lovligeEndringer={
-                        listeOppgave.lovligeEndringer || { avbrytAarsaker: [], paaVentAarsaker: [] }
+                        listeOppgave.lovligeEndringer || {
+                          avbrytAarsaker: [],
+                          paaVentAarsaker: [],
+                          leggTilbakeAarsaker: [],
+                        }
                       }
                     />
                   );
