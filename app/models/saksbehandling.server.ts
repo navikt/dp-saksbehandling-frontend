@@ -178,10 +178,17 @@ export async function tildelOppgave(request: Request, oppgaveId: string) {
   });
 }
 
-export async function leggTilbakeOppgave(request: Request, oppgaveId: string) {
+export async function leggTilbakeOppgave(
+  request: Request,
+  oppgaveId: string,
+  årsak: components["schemas"]["LeggTilbakeAarsak"],
+) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/legg-tilbake", {
     headers: getHeaders(onBehalfOfToken),
+    body: {
+      aarsak: årsak,
+    },
     params: {
       path: { oppgaveId },
     },

@@ -137,3 +137,20 @@ export function hentFargevariantForSøknadsresultat(visningsnavn: string): Aksel
       return "neutral";
   }
 }
+
+export function hentTekstForLeggTilbakeÅrsak(
+  leggTilbakeÅrsak: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"],
+): string {
+  switch (leggTilbakeÅrsak) {
+    case "MANGLER_KOMPETANSE":
+      return "Mangler kompetanse";
+    case "FRAVÆR":
+      return "Fravær";
+    case "INHABILITET":
+      return "Inhabil";
+    case "ANNET":
+      return "Annet";
+    default:
+      return leggTilbakeÅrsak;
+  }
+}

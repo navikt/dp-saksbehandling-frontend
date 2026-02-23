@@ -88,7 +88,7 @@ export function InnsendingInfo({ innsending }: IProps) {
               </div>
 
               <div>
-                <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} buttonSize={"small"} />
+                <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
               </div>
             </>
           )}

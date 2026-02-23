@@ -56,11 +56,7 @@ function renderOppgaveValg(
   switch (valg) {
     case "legg-tilbake-oppgave":
       return (
-        <OppgaveValgLeggTilbake
-          oppgaveId={oppgave.oppgaveId}
-          buttonVariant={"tertiary"}
-          buttonSize={"small"}
-        />
+        <OppgaveValgLeggTilbake oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
       );
 
     case "utsett-oppgave":

@@ -332,16 +332,16 @@ function hentValideringForNorskDato() {
 }
 
 export function hentValideringForLeggTilbakeOppgave() {
-  // const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AarsakerFraEtFeltViIkkeHarIBackend"][] = [
-  //   "BEHANDLES_I_ARENA",
-  //   "FLERE_SØKNADER",
-  //   "TRUKKET_SØKNAD",
-  //   "ANNET",
-  // ];
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"][] = [
+    "MANGLER_KOMPETANSE",
+    "FRAVÆR",
+    "INHABILITET",
+    "ANNET",
+  ];
   return z.object({
     _action: z.literal("legg-tilbake-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    // aarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
     aktivtOppgaveSok: z.string(),
   });
 }
