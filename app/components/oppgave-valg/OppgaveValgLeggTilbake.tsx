@@ -52,9 +52,18 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
         <Modal.Body className={"pt-0"}>
           <BodyLong> Du er i ferd med å legge tilbake oppgaven</BodyLong>
 
-          <Select label={"Velg årsak"} size={"small"} className={"mt-4"}>
+          <Select
+            {...leggTilbakeForm.field("årsak").getInputProps()}
+            error={leggTilbakeForm.field("årsak").error()}
+            size={"small"}
+            className={"mt-4"}
+            label={"Velg årsak"}
+          >
+            <option hidden={true}>- Velg årsak -</option>
             {oppgave.lovligeEndringer?.leggTilbakeAarsaker.map((årsak) => (
-              <option key={årsak}>{hentTekstForLeggTilbakeÅrsak(årsak)}</option>
+              <option key={årsak} value={årsak}>
+                {hentTekstForLeggTilbakeÅrsak(årsak)}
+              </option>
             ))}
           </Select>
         </Modal.Body>
