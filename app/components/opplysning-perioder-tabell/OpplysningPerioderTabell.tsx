@@ -123,7 +123,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                       href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${periode.id}&behandlingId=${behandlingId}`}
                       target="_blank"
                     >
-                      Inntektredigering <ExternalLinkIcon aria-hidden />
+                      Inntektsredigering <ExternalLinkIcon aria-hidden />
                     </Link>
                   </Table.DataCell>
                 )}
