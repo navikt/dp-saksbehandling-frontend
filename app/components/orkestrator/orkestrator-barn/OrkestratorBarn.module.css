@@ -22,7 +22,7 @@
 }
 
 .bakgrunn:nth-child(odd) {
-  background-color: #f8f9fc;
+  background-color: var(--ax-bg-neutral-softA);
 }
 
 .bakgrunn:nth-child(even) {
