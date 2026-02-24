@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-import { gyldigeBegrunnelser } from "~/const";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
@@ -420,24 +419,21 @@ export function hentValideringForBeslutterNotat() {
 }
 
 export function hentValideringForReturnerTilSaksbehandler() {
-  return z.object({
-    _action: z.literal("returner-oppgave-til-saksbehandler"),
-    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    notat: z
-      .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
-      .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
-  });
-}
+  const gyldigeÅrsaker: saksbehandlingComponents["schemas"]["ReturnerTilSaksbehandlingAarsak"][] = [
+    "FEIL_UTFALL",
+    "FEIL_HJEMMEL",
+    "HAR_MANGLER",
+    "ANNET",
+  ];
 
-export function v2hentValideringForReturnerTilSaksbehandler() {
   return z.object({
     _action: z.literal("returner-oppgave-til-saksbehandler"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     notat: z
       .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
       .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
-    begrunnelse: z.enum(gyldigeBegrunnelser, {
-      message: "Du må velge en begrunnelse for å returnere oppgaven til saksbehandler.",
+    årsak: z.enum(gyldigeÅrsaker, {
+      message: "Du må velge en årsak for å returnere oppgaven til saksbehandler.",
     }),
   });
 }

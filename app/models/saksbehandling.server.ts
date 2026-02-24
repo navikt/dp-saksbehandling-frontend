@@ -248,10 +248,15 @@ export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string
   });
 }
 
-export async function returnerOppgaveTilSaksbehandler(request: Request, oppgaveId: string) {
+export async function returnerOppgaveTilSaksbehandler(
+  request: Request,
+  oppgaveId: string,
+  årsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"],
+) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/returner-til-saksbehandler", {
     headers: getHeaders(onBehalfOfToken),
+    body: { aarsak: årsak },
     params: {
       path: { oppgaveId },
     },

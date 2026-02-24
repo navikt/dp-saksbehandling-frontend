@@ -673,7 +673,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["ReturnerTilSaksbehandling"];
+                };
+            };
             responses: {
                 /** @description Vellykket respons */
                 204: {
@@ -1834,6 +1838,8 @@ export interface components {
             avbrytAarsaker: components["schemas"]["AvbrytOppgaveAarsak"][];
             /** @description Årsaker til at oppgaven legges tilbake i oppgavelisten */
             leggTilbakeAarsaker: components["schemas"]["LeggTilbakeAarsak"][];
+            /** @description Årsaker til at oppgaven returneres til saksbehandler etter kontroll */
+            returnerTilSaksbehandlingAarsaker: components["schemas"]["ReturnerTilSaksbehandlingAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1874,6 +1880,11 @@ export interface components {
         };
         /** @enum {string} */
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
+        ReturnerTilSaksbehandling: {
+            aarsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"];
+        };
+        /** @enum {string} */
+        ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
         LeggTilbakeOppgave: {
             aarsak: components["schemas"]["LeggTilbakeAarsak"];
         };

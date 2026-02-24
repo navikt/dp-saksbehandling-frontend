@@ -111,6 +111,7 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
     paaVentAarsaker: [],
     avbrytAarsaker: [],
     leggTilbakeAarsaker: [],
+    returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
   },
   soknadId: "c72ecdf9-1103-415a-ba99-fd1d94b4dc40",
   meldingOmVedtakKilde: "DP_SAK",
