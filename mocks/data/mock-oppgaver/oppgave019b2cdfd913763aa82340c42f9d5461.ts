@@ -69,6 +69,8 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
+    leggTilbakeAarsaker: [],
+    returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
   },
   meldingOmVedtakKilde: "INGEN",
   kontrollertBrev: "IKKE_RELEVANT",

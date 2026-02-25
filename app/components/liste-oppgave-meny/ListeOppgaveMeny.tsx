@@ -41,7 +41,7 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
             {gyldigeOppgaveValg.map((valg) => {
               switch (valg) {
                 case "legg-tilbake-oppgave":
-                  return <OppgaveValgLeggTilbake key={valg} oppgaveId={listeOppgave.oppgaveId} />;
+                  return <OppgaveValgLeggTilbake key={valg} oppgave={listeOppgave} />;
 
                 case "rekjor-behandling":
                   return (
@@ -88,7 +88,11 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
                       key={valg}
                       oppgaveId={listeOppgave.oppgaveId}
                       lovligeEndringer={
-                        listeOppgave.lovligeEndringer || { avbrytAarsaker: [], paaVentAarsaker: [] }
+                        listeOppgave.lovligeEndringer || {
+                          avbrytAarsaker: [],
+                          paaVentAarsaker: [],
+                          leggTilbakeAarsaker: [],
+                        }
                       }
                     />
                   );

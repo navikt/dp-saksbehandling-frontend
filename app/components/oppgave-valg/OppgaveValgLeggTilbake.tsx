@@ -1,19 +1,22 @@
 import { ArrowUndoIcon } from "@navikt/aksel-icons";
-import { BodyLong, Button, ButtonProps, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { hentTekstForLeggTilbakeÅrsak } from "~/utils/tekst.utils";
 import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
 
+import { components } from "../../../openapi/saksbehandling-typer";
+
 interface IProps {
-  oppgaveId: string;
+  oppgave: components["schemas"]["Oppgave"] | components["schemas"]["OppgaveOversikt"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -26,9 +29,9 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "legg-tilbake-oppgave",
-      oppgaveId,
+      oppgaveId: oppgave.oppgaveId,
+      årsak: "" as unknown as components["schemas"]["LeggTilbakeAarsak"],
       aktivtOppgaveSok,
-      // aarsak: "",
     },
   });
 
@@ -48,18 +51,21 @@ export function OppgaveValgLeggTilbake({ oppgaveId, buttonSize, buttonVariant }:
       <Modal ref={modalRef} header={{ heading: "Legg tilbake" }}>
         <Modal.Body className={"pt-0"}>
           <BodyLong> Du er i ferd med å legge tilbake oppgaven</BodyLong>
-          {/* <TextField
-            {...leggTilbakeForm.getInputProps("aarsak")}
-            className={"mt-2"}
-            label="Årsak"
-            size="small"
-          />
 
-          {leggTilbakeForm.error("aarsak") && (
-            <Alert variant={"error"} size="small" className={"mt-2"}>
-              {leggTilbakeForm.error("aarsak")}
-            </Alert>
-          )} */}
+          <Select
+            {...leggTilbakeForm.field("årsak").getInputProps()}
+            error={leggTilbakeForm.field("årsak").error()}
+            size={"small"}
+            className={"mt-4"}
+            label={"Velg årsak"}
+          >
+            <option hidden={true}>- Velg årsak -</option>
+            {oppgave.lovligeEndringer?.leggTilbakeAarsaker.map((årsak) => (
+              <option key={årsak} value={årsak}>
+                {hentTekstForLeggTilbakeÅrsak(årsak)}
+              </option>
+            ))}
+          </Select>
         </Modal.Body>
 
         <Modal.Footer>

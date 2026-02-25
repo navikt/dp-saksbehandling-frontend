@@ -101,6 +101,8 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
+    leggTilbakeAarsaker: [],
+    returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
   },
   soknadId: "e834ef80-00b3-46d8-998b-686054309444",
   meldingOmVedtakKilde: "DP_SAK",

@@ -1,13 +1,16 @@
 import { z } from "zod";
 
-import { gyldigeBegrunnelser } from "~/const";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
 import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
-export type NyBehandlingType = "RETT_TIL_DAGPENGER" | "KLAGE" | "INGEN";
+export type NyBehandlingType =
+  | "RETT_TIL_DAGPENGER_MANUELL"
+  | "RETT_TIL_DAGPENGER_REVURDERING"
+  | "KLAGE"
+  | "INGEN";
 
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
@@ -328,16 +331,16 @@ function hentValideringForNorskDato() {
 }
 
 export function hentValideringForLeggTilbakeOppgave() {
-  // const gyldigeAarsaker: saksbehandlingComponents["schemas"]["AarsakerFraEtFeltViIkkeHarIBackend"][] = [
-  //   "BEHANDLES_I_ARENA",
-  //   "FLERE_SØKNADER",
-  //   "TRUKKET_SØKNAD",
-  //   "ANNET",
-  // ];
+  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"][] = [
+    "MANGLER_KOMPETANSE",
+    "FRAVÆR",
+    "INHABILITET",
+    "ANNET",
+  ];
   return z.object({
     _action: z.literal("legg-tilbake-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    // aarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
     aktivtOppgaveSok: z.string(),
   });
 }
@@ -361,12 +364,17 @@ export function hentValideringForFerdigstillKlage() {
 }
 
 export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
-  const nyBehandlingTyper: NyBehandlingType[] = ["RETT_TIL_DAGPENGER", "KLAGE", "INGEN"];
+  const nyBehandlingsvariant: NyBehandlingType[] = [
+    "RETT_TIL_DAGPENGER_MANUELL",
+    "RETT_TIL_DAGPENGER_REVURDERING",
+    "KLAGE",
+    "INGEN",
+  ];
   return z.object({
     _action: z.literal("ferdigstill-innsending"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
-    behandlingType: z.enum(nyBehandlingTyper, "Du må velge en behandlingstype"),
+    behandlingsvariant: z.enum(nyBehandlingsvariant, "Du må velge en behandlingstype"),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
   });
@@ -411,24 +419,21 @@ export function hentValideringForBeslutterNotat() {
 }
 
 export function hentValideringForReturnerTilSaksbehandler() {
-  return z.object({
-    _action: z.literal("returner-oppgave-til-saksbehandler"),
-    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    notat: z
-      .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
-      .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
-  });
-}
+  const gyldigeÅrsaker: saksbehandlingComponents["schemas"]["ReturnerTilSaksbehandlingAarsak"][] = [
+    "FEIL_UTFALL",
+    "FEIL_HJEMMEL",
+    "HAR_MANGLER",
+    "ANNET",
+  ];
 
-export function v2hentValideringForReturnerTilSaksbehandler() {
   return z.object({
     _action: z.literal("returner-oppgave-til-saksbehandler"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     notat: z
       .string("Du må skrive et notat for å returnere oppgaven til saksbehandler.")
       .min(1, "Du må skrive et notat for å returnere oppgaven til saksbehandler."),
-    begrunnelse: z.enum(gyldigeBegrunnelser, {
-      message: "Du må velge en begrunnelse for å returnere oppgaven til saksbehandler.",
+    årsak: z.enum(gyldigeÅrsaker, {
+      message: "Du må velge en årsak for å returnere oppgaven til saksbehandler.",
     }),
   });
 }

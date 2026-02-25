@@ -673,7 +673,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["ReturnerTilSaksbehandling"];
+                };
+            };
             responses: {
                 /** @description Vellykket respons */
                 204: {
@@ -998,7 +1002,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["LeggTilbakeOppgave"];
+                };
+            };
             responses: {
                 /** @description Fjernet saksbehandler/beslutter som ansvarlig for oppgaven, og oppgaven gjøres klar til behandling/kontroll */
                 204: {
@@ -1733,17 +1741,7 @@ export interface components {
         Sak: {
             /** Format: uuid */
             id: string;
-            behandlinger: components["schemas"]["Behandling"][];
-        };
-        Behandling: {
-            /** Format: uuid */
-            id: string;
-            behandlingType: components["schemas"]["BehandlingType"];
-            utlostAv: components["schemas"]["UtlostAvType"];
-            /** Format: date-time */
-            opprettet: string;
-            /** Format: uuid */
-            oppgaveId?: string;
+            oppgaver: components["schemas"]["OppgaveOversikt"][];
         };
         OppgaveOversiktResultat: {
             oppgaver: components["schemas"]["OppgaveOversikt"][];
@@ -1764,7 +1762,7 @@ export interface components {
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             tilstand: components["schemas"]["OppgaveTilstand"];
-            lovligeEndringer?: components["schemas"]["LovligeEndringer"];
+            lovligeEndringer: components["schemas"]["LovligeEndringer"];
             /** Format: date */
             utsattTilDato?: string;
         };
@@ -1831,11 +1829,17 @@ export interface components {
         UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING" | "OMGJØRING";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
+        /** @enum {string} */
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
             /** @description Årsaker til at oppgaven avbrytes */
             avbrytAarsaker: components["schemas"]["AvbrytOppgaveAarsak"][];
+            /** @description Årsaker til at oppgaven legges tilbake i oppgavelisten */
+            leggTilbakeAarsaker: components["schemas"]["LeggTilbakeAarsak"][];
+            /** @description Årsaker til at oppgaven returneres til saksbehandler etter kontroll */
+            returnerTilSaksbehandlingAarsaker: components["schemas"]["ReturnerTilSaksbehandlingAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1876,6 +1880,16 @@ export interface components {
         };
         /** @enum {string} */
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
+        ReturnerTilSaksbehandling: {
+            aarsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"];
+        };
+        /** @enum {string} */
+        ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
+        LeggTilbakeOppgave: {
+            aarsak: components["schemas"]["LeggTilbakeAarsak"];
+        };
+        /** @enum {string} */
+        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;
@@ -2130,7 +2144,7 @@ export interface components {
             /** Format: uuid */
             sakId?: string;
             vurdering: string;
-            behandlingType?: components["schemas"]["BehandlingType"];
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
         };
         HttpProblem: {
             type: string;

@@ -97,6 +97,8 @@ export const oppgave019c28e8fbdb7466b5e6f6466f89d054: components["schemas"]["Opp
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
+    leggTilbakeAarsaker: [],
+    returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
   },
   meldingOmVedtakKilde: "INGEN",
   kontrollertBrev: "IKKE_RELEVANT",

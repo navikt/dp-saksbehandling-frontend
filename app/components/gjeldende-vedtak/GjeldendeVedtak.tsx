@@ -25,8 +25,8 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
 
   return (
     <div className={"card card-raised my-4 p-4"}>
-      <Heading className={"border-b-1 border-ax-border-neutral-subtle pb-2"} size={"small"}>
-        Siste opprettede behandling
+      <Heading className={"border-b border-ax-border-neutral-subtle pb-2"} size={"small"}>
+        Gjeldende vedtak
       </Heading>
 
       <div className={"flex gap-12 pt-2"}>
@@ -34,7 +34,7 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
           <>
             <VerdiMedTittel
               visBorder={false}
-              label={"Har rett på dagepnger"}
+              label={"Har rett på dagpenger"}
               verdi={
                 sisteRettighetsPeriode.harRett ? (
                   <div>

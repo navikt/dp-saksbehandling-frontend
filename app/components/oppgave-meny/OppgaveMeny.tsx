@@ -30,7 +30,7 @@ export function OppgaveMeny() {
             {gyldigeOppgaveValg.map((valg) => {
               switch (valg) {
                 case "legg-tilbake-oppgave":
-                  return <OppgaveValgLeggTilbake oppgaveId={oppgave.oppgaveId} />;
+                  return <OppgaveValgLeggTilbake oppgave={oppgave} />;
 
                 case "rekjor-behandling":
                   return (

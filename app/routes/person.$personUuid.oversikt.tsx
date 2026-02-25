@@ -20,7 +20,6 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
 import { isAlert } from "~/utils/type-guards";
 
-import { components } from "../../openapi/saksbehandling-typer";
 import styles from "../route-styles/person.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -31,11 +30,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.personUuid, "params.peronUuid er påkrevd");
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
-  const sisteDagpengerRettBehandlingId = personOversikt.saker[0].behandlinger.find(
-    (behandling) => behandling.behandlingType === "RETT_TIL_DAGPENGER",
-  )?.id;
 
-  console.log(sisteDagpengerRettBehandlingId);
+  const sisteDagpengerRettBehandlingId = personOversikt.saker[0].oppgaver.find(
+    (oppgave) =>
+      oppgave.behandlingType === "RETT_TIL_DAGPENGER" && oppgave.tilstand === "FERDIG_BEHANDLET",
+  )?.behandlingId;
+
   let sisteDagpengerRettBehandling;
   if (sisteDagpengerRettBehandlingId) {
     sisteDagpengerRettBehandling = await hentBehandling(request, sisteDagpengerRettBehandlingId);
@@ -105,7 +105,7 @@ export default function PersonOversikt() {
 
             <Tabs.Tab
               value="tidligere-saker"
-              label="Tidligere saker og behandlinger"
+              label="Tidligere saker og oppgaver"
               icon={<ArchiveIcon aria-hidden />}
             />
 
@@ -148,20 +148,4 @@ export default function PersonOversikt() {
       </div>
     </div>
   );
-}
-
-export function hentOppgaveUrl(behandling: components["schemas"]["Behandling"]) {
-  switch (behandling.behandlingType) {
-    case "RETT_TIL_DAGPENGER":
-      return `/oppgave/${behandling.oppgaveId}/dagpenger-rett/${behandling.id}/behandle`;
-
-    case "KLAGE":
-      return `/oppgave/${behandling.oppgaveId}/klage/${behandling.id}`;
-
-    case "INNSENDING":
-      return `/oppgave/${behandling.oppgaveId}/innsending/${behandling.id}`;
-
-    default:
-      return "";
-  }
 }

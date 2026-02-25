@@ -24,10 +24,10 @@ export async function ferdigstillInnsendingAction(
 
   const body: components["schemas"]["FerdigstillInnsendingRequest"] = {
     sakId: validertSkjema.data.sakId,
-    behandlingType:
-      validertSkjema.data.behandlingType === "INGEN"
+    behandlingsvariant:
+      validertSkjema.data.behandlingsvariant === "INGEN"
         ? undefined
-        : validertSkjema.data.behandlingType,
+        : validertSkjema.data.behandlingsvariant,
     vurdering: validertSkjema.data.vurdering,
   };
 
@@ -39,7 +39,7 @@ export async function ferdigstillInnsendingAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: hentTekstForFerdigstilling(validertSkjema.data.behandlingType),
+    title: hentTekstForFerdigstilling(validertSkjema.data.behandlingsvariant),
   };
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -54,7 +54,9 @@ export async function ferdigstillInnsendingAction(
 
 function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
   switch (nyBehandlingType) {
-    case "RETT_TIL_DAGPENGER":
+    case "RETT_TIL_DAGPENGER_MANUELL":
+      return "Innsending ferdigstilt, ny behandling opprettet ✅";
+    case "RETT_TIL_DAGPENGER_REVURDERING":
       return "Innsending ferdigstilt, ny behandling opprettet ✅";
     case "KLAGE":
       return "Innsending ferdigstilt, ny klage opprettet ✅";

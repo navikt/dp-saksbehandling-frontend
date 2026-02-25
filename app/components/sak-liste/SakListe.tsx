@@ -1,9 +1,9 @@
 import { BodyShort, CopyButton, ExpansionCard } from "@navikt/ds-react";
 
-import { BehandlingListe } from "~/components/behandling-liste/BehandlingListe";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
 import { components } from "../../../openapi/saksbehandling-typer";
+import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
 
 interface IProps {
   saker: components["schemas"]["Sak"][];
@@ -22,8 +22,8 @@ export function SakListe({ saker }: IProps) {
         const idGrupper = sak.id.split("-");
         const sisteIdGruppe = idGrupper.pop();
         const forsteIdGruppe = idGrupper.join("-");
-        const førsteBehandling = sak.behandlinger.at(-1);
-        const sisteBehandling = sak.behandlinger.at(0);
+        const førsteOppgave = sak.oppgaver.at(0);
+        const sisteOppgave = sak.oppgaver.at(-1);
 
         return (
           <ExpansionCard
@@ -34,20 +34,20 @@ export function SakListe({ saker }: IProps) {
           >
             <ExpansionCard.Header>
               <ExpansionCard.Title size={"small"} className={"flex items-center gap-1"}>
-                {førsteBehandling && (
+                {førsteOppgave && (
                   <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
-                    Sak opprettet: {formaterTilNorskDato(førsteBehandling.opprettet)}
+                    Sak opprettet: {formaterTilNorskDato(førsteOppgave.tidspunktOpprettet)}
                   </BodyShort>
                 )}
-                {!førsteBehandling && (
+                {!førsteOppgave && (
                   <BodyShort className={"flex items-center gap-2"} weight={"semibold"}>
                     SakID ...{sisteIdGruppe}
                   </BodyShort>
                 )}
               </ExpansionCard.Title>
-              {sisteBehandling && (
+              {sisteOppgave && (
                 <ExpansionCard.Description>
-                  Siste behandling opprettet: {formaterTilNorskDato(sisteBehandling.opprettet)}
+                  Siste oppgave opprettet: {formaterTilNorskDato(sisteOppgave.tidspunktOpprettet)}
                 </ExpansionCard.Description>
               )}
             </ExpansionCard.Header>
@@ -60,7 +60,7 @@ export function SakListe({ saker }: IProps) {
                 <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
               </div>
 
-              <BehandlingListe behandlinger={sak.behandlinger} />
+              <OppgaveListe oppgaver={sak.oppgaver} totaltAntallOppgaver={sak.oppgaver.length} />
             </ExpansionCard.Content>
           </ExpansionCard>
         );
