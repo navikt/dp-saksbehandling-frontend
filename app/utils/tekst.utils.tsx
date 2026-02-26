@@ -8,15 +8,15 @@ import {
 } from "@navikt/aksel-icons";
 import { AkselColor } from "@navikt/ds-react/types/theme";
 
-import { gyldigBegrunnelse } from "~/const";
-
 import {
   components,
   components as saksbehandlingComponents,
 } from "../../openapi/saksbehandling-typer";
 
-export function hentTekstForBegrunnelse(begrunnelse: gyldigBegrunnelse): string {
-  switch (begrunnelse) {
+export function hentTekstForReturnerTilSaksbehandlerÅrsak(
+  årsak: saksbehandlingComponents["schemas"]["ReturnerTilSaksbehandlingAarsak"],
+): string {
+  switch (årsak) {
     case "FEIL_UTFALL":
       return "Feil utfall";
     case "FEIL_HJEMMEL":
@@ -135,5 +135,22 @@ export function hentFargevariantForSøknadsresultat(visningsnavn: string): Aksel
       return "danger";
     default:
       return "neutral";
+  }
+}
+
+export function hentTekstForLeggTilbakeÅrsak(
+  leggTilbakeÅrsak: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"],
+): string {
+  switch (leggTilbakeÅrsak) {
+    case "MANGLER_KOMPETANSE":
+      return "Mangler kompetanse";
+    case "FRAVÆR":
+      return "Fravær";
+    case "INHABILITET":
+      return "Inhabil";
+    case "ANNET":
+      return "Annet";
+    default:
+      return leggTilbakeÅrsak;
   }
 }

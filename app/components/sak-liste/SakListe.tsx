@@ -22,8 +22,8 @@ export function SakListe({ saker }: IProps) {
         const idGrupper = sak.id.split("-");
         const sisteIdGruppe = idGrupper.pop();
         const forsteIdGruppe = idGrupper.join("-");
-        const førsteOppgave = sak.oppgaver.at(-1);
-        const sisteOppgave = sak.oppgaver.at(0);
+        const førsteOppgave = sak.oppgaver.at(0);
+        const sisteOppgave = sak.oppgaver.at(-1);
 
         return (
           <ExpansionCard

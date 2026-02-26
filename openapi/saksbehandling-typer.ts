@@ -673,7 +673,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["ReturnerTilSaksbehandling"];
+                };
+            };
             responses: {
                 /** @description Vellykket respons */
                 204: {
@@ -991,16 +995,18 @@ export interface paths {
         /** Saksbehandler/beslutter fjernes som ansvarlig for oppgaven, og oppgaven går tilbake til oppgavelisten */
         put: {
             parameters: {
-                query?: {
-                    aarsak?: components["schemas"]["LeggTilbakeAarsak"];
-                };
+                query?: never;
                 header?: never;
                 path: {
                     oppgaveId: string;
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["LeggTilbakeOppgave"];
+                };
+            };
             responses: {
                 /** @description Fjernet saksbehandler/beslutter som ansvarlig for oppgaven, og oppgaven gjøres klar til behandling/kontroll */
                 204: {
@@ -1756,7 +1762,7 @@ export interface components {
             skjermesSomEgneAnsatte: boolean;
             adressebeskyttelseGradering: components["schemas"]["AdressebeskyttelseGradering"];
             tilstand: components["schemas"]["OppgaveTilstand"];
-            lovligeEndringer?: components["schemas"]["LovligeEndringer"];
+            lovligeEndringer: components["schemas"]["LovligeEndringer"];
             /** Format: date */
             utsattTilDato?: string;
         };
@@ -1832,6 +1838,8 @@ export interface components {
             avbrytAarsaker: components["schemas"]["AvbrytOppgaveAarsak"][];
             /** @description Årsaker til at oppgaven legges tilbake i oppgavelisten */
             leggTilbakeAarsaker: components["schemas"]["LeggTilbakeAarsak"][];
+            /** @description Årsaker til at oppgaven returneres til saksbehandler etter kontroll */
+            returnerTilSaksbehandlingAarsaker: components["schemas"]["ReturnerTilSaksbehandlingAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1872,8 +1880,16 @@ export interface components {
         };
         /** @enum {string} */
         AvbrytOppgaveAarsak: "BEHANDLES_I_ARENA" | "FLERE_SØKNADER" | "TRUKKET_SØKNAD" | "ANNET";
+        ReturnerTilSaksbehandling: {
+            aarsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"];
+        };
         /** @enum {string} */
-        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "HABILITET" | "FRAVÆR" | "ANNET";
+        ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
+        LeggTilbakeOppgave: {
+            aarsak: components["schemas"]["LeggTilbakeAarsak"];
+        };
+        /** @enum {string} */
+        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;

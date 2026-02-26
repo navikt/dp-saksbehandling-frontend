@@ -70,6 +70,7 @@ export const oppgave019b2ccd885d71eb8977f453029fd5b4: components["schemas"]["Opp
     paaVentAarsaker: [],
     avbrytAarsaker: [],
     leggTilbakeAarsaker: [],
+    returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
   },
   meldingOmVedtakKilde: "INGEN",
   kontrollertBrev: "IKKE_RELEVANT",

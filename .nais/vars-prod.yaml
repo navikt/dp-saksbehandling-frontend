@@ -33,3 +33,5 @@ azure:
   grupper:
     saksbehandler: "2e9c63d8-322e-4c1f-b500-a0abb812761c" # 0000-GA-Dagpenger-Saksbehandler
     beslutter: "70d54cad-53a3-4788-bbe3-565096f01da7" # 0000-GA-Dagpenger-Beslutter
+
+umami_tracking_id: "111dd281-f3a1-4646-9554-400ac338e412"

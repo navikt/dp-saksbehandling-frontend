@@ -18,8 +18,8 @@ export async function returnerOppgaveTilSaksbehandlerAction(
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId } = validertSkjema.data;
-  const { error } = await returnerOppgaveTilSaksbehandler(request, oppgaveId);
+  const { oppgaveId, årsak } = validertSkjema.data;
+  const { error } = await returnerOppgaveTilSaksbehandler(request, oppgaveId, årsak);
 
   if (error) {
     return getHttpProblemAlert(error);

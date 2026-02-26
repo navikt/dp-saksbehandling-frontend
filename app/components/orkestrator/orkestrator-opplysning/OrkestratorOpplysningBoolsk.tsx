@@ -21,7 +21,7 @@ export function OrkestratorOpplysningBoolsk({ opplysning, formScope }: IProps) {
       error={field.error()}
       readOnly={opplysning.kilde === "register"}
     >
-      <Stack direction={{ xs: "column", sm: "row" }} wrap={false}>
+      <Stack direction={{ xs: "column", sm: "row" }} wrap={false} gap="space-12">
         <Radio value="true">Ja</Radio>
         <Radio value="false">Nei</Radio>
       </Stack>

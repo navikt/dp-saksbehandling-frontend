@@ -4,15 +4,16 @@ import { type ChangeEvent, useEffect, useRef } from "react";
 import { useFetcher, useLocation } from "react-router";
 import { useDebounceCallback } from "usehooks-ts";
 
-import { gyldigBegrunnelse, gyldigeBegrunnelser } from "~/const";
 import { useBeslutterNotat } from "~/hooks/useBeslutterNotat";
 import { useGlobalAlerts } from "~/hooks/useGlobalAlerts";
 import { useOppgave } from "~/hooks/useOppgave";
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentTekstForBegrunnelse } from "~/utils/tekst.utils";
+import { hentTekstForReturnerTilSaksbehandlerÅrsak } from "~/utils/tekst.utils";
 import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
-import { v2hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
+import { hentValideringForReturnerTilSaksbehandler } from "~/utils/validering.util";
+
+import { components } from "../../../openapi/saksbehandling-typer";
 
 export function OppgaveReturnerTilSaksbehandler() {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -27,13 +28,13 @@ export function OppgaveReturnerTilSaksbehandler() {
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: v2hentValideringForReturnerTilSaksbehandler(),
+    schema: hentValideringForReturnerTilSaksbehandler(),
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "returner-oppgave-til-saksbehandler",
       oppgaveId: oppgave.oppgaveId,
       notat: notat.tekst,
-      begrunnelse: "" as unknown as gyldigBegrunnelse,
+      årsak: "" as unknown as components["schemas"]["ReturnerTilSaksbehandlingAarsak"],
     },
   });
 
@@ -105,18 +106,18 @@ export function OppgaveReturnerTilSaksbehandler() {
           />
 
           <Select
-            {...returnerTilSaksbehandlerForm.getInputProps("begrunnelse")}
+            {...returnerTilSaksbehandlerForm.getInputProps("årsak")}
             className={"mt-8"}
-            label="Begrunnelse"
+            label="Årsak"
             size="small"
-            error={returnerTilSaksbehandlerForm.field("begrunnelse").error()}
+            error={returnerTilSaksbehandlerForm.field("årsak").error()}
           >
             <option hidden={true} value={""}>
-              Velg begrunnelse
+              - Velg årsak -
             </option>
-            {gyldigeBegrunnelser.map((årsak) => (
+            {oppgave.lovligeEndringer.returnerTilSaksbehandlingAarsaker.map((årsak) => (
               <option key={årsak} value={årsak}>
-                {hentTekstForBegrunnelse(årsak)}
+                {hentTekstForReturnerTilSaksbehandlerÅrsak(årsak)}
               </option>
             ))}
           </Select>

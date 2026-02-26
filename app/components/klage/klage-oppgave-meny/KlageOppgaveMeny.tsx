@@ -39,11 +39,6 @@ function KlageOppgaveMeny() {
         </ActionMenu>
       )}
     </>
-    // <div className={"card flex justify-end gap-2 p-2"}>
-    //   {gyldigeOppgaveValg.map((valg) => (
-    //     <div key={valg}>{renderOppgaveValg(oppgave, valg)}</div>
-    //   ))}
-    // </div>
   );
 }
 
@@ -56,11 +51,7 @@ function renderOppgaveValg(
   switch (valg) {
     case "legg-tilbake-oppgave":
       return (
-        <OppgaveValgLeggTilbake
-          oppgaveId={oppgave.oppgaveId}
-          buttonVariant={"tertiary"}
-          buttonSize={"small"}
-        />
+        <OppgaveValgLeggTilbake oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
       );
 
     case "utsett-oppgave":

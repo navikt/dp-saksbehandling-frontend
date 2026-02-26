@@ -18,8 +18,8 @@ export async function leggTilbakeOppgaveAction(
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId, aktivtOppgaveSok } = validertSkjema.data;
-  const { error } = await leggTilbakeOppgave(request, oppgaveId);
+  const { oppgaveId, aktivtOppgaveSok, årsak } = validertSkjema.data;
+  const { error } = await leggTilbakeOppgave(request, oppgaveId, årsak);
 
   if (error) {
     return getHttpProblemAlert(error);
