@@ -45,6 +45,17 @@ export function hentValideringForOpplysningPeriodeSkjema(
   });
 }
 
+export function hentValideringForSaksbehandlingsregel(datatype: components["schemas"]["DataType"]) {
+  return z.object({
+    _action: z.literal("lagre-opplysning"),
+    verdi: hentValideringForOpplysningVerdi(datatype),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    datatype: z.string("Det mangler datatype i skjema"),
+    behandlingId: z.string("Det mangler behandlingId i skjema"),
+    begrunnelse: z.string("Du må skrive en begrunnelse").min(1, "Du må skrive en begrunnelse"),
+  });
+}
+
 export function hentValideringForNyOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
