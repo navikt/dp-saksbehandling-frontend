@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/opplysninger/{soknadId}/barn": {
+    "/opplysninger/barn/{soknadbarnId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -12,6 +12,102 @@ export interface paths {
             cookie?: never;
         };
         /** Hent opplysning om barn */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
+                    soknadbarnId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["BarnResponse"][];
+                    };
+                };
+                /** @description SøknadId mangler eller har feil format */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        /** Oppdater opplysning om barn */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
+                    soknadbarnId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["OppdatertBarnRequest"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Opplysningen inneholder ingen endringer, kan ikke oppdatere */
+                304: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description barnetilleggFom og barnetilleggTom må være satt når kvalifisererTilBarnetillegg er true */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Fant ikke opplysningen som skal oppdateres */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/opplysninger/{soknadId}/barn": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Hent opplysning om barn
+         * @deprecated
+         * @description Deprekert! Bruk /opplysninger/barn/{soknadbarnId} i stedet
+         */
         get: {
             parameters: {
                 query?: never;
@@ -57,7 +153,11 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** Oppdater opplysning om barn */
+        /**
+         * Oppdater opplysning om barn
+         * @deprecated
+         * @description Deprekert! Bruk /opplysninger/barn/{soknadbarnId} i stedet
+         */
         put: {
             parameters: {
                 query?: never;
