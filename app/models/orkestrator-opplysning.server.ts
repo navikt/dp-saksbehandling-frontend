@@ -9,15 +9,18 @@ import { components, paths } from "../../openapi/soknad-orkestrator-typer";
 
 const orkestratorClient = createClient<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
 
-export async function hentOrkestratorBarn(request: Request, soknadId: string) {
+export async function hentBarn(request: Request, soknadbarnId: string) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
-  const { response, data, error } = await orkestratorClient.GET("/opplysninger/{soknadId}/barn", {
-    headers: getHeaders(onBehalfOfToken),
-    params: {
-      path: { soknadId },
+  const { response, data, error } = await orkestratorClient.GET(
+    "/opplysninger/barn/{soknadbarnId}",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { soknadbarnId },
+      },
     },
-  });
+  );
 
   if (data) {
     return data;
@@ -27,9 +30,7 @@ export async function hentOrkestratorBarn(request: Request, soknadId: string) {
     handleHttpProblem(error);
   }
 
-  throw new Error(
-    `Uhåndtert feil i hentOrkestratorBarn(). ${response.status} - ${response.statusText}`,
-  );
+  throw new Error(`Uhåndtert feil i hentBarn(). ${response.status} - ${response.statusText}`);
 }
 
 export async function redigerBarn(

@@ -14,10 +14,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import {
-  hentOrkestratorBarn,
-  hentOrkestratorLandListe,
-} from "~/models/orkestrator-opplysning.server";
+import { hentBarn, hentOrkestratorLandListe } from "~/models/orkestrator-opplysning.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -29,7 +26,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.barnId, "params.barnId er påkrevd");
 
   const [orkestratorBarn, orkestratorLandliste] = await Promise.all([
-    hentOrkestratorBarn(request, params.barnId),
+    hentBarn(request, params.barnId),
     hentOrkestratorLandListe(request),
   ]);
 
