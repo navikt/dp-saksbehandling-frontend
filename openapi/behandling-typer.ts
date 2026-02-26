@@ -238,6 +238,59 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/behandling/{behandlingId}/flytt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Behandlingens id */
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Flytt en behandling til en annen behandling */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Behandlingens id */
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FlyttBehandling"];
+                };
+            };
+            responses: {
+                /** @description Accepted */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Feil ved henting av behandling */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/behandling/{behandlingId}/vurderinger": {
         parameters: {
             query?: never;
@@ -848,6 +901,8 @@ export interface components {
             avklaringer: components["schemas"]["Avklaring"][];
             "vilk\u00E5r": components["schemas"]["Regelsett"][];
             fastsettelser: components["schemas"]["Regelsett"][];
+            /** @description Regler som ut ifra saksbehandlingskonteksten har vært relevante for den konkrete behandlingen */
+            saksbehandlingsregler?: components["schemas"]["Regelsett"][];
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
             /** @description Hvilken avgjørelse behandlingen foreslår */
@@ -858,7 +913,7 @@ export interface components {
         /** @enum {string} */
         BehandlingTilstand: "UnderOpprettelse" | "UnderBehandling" | "Redigert" | "ForslagTilVedtak" | "Låst" | "Avbrutt" | "Ferdig" | "TilGodkjenning" | "TilBeslutning";
         /** @enum {string} */
-        RegelsettType: "Vilkår" | "Fastsettelse";
+        RegelsettType: "Vilkår" | "Fastsettelse" | "Prosess";
         RegelsettMeta: {
             /** @description Unik identifikator for dette regelsettet */
             id: string;
@@ -1140,6 +1195,9 @@ export interface components {
         Kvittering: {
             /** Format: uuid */
             behandlingId: string;
+        };
+        FlyttBehandling: {
+            "nyBasertP\u00E5": components["schemas"]["BehandlingId"];
         };
         Saksbehandlerbegrunnelse: {
             begrunnelse: string;
