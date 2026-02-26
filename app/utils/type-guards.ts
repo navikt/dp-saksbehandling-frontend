@@ -333,3 +333,9 @@ export function isRedigerbareOpplysninger(
     Array.isArray(obj.perioder)
   );
 }
+
+export function isBarneliste(
+  verdi: behandlingComponents["schemas"]["Opplysningsverdi"],
+): verdi is behandlingComponents["schemas"]["Barneliste"] {
+  return verdi.datatype === "barn";
+}

@@ -5,6 +5,7 @@ import { components } from "openapi/behandling-typer";
 import { useState } from "react";
 import { useParams } from "react-router";
 
+import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { useBehandling } from "~/hooks/useBehandling";
@@ -12,7 +13,7 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
 import { formaterOpplysningVerdi, skalVisePeriode } from "~/utils/opplysning.utils";
-import { isTekstVerdi } from "~/utils/type-guards";
+import { isBarneliste, isTekstVerdi } from "~/utils/type-guards";
 import { hentValideringForSlettPeriode } from "~/utils/validering.util";
 
 interface IProps {
@@ -23,7 +24,7 @@ const NY_PERIODE_ID = "NY-PERIODE";
 
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
-  const { readonly } = useOppgave();
+  const { readonly, oppgave } = useOppgave();
   const { visArvedeOpplysninger } = useBehandling();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
   const slettPeriodeForm = useForm({
@@ -125,6 +126,16 @@ export function OpplysningPerioderTabell(props: IProps) {
                     >
                       Inntektsredigering <ExternalLinkIcon aria-hidden />
                     </Link>
+                  </Table.DataCell>
+                )}
+
+                {isBarneliste(periode.verdi) && (
+                  <Table.DataCell colSpan={2}>
+                    <LoadingLink
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/barn/${periode.verdi.søknadBarnId}`}
+                    >
+                      Rediger barn
+                    </LoadingLink>
                   </Table.DataCell>
                 )}
 

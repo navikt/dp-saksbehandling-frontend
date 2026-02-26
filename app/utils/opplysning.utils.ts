@@ -2,7 +2,7 @@ import { getISOWeek } from "date-fns";
 
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterTallMedTusenSeperator } from "~/utils/number.utils";
-import { isRedigerbareOpplysninger } from "~/utils/type-guards";
+import { isBarneliste, isRedigerbareOpplysninger } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
 import { logger } from "./logger.utils";
@@ -30,7 +30,12 @@ export function formaterOpplysningVerdi(
     case "periode":
       return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
     case "barn":
-      return `${opplysningsverdi.verdi} barn`;
+      if (isBarneliste(opplysningsverdi)) {
+        return opplysningsverdi.søknadBarnId;
+      }
+      break;
+    default:
+      return "";
   }
 }
 
