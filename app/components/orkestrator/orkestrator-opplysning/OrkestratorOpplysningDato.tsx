@@ -9,7 +9,7 @@ import { components } from "../../../../openapi/soknad-orkestrator-typer";
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string | undefined>;
+  formScope: FormScope<string | boolean | undefined>;
 }
 
 export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {

@@ -32,18 +32,17 @@ export async function hentOrkestratorBarn(request: Request, soknadId: string) {
   );
 }
 
-export async function oppdaterOrkestratorBarn(
+export async function redigerBarn(
   request: Request,
-  soknadId: string,
-  oppdatertBarn: components["schemas"]["OppdatertBarnRequest"],
+  requestBody: components["schemas"]["OppdatertBarnRequest"],
 ) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
-  return await orkestratorClient.PUT("/opplysninger/{soknadId}/barn/oppdater", {
+  return await orkestratorClient.PUT("/opplysninger/barn/{soknadbarnId}", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ...oppdatertBarn },
+    body: { ...requestBody },
     params: {
-      path: { soknadId },
+      path: { soknadbarnId: requestBody.oppdatertBarn.barnId },
     },
   });
 }

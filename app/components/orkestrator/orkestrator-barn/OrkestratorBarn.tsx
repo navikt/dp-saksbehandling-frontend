@@ -4,11 +4,11 @@ import { useForm } from "@rvf/react-router";
 import classNames from "classnames";
 import classnames from "classnames";
 import { useRef } from "react";
-import { Form, useNavigation } from "react-router";
+import { useNavigation } from "react-router";
 
-import { useOppgave } from "~/hooks/useOppgave";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { hentValideringOrkestratorBarn } from "~/utils/validering.util";
+import { useBehandling } from "~/hooks/useBehandling";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
 
 import {
   components,
@@ -18,12 +18,11 @@ import styles from "./OrkestratorBarn.module.css";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 interface IProps {
-  opplysningId: string;
   orkestratorBarn: orkestratorComponents["schemas"]["BarnResponse"][];
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-export function OrkestratorBarn({ opplysningId, orkestratorBarn, orkestratorLandliste }: IProps) {
+export function OrkestratorBarn({ orkestratorBarn, orkestratorLandliste }: IProps) {
   if (!orkestratorBarn) {
     return null;
   }
@@ -36,7 +35,6 @@ export function OrkestratorBarn({ opplysningId, orkestratorBarn, orkestratorLand
             key={barn.barnId}
             barnNummer={index + 1}
             barn={barn}
-            opplysningId={opplysningId}
             orkestratorLandliste={orkestratorLandliste}
           />
         ),
@@ -48,36 +46,43 @@ export function OrkestratorBarn({ opplysningId, orkestratorBarn, orkestratorLand
 interface IOrkestratorBarnProps {
   barnNummer: number;
   barn: components["schemas"]["BarnResponse"];
-  opplysningId: string;
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-function Barn({ barnNummer, barn, opplysningId, orkestratorLandliste }: IOrkestratorBarnProps) {
+function Barn({ barnNummer, barn, orkestratorLandliste }: IOrkestratorBarnProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const { state } = useNavigation();
-  const { oppgave } = useOppgave();
-  const { behandlingId } = useTypeSafeParams();
+  const { behandling } = useBehandling();
+
+  const fornavnOgMellomnavn = barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi;
+  const etternavn = barn.opplysninger.find((o) => o.id === "etternavn")?.verdi;
+  const fodselsdato = barn.opplysninger.find((o) => o.id === "fodselsdato")?.verdi;
+  const oppholdssted = barn.opplysninger.find((o) => o.id === "oppholdssted")?.verdi;
+  const forsorgerBarnet =
+    barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi === "true";
+  const kvalifisererTilBarnetillegg =
+    barn.opplysninger.find((o) => o.id === "kvalifisererTilBarnetillegg")?.verdi === "true";
+  const barnetilleggFom = barn.opplysninger.find((o) => o.id === "barnetilleggFom")?.verdi;
+  const barnetilleggTom = barn.opplysninger.find((o) => o.id === "barnetilleggTom")?.verdi;
+  const begrunnelse = barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi;
 
   const orkestratorBarnForm = useForm({
-    schema: hentValideringOrkestratorBarn(),
-    method: "put",
+    schema: hentValideringForRedigeringBarn(),
+    submitSource: "state",
     defaultValues: {
-      fornavnOgMellomnavn:
-        barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi || "",
-      etternavn: barn.opplysninger.find((o) => o.id === "etternavn")?.verdi || "",
-      fodselsdato: barn.opplysninger.find((o) => o.id === "fodselsdato")?.verdi || "",
-      oppholdssted: barn.opplysninger.find((o) => o.id === "oppholdssted")?.verdi || "",
-      forsorgerBarnet:
-        barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi === "true"
-          ? "true"
-          : "false",
-      kvalifisererTilBarnetillegg:
-        barn.opplysninger.find((o) => o.id === "kvalifisererTilBarnetillegg")?.verdi === "true"
-          ? "true"
-          : "false",
-      barnetilleggFom: barn.opplysninger.find((o) => o.id === "barnetilleggFom")?.verdi || "",
-      barnetilleggTom: barn.opplysninger.find((o) => o.id === "barnetilleggTom")?.verdi || "",
-      begrunnelse: barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi || "",
+      _action: "rediger-barn",
+      behandlingId: behandling.behandlingId,
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23b",
+      barnId: barn.barnId,
+      fornavnOgMellomnavn: fornavnOgMellomnavn,
+      etternavn: etternavn,
+      fodselsdato: fodselsdato ? formaterTilNorskDato(fodselsdato) : undefined,
+      oppholdssted: oppholdssted,
+      forsorgerBarnet: forsorgerBarnet,
+      kvalifisererTilBarnetillegg: kvalifisererTilBarnetillegg,
+      barnetilleggFom: barnetilleggFom ? formaterTilNorskDato(barnetilleggFom) : undefined,
+      barnetilleggTom: barnetilleggTom ? formaterTilNorskDato(barnetilleggTom) : undefined,
+      begrunnelse: begrunnelse,
     },
     onSubmitSuccess: () => {
       ref.current?.close();
@@ -127,53 +132,43 @@ function Barn({ barnNummer, barn, opplysningId, orkestratorLandliste }: IOrkestr
         closeOnBackdropClick
         className={styles.modal}
       >
-        <Form {...orkestratorBarnForm.getFormProps()}>
-          <Modal.Body>
-            <div className={classNames(styles.orkestratorOpplysning)}>
-              <input
-                hidden={true}
-                readOnly={true}
-                name="_action"
-                value="oppdater-orkestrator-barn"
+        <Modal.Body>
+          <div className={classNames(styles.orkestratorOpplysning)}>
+            {barn.opplysninger.map((opplysning, index) => (
+              <OrkestratorOpplysningLinje
+                key={index}
+                opplysning={opplysning}
+                formScope={orkestratorBarnForm.scope(opplysning.id)}
+                orkestratorLandliste={orkestratorLandliste}
               />
-              <input hidden={true} readOnly={true} name="soknadId" value={oppgave.soknadId} />
-              <input hidden={true} readOnly={true} name="barnId" value={barn.barnId} />
-              <input hidden={true} readOnly={true} name="opplysningId" value={opplysningId} />
-              <input hidden={true} readOnly={true} name="behandlingId" value={behandlingId} />
-              {barn.opplysninger.map((opplysning, index) => (
-                <OrkestratorOpplysningLinje
-                  key={index}
-                  opplysning={opplysning}
-                  formScope={orkestratorBarnForm.scope(opplysning.id)}
-                  orkestratorLandliste={orkestratorLandliste}
-                />
-              ))}
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              type="submit"
-              size="small"
-              loading={state !== "idle"}
-              disabled={!orkestratorBarnForm.formState.isDirty}
-            >
-              Lagre endringer
-            </Button>
+            ))}
+          </div>
+        </Modal.Body>
 
-            <Button type="button" variant="secondary" size="small" onClick={avbryt}>
-              Avbryt
-            </Button>
+        <Modal.Footer>
+          <Button
+            type="button"
+            size="small"
+            loading={state !== "idle"}
+            onClick={() => orkestratorBarnForm.submit()}
+            disabled={!orkestratorBarnForm.formState.isDirty}
+          >
+            Lagre endringer
+          </Button>
 
-            <Button
-              type="button"
-              variant="tertiary"
-              size="small"
-              onClick={() => ref.current?.close()}
-            >
-              Lukk
-            </Button>
-          </Modal.Footer>
-        </Form>
+          <Button type="button" variant="secondary" size="small" onClick={avbryt}>
+            Avbryt
+          </Button>
+
+          <Button
+            type="button"
+            variant="tertiary"
+            size="small"
+            onClick={() => ref.current?.close()}
+          >
+            Lukk
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

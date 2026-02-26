@@ -11,9 +11,9 @@ import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
-import { oppdaterOrkestratorBarnAction } from "~/server-side-actions/oppdater-orkestrator-barn-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
+import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
@@ -103,8 +103,8 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "opprett-behandling":
       return await opprettBehandlingAction(request, formData);
 
-    case "oppdater-orkestrator-barn":
-      return await oppdaterOrkestratorBarnAction(request, formData);
+    case "rediger-barn":
+      return await redigerBarnAction(request, formData);
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);

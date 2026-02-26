@@ -31,11 +31,13 @@ export function formaterOpplysningVerdi(
       return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
     case "barn":
       if (isBarneliste(opplysningsverdi)) {
-        return opplysningsverdi.søknadBarnId;
+        return opplysningsverdi.søknadBarnId ?? "Mangler søknadBarnId";
       }
-      break;
+      return "Formatering av barn feiler: Verdi er ikke en barneliste";
+
     default:
-      return "";
+      // @ts-expect-error Alle datatyper er dekket av switchen så den får type never, men vi må håndtere at API blir utvidet med nye datatyper
+      return `Mangler formattering for datatype: ${opplysningsverdi.datatype}`;
   }
 }
 

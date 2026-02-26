@@ -16,7 +16,7 @@ import { OrkestratorTag } from "./OrkestratorTag";
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
   readOnly?: boolean;
-  formScope: FormScope<string | undefined>;
+  formScope: FormScope<string | boolean | undefined>;
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
