@@ -24,7 +24,6 @@ import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { umamiBeforeSend } from "~/umami";
 import { getEnv } from "~/utils/env.utils";
 
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
@@ -162,7 +161,19 @@ export default function App() {
           />
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.umamiBeforeSend = ${umamiBeforeSend.toString()}`,
+              __html: `
+                window.umamiBeforeSend = function(type, payload) {
+                  if (payload.url) {
+                    var ids = new Set(["oppgave","dagpenger-rett","person","innsending","klage"]);
+                    var segments = payload.url.split("/");
+                    for (var i = 0; i < segments.length - 1; i++) {
+                      if (ids.has(segments[i])) segments[i+1] = ":id";
+                    }
+                    payload.url = segments.join("/");
+                  }
+                  return payload;
+                }
+              `,
             }}
           />
           <script
