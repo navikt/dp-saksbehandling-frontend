@@ -1,23 +1,25 @@
-const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
-const OPPLYSNING_ID_REGEX = /\/opplysning\/(:id)/g;
+export const FJERN_ID_ETTER_SEGMENT = new Set([
+  "oppgave",
+  "dagpenger-rett",
+  "person",
+  "innsending",
+  "klage",
+]);
 
-function umamiBeforeSend(type: string, payload: { url?: string }) {
+export function umamiBeforeSend(type: string, payload: { url?: string }) {
   if (payload.url) {
-    const opplysningIds: string[] = [];
-    payload.url.replace(/\/opplysning\/([0-9a-f-]{36})/gi, (_, id) => {
-      opplysningIds.push(id);
-      return "";
-    });
-
-    payload.url = payload.url.replace(UUID_REGEX, ":id");
-
-    let i = 0;
-    payload.url = payload.url.replace(
-      OPPLYSNING_ID_REGEX,
-      () => `/opplysning/${opplysningIds[i++]}`,
-    );
+    const segmenter = payload.url.split("/");
+    for (let i = 0; i < segmenter.length - 1; i++) {
+      if (FJERN_ID_ETTER_SEGMENT.has(segmenter[i])) {
+        segmenter[i + 1] = ":id";
+      }
+    }
+    payload.url = segmenter.join("/");
   }
   return payload;
 }
 
-window.umamiBeforeSend = umamiBeforeSend;
+if (typeof window !== "undefined") {
+  // @ts-expect-error - setter egendefinert umami property på window
+  window.umamiBeforeSend = umamiBeforeSend;
+}

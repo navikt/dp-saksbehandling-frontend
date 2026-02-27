@@ -14,7 +14,7 @@
     "generate-mock-data": "npx tsx scripts/generer-mock-data.ts",
     "oppdater-mock-data": "npx tsx scripts/oppdater-mock-data.ts",
     "graphql-codegen": "graphql-codegen --config codegen.ts",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "prettier": {
     "printWidth": 100,
