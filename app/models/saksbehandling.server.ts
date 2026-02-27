@@ -244,9 +244,11 @@ export async function sendOppgaveTilKontroll(
   årsak?: components["schemas"]["KvalitetskontrollAarsak"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const body = årsak ? { aarsak: årsak } : {};
+
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
     headers: getHeaders(onBehalfOfToken),
-    body: { aarsak: årsak },
+    body,
     params: {
       path: { oppgaveId },
     },
