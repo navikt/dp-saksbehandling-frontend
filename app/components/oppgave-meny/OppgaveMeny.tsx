@@ -44,7 +44,7 @@ export function OppgaveMeny() {
                   return <OppgaveValgSettPåVent oppgave={oppgave} />;
 
                 case "send-til-kontroll":
-                  return <OppgaveValgSendTilKontroll oppgaveId={oppgave.oppgaveId} />;
+                  return <OppgaveValgSendTilKontroll oppgave={oppgave} />;
 
                 case "avbryt-behandling":
                   return (

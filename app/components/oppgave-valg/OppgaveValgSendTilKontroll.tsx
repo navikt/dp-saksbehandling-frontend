@@ -1,18 +1,21 @@
 import { PaperplaneIcon } from "@navikt/aksel-icons";
-import { Button, ButtonProps, Modal } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
+import { hentTekstForSendTilKontrollÅrsak } from "~/utils/tekst.utils";
 import { hentValideringForSendTilKontroll } from "~/utils/validering.util";
 
+import { components } from "../../../openapi/saksbehandling-typer";
+
 interface IProps {
-  oppgaveId: string;
+  oppgave: components["schemas"]["Oppgave"] | components["schemas"]["OppgaveOversikt"];
   buttonSize?: ButtonProps["size"];
   buttonVariant?: ButtonProps["variant"];
 }
 
-export function OppgaveValgSendTilKontroll({ oppgaveId, buttonSize, buttonVariant }: IProps) {
+export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant }: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -20,11 +23,12 @@ export function OppgaveValgSendTilKontroll({ oppgaveId, buttonSize, buttonVarian
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForSendTilKontroll(),
+    schema: hentValideringForSendTilKontroll(true),
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "send-til-kontroll",
-      oppgaveId: oppgaveId,
+      oppgaveId: oppgave.oppgaveId,
+      årsak: "" as unknown as components["schemas"]["KvalitetskontrollAarsak"],
     },
   });
 
@@ -41,6 +45,25 @@ export function OppgaveValgSendTilKontroll({ oppgaveId, buttonSize, buttonVarian
       </Button>
 
       <Modal ref={modalRef} header={{ heading: "Vil du sende oppgaven til kontroll?" }}>
+        <Modal.Body>
+          <Select
+            {...sendTilKontrollForm.getInputProps("årsak")}
+            className={"mt-8"}
+            label="Årsak"
+            size="small"
+            error={sendTilKontrollForm.field("årsak").error()}
+          >
+            <option hidden={true} value={""}>
+              - Velg årsak -
+            </option>
+            {oppgave.lovligeEndringer.kvalitetskontrollAarsaker.map((årsak) => (
+              <option key={årsak} value={årsak}>
+                {hentTekstForSendTilKontrollÅrsak(årsak)}
+              </option>
+            ))}
+          </Select>
+        </Modal.Body>
+
         <Modal.Footer>
           <Button
             size="small"

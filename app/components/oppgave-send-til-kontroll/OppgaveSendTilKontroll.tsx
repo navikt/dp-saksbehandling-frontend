@@ -26,6 +26,7 @@ export function OppgaveSendTilKontroll() {
     defaultValues: {
       _action: "send-til-kontroll",
       oppgaveId: oppgaveId,
+      årsak: undefined,
     },
   });
 

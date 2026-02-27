@@ -388,10 +388,23 @@ export function hentValideringForRekjørBehandling() {
   });
 }
 
-export function hentValideringForSendTilKontroll() {
+export function hentValideringForSendTilKontroll(årsakPåkrevd?: boolean) {
+  const gyldigeÅrsaker: saksbehandlingComponents["schemas"]["KvalitetskontrollAarsak"][] = [
+    "OPPLÆRING",
+    "INNGRIPENDE_FOR_BRUKER",
+    "KOMPLISERT_VURDERING",
+    "SKJØNNSMESSIG_VURDERING",
+    "ANNET",
+  ];
+
+  const årsakSchema = z.enum(gyldigeÅrsaker, {
+    message: "Du må velge en årsak for å sende oppgaven til kontroll.",
+  });
+
   return z.object({
     _action: z.literal("send-til-kontroll"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    årsak: årsakPåkrevd ? årsakSchema : årsakSchema.optional(),
   });
 }
 

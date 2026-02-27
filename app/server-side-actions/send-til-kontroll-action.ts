@@ -18,8 +18,8 @@ export async function sendTilKontrollAction(
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId } = validertSkjema.data;
-  const { error } = await sendOppgaveTilKontroll(request, oppgaveId);
+  const { oppgaveId, årsak } = validertSkjema.data;
+  const { error } = await sendOppgaveTilKontroll(request, oppgaveId, årsak);
 
   if (error) {
     return getHttpProblemAlert(error);

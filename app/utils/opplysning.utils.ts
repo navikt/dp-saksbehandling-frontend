@@ -31,9 +31,9 @@ export function formaterOpplysningVerdi(
       return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
     case "barn":
       if (isBarneliste(opplysningsverdi)) {
-        return opplysningsverdi.søknadBarnId;
+        return opplysningsverdi.søknadBarnId || "Mangler søknadBarnId";
       }
-      break;
+      return "barn";
     default:
       return "";
   }

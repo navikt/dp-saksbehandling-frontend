@@ -197,6 +197,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/melding-om-vedtak/{behandlingId}/automatisk-avslag": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Lager og henter automatisk avslagsbrev for en gitt behandling
+         * @description Lager et automatisk avslagsbrev (HTML) for en gitt behandlingId. Brukes ved automatisk vedtaksfatting via maskin-til-maskin-autentisering.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for behandling */
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["AutomatiskAvslag"];
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                    };
+                };
+                /** @description Behandlingen finnes ikke */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/melding-om-vedtak/{behandlingId}/{brevblokkId}/utvidet-beskrivelse": {
         parameters: {
             query?: never;
@@ -396,6 +460,14 @@ export interface components {
         BrevVariant: "GENERERT" | "EGENDEFINERT";
         /** @enum {string} */
         Behandlingstype: "RETT_TIL_DAGPENGER" | "SØKNAD" | "KLAGE" | "MELDEKORT" | "MANUELL" | "INNSENDING" | "OMGJØRING";
+        AutomatiskAvslag: {
+            fornavn: string;
+            etternavn: string;
+            /** @description Må være et gyldig fødselsnummer med nøyaktig 11 sifre. */
+            fodselsnummer: string;
+            mellomnavn?: string;
+            sakId: string;
+        };
         HttpProblem: {
             type?: string;
             title?: string;

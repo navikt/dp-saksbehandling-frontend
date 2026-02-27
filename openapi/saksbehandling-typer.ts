@@ -182,6 +182,8 @@ export interface paths {
                     mineOppgaver?: boolean;
                     antallOppgaver?: number;
                     side?: number;
+                    /** @description Sorteringsrekkefølge for oppgaver basert på opprettet-tidspunkt */
+                    sortering?: "ASC" | "DESC";
                 };
                 header?: never;
                 path?: never;
@@ -610,7 +612,11 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody?: never;
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["Kvalitetskontroll"];
+                };
+            };
             responses: {
                 /** @description Vellykket respons */
                 204: {
@@ -1840,6 +1846,8 @@ export interface components {
             leggTilbakeAarsaker: components["schemas"]["LeggTilbakeAarsak"][];
             /** @description Årsaker til at oppgaven returneres til saksbehandler etter kontroll */
             returnerTilSaksbehandlingAarsaker: components["schemas"]["ReturnerTilSaksbehandlingAarsak"][];
+            /** @description Årsaker til at oppgaven sendes til kvalitetskontroll */
+            kvalitetskontrollAarsaker: components["schemas"]["KvalitetskontrollAarsak"][];
         };
         /** @enum {string} */
         AdressebeskyttelseGradering: "UGRADERT" | "FORTROLIG" | "STRENGT_FORTROLIG" | "STRENGT_FORTROLIG_UTLAND";
@@ -1885,6 +1893,11 @@ export interface components {
         };
         /** @enum {string} */
         ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
+        Kvalitetskontroll: {
+            aarsak?: components["schemas"]["KvalitetskontrollAarsak"];
+        };
+        /** @enum {string} */
+        KvalitetskontrollAarsak: "OPPLÆRING" | "INNGRIPENDE_FOR_BRUKER" | "KOMPLISERT_VURDERING" | "SKJØNNSMESSIG_VURDERING" | "ANNET";
         LeggTilbakeOppgave: {
             aarsak: components["schemas"]["LeggTilbakeAarsak"];
         };
