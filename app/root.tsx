@@ -24,6 +24,7 @@ import { getSaksbehandler } from "~/models/microsoft.server";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { umamiBeforeSend } from "~/umami";
 import { getEnv } from "~/utils/env.utils";
 
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
@@ -157,6 +158,11 @@ export default function App() {
           <script
             dangerouslySetInnerHTML={{
               __html: `window.env = ${JSON.stringify(env)}`,
+            }}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.umamiBeforeSend = ${umamiBeforeSend.toString()}`,
             }}
           />
           <script
