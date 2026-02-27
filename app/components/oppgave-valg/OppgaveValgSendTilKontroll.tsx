@@ -23,7 +23,7 @@ export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant 
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForSendTilKontroll(true),
+    schema: hentValideringForSendTilKontroll(),
     onSubmitSuccess: () => modalRef.current?.close(),
     defaultValues: {
       _action: "send-til-kontroll",

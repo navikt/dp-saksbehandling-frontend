@@ -241,14 +241,15 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
 export async function sendOppgaveTilKontroll(
   request: Request,
   oppgaveId: string,
-  årsak?: components["schemas"]["KvalitetskontrollAarsak"],
+  årsak: components["schemas"]["KvalitetskontrollAarsak"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const body = årsak ? { aarsak: årsak } : {};
 
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
     headers: getHeaders(onBehalfOfToken),
-    body,
+    body: {
+      aarsak: årsak,
+    },
     params: {
       path: { oppgaveId },
     },

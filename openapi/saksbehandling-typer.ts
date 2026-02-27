@@ -1894,10 +1894,10 @@ export interface components {
         /** @enum {string} */
         ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
         Kvalitetskontroll: {
-            aarsak?: components["schemas"]["KvalitetskontrollAarsak"];
+            aarsak: components["schemas"]["KvalitetskontrollAarsak"];
         };
         /** @enum {string} */
-        KvalitetskontrollAarsak: "OPPLÆRING" | "INNGRIPENDE_FOR_BRUKER" | "KOMPLISERT_VURDERING" | "SKJØNNSMESSIG_VURDERING" | "ANNET";
+        KvalitetskontrollAarsak: "OPPLÆRING" | "INNGRIPENDE_FOR_BRUKER" | "KOMPLISERT_VURDERING" | "SKJØNNSMESSIG_VURDERING" | "ANNET" | "TOTRINNSKONTROLL";
         LeggTilbakeOppgave: {
             aarsak: components["schemas"]["LeggTilbakeAarsak"];
         };
