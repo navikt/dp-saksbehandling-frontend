@@ -53,9 +53,7 @@ export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant 
             size="small"
             error={sendTilKontrollForm.field("årsak").error()}
           >
-            <option hidden={true} value={""}>
-              - Velg årsak -
-            </option>
+            <option value={""}>- Velg årsak -</option>
             {oppgave.lovligeEndringer.kvalitetskontrollAarsaker.map((årsak) => (
               <option key={årsak} value={årsak}>
                 {hentTekstForSendTilKontrollÅrsak(årsak)}

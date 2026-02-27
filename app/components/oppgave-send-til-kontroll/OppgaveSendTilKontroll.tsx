@@ -31,11 +31,11 @@ export function OppgaveSendTilKontroll() {
   });
 
   function handleOnClick() {
-    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && !isAlert(meldingOmVedtak)) {
+    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
+      setVisFeilmelding(true);
+    } else {
       modalRef.current?.showModal();
     }
-
-    setVisFeilmelding(true);
   }
 
   return (
