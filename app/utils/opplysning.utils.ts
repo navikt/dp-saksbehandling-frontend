@@ -30,8 +30,6 @@ export function formaterOpplysningVerdi(
     case "periode":
       return `Uke ${getISOWeek(opplysningsverdi.fom)} - ${getISOWeek(opplysningsverdi.tom)} (${formaterTilNorskDato(opplysningsverdi.fom)} - ${formaterTilNorskDato(opplysningsverdi.tom)})`;
     case "barn":
-      // TODO 2026-02-27: søknadBarnId kan være undefined
-      // usikker hva som burde gjøres her
       if (isBarneliste(opplysningsverdi)) {
         return opplysningsverdi.søknadBarnId || "Mangler søknadBarnId";
       }
