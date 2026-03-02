@@ -527,6 +527,192 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/oppgave/{oppgaveId}/melding-om-vedtak/html": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Hent forhåndsvisning av melding om vedtak som HTML
+         * @description Henter HTML-forhåndsvisning av melding om vedtak for oppgaven.
+         *     dp-saksbehandling beriker requesten med person-, saksbehandler- og behandlingsdata,
+         *     og videresender til dp-melding-om-vedtak.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description HTML-forhåndsvisning av melding om vedtak */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MeldingOmVedtakResponse"];
+                    };
+                };
+                /** @description Oppgaven eller behandlingen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppgave/{oppgaveId}/melding-om-vedtak/utvidet-beskrivelse/{brevblokkId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Lagre utvidet beskrivelse for en brevblokk
+         * @description Lagrer utvidet beskrivelse (rik tekst) for en gitt brevblokk i meldingen om vedtak.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                    brevblokkId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["MeldingOmVedtakUtvidetBeskrivelseRequest"];
+                };
+            };
+            responses: {
+                /** @description Utvidet beskrivelse er lagret */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MeldingOmVedtakUtvidetBeskrivelseResponse"];
+                    };
+                };
+                /** @description Oppgaven eller behandlingen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppgave/{oppgaveId}/melding-om-vedtak/brev-variant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Lagre brevvariant for melding om vedtak
+         * @description Lagrer brevvariant (generert eller egendefinert) for melding om vedtak.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["MeldingOmVedtakBrevVariantRequest"];
+                };
+            };
+            responses: {
+                /** @description Brevvariant er lagret */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppgaven eller behandlingen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/oppgave/{oppgaveId}/melding-om-vedtak-kilde": {
         parameters: {
             query?: never;
@@ -1806,6 +1992,38 @@ export interface components {
         };
         /** @enum {string} */
         KontrollertBrev: "JA" | "NEI" | "IKKE_RELEVANT";
+        MeldingOmVedtakResponse: {
+            /** @description HTML for melding om vedtak */
+            html: string;
+            utvidedeBeskrivelser: components["schemas"]["MeldingOmVedtakUtvidetBeskrivelse"][];
+            brevVariant: components["schemas"]["MeldingOmVedtakBrevVariant"];
+        };
+        MeldingOmVedtakUtvidetBeskrivelse: {
+            brevblokkId: string;
+            tekst: string;
+            /** Format: date-time */
+            sistEndretTidspunkt?: string;
+            tittel: string;
+        };
+        MeldingOmVedtakUtvidetBeskrivelseRequest: {
+            /** @description Utvidet beskrivelse som skal inngå i vedtaksmeldingen */
+            tekst: string;
+        };
+        MeldingOmVedtakUtvidetBeskrivelseResponse: {
+            /**
+             * Format: date-time
+             * @description Tidspunkt utvidet beskrivelse sist ble endret
+             */
+            sistEndretTidspunkt?: string;
+        };
+        /**
+         * @default GENERERT
+         * @enum {string}
+         */
+        MeldingOmVedtakBrevVariant: "GENERERT" | "EGENDEFINERT";
+        MeldingOmVedtakBrevVariantRequest: {
+            brevVariant: components["schemas"]["MeldingOmVedtakBrevVariant"];
+        };
         MeldingOmVedtakKildeRequest: {
             meldingOmVedtakKilde?: components["schemas"]["MeldingOmVedtakKilde"];
         };

@@ -4,7 +4,6 @@ import type { IAlert } from "~/context/alert-context";
 import { ISAFGraphqlError, ISAFRequestError } from "~/models/saf.server";
 
 import { components as behandlingComponents, components } from "../../openapi/behandling-typer";
-import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export function isOppgaveOversikt(
@@ -57,13 +56,13 @@ export function isILagreNotatResponse(
 
 export function isILagreUtvidetBeskrivelseResponse(
   data: unknown,
-): data is meldingOmVedtakComponents["schemas"]["UtvidetBeskrivelseSistEndretTidspunkt"] {
+): data is saksbehandlingComponents["schemas"]["MeldingOmVedtakUtvidetBeskrivelseResponse"] {
   if (typeof data !== "object" || data === null) {
     return false;
   }
 
   const maybeResponse = data as Partial<
-    meldingOmVedtakComponents["schemas"]["UtvidetBeskrivelseSistEndretTidspunkt"]
+    saksbehandlingComponents["schemas"]["MeldingOmVedtakUtvidetBeskrivelseResponse"]
   >;
 
   return typeof maybeResponse.sistEndretTidspunkt === "string";

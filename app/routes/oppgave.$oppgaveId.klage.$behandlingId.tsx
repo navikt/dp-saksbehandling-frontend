@@ -22,9 +22,8 @@ import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
 import { hentJournalpost } from "~/models/saf.server";
-import { hentKlage, hentOppgave } from "~/models/saksbehandling.server";
+import { hentKlage, hentMeldingOmVedtakHtml, hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
 import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
 import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
@@ -40,30 +39,18 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [oppgave, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
-    hentOppgave(request, params.oppgaveId),
-    hentKlage(request, params.behandlingId),
-    sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
-    sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
-  ]);
+  const [oppgave, meldingOmVedtak, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] =
+    await Promise.all([
+      hentOppgave(request, params.oppgaveId),
+      hentMeldingOmVedtakHtml(request, params.oppgaveId),
+      hentKlage(request, params.behandlingId),
+      sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
+      sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
+    ]);
 
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
-  let meldingOmVedtak;
-
-  if (oppgave.saksbehandler) {
-    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-      behandlingstype: oppgave.behandlingType,
-    });
-  }
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");

@@ -13,17 +13,17 @@ import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvid
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert, isILagreUtvidetBeskrivelseResponse } from "~/utils/type-guards";
 
-import { components } from "../../../../openapi/melding-om-vedtak-typer";
+import { components } from "../../../../openapi/saksbehandling-typer";
 
 interface IProps {
   label: ReactNode;
-  utvidetBeskrivelse: components["schemas"]["UtvidetBeskrivelse"];
+  utvidetBeskrivelse: components["schemas"]["MeldingOmVedtakUtvidetBeskrivelse"];
   readOnly?: boolean;
 }
 
 export function UtvidetBeskrivelseInput(props: IProps) {
   const { addAlert } = useGlobalAlerts();
-  const { behandlingId } = useTypeSafeParams();
+  const { oppgaveId } = useTypeSafeParams();
   const { pathname } = useLocation();
 
   const { oppdaterUtvidetBeskrivelse, meldingOmVedtak } = useMeldingOmVedtak();
@@ -32,7 +32,7 @@ export function UtvidetBeskrivelseInput(props: IProps) {
     lagreUtvidetBeskrivelseFetcher.submit(
       {
         _action: "lagre-utvidet-beskrivelse",
-        behandlingId,
+        oppgaveId,
         brevBlokkId: props.utvidetBeskrivelse.brevblokkId,
         utvidetBeskrivelse: verdi,
       },

@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 
-import { components } from "../../../openapi/melding-om-vedtak-typer";
+import { components } from "../../../openapi/saksbehandling-typer";
 
 interface IProps {
   html: string;
-  utvidedeBeskrivelser: components["schemas"]["UtvidetBeskrivelse"][];
+  utvidedeBeskrivelser: components["schemas"]["MeldingOmVedtakUtvidetBeskrivelse"][];
 }
 
 export function MeldingOmVedtakPreview({ html, utvidedeBeskrivelser }: IProps) {

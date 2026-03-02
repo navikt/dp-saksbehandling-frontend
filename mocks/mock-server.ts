@@ -5,7 +5,6 @@ import { logger } from "~/utils/logger.utils";
 import { mockPdl } from "./data/mock-pdl/mock-pdl";
 import { mockAzure } from "./mock-azure";
 import { mockDpBehandling } from "./mock-dp-behandling";
-import { mockDpMeldingOmVedtak } from "./mock-dp-melding-om-vedtak";
 import { mockDpRapporteringPersonregister } from "./mock-dp-rapportering-personregister";
 import { mockDpSaksbehandling } from "./mock-dp-saksbehandling";
 import { mockDpSoknadOrkestrator } from "./mock-dp-soknad-orkestrator";
@@ -17,7 +16,6 @@ const mswHandlers = [
   ...mockAzure,
   ...mockDpBehandling,
   ...mockDpSaksbehandling,
-  ...mockDpMeldingOmVedtak,
   ...mockPdl,
   ...mockSaf,
   ...mockDpSoknadOrkestrator,
