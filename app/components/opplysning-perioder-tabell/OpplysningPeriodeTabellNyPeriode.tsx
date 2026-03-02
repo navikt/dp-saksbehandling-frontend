@@ -140,6 +140,8 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
           size={"xsmall"}
           variant={"tertiary"}
           onClick={() => props.setPeriodeUnderRedigering(undefined)}
+          data-umami-event="Avbryt perioderedigering"
+          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
         >
           Avbryt
         </Button>
@@ -151,6 +153,8 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
           variant={"primary"}
           onClick={() => nyOpplysningPeriodeForm.submit()}
           loading={nyOpplysningPeriodeForm.formState.isSubmitting}
+          data-umami-event={"Lagre periode"}
+          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
         >
           Lagre
         </Button>

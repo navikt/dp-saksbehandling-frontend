@@ -1,6 +1,7 @@
 declare global {
   interface Window {
     env: IEnv;
+    umami: typeof umami;
   }
 }
 
