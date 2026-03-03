@@ -181,7 +181,7 @@ export const behandling019bb6879786751e860b8a122e5b689f: components["schemas"]["
   ],
   vilkår: [
     {
-      id: "2099145502",
+      id: "MjA5OTE0NTUwMg==",
       navn: "Krav på dagpenger",
       hjemmel: {
         kilde: {

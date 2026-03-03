@@ -24,7 +24,7 @@ export function RettPåDagpenger() {
         tittel={rettPåDagpengerOpplysning.navn}
         pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
         medLenkeTilOpplysning={true}
-        opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/2099145502/opplysning`}
+        opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/MjA5OTE0NTUwMg==/opplysning`}
       />
 
       {sistePrøvingsdato && (
