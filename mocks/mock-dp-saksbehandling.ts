@@ -6,6 +6,7 @@ import { getEnv } from "~/utils/env.utils";
 import { components, paths } from "../openapi/saksbehandling-typer";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
+import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
 import { klage } from "./data/mock-oppgaver/klage";
 import {
   konverterOppgaveTilListeOppgave,
@@ -221,6 +222,50 @@ export const mockDpSaksbehandling = [
     }
 
     return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
+  }),
+
+  // Hent melding om vedtak HTML for oppgave
+  http.get(`/oppgave/{oppgaveId}/melding-om-vedtak/html`, async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const meldingOmVedtak = mockMeldingerOmVedtak.find(
+      (melding) => melding.oppgaveId === params.oppgaveId,
+    );
+
+    if (!meldingOmVedtak) {
+      return response(404).json(get404Error(`/oppgave/${params.oppgaveId}/melding-om-vedtak/html`));
+    }
+
+    return response(200).json(meldingOmVedtak.melding);
+  }),
+
+  // Lagre utvidet beskrivelse for melding om vedtak
+  http.put(
+    `/oppgave/{oppgaveId}/melding-om-vedtak/utvidet-beskrivelse/{brevblokkId}`,
+    async ({ response }) => {
+      await delay(delayMs);
+
+      if (apiError) {
+        return response("default").json(defaultError, { status: 500 });
+      }
+
+      return response(200).json({ sistEndretTidspunkt: new Date().toISOString() });
+    },
+  ),
+
+  // Lagre brevvariant for melding om vedtak
+  http.put(`/oppgave/{oppgaveId}/melding-om-vedtak/brev-variant`, async ({ response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
   }),
 
   http.put(`/oppgave/{oppgaveId}/melding-om-vedtak-kilde`, async ({ response }) => {

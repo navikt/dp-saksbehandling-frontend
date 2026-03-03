@@ -20,7 +20,7 @@ export function MeldingOmVedtakDPSak() {
     schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
     defaultValues: {
       _action: "lagre-brev-variant",
-      behandlingId: oppgave.behandlingId,
+      oppgaveId: oppgave.oppgaveId,
       brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
     },
   });

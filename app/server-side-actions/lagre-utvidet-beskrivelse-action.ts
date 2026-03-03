@@ -1,6 +1,6 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 
-import { lagreUtvidetBeskrivelse } from "~/models/melding-om-vedtak.server";
+import { lagreMeldingOmVedtakUtvidetBeskrivelse } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForUtvidetBeskrivelse } from "~/utils/validering.util";
 
@@ -11,11 +11,11 @@ export async function lagreUtvidetBeskrivelseAction(request: Request, formData: 
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, brevBlokkId, utvidetBeskrivelse } = validertSkjema.data;
+  const { oppgaveId, brevBlokkId, utvidetBeskrivelse } = validertSkjema.data;
 
-  const { data, error } = await lagreUtvidetBeskrivelse(
+  const { data, error } = await lagreMeldingOmVedtakUtvidetBeskrivelse(
     request,
-    behandlingId,
+    oppgaveId,
     brevBlokkId,
     utvidetBeskrivelse,
   );

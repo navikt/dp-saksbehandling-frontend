@@ -2,12 +2,10 @@ import { IAlert } from "~/context/alert-context";
 import { logger } from "~/utils/logger.utils";
 
 import { components as behandlingComponent } from "../../openapi/behandling-typer";
-import { components as meldingOmVedtakComponent } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponent } from "../../openapi/saksbehandling-typer";
 
 export function handleHttpProblem(
   problem:
-    | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
   logLevel: "error" | "warn" | "info" = "error",
@@ -22,7 +20,6 @@ export function handleHttpProblem(
 
 export function getHttpProblemAlert(
   problem:
-    | meldingOmVedtakComponent["schemas"]["HttpProblem"]
     | saksbehandlingComponent["schemas"]["HttpProblem"]
     | behandlingComponent["schemas"]["HttpProblem"],
   logLevel: "error" | "warn" | "info" = "error",
