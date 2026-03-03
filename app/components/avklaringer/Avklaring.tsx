@@ -60,7 +60,12 @@ export function Avklaring(props: IProps) {
       aria-label={props.avklaring.tittel}
       size={"small"}
       open={åpenAvklaring}
-      onToggle={() => setÅpenAvklaring(!åpenAvklaring)}
+      onToggle={() => {
+        window.umami.track(!åpenAvklaring ? "Vis avklaring" : "Skjul avklaring", {
+          "avklaring-id": props.avklaring.id,
+        });
+        setÅpenAvklaring(!åpenAvklaring);
+      }}
       data-color={hentAvklaringFarge(props.avklaring)}
     >
       <ExpansionCard.Header className={"flex items-center"}>
@@ -114,6 +119,8 @@ export function Avklaring(props: IProps) {
                   variant={"primary"}
                   onClick={() => avklaringForm.submit()}
                   disabled={readonly}
+                  data-umami-event="Lagre avklaring"
+                  data-umami-event-avklaring-id={props.avklaring.id}
                 >
                   Lagre
                 </Button>

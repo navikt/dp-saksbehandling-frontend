@@ -1,6 +1,7 @@
 declare global {
   interface Window {
     env: IEnv;
+    umami: typeof umami;
   }
 }
 
@@ -25,6 +26,8 @@ interface IEnv {
   UNLEASH_SERVER_API_TOKEN: string;
   FARO_URL: string;
   GITHUB_SHA: string;
+  UMAMI_TRACKING_ID: string;
+  UMAMI_HOST_URL: string;
 }
 
 export function getEnv(value: keyof IEnv) {

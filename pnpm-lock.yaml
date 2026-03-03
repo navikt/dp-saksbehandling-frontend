@@ -89,6 +89,9 @@ importers:
       '@sanity/client':
         specifier: 7.14.1
         version: 7.14.1(debug@4.4.3)
+      '@types/umami':
+        specifier: ^2.10.1
+        version: 2.10.1
       canvas-confetti:
         specifier: 1.9.4
         version: 1.9.4
@@ -2935,6 +2938,9 @@ packages:
 
   '@types/tedious@4.0.14':
     resolution: {integrity: sha512-KHPsfX/FoVbUGbyYvk1q9MMQHLPeRZhRJZdO45Q4YjvFkv4hMNghCWTvy7rdKessBsmtz4euWCWAB6/tVpI1Iw==}
+
+  '@types/umami@2.10.1':
+    resolution: {integrity: sha512-CvOEMq+BFOUXj8yciq4hPsdOt0o9KBg5jQXnF1FrdOMKZMxJiwryyZNLa9Ud2NVO6nXSwU22YMKR3E+Xhbo+DA==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -9601,6 +9607,8 @@ snapshots:
   '@types/tedious@4.0.14':
     dependencies:
       '@types/node': 25.2.3
+
+  '@types/umami@2.10.1': {}
 
   '@types/ws@8.18.1':
     dependencies:

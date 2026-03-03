@@ -117,6 +117,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
       UMAMI_TRACKING_ID: process.env.UMAMI_TRACKING_ID,
+      UMAMI_HOST_URL: process.env.UMAMI_HOST_URL,
     },
   };
 }
@@ -179,7 +180,7 @@ export default function App() {
           <script
             defer
             src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-            data-host-url="https://umami.nav.no"
+            data-host-url={env.UMAMI_HOST_URL}
             data-website-id={env.UMAMI_TRACKING_ID}
             data-before-send="umamiBeforeSend"
           />

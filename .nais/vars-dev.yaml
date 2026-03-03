@@ -34,3 +34,4 @@ azure:
     beslutter: "11b8475a-fb12-41aa-b1f6-8497c1b5385b" # 0000-GA-Dagpenger-Beslutter
 
 umami_tracking_id: "072c4398-e1a9-4207-86aa-14c1c72361a0"
+umami_host_url: "https://reops-event-proxy.ekstern.dev.nav.no"

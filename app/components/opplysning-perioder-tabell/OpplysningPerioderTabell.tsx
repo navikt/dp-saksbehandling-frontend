@@ -104,6 +104,8 @@ export function OpplysningPerioderTabell(props: IProps) {
                           slettPeriodeForm.field("periodeId").setValue(periode.id);
                           slettPeriodeForm.submit();
                         }}
+                        data-umami-event="Slett periode"
+                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
                       />
                     </Table.DataCell>
 
@@ -112,6 +114,8 @@ export function OpplysningPerioderTabell(props: IProps) {
                         size={"xsmall"}
                         variant={"tertiary"}
                         icon={<PencilIcon />}
+                        data-umami-event="Rediger periode"
+                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
                         onClick={() => setPeriodeIdUnderRedigering(periode.id)}
                       />
                     </Table.DataCell>
@@ -164,6 +168,8 @@ export function OpplysningPerioderTabell(props: IProps) {
             size={"small"}
             variant={"secondary"}
             onClick={() => setPeriodeIdUnderRedigering(NY_PERIODE_ID)}
+            data-umami-event="Legg til periode"
+            data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
             disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode
