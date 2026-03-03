@@ -96,6 +96,8 @@ spec:
       value: "{{githubSha}}"
     - name: UMAMI_TRACKING_ID
       value: "{{umami_tracking_id}}"
+    - name: UMAMI_HOST_URL
+      value: "{{umami_host_url}}"
 
   envFrom:
     - secret: dp-saksbehandling-frontend-unleash-api-token
