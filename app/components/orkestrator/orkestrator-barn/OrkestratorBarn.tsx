@@ -1,56 +1,24 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Modal } from "@navikt/ds-react";
+import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import classNames from "classnames";
-import classnames from "classnames";
-import { useRef } from "react";
+import { useState } from "react";
 import { useNavigation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
 
-import {
-  components,
-  components as orkestratorComponents,
-} from "../../../../openapi/soknad-orkestrator-typer";
-import styles from "./OrkestratorBarn.module.css";
+import { components } from "../../../../openapi/soknad-orkestrator-typer";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
 
 interface IProps {
-  orkestratorBarn: orkestratorComponents["schemas"]["BarnResponse"][];
-  orkestratorLandliste: components["schemas"]["Land"][];
-}
-
-export function OrkestratorBarn({ orkestratorBarn, orkestratorLandliste }: IProps) {
-  if (!orkestratorBarn) {
-    return null;
-  }
-
-  return (
-    <>
-      {orkestratorBarn.map(
-        (barn: orkestratorComponents["schemas"]["BarnResponse"], index: number) => (
-          <Barn
-            key={barn.barnId}
-            barnNummer={index + 1}
-            barn={barn}
-            orkestratorLandliste={orkestratorLandliste}
-          />
-        ),
-      )}
-    </>
-  );
-}
-
-interface IOrkestratorBarnProps {
   barnNummer: number;
   barn: components["schemas"]["BarnResponse"];
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-function Barn({ barnNummer, barn, orkestratorLandliste }: IOrkestratorBarnProps) {
-  const ref = useRef<HTMLDialogElement>(null);
+export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IProps) {
+  const [redigerer, setRedigerer] = useState(false);
   const { state } = useNavigation();
   const { behandling } = useBehandling();
 
@@ -85,67 +53,51 @@ function Barn({ barnNummer, barn, orkestratorLandliste }: IOrkestratorBarnProps)
       begrunnelse: begrunnelse,
     },
     onSubmitSuccess: () => {
-      ref.current?.close();
+      setRedigerer(false);
     },
   });
 
   function avbryt() {
     orkestratorBarnForm.resetForm();
-    ref.current?.close();
+    setRedigerer(false);
   }
 
   return (
-    <div className={classnames(styles.orkestratorBarn, "card-raised m-4 p-2")}>
-      <Heading
-        level="4"
-        size="xsmall"
-        className={classnames(styles.opplysningBarnHeader, "mt-1 mb-0")}
-        spacing
-      >
+    <div className="card card-raised m-4 mt-8 p-2">
+      <Heading level="4" size="xsmall" className="m-2" spacing>
         Barn {barnNummer}
       </Heading>
-      <div className={styles.orkestratorOpplysning}>
+
+      <div className="flex flex-col gap-4 p-2">
         {barn.opplysninger.map((opplysning, index) => (
           <OrkestratorOpplysningLinje
             key={index}
             opplysning={opplysning}
             formScope={orkestratorBarnForm.scope(opplysning.id)}
             orkestratorLandliste={orkestratorLandliste}
-            readOnly
+            readOnly={!redigerer}
           />
         ))}
       </div>
 
-      <Button
-        variant="secondary"
-        size="small"
-        className={styles.endreKnapp}
-        icon={<PencilWritingIcon />}
-        onClick={() => ref.current?.showModal()}
-      >
-        Endre
-      </Button>
+      {!redigerer && (
+        <Button
+          variant="secondary"
+          size="small"
+          className="mt-4 ml-3"
+          icon={<PencilWritingIcon />}
+          onClick={() => setRedigerer(true)}
+        >
+          Endre
+        </Button>
+      )}
 
-      <Modal
-        ref={ref}
-        header={{ heading: `Barn ${barnNummer}` }}
-        closeOnBackdropClick
-        className={styles.modal}
-      >
-        <Modal.Body>
-          <div className={classNames(styles.orkestratorOpplysning)}>
-            {barn.opplysninger.map((opplysning, index) => (
-              <OrkestratorOpplysningLinje
-                key={index}
-                opplysning={opplysning}
-                formScope={orkestratorBarnForm.scope(opplysning.id)}
-                orkestratorLandliste={orkestratorLandliste}
-              />
-            ))}
-          </div>
-        </Modal.Body>
+      {redigerer && (
+        <div className="mt-4 ml-3 flex gap-2">
+          <Button type="button" variant="secondary" size="small" onClick={avbryt}>
+            Avbryt
+          </Button>
 
-        <Modal.Footer>
           <Button
             type="button"
             size="small"
@@ -155,21 +107,8 @@ function Barn({ barnNummer, barn, orkestratorLandliste }: IOrkestratorBarnProps)
           >
             Lagre endringer
           </Button>
-
-          <Button type="button" variant="secondary" size="small" onClick={avbryt}>
-            Avbryt
-          </Button>
-
-          <Button
-            type="button"
-            variant="tertiary"
-            size="small"
-            onClick={() => ref.current?.close()}
-          >
-            Lukk
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      )}
     </div>
   );
 }

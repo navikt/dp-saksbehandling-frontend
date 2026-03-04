@@ -67,17 +67,9 @@ export const oppgave019b2ccd885d71eb8977f453029fd5b4: components["schemas"]["Opp
   ],
   tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
-    paaVentAarsaker: [
-      "AVVENT_SVAR",
-      "AVVENT_DOKUMENTASJON",
-      "AVVENT_MELDEKORT",
-      "AVVENT_PERMITTERINGSÅRSAK",
-      "AVVENT_RAPPORTERINGSFRIST",
-      "AVVENT_SVAR_PÅ_FORESPØRSEL",
-      "ANNET",
-    ],
-    avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
-    leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "INHABILITET", "FRAVÆR", "ANNET"],
+    paaVentAarsaker: [],
+    avbrytAarsaker: [],
+    leggTilbakeAarsaker: [],
     returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
     kvalitetskontrollAarsaker: [
       "OPPLÆRING",
@@ -85,6 +77,7 @@ export const oppgave019b2ccd885d71eb8977f453029fd5b4: components["schemas"]["Opp
       "KOMPLISERT_VURDERING",
       "SKJØNNSMESSIG_VURDERING",
       "ANNET",
+      "TOTRINNSKONTROLL",
     ],
   },
   meldingOmVedtakKilde: "INGEN",

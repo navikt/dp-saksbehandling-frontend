@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@navikt/aksel-icons";
+import { ArrowLeftIcon, PlusCircleIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -33,8 +33,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return { orkestratorBarn, orkestratorLandliste };
 }
 
-export default function Barn() {
-  const { oppgaveId, behandlingId } = useTypeSafeParams();
+export default function RedigerBarn() {
+  const { oppgaveId, behandlingId, barnId } = useTypeSafeParams();
 
   const { orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
@@ -54,10 +54,25 @@ export default function Barn() {
         <div className={"card p-4"}>
           <Heading size={"small"}>Rediger barn</Heading>
 
-          <OrkestratorBarn
-            orkestratorBarn={orkestratorBarn}
-            orkestratorLandliste={orkestratorLandliste}
-          />
+          {orkestratorBarn.map((barn, index: number) => (
+            <OrkestratorBarn
+              key={barn.barnId}
+              barnNummer={index + 1}
+              barn={barn}
+              orkestratorLandliste={orkestratorLandliste}
+            />
+          ))}
+
+          <div className="mt-4">
+            <LoadingLink
+              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/legg-til-barn/${barnId}`}
+              asButtonVariant={"secondary"}
+              icon={<PlusCircleIcon />}
+              buttonSize={"small"}
+            >
+              Legg til barn
+            </LoadingLink>
+          </div>
         </div>
       </main>
     </>

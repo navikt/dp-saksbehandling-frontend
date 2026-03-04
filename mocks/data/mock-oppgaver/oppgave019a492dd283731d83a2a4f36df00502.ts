@@ -108,17 +108,9 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
   ],
   tilstand: "UNDER_KONTROLL",
   lovligeEndringer: {
-    paaVentAarsaker: [
-      "AVVENT_SVAR",
-      "AVVENT_DOKUMENTASJON",
-      "AVVENT_MELDEKORT",
-      "AVVENT_PERMITTERINGSÅRSAK",
-      "AVVENT_RAPPORTERINGSFRIST",
-      "AVVENT_SVAR_PÅ_FORESPØRSEL",
-      "ANNET",
-    ],
-    avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
-    leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "INHABILITET", "FRAVÆR", "ANNET"],
+    paaVentAarsaker: [],
+    avbrytAarsaker: [],
+    leggTilbakeAarsaker: [],
     returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
     kvalitetskontrollAarsaker: [
       "OPPLÆRING",
@@ -126,6 +118,7 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
       "KOMPLISERT_VURDERING",
       "SKJØNNSMESSIG_VURDERING",
       "ANNET",
+      "TOTRINNSKONTROLL",
     ],
   },
   soknadId: "c72ecdf9-1103-415a-ba99-fd1d94b4dc40",

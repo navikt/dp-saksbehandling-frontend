@@ -12,12 +12,24 @@ interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
   formScope: FormScope<string | boolean | undefined>;
   orkestratorLandliste: components["schemas"]["Land"][];
+  readOnly?: boolean;
 }
 
-export function OrkestratorOpplysning({ opplysning, formScope, orkestratorLandliste }: IProps) {
+export function OrkestratorOpplysning({
+  opplysning,
+  formScope,
+  orkestratorLandliste,
+  readOnly,
+}: IProps) {
   switch (opplysning.dataType) {
     case "tekst":
-      return <OrkestratorOpplysningTekst opplysning={opplysning} formScope={formScope} />;
+      return (
+        <OrkestratorOpplysningTekst
+          opplysning={opplysning}
+          formScope={formScope}
+          readOnly={readOnly}
+        />
+      );
 
     case "land":
       return (
@@ -25,14 +37,27 @@ export function OrkestratorOpplysning({ opplysning, formScope, orkestratorLandli
           opplysning={opplysning}
           formScope={formScope}
           orkestratorLandliste={orkestratorLandliste}
+          readOnly={readOnly}
         />
       );
 
     case "boolsk":
-      return <OrkestratorOpplysningBoolsk opplysning={opplysning} formScope={formScope} />;
+      return (
+        <OrkestratorOpplysningBoolsk
+          opplysning={opplysning}
+          formScope={formScope}
+          readOnly={readOnly}
+        />
+      );
 
     case "dato":
-      return <OrkestratorOpplysningDato opplysning={opplysning} formScope={formScope} />;
+      return (
+        <OrkestratorOpplysningDato
+          opplysning={opplysning}
+          formScope={formScope}
+          readOnly={readOnly}
+        />
+      );
 
     default:
       logger.error(`Ukjent orkestrator datatype ${opplysning.dataType}`);

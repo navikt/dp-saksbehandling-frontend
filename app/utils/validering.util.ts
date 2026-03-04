@@ -502,3 +502,33 @@ export function hentValideringForRedigeringBarn() {
     begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
   });
 }
+
+export function hentValideringForNyttBarn() {
+  return z.object({
+    _action: z.literal("legg-til-barn"),
+    soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
+    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
+    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
+    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
+    fodselsdato: z.preprocess(
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
+    forsorgerBarnet: z.coerce.boolean({
+      message: "Du må velge et svar",
+    }),
+    kvalifisererTilBarnetillegg: z.coerce.boolean({
+      message: "Du må velge et svar",
+    }),
+    barnetilleggFom: z.preprocess(
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+    barnetilleggTom: z.preprocess(
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+  });
+}

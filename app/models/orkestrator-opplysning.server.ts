@@ -48,6 +48,22 @@ export async function redigerBarn(
   });
 }
 
+export async function leggTilBarn(
+  request: Request,
+  soknadbarnId: string,
+  requestBody: components["schemas"]["NyttBarnRequest"],
+) {
+  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
+
+  return await orkestratorClient.POST("/opplysninger/barn/{soknadbarnId}", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ...requestBody },
+    params: {
+      path: { soknadbarnId },
+    },
+  });
+}
+
 export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
