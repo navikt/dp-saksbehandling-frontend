@@ -1,16 +1,17 @@
 import { TextField } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
 
-import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
+import { OrkestratorOpplysningLabel } from "~/components/orkestrator/orkestrator-barn/OrkestratorOpplysningLabel";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string | undefined>;
+  formScope: FormScope<string | boolean | undefined>;
+  readOnly?: boolean;
 }
 
-export function OrkestratorOpplysningTekst({ opplysning, formScope }: IProps) {
+export function OrkestratorOpplysningTekst({ opplysning, formScope, readOnly }: IProps) {
   const field = useField(formScope);
 
   return (
@@ -18,9 +19,9 @@ export function OrkestratorOpplysningTekst({ opplysning, formScope }: IProps) {
       {...field.getInputProps()}
       size="small"
       type="text"
-      label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
+      label={<OrkestratorOpplysningLabel opplysning={opplysning} />}
       error={field.error()}
-      readOnly={opplysning.kilde === "register"}
+      readOnly={readOnly || opplysning.kilde === "register"}
     />
   );
 }

@@ -71,6 +71,7 @@ export const innsending: components["schemas"]["Oppgave"] = {
       "KOMPLISERT_VURDERING",
       "SKJØNNSMESSIG_VURDERING",
       "ANNET",
+      "TOTRINNSKONTROLL",
     ],
   },
   meldingOmVedtakKilde: "DP_SAK",

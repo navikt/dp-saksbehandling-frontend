@@ -89,7 +89,41 @@ export interface paths {
                 };
             };
         };
-        post?: never;
+        /** Legg til nytt barn på søknad */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
+                    soknadbarnId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["NyttBarnRequest"];
+                };
+            };
+            responses: {
+                /** @description Barn lagt til */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["BarnResponse"][];
+                    };
+                };
+                /** @description Ugyldig request body */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -275,6 +309,27 @@ export interface components {
         OppdatertBarn: {
             /** Format: uuid */
             barnId: string;
+            fornavnOgMellomnavn: string;
+            etternavn: string;
+            /** Format: date */
+            fodselsdato: string;
+            oppholdssted: string;
+            forsorgerBarnet: boolean;
+            kvalifisererTilBarnetillegg: boolean;
+            /** Format: date */
+            barnetilleggFom?: string;
+            /** Format: date */
+            barnetilleggTom?: string;
+            begrunnelse: string;
+        };
+        NyttBarnRequest: {
+            /** Format: uuid */
+            opplysningId?: string;
+            /** Format: uuid */
+            behandlingId?: string;
+            nyttBarn: components["schemas"]["NyttBarn"];
+        };
+        NyttBarn: {
             fornavnOgMellomnavn: string;
             etternavn: string;
             /** Format: date */

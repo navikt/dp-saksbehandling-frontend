@@ -9,7 +9,7 @@ import { mockOrkestratorLandListe } from "./data/mock-orkestrator/mock-orkestrat
 const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_SOKNAD_ORKESTRATOR_URL") });
 
 export const mockDpSoknadOrkestrator = [
-  http.get(`/opplysninger/{soknadId}/barn`, ({ response }) => {
+  http.get(`/opplysninger/barn/{soknadbarnId}`, ({ response }) => {
     if (mockOrkestratorBarn) {
       return response(200).json(mockOrkestratorBarn);
     }
@@ -17,8 +17,12 @@ export const mockDpSoknadOrkestrator = [
     return response(400).empty();
   }),
 
-  http.put(`/opplysninger/{soknadId}/barn/oppdater`, ({ response }) => {
+  http.put(`/opplysninger/barn/{soknadbarnId}`, ({ response }) => {
     return response(200).empty();
+  }),
+
+  http.post(`/opplysninger/barn/{soknadbarnId}`, ({ response }) => {
+    return response(201).json(mockOrkestratorBarn);
   }),
 
   http.get(`/land`, ({ response }) => {

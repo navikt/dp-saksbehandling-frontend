@@ -126,6 +126,7 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
       "KOMPLISERT_VURDERING",
       "SKJØNNSMESSIG_VURDERING",
       "ANNET",
+      "TOTRINNSKONTROLL",
     ],
   },
   soknadId: "c72ecdf9-1103-415a-ba99-fd1d94b4dc40",

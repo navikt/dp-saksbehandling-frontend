@@ -1,5 +1,5 @@
-import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Alert, Heading } from "@navikt/ds-react";
+import { ArrowLeftIcon, PlusCircleIcon } from "@navikt/aksel-icons";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -12,13 +12,9 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
-import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import {
-  hentOrkestratorBarn,
-  hentOrkestratorLandListe,
-} from "~/models/orkestrator-opplysning.server";
+import { hentBarn, hentOrkestratorLandListe } from "~/models/orkestrator-opplysning.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -27,26 +23,22 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.soknadId, "params.soknadId er påkrevd");
+  invariant(params.barnId, "params.barnId er påkrevd");
 
   const [orkestratorBarn, orkestratorLandliste] = await Promise.all([
-    hentOrkestratorBarn(request, params.soknadId),
+    hentBarn(request, params.barnId),
     hentOrkestratorLandListe(request),
   ]);
 
   return { orkestratorBarn, orkestratorLandliste };
 }
 
-export default function Behandle() {
-  const { oppgaveId, behandlingId } = useTypeSafeParams();
-  const { behandling } = useBehandling();
+export default function RedigerBarn() {
+  const { oppgaveId, behandlingId, barnId } = useTypeSafeParams();
+
   const { orkestratorBarn, orkestratorLandliste } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-
-  const barnOpplysningId = behandling.opplysninger.find(
-    (opplysning) => opplysning.datatype === "barn",
-  )?.perioder[0].id;
 
   return (
     <>
@@ -58,16 +50,29 @@ export default function Behandle() {
           <ArrowLeftIcon />
           Behandling
         </LoadingLink>
+
         <div className={"card p-4"}>
           <Heading size={"small"}>Rediger barn</Heading>
-          {barnOpplysningId && orkestratorBarn && orkestratorLandliste && (
+
+          {orkestratorBarn.map((barn, index: number) => (
             <OrkestratorBarn
-              opplysningId={barnOpplysningId}
-              orkestratorBarn={orkestratorBarn}
+              key={barn.barnId}
+              barnNummer={index + 1}
+              barn={barn}
               orkestratorLandliste={orkestratorLandliste}
             />
-          )}
-          {!barnOpplysningId && <Alert variant={"error"}>Finner ikke opplysningID for barn </Alert>}
+          ))}
+
+          <div className="mt-4">
+            <LoadingLink
+              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/legg-til-barn/${barnId}`}
+              asButtonVariant={"secondary"}
+              icon={<PlusCircleIcon />}
+              buttonSize={"small"}
+            >
+              Legg til barn
+            </LoadingLink>
+          </div>
         </div>
       </main>
     </>
