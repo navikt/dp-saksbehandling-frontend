@@ -99,9 +99,17 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   ],
   tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
-    paaVentAarsaker: [],
-    avbrytAarsaker: [],
-    leggTilbakeAarsaker: [],
+    paaVentAarsaker: [
+      "AVVENT_SVAR",
+      "AVVENT_DOKUMENTASJON",
+      "AVVENT_MELDEKORT",
+      "AVVENT_PERMITTERINGSÅRSAK",
+      "AVVENT_RAPPORTERINGSFRIST",
+      "AVVENT_SVAR_PÅ_FORESPØRSEL",
+      "ANNET",
+    ],
+    avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
+    leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "INHABILITET", "FRAVÆR", "ANNET"],
     returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
     kvalitetskontrollAarsaker: [
       "OPPLÆRING",
