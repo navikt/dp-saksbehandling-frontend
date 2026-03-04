@@ -31,7 +31,7 @@ export function MeldingOmVedtakKlage({ oppgave }: IProps) {
     schema: hentValideringForMeldingOmVedtakBrevVariantSkjema(),
     defaultValues: {
       _action: "lagre-brev-variant",
-      behandlingId: oppgave.behandlingId,
+      oppgaveId: oppgave.oppgaveId,
       brevVariant: !isAlert(meldingOmVedtak) ? meldingOmVedtak?.brevVariant : "GENERERT",
     },
   });
@@ -49,7 +49,7 @@ export function MeldingOmVedtakKlage({ oppgave }: IProps) {
               <input
                 hidden={true}
                 readOnly={true}
-                {...endreBrevVariantForm.field("behandlingId").getInputProps()}
+                {...endreBrevVariantForm.field("oppgaveId").getInputProps()}
               />
 
               <RadioGroup

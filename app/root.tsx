@@ -117,6 +117,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       GITHUB_SHA: process.env.GITHUB_SHA,
       FARO_URL: process.env.FARO_URL,
       UMAMI_TRACKING_ID: process.env.UMAMI_TRACKING_ID,
+      UMAMI_HOST_URL: process.env.UMAMI_HOST_URL,
     },
   };
 }
@@ -160,9 +161,26 @@ export default function App() {
             }}
           />
           <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.umamiBeforeSend = function(type, payload) {
+                  if (payload.url) {
+                    var ids = new Set(["oppgave","dagpenger-rett","person","innsending","klage"]);
+                    var segments = payload.url.split("/");
+                    for (var i = 0; i < segments.length - 1; i++) {
+                      if (ids.has(segments[i])) segments[i+1] = ":id";
+                    }
+                    payload.url = segments.join("/");
+                  }
+                  return payload;
+                }
+              `,
+            }}
+          />
+          <script
             defer
             src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-            data-host-url="https://umami.nav.no"
+            data-host-url={env.UMAMI_HOST_URL}
             data-website-id={env.UMAMI_TRACKING_ID}
             data-before-send="umamiBeforeSend"
           />

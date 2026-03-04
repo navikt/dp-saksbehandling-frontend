@@ -1,7 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 
 import { IAlert } from "~/context/alert-context";
-import { lagreBrevVariant } from "~/models/melding-om-vedtak.server";
+import { lagreMeldingOmVedtakBrevVariant } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForMeldingOmVedtakBrevVariantSkjema } from "~/utils/validering.util";
 
@@ -15,9 +15,13 @@ export async function lagreBrevVariantAction(request: Request, formData: FormDat
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, brevVariant } = validertSkjema.data;
+  const { oppgaveId, brevVariant } = validertSkjema.data;
 
-  const { response, error } = await lagreBrevVariant(request, behandlingId, brevVariant);
+  const { response, error } = await lagreMeldingOmVedtakBrevVariant(
+    request,
+    oppgaveId,
+    brevVariant,
+  );
 
   if (error) {
     return getHttpProblemAlert(error);

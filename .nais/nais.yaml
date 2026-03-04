@@ -46,8 +46,6 @@ spec:
       value: "{{dp-behandling_url}}"
     - name: DP_SAKSBEHANDLING_URL
       value: "{{dp-saksbehandling_url}}"
-    - name: DP_MELDING_OM_VEDTAK_URL
-      value: "{{dp-melding-om-vedtak_url}}"
     - name: DP_RAPPORTERING_PERSONREGISTER_URL
       value: "{{dp-rapportering-personregister_url}}"
     - name: DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL
@@ -96,6 +94,8 @@ spec:
       value: "{{githubSha}}"
     - name: UMAMI_TRACKING_ID
       value: "{{umami_tracking_id}}"
+    - name: UMAMI_HOST_URL
+      value: "{{umami_host_url}}"
 
   envFrom:
     - secret: dp-saksbehandling-frontend-unleash-api-token
@@ -119,7 +119,6 @@ spec:
       rules:
         - application: dp-saksbehandling
         - application: dp-behandling
-        - application: dp-melding-om-vedtak
         - application: dp-soknad-orkestrator
         - application: dp-rapportering-personregister
 

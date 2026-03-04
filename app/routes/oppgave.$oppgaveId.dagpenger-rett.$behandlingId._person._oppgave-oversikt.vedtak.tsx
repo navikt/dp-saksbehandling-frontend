@@ -20,8 +20,7 @@ import { OpplysningerPåPrøvingsdato } from "~/components/opplysninger-på-prø
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentMeldingOmVedtak } from "~/models/melding-om-vedtak.server";
-import { hentOppgave } from "~/models/saksbehandling.server";
+import { hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
 import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
 import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
@@ -35,24 +34,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [oppgave, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
-    hentOppgave(request, params.oppgaveId),
+  const [meldingOmVedtak, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all([
+    hentMeldingOmVedtakHtml(request, params.oppgaveId),
     sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
     sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
   ]);
-  let meldingOmVedtak;
-
-  if (oppgave.saksbehandler) {
-    meldingOmVedtak = await hentMeldingOmVedtak(request, oppgave.behandlingId, {
-      fornavn: oppgave.person.fornavn,
-      mellomnavn: oppgave.person.mellomnavn,
-      etternavn: oppgave.person.etternavn,
-      fodselsnummer: oppgave.person.ident,
-      saksbehandler: oppgave.saksbehandler,
-      beslutter: oppgave.beslutter,
-      behandlingstype: oppgave.behandlingType,
-    });
-  }
 
   return { sanityBrevMaler, sanityRegelmotorOpplysninger, meldingOmVedtak };
 }

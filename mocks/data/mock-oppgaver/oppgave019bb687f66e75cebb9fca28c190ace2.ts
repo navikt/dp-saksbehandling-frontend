@@ -78,6 +78,13 @@ export const oppgave019bb687f66e75cebb9fca28c190ace2: components["schemas"]["Opp
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
     leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "INHABILITET", "FRAVÆR", "ANNET"],
     returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
+    kvalitetskontrollAarsaker: [
+      "OPPLÆRING",
+      "INNGRIPENDE_FOR_BRUKER",
+      "KOMPLISERT_VURDERING",
+      "SKJØNNSMESSIG_VURDERING",
+      "ANNET",
+    ],
   },
   soknadId: "d5e2160c-bf80-473c-8118-8e13f2672cd4",
   meldingOmVedtakKilde: "DP_SAK",

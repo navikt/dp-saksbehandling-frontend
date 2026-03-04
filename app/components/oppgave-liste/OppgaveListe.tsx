@@ -5,7 +5,6 @@ import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMe
 import { OppgaveListeHeader } from "~/components/oppgave-liste/OppgaveListeHeader";
 import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { ISortState, useTableSort } from "~/hooks/useTableSort";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 import {
@@ -22,7 +21,6 @@ interface IProps {
   totaltAntallOppgaver: number;
   tittel?: string;
   icon?: React.ReactNode;
-  sortState?: ISortState<components["schemas"]["OppgaveOversikt"]>;
   lasterOppgaver?: boolean;
   visPersonIdent?: boolean;
 }
@@ -30,10 +28,6 @@ interface IProps {
 export function OppgaveListe(props: IProps) {
   const { oppgaver, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
-  const { sortedData, handleSort, sortState } = useTableSort<
-    components["schemas"]["OppgaveOversikt"]
-  >(oppgaver, props.sortState);
-
   return (
     <div className="flex flex-col p-4">
       <div className={styles.oppgavelisteHeader}>
@@ -52,25 +46,17 @@ export function OppgaveListe(props: IProps) {
         )}
       </div>
 
-      <Table
-        sort={props.sortState ? sortState : undefined}
-        size="small"
-        className={"tabell--subtil"}
-        zebraStripes={true}
-        onSortChange={(sortKey) =>
-          sortKey && handleSort(sortKey as keyof components["schemas"]["OppgaveOversikt"])
-        }
-      >
-        <OppgaveListeHeader visPersonIdent={visPersonIdent} sortState={sortState} />
+      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
+        <OppgaveListeHeader visPersonIdent={visPersonIdent} />
 
         <Table.Body>
-          {sortedData.length === 0 && (
+          {oppgaver.length === 0 && (
             <Table.Row shadeOnHover={false}>
               <Table.DataCell colSpan={visPersonIdent ? 9 : 8}>Fant ingen oppgaver</Table.DataCell>
             </Table.Row>
           )}
 
-          {sortedData?.map((oppgave) => {
+          {oppgaver?.map((oppgave) => {
             const { tidspunktOpprettet, tilstand, utsattTilDato } = oppgave;
             const dagerIgjenTilUtsattDato = utsattTilDato
               ? differenceInCalendarDays(utsattTilDato, new Date())

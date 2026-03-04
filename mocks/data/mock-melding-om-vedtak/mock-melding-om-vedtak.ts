@@ -1,4 +1,4 @@
-import { components } from "../../../openapi/melding-om-vedtak-typer";
+import { components } from "../../../openapi/saksbehandling-typer";
 import avslagBrev from "./mock-avslag-brev.html?raw";
 import egendefinert from "./mock-egendefinert-brev.html?raw";
 import innvilgetBrev from "./mock-innvilget-brev.html?raw";
@@ -75,31 +75,35 @@ const mockMeldingOmVedtakKlage: components["schemas"]["MeldingOmVedtakResponse"]
 
 export const mockMeldingerOmVedtak = [
   {
-    behandlingId: "019a71dd-03ab-7fbe-9714-c9472667f87c",
+    oppgaveId: "019c28e8-fbdb-7466-b5e6-f6466f89d054",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "019a81e3-99ab-7951-8dd1-614c3b5bcf48",
+    oppgaveId: "019bb687-f66e-75ce-bb9f-ca28c190ace2",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "019a9714-9968-731e-8918-779b5d1e8727",
+    oppgaveId: "019b9cf5-5803-77b3-b9db-2195d8101a55",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "0198c672-111d-7701-a986-76b0ca6b215d",
+    oppgaveId: "019b2ce1-aecd-715e-b604-3ba49ebe3abc",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "01980d51-30d1-7af3-a8f5-2f2572087d2a",
+    oppgaveId: "019b2cdf-d913-763a-a823-40c42f9d5461",
     melding: mockMeldingOmVedtakInnvilgelse,
   },
   {
-    behandlingId: "01997540-0ad3-763a-aa60-21546135aa57",
+    oppgaveId: "019b2ccd-885d-71eb-8977-f453029fd5b4",
+    melding: mockMeldingOmVedtakInnvilgelse,
+  },
+  {
+    oppgaveId: "019b2cbf-a883-718c-8ad3-eecfc980ffd7",
     melding: mockMeldingOmVedtakAvslagMinsteinntekt,
   },
   {
-    behandlingId: "01993817-439e-7d3d-9d8a-78cf49ed6fc1",
+    oppgaveId: "0199390e-3602-7b10-9402-77ca0d12d8ac",
     melding: mockMeldingOmVedtakKlage,
   },
 ];

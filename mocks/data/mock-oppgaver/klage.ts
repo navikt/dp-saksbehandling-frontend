@@ -65,6 +65,13 @@ export const klage: components["schemas"]["Oppgave"] = {
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],
     leggTilbakeAarsaker: ["MANGLER_KOMPETANSE", "INHABILITET", "FRAVÆR", "ANNET"],
     returnerTilSaksbehandlingAarsaker: ["FEIL_UTFALL", "FEIL_HJEMMEL", "HAR_MANGLER", "ANNET"],
+    kvalitetskontrollAarsaker: [
+      "OPPLÆRING",
+      "INNGRIPENDE_FOR_BRUKER",
+      "KOMPLISERT_VURDERING",
+      "SKJØNNSMESSIG_VURDERING",
+      "ANNET",
+    ],
   },
   meldingOmVedtakKilde: "DP_SAK",
   kontrollertBrev: "IKKE_RELEVANT",

@@ -42,7 +42,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       
       - name: Run tests
-        run: pnpm test run
+        run: pnpm test
 
   build:
     name: Bygg

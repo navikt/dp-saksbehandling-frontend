@@ -29,15 +29,6 @@ export async function getBehandlingOboToken(request: Request) {
   return await getOnBehalfOfToken(request, audience);
 }
 
-export async function getMeldingOmVedtakOboToken(request: Request) {
-  if (process.env.IS_LOCALHOST === "true") {
-    return process.env.DP_MELDING_OM_VEDTAK_TOKEN as string;
-  }
-
-  const audience = `api://${process.env.NAIS_CLUSTER_NAME}.teamdagpenger.dp-melding-om-vedtak/.default`;
-  return await getOnBehalfOfToken(request, audience);
-}
-
 export async function getSoknadOrkestratorOboToken(request: Request) {
   if (process.env.IS_LOCALHOST === "true") {
     return process.env.DP_SOKNAD_ORKESTRATOR_TOKEN as string;

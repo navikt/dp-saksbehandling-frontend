@@ -3,7 +3,6 @@ import { z } from "zod";
 import { logger } from "~/utils/logger.utils";
 
 import { components } from "../../openapi/behandling-typer";
-import { components as meldingOmVedtakComponents } from "../../openapi/melding-om-vedtak-typer";
 import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export type NyBehandlingType =
@@ -278,14 +277,12 @@ export function hentValideringForMeldingOmVedtakKildeSkjema() {
 }
 
 export function hentValideringForMeldingOmVedtakBrevVariantSkjema() {
-  const lovligeBrevVarianter: meldingOmVedtakComponents["schemas"]["BrevVariant"][] = [
-    "GENERERT",
-    "EGENDEFINERT",
-  ];
+  const lovligeBrevVarianter: saksbehandlingComponents["schemas"]["MeldingOmVedtakBrevVariant"][] =
+    ["GENERERT", "EGENDEFINERT"];
 
   return z.object({
     _action: z.literal("lagre-brev-variant"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     brevVariant: z.enum(lovligeBrevVarianter, {
       message: "Du må velge et alternativ",
     }),
@@ -389,9 +386,21 @@ export function hentValideringForRekjørBehandling() {
 }
 
 export function hentValideringForSendTilKontroll() {
+  const gyldigeÅrsaker: saksbehandlingComponents["schemas"]["KvalitetskontrollAarsak"][] = [
+    "OPPLÆRING",
+    "INNGRIPENDE_FOR_BRUKER",
+    "KOMPLISERT_VURDERING",
+    "SKJØNNSMESSIG_VURDERING",
+    "TOTRINNSKONTROLL",
+    "ANNET",
+  ];
+
   return z.object({
     _action: z.literal("send-til-kontroll"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    årsak: z.enum(gyldigeÅrsaker, {
+      message: "Du må velge en årsak for å sende oppgaven til kontroll.",
+    }),
   });
 }
 
@@ -441,7 +450,7 @@ export function hentValideringForReturnerTilSaksbehandler() {
 export function hentValideringForUtvidetBeskrivelse() {
   return z.object({
     _action: z.literal("lagre-utvidet-beskrivelse"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     brevBlokkId: z.string().min(1, "Det mangler brevBlokkId i skjema"),
     utvidetBeskrivelse: z.string(),
   });

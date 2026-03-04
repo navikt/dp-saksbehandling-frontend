@@ -4,9 +4,6 @@
  * For more information, see https://remix.run/file-conventions/entry.client
  */
 
-// Denne importen sørger for at umamiBeforeSend er tilgjengelig når vi laster umami i root.tsx
-import "~/umami";
-
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";

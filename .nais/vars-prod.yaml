@@ -3,7 +3,6 @@ gcp_env: "prod"
 
 dp-behandling_url: "http://dp-behandling"
 dp-saksbehandling_url: "http://dp-saksbehandling"
-dp-melding-om-vedtak_url: "http://dp-melding-om-vedtak"
 dp-soknad-orkestrator_url: "http://dp-soknad-orkestrator"
 dp-rapportering-personregister_url: "http://dp-rapportering-personregister"
 dp-rapportering-saksbehandling-frontend_url: "https://rapportering-dagpenger.ansatt.nav.no"
@@ -35,3 +34,4 @@ azure:
     beslutter: "70d54cad-53a3-4788-bbe3-565096f01da7" # 0000-GA-Dagpenger-Beslutter
 
 umami_tracking_id: "111dd281-f3a1-4646-9554-400ac338e412"
+umami_host_url: "https://umami.nav.no"

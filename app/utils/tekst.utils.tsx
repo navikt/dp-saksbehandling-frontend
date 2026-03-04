@@ -28,6 +28,26 @@ export function hentTekstForReturnerTilSaksbehandlerÅrsak(
   }
 }
 
+export function hentTekstForSendTilKontrollÅrsak(
+  årsak: saksbehandlingComponents["schemas"]["KvalitetskontrollAarsak"],
+): string {
+  switch (årsak) {
+    case "OPPLÆRING":
+      return "Opplæring";
+    case "INNGRIPENDE_FOR_BRUKER":
+      return "Inngripende for bruker";
+    case "KOMPLISERT_VURDERING":
+      return "Komplisert vurdering";
+    case "SKJØNNSMESSIG_VURDERING":
+      return "Skjønsmessig vurdering";
+    case "ANNET":
+      return "Annet";
+
+    default:
+      return årsak;
+  }
+}
+
 export function hentTekstForAvbrytÅrsak(
   avbrytÅrsak: saksbehandlingComponents["schemas"]["AvbrytOppgaveAarsak"],
 ): string {

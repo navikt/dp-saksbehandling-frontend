@@ -5,7 +5,7 @@ import { IAlert } from "~/context/alert-context";
 import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { isAlert } from "~/utils/type-guards";
 
-import { components } from "../../openapi/melding-om-vedtak-typer";
+import { components } from "../../openapi/saksbehandling-typer";
 
 interface IMeldingOmVedtakContext {
   meldingOmVedtak?: components["schemas"]["MeldingOmVedtakResponse"] | IAlert;
@@ -17,7 +17,7 @@ interface IMeldingOmVedtakContext {
   oppdaterOpplysningPeriodeVerdier: (verdi: IOpplysningPeriodeVerdi) => void;
 }
 
-type IUtvidetBeskrivelse = components["schemas"]["UtvidetBeskrivelse"];
+type IUtvidetBeskrivelse = components["schemas"]["MeldingOmVedtakUtvidetBeskrivelse"];
 export interface IOpplysningPeriodeVerdi {
   uuid: string;
   opplysningTypeId: string;

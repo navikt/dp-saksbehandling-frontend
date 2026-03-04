@@ -30,7 +30,6 @@ export function initFaro() {
           propagateTraceHeaderCorsUrls: [
             new RegExp(`${getEnv("DP_SAKSBEHANDLING_URL")}/*`),
             new RegExp(`${getEnv("DP_BEHANDLING_URL")}/*`),
-            new RegExp(`${getEnv("DP_MELDING_OM_VEDTAK_URL")}/*`),
           ],
         },
       }),

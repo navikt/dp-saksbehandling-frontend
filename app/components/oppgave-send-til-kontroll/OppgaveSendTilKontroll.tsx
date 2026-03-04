@@ -26,15 +26,16 @@ export function OppgaveSendTilKontroll() {
     defaultValues: {
       _action: "send-til-kontroll",
       oppgaveId: oppgaveId,
+      årsak: "TOTRINNSKONTROLL",
     },
   });
 
   function handleOnClick() {
-    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && !isAlert(meldingOmVedtak)) {
+    if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
+      setVisFeilmelding(true);
+    } else {
       modalRef.current?.showModal();
     }
-
-    setVisFeilmelding(true);
   }
 
   return (

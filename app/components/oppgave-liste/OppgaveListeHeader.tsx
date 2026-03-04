@@ -1,19 +1,14 @@
 import { Detail, Table } from "@navikt/ds-react";
 
-import { ISortState } from "~/hooks/useTableSort";
-
-import { components } from "../../../openapi/saksbehandling-typer";
-
 interface IProps {
   visPersonIdent?: boolean;
-  sortState?: ISortState<components["schemas"]["OppgaveOversikt"]>;
 }
 
-export function OppgaveListeHeader({ visPersonIdent, sortState }: IProps) {
+export function OppgaveListeHeader({ visPersonIdent }: IProps) {
   return (
     <Table.Header>
       <Table.Row>
-        <Table.ColumnHeader scope="col" sortKey="tidspunktOpprettet" sortable={!!sortState}>
+        <Table.ColumnHeader scope="col">
           <Detail>Opprettet</Detail>
         </Table.ColumnHeader>
 

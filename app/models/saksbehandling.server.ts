@@ -238,10 +238,18 @@ export async function ferdigstillOppgave(request: Request, oppgaveId: string) {
   });
 }
 
-export async function sendOppgaveTilKontroll(request: Request, oppgaveId: string) {
+export async function sendOppgaveTilKontroll(
+  request: Request,
+  oppgaveId: string,
+  årsak: components["schemas"]["KvalitetskontrollAarsak"],
+) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+
   return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/send-til-kontroll", {
     headers: getHeaders(onBehalfOfToken),
+    body: {
+      aarsak: årsak,
+    },
     params: {
       path: { oppgaveId },
     },
@@ -378,6 +386,61 @@ export async function hentOppgaveIdForBehandlingId(request: Request, behandlingI
   if (data) {
     return redirect(`/oppgave/${data.oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
   }
+}
+
+export async function hentMeldingOmVedtakHtml(request: Request, oppgaveId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error } = await saksbehandlerClient.GET(
+    "/oppgave/{oppgaveId}/melding-om-vedtak/html",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { oppgaveId },
+      },
+    },
+  );
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    return getHttpProblemAlert(error, "warn", "warning");
+  }
+}
+
+export async function lagreMeldingOmVedtakUtvidetBeskrivelse(
+  request: Request,
+  oppgaveId: string,
+  brevblokkId: string,
+  utvidetBeskrivelse: string,
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT(
+    "/oppgave/{oppgaveId}/melding-om-vedtak/utvidet-beskrivelse/{brevblokkId}",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      body: { tekst: utvidetBeskrivelse },
+      params: {
+        path: { oppgaveId, brevblokkId },
+      },
+    },
+  );
+}
+
+export async function lagreMeldingOmVedtakBrevVariant(
+  request: Request,
+  oppgaveId: string,
+  brevVariant: components["schemas"]["MeldingOmVedtakBrevVariant"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppgave/{oppgaveId}/melding-om-vedtak/brev-variant", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { brevVariant },
+    params: {
+      path: { oppgaveId },
+    },
+  });
 }
 
 export async function hentStatistikk(request: Request, urlSearchParams: URLSearchParams) {
