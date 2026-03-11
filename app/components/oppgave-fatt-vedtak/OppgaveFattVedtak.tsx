@@ -7,10 +7,7 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import {
-  formaterOpplysningVerdi,
-  hentOpplysningsperiodePåPrøvingsdato,
-} from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
 
@@ -43,11 +40,9 @@ export function OppgaveFattVedtak() {
     return null;
   }
 
-  const harLøpendeRettPåDagpengerPeriode = hentOpplysningsperiodePåPrøvingsdato(
-    behandling.opplysninger,
-    "01990a09-0eab-7957-b88f-14484a50e194",
-    sistePrøvingsdato.toISOString(),
-  );
+  const rettPåDagpengerSistePeriode = behandling.opplysninger
+    .find((opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194")
+    ?.perioder.at(-1);
 
   function handleOnClick() {
     if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
@@ -72,11 +67,11 @@ export function OppgaveFattVedtak() {
 
       <Modal ref={modalRef} header={{ heading: "Fatt vedtak" }}>
         <Modal.Body>
-          {harLøpendeRettPåDagpengerPeriode && (
+          {rettPåDagpengerSistePeriode && (
             <BodyLong>
               Ønsker du å fatte vedtak med utfall{" "}
               <strong>
-                {formaterOpplysningVerdi(harLøpendeRettPåDagpengerPeriode.verdi) === "Ja"
+                {formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
                   ? "Innvilgelse"
                   : "Avslag"}
               </strong>
