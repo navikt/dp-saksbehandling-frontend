@@ -75,7 +75,7 @@ jobs:
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
-      
+
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push

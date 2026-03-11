@@ -1,7 +1,5 @@
 FROM node:24-alpine AS node
 RUN corepack enable pnpm
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-   pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN)
 RUN pnpm config set @navikt:registry=https://npm.pkg.github.com
 
 
@@ -18,7 +16,10 @@ COPY ./tailwind.config.js  ./
 COPY ./package.json ./
 COPY ./pnpm-lock.yaml ./
 
-RUN pnpm install --ignore-scripts
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
+    pnpm install --ignore-scripts && \
+    pnpm config delete //npm.pkg.github.com/:_authToken
 RUN pnpm run build
 
 
@@ -29,7 +30,10 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./pnpm-lock.yaml ./
 
-RUN pnpm install --ignore-scripts --prod
+RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
+    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
+    pnpm install --ignore-scripts --prod && \
+    pnpm config delete //npm.pkg.github.com/:_authToken
 
 
 # export build to filesystem (GitHub)
