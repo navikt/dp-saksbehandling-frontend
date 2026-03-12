@@ -31,16 +31,6 @@ export function hentValideringForOpplysningPeriodeSkjema(
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
-    // TODO Kan slettes når gammel opplysningredigering fjernes
-    ingenTomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
-    // TODO Kan slettes når gammel opplysningredigering fjernes
-    ingenFomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
   });
 }
 

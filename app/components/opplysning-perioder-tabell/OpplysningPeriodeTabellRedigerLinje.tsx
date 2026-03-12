@@ -136,8 +136,8 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       <Table.DataCell>
         <OpplysningPeriodeInput
           opplysning={props.opplysning}
-          datatype={props.opplysning.datatype}
           formScope={periodeForm.scope("verdi")}
+          hideLabel={true}
         />
       </Table.DataCell>
 

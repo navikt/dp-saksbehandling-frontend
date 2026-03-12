@@ -7,21 +7,20 @@ export function OpplysningPeriodeInt({
   opplysning,
   formScope,
   readonly,
-}: Omit<IOpplysningPeriodeProps, "datatype">) {
+  hideLabel,
+}: IOpplysningPeriodeProps) {
   const field = useField(formScope);
 
   return (
-    <>
-      <TextField
-        {...field.getInputProps()}
-        error={field.error()}
-        label={opplysning.navn}
-        hideLabel={true}
-        type="text"
-        inputMode="numeric"
-        size="small"
-        readOnly={readonly}
-      />
-    </>
+    <TextField
+      {...field.getInputProps()}
+      error={field.error()}
+      label={opplysning.navn}
+      hideLabel={hideLabel}
+      type="text"
+      inputMode="numeric"
+      size="small"
+      readOnly={readonly}
+    />
   );
 }

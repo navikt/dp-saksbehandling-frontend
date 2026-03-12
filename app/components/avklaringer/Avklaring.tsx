@@ -87,14 +87,27 @@ export function Avklaring(props: IProps) {
         <div className={"flex flex-col gap-4"}>
           <BodyLong size={"small"}>{props.avklaring.beskrivelse}</BodyLong>
 
-          {props.avklaring.regelsett.map((regelsett) => (
-            <LoadingLink
-              key={regelsett.id}
-              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
-            >
-              {regelsett.hjemmel.tittel}
-            </LoadingLink>
-          ))}
+          {props.avklaring.regelsett.map((regelsett) => {
+            if (regelsett.type === "Prosess") {
+              return (
+                <LoadingLink
+                  key={regelsett.id}
+                  to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/prosess-regelsett/${regelsett.id}`}
+                >
+                  {regelsett.hjemmel.tittel}
+                </LoadingLink>
+              );
+            }
+
+            return (
+              <LoadingLink
+                key={regelsett.id}
+                to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsett.id}`}
+              >
+                {regelsett.hjemmel.tittel}
+              </LoadingLink>
+            );
+          })}
 
           {kanRedigereBegrunnelse && (
             <>
