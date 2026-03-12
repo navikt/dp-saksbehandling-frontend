@@ -1,12 +1,24 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
-import { type LoaderFunctionArgs, useLoaderData } from "react-router";
+import {
+  ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  useActionData,
+  useLoaderData,
+} from "react-router";
 import invariant from "tiny-invariant";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { ProsessOpplysning } from "~/components/prosess-opplysning/ProsessOpplysning";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentBehandling } from "~/models/behandling.server";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
@@ -30,6 +42,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function ProsessRegelsett() {
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
   const { behandling, regelsett } = useLoaderData<typeof loader>();
   const { oppgaveId } = useTypeSafeParams();
   const opplysninger = behandling.opplysninger.filter((opplysning) =>
