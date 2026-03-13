@@ -196,7 +196,7 @@ export function hentValideringSettOppgavePåVent() {
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato(),
     ),
-    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en begrunnelse" }),
+    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
 }
 
