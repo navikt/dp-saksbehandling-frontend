@@ -1,4 +1,4 @@
-import { BodyLong, Button, InlineMessage, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, InlineMessage, Modal, Tag } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
@@ -69,12 +69,22 @@ export function OppgaveFattVedtak() {
         <Modal.Body>
           {rettPåDagpengerSistePeriode && (
             <BodyLong>
-              Ønsker du å fatte vedtak med utfall{" "}
-              <strong>
-                {formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
-                  ? "Innvilgelse"
-                  : "Avslag"}
-              </strong>
+              Du er i ferd med å fatte vedtak med utfall:
+              <div>
+                <Tag
+                  size={"xsmall"}
+                  data-color={
+                    formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
+                      ? "success"
+                      : "danger"
+                  }
+                  className={"whitespace-nowrap"}
+                >
+                  {formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
+                    ? "Innvilgelse"
+                    : "Avslag"}
+                </Tag>
+              </div>
             </BodyLong>
           )}
         </Modal.Body>
@@ -86,7 +96,7 @@ export function OppgaveFattVedtak() {
             loading={fattVedtakForm.formState.isSubmitting}
             onClick={() => fattVedtakForm.submit()}
           >
-            Ja
+            Fatt vedtak
           </Button>
 
           <Button
@@ -95,7 +105,7 @@ export function OppgaveFattVedtak() {
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Ikke fatt vedtak
           </Button>
         </Modal.Footer>
       </Modal>
