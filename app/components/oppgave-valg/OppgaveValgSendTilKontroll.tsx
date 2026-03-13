@@ -1,5 +1,5 @@
 import { PaperplaneIcon } from "@navikt/aksel-icons";
-import { Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -44,22 +44,20 @@ export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant 
         Send til kontroll
       </Button>
 
-      <Modal ref={modalRef} header={{ heading: "Vil du sende oppgaven til kontroll?" }}>
+      <Modal ref={modalRef} header={{ heading: "Send til kontroll" }}>
         <Modal.Body>
-          <Select
+          <RadioGroup
             {...sendTilKontrollForm.getInputProps("årsak")}
-            className={"mt-8"}
-            label="Årsak"
             size="small"
             error={sendTilKontrollForm.field("årsak").error()}
+            legend="Velg årsak"
           >
-            <option value={""}>- Velg årsak -</option>
             {oppgave.lovligeEndringer.kvalitetskontrollAarsaker.map((årsak) => (
-              <option key={årsak} value={årsak}>
+              <Radio key={årsak} value={årsak}>
                 {hentTekstForSendTilKontrollÅrsak(årsak)}
-              </option>
+              </Radio>
             ))}
-          </Select>
+          </RadioGroup>
         </Modal.Body>
 
         <Modal.Footer>
@@ -69,7 +67,7 @@ export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant 
             onClick={() => sendTilKontrollForm.submit()}
             loading={sendTilKontrollForm.formState.isSubmitting}
           >
-            Ja
+            Send til kontroll
           </Button>
 
           <Button
@@ -78,7 +76,7 @@ export function OppgaveValgSendTilKontroll({ oppgave, buttonSize, buttonVariant 
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Ikke send til kontroll
           </Button>
         </Modal.Footer>
       </Modal>
