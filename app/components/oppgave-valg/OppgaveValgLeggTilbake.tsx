@@ -1,5 +1,5 @@
 import { ArrowUndoIcon } from "@navikt/aksel-icons";
-import { BodyLong, Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -49,23 +49,19 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
       </Button>
 
       <Modal ref={modalRef} header={{ heading: "Legg tilbake" }}>
-        <Modal.Body className={"pt-0"}>
-          <BodyLong> Du er i ferd med å legge tilbake oppgaven</BodyLong>
-
-          <Select
-            {...leggTilbakeForm.field("årsak").getInputProps()}
+        <Modal.Body>
+          <RadioGroup
+            {...leggTilbakeForm.getInputProps("årsak")}
+            size="small"
             error={leggTilbakeForm.field("årsak").error()}
-            size={"small"}
-            className={"mt-4"}
-            label={"Velg årsak"}
+            legend="Velg årsak"
           >
-            <option hidden={true}>- Velg årsak -</option>
-            {oppgave.lovligeEndringer?.leggTilbakeAarsaker.map((årsak) => (
-              <option key={årsak} value={årsak}>
+            {oppgave.lovligeEndringer.leggTilbakeAarsaker.map((årsak) => (
+              <Radio key={årsak} value={årsak}>
                 {hentTekstForLeggTilbakeÅrsak(årsak)}
-              </option>
+              </Radio>
             ))}
-          </Select>
+          </RadioGroup>
         </Modal.Body>
 
         <Modal.Footer>
@@ -76,7 +72,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
             loading={leggTilbakeForm.formState.isSubmitting}
             onClick={() => leggTilbakeForm.submit()}
           >
-            Ja, legg tilbake oppgaven
+            Legg tilbake
           </Button>
 
           <Button
@@ -85,7 +81,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Ikke legg tilbake
           </Button>
         </Modal.Footer>
       </Modal>
