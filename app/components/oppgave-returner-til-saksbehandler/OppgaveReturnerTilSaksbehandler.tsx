@@ -1,4 +1,4 @@
-import { BodyLong, Button, Detail, Heading, Modal, Select, Textarea } from "@navikt/ds-react";
+import { Button, Detail, Modal, Radio, RadioGroup, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { type ChangeEvent, useEffect, useRef } from "react";
 import { useFetcher, useLocation } from "react-router";
@@ -84,10 +84,8 @@ export function OppgaveReturnerTilSaksbehandler() {
         Returner til saksbehandler
       </Button>
 
-      <Modal ref={modalRef} header={{ heading: "Send tilbake til saksbehandler" }}>
+      <Modal ref={modalRef} header={{ heading: "Returner til saksbehandler" }}>
         <Modal.Body>
-          <BodyLong>Du er i ferd med å returnere oppgaven tilbake til saksbehandler.</BodyLong>
-
           <Textarea
             {...returnerTilSaksbehandlerForm.getInputProps("notat")}
             size={"small"}
@@ -96,59 +94,52 @@ export function OppgaveReturnerTilSaksbehandler() {
             onChange={lagreNotat}
             onBlur={handleOnBlur}
             resize="vertical"
-            label={
-              <>
-                <Heading size="small">Melding</Heading>
-                <Detail textColor="subtle">Notat vil være synlig for bruker ved innsyn. </Detail>
-              </>
-            }
+            label={"Notat til saksbehandler"}
+            description={"Notat vil være synlig for bruker ved innsyn. "}
             error={returnerTilSaksbehandlerForm.field("notat").error()}
           />
 
-          <Select
+          <RadioGroup
+            className={"mt-2"}
             {...returnerTilSaksbehandlerForm.getInputProps("årsak")}
-            className={"mt-8"}
-            label="Årsak"
             size="small"
             error={returnerTilSaksbehandlerForm.field("årsak").error()}
+            legend="Velg årsak"
           >
-            <option hidden={true} value={""}>
-              - Velg årsak -
-            </option>
             {oppgave.lovligeEndringer.returnerTilSaksbehandlingAarsaker.map((årsak) => (
-              <option key={årsak} value={årsak}>
+              <Radio key={årsak} value={årsak}>
                 {hentTekstForReturnerTilSaksbehandlerÅrsak(årsak)}
-              </option>
+              </Radio>
             ))}
-          </Select>
+          </RadioGroup>
 
           {notat.sistEndretTidspunkt && (
             <Detail textColor="subtle">
               Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
             </Detail>
           )}
-
-          <div className="mt-6 flex gap-2">
-            <Button
-              size="small"
-              type="button"
-              variant="secondary"
-              onClick={() => modalRef.current?.close()}
-            >
-              Avbryt
-            </Button>
-
-            <Button
-              size="small"
-              variant="primary"
-              type="button"
-              onClick={() => returnerTilSaksbehandlerForm.submit()}
-              loading={returnerTilSaksbehandlerForm.formState.isSubmitting}
-            >
-              Ja
-            </Button>
-          </div>
         </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            size="small"
+            variant="primary"
+            type="button"
+            onClick={() => returnerTilSaksbehandlerForm.submit()}
+            loading={returnerTilSaksbehandlerForm.formState.isSubmitting}
+          >
+            Returner til saksbehandler
+          </Button>
+
+          <Button
+            size="small"
+            type="button"
+            variant="secondary"
+            onClick={() => modalRef.current?.close()}
+          >
+            Ikke returner
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
