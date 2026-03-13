@@ -14,8 +14,8 @@ export async function avbrytOppgaveAction(request: Request, formData: FormData) 
     return validationError(validertSkjema.error);
   }
 
-  const { oppgaveId, avbrytAarsak } = validertSkjema.data;
-  const { error } = await avbrytOppgave(request, oppgaveId, avbrytAarsak);
+  const { oppgaveId, årsak } = validertSkjema.data;
+  const { error } = await avbrytOppgave(request, oppgaveId, årsak);
 
   if (error) {
     return getHttpProblemAlert(error);

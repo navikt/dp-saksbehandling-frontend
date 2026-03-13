@@ -210,7 +210,7 @@ export function hentValideringAvbrytOppgave() {
   return z.object({
     _action: z.literal("avbryt-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
 }
 

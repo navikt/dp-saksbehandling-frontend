@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@navikt/aksel-icons";
-import { Alert, BodyLong, Button, ButtonProps, Modal, Select } from "@navikt/ds-react";
+import { Button, ButtonProps, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
@@ -36,7 +36,7 @@ export function OppgaveValgAvbryt({
       oppgaveId: oppgaveId,
       // Castingen her gjør at vi kan ha en tom verdi selv om paaVentAarsak er påkrevd i sjemaet
       // https://github.com/colinhacks/zod/discussions/1198#discussioncomment-13070773
-      avbrytAarsak: "" as unknown as components["schemas"]["AvbrytOppgaveAarsak"],
+      årsak: "" as unknown as components["schemas"]["AvbrytOppgaveAarsak"],
     },
   });
 
@@ -54,30 +54,19 @@ export function OppgaveValgAvbryt({
       </Button>
 
       <Modal ref={modalRef} header={{ heading: "Avbryt" }}>
-        <Modal.Body className={"pt-0"}>
-          <BodyLong> Du er i ferd med å avbryte oppgaven</BodyLong>
-          <Select
-            {...avbrytOppgaveForm.getInputProps("avbrytAarsak")}
-            className={"mt-2"}
-            label="Velg årsak"
+        <Modal.Body>
+          <RadioGroup
+            {...avbrytOppgaveForm.getInputProps("årsak")}
             size="small"
+            error={avbrytOppgaveForm.field("årsak").error()}
+            legend="Velg årsak"
           >
-            <option hidden={true} value={""}>
-              Velg årsak
-            </option>
-
             {lovligeEndringer.avbrytAarsaker.map((årsak) => (
-              <option key={årsak} value={årsak}>
+              <Radio key={årsak} value={årsak}>
                 {hentTekstForAvbrytÅrsak(årsak)}
-              </option>
+              </Radio>
             ))}
-          </Select>
-
-          {avbrytOppgaveForm.error("avbrytAarsak") && (
-            <Alert variant={"error"} size="small" className={"mt-2"}>
-              {avbrytOppgaveForm.error("avbrytAarsak")}
-            </Alert>
-          )}
+          </RadioGroup>
         </Modal.Body>
 
         <Modal.Footer>
@@ -88,7 +77,7 @@ export function OppgaveValgAvbryt({
             loading={avbrytOppgaveForm.formState.isSubmitting}
             onClick={() => avbrytOppgaveForm.submit()}
           >
-            Ja, avbryt oppgaven
+            Avbryt oppgave
           </Button>
 
           <Button
@@ -97,7 +86,7 @@ export function OppgaveValgAvbryt({
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Nei, behold oppgaven
+            Behold oppgave
           </Button>
         </Modal.Footer>
       </Modal>
