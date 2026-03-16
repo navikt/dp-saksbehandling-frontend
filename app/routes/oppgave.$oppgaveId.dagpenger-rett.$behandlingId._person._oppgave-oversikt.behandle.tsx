@@ -8,6 +8,7 @@ import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { OppgaveMeny } from "~/components/oppgave-meny/OppgaveMeny";
 import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
+import { RevurderingResultat } from "~/components/revurdering-resultat/RevurderingResultat";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -30,6 +31,12 @@ export default function Behandle() {
           <LinkTabs className="flex-1" />
           <OppgaveMeny />
         </div>
+
+        {behandling.behandletHendelse.type === "Omgjøring" && (
+          <div className={"mt-4"}>
+            <RevurderingResultat />
+          </div>
+        )}
 
         <div className="mt-4 flex gap-4">
           <div className={"flex w-[400px] flex-col gap-4"}>
