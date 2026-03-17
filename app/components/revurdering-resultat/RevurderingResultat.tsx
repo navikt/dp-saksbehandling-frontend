@@ -8,8 +8,9 @@ import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 export function RevurderingResultat() {
   const { behandling } = useBehandling();
 
-  const opplysningerMedNyPeriode = behandling.opplysninger.filter((opplysning) =>
-    opplysning.perioder.some((periode) => periode.opprinnelse === "Ny"),
+  const opplysningerMedNyPeriode = behandling.opplysninger.filter(
+    (opplysning) =>
+      opplysning.synlig && opplysning.perioder.some((periode) => periode.opprinnelse === "Ny"),
   );
 
   return (
