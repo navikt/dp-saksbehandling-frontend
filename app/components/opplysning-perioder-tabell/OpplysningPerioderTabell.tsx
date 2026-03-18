@@ -133,10 +133,10 @@ export function OpplysningPerioderTabell(props: IProps) {
                   </Table.DataCell>
                 )}
 
-                {isBarneliste(periode.verdi) && (
+                {isBarneliste(periode.verdi) && periode.verdi.søknadBarnId && (
                   <Table.DataCell colSpan={2}>
                     <LoadingLink
-                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/barn/${periode.verdi.søknadBarnId}`}
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/rediger-barn/${periode.verdi.søknadBarnId}`}
                     >
                       Rediger barn
                     </LoadingLink>

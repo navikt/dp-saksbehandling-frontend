@@ -2,21 +2,22 @@ import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
 import { addYears, formatISO, subYears } from "date-fns";
 
+import { OrkestratorOpplysningLabel } from "~/components/orkestrator/orkestrator-barn/OrkestratorOpplysningLabel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string | undefined>;
+  formScope: FormScope<string | boolean | undefined>;
+  readOnly?: boolean;
 }
 
-export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
+export function OrkestratorOpplysningDato({ opplysning, formScope, readOnly }: IProps) {
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: opplysning.verdi === "null" ? undefined : new Date(opplysning.verdi),
+    defaultSelected: opplysning.verdi ? new Date(opplysning.verdi) : undefined,
     toDate: addYears(new Date(), 100),
     fromDate: subYears(new Date(), 100),
     locale: "nb",
@@ -41,11 +42,11 @@ export function OrkestratorOpplysningDato({ opplysning, formScope }: IProps) {
       <DatePicker.Input
         size="small"
         {...inputProps}
-        label={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
+        label={<OrkestratorOpplysningLabel opplysning={opplysning} />}
         form={field.getInputProps().form}
         name={field.getInputProps().name}
         error={field.error()}
-        readOnly={opplysning.kilde === "register"}
+        readOnly={readOnly || opplysning.kilde === "register"}
       />
     </DatePicker>
   );

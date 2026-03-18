@@ -12,7 +12,7 @@ export function OrkestratorTag({ kilde }: IProps) {
   }
 
   return (
-    <Tag variant={kilde === "register" ? "alt1" : "warning"} size="small">
+    <Tag variant={kilde === "register" ? "alt1" : "warning"} size="xsmall">
       {kilde === "register" ? "Register" : "Søknad"}
     </Tag>
   );

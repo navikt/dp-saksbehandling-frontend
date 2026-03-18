@@ -1,25 +1,26 @@
 import { Radio, RadioGroup, Stack } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
 
-import { hentOrkestratorBarnOpplysningLabel } from "~/utils/orkestrator-opplysninger.utils";
+import { OrkestratorOpplysningLabel } from "~/components/orkestrator/orkestrator-barn/OrkestratorOpplysningLabel";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
 
 interface IProps {
   opplysning: components["schemas"]["BarnOpplysning"];
-  formScope: FormScope<string | undefined>;
+  formScope: FormScope<string | boolean | undefined>;
+  readOnly?: boolean;
 }
 
-export function OrkestratorOpplysningBoolsk({ opplysning, formScope }: IProps) {
+export function OrkestratorOpplysningBoolsk({ opplysning, formScope, readOnly }: IProps) {
   const field = useField(formScope);
 
   return (
     <RadioGroup
       {...field.getInputProps()}
-      legend={hentOrkestratorBarnOpplysningLabel(opplysning.id)}
+      legend={<OrkestratorOpplysningLabel opplysning={opplysning} />}
       size="small"
       error={field.error()}
-      readOnly={opplysning.kilde === "register"}
+      readOnly={readOnly || opplysning.kilde === "register"}
     >
       <Stack direction={{ xs: "column", sm: "row" }} wrap={false} gap="space-12">
         <Radio value="true">Ja</Radio>

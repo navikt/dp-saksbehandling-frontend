@@ -85,6 +85,7 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
       "KOMPLISERT_VURDERING",
       "SKJØNNSMESSIG_VURDERING",
       "ANNET",
+      "TOTRINNSKONTROLL",
     ],
   },
   meldingOmVedtakKilde: "INGEN",
