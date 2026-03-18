@@ -28,7 +28,7 @@ export const oppgave019cc289f59b746c849bee996ed5764b: components["schemas"]["Opp
   },
   tidspunktOpprettet: "2026-03-06T00:00:00",
   behandlingType: "RETT_TIL_DAGPENGER",
-  utlostAv: "REVURDVERING",
+  utlostAv: "REVURDERING",
   journalpostIder: [],
   historikk: [
     {

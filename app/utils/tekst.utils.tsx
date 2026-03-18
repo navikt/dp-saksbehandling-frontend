@@ -112,7 +112,7 @@ export function hentUtløstAvTekstForVisning(
         "Manuell"
       );
 
-    case "REVURDVERING":
+    case "REVURDERING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>
           <ArrowsSquarepathIcon aria-hidden fontSize="1.5rem" /> Revurdering
