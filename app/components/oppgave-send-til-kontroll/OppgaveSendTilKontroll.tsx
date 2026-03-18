@@ -55,7 +55,7 @@ export function OppgaveSendTilKontroll() {
 
       <Modal ref={modalRef} header={{ heading: "Send til kontroll" }}>
         <Modal.Body>
-          <BodyLong>Du er i ferd med å sende oppgaven til kontroll</BodyLong>
+          <BodyLong>Vil du sende oppgaven til kontroll?</BodyLong>
         </Modal.Body>
 
         <Modal.Footer>
@@ -65,7 +65,7 @@ export function OppgaveSendTilKontroll() {
             loading={sendTilKontrollForm.formState.isSubmitting}
             onClick={() => sendTilKontrollForm.submit()}
           >
-            Ja
+            Send til kontroll
           </Button>
 
           <Button
@@ -74,7 +74,7 @@ export function OppgaveSendTilKontroll() {
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Behold oppgaven
           </Button>
         </Modal.Footer>
       </Modal>

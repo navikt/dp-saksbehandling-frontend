@@ -8,7 +8,8 @@ export function OpplysningPeriodeDato({
   opplysning,
   formScope,
   readonly,
-}: Omit<IOpplysningPeriodeProps, "datatype">) {
+  hideLabel,
+}: IOpplysningPeriodeProps) {
   const field = useField(formScope);
 
   const { datepickerProps, inputProps } = useDatepicker({
@@ -21,19 +22,17 @@ export function OpplysningPeriodeDato({
   });
 
   return (
-    <>
-      <DatePicker {...datepickerProps}>
-        <DatePicker.Input
-          {...inputProps}
-          form={field.getInputProps().form}
-          name={field.getInputProps().name}
-          error={field.error()}
-          label={opplysning.navn}
-          hideLabel={true}
-          size="small"
-          readOnly={readonly}
-        />
-      </DatePicker>
-    </>
+    <DatePicker {...datepickerProps}>
+      <DatePicker.Input
+        {...inputProps}
+        form={field.getInputProps().form}
+        name={field.getInputProps().name}
+        error={field.error()}
+        label={opplysning.navn}
+        hideLabel={hideLabel}
+        size="small"
+        readOnly={readonly}
+      />
+    </DatePicker>
   );
 }

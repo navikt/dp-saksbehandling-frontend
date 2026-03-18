@@ -122,8 +122,8 @@ export function OpplysningPeriodeTabellNyPeriode(props: IProps) {
       <Table.DataCell>
         <OpplysningPeriodeInput
           opplysning={props.opplysning}
-          datatype={props.opplysning.datatype}
           formScope={nyOpplysningPeriodeForm.scope("verdi")}
+          hideLabel={true}
         />
       </Table.DataCell>
 

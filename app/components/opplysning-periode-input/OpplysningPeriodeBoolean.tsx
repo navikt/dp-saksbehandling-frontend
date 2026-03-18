@@ -7,23 +7,22 @@ export function OpplysningPeriodeBoolean({
   opplysning,
   formScope,
   readonly,
-}: Omit<IOpplysningPeriodeProps, "datatype">) {
+  hideLabel,
+}: IOpplysningPeriodeProps) {
   const field = useField(formScope);
 
   return (
-    <>
-      <RadioGroup
-        {...field.getInputProps()}
-        error={field.error()}
-        className={"aksel--horisontal"}
-        size="small"
-        readOnly={readonly}
-        legend={opplysning.navn}
-        hideLegend={true}
-      >
-        <Radio value="Ja">Ja</Radio>
-        <Radio value="Nei">Nei</Radio>
-      </RadioGroup>
-    </>
+    <RadioGroup
+      {...field.getInputProps()}
+      error={field.error()}
+      className={"aksel--horisontal"}
+      size="small"
+      readOnly={readonly}
+      legend={opplysning.navn}
+      hideLegend={hideLabel}
+    >
+      <Radio value="Ja">Ja</Radio>
+      <Radio value="Nei">Nei</Radio>
+    </RadioGroup>
   );
 }

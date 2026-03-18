@@ -19,7 +19,8 @@ const opplysninger = [
   // { id: "0194881f-9444-7a73-a458-0af81c034d8b", label: "Rettighetstype" },
   { id: "0194881f-943d-77a7-969c-147999f15459", label: "Stønadsperiode" },
   { id: "0194881f-943f-78d9-b874-00a4944c54ef", label: "Egenandel" },
-  { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
+  { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats med barnetillegg" },
+  { id: "0194881f-9428-74d5-b160-f63a4c61a23c", label: "Antall barn" },
   // { id: "0194881f-9410-7481-b263-4606fdd10cba", label: "Beregnet basert på" },
   // { id: "0194881f-9410-7481-b263-4606fdd10cbd", label: "Inntektsgrunnlag" },
 ];
@@ -30,7 +31,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
       className={"card flex flex-col gap-4 p-4"}
       style={{ backgroundColor: "var(--ax-bg-info-soft) " }}
     >
-      <Heading size={"xsmall"}>Opplysninger på prøvingsdato</Heading>
+      <Heading size={"xsmall"}>Opplysninger ved førstegangsbehandling</Heading>
 
       <section className="grid grid-cols-4 gap-2">
         {opplysninger.map(({ id, label }) => {

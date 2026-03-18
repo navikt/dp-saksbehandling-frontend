@@ -31,16 +31,6 @@ export function hentValideringForOpplysningPeriodeSkjema(
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
-    // TODO Kan slettes når gammel opplysningredigering fjernes
-    ingenTomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
-    // TODO Kan slettes når gammel opplysningredigering fjernes
-    ingenFomDato: z
-      .string()
-      .transform((val) => val === "true")
-      .optional(),
   });
 }
 
@@ -206,7 +196,7 @@ export function hentValideringSettOppgavePåVent() {
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato(),
     ),
-    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en begrunnelse" }),
+    paaVentAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
 }
 
@@ -220,7 +210,7 @@ export function hentValideringAvbrytOppgave() {
   return z.object({
     _action: z.literal("avbryt-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    avbrytAarsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
+    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
   });
 }
 

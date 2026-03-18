@@ -106,6 +106,10 @@ export const mockMeldingerOmVedtak = [
     oppgaveId: "0199390e-3602-7b10-9402-77ca0d12d8ac",
     melding: mockMeldingOmVedtakKlage,
   },
+  {
+    oppgaveId: "019a492d-d283-731d-83a2-a4f36df00502",
+    melding: mockMeldingOmVedtakInnvilgelse,
+  },
 ];
 
 function hentHtmlMedInjectedCss(html: string, css: string): string {

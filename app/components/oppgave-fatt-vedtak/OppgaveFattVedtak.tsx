@@ -1,4 +1,4 @@
-import { BodyLong, Button, InlineMessage, Modal } from "@navikt/ds-react";
+import { BodyLong, Button, InlineMessage, Modal, Tag } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
@@ -7,10 +7,7 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import {
-  formaterOpplysningVerdi,
-  hentOpplysningsperiodePåPrøvingsdato,
-} from "~/utils/opplysning.utils";
+import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
 
@@ -43,11 +40,9 @@ export function OppgaveFattVedtak() {
     return null;
   }
 
-  const harLøpendeRettPåDagpengerPeriode = hentOpplysningsperiodePåPrøvingsdato(
-    behandling.opplysninger,
-    "01990a09-0eab-7957-b88f-14484a50e194",
-    sistePrøvingsdato.toISOString(),
-  );
+  const rettPåDagpengerSistePeriode = behandling.opplysninger
+    .find((opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194")
+    ?.perioder.at(-1);
 
   function handleOnClick() {
     if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
@@ -72,14 +67,24 @@ export function OppgaveFattVedtak() {
 
       <Modal ref={modalRef} header={{ heading: "Fatt vedtak" }}>
         <Modal.Body>
-          {harLøpendeRettPåDagpengerPeriode && (
+          {rettPåDagpengerSistePeriode && (
             <BodyLong>
-              Ønsker du å fatte vedtak med utfall{" "}
-              <strong>
-                {formaterOpplysningVerdi(harLøpendeRettPåDagpengerPeriode.verdi) === "Ja"
-                  ? "Innvilgelse"
-                  : "Avslag"}
-              </strong>
+              Du er i ferd med å fatte vedtak med utfall:
+              <div>
+                <Tag
+                  size={"xsmall"}
+                  data-color={
+                    formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
+                      ? "success"
+                      : "danger"
+                  }
+                  className={"whitespace-nowrap"}
+                >
+                  {formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
+                    ? "Innvilgelse"
+                    : "Avslag"}
+                </Tag>
+              </div>
             </BodyLong>
           )}
         </Modal.Body>
@@ -91,7 +96,7 @@ export function OppgaveFattVedtak() {
             loading={fattVedtakForm.formState.isSubmitting}
             onClick={() => fattVedtakForm.submit()}
           >
-            Ja
+            Fatt vedtak
           </Button>
 
           <Button
@@ -100,7 +105,7 @@ export function OppgaveFattVedtak() {
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Ikke fatt vedtak
           </Button>
         </Modal.Footer>
       </Modal>

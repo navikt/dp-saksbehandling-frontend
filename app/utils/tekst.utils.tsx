@@ -39,7 +39,7 @@ export function hentTekstForSendTilKontrollÅrsak(
     case "KOMPLISERT_VURDERING":
       return "Komplisert vurdering";
     case "SKJØNNSMESSIG_VURDERING":
-      return "Skjønsmessig vurdering";
+      return "Skjønnsmessig vurdering";
     case "ANNET":
       return "Annet";
 

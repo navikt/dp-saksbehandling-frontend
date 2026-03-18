@@ -11,18 +11,17 @@ import { components } from "../../../openapi/behandling-typer";
 
 export interface IOpplysningPeriodeProps {
   opplysning: components["schemas"]["RedigerbareOpplysninger"];
-  datatype: components["schemas"]["DataType"];
   formScope: FormScope<string>;
   readonly?: boolean;
+  hideLabel?: boolean;
 }
 
 export function OpplysningPeriodeInput({
   opplysning,
-  datatype,
   formScope,
   readonly,
 }: IOpplysningPeriodeProps) {
-  switch (datatype) {
+  switch (opplysning.datatype) {
     case "tekst":
       break;
     case "inntekt":
@@ -71,7 +70,7 @@ export function OpplysningPeriodeInput({
       );
 
     default:
-      // @ts-expect-error I tillfelle det kommer noe nytt fra backend
+      // @ts-expect-error I tilfelle det kommer noe nytt fra backend
       return <div>{formaterOpplysningVerdi(periodeVerdi.verdi)}</div>;
   }
 }

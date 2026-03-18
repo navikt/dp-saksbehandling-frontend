@@ -82,9 +82,7 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
                 );
             }}
           >
-            <option hidden={true} value={""}>
-              Velg årsak
-            </option>
+            <option value={""}>-- Velg årsak --</option>
 
             {oppgave.lovligeEndringer.paaVentAarsaker.map((aarsak) => (
               <option key={aarsak} value={aarsak}>
@@ -103,17 +101,21 @@ export function OppgaveValgSettPåVent({ oppgave, buttonSize, buttonVariant }: I
           <Checkbox name="beholdOppgave" size="small" className={"mt-2"}>
             Behold oppgave
           </Checkbox>
-
+        </Modal.Body>
+        <Modal.Footer>
           <Button
             size="small"
             variant="primary"
-            className={"mt-2"}
             onClick={() => utsettOppgaveForm.submit()}
             loading={utsettOppgaveForm.formState.isSubmitting}
           >
             Sett på vent
           </Button>
-        </Modal.Body>
+
+          <Button size="small" variant="secondary" onClick={() => modalRef.current?.close()}>
+            Ikke sett på vent
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

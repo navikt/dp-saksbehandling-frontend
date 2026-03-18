@@ -47,7 +47,8 @@ export function OppgaveValgRekjørBehandling({
         Kjør behandling på nytt
       </Button>
 
-      <Modal ref={modalRef} header={{ heading: "Vil du kjøre behandlingen på nytt?" }}>
+      <Modal ref={modalRef} header={{ heading: "Kjør behandling på nytt" }}>
+        <Modal.Body>Vil du kjøre behandlingen på nytt?</Modal.Body>
         <Modal.Footer>
           <Button
             size="small"
@@ -55,7 +56,7 @@ export function OppgaveValgRekjørBehandling({
             onClick={() => rekjørBehandlingForm.submit()}
             loading={rekjørBehandlingForm.formState.isSubmitting}
           >
-            Ja
+            Kjør behandling på nytt
           </Button>
 
           <Button
@@ -64,7 +65,7 @@ export function OppgaveValgRekjørBehandling({
             variant="secondary"
             onClick={() => modalRef.current?.close()}
           >
-            Avbryt
+            Ikke kjør på nytt
           </Button>
         </Modal.Footer>
       </Modal>
