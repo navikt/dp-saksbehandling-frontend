@@ -11,7 +11,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "MELDEKORT",
   "KLAGE",
   "INNSENDING",
-  "OMGJØRING",
+  "REVURDVERING",
 ];
 
 export function OppgaveFilterUtløstAv() {

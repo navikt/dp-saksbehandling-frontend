@@ -4,6 +4,118 @@
  */
 
 export interface paths {
+    "/tilbakekreving/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent tilbakekreving for en gitt behandlingId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med tilbakekreving */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Tilbakekreving"];
+                    };
+                };
+                /** @description Tilbakekreving for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/meldekortkorrigering/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent meldekortkorrigering for en gitt behandlingId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med meldekortkorrigering */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["KorrigerteMeldekort"];
+                    };
+                };
+                /** @description Meldekortkorrigering for behandlingId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/innsending/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
@@ -1888,6 +2000,20 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        KorrigerteMeldekort: {
+            korrigeringer: components["schemas"]["MeldekortKorrigering"][];
+        };
+        MeldekortKorrigering: {
+            /** Format: uuid */
+            meldekortId: string;
+            meldekortPeriode: components["schemas"]["MeldekortPeriode"];
+        };
+        MeldekortPeriode: {
+            /** Format: date */
+            fom: string;
+            /** Format: date */
+            tom: string;
+        };
         Innsending: {
             /** Format: uuid */
             behandlingId: string;
@@ -2050,9 +2176,9 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "KLAGE" | "MELDEKORT" | "SØKNAD" | "MANUELL" | "INNSENDING" | "OMGJØRING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDVERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
         /** @enum {string} */
         BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
         LovligeEndringer: {
@@ -2110,7 +2236,7 @@ export interface components {
             aarsak: components["schemas"]["ReturnerTilSaksbehandlingAarsak"];
         };
         /** @enum {string} */
-        ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "ANNET";
+        ReturnerTilSaksbehandlingAarsak: "FEIL_UTFALL" | "FEIL_HJEMMEL" | "HAR_MANGLER" | "FEIL_BRUK_AV_FAGSYSTEM" | "ANNET";
         Kvalitetskontroll: {
             aarsak: components["schemas"]["KvalitetskontrollAarsak"];
         };
@@ -2384,6 +2510,27 @@ export interface components {
             status: number;
             detail?: string;
             instance: string;
+        };
+        Tilbakekreving: {
+            /** Format: uuid */
+            tilbakekrevingBehandlingId: string;
+            /** Format: date-time */
+            sakOpprettet: string;
+            /** Format: date */
+            varselSendt?: string;
+            behandlingsstatus: components["schemas"]["TilbakekrevingBehandlingStatus"];
+            totaltFeilutbetaltBelop: number;
+            /** Format: uri */
+            saksbehandlingURL: string;
+            fullstendigPeriode: components["schemas"]["TilbakekrevingPeriode"];
+        };
+        /** @enum {string} */
+        TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
+        TilbakekrevingPeriode: {
+            /** Format: date */
+            fom: string;
+            /** Format: date */
+            tom: string;
         };
     };
     responses: never;
