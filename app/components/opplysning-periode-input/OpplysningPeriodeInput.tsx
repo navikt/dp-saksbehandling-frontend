@@ -43,6 +43,7 @@ export function OpplysningPeriodeInput({
           opplysning={opplysning}
           formScope={formScope}
           readonly={readonly}
+          hideLabel={true}
         />
       );
 
@@ -52,6 +53,7 @@ export function OpplysningPeriodeInput({
           opplysning={opplysning}
           formScope={formScope}
           readonly={readonly}
+          hideLabel={true}
         />
       );
 
@@ -61,12 +63,18 @@ export function OpplysningPeriodeInput({
           opplysning={opplysning}
           formScope={formScope}
           readonly={readonly}
+          hideLabel={true}
         />
       );
 
     case "dato":
       return (
-        <OpplysningPeriodeDato opplysning={opplysning} formScope={formScope} readonly={readonly} />
+        <OpplysningPeriodeDato
+          opplysning={opplysning}
+          formScope={formScope}
+          readonly={readonly}
+          hideLabel={true}
+        />
       );
 
     default:
