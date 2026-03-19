@@ -9,4 +9,25 @@ export const mockGenerellOppgaveData: components["schemas"]["GenerellOppgaveData
     { sakId: "019a0001-aaaa-7001-b001-000000000001", opprettetDato: "2025-06-15T10:00:00" },
     { sakId: "019a0001-aaaa-7001-b001-000000000002", opprettetDato: "2024-01-20T08:30:00" },
   ],
+  strukturertData: {
+    meldekortId: "MK-2026-0312",
+    periode: "01.03.2026 - 14.03.2026",
+    rapporterteTimer: 40,
+    arbeidsgiverRapporterteTimer: 20,
+    arbeidsgiver: "Kiwi Minipris AS",
+    differanse: 20,
+    kilde: "a-ordningen",
+    detaljer: {
+      uke1: {
+        rapportert: 20,
+        faktisk: 10,
+        dager: ["mandag", "tirsdag", "onsdag", "torsdag", "fredag"],
+      },
+      uke2: {
+        rapportert: 20,
+        faktisk: 10,
+        dager: ["mandag", "tirsdag", "onsdag", "torsdag", "fredag"],
+      },
+    },
+  },
 };

@@ -2648,6 +2648,8 @@ export interface components {
             vurdering?: string;
             /** @description Lovlige saker for personen */
             lovligeSaker: components["schemas"]["TynnSak"][];
+            /** @description Strukturert data knyttet til oppgaven (JSONB) */
+            strukturertData?: Record<string, unknown>;
         };
         FerdigstillGenerellOppgaveRequest: {
             /** Format: uuid */

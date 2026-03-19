@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Tag } from "@navikt/ds-react";
+import { BodyLong, Detail, Heading, Label, Tag } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -69,6 +69,12 @@ export default function GenerellOppgave() {
           {generellOppgaveData.beskrivelse && (
             <BodyLong>{generellOppgaveData.beskrivelse}</BodyLong>
           )}
+          {generellOppgaveData.strukturertData && (
+            <div className={"flex flex-col gap-2"}>
+              <Heading size={"small"}>Detaljer</Heading>
+              <StrukturertDataVisning data={generellOppgaveData.strukturertData} />
+            </div>
+          )}
         </div>
       </div>
     </OppgaveProvider>
@@ -79,4 +85,42 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return <ErrorMessageComponent error={error} />;
+}
+
+function StrukturertDataVisning({
+  data,
+  nivå = 0,
+}: {
+  data: Record<string, unknown>;
+  nivå?: number;
+}) {
+  return (
+    <dl
+      className="flex flex-col gap-1"
+      style={nivå > 0 ? { paddingLeft: `${nivå * 1}rem` } : undefined}
+    >
+      {Object.entries(data).map(([nøkkel, verdi]) => {
+        if (verdi !== null && typeof verdi === "object" && !Array.isArray(verdi)) {
+          return (
+            <div key={nøkkel} className="flex flex-col gap-1">
+              <Label size="small">{nøkkel}</Label>
+              <StrukturertDataVisning
+                data={verdi as Record<string, unknown>}
+                nivå={nivå + 1}
+              />
+            </div>
+          );
+        }
+
+        const visningsverdi = Array.isArray(verdi) ? verdi.join(", ") : String(verdi);
+
+        return (
+          <div key={nøkkel} className="flex gap-2">
+            <Label size="small">{nøkkel}:</Label>
+            <Detail>{visningsverdi}</Detail>
+          </div>
+        );
+      })}
+    </dl>
+  );
 }
