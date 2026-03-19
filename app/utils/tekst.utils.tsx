@@ -23,8 +23,13 @@ export function hentTekstForReturnerTilSaksbehandlerÅrsak(
       return "Feil hjemmel";
     case "HAR_MANGLER":
       return "Har mangler";
-    default:
+    case "ANNET":
       return "Annet";
+    case "FEIL_BRUK_AV_FAGSYSTEM":
+      return "Feil bruk av fagsystem";
+
+    default:
+      return årsak;
   }
 }
 
