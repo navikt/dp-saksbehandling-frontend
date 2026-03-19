@@ -5,6 +5,7 @@ import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
 import { mockGenerellOppgaveData } from "./data/mock-generell-oppgave/mock-generell-oppgave-data";
+import { mockAdresseendringOppgaveData } from "./data/mock-generell-oppgave/mock-adresseendring-oppgave-data";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
@@ -477,7 +478,22 @@ export const mockDpSaksbehandling = [
       return response(404).json(get404Error(`/generell-oppgave-data/${oppgaveId}`));
     }
 
-    return response(200).json(mockGenerellOppgaveData);
+    const generellOppgaveDataMap: Record<string, components["schemas"]["GenerellOppgaveData"]> = {
+      "019a0001-0001-7001-a001-000000000001": mockGenerellOppgaveData,
+      "019a0002-0002-7002-a002-000000000001": mockAdresseendringOppgaveData,
+    };
+
+    return response(200).json(generellOppgaveDataMap[oppgaveId] ?? mockGenerellOppgaveData);
+  }),
+
+  http.put("/generell-oppgave-data/{oppgaveId}/ferdigstill", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
   }),
 
   http.get(`/produksjonsstatistikk`, async ({ request, response }) => {

@@ -9,6 +9,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { GenerellOppgaveHandlinger } from "~/components/generell-oppgave/GenerellOppgaveHandlinger";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
@@ -53,8 +54,11 @@ export default function GenerellOppgave() {
       journalposterPromises={journalposterPromises}
     >
       <PersonBoks person={oppgave.person} oppgave={oppgave} />
-      <div className={"main flex gap-4"}>
-        <OppgaveOversikt journalposterPromises={journalposterPromises} />
+      <div className={"main grid grid-cols-[350px_1fr] gap-4"}>
+        <section className="flex flex-col gap-4">
+          <GenerellOppgaveHandlinger generellOppgaveData={generellOppgaveData} />
+          <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        </section>
         <div className={"card flex flex-1 flex-col gap-4 p-4"}>
           <div className={"flex items-center gap-2"}>
             <Heading size={"medium"}>{generellOppgaveData.tittel}</Heading>

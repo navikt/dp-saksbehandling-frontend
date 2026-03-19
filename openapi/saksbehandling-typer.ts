@@ -60,6 +60,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/generell-oppgave-data/{oppgaveId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill en generell oppgave */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillGenerellOppgaveRequest"];
+                };
+            };
+            responses: {
+                /** @description Oppgaven er ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tilbakekreving/{behandlingId}": {
         parameters: {
             query?: never;
@@ -2595,6 +2644,16 @@ export interface components {
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
             beskrivelse?: string;
+            /** @description Saksbehandlers vurdering ved ferdigstilling */
+            vurdering?: string;
+            /** @description Lovlige saker for personen */
+            lovligeSaker: components["schemas"]["TynnSak"][];
+        };
+        FerdigstillGenerellOppgaveRequest: {
+            /** Format: uuid */
+            sakId?: string;
+            vurdering: string;
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
         };
     };
     responses: never;

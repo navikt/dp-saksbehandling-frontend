@@ -367,6 +367,23 @@ export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
   });
 }
 
+export function hentValideringForFerdigstillGenerellOppgave(medBehandling: boolean) {
+  const nyBehandlingsvariant: NyBehandlingType[] = [
+    "RETT_TIL_DAGPENGER_MANUELL",
+    "RETT_TIL_DAGPENGER_REVURDERING",
+    "KLAGE",
+    "INGEN",
+  ];
+  return z.object({
+    _action: z.literal("ferdigstill-generell-oppgave"),
+    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    sakId: medBehandling ? z.string().min(1, "Du må velge en sak") : z.string(),
+    behandlingsvariant: z.enum(nyBehandlingsvariant, "Du må velge en behandlingstype"),
+    vurdering: z.string().min(1, "Du må skrive en vurdering"),
+    aktivtOppgaveSok: z.string(),
+  });
+}
+
 export function hentValideringForRekjørBehandling() {
   return z.object({
     _action: z.literal("rekjor-behandling"),

@@ -50,7 +50,7 @@ export const generellOppgave: components["schemas"]["Oppgave"] = {
       },
     },
   ],
-  emneknagger: ["MeldekortKorrigering"],
+  emneknagger: [{ visningsnavn: "MeldekortKorrigering", kategori: "UDEFINERT" }],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [

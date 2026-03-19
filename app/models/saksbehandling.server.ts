@@ -127,6 +127,21 @@ export async function hentGenerellOppgaveData(request: Request, oppgaveId: strin
   );
 }
 
+export async function ferdigstillGenerellOppgave(
+  request: Request,
+  oppgaveId: string,
+  body: components["schemas"]["FerdigstillGenerellOppgaveRequest"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/generell-oppgave-data/{oppgaveId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+    params: {
+      path: { oppgaveId },
+    },
+  });
+}
+
 export async function ferdigstillInnsending(
   request: Request,
   body: components["schemas"]["FerdigstillInnsendingRequest"],
