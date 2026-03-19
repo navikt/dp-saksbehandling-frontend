@@ -1,0 +1,133 @@
+import { BodyLong, Detail, Heading, Label, Link, Tag } from "@navikt/ds-react";
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  useActionData,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
+import invariant from "tiny-invariant";
+
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
+import { GenerellOppgaveHandlinger } from "~/components/generell-oppgave/GenerellOppgaveHandlinger";
+import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
+import { PersonBoks } from "~/components/person-boks/PersonBoks";
+import { OppgaveProvider } from "~/context/oppgave-context";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
+import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
+import { hentJournalpost } from "~/models/saf.server";
+import { hentGenerellOppgaveData, hentOppgave } from "~/models/saksbehandling.server";
+import { handleActions } from "~/server-side-actions/handle-actions";
+import { isAlert } from "~/utils/type-guards";
+
+export async function action({ request, params }: ActionFunctionArgs) {
+  return await handleActions(request, params);
+}
+
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
+  invariant(params.behandlingId, "params.behandlingId er påkrevd");
+  const oppgave = await hentOppgave(request, params.oppgaveId);
+  const generellOppgaveData = await hentGenerellOppgaveData(request, params.oppgaveId);
+
+  const journalposterPromises = Promise.all(
+    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
+  );
+
+  return {
+    oppgave,
+    generellOppgaveData,
+    journalposterPromises,
+  };
+}
+
+export default function GenerellOppgave() {
+  const { saksbehandler } = useTypedRouteLoaderData("root");
+  const { oppgave, generellOppgaveData, journalposterPromises } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
+
+  return (
+    <OppgaveProvider
+      oppgave={oppgave}
+      saksbehandler={saksbehandler}
+      journalposterPromises={journalposterPromises}
+    >
+      <PersonBoks person={oppgave.person} oppgave={oppgave} />
+      <div className={"main grid grid-cols-[350px_1fr] gap-4"}>
+        <section className="flex flex-col gap-4">
+          <GenerellOppgaveHandlinger generellOppgaveData={generellOppgaveData} />
+          <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        </section>
+        <div className={"card flex flex-1 flex-col gap-4 p-4"}>
+          <div className={"flex items-center gap-2"}>
+            <Heading size={"medium"}>{generellOppgaveData.tittel}</Heading>
+            <Tag variant={"neutral"} size={"small"}>
+              {generellOppgaveData.oppgaveType}
+            </Tag>
+          </div>
+          {generellOppgaveData.beskrivelse && (
+            <BodyLong>{generellOppgaveData.beskrivelse}</BodyLong>
+          )}
+          {generellOppgaveData.strukturertData && (
+            <div className={"flex flex-col gap-2"}>
+              <Heading size={"small"}>Detaljer</Heading>
+              <StrukturertDataVisning data={generellOppgaveData.strukturertData} />
+            </div>
+          )}
+        </div>
+      </div>
+    </OppgaveProvider>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  return <ErrorMessageComponent error={error} />;
+}
+
+function StrukturertDataVisning({
+  data,
+  nivå = 0,
+}: {
+  data: Record<string, unknown>;
+  nivå?: number;
+}) {
+  return (
+    <dl
+      className="flex flex-col gap-1"
+      style={nivå > 0 ? { paddingLeft: `${nivå * 1}rem` } : undefined}
+    >
+      {Object.entries(data).map(([nøkkel, verdi]) => {
+        if (verdi !== null && typeof verdi === "object" && !Array.isArray(verdi)) {
+          return (
+            <div key={nøkkel} className="flex flex-col gap-1">
+              <Label size="small">{nøkkel}</Label>
+              <StrukturertDataVisning
+                data={verdi as Record<string, unknown>}
+                nivå={nivå + 1}
+              />
+            </div>
+          );
+        }
+
+        const visningsverdi = Array.isArray(verdi) ? verdi.join(", ") : String(verdi);
+        const erUrl = typeof verdi === "string" && verdi.startsWith("http");
+
+        return (
+          <div key={nøkkel} className="flex gap-2">
+            <Label size="small">{nøkkel}:</Label>
+            {erUrl ? (
+              <Link href={verdi as string} target="_blank">
+                {visningsverdi}
+              </Link>
+            ) : (
+              <Detail>{visningsverdi}</Detail>
+            )}
+          </div>
+        );
+      })}
+    </dl>
+  );
+}

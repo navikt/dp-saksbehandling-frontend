@@ -13,6 +13,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "INNSENDING",
   "REVURDERING",
   "TILBAKEKREVING",
+  "GENERELL",
 ];
 
 export function OppgaveFilterUtløstAv() {

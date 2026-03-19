@@ -4,6 +4,111 @@
  */
 
 export interface paths {
+    "/generell-oppgave-data/{oppgaveId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent generell oppgave-data for en gitt oppgaveId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med generell oppgave-data */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GenerellOppgaveData"];
+                    };
+                };
+                /** @description Generell oppgave-data for oppgaveId ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/generell-oppgave-data/{oppgaveId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill en generell oppgave */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    oppgaveId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillGenerellOppgaveRequest"];
+                };
+            };
+            responses: {
+                /** @description Oppgaven er ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tilbakekreving/{behandlingId}": {
         parameters: {
             query?: never;
@@ -2176,9 +2281,9 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
         /** @enum {string} */
         BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
         LovligeEndringer: {
@@ -2531,6 +2636,26 @@ export interface components {
             fom: string;
             /** Format: date */
             tom: string;
+        };
+        GenerellOppgaveData: {
+            /** @description Type oppgave, f.eks. MeldekortKorrigering, PDLFlytting */
+            oppgaveType: string;
+            /** @description Visningstittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /** @description Saksbehandlers vurdering ved ferdigstilling */
+            vurdering?: string;
+            /** @description Lovlige saker for personen */
+            lovligeSaker: components["schemas"]["TynnSak"][];
+            /** @description Strukturert data knyttet til oppgaven (JSONB) */
+            strukturertData?: Record<string, unknown>;
+        };
+        FerdigstillGenerellOppgaveRequest: {
+            /** Format: uuid */
+            sakId?: string;
+            vurdering: string;
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
         };
     };
     responses: never;
