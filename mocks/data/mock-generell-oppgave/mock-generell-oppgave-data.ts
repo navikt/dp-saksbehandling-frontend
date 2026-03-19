@@ -17,6 +17,8 @@ export const mockGenerellOppgaveData: components["schemas"]["GenerellOppgaveData
     arbeidsgiver: "Kiwi Minipris AS",
     differanse: 20,
     kilde: "a-ordningen",
+    meldekortUrl: "https://meldekort.nav.no/meldekort/MK-2026-0312",
+    journalposter: ["598134567", "598134890"],
     detaljer: {
       uke1: {
         rapportert: 20,

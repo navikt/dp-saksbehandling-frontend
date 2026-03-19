@@ -1,4 +1,4 @@
-import { BodyLong, Detail, Heading, Label, Tag } from "@navikt/ds-react";
+import { BodyLong, Detail, Heading, Label, Link, Tag } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -113,11 +113,18 @@ function StrukturertDataVisning({
         }
 
         const visningsverdi = Array.isArray(verdi) ? verdi.join(", ") : String(verdi);
+        const erUrl = typeof verdi === "string" && verdi.startsWith("http");
 
         return (
           <div key={nøkkel} className="flex gap-2">
             <Label size="small">{nøkkel}:</Label>
-            <Detail>{visningsverdi}</Detail>
+            {erUrl ? (
+              <Link href={verdi as string} target="_blank">
+                {visningsverdi}
+              </Link>
+            ) : (
+              <Detail>{visningsverdi}</Detail>
+            )}
           </div>
         );
       })}
