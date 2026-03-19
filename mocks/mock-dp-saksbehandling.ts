@@ -4,6 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { mockGenerellOppgaveData } from "./data/mock-generell-oppgave/mock-generell-oppgave-data";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
@@ -460,6 +461,23 @@ export const mockDpSaksbehandling = [
     }
 
     return response(200).json(tilbakekreving);
+  }),
+
+  http.get("/generell-oppgave-data/{oppgaveId}", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { oppgaveId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+
+    if (!mockOppgave || mockOppgave.behandlingType !== "GENERELL") {
+      return response(404).json(get404Error(`/generell-oppgave-data/${oppgaveId}`));
+    }
+
+    return response(200).json(mockGenerellOppgaveData);
   }),
 
   http.get(`/produksjonsstatistikk`, async ({ request, response }) => {
