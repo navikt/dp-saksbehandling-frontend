@@ -16,6 +16,7 @@ import { mockOppgaver } from "./data/mock-oppgaver/mock-oppgaver";
 import { mockPerson } from "./data/mock-person";
 import { mockPersonOversikt } from "./data/mock-person-oversikt";
 import { mockStatistikkOppgaveTypeV2, mockStatistikkRettighetV2 } from "./data/mock-statistikk";
+import { mockTilbakekrevinger } from "./data/mock-tilbakekreving/mock-tilbakekrevinger";
 
 const apiError = false;
 const delayMs = 0;
@@ -441,6 +442,24 @@ export const mockDpSaksbehandling = [
     }
 
     return response(204).empty();
+  }),
+
+  http.get("/tilbakekreving/{behandlingId}", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+    const { behandlingId } = params;
+    const tilbakekreving = mockTilbakekrevinger.find(
+      (tilbakekreving) => tilbakekreving.tilbakekrevingBehandlingId === behandlingId,
+    );
+
+    if (!tilbakekreving) {
+      return response(404).json(get404Error(`/tilbakekreving/${behandlingId}`));
+    }
+
+    return response(200).json(tilbakekreving);
   }),
 
   http.get(`/produksjonsstatistikk`, async ({ request, response }) => {

@@ -5,6 +5,7 @@ import {
   ChatExclamationmarkIcon,
   FileTextIcon,
   PersonPencilIcon,
+  ReceiptIcon,
 } from "@navikt/aksel-icons";
 import { AkselColor } from "@navikt/ds-react/types/theme";
 
@@ -124,6 +125,15 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Revurdering"
+      );
+
+    case "TILBAKEKREVING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ReceiptIcon aria-hidden fontSize="1.5rem" /> Tilbakekreving
+        </span>
+      ) : (
+        "Tilbakekreving"
       );
 
     default:

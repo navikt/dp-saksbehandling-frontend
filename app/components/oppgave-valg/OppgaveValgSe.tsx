@@ -27,6 +27,8 @@ export function OppgaveValgSe({
         return `/oppgave/${oppgaveId}/klage/${behandlingId}`;
       case "INNSENDING":
         return `/oppgave/${oppgaveId}/innsending/${behandlingId}`;
+      case "TILBAKEKREVING":
+        return `/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`;
 
       default:
         return "";

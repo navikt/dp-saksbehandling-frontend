@@ -12,6 +12,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "KLAGE",
   "INNSENDING",
   "REVURDERING",
+  "TILBAKEKREVING",
 ];
 
 export function OppgaveFilterUtløstAv() {

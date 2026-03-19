@@ -1,6 +1,6 @@
 import { components } from "openapi/saksbehandling-typer";
 
-export const enSlagsInnsending: components["schemas"]["Innsending"] = {
+export const mockInnsending: components["schemas"]["Innsending"] = {
   behandlingId: "0198c672-111d-7701-a986-76b0ca6b225d",
   journalpostId: "55555555555555",
   lovligeSaker: [

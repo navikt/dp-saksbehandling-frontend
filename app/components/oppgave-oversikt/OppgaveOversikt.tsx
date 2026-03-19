@@ -79,11 +79,15 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                   verdi={hentUtløstAvTekstForVisning(oppgave.utlostAv)}
                 />
 
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Rettighet"}
-                  verdi={rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
-                />
+                {rettighetEmneknagger.length > 0 && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Rettighet"}
+                    verdi={rettighetEmneknagger
+                      .map((emneknagg) => emneknagg.visningsnavn)
+                      .join(", ")}
+                  />
+                )}
 
                 <VerdiMedTittel
                   visBorder={true}
@@ -108,25 +112,27 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                   }
                 />
 
-                <VerdiMedTittel
-                  visBorder={true}
-                  label={"Søknadsresultat"}
-                  verdi={
-                    <div>
-                      {søknadResultatEmneknagger.map((emneknagg) => (
-                        <Tag
-                          key={emneknagg.visningsnavn}
-                          size={"xsmall"}
-                          variant={"outline"}
-                          data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
-                          className={"whitespace-nowrap"}
-                        >
-                          <Detail>{emneknagg.visningsnavn}</Detail>
-                        </Tag>
-                      ))}
-                    </div>
-                  }
-                />
+                {søknadResultatEmneknagger.length > 0 && (
+                  <VerdiMedTittel
+                    visBorder={true}
+                    label={"Søknadsresultat"}
+                    verdi={
+                      <div>
+                        {søknadResultatEmneknagger.map((emneknagg) => (
+                          <Tag
+                            key={emneknagg.visningsnavn}
+                            size={"xsmall"}
+                            variant={"outline"}
+                            data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                            className={"whitespace-nowrap"}
+                          >
+                            <Detail>{emneknagg.visningsnavn}</Detail>
+                          </Tag>
+                        ))}
+                      </div>
+                    }
+                  />
+                )}
 
                 {(avslagsGrunner.length > 0 ||
                   avbruttGrunner.length > 0 ||

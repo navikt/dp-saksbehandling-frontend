@@ -86,6 +86,8 @@ export function hentGyldigeOppgaveValg(
       return hentGyldigeKlageOppgaveValg(oppgave, minOppgave);
     case "INNSENDING":
       return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave);
+    case "TILBAKEKREVING":
+      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, minOppgave);
     default:
       return [];
   }
@@ -181,6 +183,37 @@ function hentGyldigeKlageOppgaveValg(
 }
 
 function hentGyldigeInnsendingOppgaveValg(
+  oppgave:
+    | saksbehandlingComponent["schemas"]["Oppgave"]
+    | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
+  minOppgave: boolean,
+): IGyldigeOppgaveHandlinger[] {
+  const handlinger: IGyldigeOppgaveHandlinger[] = [];
+
+  if (
+    oppgave.tilstand === "FERDIG_BEHANDLET" ||
+    oppgave.tilstand === "AVBRUTT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
+  ) {
+    handlinger.push("se-oppgave");
+  }
+
+  if (
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+  ) {
+    handlinger.push("behandle-oppgave");
+  }
+
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
+    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+  }
+
+  return handlinger;
+}
+
+function hentGyldigeTilbakekrevingOppgaveValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],

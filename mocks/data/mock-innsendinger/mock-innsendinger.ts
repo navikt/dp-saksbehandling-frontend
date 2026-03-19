@@ -1,3 +1,3 @@
-import { enSlagsInnsending } from "./en-slags-innsending";
+import { mockInnsending } from "./mock-innsending";
 
-export const mockInnsendinger = [enSlagsInnsending];
+export const mockInnsendinger = [mockInnsending];
