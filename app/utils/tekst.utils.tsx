@@ -6,6 +6,7 @@ import {
   FileTextIcon,
   PersonPencilIcon,
   ReceiptIcon,
+  TasklistIcon,
 } from "@navikt/aksel-icons";
 import { AkselColor } from "@navikt/ds-react/types/theme";
 
@@ -134,6 +135,15 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Tilbakekreving"
+      );
+
+    case "GENERELL":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <TasklistIcon aria-hidden fontSize="1.5rem" /> Generell
+        </span>
+      ) : (
+        "Generell"
       );
 
     default:
