@@ -3,6 +3,7 @@ import { components } from "openapi/soknad-orkestrator-typer";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { leggTilBarn } from "~/models/orkestrator-opplysning.server";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyttBarn } from "~/utils/validering.util";
 
@@ -18,17 +19,21 @@ export async function leggTilBarnAction(
 
   const skjemadata = validertSkjema.data;
 
-  const requestBody: components["schemas"]["NyttBarnRequest"] = {
+  const requestBody: components["schemas"]["BarnRequest"] = {
     behandlingId: skjemadata.behandlingId,
-    nyttBarn: {
+    barn: {
       fornavnOgMellomnavn: skjemadata.fornavnOgMellomnavn,
       etternavn: skjemadata.etternavn,
-      fodselsdato: skjemadata.fodselsdato,
+      fodselsdato: formaterTilBackendDato(skjemadata.fodselsdato),
       oppholdssted: skjemadata.oppholdssted,
       forsorgerBarnet: skjemadata.forsorgerBarnet,
       kvalifisererTilBarnetillegg: skjemadata.kvalifisererTilBarnetillegg,
-      barnetilleggFom: skjemadata.barnetilleggFom,
-      barnetilleggTom: skjemadata.barnetilleggTom,
+      barnetilleggFom: skjemadata.barnetilleggFom
+        ? formaterTilBackendDato(skjemadata.barnetilleggFom)
+        : undefined,
+      barnetilleggTom: skjemadata.barnetilleggTom
+        ? formaterTilBackendDato(skjemadata.barnetilleggTom)
+        : undefined,
       begrunnelse: skjemadata.begrunnelse,
     },
   };

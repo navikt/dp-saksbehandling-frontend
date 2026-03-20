@@ -35,15 +35,17 @@ export async function hentBarn(request: Request, soknadbarnId: string) {
 
 export async function redigerBarn(
   request: Request,
-  requestBody: components["schemas"]["OppdatertBarnRequest"],
+  soknadbarnId: string,
+  barnId: string,
+  requestBody: components["schemas"]["BarnRequest"],
 ) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
-  return await orkestratorClient.PUT("/opplysninger/barn/{soknadbarnId}", {
+  return await orkestratorClient.PUT("/opplysninger/barn/{soknadbarnId}/{barnId}", {
     headers: getHeaders(onBehalfOfToken),
     body: { ...requestBody },
     params: {
-      path: { soknadbarnId: requestBody.oppdatertBarn.barnId },
+      path: { soknadbarnId, barnId },
     },
   });
 }
@@ -51,7 +53,7 @@ export async function redigerBarn(
 export async function leggTilBarn(
   request: Request,
   soknadbarnId: string,
-  requestBody: components["schemas"]["NyttBarnRequest"],
+  requestBody: components["schemas"]["BarnRequest"],
 ) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 
