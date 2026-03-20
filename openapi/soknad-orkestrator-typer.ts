@@ -42,8 +42,9 @@ export interface paths {
                 };
             };
         };
-        /** Oppdater opplysning om barn */
-        put: {
+        put?: never;
+        /** Legg til nytt barn på søknad */
+        post: {
             parameters: {
                 query?: never;
                 header?: never;
@@ -55,7 +56,58 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["OppdatertBarnRequest"];
+                    "application/json": components["schemas"]["BarnRequest"];
+                };
+            };
+            responses: {
+                /** @description Barn lagt til */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["BarnResponse"][];
+                    };
+                };
+                /** @description Ugyldig request body */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/opplysninger/barn/{soknadbarnId}/{barnId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Oppdater opplysning om barn */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
+                    soknadbarnId: string;
+                    /** @description id for det spesifikke barnet som skal oppdateres */
+                    barnId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["BarnRequest"];
                 };
             };
             responses: {
@@ -80,7 +132,7 @@ export interface paths {
                     };
                     content?: never;
                 };
-                /** @description Fant ikke opplysningen som skal oppdateres */
+                /** @description Fant ikke barnet som skal oppdateres */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -89,41 +141,7 @@ export interface paths {
                 };
             };
         };
-        /** Legg til nytt barn på søknad */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
-                    soknadbarnId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["NyttBarnRequest"];
-                };
-            };
-            responses: {
-                /** @description Barn lagt til */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["BarnResponse"][];
-                    };
-                };
-                /** @description Ugyldig request body */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -203,7 +221,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["OppdatertBarnRequest"];
+                    "application/json": components["schemas"]["BarnRequest"];
                 };
             };
             responses: {
@@ -299,37 +317,12 @@ export interface components {
             barnId: string;
             opplysninger: components["schemas"]["BarnOpplysning"][];
         };
-        OppdatertBarnRequest: {
-            /** Format: uuid */
-            opplysningId: string;
-            /** Format: uuid */
-            behandlingId: string;
-            oppdatertBarn: components["schemas"]["OppdatertBarn"];
-        };
-        OppdatertBarn: {
-            /** Format: uuid */
-            barnId: string;
-            fornavnOgMellomnavn: string;
-            etternavn: string;
-            /** Format: date */
-            fodselsdato: string;
-            oppholdssted: string;
-            forsorgerBarnet: boolean;
-            kvalifisererTilBarnetillegg: boolean;
-            /** Format: date */
-            barnetilleggFom?: string;
-            /** Format: date */
-            barnetilleggTom?: string;
-            begrunnelse: string;
-        };
-        NyttBarnRequest: {
-            /** Format: uuid */
-            opplysningId?: string;
+        BarnRequest: {
             /** Format: uuid */
             behandlingId?: string;
-            nyttBarn: components["schemas"]["NyttBarn"];
+            barn: components["schemas"]["BarnData"];
         };
-        NyttBarn: {
+        BarnData: {
             fornavnOgMellomnavn: string;
             etternavn: string;
             /** Format: date */
