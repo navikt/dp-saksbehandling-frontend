@@ -1,12 +1,19 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 import { components } from "openapi/soknad-orkestrator-typer";
+import { ActionFunctionArgs } from "react-router";
+import invariant from "tiny-invariant";
 
 import { IAlert } from "~/context/alert-context";
 import { redigerBarn } from "~/models/orkestrator-opplysning.server";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
 
-export async function redigerBarnAction(request: Request, formData: FormData) {
+export async function redigerBarnAction(
+  request: Request,
+  params: ActionFunctionArgs["params"],
+  formData: FormData,
+) {
   const validertSkjema = await parseFormData(formData, hentValideringForRedigeringBarn());
 
   if (validertSkjema.error) {
@@ -15,24 +22,28 @@ export async function redigerBarnAction(request: Request, formData: FormData) {
 
   const skjemadata = validertSkjema.data;
 
-  const requestBody: components["schemas"]["OppdatertBarnRequest"] = {
+  const requestBody: components["schemas"]["BarnRequest"] = {
     behandlingId: skjemadata.behandlingId,
-    opplysningId: skjemadata.opplysningTypeId,
-    oppdatertBarn: {
-      barnId: skjemadata.barnId,
+    barn: {
       fornavnOgMellomnavn: skjemadata.fornavnOgMellomnavn,
       etternavn: skjemadata.etternavn,
-      fodselsdato: skjemadata.fodselsdato,
+      fodselsdato: formaterTilBackendDato(skjemadata.fodselsdato),
       oppholdssted: skjemadata.oppholdssted,
       forsorgerBarnet: skjemadata.forsorgerBarnet,
       kvalifisererTilBarnetillegg: skjemadata.kvalifisererTilBarnetillegg,
-      barnetilleggFom: skjemadata.barnetilleggFom,
-      barnetilleggTom: skjemadata.barnetilleggTom,
+      barnetilleggFom: skjemadata.barnetilleggFom
+        ? formaterTilBackendDato(skjemadata.barnetilleggFom)
+        : undefined,
+      barnetilleggTom: skjemadata.barnetilleggTom
+        ? formaterTilBackendDato(skjemadata.barnetilleggTom)
+        : undefined,
       begrunnelse: skjemadata.begrunnelse,
     },
   };
 
-  const { error } = await redigerBarn(request, requestBody);
+  const soknadbarnId = params.barnId;
+  invariant(soknadbarnId, "params.barnId er påkrevd");
+  const { error } = await redigerBarn(request, soknadbarnId, skjemadata.barnId, requestBody);
 
   if (error) {
     return getHttpProblemAlert(error);

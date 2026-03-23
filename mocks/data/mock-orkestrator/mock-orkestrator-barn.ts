@@ -30,4 +30,20 @@ const barn2: components["schemas"]["BarnResponse"] = {
   ],
 };
 
-export const mockOrkestratorBarn: components["schemas"]["BarnResponse"][] = [barn1, barn2];
+const barn3: components["schemas"]["BarnResponse"] = {
+  barnId: "f4a7aa9c-7291-4d97-ae01-9fc0acef78ee",
+  opplysninger: [
+    { id: "fornavnOgMellomnavn", verdi: "Kvekk 3", kilde: "saksbehandler", dataType: "tekst" },
+    { id: "etternavn", verdi: "Kvakk 3", kilde: "saksbehandler", dataType: "tekst" },
+    { id: "fodselsdato", verdi: "2021-06-15", kilde: "saksbehandler", dataType: "dato" },
+    { id: "oppholdssted", verdi: "NOR", kilde: "saksbehandler", dataType: "land" },
+    { id: "forsorgerBarnet", verdi: "true", kilde: "saksbehandler", dataType: "boolsk" },
+    { id: "kvalifisererTilBarnetillegg", verdi: "true", dataType: "boolsk" },
+    { id: "barnetilleggFom", verdi: "2024-01-01", dataType: "dato" },
+    { id: "barnetilleggTom", verdi: "2039-06-15", dataType: "dato" },
+    { id: "begrunnelse", verdi: "Lagt til av saksbehandler", dataType: "tekst" },
+  ],
+};
+
+export const mockOrkestratorBarn: components["schemas"]["BarnResponse"][] = [barn1, barn2, barn3];
+
