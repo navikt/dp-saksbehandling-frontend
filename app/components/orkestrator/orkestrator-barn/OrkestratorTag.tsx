@@ -1,9 +1,33 @@
-import { Tag } from "@navikt/ds-react";
+import { Tag, TagProps } from "@navikt/ds-react";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
 
+type Kilde = NonNullable<components["schemas"]["BarnOpplysning"]["kilde"]>;
+
 interface IProps {
   kilde?: components["schemas"]["BarnOpplysning"]["kilde"];
+}
+
+function hentVariant(kilde: Kilde): TagProps["variant"] {
+  switch (kilde) {
+    case "register":
+      return "alt1";
+    case "saksbehandler":
+      return "neutral";
+    case "soknad":
+      return "warning";
+  }
+}
+
+function hentLabel(kilde: Kilde): string {
+  switch (kilde) {
+    case "register":
+      return "Register";
+    case "saksbehandler":
+      return "Saksbehandler";
+    case "soknad":
+      return "Søknad";
+  }
 }
 
 export function OrkestratorTag({ kilde }: IProps) {
@@ -12,8 +36,8 @@ export function OrkestratorTag({ kilde }: IProps) {
   }
 
   return (
-    <Tag variant={kilde === "register" ? "alt1" : "warning"} size="xsmall">
-      {kilde === "register" ? "Register" : "Søknad"}
+    <Tag variant={hentVariant(kilde)} size="xsmall">
+      {hentLabel(kilde)}
     </Tag>
   );
 }

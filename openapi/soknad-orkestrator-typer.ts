@@ -310,7 +310,7 @@ export interface components {
             /** @enum {string} */
             dataType: "dato" | "land" | "boolsk" | "tekst";
             /** @enum {string} */
-            kilde?: "soknad" | "register";
+            kilde?: "soknad" | "register" | "saksbehandler";
         };
         BarnResponse: {
             /** Format: uuid */
