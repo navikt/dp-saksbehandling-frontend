@@ -31,7 +31,6 @@ import {
   formaterOpplysningFormål,
   formaterOpplysningVerdi,
   skalViseOpplysning,
-  skalVisePeriode,
 } from "~/utils/opplysning.utils";
 
 interface TimelinePin {
@@ -51,6 +50,7 @@ interface IProps {
   pins?: TimelinePin[];
   eksternTidslinjeNavigeringState?: TidslinjeNavigeringState;
   meldekortUrl?: string;
+  visAllePerioder?: boolean;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -65,17 +65,24 @@ export function OpplysningerTidslinje(props: IProps) {
   const { readonly } = useOppgave();
   const { opplysningId } = useParams();
 
-  const opplysningerSomSkalVises = props.opplysninger.filter((opplysning) =>
-    skalViseOpplysning(opplysning, visArvedeOpplysninger),
-  );
+  const opplysningerSomSkalVises = props.visAllePerioder
+    ? props.opplysninger
+    : props.opplysninger.filter((opplysning) =>
+        skalViseOpplysning(opplysning, visArvedeOpplysninger),
+      );
 
   if (opplysningerSomSkalVises.length === 0) {
-    return <InlineMessage status="warning">Ingen opplysninger å vise</InlineMessage>;
+    return (
+      <InlineMessage status="warning">
+        Ingen opplysninger opplysninger i denne behandlingen. Trykk på &#34;Vis arvede
+        opplysninger&#34; for å opplysninger fra tidligere behandlinger
+      </InlineMessage>
+    );
   }
 
   return (
     <>
-      {props.tittel && props.regelsettHjemmel && props.opplysningKilde && (
+      {props.tittel && props.regelsettHjemmel && (
         <>
           <div className={`flex content-center justify-between`}>
             <div>
@@ -87,7 +94,9 @@ export function OpplysningerTidslinje(props: IProps) {
                 <Heading size={"small"}>{props.tittel}</Heading>
               </div>
 
-              <Detail textColor="subtle">{props.regelsettHjemmel}</Detail>
+              {props.regelsettHjemmel && (
+                <Detail textColor="subtle">{props.regelsettHjemmel}</Detail>
+              )}
             </div>
 
             <BodyShort size={"small"}>
@@ -100,7 +109,7 @@ export function OpplysningerTidslinje(props: IProps) {
                 </>
               )}
 
-              {!props.redigertAvSaksbehandler && (
+              {!props.redigertAvSaksbehandler && props.opplysningKilde && (
                 <>
                   Opplysning hentet fra:{" "}
                   <Tag size={"small"} variant={"warning"} className={"ml-1"}>
@@ -194,52 +203,48 @@ export function OpplysningerTidslinje(props: IProps) {
               )
             }
           >
-            {opplysning.perioder
-              .filter((periode) => skalVisePeriode(periode, visArvedeOpplysninger))
-              .map((periode, index) => {
-                const start = periode.gyldigFraOgMed
-                  ? new Date(periode.gyldigFraOgMed)
-                  : sub(dagensDato, { years: 1 });
+            {opplysning.perioder.map((periode, index) => {
+              const start = periode.gyldigFraOgMed
+                ? new Date(periode.gyldigFraOgMed)
+                : sub(dagensDato, { years: 1 });
 
-                const slutt = periode.gyldigTilOgMed
-                  ? new Date(periode.gyldigTilOgMed)
-                  : add(dagensDato, { years: 1 });
+              const slutt = periode.gyldigTilOgMed
+                ? new Date(periode.gyldigTilOgMed)
+                : add(dagensDato, { years: 1 });
 
-                return (
-                  <Timeline.Period
-                    key={index}
-                    start={start}
-                    end={slutt}
-                    status={hentFargeForOpplysningPeriode(periode.verdi)}
-                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
-                  >
-                    <div className={"flex gap-4"}>
-                      <div>
-                        <Detail textColor={"subtle"}>Fra og med</Detail>
-                        <BodyShort size={"small"}>
-                          {periode.gyldigFraOgMed
-                            ? formaterTilNorskDato(periode.gyldigFraOgMed)
-                            : "--"}
-                        </BodyShort>
-                      </div>
-                      <div>
-                        <Detail textColor={"subtle"}>Til og med</Detail>
-                        <BodyShort size={"small"}>
-                          {periode.gyldigTilOgMed
-                            ? formaterTilNorskDato(periode.gyldigTilOgMed)
-                            : "--"}
-                        </BodyShort>
-                      </div>
-                      <div>
-                        <Detail textColor={"subtle"}>Verdi</Detail>
-                        <BodyShort size={"small"}>
-                          {formaterOpplysningVerdi(periode.verdi)}
-                        </BodyShort>
-                      </div>
+              return (
+                <Timeline.Period
+                  key={index}
+                  start={start}
+                  end={slutt}
+                  status={hentFargeForOpplysningPeriode(periode.verdi)}
+                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                >
+                  <div className={"flex gap-4"}>
+                    <div>
+                      <Detail textColor={"subtle"}>Fra og med</Detail>
+                      <BodyShort size={"small"}>
+                        {periode.gyldigFraOgMed
+                          ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                          : "--"}
+                      </BodyShort>
                     </div>
-                  </Timeline.Period>
-                );
-              })}
+                    <div>
+                      <Detail textColor={"subtle"}>Til og med</Detail>
+                      <BodyShort size={"small"}>
+                        {periode.gyldigTilOgMed
+                          ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                          : "--"}
+                      </BodyShort>
+                    </div>
+                    <div>
+                      <Detail textColor={"subtle"}>Verdi</Detail>
+                      <BodyShort size={"small"}>{formaterOpplysningVerdi(periode.verdi)}</BodyShort>
+                    </div>
+                  </div>
+                </Timeline.Period>
+              );
+            })}
           </Timeline.Row>
         ))}
       </Timeline>

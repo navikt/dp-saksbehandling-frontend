@@ -1,9 +1,7 @@
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
-import { RevurderingResultat } from "~/components/revurdering-resultat/RevurderingResultat";
-import { useBehandling } from "~/hooks/useBehandling";
+import { FastsettelserTidslinje } from "~/components/fastsettelser-tidslinje/FastsettelserTidslinje";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -12,17 +10,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export default function Behandle() {
-  const { behandling } = useBehandling();
+export default function Vilkårsvurderinger() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  return (
-    <div className="flex flex-col gap-4">
-      {behandling.behandletHendelse.type === "Omgjøring" && <RevurderingResultat />}
-      <RettPåDagpenger />
-    </div>
-  );
+  return <FastsettelserTidslinje />;
 }
 
 export function ErrorBoundary() {

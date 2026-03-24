@@ -1,14 +1,11 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Alert, Heading, Switch } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
-import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
-import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -22,14 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
-  const {
-    behandling,
-    vurderinger,
-    sistePrøvingsdato,
-    prøvingsdatoOpplysning,
-    visArvedeOpplysninger,
-    setVisArvedeOpplysninger,
-  } = useBehandling();
+  const { behandling, sistePrøvingsdato } = useBehandling();
   const { meldekortUrl } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
@@ -77,10 +67,6 @@ export default function Opplysning() {
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
 
-  const regelsettAvklaringer = behandling.avklaringer.filter((avklaring) =>
-    avklaring.regelsett.some((sett) => sett.id === regelsettId),
-  );
-
   return (
     <>
       <main className={"main"}>
@@ -93,52 +79,29 @@ export default function Opplysning() {
         </LoadingLink>
 
         <div className={"card p-4"}>
-          <div className={"flex gap-4"}>
-            <div className={"flex w-[500px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
-
-              <Avklaringer
-                avklaringer={regelsettAvklaringer}
-                behandlingId={behandling.behandlingId}
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <div className={"card p-4"}>
+              <OpplysningerTidslinje
+                opplysninger={regelsettOpplysninger.reverse()}
+                tittel={regelsett.hjemmel.tittel}
+                fremhevØverstTidslinjeRad={true}
+                meldekortUrl={direkteMeldekortUrl}
+                medLenkeTilOpplysning={true}
+                opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
+                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
               />
-
-              <EndretOpplysninger vurderinger={vurderinger} />
-
-              <div className={"card p-4"}>
-                <Switch
-                  size={"small"}
-                  checked={visArvedeOpplysninger}
-                  onChange={() => setVisArvedeOpplysninger(!visArvedeOpplysninger)}
-                >
-                  Vis arvede opplysninger og vurderinger
-                </Switch>
-              </div>
             </div>
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <div className={"card p-4"}>
-                <OpplysningerTidslinje
-                  opplysninger={regelsettOpplysninger.reverse()}
-                  tittel={regelsett.hjemmel.tittel}
-                  fremhevØverstTidslinjeRad={true}
-                  meldekortUrl={direkteMeldekortUrl}
-                  medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
-                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
-                />
-              </div>
-
-              <div className={"card p-4"}>
-                <OpplysningerTidslinje
-                  tittel={opplysning.navn}
-                  redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
-                  regelsettHjemmel={regelsett.hjemmel.tittel}
-                  opplysningKilde={opplysning.formål}
-                  opplysninger={[opplysning]}
-                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
-                />
-                <OpplysningPerioderTabell opplysning={opplysning} />
-              </div>
+            <div className={"card p-4"}>
+              <OpplysningerTidslinje
+                tittel={opplysning.navn}
+                redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
+                regelsettHjemmel={regelsett.hjemmel.tittel}
+                opplysningKilde={opplysning.formål}
+                opplysninger={[opplysning]}
+                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
+              />
+              <OpplysningPerioderTabell opplysning={opplysning} />
             </div>
           </div>
         </div>

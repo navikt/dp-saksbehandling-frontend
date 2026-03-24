@@ -25,6 +25,7 @@ export function RettPåDagpenger() {
         pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
         medLenkeTilOpplysning={true}
         opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/MjA5OTE0NTUwMg==/opplysning`}
+        visAllePerioder={true}
       />
 
       {sistePrøvingsdato && (
