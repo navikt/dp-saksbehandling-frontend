@@ -8,6 +8,7 @@ import { oppgave019b2ce1aecd715eb6043ba49ebe3abc } from "./oppgave019b2ce1aecd71
 import { oppgave019b9cf5580377b3b9db2195d8101a55 } from "./oppgave019b9cf5580377b3b9db2195d8101a55";
 import { oppgave019bb687f66e75cebb9fca28c190ace2 } from "./oppgave019bb687f66e75cebb9fca28c190ace2";
 import { oppgave019c28e8fbdb7466b5e6f6466f89d054 } from "./oppgave019c28e8fbdb7466b5e6f6466f89d054";
+import { oppgave019cc20df6fe713f85637ed86f12f4d4 } from "./oppgave019cc20df6fe713f85637ed86f12f4d4";
 import { oppgave019cc289f59b746c849bee996ed5764b } from "./oppgave019cc289f59b746c849bee996ed5764b";
 import { tilbakekrevingOppgave } from "./tilbakekreving";
 
@@ -24,4 +25,5 @@ export const mockOppgaver = [
   klage,
   innsending,
   tilbakekrevingOppgave,
+  oppgave019cc20df6fe713f85637ed86f12f4d4,
 ];

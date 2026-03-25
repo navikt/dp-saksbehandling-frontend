@@ -1,20 +1,14 @@
 import { BulletListIcon } from "@navikt/aksel-icons";
-import { Heading, InfoCard, List } from "@navikt/ds-react";
+import { Heading, InfoCard, List, Table } from "@navikt/ds-react";
 
-import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useBehandling } from "~/hooks/useBehandling";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
 const omgjøringRegelsettId = "Nzc0ODQwNzYy";
-const opplysningerSomSkalVises = [
-  "0194881f-9428-74d5-b160-f63a4c61a24f",
-  "0194881f-943f-78d9-b874-00a4944c54ef",
-  "0194881f-9428-74d5-b160-f63a4c61a23d",
-  "01992956-e349-76b1-8f68-c9d481df3a32",
-];
 
 export function RevurderingResultat() {
-  const { behandling } = useBehandling();
+  const { behandling, forrigeBehandling } = useBehandling();
   const omgjøringRegelsett = behandling.fastsettelser.find(
     (regelsett) => regelsett.id === omgjøringRegelsettId,
   );
@@ -27,8 +21,12 @@ export function RevurderingResultat() {
     omgjøringRegelsett.opplysninger.includes(opplysninger.opplysningTypeId),
   );
 
-  const opplysninger = behandling.opplysninger.filter((opplysning) =>
-    opplysningerSomSkalVises.includes(opplysning.opplysningTypeId),
+  const pengerSomSkalUtbetalesDenneBehandling = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
+  );
+
+  const pengerSomSkalUtbetalesForrigeBehandling = forrigeBehandling?.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
 
   return (
@@ -51,28 +49,70 @@ export function RevurderingResultat() {
             })}
           </List>
 
-          <Heading size={"xsmall"}>Hva er endret</Heading>
-          <section className="grid grid-cols-3 gap-2">
-            {opplysninger.map((opplysning) => (
-              <VerdiMedTittel
-                key={opplysning.opplysningTypeId}
-                visBorder={true}
-                label={opplysning.navn}
-                verdi={
-                  <div>
-                    <span className={"line-through"}>
-                      {opplysning.perioder.at(-2)?.verdi
-                        ? formaterOpplysningVerdi(opplysning.perioder.at(-2)!.verdi)
-                        : "Fant ingen tidligere verdi"}
-                    </span>
+          {pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling && (
+            <>
+              <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
+              <div className={"flex gap-4"}>
+                <div className={"flex-1"}>
+                  <Heading size={"xsmall"}>Før</Heading>
+                  <Table size={"small"} zebraStripes={true}>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Utbetales</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
 
-                    {opplysning.perioder.at(-1)?.verdi &&
-                      ` ${formaterOpplysningVerdi(opplysning.perioder.at(-1)!.verdi)}`}
-                  </div>
-                }
-              />
-            ))}
-          </section>
+                    <Table.Body>
+                      {pengerSomSkalUtbetalesForrigeBehandling.perioder.map((periode) => (
+                        <Table.Row key={periode.id}>
+                          <Table.DataCell>
+                            {periode.gyldigFraOgMed
+                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                              : "--"}{" "}
+                            –{" "}
+                            {periode.gyldigTilOgMed
+                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                              : "--"}
+                          </Table.DataCell>
+                          <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+                        </Table.Row>
+                      ))}
+                    </Table.Body>
+                  </Table>
+                </div>
+
+                <div className={"flex-1"}>
+                  <Heading size={"xsmall"}>Etter</Heading>
+                  <Table size={"small"} zebraStripes={true}>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Utbetales</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                      {pengerSomSkalUtbetalesDenneBehandling.perioder.map((periode) => (
+                        <Table.Row key={periode.id}>
+                          <Table.DataCell>
+                            {periode.gyldigFraOgMed
+                              ? formaterTilNorskDato(periode.gyldigFraOgMed)
+                              : "--"}{" "}
+                            –{" "}
+                            {periode.gyldigTilOgMed
+                              ? formaterTilNorskDato(periode.gyldigTilOgMed)
+                              : "--"}
+                          </Table.DataCell>
+                          <Table.DataCell>{formaterOpplysningVerdi(periode.verdi)}</Table.DataCell>
+                        </Table.Row>
+                      ))}
+                    </Table.Body>
+                  </Table>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </InfoCard.Content>
     </InfoCard>
