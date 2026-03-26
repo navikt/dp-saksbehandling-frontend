@@ -35,6 +35,7 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   const begrunnelse = barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi;
 
   const orkestratorBarnForm = useForm({
+    method: "put",
     schema: hentValideringForRedigeringBarn(),
     submitSource: "state",
     defaultValues: {
