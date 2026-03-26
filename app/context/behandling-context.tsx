@@ -7,6 +7,7 @@ import { components } from "../../openapi/behandling-typer";
 
 interface IBehandlingContextType {
   behandling: components["schemas"]["Behandling"];
+  forrigeBehandling?: components["schemas"]["Behandling"];
   vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
   prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
   sistePrøvingsdato: Date;
@@ -16,6 +17,7 @@ interface IBehandlingContextType {
 
 interface IBehandlingProviderType {
   behandling: components["schemas"]["Behandling"];
+  forrigeBehandling?: components["schemas"]["Behandling"];
   vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
 }
 
@@ -24,6 +26,7 @@ export const BehandlingContext = createContext<IBehandlingContextType | undefine
 export function BehandlingProvider({
   children,
   behandling,
+  forrigeBehandling,
   vurderinger,
 }: PropsWithChildren<IBehandlingProviderType>) {
   const [visArvedeOpplysninger, setVisArvedeOpplysninger] = useState(false);
@@ -45,6 +48,7 @@ export function BehandlingProvider({
     <BehandlingContext.Provider
       value={{
         behandling,
+        forrigeBehandling,
         vurderinger,
         prøvingsdatoOpplysning,
         sistePrøvingsdato: new Date(sistePrøvingsdatoOpplysningperiode.verdi.verdi),

@@ -1,0 +1,13315 @@
+import type { components } from "../../../openapi/behandling-typer";
+
+export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["Behandling"] = {
+  behandlingId: "019cc20d-f4ee-7324-a608-5830d241fc2e",
+  behandletHendelse: {
+    datatype: "String",
+    id: "019cc20d-e1fb-716f-bb1d-435735a6aa17",
+    type: "Meldekort",
+    skjedde: "2026-03-06",
+  },
+  behandlingskjedeId: "019cc202-a3b9-7faf-aee7-4f00216f1800",
+  basertPå: "019cc20c-a2fa-7708-891b-f5dd6e8235bb",
+  automatisk: false,
+  ident: "08888496751",
+  rettighetsperioder: [
+    {
+      fraOgMed: "2026-01-05",
+      harRett: true,
+      opprinnelse: "Arvet",
+    },
+  ],
+  opprettet: "2026-03-06T08:30:20.711528",
+  sistEndret: "2026-03-06T08:31:19.424781",
+  kreverTotrinnskontroll: false,
+  tilstand: "Ferdig",
+  avklaringer: [
+    {
+      id: "019cc20d-f4ed-7d9f-ad76-044688a381e6",
+      kode: "KorrigertMeldekortBehandling",
+      tittel: "Beregning av korrigert meldekort",
+      beskrivelse:
+        "Behandlingen er korrigering av et tidligere meldekort og kan ikke automatisk behandles",
+      kanKvitteres: true,
+      status: "Avklart",
+      maskinelt: false,
+      begrunnelse: "OK!",
+      sistEndret: "2026-03-06T08:30:34.512948",
+      avklartAv: {
+        ident: "Z994714",
+      },
+      regelsett: [],
+    },
+  ],
+  vilkår: [
+    {
+      id: "MjA5OTE0NTUwMg==",
+      navn: "Krav på dagpenger",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "0",
+        paragraf: "0",
+        tittel: "§ 0-0. Krav på dagpenger",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysninger: ["01990a09-0eab-7957-b88f-14484a50e194"],
+    },
+    {
+      id: "LTQyMjAzNDg0NA==",
+      navn: "Opphold",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "2",
+        tittel: "§ 4-2. Opphold i Norge",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-2",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
+      opplysninger: [
+        "0196ab10-0cff-7301-99d6-65be50a50201",
+        "0194881f-9443-72b4-8b30-5f6cdb24d549",
+        "0194881f-9443-72b4-8b30-5f6cdb24d54a",
+        "0194881f-9443-72b4-8b30-5f6cdb24d54b",
+        "0194881f-9443-72b4-8b30-5f6cdb24d54c",
+        "0194881f-9443-72b4-8b30-5f6cdb24d54d",
+        "0194881f-9443-72b4-8b30-5f6cdb24d54e",
+      ],
+    },
+    {
+      id: "MTEzODE3NjI5",
+      navn: "Tap av arbeidsinntekt og arbeidstid",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "3",
+        tittel: "§ 4-3. Tap av arbeidsinntekt og arbeidstid",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
+      opplysninger: [
+        "0194881f-9435-72a8-b1ce-9575cbc2a75e",
+        "0194881f-9435-72a8-b1ce-9575cbc2a761",
+        "019522d6-846d-7173-a892-67f10016d8d2",
+        "0194881f-9435-72a8-b1ce-9575cbc2a762",
+        "0194881f-9435-72a8-b1ce-9575cbc2a764",
+        "0194881f-9435-72a8-b1ce-9575cbc2a765",
+        "0194881f-9435-72a8-b1ce-9575cbc2a766",
+        "0194881f-9435-72a8-b1ce-9575cbc2a767",
+        "0196b4a7-23b5-7b2c-aa95-e4167d900de8",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76c",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76b",
+        "0194881f-9435-72a8-b1ce-9575cbc2a768",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76e",
+        "0194881f-9435-72a8-b1ce-9575cbc2a763",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76f",
+      ],
+    },
+    {
+      id: "MTkxNzQwNTk5NQ==",
+      navn: "Minsteinntekt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "4",
+        tittel: "§ 4-4. Krav til minsteinntekt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-4",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
+      opplysninger: [
+        "0194881f-9413-77ce-92ec-d29700f04245",
+        "0194881f-9413-77ce-92ec-d29700f04243",
+        "0194881f-9413-77ce-92ec-d29700f04241",
+        "0194881f-9413-77ce-92ec-d29700f0423f",
+        "0194881f-9413-77ce-92ec-d29700f04248",
+        "0194881f-9413-77ce-92ec-d29700f0424a",
+        "0194881f-9413-77ce-92ec-d29700f04242",
+        "0194881f-9413-77ce-92ec-d29700f04240",
+        "0194881f-9413-77ce-92ec-d29700f04249",
+        "0194881f-9413-77ce-92ec-d29700f0424b",
+        "0194881f-9413-77ce-92ec-d29700f0424c",
+      ],
+    },
+    {
+      id: "LTcwOTc3ODg5Mw==",
+      navn: "Reell arbeidssøker",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "5",
+        tittel: "§ 4-5. Reelle arbeidssøkere",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
+      opplysninger: [
+        "0194881f-9435-72a8-b1ce-9575cbc2a75f",
+        "0194881f-9435-72a8-b1ce-9575cbc2a769",
+        "0194881f-9435-72a8-b1ce-9575cbc2a76d",
+        "0194881f-9441-7d1b-a06a-6727543a141e",
+        "0194881f-9441-7d1b-a06a-6727543a141f",
+        "0194881f-9442-707b-a6ee-e96c06877bd9",
+        "0194881f-9442-707b-a6ee-e96c06877bda",
+        "0194881f-9442-707b-a6ee-e96c06877bdc",
+        "0194929e-2036-7ac1-ada3-5cbe05a83f08",
+        "0194881f-9442-707b-a6ee-e96c06877bde",
+        "0194881f-9442-707b-a6ee-e96c06877bd8",
+        "0194881f-9442-707b-a6ee-e96c06877bdb",
+        "0194881f-9442-707b-a6ee-e96c06877bdd",
+        "0194881f-9442-707b-a6ee-e96c06877bdf",
+        "0194881f-9442-707b-a6ee-e96c06877be2",
+      ],
+    },
+    {
+      id: "MTM1NTk3MzU0NQ==",
+      navn: "Registrert som arbeidssøker",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "5",
+        tittel: "§ 4-5. Reelle arbeidssøkere - registrert som arbeidssøker",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-5",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
+      opplysninger: [
+        "0194881f-9442-707b-a6ee-e96c06877be0",
+        "0194881f-9442-707b-a6ee-e96c06877be1",
+      ],
+    },
+    {
+      id: "LTczNTY1MjEyNA==",
+      navn: "Utdanning",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "6",
+        tittel: "§ 4-6. Dagpenger under utdanning, opplæring, etablering av egen virksomhet m.v",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-6",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
+      opplysninger: [
+        "0194881f-9445-734c-a7ee-045edf29b522",
+        "0194881f-9445-734c-a7ee-045edf29b527",
+        "0194881f-9445-734c-a7ee-045edf29b528",
+        "0194881f-9445-734c-a7ee-045edf29b529",
+        "0194881f-9445-734c-a7ee-045edf29b52a",
+        "0194881f-9445-734c-a7ee-045edf29b52b",
+        "0194881f-9445-734c-a7ee-045edf29b52c",
+        "0194881f-9445-734c-a7ee-045edf29b523",
+        "0194881f-9445-734c-a7ee-045edf29b524",
+        "0194881f-9445-734c-a7ee-045edf29b525",
+        "0194881f-9445-734c-a7ee-045edf29b526",
+        "0194881f-9445-734c-a7ee-045edf29b52d",
+      ],
+    },
+    {
+      id: "NzI2NzYzMzA2",
+      navn: "Permittering",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "7",
+        tittel: "§ 4-7. Dagpenger til permitterte",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "0194d111-db2f-7395-bcfb-959f245fd2a6",
+      opplysninger: [],
+    },
+    {
+      id: "MTY5Njg0OTExOQ==",
+      navn: "Permittering fiskeindustri",
+      hjemmel: {
+        kilde: {
+          navn: "Forskrift til Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "6",
+        paragraf: "7",
+        tittel:
+          "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "019522b0-c722-76d4-8d7f-78f556c51f72",
+      opplysninger: [],
+    },
+    {
+      id: "NjI4Njk1OTI3",
+      navn: "Manglende og uriktige opplysninger",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "21",
+        paragraf: "7",
+        tittel: "§ 21-7. Uriktige opplysninger m.m. - følger for ytelser fra trygden",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§21-7",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
+      opplysninger: [
+        "019bc5f8-5c56-7f36-bff1-b10c8165764d",
+        "019bc5f8-8af4-73c7-8b15-6feecd7810d2",
+        "019bc5f8-c377-740f-9df6-3c743b5144b1",
+        "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
+      ],
+    },
+    {
+      id: "MTI1NzcwODQ5OA==",
+      navn: "Meldeplikt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "8",
+        tittel: "§ 4-8. Meldeplikt og møteplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-8",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+    {
+      id: "LTM1NDI2NjUxMA==",
+      navn: "Søknad",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "22",
+        paragraf: "13",
+        tittel: "§ 22-13. Frister for framsetting av krav, virkningstidspunkt og etterbetaling",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§22-13",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "019c092a-7759-700a-9f7d-f4415b91e8db",
+      opplysninger: [
+        "019c091e-e7aa-7e15-b339-b6276276ebf2",
+        "019c0920-8b11-729a-866d-9f271f03ef2e",
+        "019c092a-7759-700a-9f7d-f4415b91e8db",
+      ],
+    },
+    {
+      id: "LTU2NzY3NzA4Ng==",
+      navn: "Gjenopptak",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "16",
+        tittel: "§ 4-16. Gjenopptak av løpende stønadsperiode",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-16",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "019a2fda-4ad6-7711-89ec-38dec1b86293",
+      opplysninger: [],
+    },
+    {
+      id: "NDQzMzYxODky",
+      navn: "Verneplikt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "19",
+        tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
+      opplysninger: [
+        "01948d3c-4bea-7802-9d18-5342a5e2be99",
+        "01948d43-e218-76f1-b29b-7e604241d98a",
+      ],
+    },
+    {
+      id: "LTE0NjQwMDMzMTM=",
+      navn: "Streik og lock-out",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "22",
+        tittel: "§ 4-22. Bortfall ved streik og lock-out",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-22",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      opplysninger: [
+        "0194881f-91df-746a-a8ac-4a6b2b30685d",
+        "0194881f-91df-746a-a8ac-4a6b2b30685e",
+        "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      ],
+    },
+    {
+      id: "MjA2ODE3MDM1Mw==",
+      navn: "Alder",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "23",
+        tittel: "§ 4-23. Bortfall på grunn av alder",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-23",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
+      opplysninger: [
+        "0194881f-940b-76ff-acf5-ba7bcb367233",
+        "0194881f-940b-76ff-acf5-ba7bcb367234",
+        "0194881f-940b-76ff-acf5-ba7bcb367235",
+        "0194881f-940b-76ff-acf5-ba7bcb367236",
+        "0194881f-940b-76ff-acf5-ba7bcb367237",
+      ],
+    },
+    {
+      id: "NjQ5MjczNzUy",
+      navn: "Fulle ytelser",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "24",
+        tittel:
+          "§ 4-24. Medlem som har fulle ytelser etter folketrygdloven eller avtalefestet pensjon",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-24",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
+      opplysninger: ["0194881f-943f-78d9-b874-00a4944c54f1"],
+    },
+    {
+      id: "LTQwODA4MDMyOQ==",
+      navn: "Samordning reduserte ytelser",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "25",
+        tittel:
+          "§ 4-25. Samordning med reduserte ytelser fra folketrygden, eller redusert avtalefestet pensjon",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
+      opplysninger: [
+        "0194881f-9433-70e9-a85b-c246150c45cd",
+        "0194881f-9433-70e9-a85b-c246150c45ce",
+        "0194881f-9433-70e9-a85b-c246150c45cf",
+        "0194881f-9433-70e9-a85b-c246150c45d0",
+        "0194881f-9433-70e9-a85b-c246150c45d2",
+        "0194881f-9433-70e9-a85b-c246150c45d3",
+        "0194881f-9433-70e9-a85b-c246150c45d1",
+        "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ed",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ee",
+        "0194881f-9433-70e9-a85b-c246150c45d4",
+        "0194881f-9433-70e9-a85b-c246150c45d5",
+        "0194881f-9433-70e9-a85b-c246150c45d6",
+        "0194881f-9433-70e9-a85b-c246150c45d7",
+        "0194881f-9433-70e9-a85b-c246150c45da",
+        "0194881f-9433-70e9-a85b-c246150c45d9",
+        "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
+        "0196afbf-e32d-775a-ad10-f476e26dcb6f",
+        "0194881f-9434-79e8-a64d-1a23cc5d86e9",
+        "0194881f-9434-79e8-a64d-1a23cc5d86eb",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ec",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ef",
+        "0194881f-9434-79e8-a64d-1a23cc5d86ea",
+      ],
+    },
+    {
+      id: "LTk4MTAyMzkxNA==",
+      navn: "Utestengning",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "28",
+        tittel: "§ 4-28. Utestengning",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-28",
+      },
+      type: "Vilkår",
+      relevantForResultat: true,
+      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
+      opplysninger: [
+        "0194881f-9447-7e36-a569-3e9f42bff9f6",
+        "0194881f-9447-7e36-a569-3e9f42bff9f7",
+      ],
+    },
+  ],
+  fastsettelser: [
+    {
+      id: "NDk3MjQwMDY0",
+      navn: "Meldekortberegning",
+      hjemmel: {
+        kilde: {
+          navn: "Meldekortberegning",
+          kortnavn: "Meldekortberegning",
+        },
+        kapittel: "0",
+        paragraf: "0",
+        tittel: "§ 0-0. Meldekortberegning",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "01956abd-2871-7517-a332-b462c0c31292",
+        "01948ea0-36e8-72cc-aa4f-16bc446ed3bd",
+        "01948ea0-e25c-7c47-8429-a05045d80eca",
+        "01948ea0-ffdc-7964-ab55-52a7e35e1020",
+        "01956ab8-126c-7636-803e-a5d87eda2015",
+        "01973a27-d8b3-7ffd-a81a-a3826963b079",
+        "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+        "01994cfd-9a27-762e-81fa-61f550467c95",
+        "01992934-66e4-7606-bdd3-c6c9dd420ffd",
+        "01992956-e349-76b1-8f68-c9d481df3a32",
+        "01997b70-a12c-7622-bff8-82a20687e640",
+        "01997b70-6e6e-702a-a296-18ae5fb9621d",
+        "019a81bf-50e1-7f1d-b23b-f30265b16042",
+        "019a9b47-2442-7533-bc71-a71a4600c49a",
+        "019ae986-43bb-7529-af23-9b3d309501eb",
+        "019ae986-81bf-7b29-9458-446e6dbaedae",
+        "019ae986-a128-72f0-9868-032bc8a57b21",
+      ],
+    },
+    {
+      id: "OTIwNDc2NzM0",
+      navn: "Rettighetstype",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "0",
+        paragraf: "0",
+        tittel: "§ 0-0. Rettighetstype",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§0-0",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-9444-7a73-a458-0af81c034d86",
+        "0194881f-9444-7a73-a458-0af81c034d85",
+        "0194881f-9444-7a73-a458-0af81c034d87",
+        "0194881f-9444-7a73-a458-0af81c034d88",
+        "0194881f-9444-7a73-a458-0af81c034d89",
+        "0194881f-9444-7a73-a458-0af81c034d8a",
+        "0194881f-9444-7a73-a458-0af81c034d8b",
+        "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
+        "01980cf4-9010-7bcf-b578-ca5a825d64ef",
+      ],
+    },
+    {
+      id: "MTkzODI0ODkxNg==",
+      navn: "Søknadstidspunkt",
+      hjemmel: {
+        kilde: {
+          navn: "Forskrift til Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "3",
+        paragraf: "1",
+        tittel: "§ 3-1. Søknadstidspunkt",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-91d1-7df2-ba1d-4533f37fcc77",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc73",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc74",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc75",
+        "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+      ],
+    },
+    {
+      id: "MTU2NjA5MjU2Mg==",
+      navn: "Opptjeningsperiode",
+      hjemmel: {
+        kilde: {
+          navn: "A-opplysningsloven",
+          kortnavn: "a-opplysningsloven",
+        },
+        kapittel: "1",
+        paragraf: "2",
+        tittel: "§ 1-2. Frist for levering av opplysninger",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-9414-7823-8d29-0e25b7feb7ce",
+        "0194881f-9414-7823-8d29-0e25b7feb7cf",
+        "0194881f-9414-7823-8d29-0e25b7feb7d0",
+        "0194881f-9413-77ce-92ec-d29700f04246",
+        "0194881f-9413-77ce-92ec-d29700f04247",
+        "0194881f-9413-77ce-92ec-d29700f04244",
+      ],
+    },
+    {
+      id: "LTEyNzA0Mjg3Mzk=",
+      navn: "Fastsettelse av arbeidstid",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "3",
+        tittel: "§ 4-3. Fastsettelse av arbeidstid",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-3",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: ["0194881f-9435-72a8-b1ce-9575cbc2a76a"],
+    },
+    {
+      id: "NzI2NzYzMzA2",
+      navn: "Permittering",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "7",
+        tittel: "§ 4-7. Dagpenger til permitterte",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-7",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+    {
+      id: "LTE5NTU4ODM3Njk=",
+      navn: "Permittering fiskeindustri",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "6",
+        paragraf: "7",
+        tittel:
+          "§ 6-7. Permittering i fiskeforedlingsindustrien, sjømatindustrien og fiskeoljeindustrien",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§6-7",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+    {
+      id: "LTE4NjY4NTYxODk=",
+      navn: "Egenandel",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "9",
+        tittel: "§ 4-9. Egenandel",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-943f-78d9-b874-00a4944c54f0",
+        "019523aa-7941-7dd2-8c43-0644d7b43f57",
+        "0194881f-943f-78d9-b874-00a4944c54ef",
+      ],
+    },
+    {
+      id: "LTY1NzEyNTE3OQ==",
+      navn: "Dagpengegrunnlag",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "11",
+        tittel: "§ 4-11. Dagpengegrunnlag",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-11",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-9410-7481-b263-4606fdd10ca9",
+        "0194881f-9410-7481-b263-4606fdd10ca7",
+        "0194881f-9410-7481-b263-4606fdd10ca8",
+        "0194881f-940f-7af9-9387-052e028b29ee",
+        "0194881f-940f-7af9-9387-052e028b29ed",
+        "0194881f-940f-7af9-9387-052e028b29ec",
+        "0194881f-9410-7481-b263-4606fdd10cad",
+        "0194881f-9410-7481-b263-4606fdd10cae",
+        "0194881f-9410-7481-b263-4606fdd10caf",
+        "0194881f-9410-7481-b263-4606fdd10cb0",
+        "0194881f-9410-7481-b263-4606fdd10cb1",
+        "0194881f-9410-7481-b263-4606fdd10cb2",
+        "0194881f-9410-7481-b263-4606fdd10cb3",
+        "0194881f-9410-7481-b263-4606fdd10cb4",
+        "0194881f-9410-7481-b263-4606fdd10cb5",
+        "0194881f-9410-7481-b263-4606fdd10caa",
+        "0194881f-9410-7481-b263-4606fdd10cab",
+        "0194881f-9410-7481-b263-4606fdd10cac",
+        "0194881f-9410-7481-b263-4606fdd10cbb",
+        "0194881f-9410-7481-b263-4606fdd10cba",
+        "0194881f-9410-7481-b263-4606fdd10cbc",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e03",
+        "0194881f-9421-766c-9dc6-41fe6c9a1e05",
+        "0194881f-9410-7481-b263-4606fdd10cbd",
+        "0194881f-9410-7481-b263-4606fdd10cb6",
+        "0194881f-9410-7481-b263-4606fdd10cb7",
+        "0194881f-9410-7481-b263-4606fdd10cb8",
+        "0194881f-9410-7481-b263-4606fdd10cb9",
+      ],
+    },
+    {
+      id: "OTg0NjgwNzcw",
+      navn: "Sats og barnetillegg",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "12",
+        tittel: "§ 4-12. Dagpengenes størrelse",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-9428-74d5-b160-f63a4c61a23b",
+        "0194881f-9428-74d5-b160-f63a4c61a23c",
+        "0194881f-9428-74d5-b160-f63a4c61a23e",
+        "0194881f-9428-74d5-b160-f63a4c61a23f",
+        "0194881f-9428-74d5-b160-f63a4c61a241",
+        "0194881f-9428-74d5-b160-f63a4c61a23d",
+        "0194881f-9428-74d5-b160-f63a4c61a244",
+        "0194881f-9428-74d5-b160-f63a4c61a245",
+        "0194881f-9428-74d5-b160-f63a4c61a240",
+        "0194881f-9428-74d5-b160-f63a4c61a246",
+        "0194881f-9428-74d5-b160-f63a4c61a247",
+        "0194881f-9428-74d5-b160-f63a4c61a248",
+        "0194881f-9428-74d5-b160-f63a4c61a24a",
+        "0194881f-9428-74d5-b160-f63a4c61a24b",
+        "0194881f-9428-74d5-b160-f63a4c61a242",
+        "0194881f-9428-74d5-b160-f63a4c61a243",
+        "0194881f-9428-74d5-b160-f63a4c61a24d",
+        "0194881f-9428-74d5-b160-f63a4c61a24f",
+        "0194881f-9428-74d5-b160-f63a4c61a250",
+        "0194881f-9428-74d5-b160-f63a4c61a249",
+        "0194881f-9428-74d5-b160-f63a4c61a24e",
+        "0194881f-9428-74d5-b160-f63a4c61a24c",
+      ],
+    },
+    {
+      id: "NDYxOTkyNDU=",
+      navn: "Periode",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "15",
+        tittel: "§ 4-15. Antall stønadsuker (stønadsperiode)",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-15",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-943d-77a7-969c-147999f1544a",
+        "0194881f-943d-77a7-969c-147999f1544b",
+        "0194881f-943d-77a7-969c-147999f1544f",
+        "0194881f-943d-77a7-969c-147999f15450",
+        "0194881f-943d-77a7-969c-147999f1544c",
+        "0194881f-943d-77a7-969c-147999f1544d",
+        "0194881f-943d-77a7-969c-147999f15451",
+        "0194881f-943d-77a7-969c-147999f15454",
+        "0194881f-943d-77a7-969c-147999f15455",
+        "0194881f-943d-77a7-969c-147999f15452",
+        "0194881f-943d-77a7-969c-147999f15453",
+        "0194881f-943d-77a7-969c-147999f15456",
+        "0194881f-943d-77a7-969c-147999f15459",
+        "0194881f-943d-77a7-969c-147999f15449",
+        "0194881f-943d-77a7-969c-147999f15457",
+      ],
+    },
+    {
+      id: "LTIxMjA2NDcyNTQ=",
+      navn: "Dagpenger ved verneplikt",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "19",
+        tittel: "§ 4-19. Dagpenger etter avtjent verneplikt",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+    {
+      id: "LTE3NjI2MDQ3Mzg=",
+      navn: "Samordning utenfor folketrygden",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "26",
+        tittel: "§ 4-26. Samordning med ytelser utenfor folketrygden",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-26",
+      },
+      type: "Fastsettelse",
+      relevantForResultat: true,
+      opplysninger: [
+        "0194881f-942e-7cb0-aa59-05ea449d88e0",
+        "0194881f-942e-7cb0-aa59-05ea449d88e1",
+        "0194881f-942e-7cb0-aa59-05ea449d88e2",
+        "0194881f-942e-7cb0-aa59-05ea449d88e3",
+        "0194881f-942e-7cb0-aa59-05ea449d88e4",
+        "0194881f-942e-7cb0-aa59-05ea449d88e5",
+        "0194881f-942e-7cb0-aa59-05ea449d88e6",
+        "0194881f-942e-7cb0-aa59-05ea449d88e7",
+        "0194881f-942e-7cb0-aa59-05ea449d88e8",
+        "0194881f-942f-7bde-ab16-68ffd19e9a26",
+        "0194881f-942f-7bde-ab16-68ffd19e9a27",
+        "0194881f-942f-7bde-ab16-68ffd19e9a28",
+        "0194881f-942f-7bde-ab16-68ffd19e9a29",
+        "0194881f-942f-7bde-ab16-68ffd19e9a2e",
+        "0194881f-942f-7bde-ab16-68ffd19e9a2b",
+        "0194881f-942f-7bde-ab16-68ffd19e9a2c",
+        "0194881f-942f-7bde-ab16-68ffd19e9a2f",
+        "0194881f-942f-7bde-ab16-68ffd19e9a30",
+        "0194881f-942f-7bde-ab16-68ffd19e9a31",
+        "0194881f-942f-7bde-ab16-68ffd19e9a32",
+        "0194881f-942f-7bde-ab16-68ffd19e9a33",
+        "0194881f-942f-7bde-ab16-68ffd19e9a2d",
+      ],
+    },
+    {
+      id: "Nzc0ODQwNzYy",
+      navn: "Omgjøring uten klage",
+      hjemmel: {
+        kilde: {
+          navn: "Forvaltningsloven",
+          kortnavn: "fvl",
+        },
+        kapittel: "6",
+        paragraf: "35",
+        tittel: "§ 6-35. Omgjøring av vedtak uten klage",
+        url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
+      },
+      type: "Prosess",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+  ],
+  saksbehandlingsregler: [
+    {
+      id: "Nzc0ODQwNzYy",
+      navn: "Omgjøring uten klage",
+      hjemmel: {
+        kilde: {
+          navn: "Forvaltningsloven",
+          kortnavn: "fvl",
+        },
+        kapittel: "6",
+        paragraf: "35",
+        tittel: "§ 6-35. Omgjøring av vedtak uten klage",
+        url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
+      },
+      type: "Prosess",
+      relevantForResultat: false,
+      opplysninger: [],
+    },
+  ],
+  opplysninger: [
+    {
+      opplysningTypeId: "0194881f-9462-78af-8977-46092bb030eb",
+      navn: "fagsakId",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc202-a3b9-7faf-aee7-4f00216f17ff",
+          opprettet: "2026-03-06T08:17:58.84117",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 15759772,
+            datatype: "heltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:17:58.841121",
+            meldingId: "0cfe72c5-5981-4cd7-8aab-10b1b22b0165",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
+      navn: "hendelseType",
+      datatype: "tekst",
+      perioder: [
+        {
+          id: "019cc20d-f4ed-7d9f-ad76-044688a381e4",
+          opprettet: "2026-03-06T08:30:20.525596",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-06",
+          gyldigTilOgMed: "2026-03-06",
+          verdi: {
+            verdi: "BeregnMeldekortHendelse",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525587",
+            meldingId: "1331f1ec-e09d-490f-ac47-9bbb13d66673",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367234",
+      navn: "Aldersgrense",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe3",
+          opprettet: "2026-03-06T08:17:58.846197",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 67,
+            enhet: "år",
+            datatype: "heltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019c091e-e7aa-7e15-b339-b6276276ebf2",
+      navn: "Har satt frem skriftlig søknad",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe4",
+          opprettet: "2026-03-06T08:17:58.846325",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019c0920-8b11-729a-866d-9f271f03ef2e",
+      navn: "Ønsker dagpenger ved framsatt søknad",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe5",
+          opprettet: "2026-03-06T08:17:58.846331",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019bc5f8-5c56-7f36-bff1-b10c8165764d",
+      navn: "Mot bedre vitende har gitt uriktige opplysninger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe6",
+          opprettet: "2026-03-06T08:17:58.846336",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019bc5f8-8af4-73c7-8b15-6feecd7810d2",
+      navn: "Holder tilbake opplysninger som er viktige for rettigheter eller plikter etter denne loven",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe7",
+          opprettet: "2026-03-06T08:17:58.846351",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019bc5f8-c377-740f-9df6-3c743b5144b1",
+      navn: "Uten rimelig grunn unnlater å etterkomme pålegg som er gitt med hjemmel i denne loven",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fe8",
+          opprettet: "2026-03-06T08:17:58.846356",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019c092a-7759-700a-9f7d-f4415b91e8db",
+      navn: "Oppfyller kravet til framsatt søknad",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3be-7fec-b3be-6ec8b1037fea",
+          opprettet: "2026-03-06T08:17:58.846981",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe4",
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe5",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
+      navn: "Har gitt fullstendige og riktige opplysninger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a3bf-725f-b3a2-eb83ff33bcdb",
+          opprettet: "2026-03-06T08:17:58.847011",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: [
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe6",
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe7",
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe8",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367233",
+      navn: "Fødselsdato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc202-a623-7009-b96c-5313d874023c",
+          opprettet: "2026-03-06T08:17:59.459548",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: "1984-08-08",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:17:59.420093",
+            meldingId: "067aca17-05e1-4556-88ab-e943da880cd4",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367235",
+      navn: "Dato søker når maks alder",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc202-a624-757b-ae35-827e216e55f1",
+          opprettet: "2026-03-06T08:17:59.460909",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: "2051-08-08",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "LeggTilÅr",
+            },
+            opplysninger: [
+              "019cc202-a3be-7fec-b3be-6ec8b1037fe3",
+              "019cc202-a623-7009-b96c-5313d874023c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367236",
+      navn: "Siste mulige dag bruker kan oppfylle alderskrav",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc202-a625-75d0-b9f8-81958edb94e4",
+          opprettet: "2026-03-06T08:17:59.46148",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: "2051-08-31",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SisteDagIMåned",
+            },
+            opplysninger: ["019cc202-a624-757b-ae35-827e216e55f1"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
+      navn: "Kravet til reell arbeidssøker er relevant",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-a628-7874-b241-576b7ec95d97",
+          opprettet: "2026-03-06T08:17:59.464104",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
+      navn: "Oppfyller vilkåret om å ikke motta andre fulle ytelser",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f02f",
+          opprettet: "2026-03-06T08:18:00.77731",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54c",
+      navn: "Bruker er medlem av folketrygden",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f030",
+          opprettet: "2026-03-06T08:18:00.777358",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d4",
+      navn: "Sykepenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f031",
+          opprettet: "2026-03-06T08:18:00.777381",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d5",
+      navn: "Pleiepenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f032",
+          opprettet: "2026-03-06T08:18:00.777438",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d6",
+      navn: "Omsorgspenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f033",
+          opprettet: "2026-03-06T08:18:00.777456",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d7",
+      navn: "Opplæringspenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f034",
+          opprettet: "2026-03-06T08:18:00.777472",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d1",
+      navn: "Uføretrygd etter lovens kapittel 12",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f035",
+          opprettet: "2026-03-06T08:18:00.777527",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d9",
+      navn: "Foreldrepenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f036",
+          opprettet: "2026-03-06T08:18:00.777544",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45da",
+      navn: "Svangerskapspenger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f037",
+          opprettet: "2026-03-06T08:18:00.777561",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685d",
+      navn: "Brukeren deltar i streik eller er omfattet av lock-out",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f038",
+          opprettet: "2026-03-06T08:18:00.777577",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685e",
+      navn: "Brukeren er ledig ved samme bedrift eller arbeidsplass, og blir påvirket av utfallet",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f039",
+          opprettet: "2026-03-06T08:18:00.777601",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76b",
+      navn: "Ny arbeidstid per uke",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f03a",
+          opprettet: "2026-03-06T08:18:00.777627",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a764",
+      navn: "Beregningsregel: Arbeidstid siste 6 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f03c",
+          opprettet: "2026-03-06T08:18:00.777786",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a765",
+      navn: "Beregningsregel: Arbeidstid siste 12 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f03d",
+          opprettet: "2026-03-06T08:18:00.777804",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a766",
+      navn: "Beregningsregel: Arbeidstid siste 36 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f03e",
+          opprettet: "2026-03-06T08:18:00.777822",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196b4a7-23b5-7b2c-aa95-e4167d900de8",
+      navn: "Arbeidstidsreduksjonen er ikke brukt tidligere i en full stønadsperiode",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f03f",
+          opprettet: "2026-03-06T08:18:00.777842",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b527",
+      navn: "Deltar i arbeidsmarkedstiltak",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f040",
+          opprettet: "2026-03-06T08:18:00.77786",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b528",
+      navn: "Deltar i opplæring for innvandrere",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f041",
+          opprettet: "2026-03-06T08:18:00.777878",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b529",
+      navn: "Deltar i grunnskoleopplæring, videregående opplæring og opplæring i grunnleggende ferdigheter",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f042",
+          opprettet: "2026-03-06T08:18:00.777897",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52a",
+      navn: "Deltar i høyere yrkesfaglig utdanning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f043",
+          opprettet: "2026-03-06T08:18:00.777915",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52b",
+      navn: "Deltar i høyere utdanning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f044",
+          opprettet: "2026-03-06T08:18:00.777934",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52c",
+      navn: "Deltar på kurs mv",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f045",
+          opprettet: "2026-03-06T08:18:00.777961",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f6",
+      navn: "Bruker er utestengt fra dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab49-78f6-b224-b53da148f046",
+          opprettet: "2026-03-06T08:18:00.77799",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54d",
+      navn: "Oppfyller kravet til medlemskap",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4b-7832-aafd-aa1cb6fb7017",
+          opprettet: "2026-03-06T08:18:00.779972",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc202-ab49-78f6-b224-b53da148f030"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
+      navn: "Uføretrygden er gitt med virkningstidspunkt i inneværende år eller innenfor de to siste kalenderår",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4c-7bb5-be38-fb1b171a98ea",
+          opprettet: "2026-03-06T08:18:00.780031",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc202-ab49-78f6-b224-b53da148f035"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
+      navn: "Brukeren er ikke påvirket av streik eller lock-out",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4c-7bb5-be38-fb1b171a98eb",
+          opprettet: "2026-03-06T08:18:00.780076",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f038",
+              "019cc202-ab49-78f6-b224-b53da148f039",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a763",
+      navn: "Beregningsregel: Tapt arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4c-7bb5-be38-fb1b171a98ed",
+          opprettet: "2026-03-06T08:18:00.780179",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f03c",
+              "019cc202-ab49-78f6-b224-b53da148f03d",
+              "019cc202-ab49-78f6-b224-b53da148f03e",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b523",
+      navn: "Godkjent unntak for utdanning eller opplæring?",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4c-7bb5-be38-fb1b171a98ee",
+          opprettet: "2026-03-06T08:18:00.780236",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f040",
+              "019cc202-ab49-78f6-b224-b53da148f041",
+              "019cc202-ab49-78f6-b224-b53da148f042",
+              "019cc202-ab49-78f6-b224-b53da148f043",
+              "019cc202-ab49-78f6-b224-b53da148f044",
+              "019cc202-ab49-78f6-b224-b53da148f045",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
+      navn: "Oppfyller krav til ikke utestengt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-ab4c-7bb5-be38-fb1b171a98ef",
+          opprettet: "2026-03-06T08:18:00.78028",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: ["019cc202-ab49-78f6-b224-b53da148f046"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
+      navn: "Sum hvis Uføre ikke skal samordnes",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab4d-7bb4-bf11-7a6783bd295f",
+          opprettet: "2026-03-06T08:18:00.781601",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196afbf-e32d-775a-ad10-f476e26dcb6f",
+      navn: "Uførebeløp som skal samordnes",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab4e-7f8e-8a9e-b1509de6b72e",
+          opprettet: "2026-03-06T08:18:00.782784",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc202-ab4c-7bb5-be38-fb1b171a98ea",
+              "019cc202-ab4d-7bb4-bf11-7a6783bd295f",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86e9",
+      navn: "Sum andre ytelser",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-ab50-79d3-a414-40320695ceb9",
+          opprettet: "2026-03-06T08:18:00.784273",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Addisjon",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f031",
+              "019cc202-ab49-78f6-b224-b53da148f032",
+              "019cc202-ab49-78f6-b224-b53da148f033",
+              "019cc202-ab49-78f6-b224-b53da148f034",
+              "019cc202-ab49-78f6-b224-b53da148f036",
+              "019cc202-ab49-78f6-b224-b53da148f037",
+              "019cc202-ab4e-7f8e-8a9e-b1509de6b72e",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca9",
+      navn: "Antall år i 36 måneder",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc202-bde2-7285-846c-928119639787",
+          opprettet: "2026-03-06T08:18:05.538849",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 3,
+            enhet: "år",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e7",
+      navn: "Pensjon fra en offentlig tjenestepensjonsordning beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d74",
+          opprettet: "2026-03-06T08:18:05.545047",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e8",
+      navn: "Uførepensjon fra offentlig pensjonsordning beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d75",
+          opprettet: "2026-03-06T08:18:05.545076",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a26",
+      navn: "Vartpenger beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d76",
+          opprettet: "2026-03-06T08:18:05.545104",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a27",
+      navn: "Ventelønn beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d77",
+          opprettet: "2026-03-06T08:18:05.545134",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a28",
+      navn: "Etterlønn beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d78",
+          opprettet: "2026-03-06T08:18:05.545162",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a29",
+      navn: "Garantilott fra Garantikassen for fiskere beløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d79",
+          opprettet: "2026-03-06T08:18:05.545191",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e1",
+      navn: "Mottar pensjon fra en offentlig tjenestepensjonsordning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d7e",
+          opprettet: "2026-03-06T08:18:05.545514",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e2",
+      navn: "Mottar redusert uførepensjon fra offentlig pensjonsordning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d7f",
+          opprettet: "2026-03-06T08:18:05.545544",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e3",
+      navn: "Mottar vartpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d80",
+          opprettet: "2026-03-06T08:18:05.545575",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e4",
+      navn: "Mottar ventelønn",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d81",
+          opprettet: "2026-03-06T08:18:05.545605",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e5",
+      navn: "Mottar etterlønn",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d82",
+          opprettet: "2026-03-06T08:18:05.545638",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e6",
+      navn: "Mottar garantilott fra Garantikassen for fiskere.",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d83",
+          opprettet: "2026-03-06T08:18:05.545669",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ed",
+      navn: "Antall timer arbeidstiden skal samordnes mot",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc202-bde9-7b48-b710-c795db221d86",
+          opprettet: "2026-03-06T08:18:05.545785",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2e",
+      navn: "Sum av ytelser utenfor folketrygden",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc202-bdf0-7dbd-ae0d-31bff64dce3c",
+          opprettet: "2026-03-06T08:18:05.552043",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SumAv",
+            },
+            opplysninger: [
+              "019cc202-bde9-7b48-b710-c795db221d74",
+              "019cc202-bde9-7b48-b710-c795db221d75",
+              "019cc202-bde9-7b48-b710-c795db221d76",
+              "019cc202-bde9-7b48-b710-c795db221d77",
+              "019cc202-bde9-7b48-b710-c795db221d78",
+              "019cc202-bde9-7b48-b710-c795db221d79",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e0",
+      navn: "Oppgitt andre ytelser utenfor NAV i søknaden",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bf5c-7d62-8bb6-03a91fcb3ed0",
+          opprettet: "2026-03-06T08:18:05.916383",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:18:05.856124",
+            meldingId: "d72a22ff-6d56-4de9-ae2f-3e6fe14de3b0",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2d",
+      navn: "Skal samordnes med ytelser utenfor folketrygden",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc202-bf63-7ff3-b2cc-22920f04995a",
+          opprettet: "2026-03-06T08:18:05.923622",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc202-bde9-7b48-b710-c795db221d7e",
+              "019cc202-bde9-7b48-b710-c795db221d7f",
+              "019cc202-bde9-7b48-b710-c795db221d80",
+              "019cc202-bde9-7b48-b710-c795db221d81",
+              "019cc202-bde9-7b48-b710-c795db221d82",
+              "019cc202-bde9-7b48-b710-c795db221d83",
+              "019cc202-bf5c-7d62-8bb6-03a91fcb3ed0",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc77",
+      navn: "søknadId",
+      datatype: "tekst",
+      perioder: [
+        {
+          id: "019cc203-e83b-7354-9403-160702b3e16c",
+          opprettet: "2026-03-06T08:19:21.915229",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "7b3af716-2402-4271-bf2d-30773fa8749b",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "Saksbehandler",
+            registrert: "2026-03-06T08:19:21.865018",
+            ident: "Z994714",
+            begrunnelse: {
+              verdi: "dd",
+              sistEndret: "2026-03-06T08:19:21.864993",
+            },
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: true,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc73",
+      navn: "Søknadsdato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc203-e9de-71d8-ad82-1000c39ab78a",
+          opprettet: "2026-03-06T08:19:22.334724",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-03-06",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.289088",
+            meldingId: "5cb11a78-ff8c-469d-a165-53d08a9b328b",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc74",
+      navn: "Ønsker dagpenger fra dato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc203-e9de-71d8-ad82-1000c39ab78b",
+          opprettet: "2026-03-06T08:19:22.334899",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-01-05",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.289379",
+            meldingId: "5cb11a78-ff8c-469d-a165-53d08a9b328b",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc75",
+      navn: "Søknadstidspunkt",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc203-e9e1-73b9-b434-48338171679f",
+          opprettet: "2026-03-06T08:19:22.3372",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-03-06",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SisteAv",
+            },
+            opplysninger: [
+              "019cc203-e9de-71d8-ad82-1000c39ab78a",
+              "019cc203-e9de-71d8-ad82-1000c39ab78b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a769",
+      navn: "Minimum vanlig arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc203-e9e6-7c57-9492-92c9981eab58",
+          opprettet: "2026-03-06T08:19:22.342749",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 18.75,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Utgangspunkt",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141e",
+      navn: "Kan jobbe heltid og deltid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb5e",
+          opprettet: "2026-03-06T08:19:22.741508",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.684045",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd9",
+      navn: "Kan jobbe i hele Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb5f",
+          opprettet: "2026-03-06T08:19:22.741589",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.684224",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdc",
+      navn: "Kan ta alle typer arbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb60",
+          opprettet: "2026-03-06T08:19:22.74165",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.684363",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bde",
+      navn: "Villig til å bytte yrke",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb61",
+          opprettet: "2026-03-06T08:19:22.741707",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.686809",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75f",
+      navn: "Ønsket arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb62",
+          opprettet: "2026-03-06T08:19:22.741791",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 40,
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.68713",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d85",
+      navn: "Har rett til ordinære dagpenger gjennom arbeidsforhold",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb63",
+          opprettet: "2026-03-06T08:19:22.741827",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.687469",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d86",
+      navn: "Bruker er permittert",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb75-7129-a42e-b38eeccdfb64",
+          opprettet: "2026-03-06T08:19:22.741871",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.68773",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d87",
+      navn: "Forskutterte lønnsgarantimidler i form av dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb76-714a-84d8-f25cce8fe9e4",
+          opprettet: "2026-03-06T08:19:22.742016",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.689747",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d88",
+      navn: "Permittert fra fiskeindustrien",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb76-714a-84d8-f25cce8fe9e5",
+          opprettet: "2026-03-06T08:19:22.7423",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.690445",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "01948d3c-4bea-7802-9d18-5342a5e2be99",
+      navn: "Avtjent verneplikt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb76-714a-84d8-f25cce8fe9e6",
+          opprettet: "2026-03-06T08:19:22.742459",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:22.690903",
+            meldingId: "f85abb75-2e19-4e07-8160-300ee34ed0df",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141f",
+      navn: "Det er godkjent at bruker kun søker deltidsarbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb78-7117-8427-05eb37f815a9",
+          opprettet: "2026-03-06T08:19:22.744927",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Utgangspunkt",
+            },
+            opplysninger: ["019cc203-eb75-7129-a42e-b38eeccdfb5e"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bda",
+      navn: "Det er godkjent at bruker kun søker arbeid lokalt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb78-7117-8427-05eb37f815aa",
+          opprettet: "2026-03-06T08:19:22.744959",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Utgangspunkt",
+            },
+            opplysninger: ["019cc203-eb75-7129-a42e-b38eeccdfb5f"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194929e-2036-7ac1-ada3-5cbe05a83f08",
+      navn: "Har helsemessige begrensninger og kan ikke ta alle typer arbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df21",
+          opprettet: "2026-03-06T08:19:22.745003",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Utgangspunkt",
+            },
+            opplysninger: ["019cc203-eb75-7129-a42e-b38eeccdfb60"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdf",
+      navn: "Oppfyller kravet til å ta ethvert arbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df22",
+          opprettet: "2026-03-06T08:19:22.745043",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: ["019cc203-eb75-7129-a42e-b38eeccdfb61"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76d",
+      navn: "Villig til å jobbe minimum arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df23",
+          opprettet: "2026-03-06T08:19:22.745085",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc203-e9e6-7c57-9492-92c9981eab58",
+              "019cc203-eb75-7129-a42e-b38eeccdfb62",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d89",
+      navn: "Har rett til ordinære dagpenger uten arbeidsforhold",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df25",
+          opprettet: "2026-03-06T08:19:22.745156",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb63",
+              "019cc203-eb75-7129-a42e-b38eeccdfb64",
+              "019cc203-eb76-714a-84d8-f25cce8fe9e4",
+              "019cc203-eb76-714a-84d8-f25cce8fe9e5",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01980cf4-9010-7bcf-b578-ca5a825d64ef",
+      navn: "Skal kravet til verneplikt vurderes",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df26",
+          opprettet: "2026-03-06T08:19:22.745188",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc203-eb76-714a-84d8-f25cce8fe9e6"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
+      navn: "Oppfyller kravet til verneplikt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb79-7b23-a662-22f401f3df27",
+          opprettet: "2026-03-06T08:19:22.745217",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc203-eb76-714a-84d8-f25cce8fe9e6"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd8",
+      navn: "Oppfyller kravet til heltid- og deltidsarbeid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2e",
+          opprettet: "2026-03-06T08:19:22.750748",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb5e",
+              "019cc203-eb78-7117-8427-05eb37f815a9",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdb",
+      navn: "Oppfyller kravet til mobilitet",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2f",
+          opprettet: "2026-03-06T08:19:22.750792",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb5f",
+              "019cc203-eb78-7117-8427-05eb37f815aa",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdd",
+      navn: "Oppfyller kravet til å være arbeidsfør",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd30",
+          opprettet: "2026-03-06T08:19:22.75082",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb60",
+              "019cc203-eb79-7b23-a662-22f401f3df21",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8a",
+      navn: "Ordinære dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd31",
+          opprettet: "2026-03-06T08:19:22.750849",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb63",
+              "019cc203-eb79-7b23-a662-22f401f3df25",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
+      navn: "Reell arbeidssøker",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb81-7648-8798-485364eb1a96",
+          opprettet: "2026-03-06T08:19:22.753865",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "019cc203-eb79-7b23-a662-22f401f3df22",
+              "019cc203-eb79-7b23-a662-22f401f3df23",
+              "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2e",
+              "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2f",
+              "019cc203-eb7e-7ce7-bb08-2e1c1d18cd30",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8b",
+      navn: "Rettighetstype",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc203-eb81-7648-8798-485364eb1a97",
+          opprettet: "2026-03-06T08:19:22.753901",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb64",
+              "019cc203-eb76-714a-84d8-f25cce8fe9e4",
+              "019cc203-eb76-714a-84d8-f25cce8fe9e5",
+              "019cc203-eb7e-7ce7-bb08-2e1c1d18cd31",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc76",
+      navn: "Prøvingsdato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc204-17be-75bf-8c88-537e48880831",
+          opprettet: "2026-03-06T08:19:34.078087",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-01-05",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "Saksbehandler",
+            registrert: "2026-03-06T08:19:34.028469",
+            ident: "Z994714",
+            begrunnelse: {
+              verdi: "ddd",
+              sistEndret: "2026-03-06T08:19:34.028454",
+            },
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: true,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
+      navn: "Oppfyller kravet til alder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-17e9-7333-a558-90f59cc716bb",
+          opprettet: "2026-03-06T08:19:34.121308",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "FørEllerLik",
+            },
+            opplysninger: [
+              "019cc202-a625-75d0-b9f8-81958edb94e4",
+              "019cc204-17be-75bf-8c88-537e48880831",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7ce",
+      navn: "Lovpålagt rapporteringsfrist for A-ordningen",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc204-17ea-76e0-8d81-ef4a1260ad54",
+          opprettet: "2026-03-06T08:19:34.122626",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-01-05",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04246",
+      navn: "Maks lengde på opptjeningsperiode",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-17ea-76e0-8d81-ef4a1260ad55",
+          opprettet: "2026-03-06T08:19:34.122691",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 36,
+            enhet: "måneder",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04243",
+      navn: "Grunnbeløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-17ea-76e0-8d81-ef4a1260ad56",
+          opprettet: "2026-03-06T08:19:34.122882",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 130160,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0423f",
+      navn: "Antall G for krav til 12 mnd arbeidsinntekt",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-17ea-76e0-8d81-ef4a1260ad57",
+          opprettet: "2026-03-06T08:19:34.12294",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1.5,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04240",
+      navn: "Antall G for krav til 36 mnd arbeidsinntekt",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-17ea-76e0-8d81-ef4a1260ad58",
+          opprettet: "2026-03-06T08:19:34.122984",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7cf",
+      navn: "Arbeidsgivers rapporteringsfrist",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc204-17ec-72b7-9e3d-c84f1e00f78f",
+          opprettet: "2026-03-06T08:19:34.124355",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2026-01-05",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "FørsteArbeidsdag",
+            },
+            opplysninger: ["019cc204-17ea-76e0-8d81-ef4a1260ad54"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04248",
+      navn: "Inntektskrav for siste 12 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-17ec-72b7-9e3d-c84f1e00f790",
+          opprettet: "2026-03-06T08:19:34.124532",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 195240,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-17ea-76e0-8d81-ef4a1260ad56",
+              "019cc204-17ea-76e0-8d81-ef4a1260ad57",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04249",
+      navn: "Inntektskrav for siste 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-17ec-72b7-9e3d-c84f1e00f791",
+          opprettet: "2026-03-06T08:19:34.124599",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 390480,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-17ea-76e0-8d81-ef4a1260ad56",
+              "019cc204-17ea-76e0-8d81-ef4a1260ad58",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7d0",
+      navn: "Siste avsluttende kalendermåned",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc204-17ed-70af-9bf9-0163aaa84e11",
+          opprettet: "2026-03-06T08:19:34.125957",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2025-11-30",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SisteavsluttendeKalenderMåned",
+            },
+            opplysninger: [
+              "019cc204-17be-75bf-8c88-537e48880831",
+              "019cc204-17ec-72b7-9e3d-c84f1e00f78f",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04247",
+      navn: "Første måned av opptjeningsperiode",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc204-17ef-766d-a119-25fe88d698d3",
+          opprettet: "2026-03-06T08:19:34.127363",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "2022-12-01",
+            datatype: "dato",
+          },
+          utledetAv: {
+            regel: {
+              navn: "TrekkFraMåned",
+            },
+            opplysninger: [
+              "019cc204-17ea-76e0-8d81-ef4a1260ad55",
+              "019cc204-17ed-70af-9bf9-0163aaa84e11",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be0",
+      navn: "Registrert som arbeidssøker",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-19ab-7be5-adce-c8da4fe00c26",
+          opprettet: "2026-03-06T08:19:34.571349",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:34.527843",
+            meldingId: "c49b200e-d7a3-46fb-a8c3-8d8018ccb4d0",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Register",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04244",
+      navn: "Inntektsopplysninger",
+      datatype: "inntekt",
+      perioder: [
+        {
+          id: "019cc204-19ab-7be5-adce-c8da4fe00c27",
+          opprettet: "2026-03-06T08:19:34.571539",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "01KK1086APR8ZBYNQ5FYX72YY4",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:34.528098",
+            meldingId: "c49b200e-d7a3-46fb-a8c3-8d8018ccb4d0",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: [
+              "019cc204-17be-75bf-8c88-537e48880831",
+              "019cc204-17ed-70af-9bf9-0163aaa84e11",
+              "019cc204-17ef-766d-a119-25fe88d698d3",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Register",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04245",
+      navn: "Brutto arbeidsinntekt",
+      datatype: "inntekt",
+      perioder: [
+        {
+          id: "019cc204-19ad-7785-95d5-80b417139f8c",
+          opprettet: "2026-03-06T08:19:34.573847",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "01KK1086APR8ZBYNQ5FYX72YY4",
+            datatype: "tekst",
+          },
+          utledetAv: {
+            regel: {
+              navn: "FiltrerRelevanteInntekter",
+            },
+            opplysninger: ["019cc204-19ab-7be5-adce-c8da4fe00c27"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04241",
+      navn: "Arbeidsinntekt siste 12 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-19b0-711a-a7c1-ae2bd61f9c45",
+          opprettet: "2026-03-06T08:19:34.575999",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 388885,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-19ad-7785-95d5-80b417139f8c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04242",
+      navn: "Arbeidsinntekt siste 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-19b0-711a-a7c1-ae2bd61f9c46",
+          opprettet: "2026-03-06T08:19:34.576586",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 555550,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-19ad-7785-95d5-80b417139f8c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424a",
+      navn: "Arbeidsinntekt er over kravet for siste 12 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-19b1-7f48-867d-60835209ccd6",
+          opprettet: "2026-03-06T08:19:34.577801",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc204-17ec-72b7-9e3d-c84f1e00f790",
+              "019cc204-19b0-711a-a7c1-ae2bd61f9c45",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424b",
+      navn: "Arbeidsinntekt er over kravet for siste 36 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-19b1-7f48-867d-60835209ccd7",
+          opprettet: "2026-03-06T08:19:34.577881",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc204-17ec-72b7-9e3d-c84f1e00f791",
+              "019cc204-19b0-711a-a7c1-ae2bd61f9c46",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
+      navn: "Oppfyller kravet til minsteinntekt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-19b3-73c4-8208-eead371b7664",
+          opprettet: "2026-03-06T08:19:34.579317",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc204-19b1-7f48-867d-60835209ccd6",
+              "019cc204-19b1-7f48-867d-60835209ccd7",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019522d6-846d-7173-a892-67f10016d8d2",
+      navn: "Ordinært krav til prosentvis tap av arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-19b5-7581-9e4b-8fd108eb7f13",
+          opprettet: "2026-03-06T08:19:34.581046",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 50,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a762",
+      navn: "Krav til prosentvis tap av arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-19b6-7cc9-a1da-33d0f2dfce73",
+          opprettet: "2026-03-06T08:19:34.582739",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 50,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc203-eb76-714a-84d8-f25cce8fe9e5",
+              "019cc204-19b5-7581-9e4b-8fd108eb7f13",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0196ab10-0cff-7301-99d6-65be50a50201",
+      navn: "Bostedsland er Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb27",
+          opprettet: "2026-03-06T08:19:35.364056",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.315197",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
+      navn: "Har krav på lønn fra arbeidsgiver",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb28",
+          opprettet: "2026-03-06T08:19:35.364121",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.315371",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
+      navn: "Brukeren er under utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb29",
+          opprettet: "2026-03-06T08:19:35.364168",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.315544",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d2",
+      navn: "Foreldrepenger etter lovens kapittel 14",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2a",
+          opprettet: "2026-03-06T08:19:35.364226",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.315686",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cf",
+      navn: "Omsorgspenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2b",
+          opprettet: "2026-03-06T08:19:35.364292",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.315839",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45ce",
+      navn: "Pleiepenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2c",
+          opprettet: "2026-03-06T08:19:35.364337",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.316316",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d3",
+      navn: "Svangerskapspenger etter lovens kapittel 14",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2d",
+          opprettet: "2026-03-06T08:19:35.364376",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.316659",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d0",
+      navn: "Opplæringspenger etter lovens kapittel 9",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2e",
+          opprettet: "2026-03-06T08:19:35.364484",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.316907",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cd",
+      navn: "Sykepenger etter lovens kapittel 8",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2f",
+          opprettet: "2026-03-06T08:19:35.36454",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:35.317136",
+            meldingId: "366babb4-0638-4ec6-8260-def0c20f2d3d",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d549",
+      navn: "Bruker oppholder seg i Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc6-7c74-9f25-89c53b99a3f5",
+          opprettet: "2026-03-06T08:19:35.36657",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc204-1cc4-7775-ac6d-1b4fb8a2cb27"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Bruker",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ea",
+      navn: "Medlem har reduserte ytelser fra folketrygden (Samordning)",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc6-7c74-9f25-89c53b99a3f6",
+          opprettet: "2026-03-06T08:19:35.366647",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc202-ab4c-7bb5-be38-fb1b171a98ea",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2a",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2b",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2c",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2d",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2e",
+              "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2f",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
+      navn: "Oppfyller vilkåret til tap av arbeidsinntekt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc6-7c74-9f25-89c53b99a3f7",
+          opprettet: "2026-03-06T08:19:35.366684",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "IngenAv",
+            },
+            opplysninger: ["019cc204-1cc4-7775-ac6d-1b4fb8a2cb28"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b524",
+      navn: "Har svart ja på spørsmål om utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc6-7c74-9f25-89c53b99a3f8",
+          opprettet: "2026-03-06T08:19:35.366732",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErSann",
+            },
+            opplysninger: ["019cc204-1cc4-7775-ac6d-1b4fb8a2cb29"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b525",
+      navn: "Har svart nei på spørsmål om utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc6-7c74-9f25-89c53b99a3f9",
+          opprettet: "2026-03-06T08:19:35.366778",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErUsann",
+            },
+            opplysninger: ["019cc204-1cc4-7775-ac6d-1b4fb8a2cb29"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54a",
+      navn: "Oppfyller unntak for opphold i Norge",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc8-77ef-b6a1-214f5e325c8b",
+          opprettet: "2026-03-06T08:19:35.368035",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Utgangspunkt",
+            },
+            opplysninger: ["019cc204-1cc6-7c74-9f25-89c53b99a3f5"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b526",
+      navn: "Oppfyller kravet på unntak for utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc8-77ef-b6a1-214f5e325c8c",
+          opprettet: "2026-03-06T08:19:35.368106",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "019cc202-ab4c-7bb5-be38-fb1b171a98ee",
+              "019cc204-1cc6-7c74-9f25-89c53b99a3f8",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54b",
+      navn: "Oppfyller kravet til opphold i Norge eller unntak",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc9-782b-9a32-5a04de1bb835",
+          opprettet: "2026-03-06T08:19:35.369433",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc204-1cc6-7c74-9f25-89c53b99a3f5",
+              "019cc204-1cc8-77ef-b6a1-214f5e325c8b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
+      navn: "Oppfyller krav til utdanning eller opplæring",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cc9-782b-9a32-5a04de1bb836",
+          opprettet: "2026-03-06T08:19:35.369545",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc204-1cc6-7c74-9f25-89c53b99a3f9",
+              "019cc204-1cc8-77ef-b6a1-214f5e325c8c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
+      navn: "Kravet til opphold i Norge er oppfylt",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-1cca-7666-a5fd-7e62b1676bf5",
+          opprettet: "2026-03-06T08:19:35.370741",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "019cc202-ab4b-7832-aafd-aa1cb6fb7017",
+              "019cc204-1cc9-782b-9a32-5a04de1bb835",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
+      navn: "Oppfyller kravet til å være registrert som arbeidssøker",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6537-72d4-abd8-201b4c728f24",
+          opprettet: "2026-03-06T08:19:53.911768",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "Saksbehandler",
+            registrert: "2026-03-06T08:19:53.869902",
+            ident: "Z994714",
+            begrunnelse: {
+              verdi: "dd",
+              sistEndret: "2026-03-06T08:19:53.869886",
+            },
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: true,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ee",
+      navn: "Grunnbeløp for grunnlag",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-653b-792b-b6bf-501a349bd467",
+          opprettet: "2026-03-06T08:19:53.915676",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 130160,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ed",
+      navn: "Tellende inntekt",
+      datatype: "inntekt",
+      perioder: [
+        {
+          id: "019cc204-653b-792b-b6bf-501a349bd468",
+          opprettet: "2026-03-06T08:19:53.915822",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "01KK1086APR8ZBYNQ5FYX72YY4",
+            datatype: "tekst",
+          },
+          utledetAv: {
+            regel: {
+              navn: "FiltrerRelevanteInntekter",
+            },
+            opplysninger: ["019cc204-19ab-7be5-adce-c8da4fe00c27"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca7",
+      navn: "Faktor for maksimalt mulig grunnlag",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653b-792b-b6bf-501a349bd469",
+          opprettet: "2026-03-06T08:19:53.915876",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 6,
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23e",
+      navn: "Faktor for utregning av dagsats etter dagpengegrunnlaget",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653b-792b-b6bf-501a349bd46a",
+          opprettet: "2026-03-06T08:19:53.915938",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0.0024,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23d",
+      navn: "Barnetilleggets størrelse i kroner per dag for hvert barn",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e3740e",
+          opprettet: "2026-03-06T08:19:53.91603",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 38,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a246",
+      navn: "90% av grunnlag for dagpenger",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e3740f",
+          opprettet: "2026-03-06T08:19:53.916101",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0.9,
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a247",
+      navn: "Antall arbeidsdager per år",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37410",
+          opprettet: "2026-03-06T08:19:53.916174",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 260,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a249",
+      navn: "Antall arbeidsdager per uke",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37411",
+          opprettet: "2026-03-06T08:19:53.916237",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2b",
+      navn: "Hvor mange prosent av G skal brukes som terskel ved samordning",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37412",
+          opprettet: "2026-03-06T08:19:53.916299",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0.03,
+            enhet: "prosent",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544f",
+      navn: "Terskelfaktor for 12 måneder",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37413",
+          opprettet: "2026-03-06T08:19:53.916359",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 2,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15451",
+      navn: "Snittinntekt siste 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37414",
+          opprettet: "2026-03-06T08:19:53.916658",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 185183.33333333334,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Divisjon",
+            },
+            opplysninger: [
+              "019cc202-bde2-7285-846c-928119639787",
+              "019cc204-19b0-711a-a7c1-ae2bd61f9c46",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15450",
+      navn: "Terskelfaktor for 36 måneder",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37415",
+          opprettet: "2026-03-06T08:19:53.91674",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 2,
+            enhet: "G",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15449",
+      navn: "Antall dager som skal regnes med i hver uke",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37416",
+          opprettet: "2026-03-06T08:19:53.916803",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f0",
+      navn: "Antall dagsats for egenandel",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37417",
+          opprettet: "2026-03-06T08:19:53.916865",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3,
+            enhet: "dager",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a768",
+      navn: "Maksimal vanlig arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc204-653c-7b18-af44-f4d2e6e37418",
+          opprettet: "2026-03-06T08:19:53.916952",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 40,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ec",
+      navn: "Oppjustert inntekt",
+      datatype: "inntekt",
+      perioder: [
+        {
+          id: "019cc204-6541-72c8-a01a-e28d3f2f63fc",
+          opprettet: "2026-03-06T08:19:53.921258",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "01KK1086APR8ZBYNQ5FYX72YY4",
+            datatype: "tekst",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppjuster",
+            },
+            opplysninger: [
+              "019cc204-653b-792b-b6bf-501a349bd467",
+              "019cc204-653b-792b-b6bf-501a349bd468",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca8",
+      navn: "6 ganger grunnbeløp",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+          opprettet: "2026-03-06T08:19:53.921501",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 780960,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653b-792b-b6bf-501a349bd467",
+              "019cc204-653b-792b-b6bf-501a349bd469",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cad",
+      navn: "Utbetalt inntekt periode 1",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6541-72c8-a01a-e28d3f2f63fe",
+          opprettet: "2026-03-06T08:19:53.921898",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 388885,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-653b-792b-b6bf-501a349bd468"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cae",
+      navn: "Utbetalt inntekt periode 2",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6542-7300-92f8-7ba209461fd3",
+          opprettet: "2026-03-06T08:19:53.922255",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 166665,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-653b-792b-b6bf-501a349bd468"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10caf",
+      navn: "Utbetalt inntekt periode 3",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6542-7300-92f8-7ba209461fd4",
+          opprettet: "2026-03-06T08:19:53.922593",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-653b-792b-b6bf-501a349bd468"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2c",
+      navn: "Beløp tilsvarende nedre terskel av G",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6542-7300-92f8-7ba209461fd5",
+          opprettet: "2026-03-06T08:19:53.922717",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3904.8,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653b-792b-b6bf-501a349bd467",
+              "019cc204-653c-7b18-af44-f4d2e6e37412",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544c",
+      navn: "Terskel for 12 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6542-7300-92f8-7ba209461fd6",
+          opprettet: "2026-03-06T08:19:53.922808",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 260320,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-17ea-76e0-8d81-ef4a1260ad56",
+              "019cc204-653c-7b18-af44-f4d2e6e37413",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544d",
+      navn: "Terskel for 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6542-7300-92f8-7ba209461fd7",
+          opprettet: "2026-03-06T08:19:53.922886",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 260320,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-17ea-76e0-8d81-ef4a1260ad56",
+              "019cc204-653c-7b18-af44-f4d2e6e37415",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb0",
+      navn: "Inntektperiode 1",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654a-7838-84ec-80a9583e6837",
+          opprettet: "2026-03-06T08:19:53.930828",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618.320701777,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-6541-72c8-a01a-e28d3f2f63fc"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb1",
+      navn: "Inntektperiode 2",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654b-7d29-b97f-d75638925e14",
+          opprettet: "2026-03-06T08:19:53.931133",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 174904.9924210662,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-6541-72c8-a01a-e28d3f2f63fc"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb2",
+      navn: "Inntektperiode 3",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654b-7d29-b97f-d75638925e15",
+          opprettet: "2026-03-06T08:19:53.931429",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SummerPeriode",
+            },
+            opplysninger: ["019cc204-6541-72c8-a01a-e28d3f2f63fc"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15454",
+      navn: "Over terskel for 12 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-654b-7d29-b97f-d75638925e16",
+          opprettet: "2026-03-06T08:19:53.93153",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc204-19b0-711a-a7c1-ae2bd61f9c45",
+              "019cc204-6542-7300-92f8-7ba209461fd6",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15455",
+      navn: "Over terskel for 36 måneder",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-654b-7d29-b97f-d75638925e17",
+          opprettet: "2026-03-06T08:19:53.931623",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37414",
+              "019cc204-6542-7300-92f8-7ba209461fd7",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10caa",
+      navn: "Inntekt etter avkortning og oppjustering siste 12 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48aeb",
+          opprettet: "2026-03-06T08:19:53.93513",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618.320701777,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654a-7838-84ec-80a9583e6837",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb3",
+      navn: "Avkortet inntektperiode 1",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48aec",
+          opprettet: "2026-03-06T08:19:53.935248",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618.320701777,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654a-7838-84ec-80a9583e6837",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb4",
+      navn: "Avkortet inntektperiode 2",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48aed",
+          opprettet: "2026-03-06T08:19:53.935332",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 174904.9924210662,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654b-7d29-b97f-d75638925e14",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb5",
+      navn: "Avkortet inntektperiode 3",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48aee",
+          opprettet: "2026-03-06T08:19:53.935441",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654b-7d29-b97f-d75638925e15",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb6",
+      navn: "Har avkortet grunnlaget i periode 1",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48aef",
+          opprettet: "2026-03-06T08:19:53.935528",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnn",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654a-7838-84ec-80a9583e6837",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb7",
+      navn: "Har avkortet grunnlaget i periode 2",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48af0",
+          opprettet: "2026-03-06T08:19:53.935608",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnn",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654b-7d29-b97f-d75638925e14",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb8",
+      navn: "Har avkortet grunnlaget i periode 3",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48af1",
+          opprettet: "2026-03-06T08:19:53.935685",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnn",
+            },
+            opplysninger: [
+              "019cc204-6541-72c8-a01a-e28d3f2f63fd",
+              "019cc204-654b-7d29-b97f-d75638925e15",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544b",
+      navn: "Lang dagpengeperiode",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48af2",
+          opprettet: "2026-03-06T08:19:53.935828",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 104,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544a",
+      navn: "Kort dagpengeperiode",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-654f-7d6c-b37e-34075bc48af3",
+          opprettet: "2026-03-06T08:19:53.935906",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 52,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Oppslag",
+            },
+            opplysninger: ["019cc204-17be-75bf-8c88-537e48880831"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cab",
+      navn: "Inntekt siste 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6553-7389-88ab-a45e188d2ec5",
+          opprettet: "2026-03-06T08:19:53.939947",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 577523.3131228433,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SumAv",
+            },
+            opplysninger: [
+              "019cc204-654f-7d6c-b37e-34075bc48aec",
+              "019cc204-654f-7d6c-b37e-34075bc48aed",
+              "019cc204-654f-7d6c-b37e-34075bc48aee",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb9",
+      navn: "Har avkortet grunnlag",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6554-7434-9b78-cdc8fd329d47",
+          opprettet: "2026-03-06T08:19:53.940081",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc204-654f-7d6c-b37e-34075bc48aef",
+              "019cc204-654f-7d6c-b37e-34075bc48af0",
+              "019cc204-654f-7d6c-b37e-34075bc48af1",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15452",
+      navn: "Stønadsuker ved siste 12 måneder",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-6554-7434-9b78-cdc8fd329d48",
+          opprettet: "2026-03-06T08:19:53.940146",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 104,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc204-654b-7d29-b97f-d75638925e16",
+              "019cc204-654f-7d6c-b37e-34075bc48af2",
+              "019cc204-654f-7d6c-b37e-34075bc48af3",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15453",
+      navn: "Stønadsuker ved siste 36 måneder",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-6554-7434-9b78-cdc8fd329d49",
+          opprettet: "2026-03-06T08:19:53.940216",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 52,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc204-654b-7d29-b97f-d75638925e17",
+              "019cc204-654f-7d6c-b37e-34075bc48af2",
+              "019cc204-654f-7d6c-b37e-34075bc48af3",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cac",
+      navn: "Gjennomsnittlig inntekt etter avkortning og oppjustering siste 36 måneder",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6557-7944-8a6b-0ff3fda0f02a",
+          opprettet: "2026-03-06T08:19:53.943693",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 192507.77104094773,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Divisjon",
+            },
+            opplysninger: [
+              "019cc202-bde2-7285-846c-928119639787",
+              "019cc204-6553-7389-88ab-a45e188d2ec5",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15456",
+      navn: "Antall stønadsuker",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-6557-7944-8a6b-0ff3fda0f02b",
+          opprettet: "2026-03-06T08:19:53.943808",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 104,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HøyesteAv",
+            },
+            opplysninger: [
+              "019cc204-6554-7434-9b78-cdc8fd329d48",
+              "019cc204-6554-7434-9b78-cdc8fd329d49",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbb",
+      navn: "Uavrundet grunnlag",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-655a-7569-b628-4bb426b3912c",
+          opprettet: "2026-03-06T08:19:53.946618",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618.320701777,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HøyesteAv",
+            },
+            opplysninger: [
+              "019cc204-654f-7d6c-b37e-34075bc48aeb",
+              "019cc204-6557-7944-8a6b-0ff3fda0f02a",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15459",
+      navn: "Antall stønadsuker (stønadsperiode)",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-655a-7569-b628-4bb426b3912d",
+          opprettet: "2026-03-06T08:19:53.946773",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 104,
+            enhet: "uker",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc204-19b3-73c4-8208-eead371b7664",
+              "019cc204-6557-7944-8a6b-0ff3fda0f02b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943d-77a7-969c-147999f15457",
+      navn: "Antall stønadsdager",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-655a-7569-b628-4bb426b3912e",
+          opprettet: "2026-03-06T08:19:53.946874",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 520,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37416",
+              "019cc204-6557-7944-8a6b-0ff3fda0f02b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbc",
+      navn: "Grunnlag ved ordinære dagpenger",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-655d-7e66-ab66-2f16ced55a6d",
+          opprettet: "2026-03-06T08:19:53.949815",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Avrund",
+            },
+            opplysninger: ["019cc204-655a-7569-b628-4bb426b3912c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cba",
+      navn: "Brukt beregningsregel",
+      datatype: "tekst",
+      perioder: [
+        {
+          id: "019cc204-655d-7e66-ab66-2f16ced55a6e",
+          opprettet: "2026-03-06T08:19:53.949934",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: "Inntekt etter avkortning og oppjustering siste 12 måneder",
+            datatype: "tekst",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Brukt",
+            },
+            opplysninger: ["019cc204-655a-7569-b628-4bb426b3912c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e03",
+      navn: "Grunnlag for verneplikt hvis kravet er oppfylt",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-655f-7726-9caa-6e8a3d17dd49",
+          opprettet: "2026-03-06T08:19:53.951973",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc203-eb79-7b23-a662-22f401f3df26",
+              "019cc204-655d-7e66-ab66-2f16ced55a6d",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbd",
+      navn: "Dagpengegrunnlag",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6562-756a-967e-b02a19ae19f8",
+          opprettet: "2026-03-06T08:19:53.954041",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 402618,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HøyesteAv",
+            },
+            opplysninger: [
+              "019cc204-655d-7e66-ab66-2f16ced55a6d",
+              "019cc204-655f-7726-9caa-6e8a3d17dd49",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e05",
+      navn: "Grunnlaget for verneplikt er høyere enn dagpengegrunnlaget",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6562-756a-967e-b02a19ae19f9",
+          opprettet: "2026-03-06T08:19:53.954115",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnn",
+            },
+            opplysninger: [
+              "019cc204-655d-7e66-ab66-2f16ced55a6d",
+              "019cc204-655f-7726-9caa-6e8a3d17dd49",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23f",
+      navn: "Dagsats uten barnetillegg før samordning",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6564-74bd-9c35-c07cb6d89747",
+          opprettet: "2026-03-06T08:19:53.956813",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 966.2832,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653b-792b-b6bf-501a349bd46a",
+              "019cc204-6562-756a-967e-b02a19ae19f8",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a248",
+      navn: "Maksimalt mulig grunnlag avgrenset til 90% av dagpengegrunnlaget",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6564-74bd-9c35-c07cb6d89748",
+          opprettet: "2026-03-06T08:19:53.956956",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 362356.2,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e3740f",
+              "019cc204-6562-756a-967e-b02a19ae19f8",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a241",
+      navn: "Dagsats uten barnetillegg før samordning",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6567-7e0a-b0d6-54f6dde48192",
+          opprettet: "2026-03-06T08:19:53.959388",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 966,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Avrund",
+            },
+            opplysninger: ["019cc204-6564-74bd-9c35-c07cb6d89747"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24a",
+      navn: "Maksimal mulig dagsats avgrenset til 90% av dagpengegrunnlaget",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6567-7e0a-b0d6-54f6dde48193",
+          opprettet: "2026-03-06T08:19:53.9596",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1393.6776923076923,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Divisjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37410",
+              "019cc204-6564-74bd-9c35-c07cb6d89748",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24b",
+      navn: "Avrundet maksimal mulig dagsats avgrenset til 90% av dagpengegrunnlaget",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-656a-7b3e-9b4a-8c02b498bf82",
+          opprettet: "2026-03-06T08:19:53.962677",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1394,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Avrund",
+            },
+            opplysninger: ["019cc204-6567-7e0a-b0d6-54f6dde48193"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23b",
+      navn: "Barn",
+      datatype: "barn",
+      perioder: [
+        {
+          id: "019cc204-6656-7d2b-b7c2-83bc80f532b3",
+          opprettet: "2026-03-06T08:19:54.198461",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            søknadBarnId: "2de43dcd-bbfc-4092-9f64-98c73ae6825c",
+            verdi: [
+              {
+                fødselsdato: "2008-07-17",
+                fornavnOgMellomnavn: "STYRBAR",
+                etternavn: "LØVEFLOKK",
+                statsborgerskap: "NOR",
+                kvalifiserer: true,
+              },
+              {
+                fødselsdato: "2016-04-27",
+                fornavnOgMellomnavn: "BLOMSTRETE",
+                etternavn: "FELL",
+                statsborgerskap: "NOR",
+                kvalifiserer: true,
+              },
+              {
+                fødselsdato: "2020-04-18",
+                fornavnOgMellomnavn: "HEL",
+                etternavn: "BLY",
+                statsborgerskap: "NOR",
+                kvalifiserer: true,
+              },
+            ],
+            datatype: "barn",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:19:54.156087",
+            meldingId: "368ad01e-3442-4361-bc45-721a992be73c",
+          },
+          utledetAv: {
+            regel: {
+              navn: "innhentMed",
+            },
+            opplysninger: ["019cc203-e83b-7354-9403-160702b3e16c"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Register",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23c",
+      navn: "Antall barn som gir rett til barnetillegg",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc204-665b-7bf8-9f6c-36406723b25d",
+          opprettet: "2026-03-06T08:19:54.203794",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3,
+            datatype: "heltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "AntallAv",
+            },
+            opplysninger: ["019cc204-6656-7d2b-b7c2-83bc80f532b3"],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a244",
+      navn: "Sum av barnetillegg",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6660-7b50-9db3-f8a3afe0e251",
+          opprettet: "2026-03-06T08:19:54.208558",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 114,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e3740e",
+              "019cc204-665b-7bf8-9f6c-36406723b25d",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a245",
+      navn: "Dagsats med barnetillegg før samordning",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6664-79ec-99d5-bb0c1da5e3d0",
+          opprettet: "2026-03-06T08:19:54.212603",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Addisjon",
+            },
+            opplysninger: [
+              "019cc204-6567-7e0a-b0d6-54f6dde48192",
+              "019cc204-6660-7b50-9db3-f8a3afe0e251",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24c",
+      navn: "Har barnetillegg",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6664-79ec-99d5-bb0c1da5e3d1",
+          opprettet: "2026-03-06T08:19:54.212741",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e3740e",
+              "019cc204-6660-7b50-9db3-f8a3afe0e251",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a242",
+      navn: "Andel av dagsats med barnetillegg som overstiger maks andel av dagpengegrunnlaget",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6668-74a7-afcb-dd9531d122a0",
+          opprettet: "2026-03-06T08:19:54.216279",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "019cc204-656a-7b3e-9b4a-8c02b498bf82",
+              "019cc204-6664-79ec-99d5-bb0c1da5e3d0",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a240",
+      navn: "Avrundet ukessats med barnetillegg før samordning",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6668-74a7-afcb-dd9531d122a1",
+          opprettet: "2026-03-06T08:19:54.216461",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 5400,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37411",
+              "019cc204-6664-79ec-99d5-bb0c1da5e3d0",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Legacy",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a243",
+      navn: "Andel av dagsats uten barnetillegg avkortet til maks andel av dagpengegrunnlaget",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-666b-7b8f-8ae9-54ba625d9898",
+          opprettet: "2026-03-06T08:19:54.219393",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 966,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "019cc204-6567-7e0a-b0d6-54f6dde48192",
+              "019cc204-6668-74a7-afcb-dd9531d122a0",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86eb",
+      navn: "Samordnet dagsats uten barnetillegg",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-666d-78d8-8ebb-84c60a8ea60b",
+          opprettet: "2026-03-06T08:19:54.221819",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 966,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "019cc202-ab50-79d3-a414-40320695ceb9",
+              "019cc204-666b-7b8f-8ae9-54ba625d9898",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ec",
+      navn: "Samordnet dagsats er større enn 0",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-666d-78d8-8ebb-84c60a8ea60c",
+          opprettet: "2026-03-06T08:19:54.221896",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "StørreEnnEllerLik",
+            },
+            opplysninger: [
+              "019cc202-ab50-79d3-a414-40320695ceb9",
+              "019cc204-666b-7b8f-8ae9-54ba625d9898",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2f",
+      navn: "Samordnet ukessats uten barnetillegg",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6670-7db4-8552-875601dda1da",
+          opprettet: "2026-03-06T08:19:54.224585",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 4830,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37411",
+              "019cc204-666d-78d8-8ebb-84c60a8ea60b",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
+      navn: "Utfall etter samordning",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6670-7db4-8552-875601dda1db",
+          opprettet: "2026-03-06T08:19:54.224698",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "EnAv",
+            },
+            opplysninger: [
+              "019cc204-6664-79ec-99d5-bb0c1da5e3d1",
+              "019cc204-666d-78d8-8ebb-84c60a8ea60c",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a30",
+      navn: "Minste mulige ukessats som som kan brukes",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6673-7fa9-a596-8deeff30f834",
+          opprettet: "2026-03-06T08:19:54.227625",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3904.8,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-6542-7300-92f8-7ba209461fd5",
+              "019cc204-6670-7db4-8552-875601dda1da",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a31",
+      navn: "Ukessats trukket ned for ytelser utenfor folketrygden",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6673-7fa9-a596-8deeff30f835",
+          opprettet: "2026-03-06T08:19:54.227865",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 4830,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "019cc202-bdf0-7dbd-ae0d-31bff64dce3c",
+              "019cc204-6670-7db4-8552-875601dda1da",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a32",
+      navn: "Samordnet ukessats med ytelser utenfor folketrygden",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6677-7619-9a7a-70f4a99c45ec",
+          opprettet: "2026-03-06T08:19:54.231944",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 4830,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HøyesteAv",
+            },
+            opplysninger: [
+              "019cc204-6673-7fa9-a596-8deeff30f834",
+              "019cc204-6673-7fa9-a596-8deeff30f835",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a33",
+      navn: "Dagsats uten barnetillegg samordnet",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-667c-7d68-8c40-539eac8cb9fb",
+          opprettet: "2026-03-06T08:19:54.236598",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 966,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Divisjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37411",
+              "019cc204-6677-7619-9a7a-70f4a99c45ec",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24d",
+      navn: "Samordnet dagsats med barnetillegg",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6680-78f8-84e2-de858b2e5f1f",
+          opprettet: "2026-03-06T08:19:54.240386",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Addisjon",
+            },
+            opplysninger: [
+              "019cc204-6660-7b50-9db3-f8a3afe0e251",
+              "019cc204-667c-7d68-8c40-539eac8cb9fb",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a250",
+      navn: "Har samordnet",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc204-6680-78f8-84e2-de858b2e5f20",
+          opprettet: "2026-03-06T08:19:54.240532",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "ErUlik",
+            },
+            opplysninger: [
+              "019cc204-666b-7b8f-8ae9-54ba625d9898",
+              "019cc204-667c-7d68-8c40-539eac8cb9fb",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24f",
+      navn: "Dagsats med barnetillegg etter samordning og 90 % regel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6684-7c46-948b-9f1bc8a8ab48",
+          opprettet: "2026-03-06T08:19:54.244119",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc204-656a-7b3e-9b4a-8c02b498bf82",
+              "019cc204-6680-78f8-84e2-de858b2e5f1f",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24e",
+      navn: "Ukessats med barnetillegg etter samordning",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6687-765a-afe9-26c00464efb7",
+          opprettet: "2026-03-06T08:19:54.247858",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 5400,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37411",
+              "019cc204-6684-7c46-948b-9f1bc8a8ab48",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Legacy",
+    },
+    {
+      opplysningTypeId: "019523aa-7941-7dd2-8c43-0644d7b43f57",
+      navn: "Tre ganger dagsats",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-6688-764b-b180-8d51b7f0f9c3",
+          opprettet: "2026-03-06T08:19:54.248053",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3240,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Multiplikasjon",
+            },
+            opplysninger: [
+              "019cc204-653c-7b18-af44-f4d2e6e37417",
+              "019cc204-6684-7c46-948b-9f1bc8a8ab48",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54ef",
+      navn: "Egenandel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc204-668c-723e-bde2-b3fa62a5f6d0",
+          opprettet: "2026-03-06T08:19:54.252351",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 3240,
+            datatype: "penger",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc203-eb76-714a-84d8-f25cce8fe9e5",
+              "019cc204-6688-764b-b180-8d51b7f0f9c3",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a767",
+      navn: "Beregnet vanlig arbeidstid per uke før tap",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc205-22ec-7e4f-bc1f-bcc3e4e11f24",
+          opprettet: "2026-03-06T08:20:42.476985",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 30,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "Saksbehandler",
+            registrert: "2026-03-06T08:20:42.424965",
+            ident: "Z994714",
+            begrunnelse: {
+              verdi: "dd",
+              sistEndret: "2026-03-06T08:20:42.424948",
+            },
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: true,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76c",
+      navn: "Fastsatt vanlig arbeidstid etter ordinær eller verneplikt",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc205-22f2-7ff9-ab9f-8742051779cf",
+          opprettet: "2026-03-06T08:20:42.482903",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 30,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "HvisSannMedResultat",
+            },
+            opplysninger: [
+              "019cc204-6562-756a-967e-b02a19ae19f9",
+              "019cc205-22ec-7e4f-bc1f-bcc3e4e11f24",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ee",
+      navn: "Samordnet fastsatt arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc205-22f3-744e-85bb-79e4a0f6af40",
+          opprettet: "2026-03-06T08:20:42.483084",
+          opprinnelse: "Arvet",
+          verdi: {
+            verdi: 30,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Substraksjon",
+            },
+            opplysninger: [
+              "019cc202-bde9-7b48-b710-c795db221d86",
+              "019cc205-22ec-7e4f-bc1f-bcc3e4e11f24",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76a",
+      navn: "Fastsatt arbeidstid per uke før tap",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc205-22f7-7a5a-bbe2-10e7f8d46df5",
+          opprettet: "2026-03-06T08:20:42.487047",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: 30,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          utledetAv: {
+            regel: {
+              navn: "MinstAv",
+            },
+            opplysninger: [
+              "019cc203-eb75-7129-a42e-b38eeccdfb62",
+              "019cc204-653c-7b18-af44-f4d2e6e37418",
+              "019cc205-22f2-7ff9-ab9f-8742051779cf",
+              "019cc205-22f3-744e-85bb-79e4a0f6af40",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76e",
+      navn: "Oppfyller vilkåret om tap av arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc205-22fa-79a0-b43d-2e0d7c424406",
+          opprettet: "2026-03-06T08:20:42.490811",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "SjekkAvTerskel",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f03a",
+              "019cc204-19b6-7cc9-a1da-33d0f2dfce73",
+              "019cc205-22f7-7a5a-bbe2-10e7f8d46df5",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
+      navn: "Oppfyller vilkåret om tap av arbeidsinntekt og arbeidstid",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc205-22fe-7428-935e-2bb85fba6bb7",
+          opprettet: "2026-03-06T08:20:42.494426",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          utledetAv: {
+            regel: {
+              navn: "Alle",
+            },
+            opplysninger: [
+              "019cc202-ab49-78f6-b224-b53da148f03f",
+              "019cc202-ab4c-7bb5-be38-fb1b171a98ed",
+              "019cc204-1cc6-7c74-9f25-89c53b99a3f7",
+              "019cc205-22fa-79a0-b43d-2e0d7c424406",
+            ],
+            versjon:
+              "europe-north1-docker.pkg.dev/nais-management-233d/teamdagpenger/dp-behandling:2026.03.04-15.48-7415e5a",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01990a09-0eab-7957-b88f-14484a50e194",
+      navn: "Har løpende rett på dagpenger",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc205-2308-7588-890b-8799f3de7d83",
+          opprettet: "2026-03-06T08:20:42.504539",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01956abd-2871-7517-a332-b462c0c31292",
+      navn: "Meldeperiode",
+      datatype: "periode",
+      perioder: [
+        {
+          id: "019cc207-8b7f-7d45-af2f-84b0b3bbd518",
+          opprettet: "2026-03-06T08:23:20.319644",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            fom: "2026-01-05",
+            tom: "2026-01-18",
+            datatype: "periode",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f6a",
+          opprettet: "2026-03-06T08:25:20.471318",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            fom: "2026-01-19",
+            tom: "2026-02-01",
+            datatype: "periode",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236740",
+          opprettet: "2026-03-06T08:27:20.472101",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            fom: "2026-02-02",
+            tom: "2026-02-15",
+            datatype: "periode",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ed-7d9f-ad76-044688a381e5",
+          opprettet: "2026-03-06T08:30:20.525606",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            fom: "2026-02-16",
+            tom: "2026-03-01",
+            datatype: "periode",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01948ea0-36e8-72cc-aa4f-16bc446ed3bd",
+      navn: "Arbeidsdag",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f52c",
+          opprettet: "2026-03-06T08:23:20.320103",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f52f",
+          opprettet: "2026-03-06T08:23:20.320121",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f532",
+          opprettet: "2026-03-06T08:23:20.320127",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f535",
+          opprettet: "2026-03-06T08:23:20.320135",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f538",
+          opprettet: "2026-03-06T08:23:20.320141",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53b",
+          opprettet: "2026-03-06T08:23:20.320146",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53e",
+          opprettet: "2026-03-06T08:23:20.320152",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f541",
+          opprettet: "2026-03-06T08:23:20.320157",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f544",
+          opprettet: "2026-03-06T08:23:20.320162",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f547",
+          opprettet: "2026-03-06T08:23:20.320168",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54a",
+          opprettet: "2026-03-06T08:23:20.320173",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54d",
+          opprettet: "2026-03-06T08:23:20.320178",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f550",
+          opprettet: "2026-03-06T08:23:20.320184",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f553",
+          opprettet: "2026-03-06T08:23:20.320189",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f6f",
+          opprettet: "2026-03-06T08:25:20.471532",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f72",
+          opprettet: "2026-03-06T08:25:20.471549",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f75",
+          opprettet: "2026-03-06T08:25:20.471564",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f78",
+          opprettet: "2026-03-06T08:25:20.471568",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7b",
+          opprettet: "2026-03-06T08:25:20.471571",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7e",
+          opprettet: "2026-03-06T08:25:20.471577",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f81",
+          opprettet: "2026-03-06T08:25:20.47158",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f84",
+          opprettet: "2026-03-06T08:25:20.471584",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f87",
+          opprettet: "2026-03-06T08:25:20.471589",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8a",
+          opprettet: "2026-03-06T08:25:20.471592",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8d",
+          opprettet: "2026-03-06T08:25:20.471595",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f90",
+          opprettet: "2026-03-06T08:25:20.471598",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f93",
+          opprettet: "2026-03-06T08:25:20.471602",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f96",
+          opprettet: "2026-03-06T08:25:20.471605",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236745",
+          opprettet: "2026-03-06T08:27:20.472233",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236748",
+          opprettet: "2026-03-06T08:27:20.472254",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674b",
+          opprettet: "2026-03-06T08:27:20.472287",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674e",
+          opprettet: "2026-03-06T08:27:20.47229",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236751",
+          opprettet: "2026-03-06T08:27:20.472294",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236754",
+          opprettet: "2026-03-06T08:27:20.472296",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236757",
+          opprettet: "2026-03-06T08:27:20.4723",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675a",
+          opprettet: "2026-03-06T08:27:20.472303",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675d",
+          opprettet: "2026-03-06T08:27:20.472309",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236760",
+          opprettet: "2026-03-06T08:27:20.472312",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236763",
+          opprettet: "2026-03-06T08:27:20.472315",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236766",
+          opprettet: "2026-03-06T08:27:20.472318",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236769",
+          opprettet: "2026-03-06T08:27:20.472321",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676c",
+          opprettet: "2026-03-06T08:27:20.472324",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc30",
+          opprettet: "2026-03-06T08:30:20.526206",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc33",
+          opprettet: "2026-03-06T08:30:20.52622",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc36",
+          opprettet: "2026-03-06T08:30:20.526228",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc39",
+          opprettet: "2026-03-06T08:30:20.52627",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3c",
+          opprettet: "2026-03-06T08:30:20.526278",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3f",
+          opprettet: "2026-03-06T08:30:20.526287",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc42",
+          opprettet: "2026-03-06T08:30:20.526293",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc45",
+          opprettet: "2026-03-06T08:30:20.526297",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc48",
+          opprettet: "2026-03-06T08:30:20.526303",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4b",
+          opprettet: "2026-03-06T08:30:20.526307",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4e",
+          opprettet: "2026-03-06T08:30:20.526312",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc51",
+          opprettet: "2026-03-06T08:30:20.526317",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc54",
+          opprettet: "2026-03-06T08:30:20.526321",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc57",
+          opprettet: "2026-03-06T08:30:20.526326",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01948ea0-e25c-7c47-8429-a05045d80eca",
+      navn: "Arbeidstimer på en arbeidsdag",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f52d",
+          opprettet: "2026-03-06T08:23:20.320114",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f530",
+          opprettet: "2026-03-06T08:23:20.320122",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f533",
+          opprettet: "2026-03-06T08:23:20.320128",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f536",
+          opprettet: "2026-03-06T08:23:20.320136",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f539",
+          opprettet: "2026-03-06T08:23:20.320142",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53c",
+          opprettet: "2026-03-06T08:23:20.320147",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53f",
+          opprettet: "2026-03-06T08:23:20.320153",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f542",
+          opprettet: "2026-03-06T08:23:20.320158",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f545",
+          opprettet: "2026-03-06T08:23:20.320164",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f548",
+          opprettet: "2026-03-06T08:23:20.320169",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54b",
+          opprettet: "2026-03-06T08:23:20.320174",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54e",
+          opprettet: "2026-03-06T08:23:20.320179",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f551",
+          opprettet: "2026-03-06T08:23:20.320185",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f554",
+          opprettet: "2026-03-06T08:23:20.32019",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f70",
+          opprettet: "2026-03-06T08:25:20.471534",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f73",
+          opprettet: "2026-03-06T08:25:20.47155",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f76",
+          opprettet: "2026-03-06T08:25:20.471565",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: 4,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f79",
+          opprettet: "2026-03-06T08:25:20.471569",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7c",
+          opprettet: "2026-03-06T08:25:20.471572",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7f",
+          opprettet: "2026-03-06T08:25:20.471578",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: 4,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f82",
+          opprettet: "2026-03-06T08:25:20.471581",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f85",
+          opprettet: "2026-03-06T08:25:20.471584",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f88",
+          opprettet: "2026-03-06T08:25:20.471589",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: 4,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8b",
+          opprettet: "2026-03-06T08:25:20.471592",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8e",
+          opprettet: "2026-03-06T08:25:20.471596",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f91",
+          opprettet: "2026-03-06T08:25:20.471599",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f94",
+          opprettet: "2026-03-06T08:25:20.471603",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f97",
+          opprettet: "2026-03-06T08:25:20.471605",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236746",
+          opprettet: "2026-03-06T08:27:20.472249",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236749",
+          opprettet: "2026-03-06T08:27:20.472255",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674c",
+          opprettet: "2026-03-06T08:27:20.472287",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674f",
+          opprettet: "2026-03-06T08:27:20.472291",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236752",
+          opprettet: "2026-03-06T08:27:20.472294",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236755",
+          opprettet: "2026-03-06T08:27:20.472297",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236758",
+          opprettet: "2026-03-06T08:27:20.4723",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675b",
+          opprettet: "2026-03-06T08:27:20.472303",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675e",
+          opprettet: "2026-03-06T08:27:20.472309",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236761",
+          opprettet: "2026-03-06T08:27:20.472313",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236764",
+          opprettet: "2026-03-06T08:27:20.472316",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236767",
+          opprettet: "2026-03-06T08:27:20.472319",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676a",
+          opprettet: "2026-03-06T08:27:20.472322",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676d",
+          opprettet: "2026-03-06T08:27:20.472325",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc31",
+          opprettet: "2026-03-06T08:30:20.52621",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: 2.5,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc34",
+          opprettet: "2026-03-06T08:30:20.526221",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: 2,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc37",
+          opprettet: "2026-03-06T08:30:20.526229",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: 4.5,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3a",
+          opprettet: "2026-03-06T08:30:20.526271",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: 2,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3d",
+          opprettet: "2026-03-06T08:30:20.526279",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: 2,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc40",
+          opprettet: "2026-03-06T08:30:20.526288",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc43",
+          opprettet: "2026-03-06T08:30:20.526294",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc46",
+          opprettet: "2026-03-06T08:30:20.526298",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc49",
+          opprettet: "2026-03-06T08:30:20.526303",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4c",
+          opprettet: "2026-03-06T08:30:20.526308",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4f",
+          opprettet: "2026-03-06T08:30:20.526313",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc52",
+          opprettet: "2026-03-06T08:30:20.526318",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc55",
+          opprettet: "2026-03-06T08:30:20.526322",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc58",
+          opprettet: "2026-03-06T08:30:20.526327",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01956ab8-126c-7636-803e-a5d87eda2015",
+      navn: "Har meldt seg via meldekort",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f52e",
+          opprettet: "2026-03-06T08:23:20.320116",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f531",
+          opprettet: "2026-03-06T08:23:20.320124",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f534",
+          opprettet: "2026-03-06T08:23:20.320129",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f537",
+          opprettet: "2026-03-06T08:23:20.320137",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53a",
+          opprettet: "2026-03-06T08:23:20.320143",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f53d",
+          opprettet: "2026-03-06T08:23:20.320148",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f540",
+          opprettet: "2026-03-06T08:23:20.320154",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f543",
+          opprettet: "2026-03-06T08:23:20.320159",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f546",
+          opprettet: "2026-03-06T08:23:20.320165",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f549",
+          opprettet: "2026-03-06T08:23:20.32017",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54c",
+          opprettet: "2026-03-06T08:23:20.320175",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f54f",
+          opprettet: "2026-03-06T08:23:20.32018",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f552",
+          opprettet: "2026-03-06T08:23:20.320186",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f555",
+          opprettet: "2026-03-06T08:23:20.320191",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f71",
+          opprettet: "2026-03-06T08:25:20.471546",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f74",
+          opprettet: "2026-03-06T08:25:20.47155",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f77",
+          opprettet: "2026-03-06T08:25:20.471566",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7a",
+          opprettet: "2026-03-06T08:25:20.471569",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f7d",
+          opprettet: "2026-03-06T08:25:20.471573",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f80",
+          opprettet: "2026-03-06T08:25:20.471578",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f83",
+          opprettet: "2026-03-06T08:25:20.471581",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f86",
+          opprettet: "2026-03-06T08:25:20.471585",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f89",
+          opprettet: "2026-03-06T08:25:20.47159",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8c",
+          opprettet: "2026-03-06T08:25:20.471593",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f8f",
+          opprettet: "2026-03-06T08:25:20.471596",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f92",
+          opprettet: "2026-03-06T08:25:20.4716",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f95",
+          opprettet: "2026-03-06T08:25:20.471603",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f98",
+          opprettet: "2026-03-06T08:25:20.471606",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236747",
+          opprettet: "2026-03-06T08:27:20.472251",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674a",
+          opprettet: "2026-03-06T08:27:20.472284",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623674d",
+          opprettet: "2026-03-06T08:27:20.472288",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236750",
+          opprettet: "2026-03-06T08:27:20.472291",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236753",
+          opprettet: "2026-03-06T08:27:20.472295",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236756",
+          opprettet: "2026-03-06T08:27:20.472298",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236759",
+          opprettet: "2026-03-06T08:27:20.472301",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675c",
+          opprettet: "2026-03-06T08:27:20.472304",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623675f",
+          opprettet: "2026-03-06T08:27:20.47231",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236762",
+          opprettet: "2026-03-06T08:27:20.472313",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236765",
+          opprettet: "2026-03-06T08:27:20.472316",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236768",
+          opprettet: "2026-03-06T08:27:20.472319",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676b",
+          opprettet: "2026-03-06T08:27:20.472322",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676e",
+          opprettet: "2026-03-06T08:27:20.472325",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc32",
+          opprettet: "2026-03-06T08:30:20.526212",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc35",
+          opprettet: "2026-03-06T08:30:20.526222",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc38",
+          opprettet: "2026-03-06T08:30:20.52623",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3b",
+          opprettet: "2026-03-06T08:30:20.526272",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc3e",
+          opprettet: "2026-03-06T08:30:20.52628",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc41",
+          opprettet: "2026-03-06T08:30:20.526289",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc44",
+          opprettet: "2026-03-06T08:30:20.526295",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc47",
+          opprettet: "2026-03-06T08:30:20.526299",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4a",
+          opprettet: "2026-03-06T08:30:20.526304",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc4d",
+          opprettet: "2026-03-06T08:30:20.526309",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc50",
+          opprettet: "2026-03-06T08:30:20.526314",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc53",
+          opprettet: "2026-03-06T08:30:20.526319",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc56",
+          opprettet: "2026-03-06T08:30:20.526323",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc59",
+          opprettet: "2026-03-06T08:30:20.526327",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019a9b47-2442-7533-bc71-a71a4600c49a",
+      navn: "Meldedato",
+      datatype: "dato",
+      perioder: [
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f556",
+          opprettet: "2026-03-06T08:23:20.320197",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: "2026-01-19",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f99",
+          opprettet: "2026-03-06T08:25:20.471609",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: "2026-02-02",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b823623676f",
+          opprettet: "2026-03-06T08:27:20.472329",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: "2026-02-16",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc5a",
+          opprettet: "2026-03-06T08:30:20.526332",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: "2026-03-02",
+            datatype: "dato",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019a81bf-50e1-7f1d-b23b-f30265b16042",
+      navn: "Har meldt seg i tide",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc207-8b80-781a-ac9f-69f46885f557",
+          opprettet: "2026-03-06T08:23:20.320344",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:23:20.318303",
+            meldingId: "b130235a-cb11-4a3c-9014-a5ce5dcd48d8",
+          },
+        },
+        {
+          id: "019cc209-60d7-76c5-b430-7803ced21f9a",
+          opprettet: "2026-03-06T08:25:20.471665",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:25:20.471209",
+            meldingId: "f697e2a0-197d-4994-a347-1040e296663e",
+          },
+        },
+        {
+          id: "019cc20b-3598-762f-8d02-6b8236236770",
+          opprettet: "2026-03-06T08:27:20.472354",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:27:20.471993",
+            meldingId: "70d11f21-e8e2-47e5-8db7-497a686780e7",
+          },
+        },
+        {
+          id: "019cc20d-f4ee-7324-a608-5830d241fc5b",
+          opprettet: "2026-03-06T08:30:20.526362",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525349",
+            meldingId: "797aeb08-4dcc-4749-9828-0147318a04db",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
+      navn: "Forbrukt egenandel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac7505e",
+          opprettet: "2026-03-06T08:23:20.394434",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 3240,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-6139-7a1c-a784-a4014ededfd8",
+          opprettet: "2026-03-06T08:25:20.569843",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35d8-7f55-b536-2a43dea757a7",
+          opprettet: "2026-03-06T08:27:20.536719",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f589-727b-8520-0e3a1f784eb3",
+          opprettet: "2026-03-06T08:30:20.681778",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01994cfd-9a27-762e-81fa-61f550467c95",
+      navn: "Penger som skal utbetales for perioden",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac7505f",
+          opprettet: "2026-03-06T08:23:20.394548",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 7560,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dcdc",
+          opprettet: "2026-03-06T08:25:20.57004",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 8640,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35d8-7f55-b536-2a43dea757a8",
+          opprettet: "2026-03-06T08:27:20.536893",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 10800,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58a-7e5a-a247-e45b2ea32c3f",
+          opprettet: "2026-03-06T08:30:20.682675",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01997b70-a12c-7622-bff8-82a20687e640",
+      navn: "Gjenstående egenandel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75060",
+          opprettet: "2026-03-06T08:23:20.394627",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dcdd",
+          opprettet: "2026-03-06T08:25:20.570206",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3ab",
+          opprettet: "2026-03-06T08:27:20.53703",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58b-764f-9d5a-370cd96a014c",
+          opprettet: "2026-03-06T08:30:20.683054",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01997b70-6e6e-702a-a296-18ae5fb9621d",
+      navn: "Oppfyller kravet til tapt arbeidstid i perioden",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75061",
+          opprettet: "2026-03-06T08:23:20.394692",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dcde",
+          opprettet: "2026-03-06T08:25:20.570341",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3ac",
+          opprettet: "2026-03-06T08:27:20.537135",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58b-764f-9d5a-370cd96a014d",
+          opprettet: "2026-03-06T08:30:20.683354",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-43bb-7529-af23-9b3d309501eb",
+      navn: "Sum av fastsatt vanlig arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75062",
+          opprettet: "2026-03-06T08:23:20.394751",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 60,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dcdf",
+          opprettet: "2026-03-06T08:25:20.57051",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 60,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3ad",
+          opprettet: "2026-03-06T08:27:20.537281",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 60,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20d-f58b-764f-9d5a-370cd96a014e",
+          opprettet: "2026-03-06T08:30:20.683688",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-81bf-7b29-9458-446e6dbaedae",
+      navn: "Sum av arbeidede timer",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75063",
+          opprettet: "2026-03-06T08:23:20.394828",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dce0",
+          opprettet: "2026-03-06T08:25:20.570653",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 12,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3ae",
+          opprettet: "2026-03-06T08:27:20.537451",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20d-f58b-764f-9d5a-370cd96a014f",
+          opprettet: "2026-03-06T08:30:20.683964",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-a128-72f0-9868-032bc8a57b21",
+      navn: "Prosentfaktor",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75064",
+          opprettet: "2026-03-06T08:23:20.394888",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 1,
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dce1",
+          opprettet: "2026-03-06T08:25:20.570787",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 0.8,
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3af",
+          opprettet: "2026-03-06T08:27:20.537593",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 1,
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019cc20d-f58c-76e7-b392-cce68a5f7cd6",
+          opprettet: "2026-03-06T08:30:20.684244",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01948ea0-ffdc-7964-ab55-52a7e35e1020",
+      navn: "Dag som fører til forbruk av dagpengeperiode",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019cc207-8bca-759d-bbe1-4ea2fac75065",
+          opprettet: "2026-03-06T08:23:20.39496",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf1",
+          opprettet: "2026-03-06T08:23:20.395086",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf3",
+          opprettet: "2026-03-06T08:23:20.395205",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf5",
+          opprettet: "2026-03-06T08:23:20.395373",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf7",
+          opprettet: "2026-03-06T08:23:20.39558",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf9",
+          opprettet: "2026-03-06T08:23:20.395713",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bfb",
+          opprettet: "2026-03-06T08:23:20.395875",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e8e",
+          opprettet: "2026-03-06T08:23:20.396005",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e90",
+          opprettet: "2026-03-06T08:23:20.396142",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e92",
+          opprettet: "2026-03-06T08:23:20.396278",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e94",
+          opprettet: "2026-03-06T08:23:20.396518",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e96",
+          opprettet: "2026-03-06T08:23:20.39669",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e98",
+          opprettet: "2026-03-06T08:23:20.396835",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e9a",
+          opprettet: "2026-03-06T08:23:20.396987",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613a-7a80-b290-4fe69f93dce2",
+          opprettet: "2026-03-06T08:25:20.570941",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245b",
+          opprettet: "2026-03-06T08:25:20.571217",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245d",
+          opprettet: "2026-03-06T08:25:20.571661",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245f",
+          opprettet: "2026-03-06T08:25:20.571997",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613c-7bfa-949b-aea25e7c0d0c",
+          opprettet: "2026-03-06T08:25:20.572315",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613c-7bfa-949b-aea25e7c0d0e",
+          opprettet: "2026-03-06T08:25:20.572641",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1671",
+          opprettet: "2026-03-06T08:25:20.573015",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1673",
+          opprettet: "2026-03-06T08:25:20.57342",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1675",
+          opprettet: "2026-03-06T08:25:20.57369",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1677",
+          opprettet: "2026-03-06T08:25:20.573981",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613e-75c8-9c9c-035f6bfee9a6",
+          opprettet: "2026-03-06T08:25:20.574498",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613e-75c8-9c9c-035f6bfee9a8",
+          opprettet: "2026-03-06T08:25:20.574782",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613f-7f67-9fa8-00a6afefbd63",
+          opprettet: "2026-03-06T08:25:20.575064",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc209-613f-7f67-9fa8-00a6afefbd65",
+          opprettet: "2026-03-06T08:25:20.575464",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3b0",
+          opprettet: "2026-03-06T08:27:20.537745",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3b2",
+          opprettet: "2026-03-06T08:27:20.53794",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70b",
+          opprettet: "2026-03-06T08:27:20.538141",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70d",
+          opprettet: "2026-03-06T08:27:20.538337",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70f",
+          opprettet: "2026-03-06T08:27:20.538561",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe711",
+          opprettet: "2026-03-06T08:27:20.538757",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35db-76d9-8b53-cf384eabd3e4",
+          opprettet: "2026-03-06T08:27:20.539182",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35db-76d9-8b53-cf384eabd3e6",
+          opprettet: "2026-03-06T08:27:20.53972",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35dc-7e29-bb00-70fd58808a83",
+          opprettet: "2026-03-06T08:27:20.540094",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35dc-7e29-bb00-70fd58808a85",
+          opprettet: "2026-03-06T08:27:20.540656",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35dc-7e29-bb00-70fd58808a87",
+          opprettet: "2026-03-06T08:27:20.540981",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d5",
+          opprettet: "2026-03-06T08:27:20.541359",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d7",
+          opprettet: "2026-03-06T08:27:20.541698",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f51",
+          opprettet: "2026-03-06T08:27:20.542073",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58c-76e7-b392-cce68a5f7cd7",
+          opprettet: "2026-03-06T08:30:20.684569",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58d-7782-b275-274dedfc273e",
+          opprettet: "2026-03-06T08:30:20.685214",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58d-7782-b275-274dedfc2740",
+          opprettet: "2026-03-06T08:30:20.685758",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58e-7064-a24e-57f85d131c2f",
+          opprettet: "2026-03-06T08:30:20.686328",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58f-7a29-8b73-31cefaeabf4c",
+          opprettet: "2026-03-06T08:30:20.687015",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f58f-7a29-8b73-31cefaeabf4e",
+          opprettet: "2026-03-06T08:30:20.687654",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f590-78f1-a707-ef71a39462e8",
+          opprettet: "2026-03-06T08:30:20.688223",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f590-78f1-a707-ef71a39462ea",
+          opprettet: "2026-03-06T08:30:20.688807",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f591-7c24-9e43-e0b6f8d84e22",
+          opprettet: "2026-03-06T08:30:20.689575",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f592-7f71-b740-28f4793e8495",
+          opprettet: "2026-03-06T08:30:20.690012",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f592-7f71-b740-28f4793e8497",
+          opprettet: "2026-03-06T08:30:20.690552",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f593-7bf8-80ff-2df5e5150970",
+          opprettet: "2026-03-06T08:30:20.691096",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f593-7bf8-80ff-2df5e5150972",
+          opprettet: "2026-03-06T08:30:20.691585",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019cc20d-f593-7bf8-80ff-2df5e5150974",
+          opprettet: "2026-03-06T08:30:20.691994",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+      navn: "Penger som skal utbetales",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf0",
+          opprettet: "2026-03-06T08:23:20.395019",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf2",
+          opprettet: "2026-03-06T08:23:20.395143",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf4",
+          opprettet: "2026-03-06T08:23:20.395306",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf6",
+          opprettet: "2026-03-06T08:23:20.395481",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bf8",
+          opprettet: "2026-03-06T08:23:20.39565",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bfa",
+          opprettet: "2026-03-06T08:23:20.395812",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcb-7d0f-9678-df956a7f8bfc",
+          opprettet: "2026-03-06T08:23:20.395942",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e8f",
+          opprettet: "2026-03-06T08:23:20.39608",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e91",
+          opprettet: "2026-03-06T08:23:20.396203",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e93",
+          opprettet: "2026-03-06T08:23:20.396364",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e95",
+          opprettet: "2026-03-06T08:23:20.396599",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e97",
+          opprettet: "2026-03-06T08:23:20.39677",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: 756,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e99",
+          opprettet: "2026-03-06T08:23:20.396922",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9f5",
+          opprettet: "2026-03-06T08:23:20.397057",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245a",
+          opprettet: "2026-03-06T08:25:20.571074",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245c",
+          opprettet: "2026-03-06T08:25:20.571348",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613b-70e4-8bd6-0d38b188245e",
+          opprettet: "2026-03-06T08:25:20.571824",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613c-7bfa-949b-aea25e7c0d0b",
+          opprettet: "2026-03-06T08:25:20.57216",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613c-7bfa-949b-aea25e7c0d0d",
+          opprettet: "2026-03-06T08:25:20.572482",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613c-7bfa-949b-aea25e7c0d0f",
+          opprettet: "2026-03-06T08:25:20.572868",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1672",
+          opprettet: "2026-03-06T08:25:20.573218",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1674",
+          opprettet: "2026-03-06T08:25:20.573558",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613d-7ee6-ae47-d6afda8b1676",
+          opprettet: "2026-03-06T08:25:20.573832",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613e-75c8-9c9c-035f6bfee9a5",
+          opprettet: "2026-03-06T08:25:20.574304",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613e-75c8-9c9c-035f6bfee9a7",
+          opprettet: "2026-03-06T08:25:20.574642",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613e-75c8-9c9c-035f6bfee9a9",
+          opprettet: "2026-03-06T08:25:20.57492",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: 864,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613f-7f67-9fa8-00a6afefbd64",
+          opprettet: "2026-03-06T08:25:20.575292",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc209-613f-7f67-9fa8-00a6afefbd66",
+          opprettet: "2026-03-06T08:25:20.575619",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35d9-79df-8869-65db4223e3b1",
+          opprettet: "2026-03-06T08:27:20.53784",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70a",
+          opprettet: "2026-03-06T08:27:20.53803",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70c",
+          opprettet: "2026-03-06T08:27:20.538243",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe70e",
+          opprettet: "2026-03-06T08:27:20.538462",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35da-7b29-8cc6-5c8487efe710",
+          opprettet: "2026-03-06T08:27:20.538657",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35db-76d9-8b53-cf384eabd3e3",
+          opprettet: "2026-03-06T08:27:20.539014",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35db-76d9-8b53-cf384eabd3e5",
+          opprettet: "2026-03-06T08:27:20.539359",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35db-76d9-8b53-cf384eabd3e7",
+          opprettet: "2026-03-06T08:27:20.539917",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35dc-7e29-bb00-70fd58808a84",
+          opprettet: "2026-03-06T08:27:20.540488",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35dc-7e29-bb00-70fd58808a86",
+          opprettet: "2026-03-06T08:27:20.540821",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d4",
+          opprettet: "2026-03-06T08:27:20.541145",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d6",
+          opprettet: "2026-03-06T08:27:20.541542",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: 1080,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d8",
+          opprettet: "2026-03-06T08:27:20.541924",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f52",
+          opprettet: "2026-03-06T08:27:20.542254",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58c-76e7-b392-cce68a5f7cd8",
+          opprettet: "2026-03-06T08:30:20.684916",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58d-7782-b275-274dedfc273f",
+          opprettet: "2026-03-06T08:30:20.685476",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58e-7064-a24e-57f85d131c2e",
+          opprettet: "2026-03-06T08:30:20.686059",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58e-7064-a24e-57f85d131c30",
+          opprettet: "2026-03-06T08:30:20.6867",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58f-7a29-8b73-31cefaeabf4d",
+          opprettet: "2026-03-06T08:30:20.687342",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f58f-7a29-8b73-31cefaeabf4f",
+          opprettet: "2026-03-06T08:30:20.687947",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f590-78f1-a707-ef71a39462e9",
+          opprettet: "2026-03-06T08:30:20.688542",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f591-7c24-9e43-e0b6f8d84e21",
+          opprettet: "2026-03-06T08:30:20.689172",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f591-7c24-9e43-e0b6f8d84e23",
+          opprettet: "2026-03-06T08:30:20.689795",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f592-7f71-b740-28f4793e8496",
+          opprettet: "2026-03-06T08:30:20.690267",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f592-7f71-b740-28f4793e8498",
+          opprettet: "2026-03-06T08:30:20.690819",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f593-7bf8-80ff-2df5e5150971",
+          opprettet: "2026-03-06T08:30:20.691353",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f593-7bf8-80ff-2df5e5150973",
+          opprettet: "2026-03-06T08:30:20.691788",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019cc20d-f594-7564-bb1d-77f6e8954078",
+          opprettet: "2026-03-06T08:30:20.692288",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01992934-66e4-7606-bdd3-c6c9dd420ffd",
+      navn: "Antall dager som er forbrukt",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9f6",
+          opprettet: "2026-03-06T08:23:20.397173",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: 1,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9f8",
+          opprettet: "2026-03-06T08:23:20.397326",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: 2,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9fa",
+          opprettet: "2026-03-06T08:23:20.397543",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: 3,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9fc",
+          opprettet: "2026-03-06T08:23:20.397715",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: 4,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9fe",
+          opprettet: "2026-03-06T08:23:20.397881",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a0",
+          opprettet: "2026-03-06T08:23:20.398008",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a2",
+          opprettet: "2026-03-06T08:23:20.398139",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a4",
+          opprettet: "2026-03-06T08:23:20.398304",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: 6,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a6",
+          opprettet: "2026-03-06T08:23:20.39848",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: 7,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a8",
+          opprettet: "2026-03-06T08:23:20.398648",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: 8,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2aa",
+          opprettet: "2026-03-06T08:23:20.398827",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: 9,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2ac",
+          opprettet: "2026-03-06T08:23:20.398975",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcf-7d11-8174-b6ddf53d596f",
+          opprettet: "2026-03-06T08:23:20.399124",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcf-7d11-8174-b6ddf53d5971",
+          opprettet: "2026-03-06T08:23:20.399269",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-613f-7f67-9fa8-00a6afefbd67",
+          opprettet: "2026-03-06T08:25:20.575931",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: 11,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efce",
+          opprettet: "2026-03-06T08:25:20.576286",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: 12,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efd0",
+          opprettet: "2026-03-06T08:25:20.576601",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: 13,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efd2",
+          opprettet: "2026-03-06T08:25:20.576876",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: 14,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c02",
+          opprettet: "2026-03-06T08:25:20.577181",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c04",
+          opprettet: "2026-03-06T08:25:20.577496",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c06",
+          opprettet: "2026-03-06T08:25:20.577798",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a059",
+          opprettet: "2026-03-06T08:25:20.578092",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: 16,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05b",
+          opprettet: "2026-03-06T08:25:20.578413",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: 17,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05d",
+          opprettet: "2026-03-06T08:25:20.578698",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: 18,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05f",
+          opprettet: "2026-03-06T08:25:20.578986",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: 19,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da5",
+          opprettet: "2026-03-06T08:25:20.579294",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da7",
+          opprettet: "2026-03-06T08:25:20.579609",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da9",
+          opprettet: "2026-03-06T08:25:20.579878",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f53",
+          opprettet: "2026-03-06T08:27:20.542522",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: 21,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f55",
+          opprettet: "2026-03-06T08:27:20.542803",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: 22,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35df-70af-8204-8d4729e26815",
+          opprettet: "2026-03-06T08:27:20.543003",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: 23,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35df-70af-8204-8d4729e26817",
+          opprettet: "2026-03-06T08:27:20.543703",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccbf",
+          opprettet: "2026-03-06T08:27:20.548375",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: 25,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc1",
+          opprettet: "2026-03-06T08:27:20.548746",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: 25,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc3",
+          opprettet: "2026-03-06T08:27:20.548968",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: 25,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d25826",
+          opprettet: "2026-03-06T08:27:20.549195",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: 26,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d25828",
+          opprettet: "2026-03-06T08:27:20.549438",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: 27,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d2582a",
+          opprettet: "2026-03-06T08:27:20.549648",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: 28,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d2582c",
+          opprettet: "2026-03-06T08:27:20.549872",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: 29,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425a",
+          opprettet: "2026-03-06T08:27:20.55009",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425c",
+          opprettet: "2026-03-06T08:27:20.550299",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425e",
+          opprettet: "2026-03-06T08:27:20.550756",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f594-7564-bb1d-77f6e8954079",
+          opprettet: "2026-03-06T08:30:20.692595",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f595-7164-8d64-a2b3b323aff1",
+          opprettet: "2026-03-06T08:30:20.69359",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f596-7c10-afbe-cd99a4c547f8",
+          opprettet: "2026-03-06T08:30:20.694665",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f597-7719-9c6a-fa59da17458c",
+          opprettet: "2026-03-06T08:30:20.695328",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f597-7719-9c6a-fa59da17458e",
+          opprettet: "2026-03-06T08:30:20.695854",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f598-7a48-8910-24fd6cd704de",
+          opprettet: "2026-03-06T08:30:20.696419",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f598-7a48-8910-24fd6cd704e0",
+          opprettet: "2026-03-06T08:30:20.696843",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f599-7fda-a22a-00a7afc0ffdd",
+          opprettet: "2026-03-06T08:30:20.697219",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f599-7fda-a22a-00a7afc0ffdf",
+          opprettet: "2026-03-06T08:30:20.697713",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a1",
+          opprettet: "2026-03-06T08:30:20.698074",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a3",
+          opprettet: "2026-03-06T08:30:20.698478",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a5",
+          opprettet: "2026-03-06T08:30:20.69893",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59b-7d00-8b15-20057044c89c",
+          opprettet: "2026-03-06T08:30:20.699303",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59b-7d00-8b15-20057044c89e",
+          opprettet: "2026-03-06T08:30:20.699726",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 30,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01992956-e349-76b1-8f68-c9d481df3a32",
+      navn: "Antall dager som gjenstår",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9f7",
+          opprettet: "2026-03-06T08:23:20.397261",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-05",
+          gyldigTilOgMed: "2026-01-05",
+          verdi: {
+            verdi: 519,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9f9",
+          opprettet: "2026-03-06T08:23:20.397447",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-06",
+          gyldigTilOgMed: "2026-01-06",
+          verdi: {
+            verdi: 518,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9fb",
+          opprettet: "2026-03-06T08:23:20.397631",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-07",
+          gyldigTilOgMed: "2026-01-07",
+          verdi: {
+            verdi: 517,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9fd",
+          opprettet: "2026-03-06T08:23:20.397792",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
+          verdi: {
+            verdi: 516,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcd-735a-b566-f125a0f0e9ff",
+          opprettet: "2026-03-06T08:23:20.397946",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-09",
+          gyldigTilOgMed: "2026-01-09",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a1",
+          opprettet: "2026-03-06T08:23:20.398073",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-10",
+          gyldigTilOgMed: "2026-01-10",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a3",
+          opprettet: "2026-03-06T08:23:20.398204",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-11",
+          gyldigTilOgMed: "2026-01-11",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a5",
+          opprettet: "2026-03-06T08:23:20.398369",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-12",
+          gyldigTilOgMed: "2026-01-12",
+          verdi: {
+            verdi: 514,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a7",
+          opprettet: "2026-03-06T08:23:20.398551",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-13",
+          gyldigTilOgMed: "2026-01-13",
+          verdi: {
+            verdi: 513,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2a9",
+          opprettet: "2026-03-06T08:23:20.398736",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-14",
+          gyldigTilOgMed: "2026-01-14",
+          verdi: {
+            verdi: 512,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bce-75e4-84e1-02d7229cb2ab",
+          opprettet: "2026-03-06T08:23:20.398911",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-15",
+          gyldigTilOgMed: "2026-01-15",
+          verdi: {
+            verdi: 511,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcf-7d11-8174-b6ddf53d596e",
+          opprettet: "2026-03-06T08:23:20.399042",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-16",
+          gyldigTilOgMed: "2026-01-16",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcf-7d11-8174-b6ddf53d5970",
+          opprettet: "2026-03-06T08:23:20.399189",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-17",
+          gyldigTilOgMed: "2026-01-17",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc207-8bcf-7d11-8174-b6ddf53d5972",
+          opprettet: "2026-03-06T08:23:20.399354",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-18",
+          gyldigTilOgMed: "2026-01-18",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efcd",
+          opprettet: "2026-03-06T08:25:20.576101",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-19",
+          gyldigTilOgMed: "2026-01-19",
+          verdi: {
+            verdi: 509,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efcf",
+          opprettet: "2026-03-06T08:25:20.576454",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-20",
+          gyldigTilOgMed: "2026-01-20",
+          verdi: {
+            verdi: 508,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6140-7b17-8767-9935c155efd1",
+          opprettet: "2026-03-06T08:25:20.576738",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-21",
+          gyldigTilOgMed: "2026-01-21",
+          verdi: {
+            verdi: 507,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c01",
+          opprettet: "2026-03-06T08:25:20.57701",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-22",
+          gyldigTilOgMed: "2026-01-22",
+          verdi: {
+            verdi: 506,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c03",
+          opprettet: "2026-03-06T08:25:20.577337",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-23",
+          gyldigTilOgMed: "2026-01-23",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c05",
+          opprettet: "2026-03-06T08:25:20.577644",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-24",
+          gyldigTilOgMed: "2026-01-24",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6141-76a7-b50a-6b7a38730c07",
+          opprettet: "2026-03-06T08:25:20.577939",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-25",
+          gyldigTilOgMed: "2026-01-25",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05a",
+          opprettet: "2026-03-06T08:25:20.578252",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-26",
+          gyldigTilOgMed: "2026-01-26",
+          verdi: {
+            verdi: 504,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05c",
+          opprettet: "2026-03-06T08:25:20.57856",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-27",
+          gyldigTilOgMed: "2026-01-27",
+          verdi: {
+            verdi: 503,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6142-78bb-8981-676092a7a05e",
+          opprettet: "2026-03-06T08:25:20.578848",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-28",
+          gyldigTilOgMed: "2026-01-28",
+          verdi: {
+            verdi: 502,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da4",
+          opprettet: "2026-03-06T08:25:20.579138",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-29",
+          gyldigTilOgMed: "2026-01-29",
+          verdi: {
+            verdi: 501,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da6",
+          opprettet: "2026-03-06T08:25:20.579459",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-30",
+          gyldigTilOgMed: "2026-01-30",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6143-7ce1-9c81-ba8c5fe91da8",
+          opprettet: "2026-03-06T08:25:20.579742",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-31",
+          gyldigTilOgMed: "2026-01-31",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc209-6144-7cd4-a398-c93391a37ffe",
+          opprettet: "2026-03-06T08:25:20.58003",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-01",
+          gyldigTilOgMed: "2026-02-01",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f54",
+          opprettet: "2026-03-06T08:27:20.542676",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-02",
+          gyldigTilOgMed: "2026-02-02",
+          verdi: {
+            verdi: 499,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35de-7ccc-8231-966170bd4f56",
+          opprettet: "2026-03-06T08:27:20.542907",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-03",
+          gyldigTilOgMed: "2026-02-03",
+          verdi: {
+            verdi: 498,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35df-70af-8204-8d4729e26816",
+          opprettet: "2026-03-06T08:27:20.543127",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
+          verdi: {
+            verdi: 497,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35df-70af-8204-8d4729e26818",
+          opprettet: "2026-03-06T08:27:20.54387",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-05",
+          gyldigTilOgMed: "2026-02-05",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc0",
+          opprettet: "2026-03-06T08:27:20.548627",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-06",
+          gyldigTilOgMed: "2026-02-06",
+          verdi: {
+            verdi: 495,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc2",
+          opprettet: "2026-03-06T08:27:20.548854",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-07",
+          gyldigTilOgMed: "2026-02-07",
+          verdi: {
+            verdi: 495,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d25825",
+          opprettet: "2026-03-06T08:27:20.549071",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-08",
+          gyldigTilOgMed: "2026-02-08",
+          verdi: {
+            verdi: 495,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d25827",
+          opprettet: "2026-03-06T08:27:20.549308",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-09",
+          gyldigTilOgMed: "2026-02-09",
+          verdi: {
+            verdi: 494,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d25829",
+          opprettet: "2026-03-06T08:27:20.549548",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-10",
+          gyldigTilOgMed: "2026-02-10",
+          verdi: {
+            verdi: 493,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d2582b",
+          opprettet: "2026-03-06T08:27:20.549768",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-11",
+          gyldigTilOgMed: "2026-02-11",
+          verdi: {
+            verdi: 492,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e5-7f76-ad93-6fbba7d2582d",
+          opprettet: "2026-03-06T08:27:20.549991",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-12",
+          gyldigTilOgMed: "2026-02-12",
+          verdi: {
+            verdi: 491,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425b",
+          opprettet: "2026-03-06T08:27:20.550189",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-13",
+          gyldigTilOgMed: "2026-02-13",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425d",
+          opprettet: "2026-03-06T08:27:20.550422",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-14",
+          gyldigTilOgMed: "2026-02-14",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20b-35e6-7a36-94b5-a65f7e6b425f",
+          opprettet: "2026-03-06T08:27:20.550913",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-02-15",
+          gyldigTilOgMed: "2026-02-15",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f595-7164-8d64-a2b3b323aff0",
+          opprettet: "2026-03-06T08:30:20.693014",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-16",
+          gyldigTilOgMed: "2026-02-16",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f596-7c10-afbe-cd99a4c547f7",
+          opprettet: "2026-03-06T08:30:20.694085",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-17",
+          gyldigTilOgMed: "2026-02-17",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f597-7719-9c6a-fa59da17458b",
+          opprettet: "2026-03-06T08:30:20.694999",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-18",
+          gyldigTilOgMed: "2026-02-18",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f597-7719-9c6a-fa59da17458d",
+          opprettet: "2026-03-06T08:30:20.6956",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-19",
+          gyldigTilOgMed: "2026-02-19",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f598-7a48-8910-24fd6cd704dd",
+          opprettet: "2026-03-06T08:30:20.69618",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-20",
+          gyldigTilOgMed: "2026-02-20",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f598-7a48-8910-24fd6cd704df",
+          opprettet: "2026-03-06T08:30:20.696626",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-21",
+          gyldigTilOgMed: "2026-02-21",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f599-7fda-a22a-00a7afc0ffdc",
+          opprettet: "2026-03-06T08:30:20.697023",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-22",
+          gyldigTilOgMed: "2026-02-22",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f599-7fda-a22a-00a7afc0ffde",
+          opprettet: "2026-03-06T08:30:20.697452",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-23",
+          gyldigTilOgMed: "2026-02-23",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f599-7fda-a22a-00a7afc0ffe0",
+          opprettet: "2026-03-06T08:30:20.697896",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-24",
+          gyldigTilOgMed: "2026-02-24",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a2",
+          opprettet: "2026-03-06T08:30:20.698266",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-25",
+          gyldigTilOgMed: "2026-02-25",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a4",
+          opprettet: "2026-03-06T08:30:20.698705",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-26",
+          gyldigTilOgMed: "2026-02-26",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59b-7d00-8b15-20057044c89b",
+          opprettet: "2026-03-06T08:30:20.69911",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-27",
+          gyldigTilOgMed: "2026-02-27",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59b-7d00-8b15-20057044c89d",
+          opprettet: "2026-03-06T08:30:20.699506",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-02-28",
+          gyldigTilOgMed: "2026-02-28",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019cc20d-f59b-7d00-8b15-20057044c89f",
+          opprettet: "2026-03-06T08:30:20.699953",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-01",
+          gyldigTilOgMed: "2026-03-01",
+          verdi: {
+            verdi: 490,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+  ],
+  forslagOm: "Endring",
+};

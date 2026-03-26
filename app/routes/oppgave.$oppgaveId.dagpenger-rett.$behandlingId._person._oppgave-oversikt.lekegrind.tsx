@@ -1,41 +1,30 @@
 import {
   ArrowRightIcon,
   ArrowsSquarepathIcon,
-  CalendarIcon,
-  CheckmarkCircleFillIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  ExclamationmarkTriangleFillIcon,
-  MinusCircleFillIcon,
-  PlusCircleFillIcon,
-  SparklesIcon,
+  CogIcon,
+  ExclamationmarkTriangleIcon,
+  EyeIcon,
+  PersonIcon,
+  XMarkIcon,
 } from "@navikt/aksel-icons";
 import {
   Alert,
   BodyShort,
   Button,
-  Chips,
-  CopyButton,
   Detail,
   Heading,
   HStack,
   Label,
-  Loader,
-  Search,
-  Switch,
-  Table,
   Tag,
   TextField,
-  Timeline,
-  ToggleGroup,
-  Tooltip,
   VStack,
 } from "@navikt/ds-react";
 import { useMemo, useState } from "react";
 import { ActionFunctionArgs, useFetcher, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { LinkTabs } from "~/components/link-tabs/LinkTabs";
 import { useBehandling } from "~/hooks/useBehandling";
 import { hentBehandling } from "~/models/behandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -56,11 +45,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.clone().formData();
   const actionType = formData.get("_action");
 
-  if (actionType === "hent-behandling-for-sammenligning") {
+  if (actionType === "hent-behandling-for-diff") {
     const behandlingId = formData.get("behandlingId") as string;
     if (!behandlingId) {
       return { error: "Behandling ID er påkrevd" };
     }
+    console.log(`Henter behandling for diff: ${behandlingId}`);
 
     try {
       const behandling = await hentBehandling(request, behandlingId);
@@ -79,6 +69,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
 // TYPES
 // ============================================================================
 
+type Kilde = components["schemas"]["Opplysningskilde"];
+type Utledning = components["schemas"]["Utledning"];
+
 interface PeriodeEndring {
   periodeId?: string;
   type: "lagt-til" | "fjernet" | "endret-verdi" | "endret-datoer";
@@ -91,6 +84,12 @@ interface PeriodeEndring {
   nyFraOgMed?: string;
   gammelTilOgMed?: string;
   nyTilOgMed?: string;
+  // Kilde og utledning for ny periode
+  kilde?: Kilde;
+  utledetAv?: Utledning;
+  // Kilde og utledning for gammel periode (ved endring)
+  gammelKilde?: Kilde;
+  gammelUtledetAv?: Utledning;
 }
 
 interface OpplysningForskjell {
@@ -104,12 +103,6 @@ interface OpplysningForskjell {
   harFjernedePerioder: boolean;
   harEndredeVerdier: boolean;
   harEndredeDatoer: boolean;
-}
-
-interface DesignProps {
-  forskjeller: OpplysningForskjell[];
-  gammelBehandling: Behandling;
-  nyBehandling: Behandling;
 }
 
 // ============================================================================
@@ -131,6 +124,8 @@ function sammenlignOpplysninger(venstre: Opplysning[], høyre: Opplysning[]): Op
         verdi: formaterOpplysningVerdi(periode.verdi),
         fraOgMed: periode.gyldigFraOgMed,
         tilOgMed: periode.gyldigTilOgMed,
+        gammelKilde: periode.kilde,
+        gammelUtledetAv: periode.utledetAv,
       }));
 
       forskjeller.push({
@@ -178,6 +173,8 @@ function sammenlignOpplysninger(venstre: Opplysning[], høyre: Opplysning[]): Op
         verdi: formaterOpplysningVerdi(periode.verdi),
         fraOgMed: periode.gyldigFraOgMed,
         tilOgMed: periode.gyldigTilOgMed,
+        kilde: periode.kilde,
+        utledetAv: periode.utledetAv,
       }));
 
       forskjeller.push({
@@ -211,7 +208,15 @@ function sammenlignPerioder(
 
   const høyreById = new Map(høyrePerioder.map((p) => [p.id, p]));
 
-  // Match by same ID first
+  // Helper to build kilde/utledetAv fields for a matched pair
+  const metaFelter = (vp: Periode, hp: Periode) => ({
+    kilde: hp.kilde,
+    utledetAv: hp.utledetAv,
+    gammelKilde: vp.kilde,
+    gammelUtledetAv: vp.utledetAv,
+  });
+
+  // STRATEGY 0: Match by same ID
   for (const vp of venstrePerioder) {
     const hp = høyreById.get(vp.id);
     if (hp) {
@@ -229,6 +234,7 @@ function sammenlignPerioder(
           nyVerdi: formaterOpplysningVerdi(hp.verdi),
           fraOgMed: hp.gyldigFraOgMed,
           tilOgMed: hp.gyldigTilOgMed,
+          ...metaFelter(vp, hp),
         });
       }
 
@@ -241,17 +247,17 @@ function sammenlignPerioder(
           nyFraOgMed: hp.gyldigFraOgMed,
           gammelTilOgMed: vp.gyldigTilOgMed,
           nyTilOgMed: hp.gyldigTilOgMed,
+          ...metaFelter(vp, hp),
         });
       }
     }
   }
 
-  // Find exact matches for remaining
+  // Strategy 1: Exact matches
   for (const vp of venstrePerioder) {
     if (matchedVenstreIds.has(vp.id)) continue;
     const vpVerdi = getVerdiFingeravtrykk(vp);
     const vpDato = getDatoFingeravtrykk(vp);
-
     for (const hp of høyrePerioder) {
       if (matchedHøyreIds.has(hp.id)) continue;
       if (vpVerdi === getVerdiFingeravtrykk(hp) && vpDato === getDatoFingeravtrykk(hp)) {
@@ -262,11 +268,10 @@ function sammenlignPerioder(
     }
   }
 
-  // Find periods with same value but different dates
+  // Strategy 2: Same value, different dates
   for (const vp of venstrePerioder) {
     if (matchedVenstreIds.has(vp.id)) continue;
     const vpVerdi = getVerdiFingeravtrykk(vp);
-
     for (const hp of høyrePerioder) {
       if (matchedHøyreIds.has(hp.id)) continue;
       if (vpVerdi === getVerdiFingeravtrykk(hp)) {
@@ -280,17 +285,17 @@ function sammenlignPerioder(
           nyFraOgMed: hp.gyldigFraOgMed,
           gammelTilOgMed: vp.gyldigTilOgMed,
           nyTilOgMed: hp.gyldigTilOgMed,
+          ...metaFelter(vp, hp),
         });
         break;
       }
     }
   }
 
-  // Find periods with same dates but different value
+  // Strategy 3: Same dates, different value
   for (const vp of venstrePerioder) {
     if (matchedVenstreIds.has(vp.id)) continue;
     const vpDato = getDatoFingeravtrykk(vp);
-
     for (const hp of høyrePerioder) {
       if (matchedHøyreIds.has(hp.id)) continue;
       if (vpDato === getDatoFingeravtrykk(hp)) {
@@ -303,17 +308,17 @@ function sammenlignPerioder(
           nyVerdi: formaterOpplysningVerdi(hp.verdi),
           fraOgMed: hp.gyldigFraOgMed,
           tilOgMed: hp.gyldigTilOgMed,
+          ...metaFelter(vp, hp),
         });
         break;
       }
     }
   }
 
-  // Try overlapping date ranges for remaining
+  // Strategy 4: Overlapping date ranges
   for (const vp of venstrePerioder) {
     if (matchedVenstreIds.has(vp.id)) continue;
     let bestMatch: Periode | null = null;
-
     for (const hp of høyrePerioder) {
       if (matchedHøyreIds.has(hp.id)) continue;
       const vpStart = vp.gyldigFraOgMed || "0000-01-01";
@@ -325,14 +330,11 @@ function sammenlignPerioder(
         break;
       }
     }
-
     if (bestMatch) {
       matchedVenstreIds.add(vp.id);
       matchedHøyreIds.add(bestMatch.id);
-
       const verdiEndret = getVerdiFingeravtrykk(vp) !== getVerdiFingeravtrykk(bestMatch);
       const datoEndret = getDatoFingeravtrykk(vp) !== getDatoFingeravtrykk(bestMatch);
-
       if (verdiEndret) {
         endringer.push({
           periodeId: bestMatch.id,
@@ -341,9 +343,9 @@ function sammenlignPerioder(
           nyVerdi: formaterOpplysningVerdi(bestMatch.verdi),
           fraOgMed: bestMatch.gyldigFraOgMed,
           tilOgMed: bestMatch.gyldigTilOgMed,
+          ...metaFelter(vp, bestMatch),
         });
       }
-
       if (datoEndret) {
         endringer.push({
           periodeId: bestMatch.id,
@@ -353,12 +355,13 @@ function sammenlignPerioder(
           nyFraOgMed: bestMatch.gyldigFraOgMed,
           gammelTilOgMed: vp.gyldigTilOgMed,
           nyTilOgMed: bestMatch.gyldigTilOgMed,
+          ...metaFelter(vp, bestMatch),
         });
       }
     }
   }
 
-  // Remaining unmatched in venstre are removed
+  // Strategy 5: Remaining unmatched in venstre are removed
   for (const vp of venstrePerioder) {
     if (!matchedVenstreIds.has(vp.id)) {
       endringer.push({
@@ -367,11 +370,13 @@ function sammenlignPerioder(
         verdi: formaterOpplysningVerdi(vp.verdi),
         fraOgMed: vp.gyldigFraOgMed,
         tilOgMed: vp.gyldigTilOgMed,
+        gammelKilde: vp.kilde,
+        gammelUtledetAv: vp.utledetAv,
       });
     }
   }
 
-  // Remaining unmatched in høyre are added
+  // Strategy 6: Remaining unmatched in høyre are added
   for (const hp of høyrePerioder) {
     if (!matchedHøyreIds.has(hp.id)) {
       endringer.push({
@@ -380,6 +385,8 @@ function sammenlignPerioder(
         verdi: formaterOpplysningVerdi(hp.verdi),
         fraOgMed: hp.gyldigFraOgMed,
         tilOgMed: hp.gyldigTilOgMed,
+        kilde: hp.kilde,
+        utledetAv: hp.utledetAv,
       });
     }
   }
@@ -387,20 +394,15 @@ function sammenlignPerioder(
   return endringer;
 }
 
-function formatDato(dato?: string): string {
-  return dato ? formaterTilNorskDato(dato) : "—";
-}
-
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export default function Lekegrind() {
+export default function Diff() {
   const { behandling: gjeldeneBehandling } = useBehandling();
   const [sammenligningsBehandlingId, setSammenligningsBehandlingId] = useState(
     gjeldeneBehandling.basertPå ?? "",
   );
-  const [aktivtDesign, setAktivtDesign] = useState<string>("1");
   const fetcher = useFetcher<{ behandling?: Behandling; error?: string }>();
 
   const sammenligningsBehandling = fetcher.data?.behandling;
@@ -410,7 +412,7 @@ export default function Lekegrind() {
   const hentSammenligningsBehandling = () => {
     if (!sammenligningsBehandlingId.trim()) return;
     fetcher.submit(
-      { _action: "hent-behandling-for-sammenligning", behandlingId: sammenligningsBehandlingId },
+      { _action: "hent-behandling-for-diff", behandlingId: sammenligningsBehandlingId },
       { method: "post" },
     );
   };
@@ -423,1142 +425,190 @@ export default function Lekegrind() {
     );
   }, [sammenligningsBehandling, gjeldeneBehandling]);
 
-  return (
-    <main className="card p-4">
-      <LinkTabs className="flex-1" />
-
-      <VStack gap="space-6" className="mt-4">
-        {/* Hero Section with Design Selector */}
-        <div className="relative overflow-hidden rounded-xl bg-(--ax-bg-neutral-soft) p-6">
-          <div className="from-blue-500/20 to-purple-500/20 absolute -top-20 -right-20 h-40 w-40 rounded-full bg-gradient-to-br blur-3xl" />
-          <div className="from-green-500/20 to-yellow-500/20 absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-gradient-to-tr blur-3xl" />
-
-          <VStack gap="space-4" className="relative">
-            <HStack justify="space-between" align="start" wrap>
-              <VStack gap="space-2">
-                <HStack gap="space-2" align="center">
-                  <SparklesIcon aria-hidden className="text-2xl text-(--ax-text-brand-icon)" />
-                  <Heading size="large">Behandlingssammenligning</Heading>
-                </HStack>
-                <BodyShort className="text-(--ax-text-neutral)">
-                  Sammenlign opplysninger mellom to behandlinger for å identifisere endringer
-                </BodyShort>
-              </VStack>
-
-              <ToggleGroup
-                value={aktivtDesign}
-                onChange={(val) => setAktivtDesign(val)}
-                size="small"
-              >
-                <ToggleGroup.Item value="1">
-                  <Tooltip content="Visuell Tidslinje">
-                    <span>1</span>
-                  </Tooltip>
-                </ToggleGroup.Item>
-                <ToggleGroup.Item value="2">
-                  <Tooltip content="Kortbasert Oversikt">
-                    <span>2</span>
-                  </Tooltip>
-                </ToggleGroup.Item>
-                <ToggleGroup.Item value="3">
-                  <Tooltip content="Side-ved-Side Tabell">
-                    <span>3</span>
-                  </Tooltip>
-                </ToggleGroup.Item>
-                <ToggleGroup.Item value="4">
-                  <Tooltip content="Trevisning">
-                    <span>4</span>
-                  </Tooltip>
-                </ToggleGroup.Item>
-                <ToggleGroup.Item value="5">
-                  <Tooltip content="Kompakt Dashboard">
-                    <span>5</span>
-                  </Tooltip>
-                </ToggleGroup.Item>
-              </ToggleGroup>
-            </HStack>
-
-            {/* Input Section */}
-            <HStack gap="space-4" align="end" className="mt-2">
-              <TextField
-                label="Behandling-ID å sammenligne med"
-                description={
-                  gjeldeneBehandling.basertPå
-                    ? `Denne behandlingen er basert på: ${gjeldeneBehandling.basertPå}`
-                    : "Skriv inn UUID for behandlingen du vil sammenligne med"
-                }
-                value={sammenligningsBehandlingId}
-                onChange={(e) => setSammenligningsBehandlingId(e.target.value)}
-                size="small"
-                className="max-w-md flex-1"
-              />
-              <Button
-                size="small"
-                variant="primary"
-                onClick={hentSammenligningsBehandling}
-                loading={laster}
-                disabled={!sammenligningsBehandlingId.trim()}
-                icon={<ArrowsSquarepathIcon aria-hidden />}
-              >
-                Sammenlign
-              </Button>
-            </HStack>
-
-            {feil && (
-              <Alert variant="error" size="small" className="mt-2">
-                {feil}
-              </Alert>
-            )}
-          </VStack>
-        </div>
-
-        {/* Show design based on selection */}
-        {sammenligningsBehandling && (
-          <>
-            {aktivtDesign === "1" && (
-              <Design1VisualTimeline
-                forskjeller={forskjeller}
-                gammelBehandling={sammenligningsBehandling}
-                nyBehandling={gjeldeneBehandling}
-              />
-            )}
-            {aktivtDesign === "2" && (
-              <Design2CardOverview
-                forskjeller={forskjeller}
-                gammelBehandling={sammenligningsBehandling}
-                nyBehandling={gjeldeneBehandling}
-              />
-            )}
-            {aktivtDesign === "3" && (
-              <Design3SideBySideTable
-                forskjeller={forskjeller}
-                gammelBehandling={sammenligningsBehandling}
-                nyBehandling={gjeldeneBehandling}
-              />
-            )}
-            {aktivtDesign === "4" && (
-              <Design4TreeView
-                forskjeller={forskjeller}
-                gammelBehandling={sammenligningsBehandling}
-                nyBehandling={gjeldeneBehandling}
-              />
-            )}
-            {aktivtDesign === "5" && (
-              <Design5CompactDashboard
-                forskjeller={forskjeller}
-                gammelBehandling={sammenligningsBehandling}
-                nyBehandling={gjeldeneBehandling}
-              />
-            )}
-          </>
-        )}
-
-        {/* Empty State */}
-        {!sammenligningsBehandling && !laster && (
-          <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-12 text-center">
-            <VStack gap="space-4" align="center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-(--ax-bg-neutral-moderate)">
-                <ArrowsSquarepathIcon aria-hidden className="text-4xl text-(--ax-text-neutral)" />
-              </div>
-              <VStack gap="space-1">
-                <Heading size="small">Ingen behandling valgt</Heading>
-                <BodyShort className="text-(--ax-text-neutral)">
-                  Skriv inn en behandling-ID og klikk &quot;Sammenlign&quot; for å se forskjellene
-                </BodyShort>
-              </VStack>
-            </VStack>
-          </div>
-        )}
-
-        {laster && (
-          <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-12 text-center">
-            <VStack gap="space-4" align="center">
-              <Loader size="xlarge" />
-              <BodyShort>Henter behandling...</BodyShort>
-            </VStack>
-          </div>
-        )}
-      </VStack>
-    </main>
-  );
-}
-
-// ============================================================================
-// DESIGN 1: VISUAL TIMELINE
-// En horisontalt orientert tidslinje som viser endringer kronologisk
-// med fargekodede noder og ekspanderbare detaljer
-// ============================================================================
-
-function Design1VisualTimeline({ forskjeller, gammelBehandling, nyBehandling }: DesignProps) {
-  const [søk, setSøk] = useState("");
-  const [kunEndrede, setKunEndrede] = useState(true);
-
-  const filtrertForskjeller = useMemo(() => {
-    let result = forskjeller;
-    if (kunEndrede) {
-      result = result.filter((f) => f.type !== "uendret");
+  // Alle opplysninger (inkl. ikke-synlige) for oppslag i utledningstreet
+  const alleOpplysninger = useMemo(() => {
+    const map = new Map<string, Opplysning>();
+    for (const o of gjeldeneBehandling.opplysninger) {
+      map.set(o.opplysningTypeId, o);
     }
-    if (søk) {
-      result = result.filter((f) => f.navn.toLowerCase().includes(søk.toLowerCase()));
+    if (sammenligningsBehandling) {
+      for (const o of sammenligningsBehandling.opplysninger) {
+        if (!map.has(o.opplysningTypeId)) {
+          map.set(o.opplysningTypeId, o);
+        }
+      }
     }
-    return result;
-  }, [forskjeller, kunEndrede, søk]);
-
-  const stats = useMemo(() => {
-    const endrede = forskjeller.filter((f) => f.type !== "uendret");
-    return {
-      endret: endrede.length,
-      lagt_til: forskjeller.filter((f) => f.type === "lagt-til").length,
-      fjernet: forskjeller.filter((f) => f.type === "fjernet").length,
-    };
-  }, [forskjeller]);
+    return Array.from(map.values());
+  }, [gjeldeneBehandling, sammenligningsBehandling]);
 
   return (
-    <VStack gap="space-6">
-      {/* Summary Header */}
-      <div className="rounded-lg bg-(--ax-bg-info-soft) p-4">
-        <HStack justify="space-between" align="center" wrap gap="space-4">
-          <HStack gap="space-6">
-            <VStack gap="space-1">
-              <Detail uppercase className="text-(--ax-text-neutral)">
-                Fra behandling
-              </Detail>
-              <HStack gap="space-2" align="center">
-                <div className="h-3 w-3 rounded-full bg-(--ax-bg-danger-strong)" />
-                <CopyButton
-                  copyText={gammelBehandling.behandlingId}
-                  text={gammelBehandling.behandlingId.slice(0, 18) + "..."}
-                  size="xsmall"
-                />
-              </HStack>
-            </VStack>
-            <div className="flex items-center">
-              <ArrowRightIcon aria-hidden className="text-2xl text-(--ax-text-neutral)" />
-            </div>
-            <VStack gap="space-1">
-              <Detail uppercase className="text-(--ax-text-neutral)">
-                Til behandling
-              </Detail>
-              <HStack gap="space-2" align="center">
-                <div className="h-3 w-3 rounded-full bg-(--ax-bg-success-strong)" />
-                <CopyButton
-                  copyText={nyBehandling.behandlingId}
-                  text={nyBehandling.behandlingId.slice(0, 18) + "..."}
-                  size="xsmall"
-                />
-              </HStack>
-            </VStack>
-          </HStack>
+    <VStack gap="space-8" className="card p-4">
+      <Heading size="medium">Sammenlign behandlinger</Heading>
 
-          <HStack gap="space-4">
-            <StatBadge
-              label="Endret"
-              value={stats.endret}
-              variant="warning"
-              icon={<ArrowsSquarepathIcon aria-hidden />}
-            />
-            <StatBadge
-              label="Lagt til"
-              value={stats.lagt_til}
-              variant="success"
-              icon={<PlusCircleFillIcon aria-hidden />}
-            />
-            <StatBadge
-              label="Fjernet"
-              value={stats.fjernet}
-              variant="error"
-              icon={<MinusCircleFillIcon aria-hidden />}
-            />
-          </HStack>
-        </HStack>
-      </div>
-
-      {/* Filters */}
-      <HStack gap="space-4" align="center">
-        <Search
-          label="Søk i opplysninger"
-          hideLabel
-          variant="simple"
+      {/* Input Section */}
+      <HStack gap="space-4" align="end">
+        <TextField
+          label="Behandling ID å sammenligne med"
+          description="Skriv inn UUID for behandlingen du vil sammenligne med"
+          value={sammenligningsBehandlingId}
+          onChange={(e) => setSammenligningsBehandlingId(e.target.value)}
           size="small"
-          value={søk}
-          onChange={(val) => setSøk(val)}
-          placeholder="Søk etter opplysning..."
-          className="w-72"
+          className="w-96"
         />
-        <Switch checked={kunEndrede} onChange={(e) => setKunEndrede(e.target.checked)} size="small">
-          Vis kun endrede ({stats.endret})
-        </Switch>
-      </HStack>
-
-      {/* Timeline */}
-      <div className="relative">
-        {filtrertForskjeller.length === 0 ? (
-          <Alert variant="info">Ingen opplysninger matcher søket</Alert>
-        ) : (
-          <Timeline>
-            {filtrertForskjeller.map((forskjell) => (
-              <Timeline.Row
-                key={forskjell.opplysningTypeId}
-                label={forskjell.navn}
-                icon={getTimelineIcon(forskjell.type)}
-              >
-                <Timeline.Period
-                  start={new Date()}
-                  end={new Date()}
-                  status={getTimelineStatus(forskjell.type)}
-                >
-                  <TimelineContent forskjell={forskjell} />
-                </Timeline.Period>
-              </Timeline.Row>
-            ))}
-          </Timeline>
-        )}
-      </div>
-    </VStack>
-  );
-}
-
-function StatBadge({
-  label,
-  value,
-  variant,
-  icon,
-}: {
-  label: string;
-  value: number;
-  variant: "success" | "warning" | "error" | "info";
-  icon: React.ReactNode;
-}) {
-  const bgColors = {
-    success: "bg-(--ax-bg-success-soft)",
-    warning: "bg-(--ax-bg-warning-soft)",
-    error: "bg-(--ax-bg-danger-soft)",
-    info: "bg-(--ax-bg-info-soft)",
-  };
-  const textColors = {
-    success: "text-(--ax-text-success)",
-    warning: "text-(--ax-text-warning)",
-    error: "text-(--ax-text-danger)",
-    info: "text-(--ax-text-info)",
-  };
-
-  return (
-    <div className={`rounded-lg px-3 py-2 ${bgColors[variant]}`}>
-      <HStack gap="space-2" align="center">
-        <span className={textColors[variant]}>{icon}</span>
-        <VStack gap="space-0">
-          <span className={`text-lg font-bold ${textColors[variant]}`}>{value}</span>
-          <Detail>{label}</Detail>
-        </VStack>
-      </HStack>
-    </div>
-  );
-}
-
-function getTimelineIcon(type: OpplysningForskjell["type"]) {
-  switch (type) {
-    case "lagt-til":
-      return <PlusCircleFillIcon aria-hidden />;
-    case "fjernet":
-      return <MinusCircleFillIcon aria-hidden />;
-    case "endret":
-      return <ExclamationmarkTriangleFillIcon aria-hidden />;
-    default:
-      return <CheckmarkCircleFillIcon aria-hidden />;
-  }
-}
-
-function getTimelineStatus(type: OpplysningForskjell["type"]) {
-  switch (type) {
-    case "lagt-til":
-      return "success" as const;
-    case "fjernet":
-      return "danger" as const;
-    case "endret":
-      return "warning" as const;
-    default:
-      return "success" as const;
-  }
-}
-
-function TimelineContent({ forskjell }: { forskjell: OpplysningForskjell }) {
-  if (forskjell.periodeEndringer.length === 0) {
-    return (
-      <BodyShort size="small" className="text-(--ax-text-success)">
-        Ingen endringer
-      </BodyShort>
-    );
-  }
-
-  return (
-    <VStack gap="space-2">
-      {forskjell.periodeEndringer.map((endring, idx) => (
-        <PeriodeEndringBadge key={idx} endring={endring} />
-      ))}
-    </VStack>
-  );
-}
-
-function PeriodeEndringBadge({ endring }: { endring: PeriodeEndring }) {
-  if (endring.type === "lagt-til") {
-    return (
-      <HStack gap="space-2" align="center" className="text-(--ax-text-success)">
-        <PlusCircleFillIcon aria-hidden />
-        <Detail>
-          Ny: {endring.verdi} ({formatDato(endring.fraOgMed)} - {formatDato(endring.tilOgMed)})
-        </Detail>
-      </HStack>
-    );
-  }
-
-  if (endring.type === "fjernet") {
-    return (
-      <HStack gap="space-2" align="center" className="text-(--ax-text-danger)">
-        <MinusCircleFillIcon aria-hidden />
-        <Detail className="line-through">
-          {endring.verdi} ({formatDato(endring.fraOgMed)} - {formatDato(endring.tilOgMed)})
-        </Detail>
-      </HStack>
-    );
-  }
-
-  if (endring.type === "endret-verdi") {
-    return (
-      <HStack gap="space-2" align="center">
-        <ArrowsSquarepathIcon aria-hidden className="text-(--ax-text-warning)" />
-        <Detail>
-          <span className="text-(--ax-text-danger) line-through">{endring.gammelVerdi}</span>
-          {" → "}
-          <span className="font-semibold text-(--ax-text-success)">{endring.nyVerdi}</span>
-        </Detail>
-      </HStack>
-    );
-  }
-
-  if (endring.type === "endret-datoer") {
-    return (
-      <HStack gap="space-2" align="center">
-        <CalendarIcon aria-hidden className="text-(--ax-text-info)" />
-        <Detail>
-          <span className="text-(--ax-text-neutral)">
-            {formatDato(endring.gammelFraOgMed)} - {formatDato(endring.gammelTilOgMed)}
-          </span>
-          {" → "}
-          <span className="font-semibold">
-            {formatDato(endring.nyFraOgMed)} - {formatDato(endring.nyTilOgMed)}
-          </span>
-        </Detail>
-      </HStack>
-    );
-  }
-
-  return null;
-}
-
-// ============================================================================
-// DESIGN 2: CARD OVERVIEW
-// Kortbasert layout med store, klikkbare kort som viser opplysninger
-// gruppert etter endringstype med visuell vekting basert på viktighet
-// ============================================================================
-
-function Design2CardOverview({ forskjeller }: DesignProps) {
-  const [valgtKategori, setValgtKategori] = useState<"alle" | "endret" | "lagt-til" | "fjernet">(
-    "alle",
-  );
-  const [ekspandertKort, setEkspandertKort] = useState<string | null>(null);
-
-  const kategorisert = useMemo(() => {
-    return {
-      endret: forskjeller.filter((f) => f.type === "endret"),
-      lagtTil: forskjeller.filter((f) => f.type === "lagt-til"),
-      fjernet: forskjeller.filter((f) => f.type === "fjernet"),
-      uendret: forskjeller.filter((f) => f.type === "uendret"),
-    };
-  }, [forskjeller]);
-
-  const visningsForskjeller = useMemo(() => {
-    switch (valgtKategori) {
-      case "endret":
-        return kategorisert.endret;
-      case "lagt-til":
-        return kategorisert.lagtTil;
-      case "fjernet":
-        return kategorisert.fjernet;
-      default:
-        return [...kategorisert.endret, ...kategorisert.lagtTil, ...kategorisert.fjernet];
-    }
-  }, [kategorisert, valgtKategori]);
-
-  return (
-    <VStack gap="space-6">
-      {/* Category Pills */}
-      <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-4">
-        <HStack gap="space-4" wrap>
-          <CategoryPill
-            label="Alle endringer"
-            count={
-              kategorisert.endret.length + kategorisert.lagtTil.length + kategorisert.fjernet.length
-            }
-            active={valgtKategori === "alle"}
-            onClick={() => setValgtKategori("alle")}
-            variant="neutral"
-          />
-          <CategoryPill
-            label="Endret"
-            count={kategorisert.endret.length}
-            active={valgtKategori === "endret"}
-            onClick={() => setValgtKategori("endret")}
-            variant="warning"
-          />
-          <CategoryPill
-            label="Lagt til"
-            count={kategorisert.lagtTil.length}
-            active={valgtKategori === "lagt-til"}
-            onClick={() => setValgtKategori("lagt-til")}
-            variant="success"
-          />
-          <CategoryPill
-            label="Fjernet"
-            count={kategorisert.fjernet.length}
-            active={valgtKategori === "fjernet"}
-            onClick={() => setValgtKategori("fjernet")}
-            variant="error"
-          />
-        </HStack>
-      </div>
-
-      {/* Cards Grid */}
-      {visningsForskjeller.length === 0 ? (
-        <Alert variant="info">Ingen opplysninger i denne kategorien</Alert>
-      ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {visningsForskjeller.map((forskjell) => (
-            <OpplysningCard
-              key={forskjell.opplysningTypeId}
-              forskjell={forskjell}
-              erEkspandert={ekspandertKort === forskjell.opplysningTypeId}
-              onToggle={() =>
-                setEkspandertKort(
-                  ekspandertKort === forskjell.opplysningTypeId ? null : forskjell.opplysningTypeId,
-                )
-              }
-            />
-          ))}
-        </div>
-      )}
-    </VStack>
-  );
-}
-
-function CategoryPill({
-  label,
-  count,
-  active,
-  onClick,
-  variant,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  onClick: () => void;
-  variant: "neutral" | "success" | "warning" | "error";
-}) {
-  const baseClasses =
-    "cursor-pointer rounded-full px-4 py-2 transition-all hover:scale-105 active:scale-95";
-  const variantClasses = {
-    neutral: active
-      ? "bg-(--ax-bg-neutral-strong) text-white"
-      : "bg-(--ax-bg-neutral-soft) hover:bg-(--ax-bg-neutral-moderate)",
-    success: active
-      ? "bg-(--ax-bg-success-strong) text-white"
-      : "bg-(--ax-bg-success-soft) text-(--ax-text-success) hover:bg-(--ax-bg-success-moderate)",
-    warning: active
-      ? "bg-(--ax-bg-warning-strong) text-white"
-      : "bg-(--ax-bg-warning-soft) text-(--ax-text-warning) hover:bg-(--ax-bg-warning-moderate)",
-    error: active
-      ? "bg-(--ax-bg-danger-strong) text-white"
-      : "bg-(--ax-bg-danger-soft) text-(--ax-text-danger) hover:bg-(--ax-bg-danger-moderate)",
-  };
-
-  return (
-    <button className={`${baseClasses} ${variantClasses[variant]}`} onClick={onClick}>
-      <HStack gap="space-2" align="center">
-        <span className="font-medium">{label}</span>
-        <span
-          className={`rounded-full px-2 py-0.5 text-xs font-bold ${
-            active ? "bg-white/20" : "bg-(--ax-bg-neutral-soft)"
-          }`}
+        <Button
+          size="small"
+          onClick={hentSammenligningsBehandling}
+          loading={laster}
+          disabled={!sammenligningsBehandlingId.trim()}
+          icon={<ArrowsSquarepathIcon aria-hidden />}
         >
-          {count}
-        </span>
+          Sammenlign
+        </Button>
       </HStack>
-    </button>
-  );
-}
 
-function OpplysningCard({
-  forskjell,
-  erEkspandert,
-  onToggle,
-}: {
-  forskjell: OpplysningForskjell;
-  erEkspandert: boolean;
-  onToggle: () => void;
-}) {
-  const borderColors = {
-    "lagt-til": "border-l-(--ax-border-success)",
-    fjernet: "border-l-(--ax-border-danger)",
-    endret: "border-l-(--ax-border-warning)",
-    uendret: "border-l-(--ax-border-neutral)",
-  };
-
-  const iconForType = {
-    "lagt-til": <PlusCircleFillIcon className="text-(--ax-text-success)" aria-hidden />,
-    fjernet: <MinusCircleFillIcon className="text-(--ax-text-danger)" aria-hidden />,
-    endret: <ExclamationmarkTriangleFillIcon className="text-(--ax-text-warning)" aria-hidden />,
-    uendret: <CheckmarkCircleFillIcon className="text-(--ax-text-success)" aria-hidden />,
-  };
-
-  return (
-    <button
-      type="button"
-      className={`rounded-lg border border-l-4 border-(--ax-border-subtle) ${borderColors[forskjell.type]} w-full cursor-pointer bg-(--ax-bg-default) text-left transition-all hover:shadow-md`}
-      onClick={onToggle}
-    >
-      <div className="p-4">
-        <HStack justify="space-between" align="start">
-          <HStack gap="space-4" align="center">
-            {iconForType[forskjell.type]}
-            <VStack gap="space-1">
-              <Label size="small">{forskjell.navn}</Label>
-              <Detail className="text-(--ax-text-neutral)">
-                {forskjell.periodeEndringer.length} periode
-                {forskjell.periodeEndringer.length !== 1 && "r"} påvirket
-              </Detail>
-            </VStack>
-          </HStack>
-          <ChevronDownIcon
-            aria-hidden
-            className={`transition-transform ${erEkspandert ? "rotate-180" : ""}`}
-          />
-        </HStack>
-
-        {erEkspandert && (
-          <VStack gap="space-4" className="mt-4 border-t border-(--ax-border-subtle) pt-4">
-            {forskjell.periodeEndringer.map((endring, idx) => (
-              <PeriodeEndringDetalj key={idx} endring={endring} />
-            ))}
-          </VStack>
-        )}
-      </div>
-    </button>
-  );
-}
-
-function PeriodeEndringDetalj({ endring }: { endring: PeriodeEndring }) {
-  const bgColors = {
-    "lagt-til": "bg-(--ax-bg-success-soft)",
-    fjernet: "bg-(--ax-bg-danger-soft)",
-    "endret-verdi": "bg-(--ax-bg-warning-soft)",
-    "endret-datoer": "bg-(--ax-bg-info-soft)",
-  };
-
-  return (
-    <div className={`rounded p-2 ${bgColors[endring.type]}`}>
-      {endring.type === "lagt-til" && (
-        <HStack gap="space-2" align="center">
-          <PlusCircleFillIcon className="text-(--ax-text-success)" aria-hidden />
-          <VStack gap="space-0">
-            <BodyShort size="small" weight="semibold">
-              Ny periode
-            </BodyShort>
-            <Detail>
-              {endring.verdi} • {formatDato(endring.fraOgMed)} – {formatDato(endring.tilOgMed)}
-            </Detail>
-          </VStack>
-        </HStack>
+      {feil && (
+        <Alert variant="error" size="small">
+          {feil}
+        </Alert>
       )}
 
-      {endring.type === "fjernet" && (
-        <HStack gap="space-2" align="center">
-          <MinusCircleFillIcon className="text-(--ax-text-danger)" aria-hidden />
-          <VStack gap="space-0">
-            <BodyShort size="small" weight="semibold">
-              Fjernet periode
-            </BodyShort>
-            <Detail className="line-through">
-              {endring.verdi} • {formatDato(endring.fraOgMed)} – {formatDato(endring.tilOgMed)}
-            </Detail>
-          </VStack>
-        </HStack>
+      {sammenligningsBehandling && (
+        <Design1InputOutput forskjeller={forskjeller} alleOpplysninger={alleOpplysninger} />
       )}
-
-      {endring.type === "endret-verdi" && (
-        <HStack gap="space-2" align="center">
-          <ArrowsSquarepathIcon className="text-(--ax-text-warning)" aria-hidden />
-          <VStack gap="space-0">
-            <BodyShort size="small" weight="semibold">
-              Verdi endret
-            </BodyShort>
-            <Detail>
-              <span className="line-through">{endring.gammelVerdi}</span> → {endring.nyVerdi}
-            </Detail>
-          </VStack>
-        </HStack>
-      )}
-
-      {endring.type === "endret-datoer" && (
-        <HStack gap="space-2" align="center">
-          <CalendarIcon className="text-(--ax-text-info)" aria-hidden />
-          <VStack gap="space-0">
-            <BodyShort size="small" weight="semibold">
-              Periode endret
-            </BodyShort>
-            <Detail>
-              {formatDato(endring.gammelFraOgMed)}–{formatDato(endring.gammelTilOgMed)} →{" "}
-              {formatDato(endring.nyFraOgMed)}–{formatDato(endring.nyTilOgMed)}
-            </Detail>
-          </VStack>
-        </HStack>
-      )}
-    </div>
-  );
-}
-
-// ============================================================================
-// DESIGN 3: SIDE-BY-SIDE TABLE
-// Tradisjonell tabelloppsett med gammel og ny verdi side ved side
-// med highlighting av forskjeller og sortering
-// ============================================================================
-
-function Design3SideBySideTable({ forskjeller, gammelBehandling, nyBehandling }: DesignProps) {
-  const [filter, setFilter] = useState<string>("");
-  const [visUendrede, setVisUendrede] = useState(false);
-
-  const sortert = useMemo(() => {
-    let result = [...forskjeller];
-
-    if (!visUendrede) {
-      result = result.filter((f) => f.type !== "uendret");
-    }
-
-    if (filter) {
-      result = result.filter((f) => f.navn.toLowerCase().includes(filter.toLowerCase()));
-    }
-
-    // Sort by type priority
-    const typeOrder = { fjernet: 0, endret: 1, "lagt-til": 2, uendret: 3 };
-    result.sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
-
-    return result;
-  }, [forskjeller, filter, visUendrede]);
-
-  return (
-    <VStack gap="space-4">
-      {/* Table Header */}
-      <div className="rounded-lg bg-(--ax-bg-info-soft) p-4">
-        <HStack justify="space-between" align="center" wrap gap="space-4">
-          <HStack gap="space-6" align="center">
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded bg-(--ax-bg-danger-moderate)" />
-              <Detail>{gammelBehandling.behandlingId.slice(0, 12)}...</Detail>
-            </div>
-            <ArrowRightIcon aria-hidden className="text-xl" />
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded bg-(--ax-bg-success-moderate)" />
-              <Detail>{nyBehandling.behandlingId.slice(0, 12)}...</Detail>
-            </div>
-          </HStack>
-
-          <HStack gap="space-4" align="center">
-            <Search
-              label="Filtrer"
-              hideLabel
-              size="small"
-              variant="simple"
-              value={filter}
-              onChange={setFilter}
-              placeholder="Filtrer opplysninger..."
-              className="w-48"
-            />
-            <Switch
-              checked={visUendrede}
-              onChange={(e) => setVisUendrede(e.target.checked)}
-              size="small"
-            >
-              Vis uendrede
-            </Switch>
-          </HStack>
-        </HStack>
-      </div>
-
-      {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-(--ax-border-subtle)">
-        <Table size="small" zebraStripes>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell scope="col" className="w-24">
-                Type
-              </Table.HeaderCell>
-              <Table.HeaderCell scope="col">Opplysning</Table.HeaderCell>
-              <Table.HeaderCell scope="col" className="bg-(--ax-bg-danger-soft)">
-                Før
-              </Table.HeaderCell>
-              <Table.HeaderCell scope="col" className="bg-(--ax-bg-success-soft)">
-                Etter
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {sortert.length === 0 ? (
-              <Table.Row>
-                <Table.DataCell colSpan={4} className="py-8 text-center">
-                  <BodyShort className="text-(--ax-text-neutral)">
-                    Ingen opplysninger funnet
-                  </BodyShort>
-                </Table.DataCell>
-              </Table.Row>
-            ) : (
-              sortert.map((f) => (
-                <Table.ExpandableRow
-                  key={f.opplysningTypeId}
-                  content={<ExpandableRowContent forskjell={f} />}
-                  togglePlacement="right"
-                >
-                  <Table.DataCell>
-                    <TypeTag type={f.type} />
-                  </Table.DataCell>
-                  <Table.DataCell>
-                    <Label size="small">{f.navn}</Label>
-                  </Table.DataCell>
-                  <Table.DataCell className="bg-(--ax-bg-danger-soft)/30">
-                    {f.gammelOpplysning ? (
-                      formatVerdier(f.gammelOpplysning.perioder)
-                    ) : (
-                      <span className="text-(--ax-text-neutral)">—</span>
-                    )}
-                  </Table.DataCell>
-                  <Table.DataCell className="bg-(--ax-bg-success-soft)/30">
-                    {f.nyOpplysning ? (
-                      formatVerdier(f.nyOpplysning.perioder)
-                    ) : (
-                      <span className="text-(--ax-text-neutral)">—</span>
-                    )}
-                  </Table.DataCell>
-                </Table.ExpandableRow>
-              ))
-            )}
-          </Table.Body>
-        </Table>
-      </div>
     </VStack>
   );
 }
 
-function TypeTag({ type }: { type: OpplysningForskjell["type"] }) {
-  const variants: Record<string, "success" | "error" | "warning" | "neutral"> = {
-    "lagt-til": "success",
-    fjernet: "error",
-    endret: "warning",
-    uendret: "neutral",
-  };
-  const labels: Record<string, string> = {
-    "lagt-til": "Ny",
-    fjernet: "Fjernet",
-    endret: "Endret",
-    uendret: "Uendret",
-  };
+// ============================================================================
+// SHARED HELPERS
+// ============================================================================
 
+function formatDato(dato?: string): string {
+  return dato ? formaterTilNorskDato(dato) : "—";
+}
+
+function KildeBadge({ kilde }: { kilde?: Kilde }) {
+  if (!kilde) return null;
+  const erSaksbehandler = kilde.type === "Saksbehandler";
   return (
-    <Tag variant={variants[type]} size="xsmall">
-      {labels[type]}
+    <Tag variant={erSaksbehandler ? "alt1" : "alt2"} size="xsmall">
+      <HStack gap="space-1" align="center">
+        {erSaksbehandler ? <PersonIcon aria-hidden /> : <CogIcon aria-hidden />}
+        {erSaksbehandler ? (kilde.ident ?? "Saksbehandler") : "System"}
+      </HStack>
     </Tag>
   );
 }
 
-function formatVerdier(perioder: Periode[]): string {
-  if (perioder.length === 0) return "—";
-  if (perioder.length === 1) {
-    const p = perioder[0];
-    return formaterOpplysningVerdi(p.verdi);
-  }
-  return `${perioder.length} perioder`;
-}
-
-function ExpandableRowContent({ forskjell }: { forskjell: OpplysningForskjell }) {
-  return (
-    <div className="p-4">
-      <VStack gap="space-4">
-        <Heading size="xsmall">Detaljer for {forskjell.navn}</Heading>
-
-        {forskjell.periodeEndringer.length === 0 ? (
-          <BodyShort className="text-(--ax-text-neutral)">Ingen endringer i perioder</BodyShort>
-        ) : (
-          <div className="grid gap-2">
-            {forskjell.periodeEndringer.map((e, i) => (
-              <PeriodeEndringDetalj key={i} endring={e} />
-            ))}
-          </div>
-        )}
-      </VStack>
-    </div>
-  );
-}
-
-// ============================================================================
-// DESIGN 4: TREE VIEW
-// Hierarkisk trevisning med ekspanderbare noder
-// som viser opplysninger og deres perioder
-// ============================================================================
-
-function Design4TreeView({ forskjeller }: DesignProps) {
-  const [ekspanderte, setEkspanderte] = useState<Set<string>>(new Set());
-  const [søk, setSøk] = useState("");
-  const [filter, setFilter] = useState<"alle" | "endrede">("endrede");
-
-  const toggleEkspandert = (id: string) => {
-    const nySet = new Set(ekspanderte);
-    if (nySet.has(id)) {
-      nySet.delete(id);
-    } else {
-      nySet.add(id);
-    }
-    setEkspanderte(nySet);
-  };
-
-  const ekspanderAlle = () => {
-    setEkspanderte(new Set(forskjeller.map((f) => f.opplysningTypeId)));
-  };
-
-  const lukkAlle = () => {
-    setEkspanderte(new Set());
-  };
-
-  const filtrert = useMemo(() => {
-    let result = forskjeller;
-
-    if (filter === "endrede") {
-      result = result.filter((f) => f.type !== "uendret");
-    }
-
-    if (søk) {
-      result = result.filter((f) => f.navn.toLowerCase().includes(søk.toLowerCase()));
-    }
-
-    return result;
-  }, [forskjeller, filter, søk]);
-
-  const gruppertEtterType = useMemo(() => {
-    const grupper: Record<string, OpplysningForskjell[]> = {
-      endret: [],
-      "lagt-til": [],
-      fjernet: [],
-    };
-
-    for (const f of filtrert) {
-      if (f.type !== "uendret" && grupper[f.type]) {
-        grupper[f.type].push(f);
-      }
-    }
-
-    return grupper;
-  }, [filtrert]);
-
-  return (
-    <VStack gap="space-4">
-      {/* Controls */}
-      <HStack justify="space-between" align="center" wrap gap="space-4">
-        <HStack gap="space-4" align="center">
-          <Search
-            label="Søk"
-            hideLabel
-            size="small"
-            variant="simple"
-            value={søk}
-            onChange={setSøk}
-            placeholder="Søk etter opplysning..."
-            className="w-64"
-          />
-          <Chips size="small">
-            <Chips.Toggle selected={filter === "endrede"} onClick={() => setFilter("endrede")}>
-              Kun endrede
-            </Chips.Toggle>
-            <Chips.Toggle selected={filter === "alle"} onClick={() => setFilter("alle")}>
-              Alle
-            </Chips.Toggle>
-          </Chips>
-        </HStack>
-
-        <HStack gap="space-2">
-          <Button size="xsmall" variant="tertiary" onClick={ekspanderAlle}>
-            Ekspander alle
-          </Button>
-          <Button size="xsmall" variant="tertiary" onClick={lukkAlle}>
-            Lukk alle
-          </Button>
-        </HStack>
-      </HStack>
-
-      {/* Tree */}
-      <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-4">
-        <VStack gap="space-4">
-          {/* Endret gruppe */}
-          {gruppertEtterType["endret"].length > 0 && (
-            <TreeGroup
-              label="Endrede opplysninger"
-              count={gruppertEtterType["endret"].length}
-              variant="warning"
-              icon={<ExclamationmarkTriangleFillIcon aria-hidden />}
-            >
-              {gruppertEtterType["endret"].map((f) => (
-                <TreeNode
-                  key={f.opplysningTypeId}
-                  forskjell={f}
-                  erEkspandert={ekspanderte.has(f.opplysningTypeId)}
-                  onToggle={() => toggleEkspandert(f.opplysningTypeId)}
-                />
-              ))}
-            </TreeGroup>
-          )}
-
-          {/* Lagt til gruppe */}
-          {gruppertEtterType["lagt-til"].length > 0 && (
-            <TreeGroup
-              label="Nye opplysninger"
-              count={gruppertEtterType["lagt-til"].length}
-              variant="success"
-              icon={<PlusCircleFillIcon aria-hidden />}
-            >
-              {gruppertEtterType["lagt-til"].map((f) => (
-                <TreeNode
-                  key={f.opplysningTypeId}
-                  forskjell={f}
-                  erEkspandert={ekspanderte.has(f.opplysningTypeId)}
-                  onToggle={() => toggleEkspandert(f.opplysningTypeId)}
-                />
-              ))}
-            </TreeGroup>
-          )}
-
-          {/* Fjernet gruppe */}
-          {gruppertEtterType["fjernet"].length > 0 && (
-            <TreeGroup
-              label="Fjernede opplysninger"
-              count={gruppertEtterType["fjernet"].length}
-              variant="error"
-              icon={<MinusCircleFillIcon aria-hidden />}
-            >
-              {gruppertEtterType["fjernet"].map((f) => (
-                <TreeNode
-                  key={f.opplysningTypeId}
-                  forskjell={f}
-                  erEkspandert={ekspanderte.has(f.opplysningTypeId)}
-                  onToggle={() => toggleEkspandert(f.opplysningTypeId)}
-                />
-              ))}
-            </TreeGroup>
-          )}
-
-          {filtrert.length === 0 && (
-            <BodyShort className="py-8 text-center text-(--ax-text-neutral)">
-              Ingen opplysninger matcher filteret
-            </BodyShort>
-          )}
-        </VStack>
-      </div>
-    </VStack>
-  );
-}
-
-function TreeGroup({
-  label,
-  count,
-  variant,
-  icon,
-  children,
+function UtledningPanel({
+  utledetAv,
+  alleOpplysninger,
+  className,
 }: {
-  label: string;
-  count: number;
-  variant: "success" | "warning" | "error";
-  icon: React.ReactNode;
-  children: React.ReactNode;
+  utledetAv?: Utledning;
+  alleOpplysninger: Opplysning[];
+  className?: string;
 }) {
-  const [åpen, setÅpen] = useState(true);
+  const [åpen, setÅpen] = useState(false);
 
-  const bgColors = {
-    success: "bg-(--ax-bg-success-soft)",
-    warning: "bg-(--ax-bg-warning-soft)",
-    error: "bg-(--ax-bg-danger-soft)",
-  };
-
-  const textColors = {
-    success: "text-(--ax-text-success)",
-    warning: "text-(--ax-text-warning)",
-    error: "text-(--ax-text-danger)",
-  };
+  if (!utledetAv) return null;
 
   return (
-    <div>
+    <div
+      className={`rounded border border-(--ax-border-neutral) bg-(--ax-bg-neutral-soft) ${className ?? ""}`}
+    >
       <button
-        className={`w-full rounded-lg ${bgColors[variant]} p-3 text-left transition-colors hover:opacity-80`}
+        type="button"
+        className="flex w-full cursor-pointer items-center gap-2 rounded p-3 text-left transition-colors hover:bg-(--ax-bg-neutral-moderate)"
         onClick={() => setÅpen(!åpen)}
       >
-        <HStack justify="space-between" align="center">
-          <HStack gap="space-2" align="center">
-            <span className={textColors[variant]}>{icon}</span>
-            <Label size="small">{label}</Label>
-            <Tag variant={variant} size="xsmall">
-              {count}
-            </Tag>
-          </HStack>
-          <ChevronDownIcon
-            className={`transition-transform ${åpen ? "rotate-180" : ""}`}
-            aria-hidden
-          />
-        </HStack>
+        {åpen ? (
+          <ChevronDownIcon aria-hidden className="shrink-0" />
+        ) : (
+          <ChevronRightIcon aria-hidden className="shrink-0" />
+        )}
+        <CogIcon aria-hidden className="shrink-0 text-(--ax-text-neutral)" />
+        <Detail weight="semibold" className="flex-1">
+          Regel: {utledetAv.regel.navn}
+        </Detail>
+        <Detail className="text-(--ax-text-neutral)">
+          {utledetAv.opplysninger.length} opplysning
+          {utledetAv.opplysninger.length !== 1 ? "er" : ""}
+        </Detail>
       </button>
 
-      {åpen && (
-        <div className="mt-2 ml-6 space-y-1 border-l-2 border-(--ax-border-subtle) pl-4">
-          {children}
+      {åpen && utledetAv.opplysninger.length > 0 && (
+        <div className="border-t border-t-(--ax-border-neutral) p-3">
+          <VStack gap="space-1">
+            {utledetAv.opplysninger.map((opplysningId, idx) => (
+              <UtledningNode
+                key={idx}
+                opplysningId={opplysningId}
+                alleOpplysninger={alleOpplysninger}
+              />
+            ))}
+          </VStack>
         </div>
       )}
     </div>
   );
 }
 
-function TreeNode({
-  forskjell,
-  erEkspandert,
-  onToggle,
+function UtledningNode({
+  opplysningId,
+  alleOpplysninger,
 }: {
-  forskjell: OpplysningForskjell;
-  erEkspandert: boolean;
-  onToggle: () => void;
+  opplysningId: string;
+  alleOpplysninger: Opplysning[];
 }) {
+  const [expanded, setExpanded] = useState(false);
+
+  // Prøv å matche på opplysningTypeId først, deretter på periode-id
+  const opplysning =
+    alleOpplysninger.find((o) => o.opplysningTypeId === opplysningId) ??
+    alleOpplysninger.find((o) => o.perioder.some((p) => p.id === opplysningId));
+
+  if (!opplysning) {
+    return <Detail className="p-1 font-mono text-(--ax-text-neutral)">• {opplysningId}</Detail>;
+  }
+
+  const periodeUtledning = opplysning.perioder.find((p) => p.utledetAv)?.utledetAv;
+  const harBarn = periodeUtledning && periodeUtledning.opplysninger.length > 0;
+  const sistePeriode = opplysning.perioder[opplysning.perioder.length - 1];
+
   return (
-    <div className="rounded-lg bg-(--ax-bg-default) p-2">
-      <button className="w-full text-left" onClick={onToggle} aria-expanded={erEkspandert}>
-        <HStack justify="space-between" align="center">
-          <HStack gap="space-2" align="center">
-            {erEkspandert ? (
-              <ChevronDownIcon aria-hidden className="text-(--ax-text-neutral)" />
-            ) : (
-              <ChevronRightIcon aria-hidden className="text-(--ax-text-neutral)" />
-            )}
-            <BodyShort size="small">{forskjell.navn}</BodyShort>
-          </HStack>
-          <Detail className="text-(--ax-text-neutral)">
-            {forskjell.periodeEndringer.length} endring
-            {forskjell.periodeEndringer.length !== 1 && "er"}
+    <div>
+      <button
+        type="button"
+        className="flex w-full cursor-pointer items-center gap-2 rounded p-1 text-left transition-colors hover:bg-(--ax-bg-neutral-moderate)"
+        onClick={() => harBarn && setExpanded(!expanded)}
+      >
+        {harBarn ? (
+          expanded ? (
+            <ChevronDownIcon aria-hidden className="shrink-0 text-sm" />
+          ) : (
+            <ChevronRightIcon aria-hidden className="shrink-0 text-sm" />
+          )
+        ) : (
+          <span className="w-4 shrink-0" />
+        )}
+        <Detail weight="semibold" className="flex-1 truncate">
+          {opplysning.navn}
+        </Detail>
+        {sistePeriode && (
+          <Detail className="shrink-0 text-(--ax-text-neutral)">
+            {formaterOpplysningVerdi(sistePeriode.verdi)}
           </Detail>
-        </HStack>
+        )}
       </button>
 
-      {erEkspandert && forskjell.periodeEndringer.length > 0 && (
-        <div className="mt-2 ml-6 space-y-2">
-          {forskjell.periodeEndringer.map((e, i) => (
-            <PeriodeEndringDetalj key={i} endring={e} />
+      {expanded && periodeUtledning && (
+        <div className="mt-1 ml-4 border-l-2 border-l-(--ax-border-neutral) pl-2">
+          <Detail className="mb-1 text-(--ax-text-neutral)">
+            Regel: {periodeUtledning.regel.navn}
+          </Detail>
+          {periodeUtledning.opplysninger.map((childId, idx) => (
+            <UtledningNode key={idx} opplysningId={childId} alleOpplysninger={alleOpplysninger} />
           ))}
         </div>
       )}
@@ -1566,351 +616,415 @@ function TreeNode({
   );
 }
 
+interface DesignProps {
+  forskjeller: OpplysningForskjell[];
+  alleOpplysninger: Opplysning[];
+}
+
 // ============================================================================
-// DESIGN 5: COMPACT DASHBOARD
-// Kompakt dashboard med statistikk, grafer og hurtigvisning
-// Fokus på å gi rask oversikt uten å måtte klikke mye
+// DESIGN 1: INPUT/OUTPUT SPLIT VIEW
+// Separates saksbehandler-endringer (input) from system-endringer (output)
+// with a clear cause-effect flow between the two panels
 // ============================================================================
 
-function Design5CompactDashboard({ forskjeller }: DesignProps) {
-  const [hoveredKategori, setHoveredKategori] = useState<string | null>(null);
+function Design1InputOutput({ forskjeller, alleOpplysninger }: DesignProps) {
+  const [selectedOpplysning, setSelectedOpplysning] = useState<OpplysningForskjell | null>(null);
 
-  const stats = useMemo(() => {
-    const endrede = forskjeller.filter((f) => f.type !== "uendret");
+  const endringer = forskjeller.filter((f) => f.type !== "uendret");
 
-    let totaltPeriodeEndringer = 0;
-    let nyePerioder = 0;
-    let fjernedePerioder = 0;
-    let endredeVerdier = 0;
-    let endredeDatoer = 0;
-
-    for (const f of forskjeller) {
-      for (const e of f.periodeEndringer) {
-        totaltPeriodeEndringer++;
-        switch (e.type) {
-          case "lagt-til":
-            nyePerioder++;
-            break;
-          case "fjernet":
-            fjernedePerioder++;
-            break;
-          case "endret-verdi":
-            endredeVerdier++;
-            break;
-          case "endret-datoer":
-            endredeDatoer++;
-            break;
-        }
+  const { saksbehandlerEndringer, systemEndringer } = useMemo(() => {
+    const saksbehandler: OpplysningForskjell[] = [];
+    const system: OpplysningForskjell[] = [];
+    for (const f of endringer) {
+      const harSaksbehandlerKilde = f.periodeEndringer.some(
+        (e) => e.kilde?.type === "Saksbehandler" || e.gammelKilde?.type === "Saksbehandler",
+      );
+      if (harSaksbehandlerKilde) {
+        saksbehandler.push(f);
+      } else {
+        system.push(f);
       }
     }
-
-    return {
-      totaltOpplysninger: forskjeller.length,
-      endredeOpplysninger: endrede.length,
-      uendredeOpplysninger: forskjeller.length - endrede.length,
-      totaltPeriodeEndringer,
-      nyePerioder,
-      fjernedePerioder,
-      endredeVerdier,
-      endredeDatoer,
-      prosentEndret: Math.round((endrede.length / forskjeller.length) * 100) || 0,
-    };
-  }, [forskjeller]);
-
-  const kategorisert = useMemo(() => {
-    return {
-      endret: forskjeller.filter((f) => f.type === "endret"),
-      lagtTil: forskjeller.filter((f) => f.type === "lagt-til"),
-      fjernet: forskjeller.filter((f) => f.type === "fjernet"),
-    };
-  }, [forskjeller]);
+    return { saksbehandlerEndringer: saksbehandler, systemEndringer: system };
+  }, [endringer]);
 
   return (
-    <VStack gap="space-6">
-      {/* Top Stats Row */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <DashboardStatCard
-          title="Opplysninger endret"
-          value={stats.endredeOpplysninger}
-          subtitle={`av ${stats.totaltOpplysninger} totalt`}
-          icon={<ArrowsSquarepathIcon aria-hidden />}
-          color="warning"
-        />
-        <DashboardStatCard
-          title="Nye perioder"
-          value={stats.nyePerioder}
-          icon={<PlusCircleFillIcon aria-hidden />}
-          color="success"
-        />
-        <DashboardStatCard
-          title="Fjernede perioder"
-          value={stats.fjernedePerioder}
-          icon={<MinusCircleFillIcon aria-hidden />}
-          color="error"
-        />
-        <DashboardStatCard
-          title="Datoer justert"
-          value={stats.endredeDatoer}
-          icon={<CalendarIcon aria-hidden />}
-          color="info"
-        />
-      </div>
-
-      {/* Progress visualization */}
-      <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-4">
-        <VStack gap="space-4">
-          <HStack justify="space-between" align="center">
-            <Label size="small">Endringsgrad</Label>
-            <Detail>{stats.prosentEndret}% av opplysninger påvirket</Detail>
+    <VStack gap="space-4">
+      {/* Summary bar */}
+      <HStack gap="space-4" wrap>
+        <div className="flex-1 rounded-lg bg-(--ax-bg-alt1-soft) p-4">
+          <HStack gap="space-2" align="center">
+            <PersonIcon aria-hidden className="text-xl" />
+            <VStack gap="space-0">
+              <Label size="small">Input – Saksbehandler</Label>
+              <Detail>{saksbehandlerEndringer.length} opplysninger endret manuelt</Detail>
+            </VStack>
           </HStack>
-          <div className="relative h-4 w-full overflow-hidden rounded-full bg-(--ax-bg-neutral-moderate)">
-            <div
-              className="from-green-500 via-yellow-500 to-red-500 absolute top-0 left-0 h-full rounded-full bg-gradient-to-r transition-all duration-500"
-              style={{ width: `${stats.prosentEndret}%` }}
-            />
-          </div>
-          <HStack justify="space-between">
-            <Detail className="text-(--ax-text-success)">Minimale endringer</Detail>
-            <Detail className="text-(--ax-text-danger)">Omfattende endringer</Detail>
+        </div>
+        <div className="flex items-center">
+          <ArrowRightIcon aria-hidden className="text-2xl text-(--ax-text-neutral)" />
+        </div>
+        <div className="flex-1 rounded-lg bg-(--ax-bg-alt2-soft) p-4">
+          <HStack gap="space-2" align="center">
+            <CogIcon aria-hidden className="text-xl" />
+            <VStack gap="space-0">
+              <Label size="small">Output – Regelmotor</Label>
+              <Detail>{systemEndringer.length} opplysninger beregnet av system</Detail>
+            </VStack>
           </HStack>
-        </VStack>
-      </div>
+        </div>
+      </HStack>
 
-      {/* Quick Lists */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <QuickList
-          title="Endrede opplysninger"
-          items={kategorisert.endret}
-          variant="warning"
-          emptyText="Ingen endrede opplysninger"
-          isHovered={hoveredKategori === "endret"}
-          onHover={() => setHoveredKategori("endret")}
-          onLeave={() => setHoveredKategori(null)}
-        />
-        <QuickList
-          title="Nye opplysninger"
-          items={kategorisert.lagtTil}
-          variant="success"
-          emptyText="Ingen nye opplysninger"
-          isHovered={hoveredKategori === "lagtTil"}
-          onHover={() => setHoveredKategori("lagtTil")}
-          onLeave={() => setHoveredKategori(null)}
-        />
-        <QuickList
-          title="Fjernede opplysninger"
-          items={kategorisert.fjernet}
-          variant="error"
-          emptyText="Ingen fjernede opplysninger"
-          isHovered={hoveredKategori === "fjernet"}
-          onHover={() => setHoveredKategori("fjernet")}
-          onLeave={() => setHoveredKategori(null)}
-        />
-      </div>
-
-      {/* Recent Changes Timeline */}
-      <div className="rounded-lg bg-(--ax-bg-neutral-soft) p-4">
-        <VStack gap="space-4">
-          <HStack justify="space-between" align="center">
-            <Label size="small">Seneste endringer</Label>
-            <Detail className="text-(--ax-text-neutral)">
-              {stats.totaltPeriodeEndringer} periode-endringer totalt
-            </Detail>
-          </HStack>
-
-          <div className="max-h-64 overflow-y-auto">
-            <VStack gap="space-2">
-              {forskjeller
-                .filter((f) => f.type !== "uendret")
-                .slice(0, 10)
-                .map((f) => (
-                  <CompactChangeItem key={f.opplysningTypeId} forskjell={f} />
-                ))}
+      <div className="grid min-h-[500px] grid-cols-12 gap-4">
+        {/* Input column */}
+        <div className="col-span-3 flex flex-col gap-2">
+          <Label size="small" className="flex items-center gap-1">
+            <PersonIcon aria-hidden /> Saksbehandler-endringer
+          </Label>
+          <div className="flex-1 overflow-auto rounded-lg border border-(--ax-border-alt1) bg-(--ax-bg-alt1-soft) p-2">
+            <VStack gap="space-1">
+              {saksbehandlerEndringer.length === 0 && (
+                <Detail className="p-3 text-(--ax-text-neutral)">Ingen endringer</Detail>
+              )}
+              {saksbehandlerEndringer.map((f) => (
+                <OpplysningListeKnapp
+                  key={f.opplysningTypeId}
+                  forskjell={f}
+                  selected={selectedOpplysning?.opplysningTypeId === f.opplysningTypeId}
+                  onClick={() => setSelectedOpplysning(f)}
+                />
+              ))}
             </VStack>
           </div>
-        </VStack>
+        </div>
+
+        {/* Output column */}
+        <div className="col-span-3 flex flex-col gap-2">
+          <Label size="small" className="flex items-center gap-1">
+            <CogIcon aria-hidden /> System-endringer
+          </Label>
+          <div className="flex-1 overflow-auto rounded-lg border border-(--ax-border-alt2) bg-(--ax-bg-alt2-soft) p-2">
+            <VStack gap="space-1">
+              {systemEndringer.length === 0 && (
+                <Detail className="p-3 text-(--ax-text-neutral)">Ingen endringer</Detail>
+              )}
+              {systemEndringer.map((f) => (
+                <OpplysningListeKnapp
+                  key={f.opplysningTypeId}
+                  forskjell={f}
+                  selected={selectedOpplysning?.opplysningTypeId === f.opplysningTypeId}
+                  onClick={() => setSelectedOpplysning(f)}
+                />
+              ))}
+            </VStack>
+          </div>
+        </div>
+
+        {/* Detail panel */}
+        <div className="col-span-6">
+          {selectedOpplysning ? (
+            <OpplysningDetaljer
+              forskjell={selectedOpplysning}
+              onClose={() => setSelectedOpplysning(null)}
+              alleOpplysninger={alleOpplysninger}
+            />
+          ) : (
+            <TomDetaljerPanel />
+          )}
+        </div>
       </div>
     </VStack>
   );
 }
 
-function DashboardStatCard({
-  title,
-  value,
-  subtitle,
-  icon,
-  color,
-}: {
-  title: string;
-  value: number;
-  subtitle?: string;
-  icon: React.ReactNode;
-  color: "success" | "warning" | "error" | "info";
-}) {
-  const colors = {
-    success: {
-      bg: "bg-gradient-to-br from-(--ax-bg-success-soft) to-(--ax-bg-success-moderate)/30",
-      text: "text-(--ax-text-success)",
-      icon: "bg-(--ax-bg-success-moderate)",
-    },
-    warning: {
-      bg: "bg-gradient-to-br from-(--ax-bg-warning-soft) to-(--ax-bg-warning-moderate)/30",
-      text: "text-(--ax-text-warning)",
-      icon: "bg-(--ax-bg-warning-moderate)",
-    },
-    error: {
-      bg: "bg-gradient-to-br from-(--ax-bg-danger-soft) to-(--ax-bg-danger-moderate)/30",
-      text: "text-(--ax-text-danger)",
-      icon: "bg-(--ax-bg-danger-moderate)",
-    },
-    info: {
-      bg: "bg-gradient-to-br from-(--ax-bg-info-soft) to-(--ax-bg-info-moderate)/30",
-      text: "text-(--ax-text-info)",
-      icon: "bg-(--ax-bg-info-moderate)",
-    },
-  };
+// ============================================================================
+// SHARED COMPONENTS
+// ============================================================================
 
+function PeriodeEndringTag({ type }: { type: PeriodeEndring["type"] }) {
+  const config = {
+    "lagt-til": { variant: "success" as const, label: "+Ny" },
+    fjernet: { variant: "error" as const, label: "-Fjernet" },
+    "endret-verdi": { variant: "warning" as const, label: "~Verdi" },
+    "endret-datoer": { variant: "info" as const, label: "📅Dato" },
+  };
+  const c = config[type];
   return (
-    <div className={`rounded-lg p-4 ${colors[color].bg} transition-transform hover:scale-[1.02]`}>
-      <HStack gap="space-4" align="center">
-        <div className={`rounded-lg p-2 ${colors[color].icon}`}>
-          <span className={`text-xl ${colors[color].text}`}>{icon}</span>
-        </div>
-        <VStack gap="space-0">
-          <span className={`text-3xl font-bold ${colors[color].text}`}>{value}</span>
-          <Detail className="text-(--ax-text-neutral)">{title}</Detail>
-          {subtitle && <Detail className="text-(--ax-text-neutral)">{subtitle}</Detail>}
-        </VStack>
+    <Tag variant={c.variant} size="xsmall">
+      {c.label}
+    </Tag>
+  );
+}
+
+function PeriodeEndringKort({ endring }: { endring: PeriodeEndring }) {
+  if (endring.type === "lagt-til" || endring.type === "fjernet") {
+    return (
+      <Detail>
+        {endring.verdi} | {formatDato(endring.fraOgMed)} – {formatDato(endring.tilOgMed)}
+      </Detail>
+    );
+  }
+  if (endring.type === "endret-verdi") {
+    return (
+      <HStack gap="space-2" align="center">
+        <BodyShort size="small" className="text-(--ax-text-danger) line-through">
+          {endring.gammelVerdi}
+        </BodyShort>
+        <ArrowRightIcon aria-hidden />
+        <BodyShort size="small" weight="semibold" className="text-(--ax-text-success)">
+          {endring.nyVerdi}
+        </BodyShort>
       </HStack>
-    </div>
-  );
+    );
+  }
+  if (endring.type === "endret-datoer") {
+    return (
+      <VStack gap="space-0">
+        <Detail>Verdi: {endring.verdi}</Detail>
+        <HStack gap="space-2" align="center">
+          <Detail className="text-(--ax-text-neutral) line-through">
+            {formatDato(endring.gammelFraOgMed)} – {formatDato(endring.gammelTilOgMed)}
+          </Detail>
+          <ArrowRightIcon aria-hidden />
+          <Detail weight="semibold">
+            {formatDato(endring.nyFraOgMed)} – {formatDato(endring.nyTilOgMed)}
+          </Detail>
+        </HStack>
+      </VStack>
+    );
+  }
+  return null;
 }
 
-function QuickList({
-  title,
-  items,
-  variant,
-  emptyText,
-  isHovered,
-  onHover,
-  onLeave,
+function OpplysningListeKnapp({
+  forskjell,
+  selected,
+  onClick,
 }: {
-  title: string;
-  items: OpplysningForskjell[];
-  variant: "success" | "warning" | "error";
-  emptyText: string;
-  isHovered: boolean;
-  onHover: () => void;
-  onLeave: () => void;
+  forskjell: OpplysningForskjell;
+  selected: boolean;
+  onClick: () => void;
 }) {
-  const borderColors = {
-    success: "border-(--ax-border-success)",
-    warning: "border-(--ax-border-warning)",
-    error: "border-(--ax-border-danger)",
-  };
-
-  const headerBg = {
-    success: "bg-(--ax-bg-success-soft)",
-    warning: "bg-(--ax-bg-warning-soft)",
-    error: "bg-(--ax-bg-danger-soft)",
-  };
-
   return (
-    <div
-      className={`overflow-hidden rounded-lg border border-(--ax-border-subtle) transition-all ${isHovered ? `border-2 ${borderColors[variant]} shadow-lg` : ""}`}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+    <button
+      type="button"
+      className={`w-full cursor-pointer rounded p-3 text-left transition-colors hover:bg-(--ax-bg-neutral-moderate) ${
+        selected ? "bg-(--ax-bg-info-soft)" : "bg-(--ax-bg-default)"
+      }`}
+      onClick={onClick}
     >
-      <div className={`${headerBg[variant]} px-4 py-2`}>
-        <HStack justify="space-between" align="center">
-          <Label size="small">{title}</Label>
-          <Tag variant={variant} size="xsmall">
-            {items.length}
-          </Tag>
-        </HStack>
-      </div>
-      <div className="max-h-48 overflow-y-auto">
-        {items.length === 0 ? (
-          <div className="p-4 text-center">
-            <Detail className="text-(--ax-text-neutral)">{emptyText}</Detail>
-          </div>
-        ) : (
-          <VStack gap="space-0">
-            {items.map((item) => (
-              <div
-                key={item.opplysningTypeId}
-                className="border-b border-(--ax-border-subtle) px-4 py-2 last:border-b-0 hover:bg-(--ax-bg-neutral-soft)"
-              >
-                <HStack justify="space-between" align="center">
-                  <BodyShort size="small" truncate className="max-w-[180px]">
-                    {item.navn}
-                  </BodyShort>
-                  <Detail className="text-(--ax-text-neutral)">
-                    {item.periodeEndringer.length}
-                  </Detail>
-                </HStack>
-              </div>
-            ))}
-          </VStack>
-        )}
-      </div>
-    </div>
+      <HStack justify="space-between" align="center">
+        <BodyShort size="small" className="flex-1 truncate">
+          {forskjell.navn}
+        </BodyShort>
+        <Tag
+          variant={
+            forskjell.type === "endret"
+              ? "warning"
+              : forskjell.type === "lagt-til"
+                ? "success"
+                : forskjell.type === "fjernet"
+                  ? "error"
+                  : "neutral"
+          }
+          size="xsmall"
+        >
+          {forskjell.type === "endret" && "~"}
+          {forskjell.type === "lagt-til" && "+"}
+          {forskjell.type === "fjernet" && "-"}
+          {forskjell.type === "uendret" && "="}
+        </Tag>
+      </HStack>
+    </button>
   );
 }
 
-function CompactChangeItem({ forskjell }: { forskjell: OpplysningForskjell }) {
-  const typeStyles = {
-    "lagt-til": {
-      dot: "bg-(--ax-bg-success-strong)",
-      label: "Ny",
-    },
-    fjernet: {
-      dot: "bg-(--ax-bg-danger-strong)",
-      label: "Fjernet",
-    },
-    endret: {
-      dot: "bg-(--ax-bg-warning-strong)",
-      label: "Endret",
-    },
-    uendret: {
-      dot: "bg-(--ax-bg-neutral-moderate)",
-      label: "Uendret",
-    },
-  };
-
-  const style = typeStyles[forskjell.type];
-
+function TomDetaljerPanel() {
   return (
-    <div className="flex items-center gap-3 rounded-lg bg-(--ax-bg-default) p-2 hover:bg-(--ax-bg-neutral-soft)">
-      <div className={`h-2 w-2 flex-shrink-0 rounded-full ${style.dot}`} />
-      <VStack gap="space-0" className="min-w-0 flex-1">
-        <HStack justify="space-between" align="center">
-          <BodyShort size="small" truncate>
-            {forskjell.navn}
-          </BodyShort>
-          <Tag
-            variant={
-              forskjell.type === "endret"
-                ? "warning"
-                : forskjell.type === "lagt-til"
-                  ? "success"
-                  : "error"
-            }
-            size="xsmall"
-          >
-            {style.label}
-          </Tag>
-        </HStack>
-        <Detail className="text-(--ax-text-neutral)">
-          {forskjell.periodeEndringer.length} periode-endring
-          {forskjell.periodeEndringer.length !== 1 && "er"}
-        </Detail>
+    <div className="flex h-full items-center justify-center rounded-lg bg-(--ax-bg-neutral-soft) p-6">
+      <VStack gap="space-4" align="center">
+        <EyeIcon aria-hidden className="text-5xl text-(--ax-text-neutral)" />
+        <Heading size="small" className="text-(--ax-text-neutral)">
+          Velg en opplysning
+        </Heading>
+        <BodyShort className="text-center text-(--ax-text-neutral)">
+          Klikk på en opplysning for å se detaljer, kilde og utledning
+        </BodyShort>
       </VStack>
     </div>
   );
 }
 
+function PeriodeSammenligning({
+  forskjell,
+  alleOpplysninger,
+}: {
+  forskjell: OpplysningForskjell;
+  alleOpplysninger: Opplysning[];
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-6">
+      <VStack gap="space-4">
+        <HStack gap="space-2" align="center">
+          <div className="h-3 w-3 rounded-full bg-(--ax-bg-danger-strong)" />
+          <Label>Før</Label>
+        </HStack>
+        <div className="min-h-[150px] rounded-lg bg-(--ax-bg-danger-soft) p-4">
+          {forskjell.gammelOpplysning ? (
+            <VStack gap="space-4">
+              {forskjell.gammelOpplysning.perioder.map((periode, idx) => (
+                <div key={idx} className="rounded bg-(--ax-bg-default) p-3">
+                  <VStack gap="space-2">
+                    <HStack justify="space-between" align="center">
+                      <Detail uppercase>Periode {idx + 1}</Detail>
+                      <KildeBadge kilde={periode.kilde} />
+                    </HStack>
+                    <Detail>
+                      {formatDato(periode.gyldigFraOgMed)} – {formatDato(periode.gyldigTilOgMed)}
+                    </Detail>
+                    <BodyShort size="small" weight="semibold">
+                      {formaterOpplysningVerdi(periode.verdi)}
+                    </BodyShort>
+                    <UtledningPanel
+                      utledetAv={periode.utledetAv}
+                      alleOpplysninger={alleOpplysninger}
+                    />
+                  </VStack>
+                </div>
+              ))}
+            </VStack>
+          ) : (
+            <VStack gap="space-2" align="center" justify="center" className="h-full">
+              <ExclamationmarkTriangleIcon
+                aria-hidden
+                className="text-3xl text-(--ax-text-neutral)"
+              />
+              <BodyShort className="text-(--ax-text-neutral)">Ikke tilstede</BodyShort>
+            </VStack>
+          )}
+        </div>
+      </VStack>
+
+      <VStack gap="space-4">
+        <HStack gap="space-2" align="center">
+          <div className="h-3 w-3 rounded-full bg-(--ax-bg-success-strong)" />
+          <Label>Etter</Label>
+        </HStack>
+        <div className="min-h-[150px] rounded-lg bg-(--ax-bg-success-soft) p-4">
+          {forskjell.nyOpplysning ? (
+            <VStack gap="space-4">
+              {forskjell.nyOpplysning.perioder.map((periode, idx) => (
+                <div key={idx} className="rounded bg-(--ax-bg-default) p-3">
+                  <VStack gap="space-2">
+                    <HStack justify="space-between" align="center">
+                      <Detail uppercase>Periode {idx + 1}</Detail>
+                      <KildeBadge kilde={periode.kilde} />
+                    </HStack>
+                    <Detail>
+                      {formatDato(periode.gyldigFraOgMed)} – {formatDato(periode.gyldigTilOgMed)}
+                    </Detail>
+                    <BodyShort size="small" weight="semibold">
+                      {formaterOpplysningVerdi(periode.verdi)}
+                    </BodyShort>
+                    <UtledningPanel
+                      utledetAv={periode.utledetAv}
+                      alleOpplysninger={alleOpplysninger}
+                    />
+                  </VStack>
+                </div>
+              ))}
+            </VStack>
+          ) : (
+            <VStack gap="space-2" align="center" justify="center" className="h-full">
+              <ExclamationmarkTriangleIcon
+                aria-hidden
+                className="text-3xl text-(--ax-text-neutral)"
+              />
+              <BodyShort className="text-(--ax-text-neutral)">Ikke tilstede</BodyShort>
+            </VStack>
+          )}
+        </div>
+      </VStack>
+    </div>
+  );
+}
+
+function OpplysningDetaljer({
+  forskjell,
+  onClose,
+  alleOpplysninger,
+}: {
+  forskjell: OpplysningForskjell;
+  onClose: () => void;
+  alleOpplysninger: Opplysning[];
+}) {
+  return (
+    <div className="h-full rounded-lg border border-(--ax-border-neutral) bg-(--ax-bg-default) p-6">
+      <VStack gap="space-6">
+        <HStack justify="space-between" align="start">
+          <VStack gap="space-2">
+            <Heading size="small">{forskjell.navn}</Heading>
+            <HStack gap="space-2" wrap>
+              <Tag
+                variant={
+                  forskjell.type === "endret"
+                    ? "warning"
+                    : forskjell.type === "lagt-til"
+                      ? "success"
+                      : forskjell.type === "fjernet"
+                        ? "error"
+                        : "neutral"
+                }
+              >
+                {forskjell.type.charAt(0).toUpperCase() + forskjell.type.slice(1)}
+              </Tag>
+              {forskjell.periodeEndringer.map((e, i) => (
+                <KildeBadge key={i} kilde={e.kilde ?? e.gammelKilde} />
+              ))}
+            </HStack>
+          </VStack>
+          <Button
+            variant="tertiary"
+            size="xsmall"
+            icon={<XMarkIcon aria-hidden />}
+            onClick={onClose}
+          />
+        </HStack>
+
+        {/* Period endringer with kilde and utledning */}
+        {forskjell.periodeEndringer.length > 0 && (
+          <VStack gap="space-4">
+            <Label size="small">Endringer</Label>
+            {forskjell.periodeEndringer.map((endring, idx) => (
+              <div key={idx} className="rounded-lg border border-(--ax-border-neutral) p-3">
+                <VStack gap="space-4">
+                  <HStack justify="space-between" align="center">
+                    <PeriodeEndringTag type={endring.type} />
+                    <KildeBadge kilde={endring.kilde ?? endring.gammelKilde} />
+                  </HStack>
+                  <PeriodeEndringKort endring={endring} />
+                  <UtledningPanel
+                    utledetAv={endring.utledetAv ?? endring.gammelUtledetAv}
+                    alleOpplysninger={alleOpplysninger}
+                  />
+                </VStack>
+              </div>
+            ))}
+          </VStack>
+        )}
+
+        {/* Før/etter */}
+        <PeriodeSammenligning forskjell={forskjell} alleOpplysninger={alleOpplysninger} />
+      </VStack>
+    </div>
+  );
+}
+
+// ============================================================================
+// ERROR BOUNDARY
+// ============================================================================
+
 export function ErrorBoundary() {
   const error = useRouteError();
-
   return <ErrorMessageComponent error={error} />;
 }

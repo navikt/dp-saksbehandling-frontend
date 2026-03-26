@@ -8,6 +8,7 @@ import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbeha
 import { HippHippHurra } from "~/components/høytid-og-morro/17-mai/HippHippHurra";
 import { Ghosts } from "~/components/høytid-og-morro/halloween/Ghosts";
 import { Adventslys } from "~/components/høytid-og-morro/jul/Adventslys";
+import { Paaske } from "~/components/høytid-og-morro/paaske/Paaske";
 import { Valentines } from "~/components/høytid-og-morro/valentines/Valentines";
 import { useAwaitPromise } from "~/hooks/useResolvedPromise";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -86,6 +87,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
       {featureFlags.jul && <Adventslys />}
       {featureFlags.valentines && <Valentines />}
       {featureFlags.hippHippHurra && <HippHippHurra />}
+      {featureFlags.paaske && <Paaske />}
 
       <div className={styles.searchAndSaksbehandlerContainer}>
         <PersonSok />

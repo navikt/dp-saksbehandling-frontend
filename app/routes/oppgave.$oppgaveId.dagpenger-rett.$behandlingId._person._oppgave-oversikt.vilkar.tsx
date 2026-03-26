@@ -1,8 +1,8 @@
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
-import { RevurderingResultat } from "~/components/revurdering-resultat/RevurderingResultat";
+import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
+import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -12,15 +12,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export default function Behandle() {
-  const { behandling } = useBehandling();
+export default function Vilkårsvurderinger() {
+  const { prøvingsdatoOpplysning } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className="flex flex-col gap-4">
-      {behandling.behandletHendelse.type === "Omgjøring" && <RevurderingResultat />}
-      <RettPåDagpenger />
+      {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
+      <VilkårTidslinje />
     </div>
   );
 }

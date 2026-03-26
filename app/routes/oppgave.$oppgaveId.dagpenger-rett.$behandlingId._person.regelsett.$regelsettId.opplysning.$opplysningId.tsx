@@ -1,14 +1,11 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Alert, Heading, Switch } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
-import { Avklaringer } from "~/components/avklaringer/Avklaringer";
-import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPerioderTabell } from "~/components/opplysning-perioder-tabell/OpplysningPerioderTabell";
 import { OpplysningerTidslinje } from "~/components/opplysninger-tidslinje/OpplysningerTidslinje";
-import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -16,20 +13,15 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
+import { components } from "../../openapi/behandling-typer";
+
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
-  const {
-    behandling,
-    vurderinger,
-    sistePrøvingsdato,
-    prøvingsdatoOpplysning,
-    visArvedeOpplysninger,
-    setVisArvedeOpplysninger,
-  } = useBehandling();
+  const { behandling, sistePrøvingsdato } = useBehandling();
   const { meldekortUrl } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
@@ -77,68 +69,43 @@ export default function Opplysning() {
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
 
-  const regelsettAvklaringer = behandling.avklaringer.filter((avklaring) =>
-    avklaring.regelsett.some((sett) => sett.id === regelsettId),
-  );
+  const tilbakeKnappTilstand = hentTilbakeKnappTilstand(behandling, opplysningId);
 
   return (
     <>
       <main className={"main"}>
         <LoadingLink
-          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
+          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/${tilbakeKnappTilstand.path}`}
           className={"flex items-center gap-1 pb-2"}
         >
           <ArrowLeftIcon />
-          Behandling
+          {tilbakeKnappTilstand.label}
         </LoadingLink>
 
         <div className={"card p-4"}>
-          <div className={"flex gap-4"}>
-            <div className={"flex w-[500px] flex-col gap-4"}>
-              {prøvingsdatoOpplysning && <PrøvingsdatoInput />}
-
-              <Avklaringer
-                avklaringer={regelsettAvklaringer}
-                behandlingId={behandling.behandlingId}
+          <div className={"flex flex-1 flex-col gap-4"}>
+            <div className={"card p-4"}>
+              <OpplysningerTidslinje
+                opplysninger={regelsettOpplysninger.reverse()}
+                tittel={regelsett.hjemmel.tittel}
+                fremhevØverstTidslinjeRad={true}
+                meldekortUrl={direkteMeldekortUrl}
+                medLenkeTilOpplysning={true}
+                opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
+                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
               />
-
-              <EndretOpplysninger vurderinger={vurderinger} />
-
-              <div className={"card p-4"}>
-                <Switch
-                  size={"small"}
-                  checked={visArvedeOpplysninger}
-                  onChange={() => setVisArvedeOpplysninger(!visArvedeOpplysninger)}
-                >
-                  Vis arvede opplysninger og vurderinger
-                </Switch>
-              </div>
             </div>
 
-            <div className={"flex flex-1 flex-col gap-4"}>
-              <div className={"card p-4"}>
-                <OpplysningerTidslinje
-                  opplysninger={regelsettOpplysninger.reverse()}
-                  tittel={regelsett.hjemmel.tittel}
-                  fremhevØverstTidslinjeRad={true}
-                  meldekortUrl={direkteMeldekortUrl}
-                  medLenkeTilOpplysning={true}
-                  opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
-                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
-                />
-              </div>
-
-              <div className={"card p-4"}>
-                <OpplysningerTidslinje
-                  tittel={opplysning.navn}
-                  redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
-                  regelsettHjemmel={regelsett.hjemmel.tittel}
-                  opplysningKilde={opplysning.formål}
-                  opplysninger={[opplysning]}
-                  pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
-                />
-                <OpplysningPerioderTabell opplysning={opplysning} />
-              </div>
+            <div className={"card p-4"}>
+              <OpplysningerTidslinje
+                tittel={opplysning.navn}
+                redigertAvSaksbehandler={opplysning.redigertAvSaksbehandler}
+                regelsettHjemmel={regelsett.hjemmel.tittel}
+                opplysningKilde={opplysning.formål}
+                opplysninger={[opplysning]}
+                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
+              />
+              <OpplysningPerioderTabell opplysning={opplysning} />
             </div>
           </div>
         </div>
@@ -151,4 +118,42 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return <ErrorMessageComponent error={error} />;
+}
+
+function hentTilbakeKnappTilstand(
+  behandling: components["schemas"]["Behandling"],
+  opplysningTypeId: string,
+) {
+  const forSlagTilVedtakTilstand = {
+    path: "behandle",
+    label: "Forslag til vedtak",
+  };
+
+  // Rett på dagpenger opplysning
+  if (opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194") {
+    return forSlagTilVedtakTilstand;
+  }
+
+  const opplysningErVilkår = behandling.vilkår.some((vilkår) =>
+    vilkår.opplysninger.includes(opplysningTypeId),
+  );
+  const opplysningErFastsettelse = behandling.fastsettelser.some((vilkår) =>
+    vilkår.opplysninger.includes(opplysningTypeId),
+  );
+
+  if (opplysningErVilkår) {
+    return {
+      path: "vilkar",
+      label: "Vilkårsvurderinger",
+    };
+  }
+
+  if (opplysningErFastsettelse) {
+    return {
+      path: "fastsettelser",
+      label: "Fastsettelser",
+    };
+  }
+
+  return forSlagTilVedtakTilstand;
 }

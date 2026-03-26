@@ -479,7 +479,7 @@ export const behandling019b2cdfd7f67814ba92bbad8be1bd07: components["schemas"]["
   ],
   fastsettelser: [
     {
-      id: "497240064",
+      id: "NDk3MjQwMDY0",
       navn: "Meldekortberegning",
       hjemmel: {
         kilde: {

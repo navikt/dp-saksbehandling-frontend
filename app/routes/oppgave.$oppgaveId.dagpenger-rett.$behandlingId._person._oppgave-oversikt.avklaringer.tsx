@@ -1,8 +1,8 @@
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
+import { Avklaringer } from "~/components/avklaringer/Avklaringer";
+import EndretOpplysninger from "~/components/endret-opplysninger/EndretOpplysninger";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { RettPåDagpenger } from "~/components/rett-på-dagpenger/RettPåDagpenger";
-import { RevurderingResultat } from "~/components/revurdering-resultat/RevurderingResultat";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -12,15 +12,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export default function Behandle() {
-  const { behandling } = useBehandling();
+export default function AvklaringerOgVurderinger() {
+  const { behandling, vurderinger } = useBehandling();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
     <div className="flex flex-col gap-4">
-      {behandling.behandletHendelse.type === "Omgjøring" && <RevurderingResultat />}
-      <RettPåDagpenger />
+      <Avklaringer avklaringer={behandling.avklaringer} behandlingId={behandling.behandlingId} />
+      <EndretOpplysninger vurderinger={vurderinger} />
     </div>
   );
 }

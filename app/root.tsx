@@ -17,6 +17,7 @@ import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { Flagg } from "~/components/høytid-og-morro/17-mai/Flagg";
 import { PumpkinSvg } from "~/components/høytid-og-morro/halloween/PumpkinSvg";
 import { MistelteinSvg } from "~/components/høytid-og-morro/jul/MistelteinSvg";
+import { PaaskeEggHeaderSvg } from "~/components/høytid-og-morro/paaske/PaaskeEggHeaderSvg";
 import { AlertProvider } from "~/context/alert-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalDarksideCss from "~/global-darkside.css?url";
@@ -91,6 +92,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
+  const paaske = unleash.isEnabled("dp-saksbehandling-frontend.paaske");
   const orkestratorBarnOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
@@ -103,6 +105,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       halloween,
       valentines,
       hippHippHurra,
+      paaske,
       orkestratorBarnOpplysninger,
     },
     env: {
@@ -140,6 +143,7 @@ export default function App() {
                 {featureFlags.halloween && <PumpkinSvg />}
                 {featureFlags.jul && <MistelteinSvg />}
                 {featureFlags.hippHippHurra && <Flagg />}
+                {featureFlags.paaske && <PaaskeEggHeaderSvg />}
                 Dagpenger
               </InternalHeader.Title>
             </Link>
