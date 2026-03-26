@@ -98,23 +98,26 @@ export function Avklaring(props: IProps) {
 
           {kanRedigereBegrunnelse && (
             <>
-              <Textarea
-                {...avklaringForm.getInputProps("begrunnelse")}
-                resize={"vertical"}
-                readOnly={readonly}
-                size="small"
-                label="Begrunnelse"
-              />
+              <div>
+                <Textarea
+                  {...avklaringForm.getInputProps("begrunnelse")}
+                  resize={"vertical"}
+                  readOnly={readonly}
+                  size="small"
+                  label="Begrunnelse"
+                />
 
-              {props.avklaring.sistEndret && (
-                <Detail>
-                  Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
-                  {props.avklaring.avklartAv?.ident}
-                </Detail>
-              )}
+                {props.avklaring.sistEndret && (
+                  <Detail>
+                    Sist endret {formaterTilNorskDato(props.avklaring.sistEndret, true)}{" "}
+                    {props.avklaring.avklartAv?.ident}
+                  </Detail>
+                )}
+              </div>
 
               {!readonly && (
                 <Button
+                  className={"w-fit"}
                   size={"small"}
                   variant={"primary"}
                   onClick={() => avklaringForm.submit()}
