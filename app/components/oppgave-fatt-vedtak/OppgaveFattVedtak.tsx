@@ -1,4 +1,5 @@
 import { BodyLong, Button, InlineMessage, Modal, Tag } from "@navikt/ds-react";
+import { AkselColor } from "@navikt/ds-react/types/theme";
 import { useForm } from "@rvf/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
@@ -7,9 +8,10 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { useMeldingOmVedtak } from "~/hooks/useMeldingOmVedtak";
 import { useOppgave } from "~/hooks/useOppgave";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForFattVedtak } from "~/utils/validering.util";
+
+import { components } from "../../../openapi/behandling-typer";
 
 export function OppgaveFattVedtak() {
   const { pathname } = useLocation();
@@ -40,10 +42,6 @@ export function OppgaveFattVedtak() {
     return null;
   }
 
-  const rettPåDagpengerSistePeriode = behandling.opplysninger
-    .find((opplysning) => opplysning.opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194")
-    ?.perioder.at(-1);
-
   function handleOnClick() {
     if (oppgave.meldingOmVedtakKilde === "DP_SAK" && isAlert(meldingOmVedtak)) {
       setVisFeilmelding(true);
@@ -67,26 +65,18 @@ export function OppgaveFattVedtak() {
 
       <Modal ref={modalRef} header={{ heading: "Fatt vedtak" }}>
         <Modal.Body>
-          {rettPåDagpengerSistePeriode && (
-            <BodyLong>
-              Du er i ferd med å fatte vedtak med utfall:
-              <div>
-                <Tag
-                  size={"xsmall"}
-                  data-color={
-                    formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
-                      ? "success"
-                      : "danger"
-                  }
-                  className={"whitespace-nowrap"}
-                >
-                  {formaterOpplysningVerdi(rettPåDagpengerSistePeriode.verdi) === "Ja"
-                    ? "Innvilgelse"
-                    : "Avslag"}
-                </Tag>
-              </div>
-            </BodyLong>
-          )}
+          <BodyLong>
+            Du er i ferd med å fatte vedtak med utfall:
+            <div>
+              <Tag
+                size={"xsmall"}
+                data-color={hentTagFargeForForslag(behandling.forslagOm)}
+                className={"whitespace-nowrap"}
+              >
+                {behandling.forslagOm}
+              </Tag>
+            </div>
+          </BodyLong>
         </Modal.Body>
 
         <Modal.Footer>
@@ -111,4 +101,19 @@ export function OppgaveFattVedtak() {
       </Modal>
     </>
   );
+}
+
+function hentTagFargeForForslag(forslag: components["schemas"]["Avgj\u00F8relse"]): AkselColor {
+  switch (forslag) {
+    case "Innvilgelse":
+      return "success";
+    case "Avslag":
+      return "danger";
+    case "Stans":
+      return "success";
+    case "Gjenopptak":
+      return "success";
+    case "Endring":
+      return "info";
+  }
 }
