@@ -92,8 +92,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
   const valentines = unleash.isEnabled("dp-saksbehandling-frontend.valentines");
   const hippHippHurra = unleash.isEnabled("dp-saksbehandling-frontend.hipp-hipp-hurra");
-  // const paaske = unleash.isEnabled("dp-saksbehandling-frontend.paaske");
-  const paaske = true;
+  const paaske = unleash.isEnabled("dp-saksbehandling-frontend.paaske");
   const orkestratorBarnOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
