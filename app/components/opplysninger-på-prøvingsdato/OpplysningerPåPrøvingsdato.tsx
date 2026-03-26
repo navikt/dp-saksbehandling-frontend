@@ -31,7 +31,7 @@ export function OpplysningerPåPrøvingsdato({ behandling, prøvingsdato }: IPro
       className={"card flex flex-col gap-4 p-4"}
       style={{ backgroundColor: "var(--ax-bg-info-soft) " }}
     >
-      <Heading size={"xsmall"}>Opplysninger ved førstegangsbehandling</Heading>
+      <Heading size={"xsmall"}>Opplysninger på siste prøvingsdato</Heading>
 
       <section className="grid grid-cols-4 gap-2">
         {opplysninger.map(({ id, label }) => {
