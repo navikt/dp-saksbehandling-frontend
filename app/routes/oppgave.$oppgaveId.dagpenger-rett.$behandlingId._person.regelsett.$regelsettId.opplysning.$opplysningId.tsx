@@ -13,6 +13,8 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
+import { components } from "../../openapi/behandling-typer";
+
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
@@ -67,15 +69,17 @@ export default function Opplysning() {
       regelsett.opplysninger.includes(opplysning.opplysningTypeId) && opplysning.synlig,
   );
 
+  const tilbakeKnappTilstand = hentTilbakeKnappTilstand(behandling, opplysningId);
+
   return (
     <>
       <main className={"main"}>
         <LoadingLink
-          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/behandle`}
+          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/${tilbakeKnappTilstand.path}`}
           className={"flex items-center gap-1 pb-2"}
         >
           <ArrowLeftIcon />
-          Behandling
+          {tilbakeKnappTilstand.label}
         </LoadingLink>
 
         <div className={"card p-4"}>
@@ -114,4 +118,42 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return <ErrorMessageComponent error={error} />;
+}
+
+function hentTilbakeKnappTilstand(
+  behandling: components["schemas"]["Behandling"],
+  opplysningTypeId: string,
+) {
+  const forSlagTilVedtakTilstand = {
+    path: "behandle",
+    label: "Forslag til vedtak",
+  };
+
+  // Rett på dagpenger opplysning
+  if (opplysningTypeId === "01990a09-0eab-7957-b88f-14484a50e194") {
+    return forSlagTilVedtakTilstand;
+  }
+
+  const opplysningErVilkår = behandling.vilkår.some((vilkår) =>
+    vilkår.opplysninger.includes(opplysningTypeId),
+  );
+  const opplysningErFastsettelse = behandling.fastsettelser.some((vilkår) =>
+    vilkår.opplysninger.includes(opplysningTypeId),
+  );
+
+  if (opplysningErVilkår) {
+    return {
+      path: "vilkar",
+      label: "Vilkårsvurderinger",
+    };
+  }
+
+  if (opplysningErFastsettelse) {
+    return {
+      path: "fastsettelser",
+      label: "Fastsettelser",
+    };
+  }
+
+  return forSlagTilVedtakTilstand;
 }
