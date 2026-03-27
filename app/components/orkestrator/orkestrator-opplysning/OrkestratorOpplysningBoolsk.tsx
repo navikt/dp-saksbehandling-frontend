@@ -17,6 +17,11 @@ export function OrkestratorOpplysningBoolsk({ opplysning, formScope, readOnly }:
   return (
     <RadioGroup
       {...field.getInputProps()}
+      value={field.value() !== undefined ? String(field.value()) : undefined}
+      onChange={(val: string) => {
+        field.setValue(val);
+        field.setDirty(true);
+      }}
       legend={<OrkestratorOpplysningLabel opplysning={opplysning} />}
       size="small"
       error={field.error()}

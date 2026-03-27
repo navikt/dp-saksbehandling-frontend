@@ -2,10 +2,12 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useState } from "react";
-import { useNavigation } from "react-router";
+import { useActionData, useNavigation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
+import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { isAlert } from "~/utils/type-guards";
 import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
@@ -21,6 +23,8 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   const [redigerer, setRedigerer] = useState(false);
   const { state } = useNavigation();
   const { behandling } = useBehandling();
+  const actionData = useActionData();
+  useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   const fornavnOgMellomnavn = barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi;
   const etternavn = barn.opplysninger.find((o) => o.id === "etternavn")?.verdi;
@@ -54,7 +58,9 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
       begrunnelse: begrunnelse,
     },
     onSubmitSuccess: () => {
-      setRedigerer(false);
+      if (!isAlert(actionData)) {
+        setRedigerer(false);
+      }
     },
   });
 
