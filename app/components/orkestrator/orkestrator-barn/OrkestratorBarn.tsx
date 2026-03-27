@@ -26,10 +26,10 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   const etternavn = barn.opplysninger.find((o) => o.id === "etternavn")?.verdi;
   const fodselsdato = barn.opplysninger.find((o) => o.id === "fodselsdato")?.verdi;
   const oppholdssted = barn.opplysninger.find((o) => o.id === "oppholdssted")?.verdi;
-  const forsorgerBarnet =
-    barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi === "true";
-  const kvalifisererTilBarnetillegg =
-    barn.opplysninger.find((o) => o.id === "kvalifisererTilBarnetillegg")?.verdi === "true";
+  const forsorgerBarnet = barn.opplysninger.find((o) => o.id === "forsorgerBarnet")?.verdi;
+  const kvalifisererTilBarnetillegg = barn.opplysninger.find(
+    (o) => o.id === "kvalifisererTilBarnetillegg",
+  )?.verdi;
   const barnetilleggFom = barn.opplysninger.find((o) => o.id === "barnetilleggFom")?.verdi;
   const barnetilleggTom = barn.opplysninger.find((o) => o.id === "barnetilleggTom")?.verdi;
   const begrunnelse = barn.opplysninger.find((o) => o.id === "begrunnelse")?.verdi;
