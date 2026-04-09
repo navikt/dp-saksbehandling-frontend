@@ -2,7 +2,7 @@ import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useEffect, useState } from "react";
-import { useActionData, useNavigation } from "react-router";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -76,7 +76,7 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   }
 
   return (
-    <form {...orkestratorBarnForm.getFormProps()} className="card card-raised m-4 mt-8 p-2">
+    <Form {...orkestratorBarnForm.getFormProps()} className="card card-raised m-4 mt-8 p-2">
       <Heading level="4" size="xsmall" className="m-2" spacing>
         Barn {barnNummer}
       </Heading>
@@ -126,6 +126,6 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
           </Button>
         </div>
       )}
-    </form>
+    </Form>
   );
 }

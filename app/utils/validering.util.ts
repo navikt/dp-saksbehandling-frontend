@@ -457,7 +457,9 @@ export function hentValideringForOpprettBehandling() {
 }
 
 export function hentValideringForRedigeringBarn() {
-  const boolskSvar = z.enum(["true", "false"]).transform((value) => value === "true");
+  const boolskSvar = z
+    .enum(["true", "false"], { message: "Du må velge et svar" })
+    .transform((value) => value === "true");
 
   return z.object({
     _action: z.literal("rediger-barn"),
@@ -489,7 +491,9 @@ export function hentValideringForRedigeringBarn() {
 }
 
 export function hentValideringForNyttBarn() {
-  const boolskSvar = z.enum(["true", "false"]).transform((value) => value === "true");
+  const boolskSvar = z
+    .enum(["true", "false"], { message: "Du må velge et svar" })
+    .transform((value) => value === "true");
 
   return z.object({
     _action: z.literal("legg-til-barn"),
