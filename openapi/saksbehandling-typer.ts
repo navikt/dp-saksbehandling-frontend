@@ -507,7 +507,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -564,7 +564,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -619,7 +619,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -682,7 +682,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -762,7 +762,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -822,7 +822,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                     brevblokkId: string;
                 };
                 cookie?: never;
@@ -886,7 +886,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -944,7 +944,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1011,7 +1011,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1078,7 +1078,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1145,7 +1145,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1212,7 +1212,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1275,7 +1275,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1342,7 +1342,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -1407,7 +1407,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    oppgaveId: string;
                 };
                 cookie?: never;
             };
@@ -2172,7 +2172,7 @@ export interface components {
         };
         OppgaveOversikt: {
             /** Format: uuid */
-            id: string;
+            oppgaveId: string;
             /** Format: uuid */
             behandlingId: string;
             personIdent: string;
@@ -2191,7 +2191,7 @@ export interface components {
         };
         Oppgave: {
             /** Format: uuid */
-            id: string;
+            oppgaveId: string;
             /** Format: uuid */
             behandlingId: string;
             saksbehandler?: components["schemas"]["Behandler"];
@@ -2314,7 +2314,7 @@ export interface components {
         };
         OppgaveId: {
             /** Format: uuid */
-            id: string;
+            oppgaveId: string;
         };
         OppgaveHistorikk: {
             /** @enum {string} */
@@ -2642,6 +2642,11 @@ export interface components {
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
             beskrivelse?: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
             /** @description Strukturert data knyttet til oppgaven */
             strukturertData?: Record<string, unknown>;
             /** @description Lovlige saker for personen */
