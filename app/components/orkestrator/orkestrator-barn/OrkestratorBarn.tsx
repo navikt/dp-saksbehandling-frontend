@@ -1,11 +1,12 @@
 import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useState } from "react";
-import { useNavigation } from "react-router";
+import { useEffect, useState } from "react";
+import { Form, useActionData, useNavigation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { isAlert } from "~/utils/type-guards";
 import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
@@ -19,8 +20,10 @@ interface IProps {
 
 export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IProps) {
   const [redigerer, setRedigerer] = useState(false);
+  const [venterPåSvar, setVenterPåSvar] = useState(false);
   const { state } = useNavigation();
   const { behandling } = useBehandling();
+  const actionData = useActionData();
 
   const fornavnOgMellomnavn = barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi;
   const etternavn = barn.opplysninger.find((o) => o.id === "etternavn")?.verdi;
@@ -53,26 +56,35 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
       barnetilleggTom: barnetilleggTom ? formaterTilNorskDato(barnetilleggTom) : undefined,
       begrunnelse: begrunnelse,
     },
-    onSubmitSuccess: () => {
-      setRedigerer(false);
-    },
   });
+
+  useEffect(() => {
+    if (!venterPåSvar || state !== "idle" || !isAlert(actionData)) return;
+
+    if (actionData.variant === "success") {
+      orkestratorBarnForm.resetForm(orkestratorBarnForm.transient.value());
+      setRedigerer(false);
+    }
+
+    setVenterPåSvar(false);
+  }, [actionData, orkestratorBarnForm, state, venterPåSvar]);
 
   function avbryt() {
     orkestratorBarnForm.resetForm();
+    setVenterPåSvar(false);
     setRedigerer(false);
   }
 
   return (
-    <div className="card card-raised m-4 mt-8 p-2">
+    <Form {...orkestratorBarnForm.getFormProps()} className="card card-raised m-4 mt-8 p-2">
       <Heading level="4" size="xsmall" className="m-2" spacing>
         Barn {barnNummer}
       </Heading>
 
       <div className="flex flex-col gap-4 p-2">
-        {barn.opplysninger.map((opplysning, index) => (
+        {barn.opplysninger.map((opplysning) => (
           <OrkestratorOpplysningLinje
-            key={index}
+            key={`${opplysning.id}-${redigerer}`}
             opplysning={opplysning}
             formScope={orkestratorBarnForm.scope(opplysning.id)}
             orkestratorLandliste={orkestratorLandliste}
@@ -83,6 +95,7 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
 
       {!redigerer && (
         <Button
+          type="button"
           variant="secondary"
           size="small"
           className="mt-4 ml-3"
@@ -103,13 +116,16 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
             type="button"
             size="small"
             loading={state !== "idle"}
-            onClick={() => orkestratorBarnForm.submit()}
+            onClick={() => {
+              setVenterPåSvar(true);
+              orkestratorBarnForm.submit();
+            }}
             disabled={!orkestratorBarnForm.formState.isDirty}
           >
             Lagre endringer
           </Button>
         </div>
       )}
-    </div>
+    </Form>
   );
 }
