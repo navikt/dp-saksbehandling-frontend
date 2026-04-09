@@ -1,11 +1,11 @@
 import {
   CurrencyExchangeIcon,
   EnvelopeClosedIcon,
+  ExclamationmarkTriangleIcon,
   GavelSoundBlockIcon,
   ParagraphIcon,
   PersonPencilIcon,
   RobotSmileIcon,
-  SlideIcon,
   TasklistIcon,
 } from "@navikt/aksel-icons";
 import classnames from "classnames";
@@ -15,7 +15,6 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { skalViseRegelsett } from "~/utils/behandling.utils";
-import { getEnv } from "~/utils/env.utils";
 import { isDefined } from "~/utils/type-guards";
 
 import styles from "./LinkTabs.module.css";
@@ -42,6 +41,7 @@ export function LinkTabs(props: IProps) {
             >
               {tab.icon}
               {tab.label}
+              {tab.suffix}
             </LoadingLink>
           </li>
         ))}
@@ -67,6 +67,11 @@ function getTabs(
       skalViseRegelsett(regelsett, behandling.opplysninger, visArvedeOpplysninger),
     );
 
+  const antallAvklaringer = behandling.avklaringer.filter(
+    (avklaring) => avklaring.status === "Åpen",
+  ).length;
+  const erTilBeslutning = behandling.tilstand === "TilBeslutning";
+
   return [
     {
       url: `${baseUrl}/behandle`,
@@ -76,7 +81,14 @@ function getTabs(
     {
       url: `${baseUrl}/avklaringer`,
       label: "Avklaringer og vurderinger",
-      icon: <PersonPencilIcon aria-hidden />,
+      icon: erTilBeslutning ? (
+        <ExclamationmarkTriangleIcon className={styles.advarsel} aria-hidden />
+      ) : (
+        <PersonPencilIcon aria-hidden />
+      ),
+      suffix: antallAvklaringer ? (
+        <span className={styles.antallAvklaringer}>{antallAvklaringer}</span>
+      ) : null,
     },
     {
       url: `${baseUrl}/vilkar`,
@@ -95,11 +107,6 @@ function getTabs(
           icon: <TasklistIcon aria-hidden />,
         }
       : undefined,
-    {
-      url: `${baseUrl}/vedtak`,
-      label: "Brev til bruker",
-      icon: <EnvelopeClosedIcon aria-hidden />,
-    },
     meldekortRegelsett
       ? {
           url: `${baseUrl}/meldekort`,
@@ -107,12 +114,21 @@ function getTabs(
           icon: <CurrencyExchangeIcon aria-hidden />,
         }
       : undefined,
-    getEnv("GCP_ENV") === "dev"
-      ? {
-          url: `${baseUrl}/lekegrind`,
-          label: "Lekegrind",
-          icon: <SlideIcon aria-hidden />,
-        }
-      : undefined,
+    {
+      url: `${baseUrl}/vedtak`,
+      label: "Brev til bruker",
+      icon: erTilBeslutning ? (
+        <ExclamationmarkTriangleIcon className={styles.advarsel} aria-hidden />
+      ) : (
+        <EnvelopeClosedIcon aria-hidden />
+      ),
+    },
+    // getEnv("GCP_ENV") === "dev"
+    //   ? {
+    //       url: `${baseUrl}/lekegrind`,
+    //       label: "Lekegrind",
+    //       icon: <SlideIcon aria-hidden />,
+    //     }
+    //   : undefined,
   ].filter(isDefined);
 }

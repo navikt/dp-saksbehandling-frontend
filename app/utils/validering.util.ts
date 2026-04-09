@@ -457,6 +457,10 @@ export function hentValideringForOpprettBehandling() {
 }
 
 export function hentValideringForRedigeringBarn() {
+  const boolskSvar = z
+    .enum(["true", "false"], { message: "Du må velge et svar" })
+    .transform((value) => value === "true");
+
   return z.object({
     _action: z.literal("rediger-barn"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
@@ -470,15 +474,8 @@ export function hentValideringForRedigeringBarn() {
       hentValideringForNorskDato(),
     ),
     oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    // forsorgerBarnet: z.enum(["true", "false"], {
-    //   message: "Du må velge et svar",
-    // }),
-    forsorgerBarnet: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
+    forsorgerBarnet: boolskSvar,
+    kvalifisererTilBarnetillegg: boolskSvar,
     barnetilleggFom: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
@@ -494,6 +491,10 @@ export function hentValideringForRedigeringBarn() {
 }
 
 export function hentValideringForNyttBarn() {
+  const boolskSvar = z
+    .enum(["true", "false"], { message: "Du må velge et svar" })
+    .transform((value) => value === "true");
+
   return z.object({
     _action: z.literal("legg-til-barn"),
     soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
@@ -505,12 +506,8 @@ export function hentValideringForNyttBarn() {
       hentValideringForNorskDato(),
     ),
     oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
+    forsorgerBarnet: boolskSvar,
+    kvalifisererTilBarnetillegg: boolskSvar,
     barnetilleggFom: z.preprocess(
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
