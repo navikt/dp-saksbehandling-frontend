@@ -1,4 +1,4 @@
-import { BodyLong, Heading } from "@navikt/ds-react";
+import { BodyLong, Detail, Heading, Label, Link } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -47,6 +47,9 @@ export default function GenerellOppgave() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
+  const harStrukturertData =
+    generellOppgave.strukturertData && Object.keys(generellOppgave.strukturertData).length > 0;
+
   return (
     <OppgaveProvider
       oppgave={oppgave}
@@ -61,8 +64,12 @@ export default function GenerellOppgave() {
         </section>
         <div className={"card flex flex-1 flex-col gap-4 p-4"}>
           <Heading size={"medium"}>{generellOppgave.tittel}</Heading>
-          {generellOppgave.beskrivelse && (
-            <BodyLong>{generellOppgave.beskrivelse}</BodyLong>
+          {generellOppgave.beskrivelse && <BodyLong>{generellOppgave.beskrivelse}</BodyLong>}
+          {harStrukturertData && (
+            <div className={"flex flex-col gap-2"}>
+              <Heading size={"small"}>Detaljer</Heading>
+              <StrukturertDataVisning data={generellOppgave.strukturertData!} />
+            </div>
           )}
         </div>
       </div>
@@ -74,4 +81,28 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return <ErrorMessageComponent error={error} />;
+}
+
+function StrukturertDataVisning({ data }: { data: Record<string, unknown> }) {
+  return (
+    <dl className="flex flex-col gap-1">
+      {Object.entries(data).map(([nøkkel, verdi]) => {
+        const visningsverdi = Array.isArray(verdi) ? verdi.join(", ") : String(verdi);
+        const erUrl = typeof verdi === "string" && verdi.startsWith("http");
+
+        return (
+          <div key={nøkkel} className="flex gap-2">
+            <Label size="small">{nøkkel}:</Label>
+            {erUrl ? (
+              <Link href={verdi as string} target="_blank">
+                {visningsverdi}
+              </Link>
+            ) : (
+              <Detail>{visningsverdi}</Detail>
+            )}
+          </div>
+        );
+      })}
+    </dl>
+  );
 }

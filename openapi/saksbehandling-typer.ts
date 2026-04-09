@@ -2642,6 +2642,8 @@ export interface components {
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
             beskrivelse?: string;
+            /** @description Strukturert data knyttet til oppgaven */
+            strukturertData?: Record<string, unknown>;
             /** @description Lovlige saker for personen */
             lovligeSaker?: components["schemas"]["TynnSak"][];
             /** @description Valgt sak-id ved ferdigstilling */
