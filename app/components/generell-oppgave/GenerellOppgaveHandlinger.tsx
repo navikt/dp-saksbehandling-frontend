@@ -8,10 +8,10 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { FerdigstillGenerellOppgaveSkjema } from "./FerdigstillGenerellOppgaveSkjema";
 
 interface IProps {
-  generellOppgaveData: components["schemas"]["GenerellOppgaveData"];
+  generellOppgave: components["schemas"]["GenerellOppgave"];
 }
 
-export function GenerellOppgaveHandlinger({ generellOppgaveData }: IProps) {
+export function GenerellOppgaveHandlinger({ generellOppgave }: IProps) {
   const { oppgave, readonly } = useOppgave();
   const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<boolean>();
 
@@ -53,7 +53,7 @@ export function GenerellOppgaveHandlinger({ generellOppgaveData }: IProps) {
         <FerdigstillGenerellOppgaveSkjema
           setFerdigstillMedBehandling={setFerdigstillMedBehandling}
           medBehandling={ferdigstillMedBehandling}
-          lovligeSaker={generellOppgaveData.lovligeSaker}
+          lovligeSaker={generellOppgave.lovligeSaker ?? []}
         />
       )}
     </div>

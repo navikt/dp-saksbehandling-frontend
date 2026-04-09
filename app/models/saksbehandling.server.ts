@@ -102,14 +102,14 @@ export async function hentTilbakekreving(request: Request, behandlingId: string)
   );
 }
 
-export async function hentGenerellOppgaveData(request: Request, oppgaveId: string) {
+export async function hentGenerellOppgave(request: Request, id: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET(
-    "/generell-oppgave-data/{oppgaveId}",
+    "/generell-oppgave/{id}",
     {
       headers: getHeaders(onBehalfOfToken),
       params: {
-        path: { oppgaveId },
+        path: { id },
       },
     },
   );
@@ -123,21 +123,21 @@ export async function hentGenerellOppgaveData(request: Request, oppgaveId: strin
   }
 
   throw new Error(
-    `Uhåndtert feil i hentGenerellOppgaveData(). ${response.status} - ${response.statusText}`,
+    `Uhåndtert feil i hentGenerellOppgave(). ${response.status} - ${response.statusText}`,
   );
 }
 
 export async function ferdigstillGenerellOppgave(
   request: Request,
-  oppgaveId: string,
+  id: string,
   body: components["schemas"]["FerdigstillGenerellOppgaveRequest"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/generell-oppgave-data/{oppgaveId}/ferdigstill", {
+  return await saksbehandlerClient.PUT("/generell-oppgave/{id}/ferdigstill", {
     headers: getHeaders(onBehalfOfToken),
     body,
     params: {
-      path: { oppgaveId },
+      path: { id },
     },
   });
 }

@@ -4,8 +4,8 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { mockGenerellOppgaveData } from "./data/mock-generell-oppgave/mock-generell-oppgave-data";
-import { mockAdresseendringOppgaveData } from "./data/mock-generell-oppgave/mock-adresseendring-oppgave-data";
+import { mockGenerellOppgave } from "./data/mock-generell-oppgave/mock-generell-oppgave-data";
+import { mockAdresseendringOppgave } from "./data/mock-generell-oppgave/mock-adresseendring-oppgave-data";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
@@ -464,29 +464,29 @@ export const mockDpSaksbehandling = [
     return response(200).json(tilbakekreving);
   }),
 
-  http.get("/generell-oppgave-data/{oppgaveId}", async ({ response, params }) => {
+  http.get("/generell-oppgave/{id}", async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    const { oppgaveId } = params;
-    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === oppgaveId);
+    const { id } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === id);
 
     if (!mockOppgave || mockOppgave.behandlingType !== "GENERELL") {
-      return response(404).json(get404Error(`/generell-oppgave-data/${oppgaveId}`));
+      return response(404).json(get404Error(`/generell-oppgave/${id}`));
     }
 
-    const generellOppgaveDataMap: Record<string, components["schemas"]["GenerellOppgaveData"]> = {
-      "019a0001-0001-7001-a001-000000000001": mockGenerellOppgaveData,
-      "019a0002-0002-7002-a002-000000000001": mockAdresseendringOppgaveData,
+    const generellOppgaveMap: Record<string, components["schemas"]["GenerellOppgave"]> = {
+      "019a0001-0001-7001-a001-000000000001": mockGenerellOppgave,
+      "019a0002-0002-7002-a002-000000000001": mockAdresseendringOppgave,
     };
 
-    return response(200).json(generellOppgaveDataMap[oppgaveId] ?? mockGenerellOppgaveData);
+    return response(200).json(generellOppgaveMap[id] ?? mockGenerellOppgave);
   }),
 
-  http.put("/generell-oppgave-data/{oppgaveId}/ferdigstill", async ({ response, params }) => {
+  http.put("/generell-oppgave/{id}/ferdigstill", async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
