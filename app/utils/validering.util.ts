@@ -470,15 +470,12 @@ export function hentValideringForRedigeringBarn() {
       hentValideringForNorskDato(),
     ),
     oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    // forsorgerBarnet: z.enum(["true", "false"], {
-    //   message: "Du må velge et svar",
-    // }),
-    forsorgerBarnet: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
+    forsorgerBarnet: z
+      .enum(["true", "false"], { message: "Du må velge et svar" })
+      .transform((val) => val === "true"),
+    kvalifisererTilBarnetillegg: z
+      .enum(["true", "false"], { message: "Du må velge et svar" })
+      .transform((val) => val === "true"),
     barnetilleggFom: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
@@ -505,12 +502,12 @@ export function hentValideringForNyttBarn() {
       hentValideringForNorskDato(),
     ),
     oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.coerce.boolean({
-      message: "Du må velge et svar",
-    }),
+    forsorgerBarnet: z
+      .enum(["true", "false"], { message: "Du må velge et svar" })
+      .transform((val) => val === "true"),
+    kvalifisererTilBarnetillegg: z
+      .enum(["true", "false"], { message: "Du må velge et svar" })
+      .transform((val) => val === "true"),
     barnetilleggFom: z.preprocess(
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
