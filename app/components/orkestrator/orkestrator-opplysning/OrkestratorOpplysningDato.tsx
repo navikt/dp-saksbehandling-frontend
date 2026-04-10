@@ -1,6 +1,6 @@
 import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { FormScope, useField } from "@rvf/react-router";
-import { addYears, formatISO, subYears } from "date-fns";
+import { addYears, formatISO, parse, subYears } from "date-fns";
 
 import { OrkestratorOpplysningLabel } from "~/components/orkestrator/orkestrator-barn/OrkestratorOpplysningLabel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -15,9 +15,11 @@ interface IProps {
 
 export function OrkestratorOpplysningDato({ opplysning, formScope, readOnly }: IProps) {
   const field = useField(formScope);
+  const feltverdi = field.value();
+  const valgtDato = typeof feltverdi === "string" ? feltverdi : undefined;
 
   const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: opplysning.verdi ? new Date(opplysning.verdi) : undefined,
+    defaultSelected: valgtDato ? parse(valgtDato, "dd.MM.yyyy", new Date()) : undefined,
     toDate: addYears(new Date(), 100),
     fromDate: subYears(new Date(), 100),
     locale: "nb",

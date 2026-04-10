@@ -17,10 +17,6 @@ export const mockDpSoknadOrkestrator = [
     return response(400).empty();
   }),
 
-  http.put(`/opplysninger/barn/{soknadbarnId}`, ({ response }) => {
-    return response(200).empty();
-  }),
-
   http.post(`/opplysninger/barn/{soknadbarnId}`, ({ response }) => {
     return response(201).json(mockOrkestratorBarn);
   }),

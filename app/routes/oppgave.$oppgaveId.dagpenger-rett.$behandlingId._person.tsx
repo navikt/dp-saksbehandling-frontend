@@ -26,6 +26,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     hentVurderinger(request, params.behandlingId),
   ]);
 
+  const forrigeBehandling = behandling.basertPå
+    ? await hentBehandling(request, behandling.basertPå)
+    : undefined;
+
   const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
@@ -34,6 +38,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return {
     oppgave,
     behandling,
+    forrigeBehandling,
     vurderinger,
     journalposterPromises,
     meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
@@ -42,8 +47,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function BehandlingLayout() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, behandling, vurderinger, meldekortUrl, journalposterPromises } =
-    useLoaderData<typeof loader>();
+  const {
+    oppgave,
+    behandling,
+    forrigeBehandling,
+    vurderinger,
+    meldekortUrl,
+    journalposterPromises,
+  } = useLoaderData<typeof loader>();
   return (
     <OppgaveProvider
       oppgave={oppgave}
@@ -51,7 +62,11 @@ export default function BehandlingLayout() {
       journalposterPromises={journalposterPromises}
     >
       <BeslutterNotatProvider notat={oppgave.notat}>
-        <BehandlingProvider behandling={behandling} vurderinger={vurderinger}>
+        <BehandlingProvider
+          behandling={behandling}
+          forrigeBehandling={forrigeBehandling}
+          vurderinger={vurderinger}
+        >
           <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} oppgave={oppgave} />
           <Outlet />
         </BehandlingProvider>

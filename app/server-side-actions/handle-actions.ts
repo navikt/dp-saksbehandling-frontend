@@ -106,7 +106,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await opprettBehandlingAction(request, formData);
 
     case "rediger-barn":
-      return await redigerBarnAction(request, formData);
+      return await redigerBarnAction(request, params, formData);
 
     case "legg-til-barn":
       return await leggTilBarnAction(request, params, formData);
