@@ -46,4 +46,3 @@ const barn3: components["schemas"]["BarnResponse"] = {
 };
 
 export const mockOrkestratorBarn: components["schemas"]["BarnResponse"][] = [barn1, barn2, barn3];
-

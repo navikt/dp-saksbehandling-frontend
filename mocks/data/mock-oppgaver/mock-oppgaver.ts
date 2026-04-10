@@ -1,3 +1,5 @@
+import { generellOppgave } from "./generell";
+import { generellAdresseendringOppgave } from "./generell-adresseendring";
 import { innsending } from "./innsending";
 import { klage } from "./klage";
 import { oppgave019a492dd283731d83a2a4f36df00502 } from "./oppgave019a492dd283731d83a2a4f36df00502";
@@ -26,4 +28,6 @@ export const mockOppgaver = [
   innsending,
   tilbakekrevingOppgave,
   oppgave019cc20df6fe713f85637ed86f12f4d4,
+  generellOppgave,
+  generellAdresseendringOppgave,
 ];

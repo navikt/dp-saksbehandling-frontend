@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from "react-router";
 
 import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
+import { ferdigstillGenerellOppgaveAction } from "~/server-side-actions/ferdigstill-generell-oppgave-action";
 import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
@@ -112,6 +113,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);
+
+    case "ferdigstill-generell-oppgave":
+      return await ferdigstillGenerellOppgaveAction(request, params, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
