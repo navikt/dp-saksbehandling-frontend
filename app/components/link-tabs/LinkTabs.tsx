@@ -1,6 +1,7 @@
 import {
   CurrencyExchangeIcon,
   EnvelopeClosedIcon,
+  ExclamationmarkTriangleFillIcon,
   GavelSoundBlockIcon,
   ParagraphIcon,
   PersonPencilIcon,
@@ -69,6 +70,7 @@ function getTabs(
   const antallAvklaringer = behandling.avklaringer.filter(
     (avklaring) => avklaring.status === "Åpen",
   ).length;
+  const erTilBeslutning = behandling.tilstand === "TilBeslutning";
 
   return [
     {
@@ -80,7 +82,7 @@ function getTabs(
       url: `${baseUrl}/avklaringer`,
       label: "Avklaringer og vurderinger",
       icon: <PersonPencilIcon aria-hidden />,
-      suffix: hentSuffixForAvklaringer(antallAvklaringer),
+      suffix: hentSuffixForAvklaringer(antallAvklaringer, erTilBeslutning),
     },
     {
       url: `${baseUrl}/vilkar`,
@@ -110,6 +112,9 @@ function getTabs(
       url: `${baseUrl}/vedtak`,
       label: "Brev til bruker",
       icon: <EnvelopeClosedIcon aria-hidden />,
+      suffix: erTilBeslutning ? (
+        <ExclamationmarkTriangleFillIcon className={styles.advarsel} aria-hidden />
+      ) : null,
     },
     // getEnv("GCP_ENV") === "dev"
     //   ? {
@@ -121,9 +126,13 @@ function getTabs(
   ].filter(isDefined);
 }
 
-function hentSuffixForAvklaringer(antallAvklaringer: number) {
-  if (antallAvklaringer > 0) {
-    return <span className={styles.antallAvklaringer}>{antallAvklaringer}</span>;
+function hentSuffixForAvklaringer(antall: number, erTilBeslutning: boolean) {
+  if (antall > 0 && !erTilBeslutning) {
+    return <span className={styles.antallAvklaringer}>{antall}</span>;
+  }
+
+  if (erTilBeslutning) {
+    return <ExclamationmarkTriangleFillIcon className={styles.advarsel} aria-hidden />;
   }
   return null;
 }
