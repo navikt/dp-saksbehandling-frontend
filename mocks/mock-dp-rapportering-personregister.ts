@@ -12,6 +12,9 @@ export const mockDpRapporteringPersonregister = [
   http.post(`/hentPersonId`, async ({ response }) => {
     await delay();
 
+    // hvis du vil simulere f.eks. ECONNREFUSED:
+    // return HttpResponse.error()
+
     if (apiError) {
       return response(404).empty();
     }

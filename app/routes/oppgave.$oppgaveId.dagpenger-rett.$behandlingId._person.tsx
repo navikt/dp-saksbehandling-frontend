@@ -41,7 +41,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     forrigeBehandling,
     vurderinger,
     journalposterPromises,
-    meldekortUrl: `${personIdResponse?.personId ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}` : null}`,
+    meldekortUrl: personIdResponse?.personId
+      ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}`
+      : undefined,
   };
 }
 
