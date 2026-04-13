@@ -6,13 +6,15 @@ import {
   HStack,
   InlineMessage,
   Link,
+  Loader,
   Tag,
   Timeline,
 } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
 import { components } from "openapi/behandling-typer";
-import { useParams } from "react-router";
+import { Suspense } from "react";
+import { Await, useParams } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
@@ -26,7 +28,9 @@ import {
   TidslinjeNavigeringState,
   useTidslinjeNavigeringState,
 } from "~/hooks/useTidslinjeNavigeringState";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { getEnv } from "~/utils/env.utils";
 import {
   formaterOpplysningFormål,
   formaterOpplysningVerdi,
@@ -49,7 +53,7 @@ interface IProps {
   opplysningGrunnUrl?: string;
   pins?: TimelinePin[];
   eksternTidslinjeNavigeringState?: TidslinjeNavigeringState;
-  meldekortUrl?: string;
+  rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
   visAllePerioder?: boolean;
 }
 
@@ -141,12 +145,39 @@ export function OpplysningerTidslinje(props: IProps) {
                 ))}
               <Heading size={"small"}>{props.tittel}</Heading>
             </div>
-            {props.meldekortUrl && (
-              <div className="flex justify-end">
-                <Link href={props.meldekortUrl} target="_blank">
-                  Meldekort for perioden <ExternalLinkIcon />
-                </Link>
-              </div>
+            {props.rapporteringPersonIdPromise && (
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-end gap-1">
+                    <Loader size="small" />
+                    <BodyShort textColor={"subtle"}>Henter meldekort-url</BodyShort>
+                  </div>
+                }
+              >
+                <Await resolve={props.rapporteringPersonIdPromise}>
+                  {(rapporteringPersonId) => {
+                    const meldekortId =
+                      behandling.behandletHendelse.type === "Meldekort"
+                        ? behandling.behandletHendelse.id
+                        : null;
+
+                    return meldekortId && rapporteringPersonId ? (
+                      <div className="flex justify-end">
+                        <Link
+                          href={`${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${rapporteringPersonId?.personId}/perioder?meldekortId=${meldekortId}`}
+                          target="_blank"
+                        >
+                          Meldekort for perioden <ExternalLinkIcon />
+                        </Link>
+                      </div>
+                    ) : (
+                      <InlineMessage status="warning">
+                        Klarte ikke hente meldekort-url
+                      </InlineMessage>
+                    );
+                  }}
+                </Await>
+              </Suspense>
             )}
           </div>
           {!props.eksternTidslinjeNavigeringState && (

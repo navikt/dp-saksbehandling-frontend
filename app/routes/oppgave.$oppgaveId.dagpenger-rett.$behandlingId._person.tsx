@@ -11,7 +11,6 @@ import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { getEnv } from "~/utils/env.utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -30,7 +29,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ? await hentBehandling(request, behandling.basertPå)
     : undefined;
 
-  const personIdResponse = await hentRapporteringPersonId(request, oppgave.person.ident);
+  const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
@@ -41,9 +40,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     forrigeBehandling,
     vurderinger,
     journalposterPromises,
-    meldekortUrl: personIdResponse?.personId
-      ? `${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${personIdResponse.personId}`
-      : undefined,
+    rapporteringPersonIdPromise,
   };
 }
 
@@ -54,8 +51,8 @@ export default function BehandlingLayout() {
     behandling,
     forrigeBehandling,
     vurderinger,
-    meldekortUrl,
     journalposterPromises,
+    rapporteringPersonIdPromise,
   } = useLoaderData<typeof loader>();
   return (
     <OppgaveProvider
@@ -69,7 +66,11 @@ export default function BehandlingLayout() {
           forrigeBehandling={forrigeBehandling}
           vurderinger={vurderinger}
         >
-          <PersonBoks person={oppgave.person} meldekortUrl={meldekortUrl} oppgave={oppgave} />
+          <PersonBoks
+            person={oppgave.person}
+            rapporteringPersonIdPromise={rapporteringPersonIdPromise}
+            oppgave={oppgave}
+          />
           <Outlet />
         </BehandlingProvider>
       </BeslutterNotatProvider>

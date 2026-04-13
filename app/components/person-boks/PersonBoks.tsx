@@ -1,11 +1,22 @@
 import { ExternalLinkIcon, FigureOutwardFillIcon, SilhouetteFillIcon } from "@navikt/aksel-icons";
-import { Alert, BodyShort, CopyButton, Detail, Link } from "@navikt/ds-react";
+import {
+  Alert,
+  BodyShort,
+  CopyButton,
+  Detail,
+  InlineMessage,
+  Link,
+  Loader,
+} from "@navikt/ds-react";
 import classnames from "classnames";
-import { useLocation } from "react-router";
+import { Suspense } from "react";
+import { Await, useLocation } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { hentRapporteringPersonId } from "~/models/rapportering.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { getEnv } from "~/utils/env.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 
 import { components } from "../../../openapi/saksbehandling-typer";
@@ -13,11 +24,11 @@ import styles from "./PersonBoks.module.css";
 
 interface IProps {
   person: components["schemas"]["Person"];
-  meldekortUrl?: string;
+  rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
   oppgave?: components["schemas"]["Oppgave"];
 }
 
-export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
+export function PersonBoks({ person, oppgave, rapporteringPersonIdPromise }: IProps) {
   const location = useLocation();
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const utviklerinformasjon = {
@@ -75,13 +86,35 @@ export function PersonBoks({ person, oppgave, meldekortUrl }: IProps) {
           Statsborgerskap: <b>{person.statsborgerskap}</b>
         </BodyShort>
 
-        {meldekortUrl && (
-          <BodyShort size={"small"} textColor={"subtle"} className={styles.infoElement}>
-            <Link href={meldekortUrl} target="_blank">
-              Meldekort <ExternalLinkIcon aria-hidden />
-            </Link>
-          </BodyShort>
-        )}
+        <Suspense
+          fallback={
+            <div className={styles.infoElement}>
+              <Loader size="small" />
+              <BodyShort size={"small"} textColor={"subtle"}>
+                Henter meldekort-url
+              </BodyShort>
+            </div>
+          }
+        >
+          <Await resolve={rapporteringPersonIdPromise}>
+            {(rapporteringPersonId) =>
+              rapporteringPersonId ? (
+                <BodyShort size={"small"} textColor={"subtle"} className={styles.infoElement}>
+                  <Link
+                    href={`${getEnv("DP_RAPPORTERING_SAKSBEHANDLING_FRONTEND_URL")}/person/${rapporteringPersonId?.personId}`}
+                    target="_blank"
+                  >
+                    Meldekort <ExternalLinkIcon aria-hidden />
+                  </Link>
+                </BodyShort>
+              ) : (
+                <InlineMessage status="warning" size={"small"} className={styles.infoElement}>
+                  Klarte ikke hente meldekort-url
+                </InlineMessage>
+              )
+            }
+          </Await>
+        </Suspense>
 
         <CopyButton
           className={styles.utviklerinfo}

@@ -10,7 +10,7 @@ const http = createOpenApiHttp<paths>({ baseUrl: getEnv("DP_RAPPORTERING_PERSONR
 
 export const mockDpRapporteringPersonregister = [
   http.post(`/hentPersonId`, async ({ response }) => {
-    await delay();
+    await delay(4000);
 
     // hvis du vil simulere f.eks. ECONNREFUSED:
     // return HttpResponse.error()

@@ -22,16 +22,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export default function Opplysning() {
   const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
   const { behandling, sistePrøvingsdato } = useBehandling();
-  const { meldekortUrl } = useTypedRouteLoaderData(
+  const { rapporteringPersonIdPromise } = useTypedRouteLoaderData(
     "routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person",
   );
-  const meldekortId =
-    behandling.behandletHendelse.type === "Meldekort" ? behandling.behandletHendelse.id : null;
-
-  const direkteMeldekortUrl =
-    regelsettId === "497240064" && meldekortUrl && meldekortId
-      ? `${meldekortUrl}/perioder?meldekortId=${meldekortId}`
-      : undefined;
 
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -89,7 +82,7 @@ export default function Opplysning() {
                 opplysninger={regelsettOpplysninger.reverse()}
                 tittel={regelsett.hjemmel.tittel}
                 fremhevØverstTidslinjeRad={true}
-                meldekortUrl={direkteMeldekortUrl}
+                rapporteringPersonIdPromise={rapporteringPersonIdPromise}
                 medLenkeTilOpplysning={true}
                 opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
                 pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
