@@ -1,3 +1,4 @@
+import { generellOppgave } from "./generell-oppgave";
 import { innsending } from "./innsending";
 import { klage } from "./klage";
 import { oppgave019a492dd283731d83a2a4f36df00502 } from "./oppgave019a492dd283731d83a2a4f36df00502";
@@ -25,5 +26,6 @@ export const mockOppgaver = [
   klage,
   innsending,
   tilbakekrevingOppgave,
+  generellOppgave,
   oppgave019cc20df6fe713f85637ed86f12f4d4,
 ];
