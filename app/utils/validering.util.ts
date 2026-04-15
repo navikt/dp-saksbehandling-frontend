@@ -367,6 +367,54 @@ export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
   });
 }
 
+const behandlingVarianter: saksbehandlingComponents["schemas"]["BehandlingVariant"][] = [
+  "RETT_TIL_DAGPENGER_MANUELL",
+  "RETT_TIL_DAGPENGER_REVURDERING",
+  "KLAGE",
+  "GENERELL_OPPGAVE",
+];
+
+export function hentValideringForFerdigstillGenerellOppgave() {
+  return z
+    .object({
+      _action: z.literal("ferdigstill-generell-oppgave"),
+      behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+      sakId: z.string().optional(),
+      vurdering: z.string().min(1, "Du må skrive en vurdering"),
+      aktivtOppgaveSok: z.string(),
+      behandlingsvariant: z.enum(behandlingVarianter, "Du må velge en behandlingstype"),
+      nyOppgaveTittel: z.string().optional(),
+      nyOppgaveEmneknagg: z.string().optional(),
+      nyOppgaveBeskrivelse: z.string().optional(),
+      nyOppgaveFrist: z.preprocess(
+        (val) => (val === "" || val === "undefined" ? undefined : val),
+        z.string().optional(),
+      ),
+      nyOppgaveTildelSammeSaksbehandler: z.preprocess(
+        (val) => val === "on" || val === true || val === "true",
+        z.boolean(),
+      ),
+    })
+    .superRefine((data, ctx) => {
+      if (data.behandlingsvariant === "GENERELL_OPPGAVE") {
+        if (!data.nyOppgaveTittel || data.nyOppgaveTittel.length === 0) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Du må skrive en tittel",
+            path: ["nyOppgaveTittel"],
+          });
+        }
+        if (!data.nyOppgaveEmneknagg || data.nyOppgaveEmneknagg.length === 0) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Du må skrive en emneknagg",
+            path: ["nyOppgaveEmneknagg"],
+          });
+        }
+      }
+    });
+}
+
 export function hentValideringForRekjørBehandling() {
   return z.object({
     _action: z.literal("rekjor-behandling"),

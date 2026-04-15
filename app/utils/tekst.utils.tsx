@@ -3,6 +3,7 @@ import {
   BooksIcon,
   CalendarIcon,
   ChatExclamationmarkIcon,
+  ClipboardCheckmarkIcon,
   FileTextIcon,
   PersonPencilIcon,
   ReceiptIcon,
@@ -134,6 +135,15 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Tilbakekreving"
+      );
+
+    case "GENERELL":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ClipboardCheckmarkIcon aria-hidden fontSize="1.5rem" /> Generell oppgave
+        </span>
+      ) : (
+        "Generell oppgave"
       );
 
     default:

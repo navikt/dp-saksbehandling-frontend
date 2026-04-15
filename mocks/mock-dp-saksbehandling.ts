@@ -445,22 +445,17 @@ export const mockDpSaksbehandling = [
     return response(204).empty();
   }),
 
-  http.get("/generell-oppgave/{id}", async ({ response }) => {
+  http.get("/generell-oppgave/{behandlingId}", async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    // TODO: Backend mangler backendId
-    // const { id } = params;
-    // const oppgave = mockGenerelleOppgaver.find((opppgave) => opppgave.id === behandlingId);
-    // return response(200).json(oppgave);
-
     return response(200).json(mockGenerellOppgave);
   }),
 
-  http.put("/generell-oppgave/{id}/ferdigstill", async ({ response }) => {
+  http.put("/generell-oppgave/{behandlingId}/ferdigstill", async ({ response }) => {
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }

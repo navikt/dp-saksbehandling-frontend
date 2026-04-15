@@ -25,20 +25,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/generell-oppgave/{id}": {
+    "/generell-oppgave/{behandlingId}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Hent generell oppgave for en gitt id */
+        /** Hent generell oppgave for en gitt behandlingId */
         get: {
             parameters: {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -81,7 +81,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/generell-oppgave/{id}/ferdigstill": {
+    "/generell-oppgave/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
             header?: never;
@@ -95,7 +95,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    behandlingId: string;
                 };
                 cookie?: never;
             };
@@ -2315,7 +2315,7 @@ export interface components {
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "GENERELL_OPPGAVE";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2660,6 +2660,11 @@ export interface components {
             fullstendigPeriode: components["schemas"]["TilbakekrevingPeriode"];
         };
         GenerellOppgave: {
+            /**
+             * Format: uuid
+             * @description Behandling-ID for den generelle oppgaven
+             */
+            behandlingId?: string;
             /** @description Visningstittel for oppgaven */
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
@@ -2719,6 +2724,26 @@ export interface components {
             sakId?: string;
             vurdering?: string;
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
+            nyOppgave?: components["schemas"]["NyGenerellOppgave"];
+        };
+        /** @description Data for ny generell oppgave (kun ved behandlingsvariant=GENERELL_OPPGAVE) */
+        NyGenerellOppgave: {
+            /** @description Tittel på den nye oppgaven */
+            tittel: string;
+            /** @description Beskrivelse av den nye oppgaven */
+            beskrivelse?: string;
+            /** @description Emneknagg for den nye oppgaven */
+            emneknagg: string;
+            /**
+             * Format: date
+             * @description Frist for den nye oppgaven
+             */
+            frist?: string;
+            /**
+             * @description Om den nye oppgaven skal tildeles samme saksbehandler
+             * @default false
+             */
+            tildelSammeSaksbehandler: boolean;
         };
         /** @enum {string} */
         TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";

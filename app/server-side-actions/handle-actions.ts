@@ -26,6 +26,7 @@ import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
+import { ferdigstillGenerellOppgaveAction } from "./ferdigstill-generell-oppgave-action";
 import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
@@ -112,6 +113,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);
+
+    case "ferdigstill-generell-oppgave":
+      return await ferdigstillGenerellOppgaveAction(request, params, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);
