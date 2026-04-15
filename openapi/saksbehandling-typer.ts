@@ -2695,8 +2695,8 @@ export interface components {
             tittel: string;
             /** @description Utfyllende beskrivelse av oppgaven */
             beskrivelse?: string;
-            /** @description Emneknagg for kategorisering av oppgaven */
-            emneknagg: string;
+            /** @description Årsak/kategori for oppgaven */
+            aarsak: string;
             /**
              * Format: date
              * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
@@ -2732,8 +2732,8 @@ export interface components {
             tittel: string;
             /** @description Beskrivelse av den nye oppgaven */
             beskrivelse?: string;
-            /** @description Emneknagg for den nye oppgaven */
-            emneknagg: string;
+            /** @description Årsak/kategori for den nye oppgaven */
+            aarsak: string;
             /**
              * Format: date
              * @description Frist for den nye oppgaven
