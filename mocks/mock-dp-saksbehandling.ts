@@ -464,18 +464,18 @@ export const mockDpSaksbehandling = [
     return response(200).json(tilbakekreving);
   }),
 
-  http.get("/generell-oppgave/{id}", async ({ response, params }) => {
+  http.get("/generell-oppgave/{behandlingId}", async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    const { id } = params;
-    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === id);
+    const { behandlingId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === behandlingId);
 
     if (!mockOppgave || mockOppgave.behandlingType !== "GENERELL") {
-      return response(404).json(get404Error(`/generell-oppgave/${id}`));
+      return response(404).json(get404Error(`/generell-oppgave/${behandlingId}`));
     }
 
     const generellOppgaveMap: Record<string, components["schemas"]["GenerellOppgave"]> = {
@@ -483,10 +483,10 @@ export const mockDpSaksbehandling = [
       "019a0002-0002-7002-a002-000000000001": mockAdresseendringOppgave,
     };
 
-    return response(200).json(generellOppgaveMap[id] ?? mockGenerellOppgave);
+    return response(200).json(generellOppgaveMap[behandlingId] ?? mockGenerellOppgave);
   }),
 
-  http.put("/generell-oppgave/{id}/ferdigstill", async ({ response, params }) => {
+  http.put("/generell-oppgave/{behandlingId}/ferdigstill", async ({ response, params }) => {
     await delay(delayMs);
 
     if (apiError) {

@@ -36,7 +36,7 @@ export async function ferdigstillGenerellOppgaveAction(
 
   const { error } = await ferdigstillGenerellOppgave(
     request,
-    validertSkjema.data.oppgaveId,
+    validertSkjema.data.behandlingId,
     body,
   );
 

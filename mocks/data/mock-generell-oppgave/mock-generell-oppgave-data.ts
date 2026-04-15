@@ -1,6 +1,7 @@
 import { components } from "openapi/saksbehandling-typer";
 
 export const mockGenerellOppgave: components["schemas"]["GenerellOppgave"] = {
+  behandlingId: "019a0001-0001-7001-a001-000000000001",
   tittel: "Meldekort trenger korrigering",
   beskrivelse:
     "Meldekortet for perioden 01.03-14.03 har feil rapporterte timer. Bruker har meldt inn 40 timer, men arbeidsgiver rapporterer 20 timer. Må gjennomgås og korrigeres.",

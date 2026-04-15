@@ -1,6 +1,7 @@
 import { components } from "openapi/saksbehandling-typer";
 
 export const mockAdresseendringOppgave: components["schemas"]["GenerellOppgave"] = {
+  behandlingId: "019a0002-0002-7002-a002-000000000001",
   tittel: "Bruker har meldt adresseendring",
   beskrivelse:
     "Bruker har flyttet fra Oslo til Bergen. Folkeregisteret viser ny adresse fra 01.03.2026. Kontroller at ytelsesberegning og utbetalinger er korrekte etter flytting.",

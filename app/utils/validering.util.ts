@@ -377,6 +377,7 @@ export function hentValideringForFerdigstillGenerellOppgave(medBehandling: boole
   return z.object({
     _action: z.literal("ferdigstill-generell-oppgave"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: medBehandling ? z.string().min(1, "Du må velge en sak") : z.string(),
     behandlingsvariant: z.enum(nyBehandlingsvariant, "Du må velge en behandlingstype"),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),

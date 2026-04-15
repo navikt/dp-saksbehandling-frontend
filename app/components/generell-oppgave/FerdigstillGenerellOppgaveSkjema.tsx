@@ -20,7 +20,7 @@ export function FerdigstillGenerellOppgaveSkjema({
   setFerdigstillMedBehandling,
 }: IProps) {
   const { pathname } = useLocation();
-  const { oppgaveId } = useTypeSafeParams();
+  const { oppgaveId, behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
   const ferdigstillSkjema = useForm({
@@ -31,6 +31,7 @@ export function FerdigstillGenerellOppgaveSkjema({
     defaultValues: {
       _action: "ferdigstill-generell-oppgave" as const,
       oppgaveId,
+      behandlingId,
       sakId: "",
       behandlingsvariant: medBehandling
         ? ("" as unknown as

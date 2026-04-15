@@ -102,14 +102,14 @@ export async function hentTilbakekreving(request: Request, behandlingId: string)
   );
 }
 
-export async function hentGenerellOppgave(request: Request, id: string) {
+export async function hentGenerellOppgave(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET(
-    "/generell-oppgave/{id}",
+    "/generell-oppgave/{behandlingId}",
     {
       headers: getHeaders(onBehalfOfToken),
       params: {
-        path: { id },
+        path: { behandlingId },
       },
     },
   );
@@ -129,15 +129,15 @@ export async function hentGenerellOppgave(request: Request, id: string) {
 
 export async function ferdigstillGenerellOppgave(
   request: Request,
-  id: string,
+  behandlingId: string,
   body: components["schemas"]["FerdigstillGenerellOppgaveRequest"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/generell-oppgave/{id}/ferdigstill", {
+  return await saksbehandlerClient.PUT("/generell-oppgave/{behandlingId}/ferdigstill", {
     headers: getHeaders(onBehalfOfToken),
     body,
     params: {
-      path: { id },
+      path: { behandlingId },
     },
   });
 }

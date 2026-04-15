@@ -28,7 +28,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   const oppgave = await hentOppgave(request, params.oppgaveId);
-  const generellOppgave = await hentGenerellOppgave(request, params.oppgaveId);
+  const generellOppgave = await hentGenerellOppgave(request, params.behandlingId);
 
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
