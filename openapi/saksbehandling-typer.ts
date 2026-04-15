@@ -2743,7 +2743,7 @@ export interface components {
              * @description Om den nye oppgaven skal tildeles samme saksbehandler
              * @default false
              */
-            tildelSammeSaksbehandler: boolean;
+            beholdOppgaven: boolean;
         };
         /** @enum {string} */
         TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
