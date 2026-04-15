@@ -82,7 +82,9 @@ export default function Opplysning() {
                 opplysninger={regelsettOpplysninger.reverse()}
                 tittel={regelsett.hjemmel.tittel}
                 fremhevØverstTidslinjeRad={true}
-                rapporteringPersonIdPromise={rapporteringPersonIdPromise}
+                rapporteringPersonIdPromise={
+                  regelsettId === "NDk3MjQwMDY0" ? rapporteringPersonIdPromise : undefined
+                }
                 medLenkeTilOpplysning={true}
                 opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
                 pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
