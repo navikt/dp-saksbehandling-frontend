@@ -2702,6 +2702,8 @@ export interface components {
              * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
              */
             frist?: string;
+            /** @description Om oppgaven skal tildeles saksbehandleren som oppretter den */
+            beholdOppgaven?: boolean;
             /** @description Strukturert data knyttet til oppgaven */
             strukturertData?: {
                 [key: string]: unknown;
