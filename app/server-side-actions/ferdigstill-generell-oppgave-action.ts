@@ -33,10 +33,10 @@ export async function ferdigstillGenerellOppgaveAction(
   if (data.behandlingsvariant === "GENERELL_OPPGAVE" && data.nyOppgaveTittel) {
     body.nyOppgave = {
       tittel: data.nyOppgaveTittel,
-      emneknagg: data.nyOppgaveEmneknagg || "",
+      aarsak: data.nyOppgaveEmneknagg || "",
       beskrivelse: data.nyOppgaveBeskrivelse,
       frist: data.nyOppgaveFrist,
-      tildelSammeSaksbehandler: data.nyOppgaveTildelSammeSaksbehandler,
+      beholdOppgaven: data.nyOppgaveTildelSammeSaksbehandler,
     };
   }
 

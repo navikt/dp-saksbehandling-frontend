@@ -256,6 +256,32 @@ export function hentValideringForNyKlageSkjema() {
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
+export type INyGenerellOppgave =
+  | "Avventer ny informasjon"
+  | "Oppfølging av meldekort"
+  | "Oppfølging av vedtak"
+  | "Kopi av vedtak til fullmektig"
+  | "Vurdere feilutbetaling"
+  | "Annen årsak";
+
+export const gyldigeNyGenerellOppgaveÅrsaker: INyGenerellOppgave[] = [
+  "Oppfølging av meldekort",
+  "Oppfølging av vedtak",
+  "Kopi av vedtak til fullmektig",
+  "Vurdere feilutbetaling",
+  "Annen årsak",
+];
+
+export function hentValideringForNyGenerellOppgaveSkjema() {
+  return z.object({
+    personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
+    tittel: z.string().min(1, { message: "Du må skrive inn en tittel" }),
+    beskrivelse: z.string().optional(),
+    aarsak: z.enum(gyldigeNyGenerellOppgaveÅrsaker, { message: "Du må velge en årsak" }),
+    frist: z.string().optional(),
+    beholdOppgaven: z.string().optional(),
+  });
+}
 
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({

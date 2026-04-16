@@ -36,12 +36,12 @@ export function OpprettBehandling() {
         className={"my-2"}
         ref={popoverRef}
         size="small"
-        variant="secondary"
+        variant="primary"
         onClick={() => setOpenState(!openState)}
         aria-expanded={openState}
         icon={<FilePlusIcon />}
       >
-        Opprett ny behandling
+        Lag ny oppgave
       </Button>
 
       <Popover
@@ -83,6 +83,15 @@ export function OpprettBehandling() {
               asButtonVariant={"tertiary-neutral"}
             >
               Klage
+            </LoadingLink>
+          </BodyShort>
+
+          <BodyShort size={"small"}>
+            <LoadingLink
+              to={`/person/${personOversikt.person.id}/ny-behandling/generell-oppgave`}
+              asButtonVariant={"tertiary-neutral"}
+            >
+              Generell oppgave
             </LoadingLink>
           </BodyShort>
         </Popover.Content>

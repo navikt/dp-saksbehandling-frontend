@@ -207,6 +207,17 @@ export async function opprettKlage(request: Request, body: components["schemas"]
   });
 }
 
+export async function opprettGenerellOppgave(
+  request: Request,
+  body: components["schemas"]["OpprettGenerellOppgaveRequest"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.POST("/generell-oppgave", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+  });
+}
+
 export async function lagreKlageOpplysning(
   request: Request,
   behandlingId: string,

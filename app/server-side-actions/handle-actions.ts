@@ -30,6 +30,7 @@ import { ferdigstillGenerellOppgaveAction } from "./ferdigstill-generell-oppgave
 import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
+import { opprettGenerellOppgaveAction } from "./opprett-generell-oppgave-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
   const formData = await request.formData();
@@ -104,6 +105,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "opprett-behandling":
       return await opprettBehandlingAction(request, formData);
+
+    case "opprett-generell-oppgave":
+      return await opprettGenerellOppgaveAction(request, formData);
 
     case "rediger-barn":
       return await redigerBarnAction(request, params, formData);
