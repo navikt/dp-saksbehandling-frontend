@@ -455,6 +455,19 @@ export const mockDpSaksbehandling = [
     return response(200).json(mockGenerellOppgave);
   }),
 
+  http.post("/generell-oppgave", async ({ response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(201).json({
+      generellOppgaveId: crypto.randomUUID(),
+      oppgaveId: crypto.randomUUID(),
+    });
+  }),
+
   http.put("/generell-oppgave/{behandlingId}/ferdigstill", async ({ response }) => {
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });

@@ -84,6 +84,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/meldekort/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Hent meldekortstatus for en person
+         * @description Hent meldekortstatus for en person basert på ident
+         */
+        get: operations["get-meldekortstatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -124,6 +144,28 @@ export interface components {
              * @enum {string}
              */
             status: "Startet" | "Avsluttet";
+        };
+        MeldekortStatus: {
+            /** @description Om personen har innsendte meldekort */
+            harInnsendteMeldekort: boolean;
+            meldekortTilUtfylling: components["schemas"]["MeldekortTilUtfylling"][];
+            /**
+             * Format: string
+             * @description URL til bruker sender meldekort
+             */
+            redirectUrl: string;
+        };
+        MeldekortTilUtfylling: {
+            /**
+             * Format: date-time
+             * @description Tidligste dato for når meldekort kan sendes inn
+             */
+            kanSendesFra?: string;
+            /**
+             * Format: date-time
+             * @description Frist for innsending av meldekort
+             */
+            fristForInnsending?: string;
         };
         /** @description Implementasjon av Problem Details for HTTP APIs [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) */
         Problem: {
@@ -270,6 +312,26 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    "get-meldekortstatus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeldekortStatus"];
+                };
             };
         };
     };
