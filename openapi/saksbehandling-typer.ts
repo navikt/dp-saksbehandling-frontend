@@ -4,6 +4,141 @@
  */
 
 export interface paths {
+    "/generell-oppgave": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Opprett en ny generell oppgave
+         * @description Oppretter en generell oppgave for en person.
+         *     Oppgaven opprettes i KLAR_TIL_BEHANDLING, eller PÅ_VENT hvis frist er satt.
+         */
+        post: operations["opprettGenerellOppgave"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/generell-oppgave/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent generell oppgave for en gitt behandlingId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med generell oppgave */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["GenerellOppgave"];
+                    };
+                };
+                /** @description Generell oppgave ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/generell-oppgave/{behandlingId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill generell oppgave */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillGenerellOppgaveRequest"];
+                };
+            };
+            responses: {
+                /** @description Generell oppgave ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Generell oppgave ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tilbakekreving/{behandlingId}": {
         parameters: {
             query?: never;
@@ -2176,11 +2311,11 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "GENERELL_OPPGAVE";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2524,6 +2659,94 @@ export interface components {
             saksbehandlingURL: string;
             fullstendigPeriode: components["schemas"]["TilbakekrevingPeriode"];
         };
+        GenerellOppgave: {
+            /**
+             * Format: uuid
+             * @description Behandling-ID for den generelle oppgaven
+             */
+            behandlingId?: string;
+            /** @description Visningstittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
+            /** @description Strukturert data knyttet til oppgaven */
+            strukturertData?: {
+                [key: string]: unknown;
+            };
+            lovligeSaker?: components["schemas"]["TynnSak"][];
+            /**
+             * Format: uuid
+             * @description Valgt sak-id ved ferdigstilling
+             */
+            sakId?: string;
+            /** @description Saksbehandlers vurdering */
+            vurdering?: string;
+            nyBehandling?: components["schemas"]["TynnBehandling"];
+        };
+        OpprettGenerellOppgaveRequest: {
+            /** @description Fødselsnummer eller D-nummer for personen oppgaven gjelder */
+            personIdent: string;
+            /** @description Kort tittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /** @description Årsak/kategori for oppgaven */
+            aarsak: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
+            /** @description Om oppgaven skal tildeles saksbehandleren som oppretter den */
+            beholdOppgaven?: boolean;
+            /** @description Strukturert data knyttet til oppgaven */
+            strukturertData?: {
+                [key: string]: unknown;
+            };
+        };
+        OpprettGenerellOppgaveResponse: {
+            /**
+             * Format: uuid
+             * @description ID til den opprettede generelle oppgaven
+             */
+            generellOppgaveId: string;
+            /**
+             * Format: uuid
+             * @description ID til den opprettede oppgaven (for oppgavelisten)
+             */
+            oppgaveId: string;
+        };
+        FerdigstillGenerellOppgaveRequest: {
+            /** Format: uuid */
+            sakId?: string;
+            vurdering?: string;
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
+            nyOppgave?: components["schemas"]["NyGenerellOppgave"];
+        };
+        /** @description Data for ny generell oppgave (kun ved behandlingsvariant=GENERELL_OPPGAVE) */
+        NyGenerellOppgave: {
+            /** @description Tittel på den nye oppgaven */
+            tittel: string;
+            /** @description Beskrivelse av den nye oppgaven */
+            beskrivelse?: string;
+            /** @description Årsak/kategori for den nye oppgaven */
+            aarsak: string;
+            /**
+             * Format: date
+             * @description Frist for den nye oppgaven
+             */
+            frist?: string;
+            /**
+             * @description Om den nye oppgaven skal tildeles samme saksbehandler
+             * @default false
+             */
+            beholdOppgaven: boolean;
+        };
         /** @enum {string} */
         TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
         TilbakekrevingPeriode: {
@@ -2540,4 +2763,56 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    opprettGenerellOppgave: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OpprettGenerellOppgaveRequest"];
+            };
+        };
+        responses: {
+            /** @description Generell oppgave opprettet */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpprettGenerellOppgaveResponse"];
+                };
+            };
+            /** @description Ugyldig request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Ingen tilgang til person */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Feil */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+        };
+    };
+}

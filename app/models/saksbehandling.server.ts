@@ -102,6 +102,46 @@ export async function hentTilbakekreving(request: Request, behandlingId: string)
   );
 }
 
+export async function hentGenerellOppgave(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET(
+    "/generell-oppgave/{behandlingId}",
+    {
+      headers: getHeaders(onBehalfOfToken),
+      params: {
+        path: { behandlingId },
+      },
+    },
+  );
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentGenerellOppgave(). ${response.status} - ${response.statusText}`,
+  );
+}
+
+export async function ferdigstillGenerellOppgave(
+  request: Request,
+  behandlingId: string,
+  body: components["schemas"]["FerdigstillGenerellOppgaveRequest"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/generell-oppgave/{behandlingId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
 export async function ferdigstillInnsending(
   request: Request,
   body: components["schemas"]["FerdigstillInnsendingRequest"],

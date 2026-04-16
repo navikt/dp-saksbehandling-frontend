@@ -4,6 +4,8 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { mockGenerellOppgave } from "./data/mock-generell-oppgave/mock-generell-oppgave-data";
+import { mockAdresseendringOppgave } from "./data/mock-generell-oppgave/mock-adresseendring-oppgave-data";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
@@ -460,6 +462,38 @@ export const mockDpSaksbehandling = [
     }
 
     return response(200).json(tilbakekreving);
+  }),
+
+  http.get("/generell-oppgave/{behandlingId}", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const mockOppgave = mockOppgaver.find((oppgave) => oppgave.oppgaveId === behandlingId);
+
+    if (!mockOppgave || mockOppgave.behandlingType !== "GENERELL") {
+      return response(404).json(get404Error(`/generell-oppgave/${behandlingId}`));
+    }
+
+    const generellOppgaveMap: Record<string, components["schemas"]["GenerellOppgave"]> = {
+      "019a0001-0001-7001-a001-000000000001": mockGenerellOppgave,
+      "019a0002-0002-7002-a002-000000000001": mockAdresseendringOppgave,
+    };
+
+    return response(200).json(generellOppgaveMap[behandlingId] ?? mockGenerellOppgave);
+  }),
+
+  http.put("/generell-oppgave/{behandlingId}/ferdigstill", async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(204).empty();
   }),
 
   http.get(`/produksjonsstatistikk`, async ({ request, response }) => {

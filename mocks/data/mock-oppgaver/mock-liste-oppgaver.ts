@@ -1,4 +1,6 @@
 import { components } from "../../../openapi/saksbehandling-typer";
+import { generellOppgave } from "./generell";
+import { generellAdresseendringOppgave } from "./generell-adresseendring";
 import { innsending } from "./innsending";
 import { klage } from "./klage";
 import { oppgave019a492dd283731d83a2a4f36df00502 } from "./oppgave019a492dd283731d83a2a4f36df00502";
@@ -48,8 +50,10 @@ export const mockListeOppgaver = [
   konverterOppgaveTilListeOppgave(oppgave019bb687f66e75cebb9fca28c190ace2),
   konverterOppgaveTilListeOppgave(oppgave019a492dd283731d83a2a4f36df00502),
   konverterOppgaveTilListeOppgave(oppgave019cc289f59b746c849bee996ed5764b),
+  konverterOppgaveTilListeOppgave(oppgave019cc20df6fe713f85637ed86f12f4d4),
   konverterOppgaveTilListeOppgave(klage),
   konverterOppgaveTilListeOppgave(innsending),
   konverterOppgaveTilListeOppgave(tilbakekrevingOppgave),
-  konverterOppgaveTilListeOppgave(oppgave019cc20df6fe713f85637ed86f12f4d4),
+  konverterOppgaveTilListeOppgave(generellOppgave),
+  konverterOppgaveTilListeOppgave(generellAdresseendringOppgave),
 ];
