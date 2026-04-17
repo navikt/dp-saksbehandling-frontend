@@ -385,6 +385,7 @@ export function hentValideringForFerdigstillInnsending() {
     "GENERELL_OPPGAVE",
     "INGEN",
   ];
+
   return z
     .object({
       _action: z.literal("ferdigstill-innsending"),
@@ -407,7 +408,7 @@ export function hentValideringForFerdigstillInnsending() {
     })
     .superRefine((data, ctx) => {
       if (data.behandlingsvariant === "GENERELL_OPPGAVE") {
-        if (!data.nyOppgaveTittel || data.nyOppgaveTittel.length === 0) {
+        if (!data.nyOppgaveTittel || data.nyOppgaveTittel.trim().length === 0) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Du må skrive en tittel",
@@ -415,7 +416,7 @@ export function hentValideringForFerdigstillInnsending() {
           });
         }
 
-        if (!data.nyOppgaveEmneknagg || data.nyOppgaveEmneknagg.length === 0) {
+        if (!data.nyOppgaveEmneknagg || data.nyOppgaveEmneknagg.trim().length === 0) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: "Du må skrive en emneknagg",

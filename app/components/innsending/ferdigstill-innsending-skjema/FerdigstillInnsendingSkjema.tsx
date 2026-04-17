@@ -16,14 +16,15 @@ import { Form, useLocation } from "react-router";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForFerdigstillInnsending } from "~/utils/validering.util";
+import { hentValideringForFerdigstillInnsending, NyBehandlingType } from "~/utils/validering.util";
 
 interface IProps {
   setVisSkjema: (visSkjema: boolean) => void;
   lovligeSaker: components["schemas"]["Innsending"]["lovligeSaker"];
+  medBehandling: boolean;
 }
 
-export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema }: IProps) {
+export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBehandling }: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
@@ -37,11 +38,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema }: IPro
       _action: "ferdigstill-innsending",
       behandlingId,
       sakId: "",
-      behandlingsvariant: "" as unknown as
-        | "RETT_TIL_DAGPENGER_MANUELL"
-        | "RETT_TIL_DAGPENGER_REVURDERING"
-        | "KLAGE"
-        | "GENERELL_OPPGAVE",
+      behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
       vurdering: "",
       aktivtOppgaveSok,
       nyOppgaveTittel: "",
@@ -77,20 +74,22 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema }: IPro
           ))}
         </Select>
 
-        <RadioGroup
-          {...ferdigstillInnsendingSkjema.field("behandlingsvariant").getInputProps()}
-          error={ferdigstillInnsendingSkjema.field("behandlingsvariant").error()}
-          size="small"
-          legend="Behandlingstype"
-          onChange={(val) => {
-            ferdigstillInnsendingSkjema.field("behandlingsvariant").setValue(val);
-          }}
-        >
-          <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
-          <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
-          <Radio value="KLAGE">Klage</Radio>
-          <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
-        </RadioGroup>
+        {medBehandling && (
+          <RadioGroup
+            {...ferdigstillInnsendingSkjema.field("behandlingsvariant").getInputProps()}
+            error={ferdigstillInnsendingSkjema.field("behandlingsvariant").error()}
+            size="small"
+            legend="Behandlingstype"
+            onChange={(val) => {
+              ferdigstillInnsendingSkjema.field("behandlingsvariant").setValue(val);
+            }}
+          >
+            <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
+            <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
+            <Radio value="KLAGE">Klage</Radio>
+            <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
+          </RadioGroup>
+        )}
 
         <Textarea
           {...ferdigstillInnsendingSkjema.field("vurdering").getInputProps()}

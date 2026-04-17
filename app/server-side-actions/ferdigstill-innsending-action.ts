@@ -5,6 +5,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillInnsending } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForFerdigstillInnsending, NyBehandlingType } from "~/utils/validering.util";
 
@@ -19,26 +20,25 @@ export async function ferdigstillInnsendingAction(
     return validationError(validertSkjema.error);
   }
 
+  const data = validertSkjema.data;
+
   const body: components["schemas"]["FerdigstillInnsendingRequest"] = {
-    sakId: validertSkjema.data.sakId,
-    behandlingsvariant:
-      validertSkjema.data.behandlingsvariant === "INGEN"
-        ? undefined
-        : validertSkjema.data.behandlingsvariant,
-    vurdering: validertSkjema.data.vurdering,
+    sakId: data.sakId,
+    behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
+    vurdering: data.vurdering,
     nyOppgave:
-      validertSkjema.data.behandlingsvariant === "GENERELL_OPPGAVE"
+      data.behandlingsvariant === "GENERELL_OPPGAVE"
         ? {
-            tittel: validertSkjema.data.nyOppgaveTittel ?? "",
-            aarsak: validertSkjema.data.nyOppgaveEmneknagg ?? "",
-            beskrivelse: validertSkjema.data.nyOppgaveBeskrivelse,
-            frist: validertSkjema.data.nyOppgaveFrist,
-            beholdOppgaven: validertSkjema.data.nyOppgaveTildelSammeSaksbehandler,
+            tittel: data.nyOppgaveTittel ?? "",
+            aarsak: data.nyOppgaveEmneknagg ?? "",
+            beskrivelse: data.nyOppgaveBeskrivelse,
+            frist: data.nyOppgaveFrist ? formaterTilBackendDato(data.nyOppgaveFrist) : undefined,
+            beholdOppgaven: data.nyOppgaveTildelSammeSaksbehandler,
           }
         : undefined,
   };
 
-  const { error } = await ferdigstillInnsending(request, body, validertSkjema.data.behandlingId);
+  const { error } = await ferdigstillInnsending(request, body, data.behandlingId);
 
   if (error) {
     return getHttpProblemAlert(error);
@@ -46,7 +46,7 @@ export async function ferdigstillInnsendingAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: hentTekstForFerdigstilling(validertSkjema.data.behandlingsvariant),
+    title: hentTekstForFerdigstilling(data.behandlingsvariant),
   };
 
   const session = await getSession(request.headers.get("Cookie"));
