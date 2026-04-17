@@ -1,23 +1,14 @@
-import {
-  Button,
-  Checkbox,
-  DatePicker,
-  Heading,
-  Select,
-  Textarea,
-  TextField,
-  useDatepicker,
-} from "@navikt/ds-react";
+import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { ActionFunctionArgs, Form, useActionData } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
+import { NyGenerellOppgaveFelter } from "~/components/ny-generell-oppgave-felter/NyGenerellOppgaveFelter";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 import {
-  gyldigeNyGenerellOppgaveÅrsaker,
   hentValideringForNyGenerellOppgaveSkjema,
   INyGenerellOppgave,
 } from "~/utils/validering.util";
@@ -32,7 +23,6 @@ export default function NyGenerellOppgave() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
-  const { datepickerProps, inputProps } = useDatepicker({ fromDate: new Date() });
   const generellOppgaveForm = useForm({
     schema: hentValideringForNyGenerellOppgaveSkjema(),
     method: "post",
@@ -41,7 +31,7 @@ export default function NyGenerellOppgave() {
       personIdent: personOversikt.person.ident,
       nyOppgaveTittel: "",
       nyOppgaveBeskrivelse: "",
-      nyOppgaveEmneknagg: "" as unknown as INyGenerellOppgave,
+      nyOppgaveEmneknagg: "" as INyGenerellOppgave,
       nyOppgaveFrist: "",
       nyOppgaveTildelSammeSaksbehandler: false,
     },
@@ -72,46 +62,7 @@ export default function NyGenerellOppgave() {
             {...generellOppgaveForm.field("personIdent").getInputProps()}
           />
 
-          <TextField
-            name="nyOppgaveTittel"
-            label="Tittel"
-            size="small"
-            error={generellOppgaveForm.error("nyOppgaveTittel")}
-          />
-
-          <Textarea
-            name="nyOppgaveBeskrivelse"
-            label="Beskrivelse"
-            description="Kan leses av andre saksbehandlere."
-            size="small"
-          />
-
-          <DatePicker {...datepickerProps}>
-            <DatePicker.Input
-              {...inputProps}
-              label="Når må saksbehandler se på oppgaven?"
-              name="nyOppgaveFrist"
-              size="small"
-            />
-          </DatePicker>
-
-          <Select
-            name="nyOppgaveEmneknagg"
-            label="Årsak"
-            size="small"
-            error={generellOppgaveForm.error("nyOppgaveEmneknagg")}
-          >
-            <option value="">Velg årsak</option>
-            {gyldigeNyGenerellOppgaveÅrsaker.map((årsak) => (
-              <option value={årsak} key={årsak}>
-                {årsak}
-              </option>
-            ))}
-          </Select>
-
-          <Checkbox name="nyOppgaveTildelSammeSaksbehandler" size="small">
-            Behold oppgaven
-          </Checkbox>
+          <NyGenerellOppgaveFelter form={generellOppgaveForm} />
 
           <div className="flex justify-between">
             <LoadingLink

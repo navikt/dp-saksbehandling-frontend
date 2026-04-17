@@ -1,13 +1,34 @@
 import { Checkbox, DatePicker, Select, Textarea, TextField } from "@navikt/ds-react";
-import type { FormApi } from "@rvf/react-router";
+import type { FieldApi } from "@rvf/react-router";
 
+import type { INyGenerellOppgave } from "~/utils/validering.util";
 import { gyldigeNyGenerellOppgaveÅrsaker } from "~/utils/validering.util";
 
-interface INyGenerellOppgaveFelterProps {
-  form: FormApi<Record<string, unknown>>;
+type TNyGenerellOppgaveFelterFieldValues = {
+  nyOppgaveTittel: string | undefined;
+  nyOppgaveBeskrivelse: string | undefined;
+  nyOppgaveEmneknagg: INyGenerellOppgave | undefined;
+  nyOppgaveFrist: string | undefined;
+  nyOppgaveTildelSammeSaksbehandler: boolean | "true" | "false" | "on" | "off" | undefined;
+};
+
+interface INyGenerellOppgaveFelterProps<
+  TForm extends {
+    field<FieldName extends keyof TNyGenerellOppgaveFelterFieldValues & string>(
+      name: FieldName,
+    ): FieldApi<TNyGenerellOppgaveFelterFieldValues[FieldName]>;
+  },
+> {
+  form: TForm;
 }
 
-export function NyGenerellOppgaveFelter({ form }: INyGenerellOppgaveFelterProps) {
+export function NyGenerellOppgaveFelter<
+  TForm extends {
+    field<FieldName extends keyof TNyGenerellOppgaveFelterFieldValues & string>(
+      name: FieldName,
+    ): FieldApi<TNyGenerellOppgaveFelterFieldValues[FieldName]>;
+  },
+>({ form }: INyGenerellOppgaveFelterProps<TForm>) {
   return (
     <>
       <TextField
