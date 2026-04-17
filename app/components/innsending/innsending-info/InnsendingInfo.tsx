@@ -17,7 +17,7 @@ interface IProps {
 
 export function InnsendingInfo({ innsending }: IProps) {
   const { oppgave, readonly } = useOppgave();
-  const [ferdigstillMedBehandling, setFerdigstillMedBehandling] = useState<boolean>();
+  const [visSkjema, setVisSkjema] = useState(false);
 
   return (
     <div className="card flex flex-col gap-4 p-4">
@@ -65,25 +65,11 @@ export function InnsendingInfo({ innsending }: IProps) {
 
       {!readonly && (
         <div className="mt-2 flex flex-col gap-2">
-          {ferdigstillMedBehandling === undefined && (
+          {!visSkjema && (
             <>
               <div>
-                <Button
-                  variant="primary"
-                  size="small"
-                  onClick={() => setFerdigstillMedBehandling(true)}
-                >
-                  Opprett ny behandling
-                </Button>
-              </div>
-
-              <div>
-                <Button
-                  variant="secondary"
-                  size="small"
-                  onClick={() => setFerdigstillMedBehandling(false)}
-                >
-                  Ferdigstill uten behandling
+                <Button variant="primary" size="small" onClick={() => setVisSkjema(true)}>
+                  Ferdigstill oppgave
                 </Button>
               </div>
 
@@ -93,10 +79,9 @@ export function InnsendingInfo({ innsending }: IProps) {
             </>
           )}
 
-          {ferdigstillMedBehandling !== undefined && (
+          {visSkjema && (
             <FerdigstillInnsendingSkjema
-              setFerdigstillMedBehandling={setFerdigstillMedBehandling}
-              medBehandling={ferdigstillMedBehandling}
+              setVisSkjema={setVisSkjema}
               lovligeSaker={innsending.lovligeSaker}
             />
           )}

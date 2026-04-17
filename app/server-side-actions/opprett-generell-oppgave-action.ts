@@ -15,13 +15,14 @@ export async function opprettGenerellOppgaveAction(request: Request, formData: F
     return validationError(validertSkjema.error);
   }
 
-  const { personIdent, tittel, beskrivelse, aarsak, frist } = validertSkjema.data;
+  const { personIdent, tittel, beskrivelse, aarsak, frist, beholdOppgaven } = validertSkjema.data;
   const body: components["schemas"]["OpprettGenerellOppgaveRequest"] = {
     personIdent,
     tittel,
     beskrivelse,
     aarsak,
     frist: frist ? formaterTilBackendDato(frist) : undefined,
+    beholdOppgaven: beholdOppgaven === "on",
   };
 
   const { data, error } = await opprettGenerellOppgave(request, body);

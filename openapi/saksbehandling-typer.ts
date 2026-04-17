@@ -2637,6 +2637,7 @@ export interface components {
             sakId?: string;
             vurdering: string;
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
+            nyOppgave?: components["schemas"]["NyGenerellOppgave"];
         };
         HttpProblem: {
             type: string;
@@ -2702,6 +2703,11 @@ export interface components {
              * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
              */
             frist?: string;
+            /**
+             * @description Om oppgaven skal tildeles saksbehandleren som oppretter den
+             * @default false
+             */
+            beholdOppgaven: boolean;
             /** @description Strukturert data knyttet til oppgaven */
             strukturertData?: {
                 [key: string]: unknown;

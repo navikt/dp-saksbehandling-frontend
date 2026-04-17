@@ -13,10 +13,7 @@ export async function ferdigstillInnsendingAction(
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const validertSkjema = await parseFormData(
-    formData,
-    hentValideringForFerdigstillInnsending(false),
-  );
+  const validertSkjema = await parseFormData(formData, hentValideringForFerdigstillInnsending());
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
@@ -29,6 +26,16 @@ export async function ferdigstillInnsendingAction(
         ? undefined
         : validertSkjema.data.behandlingsvariant,
     vurdering: validertSkjema.data.vurdering,
+    nyOppgave:
+      validertSkjema.data.behandlingsvariant === "GENERELL_OPPGAVE"
+        ? {
+            tittel: validertSkjema.data.nyOppgaveTittel ?? "",
+            aarsak: validertSkjema.data.nyOppgaveEmneknagg ?? "",
+            beskrivelse: validertSkjema.data.nyOppgaveBeskrivelse,
+            frist: validertSkjema.data.nyOppgaveFrist,
+            beholdOppgaven: validertSkjema.data.nyOppgaveTildelSammeSaksbehandler,
+          }
+        : undefined,
   };
 
   const { error } = await ferdigstillInnsending(request, body, validertSkjema.data.behandlingId);
@@ -60,6 +67,8 @@ function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
       return "Innsending ferdigstilt, ny behandling opprettet ✅";
     case "KLAGE":
       return "Innsending ferdigstilt, ny klage opprettet ✅";
+    case "GENERELL_OPPGAVE":
+      return "Innsending ferdigstilt, ny generell oppgave opprettet ✅";
     case "INGEN":
       return "Innsending ferdigstilt ✅";
   }
