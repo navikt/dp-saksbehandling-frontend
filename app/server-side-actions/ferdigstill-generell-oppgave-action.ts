@@ -6,7 +6,10 @@ import { IAlert } from "~/context/alert-context";
 import { ferdigstillGenerellOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForFerdigstillGenerellOppgave } from "~/utils/validering.util";
+import {
+  hentValideringForFerdigstillGenerellOppgave,
+  NyBehandlingType,
+} from "~/utils/validering.util";
 
 export async function ferdigstillGenerellOppgaveAction(
   request: Request,
@@ -27,7 +30,7 @@ export async function ferdigstillGenerellOppgaveAction(
   const body: components["schemas"]["FerdigstillGenerellOppgaveRequest"] = {
     sakId: data.sakId,
     vurdering: data.vurdering,
-    behandlingsvariant: data.behandlingsvariant,
+    behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
   };
 
   if (data.behandlingsvariant === "GENERELL_OPPGAVE" && data.nyOppgaveTittel) {
@@ -61,8 +64,10 @@ export async function ferdigstillGenerellOppgaveAction(
   });
 }
 
-function hentTekstForFerdigstilling(variant: components["schemas"]["BehandlingVariant"]) {
+function hentTekstForFerdigstilling(variant: NyBehandlingType) {
   switch (variant) {
+    case "INGEN":
+      return "Oppgave ferdigstilt ✅";
     case "RETT_TIL_DAGPENGER_MANUELL":
       return "Oppgave ferdigstilt, ny behandling opprettet ✅";
     case "RETT_TIL_DAGPENGER_REVURDERING":

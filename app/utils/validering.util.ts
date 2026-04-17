@@ -466,52 +466,68 @@ export function hentValideringForFerdigstillInnsending() {
   );
 }
 
-const behandlingVarianter: saksbehandlingComponents["schemas"]["BehandlingVariant"][] = [
-  "RETT_TIL_DAGPENGER_MANUELL",
-  "RETT_TIL_DAGPENGER_REVURDERING",
-  "KLAGE",
-  "GENERELL_OPPGAVE",
-];
-
 export function hentValideringForFerdigstillGenerellOppgave() {
-  return z
-    .object({
-      _action: z.literal("ferdigstill-generell-oppgave"),
-      behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-      sakId: z.string().optional(),
-      vurdering: z.string().min(1, "Du må skrive en vurdering"),
-      aktivtOppgaveSok: z.string(),
-      behandlingsvariant: z.enum(behandlingVarianter, "Du må velge en behandlingstype"),
-      nyOppgaveTittel: z.string().optional(),
-      nyOppgaveEmneknagg: z.string().optional(),
-      nyOppgaveBeskrivelse: z.string().optional(),
-      nyOppgaveFrist: z.preprocess(
-        (val) => (val === "" || val === "undefined" ? undefined : val),
-        z.string().optional(),
-      ),
-      nyOppgaveTildelSammeSaksbehandler: z.preprocess(
-        (val) => val === "on" || val === true || val === "true",
+  const ferdigstillGenerellOppgaveFelter = {
+    _action: z.literal("ferdigstill-generell-oppgave"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    sakId: z.string().optional(),
+    vurdering: z.string().min(1, "Du må skrive en vurdering"),
+    aktivtOppgaveSok: z.string(),
+  };
+
+  const ferdigstillGenerellOppgaveInputFelter = z.object({
+    ...ferdigstillGenerellOppgaveFelter,
+    behandlingsvariant: z.string(),
+    nyOppgaveTittel: z.string().optional(),
+    nyOppgaveEmneknagg: z.string().optional(),
+    nyOppgaveBeskrivelse: z.string().optional(),
+    nyOppgaveFrist: z.string().optional(),
+    nyOppgaveTildelSammeSaksbehandler: z
+      .union([
+        z.literal("on"),
+        z.literal("true"),
+        z.literal("false"),
+        z.literal("off"),
         z.boolean(),
-      ),
-    })
-    .superRefine((data, ctx) => {
-      if (data.behandlingsvariant === "GENERELL_OPPGAVE") {
-        if (!data.nyOppgaveTittel || data.nyOppgaveTittel.length === 0) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Du må skrive en tittel",
-            path: ["nyOppgaveTittel"],
-          });
-        }
-        if (!data.nyOppgaveEmneknagg || data.nyOppgaveEmneknagg.length === 0) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Du må skrive en emneknagg",
-            path: ["nyOppgaveEmneknagg"],
-          });
-        }
-      }
-    });
+      ])
+      .optional(),
+  });
+
+  return ferdigstillGenerellOppgaveInputFelter.pipe(
+    z.discriminatedUnion(
+      "behandlingsvariant",
+      [
+        z.object({
+          ...ferdigstillGenerellOppgaveFelter,
+          behandlingsvariant: z.literal("INGEN"),
+        }),
+        z.object({
+          ...ferdigstillGenerellOppgaveFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_MANUELL"),
+        }),
+        z.object({
+          ...ferdigstillGenerellOppgaveFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING"),
+        }),
+        z.object({
+          ...ferdigstillGenerellOppgaveFelter,
+          behandlingsvariant: z.literal("KLAGE"),
+        }),
+        z
+          .object({
+            ...ferdigstillGenerellOppgaveFelter,
+            behandlingsvariant: z.literal("GENERELL_OPPGAVE"),
+          })
+          .merge(nyGenerellOppgaveSchemaFelter())
+          .extend({
+            nyOppgaveEmneknagg: z.enum(gyldigeNyGenerellOppgaveÅrsaker, {
+              error: () => ({ message: "Du må skrive en emneknagg" }),
+            }),
+          }),
+      ],
+      { error: "Du må velge en behandlingstype" },
+    ),
+  );
 }
 
 export function hentValideringForRekjørBehandling() {
