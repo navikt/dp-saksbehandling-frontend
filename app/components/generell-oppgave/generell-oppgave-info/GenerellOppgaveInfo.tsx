@@ -18,6 +18,7 @@ interface IProps {
 export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
   const { oppgave, readonly } = useOppgave();
   const [visSkjema, setVisSkjema] = useState(false);
+  const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
 
   return (
     <div className="card flex flex-col gap-4 p-4">
@@ -78,19 +79,48 @@ export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
       )}
 
       {!readonly && (
-        <div className={"flex flex-col gap-2"}>
+        <div className="mt-2 flex flex-col gap-2">
           {!visSkjema && (
             <>
-              <Button variant="primary" size="small" onClick={() => setVisSkjema(true)}>
-                Ferdigstill oppgave
-              </Button>
-              <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+              <div>
+                <Button
+                  variant="primary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(true);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Opprett ny behandling
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(false);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Ferdigstill uten behandling
+                </Button>
+              </div>
+
+              <div>
+                <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+              </div>
             </>
           )}
 
           {visSkjema && (
             <FerdigstillGenerellOppgaveSkjema
-              onAvbryt={() => setVisSkjema(false)}
+              medBehandling={medBehandling ?? false}
+              onAvbryt={() => {
+                setVisSkjema(false);
+                setMedBehandling(undefined);
+              }}
               lovligeSaker={generellOppgave.lovligeSaker}
             />
           )}

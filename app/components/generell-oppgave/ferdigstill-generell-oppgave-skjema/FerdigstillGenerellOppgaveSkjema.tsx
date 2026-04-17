@@ -1,29 +1,28 @@
-import {
-  Button,
-  Checkbox,
-  DatePicker,
-  Heading,
-  Radio,
-  RadioGroup,
-  Select,
-  Textarea,
-  TextField,
-} from "@navikt/ds-react";
+import { Button, Heading, Radio, RadioGroup, Select, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
+import { NyGenerellOppgaveFelter } from "~/components/ny-generell-oppgave-felter/NyGenerellOppgaveFelter";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForFerdigstillGenerellOppgave } from "~/utils/validering.util";
+import {
+  hentValideringForFerdigstillGenerellOppgave,
+  NyBehandlingType,
+} from "~/utils/validering.util";
 
 interface IProps {
   onAvbryt: () => void;
   lovligeSaker?: components["schemas"]["TynnSak"][];
+  medBehandling: boolean;
 }
 
-export function FerdigstillGenerellOppgaveSkjema({ onAvbryt, lovligeSaker }: IProps) {
+export function FerdigstillGenerellOppgaveSkjema({
+  onAvbryt,
+  lovligeSaker,
+  medBehandling,
+}: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
@@ -39,7 +38,7 @@ export function FerdigstillGenerellOppgaveSkjema({ onAvbryt, lovligeSaker }: IPr
       sakId: "",
       vurdering: "",
       aktivtOppgaveSok,
-      behandlingsvariant: "" as unknown as components["schemas"]["BehandlingVariant"],
+      behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
       nyOppgaveTittel: "",
       nyOppgaveEmneknagg: "",
       nyOppgaveBeskrivelse: "",
@@ -74,17 +73,22 @@ export function FerdigstillGenerellOppgaveSkjema({ onAvbryt, lovligeSaker }: IPr
           </Select>
         )}
 
-        <RadioGroup
-          {...ferdigstillSkjema.field("behandlingsvariant").getInputProps()}
-          error={ferdigstillSkjema.field("behandlingsvariant").error()}
-          size="small"
-          legend="Behandlingstype"
-        >
-          <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
-          <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
-          <Radio value="KLAGE">Klage</Radio>
-          <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
-        </RadioGroup>
+        {medBehandling && (
+          <RadioGroup
+            {...ferdigstillSkjema.field("behandlingsvariant").getInputProps()}
+            error={ferdigstillSkjema.field("behandlingsvariant").error()}
+            size="small"
+            legend="Behandlingstype"
+            onChange={(val) => {
+              ferdigstillSkjema.field("behandlingsvariant").setValue(val);
+            }}
+          >
+            <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
+            <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
+            <Radio value="KLAGE">Klage</Radio>
+            <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
+          </RadioGroup>
+        )}
 
         <Textarea
           {...ferdigstillSkjema.field("vurdering").getInputProps()}
@@ -99,49 +103,7 @@ export function FerdigstillGenerellOppgaveSkjema({ onAvbryt, lovligeSaker }: IPr
               Ny generell oppgave
             </Heading>
 
-            <TextField
-              {...ferdigstillSkjema.field("nyOppgaveTittel").getInputProps()}
-              error={ferdigstillSkjema.field("nyOppgaveTittel").error()}
-              label="Tittel"
-              size="small"
-            />
-
-            <Textarea
-              {...ferdigstillSkjema.field("nyOppgaveBeskrivelse").getInputProps()}
-              error={ferdigstillSkjema.field("nyOppgaveBeskrivelse").error()}
-              resize="vertical"
-              label="Beskrivelse"
-              size="small"
-            />
-
-            <TextField
-              {...ferdigstillSkjema.field("nyOppgaveEmneknagg").getInputProps()}
-              error={ferdigstillSkjema.field("nyOppgaveEmneknagg").error()}
-              label="Emneknagg"
-              size="small"
-            />
-
-            <DatePicker>
-              <DatePicker.Input
-                {...ferdigstillSkjema.field("nyOppgaveFrist").getInputProps()}
-                error={ferdigstillSkjema.field("nyOppgaveFrist").error()}
-                label="Frist"
-                size="small"
-              />
-            </DatePicker>
-
-            <Checkbox
-              size="small"
-              name="nyOppgaveTildelSammeSaksbehandler"
-              checked={!!ferdigstillSkjema.field("nyOppgaveTildelSammeSaksbehandler").value()}
-              onChange={(e) => {
-                ferdigstillSkjema
-                  .field("nyOppgaveTildelSammeSaksbehandler")
-                  .setValue(e.currentTarget.checked);
-              }}
-            >
-              Tildel samme saksbehandler
-            </Checkbox>
+            <NyGenerellOppgaveFelter form={ferdigstillSkjema} />
           </>
         )}
 

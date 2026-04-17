@@ -1,18 +1,9 @@
-import {
-  Button,
-  Checkbox,
-  DatePicker,
-  Heading,
-  Radio,
-  RadioGroup,
-  Select,
-  Textarea,
-  TextField,
-} from "@navikt/ds-react";
+import { Button, Heading, Radio, RadioGroup, Select, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
+import { NyGenerellOppgaveFelter } from "~/components/ny-generell-oppgave-felter/NyGenerellOppgaveFelter";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -104,51 +95,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
               Ny generell oppgave
             </Heading>
 
-            <TextField
-              {...ferdigstillInnsendingSkjema.field("nyOppgaveTittel").getInputProps()}
-              error={ferdigstillInnsendingSkjema.field("nyOppgaveTittel").error()}
-              label="Tittel"
-              size="small"
-            />
-
-            <Textarea
-              {...ferdigstillInnsendingSkjema.field("nyOppgaveBeskrivelse").getInputProps()}
-              error={ferdigstillInnsendingSkjema.field("nyOppgaveBeskrivelse").error()}
-              resize="vertical"
-              label="Beskrivelse"
-              size="small"
-            />
-
-            <TextField
-              {...ferdigstillInnsendingSkjema.field("nyOppgaveEmneknagg").getInputProps()}
-              error={ferdigstillInnsendingSkjema.field("nyOppgaveEmneknagg").error()}
-              label="Emneknagg"
-              size="small"
-            />
-
-            <DatePicker>
-              <DatePicker.Input
-                {...ferdigstillInnsendingSkjema.field("nyOppgaveFrist").getInputProps()}
-                error={ferdigstillInnsendingSkjema.field("nyOppgaveFrist").error()}
-                label="Frist"
-                size="small"
-              />
-            </DatePicker>
-
-            <Checkbox
-              size="small"
-              name="nyOppgaveTildelSammeSaksbehandler"
-              checked={
-                !!ferdigstillInnsendingSkjema.field("nyOppgaveTildelSammeSaksbehandler").value()
-              }
-              onChange={(e) => {
-                ferdigstillInnsendingSkjema
-                  .field("nyOppgaveTildelSammeSaksbehandler")
-                  .setValue(e.currentTarget.checked);
-              }}
-            >
-              Tildel samme saksbehandler
-            </Checkbox>
+            <NyGenerellOppgaveFelter form={ferdigstillInnsendingSkjema} />
           </>
         )}
 
