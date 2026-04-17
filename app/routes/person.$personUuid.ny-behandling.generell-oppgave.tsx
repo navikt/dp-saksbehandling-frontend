@@ -37,12 +37,13 @@ export default function NyGenerellOppgave() {
     schema: hentValideringForNyGenerellOppgaveSkjema(),
     method: "post",
     defaultValues: {
+      _action: "opprett-generell-oppgave",
       personIdent: personOversikt.person.ident,
-      tittel: "",
-      beskrivelse: "",
-      aarsak: "" as unknown as INyGenerellOppgave,
-      frist: "",
-      beholdOppgaven: "",
+      nyOppgaveTittel: "",
+      nyOppgaveBeskrivelse: "",
+      nyOppgaveEmneknagg: "" as unknown as INyGenerellOppgave,
+      nyOppgaveFrist: "",
+      nyOppgaveTildelSammeSaksbehandler: false,
     },
   });
 
@@ -58,7 +59,13 @@ export default function NyGenerellOppgave() {
           {...generellOppgaveForm.getFormProps()}
           className={"flex flex-col gap-4"}
         >
-          <input name="_action" value="opprett-generell-oppgave" hidden={true} readOnly={true} />
+          <input
+            hidden={true}
+            readOnly={true}
+            {...generellOppgaveForm
+              .field("_action")
+              .getInputProps({ value: "opprett-generell-oppgave" })}
+          />
           <input
             hidden={true}
             readOnly={true}
@@ -66,14 +73,14 @@ export default function NyGenerellOppgave() {
           />
 
           <TextField
-            name="tittel"
+            name="nyOppgaveTittel"
             label="Tittel"
             size="small"
-            error={generellOppgaveForm.error("tittel")}
+            error={generellOppgaveForm.error("nyOppgaveTittel")}
           />
 
           <Textarea
-            name="beskrivelse"
+            name="nyOppgaveBeskrivelse"
             label="Beskrivelse"
             description="Kan leses av andre saksbehandlere."
             size="small"
@@ -83,16 +90,16 @@ export default function NyGenerellOppgave() {
             <DatePicker.Input
               {...inputProps}
               label="Når må saksbehandler se på oppgaven?"
-              name="frist"
+              name="nyOppgaveFrist"
               size="small"
             />
           </DatePicker>
 
           <Select
-            name="aarsak"
+            name="nyOppgaveEmneknagg"
             label="Årsak"
             size="small"
-            error={generellOppgaveForm.error("aarsak")}
+            error={generellOppgaveForm.error("nyOppgaveEmneknagg")}
           >
             <option value="">Velg årsak</option>
             {gyldigeNyGenerellOppgaveÅrsaker.map((årsak) => (
@@ -102,7 +109,7 @@ export default function NyGenerellOppgave() {
             ))}
           </Select>
 
-          <Checkbox name="beholdOppgaven" size="small">
+          <Checkbox name="nyOppgaveTildelSammeSaksbehandler" size="small">
             Behold oppgaven
           </Checkbox>
 

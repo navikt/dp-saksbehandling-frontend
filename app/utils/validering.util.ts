@@ -274,13 +274,9 @@ export const gyldigeNyGenerellOppgaveÅrsaker: INyGenerellOppgave[] = [
 ];
 
 export function hentValideringForNyGenerellOppgaveSkjema() {
-  return z.object({
+  return nyGenerellOppgaveSchemaFelter().extend({
+    _action: z.literal("opprett-generell-oppgave"),
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
-    tittel: z.string().min(1, { message: "Du må skrive inn en tittel" }),
-    beskrivelse: z.string().optional(),
-    aarsak: z.enum(gyldigeNyGenerellOppgaveÅrsaker, { message: "Du må velge en årsak" }),
-    frist: z.string().optional(),
-    beholdOppgaven: z.string().optional(),
   });
 }
 

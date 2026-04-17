@@ -15,14 +15,22 @@ export async function opprettGenerellOppgaveAction(request: Request, formData: F
     return validationError(validertSkjema.error);
   }
 
-  const { personIdent, tittel, beskrivelse, aarsak, frist, beholdOppgaven } = validertSkjema.data;
+  const {
+    personIdent,
+    nyOppgaveTittel,
+    nyOppgaveBeskrivelse,
+    nyOppgaveEmneknagg,
+    nyOppgaveFrist,
+    nyOppgaveTildelSammeSaksbehandler,
+  } = validertSkjema.data;
+
   const body: components["schemas"]["OpprettGenerellOppgaveRequest"] = {
     personIdent,
-    tittel,
-    beskrivelse,
-    aarsak,
-    frist: frist ? formaterTilBackendDato(frist) : undefined,
-    beholdOppgaven: beholdOppgaven === "on",
+    tittel: nyOppgaveTittel,
+    beskrivelse: nyOppgaveBeskrivelse,
+    aarsak: nyOppgaveEmneknagg,
+    frist: nyOppgaveFrist ? formaterTilBackendDato(nyOppgaveFrist) : undefined,
+    beholdOppgaven: nyOppgaveTildelSammeSaksbehandler,
   };
 
   const { data, error } = await opprettGenerellOppgave(request, body);
