@@ -19,16 +19,14 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentValideringForFerdigstillGenerellOppgave } from "~/utils/validering.util";
 
 interface IProps {
-  variant: "BEHANDLING" | "GENERELL_OPPGAVE";
   onAvbryt: () => void;
   lovligeSaker?: components["schemas"]["TynnSak"][];
 }
 
-export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSaker }: IProps) {
+export function FerdigstillGenerellOppgaveSkjema({ onAvbryt, lovligeSaker }: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
-  const medNyOppgave = variant === "GENERELL_OPPGAVE";
 
   const ferdigstillSkjema = useForm({
     method: "post",
@@ -41,9 +39,7 @@ export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSak
       sakId: "",
       vurdering: "",
       aktivtOppgaveSok,
-      behandlingsvariant: medNyOppgave
-        ? "GENERELL_OPPGAVE"
-        : ("" as unknown as components["schemas"]["BehandlingVariant"]),
+      behandlingsvariant: "" as unknown as components["schemas"]["BehandlingVariant"],
       nyOppgaveTittel: "",
       nyOppgaveEmneknagg: "",
       nyOppgaveBeskrivelse: "",
@@ -52,10 +48,12 @@ export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSak
     },
   });
 
+  const valgtVariant = ferdigstillSkjema.field("behandlingsvariant").value();
+
   return (
     <div className="flex flex-col gap-4 rounded-(--ax-radius-8) border border-(--ax-border-info-subtle)! bg-(--ax-bg-info-moderate)! p-2">
       <Heading size="xsmall" level="3">
-        {medNyOppgave ? "Ferdigstill og opprett ny generell oppgave" : "Opprett ny behandling"}
+        Ferdigstill oppgave
       </Heading>
 
       <Form {...ferdigstillSkjema.getFormProps()} className="flex flex-col gap-4">
@@ -76,18 +74,17 @@ export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSak
           </Select>
         )}
 
-        {!medNyOppgave && (
-          <RadioGroup
-            {...ferdigstillSkjema.field("behandlingsvariant").getInputProps()}
-            error={ferdigstillSkjema.field("behandlingsvariant").error()}
-            size="small"
-            legend="Behandlingstype"
-          >
-            <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
-            <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
-            <Radio value="KLAGE">Klage</Radio>
-          </RadioGroup>
-        )}
+        <RadioGroup
+          {...ferdigstillSkjema.field("behandlingsvariant").getInputProps()}
+          error={ferdigstillSkjema.field("behandlingsvariant").error()}
+          size="small"
+          legend="Behandlingstype"
+        >
+          <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
+          <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
+          <Radio value="KLAGE">Klage</Radio>
+          <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
+        </RadioGroup>
 
         <Textarea
           {...ferdigstillSkjema.field("vurdering").getInputProps()}
@@ -96,7 +93,7 @@ export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSak
           label="Vurdering"
         />
 
-        {medNyOppgave && (
+        {valgtVariant === "GENERELL_OPPGAVE" && (
           <>
             <Heading size="xsmall" level="4">
               Ny generell oppgave
@@ -136,7 +133,7 @@ export function FerdigstillGenerellOppgaveSkjema({ variant, onAvbryt, lovligeSak
             <Checkbox
               size="small"
               name="nyOppgaveTildelSammeSaksbehandler"
-              defaultChecked={false}
+              checked={!!ferdigstillSkjema.field("nyOppgaveTildelSammeSaksbehandler").value()}
               onChange={(e) => {
                 ferdigstillSkjema
                   .field("nyOppgaveTildelSammeSaksbehandler")

@@ -17,7 +17,7 @@ interface IProps {
 
 export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
   const { oppgave, readonly } = useOppgave();
-  const [valgtVariant, setValgtVariant] = useState<"BEHANDLING" | "GENERELL_OPPGAVE">();
+  const [visSkjema, setVisSkjema] = useState(false);
 
   return (
     <div className="card flex flex-col gap-4 p-4">
@@ -79,26 +79,18 @@ export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
 
       {!readonly && (
         <div className={"flex flex-col gap-2"}>
-          {valgtVariant === undefined && (
+          {!visSkjema && (
             <>
-              <Button variant="primary" size="small" onClick={() => setValgtVariant("BEHANDLING")}>
-                Ferdigstill oppgave og lag ny behandling
-              </Button>
-              <Button
-                variant="primary"
-                size="small"
-                onClick={() => setValgtVariant("GENERELL_OPPGAVE")}
-              >
-                Ferdigstill oppgave og lag ny generell oppgave
+              <Button variant="primary" size="small" onClick={() => setVisSkjema(true)}>
+                Ferdigstill oppgave
               </Button>
               <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
             </>
           )}
 
-          {valgtVariant !== undefined && (
+          {visSkjema && (
             <FerdigstillGenerellOppgaveSkjema
-              variant={valgtVariant}
-              onAvbryt={() => setValgtVariant(undefined)}
+              onAvbryt={() => setVisSkjema(false)}
               lovligeSaker={generellOppgave.lovligeSaker}
             />
           )}
