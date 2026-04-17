@@ -284,6 +284,31 @@ export function hentValideringForNyGenerellOppgaveSkjema() {
   });
 }
 
+export function nyGenerellOppgaveSchemaFelter() {
+  return z.object({
+    nyOppgaveTittel: z.string().min(1, "Du må skrive en tittel"),
+    nyOppgaveEmneknagg: z.enum(gyldigeNyGenerellOppgaveÅrsaker, {
+      error: () => ({ message: "Du må velge en emneknagg" }),
+    }),
+    nyOppgaveBeskrivelse: z.string().optional(),
+    nyOppgaveFrist: z
+      .string()
+      .trim()
+      .optional()
+      .transform((v) => (v === "" || v === "undefined" ? undefined : v)),
+    nyOppgaveTildelSammeSaksbehandler: z
+      .union([
+        z.literal("on"),
+        z.literal("true"),
+        z.literal("false"),
+        z.literal("off"),
+        z.boolean(),
+      ])
+      .optional()
+      .transform((v) => v === "on" || v === "true" || v === true),
+  });
+}
+
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
