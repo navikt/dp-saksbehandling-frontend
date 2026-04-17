@@ -5,6 +5,7 @@ import { ActionFunctionArgs, redirect } from "react-router";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillGenerellOppgave } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import {
   hentValideringForFerdigstillGenerellOppgave,
@@ -33,12 +34,12 @@ export async function ferdigstillGenerellOppgaveAction(
     behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
   };
 
-  if (data.behandlingsvariant === "GENERELL_OPPGAVE" && data.nyOppgaveTittel) {
+  if (data.behandlingsvariant === "GENERELL_OPPGAVE") {
     body.nyOppgave = {
       tittel: data.nyOppgaveTittel,
-      aarsak: data.nyOppgaveEmneknagg || "",
+      aarsak: data.nyOppgaveEmneknagg,
       beskrivelse: data.nyOppgaveBeskrivelse,
-      frist: data.nyOppgaveFrist,
+      frist: data.nyOppgaveFrist ? formaterTilBackendDato(data.nyOppgaveFrist) : undefined,
       beholdOppgaven: data.nyOppgaveTildelSammeSaksbehandler,
     };
   }

@@ -29,8 +29,8 @@ export async function ferdigstillInnsendingAction(
     nyOppgave:
       data.behandlingsvariant === "GENERELL_OPPGAVE"
         ? {
-            tittel: data.nyOppgaveTittel ?? "",
-            aarsak: data.nyOppgaveEmneknagg ?? "",
+            tittel: data.nyOppgaveTittel,
+            aarsak: data.nyOppgaveEmneknagg,
             beskrivelse: data.nyOppgaveBeskrivelse,
             frist: data.nyOppgaveFrist ? formaterTilBackendDato(data.nyOppgaveFrist) : undefined,
             beholdOppgaven: data.nyOppgaveTildelSammeSaksbehandler,
