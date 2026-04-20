@@ -27,7 +27,7 @@ export async function ferdigstillInnsendingAction(
     behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
     vurdering: data.vurdering,
     nyOppgave:
-      data.behandlingsvariant === "GENERELL_OPPGAVE"
+      data.behandlingsvariant === "OPPFOLGING"
         ? {
             tittel: data.nyOppgaveTittel,
             aarsak: data.nyOppgaveEmneknagg,
@@ -67,8 +67,8 @@ function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
       return "Innsending ferdigstilt, ny behandling opprettet ✅";
     case "KLAGE":
       return "Innsending ferdigstilt, ny klage opprettet ✅";
-    case "GENERELL_OPPGAVE":
-      return "Innsending ferdigstilt, ny generell oppgave opprettet ✅";
+    case "OPPFOLGING":
+      return "Innsending ferdigstilt, ny oppfølging opprettet ✅";
     case "INGEN":
       return "Innsending ferdigstilt ✅";
   }

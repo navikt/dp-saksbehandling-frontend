@@ -88,8 +88,8 @@ export function hentGyldigeOppgaveValg(
       return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave);
     case "TILBAKEKREVING":
       return hentGyldigeTilbakekrevingOppgaveValg(oppgave, minOppgave);
-    case "GENERELL":
-      return hentGyldigeGenerellOppgaveValg(oppgave, minOppgave);
+    case "OPPFØLGING":
+      return hentGyldigeOppfolgingValg(oppgave, minOppgave);
     default:
       return [];
   }
@@ -246,7 +246,7 @@ function hentGyldigeTilbakekrevingOppgaveValg(
   return handlinger;
 }
 
-function hentGyldigeGenerellOppgaveValg(
+function hentGyldigeOppfolgingValg(
   oppgave:
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],

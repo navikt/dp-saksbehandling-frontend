@@ -4,10 +4,10 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
-import { mockGenerellOppgave } from "./data/mock-generell-oppgave/mock-generell-oppgave";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
+import { mockOppfolging } from "./data/mock-oppfolging/mock-oppfolging";
 import { klage } from "./data/mock-oppgaver/klage";
 import {
   konverterOppgaveTilListeOppgave,
@@ -445,17 +445,17 @@ export const mockDpSaksbehandling = [
     return response(204).empty();
   }),
 
-  http.get("/generell-oppgave/{behandlingId}", async ({ response }) => {
+  http.get("/oppfolging/{behandlingId}", async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockGenerellOppgave);
+    return response(200).json(mockOppfolging);
   }),
 
-  http.post("/generell-oppgave", async ({ response }) => {
+  http.post("/oppfolging", async ({ response }) => {
     await delay(delayMs);
 
     if (apiError) {
@@ -463,12 +463,12 @@ export const mockDpSaksbehandling = [
     }
 
     return response(201).json({
-      generellOppgaveId: crypto.randomUUID(),
+      oppfølgingId: crypto.randomUUID(),
       oppgaveId: crypto.randomUUID(),
     });
   }),
 
-  http.put("/generell-oppgave/{behandlingId}/ferdigstill", async ({ response }) => {
+  http.put("/oppfolging/{behandlingId}/ferdigstill", async ({ response }) => {
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });
     }

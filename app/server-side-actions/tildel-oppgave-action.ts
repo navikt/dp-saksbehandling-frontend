@@ -39,8 +39,8 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
     case "TILBAKEKREVING":
       return redirect(`/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`);
 
-    case "GENERELL":
-      return redirect(`/oppgave/${oppgaveId}/generell-oppgave/${behandlingId}`);
+    case "OPPFØLGING":
+      return redirect(`/oppgave/${oppgaveId}/oppfolging/${behandlingId}`);
   }
 
   throw new Error(`Uhåndtert feil i v2TildelOppgaveAction()`);

@@ -3,14 +3,11 @@ import { useForm } from "@rvf/react-router";
 import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
-import { NyGenerellOppgaveFelter } from "~/components/ny-generell-oppgave-felter/NyGenerellOppgaveFelter";
+import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import {
-  hentValideringForFerdigstillGenerellOppgave,
-  NyBehandlingType,
-} from "~/utils/validering.util";
+import { hentValideringForFerdigstillOppfolging, NyBehandlingType } from "~/utils/validering.util";
 
 interface IProps {
   onAvbryt: () => void;
@@ -18,11 +15,7 @@ interface IProps {
   medBehandling: boolean;
 }
 
-export function FerdigstillGenerellOppgaveSkjema({
-  onAvbryt,
-  lovligeSaker,
-  medBehandling,
-}: IProps) {
+export function FerdigstillOppfolgingSkjema({ onAvbryt, lovligeSaker, medBehandling }: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
@@ -31,9 +24,9 @@ export function FerdigstillGenerellOppgaveSkjema({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillGenerellOppgave(),
+    schema: hentValideringForFerdigstillOppfolging(),
     defaultValues: {
-      _action: "ferdigstill-generell-oppgave",
+      _action: "ferdigstill-oppfolging",
       behandlingId,
       sakId: "",
       vurdering: "",
@@ -86,7 +79,7 @@ export function FerdigstillGenerellOppgaveSkjema({
             <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
             <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
             <Radio value="KLAGE">Klage</Radio>
-            <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
+            <Radio value="OPPFOLGING">Oppfølging</Radio>
           </RadioGroup>
         )}
 
@@ -97,13 +90,13 @@ export function FerdigstillGenerellOppgaveSkjema({
           label="Vurdering"
         />
 
-        {valgtVariant === "GENERELL_OPPGAVE" && (
+        {valgtVariant === "OPPFOLGING" && (
           <>
             <Heading size="xsmall" level="4">
-              Ny generell oppgave
+              Ny oppfølging
             </Heading>
 
-            <NyGenerellOppgaveFelter form={ferdigstillSkjema} />
+            <NyOppfolgingFelter form={ferdigstillSkjema} />
           </>
         )}
 

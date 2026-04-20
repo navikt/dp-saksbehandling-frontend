@@ -88,10 +88,10 @@ export function OpprettBehandling() {
 
           <BodyShort size={"small"}>
             <LoadingLink
-              to={`/person/${personOversikt.person.id}/ny-behandling/generell-oppgave`}
+              to={`/person/${personOversikt.person.id}/ny-behandling/oppfolging`}
               asButtonVariant={"tertiary-neutral"}
             >
-              Generell oppgave
+              Oppfølging
             </LoadingLink>
           </BodyShort>
         </Popover.Content>

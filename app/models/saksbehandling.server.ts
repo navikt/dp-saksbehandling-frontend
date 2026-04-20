@@ -77,17 +77,14 @@ export async function hentInnsending(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
 }
 
-export async function hentGenerellOppgave(request: Request, behandlingId: string) {
+export async function hentOppfolging(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  const { response, data, error } = await saksbehandlerClient.GET(
-    "/generell-oppgave/{behandlingId}",
-    {
-      headers: getHeaders(onBehalfOfToken),
-      params: {
-        path: { behandlingId },
-      },
+  const { response, data, error } = await saksbehandlerClient.GET("/oppfolging/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
     },
-  );
+  });
 
   if (data) {
     return data;
@@ -97,18 +94,16 @@ export async function hentGenerellOppgave(request: Request, behandlingId: string
     handleHttpProblem(error);
   }
 
-  throw new Error(
-    `Uhåndtert feil i hentGenerellOppgave(). ${response.status} - ${response.statusText}`,
-  );
+  throw new Error(`Uhåndtert feil i hentOppfolging(). ${response.status} - ${response.statusText}`);
 }
 
-export async function ferdigstillGenerellOppgave(
+export async function ferdigstillOppfolging(
   request: Request,
   behandlingId: string,
-  body: components["schemas"]["FerdigstillGenerellOppgaveRequest"],
+  body: components["schemas"]["FerdigstillOppfolgingRequest"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.PUT("/generell-oppgave/{behandlingId}/ferdigstill", {
+  return await saksbehandlerClient.PUT("/oppfolging/{behandlingId}/ferdigstill", {
     headers: getHeaders(onBehalfOfToken),
     body,
     params: {
@@ -207,12 +202,12 @@ export async function opprettKlage(request: Request, body: components["schemas"]
   });
 }
 
-export async function opprettGenerellOppgave(
+export async function opprettOppfolging(
   request: Request,
-  body: components["schemas"]["OpprettGenerellOppgaveRequest"],
+  body: components["schemas"]["OpprettOppfolgingRequest"],
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
-  return await saksbehandlerClient.POST("/generell-oppgave", {
+  return await saksbehandlerClient.POST("/oppfolging", {
     headers: getHeaders(onBehalfOfToken),
     body,
   });

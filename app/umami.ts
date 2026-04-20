@@ -6,7 +6,7 @@ export function umamiBeforeSend(type: string, payload: { url?: string }) {
     "innsending",
     "klage",
     "tilbakekreving",
-    "generell-oppgave",
+    "oppfolging",
   ]);
   if (payload.url) {
     const segmenter = payload.url.split("/");

@@ -9,13 +9,13 @@ import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
-import { FerdigstillGenerellOppgaveSkjema } from "../ferdigstill-generell-oppgave-skjema/FerdigstillGenerellOppgaveSkjema";
+import { FerdigstillOppfolgingSkjema } from "../ferdigstill-oppfolging-skjema/FerdigstillOppfolgingSkjema";
 
 interface IProps {
-  generellOppgave: components["schemas"]["GenerellOppgave"];
+  oppfolging: components["schemas"]["Oppfolging"];
 }
 
-export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
+export function OppfolgingInfo({ oppfolging }: IProps) {
   const { oppgave, readonly } = useOppgave();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
@@ -47,7 +47,7 @@ export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
       <VerdiMedTittel
         visBorder={true}
         label="Frist"
-        verdi={generellOppgave.frist ? formaterTilNorskDato(generellOppgave.frist) : "Ingen frist"}
+        verdi={oppfolging.frist ? formaterTilNorskDato(oppfolging.frist) : "Ingen frist"}
       />
 
       {oppgave.saksbehandler && (
@@ -66,15 +66,15 @@ export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
         />
       )}
 
-      {generellOppgave.vurdering && readonly && (
-        <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={generellOppgave.vurdering} />
+      {oppfolging.vurdering && readonly && (
+        <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={oppfolging.vurdering} />
       )}
 
-      {generellOppgave.nyBehandling && readonly && (
+      {oppfolging.nyBehandling && readonly && (
         <VerdiMedTittel
           visBorder={true}
           label={"Ny behandling"}
-          verdi={`${generellOppgave.nyBehandling.behandlingType} – ${generellOppgave.nyBehandling.behandlingId}`}
+          verdi={`${oppfolging.nyBehandling.behandlingType} – ${oppfolging.nyBehandling.behandlingId}`}
         />
       )}
 
@@ -115,13 +115,13 @@ export function GenerellOppgaveInfo({ generellOppgave }: IProps) {
           )}
 
           {visSkjema && (
-            <FerdigstillGenerellOppgaveSkjema
+            <FerdigstillOppfolgingSkjema
               medBehandling={medBehandling ?? false}
               onAvbryt={() => {
                 setVisSkjema(false);
                 setMedBehandling(undefined);
               }}
-              lovligeSaker={generellOppgave.lovligeSaker}
+              lovligeSaker={oppfolging.lovligeSaker}
             />
           )}
         </div>

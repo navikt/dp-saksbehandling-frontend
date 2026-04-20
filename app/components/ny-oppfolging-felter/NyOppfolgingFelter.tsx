@@ -1,34 +1,34 @@
 import { Checkbox, DatePicker, Select, Textarea, TextField } from "@navikt/ds-react";
 import type { FieldApi } from "@rvf/react-router";
 
-import type { INyGenerellOppgave } from "~/utils/validering.util";
-import { gyldigeNyGenerellOppgaveÅrsaker } from "~/utils/validering.util";
+import type { INyOppfolging } from "~/utils/validering.util";
+import { gyldigeNyOppfolgingÅrsaker } from "~/utils/validering.util";
 
-type TNyGenerellOppgaveFelterFieldValues = {
+type TNyOppfolgingFelterFieldValues = {
   nyOppgaveTittel: string | undefined;
   nyOppgaveBeskrivelse: string | undefined;
-  nyOppgaveEmneknagg: INyGenerellOppgave | undefined;
+  nyOppgaveEmneknagg: INyOppfolging | undefined;
   nyOppgaveFrist: string | undefined;
   nyOppgaveTildelSammeSaksbehandler: boolean | "true" | "false" | "on" | "off" | undefined;
 };
 
-interface INyGenerellOppgaveFelterProps<
+interface INyOppfolgingFelterProps<
   TForm extends {
-    field<FieldName extends keyof TNyGenerellOppgaveFelterFieldValues & string>(
+    field<FieldName extends keyof TNyOppfolgingFelterFieldValues & string>(
       name: FieldName,
-    ): FieldApi<TNyGenerellOppgaveFelterFieldValues[FieldName]>;
+    ): FieldApi<TNyOppfolgingFelterFieldValues[FieldName]>;
   },
 > {
   form: TForm;
 }
 
-export function NyGenerellOppgaveFelter<
+export function NyOppfolgingFelter<
   TForm extends {
-    field<FieldName extends keyof TNyGenerellOppgaveFelterFieldValues & string>(
+    field<FieldName extends keyof TNyOppfolgingFelterFieldValues & string>(
       name: FieldName,
-    ): FieldApi<TNyGenerellOppgaveFelterFieldValues[FieldName]>;
+    ): FieldApi<TNyOppfolgingFelterFieldValues[FieldName]>;
   },
->({ form }: INyGenerellOppgaveFelterProps<TForm>) {
+>({ form }: INyOppfolgingFelterProps<TForm>) {
   return (
     <>
       <TextField
@@ -53,7 +53,7 @@ export function NyGenerellOppgaveFelter<
         size="small"
       >
         <option value="">Velg emneknagg</option>
-        {gyldigeNyGenerellOppgaveÅrsaker.map((årsak) => (
+        {gyldigeNyOppfolgingÅrsaker.map((årsak) => (
           <option value={årsak} key={årsak}>
             {årsak}
           </option>

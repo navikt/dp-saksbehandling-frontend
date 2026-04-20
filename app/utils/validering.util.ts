@@ -9,7 +9,7 @@ export type NyBehandlingType =
   | "RETT_TIL_DAGPENGER_MANUELL"
   | "RETT_TIL_DAGPENGER_REVURDERING"
   | "KLAGE"
-  | "GENERELL_OPPGAVE"
+  | "OPPFOLGING"
   | "INGEN";
 
 export function hentValideringForOpplysningPeriodeSkjema(
@@ -257,7 +257,7 @@ export function hentValideringForNyKlageSkjema() {
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
-export type INyGenerellOppgave =
+export type INyOppfolging =
   | "Avventer ny informasjon"
   | "Oppfølging av meldekort"
   | "Oppfølging av vedtak"
@@ -265,7 +265,7 @@ export type INyGenerellOppgave =
   | "Vurdere feilutbetaling"
   | "Annen årsak";
 
-export const gyldigeNyGenerellOppgaveÅrsaker: INyGenerellOppgave[] = [
+export const gyldigeNyOppfolgingÅrsaker: INyOppfolging[] = [
   "Oppfølging av meldekort",
   "Oppfølging av vedtak",
   "Kopi av vedtak til fullmektig",
@@ -273,17 +273,17 @@ export const gyldigeNyGenerellOppgaveÅrsaker: INyGenerellOppgave[] = [
   "Annen årsak",
 ];
 
-export function hentValideringForNyGenerellOppgaveSkjema() {
-  return nyGenerellOppgaveSchemaFelter().extend({
-    _action: z.literal("opprett-generell-oppgave"),
+export function hentValideringForNyOppfolgingSkjema() {
+  return nyOppfolgingSchemaFelter().extend({
+    _action: z.literal("opprett-oppfolging"),
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
 
-export function nyGenerellOppgaveSchemaFelter() {
+export function nyOppfolgingSchemaFelter() {
   return z.object({
     nyOppgaveTittel: z.string().min(1, "Du må skrive en tittel"),
-    nyOppgaveEmneknagg: z.enum(gyldigeNyGenerellOppgaveÅrsaker, {
+    nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
       error: () => ({ message: "Du må velge en emneknagg" }),
     }),
     nyOppgaveBeskrivelse: z.string().optional(),
@@ -448,11 +448,11 @@ export function hentValideringForFerdigstillInnsending() {
         z
           .object({
             ...ferdigstillInnsendingFelter,
-            behandlingsvariant: z.literal("GENERELL_OPPGAVE"),
+            behandlingsvariant: z.literal("OPPFOLGING"),
           })
-          .merge(nyGenerellOppgaveSchemaFelter())
+          .merge(nyOppfolgingSchemaFelter())
           .extend({
-            nyOppgaveEmneknagg: z.enum(gyldigeNyGenerellOppgaveÅrsaker, {
+            nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
               error: () => ({ message: "Du må skrive en emneknagg" }),
             }),
           }),
@@ -462,17 +462,17 @@ export function hentValideringForFerdigstillInnsending() {
   );
 }
 
-export function hentValideringForFerdigstillGenerellOppgave() {
-  const ferdigstillGenerellOppgaveFelter = {
-    _action: z.literal("ferdigstill-generell-oppgave"),
+export function hentValideringForFerdigstillOppfolging() {
+  const ferdigstillOppfolgingFelter = {
+    _action: z.literal("ferdigstill-oppfolging"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: z.string().optional(),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
   };
 
-  const ferdigstillGenerellOppgaveInputFelter = z.object({
-    ...ferdigstillGenerellOppgaveFelter,
+  const ferdigstillOppfolgingInputFelter = z.object({
+    ...ferdigstillOppfolgingFelter,
     behandlingsvariant: z.string(),
     nyOppgaveTittel: z.string().optional(),
     nyOppgaveEmneknagg: z.string().optional(),
@@ -489,34 +489,34 @@ export function hentValideringForFerdigstillGenerellOppgave() {
       .optional(),
   });
 
-  return ferdigstillGenerellOppgaveInputFelter.pipe(
+  return ferdigstillOppfolgingInputFelter.pipe(
     z.discriminatedUnion(
       "behandlingsvariant",
       [
         z.object({
-          ...ferdigstillGenerellOppgaveFelter,
+          ...ferdigstillOppfolgingFelter,
           behandlingsvariant: z.literal("INGEN"),
         }),
         z.object({
-          ...ferdigstillGenerellOppgaveFelter,
+          ...ferdigstillOppfolgingFelter,
           behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_MANUELL"),
         }),
         z.object({
-          ...ferdigstillGenerellOppgaveFelter,
+          ...ferdigstillOppfolgingFelter,
           behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING"),
         }),
         z.object({
-          ...ferdigstillGenerellOppgaveFelter,
+          ...ferdigstillOppfolgingFelter,
           behandlingsvariant: z.literal("KLAGE"),
         }),
         z
           .object({
-            ...ferdigstillGenerellOppgaveFelter,
-            behandlingsvariant: z.literal("GENERELL_OPPGAVE"),
+            ...ferdigstillOppfolgingFelter,
+            behandlingsvariant: z.literal("OPPFOLGING"),
           })
-          .merge(nyGenerellOppgaveSchemaFelter())
+          .merge(nyOppfolgingSchemaFelter())
           .extend({
-            nyOppgaveEmneknagg: z.enum(gyldigeNyGenerellOppgaveÅrsaker, {
+            nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
               error: () => ({ message: "Du må skrive en emneknagg" }),
             }),
           }),

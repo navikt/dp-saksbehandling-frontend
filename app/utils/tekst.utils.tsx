@@ -137,13 +137,13 @@ export function hentUtløstAvTekstForVisning(
         "Tilbakekreving"
       );
 
-    case "GENERELL":
+    case "OPPFØLGING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>
-          <ClipboardCheckmarkIcon aria-hidden fontSize="1.5rem" /> Generell oppgave
+          <ClipboardCheckmarkIcon aria-hidden fontSize="1.5rem" /> Oppfølging
         </span>
       ) : (
-        "Generell oppgave"
+        "Oppfølging"
       );
 
     default:

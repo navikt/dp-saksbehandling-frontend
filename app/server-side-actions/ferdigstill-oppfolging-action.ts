@@ -3,24 +3,18 @@ import { components } from "openapi/saksbehandling-typer";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
-import { ferdigstillGenerellOppgave } from "~/models/saksbehandling.server";
+import { ferdigstillOppfolging } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import {
-  hentValideringForFerdigstillGenerellOppgave,
-  NyBehandlingType,
-} from "~/utils/validering.util";
+import { hentValideringForFerdigstillOppfolging, NyBehandlingType } from "~/utils/validering.util";
 
-export async function ferdigstillGenerellOppgaveAction(
+export async function ferdigstillOppfolgingAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const validertSkjema = await parseFormData(
-    formData,
-    hentValideringForFerdigstillGenerellOppgave(),
-  );
+  const validertSkjema = await parseFormData(formData, hentValideringForFerdigstillOppfolging());
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
@@ -28,13 +22,13 @@ export async function ferdigstillGenerellOppgaveAction(
 
   const { data } = validertSkjema;
 
-  const body: components["schemas"]["FerdigstillGenerellOppgaveRequest"] = {
+  const body: components["schemas"]["FerdigstillOppfolgingRequest"] = {
     sakId: data.sakId,
     vurdering: data.vurdering,
     behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
   };
 
-  if (data.behandlingsvariant === "GENERELL_OPPGAVE") {
+  if (data.behandlingsvariant === "OPPFOLGING") {
     body.nyOppgave = {
       tittel: data.nyOppgaveTittel,
       aarsak: data.nyOppgaveEmneknagg,
@@ -44,7 +38,7 @@ export async function ferdigstillGenerellOppgaveAction(
     };
   }
 
-  const { error } = await ferdigstillGenerellOppgave(request, data.behandlingId, body);
+  const { error } = await ferdigstillOppfolging(request, data.behandlingId, body);
 
   if (error) {
     return getHttpProblemAlert(error);
@@ -75,7 +69,7 @@ function hentTekstForFerdigstilling(variant: NyBehandlingType) {
       return "Oppgave ferdigstilt, ny behandling opprettet ✅";
     case "KLAGE":
       return "Oppgave ferdigstilt, ny klage opprettet ✅";
-    case "GENERELL_OPPGAVE":
-      return "Oppgave ferdigstilt, ny generell oppgave opprettet ✅";
+    case "OPPFOLGING":
+      return "Oppgave ferdigstilt, ny oppfølging opprettet ✅";
   }
 }

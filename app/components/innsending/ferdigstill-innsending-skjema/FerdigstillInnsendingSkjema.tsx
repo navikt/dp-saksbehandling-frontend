@@ -3,7 +3,7 @@ import { useForm } from "@rvf/react-router";
 import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
-import { NyGenerellOppgaveFelter } from "~/components/ny-generell-oppgave-felter/NyGenerellOppgaveFelter";
+import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -78,7 +78,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
             <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
             <Radio value="RETT_TIL_DAGPENGER_REVURDERING">Revurdering</Radio>
             <Radio value="KLAGE">Klage</Radio>
-            <Radio value="GENERELL_OPPGAVE">Generell oppgave</Radio>
+            <Radio value="OPPFOLGING">Oppfølging</Radio>
           </RadioGroup>
         )}
 
@@ -89,13 +89,13 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
           label="Vurdering"
         />
 
-        {ferdigstillInnsendingSkjema.field("behandlingsvariant").value() === "GENERELL_OPPGAVE" && (
+        {ferdigstillInnsendingSkjema.field("behandlingsvariant").value() === "OPPFOLGING" && (
           <>
             <Heading size="xsmall" level="4">
-              Ny generell oppgave
+              Ny oppfølging
             </Heading>
 
-            <NyGenerellOppgaveFelter form={ferdigstillInnsendingSkjema} />
+            <NyOppfolgingFelter form={ferdigstillInnsendingSkjema} />
           </>
         )}
 

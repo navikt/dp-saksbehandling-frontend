@@ -1,15 +1,15 @@
 import { parseFormData, validationError } from "@rvf/react-router";
 import { redirect } from "react-router";
 
-import { opprettGenerellOppgave } from "~/models/saksbehandling.server";
+import { opprettOppfolging } from "~/models/saksbehandling.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForNyGenerellOppgaveSkjema } from "~/utils/validering.util";
+import { hentValideringForNyOppfolgingSkjema } from "~/utils/validering.util";
 
 import { components } from "../../openapi/saksbehandling-typer";
 
-export async function opprettGenerellOppgaveAction(request: Request, formData: FormData) {
-  const validertSkjema = await parseFormData(formData, hentValideringForNyGenerellOppgaveSkjema());
+export async function opprettOppfolgingAction(request: Request, formData: FormData) {
+  const validertSkjema = await parseFormData(formData, hentValideringForNyOppfolgingSkjema());
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
@@ -24,7 +24,7 @@ export async function opprettGenerellOppgaveAction(request: Request, formData: F
     nyOppgaveTildelSammeSaksbehandler,
   } = validertSkjema.data;
 
-  const body: components["schemas"]["OpprettGenerellOppgaveRequest"] = {
+  const body: components["schemas"]["OpprettOppfolgingRequest"] = {
     personIdent,
     tittel: nyOppgaveTittel,
     beskrivelse: nyOppgaveBeskrivelse,
@@ -33,15 +33,15 @@ export async function opprettGenerellOppgaveAction(request: Request, formData: F
     beholdOppgaven: nyOppgaveTildelSammeSaksbehandler,
   };
 
-  const { data, error } = await opprettGenerellOppgave(request, body);
+  const { data, error } = await opprettOppfolging(request, body);
 
   if (data) {
-    return redirect(`/oppgave/${data.oppgaveId}/generell-oppgave/${data.generellOppgaveId}`);
+    return redirect(`/oppgave/${data.oppgaveId}/oppfolging/${data["oppfølgingId"]}`);
   }
 
   if (error) {
     return getHttpProblemAlert(error);
   }
 
-  throw new Error(`Uhåndtert feil i opprettGenerellOppgaveAction()`);
+  throw new Error(`Uhåndtert feil i opprettOppfolgingAction()`);
 }

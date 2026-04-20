@@ -1,6 +1,6 @@
-import { generellOppgave } from "./generell-oppgave";
 import { innsending } from "./innsending";
 import { klage } from "./klage";
+import { oppfolging } from "./oppfolging";
 import { oppgave019a492dd283731d83a2a4f36df00502 } from "./oppgave019a492dd283731d83a2a4f36df00502";
 import { oppgave019b2cbfa883718c8ad3eecfc980ffd7 } from "./oppgave019b2cbfa883718c8ad3eecfc980ffd7";
 import { oppgave019b2ccd885d71eb8977f453029fd5b4 } from "./oppgave019b2ccd885d71eb8977f453029fd5b4";
@@ -26,6 +26,6 @@ export const mockOppgaver = [
   klage,
   innsending,
   tilbakekrevingOppgave,
-  generellOppgave,
+  oppfolging,
   oppgave019cc20df6fe713f85637ed86f12f4d4,
 ];

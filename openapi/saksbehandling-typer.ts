@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/generell-oppgave": {
+    "/oppfolging": {
         parameters: {
             query?: never;
             header?: never;
@@ -18,14 +18,14 @@ export interface paths {
          * @description Oppretter en generell oppgave for en person.
          *     Oppgaven opprettes i KLAR_TIL_BEHANDLING, eller PÅ_VENT hvis frist er satt.
          */
-        post: operations["opprettGenerellOppgave"];
+        post: operations["opprettOppfolging"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/generell-oppgave/{behandlingId}": {
+    "/oppfolging/{behandlingId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -50,7 +50,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["GenerellOppgave"];
+                        "application/json": components["schemas"]["Oppfolging"];
                     };
                 };
                 /** @description Generell oppgave ble ikke funnet */
@@ -81,7 +81,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/generell-oppgave/{behandlingId}/ferdigstill": {
+    "/oppfolging/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
             header?: never;
@@ -101,7 +101,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["FerdigstillGenerellOppgaveRequest"];
+                    "application/json": components["schemas"]["FerdigstillOppfolgingRequest"];
                 };
             };
             responses: {
@@ -2311,11 +2311,11 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "GENERELL";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "GENERELL_OPPGAVE";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "OPPFOLGING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2637,7 +2637,7 @@ export interface components {
             sakId?: string;
             vurdering: string;
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
-            nyOppgave?: components["schemas"]["NyGenerellOppgave"];
+            nyOppgave?: components["schemas"]["NyOppfolging"];
         };
         HttpProblem: {
             type: string;
@@ -2660,7 +2660,7 @@ export interface components {
             saksbehandlingURL: string;
             fullstendigPeriode: components["schemas"]["TilbakekrevingPeriode"];
         };
-        GenerellOppgave: {
+        Oppfolging: {
             /**
              * Format: uuid
              * @description Behandling-ID for den generelle oppgaven
@@ -2689,7 +2689,7 @@ export interface components {
             vurdering?: string;
             nyBehandling?: components["schemas"]["TynnBehandling"];
         };
-        OpprettGenerellOppgaveRequest: {
+        OpprettOppfolgingRequest: {
             /** @description Fødselsnummer eller D-nummer for personen oppgaven gjelder */
             personIdent: string;
             /** @description Kort tittel for oppgaven */
@@ -2713,27 +2713,27 @@ export interface components {
                 [key: string]: unknown;
             };
         };
-        OpprettGenerellOppgaveResponse: {
+        OpprettOppfolgingResponse: {
             /**
              * Format: uuid
              * @description ID til den opprettede generelle oppgaven
              */
-            generellOppgaveId: string;
+            "oppfølgingId": string;
             /**
              * Format: uuid
              * @description ID til den opprettede oppgaven (for oppgavelisten)
              */
             oppgaveId: string;
         };
-        FerdigstillGenerellOppgaveRequest: {
+        FerdigstillOppfolgingRequest: {
             /** Format: uuid */
             sakId?: string;
             vurdering?: string;
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
-            nyOppgave?: components["schemas"]["NyGenerellOppgave"];
+            nyOppgave?: components["schemas"]["NyOppfolging"];
         };
         /** @description Data for ny generell oppgave (kun ved behandlingsvariant=GENERELL_OPPGAVE) */
-        NyGenerellOppgave: {
+        NyOppfolging: {
             /** @description Tittel på den nye oppgaven */
             tittel: string;
             /** @description Beskrivelse av den nye oppgaven */
@@ -2768,7 +2768,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    opprettGenerellOppgave: {
+    opprettOppfolging: {
         parameters: {
             query?: never;
             header?: never;
@@ -2777,7 +2777,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OpprettGenerellOppgaveRequest"];
+                "application/json": components["schemas"]["OpprettOppfolgingRequest"];
             };
         };
         responses: {
@@ -2787,7 +2787,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OpprettGenerellOppgaveResponse"];
+                    "application/json": components["schemas"]["OpprettOppfolgingResponse"];
                 };
             };
             /** @description Ugyldig request */

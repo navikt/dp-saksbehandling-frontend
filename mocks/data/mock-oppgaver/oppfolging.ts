@@ -1,6 +1,6 @@
 import type { components } from "../../../openapi/saksbehandling-typer";
 
-export const generellOppgave: components["schemas"]["Oppgave"] = {
+export const oppfolging: components["schemas"]["Oppgave"] = {
   oppgaveId: "0199390e-3602-7b10-9402-77ca0d12e5ff",
   behandlingId: "0198c672-333d-7701-a986-76b0ca6b225d",
   saksbehandler: {
@@ -27,8 +27,8 @@ export const generellOppgave: components["schemas"]["Oppgave"] = {
     sikkerhetstiltak: [],
   },
   tidspunktOpprettet: "2025-09-15T00:00:00",
-  behandlingType: "GENERELL",
-  utlostAv: "GENERELL",
+  behandlingType: "OPPFØLGING",
+  utlostAv: "OPPFØLGING",
   journalpostIder: [],
   historikk: [
     {
