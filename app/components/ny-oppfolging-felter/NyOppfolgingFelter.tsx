@@ -1,81 +1,69 @@
-import { Checkbox, DatePicker, Select, Textarea, TextField } from "@navikt/ds-react";
-import type { FieldApi } from "@rvf/react-router";
+import { Checkbox, DatePicker, Select, Textarea, TextField, useDatepicker } from "@navikt/ds-react";
+import { FormApi } from "@rvf/react-router";
 
-import type { INyOppfolging } from "~/utils/validering.util";
-import { gyldigeNyOppfolgingÅrsaker } from "~/utils/validering.util";
+import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
+import { gyldigeNyOppfølgingÅrsaker } from "~/utils/validering.util";
 
-type TNyOppfolgingFelterFieldValues = {
-  nyOppgaveTittel: string | undefined;
-  nyOppgaveBeskrivelse: string | undefined;
-  nyOppgaveEmneknagg: INyOppfolging | undefined;
-  nyOppgaveFrist: string | undefined;
-  nyOppgaveTildelSammeSaksbehandler: boolean | "true" | "false" | "on" | "off" | undefined;
-};
+export function NyOppfolgingFelter({ form }: { form: FormApi }) {
+  const fristField = form.field("frist");
+  const { datepickerProps, inputProps } = useDatepicker({
+    defaultSelected: fristField.value()
+      ? new Date(formaterTilBackendDato(fristField.value()))
+      : undefined,
+    onDateChange: (date) => {
+      if (date) {
+        fristField.setValue(formaterTilNorskDato(date));
+      }
+    },
+  });
 
-interface INyOppfolgingFelterProps<
-  TForm extends {
-    field<FieldName extends keyof TNyOppfolgingFelterFieldValues & string>(
-      name: FieldName,
-    ): FieldApi<TNyOppfolgingFelterFieldValues[FieldName]>;
-  },
-> {
-  form: TForm;
-}
-
-export function NyOppfolgingFelter<
-  TForm extends {
-    field<FieldName extends keyof TNyOppfolgingFelterFieldValues & string>(
-      name: FieldName,
-    ): FieldApi<TNyOppfolgingFelterFieldValues[FieldName]>;
-  },
->({ form }: INyOppfolgingFelterProps<TForm>) {
   return (
     <>
       <TextField
-        {...form.field("nyOppgaveTittel").getInputProps()}
-        error={form.field("nyOppgaveTittel").error()}
+        {...form.field("tittel").getInputProps()}
+        error={form.field("tittel").error()}
         label="Tittel"
         size="small"
       />
 
       <Textarea
-        {...form.field("nyOppgaveBeskrivelse").getInputProps()}
-        error={form.field("nyOppgaveBeskrivelse").error()}
+        {...form.field("beskrivelse").getInputProps()}
+        error={form.field("beskrivelse").error()}
         resize="vertical"
         label="Beskrivelse"
         size="small"
       />
 
       <Select
-        {...form.field("nyOppgaveEmneknagg").getInputProps()}
-        error={form.field("nyOppgaveEmneknagg").error()}
-        label="Emneknagg"
+        {...form.field("årsak").getInputProps()}
+        error={form.field("årsak").error()}
+        label="Årsak"
         size="small"
       >
-        <option value="">Velg emneknagg</option>
-        {gyldigeNyOppfolgingÅrsaker.map((årsak) => (
+        <option value="">Velg årsak</option>
+        {gyldigeNyOppfølgingÅrsaker.map((årsak) => (
           <option value={årsak} key={årsak}>
             {årsak}
           </option>
         ))}
       </Select>
 
-      <DatePicker>
+      <DatePicker {...datepickerProps}>
         <DatePicker.Input
-          {...form.field("nyOppgaveFrist").getInputProps()}
-          error={form.field("nyOppgaveFrist").error()}
-          label="Frist"
+          {...inputProps}
           size="small"
+          label={"Frist"}
+          form={fristField.getInputProps().form}
+          name={fristField.getInputProps().name}
+          error={fristField.error()}
         />
       </DatePicker>
 
       <Checkbox
+        form={form.field("tildelSammeSaksbehandler").getInputProps().form}
+        name={form.field("tildelSammeSaksbehandler").getInputProps().name}
+        error={form.field("tildelSammeSaksbehandler").error()}
         size="small"
-        name="nyOppgaveTildelSammeSaksbehandler"
-        checked={!!form.field("nyOppgaveTildelSammeSaksbehandler").value()}
-        onChange={(e) => {
-          form.field("nyOppgaveTildelSammeSaksbehandler").setValue(e.currentTarget.checked);
-        }}
       >
         Tildel samme saksbehandler
       </Checkbox>

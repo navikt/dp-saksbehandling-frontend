@@ -14,11 +14,11 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Opprett en ny generell oppgave
-         * @description Oppretter en generell oppgave for en person.
+         * Opprett en ny oppfølging
+         * @description Oppretter en oppfølging for en person.
          *     Oppgaven opprettes i KLAR_TIL_BEHANDLING, eller PÅ_VENT hvis frist er satt.
          */
-        post: operations["opprettOppfolging"];
+        post: operations["opprettOppf\u00F8lging"];
         delete?: never;
         options?: never;
         head?: never;
@@ -32,7 +32,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Hent generell oppgave for en gitt behandlingId */
+        /** Hent oppfølging for en gitt behandlingId */
         get: {
             parameters: {
                 query?: never;
@@ -44,7 +44,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Vellykket respons med generell oppgave */
+                /** @description Vellykket respons med oppfølging */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -53,7 +53,7 @@ export interface paths {
                         "application/json": components["schemas"]["Oppfolging"];
                     };
                 };
-                /** @description Generell oppgave ble ikke funnet */
+                /** @description Oppfølging ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -89,7 +89,7 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        /** Ferdigstill generell oppgave */
+        /** Ferdigstill oppfølging */
         put: {
             parameters: {
                 query?: never;
@@ -105,14 +105,14 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Generell oppgave ferdigstilt */
+                /** @description Oppfølging ferdigstilt */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content?: never;
                 };
-                /** @description Generell oppgave ble ikke funnet */
+                /** @description Oppfølging ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -2663,7 +2663,7 @@ export interface components {
         Oppfolging: {
             /**
              * Format: uuid
-             * @description Behandling-ID for den generelle oppgaven
+             * @description Behandling-ID for oppfølgingen
              */
             behandlingId?: string;
             /** @description Visningstittel for oppgaven */
@@ -2716,9 +2716,9 @@ export interface components {
         OpprettOppfolgingResponse: {
             /**
              * Format: uuid
-             * @description ID til den opprettede generelle oppgaven
+             * @description ID til den opprettede oppfølgingen
              */
-            "oppfølgingId": string;
+            "oppf\u00F8lgingId": string;
             /**
              * Format: uuid
              * @description ID til den opprettede oppgaven (for oppgavelisten)
@@ -2732,7 +2732,7 @@ export interface components {
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
             nyOppgave?: components["schemas"]["NyOppfolging"];
         };
-        /** @description Data for ny generell oppgave (kun ved behandlingsvariant=GENERELL_OPPGAVE) */
+        /** @description Data for ny oppfølging (kun ved behandlingsvariant=OPPFOLGING) */
         NyOppfolging: {
             /** @description Tittel på den nye oppgaven */
             tittel: string;
@@ -2768,7 +2768,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    opprettOppfolging: {
+    "opprettOppf\u00F8lging": {
         parameters: {
             query?: never;
             header?: never;
@@ -2781,7 +2781,7 @@ export interface operations {
             };
         };
         responses: {
-            /** @description Generell oppgave opprettet */
+            /** @description Oppfølging opprettet */
             201: {
                 headers: {
                     [name: string]: unknown;

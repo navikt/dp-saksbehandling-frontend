@@ -29,11 +29,11 @@ export async function ferdigstillInnsendingAction(
     nyOppgave:
       data.behandlingsvariant === "OPPFOLGING"
         ? {
-            tittel: data.nyOppgaveTittel,
-            aarsak: data.nyOppgaveEmneknagg,
-            beskrivelse: data.nyOppgaveBeskrivelse,
+            tittel: data.tittel,
+            aarsak: data.årsak,
+            beskrivelse: data.beskrivelse,
             frist: data.nyOppgaveFrist ? formaterTilBackendDato(data.nyOppgaveFrist) : undefined,
-            beholdOppgaven: data.nyOppgaveTildelSammeSaksbehandler,
+            beholdOppgaven: data.tildelSammeSaksbehandler,
           }
         : undefined,
   };

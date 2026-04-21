@@ -8,7 +8,10 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
-import { hentValideringForNyOppfolgingSkjema, INyOppfolging } from "~/utils/validering.util";
+import {
+  GyldigOppfølgingÅrsak,
+  hentValideringForNyOppfolgingSkjema,
+} from "~/utils/validering.util";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -26,11 +29,11 @@ export default function NyOppfolging() {
     defaultValues: {
       _action: "opprett-oppfolging",
       personIdent: personOversikt.person.ident,
-      nyOppgaveTittel: "",
-      nyOppgaveBeskrivelse: "",
-      nyOppgaveEmneknagg: "" as INyOppfolging,
-      nyOppgaveFrist: "",
-      nyOppgaveTildelSammeSaksbehandler: false,
+      tittel: "",
+      beskrivelse: "",
+      årsak: "" as GyldigOppfølgingÅrsak,
+      frist: "",
+      tildelSammeSaksbehandler: undefined,
     },
   });
 

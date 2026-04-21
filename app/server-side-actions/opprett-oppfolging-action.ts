@@ -15,22 +15,16 @@ export async function opprettOppfolgingAction(request: Request, formData: FormDa
     return validationError(validertSkjema.error);
   }
 
-  const {
-    personIdent,
-    nyOppgaveTittel,
-    nyOppgaveBeskrivelse,
-    nyOppgaveEmneknagg,
-    nyOppgaveFrist,
-    nyOppgaveTildelSammeSaksbehandler,
-  } = validertSkjema.data;
+  const { personIdent, tittel, beskrivelse, årsak, frist, tildelSammeSaksbehandler } =
+    validertSkjema.data;
 
   const body: components["schemas"]["OpprettOppfolgingRequest"] = {
     personIdent,
-    tittel: nyOppgaveTittel,
-    beskrivelse: nyOppgaveBeskrivelse,
-    aarsak: nyOppgaveEmneknagg,
-    frist: nyOppgaveFrist ? formaterTilBackendDato(nyOppgaveFrist) : undefined,
-    beholdOppgaven: nyOppgaveTildelSammeSaksbehandler,
+    tittel,
+    beskrivelse,
+    aarsak: årsak,
+    frist: frist ? formaterTilBackendDato(frist) : undefined,
+    beholdOppgaven: tildelSammeSaksbehandler === "on",
   };
 
   const { data, error } = await opprettOppfolging(request, body);

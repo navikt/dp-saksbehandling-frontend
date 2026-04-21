@@ -257,7 +257,7 @@ export function hentValideringForNyKlageSkjema() {
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
-export type INyOppfolging =
+export type GyldigOppfølgingÅrsak =
   | "Avventer ny informasjon"
   | "Oppfølging av meldekort"
   | "Oppfølging av vedtak"
@@ -265,7 +265,7 @@ export type INyOppfolging =
   | "Vurdere feilutbetaling"
   | "Annen årsak";
 
-export const gyldigeNyOppfolgingÅrsaker: INyOppfolging[] = [
+export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
   "Oppfølging av meldekort",
   "Oppfølging av vedtak",
   "Kopi av vedtak til fullmektig",
@@ -282,26 +282,16 @@ export function hentValideringForNyOppfolgingSkjema() {
 
 export function nyOppfolgingSchemaFelter() {
   return z.object({
-    nyOppgaveTittel: z.string().min(1, "Du må skrive en tittel"),
-    nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
-      error: () => ({ message: "Du må velge en emneknagg" }),
-    }),
-    nyOppgaveBeskrivelse: z.string().optional(),
-    nyOppgaveFrist: z
-      .string()
-      .trim()
-      .optional()
-      .transform((v) => (v === "" || v === "undefined" ? undefined : v)),
-    nyOppgaveTildelSammeSaksbehandler: z
-      .union([
-        z.literal("on"),
-        z.literal("true"),
-        z.literal("false"),
-        z.literal("off"),
-        z.boolean(),
-      ])
-      .optional()
-      .transform((v) => v === "on" || v === "true" || v === true),
+    tittel: z.string().min(1, "Du må skrive en tittel"),
+    årsak: z.enum(gyldigeNyOppfølgingÅrsaker, { message: "Du må velge en årsak" }),
+    beskrivelse: z.string().optional(),
+    frist: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    // Hvis checkbox er huket av sender den verdien "On", hvis den ikke er huket av er den undefined
+    tildelSammeSaksbehandler: z.literal("on").optional(),
   });
 }
 
