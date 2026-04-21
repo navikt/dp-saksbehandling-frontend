@@ -20,6 +20,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
+
   const ferdigstillInnsendingSkjema = useForm({
     method: "post",
     action: pathname,
@@ -32,11 +33,10 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
       behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
       vurdering: "",
       aktivtOppgaveSok,
-      nyOppgaveTittel: "",
-      nyOppgaveEmneknagg: "",
-      nyOppgaveBeskrivelse: "",
-      nyOppgaveFrist: "",
-      nyOppgaveTildelSammeSaksbehandler: false as boolean,
+      tittel: "",
+      årsak: "",
+      beskrivelse: "",
+      frist: "",
     },
   });
 

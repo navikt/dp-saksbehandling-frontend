@@ -274,15 +274,17 @@ export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
 ];
 
 export function hentValideringForNyOppfolgingSkjema() {
-  return nyOppfolgingSchemaFelter().extend({
-    _action: z.literal("opprett-oppfolging"),
-    personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
-  });
+  return z
+    .object({
+      _action: z.literal("opprett-oppfolging"),
+      personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
+    })
+    .extend(nyOppfolgingSchemaFelter());
 }
 
 export function nyOppfolgingSchemaFelter() {
-  return z.object({
-    tittel: z.string().min(1, "Du må skrive en tittel"),
+  return {
+    tittel: z.string({ message: "Du må skrive en tittel" }).min(1, "Du må skrive en tittel"),
     årsak: z.enum(gyldigeNyOppfølgingÅrsaker, { message: "Du må velge en årsak" }),
     beskrivelse: z.string().optional(),
     frist: z.preprocess(
@@ -292,7 +294,7 @@ export function nyOppfolgingSchemaFelter() {
     ),
     // Hvis checkbox er huket av sender den verdien "On", hvis den ikke er huket av er den undefined
     tildelSammeSaksbehandler: z.literal("on").optional(),
-  });
+  };
 }
 
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
@@ -400,19 +402,11 @@ export function hentValideringForFerdigstillInnsending() {
   const ferdigstillInnsendingInputFelter = z.object({
     ...ferdigstillInnsendingFelter,
     behandlingsvariant: z.string(),
-    nyOppgaveTittel: z.string().optional(),
-    nyOppgaveEmneknagg: z.string().optional(),
-    nyOppgaveBeskrivelse: z.string().optional(),
-    nyOppgaveFrist: z.string().optional(),
-    nyOppgaveTildelSammeSaksbehandler: z
-      .union([
-        z.literal("on"),
-        z.literal("true"),
-        z.literal("false"),
-        z.literal("off"),
-        z.boolean(),
-      ])
-      .optional(),
+    tittel: z.string().optional(),
+    årsak: z.string().optional(),
+    beskrivelse: z.string().optional(),
+    frist: z.any().optional(),
+    tildelSammeSaksbehandler: z.any().optional(),
   });
 
   return ferdigstillInnsendingInputFelter.pipe(
@@ -440,12 +434,7 @@ export function hentValideringForFerdigstillInnsending() {
             ...ferdigstillInnsendingFelter,
             behandlingsvariant: z.literal("OPPFOLGING"),
           })
-          .merge(nyOppfolgingSchemaFelter())
-          .extend({
-            nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
-              error: () => ({ message: "Du må skrive en emneknagg" }),
-            }),
-          }),
+          .extend(nyOppfolgingSchemaFelter()),
       ],
       { error: "Du må velge en behandlingstype" },
     ),
