@@ -7,7 +7,7 @@ import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgi
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForFerdigstillInnsending, NyBehandlingType } from "~/utils/validering.util";
+import { hentValideringForFerdigstillOppgave, NyBehandlingType } from "~/utils/validering.util";
 
 interface IProps {
   setVisSkjema: (visSkjema: boolean) => void;
@@ -20,12 +20,11 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
-
   const ferdigstillInnsendingSkjema = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillInnsending(),
+    schema: hentValideringForFerdigstillOppgave("ferdigstill-innsending"),
     defaultValues: {
       _action: "ferdigstill-innsending",
       behandlingId,

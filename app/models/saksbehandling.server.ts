@@ -99,8 +99,8 @@ export async function hentOppfolging(request: Request, behandlingId: string) {
 
 export async function ferdigstillOppfolging(
   request: Request,
-  behandlingId: string,
   body: components["schemas"]["FerdigstillOppfolgingRequest"],
+  behandlingId: string,
 ) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.PUT("/oppfolging/{behandlingId}/ferdigstill", {

@@ -1,20 +1,16 @@
 import { Checkbox, DatePicker, Select, Textarea, TextField, useDatepicker } from "@navikt/ds-react";
 import { FormApi } from "@rvf/react-router";
-import z from "zod";
 
 import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
-import {
-  gyldigeNyOppfølgingÅrsaker,
-  hentValideringForNyOppfolgingSkjema,
-} from "~/utils/validering.util";
+import { gyldigeNyOppfølgingÅrsaker } from "~/utils/validering.util";
 
-type NyOppfolgingsSkjema = z.infer<ReturnType<typeof hentValideringForNyOppfolgingSkjema>>;
-
-export function NyOppfolgingFelter({ form }: { form: FormApi<NyOppfolgingsSkjema> }) {
+// @ts-expect-error: Denne komponenten brukes i tre forskjellige skjemaer, og det er to forskjellige varianter, og det er bare irriterende :)
+export function NyOppfolgingFelter({ form }: { form: FormApi }) {
   const fristField = form.field("frist");
+  const fristFieldValue = fristField.value();
   const { datepickerProps, inputProps } = useDatepicker({
-    defaultSelected: fristField.value()
-      ? new Date(formaterTilBackendDato(fristField.value()))
+    defaultSelected: fristFieldValue
+      ? new Date(formaterTilBackendDato(fristFieldValue))
       : undefined,
     onDateChange: (date) => {
       if (date) {
@@ -69,7 +65,6 @@ export function NyOppfolgingFelter({ form }: { form: FormApi<NyOppfolgingsSkjema
         form={form.field("tildelSammeSaksbehandler").getInputProps().form}
         name={form.field("tildelSammeSaksbehandler").getInputProps().name}
         value={form.field("tildelSammeSaksbehandler").value()}
-        error={form.field("tildelSammeSaksbehandler").error()}
         size="small"
       >
         Tildel samme saksbehandler

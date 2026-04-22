@@ -7,7 +7,7 @@ import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgi
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { hentValideringForFerdigstillOppfolging, NyBehandlingType } from "~/utils/validering.util";
+import { hentValideringForFerdigstillOppgave, NyBehandlingType } from "~/utils/validering.util";
 
 interface IProps {
   onAvbryt: () => void;
@@ -24,7 +24,7 @@ export function FerdigstillOppfolgingSkjema({ onAvbryt, lovligeSaker, medBehandl
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillOppfolging(),
+    schema: hentValideringForFerdigstillOppgave("ferdigstill-oppfolging"),
     defaultValues: {
       _action: "ferdigstill-oppfolging",
       behandlingId,
@@ -32,11 +32,11 @@ export function FerdigstillOppfolgingSkjema({ onAvbryt, lovligeSaker, medBehandl
       vurdering: "",
       aktivtOppgaveSok,
       behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
-      nyOppgaveTittel: "",
-      nyOppgaveEmneknagg: "",
-      nyOppgaveBeskrivelse: "",
-      nyOppgaveFrist: "",
-      nyOppgaveTildelSammeSaksbehandler: false as boolean,
+      tittel: "",
+      årsak: "",
+      beskrivelse: "",
+      frist: "",
+      tildelSammeSaksbehandler: false as boolean,
     },
   });
 

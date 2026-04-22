@@ -279,11 +279,11 @@ export function hentValideringForNyOppfolgingSkjema() {
       _action: z.literal("opprett-oppfolging"),
       personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
     })
-    .extend(nyOppfolgingSchemaFelter());
+    .extend(nyOppfolgingSchemaFelter().shape);
 }
 
 export function nyOppfolgingSchemaFelter() {
-  return {
+  return z.object({
     tittel: z.string({ message: "Du må skrive en tittel" }).min(1, "Du må skrive en tittel"),
     årsak: z.enum(gyldigeNyOppfølgingÅrsaker, { message: "Du må velge en årsak" }),
     beskrivelse: z.string().optional(),
@@ -293,7 +293,7 @@ export function nyOppfolgingSchemaFelter() {
       hentValideringForNorskDato(),
     ),
     tildelSammeSaksbehandler: z.coerce.boolean().optional(),
-  };
+  });
 }
 
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
@@ -389,9 +389,11 @@ export function hentValideringForFerdigstillKlage() {
   });
 }
 
-export function hentValideringForFerdigstillInnsending() {
+export function hentValideringForFerdigstillOppgave(
+  action: "ferdigstill-innsending" | "ferdigstill-oppfolging",
+) {
   const ferdigstillInnsendingFelter = {
-    _action: z.literal("ferdigstill-innsending"),
+    _action: z.literal(action),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     sakId: z.string().min(1, "Det mangler sakId i skjema"),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
@@ -433,71 +435,7 @@ export function hentValideringForFerdigstillInnsending() {
             ...ferdigstillInnsendingFelter,
             behandlingsvariant: z.literal("OPPFOLGING"),
           })
-          .extend(nyOppfolgingSchemaFelter()),
-      ],
-      { error: "Du må velge en behandlingstype" },
-    ),
-  );
-}
-
-export function hentValideringForFerdigstillOppfolging() {
-  const ferdigstillOppfolgingFelter = {
-    _action: z.literal("ferdigstill-oppfolging"),
-    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    sakId: z.string().optional(),
-    vurdering: z.string().min(1, "Du må skrive en vurdering"),
-    aktivtOppgaveSok: z.string(),
-  };
-
-  const ferdigstillOppfolgingInputFelter = z.object({
-    ...ferdigstillOppfolgingFelter,
-    behandlingsvariant: z.string(),
-    nyOppgaveTittel: z.string().optional(),
-    nyOppgaveEmneknagg: z.string().optional(),
-    nyOppgaveBeskrivelse: z.string().optional(),
-    nyOppgaveFrist: z.string().optional(),
-    nyOppgaveTildelSammeSaksbehandler: z
-      .union([
-        z.literal("on"),
-        z.literal("true"),
-        z.literal("false"),
-        z.literal("off"),
-        z.boolean(),
-      ])
-      .optional(),
-  });
-
-  return ferdigstillOppfolgingInputFelter.pipe(
-    z.discriminatedUnion(
-      "behandlingsvariant",
-      [
-        z.object({
-          ...ferdigstillOppfolgingFelter,
-          behandlingsvariant: z.literal("INGEN"),
-        }),
-        z.object({
-          ...ferdigstillOppfolgingFelter,
-          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_MANUELL"),
-        }),
-        z.object({
-          ...ferdigstillOppfolgingFelter,
-          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING"),
-        }),
-        z.object({
-          ...ferdigstillOppfolgingFelter,
-          behandlingsvariant: z.literal("KLAGE"),
-        }),
-        z
-          .object({
-            ...ferdigstillOppfolgingFelter,
-            behandlingsvariant: z.literal("OPPFOLGING"),
-          })
-          .merge(nyOppfolgingSchemaFelter())
-          .extend({
-            nyOppgaveEmneknagg: z.enum(gyldigeNyOppfolgingÅrsaker, {
-              error: () => ({ message: "Du må skrive en emneknagg" }),
-            }),
-          }),
+          .extend(nyOppfolgingSchemaFelter().shape),
       ],
       { error: "Du må velge en behandlingstype" },
     ),

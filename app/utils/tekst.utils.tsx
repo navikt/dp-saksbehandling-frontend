@@ -14,6 +14,7 @@ import {
   components,
   components as saksbehandlingComponents,
 } from "../../openapi/saksbehandling-typer";
+import { NyBehandlingType } from "./validering.util";
 
 export function hentTekstForReturnerTilSaksbehandlerÅrsak(
   årsak: saksbehandlingComponents["schemas"]["ReturnerTilSaksbehandlingAarsak"],
@@ -197,5 +198,20 @@ export function hentTekstForLeggTilbakeÅrsak(
       return "Annet";
     default:
       return leggTilbakeÅrsak;
+  }
+}
+
+export function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
+  switch (nyBehandlingType) {
+    case "RETT_TIL_DAGPENGER_MANUELL":
+      return "Innsending ferdigstilt, ny behandling opprettet ✅";
+    case "RETT_TIL_DAGPENGER_REVURDERING":
+      return "Innsending ferdigstilt, ny behandling opprettet ✅";
+    case "KLAGE":
+      return "Innsending ferdigstilt, ny klage opprettet ✅";
+    case "OPPFOLGING":
+      return "Innsending ferdigstilt, ny oppfølging opprettet ✅";
+    case "INGEN":
+      return "Innsending ferdigstilt ✅";
   }
 }

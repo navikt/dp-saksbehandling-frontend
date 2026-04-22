@@ -7,14 +7,18 @@ import { ferdigstillInnsending } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForFerdigstillInnsending, NyBehandlingType } from "~/utils/validering.util";
+import { hentTekstForFerdigstilling } from "~/utils/tekst.utils";
+import { hentValideringForFerdigstillOppgave } from "~/utils/validering.util";
 
 export async function ferdigstillInnsendingAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const validertSkjema = await parseFormData(formData, hentValideringForFerdigstillInnsending());
+  const validertSkjema = await parseFormData(
+    formData,
+    hentValideringForFerdigstillOppgave("ferdigstill-innsending"),
+  );
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
@@ -57,19 +61,4 @@ export async function ferdigstillInnsendingAction(
       "Set-Cookie": await commitSession(session),
     },
   });
-}
-
-function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
-  switch (nyBehandlingType) {
-    case "RETT_TIL_DAGPENGER_MANUELL":
-      return "Innsending ferdigstilt, ny behandling opprettet ✅";
-    case "RETT_TIL_DAGPENGER_REVURDERING":
-      return "Innsending ferdigstilt, ny behandling opprettet ✅";
-    case "KLAGE":
-      return "Innsending ferdigstilt, ny klage opprettet ✅";
-    case "OPPFOLGING":
-      return "Innsending ferdigstilt, ny oppfølging opprettet ✅";
-    case "INGEN":
-      return "Innsending ferdigstilt ✅";
-  }
 }
