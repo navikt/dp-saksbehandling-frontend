@@ -50,7 +50,7 @@ export async function ferdigstillInnsendingAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: hentTekstForFerdigstilling(data.behandlingsvariant),
+    title: hentTekstForFerdigstilling(data.behandlingsvariant, "ferdigstill-innsending"),
   };
 
   const session = await getSession(request.headers.get("Cookie"));

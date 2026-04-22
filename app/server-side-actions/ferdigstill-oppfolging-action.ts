@@ -50,7 +50,7 @@ export async function ferdigstillOppfolgingAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: hentTekstForFerdigstilling(data.behandlingsvariant),
+    title: hentTekstForFerdigstilling(data.behandlingsvariant, "ferdigstill-oppfolging"),
   };
 
   const session = await getSession(request.headers.get("Cookie"));

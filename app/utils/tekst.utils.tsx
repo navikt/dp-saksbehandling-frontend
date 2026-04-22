@@ -201,17 +201,21 @@ export function hentTekstForLeggTilbakeÅrsak(
   }
 }
 
-export function hentTekstForFerdigstilling(nyBehandlingType: NyBehandlingType) {
+export function hentTekstForFerdigstilling(
+  nyBehandlingType: NyBehandlingType,
+  variant: "ferdigstill-innsending" | "ferdigstill-oppfolging",
+) {
+  const behandlingTypeTekst = variant === "ferdigstill-innsending" ? "Innsending" : "Oppgave";
   switch (nyBehandlingType) {
     case "RETT_TIL_DAGPENGER_MANUELL":
-      return "Innsending ferdigstilt, ny behandling opprettet ✅";
+      return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
     case "RETT_TIL_DAGPENGER_REVURDERING":
-      return "Innsending ferdigstilt, ny behandling opprettet ✅";
+      return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
     case "KLAGE":
-      return "Innsending ferdigstilt, ny klage opprettet ✅";
+      return `${behandlingTypeTekst} ferdigstilt, ny klage opprettet ✅`;
     case "OPPFOLGING":
-      return "Innsending ferdigstilt, ny oppfølging opprettet ✅";
+      return `${behandlingTypeTekst} ferdigstilt, ny oppfølging opprettet ✅`;
     case "INGEN":
-      return "Innsending ferdigstilt ✅";
+      return `${behandlingTypeTekst} ferdigstilt ✅`;
   }
 }
