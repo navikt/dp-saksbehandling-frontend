@@ -61,7 +61,7 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
               label={"Til og med"}
               verdi={
                 sisteRettighetsPeriode.tilOgMed
-                  ? formaterTilNorskDato(sisteRettighetsPeriode.fraOgMed)
+                  ? formaterTilNorskDato(sisteRettighetsPeriode.tilOgMed)
                   : "--"
               }
             />
