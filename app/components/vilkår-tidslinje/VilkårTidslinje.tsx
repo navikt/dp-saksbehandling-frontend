@@ -2,6 +2,7 @@ import {
   CheckmarkCircleFillIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  CircleSlashIcon,
   PadlockLockedIcon,
   XMarkOctagonIcon,
 } from "@navikt/aksel-icons";
@@ -161,8 +162,14 @@ export function VilkårTidslinje() {
                       key={periode.id}
                       start={start}
                       end={slutt}
-                      status={hentFargeForOpplysningPeriode(periode.verdi)}
-                      icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                      status={hentFargeForOpplysningPeriode(
+                        periode.verdi,
+                        aktivtRegelsett?.relevantForResultat,
+                      )}
+                      icon={hentIkonForOpplysningPeriode(
+                        periode.verdi,
+                        aktivtRegelsett?.relevantForResultat,
+                      )}
                     >
                       {formaterOpplysningVerdi(periode.verdi)}
                     </Timeline.Period>
@@ -276,7 +283,11 @@ export function VilkårTidslinje() {
 
 export function hentIkonForOpplysningPeriode(
   opplysningsverdi: components["schemas"]["Opplysningsverdi"],
+  relevantForResultat?: boolean,
 ) {
+  if (relevantForResultat === false) {
+    return <CircleSlashIcon />;
+  }
   switch (opplysningsverdi.datatype) {
     case "boolsk":
       return opplysningsverdi.verdi ? <CheckmarkCircleFillIcon /> : <XMarkOctagonIcon />;

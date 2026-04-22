@@ -71,6 +71,7 @@ export function FastsettelserTidslinje() {
                 opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${aktivtRegelsett?.id}/opplysning`}
                 pins={pins}
                 eksternTidslinjeNavigeringState={tidslinjeState}
+                relevantForResultat={aktivtRegelsett?.relevantForResultat}
               />
             </Accordion.Content>
           </Accordion.Item>
