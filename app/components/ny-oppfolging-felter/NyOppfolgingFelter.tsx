@@ -1,10 +1,16 @@
 import { Checkbox, DatePicker, Select, Textarea, TextField, useDatepicker } from "@navikt/ds-react";
 import { FormApi } from "@rvf/react-router";
+import z from "zod";
 
 import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
-import { gyldigeNyOppfølgingÅrsaker } from "~/utils/validering.util";
+import {
+  gyldigeNyOppfølgingÅrsaker,
+  hentValideringForNyOppfolgingSkjema,
+} from "~/utils/validering.util";
 
-export function NyOppfolgingFelter({ form }: { form: FormApi }) {
+type NyOppfolgingsSkjema = z.infer<ReturnType<typeof hentValideringForNyOppfolgingSkjema>>;
+
+export function NyOppfolgingFelter({ form }: { form: FormApi<NyOppfolgingsSkjema> }) {
   const fristField = form.field("frist");
   const { datepickerProps, inputProps } = useDatepicker({
     defaultSelected: fristField.value()
