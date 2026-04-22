@@ -25,8 +25,9 @@ export default function Meldekortberegning() {
     (fastsettelse) => fastsettelse.id === "NDk3MjQwMDY0",
   );
 
-  const opplysninger = behandling.opplysninger.filter((opplysning) =>
-    meldekortRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
+  const opplysninger = behandling.opplysninger.filter(
+    (opplysning) =>
+      opplysning.synlig && meldekortRegelsett?.opplysninger.includes(opplysning.opplysningTypeId),
   );
 
   if (!meldekortRegelsett) {
