@@ -244,7 +244,10 @@ export function VilkårTidslinje() {
                       periode.verdi,
                       vilkårEllerOpplysning.relevantForResultat,
                     )}
-                    icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                    icon={hentIkonForOpplysningPeriode(
+                      periode.verdi,
+                      vilkårEllerOpplysning.relevantForResultat,
+                    )}
                   >
                     <div className={"flex gap-4"}>
                       <div>

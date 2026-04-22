@@ -77,6 +77,41 @@ export async function hentInnsending(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentInnsending(). ${response.status} - ${response.statusText}`);
 }
 
+export async function hentOppfolging(request: Request, behandlingId: string) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { response, data, error } = await saksbehandlerClient.GET("/oppfolging/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { behandlingId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentOppfolging(). ${response.status} - ${response.statusText}`);
+}
+
+export async function ferdigstillOppfolging(
+  request: Request,
+  body: components["schemas"]["FerdigstillOppfolgingRequest"],
+  behandlingId: string,
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppfolging/{behandlingId}/ferdigstill", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
 export async function hentTilbakekreving(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   const { response, data, error } = await saksbehandlerClient.GET(
@@ -162,6 +197,17 @@ export async function trekkKlage(request: Request, behandlingId: string) {
 export async function opprettKlage(request: Request, body: components["schemas"]["OpprettKlage"]) {
   const onBehalfOfToken = await getSaksbehandlingOboToken(request);
   return await saksbehandlerClient.POST("/klage/opprett-manuelt", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+  });
+}
+
+export async function opprettOppfolging(
+  request: Request,
+  body: components["schemas"]["OpprettOppfolgingRequest"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.POST("/oppfolging", {
     headers: getHeaders(onBehalfOfToken),
     body,
   });

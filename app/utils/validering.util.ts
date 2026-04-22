@@ -9,6 +9,7 @@ export type NyBehandlingType =
   | "RETT_TIL_DAGPENGER_MANUELL"
   | "RETT_TIL_DAGPENGER_REVURDERING"
   | "KLAGE"
+  | "OPPFOLGING"
   | "INGEN";
 
 export function hentValideringForOpplysningPeriodeSkjema(
@@ -256,6 +257,45 @@ export function hentValideringForNyKlageSkjema() {
     personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
   });
 }
+export type GyldigOppfølgingÅrsak =
+  | "Avventer ny informasjon"
+  | "Oppfølging av meldekort"
+  | "Oppfølging av vedtak"
+  | "Kopi av vedtak til fullmektig"
+  | "Vurdere feilutbetaling"
+  | "Annen årsak";
+
+export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
+  "Avventer ny informasjon",
+  "Oppfølging av meldekort",
+  "Oppfølging av vedtak",
+  "Kopi av vedtak til fullmektig",
+  "Vurdere feilutbetaling",
+  "Annen årsak",
+];
+
+export function hentValideringForNyOppfolgingSkjema() {
+  return z
+    .object({
+      _action: z.literal("opprett-oppfolging"),
+      personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
+    })
+    .extend(nyOppfolgingSchemaFelter().shape);
+}
+
+export function nyOppfolgingSchemaFelter() {
+  return z.object({
+    tittel: z.string({ message: "Du må skrive en tittel" }).min(1, "Du må skrive en tittel"),
+    årsak: z.enum(gyldigeNyOppfølgingÅrsaker, { message: "Du må velge en årsak" }),
+    beskrivelse: z.string().optional(),
+    frist: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    tildelSammeSaksbehandler: z.coerce.boolean().optional(),
+  });
+}
 
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
@@ -350,21 +390,57 @@ export function hentValideringForFerdigstillKlage() {
   });
 }
 
-export function hentValideringForFerdigstillInnsending(medBehandling: boolean) {
-  const nyBehandlingsvariant: NyBehandlingType[] = [
-    "RETT_TIL_DAGPENGER_MANUELL",
-    "RETT_TIL_DAGPENGER_REVURDERING",
-    "KLAGE",
-    "INGEN",
-  ];
-  return z.object({
-    _action: z.literal("ferdigstill-innsending"),
+export function hentValideringForFerdigstillOppgave(
+  action: "ferdigstill-innsending" | "ferdigstill-oppfolging",
+) {
+  const ferdigstillInnsendingFelter = {
+    _action: z.literal(action),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    sakId: medBehandling ? z.string().min(1, "Det mangler sakId i skjema") : z.string(),
-    behandlingsvariant: z.enum(nyBehandlingsvariant, "Du må velge en behandlingstype"),
+    sakId: z.string().optional(),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
+  };
+
+  const ferdigstillInnsendingInputFelter = z.object({
+    ...ferdigstillInnsendingFelter,
+    behandlingsvariant: z.string(),
+    tittel: z.string().optional(),
+    årsak: z.string().optional(),
+    beskrivelse: z.string().optional(),
+    frist: z.any().optional(),
+    tildelSammeSaksbehandler: z.any().optional(),
   });
+
+  return ferdigstillInnsendingInputFelter.pipe(
+    z.discriminatedUnion(
+      "behandlingsvariant",
+      [
+        z.object({
+          ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("INGEN"),
+        }),
+        z.object({
+          ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_MANUELL"),
+        }),
+        z.object({
+          ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING"),
+        }),
+        z.object({
+          ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("KLAGE"),
+        }),
+        z
+          .object({
+            ...ferdigstillInnsendingFelter,
+            behandlingsvariant: z.literal("OPPFOLGING"),
+          })
+          .extend(nyOppfolgingSchemaFelter().shape),
+      ],
+      { error: "Du må velge en behandlingstype" },
+    ),
+  );
 }
 
 export function hentValideringForRekjørBehandling() {

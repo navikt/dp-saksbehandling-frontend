@@ -21,3 +21,5 @@ node_modules
 .env*
 
 copilot-instructions.md
+.sisyphus/
+.playwright-mcp/

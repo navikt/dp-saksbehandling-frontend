@@ -80,4 +80,20 @@ describe("umamiBeforeSend", () => {
     umamiBeforeSend("event", payload);
     expect(payload.url).toBe("/oppgave/:id/innsending/:id");
   });
+
+  test("erstatter oppfolging behandlingId", () => {
+    const payload = {
+      url: "/oppgave/a1b2c3d4-e5f6-7890-abcd-ef1234567890/oppfolging/f0e1d2c3-b4a5-6789-0abc-def123456789",
+    };
+    umamiBeforeSend("event", payload);
+    expect(payload.url).toBe("/oppgave/:id/oppfolging/:id");
+  });
+
+  test("erstatter person uuid for ny-behandling oppfolging", () => {
+    const payload = {
+      url: "/person/a1b2c3d4-e5f6-7890-abcd-ef1234567890/ny-behandling/oppfolging",
+    };
+    umamiBeforeSend("event", payload);
+    expect(payload.url).toBe("/person/:id/ny-behandling/oppfolging");
+  });
 });

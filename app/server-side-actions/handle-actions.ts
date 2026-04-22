@@ -27,8 +27,10 @@ import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
 
 import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
+import { ferdigstillOppfolgingAction } from "./ferdigstill-oppfolging-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
+import { opprettOppfolgingAction } from "./opprett-oppfolging-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
   const formData = await request.formData();
@@ -104,6 +106,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
     case "opprett-behandling":
       return await opprettBehandlingAction(request, formData);
 
+    case "opprett-oppfolging":
+      return await opprettOppfolgingAction(request, formData);
+
     case "rediger-barn":
       return await redigerBarnAction(request, params, formData);
 
@@ -112,6 +117,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);
+
+    case "ferdigstill-oppfolging":
+      return await ferdigstillOppfolgingAction(request, params, formData);
 
     default:
       logger.warn(`Ukjent action: ${actionToRun}`);

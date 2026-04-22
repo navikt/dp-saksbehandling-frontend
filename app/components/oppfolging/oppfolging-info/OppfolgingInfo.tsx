@@ -11,10 +11,10 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
 interface IProps {
-  innsending: components["schemas"]["Innsending"];
+  oppfolging: components["schemas"]["Oppfolging"];
 }
 
-export function InnsendingInfo({ innsending }: IProps) {
+export function OppfolgingInfo({ oppfolging }: IProps) {
   const { oppgave, readonly } = useOppgave();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
@@ -23,7 +23,7 @@ export function InnsendingInfo({ innsending }: IProps) {
     <div className="card flex flex-col gap-4 p-4">
       <VerdiMedTittel
         visBorder={true}
-        label="Innsendt"
+        label="Opprettet"
         verdi={formaterTilNorskDato(oppgave.tidspunktOpprettet)}
       />
 
@@ -43,6 +43,12 @@ export function InnsendingInfo({ innsending }: IProps) {
         verdi={hentOppgaveTilstandTekst(oppgave.tilstand)}
       />
 
+      <VerdiMedTittel
+        visBorder={true}
+        label="Frist"
+        verdi={oppfolging.frist ? formaterTilNorskDato(oppfolging.frist) : "Ingen frist"}
+      />
+
       {oppgave.saksbehandler && (
         <VerdiMedTittel
           visBorder={true}
@@ -59,8 +65,16 @@ export function InnsendingInfo({ innsending }: IProps) {
         />
       )}
 
-      {innsending.vurdering && readonly && (
-        <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={innsending.vurdering} />
+      {oppfolging.vurdering && readonly && (
+        <VerdiMedTittel visBorder={true} label={"Vurdering"} verdi={oppfolging.vurdering} />
+      )}
+
+      {oppfolging.nyBehandling && readonly && (
+        <VerdiMedTittel
+          visBorder={true}
+          label={"Ny behandling"}
+          verdi={`${oppfolging.nyBehandling.behandlingType} – ${oppfolging.nyBehandling.behandlingId}`}
+        />
       )}
 
       {!readonly && (
@@ -102,14 +116,12 @@ export function InnsendingInfo({ innsending }: IProps) {
           {visSkjema && (
             <FerdigstillOppgaveSkjema
               medBehandling={medBehandling ?? false}
-              setVisSkjema={(visSkjema) => {
+              setVisSkjema={(visSkjema: boolean) => {
                 setVisSkjema(visSkjema);
-                if (!visSkjema) {
-                  setMedBehandling(undefined);
-                }
+                setMedBehandling(undefined);
               }}
-              lovligeSaker={innsending.lovligeSaker}
-              variant={"ferdigstill-innsending"}
+              lovligeSaker={oppfolging.lovligeSaker}
+              variant="ferdigstill-oppfolging"
             />
           )}
         </div>

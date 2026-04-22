@@ -4,6 +4,141 @@
  */
 
 export interface paths {
+    "/oppfolging": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Opprett en ny oppfølging
+         * @description Oppretter en oppfølging for en person.
+         *     Oppgaven opprettes i KLAR_TIL_BEHANDLING, eller PÅ_VENT hvis frist er satt.
+         */
+        post: operations["opprettOppf\u00F8lging"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppfolging/{behandlingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hent oppfølging for en gitt behandlingId */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Vellykket respons med oppfølging */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Oppfolging"];
+                    };
+                };
+                /** @description Oppfølging ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppfolging/{behandlingId}/ferdigstill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Ferdigstill oppfølging */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["FerdigstillOppfolgingRequest"];
+                };
+            };
+            responses: {
+                /** @description Oppfølging ferdigstilt */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppfølging ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/tilbakekreving/{behandlingId}": {
         parameters: {
             query?: never;
@@ -2176,11 +2311,11 @@ export interface components {
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING";
+        BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "OPPFOLGING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
@@ -2502,6 +2637,7 @@ export interface components {
             sakId?: string;
             vurdering: string;
             behandlingsvariant?: components["schemas"]["BehandlingVariant"];
+            nyOppgave?: components["schemas"]["NyOppfolging"];
         };
         HttpProblem: {
             type: string;
@@ -2524,6 +2660,97 @@ export interface components {
             saksbehandlingURL: string;
             fullstendigPeriode: components["schemas"]["TilbakekrevingPeriode"];
         };
+        Oppfolging: {
+            /**
+             * Format: uuid
+             * @description Behandling-ID for oppfølgingen
+             */
+            behandlingId?: string;
+            /** @description Visningstittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
+            /** @description Strukturert data knyttet til oppgaven */
+            strukturertData?: {
+                [key: string]: unknown;
+            };
+            lovligeSaker?: components["schemas"]["TynnSak"][];
+            /**
+             * Format: uuid
+             * @description Valgt sak-id ved ferdigstilling
+             */
+            sakId?: string;
+            /** @description Saksbehandlers vurdering */
+            vurdering?: string;
+            nyBehandling?: components["schemas"]["TynnBehandling"];
+        };
+        OpprettOppfolgingRequest: {
+            /** @description Fødselsnummer eller D-nummer for personen oppgaven gjelder */
+            personIdent: string;
+            /** @description Kort tittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /** @description Årsak/kategori for oppgaven */
+            aarsak: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
+            /**
+             * @description Om oppgaven skal tildeles saksbehandleren som oppretter den
+             * @default false
+             */
+            beholdOppgaven: boolean;
+            /** @description Strukturert data knyttet til oppgaven */
+            strukturertData?: {
+                [key: string]: unknown;
+            };
+        };
+        OpprettOppfolgingResponse: {
+            /**
+             * Format: uuid
+             * @description ID til den opprettede oppfølgingen
+             */
+            "oppf\u00F8lgingId": string;
+            /**
+             * Format: uuid
+             * @description ID til den opprettede oppgaven (for oppgavelisten)
+             */
+            oppgaveId: string;
+        };
+        FerdigstillOppfolgingRequest: {
+            /** Format: uuid */
+            sakId?: string;
+            vurdering?: string;
+            behandlingsvariant?: components["schemas"]["BehandlingVariant"];
+            nyOppgave?: components["schemas"]["NyOppfolging"];
+        };
+        /** @description Data for ny oppfølging (kun ved behandlingsvariant=OPPFOLGING) */
+        NyOppfolging: {
+            /** @description Tittel på den nye oppgaven */
+            tittel: string;
+            /** @description Beskrivelse av den nye oppgaven */
+            beskrivelse?: string;
+            /** @description Årsak/kategori for den nye oppgaven */
+            aarsak: string;
+            /**
+             * Format: date
+             * @description Frist for den nye oppgaven
+             */
+            frist?: string;
+            /**
+             * @description Om den nye oppgaven skal tildeles samme saksbehandler
+             * @default false
+             */
+            beholdOppgaven: boolean;
+        };
         /** @enum {string} */
         TilbakekrevingBehandlingStatus: "OPPRETTET" | "TIL_BEHANDLING" | "TIL_GODKJENNING" | "AVSLUTTET";
         TilbakekrevingPeriode: {
@@ -2540,4 +2767,56 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    "opprettOppf\u00F8lging": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OpprettOppfolgingRequest"];
+            };
+        };
+        responses: {
+            /** @description Oppfølging opprettet */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OpprettOppfolgingResponse"];
+                };
+            };
+            /** @description Ugyldig request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Ingen tilgang til person */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Feil */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+        };
+    };
+}

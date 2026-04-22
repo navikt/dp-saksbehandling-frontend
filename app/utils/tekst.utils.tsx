@@ -3,6 +3,7 @@ import {
   BooksIcon,
   CalendarIcon,
   ChatExclamationmarkIcon,
+  ClipboardCheckmarkIcon,
   FileTextIcon,
   PersonPencilIcon,
   ReceiptIcon,
@@ -13,6 +14,7 @@ import {
   components,
   components as saksbehandlingComponents,
 } from "../../openapi/saksbehandling-typer";
+import { NyBehandlingType } from "./validering.util";
 
 export function hentTekstForReturnerTilSaksbehandlerÅrsak(
   årsak: saksbehandlingComponents["schemas"]["ReturnerTilSaksbehandlingAarsak"],
@@ -136,6 +138,15 @@ export function hentUtløstAvTekstForVisning(
         "Tilbakekreving"
       );
 
+    case "OPPFØLGING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ClipboardCheckmarkIcon aria-hidden fontSize="1.5rem" /> Oppfølging
+        </span>
+      ) : (
+        "Oppfølging"
+      );
+
     default:
       return utløstAv;
   }
@@ -187,5 +198,24 @@ export function hentTekstForLeggTilbakeÅrsak(
       return "Annet";
     default:
       return leggTilbakeÅrsak;
+  }
+}
+
+export function hentTekstForFerdigstilling(
+  nyBehandlingType: NyBehandlingType,
+  variant: "ferdigstill-innsending" | "ferdigstill-oppfolging",
+) {
+  const behandlingTypeTekst = variant === "ferdigstill-innsending" ? "Innsending" : "Oppgave";
+  switch (nyBehandlingType) {
+    case "RETT_TIL_DAGPENGER_MANUELL":
+      return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
+    case "RETT_TIL_DAGPENGER_REVURDERING":
+      return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
+    case "KLAGE":
+      return `${behandlingTypeTekst} ferdigstilt, ny klage opprettet ✅`;
+    case "OPPFOLGING":
+      return `${behandlingTypeTekst} ferdigstilt, ny oppfølging opprettet ✅`;
+    case "INGEN":
+      return `${behandlingTypeTekst} ferdigstilt ✅`;
   }
 }

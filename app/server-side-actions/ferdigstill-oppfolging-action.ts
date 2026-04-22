@@ -3,21 +3,21 @@ import { components } from "openapi/saksbehandling-typer";
 import { ActionFunctionArgs, redirect } from "react-router";
 
 import { IAlert } from "~/context/alert-context";
-import { ferdigstillInnsending } from "~/models/saksbehandling.server";
+import { ferdigstillOppfolging } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentTekstForFerdigstilling } from "~/utils/tekst.utils";
 import { hentValideringForFerdigstillOppgave } from "~/utils/validering.util";
 
-export async function ferdigstillInnsendingAction(
+export async function ferdigstillOppfolgingAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
   const validertSkjema = await parseFormData(
     formData,
-    hentValideringForFerdigstillOppgave("ferdigstill-innsending"),
+    hentValideringForFerdigstillOppgave("ferdigstill-oppfolging"),
   );
 
   if (validertSkjema.error) {
@@ -26,7 +26,7 @@ export async function ferdigstillInnsendingAction(
 
   const data = validertSkjema.data;
 
-  const body: components["schemas"]["FerdigstillInnsendingRequest"] = {
+  const body: components["schemas"]["FerdigstillOppfolgingRequest"] = {
     sakId: data.sakId,
     behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
     vurdering: data.vurdering,
@@ -42,7 +42,7 @@ export async function ferdigstillInnsendingAction(
         : undefined,
   };
 
-  const { error } = await ferdigstillInnsending(request, body, data.behandlingId);
+  const { error } = await ferdigstillOppfolging(request, body, data.behandlingId);
 
   if (error) {
     return getHttpProblemAlert(error);
@@ -50,7 +50,7 @@ export async function ferdigstillInnsendingAction(
 
   const successAlert: IAlert = {
     variant: "success",
-    title: hentTekstForFerdigstilling(data.behandlingsvariant, "ferdigstill-innsending"),
+    title: hentTekstForFerdigstilling(data.behandlingsvariant, "ferdigstill-oppfolging"),
   };
 
   const session = await getSession(request.headers.get("Cookie"));
