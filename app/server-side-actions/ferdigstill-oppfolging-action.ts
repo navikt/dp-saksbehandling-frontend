@@ -26,7 +26,7 @@ export async function ferdigstillOppfolgingAction(
 
   const data = validertSkjema.data;
 
-  const body: components["schemas"]["FerdigstillInnsendingRequest"] = {
+  const body: components["schemas"]["FerdigstillOppfolgingRequest"] = {
     sakId: data.sakId,
     behandlingsvariant: data.behandlingsvariant === "INGEN" ? undefined : data.behandlingsvariant,
     vurdering: data.vurdering,
