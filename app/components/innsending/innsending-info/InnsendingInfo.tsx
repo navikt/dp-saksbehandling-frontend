@@ -2,14 +2,13 @@ import { BodyShort, Button } from "@navikt/ds-react";
 import { components } from "openapi/saksbehandling-typer";
 import { useState } from "react";
 
+import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
-
-import { FerdigstillInnsendingSkjema } from "../ferdigstill-innsending-skjema/FerdigstillInnsendingSkjema";
 
 interface IProps {
   innsending: components["schemas"]["Innsending"];
@@ -101,7 +100,7 @@ export function InnsendingInfo({ innsending }: IProps) {
           )}
 
           {visSkjema && (
-            <FerdigstillInnsendingSkjema
+            <FerdigstillOppgaveSkjema
               medBehandling={medBehandling ?? false}
               setVisSkjema={(visSkjema) => {
                 setVisSkjema(visSkjema);
@@ -110,6 +109,7 @@ export function InnsendingInfo({ innsending }: IProps) {
                 }
               }}
               lovligeSaker={innsending.lovligeSaker}
+              variant={"ferdigstill-innsending"}
             />
           )}
         </div>

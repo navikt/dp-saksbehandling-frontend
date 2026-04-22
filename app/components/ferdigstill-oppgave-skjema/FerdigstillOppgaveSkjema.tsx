@@ -11,27 +11,33 @@ import { hentValideringForFerdigstillOppgave, NyBehandlingType } from "~/utils/v
 
 interface IProps {
   setVisSkjema: (visSkjema: boolean) => void;
-  lovligeSaker: components["schemas"]["Innsending"]["lovligeSaker"];
+  lovligeSaker?: components["schemas"]["TynnSak"][];
   medBehandling: boolean;
+  variant: "ferdigstill-innsending" | "ferdigstill-oppfolging";
 }
 
-export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBehandling }: IProps) {
+export function FerdigstillOppgaveSkjema({
+  lovligeSaker,
+  setVisSkjema,
+  medBehandling,
+  variant,
+}: IProps) {
   const { pathname } = useLocation();
   const { behandlingId } = useTypeSafeParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
 
-  const ferdigstillInnsendingSkjema = useForm({
+  const ferdigstillSkjema = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillOppgave("ferdigstill-innsending"),
+    schema: hentValideringForFerdigstillOppgave(variant),
     defaultValues: {
-      _action: "ferdigstill-innsending",
+      _action: variant,
       behandlingId,
       sakId: "",
-      behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
       vurdering: "",
       aktivtOppgaveSok,
+      behandlingsvariant: (medBehandling ? "" : "INGEN") as NyBehandlingType,
       tittel: "",
       årsak: "",
       beskrivelse: "",
@@ -46,33 +52,34 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
         Ferdigstill oppgave
       </Heading>
 
-      <Form {...ferdigstillInnsendingSkjema.getFormProps()} className="flex flex-col gap-4">
-        <Select
-          {...ferdigstillInnsendingSkjema.field("sakId").getInputProps()}
-          label="SakID"
-          size="small"
-          description="Velg saken innsendingen skal knyttes til"
-          error={ferdigstillInnsendingSkjema.field("sakId").error()}
-        >
-          <option hidden={true} value="">
-            Velg sak
-          </option>
-
-          {lovligeSaker.map(({ sakId, opprettetDato }) => (
-            <option key={sakId} value={sakId}>
-              {formaterTilNorskDato(opprettetDato)} – {sakId}
+      <Form {...ferdigstillSkjema.getFormProps()} className="flex flex-col gap-4">
+        {lovligeSaker && lovligeSaker.length > 0 && (
+          <Select
+            {...ferdigstillSkjema.field("sakId").getInputProps()}
+            label="SakID"
+            size="small"
+            description={`Velg saken ${variant === "ferdigstill-innsending" ? "innsendingen" : "oppgaven"} skal knyttes til`}
+            error={ferdigstillSkjema.field("sakId").error()}
+          >
+            <option hidden={true} value="">
+              Velg sak
             </option>
-          ))}
-        </Select>
+            {lovligeSaker.map(({ sakId, opprettetDato }) => (
+              <option key={sakId} value={sakId}>
+                {formaterTilNorskDato(opprettetDato)} – {sakId}
+              </option>
+            ))}
+          </Select>
+        )}
 
         {medBehandling && (
           <RadioGroup
-            {...ferdigstillInnsendingSkjema.field("behandlingsvariant").getInputProps()}
-            error={ferdigstillInnsendingSkjema.field("behandlingsvariant").error()}
+            {...ferdigstillSkjema.field("behandlingsvariant").getInputProps()}
+            error={ferdigstillSkjema.field("behandlingsvariant").error()}
             size="small"
             legend="Behandlingstype"
             onChange={(val) => {
-              ferdigstillInnsendingSkjema.field("behandlingsvariant").setValue(val);
+              ferdigstillSkjema.field("behandlingsvariant").setValue(val);
             }}
           >
             <Radio value="RETT_TIL_DAGPENGER_MANUELL">Manuell behandling</Radio>
@@ -83,19 +90,19 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
         )}
 
         <Textarea
-          {...ferdigstillInnsendingSkjema.field("vurdering").getInputProps()}
-          error={ferdigstillInnsendingSkjema.field("vurdering").error()}
+          {...ferdigstillSkjema.field("vurdering").getInputProps()}
+          error={ferdigstillSkjema.field("vurdering").error()}
           resize="vertical"
           label="Vurdering"
         />
 
-        {ferdigstillInnsendingSkjema.field("behandlingsvariant").value() === "OPPFOLGING" && (
+        {ferdigstillSkjema.field("behandlingsvariant").value() === "OPPFOLGING" && (
           <>
             <Heading size="xsmall" level="4">
               Ny oppfølging
             </Heading>
 
-            <NyOppfolgingFelter form={ferdigstillInnsendingSkjema} />
+            <NyOppfolgingFelter form={ferdigstillSkjema} />
           </>
         )}
 
@@ -113,7 +120,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
             type="submit"
             variant="primary"
             size="small"
-            loading={ferdigstillInnsendingSkjema.formState.isSubmitting}
+            loading={ferdigstillSkjema.formState.isSubmitting}
           >
             Ferdigstill
           </Button>

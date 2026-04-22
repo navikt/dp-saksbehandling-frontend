@@ -2,14 +2,13 @@ import { BodyShort, Button } from "@navikt/ds-react";
 import { components } from "openapi/saksbehandling-typer";
 import { useState } from "react";
 
+import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
-
-import { FerdigstillOppfolgingSkjema } from "../ferdigstill-oppfolging-skjema/FerdigstillOppfolgingSkjema";
 
 interface IProps {
   oppfolging: components["schemas"]["Oppfolging"];
@@ -115,13 +114,14 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
           )}
 
           {visSkjema && (
-            <FerdigstillOppfolgingSkjema
+            <FerdigstillOppgaveSkjema
               medBehandling={medBehandling ?? false}
-              onAvbryt={() => {
-                setVisSkjema(false);
+              setVisSkjema={(visSkjema: boolean) => {
+                setVisSkjema(visSkjema);
                 setMedBehandling(undefined);
               }}
               lovligeSaker={oppfolging.lovligeSaker}
+              variant="ferdigstill-oppfolging"
             />
           )}
         </div>
