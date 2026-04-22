@@ -396,7 +396,7 @@ export function hentValideringForFerdigstillOppgave(
   const ferdigstillInnsendingFelter = {
     _action: z.literal(action),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
-    sakId: z.string().min(1, "Det mangler sakId i skjema"),
+    sakId: z.string().optional(),
     vurdering: z.string().min(1, "Du må skrive en vurdering"),
     aktivtOppgaveSok: z.string(),
   };
