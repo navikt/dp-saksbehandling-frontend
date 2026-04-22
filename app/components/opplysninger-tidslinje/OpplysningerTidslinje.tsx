@@ -55,6 +55,7 @@ interface IProps {
   eksternTidslinjeNavigeringState?: TidslinjeNavigeringState;
   rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
   visAllePerioder?: boolean;
+  relevantForResultat?: boolean;
 }
 
 export function OpplysningerTidslinje(props: IProps) {
@@ -248,8 +249,8 @@ export function OpplysningerTidslinje(props: IProps) {
                   key={index}
                   start={start}
                   end={slutt}
-                  status={hentFargeForOpplysningPeriode(periode.verdi)}
-                  icon={hentIkonForOpplysningPeriode(periode.verdi)}
+                  status={hentFargeForOpplysningPeriode(periode.verdi, props.relevantForResultat)}
+                  icon={hentIkonForOpplysningPeriode(periode.verdi, props.relevantForResultat)}
                 >
                   <div className={"flex gap-4"}>
                     <div>
