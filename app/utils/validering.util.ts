@@ -266,6 +266,7 @@ export type GyldigOppfølgingÅrsak =
   | "Annen årsak";
 
 export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
+  "Avventer ny informasjon",
   "Oppfølging av meldekort",
   "Oppfølging av vedtak",
   "Kopi av vedtak til fullmektig",
