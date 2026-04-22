@@ -37,6 +37,7 @@ export function FerdigstillInnsendingSkjema({ lovligeSaker, setVisSkjema, medBeh
       årsak: "",
       beskrivelse: "",
       frist: "",
+      tildelSammeSaksbehandler: undefined,
     },
   });
 

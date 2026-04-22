@@ -292,8 +292,7 @@ export function nyOppfolgingSchemaFelter() {
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato(),
     ),
-    // Hvis checkbox er huket av sender den verdien "On", hvis den ikke er huket av er den undefined
-    tildelSammeSaksbehandler: z.literal("on").optional(),
+    tildelSammeSaksbehandler: z.coerce.boolean().optional(),
   };
 }
 

@@ -32,8 +32,8 @@ export async function ferdigstillInnsendingAction(
             tittel: data.tittel,
             aarsak: data.årsak,
             beskrivelse: data.beskrivelse,
-            frist: data.nyOppgaveFrist ? formaterTilBackendDato(data.nyOppgaveFrist) : undefined,
-            beholdOppgaven: data.tildelSammeSaksbehandler,
+            frist: data.frist ? formaterTilBackendDato(data.frist) : undefined,
+            beholdOppgaven: data.tildelSammeSaksbehandler === true,
           }
         : undefined,
   };

@@ -62,6 +62,7 @@ export function NyOppfolgingFelter({ form }: { form: FormApi }) {
       <Checkbox
         form={form.field("tildelSammeSaksbehandler").getInputProps().form}
         name={form.field("tildelSammeSaksbehandler").getInputProps().name}
+        value={form.field("tildelSammeSaksbehandler").value()}
         error={form.field("tildelSammeSaksbehandler").error()}
         size="small"
       >

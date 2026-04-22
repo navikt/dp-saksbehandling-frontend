@@ -24,7 +24,7 @@ export async function opprettOppfolgingAction(request: Request, formData: FormDa
     beskrivelse,
     aarsak: årsak,
     frist: frist ? formaterTilBackendDato(frist) : undefined,
-    beholdOppgaven: tildelSammeSaksbehandler === "on",
+    beholdOppgaven: tildelSammeSaksbehandler === true,
   };
 
   const { data, error } = await opprettOppfolging(request, body);
