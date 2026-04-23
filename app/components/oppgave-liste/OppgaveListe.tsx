@@ -12,6 +12,7 @@ import {
   hentOppgaveTilstandTekst,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
+import { gyldigeNyOppfølgingÅrsaker, GyldigOppfølgingÅrsak } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -82,6 +83,11 @@ export function OppgaveListe(props: IProps) {
 
             const gjenopptakEmneknagger = oppgave.emneknagger.filter(
               (emneknagg) => emneknagg.kategori === "GJENOPPTAK",
+            );
+
+            // TODO: bruk kategori i stedet for visningsnavn når backend kategoriserer oppfølgingsoppgaver
+            const oppfølgingEmneknagger = oppgave.emneknagger.filter((emneknagg) =>
+              gyldigeNyOppfølgingÅrsaker.includes(emneknagg.visningsnavn as GyldigOppfølgingÅrsak),
             );
 
             return (
@@ -200,6 +206,20 @@ export function OppgaveListe(props: IProps) {
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
                         data-color={"brand-magenta"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {oppfølgingEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"neutral"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>

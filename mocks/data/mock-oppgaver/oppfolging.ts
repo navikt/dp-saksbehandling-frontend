@@ -55,6 +55,10 @@ export const oppfolging: components["schemas"]["Oppgave"] = {
       visningsnavn: "Inntektssjekk",
       kategori: "RETTIGHET",
     },
+    {
+      visningsnavn: "Avventer ny informasjon",
+      kategori: "UDEFINERT",
+    },
   ],
   tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
