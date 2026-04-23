@@ -33,7 +33,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const journalposterPromises = Promise.all(
     oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
   );
-
   return {
     oppgave,
     behandling,

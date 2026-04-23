@@ -1,6 +1,6 @@
 import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { ActionFunctionArgs, Form, useActionData } from "react-router";
+import { ActionFunctionArgs, useActionData } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
@@ -25,10 +25,12 @@ export default function NyOppfolging() {
 
   const oppfolgingForm = useForm({
     schema: hentValideringForNyOppfolgingSkjema(),
+    submitSource: "state",
     method: "post",
     defaultValues: {
       _action: "opprett-oppfolging",
       personIdent: personOversikt.person.ident,
+      personUuid: personOversikt.person.id,
       tittel: "",
       beskrivelse: "",
       årsak: "" as GyldigOppfølgingÅrsak,
@@ -44,18 +46,7 @@ export default function NyOppfolging() {
           Oppfølging
         </Heading>
 
-        <Form method="post" {...oppfolgingForm.getFormProps()} className={"flex flex-col gap-4"}>
-          <input
-            hidden={true}
-            readOnly={true}
-            {...oppfolgingForm.field("_action").getInputProps({ value: "opprett-oppfolging" })}
-          />
-          <input
-            hidden={true}
-            readOnly={true}
-            {...oppfolgingForm.field("personIdent").getInputProps()}
-          />
-
+        <div className={"flex flex-col gap-4"}>
           <NyOppfolgingFelter form={oppfolgingForm} />
 
           <div className="flex justify-between">
@@ -69,14 +60,14 @@ export default function NyOppfolging() {
 
             <Button
               variant="primary"
-              type="submit"
               size="small"
               loading={oppfolgingForm.formState.isSubmitting}
+              onClick={() => oppfolgingForm.submit()}
             >
               Lag oppgave
             </Button>
           </div>
-        </Form>
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export async function opprettOppfolgingAction(request: Request, formData: FormDa
     return validationError(validertSkjema.error);
   }
 
-  const { personIdent, tittel, beskrivelse, årsak, frist, tildelSammeSaksbehandler } =
+  const { personIdent, personUuid, tittel, beskrivelse, årsak, frist, tildelSammeSaksbehandler } =
     validertSkjema.data;
 
   const body: components["schemas"]["OpprettOppfolgingRequest"] = {
@@ -30,7 +30,7 @@ export async function opprettOppfolgingAction(request: Request, formData: FormDa
   const { data, error } = await opprettOppfolging(request, body);
 
   if (data) {
-    return redirect(`/oppgave/${data.oppgaveId}/oppfolging/${data["oppfølgingId"]}`);
+    return redirect(`/person/${personUuid}/oversikt`);
   }
 
   if (error) {

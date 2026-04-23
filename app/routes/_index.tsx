@@ -87,7 +87,7 @@ export default function Saksbehandling() {
 
   return (
     <div className={styles.container}>
-      <aside className={styles.venstreMeny}>
+      <nav className={styles.venstreMeny}>
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
         <OppgaveFilterStatus
@@ -97,7 +97,7 @@ export default function Saksbehandling() {
         <OppgaveFilterGjenopptak />
         <OppgaveFilterRettighetstype />
         <OppgaveFilterSøknadresultat />
-      </aside>
+      </nav>
 
       <main>
         <Form method="post" className={"mb-2"}>

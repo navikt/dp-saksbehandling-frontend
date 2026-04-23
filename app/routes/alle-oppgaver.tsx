@@ -79,7 +79,7 @@ export default function Saksbehandling() {
 
   return (
     <div className={styles.container}>
-      <aside className={styles.venstreMeny}>
+      <nav className={styles.venstreMeny}>
         <OppgaveFilterMineOppgaver />
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
@@ -90,7 +90,7 @@ export default function Saksbehandling() {
         <OppgaveFilterSøknadresultat />
         <OppgaveFilterAvbruttgrunner />
         <OppgaveFilterPåVentGrunner />
-      </aside>
+      </nav>
 
       <main>
         <div className={"card"}>

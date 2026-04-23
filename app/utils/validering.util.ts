@@ -279,6 +279,7 @@ export function hentValideringForNyOppfolgingSkjema() {
     .object({
       _action: z.literal("opprett-oppfolging"),
       personIdent: z.string().min(1, { message: "Du må skrive inn fødselsnummer" }),
+      personUuid: z.uuid({ message: "Det mangler personUuid i skjema" }),
     })
     .extend(nyOppfolgingSchemaFelter().shape);
 }
@@ -291,7 +292,7 @@ export function nyOppfolgingSchemaFelter() {
     frist: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
+      hentValideringForNorskDato().optional(),
     ),
     tildelSammeSaksbehandler: z.coerce.boolean().optional(),
   });

@@ -77,12 +77,12 @@ export default function Saksbehandling() {
 
   return (
     <div className={styles.container}>
-      <aside className={styles.venstreMeny}>
+      <nav className={styles.venstreMeny}>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
         <OppgaveFilterRettighetstype />
-      </aside>
+      </nav>
 
       <main>
         <div className={"card"}>
