@@ -57,7 +57,7 @@ export const oppfolging: components["schemas"]["Oppgave"] = {
     },
     {
       visningsnavn: "Avventer ny informasjon",
-      kategori: "UDEFINERT",
+      kategori: "OPPFOLGING_ARSAK",
     },
   ],
   tilstand: "UNDER_BEHANDLING",

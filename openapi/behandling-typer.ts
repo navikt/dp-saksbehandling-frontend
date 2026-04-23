@@ -889,7 +889,7 @@ export interface components {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
             /** @description Alle utbetalinger som er beregnet i behandlingskjeden */
-            utbetalinger: components["schemas"]["Utbetaling"][];
+            utbetalinger: components["schemas"]["UtbetalingBase"][];
             /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
             behandletAv: components["schemas"]["BehandletAv"][];
             /** @description Hvilken avgjørelse behandlingen førte til */
@@ -1346,7 +1346,7 @@ export interface components {
              *       }
              *     ]
              */
-            utbetalinger: components["schemas"]["Utbetaling"][];
+            utbetalinger: components["schemas"]["UtbetalingBase"][];
             opplysninger: components["schemas"]["Opplysning"][];
         };
         /**
@@ -1412,7 +1412,13 @@ export interface components {
             harRett: boolean;
             opprinnelse?: components["schemas"]["Opprinnelse"];
         };
-        Utbetaling: {
+        UtbetalingBase: components["schemas"]["UtbetalingMeldekort"] | components["schemas"]["UtbetalingFerietillegg"];
+        UtbetalingMeldekort: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            utbetalingstype: "Meldekort";
             meldeperiode: string;
             /** Format: date */
             dato: string;
@@ -1420,6 +1426,22 @@ export interface components {
             utbetaling: number;
             opprinnelse?: components["schemas"]["Opprinnelse"];
         };
+        UtbetalingFerietillegg: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            utbetalingstype: "Ferietillegg";
+            /** Format: date */
+            dato: string;
+            utbetaling: number;
+            opprinnelse?: components["schemas"]["Opprinnelse"];
+        };
+        /**
+         * @description Angir om utbetalingen gjelder meldekort eller ferietillegg
+         * @enum {string}
+         */
+        Utbetalingstype: "Meldekort" | "Ferietillegg";
         BehandletAv: {
             /** @enum {string} */
             rolle: "saksbehandler" | "beslutter";

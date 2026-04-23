@@ -12,7 +12,6 @@ import {
   hentOppgaveTilstandTekst,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
-import { gyldigeNyOppfølgingÅrsaker, GyldigOppfølgingÅrsak } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
@@ -85,9 +84,8 @@ export function OppgaveListe(props: IProps) {
               (emneknagg) => emneknagg.kategori === "GJENOPPTAK",
             );
 
-            // TODO: bruk kategori i stedet for visningsnavn når backend kategoriserer oppfølgingsoppgaver
-            const oppfølgingEmneknagger = oppgave.emneknagger.filter((emneknagg) =>
-              gyldigeNyOppfølgingÅrsaker.includes(emneknagg.visningsnavn as GyldigOppfølgingÅrsak),
+            const oppfølgingEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "OPPFOLGING_ARSAK",
             );
 
             return (
@@ -219,7 +217,7 @@ export function OppgaveListe(props: IProps) {
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
-                        data-color={"neutral"}
+                        data-color={"meta-purple"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>

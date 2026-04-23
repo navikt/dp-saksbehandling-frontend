@@ -15,4 +15,5 @@ export const mockPersonOversikt: components["schemas"]["PersonOversikt"] = {
       oppgaver: mockListeOppgaver,
     },
   ],
+  ferietilleggSaker: [],
 };

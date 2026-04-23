@@ -2190,6 +2190,7 @@ export interface components {
             person: components["schemas"]["Person"];
             saker: components["schemas"]["Sak"][];
             oppgaver: components["schemas"]["OppgaveOversikt"][];
+            ferietilleggSaker: components["schemas"]["Sak"][];
         };
         Sak: {
             /** Format: uuid */
@@ -2307,11 +2308,11 @@ export interface components {
          * @description Kategorisering av emneknagger for enklere gruppering og filtrering i frontend
          * @enum {string}
          */
-        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "UDEFINERT";
+        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "OPPFOLGING_ARSAK" | "UDEFINERT";
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */
-        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
+        UtlostAvType: "MELDEKORT" | "SØKNAD" | "MANUELL" | "REVURDERING" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING" | "FERIETILLEGG" | "ARBEIDSSØKERPERIODE";
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "MELDEKORT_KORRIGERING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
