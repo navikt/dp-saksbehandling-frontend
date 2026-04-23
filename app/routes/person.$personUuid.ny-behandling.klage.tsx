@@ -1,7 +1,6 @@
 import { Button, DatePicker, Heading, TextField, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import classnames from "classnames";
-import { ActionFunctionArgs, Form, useActionData } from "react-router";
+import { ActionFunctionArgs, useActionData } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -9,8 +8,6 @@ import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
-
-import styles from "../route-styles/person.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -25,6 +22,7 @@ export default function Oppgave() {
   const { datepickerProps, inputProps } = useDatepicker({ toDate: new Date() });
   const klageForm = useForm({
     schema: hentValideringForNyKlageSkjema(),
+    submitSource: "state",
     method: "post",
     defaultValues: {
       personIdent: personOversikt.person.ident,
@@ -35,60 +33,57 @@ export default function Oppgave() {
   });
 
   return (
-    <div className={classnames("card mt-2 p-4", styles.container)}>
-      <Heading size="small" spacing>
-        Opprett ny klage
-      </Heading>
+    <div className="mx-auto flex">
+      <div className="card mt-2 min-w-sm p-12">
+        <Heading size="small" spacing>
+          Opprett ny klage
+        </Heading>
 
-      <Form method="post" {...klageForm.getFormProps()}>
-        <input name="_action" value="opprett-klage" hidden={true} readOnly={true} />
-        <input hidden={true} readOnly={true} {...klageForm.field("personIdent").getInputProps()} />
+        <div className={"flex flex-col gap-4"}>
+          <DatePicker {...datepickerProps}>
+            <DatePicker.Input
+              {...inputProps}
+              label="Klage mottatt"
+              name={"opprettetDato"}
+              size={"small"}
+              error={klageForm.error("opprettetDato")}
+            />
+          </DatePicker>
 
-        <DatePicker {...datepickerProps}>
-          <DatePicker.Input
-            {...inputProps}
-            label="Klage mottatt"
-            name={"opprettetDato"}
+          <TextField
+            name="journalpostId"
+            label={"Journalpost Id"}
             size={"small"}
-            error={klageForm.error("opprettetDato")}
+            error={klageForm.error("journalpostId")}
           />
-        </DatePicker>
 
-        <TextField
-          name="journalpostId"
-          className="mt-4 max-w-sm"
-          label={"Journalpost Id"}
-          size={"small"}
-          error={klageForm.error("journalpostId")}
-        />
-
-        <TextField
-          name="sakId"
-          className="mt-4 max-w-sm"
-          label={"Sak Id"}
-          size={"small"}
-          error={klageForm.error("sakId")}
-        />
-
-        <div className={"mt-4 flex gap-2"}>
-          <LoadingLink
-            to={`/person/${personOversikt.person.id}/oversikt`}
-            asButtonVariant={"secondary"}
-            buttonSize={"small"}
-          >
-            Tilbake
-          </LoadingLink>
-
-          <Button
-            variant={"primary"}
-            type={"submit"}
+          <TextField
+            name="sakId"
+            label={"Sak Id"}
             size={"small"}
-            loading={klageForm.formState.isSubmitting}
-          >
-            Opprett
-          </Button>
+            error={klageForm.error("sakId")}
+          />
+
+          <div className={"flex justify-between"}>
+            <LoadingLink
+              to={`/person/${personOversikt.person.id}/oversikt`}
+              asButtonVariant={"secondary"}
+              buttonSize={"small"}
+            >
+              Tilbake
+            </LoadingLink>
+
+            <Button
+              variant={"primary"}
+              type={"submit"}
+              size={"small"}
+              loading={klageForm.formState.isSubmitting}
+            >
+              Opprett
+            </Button>
+          </div>
         </div>
-      </Form>
+      </div>
     </div>
   );
 }

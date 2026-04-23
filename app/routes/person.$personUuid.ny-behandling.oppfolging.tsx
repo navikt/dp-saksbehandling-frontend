@@ -41,7 +41,7 @@ export default function NyOppfolging() {
 
   return (
     <div className={"mx-auto flex"}>
-      <div className={"card mt-2 p-12"}>
+      <div className={"card mt-2 min-w-sm p-12"}>
         <Heading size="small" spacing>
           Oppfølging
         </Heading>
