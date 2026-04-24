@@ -28,6 +28,7 @@ import { handleActions } from "~/server-side-actions/handle-actions";
 import { getEnv } from "~/utils/env.utils";
 
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
+import { FeatureFlagsProvider } from "./context/feature-flags-context";
 import { unleash } from "./unleash";
 
 export function meta() {
@@ -96,6 +97,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const orkestratorBarnOpplysninger = unleash.isEnabled(
     "dp-saksbehandling-frontend.orkestrator-barn-opplysninger",
   );
+  const kanAlltidLeggeTilPeriode = unleash.isEnabled(
+    "dp-saksbehandling-frontend.kan-alltid-legge-til-periode",
+  );
 
   return {
     saksbehandler: saksbehandler,
@@ -107,6 +111,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       hippHippHurra,
       paaske,
       orkestratorBarnOpplysninger,
+      kanAlltidLeggeTilPeriode,
     },
     env: {
       IS_LOCALHOST: process.env.IS_LOCALHOST,
@@ -138,37 +143,38 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <SaksbehandlerProvider>
-          <InternalHeader className={styles.header}>
-            <Link to={"/"} className={styles.headerLogo}>
-              <InternalHeader.Title as="h1" className={styles.pageHeader}>
-                {featureFlags.halloween && <PumpkinSvg />}
-                {featureFlags.jul && <MistelteinSvg />}
-                {featureFlags.hippHippHurra && <Flagg />}
-                {featureFlags.paaske && <PaaskeEggHeaderSvg />}
-                Dagpenger
-              </InternalHeader.Title>
-            </Link>
+        <FeatureFlagsProvider featureFlags={featureFlags}>
+          <SaksbehandlerProvider>
+            <InternalHeader className={styles.header}>
+              <Link to={"/"} className={styles.headerLogo}>
+                <InternalHeader.Title as="h1" className={styles.pageHeader}>
+                  {featureFlags.halloween && <PumpkinSvg />}
+                  {featureFlags.jul && <MistelteinSvg />}
+                  {featureFlags.hippHippHurra && <Flagg />}
+                  {featureFlags.paaske && <PaaskeEggHeaderSvg />}
+                  Dagpenger
+                </InternalHeader.Title>
+              </Link>
 
-            <HeaderMeny saksbehandler={saksbehandler} />
-          </InternalHeader>
+              <HeaderMeny saksbehandler={saksbehandler} />
+            </InternalHeader>
 
-          <AlertProvider>
-            <GlobalAlerts />
+            <AlertProvider>
+              <GlobalAlerts />
 
-            <Outlet />
-          </AlertProvider>
+              <Outlet />
+            </AlertProvider>
 
-          <ScrollRestoration />
-          <Scripts />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.env = ${JSON.stringify(env)}`,
-            }}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+            <ScrollRestoration />
+            <Scripts />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.env = ${JSON.stringify(env)}`,
+              }}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
                 window.umamiBeforeSend = function(type, payload) {
                   if (payload.url) {
                     var ids = new Set(["oppgave","dagpenger-rett","person","innsending","klage"]);
@@ -181,16 +187,17 @@ export default function App() {
                   return payload;
                 }
               `,
-            }}
-          />
-          <script
-            defer
-            src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-            data-host-url={env.UMAMI_HOST_URL}
-            data-website-id={env.UMAMI_TRACKING_ID}
-            data-before-send="umamiBeforeSend"
-          />
-        </SaksbehandlerProvider>
+              }}
+            />
+            <script
+              defer
+              src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+              data-host-url={env.UMAMI_HOST_URL}
+              data-website-id={env.UMAMI_TRACKING_ID}
+              data-before-send="umamiBeforeSend"
+            />
+          </SaksbehandlerProvider>
+        </FeatureFlagsProvider>
       </body>
     </html>
   );
