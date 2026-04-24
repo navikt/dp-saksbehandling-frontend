@@ -1,7 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { components } from "openapi/soknad-orkestrator-typer";
 import { ActionFunctionArgs, redirect } from "react-router";
 
+import { components } from "@/openapi/soknad-orkestrator-typer";
 import { leggTilBarn } from "~/models/orkestrator-opplysning.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";

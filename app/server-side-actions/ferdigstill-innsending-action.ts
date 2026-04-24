@@ -1,7 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { components } from "openapi/saksbehandling-typer";
 import { ActionFunctionArgs, redirect } from "react-router";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { IAlert } from "~/context/alert-context";
 import { ferdigstillInnsending } from "~/models/saksbehandling.server";
 import { commitSession, getSession } from "~/sessions";

@@ -1,6 +1,6 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { components } from "openapi/saksbehandling-typer";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { IAlert } from "~/context/alert-context";
 import { lagreGodkjentBrevIGosys } from "~/models/saksbehandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";

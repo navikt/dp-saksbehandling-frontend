@@ -1,5 +1,4 @@
-import { components } from "openapi/saksbehandling-typer";
-
+import { components } from "@/openapi/saksbehandling-typer";
 import type { ISaksbehandler } from "~/models/microsoft.server";
 
 export const mockSaksbehandler: ISaksbehandler = {

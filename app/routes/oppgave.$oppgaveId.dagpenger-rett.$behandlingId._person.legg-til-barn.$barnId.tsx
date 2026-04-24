@@ -1,7 +1,6 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Button, Heading } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { components } from "openapi/soknad-orkestrator-typer";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -10,6 +9,7 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { components } from "@/openapi/soknad-orkestrator-typer";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorOpplysning } from "~/components/orkestrator/orkestrator-opplysning/OrkestratorOpplysning";

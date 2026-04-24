@@ -1,5 +1,6 @@
-import { components } from "openapi/behandling-typer";
 import { expect, test } from "vitest";
+
+import { components } from "@/openapi/behandling-typer";
 
 import {
   erOpplysningsperiodeInnenforRettighetsperiode,

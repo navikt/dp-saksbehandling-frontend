@@ -12,10 +12,10 @@ import {
 } from "@navikt/ds-react";
 import classnames from "classnames";
 import { add, sub } from "date-fns";
-import { components } from "openapi/behandling-typer";
 import { Suspense } from "react";
 import { Await, useParams } from "react-router";
 
+import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { TidslinjeNavigering } from "~/components/tidslinje-navigering/TidslinjeNavigering";
 import {

@@ -1,7 +1,7 @@
 import { BodyShort, Button } from "@navikt/ds-react";
-import { components } from "openapi/saksbehandling-typer";
 import { useState } from "react";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";

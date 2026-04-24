@@ -1,8 +1,8 @@
 import { Button, Heading, Radio, RadioGroup, Select, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { components } from "openapi/saksbehandling-typer";
 import { Form, useLocation } from "react-router";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { NyOppfolgingFelter } from "~/components/ny-oppfolging-felter/NyOppfolgingFelter";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";

@@ -1,6 +1,6 @@
-import { paths } from "openapi/soknad-orkestrator-typer";
 import { createOpenApiHttp } from "openapi-msw";
 
+import { paths } from "@/openapi/soknad-orkestrator-typer";
 import { getEnv } from "~/utils/env.utils";
 
 import { mockOrkestratorBarn } from "./data/mock-orkestrator/mock-orkestrator-barn";

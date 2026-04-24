@@ -1,8 +1,8 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { components } from "openapi/soknad-orkestrator-typer";
 import { ActionFunctionArgs } from "react-router";
 import invariant from "tiny-invariant";
 
+import { components } from "@/openapi/soknad-orkestrator-typer";
 import { IAlert } from "~/context/alert-context";
 import { redigerBarn } from "~/models/orkestrator-opplysning.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";

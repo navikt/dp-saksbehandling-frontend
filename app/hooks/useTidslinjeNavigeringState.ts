@@ -1,6 +1,7 @@
 import { add, sub } from "date-fns";
-import { components } from "openapi/behandling-typer";
 import { useState } from "react";
+
+import { components } from "@/openapi/behandling-typer";
 
 export type AntallUkerITidslinje = "2" | "4" | "8" | "16" | "52";
 

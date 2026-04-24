@@ -1,4 +1,4 @@
-import { components } from "openapi/saksbehandling-typer";
+import { components } from "@/openapi/saksbehandling-typer";
 
 export const mockTilbakekreving: components["schemas"]["Tilbakekreving"] = {
   tilbakekrevingBehandlingId: "0198c672-222d-7701-a986-76b0ca6b225d",

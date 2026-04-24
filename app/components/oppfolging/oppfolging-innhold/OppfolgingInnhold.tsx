@@ -1,5 +1,6 @@
 import { BodyLong, BodyShort, Heading } from "@navikt/ds-react";
-import { components } from "openapi/saksbehandling-typer";
+
+import { components } from "@/openapi/saksbehandling-typer";
 
 interface IProps {
   oppfolging: components["schemas"]["Oppfolging"];

@@ -1,10 +1,10 @@
 import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@navikt/aksel-icons";
 import { Button, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { components } from "openapi/behandling-typer";
 import { useState } from "react";
 import { useParams } from "react-router";
 
+import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";

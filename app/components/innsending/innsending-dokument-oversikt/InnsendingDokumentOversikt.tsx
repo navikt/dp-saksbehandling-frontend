@@ -1,8 +1,8 @@
 import { FilePdfIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
-import { Variantformat } from "graphql/generated/saf/graphql";
 import { Fragment } from "react/jsx-runtime";
 
+import { Variantformat } from "@/graphql/generated/saf/graphql";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
 import { hentJournalpost } from "~/models/saf.server";
 import { IValgtDokument } from "~/routes/oppgave.$oppgaveId.innsending.$behandlingId";

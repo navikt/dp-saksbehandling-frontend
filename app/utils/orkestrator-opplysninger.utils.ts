@@ -1,4 +1,4 @@
-import { components } from "openapi/soknad-orkestrator-typer";
+import { components } from "@/openapi/soknad-orkestrator-typer";
 
 import { formaterTilNorskDato } from "./dato.utils";
 

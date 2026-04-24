@@ -1,9 +1,8 @@
 import { z } from "zod";
 
+import { components } from "@/openapi/behandling-typer";
+import { components as saksbehandlingComponents } from "@/openapi/saksbehandling-typer";
 import { logger } from "~/utils/logger.utils";
-
-import { components } from "../../openapi/behandling-typer";
-import { components as saksbehandlingComponents } from "../../openapi/saksbehandling-typer";
 
 export type NyBehandlingType =
   | "RETT_TIL_DAGPENGER_MANUELL"
@@ -25,7 +24,7 @@ export function hentValideringForOpplysningPeriodeSkjema(
     gyldigFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
+      hentValideringForNorskDato(),
     ),
     gyldigTilOgMed: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
@@ -48,7 +47,7 @@ export function hentValideringForNyOpplysningPeriodeSkjema(
     gyldigFraOgMed: z.preprocess(
       // Datepicker setter undefined til "undefiend" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
+      hentValideringForNorskDato(),
     ),
     gyldigTilOgMed: z.preprocess(
       // Datepicker setter undefined til "undefiend" så vi må caste tilbake
