@@ -9,6 +9,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OpplysningPeriodeTabellNyPeriode } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellNyPeriode";
 import { OpplysningPeriodeTabellRedigerLinje } from "~/components/opplysning-perioder-tabell/OpplysningPeriodeTabellRedigerLinje";
 import { useBehandling } from "~/hooks/useBehandling";
+import { useFeatureFlags } from "~/hooks/useFeatureFlags";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
@@ -25,6 +26,7 @@ const NY_PERIODE_ID = "NY-PERIODE";
 export function OpplysningPerioderTabell(props: IProps) {
   const { behandlingId } = useParams();
   const { readonly, oppgave } = useOppgave();
+  const { featureFlags } = useFeatureFlags();
   const { visArvedeOpplysninger } = useBehandling();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
   const slettPeriodeForm = useForm({
@@ -36,6 +38,7 @@ export function OpplysningPerioderTabell(props: IProps) {
 
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
+    featureFlags.kanAlltidLeggeTilPeriode ||
     props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
     props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 
