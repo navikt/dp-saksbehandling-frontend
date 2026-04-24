@@ -293,7 +293,9 @@ export function nyOppfolgingSchemaFelter() {
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato().optional(),
     ),
-    tildelSammeSaksbehandler: z.coerce.boolean().optional(),
+    tildelSammeSaksbehandler: z
+      .preprocess((val) => val === true || val === "true" || val === "on", z.boolean())
+      .optional(),
   });
 }
 
