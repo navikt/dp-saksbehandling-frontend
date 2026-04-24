@@ -66,6 +66,23 @@ export async function leggTilBarn(
   });
 }
 
+export async function slettBarn(
+  request: Request,
+  soknadbarnId: string,
+  barnId: string,
+  requestBody: components["schemas"]["SlettBarnRequest"],
+) {
+  const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
+
+  return await orkestratorClient.POST("/opplysninger/barn/{soknadbarnId}/{barnId}/slett", {
+    headers: getHeaders(onBehalfOfToken),
+    body: { ...requestBody },
+    params: {
+      path: { soknadbarnId, barnId },
+    },
+  });
+}
+
 export async function hentOrkestratorLandListe(request: Request) {
   const onBehalfOfToken = await getSoknadOrkestratorOboToken(request);
 

@@ -568,6 +568,16 @@ export function hentValideringForRedigeringBarn() {
   });
 }
 
+export function hentValideringForSlettBarn() {
+  return z.object({
+    _action: z.literal("slett-barn"),
+    soknadbarnId: z.string().min(1, { message: "Det mangler soknadbarnId i skjema" }),
+    barnId: z.string().min(1, { message: "Det mangler barnId i skjema" }),
+    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
+    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
+  });
+}
+
 export function hentValideringForNyttBarn() {
   const boolskSvar = z
     .enum(["true", "false"], { message: "Du må velge et svar" })

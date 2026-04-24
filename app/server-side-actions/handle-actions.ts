@@ -19,6 +19,7 @@ import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
+import { slettBarnAction } from "~/server-side-actions/slett-barn-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
@@ -108,6 +109,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "opprett-oppfolging":
       return await opprettOppfolgingAction(request, formData);
+
+    case "slett-barn":
+      return await slettBarnAction(request, formData);
 
     case "rediger-barn":
       return await redigerBarnAction(request, params, formData);
