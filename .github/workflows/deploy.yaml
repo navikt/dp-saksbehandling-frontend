@@ -47,6 +47,7 @@ jobs:
   build:
     name: Bygg
     needs: [ test ]
+    if: github.actor != 'dependabot[bot]' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
