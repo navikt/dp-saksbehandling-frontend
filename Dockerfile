@@ -1,47 +1,3 @@
-FROM node:24-alpine AS node
-RUN corepack enable pnpm
-RUN pnpm config set @navikt:registry=https://npm.pkg.github.com
-
-
-# build app
-FROM node AS app-build
-WORKDIR /app
-
-COPY ./app ./app
-COPY ./mocks ./mocks
-COPY ./public ./public/
-COPY ./graphql ./graphql
-COPY ./vite.config.ts ./
-COPY ./tailwind.config.js  ./
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
-
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
-    pnpm install --ignore-scripts && \
-    pnpm config delete //npm.pkg.github.com/:_authToken
-RUN pnpm run build
-
-
-# install dependencies
-FROM node AS app-dependencies
-WORKDIR /app
-
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
-
-RUN --mount=type=secret,id=NODE_AUTH_TOKEN \
-    pnpm config set //npm.pkg.github.com/:_authToken=$(cat /run/secrets/NODE_AUTH_TOKEN) && \
-    pnpm install --ignore-scripts --prod && \
-    pnpm config delete //npm.pkg.github.com/:_authToken
-
-
-# export build to filesystem (GitHub)
-FROM scratch AS build-export
-COPY --from=app-build /app/build ./
-
-
-# runtime
 FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24@sha256:fffe0ad955bc6961b10c4cba6ad03064d2017882587c8a8535f06d147ed15ff1 AS runtime
 WORKDIR /app
 
@@ -52,7 +8,7 @@ EXPOSE 3000
 
 COPY ./public ./public/
 COPY ./package.json ./package.json
-COPY --from=app-build /app/build/ ./build/
-COPY --from=app-dependencies /app/node_modules ./node_modules
+COPY ./build/ ./build/
+COPY ./node_modules ./node_modules
 
 CMD ["./node_modules/@react-router/serve/dist/cli.js", "./build/server/index.js"]

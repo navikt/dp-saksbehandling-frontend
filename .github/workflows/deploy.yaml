@@ -72,6 +72,20 @@ jobs:
           path: ./node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
 
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        run: pnpm install --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Build app
+        run: pnpm build
+
+      - name: Remove dev dependencies
+        run: pnpm install --ignore-scripts --prod
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
@@ -82,13 +96,6 @@ jobs:
           push_image: true
           dockerfile: Dockerfile
           docker_context: .
-
-      - name: Build static files
-        uses: docker/build-push-action@v7
-        with:
-          target: build-export
-          outputs: type=local,dest=build
-          secrets: NODE_AUTH_TOKEN=${{ secrets.READER_TOKEN }}
 
       - name: Upload static files
         uses: nais/deploy/actions/cdn-upload/v2@master
