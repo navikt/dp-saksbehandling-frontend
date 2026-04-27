@@ -2308,7 +2308,7 @@ export interface components {
          * @description Kategorisering av emneknagger for enklere gruppering og filtrering i frontend
          * @enum {string}
          */
-        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "OPPFOLGING_ARSAK" | "UDEFINERT";
+        EmneknaggKategori: "RETTIGHET" | "GJENOPPTAK" | "SOKNADSRESULTAT" | "AVSLAGSGRUNN" | "AVBRUTT_GRUNN" | "PAA_VENT" | "ETTERSENDING" | "OPPFOLGING_ARSAK" | "BEHANDLET_HENDELSE_TYPE" | "UDEFINERT";
         /** @enum {string} */
         OppgaveTilstand: "KLAR_TIL_BEHANDLING" | "UNDER_BEHANDLING" | "KLAR_TIL_KONTROLL" | "UNDER_KONTROLL" | "FERDIG_BEHANDLET" | "PAA_VENT" | "AVVENTER_LÅS_AV_BEHANDLING" | "AVVENTER_OPPLÅSING_AV_BEHANDLING" | "AVBRUTT" | "AVBRUTT_MASKINELT";
         /** @enum {string} */

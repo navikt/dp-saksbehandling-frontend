@@ -14,7 +14,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "REVURDERING",
   "TILBAKEKREVING",
   "OPPFØLGING",
-  "MELDEKORT_KORRIGERING",
+  // "MELDEKORT_KORRIGERING",
 ];
 
 export function OppgaveFilterUtløstAv() {

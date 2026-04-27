@@ -1456,7 +1456,7 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg";
+            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning";
             /**
              * Format: date
              * @description Når hendelsen skjedde på utsiden av vårt system
