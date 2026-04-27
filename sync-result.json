@@ -1,0 +1,61 @@
+{
+  "up_to_date": false,
+  "source": "fa7e104",
+  "updates": [
+    {
+      "path": ".github/agents/aksel.agent.md",
+      "current_hash": "9a80d306394a0cf4",
+      "source_hash": "f3f31e695bc1df0f"
+    },
+    {
+      "path": ".github/agents/code-review.agent.md",
+      "current_hash": "e46beba21ce5df32",
+      "source_hash": "83d872eba6edd7e6"
+    },
+    {
+      "path": ".github/agents/forfatter.agent.md",
+      "current_hash": "acc16aca57ed5f30",
+      "source_hash": "13a58d6edf244114"
+    },
+    {
+      "path": ".github/agents/security-champion.agent.md",
+      "current_hash": "b1871587f069eb13",
+      "source_hash": "3081dcf0ddde695d"
+    },
+    {
+      "path": ".github/instructions/accessibility.instructions.md",
+      "current_hash": "aba24163f0a00c75",
+      "source_hash": "3f682e93474bfdd8"
+    },
+    {
+      "path": ".github/instructions/nextjs-aksel.instructions.md",
+      "current_hash": "3fe8feeb1459e760",
+      "source_hash": "9283252e55829ca2"
+    },
+    {
+      "path": ".github/skills/aksel-spacing/",
+      "current_hash": "5c7a8fe6dc1027ff",
+      "source_hash": "690f23009e204e36"
+    },
+    {
+      "path": ".github/skills/api-design/",
+      "current_hash": "2760ab46cc8b8993",
+      "source_hash": "a353aded69a4bd4c"
+    },
+    {
+      "path": ".github/skills/conventional-commit/",
+      "current_hash": "da78e35d1cdafb28",
+      "source_hash": "b81a4898fed3139d"
+    },
+    {
+      "path": ".github/skills/playwright-testing/",
+      "current_hash": "2b2fa6a6440ecccd",
+      "source_hash": "d8991a8ed8a5e0b5"
+    },
+    {
+      "path": ".github/skills/security-review/",
+      "current_hash": "a26f5fbf69241d98",
+      "source_hash": "c74a83a4e61fbf58"
+    }
+  ]
+}
