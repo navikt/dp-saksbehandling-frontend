@@ -29,7 +29,7 @@ export function PrøvingsdatoInput() {
       behandlingId: behandling.behandlingId,
       verdi: konverterOpplysningVerdiTilSkjemaVerdi(prøvingsdatoOpplysningPeriode.verdi),
       begrunnelse: prøvingsdatoOpplysningPeriode.kilde?.begrunnelse?.verdi,
-      gyldigFraOgMed: undefined,
+      gyldigFraOgMed: undefined as string | undefined,
       gyldigTilOgMed: undefined,
     },
   });
@@ -39,9 +39,12 @@ export function PrøvingsdatoInput() {
     defaultSelected: periodeDato,
     onDateChange: (date) => {
       if (date) {
-        prøvingsdatoSkjema.field("verdi").setValue(formaterTilNorskDato(date));
+        const dato = formaterTilNorskDato(date);
+        prøvingsdatoSkjema.field("verdi").setValue(dato);
+        prøvingsdatoSkjema.field("gyldigFraOgMed").setValue(dato);
       } else {
         prøvingsdatoSkjema.field("verdi").setValue("");
+        prøvingsdatoSkjema.field("gyldigFraOgMed").setValue(undefined);
       }
     },
   });
