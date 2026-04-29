@@ -20,10 +20,15 @@ rapporteringPersonregisterClient.use(middleware);
 
 export async function hentRapporteringPersonId(request: Request, ident: string) {
   const onBehalfOfToken = await getRapporteringPersonregisterOboToken(request);
-  const { data } = await rapporteringPersonregisterClient.POST("/hentPersonId", {
+  const { data, error } = await rapporteringPersonregisterClient.POST("/hentPersonId", {
     headers: getHeaders(onBehalfOfToken),
     body: { ident },
   });
+
+  if (error) {
+    console.error("Feil ved henting av personId fra dp-rapportering-personregister:", error);
+    return null;
+  }
 
   if (data) {
     return data;
