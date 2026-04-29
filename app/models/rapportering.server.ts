@@ -19,18 +19,25 @@ const rapporteringPersonregisterClient = createClient<paths>({
 rapporteringPersonregisterClient.use(middleware);
 
 export async function hentRapporteringPersonId(request: Request, ident: string) {
-  const onBehalfOfToken = await getRapporteringPersonregisterOboToken(request);
-  const { data, error } = await rapporteringPersonregisterClient.POST("/hentPersonId", {
-    headers: getHeaders(onBehalfOfToken),
-    body: { ident },
-  });
+  try {
+    const onBehalfOfToken = await getRapporteringPersonregisterOboToken(request);
+    const { data, error } = await rapporteringPersonregisterClient.POST("/hentPersonId", {
+      headers: getHeaders(onBehalfOfToken),
+      body: { ident },
+    });
 
-  if (error) {
-    console.error("Feil ved henting av personId fra dp-rapportering-personregister:", error);
+    if (error) {
+      console.error("Feil ved henting av personId fra dp-rapportering-personregister:", error);
+      return null;
+    }
+
+    if (data) {
+      return data;
+    }
+
     return null;
-  }
-
-  if (data) {
-    return data;
+  } catch (e) {
+    console.error("Feil ved henting av personId fra dp-rapportering-personregister:", e);
+    return null;
   }
 }
