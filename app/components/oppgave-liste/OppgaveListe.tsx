@@ -88,6 +88,10 @@ export function OppgaveListe(props: IProps) {
               (emneknagg) => emneknagg.kategori === "OPPFOLGING_ARSAK",
             );
 
+            const behandletHendelseEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "BEHANDLET_HENDELSE_TYPE",
+            );
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -218,6 +222,19 @@ export function OppgaveListe(props: IProps) {
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
                         data-color={"meta-purple"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {behandletHendelseEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>

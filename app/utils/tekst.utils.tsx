@@ -5,6 +5,7 @@ import {
   ChatExclamationmarkIcon,
   ClipboardCheckmarkIcon,
   FileTextIcon,
+  InformationSquareIcon,
   PersonPencilIcon,
   ReceiptIcon,
 } from "@navikt/aksel-icons";
@@ -154,6 +155,18 @@ export function hentUtløstAvTekstForVisning(
         </span>
       ) : (
         "Meldekortkorrigering"
+      );
+
+    // TODO? burde dette bare være defaultoppførsel?
+    case "ARBEIDSSØKERPERIODE":
+    case "FERIETILLEGG":
+    case "SAMORDNING":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <InformationSquareIcon aria-hidden fontSize="1.5rem" /> Andre hendelser
+        </span>
+      ) : (
+        "Andre hendelser"
       );
 
     default:
