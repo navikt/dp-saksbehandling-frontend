@@ -1,13 +1,17 @@
-import { PencilWritingIcon } from "@navikt/aksel-icons";
-import { Button, Heading } from "@navikt/ds-react";
+import { PencilWritingIcon, TrashIcon } from "@navikt/aksel-icons";
+import { Button, Heading, Modal, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
 
 import { useBehandling } from "~/hooks/useBehandling";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
-import { hentValideringForRedigeringBarn } from "~/utils/validering.util";
+import {
+  hentValideringForRedigeringBarn,
+  hentValideringForSlettBarn,
+} from "~/utils/validering.util";
 
 import { components } from "../../../../openapi/soknad-orkestrator-typer";
 import { OrkestratorOpplysningLinje } from "./OrkestratorOpplysningLinje";
@@ -23,7 +27,9 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   const [venterPåSvar, setVenterPåSvar] = useState(false);
   const { state } = useNavigation();
   const { behandling } = useBehandling();
+  const { barnId: soknadbarnId } = useTypeSafeParams();
   const actionData = useActionData();
+  const slettModalRef = useRef<HTMLDialogElement>(null);
 
   const fornavnOgMellomnavn = barn.opplysninger.find((o) => o.id === "fornavnOgMellomnavn")?.verdi;
   const etternavn = barn.opplysninger.find((o) => o.id === "etternavn")?.verdi;
@@ -58,6 +64,20 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
     },
   });
 
+  const slettBarnForm = useForm({
+    method: "post",
+    schema: hentValideringForSlettBarn(),
+    submitSource: "state",
+    defaultValues: {
+      _action: "slett-barn",
+      soknadbarnId: soknadbarnId,
+      barnId: barn.barnId,
+      behandlingId: behandling.behandlingId,
+      begrunnelse: "",
+    },
+    onSubmitSuccess: () => slettModalRef.current?.close(),
+  });
+
   useEffect(() => {
     if (!venterPåSvar || state !== "idle" || !isAlert(actionData)) return;
 
@@ -76,56 +96,110 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   }
 
   return (
-    <Form {...orkestratorBarnForm.getFormProps()} className="card card-raised m-4 mt-8 p-2">
-      <Heading level="4" size="xsmall" className="m-2" spacing>
-        Barn {barnNummer}
-      </Heading>
+    <div className="card card-raised m-4 mt-8 p-2">
+      <Form {...orkestratorBarnForm.getFormProps()}>
+        <Heading level="4" size="xsmall" className="m-2" spacing>
+          Barn {barnNummer}
+        </Heading>
 
-      <div className="flex flex-col gap-4 p-2">
-        {barn.opplysninger.map((opplysning) => (
-          <OrkestratorOpplysningLinje
-            key={`${opplysning.id}-${redigerer}`}
-            opplysning={opplysning}
-            formScope={orkestratorBarnForm.scope(opplysning.id)}
-            orkestratorLandliste={orkestratorLandliste}
-            readOnly={!redigerer}
-          />
-        ))}
-      </div>
-
-      {!redigerer && (
-        <Button
-          type="button"
-          variant="secondary"
-          size="small"
-          className="mt-4 ml-3"
-          icon={<PencilWritingIcon />}
-          onClick={() => setRedigerer(true)}
-        >
-          Endre
-        </Button>
-      )}
-
-      {redigerer && (
-        <div className="mt-4 ml-3 flex gap-2">
-          <Button type="button" variant="secondary" size="small" onClick={avbryt}>
-            Avbryt
-          </Button>
-
-          <Button
-            type="button"
-            size="small"
-            loading={state !== "idle"}
-            onClick={() => {
-              setVenterPåSvar(true);
-              orkestratorBarnForm.submit();
-            }}
-            disabled={!orkestratorBarnForm.formState.isDirty}
-          >
-            Lagre endringer
-          </Button>
+        <div className="flex flex-col gap-4 p-2">
+          {barn.opplysninger.map((opplysning) => (
+            <OrkestratorOpplysningLinje
+              key={`${opplysning.id}-${redigerer}`}
+              opplysning={opplysning}
+              formScope={orkestratorBarnForm.scope(opplysning.id)}
+              orkestratorLandliste={orkestratorLandliste}
+              readOnly={!redigerer}
+            />
+          ))}
         </div>
-      )}
-    </Form>
+
+        {!redigerer && (
+          <div className="mt-4 ml-3 flex gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              icon={<PencilWritingIcon />}
+              onClick={() => setRedigerer(true)}
+            >
+              Endre
+            </Button>
+
+            <Button
+              type="button"
+              variant="secondary"
+              size="small"
+              icon={<TrashIcon />}
+              onClick={() => slettModalRef.current?.showModal()}
+            >
+              Slett
+            </Button>
+          </div>
+        )}
+
+        {redigerer && (
+          <div className="mt-4 ml-3 flex gap-2">
+            <Button type="button" variant="secondary" size="small" onClick={avbryt}>
+              Avbryt
+            </Button>
+
+            <Button
+              type="button"
+              size="small"
+              loading={state !== "idle"}
+              onClick={() => {
+                setVenterPåSvar(true);
+                orkestratorBarnForm.submit();
+              }}
+              disabled={!orkestratorBarnForm.formState.isDirty}
+            >
+              Lagre endringer
+            </Button>
+          </div>
+        )}
+      </Form>
+
+      <Form {...slettBarnForm.getFormProps()}>
+        <Modal
+          ref={slettModalRef}
+          header={{ heading: `Slett barn ${barnNummer}: ${fornavnOgMellomnavn} ${etternavn}` }}
+        >
+          <Modal.Body>
+            <Textarea
+              {...slettBarnForm.getInputProps("begrunnelse")}
+              label="Begrunnelse"
+              description="Beskriv hvorfor barnet skal slettes"
+              error={slettBarnForm.error("begrunnelse")}
+              resize
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              type="button"
+              size="small"
+              variant="danger"
+              loading={state !== "idle"}
+              onClick={() => slettBarnForm.submit()}
+              disabled={!slettBarnForm.formState.isDirty}
+            >
+              Slett barn
+            </Button>
+
+            <Button
+              type="button"
+              size="small"
+              variant="secondary"
+              onClick={() => {
+                slettBarnForm.resetForm();
+                slettModalRef.current?.close();
+              }}
+            >
+              Avbryt
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Form>
+    </div>
   );
 }

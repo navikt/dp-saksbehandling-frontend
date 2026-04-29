@@ -84,6 +84,56 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/opplysninger/barn/{soknadbarnId}/{barnId}/slett": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Slett barn fra søknad */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description id for hele listen med barn på en gitt søknad, tilsvarende inntektId */
+                    soknadbarnId: string;
+                    /** @description id for det spesifikke barnet som skal slettes */
+                    barnId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["SlettBarnRequest"];
+                };
+            };
+            responses: {
+                /** @description Barn slettet */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Fant ikke barnet som skal slettes */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/opplysninger/barn/{soknadbarnId}/{barnId}": {
         parameters: {
             query?: never;
@@ -316,6 +366,11 @@ export interface components {
             /** Format: uuid */
             barnId: string;
             opplysninger: components["schemas"]["BarnOpplysning"][];
+        };
+        SlettBarnRequest: {
+            /** Format: uuid */
+            behandlingId: string;
+            begrunnelse: string;
         };
         BarnRequest: {
             /** Format: uuid */
