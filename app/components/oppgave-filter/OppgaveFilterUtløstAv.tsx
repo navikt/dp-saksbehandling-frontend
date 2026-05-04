@@ -12,7 +12,7 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "KLAGE",
   "INNSENDING",
   "REVURDERING",
-  "TILBAKEKREVING",
+  // "TILBAKEKREVING",
   "OPPFØLGING",
   // "MELDEKORT_KORRIGERING",
 ];
