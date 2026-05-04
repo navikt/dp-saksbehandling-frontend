@@ -54,7 +54,7 @@ export default function Tilbakekreving() {
       saksbehandler={saksbehandler}
       journalposterPromises={journalposterPromises}
     >
-      <PersonBoks person={oppgave.person} oppgave={oppgave} />
+      <PersonBoks person={oppgave.person} />
       <div className={"main flex gap-4"}>
         <OppgaveOversikt journalposterPromises={journalposterPromises} />
         <div
