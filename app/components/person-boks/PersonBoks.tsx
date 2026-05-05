@@ -10,7 +10,7 @@ import {
 } from "@navikt/ds-react";
 import classnames from "classnames";
 import { Suspense } from "react";
-import { Await, useLocation } from "react-router";
+import { Await } from "react-router";
 
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -25,18 +25,10 @@ import styles from "./PersonBoks.module.css";
 interface IProps {
   person: components["schemas"]["Person"];
   rapporteringPersonIdPromise?: Promise<Awaited<ReturnType<typeof hentRapporteringPersonId>>>;
-  oppgave?: components["schemas"]["Oppgave"];
 }
 
-export function PersonBoks({ person, oppgave, rapporteringPersonIdPromise }: IProps) {
-  const location = useLocation();
+export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
-  const utviklerinformasjon = {
-    oppgaveId: oppgave?.oppgaveId,
-    behandlingId: oppgave?.behandlingId,
-    saksbehandlerIdent: oppgave?.saksbehandler?.ident,
-    urlPath: location.pathname,
-  };
 
   const navn = `${person.fornavn} ${person.mellomnavn || ""} ${person.etternavn}`;
   const fødselsnummerMedMellomrom = `${person.ident.slice(0, 6)} ${person.ident.slice(6)}`;
@@ -115,14 +107,6 @@ export function PersonBoks({ person, oppgave, rapporteringPersonIdPromise }: IPr
             }
           </Await>
         </Suspense>
-
-        <CopyButton
-          className={styles.utviklerinfo}
-          size="xsmall"
-          copyText={JSON.stringify(utviklerinformasjon, null, 2)}
-          text="Kopier utviklerinformasjon"
-          activeText="Kopiert"
-        />
       </div>
 
       {person.sikkerhetstiltak?.map((tiltak) => (

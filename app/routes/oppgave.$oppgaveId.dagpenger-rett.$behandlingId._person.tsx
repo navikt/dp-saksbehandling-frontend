@@ -68,7 +68,6 @@ export default function BehandlingLayout() {
           <PersonBoks
             person={oppgave.person}
             rapporteringPersonIdPromise={rapporteringPersonIdPromise}
-            oppgave={oppgave}
           />
           <Outlet />
         </BehandlingProvider>

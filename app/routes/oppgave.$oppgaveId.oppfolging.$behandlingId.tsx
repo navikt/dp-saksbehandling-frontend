@@ -52,7 +52,7 @@ export default function OppfolgingRoute() {
       saksbehandler={saksbehandler}
       journalposterPromises={Promise.all(journalposter)}
     >
-      <PersonBoks person={oppgave.person} oppgave={oppgave} />
+      <PersonBoks person={oppgave.person} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
         <section className="flex flex-col gap-4">
           <OppfolgingInfo oppfolging={oppfolging} />

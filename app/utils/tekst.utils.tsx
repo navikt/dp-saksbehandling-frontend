@@ -1,10 +1,10 @@
 import {
   ArrowsSquarepathIcon,
-  BooksIcon,
   CalendarIcon,
   ChatExclamationmarkIcon,
   ClipboardCheckmarkIcon,
   FileTextIcon,
+  InboxDownIcon,
   InformationSquareIcon,
   PersonPencilIcon,
   ReceiptIcon,
@@ -90,7 +90,7 @@ export function hentUtløstAvTekstForVisning(
     case "INNSENDING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>
-          <BooksIcon aria-hidden fontSize="1.5rem" /> Innsending
+          <InboxDownIcon aria-hidden fontSize="1.5rem" /> Innsending
         </span>
       ) : (
         "Innsending"

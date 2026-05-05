@@ -1,8 +1,9 @@
 import { ChevronLeftDoubleIcon, ChevronRightDoubleIcon } from "@navikt/aksel-icons";
-import { BodyShort, Button, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
+import { BodyShort, Button, CopyButton, Detail, Heading, Skeleton, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 import { DokumentOversikt } from "~/components/dokument-oversikt/DokumentOversikt";
 import { FagsystemLenker } from "~/components/fagsystem-lenker/FagsystemLenker";
@@ -24,6 +25,7 @@ interface IProps {
 }
 
 export function OppgaveOversikt({ journalposterPromises }: IProps) {
+  const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
 
@@ -52,6 +54,13 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
   if (!oppgave) {
     return <Skeleton className="h-64 w-72" />;
   }
+
+  const utviklerinformasjon = {
+    oppgaveId: oppgave?.oppgaveId,
+    behandlingId: oppgave?.behandlingId,
+    saksbehandlerIdent: oppgave?.saksbehandler?.ident,
+    urlPath: location.pathname,
+  };
 
   return (
     <div className="relative">
@@ -196,6 +205,14 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                     verdi={`${oppgave.beslutter.fornavn} ${oppgave.beslutter.etternavn}`}
                   />
                 )}
+                <div>
+                  <CopyButton
+                    size="xsmall"
+                    copyText={JSON.stringify(utviklerinformasjon, null, 2)}
+                    text="Kopier utviklerinformasjon"
+                    activeText="Kopiert"
+                  />
+                </div>
               </div>
 
               {underKontroll && (
