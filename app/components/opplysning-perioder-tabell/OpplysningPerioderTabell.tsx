@@ -95,7 +95,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                {!readonly && props.opplysning.redigerbar && (
+                {!readonly && props.opplysning.redigerbar && periode.opprinnelse !== "Arvet" && (
                   <>
                     <Table.DataCell>
                       <Button
