@@ -9,8 +9,8 @@ interface IBehandlingContextType {
   behandling: components["schemas"]["Behandling"];
   forrigeBehandling?: components["schemas"]["Behandling"];
   vurderinger: components["schemas"]["SaksbehandlersVurderinger"];
-  prøvingsdatoOpplysning: components["schemas"]["RedigerbareOpplysninger"];
-  sistePrøvingsdato: Date;
+  prøvingsdatoOpplysning?: components["schemas"]["RedigerbareOpplysninger"];
+  sistePrøvingsdato?: Date;
   visArvedeOpplysninger: boolean;
   setVisArvedeOpplysninger: (visArvedeOpplysninger: boolean) => void;
 }
@@ -36,13 +36,7 @@ export function BehandlingProvider({
 
   const sistePrøvingsdatoOpplysningperiode = prøvingsdatoOpplysning?.perioder.at(-1);
 
-  if (
-    !prøvingsdatoOpplysning ||
-    !sistePrøvingsdatoOpplysningperiode ||
-    !isDatoVerdi(sistePrøvingsdatoOpplysningperiode.verdi)
-  ) {
-    throw new Error("Finner ikke prøvingsdato");
-  }
+  const harPrøvingsdato = prøvingsdatoOpplysning && sistePrøvingsdatoOpplysningperiode;
 
   return (
     <BehandlingContext.Provider
@@ -51,7 +45,10 @@ export function BehandlingProvider({
         forrigeBehandling,
         vurderinger,
         prøvingsdatoOpplysning,
-        sistePrøvingsdato: new Date(sistePrøvingsdatoOpplysningperiode.verdi.verdi),
+        sistePrøvingsdato:
+          harPrøvingsdato && isDatoVerdi(sistePrøvingsdatoOpplysningperiode.verdi)
+            ? new Date(sistePrøvingsdatoOpplysningperiode.verdi.verdi)
+            : undefined,
         visArvedeOpplysninger,
         setVisArvedeOpplysninger,
       }}

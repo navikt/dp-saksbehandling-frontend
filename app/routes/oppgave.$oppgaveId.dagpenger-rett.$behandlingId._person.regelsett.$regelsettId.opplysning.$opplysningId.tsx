@@ -87,7 +87,7 @@ export default function Opplysning() {
                 }
                 medLenkeTilOpplysning={true}
                 opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandling.behandlingId}/regelsett/${regelsett.id}/opplysning`}
-                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
+                pins={sistePrøvingsdato && [{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
               />
             </div>
 
@@ -98,7 +98,7 @@ export default function Opplysning() {
                 regelsettHjemmel={regelsett.hjemmel.tittel}
                 opplysningKilde={opplysning.formål}
                 opplysninger={[opplysning]}
-                pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
+                pins={sistePrøvingsdato && [{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
               />
               <OpplysningPerioderTabell opplysning={opplysning} />
             </div>

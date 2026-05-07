@@ -148,16 +148,7 @@ export function hentUtløstAvTekstForVisning(
         "Oppfølging"
       );
 
-    case "MELDEKORT_KORRIGERING":
-      return medIkon ? (
-        <span className={"flex items-center gap-0.5"}>
-          <CalendarIcon aria-hidden fontSize="1.5rem" /> Meldekortkorrigering
-        </span>
-      ) : (
-        "Meldekortkorrigering"
-      );
-
-    // TODO: dette blir jo bare tull.. nå tror jeg hver av disse burde ha sine egne ikoner og distinkte tekster
+    // TODO? burde dette bare være defaultoppførsel?
     case "ARBEIDSSØKERPERIODE":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>

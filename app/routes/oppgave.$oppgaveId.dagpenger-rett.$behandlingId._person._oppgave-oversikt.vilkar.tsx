@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, useActionData, useRouteError } from "react-router";
 
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
-import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrørvingsdatoInput";
+import { PrøvingsdatoInput } from "~/components/rett-på-dagpenger/PrøvingsdatoInput";
 import { VilkårTidslinje } from "~/components/vilkår-tidslinje/VilkårTidslinje";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";

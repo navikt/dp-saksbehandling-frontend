@@ -22,7 +22,7 @@ export function RettPåDagpenger() {
       <OpplysningerTidslinje
         opplysninger={[rettPåDagpengerOpplysning]}
         tittel={rettPåDagpengerOpplysning.navn}
-        pins={[{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
+        pins={sistePrøvingsdato && [{ label: "Prøvingsdato", date: sistePrøvingsdato }]}
         medLenkeTilOpplysning={true}
         opplysningGrunnUrl={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/MjA5OTE0NTUwMg==/opplysning`}
         visAllePerioder={true}

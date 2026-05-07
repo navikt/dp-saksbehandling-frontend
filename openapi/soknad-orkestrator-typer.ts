@@ -367,15 +367,15 @@ export interface components {
             barnId: string;
             opplysninger: components["schemas"]["BarnOpplysning"][];
         };
-        SlettBarnRequest: {
-            /** Format: uuid */
-            behandlingId: string;
-            begrunnelse: string;
-        };
         BarnRequest: {
             /** Format: uuid */
             behandlingId?: string;
             barn: components["schemas"]["BarnData"];
+        };
+        SlettBarnRequest: {
+            /** Format: uuid */
+            behandlingId: string;
+            begrunnelse: string;
         };
         BarnData: {
             fornavnOgMellomnavn: string;

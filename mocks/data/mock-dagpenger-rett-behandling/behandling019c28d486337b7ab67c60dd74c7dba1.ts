@@ -14,12 +14,6 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
   ident: "24838299217",
   rettighetsperioder: [
     {
-      fraOgMed: "2025-09-29",
-      tilOgMed: "2025-10-30",
-      harRett: true,
-      opprinnelse: "Ny",
-    },
-    {
       fraOgMed: "2025-12-17",
       tilOgMed: "2025-12-19",
       harRett: true,
@@ -29,6 +23,12 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       fraOgMed: "2025-12-20",
       harRett: false,
       opprinnelse: "Arvet",
+    },
+    {
+      fraOgMed: "2025-09-29",
+      tilOgMed: "2025-10-30",
+      harRett: true,
+      opprinnelse: "Ny",
     },
   ],
   opprettet: "2026-02-04T14:25:43.219968",
@@ -72,7 +72,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: ["01990a09-0eab-7957-b88f-14484a50e194"],
     },
     {
-      id: "-422034844",
+      id: "LTQyMjAzNDg0NA==",
       navn: "Opphold",
       hjemmel: {
         kilde: {
@@ -98,7 +98,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "113817629",
+      id: "MTEzODE3NjI5",
       navn: "Tap av arbeidsinntekt og arbeidstid",
       hjemmel: {
         kilde: {
@@ -132,7 +132,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "1917405995",
+      id: "MTkxNzQwNTk5NQ==",
       navn: "Minsteinntekt",
       hjemmel: {
         kilde: {
@@ -148,9 +148,6 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       relevantForResultat: true,
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
       opplysninger: [
-        "0194881f-9413-77ce-92ec-d29700f04246",
-        "0194881f-9413-77ce-92ec-d29700f04247",
-        "0194881f-9413-77ce-92ec-d29700f04244",
         "0194881f-9413-77ce-92ec-d29700f04245",
         "0194881f-9413-77ce-92ec-d29700f04243",
         "0194881f-9413-77ce-92ec-d29700f04241",
@@ -165,7 +162,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-709778893",
+      id: "LTcwOTc3ODg5Mw==",
       navn: "Reell arbeidssøker",
       hjemmel: {
         kilde: {
@@ -199,7 +196,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "1355973545",
+      id: "MTM1NTk3MzU0NQ==",
       navn: "Registrert som arbeidssøker",
       hjemmel: {
         kilde: {
@@ -220,7 +217,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-735652124",
+      id: "LTczNTY1MjEyNA==",
       navn: "Utdanning",
       hjemmel: {
         kilde: {
@@ -251,7 +248,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "726763306",
+      id: "NzI2NzYzMzA2",
       navn: "Permittering",
       hjemmel: {
         kilde: {
@@ -269,7 +266,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: [],
     },
     {
-      id: "1696849119",
+      id: "MTY5Njg0OTExOQ==",
       navn: "Permittering fiskeindustri",
       hjemmel: {
         kilde: {
@@ -287,7 +284,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: [],
     },
     {
-      id: "628695927",
+      id: "NjI4Njk1OTI3",
       navn: "Manglende og uriktige opplysninger",
       hjemmel: {
         kilde: {
@@ -310,7 +307,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "1257708498",
+      id: "MTI1NzcwODQ5OA==",
       navn: "Meldeplikt",
       hjemmel: {
         kilde: {
@@ -324,10 +321,11 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       },
       type: "Vilkår",
       relevantForResultat: false,
+      opplysningTypeId: "019d870c-6847-71fa-89d2-81a53d19cfcf",
       opplysninger: [],
     },
     {
-      id: "-354266510",
+      id: "LTM1NDI2NjUxMA==",
       navn: "Søknad",
       hjemmel: {
         kilde: {
@@ -349,7 +347,25 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "443361892",
+      id: "LTU2NzY3NzA4Ng==",
+      navn: "Gjenopptak",
+      hjemmel: {
+        kilde: {
+          navn: "Folketrygdloven",
+          kortnavn: "ftrl",
+        },
+        kapittel: "4",
+        paragraf: "16",
+        tittel: "§ 4-16. Gjenopptak av løpende stønadsperiode",
+        url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-16",
+      },
+      type: "Vilkår",
+      relevantForResultat: false,
+      opplysningTypeId: "019a2fda-4ad6-7711-89ec-38dec1b86293",
+      opplysninger: [],
+    },
+    {
+      id: "NDQzMzYxODky",
       navn: "Verneplikt",
       hjemmel: {
         kilde: {
@@ -362,7 +378,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
       type: "Vilkår",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
       opplysninger: [
         "01948d3c-4bea-7802-9d18-5342a5e2be99",
@@ -370,7 +386,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-1464003313",
+      id: "LTE0NjQwMDMzMTM=",
       navn: "Streik og lock-out",
       hjemmel: {
         kilde: {
@@ -392,7 +408,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "2068170353",
+      id: "MjA2ODE3MDM1Mw==",
       navn: "Alder",
       hjemmel: {
         kilde: {
@@ -416,7 +432,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "649273752",
+      id: "NjQ5MjczNzUy",
       navn: "Fulle ytelser",
       hjemmel: {
         kilde: {
@@ -435,7 +451,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: ["0194881f-943f-78d9-b874-00a4944c54f1"],
     },
     {
-      id: "-408080329",
+      id: "LTQwODA4MDMyOQ==",
       navn: "Samordning reduserte ytelser",
       hjemmel: {
         kilde: {
@@ -449,7 +465,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
       },
       type: "Vilkår",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
       opplysninger: [
         "0194881f-9433-70e9-a85b-c246150c45cd",
@@ -478,7 +494,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-981023914",
+      id: "LTk4MTAyMzkxNA==",
       navn: "Utestengning",
       hjemmel: {
         kilde: {
@@ -501,7 +517,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
   ],
   fastsettelser: [
     {
-      id: "497240064",
+      id: "NDk3MjQwMDY0",
       navn: "Meldekortberegning",
       hjemmel: {
         kilde: {
@@ -535,7 +551,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "920476734",
+      id: "OTIwNDc2NzM0",
       navn: "Rettighetstype",
       hjemmel: {
         kilde: {
@@ -562,7 +578,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "1938248916",
+      id: "MTkzODI0ODkxNg==",
       navn: "Søknadstidspunkt",
       hjemmel: {
         kilde: {
@@ -584,7 +600,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "1566092562",
+      id: "MTU2NjA5MjU2Mg==",
       navn: "Opptjeningsperiode",
       hjemmel: {
         kilde: {
@@ -601,10 +617,13 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         "0194881f-9414-7823-8d29-0e25b7feb7ce",
         "0194881f-9414-7823-8d29-0e25b7feb7cf",
         "0194881f-9414-7823-8d29-0e25b7feb7d0",
+        "0194881f-9413-77ce-92ec-d29700f04246",
+        "0194881f-9413-77ce-92ec-d29700f04247",
+        "0194881f-9413-77ce-92ec-d29700f04244",
       ],
     },
     {
-      id: "-1270428739",
+      id: "LTEyNzA0Mjg3Mzk=",
       navn: "Fastsettelse av arbeidstid",
       hjemmel: {
         kilde: {
@@ -621,7 +640,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: ["0194881f-9435-72a8-b1ce-9575cbc2a76a"],
     },
     {
-      id: "726763306",
+      id: "NzI2NzYzMzA2",
       navn: "Permittering",
       hjemmel: {
         kilde: {
@@ -638,7 +657,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: [],
     },
     {
-      id: "-1955883769",
+      id: "LTE5NTU4ODM3Njk=",
       navn: "Permittering fiskeindustri",
       hjemmel: {
         kilde: {
@@ -656,7 +675,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: [],
     },
     {
-      id: "-1866856189",
+      id: "LTE4NjY4NTYxODk=",
       navn: "Egenandel",
       hjemmel: {
         kilde: {
@@ -669,7 +688,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-9",
       },
       type: "Fastsettelse",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysninger: [
         "0194881f-943f-78d9-b874-00a4944c54f0",
         "019523aa-7941-7dd2-8c43-0644d7b43f57",
@@ -677,7 +696,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-657125179",
+      id: "LTY1NzEyNTE3OQ==",
       navn: "Dagpengegrunnlag",
       hjemmel: {
         kilde: {
@@ -723,7 +742,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "984680770",
+      id: "OTg0NjgwNzcw",
       navn: "Sats og barnetillegg",
       hjemmel: {
         kilde: {
@@ -736,7 +755,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-12",
       },
       type: "Fastsettelse",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysninger: [
         "0194881f-9428-74d5-b160-f63a4c61a23b",
         "0194881f-9428-74d5-b160-f63a4c61a23c",
@@ -763,7 +782,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "46199245",
+      id: "NDYxOTkyNDU=",
       navn: "Periode",
       hjemmel: {
         kilde: {
@@ -796,7 +815,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
     },
     {
-      id: "-2120647254",
+      id: "LTIxMjA2NDcyNTQ=",
       navn: "Dagpenger ved verneplikt",
       hjemmel: {
         kilde: {
@@ -813,7 +832,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       opplysninger: [],
     },
     {
-      id: "-1762604738",
+      id: "LTE3NjI2MDQ3Mzg=",
       navn: "Samordning utenfor folketrygden",
       hjemmel: {
         kilde: {
@@ -852,6 +871,42 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         "0194881f-942f-7bde-ab16-68ffd19e9a2d",
       ],
     },
+    {
+      id: "Nzc0ODQwNzYy",
+      navn: "Omgjøring uten klage",
+      hjemmel: {
+        kilde: {
+          navn: "Forvaltningsloven",
+          kortnavn: "fvl",
+        },
+        kapittel: "6",
+        paragraf: "35",
+        tittel: "§ 6-35. Omgjøring av vedtak uten klage",
+        url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
+      },
+      type: "Prosess",
+      relevantForResultat: true,
+      opplysninger: [],
+    },
+  ],
+  saksbehandlingsregler: [
+    {
+      id: "Nzc0ODQwNzYy",
+      navn: "Omgjøring uten klage",
+      hjemmel: {
+        kilde: {
+          navn: "Forvaltningsloven",
+          kortnavn: "fvl",
+        },
+        kapittel: "6",
+        paragraf: "35",
+        tittel: "§ 6-35. Omgjøring av vedtak uten klage",
+        url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
+      },
+      type: "Prosess",
+      relevantForResultat: true,
+      opplysninger: [],
+    },
   ],
   opplysninger: [
     {
@@ -862,6 +917,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cbf-a124-77ab-8944-496c1856f598",
           opprettet: "2025-12-17T15:38:34.788829",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 15678466,
@@ -880,65 +936,6 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
-      navn: "hendelseType",
-      datatype: "tekst",
-      perioder: [
-        {
-          id: "019b2ce1-ad27-79b8-addd-4db6eee0544e",
-          opprettet: "2025-12-17T16:15:46.087264",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-12-17",
-          gyldigTilOgMed: "2025-12-17",
-          verdi: {
-            verdi: "BeregnMeldekortHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2025-12-17T16:15:46.087257",
-            meldingId: "4721777b-80ab-42a8-ad53-094f1af481ba",
-          },
-        },
-        {
-          id: "019b9cf5-56da-726e-bfee-b4d4847a6bdb",
-          opprettet: "2026-01-08T10:34:42.906772",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2026-01-08",
-          gyldigTilOgMed: "2026-01-08",
-          verdi: {
-            verdi: "OpprettBehandlingHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2026-01-08T10:34:42.906761",
-            meldingId: "019b9cf5-557b-7873-a881-164bbfc985cd",
-          },
-        },
-        {
-          id: "019c28d4-8633-7b7a-b67c-60dd74c7db9e",
-          opprettet: "2026-02-04T14:25:42.579284",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2026-02-04",
-          gyldigTilOgMed: "2026-02-04",
-          verdi: {
-            verdi: "OmgjøringHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2026-02-04T14:25:42.579232",
-            meldingId: "019c28d4-832f-7676-8129-e542c2421be4",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367234",
       navn: "Aldersgrense",
       datatype: "heltall",
@@ -946,6 +943,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cbf-a126-78d4-ad09-f7056888b125",
           opprettet: "2025-12-17T15:38:34.790249",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 67,
@@ -967,6 +965,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cbf-a248-70c6-a0ed-983cb7301aaf",
           opprettet: "2025-12-17T15:38:35.080742",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "1982-03-24",
@@ -992,6 +991,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cbf-a249-7a0f-9333-681a15fae31f",
           opprettet: "2025-12-17T15:38:35.081283",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2049-03-24",
@@ -1023,6 +1023,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cbf-a249-7a0f-9333-681a15fae322",
           opprettet: "2025-12-17T15:38:35.081357",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2049-03-31",
@@ -1051,6 +1052,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3959-7967-a90e-8672e3600899",
           opprettet: "2025-12-17T15:50:09.113396",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1081,6 +1083,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3a31-770d-b97c-18c08b260c6e",
           opprettet: "2025-12-17T15:50:09.329131",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1115,6 +1118,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3a31-770d-b97c-18c08b260c6f",
           opprettet: "2025-12-17T15:50:09.329159",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1149,6 +1153,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3a31-770d-b97c-18c08b260c71",
           opprettet: "2025-12-17T15:50:09.329651",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1181,6 +1186,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3a32-7751-af29-d77a733cd9a2",
           opprettet: "2025-12-17T15:50:09.330301",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1201,6 +1207,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3a33-79c6-8ecf-5b9997cc33e9",
           opprettet: "2025-12-17T15:50:09.331365",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 18.75,
@@ -1222,6 +1229,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b074",
           opprettet: "2025-12-17T15:50:09.651279",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1256,6 +1264,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b075",
           opprettet: "2025-12-17T15:50:09.651346",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1290,6 +1299,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b076",
           opprettet: "2025-12-17T15:50:09.651381",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1324,6 +1334,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b077",
           opprettet: "2025-12-17T15:50:09.651438",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-12-19",
@@ -1348,6 +1359,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b9d19-9e77-726b-9233-b89993732a5f",
           opprettet: "2026-01-08T11:14:20.535911",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-12-20",
           verdi: {
@@ -1378,6 +1390,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b078",
           opprettet: "2025-12-17T15:50:09.651467",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1412,6 +1425,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b079",
           opprettet: "2025-12-17T15:50:09.651492",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1446,6 +1460,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b07a",
           opprettet: "2025-12-17T15:50:09.651548",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1480,6 +1495,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b07b",
           opprettet: "2025-12-17T15:50:09.651575",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1514,6 +1530,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b07d",
           opprettet: "2025-12-17T15:50:09.651626",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1548,6 +1565,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b73-758b-968d-557a5b90b07e",
           opprettet: "2025-12-17T15:50:09.651652",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1582,6 +1600,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979cd",
           opprettet: "2025-12-17T15:50:09.652608",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1611,6 +1630,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979ce",
           opprettet: "2025-12-17T15:50:09.652624",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1640,6 +1660,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979cf",
           opprettet: "2025-12-17T15:50:09.652641",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1669,6 +1690,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979d0",
           opprettet: "2025-12-17T15:50:09.652684",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-12-19",
@@ -1688,6 +1710,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b9d19-9e82-7648-aea0-6531bc443b68",
           opprettet: "2026-01-08T11:14:20.546519",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-12-20",
           verdi: {
@@ -1717,6 +1740,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979d1",
           opprettet: "2025-12-17T15:50:09.652708",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1749,6 +1773,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979d3",
           opprettet: "2025-12-17T15:50:09.652743",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1783,6 +1808,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979d4",
           opprettet: "2025-12-17T15:50:09.652757",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1812,6 +1838,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b74-7d9a-a0d5-35afb36979d5",
           opprettet: "2025-12-17T15:50:09.65277",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1841,6 +1868,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef5986f",
           opprettet: "2025-12-17T15:50:09.653336",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1873,6 +1901,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef59870",
           opprettet: "2025-12-17T15:50:09.653353",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1905,6 +1934,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef59871",
           opprettet: "2025-12-17T15:50:09.653369",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1937,6 +1967,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef59872",
           opprettet: "2025-12-17T15:50:09.653385",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -1969,6 +2000,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef59876",
           opprettet: "2025-12-17T15:50:09.653892",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-12-19",
@@ -1994,6 +2026,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b9d19-9e88-7863-835b-a06e33f1b64f",
           opprettet: "2026-01-08T11:14:20.552366",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-12-20",
           verdi: {
@@ -2029,6 +2062,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-3b75-7e36-aa02-49a1cef59877",
           opprettet: "2025-12-17T15:50:09.653917",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2061,8 +2095,32 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       datatype: "boolsk",
       perioder: [
         {
+          id: "019b2cca-3fd7-7d99-a51f-0f6970a62857",
+          opprettet: "2025-12-17T15:50:10.775183",
+          type: "Faktum",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-12-17",
+          gyldigTilOgMed: "2025-12-19",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019b9d19-9e9b-758b-b56e-71bfb6777afa",
+          opprettet: "2026-01-08T11:14:20.5716",
+          type: "Faktum",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-12-20",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
           id: "019c28ff-14ed-79b0-a21d-2f13ca89410b",
           opprettet: "2026-02-04T15:12:11.629436",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-30",
@@ -2080,31 +2138,10 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
             },
           },
         },
-        {
-          id: "019b2cca-3fd7-7d99-a51f-0f6970a62857",
-          opprettet: "2025-12-17T15:50:10.775183",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-12-17",
-          gyldigTilOgMed: "2025-12-19",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019b9d19-9e9b-758b-b56e-71bfb6777afa",
-          opprettet: "2026-01-08T11:14:20.5716",
-          opprinnelse: "Arvet",
-          gyldigFraOgMed: "2025-12-20",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
       ],
       synlig: true,
       redigerbar: true,
-      redigertAvSaksbehandler: false,
+      redigertAvSaksbehandler: true,
       formål: "Regel",
     },
     {
@@ -2115,6 +2152,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70d0-71af-aec1-208fa2af2184",
           opprettet: "2025-12-17T15:50:23.312034",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2145,6 +2183,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e1-701b-80d9-a75ea463c410",
           opprettet: "2025-12-17T15:50:23.329449",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2177,6 +2216,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e2-7440-a08a-0dc5d9950c3d",
           opprettet: "2025-12-17T15:50:23.330055",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2206,6 +2246,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e2-7440-a08a-0dc5d9950c3e",
           opprettet: "2025-12-17T15:50:23.330107",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2236,6 +2277,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e2-7440-a08a-0dc5d9950c3f",
           opprettet: "2025-12-17T15:50:23.330235",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2265,6 +2307,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e2-7440-a08a-0dc5d9950c40",
           opprettet: "2025-12-17T15:50:23.330281",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2295,6 +2338,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e2-7440-a08a-0dc5d9950c41",
           opprettet: "2025-12-17T15:50:23.330313",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2325,6 +2369,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e3-7176-84ed-d3ba6c26ab74",
           opprettet: "2025-12-17T15:50:23.33118",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2354,6 +2399,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e3-7176-84ed-d3ba6c26ab75",
           opprettet: "2025-12-17T15:50:23.331306",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2386,6 +2432,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e3-7176-84ed-d3ba6c26ab76",
           opprettet: "2025-12-17T15:50:23.331369",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2418,6 +2465,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e3-7176-84ed-d3ba6c26ab78",
           opprettet: "2025-12-17T15:50:23.331951",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2450,6 +2498,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-70e4-7e4b-8c80-5869f6561c58",
           opprettet: "2025-12-17T15:50:23.332447",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2482,6 +2531,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7325-779a-b32a-3fb10d12eb97",
           opprettet: "2025-12-17T15:50:23.909105",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2520,6 +2570,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7325-779a-b32a-3fb10d12eb99",
           opprettet: "2025-12-17T15:50:23.909887",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2549,6 +2600,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7326-7a8f-817f-4c219b940719",
           opprettet: "2025-12-17T15:50:23.910448",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2578,6 +2630,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7326-7a8f-817f-4c219b94071a",
           opprettet: "2025-12-17T15:50:23.910631",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2607,6 +2660,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7326-7a8f-817f-4c219b94071c",
           opprettet: "2025-12-17T15:50:23.910885",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2639,6 +2693,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7326-7a8f-817f-4c219b94071d",
           opprettet: "2025-12-17T15:50:23.910906",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2671,6 +2726,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa53fe",
           opprettet: "2025-12-17T15:50:23.911108",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2703,6 +2759,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5400",
           opprettet: "2025-12-17T15:50:23.911472",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2723,6 +2780,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5401",
           opprettet: "2025-12-17T15:50:23.911582",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2743,6 +2801,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5402",
           opprettet: "2025-12-17T15:50:23.911604",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2763,6 +2822,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5403",
           opprettet: "2025-12-17T15:50:23.911627",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2783,6 +2843,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5404",
           opprettet: "2025-12-17T15:50:23.911651",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2803,6 +2864,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5405",
           opprettet: "2025-12-17T15:50:23.91167",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2823,6 +2885,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5406",
           opprettet: "2025-12-17T15:50:23.911687",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2843,6 +2906,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5407",
           opprettet: "2025-12-17T15:50:23.91171",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2863,6 +2927,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5408",
           opprettet: "2025-12-17T15:50:23.911735",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2883,6 +2948,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5409",
           opprettet: "2025-12-17T15:50:23.91176",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2903,6 +2969,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540a",
           opprettet: "2025-12-17T15:50:23.911783",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2923,6 +2990,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540b",
           opprettet: "2025-12-17T15:50:23.911804",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2944,6 +3012,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540c",
           opprettet: "2025-12-17T15:50:23.911848",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -2974,6 +3043,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540d",
           opprettet: "2025-12-17T15:50:23.911875",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -2994,6 +3064,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540e",
           opprettet: "2025-12-17T15:50:23.911902",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3014,6 +3085,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa540f",
           opprettet: "2025-12-17T15:50:23.911931",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3034,6 +3106,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7327-73b9-86bb-a4ed2bfa5410",
           opprettet: "2025-12-17T15:50:23.911972",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3054,6 +3127,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b173",
           opprettet: "2025-12-17T15:50:23.912",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3074,6 +3148,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b174",
           opprettet: "2025-12-17T15:50:23.912031",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3094,6 +3169,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b175",
           opprettet: "2025-12-17T15:50:23.91206",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3114,6 +3190,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b176",
           opprettet: "2025-12-17T15:50:23.912087",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3134,6 +3211,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b177",
           opprettet: "2025-12-17T15:50:23.91213",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3154,6 +3232,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b178",
           opprettet: "2025-12-17T15:50:23.912161",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3174,6 +3253,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b179",
           opprettet: "2025-12-17T15:50:23.912191",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3194,6 +3274,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b17b",
           opprettet: "2025-12-17T15:50:23.912689",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3222,6 +3303,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7328-70a1-a3e3-d8043aa5b17c",
           opprettet: "2025-12-17T15:50:23.912737",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3250,6 +3332,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0e9",
           opprettet: "2025-12-17T15:50:23.913037",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3281,6 +3364,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0ea",
           opprettet: "2025-12-17T15:50:23.913133",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3314,6 +3398,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0eb",
           opprettet: "2025-12-17T15:50:23.91319",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3346,6 +3431,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0ec",
           opprettet: "2025-12-17T15:50:23.913237",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -3381,6 +3467,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0ed",
           opprettet: "2025-12-17T15:50:23.913291",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -3409,6 +3496,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-7329-74a5-8891-c35f76f4b0ef",
           opprettet: "2025-12-17T15:50:23.913921",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3429,6 +3517,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-732a-714b-b715-d05fb3810adf",
           opprettet: "2025-12-17T15:50:23.91436",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3460,6 +3549,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-732a-714b-b715-d05fb3810ae1",
           opprettet: "2025-12-17T15:50:23.914944",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -3496,6 +3586,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cb-782a-b4bc-62059b118a82",
           opprettet: "2025-12-17T15:50:24.587941",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3530,6 +3621,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a421",
           opprettet: "2025-12-17T15:50:24.588012",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3564,6 +3656,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a422",
           opprettet: "2025-12-17T15:50:24.588096",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3598,6 +3691,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a423",
           opprettet: "2025-12-17T15:50:24.588161",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3632,6 +3726,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a424",
           opprettet: "2025-12-17T15:50:24.588208",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3666,6 +3761,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a425",
           opprettet: "2025-12-17T15:50:24.588267",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3700,6 +3796,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a426",
           opprettet: "2025-12-17T15:50:24.58832",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3734,6 +3831,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a427",
           opprettet: "2025-12-17T15:50:24.588378",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3768,6 +3866,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cc-76bc-85c9-4a9accd5a428",
           opprettet: "2025-12-17T15:50:24.588418",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3802,6 +3901,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cd-7972-8c07-ad467d6c8404",
           opprettet: "2025-12-17T15:50:24.589406",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3831,6 +3931,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cd-7972-8c07-ad467d6c8405",
           opprettet: "2025-12-17T15:50:24.589512",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3868,6 +3969,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cd-7972-8c07-ad467d6c8406",
           opprettet: "2025-12-17T15:50:24.589562",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3897,6 +3999,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cd-7972-8c07-ad467d6c8407",
           opprettet: "2025-12-17T15:50:24.589615",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3926,6 +4029,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cd-7972-8c07-ad467d6c8408",
           opprettet: "2025-12-17T15:50:24.589661",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3955,6 +4059,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75ce-7a10-843b-2cbbcbbe0da1",
           opprettet: "2025-12-17T15:50:24.590309",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -3984,6 +4089,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75ce-7a10-843b-2cbbcbbe0da2",
           opprettet: "2025-12-17T15:50:24.590373",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4016,6 +4122,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75ce-7a10-843b-2cbbcbbe0da4",
           opprettet: "2025-12-17T15:50:24.590985",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4048,6 +4155,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cf-7d15-84a1-4c787ece1812",
           opprettet: "2025-12-17T15:50:24.591027",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4080,6 +4188,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-75cf-7d15-84a1-4c787ece1814",
           opprettet: "2025-12-17T15:50:24.591691",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4112,6 +4221,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea6-7dc1-a771-0c26fd9c3866",
           opprettet: "2025-12-17T15:50:39.142447",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4142,6 +4252,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea8-7761-b8a6-51d35b95f297",
           opprettet: "2025-12-17T15:50:39.144214",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4171,6 +4282,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea9-7a6a-92ad-d4a62bd080ea",
           opprettet: "2025-12-17T15:50:39.14534",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4200,6 +4312,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea9-7a6a-92ad-d4a62bd080eb",
           opprettet: "2025-12-17T15:50:39.145426",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4229,6 +4342,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea9-7a6a-92ad-d4a62bd080ec",
           opprettet: "2025-12-17T15:50:39.145478",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4258,6 +4372,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea9-7a6a-92ad-d4a62bd080ed",
           opprettet: "2025-12-17T15:50:39.145789",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 3,
@@ -4279,6 +4394,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aea9-7a6a-92ad-d4a62bd080ee",
           opprettet: "2025-12-17T15:50:39.145908",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4309,6 +4425,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7217",
           opprettet: "2025-12-17T15:50:39.146045",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4338,6 +4455,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7218",
           opprettet: "2025-12-17T15:50:39.146092",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4367,6 +4485,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7219",
           opprettet: "2025-12-17T15:50:39.146293",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4397,6 +4516,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721a",
           opprettet: "2025-12-17T15:50:39.146404",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4427,6 +4547,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721b",
           opprettet: "2025-12-17T15:50:39.146447",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4457,6 +4578,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721c",
           opprettet: "2025-12-17T15:50:39.146536",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4477,6 +4599,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721d",
           opprettet: "2025-12-17T15:50:39.146588",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4497,6 +4620,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721e",
           opprettet: "2025-12-17T15:50:39.146635",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4517,6 +4641,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e721f",
           opprettet: "2025-12-17T15:50:39.146677",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4537,6 +4662,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7220",
           opprettet: "2025-12-17T15:50:39.146711",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4557,6 +4683,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7221",
           opprettet: "2025-12-17T15:50:39.146742",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4577,6 +4704,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7222",
           opprettet: "2025-12-17T15:50:39.14678",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4607,6 +4735,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7223",
           opprettet: "2025-12-17T15:50:39.146815",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4637,6 +4766,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7224",
           opprettet: "2025-12-17T15:50:39.146858",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4667,6 +4797,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7225",
           opprettet: "2025-12-17T15:50:39.146896",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4697,6 +4828,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7226",
           opprettet: "2025-12-17T15:50:39.14693",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4717,6 +4849,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7227",
           opprettet: "2025-12-17T15:50:39.146962",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4737,6 +4870,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaa-7b34-898e-9638f42e7228",
           opprettet: "2025-12-17T15:50:39.146994",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4757,6 +4891,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bd6",
           opprettet: "2025-12-17T15:50:39.147025",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4777,6 +4912,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bd7",
           opprettet: "2025-12-17T15:50:39.147062",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4797,6 +4933,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bd8",
           opprettet: "2025-12-17T15:50:39.147568",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -4817,6 +4954,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bd9",
           opprettet: "2025-12-17T15:50:39.147781",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4847,6 +4985,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bda",
           opprettet: "2025-12-17T15:50:39.147868",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 37.5,
@@ -4868,6 +5007,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeab-7698-8b9a-3057c77a4bdb",
           opprettet: "2025-12-17T15:50:39.147953",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -4889,6 +5029,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aead-716b-8b3f-964e192843c5",
           opprettet: "2025-12-17T15:50:39.149974",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4921,6 +5062,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e4",
           opprettet: "2025-12-17T15:50:39.150079",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4953,6 +5095,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e5",
           opprettet: "2025-12-17T15:50:39.150218",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -4982,6 +5125,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e6",
           opprettet: "2025-12-17T15:50:39.150291",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5011,6 +5155,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e7",
           opprettet: "2025-12-17T15:50:39.150367",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5040,6 +5185,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e8",
           opprettet: "2025-12-17T15:50:39.150453",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5072,6 +5218,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927e9",
           opprettet: "2025-12-17T15:50:39.150626",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -5107,6 +5254,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927ea",
           opprettet: "2025-12-17T15:50:39.150732",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5139,6 +5287,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeae-769d-99ad-81c66d9927eb",
           opprettet: "2025-12-17T15:50:39.150963",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5171,6 +5320,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaf-7bcd-8bd2-d13aafaa83a1",
           opprettet: "2025-12-17T15:50:39.151049",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5203,6 +5353,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeaf-7bcd-8bd2-d13aafaa83a2",
           opprettet: "2025-12-17T15:50:39.151136",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 37.5,
@@ -5235,6 +5386,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb1-71a1-abe1-bb50ffbcb0b1",
           opprettet: "2025-12-17T15:50:39.153013",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5264,6 +5416,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb1-71a1-abe1-bb50ffbcb0b2",
           opprettet: "2025-12-17T15:50:39.153178",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5293,6 +5446,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb1-71a1-abe1-bb50ffbcb0b3",
           opprettet: "2025-12-17T15:50:39.153303",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5322,6 +5476,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb1-71a1-abe1-bb50ffbcb0b4",
           opprettet: "2025-12-17T15:50:39.153396",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5354,6 +5509,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb1-71a1-abe1-bb50ffbcb0b5",
           opprettet: "2025-12-17T15:50:39.153493",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5386,6 +5542,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d3",
           opprettet: "2025-12-17T15:50:39.155081",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5418,6 +5575,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d4",
           opprettet: "2025-12-17T15:50:39.155154",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5450,6 +5608,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d5",
           opprettet: "2025-12-17T15:50:39.155205",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5482,6 +5641,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d6",
           opprettet: "2025-12-17T15:50:39.155276",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5514,6 +5674,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d7",
           opprettet: "2025-12-17T15:50:39.155365",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5546,6 +5707,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d8",
           opprettet: "2025-12-17T15:50:39.155417",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5578,6 +5740,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923d9",
           opprettet: "2025-12-17T15:50:39.155465",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5610,6 +5773,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923da",
           opprettet: "2025-12-17T15:50:39.155558",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5640,6 +5804,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb3-774f-af4c-771a00a923db",
           opprettet: "2025-12-17T15:50:39.155609",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5670,6 +5835,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb5-7a0e-b0ec-767f37dd0acc",
           opprettet: "2025-12-17T15:50:39.157225",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5703,6 +5869,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb5-7a0e-b0ec-767f37dd0acd",
           opprettet: "2025-12-17T15:50:39.157369",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5736,6 +5903,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb5-7a0e-b0ec-767f37dd0ace",
           opprettet: "2025-12-17T15:50:39.15745",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5770,6 +5938,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb5-7a0e-b0ec-767f37dd0acf",
           opprettet: "2025-12-17T15:50:39.157542",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5804,6 +5973,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb6-7048-8453-1da1575cd347",
           opprettet: "2025-12-17T15:50:39.158988",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5836,6 +6006,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb7-7ce0-bddb-aa424a9faa87",
           opprettet: "2025-12-17T15:50:39.159061",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5869,6 +6040,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb8-7eaf-9fc9-275efc5fbddb",
           opprettet: "2025-12-17T15:50:39.160211",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5901,6 +6073,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb8-7eaf-9fc9-275efc5fbddc",
           opprettet: "2025-12-17T15:50:39.160298",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5934,6 +6107,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb8-7eaf-9fc9-275efc5fbddd",
           opprettet: "2025-12-17T15:50:39.160356",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5967,6 +6141,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb9-753a-a569-c29d36d7f60c",
           opprettet: "2025-12-17T15:50:39.16185",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -5996,6 +6171,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aeb9-753a-a569-c29d36d7f60d",
           opprettet: "2025-12-17T15:50:39.161984",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6025,6 +6201,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebb-74a4-a214-a927e2d85480",
           opprettet: "2025-12-17T15:50:39.16347",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6057,6 +6234,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebc-75af-a6fe-7d60ccee6a82",
           opprettet: "2025-12-17T15:50:39.164993",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6089,6 +6267,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebd-71d3-8222-d3664f4213b8",
           opprettet: "2025-12-17T15:50:39.165874",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6121,6 +6300,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebf-7624-9095-04ad54d4bcfb",
           opprettet: "2025-12-17T15:50:39.167681",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6153,6 +6333,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebf-7624-9095-04ad54d4bcfc",
           opprettet: "2025-12-17T15:50:39.167824",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6185,6 +6366,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aebf-7624-9095-04ad54d4bcfd",
           opprettet: "2025-12-17T15:50:39.167897",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6218,6 +6400,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec1-716d-9792-fd33f7d185dd",
           opprettet: "2025-12-17T15:50:39.16974",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6247,6 +6430,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec1-716d-9792-fd33f7d185de",
           opprettet: "2025-12-17T15:50:39.169951",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6279,6 +6463,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec2-777b-8895-841d7c851f3f",
           opprettet: "2025-12-17T15:50:39.170063",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6314,6 +6499,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec3-7147-b906-4c0be70cffa3",
           opprettet: "2025-12-17T15:50:39.171917",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6343,6 +6529,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec4-7573-9b2d-5e570ac9de19",
           opprettet: "2025-12-17T15:50:39.172018",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6376,6 +6563,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-aec5-7d2e-a475-c9550f07ea0e",
           opprettet: "2025-12-17T15:50:39.173247",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6410,6 +6598,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af99-7d9b-ab71-79029a5268aa",
           opprettet: "2025-12-17T15:50:39.38542",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -6460,6 +6649,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af99-7d9b-ab71-79029a5268ab",
           opprettet: "2025-12-17T15:50:39.38557",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6485,6 +6675,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9b-7137-b39c-d89e7b684a4a",
           opprettet: "2025-12-17T15:50:39.387292",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6504,6 +6695,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22b7-74bd-87fa-3dbee75b4572",
           opprettet: "2026-02-04T15:14:26.231732",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6534,6 +6726,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9b-7137-b39c-d89e7b684a4b",
           opprettet: "2025-12-17T15:50:39.387383",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -6570,6 +6763,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9c-702b-a08f-37560d869bfa",
           opprettet: "2025-12-17T15:50:39.388792",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6592,6 +6786,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22bd-74a1-8c62-510ffac23704",
           opprettet: "2026-02-04T15:14:26.237971",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6624,6 +6819,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9e-7cc8-86e3-abdd29c8014c",
           opprettet: "2025-12-17T15:50:39.390132",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6646,6 +6842,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c0-7c17-a5f7-44b2d8be7a0a",
           opprettet: "2026-02-04T15:14:26.240626",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6678,6 +6875,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9e-7cc8-86e3-abdd29c8014d",
           opprettet: "2025-12-17T15:50:39.39022",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6700,6 +6898,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c1-7ef3-8906-09d0124c1f2e",
           opprettet: "2026-02-04T15:14:26.241116",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6732,6 +6931,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-af9f-70a5-a8dd-a25574c71ced",
           opprettet: "2025-12-17T15:50:39.391825",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6754,6 +6954,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c3-793e-8df9-1749831b3137",
           opprettet: "2026-02-04T15:14:26.243718",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6786,6 +6987,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa0-7a50-b893-db06354c7716",
           opprettet: "2025-12-17T15:50:39.392004",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6808,6 +7010,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c4-7ac1-a1e5-612051bb4f5a",
           opprettet: "2026-02-04T15:14:26.244278",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6840,6 +7043,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa1-707e-ae5a-c4c1b156569f",
           opprettet: "2025-12-17T15:50:39.393691",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6862,6 +7066,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c6-7500-a98f-89ad475f5ca1",
           opprettet: "2026-02-04T15:14:26.246866",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6894,6 +7099,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa3-7581-9e1f-47786b6f5d70",
           opprettet: "2025-12-17T15:50:39.395022",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6916,6 +7122,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22c9-74b0-a9fd-10f9711dd885",
           opprettet: "2026-02-04T15:14:26.249576",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -6948,6 +7155,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa3-7581-9e1f-47786b6f5d71",
           opprettet: "2025-12-17T15:50:39.395108",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -6970,6 +7178,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22ca-7b8f-8b21-567f96318a6a",
           opprettet: "2026-02-04T15:14:26.250613",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7002,6 +7211,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa4-7db3-9c8e-8443e5d3d6b1",
           opprettet: "2025-12-17T15:50:39.396427",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7024,6 +7234,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22d1-7fc3-af14-a84722e8fc6f",
           opprettet: "2026-02-04T15:14:26.257638",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7056,6 +7267,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa4-7db3-9c8e-8443e5d3d6b2",
           opprettet: "2025-12-17T15:50:39.396554",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7078,6 +7290,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22d2-785e-b493-1512fcbfb7e3",
           opprettet: "2026-02-04T15:14:26.258318",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7110,6 +7323,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afa9-7674-9048-80f24278d832",
           opprettet: "2025-12-17T15:50:39.401968",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7132,6 +7346,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22d5-70e9-a34e-4d4d1476db55",
           opprettet: "2026-02-04T15:14:26.261853",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7164,6 +7379,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afaa-7db9-ab18-67406593591f",
           opprettet: "2025-12-17T15:50:39.402178",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7186,6 +7402,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22d6-7dba-9367-cb533855105e",
           opprettet: "2026-02-04T15:14:26.262772",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7218,6 +7435,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afab-745d-857c-504662aebfd0",
           opprettet: "2025-12-17T15:50:39.403758",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7240,6 +7458,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22d9-7fe6-8fb8-2deacd02f02f",
           opprettet: "2026-02-04T15:14:26.265614",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7272,6 +7491,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afad-7490-b8bc-bbab55fa1c85",
           opprettet: "2025-12-17T15:50:39.405556",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7294,6 +7514,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22dc-7abc-9dba-128e2436f04a",
           opprettet: "2026-02-04T15:14:26.268924",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7326,6 +7547,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afaf-73ba-8b6e-f459995d0c3d",
           opprettet: "2025-12-17T15:50:39.407252",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7348,6 +7570,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22e0-7d70-b379-0076e9cb643f",
           opprettet: "2026-02-04T15:14:26.272015",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7380,6 +7603,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afaf-73ba-8b6e-f459995d0c3e",
           opprettet: "2025-12-17T15:50:39.407375",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7402,6 +7626,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22e0-7d70-b379-0076e9cb6440",
           opprettet: "2026-02-04T15:14:26.272856",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7434,6 +7659,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afb1-7bb9-8b04-2a73fe4eb30d",
           opprettet: "2025-12-17T15:50:39.409041",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7456,6 +7682,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22e3-7a4a-b0ad-b3eb45489e75",
           opprettet: "2026-02-04T15:14:26.275599",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7488,6 +7715,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afb3-7f92-a915-2182441df424",
           opprettet: "2025-12-17T15:50:39.411078",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-07",
@@ -7510,6 +7738,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c2901-22e6-7df8-b0ac-ad1759c0b436",
           opprettet: "2026-02-04T15:14:26.278598",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2025-10-08",
           verdi: {
@@ -7542,6 +7771,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afb3-7f92-a915-2182441df425",
           opprettet: "2025-12-17T15:50:39.411298",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -7574,6 +7804,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cca-afb4-7fcf-a54a-ca0123544b78",
           opprettet: "2025-12-17T15:50:39.412639",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           verdi: {
@@ -7606,6 +7837,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab6e",
           opprettet: "2025-12-17T15:53:45.739538",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-12",
@@ -7623,6 +7855,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd04",
           opprettet: "2025-12-17T16:13:45.974015",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-26",
@@ -7640,6 +7873,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0544f",
           opprettet: "2025-12-17T16:15:46.087282",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-11-09",
@@ -7668,6 +7902,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab73",
           opprettet: "2025-12-17T15:53:45.739684",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-09-29",
@@ -7684,6 +7919,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab76",
           opprettet: "2025-12-17T15:53:45.739691",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-30",
           gyldigTilOgMed: "2025-09-30",
@@ -7700,6 +7936,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab79",
           opprettet: "2025-12-17T15:53:45.739694",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-01",
           gyldigTilOgMed: "2025-10-01",
@@ -7716,6 +7953,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7c",
           opprettet: "2025-12-17T15:53:45.739697",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-02",
           gyldigTilOgMed: "2025-10-02",
@@ -7732,6 +7970,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7f",
           opprettet: "2025-12-17T15:53:45.7397",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-03",
           gyldigTilOgMed: "2025-10-03",
@@ -7748,6 +7987,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab82",
           opprettet: "2025-12-17T15:53:45.739703",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-04",
           gyldigTilOgMed: "2025-10-04",
@@ -7764,6 +8004,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab85",
           opprettet: "2025-12-17T15:53:45.739705",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-05",
           gyldigTilOgMed: "2025-10-05",
@@ -7780,6 +8021,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab88",
           opprettet: "2025-12-17T15:53:45.739708",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-06",
           gyldigTilOgMed: "2025-10-06",
@@ -7796,6 +8038,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8b",
           opprettet: "2025-12-17T15:53:45.739711",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-07",
           gyldigTilOgMed: "2025-10-07",
@@ -7812,6 +8055,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8e",
           opprettet: "2025-12-17T15:53:45.739714",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-08",
           gyldigTilOgMed: "2025-10-08",
@@ -7828,6 +8072,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab91",
           opprettet: "2025-12-17T15:53:45.739716",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-09",
           gyldigTilOgMed: "2025-10-09",
@@ -7844,6 +8089,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab94",
           opprettet: "2025-12-17T15:53:45.739719",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-10",
           gyldigTilOgMed: "2025-10-10",
@@ -7860,6 +8106,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab97",
           opprettet: "2025-12-17T15:53:45.739722",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-11",
           gyldigTilOgMed: "2025-10-11",
@@ -7876,6 +8123,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab9a",
           opprettet: "2025-12-17T15:53:45.739725",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-12",
           gyldigTilOgMed: "2025-10-12",
@@ -7892,6 +8140,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd09",
           opprettet: "2025-12-17T16:13:45.974196",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-13",
@@ -7908,6 +8157,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0c",
           opprettet: "2025-12-17T16:13:45.974209",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-14",
           gyldigTilOgMed: "2025-10-14",
@@ -7924,6 +8174,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0f",
           opprettet: "2025-12-17T16:13:45.974211",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-15",
           gyldigTilOgMed: "2025-10-15",
@@ -7940,6 +8191,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd12",
           opprettet: "2025-12-17T16:13:45.974213",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-16",
           gyldigTilOgMed: "2025-10-16",
@@ -7956,6 +8208,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd15",
           opprettet: "2025-12-17T16:13:45.974215",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-17",
           gyldigTilOgMed: "2025-10-17",
@@ -7972,6 +8225,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd18",
           opprettet: "2025-12-17T16:13:45.974217",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-18",
           gyldigTilOgMed: "2025-10-18",
@@ -7988,6 +8242,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1b",
           opprettet: "2025-12-17T16:13:45.974219",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-19",
           gyldigTilOgMed: "2025-10-19",
@@ -8004,6 +8259,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1e",
           opprettet: "2025-12-17T16:13:45.974221",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-20",
           gyldigTilOgMed: "2025-10-20",
@@ -8020,6 +8276,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd21",
           opprettet: "2025-12-17T16:13:45.974223",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-21",
           gyldigTilOgMed: "2025-10-21",
@@ -8036,6 +8293,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd24",
           opprettet: "2025-12-17T16:13:45.974224",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-22",
           gyldigTilOgMed: "2025-10-22",
@@ -8052,6 +8310,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd27",
           opprettet: "2025-12-17T16:13:45.974226",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-23",
           gyldigTilOgMed: "2025-10-23",
@@ -8068,6 +8327,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2a",
           opprettet: "2025-12-17T16:13:45.974228",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-24",
           gyldigTilOgMed: "2025-10-24",
@@ -8084,6 +8344,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2d",
           opprettet: "2025-12-17T16:13:45.97423",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-25",
           gyldigTilOgMed: "2025-10-25",
@@ -8100,6 +8361,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd30",
           opprettet: "2025-12-17T16:13:45.974232",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-26",
           gyldigTilOgMed: "2025-10-26",
@@ -8116,6 +8378,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05454",
           opprettet: "2025-12-17T16:15:46.087458",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-10-27",
@@ -8132,6 +8395,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05457",
           opprettet: "2025-12-17T16:15:46.087531",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-28",
           gyldigTilOgMed: "2025-10-28",
@@ -8148,6 +8412,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545a",
           opprettet: "2025-12-17T16:15:46.087535",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-29",
           gyldigTilOgMed: "2025-10-29",
@@ -8164,6 +8429,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545d",
           opprettet: "2025-12-17T16:15:46.087567",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-30",
           gyldigTilOgMed: "2025-10-30",
@@ -8180,6 +8446,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05460",
           opprettet: "2025-12-17T16:15:46.087572",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-31",
           gyldigTilOgMed: "2025-10-31",
@@ -8196,6 +8463,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05463",
           opprettet: "2025-12-17T16:15:46.087575",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-01",
           gyldigTilOgMed: "2025-11-01",
@@ -8212,6 +8480,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05466",
           opprettet: "2025-12-17T16:15:46.087578",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-02",
           gyldigTilOgMed: "2025-11-02",
@@ -8228,6 +8497,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05469",
           opprettet: "2025-12-17T16:15:46.08758",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-03",
           gyldigTilOgMed: "2025-11-03",
@@ -8244,6 +8514,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546c",
           opprettet: "2025-12-17T16:15:46.087583",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-04",
           gyldigTilOgMed: "2025-11-04",
@@ -8260,6 +8531,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546f",
           opprettet: "2025-12-17T16:15:46.087586",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-05",
           gyldigTilOgMed: "2025-11-05",
@@ -8276,6 +8548,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05472",
           opprettet: "2025-12-17T16:15:46.087588",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-06",
@@ -8292,6 +8565,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05475",
           opprettet: "2025-12-17T16:15:46.087591",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-07",
           gyldigTilOgMed: "2025-11-07",
@@ -8308,6 +8582,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05478",
           opprettet: "2025-12-17T16:15:46.087594",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-08",
           gyldigTilOgMed: "2025-11-08",
@@ -8324,6 +8599,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547b",
           opprettet: "2025-12-17T16:15:46.087651",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-09",
           gyldigTilOgMed: "2025-11-09",
@@ -8351,6 +8627,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab74",
           opprettet: "2025-12-17T15:53:45.739686",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-09-29",
@@ -8368,6 +8645,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab77",
           opprettet: "2025-12-17T15:53:45.739692",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-30",
           gyldigTilOgMed: "2025-09-30",
@@ -8385,6 +8663,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7a",
           opprettet: "2025-12-17T15:53:45.739695",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-01",
           gyldigTilOgMed: "2025-10-01",
@@ -8402,6 +8681,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7d",
           opprettet: "2025-12-17T15:53:45.739698",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-02",
           gyldigTilOgMed: "2025-10-02",
@@ -8419,6 +8699,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab80",
           opprettet: "2025-12-17T15:53:45.739701",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-03",
           gyldigTilOgMed: "2025-10-03",
@@ -8436,6 +8717,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab83",
           opprettet: "2025-12-17T15:53:45.739703",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-04",
           gyldigTilOgMed: "2025-10-04",
@@ -8453,6 +8735,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab86",
           opprettet: "2025-12-17T15:53:45.739705",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-05",
           gyldigTilOgMed: "2025-10-05",
@@ -8470,6 +8753,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab89",
           opprettet: "2025-12-17T15:53:45.739708",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-06",
           gyldigTilOgMed: "2025-10-06",
@@ -8487,6 +8771,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8c",
           opprettet: "2025-12-17T15:53:45.739711",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-07",
           gyldigTilOgMed: "2025-10-07",
@@ -8504,6 +8789,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8f",
           opprettet: "2025-12-17T15:53:45.739714",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-08",
           gyldigTilOgMed: "2025-10-08",
@@ -8521,6 +8807,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab92",
           opprettet: "2025-12-17T15:53:45.739717",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-09",
           gyldigTilOgMed: "2025-10-09",
@@ -8538,6 +8825,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab95",
           opprettet: "2025-12-17T15:53:45.73972",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-10",
           gyldigTilOgMed: "2025-10-10",
@@ -8555,6 +8843,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab98",
           opprettet: "2025-12-17T15:53:45.739723",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-11",
           gyldigTilOgMed: "2025-10-11",
@@ -8572,6 +8861,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab9b",
           opprettet: "2025-12-17T15:53:45.739725",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-12",
           gyldigTilOgMed: "2025-10-12",
@@ -8589,6 +8879,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0a",
           opprettet: "2025-12-17T16:13:45.974199",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-13",
@@ -8606,6 +8897,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0d",
           opprettet: "2025-12-17T16:13:45.974209",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-14",
           gyldigTilOgMed: "2025-10-14",
@@ -8623,6 +8915,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd10",
           opprettet: "2025-12-17T16:13:45.974211",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-15",
           gyldigTilOgMed: "2025-10-15",
@@ -8640,6 +8933,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd13",
           opprettet: "2025-12-17T16:13:45.974213",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-16",
           gyldigTilOgMed: "2025-10-16",
@@ -8657,6 +8951,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd16",
           opprettet: "2025-12-17T16:13:45.974216",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-17",
           gyldigTilOgMed: "2025-10-17",
@@ -8674,6 +8969,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd19",
           opprettet: "2025-12-17T16:13:45.974217",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-18",
           gyldigTilOgMed: "2025-10-18",
@@ -8691,6 +8987,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1c",
           opprettet: "2025-12-17T16:13:45.974219",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-19",
           gyldigTilOgMed: "2025-10-19",
@@ -8708,6 +9005,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1f",
           opprettet: "2025-12-17T16:13:45.974221",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-20",
           gyldigTilOgMed: "2025-10-20",
@@ -8725,6 +9023,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd22",
           opprettet: "2025-12-17T16:13:45.974223",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-21",
           gyldigTilOgMed: "2025-10-21",
@@ -8742,6 +9041,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd25",
           opprettet: "2025-12-17T16:13:45.974225",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-22",
           gyldigTilOgMed: "2025-10-22",
@@ -8759,6 +9059,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd28",
           opprettet: "2025-12-17T16:13:45.974226",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-23",
           gyldigTilOgMed: "2025-10-23",
@@ -8776,6 +9077,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2b",
           opprettet: "2025-12-17T16:13:45.974228",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-24",
           gyldigTilOgMed: "2025-10-24",
@@ -8793,6 +9095,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2e",
           opprettet: "2025-12-17T16:13:45.97423",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-25",
           gyldigTilOgMed: "2025-10-25",
@@ -8810,6 +9113,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd31",
           opprettet: "2025-12-17T16:13:45.974232",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-26",
           gyldigTilOgMed: "2025-10-26",
@@ -8827,6 +9131,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05455",
           opprettet: "2025-12-17T16:15:46.087463",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-10-27",
@@ -8844,6 +9149,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05458",
           opprettet: "2025-12-17T16:15:46.087532",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-28",
           gyldigTilOgMed: "2025-10-28",
@@ -8861,6 +9167,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545b",
           opprettet: "2025-12-17T16:15:46.087536",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-29",
           gyldigTilOgMed: "2025-10-29",
@@ -8878,6 +9185,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545e",
           opprettet: "2025-12-17T16:15:46.087567",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-30",
           gyldigTilOgMed: "2025-10-30",
@@ -8895,6 +9203,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05461",
           opprettet: "2025-12-17T16:15:46.087572",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-31",
           gyldigTilOgMed: "2025-10-31",
@@ -8912,6 +9221,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05464",
           opprettet: "2025-12-17T16:15:46.087576",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-01",
           gyldigTilOgMed: "2025-11-01",
@@ -8929,6 +9239,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05467",
           opprettet: "2025-12-17T16:15:46.087578",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-02",
           gyldigTilOgMed: "2025-11-02",
@@ -8946,6 +9257,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546a",
           opprettet: "2025-12-17T16:15:46.087581",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-03",
           gyldigTilOgMed: "2025-11-03",
@@ -8963,6 +9275,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546d",
           opprettet: "2025-12-17T16:15:46.087583",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-04",
           gyldigTilOgMed: "2025-11-04",
@@ -8980,6 +9293,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05470",
           opprettet: "2025-12-17T16:15:46.087586",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-05",
           gyldigTilOgMed: "2025-11-05",
@@ -8997,6 +9311,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05473",
           opprettet: "2025-12-17T16:15:46.087589",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-06",
@@ -9014,6 +9329,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05476",
           opprettet: "2025-12-17T16:15:46.087592",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-07",
           gyldigTilOgMed: "2025-11-07",
@@ -9031,6 +9347,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05479",
           opprettet: "2025-12-17T16:15:46.087594",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-08",
           gyldigTilOgMed: "2025-11-08",
@@ -9048,6 +9365,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547c",
           opprettet: "2025-12-17T16:15:46.087652",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-09",
           gyldigTilOgMed: "2025-11-09",
@@ -9076,6 +9394,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab75",
           opprettet: "2025-12-17T15:53:45.739689",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-09-29",
@@ -9092,6 +9411,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab78",
           opprettet: "2025-12-17T15:53:45.739692",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-30",
           gyldigTilOgMed: "2025-09-30",
@@ -9108,6 +9428,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7b",
           opprettet: "2025-12-17T15:53:45.739695",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-01",
           gyldigTilOgMed: "2025-10-01",
@@ -9124,6 +9445,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab7e",
           opprettet: "2025-12-17T15:53:45.739698",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-02",
           gyldigTilOgMed: "2025-10-02",
@@ -9140,6 +9462,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab81",
           opprettet: "2025-12-17T15:53:45.739701",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-03",
           gyldigTilOgMed: "2025-10-03",
@@ -9156,6 +9479,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab84",
           opprettet: "2025-12-17T15:53:45.739704",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-04",
           gyldigTilOgMed: "2025-10-04",
@@ -9172,6 +9496,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab87",
           opprettet: "2025-12-17T15:53:45.739706",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-05",
           gyldigTilOgMed: "2025-10-05",
@@ -9188,6 +9513,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8a",
           opprettet: "2025-12-17T15:53:45.739709",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-06",
           gyldigTilOgMed: "2025-10-06",
@@ -9204,6 +9530,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab8d",
           opprettet: "2025-12-17T15:53:45.739712",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-07",
           gyldigTilOgMed: "2025-10-07",
@@ -9220,6 +9547,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab90",
           opprettet: "2025-12-17T15:53:45.739715",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-08",
           gyldigTilOgMed: "2025-10-08",
@@ -9236,6 +9564,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab93",
           opprettet: "2025-12-17T15:53:45.739717",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-09",
           gyldigTilOgMed: "2025-10-09",
@@ -9252,6 +9581,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab96",
           opprettet: "2025-12-17T15:53:45.739721",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-10",
           gyldigTilOgMed: "2025-10-10",
@@ -9268,6 +9598,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab99",
           opprettet: "2025-12-17T15:53:45.739723",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-11",
           gyldigTilOgMed: "2025-10-11",
@@ -9284,6 +9615,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab9c",
           opprettet: "2025-12-17T15:53:45.739725",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-12",
           gyldigTilOgMed: "2025-10-12",
@@ -9300,6 +9632,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0b",
           opprettet: "2025-12-17T16:13:45.974207",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-13",
@@ -9316,6 +9649,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd0e",
           opprettet: "2025-12-17T16:13:45.97421",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-14",
           gyldigTilOgMed: "2025-10-14",
@@ -9332,6 +9666,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd11",
           opprettet: "2025-12-17T16:13:45.974212",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-15",
           gyldigTilOgMed: "2025-10-15",
@@ -9348,6 +9683,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd14",
           opprettet: "2025-12-17T16:13:45.974214",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-16",
           gyldigTilOgMed: "2025-10-16",
@@ -9364,6 +9700,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd17",
           opprettet: "2025-12-17T16:13:45.974216",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-17",
           gyldigTilOgMed: "2025-10-17",
@@ -9380,6 +9717,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1a",
           opprettet: "2025-12-17T16:13:45.974218",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-18",
           gyldigTilOgMed: "2025-10-18",
@@ -9396,6 +9734,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd1d",
           opprettet: "2025-12-17T16:13:45.974219",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-19",
           gyldigTilOgMed: "2025-10-19",
@@ -9412,6 +9751,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd20",
           opprettet: "2025-12-17T16:13:45.974221",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-20",
           gyldigTilOgMed: "2025-10-20",
@@ -9428,6 +9768,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd23",
           opprettet: "2025-12-17T16:13:45.974223",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-21",
           gyldigTilOgMed: "2025-10-21",
@@ -9444,6 +9785,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd26",
           opprettet: "2025-12-17T16:13:45.974225",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-22",
           gyldigTilOgMed: "2025-10-22",
@@ -9460,6 +9802,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd29",
           opprettet: "2025-12-17T16:13:45.974227",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-23",
           gyldigTilOgMed: "2025-10-23",
@@ -9476,6 +9819,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2c",
           opprettet: "2025-12-17T16:13:45.974229",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-24",
           gyldigTilOgMed: "2025-10-24",
@@ -9492,6 +9836,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd2f",
           opprettet: "2025-12-17T16:13:45.974231",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-25",
           gyldigTilOgMed: "2025-10-25",
@@ -9508,6 +9853,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd32",
           opprettet: "2025-12-17T16:13:45.974232",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-26",
           gyldigTilOgMed: "2025-10-26",
@@ -9524,6 +9870,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05456",
           opprettet: "2025-12-17T16:15:46.087471",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-10-27",
@@ -9540,6 +9887,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05459",
           opprettet: "2025-12-17T16:15:46.087533",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-28",
           gyldigTilOgMed: "2025-10-28",
@@ -9556,6 +9904,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545c",
           opprettet: "2025-12-17T16:15:46.087536",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-29",
           gyldigTilOgMed: "2025-10-29",
@@ -9572,6 +9921,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0545f",
           opprettet: "2025-12-17T16:15:46.087568",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-30",
           gyldigTilOgMed: "2025-10-30",
@@ -9588,6 +9938,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05462",
           opprettet: "2025-12-17T16:15:46.087573",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-31",
           gyldigTilOgMed: "2025-10-31",
@@ -9604,6 +9955,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05465",
           opprettet: "2025-12-17T16:15:46.087576",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-01",
           gyldigTilOgMed: "2025-11-01",
@@ -9620,6 +9972,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05468",
           opprettet: "2025-12-17T16:15:46.087579",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-02",
           gyldigTilOgMed: "2025-11-02",
@@ -9636,6 +9989,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546b",
           opprettet: "2025-12-17T16:15:46.087581",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-03",
           gyldigTilOgMed: "2025-11-03",
@@ -9652,6 +10006,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0546e",
           opprettet: "2025-12-17T16:15:46.087584",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-04",
           gyldigTilOgMed: "2025-11-04",
@@ -9668,6 +10023,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05471",
           opprettet: "2025-12-17T16:15:46.087587",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-05",
           gyldigTilOgMed: "2025-11-05",
@@ -9684,6 +10040,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05474",
           opprettet: "2025-12-17T16:15:46.087589",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-06",
           gyldigTilOgMed: "2025-11-06",
@@ -9700,6 +10057,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee05477",
           opprettet: "2025-12-17T16:15:46.087592",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-07",
           gyldigTilOgMed: "2025-11-07",
@@ -9716,6 +10074,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547a",
           opprettet: "2025-12-17T16:15:46.087595",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-08",
           gyldigTilOgMed: "2025-11-08",
@@ -9732,6 +10091,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547d",
           opprettet: "2025-12-17T16:15:46.087653",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-11-09",
           gyldigTilOgMed: "2025-11-09",
@@ -9747,7 +10107,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         },
       ],
       synlig: true,
-      redigerbar: false,
+      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -9759,6 +10119,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab9d",
           opprettet: "2025-12-17T15:53:45.73973",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-12",
@@ -9775,6 +10136,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd33",
           opprettet: "2025-12-17T16:13:45.974237",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-26",
@@ -9791,6 +10153,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547e",
           opprettet: "2025-12-17T16:15:46.087658",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-11-09",
@@ -9818,6 +10181,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ccd-878b-754a-b941-507d4da5ab9e",
           opprettet: "2025-12-17T15:53:45.739754",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-09-29",
           gyldigTilOgMed: "2025-10-12",
@@ -9834,6 +10198,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2cdf-d7f6-7814-ba92-bbad8be1bd34",
           opprettet: "2025-12-17T16:13:45.974256",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-13",
           gyldigTilOgMed: "2025-10-26",
@@ -9850,6 +10215,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019b2ce1-ad27-79b8-addd-4db6eee0547f",
           opprettet: "2025-12-17T16:15:46.08769",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2025-10-27",
           gyldigTilOgMed: "2025-11-09",
@@ -9870,2292 +10236,64 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
-      navn: "Forbrukt egenandel",
-      datatype: "penger",
+      opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
+      navn: "hendelseType",
+      datatype: "tekst",
       perioder: [
         {
-          id: "019c2901-232a-7812-954c-318131f320c4",
-          opprettet: "2026-02-04T15:14:26.346515",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
+          id: "019b2ce1-ad27-79b8-addd-4db6eee0544e",
+          opprettet: "2025-12-17T16:15:46.087264",
+          type: "Faktum",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2025-12-17",
+          gyldigTilOgMed: "2025-12-17",
           verdi: {
-            verdi: 4158,
-            datatype: "penger",
+            verdi: "BeregnMeldekortHendelse",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2025-12-17T16:15:46.087257",
+            meldingId: "4721777b-80ab-42a8-ad53-094f1af481ba",
           },
         },
         {
-          id: "019c2901-2362-7ffb-bdda-d185065340c6",
-          opprettet: "2026-02-04T15:14:26.402329",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
+          id: "019b9cf5-56da-726e-bfee-b4d4847a6bdb",
+          opprettet: "2026-01-08T10:34:42.906772",
+          type: "Faktum",
+          opprinnelse: "Arvet",
+          gyldigFraOgMed: "2026-01-08",
+          gyldigTilOgMed: "2026-01-08",
           verdi: {
-            verdi: 0,
-            datatype: "penger",
+            verdi: "OpprettBehandlingHendelse",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-01-08T10:34:42.906761",
+            meldingId: "019b9cf5-557b-7873-a881-164bbfc985cd",
           },
         },
         {
-          id: "019c2901-2393-734e-bfa2-d08fd52dc256",
-          opprettet: "2026-02-04T15:14:26.451845",
+          id: "019c28d4-8633-7b7a-b67c-60dd74c7db9e",
+          opprettet: "2026-02-04T14:25:42.579284",
+          type: "Faktum",
           opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
+          gyldigFraOgMed: "2026-02-04",
+          gyldigTilOgMed: "2026-02-04",
           verdi: {
-            verdi: 0,
-            datatype: "penger",
+            verdi: "OmgjøringHendelse",
+            datatype: "tekst",
           },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01994cfd-9a27-762e-81fa-61f550467c95",
-      navn: "Penger som skal utbetales for perioden",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019c2901-2332-7b13-bf81-87f7e1f6141f",
-          opprettet: "2026-02-04T15:14:26.354601",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 10479,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2363-7447-964a-843598df02ec",
-          opprettet: "2026-02-04T15:14:26.403554",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 16450,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2395-71d8-ba7c-b3ab13dd0782",
-          opprettet: "2026-02-04T15:14:26.453165",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 5264,
-            datatype: "penger",
+          kilde: {
+            type: "System",
+            registrert: "2026-02-04T14:25:42.579232",
+            meldingId: "019c28d4-832f-7676-8129-e542c2421be4",
           },
         },
       ],
       synlig: true,
       redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01997b70-a12c-7622-bff8-82a20687e640",
-      navn: "Gjenstående egenandel",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019c2901-2334-7f18-b6bb-cf98760f8220",
-          opprettet: "2026-02-04T15:14:26.356295",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2364-7f8a-8095-9fa62334ef98",
-          opprettet: "2026-02-04T15:14:26.404838",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2396-780c-b8e5-9fb708d55f61",
-          opprettet: "2026-02-04T15:14:26.454512",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01997b70-6e6e-702a-a296-18ae5fb9621d",
-      navn: "Oppfyller kravet til tapt arbeidstid i perioden",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019c2901-2335-7987-a4e6-74286ae7b393",
-          opprettet: "2026-02-04T15:14:26.35785",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2365-79a9-b639-82cb5707941c",
-          opprettet: "2026-02-04T15:14:26.405985",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2397-70ac-9d4c-7f34b916ad83",
-          opprettet: "2026-02-04T15:14:26.455862",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "019ae986-43bb-7529-af23-9b3d309501eb",
-      navn: "Sum av fastsatt vanlig arbeidstid",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019c2901-2336-7b6d-88f2-7df1726b2519",
-          opprettet: "2026-02-04T15:14:26.358823",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 75,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-2367-7487-b0ec-835972d98b09",
-          opprettet: "2026-02-04T15:14:26.407167",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 75,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-2399-7d92-9bc9-078172190241",
-          opprettet: "2026-02-04T15:14:26.45774",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 30,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "019ae986-81bf-7b29-9458-446e6dbaedae",
-      navn: "Sum av arbeidede timer",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019c2901-2338-7393-b98b-1ce4dbfde7ac",
-          opprettet: "2026-02-04T15:14:26.360591",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 0,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-2368-7c23-aafc-d03773526a81",
-          opprettet: "2026-02-04T15:14:26.408397",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 0,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-239b-7775-aa34-9660c93cd197",
-          opprettet: "2026-02-04T15:14:26.4598",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 6,
-            enhet: "timer",
-            datatype: "desimaltall",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "019ae986-a128-72f0-9868-032bc8a57b21",
-      navn: "Prosentfaktor",
-      datatype: "desimaltall",
-      perioder: [
-        {
-          id: "019c2901-233a-7f04-a792-59c18def3644",
-          opprettet: "2026-02-04T15:14:26.362092",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 1,
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-2369-79a9-99be-38974bc5df02",
-          opprettet: "2026-02-04T15:14:26.409582",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 1,
-            datatype: "desimaltall",
-          },
-        },
-        {
-          id: "019c2901-239d-7e23-b0b6-bd8c50b6b942",
-          opprettet: "2026-02-04T15:14:26.461074",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 0.8,
-            datatype: "desimaltall",
-          },
-        },
-      ],
-      synlig: false,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01948ea0-ffdc-7964-ab55-52a7e35e1020",
-      navn: "Dag som fører til forbruk av dagpengeperiode",
-      datatype: "boolsk",
-      perioder: [
-        {
-          id: "019c2901-233b-71a9-b4c5-55068d0ecc9d",
-          opprettet: "2026-02-04T15:14:26.363355",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-233d-7d3e-ae80-3ab2be81ced3",
-          opprettet: "2026-02-04T15:14:26.365866",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2340-72c8-8e24-385af5f7b107",
-          opprettet: "2026-02-04T15:14:26.368336",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2343-7f9d-81a2-1589fadbc799",
-          opprettet: "2026-02-04T15:14:26.371379",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2346-710a-9b78-b6902b988492",
-          opprettet: "2026-02-04T15:14:26.374303",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2348-7420-8fed-88d2b830d33b",
-          opprettet: "2026-02-04T15:14:26.376934",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-234b-7ddb-ba2b-60bebb2729f7",
-          opprettet: "2026-02-04T15:14:26.379403",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-234e-7242-ac80-109e8a4beefe",
-          opprettet: "2026-02-04T15:14:26.382128",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-06",
-          gyldigTilOgMed: "2025-10-06",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2350-7fdb-b167-2a11a7a08faf",
-          opprettet: "2026-02-04T15:14:26.384647",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-07",
-          gyldigTilOgMed: "2025-10-07",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2352-7bac-a740-767dc1acb671",
-          opprettet: "2026-02-04T15:14:26.386981",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-08",
-          gyldigTilOgMed: "2025-10-08",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2356-7f6a-a93c-89a09eeb0987",
-          opprettet: "2026-02-04T15:14:26.390314",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-09",
-          gyldigTilOgMed: "2025-10-09",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2358-711e-aa32-f63a5ff40a0c",
-          opprettet: "2026-02-04T15:14:26.392702",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-10",
-          gyldigTilOgMed: "2025-10-10",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-235b-780f-8f32-b862cfff08b9",
-          opprettet: "2026-02-04T15:14:26.395213",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-11",
-          gyldigTilOgMed: "2025-10-11",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-235d-7131-a218-0ff8a2bf5aea",
-          opprettet: "2026-02-04T15:14:26.397443",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-12",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-236b-7cbf-a702-147ac5d09670",
-          opprettet: "2026-02-04T15:14:26.411052",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-13",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-236d-70f9-adf5-3f99c457e7d8",
-          opprettet: "2026-02-04T15:14:26.413685",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-14",
-          gyldigTilOgMed: "2025-10-14",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-236f-786e-a339-7571526253c5",
-          opprettet: "2026-02-04T15:14:26.415992",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-15",
-          gyldigTilOgMed: "2025-10-15",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2372-772e-975d-1bbebaf06ae1",
-          opprettet: "2026-02-04T15:14:26.418607",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-16",
-          gyldigTilOgMed: "2025-10-16",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2375-7764-8987-e5239aaf295e",
-          opprettet: "2026-02-04T15:14:26.421383",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-17",
-          gyldigTilOgMed: "2025-10-17",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-237b-766c-8580-19ce24370534",
-          opprettet: "2026-02-04T15:14:26.427495",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-18",
-          gyldigTilOgMed: "2025-10-18",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-237e-7c1f-aae1-992e44d7522e",
-          opprettet: "2026-02-04T15:14:26.430225",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-19",
-          gyldigTilOgMed: "2025-10-19",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2380-7f7f-9019-5666649ed072",
-          opprettet: "2026-02-04T15:14:26.432836",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-20",
-          gyldigTilOgMed: "2025-10-20",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2383-7aa3-bbc9-90baf840dc34",
-          opprettet: "2026-02-04T15:14:26.435197",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-21",
-          gyldigTilOgMed: "2025-10-21",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2385-76f7-8d45-a5563cca8cf9",
-          opprettet: "2026-02-04T15:14:26.437871",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-22",
-          gyldigTilOgMed: "2025-10-22",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-2388-7754-a533-515a3ce555de",
-          opprettet: "2026-02-04T15:14:26.440608",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-23",
-          gyldigTilOgMed: "2025-10-23",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-238a-7eb3-9ae4-fa96ff5b21fa",
-          opprettet: "2026-02-04T15:14:26.442923",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-24",
-          gyldigTilOgMed: "2025-10-24",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-238d-7663-a510-23a43abf49c8",
-          opprettet: "2026-02-04T15:14:26.445133",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-25",
-          gyldigTilOgMed: "2025-10-25",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-238f-7a60-b441-756c65c417fd",
-          opprettet: "2026-02-04T15:14:26.447527",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-26",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-239e-7d87-b48a-11271bfe0cf8",
-          opprettet: "2026-02-04T15:14:26.462152",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-10-27",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23a1-7021-9d0f-a8dd31b4eeb1",
-          opprettet: "2026-02-04T15:14:26.465099",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-28",
-          gyldigTilOgMed: "2025-10-28",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23a3-7472-9cb1-9a44bb09a86f",
-          opprettet: "2026-02-04T15:14:26.467939",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-29",
-          gyldigTilOgMed: "2025-10-29",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23a6-78f4-9858-4819c472ccf0",
-          opprettet: "2026-02-04T15:14:26.470691",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-30",
-          gyldigTilOgMed: "2025-10-30",
-          verdi: {
-            verdi: true,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23a9-7df4-bbb3-d990be27b203",
-          opprettet: "2026-02-04T15:14:26.473157",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-31",
-          gyldigTilOgMed: "2025-10-31",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23ab-7595-a9ce-9a5aa90783c9",
-          opprettet: "2026-02-04T15:14:26.475794",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-01",
-          gyldigTilOgMed: "2025-11-01",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23ae-700e-b619-489d5ede7a63",
-          opprettet: "2026-02-04T15:14:26.478739",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-02",
-          gyldigTilOgMed: "2025-11-02",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23b1-7c08-8e0a-8075dbaf245d",
-          opprettet: "2026-02-04T15:14:26.481578",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-03",
-          gyldigTilOgMed: "2025-11-03",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23b4-7b3a-a473-ae22c185820f",
-          opprettet: "2026-02-04T15:14:26.484457",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-04",
-          gyldigTilOgMed: "2025-11-04",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23b7-707b-89ca-6e401eeffd25",
-          opprettet: "2026-02-04T15:14:26.487313",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-05",
-          gyldigTilOgMed: "2025-11-05",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23ba-7671-9232-59cb3932b246",
-          opprettet: "2026-02-04T15:14:26.49008",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-06",
-          gyldigTilOgMed: "2025-11-06",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23bc-72d9-83dd-d8c9e38e90ed",
-          opprettet: "2026-02-04T15:14:26.492072",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-07",
-          gyldigTilOgMed: "2025-11-07",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23be-7535-b466-2e7b3f2a8d9e",
-          opprettet: "2026-02-04T15:14:26.494793",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-08",
-          gyldigTilOgMed: "2025-11-08",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-        {
-          id: "019c2901-23c1-78f8-9a8b-844322816157",
-          opprettet: "2026-02-04T15:14:26.497565",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-09",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: false,
-            datatype: "boolsk",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01957069-d7d5-7f7c-b359-c00686fbf1f7",
-      navn: "Penger som skal utbetales",
-      datatype: "penger",
-      perioder: [
-        {
-          id: "019c2901-233c-747e-bbb0-05ce28eebc0f",
-          opprettet: "2026-02-04T15:14:26.36464",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-233e-7c83-9b90-eb2a010ae16f",
-          opprettet: "2026-02-04T15:14:26.366973",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2341-74af-a458-3f6caf99844f",
-          opprettet: "2026-02-04T15:14:26.36952",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2344-78fc-908d-f05de9c5fd1b",
-          opprettet: "2026-02-04T15:14:26.372833",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2347-7f02-891c-d2769327bfa6",
-          opprettet: "2026-02-04T15:14:26.375649",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-234a-784f-beb4-dcbe2898fab5",
-          opprettet: "2026-02-04T15:14:26.378147",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-234c-7b4e-bdcf-eecb78d78351",
-          opprettet: "2026-02-04T15:14:26.380826",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-234f-7414-a36c-992ba68d0d22",
-          opprettet: "2026-02-04T15:14:26.383322",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-06",
-          gyldigTilOgMed: "2025-10-06",
-          verdi: {
-            verdi: 992,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2351-7293-b07c-33dd3469790e",
-          opprettet: "2026-02-04T15:14:26.385923",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-07",
-          gyldigTilOgMed: "2025-10-07",
-          verdi: {
-            verdi: 994,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2354-78a8-ac1d-11d502a7803b",
-          opprettet: "2026-02-04T15:14:26.388977",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-08",
-          gyldigTilOgMed: "2025-10-08",
-          verdi: {
-            verdi: 1177,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2357-716a-ba81-01acc6f24508",
-          opprettet: "2026-02-04T15:14:26.391528",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-09",
-          gyldigTilOgMed: "2025-10-09",
-          verdi: {
-            verdi: 1177,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2359-7f9c-bd75-9cdf5de990c4",
-          opprettet: "2026-02-04T15:14:26.393994",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-10",
-          gyldigTilOgMed: "2025-10-10",
-          verdi: {
-            verdi: 1179,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-235c-7d7c-aa23-a553780c5482",
-          opprettet: "2026-02-04T15:14:26.396578",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-11",
-          gyldigTilOgMed: "2025-10-11",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-235e-703d-8cda-cba5a0472fdb",
-          opprettet: "2026-02-04T15:14:26.398602",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-12",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-236c-786d-8cc3-bbfe41b4f39d",
-          opprettet: "2026-02-04T15:14:26.412671",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-13",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-236e-736f-807e-97e67dba2bbf",
-          opprettet: "2026-02-04T15:14:26.4148",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-14",
-          gyldigTilOgMed: "2025-10-14",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2371-753d-b126-20104ee0f968",
-          opprettet: "2026-02-04T15:14:26.417241",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-15",
-          gyldigTilOgMed: "2025-10-15",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2374-7bc5-8e92-b45d5f5a39af",
-          opprettet: "2026-02-04T15:14:26.420021",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-16",
-          gyldigTilOgMed: "2025-10-16",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2376-7361-8f54-c6291a2560e6",
-          opprettet: "2026-02-04T15:14:26.422556",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-17",
-          gyldigTilOgMed: "2025-10-17",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-237c-7ed8-a2d9-da4209748652",
-          opprettet: "2026-02-04T15:14:26.428897",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-18",
-          gyldigTilOgMed: "2025-10-18",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-237f-71ee-adef-d78c6b000707",
-          opprettet: "2026-02-04T15:14:26.431557",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-19",
-          gyldigTilOgMed: "2025-10-19",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2382-7f05-bb20-3ffa683fe728",
-          opprettet: "2026-02-04T15:14:26.434026",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-20",
-          gyldigTilOgMed: "2025-10-20",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2384-70c1-820c-5f21d37ac521",
-          opprettet: "2026-02-04T15:14:26.436533",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-21",
-          gyldigTilOgMed: "2025-10-21",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2387-70ba-8f0f-6776f70ea795",
-          opprettet: "2026-02-04T15:14:26.439182",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-22",
-          gyldigTilOgMed: "2025-10-22",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2389-7074-9e92-fa8205835db9",
-          opprettet: "2026-02-04T15:14:26.44188",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-23",
-          gyldigTilOgMed: "2025-10-23",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-238c-78fd-ae6e-6d446ef56f70",
-          opprettet: "2026-02-04T15:14:26.444178",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-24",
-          gyldigTilOgMed: "2025-10-24",
-          verdi: {
-            verdi: 1645,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-238e-7bae-b04b-3274a0d3bf63",
-          opprettet: "2026-02-04T15:14:26.446311",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-25",
-          gyldigTilOgMed: "2025-10-25",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-2390-701e-826f-74b675dd89d7",
-          opprettet: "2026-02-04T15:14:26.448886",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-26",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-239f-711a-a842-e044f824800d",
-          opprettet: "2026-02-04T15:14:26.463614",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-10-27",
-          verdi: {
-            verdi: 1316,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23a2-78ba-aa19-a97872177840",
-          opprettet: "2026-02-04T15:14:26.466539",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-28",
-          gyldigTilOgMed: "2025-10-28",
-          verdi: {
-            verdi: 1316,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23a5-7eef-b0e6-24595f07eb33",
-          opprettet: "2026-02-04T15:14:26.469286",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-29",
-          gyldigTilOgMed: "2025-10-29",
-          verdi: {
-            verdi: 1316,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23a7-72d9-8a7f-dd2c842ee3ea",
-          opprettet: "2026-02-04T15:14:26.47182",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-30",
-          gyldigTilOgMed: "2025-10-30",
-          verdi: {
-            verdi: 1316,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23aa-780c-b2a0-10ce4b4ccab7",
-          opprettet: "2026-02-04T15:14:26.474629",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-31",
-          gyldigTilOgMed: "2025-10-31",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23ad-76d4-912d-718a2850fb34",
-          opprettet: "2026-02-04T15:14:26.477314",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-01",
-          gyldigTilOgMed: "2025-11-01",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23b0-7702-bb85-4be76ec9bf63",
-          opprettet: "2026-02-04T15:14:26.480059",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-02",
-          gyldigTilOgMed: "2025-11-02",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23b3-7b7f-bf1b-b80f4172b24c",
-          opprettet: "2026-02-04T15:14:26.483007",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-03",
-          gyldigTilOgMed: "2025-11-03",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23b5-72d0-be07-f138ad45a2ab",
-          opprettet: "2026-02-04T15:14:26.485903",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-04",
-          gyldigTilOgMed: "2025-11-04",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23b8-7e18-98ca-8944d6ee814f",
-          opprettet: "2026-02-04T15:14:26.48875",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-05",
-          gyldigTilOgMed: "2025-11-05",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23bb-7b10-a08b-381af7e6d45b",
-          opprettet: "2026-02-04T15:14:26.491058",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-06",
-          gyldigTilOgMed: "2025-11-06",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23bd-7718-ae57-9a4779073366",
-          opprettet: "2026-02-04T15:14:26.493348",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-07",
-          gyldigTilOgMed: "2025-11-07",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23c0-71a5-b6fa-78bb66d1c1d1",
-          opprettet: "2026-02-04T15:14:26.496301",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-08",
-          gyldigTilOgMed: "2025-11-08",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-        {
-          id: "019c2901-23c4-7773-8dca-fca58c3f042b",
-          opprettet: "2026-02-04T15:14:26.500754",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-09",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 0,
-            datatype: "penger",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01992934-66e4-7606-bdd3-c6c9dd420ffd",
-      navn: "Antall dager som er forbrukt",
-      datatype: "heltall",
-      perioder: [
-        {
-          id: "019c2901-23c6-7f2c-90be-0545337e7194",
-          opprettet: "2026-02-04T15:14:26.50241",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 1,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23c9-7448-be9f-bc3a22ffb5e0",
-          opprettet: "2026-02-04T15:14:26.505042",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 2,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23cb-7a6b-a12d-994bf189edd7",
-          opprettet: "2026-02-04T15:14:26.507439",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 3,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23cd-7802-90ac-fc27ff685725",
-          opprettet: "2026-02-04T15:14:26.509859",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 4,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d0-7ac0-b2fd-30adb8fb36ce",
-          opprettet: "2026-02-04T15:14:26.512419",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: 5,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d2-7728-a8ce-64176d282fef",
-          opprettet: "2026-02-04T15:14:26.514498",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
-          verdi: {
-            verdi: 5,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d4-787d-b16b-10312582169a",
-          opprettet: "2026-02-04T15:14:26.516673",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 5,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d7-748e-ac98-c4698eba1895",
-          opprettet: "2026-02-04T15:14:26.519288",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-06",
-          gyldigTilOgMed: "2025-10-06",
-          verdi: {
-            verdi: 6,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d9-723f-820b-c16e0b7a17a7",
-          opprettet: "2026-02-04T15:14:26.521698",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-07",
-          gyldigTilOgMed: "2025-10-07",
-          verdi: {
-            verdi: 7,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23dc-7e2a-b7de-6187ecd1710d",
-          opprettet: "2026-02-04T15:14:26.524086",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-08",
-          gyldigTilOgMed: "2025-10-08",
-          verdi: {
-            verdi: 8,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23de-7719-9706-b15640f638da",
-          opprettet: "2026-02-04T15:14:26.526674",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-09",
-          gyldigTilOgMed: "2025-10-09",
-          verdi: {
-            verdi: 9,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e1-7a79-b264-404eaefe8e5a",
-          opprettet: "2026-02-04T15:14:26.529326",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-10",
-          gyldigTilOgMed: "2025-10-10",
-          verdi: {
-            verdi: 10,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e3-76d1-a70b-ce71db1a4b3c",
-          opprettet: "2026-02-04T15:14:26.531737",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-11",
-          gyldigTilOgMed: "2025-10-11",
-          verdi: {
-            verdi: 10,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e5-76fa-aee9-ead7f96c2353",
-          opprettet: "2026-02-04T15:14:26.533743",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-12",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 10,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e8-7bc7-a8b8-8b25374017ff",
-          opprettet: "2026-02-04T15:14:26.536046",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-13",
-          verdi: {
-            verdi: 11,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ea-7c28-abe8-91f5e7132729",
-          opprettet: "2026-02-04T15:14:26.5388",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-14",
-          gyldigTilOgMed: "2025-10-14",
-          verdi: {
-            verdi: 12,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ec-7a80-9c58-dc98ee376e1a",
-          opprettet: "2026-02-04T15:14:26.54075",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-15",
-          gyldigTilOgMed: "2025-10-15",
-          verdi: {
-            verdi: 13,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ee-79f1-8ce5-be9d1dcea6e4",
-          opprettet: "2026-02-04T15:14:26.542879",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-16",
-          gyldigTilOgMed: "2025-10-16",
-          verdi: {
-            verdi: 14,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f1-70fa-bb92-5c93824fc69d",
-          opprettet: "2026-02-04T15:14:26.545425",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-17",
-          gyldigTilOgMed: "2025-10-17",
-          verdi: {
-            verdi: 15,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f4-7054-9d40-2a0e99bcd1c4",
-          opprettet: "2026-02-04T15:14:26.548029",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-18",
-          gyldigTilOgMed: "2025-10-18",
-          verdi: {
-            verdi: 15,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f6-735c-9f1c-9429db946b32",
-          opprettet: "2026-02-04T15:14:26.550698",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-19",
-          gyldigTilOgMed: "2025-10-19",
-          verdi: {
-            verdi: 15,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f9-7428-a762-fbd79b9d87f3",
-          opprettet: "2026-02-04T15:14:26.553429",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-20",
-          gyldigTilOgMed: "2025-10-20",
-          verdi: {
-            verdi: 16,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23fc-7cc8-a870-76f9116adfb8",
-          opprettet: "2026-02-04T15:14:26.556006",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-21",
-          gyldigTilOgMed: "2025-10-21",
-          verdi: {
-            verdi: 17,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23fe-7bd2-bf5a-995ab0d8a0ad",
-          opprettet: "2026-02-04T15:14:26.558462",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-22",
-          gyldigTilOgMed: "2025-10-22",
-          verdi: {
-            verdi: 18,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2400-7f13-93fc-8befd9129981",
-          opprettet: "2026-02-04T15:14:26.560816",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-23",
-          gyldigTilOgMed: "2025-10-23",
-          verdi: {
-            verdi: 19,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2403-70b2-8225-4709a161ba42",
-          opprettet: "2026-02-04T15:14:26.56325",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-24",
-          gyldigTilOgMed: "2025-10-24",
-          verdi: {
-            verdi: 20,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2405-74ee-99d5-95c528d591d8",
-          opprettet: "2026-02-04T15:14:26.565787",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-25",
-          gyldigTilOgMed: "2025-10-25",
-          verdi: {
-            verdi: 20,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2408-7bf6-883e-d8f55a0f0338",
-          opprettet: "2026-02-04T15:14:26.568394",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-26",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 20,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-240a-79c4-b627-e0c3f09392b5",
-          opprettet: "2026-02-04T15:14:26.570614",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-10-27",
-          verdi: {
-            verdi: 21,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-240d-7b71-b63b-98a0c705a5b6",
-          opprettet: "2026-02-04T15:14:26.57368",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-28",
-          gyldigTilOgMed: "2025-10-28",
-          verdi: {
-            verdi: 22,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-240f-72a2-a77d-c8d55130d923",
-          opprettet: "2026-02-04T15:14:26.575851",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-29",
-          gyldigTilOgMed: "2025-10-29",
-          verdi: {
-            verdi: 23,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2414-770f-bd33-8380543fc6dd",
-          opprettet: "2026-02-04T15:14:26.580685",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-30",
-          gyldigTilOgMed: "2025-10-30",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2416-7f19-9b5b-673f96b95b6e",
-          opprettet: "2026-02-04T15:14:26.582995",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-31",
-          gyldigTilOgMed: "2025-10-31",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2419-7b6d-ab80-496394767f20",
-          opprettet: "2026-02-04T15:14:26.58552",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-01",
-          gyldigTilOgMed: "2025-11-01",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-241c-75c6-a442-8407800928ad",
-          opprettet: "2026-02-04T15:14:26.588121",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-02",
-          gyldigTilOgMed: "2025-11-02",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-241e-741a-8b94-fa69969bd62d",
-          opprettet: "2026-02-04T15:14:26.590841",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-03",
-          gyldigTilOgMed: "2025-11-03",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2421-7ad7-8601-5d0af77b92c7",
-          opprettet: "2026-02-04T15:14:26.593527",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-04",
-          gyldigTilOgMed: "2025-11-04",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2424-7240-b706-c1fb2faed6fa",
-          opprettet: "2026-02-04T15:14:26.596221",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-05",
-          gyldigTilOgMed: "2025-11-05",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2427-7f3b-883a-6004c50fb606",
-          opprettet: "2026-02-04T15:14:26.599039",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-06",
-          gyldigTilOgMed: "2025-11-06",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-242a-770b-9718-35730033afe4",
-          opprettet: "2026-02-04T15:14:26.602271",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-07",
-          gyldigTilOgMed: "2025-11-07",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-242c-79b6-90b0-d9b4a27a3583",
-          opprettet: "2026-02-04T15:14:26.60486",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-08",
-          gyldigTilOgMed: "2025-11-08",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-242f-7e36-a773-10b1fb96a480",
-          opprettet: "2026-02-04T15:14:26.607382",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-09",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 24,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
-      opplysningTypeId: "01992956-e349-76b1-8f68-c9d481df3a32",
-      navn: "Antall dager som gjenstår",
-      datatype: "heltall",
-      perioder: [
-        {
-          id: "019c2901-23c7-7841-a5fd-02bdf9748a23",
-          opprettet: "2026-02-04T15:14:26.503877",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-29",
-          gyldigTilOgMed: "2025-09-29",
-          verdi: {
-            verdi: 519,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ca-78cf-b51f-001742a0fdde",
-          opprettet: "2026-02-04T15:14:26.506186",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-09-30",
-          gyldigTilOgMed: "2025-09-30",
-          verdi: {
-            verdi: 518,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23cc-7cc6-a3ae-dced1676c19a",
-          opprettet: "2026-02-04T15:14:26.508721",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-01",
-          gyldigTilOgMed: "2025-10-01",
-          verdi: {
-            verdi: 517,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23cf-7667-b35c-7896395871db",
-          opprettet: "2026-02-04T15:14:26.511395",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-02",
-          gyldigTilOgMed: "2025-10-02",
-          verdi: {
-            verdi: 516,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d1-7778-8f60-9d948ec2469e",
-          opprettet: "2026-02-04T15:14:26.513298",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-03",
-          gyldigTilOgMed: "2025-10-03",
-          verdi: {
-            verdi: 515,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d3-7f51-bcc6-bcf21f67f3ad",
-          opprettet: "2026-02-04T15:14:26.515592",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-04",
-          gyldigTilOgMed: "2025-10-04",
-          verdi: {
-            verdi: 515,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d5-7506-be08-fbf09d41cb7b",
-          opprettet: "2026-02-04T15:14:26.517773",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-05",
-          gyldigTilOgMed: "2025-10-05",
-          verdi: {
-            verdi: 515,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23d8-7ca7-8e32-a098864e30ae",
-          opprettet: "2026-02-04T15:14:26.52056",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-06",
-          gyldigTilOgMed: "2025-10-06",
-          verdi: {
-            verdi: 514,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23da-7221-a3e8-49ec40cf80e2",
-          opprettet: "2026-02-04T15:14:26.52287",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-07",
-          gyldigTilOgMed: "2025-10-07",
-          verdi: {
-            verdi: 513,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23dd-774b-8a81-0eb20e46c3c5",
-          opprettet: "2026-02-04T15:14:26.525351",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-08",
-          gyldigTilOgMed: "2025-10-08",
-          verdi: {
-            verdi: 512,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23df-71a1-a802-aa3293a4d2ce",
-          opprettet: "2026-02-04T15:14:26.527935",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-09",
-          gyldigTilOgMed: "2025-10-09",
-          verdi: {
-            verdi: 511,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e2-72fb-aa26-09e91e7a6a8b",
-          opprettet: "2026-02-04T15:14:26.530595",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-10",
-          gyldigTilOgMed: "2025-10-10",
-          verdi: {
-            verdi: 510,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e4-7960-9d43-c8d0f8f62a91",
-          opprettet: "2026-02-04T15:14:26.532679",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-11",
-          gyldigTilOgMed: "2025-10-11",
-          verdi: {
-            verdi: 510,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e6-74fa-9981-30f18727d03b",
-          opprettet: "2026-02-04T15:14:26.53462",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-12",
-          gyldigTilOgMed: "2025-10-12",
-          verdi: {
-            verdi: 510,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23e9-7016-a342-7a501443ea33",
-          opprettet: "2026-02-04T15:14:26.537343",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-13",
-          gyldigTilOgMed: "2025-10-13",
-          verdi: {
-            verdi: 509,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23eb-7982-904d-f5af7505b90a",
-          opprettet: "2026-02-04T15:14:26.539689",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-14",
-          gyldigTilOgMed: "2025-10-14",
-          verdi: {
-            verdi: 508,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ed-7352-ba06-c49b25c33b86",
-          opprettet: "2026-02-04T15:14:26.541843",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-15",
-          gyldigTilOgMed: "2025-10-15",
-          verdi: {
-            verdi: 507,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f0-7a13-8f0a-bc9db6aad5f9",
-          opprettet: "2026-02-04T15:14:26.544174",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-16",
-          gyldigTilOgMed: "2025-10-16",
-          verdi: {
-            verdi: 506,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f2-7c16-8081-75f40853c181",
-          opprettet: "2026-02-04T15:14:26.546505",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-17",
-          gyldigTilOgMed: "2025-10-17",
-          verdi: {
-            verdi: 505,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f5-7b1a-aaf0-ef44edeb2658",
-          opprettet: "2026-02-04T15:14:26.549239",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-18",
-          gyldigTilOgMed: "2025-10-18",
-          verdi: {
-            verdi: 505,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23f8-7e15-b89f-0684cab377b0",
-          opprettet: "2026-02-04T15:14:26.552157",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-19",
-          gyldigTilOgMed: "2025-10-19",
-          verdi: {
-            verdi: 505,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23fa-76c8-98a2-ee3ac1383536",
-          opprettet: "2026-02-04T15:14:26.554619",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-20",
-          gyldigTilOgMed: "2025-10-20",
-          verdi: {
-            verdi: 504,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23fd-71f3-a2cc-aaf5e981bfb3",
-          opprettet: "2026-02-04T15:14:26.557126",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-21",
-          gyldigTilOgMed: "2025-10-21",
-          verdi: {
-            verdi: 503,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-23ff-751a-939f-0a16c70120ba",
-          opprettet: "2026-02-04T15:14:26.559648",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-22",
-          gyldigTilOgMed: "2025-10-22",
-          verdi: {
-            verdi: 502,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2402-7f72-880f-e2a86e98f743",
-          opprettet: "2026-02-04T15:14:26.562161",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-23",
-          gyldigTilOgMed: "2025-10-23",
-          verdi: {
-            verdi: 501,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2404-7d72-9e9a-8830a8c60cb7",
-          opprettet: "2026-02-04T15:14:26.564517",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-24",
-          gyldigTilOgMed: "2025-10-24",
-          verdi: {
-            verdi: 500,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2407-7a3a-97f7-f418bf07df89",
-          opprettet: "2026-02-04T15:14:26.567196",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-25",
-          gyldigTilOgMed: "2025-10-25",
-          verdi: {
-            verdi: 500,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2409-7587-b64d-651ec41af168",
-          opprettet: "2026-02-04T15:14:26.569469",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-26",
-          gyldigTilOgMed: "2025-10-26",
-          verdi: {
-            verdi: 500,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-240c-71d8-ad5b-1975c6a08d11",
-          opprettet: "2026-02-04T15:14:26.572422",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-27",
-          gyldigTilOgMed: "2025-10-27",
-          verdi: {
-            verdi: 499,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-240e-7e53-8688-ff150192bfa6",
-          opprettet: "2026-02-04T15:14:26.574929",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-28",
-          gyldigTilOgMed: "2025-10-28",
-          verdi: {
-            verdi: 498,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2411-7c38-a021-8e9d9ffd2a60",
-          opprettet: "2026-02-04T15:14:26.577184",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-29",
-          gyldigTilOgMed: "2025-10-29",
-          verdi: {
-            verdi: 497,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2415-7f41-9a29-cc5e06494d19",
-          opprettet: "2026-02-04T15:14:26.581647",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-30",
-          gyldigTilOgMed: "2025-10-30",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2418-75be-9c3c-5ce2ff97abde",
-          opprettet: "2026-02-04T15:14:26.584247",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-10-31",
-          gyldigTilOgMed: "2025-10-31",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-241a-79d9-a578-be95b8c0ec57",
-          opprettet: "2026-02-04T15:14:26.586815",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-01",
-          gyldigTilOgMed: "2025-11-01",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-241d-7718-96af-bcda2541e39a",
-          opprettet: "2026-02-04T15:14:26.589521",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-02",
-          gyldigTilOgMed: "2025-11-02",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2420-79b1-9340-f2fdee84de93",
-          opprettet: "2026-02-04T15:14:26.592182",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-03",
-          gyldigTilOgMed: "2025-11-03",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2422-7e87-abcf-97edf1f0dd05",
-          opprettet: "2026-02-04T15:14:26.594929",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-04",
-          gyldigTilOgMed: "2025-11-04",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2425-78aa-ac28-78631fb274f9",
-          opprettet: "2026-02-04T15:14:26.59763",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-05",
-          gyldigTilOgMed: "2025-11-05",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2428-7b3a-bd90-f681910e0b3a",
-          opprettet: "2026-02-04T15:14:26.600893",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-06",
-          gyldigTilOgMed: "2025-11-06",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-242b-7d3d-bd89-46c5ada8503c",
-          opprettet: "2026-02-04T15:14:26.603646",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-07",
-          gyldigTilOgMed: "2025-11-07",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-242e-7f4a-b794-c046ed3754d6",
-          opprettet: "2026-02-04T15:14:26.606238",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-08",
-          gyldigTilOgMed: "2025-11-08",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-        {
-          id: "019c2901-2431-714f-bc69-f05203fe322a",
-          opprettet: "2026-02-04T15:14:26.609712",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2025-11-09",
-          gyldigTilOgMed: "2025-11-09",
-          verdi: {
-            verdi: 496,
-            enhet: "dager",
-            datatype: "heltall",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
@@ -12167,6 +10305,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8652-7246-b545-1577b0be3c47",
           opprettet: "2026-02-04T14:25:42.610489",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -12187,6 +10326,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8653-741e-9fb2-ac7cea4c45b4",
           opprettet: "2026-02-04T14:25:42.611625",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -12207,6 +10347,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8654-710c-b0ff-f2781149db05",
           opprettet: "2026-02-04T14:25:42.612464",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -12227,6 +10368,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8654-710c-b0ff-f2781149db06",
           opprettet: "2026-02-04T14:25:42.612974",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -12247,6 +10389,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8655-751c-bc06-dfdb5e5bfd4b",
           opprettet: "2026-02-04T14:25:42.613752",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: false,
@@ -12267,6 +10410,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8664-7d92-bf22-ea9034d55869",
           opprettet: "2026-02-04T14:25:42.62886",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -12298,6 +10442,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
         {
           id: "019c28d4-8665-7f16-bce4-639694227408",
           opprettet: "2026-02-04T14:25:42.629851",
+          type: "Faktum",
           opprinnelse: "Ny",
           verdi: {
             verdi: true,
@@ -12319,6 +10464,2485 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       ],
       synlig: true,
       redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
+      navn: "Forbrukt egenandel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019c2901-232a-7812-954c-318131f320c4",
+          opprettet: "2026-02-04T15:14:26.346515",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 4158,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2362-7ffb-bdda-d185065340c6",
+          opprettet: "2026-02-04T15:14:26.402329",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2393-734e-bfa2-d08fd52dc256",
+          opprettet: "2026-02-04T15:14:26.451845",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01994cfd-9a27-762e-81fa-61f550467c95",
+      navn: "Penger som skal utbetales for perioden",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019c2901-2332-7b13-bf81-87f7e1f6141f",
+          opprettet: "2026-02-04T15:14:26.354601",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 10479,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2363-7447-964a-843598df02ec",
+          opprettet: "2026-02-04T15:14:26.403554",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 16450,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2395-71d8-ba7c-b3ab13dd0782",
+          opprettet: "2026-02-04T15:14:26.453165",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 5264,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01997b70-a12c-7622-bff8-82a20687e640",
+      navn: "Gjenstående egenandel",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019c2901-2334-7f18-b6bb-cf98760f8220",
+          opprettet: "2026-02-04T15:14:26.356295",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2364-7f8a-8095-9fa62334ef98",
+          opprettet: "2026-02-04T15:14:26.404838",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2396-780c-b8e5-9fb708d55f61",
+          opprettet: "2026-02-04T15:14:26.454512",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01997b70-6e6e-702a-a296-18ae5fb9621d",
+      navn: "Oppfyller kravet til tapt arbeidstid i perioden",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019c2901-2335-7987-a4e6-74286ae7b393",
+          opprettet: "2026-02-04T15:14:26.35785",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2365-79a9-b639-82cb5707941c",
+          opprettet: "2026-02-04T15:14:26.405985",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2397-70ac-9d4c-7f34b916ad83",
+          opprettet: "2026-02-04T15:14:26.455862",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-43bb-7529-af23-9b3d309501eb",
+      navn: "Sum av fastsatt vanlig arbeidstid",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019c2901-2336-7b6d-88f2-7df1726b2519",
+          opprettet: "2026-02-04T15:14:26.358823",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 75,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-2367-7487-b0ec-835972d98b09",
+          opprettet: "2026-02-04T15:14:26.407167",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 75,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-2399-7d92-9bc9-078172190241",
+          opprettet: "2026-02-04T15:14:26.45774",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 30,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-81bf-7b29-9458-446e6dbaedae",
+      navn: "Sum av arbeidede timer",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019c2901-2338-7393-b98b-1ce4dbfde7ac",
+          opprettet: "2026-02-04T15:14:26.360591",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-2368-7c23-aafc-d03773526a81",
+          opprettet: "2026-02-04T15:14:26.408397",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 0,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-239b-7775-aa34-9660c93cd197",
+          opprettet: "2026-02-04T15:14:26.4598",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 6,
+            enhet: "timer",
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "019ae986-a128-72f0-9868-032bc8a57b21",
+      navn: "Prosentfaktor",
+      datatype: "desimaltall",
+      perioder: [
+        {
+          id: "019c2901-233a-7f04-a792-59c18def3644",
+          opprettet: "2026-02-04T15:14:26.362092",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 1,
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-2369-79a9-99be-38974bc5df02",
+          opprettet: "2026-02-04T15:14:26.409582",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 1,
+            datatype: "desimaltall",
+          },
+        },
+        {
+          id: "019c2901-239d-7e23-b0b6-bd8c50b6b942",
+          opprettet: "2026-02-04T15:14:26.461074",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 0.8,
+            datatype: "desimaltall",
+          },
+        },
+      ],
+      synlig: false,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01948ea0-ffdc-7964-ab55-52a7e35e1020",
+      navn: "Dag som fører til forbruk av dagpengeperiode",
+      datatype: "boolsk",
+      perioder: [
+        {
+          id: "019c2901-233b-71a9-b4c5-55068d0ecc9d",
+          opprettet: "2026-02-04T15:14:26.363355",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-09-29",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-233d-7d3e-ae80-3ab2be81ced3",
+          opprettet: "2026-02-04T15:14:26.365866",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-30",
+          gyldigTilOgMed: "2025-09-30",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2340-72c8-8e24-385af5f7b107",
+          opprettet: "2026-02-04T15:14:26.368336",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-01",
+          gyldigTilOgMed: "2025-10-01",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2343-7f9d-81a2-1589fadbc799",
+          opprettet: "2026-02-04T15:14:26.371379",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-02",
+          gyldigTilOgMed: "2025-10-02",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2346-710a-9b78-b6902b988492",
+          opprettet: "2026-02-04T15:14:26.374303",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-03",
+          gyldigTilOgMed: "2025-10-03",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2348-7420-8fed-88d2b830d33b",
+          opprettet: "2026-02-04T15:14:26.376934",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-04",
+          gyldigTilOgMed: "2025-10-04",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-234b-7ddb-ba2b-60bebb2729f7",
+          opprettet: "2026-02-04T15:14:26.379403",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-05",
+          gyldigTilOgMed: "2025-10-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-234e-7242-ac80-109e8a4beefe",
+          opprettet: "2026-02-04T15:14:26.382128",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-06",
+          gyldigTilOgMed: "2025-10-06",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2350-7fdb-b167-2a11a7a08faf",
+          opprettet: "2026-02-04T15:14:26.384647",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-07",
+          gyldigTilOgMed: "2025-10-07",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2352-7bac-a740-767dc1acb671",
+          opprettet: "2026-02-04T15:14:26.386981",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-08",
+          gyldigTilOgMed: "2025-10-08",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2356-7f6a-a93c-89a09eeb0987",
+          opprettet: "2026-02-04T15:14:26.390314",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-09",
+          gyldigTilOgMed: "2025-10-09",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2358-711e-aa32-f63a5ff40a0c",
+          opprettet: "2026-02-04T15:14:26.392702",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-10",
+          gyldigTilOgMed: "2025-10-10",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-235b-780f-8f32-b862cfff08b9",
+          opprettet: "2026-02-04T15:14:26.395213",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-11",
+          gyldigTilOgMed: "2025-10-11",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-235d-7131-a218-0ff8a2bf5aea",
+          opprettet: "2026-02-04T15:14:26.397443",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-12",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-236b-7cbf-a702-147ac5d09670",
+          opprettet: "2026-02-04T15:14:26.411052",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-13",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-236d-70f9-adf5-3f99c457e7d8",
+          opprettet: "2026-02-04T15:14:26.413685",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-14",
+          gyldigTilOgMed: "2025-10-14",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-236f-786e-a339-7571526253c5",
+          opprettet: "2026-02-04T15:14:26.415992",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-15",
+          gyldigTilOgMed: "2025-10-15",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2372-772e-975d-1bbebaf06ae1",
+          opprettet: "2026-02-04T15:14:26.418607",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-16",
+          gyldigTilOgMed: "2025-10-16",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2375-7764-8987-e5239aaf295e",
+          opprettet: "2026-02-04T15:14:26.421383",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-17",
+          gyldigTilOgMed: "2025-10-17",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-237b-766c-8580-19ce24370534",
+          opprettet: "2026-02-04T15:14:26.427495",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-18",
+          gyldigTilOgMed: "2025-10-18",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-237e-7c1f-aae1-992e44d7522e",
+          opprettet: "2026-02-04T15:14:26.430225",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-19",
+          gyldigTilOgMed: "2025-10-19",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2380-7f7f-9019-5666649ed072",
+          opprettet: "2026-02-04T15:14:26.432836",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-20",
+          gyldigTilOgMed: "2025-10-20",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2383-7aa3-bbc9-90baf840dc34",
+          opprettet: "2026-02-04T15:14:26.435197",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-21",
+          gyldigTilOgMed: "2025-10-21",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2385-76f7-8d45-a5563cca8cf9",
+          opprettet: "2026-02-04T15:14:26.437871",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-22",
+          gyldigTilOgMed: "2025-10-22",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-2388-7754-a533-515a3ce555de",
+          opprettet: "2026-02-04T15:14:26.440608",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-23",
+          gyldigTilOgMed: "2025-10-23",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-238a-7eb3-9ae4-fa96ff5b21fa",
+          opprettet: "2026-02-04T15:14:26.442923",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-24",
+          gyldigTilOgMed: "2025-10-24",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-238d-7663-a510-23a43abf49c8",
+          opprettet: "2026-02-04T15:14:26.445133",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-25",
+          gyldigTilOgMed: "2025-10-25",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-238f-7a60-b441-756c65c417fd",
+          opprettet: "2026-02-04T15:14:26.447527",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-26",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-239e-7d87-b48a-11271bfe0cf8",
+          opprettet: "2026-02-04T15:14:26.462152",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-10-27",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23a1-7021-9d0f-a8dd31b4eeb1",
+          opprettet: "2026-02-04T15:14:26.465099",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-28",
+          gyldigTilOgMed: "2025-10-28",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23a3-7472-9cb1-9a44bb09a86f",
+          opprettet: "2026-02-04T15:14:26.467939",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-29",
+          gyldigTilOgMed: "2025-10-29",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23a6-78f4-9858-4819c472ccf0",
+          opprettet: "2026-02-04T15:14:26.470691",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-30",
+          gyldigTilOgMed: "2025-10-30",
+          verdi: {
+            verdi: true,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23a9-7df4-bbb3-d990be27b203",
+          opprettet: "2026-02-04T15:14:26.473157",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-31",
+          gyldigTilOgMed: "2025-10-31",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23ab-7595-a9ce-9a5aa90783c9",
+          opprettet: "2026-02-04T15:14:26.475794",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-01",
+          gyldigTilOgMed: "2025-11-01",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23ae-700e-b619-489d5ede7a63",
+          opprettet: "2026-02-04T15:14:26.478739",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-02",
+          gyldigTilOgMed: "2025-11-02",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23b1-7c08-8e0a-8075dbaf245d",
+          opprettet: "2026-02-04T15:14:26.481578",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-03",
+          gyldigTilOgMed: "2025-11-03",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23b4-7b3a-a473-ae22c185820f",
+          opprettet: "2026-02-04T15:14:26.484457",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-04",
+          gyldigTilOgMed: "2025-11-04",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23b7-707b-89ca-6e401eeffd25",
+          opprettet: "2026-02-04T15:14:26.487313",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-05",
+          gyldigTilOgMed: "2025-11-05",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23ba-7671-9232-59cb3932b246",
+          opprettet: "2026-02-04T15:14:26.49008",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-06",
+          gyldigTilOgMed: "2025-11-06",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23bc-72d9-83dd-d8c9e38e90ed",
+          opprettet: "2026-02-04T15:14:26.492072",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-07",
+          gyldigTilOgMed: "2025-11-07",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23be-7535-b466-2e7b3f2a8d9e",
+          opprettet: "2026-02-04T15:14:26.494793",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-08",
+          gyldigTilOgMed: "2025-11-08",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+        {
+          id: "019c2901-23c1-78f8-9a8b-844322816157",
+          opprettet: "2026-02-04T15:14:26.497565",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-09",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: false,
+            datatype: "boolsk",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01957069-d7d5-7f7c-b359-c00686fbf1f7",
+      navn: "Penger som skal utbetales",
+      datatype: "penger",
+      perioder: [
+        {
+          id: "019c2901-233c-747e-bbb0-05ce28eebc0f",
+          opprettet: "2026-02-04T15:14:26.36464",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-09-29",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-233e-7c83-9b90-eb2a010ae16f",
+          opprettet: "2026-02-04T15:14:26.366973",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-30",
+          gyldigTilOgMed: "2025-09-30",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2341-74af-a458-3f6caf99844f",
+          opprettet: "2026-02-04T15:14:26.36952",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-01",
+          gyldigTilOgMed: "2025-10-01",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2344-78fc-908d-f05de9c5fd1b",
+          opprettet: "2026-02-04T15:14:26.372833",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-02",
+          gyldigTilOgMed: "2025-10-02",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2347-7f02-891c-d2769327bfa6",
+          opprettet: "2026-02-04T15:14:26.375649",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-03",
+          gyldigTilOgMed: "2025-10-03",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-234a-784f-beb4-dcbe2898fab5",
+          opprettet: "2026-02-04T15:14:26.378147",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-04",
+          gyldigTilOgMed: "2025-10-04",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-234c-7b4e-bdcf-eecb78d78351",
+          opprettet: "2026-02-04T15:14:26.380826",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-05",
+          gyldigTilOgMed: "2025-10-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-234f-7414-a36c-992ba68d0d22",
+          opprettet: "2026-02-04T15:14:26.383322",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-06",
+          gyldigTilOgMed: "2025-10-06",
+          verdi: {
+            verdi: 992,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2351-7293-b07c-33dd3469790e",
+          opprettet: "2026-02-04T15:14:26.385923",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-07",
+          gyldigTilOgMed: "2025-10-07",
+          verdi: {
+            verdi: 994,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2354-78a8-ac1d-11d502a7803b",
+          opprettet: "2026-02-04T15:14:26.388977",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-08",
+          gyldigTilOgMed: "2025-10-08",
+          verdi: {
+            verdi: 1177,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2357-716a-ba81-01acc6f24508",
+          opprettet: "2026-02-04T15:14:26.391528",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-09",
+          gyldigTilOgMed: "2025-10-09",
+          verdi: {
+            verdi: 1177,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2359-7f9c-bd75-9cdf5de990c4",
+          opprettet: "2026-02-04T15:14:26.393994",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-10",
+          gyldigTilOgMed: "2025-10-10",
+          verdi: {
+            verdi: 1179,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-235c-7d7c-aa23-a553780c5482",
+          opprettet: "2026-02-04T15:14:26.396578",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-11",
+          gyldigTilOgMed: "2025-10-11",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-235e-703d-8cda-cba5a0472fdb",
+          opprettet: "2026-02-04T15:14:26.398602",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-12",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-236c-786d-8cc3-bbfe41b4f39d",
+          opprettet: "2026-02-04T15:14:26.412671",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-13",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-236e-736f-807e-97e67dba2bbf",
+          opprettet: "2026-02-04T15:14:26.4148",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-14",
+          gyldigTilOgMed: "2025-10-14",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2371-753d-b126-20104ee0f968",
+          opprettet: "2026-02-04T15:14:26.417241",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-15",
+          gyldigTilOgMed: "2025-10-15",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2374-7bc5-8e92-b45d5f5a39af",
+          opprettet: "2026-02-04T15:14:26.420021",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-16",
+          gyldigTilOgMed: "2025-10-16",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2376-7361-8f54-c6291a2560e6",
+          opprettet: "2026-02-04T15:14:26.422556",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-17",
+          gyldigTilOgMed: "2025-10-17",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-237c-7ed8-a2d9-da4209748652",
+          opprettet: "2026-02-04T15:14:26.428897",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-18",
+          gyldigTilOgMed: "2025-10-18",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-237f-71ee-adef-d78c6b000707",
+          opprettet: "2026-02-04T15:14:26.431557",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-19",
+          gyldigTilOgMed: "2025-10-19",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2382-7f05-bb20-3ffa683fe728",
+          opprettet: "2026-02-04T15:14:26.434026",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-20",
+          gyldigTilOgMed: "2025-10-20",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2384-70c1-820c-5f21d37ac521",
+          opprettet: "2026-02-04T15:14:26.436533",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-21",
+          gyldigTilOgMed: "2025-10-21",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2387-70ba-8f0f-6776f70ea795",
+          opprettet: "2026-02-04T15:14:26.439182",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-22",
+          gyldigTilOgMed: "2025-10-22",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2389-7074-9e92-fa8205835db9",
+          opprettet: "2026-02-04T15:14:26.44188",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-23",
+          gyldigTilOgMed: "2025-10-23",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-238c-78fd-ae6e-6d446ef56f70",
+          opprettet: "2026-02-04T15:14:26.444178",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-24",
+          gyldigTilOgMed: "2025-10-24",
+          verdi: {
+            verdi: 1645,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-238e-7bae-b04b-3274a0d3bf63",
+          opprettet: "2026-02-04T15:14:26.446311",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-25",
+          gyldigTilOgMed: "2025-10-25",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-2390-701e-826f-74b675dd89d7",
+          opprettet: "2026-02-04T15:14:26.448886",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-26",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-239f-711a-a842-e044f824800d",
+          opprettet: "2026-02-04T15:14:26.463614",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-10-27",
+          verdi: {
+            verdi: 1316,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23a2-78ba-aa19-a97872177840",
+          opprettet: "2026-02-04T15:14:26.466539",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-28",
+          gyldigTilOgMed: "2025-10-28",
+          verdi: {
+            verdi: 1316,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23a5-7eef-b0e6-24595f07eb33",
+          opprettet: "2026-02-04T15:14:26.469286",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-29",
+          gyldigTilOgMed: "2025-10-29",
+          verdi: {
+            verdi: 1316,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23a7-72d9-8a7f-dd2c842ee3ea",
+          opprettet: "2026-02-04T15:14:26.47182",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-30",
+          gyldigTilOgMed: "2025-10-30",
+          verdi: {
+            verdi: 1316,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23aa-780c-b2a0-10ce4b4ccab7",
+          opprettet: "2026-02-04T15:14:26.474629",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-31",
+          gyldigTilOgMed: "2025-10-31",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23ad-76d4-912d-718a2850fb34",
+          opprettet: "2026-02-04T15:14:26.477314",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-01",
+          gyldigTilOgMed: "2025-11-01",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23b0-7702-bb85-4be76ec9bf63",
+          opprettet: "2026-02-04T15:14:26.480059",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-02",
+          gyldigTilOgMed: "2025-11-02",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23b3-7b7f-bf1b-b80f4172b24c",
+          opprettet: "2026-02-04T15:14:26.483007",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-03",
+          gyldigTilOgMed: "2025-11-03",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23b5-72d0-be07-f138ad45a2ab",
+          opprettet: "2026-02-04T15:14:26.485903",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-04",
+          gyldigTilOgMed: "2025-11-04",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23b8-7e18-98ca-8944d6ee814f",
+          opprettet: "2026-02-04T15:14:26.48875",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-05",
+          gyldigTilOgMed: "2025-11-05",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23bb-7b10-a08b-381af7e6d45b",
+          opprettet: "2026-02-04T15:14:26.491058",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-06",
+          gyldigTilOgMed: "2025-11-06",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23bd-7718-ae57-9a4779073366",
+          opprettet: "2026-02-04T15:14:26.493348",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-07",
+          gyldigTilOgMed: "2025-11-07",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23c0-71a5-b6fa-78bb66d1c1d1",
+          opprettet: "2026-02-04T15:14:26.496301",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-08",
+          gyldigTilOgMed: "2025-11-08",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+        {
+          id: "019c2901-23c4-7773-8dca-fca58c3f042b",
+          opprettet: "2026-02-04T15:14:26.500754",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-09",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 0,
+            datatype: "penger",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01992934-66e4-7606-bdd3-c6c9dd420ffd",
+      navn: "Antall dager som er forbrukt",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019c2901-23c6-7f2c-90be-0545337e7194",
+          opprettet: "2026-02-04T15:14:26.50241",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-09-29",
+          verdi: {
+            verdi: 1,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23c9-7448-be9f-bc3a22ffb5e0",
+          opprettet: "2026-02-04T15:14:26.505042",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-30",
+          gyldigTilOgMed: "2025-09-30",
+          verdi: {
+            verdi: 2,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23cb-7a6b-a12d-994bf189edd7",
+          opprettet: "2026-02-04T15:14:26.507439",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-01",
+          gyldigTilOgMed: "2025-10-01",
+          verdi: {
+            verdi: 3,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23cd-7802-90ac-fc27ff685725",
+          opprettet: "2026-02-04T15:14:26.509859",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-02",
+          gyldigTilOgMed: "2025-10-02",
+          verdi: {
+            verdi: 4,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d0-7ac0-b2fd-30adb8fb36ce",
+          opprettet: "2026-02-04T15:14:26.512419",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-03",
+          gyldigTilOgMed: "2025-10-03",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d2-7728-a8ce-64176d282fef",
+          opprettet: "2026-02-04T15:14:26.514498",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-04",
+          gyldigTilOgMed: "2025-10-04",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d4-787d-b16b-10312582169a",
+          opprettet: "2026-02-04T15:14:26.516673",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-05",
+          gyldigTilOgMed: "2025-10-05",
+          verdi: {
+            verdi: 5,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d7-748e-ac98-c4698eba1895",
+          opprettet: "2026-02-04T15:14:26.519288",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-06",
+          gyldigTilOgMed: "2025-10-06",
+          verdi: {
+            verdi: 6,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d9-723f-820b-c16e0b7a17a7",
+          opprettet: "2026-02-04T15:14:26.521698",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-07",
+          gyldigTilOgMed: "2025-10-07",
+          verdi: {
+            verdi: 7,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23dc-7e2a-b7de-6187ecd1710d",
+          opprettet: "2026-02-04T15:14:26.524086",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-08",
+          gyldigTilOgMed: "2025-10-08",
+          verdi: {
+            verdi: 8,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23de-7719-9706-b15640f638da",
+          opprettet: "2026-02-04T15:14:26.526674",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-09",
+          gyldigTilOgMed: "2025-10-09",
+          verdi: {
+            verdi: 9,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e1-7a79-b264-404eaefe8e5a",
+          opprettet: "2026-02-04T15:14:26.529326",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-10",
+          gyldigTilOgMed: "2025-10-10",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e3-76d1-a70b-ce71db1a4b3c",
+          opprettet: "2026-02-04T15:14:26.531737",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-11",
+          gyldigTilOgMed: "2025-10-11",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e5-76fa-aee9-ead7f96c2353",
+          opprettet: "2026-02-04T15:14:26.533743",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-12",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 10,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e8-7bc7-a8b8-8b25374017ff",
+          opprettet: "2026-02-04T15:14:26.536046",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-13",
+          verdi: {
+            verdi: 11,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ea-7c28-abe8-91f5e7132729",
+          opprettet: "2026-02-04T15:14:26.5388",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-14",
+          gyldigTilOgMed: "2025-10-14",
+          verdi: {
+            verdi: 12,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ec-7a80-9c58-dc98ee376e1a",
+          opprettet: "2026-02-04T15:14:26.54075",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-15",
+          gyldigTilOgMed: "2025-10-15",
+          verdi: {
+            verdi: 13,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ee-79f1-8ce5-be9d1dcea6e4",
+          opprettet: "2026-02-04T15:14:26.542879",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-16",
+          gyldigTilOgMed: "2025-10-16",
+          verdi: {
+            verdi: 14,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f1-70fa-bb92-5c93824fc69d",
+          opprettet: "2026-02-04T15:14:26.545425",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-17",
+          gyldigTilOgMed: "2025-10-17",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f4-7054-9d40-2a0e99bcd1c4",
+          opprettet: "2026-02-04T15:14:26.548029",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-18",
+          gyldigTilOgMed: "2025-10-18",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f6-735c-9f1c-9429db946b32",
+          opprettet: "2026-02-04T15:14:26.550698",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-19",
+          gyldigTilOgMed: "2025-10-19",
+          verdi: {
+            verdi: 15,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f9-7428-a762-fbd79b9d87f3",
+          opprettet: "2026-02-04T15:14:26.553429",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-20",
+          gyldigTilOgMed: "2025-10-20",
+          verdi: {
+            verdi: 16,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23fc-7cc8-a870-76f9116adfb8",
+          opprettet: "2026-02-04T15:14:26.556006",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-21",
+          gyldigTilOgMed: "2025-10-21",
+          verdi: {
+            verdi: 17,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23fe-7bd2-bf5a-995ab0d8a0ad",
+          opprettet: "2026-02-04T15:14:26.558462",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-22",
+          gyldigTilOgMed: "2025-10-22",
+          verdi: {
+            verdi: 18,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2400-7f13-93fc-8befd9129981",
+          opprettet: "2026-02-04T15:14:26.560816",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-23",
+          gyldigTilOgMed: "2025-10-23",
+          verdi: {
+            verdi: 19,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2403-70b2-8225-4709a161ba42",
+          opprettet: "2026-02-04T15:14:26.56325",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-24",
+          gyldigTilOgMed: "2025-10-24",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2405-74ee-99d5-95c528d591d8",
+          opprettet: "2026-02-04T15:14:26.565787",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-25",
+          gyldigTilOgMed: "2025-10-25",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2408-7bf6-883e-d8f55a0f0338",
+          opprettet: "2026-02-04T15:14:26.568394",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-26",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 20,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-240a-79c4-b627-e0c3f09392b5",
+          opprettet: "2026-02-04T15:14:26.570614",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-10-27",
+          verdi: {
+            verdi: 21,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-240d-7b71-b63b-98a0c705a5b6",
+          opprettet: "2026-02-04T15:14:26.57368",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-28",
+          gyldigTilOgMed: "2025-10-28",
+          verdi: {
+            verdi: 22,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-240f-72a2-a77d-c8d55130d923",
+          opprettet: "2026-02-04T15:14:26.575851",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-29",
+          gyldigTilOgMed: "2025-10-29",
+          verdi: {
+            verdi: 23,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2414-770f-bd33-8380543fc6dd",
+          opprettet: "2026-02-04T15:14:26.580685",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-30",
+          gyldigTilOgMed: "2025-10-30",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2416-7f19-9b5b-673f96b95b6e",
+          opprettet: "2026-02-04T15:14:26.582995",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-31",
+          gyldigTilOgMed: "2025-10-31",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2419-7b6d-ab80-496394767f20",
+          opprettet: "2026-02-04T15:14:26.58552",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-01",
+          gyldigTilOgMed: "2025-11-01",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-241c-75c6-a442-8407800928ad",
+          opprettet: "2026-02-04T15:14:26.588121",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-02",
+          gyldigTilOgMed: "2025-11-02",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-241e-741a-8b94-fa69969bd62d",
+          opprettet: "2026-02-04T15:14:26.590841",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-03",
+          gyldigTilOgMed: "2025-11-03",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2421-7ad7-8601-5d0af77b92c7",
+          opprettet: "2026-02-04T15:14:26.593527",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-04",
+          gyldigTilOgMed: "2025-11-04",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2424-7240-b706-c1fb2faed6fa",
+          opprettet: "2026-02-04T15:14:26.596221",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-05",
+          gyldigTilOgMed: "2025-11-05",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2427-7f3b-883a-6004c50fb606",
+          opprettet: "2026-02-04T15:14:26.599039",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-06",
+          gyldigTilOgMed: "2025-11-06",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-242a-770b-9718-35730033afe4",
+          opprettet: "2026-02-04T15:14:26.602271",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-07",
+          gyldigTilOgMed: "2025-11-07",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-242c-79b6-90b0-d9b4a27a3583",
+          opprettet: "2026-02-04T15:14:26.60486",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-08",
+          gyldigTilOgMed: "2025-11-08",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-242f-7e36-a773-10b1fb96a480",
+          opprettet: "2026-02-04T15:14:26.607382",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-09",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 24,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01992956-e349-76b1-8f68-c9d481df3a32",
+      navn: "Antall dager som gjenstår",
+      datatype: "heltall",
+      perioder: [
+        {
+          id: "019c2901-23c7-7841-a5fd-02bdf9748a23",
+          opprettet: "2026-02-04T15:14:26.503877",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-29",
+          gyldigTilOgMed: "2025-09-29",
+          verdi: {
+            verdi: 519,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ca-78cf-b51f-001742a0fdde",
+          opprettet: "2026-02-04T15:14:26.506186",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-09-30",
+          gyldigTilOgMed: "2025-09-30",
+          verdi: {
+            verdi: 518,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23cc-7cc6-a3ae-dced1676c19a",
+          opprettet: "2026-02-04T15:14:26.508721",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-01",
+          gyldigTilOgMed: "2025-10-01",
+          verdi: {
+            verdi: 517,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23cf-7667-b35c-7896395871db",
+          opprettet: "2026-02-04T15:14:26.511395",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-02",
+          gyldigTilOgMed: "2025-10-02",
+          verdi: {
+            verdi: 516,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d1-7778-8f60-9d948ec2469e",
+          opprettet: "2026-02-04T15:14:26.513298",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-03",
+          gyldigTilOgMed: "2025-10-03",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d3-7f51-bcc6-bcf21f67f3ad",
+          opprettet: "2026-02-04T15:14:26.515592",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-04",
+          gyldigTilOgMed: "2025-10-04",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d5-7506-be08-fbf09d41cb7b",
+          opprettet: "2026-02-04T15:14:26.517773",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-05",
+          gyldigTilOgMed: "2025-10-05",
+          verdi: {
+            verdi: 515,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23d8-7ca7-8e32-a098864e30ae",
+          opprettet: "2026-02-04T15:14:26.52056",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-06",
+          gyldigTilOgMed: "2025-10-06",
+          verdi: {
+            verdi: 514,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23da-7221-a3e8-49ec40cf80e2",
+          opprettet: "2026-02-04T15:14:26.52287",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-07",
+          gyldigTilOgMed: "2025-10-07",
+          verdi: {
+            verdi: 513,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23dd-774b-8a81-0eb20e46c3c5",
+          opprettet: "2026-02-04T15:14:26.525351",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-08",
+          gyldigTilOgMed: "2025-10-08",
+          verdi: {
+            verdi: 512,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23df-71a1-a802-aa3293a4d2ce",
+          opprettet: "2026-02-04T15:14:26.527935",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-09",
+          gyldigTilOgMed: "2025-10-09",
+          verdi: {
+            verdi: 511,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e2-72fb-aa26-09e91e7a6a8b",
+          opprettet: "2026-02-04T15:14:26.530595",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-10",
+          gyldigTilOgMed: "2025-10-10",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e4-7960-9d43-c8d0f8f62a91",
+          opprettet: "2026-02-04T15:14:26.532679",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-11",
+          gyldigTilOgMed: "2025-10-11",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e6-74fa-9981-30f18727d03b",
+          opprettet: "2026-02-04T15:14:26.53462",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-12",
+          gyldigTilOgMed: "2025-10-12",
+          verdi: {
+            verdi: 510,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23e9-7016-a342-7a501443ea33",
+          opprettet: "2026-02-04T15:14:26.537343",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-13",
+          gyldigTilOgMed: "2025-10-13",
+          verdi: {
+            verdi: 509,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23eb-7982-904d-f5af7505b90a",
+          opprettet: "2026-02-04T15:14:26.539689",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-14",
+          gyldigTilOgMed: "2025-10-14",
+          verdi: {
+            verdi: 508,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ed-7352-ba06-c49b25c33b86",
+          opprettet: "2026-02-04T15:14:26.541843",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-15",
+          gyldigTilOgMed: "2025-10-15",
+          verdi: {
+            verdi: 507,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f0-7a13-8f0a-bc9db6aad5f9",
+          opprettet: "2026-02-04T15:14:26.544174",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-16",
+          gyldigTilOgMed: "2025-10-16",
+          verdi: {
+            verdi: 506,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f2-7c16-8081-75f40853c181",
+          opprettet: "2026-02-04T15:14:26.546505",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-17",
+          gyldigTilOgMed: "2025-10-17",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f5-7b1a-aaf0-ef44edeb2658",
+          opprettet: "2026-02-04T15:14:26.549239",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-18",
+          gyldigTilOgMed: "2025-10-18",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23f8-7e15-b89f-0684cab377b0",
+          opprettet: "2026-02-04T15:14:26.552157",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-19",
+          gyldigTilOgMed: "2025-10-19",
+          verdi: {
+            verdi: 505,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23fa-76c8-98a2-ee3ac1383536",
+          opprettet: "2026-02-04T15:14:26.554619",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-20",
+          gyldigTilOgMed: "2025-10-20",
+          verdi: {
+            verdi: 504,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23fd-71f3-a2cc-aaf5e981bfb3",
+          opprettet: "2026-02-04T15:14:26.557126",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-21",
+          gyldigTilOgMed: "2025-10-21",
+          verdi: {
+            verdi: 503,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-23ff-751a-939f-0a16c70120ba",
+          opprettet: "2026-02-04T15:14:26.559648",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-22",
+          gyldigTilOgMed: "2025-10-22",
+          verdi: {
+            verdi: 502,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2402-7f72-880f-e2a86e98f743",
+          opprettet: "2026-02-04T15:14:26.562161",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-23",
+          gyldigTilOgMed: "2025-10-23",
+          verdi: {
+            verdi: 501,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2404-7d72-9e9a-8830a8c60cb7",
+          opprettet: "2026-02-04T15:14:26.564517",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-24",
+          gyldigTilOgMed: "2025-10-24",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2407-7a3a-97f7-f418bf07df89",
+          opprettet: "2026-02-04T15:14:26.567196",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-25",
+          gyldigTilOgMed: "2025-10-25",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2409-7587-b64d-651ec41af168",
+          opprettet: "2026-02-04T15:14:26.569469",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-26",
+          gyldigTilOgMed: "2025-10-26",
+          verdi: {
+            verdi: 500,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-240c-71d8-ad5b-1975c6a08d11",
+          opprettet: "2026-02-04T15:14:26.572422",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-27",
+          gyldigTilOgMed: "2025-10-27",
+          verdi: {
+            verdi: 499,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-240e-7e53-8688-ff150192bfa6",
+          opprettet: "2026-02-04T15:14:26.574929",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-28",
+          gyldigTilOgMed: "2025-10-28",
+          verdi: {
+            verdi: 498,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2411-7c38-a021-8e9d9ffd2a60",
+          opprettet: "2026-02-04T15:14:26.577184",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-29",
+          gyldigTilOgMed: "2025-10-29",
+          verdi: {
+            verdi: 497,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2415-7f41-9a29-cc5e06494d19",
+          opprettet: "2026-02-04T15:14:26.581647",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-30",
+          gyldigTilOgMed: "2025-10-30",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2418-75be-9c3c-5ce2ff97abde",
+          opprettet: "2026-02-04T15:14:26.584247",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-10-31",
+          gyldigTilOgMed: "2025-10-31",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-241a-79d9-a578-be95b8c0ec57",
+          opprettet: "2026-02-04T15:14:26.586815",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-01",
+          gyldigTilOgMed: "2025-11-01",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-241d-7718-96af-bcda2541e39a",
+          opprettet: "2026-02-04T15:14:26.589521",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-02",
+          gyldigTilOgMed: "2025-11-02",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2420-79b1-9340-f2fdee84de93",
+          opprettet: "2026-02-04T15:14:26.592182",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-03",
+          gyldigTilOgMed: "2025-11-03",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2422-7e87-abcf-97edf1f0dd05",
+          opprettet: "2026-02-04T15:14:26.594929",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-04",
+          gyldigTilOgMed: "2025-11-04",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2425-78aa-ac28-78631fb274f9",
+          opprettet: "2026-02-04T15:14:26.59763",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-05",
+          gyldigTilOgMed: "2025-11-05",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2428-7b3a-bd90-f681910e0b3a",
+          opprettet: "2026-02-04T15:14:26.600893",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-06",
+          gyldigTilOgMed: "2025-11-06",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-242b-7d3d-bd89-46c5ada8503c",
+          opprettet: "2026-02-04T15:14:26.603646",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-07",
+          gyldigTilOgMed: "2025-11-07",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-242e-7f4a-b794-c046ed3754d6",
+          opprettet: "2026-02-04T15:14:26.606238",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-08",
+          gyldigTilOgMed: "2025-11-08",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+        {
+          id: "019c2901-2431-714f-bc69-f05203fe322a",
+          opprettet: "2026-02-04T15:14:26.609712",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2025-11-09",
+          gyldigTilOgMed: "2025-11-09",
+          verdi: {
+            verdi: 496,
+            enhet: "dager",
+            datatype: "heltall",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },
