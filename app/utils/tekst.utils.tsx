@@ -148,15 +148,6 @@ export function hentUtløstAvTekstForVisning(
         "Oppfølging"
       );
 
-    case "MELDEKORT_KORRIGERING":
-      return medIkon ? (
-        <span className={"flex items-center gap-0.5"}>
-          <CalendarIcon aria-hidden fontSize="1.5rem" /> Meldekortkorrigering
-        </span>
-      ) : (
-        "Meldekortkorrigering"
-      );
-
     // TODO? burde dette bare være defaultoppførsel?
     case "ARBEIDSSØKERPERIODE":
     case "FERIETILLEGG":

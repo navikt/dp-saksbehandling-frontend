@@ -28,8 +28,8 @@ export function TidslinjeNavigering({
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
-  function hoppTilPrøvingsdato() {
-    const nyStartDato = sub(sistePrøvingsdato, { days: 1 });
+  function hoppTilPrøvingsdato(prøvingsdato: Date) {
+    const nyStartDato = sub(prøvingsdato, { days: 1 });
     const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
@@ -44,14 +44,16 @@ export function TidslinjeNavigering({
     >
       <Spacer />
       <HStack gap="space-2" align="center">
-        <Button
-          icon={<LocationPinIcon title="Hopp til prøvingsdato" />}
-          variant="secondary-neutral"
-          size="small"
-          onClick={() => {
-            hoppTilPrøvingsdato();
-          }}
-        />
+        {sistePrøvingsdato && (
+          <Button
+            icon={<LocationPinIcon title="Hopp til prøvingsdato" />}
+            variant="secondary-neutral"
+            size="small"
+            onClick={() => {
+              hoppTilPrøvingsdato(sistePrøvingsdato);
+            }}
+          />
+        )}
 
         <Button
           icon={<ChevronLeftIcon title="Forrige periode" />}

@@ -4,13 +4,13 @@ export const oppgave019cc20df6fe713f85637ed86f12f4d4: components["schemas"]["Opp
   oppgaveId: "019cc20d-f6fe-713f-8563-7ed86f12f4d4",
   behandlingId: "019cc20d-f4ee-7324-a608-5830d241fc2e",
   saksbehandler: {
-    ident: "Z993298",
-    fornavn: "Donald",
-    etternavn: "Duck",
+    ident: "Z994714",
+    fornavn: "F_Z994714",
+    etternavn: "E_Z994714",
     enhet: {
-      navn: "Mock Enhet",
-      enhetNr: "1337",
-      postadresse: "Apalveien 111, 1337 Andeby",
+      navn: "IT-avdelingen",
+      enhetNr: "2970",
+      postadresse: "",
     },
   },
   person: {

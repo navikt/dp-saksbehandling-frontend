@@ -309,6 +309,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
       },
       type: "Vilkår",
       relevantForResultat: false,
+      opplysningTypeId: "019d870c-6847-71fa-89d2-81a53d19cfcf",
       opplysninger: [],
     },
     {
@@ -365,7 +366,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-19",
       },
       type: "Vilkår",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
       opplysninger: [
         "01948d3c-4bea-7802-9d18-5342a5e2be99",
@@ -452,7 +453,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         url: "https://lovdata.no/nav/lov/1997-02-28-19/§4-25",
       },
       type: "Vilkår",
-      relevantForResultat: true,
+      relevantForResultat: false,
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
       opplysninger: [
         "0194881f-9433-70e9-a85b-c246150c45cd",
@@ -872,7 +873,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
       },
       type: "Prosess",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysninger: [],
     },
   ],
@@ -891,7 +892,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         url: "https://lovdata.no/nav/andre-rettskilder/Forvaltningsloven/kapVI/§6-35",
       },
       type: "Prosess",
-      relevantForResultat: false,
+      relevantForResultat: true,
       opplysninger: [],
     },
   ],
@@ -904,6 +905,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3b9-7faf-aee7-4f00216f17ff",
           opprettet: "2026-03-06T08:17:58.84117",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 15759772,
@@ -922,33 +924,6 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
       formål: "Regel",
     },
     {
-      opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
-      navn: "hendelseType",
-      datatype: "tekst",
-      perioder: [
-        {
-          id: "019cc20d-f4ed-7d9f-ad76-044688a381e4",
-          opprettet: "2026-03-06T08:30:20.525596",
-          opprinnelse: "Ny",
-          gyldigFraOgMed: "2026-03-06",
-          gyldigTilOgMed: "2026-03-06",
-          verdi: {
-            verdi: "BeregnMeldekortHendelse",
-            datatype: "tekst",
-          },
-          kilde: {
-            type: "System",
-            registrert: "2026-03-06T08:30:20.525587",
-            meldingId: "1331f1ec-e09d-490f-ac47-9bbb13d66673",
-          },
-        },
-      ],
-      synlig: true,
-      redigerbar: false,
-      redigertAvSaksbehandler: false,
-      formål: "Regel",
-    },
-    {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367234",
       navn: "Aldersgrense",
       datatype: "heltall",
@@ -956,6 +931,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe3",
           opprettet: "2026-03-06T08:17:58.846197",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 67,
@@ -977,6 +953,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe4",
           opprettet: "2026-03-06T08:17:58.846325",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -997,6 +974,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe5",
           opprettet: "2026-03-06T08:17:58.846331",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1017,6 +995,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe6",
           opprettet: "2026-03-06T08:17:58.846336",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1037,6 +1016,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe7",
           opprettet: "2026-03-06T08:17:58.846351",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1057,6 +1037,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fe8",
           opprettet: "2026-03-06T08:17:58.846356",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1077,6 +1058,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3be-7fec-b3be-6ec8b1037fea",
           opprettet: "2026-03-06T08:17:58.846981",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1108,6 +1090,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a3bf-725f-b3a2-eb83ff33bcdb",
           opprettet: "2026-03-06T08:17:58.847011",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1140,6 +1123,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a623-7009-b96c-5313d874023c",
           opprettet: "2026-03-06T08:17:59.459548",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "1984-08-08",
@@ -1165,6 +1149,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a624-757b-ae35-827e216e55f1",
           opprettet: "2026-03-06T08:17:59.460909",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2051-08-08",
@@ -1196,6 +1181,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a625-75d0-b9f8-81958edb94e4",
           opprettet: "2026-03-06T08:17:59.46148",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: "2051-08-31",
@@ -1224,6 +1210,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-a628-7874-b241-576b7ec95d97",
           opprettet: "2026-03-06T08:17:59.464104",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1244,6 +1231,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f02f",
           opprettet: "2026-03-06T08:18:00.77731",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1264,6 +1252,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f030",
           opprettet: "2026-03-06T08:18:00.777358",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1284,6 +1273,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f031",
           opprettet: "2026-03-06T08:18:00.777381",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1304,6 +1294,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f032",
           opprettet: "2026-03-06T08:18:00.777438",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1324,6 +1315,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f033",
           opprettet: "2026-03-06T08:18:00.777456",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1344,6 +1336,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f034",
           opprettet: "2026-03-06T08:18:00.777472",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1364,6 +1357,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f035",
           opprettet: "2026-03-06T08:18:00.777527",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1384,6 +1378,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f036",
           opprettet: "2026-03-06T08:18:00.777544",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1404,6 +1399,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f037",
           opprettet: "2026-03-06T08:18:00.777561",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1424,6 +1420,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f038",
           opprettet: "2026-03-06T08:18:00.777577",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1444,6 +1441,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f039",
           opprettet: "2026-03-06T08:18:00.777601",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1464,6 +1462,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f03a",
           opprettet: "2026-03-06T08:18:00.777627",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1485,6 +1484,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f03c",
           opprettet: "2026-03-06T08:18:00.777786",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1505,6 +1505,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f03d",
           opprettet: "2026-03-06T08:18:00.777804",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1525,6 +1526,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f03e",
           opprettet: "2026-03-06T08:18:00.777822",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1545,6 +1547,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f03f",
           opprettet: "2026-03-06T08:18:00.777842",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1565,6 +1568,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f040",
           opprettet: "2026-03-06T08:18:00.77786",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1585,6 +1589,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f041",
           opprettet: "2026-03-06T08:18:00.777878",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1605,6 +1610,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f042",
           opprettet: "2026-03-06T08:18:00.777897",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1625,6 +1631,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f043",
           opprettet: "2026-03-06T08:18:00.777915",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1645,6 +1652,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f044",
           opprettet: "2026-03-06T08:18:00.777934",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1665,6 +1673,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f045",
           opprettet: "2026-03-06T08:18:00.777961",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1685,6 +1694,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab49-78f6-b224-b53da148f046",
           opprettet: "2026-03-06T08:18:00.77799",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1705,6 +1715,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4b-7832-aafd-aa1cb6fb7017",
           opprettet: "2026-03-06T08:18:00.779972",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1733,6 +1744,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4c-7bb5-be38-fb1b171a98ea",
           opprettet: "2026-03-06T08:18:00.780031",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1761,6 +1773,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4c-7bb5-be38-fb1b171a98eb",
           opprettet: "2026-03-06T08:18:00.780076",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1792,6 +1805,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4c-7bb5-be38-fb1b171a98ed",
           opprettet: "2026-03-06T08:18:00.780179",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1824,6 +1838,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4c-7bb5-be38-fb1b171a98ee",
           opprettet: "2026-03-06T08:18:00.780236",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -1859,6 +1874,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4c-7bb5-be38-fb1b171a98ef",
           opprettet: "2026-03-06T08:18:00.78028",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: true,
@@ -1887,6 +1903,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4d-7bb4-bf11-7a6783bd295f",
           opprettet: "2026-03-06T08:18:00.781601",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1907,6 +1924,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab4e-7f8e-8a9e-b1509de6b72e",
           opprettet: "2026-03-06T08:18:00.782784",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1938,6 +1956,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-ab50-79d3-a414-40320695ceb9",
           opprettet: "2026-03-06T08:18:00.784273",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -1974,6 +1993,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde2-7285-846c-928119639787",
           opprettet: "2026-03-06T08:18:05.538849",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 3,
@@ -1995,6 +2015,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d74",
           opprettet: "2026-03-06T08:18:05.545047",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2015,6 +2036,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d75",
           opprettet: "2026-03-06T08:18:05.545076",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2035,6 +2057,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d76",
           opprettet: "2026-03-06T08:18:05.545104",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2055,6 +2078,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d77",
           opprettet: "2026-03-06T08:18:05.545134",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2075,6 +2099,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d78",
           opprettet: "2026-03-06T08:18:05.545162",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2095,6 +2120,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d79",
           opprettet: "2026-03-06T08:18:05.545191",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2115,6 +2141,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d7e",
           opprettet: "2026-03-06T08:18:05.545514",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2135,6 +2162,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d7f",
           opprettet: "2026-03-06T08:18:05.545544",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2155,6 +2183,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d80",
           opprettet: "2026-03-06T08:18:05.545575",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2175,6 +2204,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d81",
           opprettet: "2026-03-06T08:18:05.545605",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2195,6 +2225,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d82",
           opprettet: "2026-03-06T08:18:05.545638",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2215,6 +2246,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d83",
           opprettet: "2026-03-06T08:18:05.545669",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2235,6 +2267,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bde9-7b48-b710-c795db221d86",
           opprettet: "2026-03-06T08:18:05.545785",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2256,6 +2289,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bdf0-7dbd-ae0d-31bff64dce3c",
           opprettet: "2026-03-06T08:18:05.552043",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 0,
@@ -2291,6 +2325,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bf5c-7d62-8bb6-03a91fcb3ed0",
           opprettet: "2026-03-06T08:18:05.916383",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2316,6 +2351,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc202-bf63-7ff3-b2cc-22920f04995a",
           opprettet: "2026-03-06T08:18:05.923622",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: false,
@@ -2352,6 +2388,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-e83b-7354-9403-160702b3e16c",
           opprettet: "2026-03-06T08:19:21.915229",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2382,6 +2419,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-e9de-71d8-ad82-1000c39ab78a",
           opprettet: "2026-03-06T08:19:22.334724",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2416,6 +2454,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-e9de-71d8-ad82-1000c39ab78b",
           opprettet: "2026-03-06T08:19:22.334899",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2450,6 +2489,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-e9e1-73b9-b434-48338171679f",
           opprettet: "2026-03-06T08:19:22.3372",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2482,6 +2522,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-e9e6-7c57-9492-92c9981eab58",
           opprettet: "2026-03-06T08:19:22.342749",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2512,6 +2553,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb5e",
           opprettet: "2026-03-06T08:19:22.741508",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2546,6 +2588,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb5f",
           opprettet: "2026-03-06T08:19:22.741589",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2580,6 +2623,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb60",
           opprettet: "2026-03-06T08:19:22.74165",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2614,6 +2658,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb61",
           opprettet: "2026-03-06T08:19:22.741707",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2648,6 +2693,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb62",
           opprettet: "2026-03-06T08:19:22.741791",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2682,6 +2728,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb63",
           opprettet: "2026-03-06T08:19:22.741827",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2716,6 +2763,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb75-7129-a42e-b38eeccdfb64",
           opprettet: "2026-03-06T08:19:22.741871",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2750,6 +2798,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb76-714a-84d8-f25cce8fe9e4",
           opprettet: "2026-03-06T08:19:22.742016",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2784,6 +2833,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb76-714a-84d8-f25cce8fe9e5",
           opprettet: "2026-03-06T08:19:22.7423",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2818,6 +2868,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb76-714a-84d8-f25cce8fe9e6",
           opprettet: "2026-03-06T08:19:22.742459",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2852,6 +2903,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb78-7117-8427-05eb37f815a9",
           opprettet: "2026-03-06T08:19:22.744927",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2881,6 +2933,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb78-7117-8427-05eb37f815aa",
           opprettet: "2026-03-06T08:19:22.744959",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2910,6 +2963,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df21",
           opprettet: "2026-03-06T08:19:22.745003",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2939,6 +2993,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df22",
           opprettet: "2026-03-06T08:19:22.745043",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -2968,6 +3023,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df23",
           opprettet: "2026-03-06T08:19:22.745085",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3000,6 +3056,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df25",
           opprettet: "2026-03-06T08:19:22.745156",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3034,6 +3091,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df26",
           opprettet: "2026-03-06T08:19:22.745188",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3063,6 +3121,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb79-7b23-a662-22f401f3df27",
           opprettet: "2026-03-06T08:19:22.745217",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3092,6 +3151,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2e",
           opprettet: "2026-03-06T08:19:22.750748",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3124,6 +3184,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd2f",
           opprettet: "2026-03-06T08:19:22.750792",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3156,6 +3217,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd30",
           opprettet: "2026-03-06T08:19:22.75082",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3188,6 +3250,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb7e-7ce7-bb08-2e1c1d18cd31",
           opprettet: "2026-03-06T08:19:22.750849",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3220,6 +3283,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb81-7648-8798-485364eb1a96",
           opprettet: "2026-03-06T08:19:22.753865",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3255,6 +3319,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc203-eb81-7648-8798-485364eb1a97",
           opprettet: "2026-03-06T08:19:22.753901",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3289,6 +3354,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17be-75bf-8c88-537e48880831",
           opprettet: "2026-03-06T08:19:34.078087",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3319,6 +3385,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17e9-7333-a558-90f59cc716bb",
           opprettet: "2026-03-06T08:19:34.121308",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3351,6 +3418,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ea-76e0-8d81-ef4a1260ad54",
           opprettet: "2026-03-06T08:19:34.122626",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3380,6 +3448,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ea-76e0-8d81-ef4a1260ad55",
           opprettet: "2026-03-06T08:19:34.122691",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3410,6 +3479,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ea-76e0-8d81-ef4a1260ad56",
           opprettet: "2026-03-06T08:19:34.122882",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3439,6 +3509,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ea-76e0-8d81-ef4a1260ad57",
           opprettet: "2026-03-06T08:19:34.12294",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3469,6 +3540,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ea-76e0-8d81-ef4a1260ad58",
           opprettet: "2026-03-06T08:19:34.122984",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3499,6 +3571,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ec-72b7-9e3d-c84f1e00f78f",
           opprettet: "2026-03-06T08:19:34.124355",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3528,6 +3601,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ec-72b7-9e3d-c84f1e00f790",
           opprettet: "2026-03-06T08:19:34.124532",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3560,6 +3634,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ec-72b7-9e3d-c84f1e00f791",
           opprettet: "2026-03-06T08:19:34.124599",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3592,6 +3667,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ed-70af-9bf9-0163aaa84e11",
           opprettet: "2026-03-06T08:19:34.125957",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3624,6 +3700,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-17ef-766d-a119-25fe88d698d3",
           opprettet: "2026-03-06T08:19:34.127363",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3656,6 +3733,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19ab-7be5-adce-c8da4fe00c26",
           opprettet: "2026-03-06T08:19:34.571349",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -3691,6 +3769,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19ab-7be5-adce-c8da4fe00c27",
           opprettet: "2026-03-06T08:19:34.571539",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3729,6 +3808,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19ad-7785-95d5-80b417139f8c",
           opprettet: "2026-03-06T08:19:34.573847",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3758,6 +3838,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b0-711a-a7c1-ae2bd61f9c45",
           opprettet: "2026-03-06T08:19:34.575999",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3787,6 +3868,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b0-711a-a7c1-ae2bd61f9c46",
           opprettet: "2026-03-06T08:19:34.576586",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3816,6 +3898,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b1-7f48-867d-60835209ccd6",
           opprettet: "2026-03-06T08:19:34.577801",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3848,6 +3931,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b1-7f48-867d-60835209ccd7",
           opprettet: "2026-03-06T08:19:34.577881",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3880,6 +3964,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b3-73c4-8208-eead371b7664",
           opprettet: "2026-03-06T08:19:34.579317",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3912,6 +3997,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b5-7581-9e4b-8fd108eb7f13",
           opprettet: "2026-03-06T08:19:34.581046",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3942,6 +4028,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-19b6-7cc9-a1da-33d0f2dfce73",
           opprettet: "2026-03-06T08:19:34.582739",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -3975,6 +4062,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb27",
           opprettet: "2026-03-06T08:19:35.364056",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4009,6 +4097,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb28",
           opprettet: "2026-03-06T08:19:35.364121",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4043,6 +4132,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb29",
           opprettet: "2026-03-06T08:19:35.364168",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4077,6 +4167,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2a",
           opprettet: "2026-03-06T08:19:35.364226",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4111,6 +4202,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2b",
           opprettet: "2026-03-06T08:19:35.364292",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4145,6 +4237,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2c",
           opprettet: "2026-03-06T08:19:35.364337",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4179,6 +4272,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2d",
           opprettet: "2026-03-06T08:19:35.364376",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4213,6 +4307,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2e",
           opprettet: "2026-03-06T08:19:35.364484",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4247,6 +4342,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc4-7775-ac6d-1b4fb8a2cb2f",
           opprettet: "2026-03-06T08:19:35.36454",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4281,6 +4377,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc6-7c74-9f25-89c53b99a3f5",
           opprettet: "2026-03-06T08:19:35.36657",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4310,6 +4407,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc6-7c74-9f25-89c53b99a3f6",
           opprettet: "2026-03-06T08:19:35.366647",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4347,6 +4445,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc6-7c74-9f25-89c53b99a3f7",
           opprettet: "2026-03-06T08:19:35.366684",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4376,6 +4475,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc6-7c74-9f25-89c53b99a3f8",
           opprettet: "2026-03-06T08:19:35.366732",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4405,6 +4505,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc6-7c74-9f25-89c53b99a3f9",
           opprettet: "2026-03-06T08:19:35.366778",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4434,6 +4535,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc8-77ef-b6a1-214f5e325c8b",
           opprettet: "2026-03-06T08:19:35.368035",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4463,6 +4565,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc8-77ef-b6a1-214f5e325c8c",
           opprettet: "2026-03-06T08:19:35.368106",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4495,6 +4598,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc9-782b-9a32-5a04de1bb835",
           opprettet: "2026-03-06T08:19:35.369433",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4527,6 +4631,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cc9-782b-9a32-5a04de1bb836",
           opprettet: "2026-03-06T08:19:35.369545",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4559,6 +4664,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-1cca-7666-a5fd-7e62b1676bf5",
           opprettet: "2026-03-06T08:19:35.370741",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4591,6 +4697,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6537-72d4-abd8-201b4c728f24",
           opprettet: "2026-03-06T08:19:53.911768",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4621,6 +4728,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653b-792b-b6bf-501a349bd467",
           opprettet: "2026-03-06T08:19:53.915676",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4650,6 +4758,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653b-792b-b6bf-501a349bd468",
           opprettet: "2026-03-06T08:19:53.915822",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4679,6 +4788,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653b-792b-b6bf-501a349bd469",
           opprettet: "2026-03-06T08:19:53.915876",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4708,6 +4818,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653b-792b-b6bf-501a349bd46a",
           opprettet: "2026-03-06T08:19:53.915938",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4738,6 +4849,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e3740e",
           opprettet: "2026-03-06T08:19:53.91603",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4767,6 +4879,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e3740f",
           opprettet: "2026-03-06T08:19:53.916101",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4796,6 +4909,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37410",
           opprettet: "2026-03-06T08:19:53.916174",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4826,6 +4940,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37411",
           opprettet: "2026-03-06T08:19:53.916237",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4856,6 +4971,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37412",
           opprettet: "2026-03-06T08:19:53.916299",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4886,6 +5002,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37413",
           opprettet: "2026-03-06T08:19:53.916359",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4916,6 +5033,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37414",
           opprettet: "2026-03-06T08:19:53.916658",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4948,6 +5066,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37415",
           opprettet: "2026-03-06T08:19:53.91674",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -4978,6 +5097,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37416",
           opprettet: "2026-03-06T08:19:53.916803",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5008,6 +5128,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37417",
           opprettet: "2026-03-06T08:19:53.916865",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5038,6 +5159,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-653c-7b18-af44-f4d2e6e37418",
           opprettet: "2026-03-06T08:19:53.916952",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5068,6 +5190,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6541-72c8-a01a-e28d3f2f63fc",
           opprettet: "2026-03-06T08:19:53.921258",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5100,6 +5223,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6541-72c8-a01a-e28d3f2f63fd",
           opprettet: "2026-03-06T08:19:53.921501",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5132,6 +5256,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6541-72c8-a01a-e28d3f2f63fe",
           opprettet: "2026-03-06T08:19:53.921898",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5161,6 +5286,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6542-7300-92f8-7ba209461fd3",
           opprettet: "2026-03-06T08:19:53.922255",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5190,6 +5316,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6542-7300-92f8-7ba209461fd4",
           opprettet: "2026-03-06T08:19:53.922593",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5219,6 +5346,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6542-7300-92f8-7ba209461fd5",
           opprettet: "2026-03-06T08:19:53.922717",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5251,6 +5379,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6542-7300-92f8-7ba209461fd6",
           opprettet: "2026-03-06T08:19:53.922808",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5283,6 +5412,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6542-7300-92f8-7ba209461fd7",
           opprettet: "2026-03-06T08:19:53.922886",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5315,6 +5445,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654a-7838-84ec-80a9583e6837",
           opprettet: "2026-03-06T08:19:53.930828",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5344,6 +5475,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654b-7d29-b97f-d75638925e14",
           opprettet: "2026-03-06T08:19:53.931133",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5373,6 +5505,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654b-7d29-b97f-d75638925e15",
           opprettet: "2026-03-06T08:19:53.931429",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5402,6 +5535,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654b-7d29-b97f-d75638925e16",
           opprettet: "2026-03-06T08:19:53.93153",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5434,6 +5568,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654b-7d29-b97f-d75638925e17",
           opprettet: "2026-03-06T08:19:53.931623",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5466,6 +5601,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48aeb",
           opprettet: "2026-03-06T08:19:53.93513",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5498,6 +5634,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48aec",
           opprettet: "2026-03-06T08:19:53.935248",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5530,6 +5667,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48aed",
           opprettet: "2026-03-06T08:19:53.935332",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5562,6 +5700,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48aee",
           opprettet: "2026-03-06T08:19:53.935441",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5594,6 +5733,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48aef",
           opprettet: "2026-03-06T08:19:53.935528",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5626,6 +5766,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48af0",
           opprettet: "2026-03-06T08:19:53.935608",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5658,6 +5799,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48af1",
           opprettet: "2026-03-06T08:19:53.935685",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5690,6 +5832,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48af2",
           opprettet: "2026-03-06T08:19:53.935828",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5720,6 +5863,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-654f-7d6c-b37e-34075bc48af3",
           opprettet: "2026-03-06T08:19:53.935906",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5750,6 +5894,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6553-7389-88ab-a45e188d2ec5",
           opprettet: "2026-03-06T08:19:53.939947",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5783,6 +5928,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6554-7434-9b78-cdc8fd329d47",
           opprettet: "2026-03-06T08:19:53.940081",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5816,6 +5962,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6554-7434-9b78-cdc8fd329d48",
           opprettet: "2026-03-06T08:19:53.940146",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5850,6 +5997,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6554-7434-9b78-cdc8fd329d49",
           opprettet: "2026-03-06T08:19:53.940216",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5884,6 +6032,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6557-7944-8a6b-0ff3fda0f02a",
           opprettet: "2026-03-06T08:19:53.943693",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5916,6 +6065,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6557-7944-8a6b-0ff3fda0f02b",
           opprettet: "2026-03-06T08:19:53.943808",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5949,6 +6099,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655a-7569-b628-4bb426b3912c",
           opprettet: "2026-03-06T08:19:53.946618",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -5981,6 +6132,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655a-7569-b628-4bb426b3912d",
           opprettet: "2026-03-06T08:19:53.946773",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6014,6 +6166,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655a-7569-b628-4bb426b3912e",
           opprettet: "2026-03-06T08:19:53.946874",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6047,6 +6200,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655d-7e66-ab66-2f16ced55a6d",
           opprettet: "2026-03-06T08:19:53.949815",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6076,6 +6230,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655d-7e66-ab66-2f16ced55a6e",
           opprettet: "2026-03-06T08:19:53.949934",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6105,6 +6260,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-655f-7726-9caa-6e8a3d17dd49",
           opprettet: "2026-03-06T08:19:53.951973",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6137,6 +6293,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6562-756a-967e-b02a19ae19f8",
           opprettet: "2026-03-06T08:19:53.954041",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6169,6 +6326,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6562-756a-967e-b02a19ae19f9",
           opprettet: "2026-03-06T08:19:53.954115",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6201,6 +6359,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6564-74bd-9c35-c07cb6d89747",
           opprettet: "2026-03-06T08:19:53.956813",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6233,6 +6392,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6564-74bd-9c35-c07cb6d89748",
           opprettet: "2026-03-06T08:19:53.956956",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6265,6 +6425,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6567-7e0a-b0d6-54f6dde48192",
           opprettet: "2026-03-06T08:19:53.959388",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6294,6 +6455,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6567-7e0a-b0d6-54f6dde48193",
           opprettet: "2026-03-06T08:19:53.9596",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6326,6 +6488,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-656a-7b3e-9b4a-8c02b498bf82",
           opprettet: "2026-03-06T08:19:53.962677",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6355,6 +6518,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6656-7d2b-b7c2-83bc80f532b3",
           opprettet: "2026-03-06T08:19:54.198461",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6412,6 +6576,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-665b-7bf8-9f6c-36406723b25d",
           opprettet: "2026-03-06T08:19:54.203794",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6441,6 +6606,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6660-7b50-9db3-f8a3afe0e251",
           opprettet: "2026-03-06T08:19:54.208558",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6473,6 +6639,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6664-79ec-99d5-bb0c1da5e3d0",
           opprettet: "2026-03-06T08:19:54.212603",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6505,6 +6672,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6664-79ec-99d5-bb0c1da5e3d1",
           opprettet: "2026-03-06T08:19:54.212741",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6537,6 +6705,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6668-74a7-afcb-dd9531d122a0",
           opprettet: "2026-03-06T08:19:54.216279",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6569,6 +6738,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6668-74a7-afcb-dd9531d122a1",
           opprettet: "2026-03-06T08:19:54.216461",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6601,6 +6771,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-666b-7b8f-8ae9-54ba625d9898",
           opprettet: "2026-03-06T08:19:54.219393",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6633,6 +6804,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-666d-78d8-8ebb-84c60a8ea60b",
           opprettet: "2026-03-06T08:19:54.221819",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6665,6 +6837,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-666d-78d8-8ebb-84c60a8ea60c",
           opprettet: "2026-03-06T08:19:54.221896",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6697,6 +6870,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6670-7db4-8552-875601dda1da",
           opprettet: "2026-03-06T08:19:54.224585",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6729,6 +6903,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6670-7db4-8552-875601dda1db",
           opprettet: "2026-03-06T08:19:54.224698",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6761,6 +6936,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6673-7fa9-a596-8deeff30f834",
           opprettet: "2026-03-06T08:19:54.227625",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6793,6 +6969,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6673-7fa9-a596-8deeff30f835",
           opprettet: "2026-03-06T08:19:54.227865",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6825,6 +7002,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6677-7619-9a7a-70f4a99c45ec",
           opprettet: "2026-03-06T08:19:54.231944",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6857,6 +7035,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-667c-7d68-8c40-539eac8cb9fb",
           opprettet: "2026-03-06T08:19:54.236598",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6889,6 +7068,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6680-78f8-84e2-de858b2e5f1f",
           opprettet: "2026-03-06T08:19:54.240386",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6921,6 +7101,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6680-78f8-84e2-de858b2e5f20",
           opprettet: "2026-03-06T08:19:54.240532",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6953,6 +7134,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6684-7c46-948b-9f1bc8a8ab48",
           opprettet: "2026-03-06T08:19:54.244119",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -6985,6 +7167,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6687-765a-afe9-26c00464efb7",
           opprettet: "2026-03-06T08:19:54.247858",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7017,6 +7200,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-6688-764b-b180-8d51b7f0f9c3",
           opprettet: "2026-03-06T08:19:54.248053",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7049,6 +7233,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc204-668c-723e-bde2-b3fa62a5f6d0",
           opprettet: "2026-03-06T08:19:54.252351",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7081,6 +7266,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22ec-7e4f-bc1f-bcc3e4e11f24",
           opprettet: "2026-03-06T08:20:42.476985",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 30,
@@ -7111,6 +7297,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22f2-7ff9-ab9f-8742051779cf",
           opprettet: "2026-03-06T08:20:42.482903",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7144,6 +7331,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22f3-744e-85bb-79e4a0f6af40",
           opprettet: "2026-03-06T08:20:42.483084",
+          type: "Faktum",
           opprinnelse: "Arvet",
           verdi: {
             verdi: 30,
@@ -7176,6 +7364,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22f7-7a5a-bbe2-10e7f8d46df5",
           opprettet: "2026-03-06T08:20:42.487047",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7211,6 +7400,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22fa-79a0-b43d-2e0d7c424406",
           opprettet: "2026-03-06T08:20:42.490811",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7244,6 +7434,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-22fe-7428-935e-2bb85fba6bb7",
           opprettet: "2026-03-06T08:20:42.494426",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7278,6 +7469,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc205-2308-7588-890b-8799f3de7d83",
           opprettet: "2026-03-06T08:20:42.504539",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           verdi: {
@@ -7299,6 +7491,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b7f-7d45-af2f-84b0b3bbd518",
           opprettet: "2026-03-06T08:23:20.319644",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -7316,6 +7509,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f6a",
           opprettet: "2026-03-06T08:25:20.471318",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -7333,6 +7527,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236740",
           opprettet: "2026-03-06T08:27:20.472101",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -7350,6 +7545,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ed-7d9f-ad76-044688a381e5",
           opprettet: "2026-03-06T08:30:20.525606",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -7378,6 +7574,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f52c",
           opprettet: "2026-03-06T08:23:20.320103",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -7394,6 +7591,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f52f",
           opprettet: "2026-03-06T08:23:20.320121",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -7410,6 +7608,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f532",
           opprettet: "2026-03-06T08:23:20.320127",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -7426,6 +7625,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f535",
           opprettet: "2026-03-06T08:23:20.320135",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -7442,6 +7642,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f538",
           opprettet: "2026-03-06T08:23:20.320141",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -7458,6 +7659,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53b",
           opprettet: "2026-03-06T08:23:20.320146",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -7474,6 +7676,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53e",
           opprettet: "2026-03-06T08:23:20.320152",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -7490,6 +7693,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f541",
           opprettet: "2026-03-06T08:23:20.320157",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -7506,6 +7710,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f544",
           opprettet: "2026-03-06T08:23:20.320162",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -7522,6 +7727,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f547",
           opprettet: "2026-03-06T08:23:20.320168",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -7538,6 +7744,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54a",
           opprettet: "2026-03-06T08:23:20.320173",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -7554,6 +7761,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54d",
           opprettet: "2026-03-06T08:23:20.320178",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -7570,6 +7778,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f550",
           opprettet: "2026-03-06T08:23:20.320184",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -7586,6 +7795,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f553",
           opprettet: "2026-03-06T08:23:20.320189",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -7602,6 +7812,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f6f",
           opprettet: "2026-03-06T08:25:20.471532",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -7618,6 +7829,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f72",
           opprettet: "2026-03-06T08:25:20.471549",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -7634,6 +7846,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f75",
           opprettet: "2026-03-06T08:25:20.471564",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -7650,6 +7863,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f78",
           opprettet: "2026-03-06T08:25:20.471568",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -7666,6 +7880,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7b",
           opprettet: "2026-03-06T08:25:20.471571",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -7682,6 +7897,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7e",
           opprettet: "2026-03-06T08:25:20.471577",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -7698,6 +7914,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f81",
           opprettet: "2026-03-06T08:25:20.47158",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -7714,6 +7931,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f84",
           opprettet: "2026-03-06T08:25:20.471584",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -7730,6 +7948,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f87",
           opprettet: "2026-03-06T08:25:20.471589",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -7746,6 +7965,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8a",
           opprettet: "2026-03-06T08:25:20.471592",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -7762,6 +7982,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8d",
           opprettet: "2026-03-06T08:25:20.471595",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -7778,6 +7999,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f90",
           opprettet: "2026-03-06T08:25:20.471598",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -7794,6 +8016,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f93",
           opprettet: "2026-03-06T08:25:20.471602",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -7810,6 +8033,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f96",
           opprettet: "2026-03-06T08:25:20.471605",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -7826,6 +8050,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236745",
           opprettet: "2026-03-06T08:27:20.472233",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -7842,6 +8067,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236748",
           opprettet: "2026-03-06T08:27:20.472254",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -7858,6 +8084,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674b",
           opprettet: "2026-03-06T08:27:20.472287",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -7874,6 +8101,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674e",
           opprettet: "2026-03-06T08:27:20.47229",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -7890,6 +8118,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236751",
           opprettet: "2026-03-06T08:27:20.472294",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -7906,6 +8135,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236754",
           opprettet: "2026-03-06T08:27:20.472296",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -7922,6 +8152,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236757",
           opprettet: "2026-03-06T08:27:20.4723",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -7938,6 +8169,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675a",
           opprettet: "2026-03-06T08:27:20.472303",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -7954,6 +8186,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675d",
           opprettet: "2026-03-06T08:27:20.472309",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -7970,6 +8203,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236760",
           opprettet: "2026-03-06T08:27:20.472312",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -7986,6 +8220,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236763",
           opprettet: "2026-03-06T08:27:20.472315",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -8002,6 +8237,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236766",
           opprettet: "2026-03-06T08:27:20.472318",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -8018,6 +8254,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236769",
           opprettet: "2026-03-06T08:27:20.472321",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -8034,6 +8271,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676c",
           opprettet: "2026-03-06T08:27:20.472324",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -8050,6 +8288,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc30",
           opprettet: "2026-03-06T08:30:20.526206",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -8066,6 +8305,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc33",
           opprettet: "2026-03-06T08:30:20.52622",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -8082,6 +8322,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc36",
           opprettet: "2026-03-06T08:30:20.526228",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -8098,6 +8339,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc39",
           opprettet: "2026-03-06T08:30:20.52627",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -8114,6 +8356,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3c",
           opprettet: "2026-03-06T08:30:20.526278",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -8130,6 +8373,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3f",
           opprettet: "2026-03-06T08:30:20.526287",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -8146,6 +8390,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc42",
           opprettet: "2026-03-06T08:30:20.526293",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -8162,6 +8407,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc45",
           opprettet: "2026-03-06T08:30:20.526297",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -8178,6 +8424,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc48",
           opprettet: "2026-03-06T08:30:20.526303",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -8194,6 +8441,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4b",
           opprettet: "2026-03-06T08:30:20.526307",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -8210,6 +8458,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4e",
           opprettet: "2026-03-06T08:30:20.526312",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -8226,6 +8475,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc51",
           opprettet: "2026-03-06T08:30:20.526317",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -8242,6 +8492,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc54",
           opprettet: "2026-03-06T08:30:20.526321",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -8258,6 +8509,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc57",
           opprettet: "2026-03-06T08:30:20.526326",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -8285,6 +8537,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f52d",
           opprettet: "2026-03-06T08:23:20.320114",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -8302,6 +8555,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f530",
           opprettet: "2026-03-06T08:23:20.320122",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -8319,6 +8573,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f533",
           opprettet: "2026-03-06T08:23:20.320128",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -8336,6 +8591,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f536",
           opprettet: "2026-03-06T08:23:20.320136",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -8353,6 +8609,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f539",
           opprettet: "2026-03-06T08:23:20.320142",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -8370,6 +8627,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53c",
           opprettet: "2026-03-06T08:23:20.320147",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -8387,6 +8645,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53f",
           opprettet: "2026-03-06T08:23:20.320153",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -8404,6 +8663,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f542",
           opprettet: "2026-03-06T08:23:20.320158",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -8421,6 +8681,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f545",
           opprettet: "2026-03-06T08:23:20.320164",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -8438,6 +8699,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f548",
           opprettet: "2026-03-06T08:23:20.320169",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -8455,6 +8717,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54b",
           opprettet: "2026-03-06T08:23:20.320174",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -8472,6 +8735,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54e",
           opprettet: "2026-03-06T08:23:20.320179",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -8489,6 +8753,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f551",
           opprettet: "2026-03-06T08:23:20.320185",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -8506,6 +8771,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f554",
           opprettet: "2026-03-06T08:23:20.32019",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -8523,6 +8789,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f70",
           opprettet: "2026-03-06T08:25:20.471534",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -8540,6 +8807,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f73",
           opprettet: "2026-03-06T08:25:20.47155",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -8557,6 +8825,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f76",
           opprettet: "2026-03-06T08:25:20.471565",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -8574,6 +8843,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f79",
           opprettet: "2026-03-06T08:25:20.471569",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -8591,6 +8861,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7c",
           opprettet: "2026-03-06T08:25:20.471572",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -8608,6 +8879,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7f",
           opprettet: "2026-03-06T08:25:20.471578",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -8625,6 +8897,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f82",
           opprettet: "2026-03-06T08:25:20.471581",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -8642,6 +8915,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f85",
           opprettet: "2026-03-06T08:25:20.471584",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -8659,6 +8933,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f88",
           opprettet: "2026-03-06T08:25:20.471589",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -8676,6 +8951,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8b",
           opprettet: "2026-03-06T08:25:20.471592",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -8693,6 +8969,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8e",
           opprettet: "2026-03-06T08:25:20.471596",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -8710,6 +8987,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f91",
           opprettet: "2026-03-06T08:25:20.471599",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -8727,6 +9005,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f94",
           opprettet: "2026-03-06T08:25:20.471603",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -8744,6 +9023,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f97",
           opprettet: "2026-03-06T08:25:20.471605",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -8761,6 +9041,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236746",
           opprettet: "2026-03-06T08:27:20.472249",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -8778,6 +9059,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236749",
           opprettet: "2026-03-06T08:27:20.472255",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -8795,6 +9077,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674c",
           opprettet: "2026-03-06T08:27:20.472287",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -8812,6 +9095,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674f",
           opprettet: "2026-03-06T08:27:20.472291",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -8829,6 +9113,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236752",
           opprettet: "2026-03-06T08:27:20.472294",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -8846,6 +9131,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236755",
           opprettet: "2026-03-06T08:27:20.472297",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -8863,6 +9149,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236758",
           opprettet: "2026-03-06T08:27:20.4723",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -8880,6 +9167,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675b",
           opprettet: "2026-03-06T08:27:20.472303",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -8897,6 +9185,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675e",
           opprettet: "2026-03-06T08:27:20.472309",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -8914,6 +9203,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236761",
           opprettet: "2026-03-06T08:27:20.472313",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -8931,6 +9221,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236764",
           opprettet: "2026-03-06T08:27:20.472316",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -8948,6 +9239,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236767",
           opprettet: "2026-03-06T08:27:20.472319",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -8965,6 +9257,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676a",
           opprettet: "2026-03-06T08:27:20.472322",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -8982,6 +9275,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676d",
           opprettet: "2026-03-06T08:27:20.472325",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -8999,6 +9293,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc31",
           opprettet: "2026-03-06T08:30:20.52621",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -9016,6 +9311,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc34",
           opprettet: "2026-03-06T08:30:20.526221",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -9033,6 +9329,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc37",
           opprettet: "2026-03-06T08:30:20.526229",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -9050,6 +9347,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3a",
           opprettet: "2026-03-06T08:30:20.526271",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -9067,6 +9365,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3d",
           opprettet: "2026-03-06T08:30:20.526279",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -9084,6 +9383,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc40",
           opprettet: "2026-03-06T08:30:20.526288",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -9101,6 +9401,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc43",
           opprettet: "2026-03-06T08:30:20.526294",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -9118,6 +9419,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc46",
           opprettet: "2026-03-06T08:30:20.526298",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -9135,6 +9437,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc49",
           opprettet: "2026-03-06T08:30:20.526303",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -9152,6 +9455,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4c",
           opprettet: "2026-03-06T08:30:20.526308",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -9169,6 +9473,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4f",
           opprettet: "2026-03-06T08:30:20.526313",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -9186,6 +9491,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc52",
           opprettet: "2026-03-06T08:30:20.526318",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -9203,6 +9509,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc55",
           opprettet: "2026-03-06T08:30:20.526322",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -9220,6 +9527,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc58",
           opprettet: "2026-03-06T08:30:20.526327",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -9248,6 +9556,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f52e",
           opprettet: "2026-03-06T08:23:20.320116",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -9264,6 +9573,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f531",
           opprettet: "2026-03-06T08:23:20.320124",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -9280,6 +9590,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f534",
           opprettet: "2026-03-06T08:23:20.320129",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -9296,6 +9607,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f537",
           opprettet: "2026-03-06T08:23:20.320137",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -9312,6 +9624,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53a",
           opprettet: "2026-03-06T08:23:20.320143",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -9328,6 +9641,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f53d",
           opprettet: "2026-03-06T08:23:20.320148",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -9344,6 +9658,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f540",
           opprettet: "2026-03-06T08:23:20.320154",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -9360,6 +9675,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f543",
           opprettet: "2026-03-06T08:23:20.320159",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -9376,6 +9692,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f546",
           opprettet: "2026-03-06T08:23:20.320165",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -9392,6 +9709,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f549",
           opprettet: "2026-03-06T08:23:20.32017",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -9408,6 +9726,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54c",
           opprettet: "2026-03-06T08:23:20.320175",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -9424,6 +9743,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f54f",
           opprettet: "2026-03-06T08:23:20.32018",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -9440,6 +9760,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f552",
           opprettet: "2026-03-06T08:23:20.320186",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -9456,6 +9777,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f555",
           opprettet: "2026-03-06T08:23:20.320191",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -9472,6 +9794,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f71",
           opprettet: "2026-03-06T08:25:20.471546",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -9488,6 +9811,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f74",
           opprettet: "2026-03-06T08:25:20.47155",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -9504,6 +9828,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f77",
           opprettet: "2026-03-06T08:25:20.471566",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -9520,6 +9845,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7a",
           opprettet: "2026-03-06T08:25:20.471569",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -9536,6 +9862,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f7d",
           opprettet: "2026-03-06T08:25:20.471573",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -9552,6 +9879,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f80",
           opprettet: "2026-03-06T08:25:20.471578",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -9568,6 +9896,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f83",
           opprettet: "2026-03-06T08:25:20.471581",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -9584,6 +9913,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f86",
           opprettet: "2026-03-06T08:25:20.471585",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -9600,6 +9930,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f89",
           opprettet: "2026-03-06T08:25:20.47159",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -9616,6 +9947,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8c",
           opprettet: "2026-03-06T08:25:20.471593",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -9632,6 +9964,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f8f",
           opprettet: "2026-03-06T08:25:20.471596",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -9648,6 +9981,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f92",
           opprettet: "2026-03-06T08:25:20.4716",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -9664,6 +9998,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f95",
           opprettet: "2026-03-06T08:25:20.471603",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -9680,6 +10015,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f98",
           opprettet: "2026-03-06T08:25:20.471606",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -9696,6 +10032,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236747",
           opprettet: "2026-03-06T08:27:20.472251",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -9712,6 +10049,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674a",
           opprettet: "2026-03-06T08:27:20.472284",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -9728,6 +10066,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623674d",
           opprettet: "2026-03-06T08:27:20.472288",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -9744,6 +10083,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236750",
           opprettet: "2026-03-06T08:27:20.472291",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -9760,6 +10100,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236753",
           opprettet: "2026-03-06T08:27:20.472295",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -9776,6 +10117,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236756",
           opprettet: "2026-03-06T08:27:20.472298",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -9792,6 +10134,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236759",
           opprettet: "2026-03-06T08:27:20.472301",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -9808,6 +10151,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675c",
           opprettet: "2026-03-06T08:27:20.472304",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -9824,6 +10168,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623675f",
           opprettet: "2026-03-06T08:27:20.47231",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -9840,6 +10185,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236762",
           opprettet: "2026-03-06T08:27:20.472313",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -9856,6 +10202,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236765",
           opprettet: "2026-03-06T08:27:20.472316",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -9872,6 +10219,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236768",
           opprettet: "2026-03-06T08:27:20.472319",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -9888,6 +10236,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676b",
           opprettet: "2026-03-06T08:27:20.472322",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -9904,6 +10253,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676e",
           opprettet: "2026-03-06T08:27:20.472325",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -9920,6 +10270,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc32",
           opprettet: "2026-03-06T08:30:20.526212",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -9936,6 +10287,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc35",
           opprettet: "2026-03-06T08:30:20.526222",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -9952,6 +10304,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc38",
           opprettet: "2026-03-06T08:30:20.52623",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -9968,6 +10321,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3b",
           opprettet: "2026-03-06T08:30:20.526272",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -9984,6 +10338,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc3e",
           opprettet: "2026-03-06T08:30:20.52628",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -10000,6 +10355,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc41",
           opprettet: "2026-03-06T08:30:20.526289",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -10016,6 +10372,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc44",
           opprettet: "2026-03-06T08:30:20.526295",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -10032,6 +10389,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc47",
           opprettet: "2026-03-06T08:30:20.526299",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -10048,6 +10406,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4a",
           opprettet: "2026-03-06T08:30:20.526304",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -10064,6 +10423,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc4d",
           opprettet: "2026-03-06T08:30:20.526309",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -10080,6 +10440,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc50",
           opprettet: "2026-03-06T08:30:20.526314",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -10096,6 +10457,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc53",
           opprettet: "2026-03-06T08:30:20.526319",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -10112,6 +10474,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc56",
           opprettet: "2026-03-06T08:30:20.526323",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -10128,6 +10491,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc59",
           opprettet: "2026-03-06T08:30:20.526327",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -10155,6 +10519,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f556",
           opprettet: "2026-03-06T08:23:20.320197",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10171,6 +10536,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f99",
           opprettet: "2026-03-06T08:25:20.471609",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10187,6 +10553,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b823623676f",
           opprettet: "2026-03-06T08:27:20.472329",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10203,6 +10570,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc5a",
           opprettet: "2026-03-06T08:30:20.526332",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10230,6 +10598,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8b80-781a-ac9f-69f46885f557",
           opprettet: "2026-03-06T08:23:20.320344",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10246,6 +10615,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-60d7-76c5-b430-7803ced21f9a",
           opprettet: "2026-03-06T08:25:20.471665",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10262,6 +10632,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-3598-762f-8d02-6b8236236770",
           opprettet: "2026-03-06T08:27:20.472354",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10278,6 +10649,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f4ee-7324-a608-5830d241fc5b",
           opprettet: "2026-03-06T08:30:20.526362",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10305,6 +10677,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac7505e",
           opprettet: "2026-03-06T08:23:20.394434",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10316,6 +10689,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6139-7a1c-a784-a4014ededfd8",
           opprettet: "2026-03-06T08:25:20.569843",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10327,6 +10701,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d8-7f55-b536-2a43dea757a7",
           opprettet: "2026-03-06T08:27:20.536719",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10338,6 +10713,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f589-727b-8520-0e3a1f784eb3",
           opprettet: "2026-03-06T08:30:20.681778",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10360,6 +10736,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac7505f",
           opprettet: "2026-03-06T08:23:20.394548",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10371,6 +10748,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dcdc",
           opprettet: "2026-03-06T08:25:20.57004",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10382,6 +10760,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d8-7f55-b536-2a43dea757a8",
           opprettet: "2026-03-06T08:27:20.536893",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10393,6 +10772,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58a-7e5a-a247-e45b2ea32c3f",
           opprettet: "2026-03-06T08:30:20.682675",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10415,6 +10795,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75060",
           opprettet: "2026-03-06T08:23:20.394627",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10426,6 +10807,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dcdd",
           opprettet: "2026-03-06T08:25:20.570206",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10437,6 +10819,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3ab",
           opprettet: "2026-03-06T08:27:20.53703",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10448,6 +10831,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58b-764f-9d5a-370cd96a014c",
           opprettet: "2026-03-06T08:30:20.683054",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10470,6 +10854,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75061",
           opprettet: "2026-03-06T08:23:20.394692",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10481,6 +10866,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dcde",
           opprettet: "2026-03-06T08:25:20.570341",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10492,6 +10878,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3ac",
           opprettet: "2026-03-06T08:27:20.537135",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10503,6 +10890,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58b-764f-9d5a-370cd96a014d",
           opprettet: "2026-03-06T08:30:20.683354",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10525,6 +10913,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75062",
           opprettet: "2026-03-06T08:23:20.394751",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10537,6 +10926,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dcdf",
           opprettet: "2026-03-06T08:25:20.57051",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10549,6 +10939,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3ad",
           opprettet: "2026-03-06T08:27:20.537281",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10561,6 +10952,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58b-764f-9d5a-370cd96a014e",
           opprettet: "2026-03-06T08:30:20.683688",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10584,6 +10976,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75063",
           opprettet: "2026-03-06T08:23:20.394828",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10596,6 +10989,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dce0",
           opprettet: "2026-03-06T08:25:20.570653",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10608,6 +11002,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3ae",
           opprettet: "2026-03-06T08:27:20.537451",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10620,6 +11015,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58b-764f-9d5a-370cd96a014f",
           opprettet: "2026-03-06T08:30:20.683964",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
@@ -10643,6 +11039,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75064",
           opprettet: "2026-03-06T08:23:20.394888",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-18",
@@ -10654,6 +11051,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dce1",
           opprettet: "2026-03-06T08:25:20.570787",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-02-01",
@@ -10665,6 +11063,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3af",
           opprettet: "2026-03-06T08:27:20.537593",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-15",
@@ -10676,11 +11075,12 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58c-76e7-b392-cce68a5f7cd6",
           opprettet: "2026-03-06T08:30:20.684244",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-03-01",
           verdi: {
-            verdi: 0,
+            verdi: NaN,
             datatype: "desimaltall",
           },
         },
@@ -10698,6 +11098,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bca-759d-bbe1-4ea2fac75065",
           opprettet: "2026-03-06T08:23:20.39496",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -10709,6 +11110,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf1",
           opprettet: "2026-03-06T08:23:20.395086",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -10720,6 +11122,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf3",
           opprettet: "2026-03-06T08:23:20.395205",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -10731,6 +11134,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf5",
           opprettet: "2026-03-06T08:23:20.395373",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -10742,6 +11146,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf7",
           opprettet: "2026-03-06T08:23:20.39558",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -10753,6 +11158,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf9",
           opprettet: "2026-03-06T08:23:20.395713",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -10764,6 +11170,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bfb",
           opprettet: "2026-03-06T08:23:20.395875",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -10775,6 +11182,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e8e",
           opprettet: "2026-03-06T08:23:20.396005",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -10786,6 +11194,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e90",
           opprettet: "2026-03-06T08:23:20.396142",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -10797,6 +11206,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e92",
           opprettet: "2026-03-06T08:23:20.396278",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -10808,6 +11218,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e94",
           opprettet: "2026-03-06T08:23:20.396518",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -10819,6 +11230,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e96",
           opprettet: "2026-03-06T08:23:20.39669",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -10830,6 +11242,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e98",
           opprettet: "2026-03-06T08:23:20.396835",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -10841,6 +11254,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e9a",
           opprettet: "2026-03-06T08:23:20.396987",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -10852,6 +11266,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613a-7a80-b290-4fe69f93dce2",
           opprettet: "2026-03-06T08:25:20.570941",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -10863,6 +11278,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245b",
           opprettet: "2026-03-06T08:25:20.571217",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -10874,6 +11290,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245d",
           opprettet: "2026-03-06T08:25:20.571661",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -10885,6 +11302,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245f",
           opprettet: "2026-03-06T08:25:20.571997",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -10896,6 +11314,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613c-7bfa-949b-aea25e7c0d0c",
           opprettet: "2026-03-06T08:25:20.572315",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -10907,6 +11326,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613c-7bfa-949b-aea25e7c0d0e",
           opprettet: "2026-03-06T08:25:20.572641",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -10918,6 +11338,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1671",
           opprettet: "2026-03-06T08:25:20.573015",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -10929,6 +11350,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1673",
           opprettet: "2026-03-06T08:25:20.57342",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -10940,6 +11362,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1675",
           opprettet: "2026-03-06T08:25:20.57369",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -10951,6 +11374,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1677",
           opprettet: "2026-03-06T08:25:20.573981",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -10962,6 +11386,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613e-75c8-9c9c-035f6bfee9a6",
           opprettet: "2026-03-06T08:25:20.574498",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -10973,6 +11398,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613e-75c8-9c9c-035f6bfee9a8",
           opprettet: "2026-03-06T08:25:20.574782",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -10984,6 +11410,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613f-7f67-9fa8-00a6afefbd63",
           opprettet: "2026-03-06T08:25:20.575064",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -10995,6 +11422,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613f-7f67-9fa8-00a6afefbd65",
           opprettet: "2026-03-06T08:25:20.575464",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -11006,6 +11434,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3b0",
           opprettet: "2026-03-06T08:27:20.537745",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -11017,6 +11446,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3b2",
           opprettet: "2026-03-06T08:27:20.53794",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -11028,6 +11458,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70b",
           opprettet: "2026-03-06T08:27:20.538141",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -11039,6 +11470,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70d",
           opprettet: "2026-03-06T08:27:20.538337",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -11050,6 +11482,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70f",
           opprettet: "2026-03-06T08:27:20.538561",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -11061,6 +11494,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe711",
           opprettet: "2026-03-06T08:27:20.538757",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -11072,6 +11506,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35db-76d9-8b53-cf384eabd3e4",
           opprettet: "2026-03-06T08:27:20.539182",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -11083,6 +11518,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35db-76d9-8b53-cf384eabd3e6",
           opprettet: "2026-03-06T08:27:20.53972",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -11094,6 +11530,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dc-7e29-bb00-70fd58808a83",
           opprettet: "2026-03-06T08:27:20.540094",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -11105,6 +11542,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dc-7e29-bb00-70fd58808a85",
           opprettet: "2026-03-06T08:27:20.540656",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -11116,6 +11554,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dc-7e29-bb00-70fd58808a87",
           opprettet: "2026-03-06T08:27:20.540981",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -11127,6 +11566,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d5",
           opprettet: "2026-03-06T08:27:20.541359",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -11138,6 +11578,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d7",
           opprettet: "2026-03-06T08:27:20.541698",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -11149,6 +11590,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f51",
           opprettet: "2026-03-06T08:27:20.542073",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -11160,6 +11602,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58c-76e7-b392-cce68a5f7cd7",
           opprettet: "2026-03-06T08:30:20.684569",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -11171,6 +11614,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58d-7782-b275-274dedfc273e",
           opprettet: "2026-03-06T08:30:20.685214",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -11182,6 +11626,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58d-7782-b275-274dedfc2740",
           opprettet: "2026-03-06T08:30:20.685758",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -11193,6 +11638,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58e-7064-a24e-57f85d131c2f",
           opprettet: "2026-03-06T08:30:20.686328",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -11204,6 +11650,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58f-7a29-8b73-31cefaeabf4c",
           opprettet: "2026-03-06T08:30:20.687015",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -11215,6 +11662,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58f-7a29-8b73-31cefaeabf4e",
           opprettet: "2026-03-06T08:30:20.687654",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -11226,6 +11674,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f590-78f1-a707-ef71a39462e8",
           opprettet: "2026-03-06T08:30:20.688223",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -11237,6 +11686,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f590-78f1-a707-ef71a39462ea",
           opprettet: "2026-03-06T08:30:20.688807",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -11248,6 +11698,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f591-7c24-9e43-e0b6f8d84e22",
           opprettet: "2026-03-06T08:30:20.689575",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -11259,6 +11710,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f592-7f71-b740-28f4793e8495",
           opprettet: "2026-03-06T08:30:20.690012",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -11270,6 +11722,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f592-7f71-b740-28f4793e8497",
           opprettet: "2026-03-06T08:30:20.690552",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -11281,6 +11734,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f593-7bf8-80ff-2df5e5150970",
           opprettet: "2026-03-06T08:30:20.691096",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -11292,6 +11746,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f593-7bf8-80ff-2df5e5150972",
           opprettet: "2026-03-06T08:30:20.691585",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -11303,6 +11758,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f593-7bf8-80ff-2df5e5150974",
           opprettet: "2026-03-06T08:30:20.691994",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -11325,6 +11781,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf0",
           opprettet: "2026-03-06T08:23:20.395019",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -11336,6 +11793,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf2",
           opprettet: "2026-03-06T08:23:20.395143",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -11347,6 +11805,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf4",
           opprettet: "2026-03-06T08:23:20.395306",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -11358,6 +11817,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf6",
           opprettet: "2026-03-06T08:23:20.395481",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -11369,6 +11829,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bf8",
           opprettet: "2026-03-06T08:23:20.39565",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -11380,6 +11841,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bfa",
           opprettet: "2026-03-06T08:23:20.395812",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -11391,6 +11853,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcb-7d0f-9678-df956a7f8bfc",
           opprettet: "2026-03-06T08:23:20.395942",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -11402,6 +11865,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e8f",
           opprettet: "2026-03-06T08:23:20.39608",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -11413,6 +11877,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e91",
           opprettet: "2026-03-06T08:23:20.396203",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -11424,6 +11889,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e93",
           opprettet: "2026-03-06T08:23:20.396364",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -11435,6 +11901,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e95",
           opprettet: "2026-03-06T08:23:20.396599",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -11446,6 +11913,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e97",
           opprettet: "2026-03-06T08:23:20.39677",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -11457,6 +11925,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcc-7c72-ad4f-4273ca1e0e99",
           opprettet: "2026-03-06T08:23:20.396922",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -11468,6 +11937,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9f5",
           opprettet: "2026-03-06T08:23:20.397057",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -11479,6 +11949,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245a",
           opprettet: "2026-03-06T08:25:20.571074",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -11490,6 +11961,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245c",
           opprettet: "2026-03-06T08:25:20.571348",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -11501,6 +11973,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613b-70e4-8bd6-0d38b188245e",
           opprettet: "2026-03-06T08:25:20.571824",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -11512,6 +11985,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613c-7bfa-949b-aea25e7c0d0b",
           opprettet: "2026-03-06T08:25:20.57216",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -11523,6 +11997,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613c-7bfa-949b-aea25e7c0d0d",
           opprettet: "2026-03-06T08:25:20.572482",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -11534,6 +12009,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613c-7bfa-949b-aea25e7c0d0f",
           opprettet: "2026-03-06T08:25:20.572868",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -11545,6 +12021,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1672",
           opprettet: "2026-03-06T08:25:20.573218",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -11556,6 +12033,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1674",
           opprettet: "2026-03-06T08:25:20.573558",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -11567,6 +12045,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613d-7ee6-ae47-d6afda8b1676",
           opprettet: "2026-03-06T08:25:20.573832",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -11578,6 +12057,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613e-75c8-9c9c-035f6bfee9a5",
           opprettet: "2026-03-06T08:25:20.574304",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -11589,6 +12069,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613e-75c8-9c9c-035f6bfee9a7",
           opprettet: "2026-03-06T08:25:20.574642",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -11600,6 +12081,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613e-75c8-9c9c-035f6bfee9a9",
           opprettet: "2026-03-06T08:25:20.57492",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -11611,6 +12093,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613f-7f67-9fa8-00a6afefbd64",
           opprettet: "2026-03-06T08:25:20.575292",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -11622,6 +12105,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613f-7f67-9fa8-00a6afefbd66",
           opprettet: "2026-03-06T08:25:20.575619",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -11633,6 +12117,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35d9-79df-8869-65db4223e3b1",
           opprettet: "2026-03-06T08:27:20.53784",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -11644,6 +12129,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70a",
           opprettet: "2026-03-06T08:27:20.53803",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -11655,6 +12141,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70c",
           opprettet: "2026-03-06T08:27:20.538243",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -11666,6 +12153,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe70e",
           opprettet: "2026-03-06T08:27:20.538462",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -11677,6 +12165,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35da-7b29-8cc6-5c8487efe710",
           opprettet: "2026-03-06T08:27:20.538657",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -11688,6 +12177,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35db-76d9-8b53-cf384eabd3e3",
           opprettet: "2026-03-06T08:27:20.539014",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -11699,6 +12189,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35db-76d9-8b53-cf384eabd3e5",
           opprettet: "2026-03-06T08:27:20.539359",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -11710,6 +12201,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35db-76d9-8b53-cf384eabd3e7",
           opprettet: "2026-03-06T08:27:20.539917",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -11721,6 +12213,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dc-7e29-bb00-70fd58808a84",
           opprettet: "2026-03-06T08:27:20.540488",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -11732,6 +12225,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dc-7e29-bb00-70fd58808a86",
           opprettet: "2026-03-06T08:27:20.540821",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -11743,6 +12237,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d4",
           opprettet: "2026-03-06T08:27:20.541145",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -11754,6 +12249,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d6",
           opprettet: "2026-03-06T08:27:20.541542",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -11765,6 +12261,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35dd-7f3f-a1b4-20c2e1a516d8",
           opprettet: "2026-03-06T08:27:20.541924",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -11776,6 +12273,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f52",
           opprettet: "2026-03-06T08:27:20.542254",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -11787,6 +12285,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58c-76e7-b392-cce68a5f7cd8",
           opprettet: "2026-03-06T08:30:20.684916",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -11798,6 +12297,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58d-7782-b275-274dedfc273f",
           opprettet: "2026-03-06T08:30:20.685476",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -11809,6 +12309,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58e-7064-a24e-57f85d131c2e",
           opprettet: "2026-03-06T08:30:20.686059",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -11820,6 +12321,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58e-7064-a24e-57f85d131c30",
           opprettet: "2026-03-06T08:30:20.6867",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -11831,6 +12333,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58f-7a29-8b73-31cefaeabf4d",
           opprettet: "2026-03-06T08:30:20.687342",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -11842,6 +12345,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f58f-7a29-8b73-31cefaeabf4f",
           opprettet: "2026-03-06T08:30:20.687947",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -11853,6 +12357,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f590-78f1-a707-ef71a39462e9",
           opprettet: "2026-03-06T08:30:20.688542",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -11864,6 +12369,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f591-7c24-9e43-e0b6f8d84e21",
           opprettet: "2026-03-06T08:30:20.689172",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -11875,6 +12381,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f591-7c24-9e43-e0b6f8d84e23",
           opprettet: "2026-03-06T08:30:20.689795",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -11886,6 +12393,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f592-7f71-b740-28f4793e8496",
           opprettet: "2026-03-06T08:30:20.690267",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -11897,6 +12405,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f592-7f71-b740-28f4793e8498",
           opprettet: "2026-03-06T08:30:20.690819",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -11908,6 +12417,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f593-7bf8-80ff-2df5e5150971",
           opprettet: "2026-03-06T08:30:20.691353",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -11919,6 +12429,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f593-7bf8-80ff-2df5e5150973",
           opprettet: "2026-03-06T08:30:20.691788",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -11930,6 +12441,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f594-7564-bb1d-77f6e8954078",
           opprettet: "2026-03-06T08:30:20.692288",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -11952,6 +12464,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9f6",
           opprettet: "2026-03-06T08:23:20.397173",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -11964,6 +12477,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9f8",
           opprettet: "2026-03-06T08:23:20.397326",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -11976,6 +12490,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9fa",
           opprettet: "2026-03-06T08:23:20.397543",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -11988,6 +12503,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9fc",
           opprettet: "2026-03-06T08:23:20.397715",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -12000,6 +12516,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9fe",
           opprettet: "2026-03-06T08:23:20.397881",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -12012,6 +12529,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a0",
           opprettet: "2026-03-06T08:23:20.398008",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -12024,6 +12542,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a2",
           opprettet: "2026-03-06T08:23:20.398139",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -12036,6 +12555,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a4",
           opprettet: "2026-03-06T08:23:20.398304",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -12048,6 +12568,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a6",
           opprettet: "2026-03-06T08:23:20.39848",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -12060,6 +12581,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a8",
           opprettet: "2026-03-06T08:23:20.398648",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -12072,6 +12594,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2aa",
           opprettet: "2026-03-06T08:23:20.398827",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -12084,6 +12607,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2ac",
           opprettet: "2026-03-06T08:23:20.398975",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -12096,6 +12620,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcf-7d11-8174-b6ddf53d596f",
           opprettet: "2026-03-06T08:23:20.399124",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -12108,6 +12633,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcf-7d11-8174-b6ddf53d5971",
           opprettet: "2026-03-06T08:23:20.399269",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -12120,6 +12646,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-613f-7f67-9fa8-00a6afefbd67",
           opprettet: "2026-03-06T08:25:20.575931",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -12132,6 +12659,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efce",
           opprettet: "2026-03-06T08:25:20.576286",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -12144,6 +12672,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efd0",
           opprettet: "2026-03-06T08:25:20.576601",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -12156,6 +12685,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efd2",
           opprettet: "2026-03-06T08:25:20.576876",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -12168,6 +12698,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c02",
           opprettet: "2026-03-06T08:25:20.577181",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -12180,6 +12711,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c04",
           opprettet: "2026-03-06T08:25:20.577496",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -12192,6 +12724,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c06",
           opprettet: "2026-03-06T08:25:20.577798",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -12204,6 +12737,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a059",
           opprettet: "2026-03-06T08:25:20.578092",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -12216,6 +12750,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05b",
           opprettet: "2026-03-06T08:25:20.578413",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -12228,6 +12763,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05d",
           opprettet: "2026-03-06T08:25:20.578698",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -12240,6 +12776,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05f",
           opprettet: "2026-03-06T08:25:20.578986",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -12252,6 +12789,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da5",
           opprettet: "2026-03-06T08:25:20.579294",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -12264,6 +12802,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da7",
           opprettet: "2026-03-06T08:25:20.579609",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -12276,6 +12815,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da9",
           opprettet: "2026-03-06T08:25:20.579878",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -12288,6 +12828,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f53",
           opprettet: "2026-03-06T08:27:20.542522",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -12300,6 +12841,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f55",
           opprettet: "2026-03-06T08:27:20.542803",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -12312,6 +12854,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35df-70af-8204-8d4729e26815",
           opprettet: "2026-03-06T08:27:20.543003",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -12324,6 +12867,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35df-70af-8204-8d4729e26817",
           opprettet: "2026-03-06T08:27:20.543703",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -12336,6 +12880,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccbf",
           opprettet: "2026-03-06T08:27:20.548375",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -12348,6 +12893,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc1",
           opprettet: "2026-03-06T08:27:20.548746",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -12360,6 +12906,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc3",
           opprettet: "2026-03-06T08:27:20.548968",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -12372,6 +12919,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d25826",
           opprettet: "2026-03-06T08:27:20.549195",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -12384,6 +12932,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d25828",
           opprettet: "2026-03-06T08:27:20.549438",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -12396,6 +12945,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d2582a",
           opprettet: "2026-03-06T08:27:20.549648",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -12408,6 +12958,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d2582c",
           opprettet: "2026-03-06T08:27:20.549872",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -12420,6 +12971,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425a",
           opprettet: "2026-03-06T08:27:20.55009",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -12432,6 +12984,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425c",
           opprettet: "2026-03-06T08:27:20.550299",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -12444,6 +12997,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425e",
           opprettet: "2026-03-06T08:27:20.550756",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -12456,6 +13010,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f594-7564-bb1d-77f6e8954079",
           opprettet: "2026-03-06T08:30:20.692595",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -12468,6 +13023,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f595-7164-8d64-a2b3b323aff1",
           opprettet: "2026-03-06T08:30:20.69359",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -12480,6 +13036,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f596-7c10-afbe-cd99a4c547f8",
           opprettet: "2026-03-06T08:30:20.694665",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -12492,6 +13049,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f597-7719-9c6a-fa59da17458c",
           opprettet: "2026-03-06T08:30:20.695328",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -12504,6 +13062,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f597-7719-9c6a-fa59da17458e",
           opprettet: "2026-03-06T08:30:20.695854",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -12516,6 +13075,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f598-7a48-8910-24fd6cd704de",
           opprettet: "2026-03-06T08:30:20.696419",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -12528,6 +13088,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f598-7a48-8910-24fd6cd704e0",
           opprettet: "2026-03-06T08:30:20.696843",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -12540,6 +13101,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f599-7fda-a22a-00a7afc0ffdd",
           opprettet: "2026-03-06T08:30:20.697219",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -12552,6 +13114,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f599-7fda-a22a-00a7afc0ffdf",
           opprettet: "2026-03-06T08:30:20.697713",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -12564,6 +13127,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a1",
           opprettet: "2026-03-06T08:30:20.698074",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -12576,6 +13140,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a3",
           opprettet: "2026-03-06T08:30:20.698478",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -12588,6 +13153,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a5",
           opprettet: "2026-03-06T08:30:20.69893",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -12600,6 +13166,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59b-7d00-8b15-20057044c89c",
           opprettet: "2026-03-06T08:30:20.699303",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -12612,6 +13179,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59b-7d00-8b15-20057044c89e",
           opprettet: "2026-03-06T08:30:20.699726",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -12635,6 +13203,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9f7",
           opprettet: "2026-03-06T08:23:20.397261",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-05",
           gyldigTilOgMed: "2026-01-05",
@@ -12647,6 +13216,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9f9",
           opprettet: "2026-03-06T08:23:20.397447",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-06",
           gyldigTilOgMed: "2026-01-06",
@@ -12659,6 +13229,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9fb",
           opprettet: "2026-03-06T08:23:20.397631",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-07",
           gyldigTilOgMed: "2026-01-07",
@@ -12671,6 +13242,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9fd",
           opprettet: "2026-03-06T08:23:20.397792",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-08",
           gyldigTilOgMed: "2026-01-08",
@@ -12683,6 +13255,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcd-735a-b566-f125a0f0e9ff",
           opprettet: "2026-03-06T08:23:20.397946",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-09",
           gyldigTilOgMed: "2026-01-09",
@@ -12695,6 +13268,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a1",
           opprettet: "2026-03-06T08:23:20.398073",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-10",
           gyldigTilOgMed: "2026-01-10",
@@ -12707,6 +13281,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a3",
           opprettet: "2026-03-06T08:23:20.398204",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-11",
           gyldigTilOgMed: "2026-01-11",
@@ -12719,6 +13294,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a5",
           opprettet: "2026-03-06T08:23:20.398369",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-12",
           gyldigTilOgMed: "2026-01-12",
@@ -12731,6 +13307,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a7",
           opprettet: "2026-03-06T08:23:20.398551",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-13",
           gyldigTilOgMed: "2026-01-13",
@@ -12743,6 +13320,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2a9",
           opprettet: "2026-03-06T08:23:20.398736",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-14",
           gyldigTilOgMed: "2026-01-14",
@@ -12755,6 +13333,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bce-75e4-84e1-02d7229cb2ab",
           opprettet: "2026-03-06T08:23:20.398911",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-15",
           gyldigTilOgMed: "2026-01-15",
@@ -12767,6 +13346,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcf-7d11-8174-b6ddf53d596e",
           opprettet: "2026-03-06T08:23:20.399042",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-16",
           gyldigTilOgMed: "2026-01-16",
@@ -12779,6 +13359,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcf-7d11-8174-b6ddf53d5970",
           opprettet: "2026-03-06T08:23:20.399189",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-17",
           gyldigTilOgMed: "2026-01-17",
@@ -12791,6 +13372,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc207-8bcf-7d11-8174-b6ddf53d5972",
           opprettet: "2026-03-06T08:23:20.399354",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-18",
           gyldigTilOgMed: "2026-01-18",
@@ -12803,6 +13385,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efcd",
           opprettet: "2026-03-06T08:25:20.576101",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-19",
           gyldigTilOgMed: "2026-01-19",
@@ -12815,6 +13398,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efcf",
           opprettet: "2026-03-06T08:25:20.576454",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-20",
           gyldigTilOgMed: "2026-01-20",
@@ -12827,6 +13411,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6140-7b17-8767-9935c155efd1",
           opprettet: "2026-03-06T08:25:20.576738",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-21",
           gyldigTilOgMed: "2026-01-21",
@@ -12839,6 +13424,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c01",
           opprettet: "2026-03-06T08:25:20.57701",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-22",
           gyldigTilOgMed: "2026-01-22",
@@ -12851,6 +13437,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c03",
           opprettet: "2026-03-06T08:25:20.577337",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-23",
           gyldigTilOgMed: "2026-01-23",
@@ -12863,6 +13450,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c05",
           opprettet: "2026-03-06T08:25:20.577644",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-24",
           gyldigTilOgMed: "2026-01-24",
@@ -12875,6 +13463,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6141-76a7-b50a-6b7a38730c07",
           opprettet: "2026-03-06T08:25:20.577939",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-25",
           gyldigTilOgMed: "2026-01-25",
@@ -12887,6 +13476,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05a",
           opprettet: "2026-03-06T08:25:20.578252",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-26",
           gyldigTilOgMed: "2026-01-26",
@@ -12899,6 +13489,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05c",
           opprettet: "2026-03-06T08:25:20.57856",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-27",
           gyldigTilOgMed: "2026-01-27",
@@ -12911,6 +13502,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6142-78bb-8981-676092a7a05e",
           opprettet: "2026-03-06T08:25:20.578848",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-28",
           gyldigTilOgMed: "2026-01-28",
@@ -12923,6 +13515,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da4",
           opprettet: "2026-03-06T08:25:20.579138",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-29",
           gyldigTilOgMed: "2026-01-29",
@@ -12935,6 +13528,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da6",
           opprettet: "2026-03-06T08:25:20.579459",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-30",
           gyldigTilOgMed: "2026-01-30",
@@ -12947,6 +13541,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6143-7ce1-9c81-ba8c5fe91da8",
           opprettet: "2026-03-06T08:25:20.579742",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-01-31",
           gyldigTilOgMed: "2026-01-31",
@@ -12959,6 +13554,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc209-6144-7cd4-a398-c93391a37ffe",
           opprettet: "2026-03-06T08:25:20.58003",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-01",
           gyldigTilOgMed: "2026-02-01",
@@ -12971,6 +13567,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f54",
           opprettet: "2026-03-06T08:27:20.542676",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-02",
           gyldigTilOgMed: "2026-02-02",
@@ -12983,6 +13580,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35de-7ccc-8231-966170bd4f56",
           opprettet: "2026-03-06T08:27:20.542907",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-03",
           gyldigTilOgMed: "2026-02-03",
@@ -12995,6 +13593,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35df-70af-8204-8d4729e26816",
           opprettet: "2026-03-06T08:27:20.543127",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-04",
           gyldigTilOgMed: "2026-02-04",
@@ -13007,6 +13606,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35df-70af-8204-8d4729e26818",
           opprettet: "2026-03-06T08:27:20.54387",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-05",
           gyldigTilOgMed: "2026-02-05",
@@ -13019,6 +13619,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc0",
           opprettet: "2026-03-06T08:27:20.548627",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-06",
           gyldigTilOgMed: "2026-02-06",
@@ -13031,6 +13632,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e4-7f21-8ea0-a9ceeee9ccc2",
           opprettet: "2026-03-06T08:27:20.548854",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-07",
           gyldigTilOgMed: "2026-02-07",
@@ -13043,6 +13645,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d25825",
           opprettet: "2026-03-06T08:27:20.549071",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-08",
           gyldigTilOgMed: "2026-02-08",
@@ -13055,6 +13658,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d25827",
           opprettet: "2026-03-06T08:27:20.549308",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-09",
           gyldigTilOgMed: "2026-02-09",
@@ -13067,6 +13671,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d25829",
           opprettet: "2026-03-06T08:27:20.549548",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-10",
           gyldigTilOgMed: "2026-02-10",
@@ -13079,6 +13684,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d2582b",
           opprettet: "2026-03-06T08:27:20.549768",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-11",
           gyldigTilOgMed: "2026-02-11",
@@ -13091,6 +13697,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e5-7f76-ad93-6fbba7d2582d",
           opprettet: "2026-03-06T08:27:20.549991",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-12",
           gyldigTilOgMed: "2026-02-12",
@@ -13103,6 +13710,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425b",
           opprettet: "2026-03-06T08:27:20.550189",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-13",
           gyldigTilOgMed: "2026-02-13",
@@ -13115,6 +13723,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425d",
           opprettet: "2026-03-06T08:27:20.550422",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-14",
           gyldigTilOgMed: "2026-02-14",
@@ -13127,6 +13736,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20b-35e6-7a36-94b5-a65f7e6b425f",
           opprettet: "2026-03-06T08:27:20.550913",
+          type: "Faktum",
           opprinnelse: "Arvet",
           gyldigFraOgMed: "2026-02-15",
           gyldigTilOgMed: "2026-02-15",
@@ -13139,6 +13749,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f595-7164-8d64-a2b3b323aff0",
           opprettet: "2026-03-06T08:30:20.693014",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-16",
           gyldigTilOgMed: "2026-02-16",
@@ -13151,6 +13762,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f596-7c10-afbe-cd99a4c547f7",
           opprettet: "2026-03-06T08:30:20.694085",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-17",
           gyldigTilOgMed: "2026-02-17",
@@ -13163,6 +13775,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f597-7719-9c6a-fa59da17458b",
           opprettet: "2026-03-06T08:30:20.694999",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-18",
           gyldigTilOgMed: "2026-02-18",
@@ -13175,6 +13788,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f597-7719-9c6a-fa59da17458d",
           opprettet: "2026-03-06T08:30:20.6956",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-19",
           gyldigTilOgMed: "2026-02-19",
@@ -13187,6 +13801,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f598-7a48-8910-24fd6cd704dd",
           opprettet: "2026-03-06T08:30:20.69618",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-20",
           gyldigTilOgMed: "2026-02-20",
@@ -13199,6 +13814,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f598-7a48-8910-24fd6cd704df",
           opprettet: "2026-03-06T08:30:20.696626",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-21",
           gyldigTilOgMed: "2026-02-21",
@@ -13211,6 +13827,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f599-7fda-a22a-00a7afc0ffdc",
           opprettet: "2026-03-06T08:30:20.697023",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-22",
           gyldigTilOgMed: "2026-02-22",
@@ -13223,6 +13840,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f599-7fda-a22a-00a7afc0ffde",
           opprettet: "2026-03-06T08:30:20.697452",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-23",
           gyldigTilOgMed: "2026-02-23",
@@ -13235,6 +13853,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f599-7fda-a22a-00a7afc0ffe0",
           opprettet: "2026-03-06T08:30:20.697896",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-24",
           gyldigTilOgMed: "2026-02-24",
@@ -13247,6 +13866,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a2",
           opprettet: "2026-03-06T08:30:20.698266",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-25",
           gyldigTilOgMed: "2026-02-25",
@@ -13259,6 +13879,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59a-7c14-9ff6-e05ab3c4a5a4",
           opprettet: "2026-03-06T08:30:20.698705",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-26",
           gyldigTilOgMed: "2026-02-26",
@@ -13271,6 +13892,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59b-7d00-8b15-20057044c89b",
           opprettet: "2026-03-06T08:30:20.69911",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-27",
           gyldigTilOgMed: "2026-02-27",
@@ -13283,6 +13905,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59b-7d00-8b15-20057044c89d",
           opprettet: "2026-03-06T08:30:20.699506",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-02-28",
           gyldigTilOgMed: "2026-02-28",
@@ -13295,6 +13918,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
         {
           id: "019cc20d-f59b-7d00-8b15-20057044c89f",
           opprettet: "2026-03-06T08:30:20.699953",
+          type: "Faktum",
           opprinnelse: "Ny",
           gyldigFraOgMed: "2026-03-01",
           gyldigTilOgMed: "2026-03-01",
@@ -13307,6 +13931,34 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
       ],
       synlig: true,
       redigerbar: true,
+      redigertAvSaksbehandler: false,
+      formål: "Regel",
+    },
+    {
+      opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
+      navn: "hendelseType",
+      datatype: "tekst",
+      perioder: [
+        {
+          id: "019cc20d-f4ed-7d9f-ad76-044688a381e4",
+          opprettet: "2026-03-06T08:30:20.525596",
+          type: "Faktum",
+          opprinnelse: "Ny",
+          gyldigFraOgMed: "2026-03-06",
+          gyldigTilOgMed: "2026-03-06",
+          verdi: {
+            verdi: "BeregnMeldekortHendelse",
+            datatype: "tekst",
+          },
+          kilde: {
+            type: "System",
+            registrert: "2026-03-06T08:30:20.525587",
+            meldingId: "1331f1ec-e09d-490f-ac47-9bbb13d66673",
+          },
+        },
+      ],
+      synlig: true,
+      redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
     },

@@ -12,9 +12,13 @@ import { hentValideringForOpplysningPeriodeSkjema } from "~/utils/validering.uti
 export function PrøvingsdatoInput() {
   const { readonly } = useOppgave();
   const { behandling, prøvingsdatoOpplysning } = useBehandling();
-  const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning.perioder.at(-1);
+  const prøvingsdatoOpplysningPeriode = prøvingsdatoOpplysning?.perioder.at(-1);
 
-  if (!prøvingsdatoOpplysningPeriode || !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)) {
+  if (
+    !prøvingsdatoOpplysning ||
+    !prøvingsdatoOpplysningPeriode ||
+    !isDatoVerdi(prøvingsdatoOpplysningPeriode.verdi)
+  ) {
     return null;
   }
 

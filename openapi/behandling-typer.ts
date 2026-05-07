@@ -889,7 +889,7 @@ export interface components {
             /** @description Alle opplysninger som har vært til stede under behandlingen, også historiske */
             opplysninger: components["schemas"]["Opplysninger"][];
             /** @description Alle utbetalinger som er beregnet i behandlingskjeden */
-            utbetalinger: components["schemas"]["UtbetalingBase"][];
+            utbetalinger: components["schemas"]["Utbetaling"][];
             /** @description Hvilke saksbehandlere har vært involvert i behandlingen */
             behandletAv: components["schemas"]["BehandletAv"][];
             /** @description Hvilken avgjørelse behandlingen førte til */
@@ -1003,6 +1003,8 @@ export interface components {
             id: components["schemas"]["OpplysningsId"];
             /** Format: date-time */
             opprettet: string;
+            /** @enum {string} */
+            type?: "Faktum" | "Hypotese";
             opprinnelse: components["schemas"]["Opprinnelse"];
             /**
              * Format: date
@@ -1346,7 +1348,7 @@ export interface components {
              *       }
              *     ]
              */
-            utbetalinger: components["schemas"]["UtbetalingBase"][];
+            utbetalinger: components["schemas"]["Utbetaling"][];
             opplysninger: components["schemas"]["Opplysning"][];
         };
         /**
@@ -1412,36 +1414,16 @@ export interface components {
             harRett: boolean;
             opprinnelse?: components["schemas"]["Opprinnelse"];
         };
-        UtbetalingBase: components["schemas"]["UtbetalingMeldekort"] | components["schemas"]["UtbetalingFerietillegg"];
-        UtbetalingMeldekort: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            utbetalingstype: "Meldekort";
+        Utbetaling: {
             meldeperiode: string;
             /** Format: date */
             dato: string;
             sats: number;
             utbetaling: number;
             opprinnelse?: components["schemas"]["Opprinnelse"];
+            /** @enum {string} */
+            dagpengeType: "OrdinæreDagpenger" | "Ferietillegg";
         };
-        UtbetalingFerietillegg: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            utbetalingstype: "Ferietillegg";
-            /** Format: date */
-            dato: string;
-            utbetaling: number;
-            opprinnelse?: components["schemas"]["Opprinnelse"];
-        };
-        /**
-         * @description Angir om utbetalingen gjelder meldekort eller ferietillegg
-         * @enum {string}
-         */
-        Utbetalingstype: "Meldekort" | "Ferietillegg";
         BehandletAv: {
             /** @enum {string} */
             rolle: "saksbehandler" | "beslutter";
