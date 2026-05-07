@@ -150,14 +150,30 @@ export function hentUtløstAvTekstForVisning(
 
     // TODO? burde dette bare være defaultoppførsel?
     case "ARBEIDSSØKERPERIODE":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <InformationSquareIcon aria-hidden fontSize="1.5rem" /> Andre hendelser
+        </span>
+      ) : (
+        "Arbeidssøkerperiode"
+      );
+
     case "FERIETILLEGG":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <InformationSquareIcon aria-hidden fontSize="1.5rem" /> Andre hendelser
+        </span>
+      ) : (
+        "Ferietillegg"
+      );
+
     case "SAMORDNING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>
           <InformationSquareIcon aria-hidden fontSize="1.5rem" /> Andre hendelser
         </span>
       ) : (
-        "Andre hendelser"
+        "Samordning"
       );
 
     default:
