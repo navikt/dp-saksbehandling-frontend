@@ -34,7 +34,7 @@ jobs:
         if: steps.node_modules.outputs.cache-hit != 'true'
         run: pnpm install --ignore-scripts
         env: 
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
       
       - name: Run tests
         run: pnpm test
