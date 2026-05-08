@@ -34,7 +34,7 @@ jobs:
         if: steps.node_modules.outputs.cache-hit != 'true'
         run: pnpm install --ignore-scripts
         env: 
-          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
       
       - name: Run tests
         run: pnpm test
@@ -76,7 +76,7 @@ jobs:
         if: steps.node_modules.outputs.cache-hit != 'true'
         run: pnpm install --ignore-scripts
         env:
-          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build app
         run: pnpm build
@@ -84,7 +84,7 @@ jobs:
       - name: Remove dev dependencies
         run: pnpm install --ignore-scripts --prod
         env:
-          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Bygg og push Docker image
         uses: nais/docker-build-push@v0
