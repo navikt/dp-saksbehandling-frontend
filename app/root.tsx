@@ -145,6 +145,9 @@ export default function App() {
       <body>
         <FeatureFlagsProvider featureFlags={featureFlags}>
           <SaksbehandlerProvider>
+            {env.GCP_ENV === "dev" && (
+              <div className={styles.devEnvironmentBanner}>DEV-MILJØ</div>
+            )}
             <InternalHeader className={styles.header}>
               <Link to={"/"} className={styles.headerLogo}>
                 <InternalHeader.Title as="h1" className={styles.pageHeader}>
