@@ -92,6 +92,10 @@ export function OppgaveListe(props: IProps) {
               (emneknagg) => emneknagg.kategori === "BEHANDLET_HENDELSE_TYPE",
             );
 
+            const udefinerteEmnekagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "UDEFINERT",
+            );
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -231,6 +235,19 @@ export function OppgaveListe(props: IProps) {
                     ))}
 
                     {behandletHendelseEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {udefinerteEmnekagger.map((emneknagg) => (
                       <Tag
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
