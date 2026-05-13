@@ -6,7 +6,7 @@ dp-saksbehandling_url: "http://dp-saksbehandling"
 dp-soknad-orkestrator_url: "http://dp-soknad-orkestrator"
 dp-rapportering-personregister_url: "http://dp-rapportering-personregister"
 dp-rapportering-saksbehandling-frontend_url: "https://rapportering-dagpenger.ansatt.nav.no"
-dp-inntekt-redigering-frontend_url: "https://dagpenger-inntekt.intern.nav.no"
+dp-inntekt-redigering-frontend_url: "https://dagpenger-inntekt.ansatt.nav.no"
 saf_url: "https://saf.prod-fss-pub.nais.io"
 
 saf_audience: "api://prod-fss.teamdokumenthandtering.saf/.default"
