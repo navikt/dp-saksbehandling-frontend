@@ -84,8 +84,8 @@ importers:
         specifier: 7.13.1
         version: 7.13.1(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)
       '@rvf/react-router':
-        specifier: 8.1.1
-        version: 8.1.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
+        specifier: 8.1.2
+        version: 8.1.2(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
       '@sanity/client':
         specifier: 7.21.0
         version: 7.21.0
@@ -2499,25 +2499,25 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rvf/core@8.1.0':
-    resolution: {integrity: sha512-Ium7vvMmwuqDYRRMY/r6ZI9akJEcldKx+g113XHwu2wkB4OPoj0pK/nJ8iFAuZE1FUhReraxHxniUx8i22Ra5g==}
+  '@rvf/core@8.1.1':
+    resolution: {integrity: sha512-+IyrLwre7jXxNVxTuawwrGjn8LMa3E3+NZ1e5jVsjt01L0CuXKU/pqisBBza0+5E/89Iys4lE7AoV762AcQNwg==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
 
-  '@rvf/react-router@8.1.1':
-    resolution: {integrity: sha512-2zzlbRoWlFVLnKy4Snh+KFxP8XaGqf7UBpSoS/R+w+nmAcuwPRanQdceAi1FqK/nxKoHvx1Q3rlXvMd3VeDVCQ==}
+  '@rvf/react-router@8.1.2':
+    resolution: {integrity: sha512-JXK0eydAX9J2uGzWUqLhsswhpmBZO0U6v0IH/iQh0xM9aR7knXqIaOzN5JVndKKiCv55MfQsmsRR4B8IwzknBA==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-router: ^7.5.3
 
-  '@rvf/react@8.1.1':
-    resolution: {integrity: sha512-isaiS0qT9WyMo7//29twg3/TXW4ralvb7f4cfctniCsxPSBqhJK2i7XJyADN9F+71iIpP5VCqQAlIA+993d+sQ==}
+  '@rvf/react@8.1.2':
+    resolution: {integrity: sha512-a1CjHi5QUK5oUuEZY8RMW8evp8ufPX3VF2zA6GjSb5ASx0zHLwCPU4zlAL1UhrJVfemwb00vAHJ3/wrpEKmlkg==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@rvf/set-get@7.0.1':
-    resolution: {integrity: sha512-GkTSn9K1GrTYoTUqlUs36k6nJnzjQaFBTTEIqUYmzBcsGsoJM8xG7EAx2WLHWAA4QzFjcwWUSHQ3vM3Fbw50Tg==}
+  '@rvf/set-get@7.0.2':
+    resolution: {integrity: sha512-MyrHwRw9/hxMncld0gpqubHJdpFP4tdGb4GDDT5I90408AzwTz1msn3ZOvMkmuVst0sa7jDuPJLaGmZV804f+w==}
 
   '@sanity/client@7.21.0':
     resolution: {integrity: sha512-j3SdOGy9ggQSj9LtlrV8x4jaZgJmyYKNB5cXpXWkMLgi2/v0U+OTu0mHj17smioTdQSCHuVyJaxGcdpu3hxoOA==}
@@ -6146,8 +6146,8 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
-  zustand@5.0.12:
-    resolution: {integrity: sha512-i77ae3aZq4dhMlRhJVCYgMLKuSiZAaUPAct2AksxQ+gOtimhGMdXljRT21P5BNpeT4kXlLIckvkPM029OljD7g==}
+  zustand@5.0.13:
+    resolution: {integrity: sha512-efI2tVaVQPqtOh114loML/Z80Y4NP3yc+Ff0fYiZJPauNeWZeIp/bRFD7I9bfmCOYBh/PHxlglQ9+wvlwnPikQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=18.0.0'
@@ -8750,23 +8750,23 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.0':
     optional: true
 
-  '@rvf/core@8.1.0(@types/react@19.2.14)(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@rvf/core@8.1.1(@types/react@19.2.14)(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
-      '@rvf/set-get': 7.0.1
+      '@rvf/set-get': 7.0.2
       hotscript: 1.0.13
       immer: 10.2.0
       react: 19.2.5
       react-tracked: 2.0.1(react@19.2.5)(scheduler@0.27.0)
-      zustand: 5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
+      zustand: 5.0.13(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5))
     transitivePeerDependencies:
       - '@types/react'
       - scheduler
       - use-sync-external-store
 
-  '@rvf/react-router@8.1.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@rvf/react-router@8.1.2(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
-      '@rvf/react': 8.1.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
-      '@rvf/set-get': 7.0.1
+      '@rvf/react': 8.1.2(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
+      '@rvf/set-get': 7.0.2
       react: 19.2.5
       react-router: 7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     transitivePeerDependencies:
@@ -8775,10 +8775,10 @@ snapshots:
       - scheduler
       - use-sync-external-store
 
-  '@rvf/react@8.1.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
+  '@rvf/react@8.1.2(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))':
     dependencies:
-      '@rvf/core': 8.1.0(@types/react@19.2.14)(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
-      '@rvf/set-get': 7.0.1
+      '@rvf/core': 8.1.1(@types/react@19.2.14)(react@19.2.5)(scheduler@0.27.0)(use-sync-external-store@1.6.0(react@19.2.5))
+      '@rvf/set-get': 7.0.2
       '@standard-schema/spec': 1.1.0
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
@@ -8787,7 +8787,7 @@ snapshots:
       - scheduler
       - use-sync-external-store
 
-  '@rvf/set-get@7.0.1': {}
+  '@rvf/set-get@7.0.2': {}
 
   '@sanity/client@7.21.0':
     dependencies:
@@ -12621,7 +12621,7 @@ snapshots:
 
   zod@4.3.6: {}
 
-  zustand@5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)):
+  zustand@5.0.13(@types/react@19.2.14)(immer@10.2.0)(react@19.2.5)(use-sync-external-store@1.6.0(react@19.2.5)):
     optionalDependencies:
       '@types/react': 19.2.14
       immer: 10.2.0
