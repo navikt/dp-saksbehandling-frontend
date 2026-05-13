@@ -41,7 +41,7 @@
     "@mui/material": "9.0.0",
     "@mui/x-charts": "9.0.4",
     "@navikt/aksel-icons": "8.10.4",
-    "@navikt/ds-css": "8.6.0",
+    "@navikt/ds-css": "8.10.4",
     "@navikt/ds-react": "8.10.4",
     "@navikt/ds-tailwind": "8.10.4",
     "@navikt/ds-tokens": "8.6.0",
