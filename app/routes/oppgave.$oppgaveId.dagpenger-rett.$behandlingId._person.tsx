@@ -16,6 +16,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
+export function shouldRevalidate() {
+  // TODO: her burde vi sjekke om vi skal revalidere eller ei
+  return false;
+}
+
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
