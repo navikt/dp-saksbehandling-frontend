@@ -47,7 +47,7 @@
     "@navikt/ds-tokens": "8.10.4",
     "@navikt/oasis": "4.1.4",
     "@opentelemetry/auto-instrumentations-node": "0.71.0",
-    "@opentelemetry/sdk-node": "0.213.0",
+    "@opentelemetry/sdk-node": "0.217.0",
     "@opentelemetry/sdk-trace-node": "2.7.1",
     "@portabletext/block-tools": "5.1.1",
     "@portabletext/editor": "6.6.2",
