@@ -42,8 +42,8 @@ importers:
         specifier: 8.10.4
         version: 8.10.4(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@navikt/ds-tailwind':
-        specifier: 8.6.0
-        version: 8.6.0
+        specifier: 8.10.4
+        version: 8.10.4
       '@navikt/ds-tokens':
         specifier: 8.6.0
         version: 8.6.0
@@ -1512,8 +1512,8 @@ packages:
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
 
-  '@navikt/ds-tailwind@8.6.0':
-    resolution: {integrity: sha512-+Juw/m7bH6ZkfF7EYZX6/bQMjBAsbJ/GbQbmhoLCSMiSmA1c8U6ImLQBxjDijFsLO4DvVYPgTY/cAiAaF3YR7w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tailwind/8.6.0/f39a4c58d7eab94107bef172a5bf64ce8c248108}
+  '@navikt/ds-tailwind@8.10.4':
+    resolution: {integrity: sha512-IRzt2GOaUDTW533u4mkyTB8zTVkCCSr5BHnxIEPUIVqXsRvHYGnx+xG9MGY9WlwMtzXROqcZolqXpGfx8OZ/IA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tailwind/8.10.4/29d8c03637c7c43cb9c6f33c75f269e4d4c98da6}
 
   '@navikt/ds-tokens@8.10.5':
     resolution: {integrity: sha512-U+2zbkjcQrES9i8g+fgeo2XcWkAc/8ss9MB9aePKGqDjBzf16TcQbxzATPJdN+/GBXnG6xxi1bQsxt+w1AqkfQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.5/619c59293f85ac18dce41261316160a2bedd676f}
@@ -7612,7 +7612,7 @@ snapshots:
       react-day-picker: 9.14.0(react@19.2.5)
       react-dom: 19.2.5(react@19.2.5)
 
-  '@navikt/ds-tailwind@8.6.0': {}
+  '@navikt/ds-tailwind@8.10.4': {}
 
   '@navikt/ds-tokens@8.10.5': {}
 
