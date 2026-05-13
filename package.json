@@ -81,7 +81,7 @@
     "use-debounce": "10.1.1",
     "usehooks-ts": "3.1.1",
     "uuid": "13.0.0",
-    "zod": "4.3.6"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
