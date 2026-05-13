@@ -58,7 +58,7 @@
     "@react-router/node": "7.15.0",
     "@react-router/serve": "7.13.1",
     "@rvf/react-router": "8.1.2",
-    "@sanity/client": "7.21.0",
+    "@sanity/client": "7.22.0",
     "@types/umami": "^2.10.1",
     "canvas-confetti": "1.9.4",
     "classnames": "2.5.1",
