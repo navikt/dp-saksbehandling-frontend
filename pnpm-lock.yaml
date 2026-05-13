@@ -78,8 +78,8 @@ importers:
         specifier: 7.0.27
         version: 7.0.27(@portabletext/editor@6.6.2(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5)
       '@react-router/node':
-        specifier: 7.13.1
-        version: 7.13.1(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)
+        specifier: 7.15.0
+        version: 7.15.0(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)
       '@react-router/serve':
         specifier: 7.13.1
         version: 7.13.1(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)
@@ -2384,6 +2384,16 @@ packages:
     peerDependencies:
       react-router: 7.13.1
       typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@react-router/node@7.15.0':
+    resolution: {integrity: sha512-SgvWaWF1n3u+bpXXZUW9BSd2p/NwkIYLz4SSeDYqoX5RkYX5rcI4cHHuNJXszPu+Dm9QIri4J9g/4EV3KfgiXQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react-router: 7.15.0
+      typescript: ^5.1.0 || ^6.0.0
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -8772,6 +8782,13 @@ snapshots:
       typescript: 6.0.3
 
   '@react-router/node@7.13.1(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)':
+    dependencies:
+      '@mjackson/node-fetch-server': 0.2.0
+      react-router: 7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+    optionalDependencies:
+      typescript: 6.0.3
+
+  '@react-router/node@7.15.0(react-router@7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
       react-router: 7.13.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
