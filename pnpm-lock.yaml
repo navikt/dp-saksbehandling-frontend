@@ -33,8 +33,8 @@ importers:
         specifier: 9.0.2
         version: 9.0.2(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@mui/material@9.0.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@mui/system@9.0.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@navikt/aksel-icons':
-        specifier: 8.6.0
-        version: 8.6.0
+        specifier: 8.10.4
+        version: 8.10.4
       '@navikt/ds-css':
         specifier: 8.6.0
         version: 8.6.0
@@ -1496,11 +1496,8 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@navikt/aksel-icons@8.10.5':
-    resolution: {integrity: sha512-XDmygarYMyGhGxE5x5uVDCxPPW5dty2A0yVvdT+I6VyRjvDDY/jtAw0NU/HV5itAm7prCwO19IKf1DvjuzU31g==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.10.5/5904f4043e27a4f7f7005fd9fd2fe1ceed130d3b}
-
-  '@navikt/aksel-icons@8.6.0':
-    resolution: {integrity: sha512-e+evlFA6eq7vW1pZDg1Fc9V7L7h/Mp1Luubv7kTJUp4IrWQN7Is+nfVj65TLcrQqMm9fjkmc1eI5PcmuY9ibvQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.6.0/ff360cbe68f878b6e8deb59c19a23aa30eacab9e}
+  '@navikt/aksel-icons@8.10.4':
+    resolution: {integrity: sha512-LBfZN6plrHcodbK48SU7jwU9i51WQhLLOWgVa96fJsSHDEz/1nntlRsCuw5Jekubo8/TMrT9WgnJuWgtK5OS1w==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.10.4/17618bd0db4165773e8d2a77a6f759ee99e57e7c}
 
   '@navikt/ds-css@8.6.0':
     resolution: {integrity: sha512-Rv39j5USosDDcOlcfNUG9uVOJ+ZgMjEvVRQdAN0QTVY3rBpceNlMbrBQEo1YzDlA6WpD9d8DyiGuDYYVpakoLw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.6.0/4c763d8f5f64587336bba5cba74b8a16ab379619}
@@ -7594,9 +7591,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@navikt/aksel-icons@8.10.5': {}
-
-  '@navikt/aksel-icons@8.6.0': {}
+  '@navikt/aksel-icons@8.10.4': {}
 
   '@navikt/ds-css@8.6.0': {}
 
@@ -7604,7 +7599,7 @@ snapshots:
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@floating-ui/react-dom': 2.1.8(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@navikt/aksel-icons': 8.10.5
+      '@navikt/aksel-icons': 8.10.4
       '@navikt/ds-tokens': 8.10.5
       '@types/react': 19.2.14
       date-fns: 4.1.0
