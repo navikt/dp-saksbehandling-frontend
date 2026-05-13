@@ -14,8 +14,6 @@ export function RettPåDagpenger() {
   if (!rettPåDagpengerOpplysning) {
     return null;
   }
-  const sisteRettighetsperiode = behandling.rettighetsperioder.at(-1);
-  const sisteRettighetsperiodeIndex = behandling.rettighetsperioder.length - 1;
 
   return (
     <div className={"card flex flex-col gap-4 p-4"}>
@@ -32,13 +30,14 @@ export function RettPåDagpenger() {
         <OpplysningerPåPrøvingsdato behandling={behandling} prøvingsdato={sistePrøvingsdato} />
       )}
 
-      {sisteRettighetsperiode && (
+      {behandling.rettighetsperioder.map((rettighetsperiode, index) => (
         <OpplysningerForRettighetsperiode
-          index={sisteRettighetsperiodeIndex}
-          rettighetsperiode={sisteRettighetsperiode}
+          key={index}
+          index={index}
+          rettighetsperiode={rettighetsperiode}
           opplysninger={behandling.opplysninger}
         />
-      )}
+      ))}
     </div>
   );
 }
