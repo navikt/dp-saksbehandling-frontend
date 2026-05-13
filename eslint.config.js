@@ -1,64 +1,33 @@
 import eslint from "@eslint/js";
+import { globalIgnores } from "eslint/config";
 import prettier from "eslint-config-prettier";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import pluginPrettier from "eslint-plugin-prettier/recommended";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import typescriptEslint from "typescript-eslint";
 
-export default [
+export default typescriptEslint.config([
+  globalIgnores(["graphql/", "build/", ".react-router"]),
   {
-    name: "ignore",
-    ignores: ["graphql/", "build/", ".react-router"],
-  },
-  {
-    name: "eslint/recommended:",
-    ...eslint.configs.recommended,
-  },
-  ...typescriptEslint.configs.recommended,
-  {
-    name: "react/recommended",
-    ...react.configs.flat.recommended,
-    settings: {
-      react: {
-        version: "19",
-      },
-    },
-  },
-  {
-    name: "react/jsx",
-    ...react.configs.flat["jsx-runtime"],
-  },
-  {
-    name: "react/hooks",
-    plugins: { "react-hooks": reactHooks },
-  },
-  {
-    name: "jsx-a11y/recommended",
-    ...jsxA11y.flatConfigs.recommended,
-  },
-  {
-    name: "simple-import-sort/recommended",
+    files: ["**/*.{ts,tsx}"],
+    extends: [eslint.configs.recommended, typescriptEslint.configs.recommended, pluginPrettier],
     plugins: {
+      reactHooks,
+      "jsx-a11y": jsxA11y,
       "simple-import-sort": simpleImportSort,
     },
-    rules: {
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
-    },
-  },
-  {
-    name: "prettier",
-    ...prettier,
-  },
-  {
-    name: "globals",
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
     },
+    rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+    },
   },
-];
+]);
