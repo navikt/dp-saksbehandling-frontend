@@ -8,11 +8,11 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
   return (
     <Table.Header>
       <Table.Row>
-        <Table.ColumnHeader scope="col">
+        <Table.ColumnHeader scope="col" sortable sortKey="opprettet">
           <Detail>Opprettet</Detail>
         </Table.ColumnHeader>
 
-        <Table.ColumnHeader scope="col">
+        <Table.ColumnHeader scope="col" sortable sortKey="utlostAv">
           <Detail>Utløst av</Detail>
         </Table.ColumnHeader>
 
@@ -26,7 +26,7 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
           </Table.ColumnHeader>
         )}
 
-        <Table.ColumnHeader scope="col">
+        <Table.ColumnHeader scope="col" sortable sortKey="status">
           <Detail>Status</Detail>
         </Table.ColumnHeader>
 
@@ -38,7 +38,7 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
           <Detail>Årsak</Detail>
         </Table.ColumnHeader>
 
-        <Table.ColumnHeader scope="col">
+        <Table.ColumnHeader scope="col" sortable sortKey="saksbehandler">
           <Detail>Saksbehandler</Detail>
         </Table.ColumnHeader>
 

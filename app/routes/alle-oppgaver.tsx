@@ -31,6 +31,7 @@ import { appendSearchParamIfNotExists } from "~/utils/url.utils";
 export const alleOppgaverDefaultParams = [
   { key: "side", value: "1" },
   { key: "antallOppgaver", value: "50" },
+  { key: "sorteringsfelt", value: "opprettet" },
   { key: "sortering", value: "DESC" },
 ];
 

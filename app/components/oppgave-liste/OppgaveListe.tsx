@@ -1,5 +1,6 @@
 import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
+import { useSearchParams } from "react-router";
 
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
 import { OppgaveListeHeader } from "~/components/oppgave-liste/OppgaveListeHeader";
@@ -16,6 +17,17 @@ import {
 import { components } from "../../../openapi/saksbehandling-typer";
 import styles from "./OppgaveListe.module.css";
 
+type SortKey = "opprettet" | "utlostAv" | "status" | "saksbehandler";
+type SortDirection = "ascending" | "descending";
+
+function toAkselDirection(sortering: string | null): SortDirection {
+  return sortering === "ASC" ? "ascending" : "descending";
+}
+
+function toApiSortering(direction: SortDirection): "ASC" | "DESC" {
+  return direction === "ascending" ? "ASC" : "DESC";
+}
+
 interface IProps {
   oppgaver: components["schemas"]["OppgaveOversikt"][];
   totaltAntallOppgaver: number;
@@ -28,6 +40,25 @@ interface IProps {
 export function OppgaveListe(props: IProps) {
   const { oppgaver, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sorteringsfelt = (searchParams.get("sorteringsfelt") as SortKey) || "opprettet";
+  const sortering = searchParams.get("sortering");
+
+  const sort = {
+    orderBy: sorteringsfelt,
+    direction: toAkselDirection(sortering),
+  };
+
+  function handleSortChange(sortKey: string) {
+    const nextDirection: SortDirection =
+      sortKey === sort.orderBy && sort.direction === "ascending" ? "descending" : "ascending";
+
+    searchParams.set("sorteringsfelt", sortKey);
+    searchParams.set("sortering", toApiSortering(nextDirection));
+    searchParams.set("side", "1");
+    setSearchParams(searchParams);
+  }
   return (
     <div className="flex flex-col p-4">
       <div className={styles.oppgavelisteHeader}>
@@ -46,7 +77,7 @@ export function OppgaveListe(props: IProps) {
         )}
       </div>
 
-      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
+      <Table size="small" className={"tabell--subtil"} zebraStripes={true} sort={sort} onSortChange={handleSortChange}>
         <OppgaveListeHeader visPersonIdent={visPersonIdent} />
 
         <Table.Body>
