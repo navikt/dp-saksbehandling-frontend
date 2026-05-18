@@ -429,7 +429,9 @@ export interface paths {
                     mineOppgaver?: boolean;
                     antallOppgaver?: number;
                     side?: number;
-                    /** @description Sorteringsrekkefølge for oppgaver basert på opprettet-tidspunkt */
+                    /** @description Feltet oppgaver sorteres på */
+                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler";
+                    /** @description Sorteringsrekkefølge for oppgaver */
                     sortering?: "ASC" | "DESC";
                 };
                 header?: never;
