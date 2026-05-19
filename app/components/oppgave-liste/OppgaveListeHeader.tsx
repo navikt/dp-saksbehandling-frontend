@@ -31,7 +31,7 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
         </Table.ColumnHeader>
 
         <Table.ColumnHeader scope="col">
-          <Detail>Søknadsresultat</Detail>
+          <Detail>Utfall</Detail>
         </Table.ColumnHeader>
 
         <Table.ColumnHeader scope="col">
