@@ -77,13 +77,7 @@ export function OppgaveListe(props: IProps) {
         )}
       </div>
 
-      <Table
-        size="small"
-        className={"tabell--subtil"}
-        zebraStripes={true}
-        sort={sort}
-        onSortChange={handleSortChange}
-      >
+      <Table size="small" className={"tabell--subtil"} zebraStripes={true} sort={sort} onSortChange={handleSortChange}>
         <OppgaveListeHeader visPersonIdent={visPersonIdent} />
 
         <Table.Body>
@@ -277,7 +271,6 @@ export function OppgaveListe(props: IProps) {
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
                         className={"whitespace-nowrap"}
-                        data-color={"meta-lime"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>
                           {emneknagg.visningsnavn}
