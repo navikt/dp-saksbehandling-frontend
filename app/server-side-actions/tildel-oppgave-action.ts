@@ -21,6 +21,10 @@ export async function tildelOppgaveAction(request: Request, formData: FormData) 
 
   switch (data.behandlingType) {
     case "RETT_TIL_DAGPENGER":
+      if (data.utlostAv === "FERIETILLEGG" && data.nyTilstand === "UNDER_BEHANDLING") {
+        return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/avklaringer`);
+      }
+
       if (data.nyTilstand === "UNDER_BEHANDLING") {
         return redirect(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
       }

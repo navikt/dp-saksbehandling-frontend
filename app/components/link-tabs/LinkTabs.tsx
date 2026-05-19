@@ -67,17 +67,21 @@ function getTabs(
       skalViseRegelsett(regelsett, behandling.opplysninger, visArvedeOpplysninger),
     );
 
+  const erFerietillegg = behandling.behandletHendelse.type === "Ferietillegg";
+
   const antallAvklaringer = behandling.avklaringer.filter(
     (avklaring) => avklaring.status === "Åpen",
   ).length;
   const erTilBeslutning = behandling.tilstand === "TilBeslutning";
 
   return [
-    {
-      url: `${baseUrl}/behandle`,
-      label: "Forslag til vedtak",
-      icon: <GavelSoundBlockIcon aria-hidden />,
-    },
+    !erFerietillegg
+      ? {
+          url: `${baseUrl}/behandle`,
+          label: "Forslag til vedtak",
+          icon: <GavelSoundBlockIcon aria-hidden />,
+        }
+      : undefined,
     {
       url: `${baseUrl}/avklaringer`,
       label: "Avklaringer og vurderinger",
