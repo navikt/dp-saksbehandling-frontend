@@ -86,7 +86,7 @@ export default function PersonOversikt() {
 
         <div className={"card"}>
           <OppgaveListe
-            tittel={"Oppgave til behandling"}
+            tittel={"Oppgaver til behandling"}
             icon={<PencilWritingIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaverTilBehandling}
             totaltAntallOppgaver={oppgaverTilBehandling.length}
