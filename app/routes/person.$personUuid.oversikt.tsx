@@ -31,7 +31,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
 
-  const sisteDagpengerRettBehandlingId = personOversikt.saker[0].oppgaver.find(
+  const sisteDagpengerRettBehandlingId = personOversikt.saker[0]?.oppgaver.find(
     (oppgave) =>
       oppgave.behandlingType === "RETT_TIL_DAGPENGER" && oppgave.tilstand === "FERDIG_BEHANDLET",
   )?.behandlingId;
