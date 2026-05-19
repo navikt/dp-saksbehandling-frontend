@@ -1,4 +1,4 @@
-import { ArchiveIcon, FolderFileIcon, LayersIcon, PencilWritingIcon } from "@navikt/aksel-icons";
+import { ArchiveIcon, FolderFileIcon, LayersIcon, ParasolBeachIcon, PencilWritingIcon } from "@navikt/aksel-icons";
 import { BodyShort, Heading, Tabs } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -74,6 +74,8 @@ export default function PersonOversikt() {
     ].includes(oppgave.tilstand),
   );
 
+  const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver)
+
   return (
     <div className="main">
       <div className={`${styles.container}`}>
@@ -92,7 +94,7 @@ export default function PersonOversikt() {
         </div>
 
         <Heading size={"medium"} className={"mt-6"}>
-          Saks- og oppgavehistorikk
+          Dagpenger
         </Heading>
 
         <Tabs defaultValue="siste-sak" size="small" className={"mt-2"}>
@@ -141,6 +143,19 @@ export default function PersonOversikt() {
             </div>
           </Tabs.Panel>
         </Tabs>
+
+        <Heading size={"medium"} className={"mt-6 mb-2"}>
+          Ferietillegg
+        </Heading>
+
+        <div className={"card"}>
+          <OppgaveListe
+            tittel={"Ferietillegg"}
+            icon={<ParasolBeachIcon fontSize="1.5rem" aria-hidden />}
+            oppgaver={ferietilleggOppgaver}
+            totaltAntallOppgaver={ferietilleggOppgaver.length}
+          />
+        </div>
       </div>
     </div>
   );
