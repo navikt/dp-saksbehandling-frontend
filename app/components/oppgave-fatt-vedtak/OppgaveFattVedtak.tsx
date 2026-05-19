@@ -38,7 +38,9 @@ export function OppgaveFattVedtak() {
     setVisFeilmelding(false);
   }, [oppgave.meldingOmVedtakKilde]);
 
-  if (!sistePrøvingsdato) {
+  // TODO: hvorfor var denne sjekken her to begin with?
+  // Burde vi fjerne den, eller burde vi gjøre som nå og spesialhåndtere ferietillegg?
+  if (!sistePrøvingsdato && behandling.behandletHendelse.type !== "Ferietillegg") {
     return null;
   }
 
