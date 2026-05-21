@@ -67,10 +67,6 @@ function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, ver
       return formaterTilBackendDato(verdi);
     }
 
-    case "desimaltall":
-    case "penger":
-      return verdi.replace(",", ".");
-
     case "boolsk":
       return verdi === "Ja" ? "true" : "false";
 
