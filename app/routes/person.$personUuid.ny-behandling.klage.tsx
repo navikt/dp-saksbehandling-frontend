@@ -52,14 +52,14 @@ export default function Oppgave() {
 
           <TextField
             name="journalpostId"
-            label={"Journalpost Id"}
+            label={"Journalpost-ID"}
             size={"small"}
             error={klageForm.error("journalpostId")}
           />
 
           <TextField
             name="sakId"
-            label={"Sak Id"}
+            label={"Sak-ID"}
             size={"small"}
             error={klageForm.error("sakId")}
           />
@@ -78,6 +78,7 @@ export default function Oppgave() {
               type={"submit"}
               size={"small"}
               loading={klageForm.formState.isSubmitting}
+              onClick={() => klageForm.submit()}
             >
               Opprett
             </Button>
