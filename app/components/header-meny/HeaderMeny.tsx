@@ -1,18 +1,17 @@
 import { MoonIcon, SunIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
 import classnames from "classnames";
-import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
+import { useOppgaverQuery } from "~/api/oppgave";
 import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { HippHippHurra } from "~/components/høytid-og-morro/17-mai/HippHippHurra";
 import { Ghosts } from "~/components/høytid-og-morro/halloween/Ghosts";
 import { Adventslys } from "~/components/høytid-og-morro/jul/Adventslys";
 import { Paaske } from "~/components/høytid-og-morro/paaske/Paaske";
 import { Valentines } from "~/components/høytid-og-morro/valentines/Valentines";
-import { useAwaitPromise } from "~/hooks/useResolvedPromise";
+import { useFeatureFlags } from "~/hooks/useFeatureFlags";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import type { ISaksbehandler } from "~/models/microsoft.server";
 import { alleOppgaverDefaultParams } from "~/routes/alle-oppgaver";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
@@ -26,17 +25,17 @@ interface IProps {
 }
 
 export function HeaderMeny({ saksbehandler }: IProps) {
-  const { featureFlags, oppgaverJegHarTilBehandlingPromise } = useTypedRouteLoaderData("root");
-  const { response } = useAwaitPromise(oppgaverJegHarTilBehandlingPromise);
   const { aktivtOppgaveSok, tema, setTema } = useSaksbehandler();
-  const [antallOppgaverJegHarTilBehandling, setAntallOppgaverJegHarTilBehandling] =
-    useState<number>(0);
+  const { featureFlags } = useFeatureFlags();
 
-  useEffect(() => {
-    if (response) {
-      setAntallOppgaverJegHarTilBehandling(response.totaltAntallOppgaver);
-    }
-  }, [response]);
+  const defaultMineOppgaverSearchParams = new URLSearchParams();
+  mineOppgaverDefaultParams.forEach(({ key, value }) => {
+    defaultMineOppgaverSearchParams.append(key, value);
+  });
+
+  const { data } = useOppgaverQuery(defaultMineOppgaverSearchParams);
+
+  const antallOppgaverJegHarTilBehandling = data?.totaltAntallOppgaver ?? 0;
 
   return (
     <div className={styles.container}>
