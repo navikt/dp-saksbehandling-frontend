@@ -6,6 +6,7 @@ import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { formaterTilBackendDato, formaterTilNorskDato } from "~/utils/dato.utils";
 import { isAlert } from "~/utils/type-guards";
 import { hentValideringForNyKlageSkjema } from "~/utils/validering.util";
 
@@ -19,16 +20,30 @@ export default function Oppgave() {
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
 
-  const { datepickerProps, inputProps } = useDatepicker({ toDate: new Date() });
   const klageForm = useForm({
     schema: hentValideringForNyKlageSkjema(),
     submitSource: "state",
     method: "post",
     defaultValues: {
+      _action: "opprett-klage",
       personIdent: personOversikt.person.ident,
-      opprettetDato: "",
-      journalpostId: "",
-      sakId: "",
+      opprettetDato: undefined as unknown as string | undefined,
+      journalpostId: "" as unknown as string,
+      sakId: "" as unknown as string,
+    },
+  });
+
+  const opprettetDatoField = klageForm.field("opprettetDato");
+  const opprettetDatoValue = opprettetDatoField.value();
+  const { datepickerProps, inputProps } = useDatepicker({
+    toDate: new Date(),
+    defaultSelected: opprettetDatoValue
+      ? new Date(formaterTilBackendDato(opprettetDatoValue))
+      : undefined,
+    onDateChange: (date) => {
+      if (date) {
+        opprettetDatoField.setValue(formaterTilNorskDato(date));
+      }
     },
   });
 
@@ -44,24 +59,25 @@ export default function Oppgave() {
             <DatePicker.Input
               {...inputProps}
               label="Klage mottatt"
-              name={"opprettetDato"}
+              form={klageForm.field("opprettetDato").getInputProps().form}
+              name={klageForm.field("opprettetDato").getInputProps().name}
               size={"small"}
               error={klageForm.error("opprettetDato")}
             />
           </DatePicker>
 
           <TextField
-            name="journalpostId"
-            label={"Journalpost Id"}
+            {...klageForm.field("journalpostId").getInputProps()}
+            error={klageForm.field("journalpostId").error()}
+            label={"Journalpost-ID"}
             size={"small"}
-            error={klageForm.error("journalpostId")}
           />
 
           <TextField
-            name="sakId"
-            label={"Sak Id"}
+            {...klageForm.field("sakId").getInputProps()}
+            error={klageForm.field("sakId").error()}
+            label={"Sak-ID"}
             size={"small"}
-            error={klageForm.error("sakId")}
           />
 
           <div className={"flex justify-between"}>
@@ -78,6 +94,7 @@ export default function Oppgave() {
               type={"submit"}
               size={"small"}
               loading={klageForm.formState.isSubmitting}
+              onClick={() => klageForm.submit()}
             >
               Opprett
             </Button>
