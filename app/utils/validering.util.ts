@@ -247,9 +247,11 @@ export function hentValideringOrkestratorBarn() {
 
 export function hentValideringForNyKlageSkjema() {
   return z.object({
-    opprettetDato: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
+    _action: z.literal("opprett-klage"),
+    opprettetDato: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
     ),
     journalpostId: z.string().min(1, { message: "Du må skrive inn journalpost-ID" }),
     sakId: z.uuid({ message: "Du må skrive inn gyldig sak-ID" }),
