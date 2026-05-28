@@ -30,10 +30,15 @@ export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
     ),
   ] as const;
 
-export function useOppgaverQuery(searchParams: URLSearchParams, initialData?: OppgaveListeData) {
-  return useQuery({
+export function useOppgaverQuery(searchParams: URLSearchParams) {
+  const { data, isFetching } = useQuery<OppgaveListeData>({
     queryKey: oppgaverQueryKey(searchParams),
     queryFn: () => fetchOppgaver(searchParams),
-    initialData,
   });
+
+  return {
+    oppgaver: data?.oppgaver ?? [],
+    totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
+    isFetching,
+  };
 }

@@ -1,4 +1,10 @@
-import { ArchiveIcon, FolderFileIcon, LayersIcon, ParasolBeachIcon, PencilWritingIcon } from "@navikt/aksel-icons";
+import {
+  ArchiveIcon,
+  FolderFileIcon,
+  LayersIcon,
+  ParasolBeachIcon,
+  PencilWritingIcon,
+} from "@navikt/aksel-icons";
 import { BodyShort, Heading, Tabs } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
@@ -74,7 +80,7 @@ export default function PersonOversikt() {
     ].includes(oppgave.tilstand),
   );
 
-  const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver)
+  const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver);
 
   return (
     <div className="main">

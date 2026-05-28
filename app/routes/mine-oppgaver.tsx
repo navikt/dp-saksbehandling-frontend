@@ -69,10 +69,9 @@ export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
 
-  const { data, isFetching } = useOppgaverQuery(new URLSearchParams(search));
-
-  const oppgaver = data?.oppgaver ?? [];
-  const totaltAntallOppgaver = data?.totaltAntallOppgaver ?? 0;
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+    new URLSearchParams(search),
+  );
 
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);

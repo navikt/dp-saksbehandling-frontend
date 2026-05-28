@@ -33,9 +33,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
     defaultMineOppgaverSearchParams.append(key, value);
   });
 
-  const { data } = useOppgaverQuery(defaultMineOppgaverSearchParams);
-
-  const antallOppgaverJegHarTilBehandling = data?.totaltAntallOppgaver ?? 0;
+  const { totaltAntallOppgaver } = useOppgaverQuery(defaultMineOppgaverSearchParams);
 
   return (
     <div className={styles.container}>
@@ -56,10 +54,8 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Mine oppgaver
-          {antallOppgaverJegHarTilBehandling > 0 && (
-            <span className={styles.antallOppgaverTilBehandling}>
-              {antallOppgaverJegHarTilBehandling}
-            </span>
+          {totaltAntallOppgaver > 0 && (
+            <span className={styles.antallOppgaverTilBehandling}>{totaltAntallOppgaver}</span>
           )}
         </NavLink>
 

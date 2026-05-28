@@ -19,7 +19,6 @@ import {
 } from "react-router";
 
 import akselDarksideOverrides from "~/aksel-darkside-overrides.css?url";
-import { oppgaverQueryKey } from "~/api/oppgave";
 import { GlobalAlerts } from "~/components/global-alert/GlobalAlerts";
 import { HeaderMeny } from "~/components/header-meny/HeaderMeny";
 import { Flagg } from "~/components/høytid-og-morro/17-mai/Flagg";
@@ -31,13 +30,13 @@ import { FeatureFlagsProvider } from "~/context/feature-flags-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
-import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getEnv } from "~/utils/env.utils";
 
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
 import { unleash } from "./unleash";
+import { prefetchDataForRoute } from "./utils/prefetch.utils";
 
 export function meta() {
   return [
@@ -96,17 +95,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // Only prefetch and dehydrate oppgaver when the initial request targets /mine-oppgaver
   const queryClient = new QueryClient();
   const url = new URL(request.url);
-  if (url.pathname.startsWith("/mine-oppgaver")) {
-    const mineOppgaverParams = new URLSearchParams(
-      "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
-    );
-
-    // Let errors be stored in the query cache (no try/catch here)
-    await queryClient.prefetchQuery({
-      queryKey: oppgaverQueryKey(mineOppgaverParams),
-      queryFn: () => hentOppgaver(request, mineOppgaverParams),
-    });
-  }
+  await prefetchDataForRoute(url, request, queryClient);
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
