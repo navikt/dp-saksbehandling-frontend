@@ -1,4 +1,11 @@
 import { InternalHeader } from "@navikt/ds-react";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { useState } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
   Link,
@@ -19,17 +26,17 @@ import { PumpkinSvg } from "~/components/høytid-og-morro/halloween/PumpkinSvg";
 import { MistelteinSvg } from "~/components/høytid-og-morro/jul/MistelteinSvg";
 import { PaaskeEggHeaderSvg } from "~/components/høytid-og-morro/paaske/PaaskeEggHeaderSvg";
 import { AlertProvider } from "~/context/alert-context";
+import { FeatureFlagsProvider } from "~/context/feature-flags-context";
 import { SaksbehandlerProvider } from "~/context/saksbehandler-context";
 import globalDarksideCss from "~/global-darkside.css?url";
 import { getSaksbehandler } from "~/models/microsoft.server";
-import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/root.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { getEnv } from "~/utils/env.utils";
 
 import { RootErrorBoundaryView } from "./components/error-boundary/RootErrorBoundaryView";
-import { FeatureFlagsProvider } from "./context/feature-flags-context";
 import { unleash } from "./unleash";
+import { prefetchDataForRoute } from "./utils/prefetch.utils";
 
 export function meta() {
   return [
@@ -80,14 +87,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
+export const shouldRevalidate = () => false;
+
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
-  const oppgaverJegHarTilBehandlingPromise = hentOppgaver(
-    request,
-    new URLSearchParams(
-      "?mineOppgaver=true&tilstand=KLAR_TIL_BEHANDLING&tilstand=UNDER_BEHANDLING&tilstand=KLAR_TIL_KONTROLL&tilstand=UNDER_KONTROLL",
-    ),
-  );
+
+  // Only prefetch and dehydrate oppgaver when the initial request targets /mine-oppgaver
+  const queryClient = new QueryClient();
+  const url = new URL(request.url);
+  await prefetchDataForRoute(url, request, queryClient);
 
   const jul = unleash.isEnabled("dp-saksbehandling-frontend.jul");
   const halloween = unleash.isEnabled("dp-saksbehandling-frontend.halloween");
@@ -102,8 +110,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   );
 
   return {
-    saksbehandler: saksbehandler,
-    oppgaverJegHarTilBehandlingPromise,
+    saksbehandler,
+    dehydratedState: dehydrate(queryClient),
     featureFlags: {
       jul,
       halloween,
@@ -133,7 +141,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  const { env, saksbehandler, featureFlags } = useLoaderData<typeof loader>();
+  const { env, saksbehandler, featureFlags, dehydratedState } = useLoaderData<typeof loader>();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+          },
+        },
+      }),
+  );
 
   return (
     <html lang="nb">
@@ -143,45 +161,55 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <FeatureFlagsProvider featureFlags={featureFlags}>
-          <SaksbehandlerProvider>
-            {env.GCP_ENV === "dev" && (
-              <div className={styles.devEnvironmentBanner}>
-                <img src="/liverpool-fc.svg" alt="Liverpool FC" className={styles.devBannerImage} />
-                DEV-MILJØ
-                <img src="/liverpool-fc.svg" alt="Liverpool FC" className={styles.devBannerImage} />
-              </div>
-            )}
-            <InternalHeader className={styles.header}>
-              <Link to={"/"} className={styles.headerLogo}>
-                <InternalHeader.Title as="h1" className={styles.pageHeader}>
-                  {featureFlags.halloween && <PumpkinSvg />}
-                  {featureFlags.jul && <MistelteinSvg />}
-                  {featureFlags.hippHippHurra && <Flagg />}
-                  {featureFlags.paaske && <PaaskeEggHeaderSvg />}
-                  Dagpenger
-                </InternalHeader.Title>
-              </Link>
+        <QueryClientProvider client={queryClient}>
+          <HydrationBoundary state={dehydratedState}>
+            <FeatureFlagsProvider featureFlags={featureFlags}>
+              <SaksbehandlerProvider>
+                {env.GCP_ENV === "dev" && (
+                  <div className={styles.devEnvironmentBanner}>
+                    <img
+                      src="/liverpool-fc.svg"
+                      alt="Liverpool FC"
+                      className={styles.devBannerImage}
+                    />
+                    DEV-MILJØ
+                    <img
+                      src="/liverpool-fc.svg"
+                      alt="Liverpool FC"
+                      className={styles.devBannerImage}
+                    />
+                  </div>
+                )}
+                <InternalHeader className={styles.header}>
+                  <Link to={"/"} className={styles.headerLogo}>
+                    <InternalHeader.Title as="h1" className={styles.pageHeader}>
+                      {featureFlags.halloween && <PumpkinSvg />}
+                      {featureFlags.jul && <MistelteinSvg />}
+                      {featureFlags.hippHippHurra && <Flagg />}
+                      {featureFlags.paaske && <PaaskeEggHeaderSvg />}
+                      Dagpenger
+                    </InternalHeader.Title>
+                  </Link>
 
-              <HeaderMeny saksbehandler={saksbehandler} />
-            </InternalHeader>
+                  <HeaderMeny saksbehandler={saksbehandler} />
+                </InternalHeader>
 
-            <AlertProvider>
-              <GlobalAlerts />
+                <AlertProvider>
+                  <GlobalAlerts />
 
-              <Outlet />
-            </AlertProvider>
+                  <Outlet />
+                </AlertProvider>
 
-            <ScrollRestoration />
-            <Scripts />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `window.env = ${JSON.stringify(env)}`,
-              }}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
+                <ScrollRestoration />
+                <Scripts />
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `window.env = ${JSON.stringify(env)}`,
+                  }}
+                />
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `
                 window.umamiBeforeSend = function(type, payload) {
                   if (payload.url) {
                     var ids = new Set(["oppgave","dagpenger-rett","person","innsending","klage"]);
@@ -194,17 +222,19 @@ export default function App() {
                   return payload;
                 }
               `,
-              }}
-            />
-            <script
-              defer
-              src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
-              data-host-url={env.UMAMI_HOST_URL}
-              data-website-id={env.UMAMI_TRACKING_ID}
-              data-before-send="umamiBeforeSend"
-            />
-          </SaksbehandlerProvider>
-        </FeatureFlagsProvider>
+                  }}
+                />
+                <script
+                  defer
+                  src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+                  data-host-url={env.UMAMI_HOST_URL}
+                  data-website-id={env.UMAMI_TRACKING_ID}
+                  data-before-send="umamiBeforeSend"
+                />
+              </SaksbehandlerProvider>
+            </FeatureFlagsProvider>
+          </HydrationBoundary>
+        </QueryClientProvider>
       </body>
     </html>
   );

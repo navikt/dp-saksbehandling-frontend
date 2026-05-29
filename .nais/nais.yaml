@@ -8,7 +8,7 @@ metadata:
     app: dp-saksbehandling-frontend
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "64M"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "100"
 spec:
   image: "{{image}}"
   port: 3000

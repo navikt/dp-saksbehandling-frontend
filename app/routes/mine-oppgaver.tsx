@@ -6,16 +6,15 @@ import {
   redirect,
   useActionData,
   useLoaderData,
-  useNavigation,
 } from "react-router";
 
+import { useOppgaverQuery } from "~/api/oppgave";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -50,15 +49,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     }
   }
 
-  const { oppgaver, totaltAntallOppgaver } = await hentOppgaver(request, url.searchParams);
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
-      oppgaver,
-      totaltAntallOppgaver,
+      search: url.search,
     },
     {
       headers: {
@@ -69,9 +66,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const { state } = useNavigation();
   const actionData = useActionData<typeof action>();
-  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  const { alert, search } = useLoaderData<typeof loader>();
+
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+    new URLSearchParams(search),
+  );
+
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
@@ -92,7 +93,7 @@ export default function Saksbehandling() {
             oppgaver={oppgaver}
             visPersonIdent={true}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={state !== "idle"}
+            lasterOppgaver={isFetching}
           />
         </div>
       </main>

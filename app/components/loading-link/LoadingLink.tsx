@@ -13,7 +13,7 @@ export function LoadingLink(props: PropsWithChildren<IProps>) {
   const navigation = useNavigation();
 
   const isNavigatingToThisLink =
-    navigation.state === "loading" && navigation.location.pathname === props.to;
+    navigation.state === "loading" && navigation.location?.pathname === props.to;
 
   if (props.asButtonVariant) {
     return (
