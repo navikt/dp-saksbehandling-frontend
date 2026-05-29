@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import type { components } from "../../openapi/saksbehandling-typer";
 
@@ -34,6 +34,7 @@ export function useOppgaverQuery(searchParams: URLSearchParams) {
   const { data, isFetching } = useQuery<OppgaveListeData>({
     queryKey: oppgaverQueryKey(searchParams),
     queryFn: () => fetchOppgaver(searchParams),
+    placeholderData: keepPreviousData,
   });
 
   return {

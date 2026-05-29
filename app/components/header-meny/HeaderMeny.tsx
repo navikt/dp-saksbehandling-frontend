@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from "@navikt/aksel-icons";
-import { Button } from "@navikt/ds-react";
+import { Button, Loader } from "@navikt/ds-react";
 import classnames from "classnames";
 import { NavLink } from "react-router";
 
@@ -33,7 +33,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
     defaultMineOppgaverSearchParams.append(key, value);
   });
 
-  const { totaltAntallOppgaver } = useOppgaverQuery(defaultMineOppgaverSearchParams);
+  const { totaltAntallOppgaver, isFetching } = useOppgaverQuery(defaultMineOppgaverSearchParams);
 
   return (
     <div className={styles.container}>
@@ -54,6 +54,9 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Mine oppgaver
+          {isFetching && (
+            <Loader size="small" className={styles.loader} title="Henter oppgaver..." />
+          )}
           {totaltAntallOppgaver > 0 && (
             <span className={styles.antallOppgaverTilBehandling}>{totaltAntallOppgaver}</span>
           )}

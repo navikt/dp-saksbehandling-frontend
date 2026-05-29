@@ -9,10 +9,10 @@ import {
   redirect,
   useActionData,
   useLoaderData,
-  useNavigation,
   useSearchParams,
 } from "react-router";
 
+import { useOppgaverQuery } from "~/api/oppgave";
 import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
@@ -23,7 +23,6 @@ import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilte
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentOppgaver } from "~/models/saksbehandling.server";
 import styles from "~/route-styles/index.module.css";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -53,15 +52,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
       return redirect(url.toString());
     }
   }
-  const { oppgaver, totaltAntallOppgaver } = await hentOppgaver(request, url.searchParams);
+
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
   return data(
     {
       alert,
-      oppgaver,
-      totaltAntallOppgaver,
+      search: url.search,
     },
     {
       headers: {
@@ -72,11 +70,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const { state } = useNavigation();
   const [searchParams] = useSearchParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
-  const { alert, oppgaver, totaltAntallOppgaver } = useLoaderData<typeof loader>();
+  const { alert, search } = useLoaderData<typeof loader>();
+  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+    new URLSearchParams(search),
+  );
   const { setAktivtOppgaveSok } = useSaksbehandler();
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -107,8 +107,8 @@ export default function Saksbehandling() {
             variant="primary"
             size="small"
             type="submit"
-            loading={state !== "idle"}
-            disabled={state !== "idle"}
+            loading={isFetching}
+            disabled={isFetching}
           >
             Neste oppgave
           </Button>
@@ -120,7 +120,7 @@ export default function Saksbehandling() {
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={state !== "idle"}
+            lasterOppgaver={isFetching}
           />
         </div>
       </main>

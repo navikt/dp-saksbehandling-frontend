@@ -26,7 +26,11 @@ export const prefetchDataForRoute = async (
       queryKey: oppgaverQueryKey(url.searchParams),
       queryFn: () => hentOppgaver(request, url.searchParams),
     });
+  } else if (url.pathname === "/") {
+    await queryClient.prefetchQuery({
+      queryKey: oppgaverQueryKey(url.searchParams),
+      queryFn: () => hentOppgaver(request, url.searchParams),
+    });
   }
-
   return queryClient;
 };
