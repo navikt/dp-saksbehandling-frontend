@@ -146,7 +146,11 @@ export default function App() {
         <FeatureFlagsProvider featureFlags={featureFlags}>
           <SaksbehandlerProvider>
             {env.GCP_ENV === "dev" && (
-              <div className={styles.devEnvironmentBanner}>DEV-MILJØ</div>
+              <div className={styles.devEnvironmentBanner}>
+                <img src="/liverpool-fc.svg" alt="Liverpool FC" className={styles.devBannerImage} />
+                DEV-MILJØ
+                <img src="/liverpool-fc.svg" alt="Liverpool FC" className={styles.devBannerImage} />
+              </div>
             )}
             <InternalHeader className={styles.header}>
               <Link to={"/"} className={styles.headerLogo}>
