@@ -36,3 +36,16 @@ updates:
       timezone: "Europe/Oslo"
     cooldown:
       default-days: 7
+    groups:
+      # Group all react-router dependencies together
+      react-router:
+        patterns:
+          - "react-router*"
+          - "@react-router*"
+      navikt:
+        patterns:
+          - "@navikt/*"
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint*"
