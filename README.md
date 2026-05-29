@@ -2,31 +2,42 @@
 
 ## Komme i gang
 
-Appen er basert på    ~~[Remix](https://remix.run/docs)~~ [React router Framework mode](https://reactrouter.com/home)
+Appen er basert på ~~[Remix](https://remix.run/docs)~~ [React Router Framework mode](https://reactrouter.com/home).
 
-Lag .env fil og oppdater .env med unleash token. Du finner unleash token
-her https://dagpenger-unleash-web.nav.cloud.nais.io/admin/api
+### Forutsetninger
 
-```
+- Node.js (se `.nvmrc` for versjon) — kjør `nvm use` for å bruke riktig versjon
+- [pnpm](https://pnpm.io/) som pakkebehandler
+- GitHub Personal Access Token med `read:packages` scope (se [Manglende autentisering](#manglende-autentisering-ved-installasjon-av-navikt-npm-pakker))
+
+### Oppsett
+
+1. Kopier `.env.example` til `.env` og oppdater med Unleash-token.
+   Token finner du her: https://dagpenger-unleash-web.nav.cloud.nais.io/admin/api
+
+```sh
 cp .env.example .env
 ```
 
-Installer NPM pakker og kjør appen
+2. Installer avhengigheter og start appen:
 
 ```sh
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
+
+Appen kjører nå på `http://localhost:3000` med mockede API-er (MSW).
 
 ## Kjøre mot dev-APIer i localhost
 
-Vi trenger `access_token` for å kunne kjøre requester mot backend endepunkter. Vi må ha et token per tjeneste og
-Env-variabelen `USE_MSW="false"` må også være satt. Start opp Naisdevice (den må bli grønn)
+Vi trenger `access_token` for å kunne kjøre requester mot backend-endepunkter. Vi må ha et token per tjeneste og env-variabelen `USE_MSW="false"` må være satt.
+
+**Forutsetninger:** Start opp [Naisdevice](https://doc.nais.io/operate/naisdevice/) (den må bli grønn).
 
 For å generere nye tokens, kjør:
 
 ```sh
-npm run generate-token
+pnpm generate-token
 ```
 
 Følg instruksjoner scriptet gir. Scriptet vil oppdaterer nødvendige tokens og `.env` filen vil se f.eks slik ut.
