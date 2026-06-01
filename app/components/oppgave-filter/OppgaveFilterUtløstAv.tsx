@@ -12,7 +12,6 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "KLAGE",
   "INNSENDING",
   "REVURDERING",
-  // "TILBAKEKREVING",
   "OPPFØLGING",
   "ARBEIDSSØKERPERIODE",
   "FERIETILLEGG",

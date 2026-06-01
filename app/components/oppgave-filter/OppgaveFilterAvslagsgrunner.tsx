@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 
 import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 
-const AVSLAGSGRUNNER = ["Minsteinntekt", "Reell arbeidssøker"];
+const AVSLAGSGRUNNER = ["Minsteinntekt"];
 
 export function OppgaveFilterAvslagsgrunner() {
   const { searchParams, toggleSearchParam } = useToggleSearchParam();

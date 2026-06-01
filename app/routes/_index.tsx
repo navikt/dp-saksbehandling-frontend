@@ -70,7 +70,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function Saksbehandling() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
@@ -81,6 +81,13 @@ export default function Saksbehandling() {
   useHandleAlertMessages(alert);
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
+  const tidskritiskeOppgaver = {
+    tilstand: "KLAR_TIL_BEHANDLING",
+    side: "1",
+    antallOppgaver: "50",
+    utlostAv: ["MELDEKORT", "SAMORDNING", "OPPFØLGING", "ARBEIDSSØKERPERIODE"],
+  };
+
   useEffect(() => {
     setAktivtOppgaveSok(searchParams.toString());
   }, [searchParams]);
@@ -88,6 +95,15 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
+        <div>
+          <Button
+            variant="secondary"
+            size="small"
+            onClick={() => setSearchParams(tidskritiskeOppgaver)}
+          >
+            Vis kun tidskritiske oppgaver
+          </Button>
+        </div>
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
         <OppgaveFilterStatus
