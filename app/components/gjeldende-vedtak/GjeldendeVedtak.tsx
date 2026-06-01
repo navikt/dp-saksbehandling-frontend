@@ -83,7 +83,7 @@ export function GjeldendeVedtak({ dagpengerRettBehandling }: IProps) {
         <VerdiMedTittel
           visBorder={false}
           label={"Sist endret"}
-          verdi={formaterTilNorskDato(dagpengerRettBehandling.opprettet)}
+          verdi={formaterTilNorskDato(dagpengerRettBehandling.sistEndret)}
         />
       </div>
     </div>
