@@ -12,7 +12,6 @@ const utløstAvTyper: components["schemas"]["UtlostAvType"][] = [
   "KLAGE",
   "INNSENDING",
   "REVURDERING",
-  // "TILBAKEKREVING",
   "OPPFØLGING",
   "ARBEIDSSØKERPERIODE",
   "FERIETILLEGG",
@@ -32,7 +31,7 @@ export function OppgaveFilterUtløstAv() {
             key={type}
             name="utløstAv"
             value={type}
-            defaultChecked={utløstAv.includes(type)}
+            checked={utløstAv.includes(type)}
             onChange={(event) => toggleSearchParam("utlostAv", event.currentTarget.value)}
           >
             {hentUtløstAvTekstForVisning(type)}
