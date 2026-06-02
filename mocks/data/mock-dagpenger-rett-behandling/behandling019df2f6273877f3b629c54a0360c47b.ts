@@ -96,6 +96,7 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019d7695-7c15-74b7-a3af-7c82e47c2a20",
@@ -124,6 +125,7 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019d7232-0fe1-79fa-8a87-b6937fe67079",
@@ -145,6 +147,7 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019d7231-ddc0-7059-a631-7d4d06b974de",
@@ -181,6 +184,7 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019d7231-21b8-7d1f-9e3a-314195d9f347",
@@ -215,6 +219,7 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
   ],
   forslagOm: "Avslag",

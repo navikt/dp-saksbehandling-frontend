@@ -25,6 +25,7 @@ export const oppfolging: components["schemas"]["Oppgave"] = {
     skjermesSomEgneAnsatte: false,
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
+    erNodbremset: false,
   },
   tidspunktOpprettet: "2025-09-15T00:00:00",
   behandlingType: "OPPFØLGING",
