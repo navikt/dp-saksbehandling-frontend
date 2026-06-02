@@ -79,17 +79,26 @@ export function hentGyldigeOppgaveValg(
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
 ): IGyldigeOppgaveHandlinger[] {
+  const handlinger: IGyldigeOppgaveHandlinger[] = [];
+  if (
+    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
+    oppgave.tilstand === "PAA_VENT" ||
+    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
+  ) {
+    handlinger.push("behandle-oppgave");
+  }
+
   switch (oppgave.behandlingType) {
     case "RETT_TIL_DAGPENGER":
-      return hentGyldigeDagpengerRettOppgaveValg(oppgave, minOppgave);
+      return hentGyldigeDagpengerRettOppgaveValg(oppgave, minOppgave, handlinger);
     case "KLAGE":
-      return hentGyldigeKlageOppgaveValg(oppgave, minOppgave);
+      return hentGyldigeKlageOppgaveValg(oppgave, minOppgave, handlinger);
     case "INNSENDING":
-      return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave);
+      return hentGyldigeInnsendingOppgaveValg(oppgave, minOppgave, handlinger);
     case "TILBAKEKREVING":
-      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, minOppgave);
+      return hentGyldigeTilbakekrevingOppgaveValg(oppgave, minOppgave, handlinger);
     case "OPPFØLGING":
-      return hentGyldigeOppfolgingValg(oppgave, minOppgave);
+      return hentGyldigeOppfolgingValg(oppgave, minOppgave, handlinger);
     default:
       return [];
   }
@@ -100,17 +109,8 @@ function hentGyldigeDagpengerRettOppgaveValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
+  handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
-  const handlinger: IGyldigeOppgaveHandlinger[] = [];
-
-  if (
-    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
-    oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
-  ) {
-    handlinger.push("behandle-oppgave");
-  }
-
   if (
     oppgave.tilstand === "KLAR_TIL_KONTROLL" ||
     (oppgave.tilstand === "UNDER_KONTROLL" && minOppgave)
@@ -158,23 +158,14 @@ function hentGyldigeKlageOppgaveValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
+  handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
-  const handlinger: IGyldigeOppgaveHandlinger[] = [];
-
   if (
     oppgave.tilstand === "FERDIG_BEHANDLET" ||
     oppgave.tilstand === "AVBRUTT" ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
   ) {
     handlinger.push("se-oppgave");
-  }
-
-  if (
-    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
-    oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
-  ) {
-    handlinger.push("behandle-oppgave");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
@@ -189,23 +180,14 @@ function hentGyldigeInnsendingOppgaveValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
+  handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
-  const handlinger: IGyldigeOppgaveHandlinger[] = [];
-
   if (
     oppgave.tilstand === "FERDIG_BEHANDLET" ||
     oppgave.tilstand === "AVBRUTT" ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
   ) {
     handlinger.push("se-oppgave");
-  }
-
-  if (
-    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
-    oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
-  ) {
-    handlinger.push("behandle-oppgave");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
@@ -220,23 +202,13 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
+  handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
-  const handlinger: IGyldigeOppgaveHandlinger[] = [];
-
   if (
-    oppgave.tilstand === "FERDIG_BEHANDLET" ||
-    oppgave.tilstand === "AVBRUTT" ||
+    ["FERDIG_BEHANDLET", "AVBRUTT"].includes(oppgave.tilstand) ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
   ) {
     handlinger.push("se-oppgave");
-  }
-
-  if (
-    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
-    oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
-  ) {
-    handlinger.push("behandle-oppgave");
   }
 
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
@@ -251,27 +223,20 @@ function hentGyldigeOppfolgingValg(
     | saksbehandlingComponent["schemas"]["Oppgave"]
     | saksbehandlingComponent["schemas"]["OppgaveOversikt"],
   minOppgave: boolean,
+  handlinger: IGyldigeOppgaveHandlinger[],
 ): IGyldigeOppgaveHandlinger[] {
-  const handlinger: IGyldigeOppgaveHandlinger[] = [];
-
   if (
-    oppgave.tilstand === "FERDIG_BEHANDLET" ||
-    oppgave.tilstand === "AVBRUTT" ||
+    ["FERDIG_BEHANDLET", "AVBRUTT", "PAA_VENT"].includes(oppgave.tilstand) ||
     (oppgave.tilstand === "UNDER_BEHANDLING" && !minOppgave)
   ) {
     handlinger.push("se-oppgave");
   }
 
-  if (
-    oppgave.tilstand === "KLAR_TIL_BEHANDLING" ||
-    oppgave.tilstand === "PAA_VENT" ||
-    (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave)
-  ) {
-    handlinger.push("behandle-oppgave");
-  }
-
-  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+    if (minOppgave) {
+      handlinger.push("utsett-oppgave");
+    }
   }
 
   return handlinger;
