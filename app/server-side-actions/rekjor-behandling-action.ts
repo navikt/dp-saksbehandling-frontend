@@ -12,9 +12,14 @@ export async function rekjorBehandlingAction(request: Request, formData: FormDat
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, ident } = validertSkjema.data;
+  const { behandlingId, ident, opplysningerSomSkalOppfriskes } = validertSkjema.data;
 
-  const { error } = await rekjorBehandling(request, behandlingId, ident, []);
+  const { error } = await rekjorBehandling(
+    request,
+    behandlingId,
+    ident,
+    opplysningerSomSkalOppfriskes,
+  );
 
   if (error) {
     return getHttpProblemAlert(error);

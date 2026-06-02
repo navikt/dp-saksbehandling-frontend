@@ -7,7 +7,6 @@ import { ActionMenu, Button } from "@navikt/ds-react";
 
 import { OppgaveValgBehandle } from "~/components/oppgave-valg/OppgaveValgBehandle";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
-import { OppgaveValgRekjørBehandling } from "~/components/oppgave-valg/OppgaveValgRekjørBehandling";
 import { hentGyldigeOppgaveValg } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 
@@ -42,15 +41,6 @@ export function ListeOppgaveMeny({ listeOppgave }: IProps) {
               switch (valg) {
                 case "legg-tilbake-oppgave":
                   return <OppgaveValgLeggTilbake key={valg} oppgave={listeOppgave} />;
-
-                case "rekjor-behandling":
-                  return (
-                    <OppgaveValgRekjørBehandling
-                      key={valg}
-                      behandlingId={listeOppgave.behandlingId}
-                      personIdent={listeOppgave.personIdent}
-                    />
-                  );
 
                 case "behandle-oppgave":
                   return (
