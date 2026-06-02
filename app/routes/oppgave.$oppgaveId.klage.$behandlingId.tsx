@@ -22,7 +22,6 @@ import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentJournalpost } from "~/models/saf.server";
 import { hentKlage, hentMeldingOmVedtakHtml, hentOppgave } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
 import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
@@ -48,10 +47,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
     ]);
 
-  const journalposterPromises = Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
-
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
@@ -63,7 +58,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       meldingOmVedtak,
       sanityBrevMaler,
       sanityRegelmotorOpplysninger,
-      journalposterPromises,
     },
     {
       headers: {
@@ -75,15 +69,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const {
-    oppgave,
-    meldingOmVedtak,
-    klage,
-    alert,
-    sanityBrevMaler,
-    sanityRegelmotorOpplysninger,
-    journalposterPromises,
-  } = useLoaderData<typeof loader>();
+  const { oppgave, meldingOmVedtak, klage, alert, sanityBrevMaler, sanityRegelmotorOpplysninger } =
+    useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -103,14 +90,10 @@ export default function Oppgave() {
   ];
 
   return (
-    <OppgaveProvider
-      oppgave={oppgave}
-      saksbehandler={saksbehandler}
-      journalposterPromises={journalposterPromises}
-    >
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} />
       <div className={`main flex gap-4`}>
-        <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        <OppgaveOversikt />
         <main className={"card flex flex-1 flex-col gap-4 p-2"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <div className="flex items-center justify-between gap-6">

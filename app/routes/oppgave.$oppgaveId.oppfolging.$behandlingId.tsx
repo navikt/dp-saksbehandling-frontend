@@ -42,16 +42,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function OppfolgingRoute() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, oppfolging, journalposter } = useLoaderData<typeof loader>();
+  const { oppgave, oppfolging } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <OppgaveProvider
-      oppgave={oppgave}
-      saksbehandler={saksbehandler}
-      journalposterPromises={Promise.all(journalposter)}
-    >
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
         <OppfolgingInfo oppfolging={oppfolging} />

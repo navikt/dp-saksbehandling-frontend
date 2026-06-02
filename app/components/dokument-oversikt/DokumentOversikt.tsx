@@ -1,26 +1,33 @@
+import { useQueries } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { Await } from "react-router";
 
-import { AsyncErrorMelding } from "~/components/async-error-melding/AsyncErrorMelding";
+import { JournalpostQuery } from "@/graphql/generated/saf/graphql";
 import { CenteredLoader } from "~/components/centered-loader/CenteredLoader";
 import { JournalpostOversikt } from "~/components/dokument-oversikt/JournalpostOversikt";
-import { hentJournalpost } from "~/models/saf.server";
+import { useOppgave } from "~/hooks/useOppgave";
 
-interface IProps {
-  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
-}
+const fetchJournalpost = (journalpostId: string): Promise<JournalpostQuery["journalpost"]> =>
+  fetch(`/api/journalpost/${journalpostId}`).then((res) => res.json());
 
-export function DokumentOversikt({ journalposterPromises }: IProps) {
+export function DokumentOversikt() {
+  const { oppgave } = useOppgave();
+  console.log("oppgave", oppgave);
+  const { data } = useQueries({
+    queries: oppgave.journalpostIder.map((journalpostId) => ({
+      queryKey: ["journalpost", journalpostId],
+      queryFn: () => fetchJournalpost(journalpostId),
+    })),
+    combine: (results) => {
+      return {
+        data: results.map((result) => result.data),
+        pending: results.some((result) => result.isPending),
+      };
+    },
+  });
+  console.log("data", data);
   return (
     <Suspense fallback={<CenteredLoader size={"large"} loadingText={"Henter dokumenter"} />}>
-      <Await
-        resolve={journalposterPromises}
-        errorElement={
-          <AsyncErrorMelding tittel={"En feil oppsto når vi skulle hente ut dokumentene 🤖"} />
-        }
-      >
-        {(journalposter) => <JournalpostOversikt journalposterResponse={journalposter} />}
-      </Await>
+      <JournalpostOversikt journalposterResponse={data} />
     </Suspense>
   );
 }

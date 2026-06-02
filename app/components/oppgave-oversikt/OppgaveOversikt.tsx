@@ -12,7 +12,6 @@ import { OppgaveKontroll } from "~/components/oppgave-kontroll/OppgaveKontroll";
 import { OppgaveOversiktVisArvedeOpplysninger } from "~/components/oppgave-oversikt/OppgaveOversiktVisArvedeOpplysninger";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
-import { hentJournalpost } from "~/models/saf.server";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import {
   hentFargevariantForSøknadsresultat,
@@ -20,11 +19,7 @@ import {
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
 
-interface IProps {
-  journalposterPromises: Promise<Awaited<ReturnType<typeof hentJournalpost>>[]>;
-}
-
-export function OppgaveOversikt({ journalposterPromises }: IProps) {
+export function OppgaveOversikt() {
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
@@ -232,7 +227,7 @@ export function OppgaveOversikt({ journalposterPromises }: IProps) {
                 <Heading className={"pb-2"} size={"small"}>
                   Dokumenter
                 </Heading>
-                <DokumentOversikt journalposterPromises={journalposterPromises} />
+                <DokumentOversikt />
               </div>
 
               <div className={"card p-4"}>

@@ -8,7 +8,6 @@ import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentBehandling, hentVurderinger } from "~/models/behandling.server";
 import { hentRapporteringPersonId } from "~/models/rapportering.server";
-import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 
@@ -30,35 +29,22 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     : undefined;
 
   const rapporteringPersonIdPromise = hentRapporteringPersonId(request, oppgave.person.ident);
-  const journalposterPromises = Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
+
   return {
     oppgave,
     behandling,
     forrigeBehandling,
     vurderinger,
-    journalposterPromises,
     rapporteringPersonIdPromise,
   };
 }
 
 export default function BehandlingLayout() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const {
-    oppgave,
-    behandling,
-    forrigeBehandling,
-    vurderinger,
-    journalposterPromises,
-    rapporteringPersonIdPromise,
-  } = useLoaderData<typeof loader>();
+  const { oppgave, behandling, forrigeBehandling, vurderinger, rapporteringPersonIdPromise } =
+    useLoaderData<typeof loader>();
   return (
-    <OppgaveProvider
-      oppgave={oppgave}
-      saksbehandler={saksbehandler}
-      journalposterPromises={journalposterPromises}
-    >
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <BeslutterNotatProvider notat={oppgave.notat}>
         <BehandlingProvider
           behandling={behandling}

@@ -91,11 +91,7 @@ export default function Innsending() {
   }
 
   return (
-    <OppgaveProvider
-      oppgave={oppgave}
-      saksbehandler={saksbehandler}
-      journalposterPromises={Promise.all(journalposter)}
-    >
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
         <section className="flex flex-col gap-4">
