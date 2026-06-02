@@ -2,22 +2,13 @@
   position: sticky;
   top: 0;
   z-index: 101;
-  background-color: #c8102e;
+  background-color: hotpink;
   color: white;
   text-align: center;
   font-weight: bold;
   font-size: 0.75rem;
   padding: 2px 0;
   letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.devBannerImage {
-  height: 20px;
-  width: auto;
 }
 
 .header {
