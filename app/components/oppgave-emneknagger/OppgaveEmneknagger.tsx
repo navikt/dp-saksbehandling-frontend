@@ -16,7 +16,7 @@ export function OppgaveEmneknagger({ oppgave, laster }: IProps) {
     : undefined;
 
   return (
-    <>
+    <div className="flex flex-wrap gap-1">
       {oppgave.emneknagger.map((emneknagg) => (
         <Tag
           className={"whitespace-nowrap"}
@@ -81,6 +81,6 @@ export function OppgaveEmneknagger({ oppgave, laster }: IProps) {
             <Detail as={laster ? Skeleton : "p"}>Strengt fortrolig utland</Detail>
           </Tag>
         )}
-    </>
+    </div>
   );
 }

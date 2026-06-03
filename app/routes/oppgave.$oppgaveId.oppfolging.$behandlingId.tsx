@@ -54,9 +54,7 @@ export default function OppfolgingRoute() {
     >
       <PersonBoks person={oppgave.person} />
       <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
-        <section className="flex flex-col gap-4">
-          <OppfolgingInfo oppfolging={oppfolging} />
-        </section>
+        <OppfolgingInfo oppfolging={oppfolging} />
         <OppfolgingInnhold oppfolging={oppfolging} />
       </div>
     </OppgaveProvider>
