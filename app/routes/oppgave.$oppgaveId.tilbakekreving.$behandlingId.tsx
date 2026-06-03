@@ -16,7 +16,6 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentJournalpost } from "~/models/saf.server";
 import { hentOppgave, hentTilbakekreving } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -31,32 +30,23 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const tilbakekreving = await hentTilbakekreving(request, params.behandlingId);
 
-  const journalposterPromises = Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
-
   return {
     oppgave,
     tilbakekreving,
-    journalposterPromises,
   };
 }
 
 export default function Tilbakekreving() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, tilbakekreving, journalposterPromises } = useLoaderData<typeof loader>();
+  const { oppgave, tilbakekreving } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <OppgaveProvider
-      oppgave={oppgave}
-      saksbehandler={saksbehandler}
-      journalposterPromises={journalposterPromises}
-    >
+    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} />
       <div className={"main flex gap-4"}>
-        <OppgaveOversikt journalposterPromises={journalposterPromises} />
+        <OppgaveOversikt />
         <div
           className={"card flex flex-1 flex-col items-center justify-center gap-4 p-4 text-center"}
         >
