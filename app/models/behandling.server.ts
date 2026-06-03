@@ -102,7 +102,7 @@ export async function rekjorBehandling(
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/behandling/{behandlingId}/rekjor", {
     headers: getHeaders(onBehalfOfToken),
-    body: { ident: ident, opplysninger: opplysningIderSomSkalOppfriskes },
+    body: { ident: ident, oppfrisk: opplysningIderSomSkalOppfriskes },
     params: {
       path: { behandlingId },
     },
