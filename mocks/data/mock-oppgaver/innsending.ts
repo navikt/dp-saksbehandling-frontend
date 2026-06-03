@@ -25,6 +25,7 @@ export const innsending: components["schemas"]["Oppgave"] = {
     skjermesSomEgneAnsatte: false,
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
+    erNodbremset: false,
   },
   tidspunktOpprettet: "2025-09-11T00:00:00",
   behandlingType: "INNSENDING",

@@ -35,6 +35,7 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
     skjermesSomEgneAnsatte: false,
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
+    erNodbremset: false,
   },
   tidspunktOpprettet: "2025-11-03T11:05:20.775636",
   behandlingType: "RETT_TIL_DAGPENGER",

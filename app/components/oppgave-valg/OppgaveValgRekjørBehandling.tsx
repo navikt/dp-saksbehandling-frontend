@@ -1,9 +1,10 @@
 import { ArrowCirclepathIcon } from "@navikt/aksel-icons";
-import { Button, ButtonProps, Modal } from "@navikt/ds-react";
+import { BodyShort, Button, ButtonProps, Checkbox, CheckboxGroup, Modal } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
 import { useLocation } from "react-router";
 
+import { useBehandling } from "~/hooks/useBehandling";
 import { hentValideringForRekjørBehandling } from "~/utils/validering.util";
 
 interface IProps {
@@ -21,6 +22,7 @@ export function OppgaveValgRekjørBehandling({
 }: IProps) {
   const { pathname } = useLocation();
   const modalRef = useRef<HTMLDialogElement>(null);
+  const { behandling } = useBehandling();
 
   const rekjørBehandlingForm = useForm({
     method: "post",
@@ -32,8 +34,14 @@ export function OppgaveValgRekjørBehandling({
       _action: "rekjor-behandling",
       behandlingId: behandlingId,
       ident: personIdent,
+      opplysningerSomSkalOppfriskes: [],
     },
   });
+
+  const opplysningerSomKanOppfriskes =
+    behandling.opplysninger
+      .filter((opplysning) => opplysning.kanOppfriskes)
+      ?.map((opplysning) => ({ label: opplysning.navn, value: opplysning.opplysningTypeId })) ?? [];
 
   return (
     <div>
@@ -48,7 +56,30 @@ export function OppgaveValgRekjørBehandling({
       </Button>
 
       <Modal ref={modalRef} header={{ heading: "Kjør behandling på nytt" }}>
-        <Modal.Body>Vil du kjøre behandlingen på nytt?</Modal.Body>
+        <Modal.Body>
+          <BodyShort spacing>Vil du kjøre behandlingen på nytt?</BodyShort>
+          {opplysningerSomKanOppfriskes.length > 0 && (
+            <>
+              <BodyShort spacing>
+                Du kan også velge noen opplysninger som skal oppfriskes.
+              </BodyShort>
+              <CheckboxGroup
+                size={"small"}
+                legend="Opplysninger som kan oppfriskes"
+                onChange={(values) => {
+                  rekjørBehandlingForm.field("opplysningerSomSkalOppfriskes").clearError();
+                  rekjørBehandlingForm.field("opplysningerSomSkalOppfriskes").setValue(values);
+                }}
+              >
+                {opplysningerSomKanOppfriskes.map((opplysning) => (
+                  <Checkbox key={opplysning.value} value={opplysning.value}>
+                    {opplysning.label}
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
+            </>
+          )}
+        </Modal.Body>
         <Modal.Footer>
           <Button
             size="small"

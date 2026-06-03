@@ -762,6 +762,217 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/oppdateringer/person": {
+        parameters: {
+            query?: {
+                /** @description Start cursor for replay av oppdateringer. Hvis ikke satt brukes Last-Event-ID eller siste oppdatering i scope. */
+                since?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * @description Strøm av oppdateringer for en person (SSE).
+         *
+         *     Domenespesifikke `event`-typer:
+         *     - `behandling_opprettet`
+         *     - `behandling_endret_tilstand`
+         *     - `forslag_til_behandlingsresultat`
+         *     - `behandlingsresultat`
+         *     - `behandling_avbrutt`
+         *     - `avklaring_lukket`
+         *
+         *     Tekniske kontroll-events:
+         *     - `ping` (heartbeat)
+         *     - `close` (stream må reconnectes, f.eks. reauth)
+         */
+        post: {
+            parameters: {
+                query?: {
+                    /** @description Start cursor for replay av oppdateringer. Hvis ikke satt brukes Last-Event-ID eller siste oppdatering i scope. */
+                    since?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["IdentForesporsel"];
+                };
+            };
+            responses: {
+                /** @description OK (text/event-stream) */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/event-stream": string;
+                    };
+                };
+                /** @description For mange samtidige oppdateringsstrømmer */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil ved oppretting av oppdateringsstrøm */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oppdateringer/behandling/{behandlingId}": {
+        parameters: {
+            query?: {
+                /** @description Start cursor for replay av oppdateringer. Hvis ikke satt brukes Last-Event-ID eller siste oppdatering i scope. */
+                since?: number;
+            };
+            header?: never;
+            path: {
+                behandlingId: string;
+            };
+            cookie?: never;
+        };
+        /**
+         * @description Strøm av oppdateringer for en behandling (SSE).
+         *
+         *     Domenespesifikke `event`-typer:
+         *     - `behandling_opprettet`
+         *     - `behandling_endret_tilstand`
+         *     - `forslag_til_behandlingsresultat`
+         *     - `behandlingsresultat`
+         *     - `behandling_avbrutt`
+         *     - `avklaring_lukket`
+         *
+         *     Tekniske kontroll-events:
+         *     - `ping` (heartbeat)
+         *     - `close` (stream må reconnectes, f.eks. reauth)
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Start cursor for replay av oppdateringer. Hvis ikke satt brukes Last-Event-ID eller siste oppdatering i scope. */
+                    since?: number;
+                };
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK (text/event-stream) */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/event-stream": string;
+                    };
+                };
+                /** @description For mange samtidige oppdateringsstrømmer */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil ved oppretting av oppdateringsstrøm */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ferietillegg/generer/{opptjenings\u00E5r}": {
+        parameters: {
+            query?: {
+                /** @description Om vi skal faktisk sende ut meldinger om ferietillegg, eller bare simulere det for å se hva som ville blitt sendt ut */
+                dryRun?: boolean;
+            };
+            header?: never;
+            path: {
+                "opptjenings\u00E5r": number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Genererer ferietillegg for alle behandlinger som har utbetaling i det gitte året */
+        post: {
+            parameters: {
+                query?: {
+                    /** @description Om vi skal faktisk sende ut meldinger om ferietillegg, eller bare simulere det for å se hva som ville blitt sendt ut */
+                    dryRun?: boolean;
+                };
+                header?: never;
+                path: {
+                    "opptjenings\u00E5r": number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["FerietilleggKvittering"];
+                    };
+                };
+                /** @description Feil ved generering av ferietillegg */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/dataprodukt/behandling": {
         parameters: {
             query: {
@@ -828,6 +1039,18 @@ export interface components {
         IdentForesporsel: {
             ident: components["schemas"]["Personident"];
         };
+        Oppdatering: {
+            /** Format: int64 */
+            id: number;
+            type: components["schemas"]["OppdateringEventType"];
+            /** @description Hendelsesspesifikk payload (SSE data-felt) */
+            payload: Record<string, never>;
+        };
+        /**
+         * @description Domenespesifikke SSE event-typer som sendes i oppdateringsstrømmen
+         * @enum {string}
+         */
+        OppdateringEventType: "behandling_opprettet" | "behandling_endret_tilstand" | "forslag_til_behandlingsresultat" | "behandlingsresultat" | "behandling_avbrutt" | "avklaring_lukket";
         NyBehandling: {
             behandlingstype?: components["schemas"]["Behandlingstype"];
             ident: components["schemas"]["Personident"];
@@ -933,6 +1156,8 @@ export interface components {
             synlig: boolean;
             redigerbar: boolean;
             redigertAvSaksbehandler: boolean;
+            /** @description Indikerer om opplysningen kan oppfriskes (enten hentes inn eller utledes på nytt) */
+            kanOppfriskes: boolean;
             "form\u00E5l": components["schemas"]["Form\u00E5l"];
         };
         SaksbehandlersVurderinger: {
@@ -1444,6 +1669,11 @@ export interface components {
              * @description Når hendelsen skjedde på utsiden av vårt system
              */
             skjedde: string;
+        };
+        FerietilleggKvittering: {
+            antallBestilt: number;
+            "opptjenings\u00E5r": number;
+            tidBrukt?: string;
         };
         DatalastKvittering: {
             /** Format: uuid */

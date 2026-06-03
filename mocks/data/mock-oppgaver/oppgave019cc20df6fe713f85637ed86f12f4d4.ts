@@ -25,6 +25,7 @@ export const oppgave019cc20df6fe713f85637ed86f12f4d4: components["schemas"]["Opp
     skjermesSomEgneAnsatte: false,
     adressebeskyttelseGradering: "UGRADERT",
     sikkerhetstiltak: [],
+    erNodbremset: false,
   },
   tidspunktOpprettet: "2026-03-06T00:00:00",
   behandlingType: "RETT_TIL_DAGPENGER",

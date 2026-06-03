@@ -452,6 +452,7 @@ export function hentValideringForRekjørBehandling() {
     _action: z.literal("rekjor-behandling"),
     behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
     ident: z.string().min(1, "Det mangler person ident i skjema"),
+    opplysningerSomSkalOppfriskes: z.array(z.string()).optional(),
   });
 }
 

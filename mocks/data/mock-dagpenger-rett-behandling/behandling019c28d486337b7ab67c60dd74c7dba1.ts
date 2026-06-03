@@ -934,6 +934,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367234",
@@ -956,6 +957,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367233",
@@ -982,6 +984,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367235",
@@ -1014,6 +1017,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367236",
@@ -1043,6 +1047,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc77",
@@ -1074,6 +1079,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc73",
@@ -1109,6 +1115,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc74",
@@ -1144,6 +1151,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc75",
@@ -1177,6 +1185,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194ff86-a035-7eb0-9c60-21899f7cc0c1",
@@ -1198,6 +1207,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a769",
@@ -1220,6 +1230,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141e",
@@ -1255,6 +1266,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd9",
@@ -1290,6 +1302,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdc",
@@ -1325,6 +1338,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bde",
@@ -1381,6 +1395,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75f",
@@ -1416,6 +1431,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d85",
@@ -1451,6 +1467,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d86",
@@ -1486,6 +1503,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d87",
@@ -1521,6 +1539,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d88",
@@ -1556,6 +1575,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01948d3c-4bea-7802-9d18-5342a5e2be99",
@@ -1591,6 +1611,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9441-7d1b-a06a-6727543a141f",
@@ -1621,6 +1642,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bda",
@@ -1651,6 +1673,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194929e-2036-7ac1-ada3-5cbe05a83f08",
@@ -1681,6 +1704,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdf",
@@ -1731,6 +1755,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76d",
@@ -1764,6 +1789,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d89",
@@ -1799,6 +1825,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01980cf4-9010-7bcf-b578-ca5a825d64ef",
@@ -1829,6 +1856,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01948d43-e218-76f1-b29b-7e604241d98a",
@@ -1859,6 +1887,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bd8",
@@ -1892,6 +1921,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdb",
@@ -1925,6 +1955,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877bdd",
@@ -1958,6 +1989,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8a",
@@ -1991,6 +2023,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be2",
@@ -2053,6 +2086,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9444-7a73-a458-0af81c034d8b",
@@ -2088,6 +2122,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01990a09-0eab-7957-b88f-14484a50e194",
@@ -2143,6 +2178,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91d1-7df2-ba1d-4533f37fcc76",
@@ -2174,6 +2210,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940b-76ff-acf5-ba7bcb367237",
@@ -2207,6 +2244,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7ce",
@@ -2237,6 +2275,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04246",
@@ -2268,6 +2307,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04243",
@@ -2298,6 +2338,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: true,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0423f",
@@ -2329,6 +2370,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04240",
@@ -2360,6 +2402,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7cf",
@@ -2390,6 +2433,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04248",
@@ -2423,6 +2467,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04249",
@@ -2456,6 +2501,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9414-7823-8d29-0e25b7feb7d0",
@@ -2489,6 +2535,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04247",
@@ -2522,6 +2569,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04244",
@@ -2561,6 +2609,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Register",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04245",
@@ -2591,6 +2640,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04241",
@@ -2621,6 +2671,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f04242",
@@ -2651,6 +2702,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424a",
@@ -2684,6 +2736,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424b",
@@ -2717,6 +2770,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9413-77ce-92ec-d29700f0424c",
@@ -2750,6 +2804,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f1",
@@ -2771,6 +2826,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54c",
@@ -2792,6 +2848,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d4",
@@ -2813,6 +2870,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d5",
@@ -2834,6 +2892,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d6",
@@ -2855,6 +2914,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d7",
@@ -2876,6 +2936,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d1",
@@ -2897,6 +2958,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d9",
@@ -2918,6 +2980,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45da",
@@ -2939,6 +3002,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685d",
@@ -2960,6 +3024,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685e",
@@ -2981,6 +3046,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76b",
@@ -3003,6 +3069,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019522d6-846d-7173-a892-67f10016d8d2",
@@ -3034,6 +3101,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a764",
@@ -3055,6 +3123,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a765",
@@ -3076,6 +3145,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a766",
@@ -3097,6 +3167,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0196b4a7-23b5-7b2c-aa95-e4167d900de8",
@@ -3118,6 +3189,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b527",
@@ -3139,6 +3211,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b528",
@@ -3160,6 +3233,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b529",
@@ -3181,6 +3255,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52a",
@@ -3202,6 +3277,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52b",
@@ -3223,6 +3299,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52c",
@@ -3244,6 +3321,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f6",
@@ -3265,6 +3343,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54d",
@@ -3294,6 +3373,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0196afaf-afbd-7079-b2cf-3669ad9d86aa",
@@ -3323,6 +3403,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-91df-746a-a8ac-4a6b2b30685f",
@@ -3355,6 +3436,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a762",
@@ -3389,6 +3471,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a763",
@@ -3422,6 +3505,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b523",
@@ -3458,6 +3542,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9447-7e36-a569-3e9f42bff9f7",
@@ -3487,6 +3572,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0196afc0-6807-7fa3-83e4-cf7f621f3a7e",
@@ -3508,6 +3594,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0196afbf-e32d-775a-ad10-f476e26dcb6f",
@@ -3540,6 +3627,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86e9",
@@ -3577,6 +3665,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0196ab10-0cff-7301-99d6-65be50a50201",
@@ -3612,6 +3701,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a75e",
@@ -3647,6 +3737,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b522",
@@ -3682,6 +3773,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d2",
@@ -3717,6 +3809,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cf",
@@ -3752,6 +3845,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45ce",
@@ -3787,6 +3881,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d3",
@@ -3822,6 +3917,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45d0",
@@ -3857,6 +3953,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9433-70e9-a85b-c246150c45cd",
@@ -3892,6 +3989,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d549",
@@ -3922,6 +4020,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Bruker",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ea",
@@ -3960,6 +4059,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a761",
@@ -3990,6 +4090,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b524",
@@ -4020,6 +4121,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b525",
@@ -4050,6 +4152,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54a",
@@ -4080,6 +4183,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b526",
@@ -4113,6 +4217,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54b",
@@ -4146,6 +4251,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9445-734c-a7ee-045edf29b52d",
@@ -4179,6 +4285,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9443-72b4-8b30-5f6cdb24d54e",
@@ -4212,6 +4319,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be0",
@@ -4243,6 +4351,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Register",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9442-707b-a6ee-e96c06877be1",
@@ -4273,6 +4382,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ee",
@@ -4303,6 +4413,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ed",
@@ -4333,6 +4444,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca7",
@@ -4363,6 +4475,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca9",
@@ -4385,6 +4498,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23e",
@@ -4416,6 +4530,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23d",
@@ -4446,6 +4561,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a246",
@@ -4476,6 +4592,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a247",
@@ -4507,6 +4624,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a249",
@@ -4538,6 +4656,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2b",
@@ -4569,6 +4688,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e7",
@@ -4590,6 +4710,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e8",
@@ -4611,6 +4732,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a26",
@@ -4632,6 +4754,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a27",
@@ -4653,6 +4776,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a28",
@@ -4674,6 +4798,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a29",
@@ -4695,6 +4820,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544f",
@@ -4726,6 +4852,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15450",
@@ -4757,6 +4884,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15449",
@@ -4788,6 +4916,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54f0",
@@ -4819,6 +4948,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e1",
@@ -4840,6 +4970,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e2",
@@ -4861,6 +4992,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e3",
@@ -4882,6 +5014,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e4",
@@ -4903,6 +5036,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e5",
@@ -4924,6 +5058,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e6",
@@ -4945,6 +5080,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a768",
@@ -4976,6 +5112,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a767",
@@ -4998,6 +5135,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ed",
@@ -5020,6 +5158,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-940f-7af9-9387-052e028b29ec",
@@ -5053,6 +5192,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10ca8",
@@ -5086,6 +5226,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cad",
@@ -5116,6 +5257,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cae",
@@ -5146,6 +5288,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10caf",
@@ -5176,6 +5319,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2c",
@@ -5209,6 +5353,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2e",
@@ -5245,6 +5390,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544c",
@@ -5278,6 +5424,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15451",
@@ -5311,6 +5458,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544d",
@@ -5344,6 +5492,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ee",
@@ -5377,6 +5526,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb0",
@@ -5407,6 +5557,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb1",
@@ -5437,6 +5588,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb2",
@@ -5467,6 +5619,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15454",
@@ -5500,6 +5653,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15455",
@@ -5533,6 +5687,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10caa",
@@ -5566,6 +5721,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb3",
@@ -5599,6 +5755,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb4",
@@ -5632,6 +5789,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb5",
@@ -5665,6 +5823,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb6",
@@ -5698,6 +5857,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb7",
@@ -5731,6 +5891,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb8",
@@ -5764,6 +5925,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544b",
@@ -5795,6 +5957,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f1544a",
@@ -5826,6 +5989,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cab",
@@ -5860,6 +6024,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cb9",
@@ -5894,6 +6059,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15452",
@@ -5929,6 +6095,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15453",
@@ -5964,6 +6131,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cac",
@@ -5997,6 +6165,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15456",
@@ -6031,6 +6200,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbb",
@@ -6064,6 +6234,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15459",
@@ -6098,6 +6269,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943d-77a7-969c-147999f15457",
@@ -6132,6 +6304,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbc",
@@ -6162,6 +6335,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cba",
@@ -6192,6 +6366,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e03",
@@ -6225,6 +6400,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9410-7481-b263-4606fdd10cbd",
@@ -6258,6 +6434,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9421-766c-9dc6-41fe6c9a1e05",
@@ -6291,6 +6468,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23f",
@@ -6324,6 +6502,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a248",
@@ -6357,6 +6536,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76c",
@@ -6391,6 +6571,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a241",
@@ -6421,6 +6602,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24a",
@@ -6454,6 +6636,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76a",
@@ -6490,6 +6673,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24b",
@@ -6520,6 +6704,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76e",
@@ -6554,6 +6739,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9435-72a8-b1ce-9575cbc2a76f",
@@ -6589,6 +6775,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -6640,6 +6827,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Register",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942e-7cb0-aa59-05ea449d88e0",
@@ -6666,6 +6854,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a23c",
@@ -6717,6 +6906,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: true,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2d",
@@ -6754,6 +6944,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a244",
@@ -6810,6 +7001,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a245",
@@ -6866,6 +7058,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24c",
@@ -6922,6 +7115,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a242",
@@ -6978,6 +7172,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a240",
@@ -7034,6 +7229,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Legacy",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a243",
@@ -7090,6 +7286,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86eb",
@@ -7146,6 +7343,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ec",
@@ -7202,6 +7400,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a2f",
@@ -7258,6 +7457,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9434-79e8-a64d-1a23cc5d86ef",
@@ -7314,6 +7514,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a30",
@@ -7370,6 +7571,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a31",
@@ -7426,6 +7628,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a32",
@@ -7482,6 +7685,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-942f-7bde-ab16-68ffd19e9a33",
@@ -7538,6 +7742,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24d",
@@ -7594,6 +7799,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a250",
@@ -7650,6 +7856,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24f",
@@ -7706,6 +7913,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-9428-74d5-b160-f63a4c61a24e",
@@ -7762,6 +7970,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Legacy",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019523aa-7941-7dd2-8c43-0644d7b43f57",
@@ -7795,6 +8004,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "0194881f-943f-78d9-b874-00a4944c54ef",
@@ -7828,6 +8038,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01956abd-2871-7517-a332-b462c0c31292",
@@ -7893,6 +8104,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01948ea0-36e8-72cc-aa4f-16bc446ed3bd",
@@ -8618,6 +8830,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01948ea0-e25c-7c47-8429-a05045d80eca",
@@ -9385,6 +9598,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01956ab8-126c-7636-803e-a5d87eda2015",
@@ -10110,6 +10324,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019a9b47-2442-7533-bc71-a71a4600c49a",
@@ -10172,6 +10387,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019a81bf-50e1-7f1d-b23b-f30265b16042",
@@ -10234,6 +10450,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01958ef2-e237-77c4-89e1-de91256e2e4a",
@@ -10296,6 +10513,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019c091e-e7aa-7e15-b339-b6276276ebf2",
@@ -10317,6 +10535,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019c0920-8b11-729a-866d-9f271f03ef2e",
@@ -10338,6 +10557,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019bc5f8-5c56-7f36-bff1-b10c8165764d",
@@ -10359,6 +10579,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019bc5f8-8af4-73c7-8b15-6feecd7810d2",
@@ -10380,6 +10601,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019bc5f8-c377-740f-9df6-3c743b5144b1",
@@ -10401,6 +10623,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019c092a-7759-700a-9f7d-f4415b91e8db",
@@ -10433,6 +10656,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019bc5f8-fdf3-7240-afaf-52c0486eddc5",
@@ -10466,6 +10690,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01973a27-d8b3-7ffd-a81a-a3826963b079",
@@ -10513,6 +10738,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01994cfd-9a27-762e-81fa-61f550467c95",
@@ -10560,6 +10786,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01997b70-a12c-7622-bff8-82a20687e640",
@@ -10607,6 +10834,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01997b70-6e6e-702a-a296-18ae5fb9621d",
@@ -10654,6 +10882,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019ae986-43bb-7529-af23-9b3d309501eb",
@@ -10704,6 +10933,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019ae986-81bf-7b29-9458-446e6dbaedae",
@@ -10754,6 +10984,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "019ae986-a128-72f0-9868-032bc8a57b21",
@@ -10801,6 +11032,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01948ea0-ffdc-7964-ab55-52a7e35e1020",
@@ -11316,6 +11548,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01957069-d7d5-7f7c-b359-c00686fbf1f7",
@@ -11831,6 +12064,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01992934-66e4-7606-bdd3-c6c9dd420ffd",
@@ -12388,6 +12622,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: false,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
     {
       opplysningTypeId: "01992956-e349-76b1-8f68-c9d481df3a32",
@@ -12945,6 +13180,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
       redigerbar: true,
       redigertAvSaksbehandler: false,
       formål: "Regel",
+      kanOppfriskes: false,
     },
   ],
   forslagOm: "Gjenopptak",

@@ -61,7 +61,10 @@ export async function lagreOpplysningAction(request: Request, formData: FormData
   throw new Error(`Uhåndtert feil i lagreOpplysningAction()`);
 }
 
-function konverterOpplysningVerdiTilBackendVerdi(opplysningDatatype: string, verdi: string) {
+function konverterOpplysningVerdiTilBackendVerdi(
+  opplysningDatatype: components["schemas"]["DataType"],
+  verdi: string,
+) {
   switch (opplysningDatatype) {
     case "dato": {
       return formaterTilBackendDato(verdi);

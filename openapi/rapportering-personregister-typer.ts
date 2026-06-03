@@ -99,6 +99,7 @@ export interface components {
             status: components["schemas"]["Status"];
             overtattBekreftelse: boolean;
             ansvarligSystem?: components["schemas"]["AnsvarligSystem"];
+            "erRegistrertArbeidss\u00F8ker": boolean;
         };
         /** @enum {string} */
         Status: "DAGPENGERBRUKER" | "IKKE_DAGPENGERBRUKER";
