@@ -4,6 +4,7 @@ import { createOpenApiHttp } from "openapi-msw";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/saksbehandling-typer";
+import { mockEmneknagger } from "./data/mock-emneknagger";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
 import { klager } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
@@ -435,6 +436,16 @@ export const mockDpSaksbehandling = [
     }
 
     return response("default").json(defaultError, { status: 500 });
+  }),
+
+  http.get(`/emneknagger`, async ({ response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    return response(200).json(mockEmneknagger);
   }),
 
   http.put("/innsending/{behandlingId}/ferdigstill", async ({ response }) => {

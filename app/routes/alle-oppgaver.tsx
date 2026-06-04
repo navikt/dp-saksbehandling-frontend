@@ -9,14 +9,9 @@ import {
 } from "react-router";
 
 import { useOppgaverQuery } from "~/api/oppgave";
-import { OppgaveFilterAvbruttgrunner } from "~/components/oppgave-filter/OppgaveFilterAvbruttgrunner";
-import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
+import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
-import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
 import { OppgaveFilterMineOppgaver } from "~/components/oppgave-filter/OppgaveFilterMineOppgaver";
-import { OppgaveFilterPåVentGrunner } from "~/components/oppgave-filter/OppgaveFilterPåVentGrunner";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
-import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -82,14 +77,9 @@ export default function Saksbehandling() {
       <nav className={styles.venstreMeny}>
         <OppgaveFilterMineOppgaver />
         <OppgaveFilterDato />
-        <OppgaveFilterAvslagsgrunner />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
-        <OppgaveFilterGjenopptak />
-        <OppgaveFilterRettighetstype />
-        <OppgaveFilterSøknadresultat />
-        <OppgaveFilterAvbruttgrunner />
-        <OppgaveFilterPåVentGrunner />
+        <EmneknaggFilter />
       </nav>
 
       <main>
