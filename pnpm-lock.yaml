@@ -238,8 +238,8 @@ importers:
         specifier: 9.1.7
         version: 9.1.7
       inquirer:
-        specifier: 13.3.2
-        version: 13.3.2(@types/node@25.9.1)
+        specifier: 14.0.0
+        version: 14.0.0(@types/node@25.9.1)
       jsdom:
         specifier: 29.0.2
         version: 29.0.2
@@ -4103,8 +4103,8 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  inquirer@13.3.2:
-    resolution: {integrity: sha512-bh/OjBGxNR9qvfQj1n5bxtIF58mbOTp2InN5dKuwUK03dXcDGFsjlDinQRuXMZ4EGiJaFieUWHCAaxH2p7iUBw==}
+  inquirer@14.0.0:
+    resolution: {integrity: sha512-W0xnGyYC4yUe36RHOPKjPqNMTCEdT56n+lIvUtaErh53wdwhAN/P+NSQT38BdewCpoBmCmbGqK470vaznfF+yg==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^21.7.0 || ^20.12.0'}
     peerDependencies:
       '@types/node': '>=18'
@@ -4724,6 +4724,10 @@ packages:
   mute-stream@3.0.0:
     resolution: {integrity: sha512-dkEJPVvun4FryqBmZ5KhDo0K9iDXAwn08tMLDinNdRBNPcYEDiWYysLcc6k3mjTMlbP9KyylvRpd4wFtwrT9rw==}
     engines: {node: ^20.17.0 || >=22.9.0}
+
+  mute-stream@4.0.0:
+    resolution: {integrity: sha512-gSrprq0fJ3EiOErzjdIZrjysVVmJ4uu1QWfCDss5LypA5OXvrMje5Ym5z6V6RLyJ2eF87lasX7t6a0AnFvZblg==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
   nanoid@3.3.12:
     resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
@@ -10584,15 +10588,14 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  inquirer@13.3.2(@types/node@25.9.1):
+  inquirer@14.0.0(@types/node@25.9.1):
     dependencies:
       '@inquirer/ansi': 2.0.7
       '@inquirer/core': 11.2.1(@types/node@25.9.1)
       '@inquirer/prompts': 8.5.2(@types/node@25.9.1)
       '@inquirer/type': 4.0.7(@types/node@25.9.1)
-      mute-stream: 3.0.0
+      mute-stream: 4.0.0
       run-async: 4.0.6
-      rxjs: 7.8.2
     optionalDependencies:
       '@types/node': 25.9.1
 
@@ -11187,6 +11190,8 @@ snapshots:
   mute-stream@2.0.0: {}
 
   mute-stream@3.0.0: {}
+
+  mute-stream@4.0.0: {}
 
   nanoid@3.3.12: {}
 

@@ -110,7 +110,7 @@
     "eslint-plugin-simple-import-sort": "13.0.0",
     "globals": "17.6.0",
     "husky": "9.1.7",
-    "inquirer": "13.3.2",
+    "inquirer": "14.0.0",
     "jsdom": "29.0.2",
     "lint-staged": "16.4.0",
     "msw": "2.14.3",
