@@ -205,6 +205,7 @@ export function hentValideringAvbrytOppgave() {
     "BEHANDLES_I_ARENA",
     "FLERE_SØKNADER",
     "TRUKKET_SØKNAD",
+    "INGEN_BEHANDLING",
     "ANNET",
   ];
   return z.object({
