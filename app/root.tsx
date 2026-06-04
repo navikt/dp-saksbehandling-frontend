@@ -6,10 +6,11 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useState } from "react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import {
+  ActionFunctionArgs,
   Link,
   Links,
+  LoaderFunctionArgs,
   Meta,
   Outlet,
   Scripts,
@@ -188,7 +189,7 @@ export default function App() {
                   <Outlet />
                 </AlertProvider>
 
-                <ScrollRestoration />
+                <ScrollRestoration getKey={(location) => location.pathname} />
                 <Scripts />
                 <script
                   dangerouslySetInnerHTML={{

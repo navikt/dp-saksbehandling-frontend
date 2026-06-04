@@ -14,7 +14,6 @@ import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentJournalpost } from "~/models/saf.server";
 import { hentOppfolging, hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
@@ -29,14 +28,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const oppgave = await hentOppgave(request, params.oppgaveId);
   const oppfolging = await hentOppfolging(request, params.behandlingId);
 
-  const journalposter = await Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
-
   return {
     oppgave,
     oppfolging,
-    journalposter,
   };
 }
 

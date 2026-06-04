@@ -538,3 +538,22 @@ export async function hentStatistikk(request: Request, urlSearchParams: URLSearc
 
   throw new Error(`Uhåndtert feil i hentStatistikk(). ${response.status} - ${response.statusText}`);
 }
+
+export async function hentAlleEmneknagger(request: Request) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  const { data, error, response } = await saksbehandlerClient.GET("/emneknagger", {
+    headers: getHeaders(onBehalfOfToken),
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(
+    `Uhåndtert feil i hentAlleEmneknagger(). ${response.status} - ${response.statusText}`,
+  );
+}
