@@ -21,6 +21,7 @@ export function useEmneknaggerQuery() {
   const { data, isFetching } = useQuery<Emneknagg[]>({
     queryKey: ["emneknagger"],
     queryFn: () => fetchEmneknagger(),
+    staleTime: 20 * 60 * 1000, // 20 minutes
   });
 
   return {
