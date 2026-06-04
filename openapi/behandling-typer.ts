@@ -1034,7 +1034,7 @@ export interface components {
     schemas: {
         Rekjoring: {
             ident: components["schemas"]["Personident"];
-            opplysninger?: components["schemas"]["OpplysningsId"][];
+            oppfrisk?: components["schemas"]["OpplysningTypeId"][];
         };
         IdentForesporsel: {
             ident: components["schemas"]["Personident"];

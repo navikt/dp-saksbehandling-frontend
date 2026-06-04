@@ -69,6 +69,8 @@ export function hentTekstForAvbrytÅrsak(
       return "Trukket søknad";
     case "ANNET":
       return "Annet";
+    case "INGEN_BEHANDLING":
+      return "Ingen behandling";
     default:
       return avbrytÅrsak;
   }
