@@ -41,7 +41,7 @@ export function OppgaveFilterStatus({ tilgjengeligTilstander }: IProps) {
             name="tilstand"
             key={status.id}
             value={status.id}
-            defaultChecked={tilstand.includes(status.id)}
+            checked={tilstand.includes(status.id)}
             onChange={(event) => toggleSearchParam("tilstand", event.currentTarget.value)}
           >
             {status.tekst}
