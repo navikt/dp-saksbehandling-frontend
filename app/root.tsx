@@ -15,6 +15,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  ShouldRevalidateFunctionArgs,
   useLoaderData,
   useRouteError,
 } from "react-router";
@@ -88,7 +89,31 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export const shouldRevalidate = () => false;
+const OPPGAVER_MUTATING_ACTIONS = new Set([
+  "legg-tilbake-oppgave",
+  "tildel-oppgave",
+  "returner-oppgave-til-saksbehandler",
+  "send-til-kontroll",
+  "sett-oppgave-på-vent",
+  "avbryt-oppgave",
+  "fatt-vedtak",
+  "rekjor-behandling",
+  "trekk-klage",
+  "ferdigstill-klage",
+  "ferdigstill-innsending",
+  "ferdigstill-oppfolging",
+]);
+
+export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
+  // If formData exists, check if it's an oppgaver-mutating action
+  if (args.formData) {
+    const action = args.formData.get("_action") as string;
+    if (OPPGAVER_MUTATING_ACTIONS.has(action)) {
+      return true; // Revalidate root loader to refresh cache
+    }
+  }
+  return false;
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const saksbehandler = await getSaksbehandler(request);
