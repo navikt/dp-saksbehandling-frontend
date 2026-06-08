@@ -18,7 +18,7 @@ export const mockPerson: components["schemas"]["Person"] = {
   sikkerhetstiltak: mockSikkerhetstiltak,
   skjermesSomEgneAnsatte: false,
   adressebeskyttelseGradering: "UGRADERT",
-  erNodbremset: false,
+  erNodbremset: true,
 };
 
 export const mockGradertPerson: components["schemas"]["Person"] = {
@@ -34,5 +34,5 @@ export const mockGradertPerson: components["schemas"]["Person"] = {
   sikkerhetstiltak: [],
   skjermesSomEgneAnsatte: true,
   adressebeskyttelseGradering: "STRENGT_FORTROLIG",
-  erNodbremset: false,
+  erNodbremset: true,
 };

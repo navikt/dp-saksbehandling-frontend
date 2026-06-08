@@ -127,6 +127,13 @@ export function PersonBoks({ person, rapporteringPersonIdPromise }: IProps) {
           {hentTekstForAdressebeskyttelse(person.adressebeskyttelseGradering)}
         </Alert>
       )}
+
+      {person.erNodbremset && (
+        <Alert className={"alert--compact"} variant="error" fullWidth={true}>
+          Personen skal behandles i Arena. Vedkommende er flyttet fra DP-sak til Arena og kan ikke
+          behandles i DP-sak.
+        </Alert>
+      )}
     </>
   );
 }
