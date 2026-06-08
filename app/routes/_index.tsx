@@ -88,6 +88,10 @@ export default function Saksbehandling() {
     utlostAv: ["MELDEKORT", "SAMORDNING", "OPPFØLGING", "ARBEIDSSØKERPERIODE"],
   };
 
+  const hideTidskritiskeFilterButton =
+    searchParams.getAll("tilstand").every((v) => tidskritiskeOppgaver.tilstand === v) &&
+    searchParams.getAll("utlostAv").every((v) => tidskritiskeOppgaver.utlostAv.includes(v));
+
   useEffect(() => {
     setAktivtOppgaveSok(searchParams.toString());
   }, [searchParams]);
@@ -96,13 +100,15 @@ export default function Saksbehandling() {
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
         <div>
-          <Button
-            variant="secondary"
-            size="small"
-            onClick={() => setSearchParams(tidskritiskeOppgaver)}
-          >
-            Vis kun tidskritiske oppgaver
-          </Button>
+          {!hideTidskritiskeFilterButton && (
+            <Button
+              variant="secondary"
+              size="small"
+              onClick={() => setSearchParams(tidskritiskeOppgaver)}
+            >
+              Vis kun tidskritiske oppgaver
+            </Button>
+          )}
         </div>
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
