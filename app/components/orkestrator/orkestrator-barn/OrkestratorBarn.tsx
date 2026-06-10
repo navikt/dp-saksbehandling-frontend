@@ -96,7 +96,7 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   }
 
   return (
-    <div className="card card-raised m-4 mt-8 p-2">
+    <div className="card card-raised min-w-2xl p-2">
       <Form {...orkestratorBarnForm.getFormProps()}>
         <Heading level="4" size="xsmall" className="m-2" spacing>
           Barn {barnNummer}
