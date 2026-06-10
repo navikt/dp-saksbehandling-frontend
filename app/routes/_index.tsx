@@ -13,11 +13,9 @@ import {
 } from "react-router";
 
 import { useOppgaverQuery } from "~/api/oppgave";
+import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
-import { OppgaveFilterGjenopptak } from "~/components/oppgave-filter/OppgaveFilterGjenopptak";
-import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
-import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
@@ -122,9 +120,7 @@ export default function Saksbehandling() {
           tilgjengeligTilstander={["KLAR_TIL_BEHANDLING", "KLAR_TIL_KONTROLL"]}
         />
         <OppgaveFilterUtløstAv />
-        <OppgaveFilterGjenopptak />
-        <OppgaveFilterRettighetstype />
-        <OppgaveFilterSøknadresultat />
+        <EmneknaggFilter kategoriFilter={["AVBRUTT_GRUNN", "PAA_VENT", "OPPFOLGING_ARSAK"]} />
       </nav>
 
       <main>
