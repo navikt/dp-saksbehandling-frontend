@@ -1,4 +1,5 @@
-import { Checkbox, CheckboxGroup, ReadMore } from "@navikt/ds-react";
+import { MinusIcon, PlusIcon } from "@navikt/aksel-icons";
+import { BodyShort, Button, ReadMore } from "@navikt/ds-react";
 import groupBy from "lodash/groupBy";
 
 import { components } from "@/openapi/saksbehandling-typer";
@@ -25,6 +26,8 @@ const EmneknaggFilter = () => {
   const { emneknagger } = useEmneknaggerQuery();
   const groupedEmneknagger = groupBy(emneknagger, (k) => k.kategori);
 
+  const ekskluderEmneknagger = searchParams.getAll("ekskluderEmneknagg");
+
   return (
     <>
       {Object.keys(emneknaggNavn).map((kategori) => {
@@ -38,20 +41,38 @@ const EmneknaggFilter = () => {
 
         return (
           <div key={kategori}>
-            <ReadMore header={kategoriNavn} size="small">
-              <CheckboxGroup legend="" size="small" className={"checkbox--compact"}>
-                {knagger?.map(({ visningsnavn }) => (
-                  <Checkbox
-                    key={visningsnavn}
-                    name={kategori}
-                    value={visningsnavn}
-                    defaultChecked={emneknaggerParams.includes(visningsnavn)}
-                    onChange={(event) => toggleSearchParam(kategori, event.currentTarget.value)}
-                  >
-                    {visningsnavn}
-                  </Checkbox>
-                ))}
-              </CheckboxGroup>
+            <ReadMore size="small" header={kategoriNavn + " (" + emneknaggerParams.length + ")"}>
+              {knagger?.map(({ visningsnavn }) => (
+                <div className="mt-2 flex gap-3">
+                  <BodyShort size="small">{visningsnavn}</BodyShort>
+                  <Button
+                    size="xsmall"
+                    className="ml-auto"
+                    aria-label={`Inkluder oppgaver med emneknagg ${visningsnavn}`}
+                    variant={emneknaggerParams.includes(visningsnavn) ? "primary" : "secondary"}
+                    onClick={() => {
+                      if (ekskluderEmneknagger.includes(visningsnavn)) {
+                        toggleSearchParam("ekskluderEmneknagg", visningsnavn);
+                      }
+                      toggleSearchParam(kategori, visningsnavn);
+                    }}
+                    icon={<PlusIcon aria-hidden />}
+                  ></Button>
+                  <Button
+                    size="xsmall"
+                    aria-label={`Ekskluder oppgaver med emneknagg ${visningsnavn}`}
+                    data-color="danger"
+                    variant={ekskluderEmneknagger.includes(visningsnavn) ? "primary" : "secondary"}
+                    onClick={() => {
+                      if (emneknaggerParams.includes(visningsnavn)) {
+                        toggleSearchParam(kategori, visningsnavn);
+                      }
+                      toggleSearchParam("ekskluderEmneknagg", visningsnavn);
+                    }}
+                    icon={<MinusIcon aria-hidden />}
+                  ></Button>
+                </div>
+              ))}
             </ReadMore>
           </div>
         );
