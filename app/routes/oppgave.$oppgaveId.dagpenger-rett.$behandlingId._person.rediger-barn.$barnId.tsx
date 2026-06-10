@@ -51,27 +51,28 @@ export default function RedigerBarn() {
           Behandling
         </LoadingLink>
 
-        <div className={"card p-4"}>
+        <div className={"card flex flex-col gap-6 p-4"}>
           <Heading size={"small"}>Rediger barn</Heading>
 
-          {orkestratorBarn.map((barn, index: number) => (
-            <OrkestratorBarn
-              key={barn.barnId}
-              barnNummer={index + 1}
-              barn={barn}
-              orkestratorLandliste={orkestratorLandliste}
-            />
-          ))}
-
-          <div className="mt-4">
-            <LoadingLink
-              to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/legg-til-barn/${barnId}`}
-              asButtonVariant={"secondary"}
-              icon={<PlusCircleIcon />}
-              buttonSize={"small"}
-            >
-              Legg til barn
-            </LoadingLink>
+          <div className={"flex flex-wrap gap-4"}>
+            {orkestratorBarn.map((barn, index: number) => (
+              <OrkestratorBarn
+                key={barn.barnId}
+                barnNummer={index + 1}
+                barn={barn}
+                orkestratorLandliste={orkestratorLandliste}
+              />
+            ))}
+            <div className="flex min-w-2xl items-end">
+              <LoadingLink
+                to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/legg-til-barn/${barnId}`}
+                asButtonVariant={"secondary"}
+                icon={<PlusCircleIcon />}
+                buttonSize={"small"}
+              >
+                Legg til barn
+              </LoadingLink>
+            </div>
           </div>
         </div>
       </main>
