@@ -20,7 +20,7 @@ export function OppgaveReturnerTilSaksbehandler() {
   const { pathname } = useLocation();
   const { addAlert } = useGlobalAlerts();
   const { oppgave } = useOppgave();
-  const { notat, setNotat } = useBeslutterNotat();
+  const { notatTekst, sistEndretTidspunkt, setNotat } = useBeslutterNotat();
   const lagreNotatFetcher = useFetcher<typeof lagreNotatAction>();
   const debouncedLagreNotatFetcher = useDebounceCallback(lagreNotatFetcher.submit, 2000);
 
@@ -33,7 +33,7 @@ export function OppgaveReturnerTilSaksbehandler() {
     defaultValues: {
       _action: "returner-oppgave-til-saksbehandler",
       oppgaveId: oppgave.oppgaveId,
-      notat: notat.tekst,
+      notat: notatTekst,
       årsak: "" as unknown as components["schemas"]["ReturnerTilSaksbehandlingAarsak"],
     },
   });
@@ -41,8 +41,11 @@ export function OppgaveReturnerTilSaksbehandler() {
   useEffect(() => {
     if (lagreNotatFetcher.data) {
       if (isILagreNotatResponse(lagreNotatFetcher.data)) {
-        returnerTilSaksbehandlerForm.field("notat").setValue(notat.tekst);
-        setNotat({ ...notat, sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt });
+        returnerTilSaksbehandlerForm.field("notat").setValue(notatTekst);
+        setNotat({
+          tekst: notatTekst,
+          sistEndretTidspunkt: lagreNotatFetcher.data.sistEndretTidspunkt,
+        });
       }
 
       if (isAlert(lagreNotatFetcher.data)) {
@@ -52,12 +55,12 @@ export function OppgaveReturnerTilSaksbehandler() {
   }, [lagreNotatFetcher.data]);
 
   useEffect(() => {
-    returnerTilSaksbehandlerForm.field("notat").setValue(notat.tekst);
-  }, [notat.tekst]);
+    returnerTilSaksbehandlerForm.field("notat").setValue(notatTekst);
+  }, [notatTekst]);
 
   function lagreNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     const nyVerdi = event.currentTarget.value;
-    setNotat({ ...notat, tekst: nyVerdi });
+    setNotat({ tekst: nyVerdi, sistEndretTidspunkt });
     if (returnerTilSaksbehandlerForm.field("notat").error()) {
       returnerTilSaksbehandlerForm.field("notat").clearError();
     }
@@ -90,7 +93,7 @@ export function OppgaveReturnerTilSaksbehandler() {
             {...returnerTilSaksbehandlerForm.getInputProps("notat")}
             size={"small"}
             className="mt-4"
-            value={notat.tekst}
+            value={notatTekst}
             onChange={lagreNotat}
             onBlur={handleOnBlur}
             resize="vertical"
@@ -113,9 +116,9 @@ export function OppgaveReturnerTilSaksbehandler() {
             ))}
           </RadioGroup>
 
-          {notat.sistEndretTidspunkt && (
+          {sistEndretTidspunkt && (
             <Detail textColor="subtle">
-              Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
+              Sist lagret: {formaterTilNorskDato(sistEndretTidspunkt, true)}
             </Detail>
           )}
         </Modal.Body>

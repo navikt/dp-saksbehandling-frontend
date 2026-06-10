@@ -13,7 +13,7 @@ import { isAlert, isILagreNotatResponse } from "~/utils/type-guards";
 export function OppgaveKontroll() {
   const { pathname } = useLocation();
   const { addAlert } = useGlobalAlerts();
-  const { notat, setNotat } = useBeslutterNotat();
+  const { notatTekst, sistEndretTidspunkt, setNotat } = useBeslutterNotat();
   const { oppgave, minBeslutterOppgave } = useOppgave();
   const fetcher = useFetcher<typeof lagreNotatAction>();
   const debouncedFetcher = useDebounceCallback(fetcher.submit, 2000);
@@ -21,7 +21,7 @@ export function OppgaveKontroll() {
   useEffect(() => {
     if (fetcher.data) {
       if (isILagreNotatResponse(fetcher.data)) {
-        setNotat({ ...notat, sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt });
+        setNotat({ tekst: notatTekst, sistEndretTidspunkt: fetcher.data.sistEndretTidspunkt });
       }
 
       if (isAlert(fetcher.data)) {
@@ -32,7 +32,7 @@ export function OppgaveKontroll() {
 
   function lagreBeslutterNotat(event: ChangeEvent<HTMLTextAreaElement>) {
     const nyVerdi = event.currentTarget.value;
-    setNotat({ ...notat, tekst: nyVerdi });
+    setNotat({ tekst: nyVerdi, sistEndretTidspunkt });
 
     debouncedFetcher(
       { _action: "lagre-notat", notat: nyVerdi, oppgaveId: oppgave.oppgaveId },
@@ -53,7 +53,7 @@ export function OppgaveKontroll() {
   return (
     <div>
       <Textarea
-        value={notat.tekst}
+        value={notatTekst}
         onChange={lagreBeslutterNotat}
         onBlur={handleOnBlur}
         resize="vertical"
@@ -68,9 +68,9 @@ export function OppgaveKontroll() {
         }
       />
 
-      {notat.sistEndretTidspunkt && (
+      {sistEndretTidspunkt && (
         <Detail textColor="subtle">
-          Sist lagret: {formaterTilNorskDato(notat.sistEndretTidspunkt, true)}
+          Sist lagret: {formaterTilNorskDato(sistEndretTidspunkt, true)}
         </Detail>
       )}
 

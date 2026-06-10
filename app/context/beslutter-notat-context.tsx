@@ -1,12 +1,13 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
 import { components } from "../../openapi/saksbehandling-typer";
 
 type IOppgaveNotat = components["schemas"]["Notat"];
 
 interface IBeslutterNotatContextType {
-  notat: IOppgaveNotat;
+  notatTekst: string;
+  sistEndretTidspunkt: string;
   setNotat: (notat: IOppgaveNotat) => void;
 }
 
@@ -19,8 +20,12 @@ export function BeslutterNotatProvider(props: PropsWithChildren<{ notat?: IOppga
     props.notat || { tekst: "", sistEndretTidspunkt: "" },
   );
 
+  const notatTekst = useMemo(() => notat.tekst, [notat.tekst]);
+
   return (
-    <BeslutterNotatContext.Provider value={{ notat, setNotat }}>
+    <BeslutterNotatContext.Provider
+      value={{ notatTekst, sistEndretTidspunkt: notat.sistEndretTidspunkt, setNotat }}
+    >
       {props.children}
     </BeslutterNotatContext.Provider>
   );
