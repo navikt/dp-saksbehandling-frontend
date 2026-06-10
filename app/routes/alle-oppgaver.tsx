@@ -13,7 +13,7 @@ import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
-import { SwitchFiltere } from "~/components/oppgave-filter/SwitchFiltere";
+import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import styles from "~/route-styles/index.module.css";
@@ -75,7 +75,10 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
-        <SwitchFiltere />
+        <div>
+          <SwitchFilter param="mineOppgaver">Vis kun mine oppgaver</SwitchFilter>
+          <SwitchFilter param="harDpSak">Vis kun DP-saker</SwitchFilter>
+        </div>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />

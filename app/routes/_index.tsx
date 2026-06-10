@@ -20,6 +20,7 @@ import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/Oppgave
 import { OppgaveFilterSøknadresultat } from "~/components/oppgave-filter/OppgaveFilterSøknadresultat";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
+import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -114,6 +115,7 @@ export default function Saksbehandling() {
             </Button>
           )}
         </div>
+        <SwitchFilter param="harDpSak">Vis kun DP-saker</SwitchFilter>
         <OppgaveFilterDato />
         <OppgaveFilterAvslagsgrunner />
         <OppgaveFilterStatus
