@@ -87,7 +87,8 @@ export function OppgaveReturnerTilSaksbehandler() {
       <Modal ref={modalRef} header={{ heading: "Returner til saksbehandler" }}>
         <Modal.Body>
           <Textarea
-            {...returnerTilSaksbehandlerForm.getInputProps("notat")}
+            name="notat"
+            form={returnerTilSaksbehandlerForm.getInputProps("notat").form}
             size={"small"}
             className="mt-4"
             value={notat.tekst}
