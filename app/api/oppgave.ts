@@ -1,5 +1,5 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
+import { useNavigate, useNavigation } from "react-router";
 
 import type { components } from "../../openapi/saksbehandling-typer";
 
@@ -108,8 +108,9 @@ async function tildelOppgaveFetch(payload: TildelOppgavePayload) {
 export function useTildelOppgaveMutation(options?: { onError?: (error: Error) => void }) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const navigation = useNavigation();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: tildelOppgaveFetch,
     onSuccess: (result) => {
       const { behandlingType, oppgaveId, behandlingId, nyTilstand, utlostAv } = result.data;
@@ -142,4 +143,9 @@ export function useTildelOppgaveMutation(options?: { onError?: (error: Error) =>
       options?.onError?.(error);
     },
   });
+
+  return {
+    mutate: mutation.mutate,
+    isPending: mutation.isPending || navigation.state === "loading",
+  };
 }
