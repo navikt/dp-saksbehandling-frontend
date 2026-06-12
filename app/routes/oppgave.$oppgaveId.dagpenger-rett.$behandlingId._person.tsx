@@ -1,10 +1,4 @@
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  Outlet,
-  useActionData,
-  useLoaderData,
-} from "react-router";
+import { ActionFunctionArgs, type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
 import invariant from "tiny-invariant";
 
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
@@ -46,8 +40,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function BehandlingLayout() {
-  const actionData = useActionData<typeof action>();
-  console.log("actionData", actionData);
   const { saksbehandler } = useTypedRouteLoaderData("root");
   const { oppgave, behandling, forrigeBehandling, vurderinger, rapporteringPersonIdPromise } =
     useLoaderData<typeof loader>();
