@@ -22,7 +22,6 @@ import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på
 import { slettBarnAction } from "~/server-side-actions/slett-barn-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
-import { tildelOppgaveAction } from "~/server-side-actions/tildel-oppgave-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
 import { getEnv } from "~/utils/env.utils";
 import { logger } from "~/utils/logger.utils";
@@ -61,9 +60,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "legg-tilbake-oppgave":
       return await leggTilbakeOppgaveAction(request, params, formData);
-
-    case "tildel-oppgave":
-      return await tildelOppgaveAction(request, formData);
 
     case "sett-oppgave-på-vent":
       return await settOppgavePåVentAction(request, formData);
