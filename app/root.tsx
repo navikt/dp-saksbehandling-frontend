@@ -90,8 +90,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 }
 
 const OPPGAVER_MUTATING_ACTIONS = new Set([
-  "legg-tilbake-oppgave",
-  "tildel-oppgave",
   "returner-oppgave-til-saksbehandler",
   "send-til-kontroll",
   "sett-oppgave-på-vent",

@@ -11,7 +11,6 @@ import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { leggTilBarnAction } from "~/server-side-actions/legg-til-barn-action";
-import { leggTilbakeOppgaveAction } from "~/server-side-actions/legg-tilbake-oppgave-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
 import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
@@ -57,9 +56,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "lagre-utvidet-beskrivelse":
       return await lagreUtvidetBeskrivelseAction(request, formData);
-
-    case "legg-tilbake-oppgave":
-      return await leggTilbakeOppgaveAction(request, params, formData);
 
     case "sett-oppgave-på-vent":
       return await settOppgavePåVentAction(request, formData);

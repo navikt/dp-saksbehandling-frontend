@@ -70,21 +70,21 @@ export function useOppgaveQuery(oppgaveId: string) {
   };
 }
 
+interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+}
+
 interface TildelOppgavePayload {
   oppgaveId: string;
   behandlingId: string;
 }
 
-interface TildelOppgaveResponse {
-  success: boolean;
-  data: {
-    behandlingType: string;
-    utlostAv?: string;
-    nyTilstand: string;
-    oppgaveId: string;
-    behandlingId: string;
-  };
-}
+type TildelOppgaveResponse = ApiResponse<{
+  behandlingType: string;
+  utlostAv?: string;
+  nyTilstand: string;
+}>;
 
 async function tildelOppgaveFetch(payload: TildelOppgavePayload) {
   const formData = new FormData();
@@ -112,8 +112,9 @@ export function useTildelOppgaveMutation(options?: { onError?: (error: Error) =>
 
   const mutation = useMutation({
     mutationFn: tildelOppgaveFetch,
-    onSuccess: (result) => {
-      const { behandlingType, oppgaveId, behandlingId, nyTilstand, utlostAv } = result.data;
+    onSuccess: (result, payload) => {
+      const { behandlingType, nyTilstand, utlostAv } = result.data;
+      const { oppgaveId, behandlingId } = payload;
 
       const performNavigation = () => {
         if (behandlingType === "RETT_TIL_DAGPENGER") {
@@ -147,5 +148,46 @@ export function useTildelOppgaveMutation(options?: { onError?: (error: Error) =>
   return {
     mutate: mutation.mutate,
     isPending: mutation.isPending || navigation.state === "loading",
+  };
+}
+
+type LeggTilbakeOppgaveResponse = ApiResponse<{ oppgaveId: string }>;
+
+async function leggTilbakeOppgaveFetch(payload: {
+  oppgaveId: string;
+  årsak: string;
+}): Promise<LeggTilbakeOppgaveResponse> {
+  const formData = new FormData();
+  formData.append("oppgaveId", payload.oppgaveId);
+  formData.append("årsak", payload.årsak);
+
+  const res = await fetch("/api/oppgave/legg-tilbake", {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.error || "Failed to legg tilbake oppgave");
+  }
+
+  return res.json();
+}
+
+export function useLeggTilbakeOppgaveMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: leggTilbakeOppgaveFetch,
+    onSuccess: () => {
+      // Invalidate cache after mutation settles
+      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+    },
+  });
+
+  return {
+    mutate: mutation.mutate,
+    isPending: mutation.isPending,
   };
 }

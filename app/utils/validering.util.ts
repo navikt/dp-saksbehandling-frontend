@@ -362,21 +362,6 @@ function hentValideringForNorskDato() {
     );
 }
 
-export function hentValideringForLeggTilbakeOppgave() {
-  const gyldigeAarsaker: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"][] = [
-    "MANGLER_KOMPETANSE",
-    "FRAVÆR",
-    "INHABILITET",
-    "ANNET",
-  ];
-  return z.object({
-    _action: z.literal("legg-tilbake-oppgave"),
-    oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
-    årsak: z.enum(gyldigeAarsaker, { message: "Du må velge en årsak" }),
-    aktivtOppgaveSok: z.string(),
-  });
-}
-
 export function hentValideringForTrekkKlage() {
   return z.object({
     _action: z.literal("trekk-klage"),
