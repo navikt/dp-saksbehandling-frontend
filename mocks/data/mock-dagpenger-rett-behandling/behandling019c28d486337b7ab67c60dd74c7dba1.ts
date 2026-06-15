@@ -36,6 +36,7 @@ export const behandling019c28d486337b7ab67c60dd74c7dba1: components["schemas"]["
   sistEndret: "2026-02-04T15:23:00.212091",
   kreverTotrinnskontroll: true,
   tilstand: "Ferdig",
+  regelverk: "idk",
   avklaringer: [
     {
       id: "019c28d4-8633-7b7a-b67c-60dd74c7db9f",

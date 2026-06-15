@@ -130,9 +130,9 @@ export function OpplysningPerioderTabell(props: IProps) {
                 {isBarneliste(periode.verdi) && periode.verdi.søknadBarnId && (
                   <Table.DataCell colSpan={2}>
                     <LoadingLink
-                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/rediger-barn/${periode.verdi.søknadBarnId}`}
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/barn/${periode.id}`}
                     >
-                      Rediger barn
+                      Se barneliste
                     </LoadingLink>
                   </Table.DataCell>
                 )}
