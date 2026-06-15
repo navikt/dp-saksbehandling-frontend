@@ -24,6 +24,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
   sistEndret: "2026-03-06T10:46:36.798434",
   kreverTotrinnskontroll: true,
   tilstand: "ForslagTilVedtak",
+  regelverk: "idk",
   avklaringer: [
     {
       id: "019cc289-f207-746b-ab1e-4103409c39d4",
