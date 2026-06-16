@@ -1,24 +1,20 @@
 import { components } from "@/openapi/saksbehandling-typer";
 import { leggTilbakeOppgave } from "~/models/saksbehandling.server";
 
+export type LeggTilbakeOppgaveResponse = {
+  data: components["schemas"]["LeggTilbakeOppgave"];
+};
+
 export async function action({ request }: { request: Request }) {
-  const formData = await request.formData();
-  const oppgaveId = formData.get("oppgaveId") as string;
-  const årsak = formData.get("årsak") as components["schemas"]["LeggTilbakeAarsak"];
+  const { oppgaveId, årsak } = await request.json();
 
-  const { error } = await leggTilbakeOppgave(request, oppgaveId, årsak);
+  const result = await leggTilbakeOppgave(request, oppgaveId, årsak);
 
-  if (error) {
-    return new Response(JSON.stringify({ error }), {
-      status: 400,
+  if (result.error) {
+    return new Response(JSON.stringify({ error: result.error }), {
+      status: result.error.status || 500,
       headers: { "Content-Type": "application/json" },
     });
   }
-
-  return {
-    success: true,
-    data: {
-      oppgaveId,
-    },
-  };
+  return result;
 }

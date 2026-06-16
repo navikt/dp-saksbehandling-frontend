@@ -3,7 +3,7 @@ import { Button, Loader } from "@navikt/ds-react";
 import classnames from "classnames";
 import { NavLink } from "react-router";
 
-import { useOppgaverQuery } from "~/api/oppgave";
+import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import { HeaderSaksbehandlerMeny } from "~/components/header-meny/HeaderSaksbehandlerMeny";
 import { HippHippHurra } from "~/components/høytid-og-morro/17-mai/HippHippHurra";
 import { Ghosts } from "~/components/høytid-og-morro/halloween/Ghosts";

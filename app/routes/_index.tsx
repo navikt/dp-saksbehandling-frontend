@@ -12,7 +12,7 @@ import {
   useSearchParams,
 } from "react-router";
 
-import { useOppgaverQuery } from "~/api/oppgave";
+import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterAvslagsgrunner } from "~/components/oppgave-filter/OppgaveFilterAvslagsgrunner";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";

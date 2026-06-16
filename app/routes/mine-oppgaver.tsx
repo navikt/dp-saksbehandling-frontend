@@ -8,7 +8,7 @@ import {
   useLoaderData,
 } from "react-router";
 
-import { useOppgaverQuery } from "~/api/oppgave";
+import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";

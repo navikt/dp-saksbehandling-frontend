@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from "@navikt/ds-react";
 import { ReactNode } from "react";
 
-import { useTildelOppgaveMutation } from "~/api/oppgave";
+import { useTildelOppgaveMutation } from "~/api/oppgave-hooks";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 

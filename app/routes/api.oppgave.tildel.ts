@@ -1,27 +1,21 @@
+import type { components } from "@/openapi/saksbehandling-typer";
 import { tildelOppgave } from "~/models/saksbehandling.server";
 
+export type TildelOppgaveResponse = {
+  data: components["schemas"]["TildeltOppgave"];
+};
+
 export async function action({ request }: { request: Request }) {
-  const formData = await request.formData();
-  const oppgaveId = formData.get("oppgaveId") as string;
-  const behandlingId = formData.get("behandlingId") as string;
+  const { oppgaveId } = await request.json();
 
-  const { data, error } = await tildelOppgave(request, oppgaveId);
+  const result = await tildelOppgave(request, oppgaveId);
 
-  if (error) {
-    return new Response(JSON.stringify({ error }), {
-      status: 400,
+  if (result.error) {
+    return new Response(JSON.stringify({ error: result.error }), {
+      status: result.error.status || 500,
       headers: { "Content-Type": "application/json" },
     });
   }
 
-  return {
-    success: true,
-    data: {
-      behandlingType: data.behandlingType,
-      utlostAv: data.utlostAv,
-      nyTilstand: data.nyTilstand,
-      oppgaveId,
-      behandlingId,
-    },
-  };
+  return result;
 }

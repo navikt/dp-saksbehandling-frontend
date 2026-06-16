@@ -1,7 +1,7 @@
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useNavigation } from "react-router";
-
 import type { components } from "../../openapi/saksbehandling-typer";
+import type { LeggTilbakeOppgaveResponse } from "../routes/api.oppgave.legg-tilbake";
+import type { TildelOppgaveResponse } from "../routes/api.oppgave.tildel";
+import { apiGet, apiPost } from "./util";
 
 export type OppgaveOversikt = components["schemas"]["OppgaveOversikt"];
 export type Oppgave = components["schemas"]["Oppgave"];
@@ -11,68 +11,16 @@ export type OppgaveListeData = {
   totaltAntallOppgaver: number;
 };
 
-async function fetchOppgaver(searchParams: URLSearchParams) {
+export async function fetchOppgaver(searchParams: URLSearchParams) {
   const url = `/api/oppgave?${searchParams.toString()}`;
-  const res = await fetch(url, { credentials: "include" });
-
-  console.info("fetching oppgaver with url:", url, "response status:", res.status);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch oppgaver: ${res.status}`);
-  }
-  return (await res.json()) as OppgaveListeData;
+  console.info("fetching oppgaver with url:", url);
+  return apiGet<OppgaveListeData>(url);
 }
 
-export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
-  [
-    "oppgaver",
-    Array.from(searchParams.entries()).reduce(
-      (acc, [key]) => ({ ...acc, [key]: searchParams.getAll(key) }),
-      {},
-    ),
-  ] as const;
-
-export function useOppgaverQuery(searchParams: URLSearchParams) {
-  const { data, isFetching } = useQuery<OppgaveListeData>({
-    queryKey: oppgaverQueryKey(searchParams),
-    queryFn: () => fetchOppgaver(searchParams),
-    placeholderData: keepPreviousData,
-  });
-
-  return {
-    oppgaver: data?.oppgaver ?? [],
-    totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
-    isFetching,
-  };
-}
-
-async function fetchOppgave(oppgaveId: string) {
+export async function fetchOppgave(oppgaveId: string) {
   const url = `/api/oppgave/${oppgaveId}`;
-  const res = await fetch(url, { credentials: "include" });
-
-  console.info("fetching oppgave with url:", url, "response status:", res.status);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch oppgave: ${res.status}`);
-  }
-  return (await res.json()) as Oppgave;
-}
-
-export function useOppgaveQuery(oppgaveId: string) {
-  const { data, isFetching } = useQuery<Oppgave>({
-    queryKey: ["oppgave", oppgaveId],
-    queryFn: async () => fetchOppgave(oppgaveId),
-  });
-
-  return {
-    oppgave: data ?? ({} as Oppgave),
-    isFetching,
-  };
-}
-
-interface ApiResponse<T> {
-  success: boolean;
-  data: T;
+  console.info("fetching oppgave with url:", url);
+  return apiGet<Oppgave>(url);
 }
 
 interface TildelOppgavePayload {
@@ -80,114 +28,14 @@ interface TildelOppgavePayload {
   behandlingId: string;
 }
 
-type TildelOppgaveResponse = ApiResponse<{
-  behandlingType: string;
-  utlostAv?: string;
-  nyTilstand: string;
-}>;
-
-async function tildelOppgaveFetch(payload: TildelOppgavePayload) {
-  const formData = new FormData();
-  formData.append("oppgaveId", payload.oppgaveId);
-  formData.append("behandlingId", payload.behandlingId);
-
-  const res = await fetch("/api/oppgave/tildel", {
-    method: "POST",
-    body: formData,
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || "Failed to tildel oppgave");
-  }
-
-  return (await res.json()) as TildelOppgaveResponse;
+export async function tildelOppgaveFetch(payload: TildelOppgavePayload) {
+  return apiPost<TildelOppgaveResponse>("/api/oppgave/tildel", payload, "Failed to tildel oppgave");
 }
 
-export function useTildelOppgaveMutation(options?: { onError?: (error: Error) => void }) {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const navigation = useNavigation();
-
-  const mutation = useMutation({
-    mutationFn: tildelOppgaveFetch,
-    onSuccess: (result, payload) => {
-      const { behandlingType, nyTilstand, utlostAv } = result.data;
-      const { oppgaveId, behandlingId } = payload;
-
-      const performNavigation = () => {
-        if (behandlingType === "RETT_TIL_DAGPENGER") {
-          if (utlostAv === "FERIETILLEGG" && nyTilstand === "UNDER_BEHANDLING") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/avklaringer`);
-          } else if (nyTilstand === "UNDER_BEHANDLING") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/behandle`);
-          } else if (nyTilstand === "UNDER_KONTROLL") {
-            return navigate(`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/vedtak`);
-          }
-        } else if (behandlingType === "KLAGE") {
-          return navigate(`/oppgave/${oppgaveId}/klage/${behandlingId}`);
-        } else if (behandlingType === "INNSENDING") {
-          return navigate(`/oppgave/${oppgaveId}/innsending/${behandlingId}`);
-        } else if (behandlingType === "TILBAKEKREVING") {
-          return navigate(`/oppgave/${oppgaveId}/tilbakekreving/${behandlingId}`);
-        } else if (behandlingType === "OPPFØLGING") {
-          return navigate(`/oppgave/${oppgaveId}/oppfolging/${behandlingId}`);
-        }
-      };
-
-      performNavigation()?.then(() => {
-        queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
-      });
-    },
-    onError: (error: Error) => {
-      options?.onError?.(error);
-    },
-  });
-
-  return {
-    mutate: mutation.mutate,
-    isPending: mutation.isPending || navigation.state === "loading",
-  };
-}
-
-type LeggTilbakeOppgaveResponse = ApiResponse<{ oppgaveId: string }>;
-
-async function leggTilbakeOppgaveFetch(payload: {
-  oppgaveId: string;
-  årsak: string;
-}): Promise<LeggTilbakeOppgaveResponse> {
-  const formData = new FormData();
-  formData.append("oppgaveId", payload.oppgaveId);
-  formData.append("årsak", payload.årsak);
-
-  const res = await fetch("/api/oppgave/legg-tilbake", {
-    method: "POST",
-    body: formData,
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || "Failed to legg tilbake oppgave");
-  }
-
-  return res.json();
-}
-
-export function useLeggTilbakeOppgaveMutation() {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: leggTilbakeOppgaveFetch,
-    onSuccess: () => {
-      // Invalidate cache after mutation settles
-      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
-    },
-  });
-
-  return {
-    mutate: mutation.mutate,
-    isPending: mutation.isPending,
-  };
+export async function leggTilbakeOppgaveFetch(payload: { oppgaveId: string; årsak: string }) {
+  return apiPost<LeggTilbakeOppgaveResponse>(
+    "/api/oppgave/legg-tilbake",
+    payload,
+    "Failed to legg tilbake oppgave",
+  );
 }

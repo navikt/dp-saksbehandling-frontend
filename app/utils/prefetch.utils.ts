@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 
-import { oppgaverQueryKey } from "~/api/oppgave";
+import { oppgaverQueryKey } from "~/api/oppgave-hooks";
 import { hentOppgaver } from "~/models/saksbehandling.server";
 import { mineOppgaverDefaultParams } from "~/routes/mine-oppgaver";
 
