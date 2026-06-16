@@ -69,7 +69,7 @@ export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
 
-  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
     new URLSearchParams(search),
   );
 
@@ -93,7 +93,7 @@ export default function Saksbehandling() {
             oppgaver={oppgaver}
             visPersonIdent={true}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isFetching}
+            lasterOppgaver={isLoading}
           />
         </div>
       </main>

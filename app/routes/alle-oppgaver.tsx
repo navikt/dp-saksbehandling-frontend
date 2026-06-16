@@ -66,7 +66,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
     new URLSearchParams(search),
   );
   useHandleAlertMessages(alert);
@@ -92,7 +92,7 @@ export default function Saksbehandling() {
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isFetching}
+            lasterOppgaver={isLoading}
           />
         </div>
       </main>

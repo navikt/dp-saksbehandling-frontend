@@ -33,7 +33,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
     defaultMineOppgaverSearchParams.append(key, value);
   });
 
-  const { totaltAntallOppgaver, isFetching } = useOppgaverQuery(defaultMineOppgaverSearchParams);
+  const { totaltAntallOppgaver, isLoading } = useOppgaverQuery(defaultMineOppgaverSearchParams);
 
   return (
     <div className={styles.container}>
@@ -54,7 +54,7 @@ export function HeaderMeny({ saksbehandler }: IProps) {
           }
         >
           Mine oppgaver
-          {isFetching && (
+          {isLoading && (
             <Loader size="small" className={styles.loader} title="Henter oppgaver..." />
           )}
           {totaltAntallOppgaver > 0 && (

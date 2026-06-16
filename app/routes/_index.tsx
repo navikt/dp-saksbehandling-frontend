@@ -73,7 +73,7 @@ export default function Saksbehandling() {
   const { aktivtOppgaveSok } = useSaksbehandler();
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
     new URLSearchParams(search),
   );
   const { setAktivtOppgaveSok } = useSaksbehandler();
@@ -131,10 +131,10 @@ export default function Saksbehandling() {
             variant="primary"
             size="small"
             type="submit"
-            loading={isFetching}
-            disabled={isFetching}
+            loading={isLoading}
+            disabled={isLoading}
           >
-            Neste oppgave
+            isLoading Neste oppgave
           </Button>
         </Form>
 
@@ -144,7 +144,7 @@ export default function Saksbehandling() {
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isFetching}
+            lasterOppgaver={isLoading}
           />
         </div>
       </main>

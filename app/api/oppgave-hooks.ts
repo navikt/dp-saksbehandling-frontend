@@ -20,7 +20,7 @@ export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
   ] as const;
 
 export function useOppgaverQuery(searchParams: URLSearchParams) {
-  const { data, isFetching } = useQuery<OppgaveListeData>({
+  const { data, isLoading } = useQuery<OppgaveListeData>({
     queryKey: oppgaverQueryKey(searchParams),
     queryFn: () => fetchOppgaver(searchParams),
     placeholderData: keepPreviousData,
@@ -29,7 +29,7 @@ export function useOppgaverQuery(searchParams: URLSearchParams) {
   return {
     oppgaver: data?.oppgaver ?? [],
     totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
-    isFetching,
+    isLoading,
   };
 }
 
