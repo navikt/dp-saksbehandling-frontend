@@ -134,7 +134,7 @@ export default function Saksbehandling() {
             loading={isLoading}
             disabled={isLoading}
           >
-            isLoading Neste oppgave
+            Neste oppgave
           </Button>
         </Form>
 
