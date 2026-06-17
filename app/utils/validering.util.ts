@@ -567,32 +567,46 @@ export function hentValideringForSlettBarn() {
   });
 }
 
-export function hentValideringForNyttBarn() {
-  const boolskSvar = z
-    .enum(["true", "false"], { message: "Du må velge et svar" })
-    .transform((value) => value === "true");
-
+export function hentValideringForNyBarneperiode() {
   return z.object({
     _action: z.literal("legg-til-barn"),
-    soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.preprocess(
+    soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
+    barn: z.array(
+      z.object({
+        fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
+        etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
+        fødselsdato: z.preprocess(
+          (val) => (val === "" || val === "undefined" ? undefined : val),
+          hentValideringForNorskDato(),
+        ),
+        statsborgerskap: z.string().min(1, { message: "Du må velge et land" }),
+        // TODO: mangler i schema
+        // forsorgerBarnet: z
+        // .enum(["true", "false"], { message: "Du må velge et svar" })
+        //         .transform((value) => value === "true"),
+        kvalifiserer: z
+          .enum(["true", "false"], { message: "Du må velge et svar" })
+          .transform((value) => value === "true"),
+        // TODO: mangler i schema, trengs det?
+        // barnetilleggFom: z.preprocess(
+        //   (val) => (val === "" || val === "undefined" ? undefined : val),
+        //   hentValideringForNorskDato().optional(),
+        // ),
+        // TODO: ditto: :point-up:
+        // barnetilleggTom: z.preprocess(
+        //   (val) => (val === "" || val === "undefined" ? undefined : val),
+        //   hentValideringForNorskDato().optional(),
+        // ),
+        // TODO: mangler i schema
+        // begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+      }),
+    ),
+    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
+    gyldigFraOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
       hentValideringForNorskDato(),
     ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: boolskSvar,
-    kvalifisererTilBarnetillegg: boolskSvar,
-    barnetilleggFom: z.preprocess(
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    barnetilleggTom: z.preprocess(
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
   });
 }
