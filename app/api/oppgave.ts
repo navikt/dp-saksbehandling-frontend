@@ -1,7 +1,7 @@
 import type { components } from "../../openapi/saksbehandling-typer";
 import type { LeggTilbakeOppgaveResponse } from "../routes/api.oppgave.legg-tilbake";
 import type { TildelOppgaveResponse } from "../routes/api.oppgave.tildel";
-import { apiGet, apiPost } from "./util";
+import { apiGet, apiPost, apiPut } from "./util";
 
 export type OppgaveOversikt = components["schemas"]["OppgaveOversikt"];
 export type Oppgave = components["schemas"]["Oppgave"];
@@ -21,6 +21,12 @@ export async function fetchOppgave(oppgaveId: string) {
   const url = `/api/oppgave/${oppgaveId}`;
   console.info("fetching oppgave with url:", url);
   return apiGet<Oppgave>(url);
+}
+
+export async function fetchNesteOppgave(aktivtOppgaveSok: string) {
+  const url = `/api/oppgave/neste`;
+  console.info("fetching neste oppgave with url:", url);
+  return apiPut<Oppgave>(url, { aktivtOppgaveSok });
 }
 
 interface TildelOppgavePayload {

@@ -63,7 +63,9 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockOppgaver[0]);
+    return response(404).json(get404Error("/oppgave/neste"));
+
+    //return response(200).json(mockOppgaver[0]);
   }),
 
   // Hent en oppgave med oppgaveId

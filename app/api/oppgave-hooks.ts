@@ -1,7 +1,10 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useNavigation } from "react-router";
+import { redirect, useNavigate, useNavigation } from "react-router";
+
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 
 import {
+  fetchNesteOppgave,
   fetchOppgave,
   fetchOppgaver,
   leggTilbakeOppgaveFetch,
@@ -96,6 +99,45 @@ export function useLeggTilbakeOppgaveMutation() {
     onSuccess: () => {
       // Invalidate cache after mutation settles
       queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+    },
+  });
+
+  return {
+    mutate: mutation.mutate,
+    isPending: mutation.isPending,
+  };
+}
+
+export function useHentNesteOppgave() {
+  const queryClient = useQueryClient();
+  const { aktivtOppgaveSok } = useSaksbehandler();
+
+  const params = new URLSearchParams(aktivtOppgaveSok);
+  params.delete("side");
+  params.delete("antallOppgaver");
+  const aktivtOppgaveSokUtenPaginering = params.toString();
+
+  const mutation = useMutation({
+    mutationFn: () => fetchNesteOppgave(aktivtOppgaveSokUtenPaginering),
+    onSuccess: (oppgave) => {
+      // Invalidate cache after mutation settles
+      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+
+      switch (oppgave.behandlingType) {
+        case "RETT_TIL_DAGPENGER":
+          if (oppgave.tilstand === "UNDER_KONTROLL") {
+            return redirect(
+              `/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${oppgave.behandlingId}/vedtak`,
+            );
+          }
+
+          return redirect(
+            `/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${oppgave.behandlingId}/behandle`,
+          );
+
+        case "KLAGE":
+          return redirect(`/oppgave/${oppgave.oppgaveId}/klage/${oppgave.behandlingId}`);
+      }
     },
   });
 
