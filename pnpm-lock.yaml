@@ -75,8 +75,8 @@ importers:
         specifier: 5.0.2
         version: 5.0.2
       '@portabletext/toolbar':
-        specifier: 7.0.27
-        version: 7.0.27(@portabletext/editor@6.6.2(@types/react@19.2.15)(react@19.2.6))(@types/react@19.2.15)(react@19.2.6)
+        specifier: 8.0.12
+        version: 8.0.12(@portabletext/editor@6.6.2(@types/react@19.2.15)(react@19.2.6))(@types/react@19.2.15)(react@19.2.6)
       '@react-router/node':
         specifier: 7.17.0
         version: 7.17.0(react-router@7.17.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(typescript@6.0.3)
@@ -2101,12 +2101,12 @@ packages:
     resolution: {integrity: sha512-w59PcErj5JXUCv9tbV2npqJmcnORTAftCMLp0vc9FnWrXL3C9qYvuB2MQbdHsZEOesF3VmwqUsYUgjm7PX4JTw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/toolbar@7.0.27':
-    resolution: {integrity: sha512-t0dPSB1HfAn3L5qJd17CSC66OwxKBw6Jqrdtqy2IzsZfkjRFNAVxC+Zil53nIJVuG547Khc+YR29FaiCdu3bPg==}
+  '@portabletext/toolbar@8.0.12':
+    resolution: {integrity: sha512-1SpZoMOYzUYnBxI5/fuvZ1sKBo7vBke6Cud9q9/rzrMBkVeuge5jB7YBNNDUw0tJGT357tAJCF7b/EfLztQxAw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     peerDependencies:
-      '@portabletext/editor': ^6.6.4
-      react: ^19.2.3
+      '@portabletext/editor': ^7.3.2
+      react: ^19.2.5
 
   '@portabletext/toolkit@5.0.2':
     resolution: {integrity: sha512-Njc1LE1PMJkTx/wEPqZ6sOWGgFgX2B47fxpOQ/Ia4ByhsZoA5Sq8dNvvV5F052j/xE8TbOLiBEjS848FkKADDQ==}
@@ -5927,6 +5927,9 @@ packages:
   xstate@5.32.0:
     resolution: {integrity: sha512-zsk73aWGmxn9z34P0kbiod5JwTvdYRW3+IDxITq8sd9+VWwMyW7BUzpplnYy9mIEXa6V8IMDv7Hy4m0mhT5+2Q==}
 
+  xstate@5.32.1:
+    resolution: {integrity: sha512-IGX9q5vEOplWjVq79edfgjJfVV/lXCup9p/fQGgUabAveZrlRwWJ/mC2iZEE7wswXbWITBCoS7gmoFfcuWAwsQ==}
+
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
@@ -8247,13 +8250,13 @@ snapshots:
       '@portabletext/toolkit': 5.0.2
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolbar@7.0.27(@portabletext/editor@6.6.2(@types/react@19.2.15)(react@19.2.6))(@types/react@19.2.15)(react@19.2.6)':
+  '@portabletext/toolbar@8.0.12(@portabletext/editor@6.6.2(@types/react@19.2.15)(react@19.2.6))(@types/react@19.2.15)(react@19.2.6)':
     dependencies:
       '@portabletext/editor': 6.6.2(@types/react@19.2.15)(react@19.2.6)
       '@portabletext/keyboard-shortcuts': 2.1.2
-      '@xstate/react': 6.1.0(@types/react@19.2.15)(react@19.2.6)(xstate@5.32.0)
+      '@xstate/react': 6.1.0(@types/react@19.2.15)(react@19.2.6)(xstate@5.32.1)
       react: 19.2.6
-      xstate: 5.32.0
+      xstate: 5.32.1
     transitivePeerDependencies:
       - '@types/react'
 
@@ -8950,6 +8953,16 @@ snapshots:
       use-sync-external-store: 1.6.0(react@19.2.6)
     optionalDependencies:
       xstate: 5.32.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@xstate/react@6.1.0(@types/react@19.2.15)(react@19.2.6)(xstate@5.32.1)':
+    dependencies:
+      react: 19.2.6
+      use-isomorphic-layout-effect: 1.2.1(@types/react@19.2.15)(react@19.2.6)
+      use-sync-external-store: 1.6.0(react@19.2.6)
+    optionalDependencies:
+      xstate: 5.32.1
     transitivePeerDependencies:
       - '@types/react'
 
@@ -12193,6 +12206,8 @@ snapshots:
   xmlchars@2.2.0: {}
 
   xstate@5.32.0: {}
+
+  xstate@5.32.1: {}
 
   xtend@4.0.2: {}
 
