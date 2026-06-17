@@ -8,7 +8,7 @@ import {
   useLoaderData,
 } from "react-router";
 
-import { useOppgaverQuery } from "~/api/oppgave";
+import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
@@ -66,7 +66,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Saksbehandling() {
   const actionData = useActionData<typeof action>();
   const { alert, search } = useLoaderData<typeof loader>();
-  const { oppgaver, totaltAntallOppgaver, isFetching } = useOppgaverQuery(
+  const { oppgaver, totaltAntallOppgaver, isLoading } = useOppgaverQuery(
     new URLSearchParams(search),
   );
   useHandleAlertMessages(alert);
@@ -92,7 +92,7 @@ export default function Saksbehandling() {
             icon={<LayersIcon fontSize="1.5rem" aria-hidden />}
             oppgaver={oppgaver}
             totaltAntallOppgaver={totaltAntallOppgaver}
-            lasterOppgaver={isFetching}
+            lasterOppgaver={isLoading}
           />
         </div>
       </main>

@@ -1,6 +1,7 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-
 import type { components } from "../../openapi/saksbehandling-typer";
+import type { LeggTilbakeOppgaveResponse } from "../routes/api.oppgave.legg-tilbake";
+import type { TildelOppgaveResponse } from "../routes/api.oppgave.tildel";
+import { apiGet, apiPost } from "./util";
 
 export type OppgaveOversikt = components["schemas"]["OppgaveOversikt"];
 export type Oppgave = components["schemas"]["Oppgave"];
@@ -10,61 +11,31 @@ export type OppgaveListeData = {
   totaltAntallOppgaver: number;
 };
 
-async function fetchOppgaver(searchParams: URLSearchParams) {
+export async function fetchOppgaver(searchParams: URLSearchParams) {
   const url = `/api/oppgave?${searchParams.toString()}`;
-  const res = await fetch(url, { credentials: "include" });
-
-  console.info("fetching oppgaver with url:", url, "response status:", res.status);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch oppgaver: ${res.status}`);
-  }
-  return (await res.json()) as OppgaveListeData;
+  console.info("fetching oppgaver with url:", url);
+  return apiGet<OppgaveListeData>(url);
 }
 
-export const oppgaverQueryKey = (searchParams: URLSearchParams) =>
-  [
-    "oppgaver",
-    Array.from(searchParams.entries()).reduce(
-      (acc, [key]) => ({ ...acc, [key]: searchParams.getAll(key) }),
-      {},
-    ),
-  ] as const;
-
-export function useOppgaverQuery(searchParams: URLSearchParams) {
-  const { data, isFetching } = useQuery<OppgaveListeData>({
-    queryKey: oppgaverQueryKey(searchParams),
-    queryFn: () => fetchOppgaver(searchParams),
-    placeholderData: keepPreviousData,
-  });
-
-  return {
-    oppgaver: data?.oppgaver ?? [],
-    totaltAntallOppgaver: data?.totaltAntallOppgaver ?? 0,
-    isFetching,
-  };
-}
-
-async function fetchOppgave(oppgaveId: string) {
+export async function fetchOppgave(oppgaveId: string) {
   const url = `/api/oppgave/${oppgaveId}`;
-  const res = await fetch(url, { credentials: "include" });
-
-  console.info("fetching oppgave with url:", url, "response status:", res.status);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch oppgave: ${res.status}`);
-  }
-  return (await res.json()) as Oppgave;
+  console.info("fetching oppgave with url:", url);
+  return apiGet<Oppgave>(url);
 }
 
-export function useOppgaveQuery(oppgaveId: string) {
-  const { data, isFetching } = useQuery<Oppgave>({
-    queryKey: ["oppgave", oppgaveId],
-    queryFn: async () => fetchOppgave(oppgaveId),
-  });
+interface TildelOppgavePayload {
+  oppgaveId: string;
+  behandlingId: string;
+}
 
-  return {
-    oppgave: data ?? ({} as Oppgave),
-    isFetching,
-  };
+export async function tildelOppgaveFetch(payload: TildelOppgavePayload) {
+  return apiPost<TildelOppgaveResponse>("/api/oppgave/tildel", payload, "Failed to tildel oppgave");
+}
+
+export async function leggTilbakeOppgaveFetch(payload: { oppgaveId: string; årsak: string }) {
+  return apiPost<LeggTilbakeOppgaveResponse>(
+    "/api/oppgave/legg-tilbake",
+    payload,
+    "Failed to legg tilbake oppgave",
+  );
 }

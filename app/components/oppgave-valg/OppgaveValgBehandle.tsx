@@ -1,9 +1,7 @@
 import { Button, ButtonProps } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
 import { ReactNode } from "react";
-import { useLocation } from "react-router";
 
-import { hentValideringForTildelOppgave } from "~/utils/validering.util";
+import { useTildelOppgaveMutation } from "~/api/oppgave-hooks";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -22,26 +20,20 @@ export function OppgaveValgBehandle({
   buttonVariant,
   buttonSize,
 }: IProps) {
-  const { pathname } = useLocation();
-  const tildelOppgaveForm = useForm({
-    method: "post",
-    action: pathname,
-    submitSource: "state",
-    schema: hentValideringForTildelOppgave(),
-    defaultValues: {
-      _action: "tildel-oppgave",
-      oppgaveId: listeOppgave.oppgaveId,
-      behandlingId: listeOppgave.behandlingId,
-    },
-  });
+  const { mutate, isPending } = useTildelOppgaveMutation();
 
   return (
     <div>
       <Button
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-        loading={tildelOppgaveForm.formState.isSubmitting}
-        onClick={() => tildelOppgaveForm.submit()}
+        loading={isPending}
+        onClick={() =>
+          mutate({
+            oppgaveId: listeOppgave.oppgaveId,
+            behandlingId: listeOppgave.behandlingId,
+          })
+        }
         className={"aksel--font-regular aksel--full-bredde"}
         icon={icon}
       >

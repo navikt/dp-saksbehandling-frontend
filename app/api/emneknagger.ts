@@ -1,20 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
 import type { components } from "../../openapi/saksbehandling-typer";
+import { apiGet } from "./util";
 
 export type Emneknagg = components["schemas"]["Emneknagg"];
 
 async function fetchEmneknagger() {
   const url = `/api/emneknagger`;
-  const res = await fetch(url, { credentials: "include" });
-
-  console.info("fetching emneknagger with url:", url, "response status:", res.status);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch emneknagger: ${res.status}`);
-  }
-
-  return (await res.json()) as Emneknagg[];
+  console.info("fetching emneknagger with url:", url);
+  return apiGet<Emneknagg[]>(url);
 }
 
 export function useEmneknaggerQuery() {

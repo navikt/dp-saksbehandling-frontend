@@ -2,11 +2,12 @@ import { ArrowUndoIcon } from "@navikt/aksel-icons";
 import { Button, ButtonProps, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useRef } from "react";
-import { useLocation } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { z } from "zod";
 
+import { useLeggTilbakeOppgaveMutation } from "~/api/oppgave-hooks";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
 import { hentTekstForLeggTilbakeÅrsak } from "~/utils/tekst.utils";
-import { hentValideringForLeggTilbakeOppgave } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -17,21 +18,38 @@ interface IProps {
 }
 
 export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: IProps) {
-  const { pathname } = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
   const modalRef = useRef<HTMLDialogElement>(null);
+  const params = useParams();
+  const navigate = useNavigate();
+  const { aktivtOppgaveSok } = useSaksbehandler();
+
+  const { mutate, isPending } = useLeggTilbakeOppgaveMutation();
 
   const leggTilbakeForm = useForm({
-    method: "post",
-    action: pathname,
-    submitSource: "state",
-    schema: hentValideringForLeggTilbakeOppgave(),
-    onSubmitSuccess: () => modalRef.current?.close(),
+    schema: z.object({
+      årsak: z.enum(["MANGLER_KOMPETANSE", "FRAVÆR", "INHABILITET", "ANNET"], {
+        message: "Du må velge en årsak",
+      }),
+    }),
     defaultValues: {
-      _action: "legg-tilbake-oppgave",
-      oppgaveId: oppgave.oppgaveId,
-      årsak: "" as unknown as components["schemas"]["LeggTilbakeAarsak"],
-      aktivtOppgaveSok,
+      årsak: "" as unknown as components["schemas"]["LeggTilbakeAarsak"], // Start with an empty value to force selection
+    },
+    submitSource: "state",
+    resetAfterSubmit: true,
+    handleSubmit: (data) => {
+      mutate(
+        { oppgaveId: oppgave.oppgaveId, årsak: data.årsak },
+        {
+          onSuccess: () => {
+            // If returning the task being viewed, redirect to the list
+            if (params.oppgaveId === oppgave.oppgaveId && aktivtOppgaveSok) {
+              navigate(`/?${aktivtOppgaveSok}`);
+            }
+            // Close modal
+            modalRef.current?.close();
+          },
+        },
+      );
     },
   });
 
@@ -41,7 +59,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
         onClick={() => modalRef.current?.showModal()}
-        loading={leggTilbakeForm.formState.isSubmitting}
+        loading={isPending}
         icon={<ArrowUndoIcon aria-hidden />}
         className={"aksel--font-regular aksel--full-bredde"}
       >
@@ -68,8 +86,8 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
           <Button
             size="small"
             variant="primary"
-            type={"button"}
-            loading={leggTilbakeForm.formState.isSubmitting}
+            type="button"
+            loading={isPending}
             onClick={() => leggTilbakeForm.submit()}
           >
             Legg tilbake
@@ -80,6 +98,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
             type="button"
             variant="secondary"
             onClick={() => modalRef.current?.close()}
+            disabled={isPending}
           >
             Ikke legg tilbake
           </Button>
