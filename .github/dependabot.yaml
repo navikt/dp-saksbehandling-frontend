@@ -49,3 +49,6 @@ updates:
         patterns:
           - "eslint*"
           - "@eslint*"
+      graphql-codegen:
+        patterns:
+          - "@graphql-codegen*"
