@@ -5,14 +5,14 @@ import { components } from "@/openapi/soknad-orkestrator-typer";
 import { leggTilBarn } from "~/models/orkestrator-opplysning.server";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
-import { hentValideringForNyttBarn } from "~/utils/validering.util";
+import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 export async function leggTilBarnAction(
   request: Request,
   params: ActionFunctionArgs["params"],
   formData: FormData,
 ) {
-  const validertSkjema = await parseFormData(formData, hentValideringForNyttBarn());
+  const validertSkjema = await parseFormData(formData, hentValideringForNyBarneperiode());
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }

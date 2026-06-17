@@ -7,71 +7,65 @@ import {
   useLoaderData,
   useRouteError,
 } from "react-router";
-import invariant from "tiny-invariant";
 
-import { components } from "@/openapi/soknad-orkestrator-typer";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { OrkestratorOpplysning } from "~/components/orkestrator/orkestrator-opplysning/OrkestratorOpplysning";
+import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentOrkestratorLandListe } from "~/models/orkestrator-opplysning.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
-import { hentValideringForNyttBarn } from "~/utils/validering.util";
-
-const nyttBarnOpplysninger: components["schemas"]["BarnOpplysning"][] = [
-  { id: "fornavnOgMellomnavn", verdi: "", dataType: "tekst" },
-  { id: "etternavn", verdi: "", dataType: "tekst" },
-  { id: "fodselsdato", verdi: "", dataType: "dato" },
-  { id: "oppholdssted", verdi: "", dataType: "land" },
-  { id: "forsorgerBarnet", verdi: "false", dataType: "boolsk" },
-  { id: "kvalifisererTilBarnetillegg", verdi: "false", dataType: "boolsk" },
-  { id: "barnetilleggFom", verdi: "", dataType: "dato" },
-  { id: "barnetilleggTom", verdi: "", dataType: "dato" },
-  { id: "begrunnelse", verdi: "", dataType: "tekst" },
-];
+import { isBarneliste } from "~/utils/type-guards";
+import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-  invariant(params.barnId, "params.barnId er påkrevd");
-
+export async function loader({ request }: LoaderFunctionArgs) {
   const orkestratorLandliste = await hentOrkestratorLandListe(request);
   return { orkestratorLandliste };
 }
 
 export default function LeggTilBarn() {
-  const { oppgaveId, behandlingId, barnId } = useTypeSafeParams();
+  const { oppgaveId, behandlingId, regelsettId } = useTypeSafeParams();
   const { behandling } = useBehandling();
   const { orkestratorLandliste } = useLoaderData<typeof loader>();
 
-  const barnListeUrl = `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/rediger-barn/${barnId}`;
+  const barnOpplysning = behandling.opplysninger.find(
+    (opplysning) => opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b",
+  );
+  const opplysningUrl = `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${barnOpplysning?.opplysningTypeId}`;
+  const sisteBarneperiode = barnOpplysning?.perioder.at(-1);
+  const sisteBarneperiodeVerdi =
+    sisteBarneperiode && isBarneliste(sisteBarneperiode.verdi)
+      ? sisteBarneperiode.verdi
+      : undefined;
 
   const nyttBarnForm = useForm({
     method: "post",
-    schema: hentValideringForNyttBarn(),
+    schema: hentValideringForNyBarneperiode(),
     submitSource: "state",
     defaultValues: {
       _action: "legg-til-barn",
-      soknadBarnId: barnId,
+      soknadBarnId: sisteBarneperiodeVerdi?.søknadBarnId,
       behandlingId: behandling.behandlingId,
-      fornavnOgMellomnavn: "",
-      etternavn: "",
-      fodselsdato: undefined,
-      oppholdssted: "",
-      forsorgerBarnet: undefined as "true" | "false" | undefined,
-      kvalifisererTilBarnetillegg: undefined as "true" | "false" | undefined,
-      barnetilleggFom: undefined,
-      barnetilleggTom: undefined,
       begrunnelse: "",
+      gyldigFraOgMed: undefined,
+      barn:
+        sisteBarneperiodeVerdi?.verdi.map((barn) => ({
+          fornavnOgMellomnavn: barn.fornavnOgMellomnavn || "",
+          etternavn: barn.etternavn || "",
+          fødselsdato: barn.fødselsdato,
+          statsborgerskap: barn.statsborgerskap || "",
+          kvalifiserer: (barn.kvalifiserer ? "true" : "false") as "true" | "false",
+        })) || [],
     },
   });
 
   return (
     <main className="main">
-      <LoadingLink to={barnListeUrl} className={"flex items-center gap-1 pb-2"}>
+      <LoadingLink to={opplysningUrl} className={"flex items-center gap-1 pb-2"}>
         <ArrowLeftIcon />
         Redigering av barn
       </LoadingLink>
@@ -81,19 +75,18 @@ export default function LeggTilBarn() {
           Legg til nytt barn
         </Heading>
 
-        <div className={"flex flex-col gap-4"}>
-          {nyttBarnOpplysninger.map((opplysning) => (
-            <OrkestratorOpplysning
-              key={opplysning.id}
-              opplysning={opplysning}
-              formScope={nyttBarnForm.scope(opplysning.id)}
+        <div className={"flex flex-wrap gap-4"}>
+          {sisteBarneperiodeVerdi?.verdi.map((barn, index: number) => (
+            <OrkestratorBarn
+              key={`barn-${barn.fødselsdato}-${barn.fornavnOgMellomnavn}`}
+              barnNummer={index + 1}
+              barn={barn}
               orkestratorLandliste={orkestratorLandliste}
             />
           ))}
         </div>
-
         <div className="mt-8 flex gap-2">
-          <LoadingLink to={barnListeUrl} asButtonVariant={"secondary"}>
+          <LoadingLink to={opplysningUrl} asButtonVariant={"secondary"}>
             Avbryt
           </LoadingLink>
 

@@ -30,7 +30,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function RedigerBarn() {
-  const { oppgaveId, behandlingId, periodeId } = useTypeSafeParams();
+  const { oppgaveId, behandlingId, periodeId, regelsettId } = useTypeSafeParams();
   const { behandling } = useBehandling();
   const barnOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -51,7 +51,7 @@ export default function RedigerBarn() {
     <>
       <main className="main">
         <LoadingLink
-          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/`}
+          to={`/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${barnOpplysning?.opplysningTypeId}`}
           className={"flex items-center gap-1 pb-2"}
         >
           <ArrowLeftIcon />
