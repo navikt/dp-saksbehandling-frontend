@@ -160,7 +160,7 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Body>
       </Table>
 
-      {props.opplysning.redigerbar && isBarneopplysning && (
+      {props.opplysning.redigerbar && (
         <div>
           <Button
             size={"small"}
