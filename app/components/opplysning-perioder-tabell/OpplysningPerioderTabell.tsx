@@ -127,8 +127,9 @@ export function OpplysningPerioderTabell(props: IProps) {
 
                 {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
+                    {/* Query-paramet heter historisk opplysningId, men forventer opplysningTypeId-verdi. */}
                     <Link
-                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${periode.id}&behandlingId=${behandlingId}`}
+                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${props.opplysning.opplysningTypeId}&behandlingId=${behandlingId}`}
                       target="_blank"
                     >
                       Inntektsredigering <ExternalLinkIcon aria-hidden />
