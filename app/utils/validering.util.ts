@@ -572,41 +572,37 @@ export function hentValideringForNyBarneperiode() {
     _action: z.literal("legg-til-barn"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
     soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
+    gyldigFraOgMed: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato(),
+    ),
+    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
     barn: z.array(
       z.object({
+        // TODO: mangler i schema
+        kilde: z
+          .enum(["REGISTER", "SØKNAD", "SAKSBEHANDLER"], { message: "Du må velge en kilde" })
+          .optional(),
         fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
         etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
         fødselsdato: z.preprocess(
           (val) => (val === "" || val === "undefined" ? undefined : val),
           hentValideringForNorskDato(),
         ),
+        // TODO: mangler i schema
+        ident: z.string().optional(),
         statsborgerskap: z.string().min(1, { message: "Du må velge et land" }),
         // TODO: mangler i schema
-        // forsorgerBarnet: z
-        // .enum(["true", "false"], { message: "Du må velge et svar" })
-        //         .transform((value) => value === "true"),
+        forsorgerBarnet: z
+          .enum(["true", "false"], { message: "Du må velge et svar" })
+          .transform((value) => value === "true"),
         kvalifiserer: z
           .enum(["true", "false"], { message: "Du må velge et svar" })
           .transform((value) => value === "true"),
-        // TODO: mangler i schema, trengs det?
-        // barnetilleggFom: z.preprocess(
-        //   (val) => (val === "" || val === "undefined" ? undefined : val),
-        //   hentValideringForNorskDato().optional(),
-        // ),
-        // TODO: ditto: :point-up:
-        // barnetilleggTom: z.preprocess(
-        //   (val) => (val === "" || val === "undefined" ? undefined : val),
-        //   hentValideringForNorskDato().optional(),
-        // ),
         // TODO: mangler i schema
-        // begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+        begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
       }),
-    ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
-    gyldigFraOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
     ),
   });
 }
