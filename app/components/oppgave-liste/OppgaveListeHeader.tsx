@@ -42,6 +42,8 @@ export function OppgaveListeHeader({ visPersonIdent }: IProps) {
           <Detail>Saksbehandler</Detail>
         </Table.ColumnHeader>
 
+        <Table.ColumnHeader scope="col"></Table.ColumnHeader>
+
         <Table.ColumnHeader scope="col" textSize="small">
           <Detail>Valg</Detail>
         </Table.ColumnHeader>
