@@ -5,8 +5,8 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   behandlingId: "019b2cbf-a124-77ab-8944-496c1856f599",
   saksbehandler: {
     ident: "Z993298",
-    fornavn: "F_Z994714",
-    etternavn: "E_Z994714",
+    fornavn: "F_Z993298",
+    etternavn: "E_Z993298",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -65,7 +65,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
       tidspunkt: "2025-12-17T15:51:09.408",
       tittel: "Klar til kontroll",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },
@@ -74,7 +74,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
       tidspunkt: "2025-12-17T15:39:24.958",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },

@@ -5,8 +5,8 @@ export const oppgave019b2ce1aecd715eb6043ba49ebe3abc: components["schemas"]["Opp
   behandlingId: "019b2ce1-ad27-79b8-addd-4db6eee05452",
   saksbehandler: {
     ident: "Z993298",
-    fornavn: "F_Z994714",
-    etternavn: "E_Z994714",
+    fornavn: "F_Z993298",
+    etternavn: "E_Z993298",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -37,7 +37,7 @@ export const oppgave019b2ce1aecd715eb6043ba49ebe3abc: components["schemas"]["Opp
       tidspunkt: "2025-12-17T16:16:13.515",
       tittel: "Ferdig behandlet",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },
@@ -46,7 +46,7 @@ export const oppgave019b2ce1aecd715eb6043ba49ebe3abc: components["schemas"]["Opp
       tidspunkt: "2025-12-17T16:15:49.847",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },

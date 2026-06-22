@@ -99,7 +99,7 @@ export const mockDpSaksbehandling = [
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
         return response(200).json({
           ...mockOppgave,
-          nyTilstand: "KLAR_TIL_KONTROLL",
+          nyTilstand: "UNDER_BEHANDLING",
         });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
