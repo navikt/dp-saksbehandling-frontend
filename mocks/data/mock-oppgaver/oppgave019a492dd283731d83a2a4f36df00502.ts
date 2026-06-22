@@ -136,7 +136,7 @@ export const oppgave019a492dd283731d83a2a4f36df00502: components["schemas"]["Opp
       kategori: "SOKNADSRESULTAT",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

@@ -47,7 +47,7 @@ export const oppgave019df6848fd37128824390451b3cf219: components["schemas"]["Opp
       kategori: "BEHANDLET_HENDELSE_TYPE",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

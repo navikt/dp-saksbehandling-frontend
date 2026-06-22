@@ -4,7 +4,7 @@ export const oppgave019b2ccd885d71eb8977f453029fd5b4: components["schemas"]["Opp
   oppgaveId: "019b2ccd-885d-71eb-8977-f453029fd5b4",
   behandlingId: "019b2ccd-878b-754a-b941-507d4da5ab71",
   saksbehandler: {
-    ident: "Z994714",
+    ident: "Z993298",
     fornavn: "F_Z994714",
     etternavn: "E_Z994714",
     enhet: {
@@ -66,7 +66,7 @@ export const oppgave019b2ccd885d71eb8977f453029fd5b4: components["schemas"]["Opp
       kategori: "RETTIGHET",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

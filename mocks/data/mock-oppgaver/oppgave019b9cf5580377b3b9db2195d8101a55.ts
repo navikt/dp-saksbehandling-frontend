@@ -94,7 +94,7 @@ export const oppgave019b9cf5580377b3b9db2195d8101a55: components["schemas"]["Opp
       kategori: "RETTIGHET",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

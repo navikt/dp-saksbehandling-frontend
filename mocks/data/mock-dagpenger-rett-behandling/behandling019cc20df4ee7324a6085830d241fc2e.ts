@@ -36,7 +36,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
       begrunnelse: "OK!",
       sistEndret: "2026-03-06T08:30:34.512948",
       avklartAv: {
-        ident: "Z994714",
+        ident: "Z993298",
       },
       regelsett: [],
     },
@@ -2460,7 +2460,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2026-03-06T08:19:21.865018",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "dd",
               sistEndret: "2026-03-06T08:19:21.864993",
@@ -3455,7 +3455,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2026-03-06T08:19:34.028469",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "ddd",
               sistEndret: "2026-03-06T08:19:34.028454",
@@ -4839,7 +4839,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2026-03-06T08:19:53.869902",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "dd",
               sistEndret: "2026-03-06T08:19:53.869886",
@@ -7487,7 +7487,7 @@ export const behandling019cc20df4ee7324a6085830d241fc2e: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2026-03-06T08:20:42.424965",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "dd",
               sistEndret: "2026-03-06T08:20:42.424948",

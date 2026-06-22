@@ -99,7 +99,7 @@ export const mockDpSaksbehandling = [
       if (mockOppgave.tilstand === "KLAR_TIL_BEHANDLING") {
         return response(200).json({
           ...mockOppgave,
-          nyTilstand: "UNDER_BEHANDLING",
+          nyTilstand: "KLAR_TIL_KONTROLL",
         });
       }
       if (mockOppgave.tilstand === "KLAR_TIL_KONTROLL") {
@@ -141,7 +141,15 @@ export const mockDpSaksbehandling = [
     await delay(delayMs);
 
     if (apiError) {
-      return response("default").json(defaultError, { status: 500 });
+      return response("default").json(
+        {
+          type: "422",
+          title: "Oppgaven kan ikke ferdigstilles. Må avbrytes.",
+          status: 422,
+          instance: "dp-saksbehandling",
+        },
+        { status: 422 },
+      );
     }
 
     return response(204).empty();

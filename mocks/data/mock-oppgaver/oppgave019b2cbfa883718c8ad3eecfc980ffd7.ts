@@ -4,7 +4,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   oppgaveId: "019b2cbf-a883-718c-8ad3-eecfc980ffd7",
   behandlingId: "019b2cbf-a124-77ab-8944-496c1856f599",
   saksbehandler: {
-    ident: "Z994714",
+    ident: "Z993298",
     fornavn: "F_Z994714",
     etternavn: "E_Z994714",
     enhet: {
@@ -14,7 +14,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
     },
   },
   beslutter: {
-    ident: "Z990599",
+    ident: "Z993298",
     fornavn: "F_Z990599",
     etternavn: "E_Z990599",
     enhet: {
@@ -98,7 +98,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
       kategori: "SOKNADSRESULTAT",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "UNDER_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
