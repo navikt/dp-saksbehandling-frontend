@@ -35,9 +35,9 @@ interface NoteButtonProps {
 }
 
 export function NoteButton({ onClick, noteKey }: NoteButtonProps) {
-  const storedNote = localStorage.getItem(`note_${noteKey}`);
-  const storedColor = (localStorage.getItem(`note_color_${noteKey}`) as ColorKey) || "meta-lime";
-  const hasNote = storedNote !== null;
+  const storedNote = localStorage?.getItem(`note_${noteKey}`);
+  const storedColor = (localStorage?.getItem(`note_color_${noteKey}`) as ColorKey) || "meta-lime";
+  const hasNote = typeof storedNote === "string";
 
   const title = storedNote || storedColor;
 
