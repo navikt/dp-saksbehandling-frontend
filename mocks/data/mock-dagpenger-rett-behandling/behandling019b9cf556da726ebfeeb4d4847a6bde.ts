@@ -1082,7 +1082,7 @@ export const behandling019b9cf556da726ebfeeb4d4847a6bde: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2025-12-17T15:50:09.060263",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "DD",
               sistEndret: "2025-12-17T15:50:09.060241",
@@ -2157,7 +2157,7 @@ export const behandling019b9cf556da726ebfeeb4d4847a6bde: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2025-12-17T15:50:23.265516",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "dsasd",
               sistEndret: "2025-12-17T15:50:23.265481",
@@ -4298,7 +4298,7 @@ export const behandling019b9cf556da726ebfeeb4d4847a6bde: components["schemas"]["
           kilde: {
             type: "Saksbehandler",
             registrert: "2025-12-17T15:50:39.100001",
-            ident: "Z994714",
+            ident: "Z993298",
             begrunnelse: {
               verdi: "asdads",
               sistEndret: "2025-12-17T15:50:39.099993",

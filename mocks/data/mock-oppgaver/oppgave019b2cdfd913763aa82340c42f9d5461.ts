@@ -4,9 +4,9 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
   oppgaveId: "019b2cdf-d913-763a-a823-40c42f9d5461",
   behandlingId: "019b2cdf-d7f6-7814-ba92-bbad8be1bd07",
   saksbehandler: {
-    ident: "Z994714",
-    fornavn: "F_Z994714",
-    etternavn: "E_Z994714",
+    ident: "Z993298",
+    fornavn: "F_Z993298",
+    etternavn: "E_Z993298",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -37,7 +37,7 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
       tidspunkt: "2025-12-17T16:14:47.244",
       tittel: "Ferdig behandlet",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },
@@ -46,7 +46,7 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
       tidspunkt: "2025-12-17T16:13:52.668",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },
@@ -66,7 +66,7 @@ export const oppgave019b2cdfd913763aa82340c42f9d5461: components["schemas"]["Opp
       kategori: "RETTIGHET",
     },
   ],
-  tilstand: "FERDIG_BEHANDLET",
+  tilstand: "KLAR_TIL_KONTROLL",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],

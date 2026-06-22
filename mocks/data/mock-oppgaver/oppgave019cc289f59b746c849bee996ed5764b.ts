@@ -4,9 +4,9 @@ export const oppgave019cc289f59b746c849bee996ed5764b: components["schemas"]["Opp
   oppgaveId: "019cc289-f59b-746c-849b-ee996ed5764b",
   behandlingId: "019cc289-ef99-7c16-89ae-f32218d3f1ac",
   saksbehandler: {
-    ident: "Z994714",
-    fornavn: "F_Z994714",
-    etternavn: "E_Z994714",
+    ident: "Z993298",
+    fornavn: "F_Z993298",
+    etternavn: "E_Z993298",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -37,7 +37,7 @@ export const oppgave019cc289f59b746c849bee996ed5764b: components["schemas"]["Opp
       tidspunkt: "2026-03-06T11:24:56.283",
       tittel: "Avbrutt",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
       body: "Annen avbruddsårsak",
@@ -47,7 +47,7 @@ export const oppgave019cc289f59b746c849bee996ed5764b: components["schemas"]["Opp
       tidspunkt: "2026-03-06T10:45:51.121",
       tittel: "Under behandling",
       behandler: {
-        navn: "F_Z994714 E_Z994714",
+        navn: "F_Z993298 E_Z993298",
         rolle: "saksbehandler",
       },
     },

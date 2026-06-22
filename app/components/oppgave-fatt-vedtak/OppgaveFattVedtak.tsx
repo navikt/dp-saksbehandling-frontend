@@ -28,6 +28,7 @@ export function OppgaveFattVedtak() {
     submitSource: "state",
     schema: hentValideringForFattVedtak(),
     onSubmitSuccess: () => modalRef.current?.close(),
+    onSubmitFailure: () => modalRef.current?.close(),
     defaultValues: {
       _action: "fatt-vedtak",
       oppgaveId: oppgaveId,

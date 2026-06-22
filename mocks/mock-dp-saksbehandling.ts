@@ -141,7 +141,15 @@ export const mockDpSaksbehandling = [
     await delay(delayMs);
 
     if (apiError) {
-      return response("default").json(defaultError, { status: 500 });
+      return response("default").json(
+        {
+          type: "422",
+          title: "Oppgaven kan ikke ferdigstilles. Må avbrytes.",
+          status: 422,
+          instance: "dp-saksbehandling",
+        },
+        { status: 422 },
+      );
     }
 
     return response(204).empty();
