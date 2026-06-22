@@ -453,6 +453,15 @@ export interface paths {
                     };
                     content?: never;
                 };
+                /** @description Behandlingen er ikke i korrekt tilstand for godkjenning */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
                 /** @description Feil ved godkjenn av behandling */
                 default: {
                     headers: {
@@ -1053,6 +1062,7 @@ export interface components {
         OppdateringEventType: "behandling_opprettet" | "behandling_endret_tilstand" | "forslag_til_behandlingsresultat" | "behandlingsresultat" | "behandling_avbrutt" | "avklaring_lukket";
         NyBehandling: {
             behandlingstype?: components["schemas"]["Behandlingstype"];
+            regelverk?: components["schemas"]["RegelverkType"];
             ident: components["schemas"]["Personident"];
             begrunnelse?: string;
             /**
@@ -1068,6 +1078,11 @@ export interface components {
         };
         /** @enum {string} */
         Behandlingstype: "Revurdering" | "Manuell";
+        /**
+         * @description Hvilket regelverk behandlingen skal kjøre under. Dagpenger er default.
+         * @enum {string}
+         */
+        RegelverkType: "Dagpenger" | "Ferietillegg" | "Utestengning";
         NyOpplysning: {
             opplysningstype: components["schemas"]["OpplysningTypeId"];
             verdi: string;
@@ -1095,6 +1110,8 @@ export interface components {
             behandlingId: components["schemas"]["BehandlingId"];
             /** @description Hvilken hendelse som utløste behandlingen */
             behandletHendelse: components["schemas"]["Hendelse"];
+            /** @description Hvilket regelverk behandlingen kjører under. Dagpenger er default. */
+            regelverk: string;
             /** @description Hvilken behandlingskjede denne behandlingen tilhører. Dette tilsvarer en sammenhengende rettighetsperiode eller sak om du vil. */
             behandlingskjedeId: components["schemas"]["BehandlingId"];
             /** @description Hvilken behandling denne behandlingen er basert på, hvis noen */
@@ -1382,7 +1399,7 @@ export interface components {
         /** @description Kilde for opplysningen */
         Opplysningskilde: {
             /** @enum {string} */
-            type: "Saksbehandler" | "System";
+            type: "Saksbehandler" | "System" | "Behovsløser";
             /** Format: date-time */
             registrert: string;
             ident?: string | null;
@@ -1447,6 +1464,8 @@ export interface components {
              * @description A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced
              */
             instance?: string;
+        } & {
+            [key: string]: unknown;
         };
         Vedtak: {
             /** Format: uuid */
@@ -1770,6 +1789,24 @@ export interface operations {
                     "application/json": components["schemas"]["Kvittering"];
                 };
             };
+            /** @description Behandlingen er ikke i riktig tilstand for fjerning av opplysning */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Opplysningen kan ikke redigeres */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
             /** @description Feil ved fjerning av opplysning */
             default: {
                 headers: {
@@ -1804,6 +1841,24 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Kvittering"];
+                };
+            };
+            /** @description Behandlingen er ikke i riktig tilstand for redigering */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Opplysningen kan ikke legges til */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
                 };
             };
             /** @description Feil ved redigering av opplysninger */
@@ -1876,6 +1931,15 @@ export interface operations {
             };
             /** @description Du har ikke tilgang til å kvittere ut denne avklaringen */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["HttpProblem"];
+                };
+            };
+            /** @description Behandlingen har en pågående redigering */
+            409: {
                 headers: {
                     [name: string]: unknown;
                 };

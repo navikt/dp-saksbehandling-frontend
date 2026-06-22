@@ -18,6 +18,7 @@ export const behandling019b2cbfa12477ab8944496c1856f599: components["schemas"]["
       opprinnelse: "Ny",
     },
   ],
+  regelverk: "Dagpenger",
   opprettet: "2025-12-17T15:38:34.792004",
   sistEndret: "2025-12-17T15:52:01.451145",
   kreverTotrinnskontroll: true,

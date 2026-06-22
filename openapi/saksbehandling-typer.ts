@@ -195,62 +195,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/meldekortkorrigering/{behandlingId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Hent meldekortkorrigering for en gitt behandlingId */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    behandlingId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Vellykket respons med meldekortkorrigering */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["KorrigerteMeldekort"];
-                    };
-                };
-                /** @description Meldekortkorrigering for behandlingId ble ikke funnet */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-                /** @description Feil */
-                default: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpProblem"];
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/innsending/{behandlingId}/ferdigstill": {
         parameters: {
             query?: never;
@@ -372,7 +316,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Hent alle oppgaver med status Klar til behandling */
+        /** Hent alle oppgaver ut fra gitt filter */
         get: {
             parameters: {
                 query?: {
@@ -407,6 +351,14 @@ export interface paths {
                      */
                     gjenopptak?: string[];
                     /**
+                     * @description Ekskluder oppgaver med disse emneknaggene (f.eks. "Verneplikt" og "D-nummer")
+                     * @example [
+                     *       "Verneplikt",
+                     *       "D-nummer"
+                     *     ]
+                     */
+                    ekskluderEmneknagg?: string[];
+                    /**
                      * @description Filtrer på på-vent årsaker (f.eks. "Avvent svar", "Avvent dokumentasjon")
                      * @example [
                      *       "Avvent svar"
@@ -426,6 +378,7 @@ export interface paths {
                     utlostAv?: components["schemas"]["UtlostAvType"][];
                     fom?: string;
                     tom?: string;
+                    harDpSak?: boolean;
                     mineOppgaver?: boolean;
                     antallOppgaver?: number;
                     side?: number;
@@ -1268,6 +1221,15 @@ export interface paths {
                 };
                 /** @description Oppgaven kan ikke ferdigstilles i denne tilstanden */
                 409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppgaven kan ikke ferdigstilles. Må avbrytes. */
+                422: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -2218,20 +2180,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        KorrigerteMeldekort: {
-            korrigeringer: components["schemas"]["MeldekortKorrigering"][];
-        };
-        MeldekortKorrigering: {
-            /** Format: uuid */
-            meldekortId: string;
-            meldekortPeriode: components["schemas"]["MeldekortPeriode"];
-        };
-        MeldekortPeriode: {
-            /** Format: date */
-            fom: string;
-            /** Format: date */
-            tom: string;
-        };
         Innsending: {
             /** Format: uuid */
             behandlingId: string;

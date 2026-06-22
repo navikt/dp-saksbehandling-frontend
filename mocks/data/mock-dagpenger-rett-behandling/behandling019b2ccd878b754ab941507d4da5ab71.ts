@@ -19,6 +19,7 @@ export const behandling019b2ccd878b754ab941507d4da5ab71: components["schemas"]["
       opprinnelse: "Arvet",
     },
   ],
+  regelverk: "Dagpenger",
   opprettet: "2025-12-17T15:53:45.795905",
   sistEndret: "2025-12-17T15:54:51.407261",
   kreverTotrinnskontroll: false,
