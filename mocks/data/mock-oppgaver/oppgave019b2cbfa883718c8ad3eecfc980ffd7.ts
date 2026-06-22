@@ -15,8 +15,8 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   },
   beslutter: {
     ident: "Z993298",
-    fornavn: "F_Z990599",
-    etternavn: "E_Z990599",
+    fornavn: "F_Z993298",
+    etternavn: "E_Z993298",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
