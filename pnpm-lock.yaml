@@ -238,8 +238,8 @@ importers:
         specifier: 9.1.7
         version: 9.1.7
       inquirer:
-        specifier: 13.3.2
-        version: 13.3.2(@types/node@25.9.1)
+        specifier: 14.0.2
+        version: 14.0.2(@types/node@25.9.1)
       jsdom:
         specifier: 29.0.2
         version: 29.0.2
@@ -3053,8 +3053,8 @@ packages:
   change-case@5.4.4:
     resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
-  chardet@2.1.1:
-    resolution: {integrity: sha512-PsezH1rqdV9VvyNhxxOW32/d75r01NY7TQCmOqomRo15ZSOKbpTFVsfjghxo6JloQUCGnH4k1LGu0R4yCLlWQQ==}
+  chardet@2.2.0:
+    resolution: {integrity: sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA==}
 
   chokidar@4.0.3:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
@@ -3959,9 +3959,9 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  inquirer@13.3.2:
-    resolution: {integrity: sha512-bh/OjBGxNR9qvfQj1n5bxtIF58mbOTp2InN5dKuwUK03dXcDGFsjlDinQRuXMZ4EGiJaFieUWHCAaxH2p7iUBw==}
-    engines: {node: '>=23.5.0 || ^22.13.0 || ^21.7.0 || ^20.12.0'}
+  inquirer@14.0.2:
+    resolution: {integrity: sha512-VsSx1JneSNp3ld1veMTLe+UDcUD8Tw2/jjOthhkX3/IX2q+xHhVELifeb/hsb1fBw31pabEPNUf/xUOyb+KZjA==}
+    engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
       '@types/node': '>=18'
     peerDependenciesMeta:
@@ -6998,7 +6998,7 @@ snapshots:
 
   '@inquirer/external-editor@3.0.3(@types/node@25.9.1)':
     dependencies:
-      chardet: 2.1.1
+      chardet: 2.2.0
       iconv-lite: 0.7.2
     optionalDependencies:
       '@types/node': 25.9.1
@@ -9218,7 +9218,7 @@ snapshots:
 
   change-case@5.4.4: {}
 
-  chardet@2.1.1: {}
+  chardet@2.2.0: {}
 
   chokidar@4.0.3:
     dependencies:
@@ -10243,7 +10243,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  inquirer@13.3.2(@types/node@25.9.1):
+  inquirer@14.0.2(@types/node@25.9.1):
     dependencies:
       '@inquirer/ansi': 2.0.7
       '@inquirer/core': 11.2.1(@types/node@25.9.1)
@@ -10251,7 +10251,6 @@ snapshots:
       '@inquirer/type': 4.0.7(@types/node@25.9.1)
       mute-stream: 3.0.0
       run-async: 4.0.6
-      rxjs: 7.8.2
     optionalDependencies:
       '@types/node': 25.9.1
 
