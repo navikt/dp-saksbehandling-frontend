@@ -39,7 +39,7 @@
     "@grafana/faro-web-tracing": "2.5.0",
     "@graphql-typed-document-node/core": "3.2.0",
     "@mui/material": "9.1.0",
-    "@mui/x-charts": "9.0.4",
+    "@mui/x-charts": "9.5.0",
     "@navikt/aksel-icons": "8.13.0",
     "@navikt/ds-css": "8.13.0",
     "@navikt/ds-react": "8.13.0",
