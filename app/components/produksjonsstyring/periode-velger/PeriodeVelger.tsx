@@ -57,7 +57,7 @@ export function PeriodeVelger() {
 
   return (
     <div>
-      <BodyShort weight={"semibold"}>Periode</BodyShort>
+      <BodyShort weight={"semibold"}>Inngang</BodyShort>
       <div className={"flex items-center gap-2"}>
         <Chips size={"medium"}>
           {perioder.map((periode) => {
