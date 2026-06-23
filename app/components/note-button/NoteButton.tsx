@@ -103,7 +103,7 @@ export function NoteModal({ onClose, noteKey }: NoteModalProps) {
   const [localColor, setLocalColor] = useState(color || "meta-lime");
 
   const form = useForm({
-    schema: z.object({ note: z.string().optional() }),
+    schema: z.object({ note: z.string().max(124, "Max 124 tegn.") }),
     defaultValues: { note: note || "" },
     handleSubmit: (values) => {
       updateNote(values.note, localColor);
@@ -128,7 +128,9 @@ export function NoteModal({ onClose, noteKey }: NoteModalProps) {
       <Modal.Body>
         <form {...form.getFormProps()}>
           <Textarea
-            {...form.getInputProps("note")}
+            name="note"
+            defaultValue={note || ""}
+            error={form.error("note")}
             label="Skriv notat"
             placeholder="Skriv ditt notat her..."
           />
