@@ -49,7 +49,7 @@ const EmneknaggFilter = ({ kategoriFilter = [] }: Props) => {
             <div key={kategori}>
               <ReadMore size="small" header={kategoriNavn + " (" + emneknaggerParams.length + ")"}>
                 {knagger.map(({ visningsnavn }) => (
-                  <div className="mt-2 flex gap-3">
+                  <div className="mt-2 flex gap-3" key={visningsnavn}>
                     <BodyShort size="small">{visningsnavn}</BodyShort>
                     <div className="ml-auto flex items-center gap-2">
                       <Button
