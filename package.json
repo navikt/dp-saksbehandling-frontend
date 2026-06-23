@@ -48,7 +48,7 @@
     "@navikt/oasis": "4.1.4",
     "@opentelemetry/auto-instrumentations-node": "0.77.0",
     "@opentelemetry/sdk-node": "0.217.0",
-    "@opentelemetry/sdk-trace-node": "2.7.1",
+    "@opentelemetry/sdk-trace-node": "2.8.0",
     "@portabletext/block-tools": "5.1.4",
     "@portabletext/editor": "6.6.2",
     "@portabletext/keyboard-shortcuts": "2.1.2",
