@@ -1,5 +1,5 @@
 import { DocPencilIcon } from "@navikt/aksel-icons";
-import { Button, Modal, Textarea } from "@navikt/ds-react";
+import { BodyShort, Button, Heading, Label, Modal, Textarea } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -56,19 +56,15 @@ const useUpdateNoteData = (noteKey: string) => {
   return { note, color, updateNote };
 };
 
-const COLOR_OPTIONS: { label: string; value: string }[] = [
-  { label: "Neutral", value: "neutral" },
-  { label: "Accent", value: "accent" },
-  { label: "Success", value: "success" },
-  { label: "Danger", value: "danger" },
-  { label: "Warning", value: "warning" },
-  { label: "Info", value: "info" },
-  { label: "Brand Magenta", value: "brand-magenta" },
-  { label: "Brand Beige", value: "brand-beige" },
-  { label: "Brand Blue", value: "brand-blue" },
-  { label: "Meta Purple", value: "meta-purple" },
-  { label: "Meta Lime", value: "meta-lime" },
-];
+const COLOR_MAP: Record<string, string> = {
+  "meta-lime-400": "Gul",
+  "danger-600": "Rød",
+  "success-600": "Grønn",
+  "accent-600": "Blå",
+  "warning-400": "Oransje",
+  "meta-purple-600": "Lilla",
+  "brand-blue-400": "Grå",
+};
 
 interface NoteButtonProps {
   onClick: () => void;
@@ -79,12 +75,12 @@ export function NoteButton({ onClick, noteKey }: NoteButtonProps) {
   const { note, color } = useUpdateNoteData(noteKey);
   const hasNote = typeof note === "string";
 
-  const title = note || color;
+  const title = note || COLOR_MAP[color!];
 
   return (
     <button
-      title={title || "Legg til notat"}
-      style={hasNote ? { backgroundColor: `var(--ax-bg-${color}-strong)` } : {}}
+      title={title || "Legg til huskelapp"}
+      style={hasNote ? { backgroundColor: `var(--ax-${color})` } : {}}
       className="box-content size-4 align-middle"
       onClick={onClick}
     >
@@ -119,44 +115,39 @@ export function NoteModal({ onClose, noteKey }: NoteModalProps) {
   };
 
   return (
-    <Modal
-      open={!!noteKey}
-      onClose={onClose}
-      header={{ heading: "Notat" }}
-      aria-labelledby="modal-heading"
-    >
-      <Modal.Body>
+    <Modal open={!!noteKey} onClose={onClose} aria-labelledby="modal-heading">
+      <Modal.Header>
+        <Heading level="1" size="large" id="modal-heading">
+          Huskelapp
+        </Heading>
+        <BodyShort>
+          Her kan du legge inn en huskelapp som er synlig kun for deg. <br />
+          <strong>OBS!</strong> Dette notatet skal ikke inneholde noen sensitive opplysninger.
+        </BodyShort>
+      </Modal.Header>
+      <Modal.Body className="width-100">
         <form {...form.getFormProps()}>
           <Textarea
             name="note"
             defaultValue={note || ""}
             error={form.error("note")}
-            label="Skriv notat"
+            label="Huskelapp"
             placeholder="Skriv ditt notat her..."
           />
-          <div style={{ marginTop: "1rem" }}>
-            <p style={{ marginBottom: "0.5rem", fontSize: "0.875rem", fontWeight: "500" }}>Farge</p>
-            <div
-              style={{
-                display: "flex",
-                gap: "0.5rem",
-                flexWrap: "wrap",
-              }}
-            >
-              {COLOR_OPTIONS.map((option) => (
+          <div className="mt-4">
+            <Label>Farge</Label>
+            <div className="flex flex-row flex-wrap gap-2">
+              {Object.entries(COLOR_MAP).map(([colorKey, label]) => (
                 <button
-                  key={option.value}
+                  key={colorKey}
                   type="button"
-                  onClick={() => setLocalColor(option.value)}
+                  onClick={() => setLocalColor(colorKey)}
+                  className="size-12 cursor-pointer rounded"
                   style={{
-                    width: "2rem",
-                    height: "2rem",
-                    backgroundColor: `var(--ax-bg-${option.value}-strong)`,
-                    border: localColor === option.value ? "3px solid black" : "1px solid #999",
-                    borderRadius: "4px",
-                    cursor: "pointer",
+                    backgroundColor: `var(--ax-${colorKey})`,
+                    border: localColor === colorKey ? "3px solid black" : "1px solid #999",
                   }}
-                  title={option.label}
+                  title={label}
                 />
               ))}
             </div>

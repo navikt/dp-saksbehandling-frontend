@@ -19,7 +19,10 @@ import {
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
 
+import { NoteButton, NoteModal } from "../note-button/NoteButton";
+
 export function OppgaveOversikt() {
+  const [visHuskelapp, setVisHuskelapp] = useState(false);
   const location = useLocation();
   const [erLukket, setErLukket] = useState(false);
   const { oppgave, underKontroll } = useOppgave();
@@ -59,6 +62,9 @@ export function OppgaveOversikt() {
 
   return (
     <div className="relative">
+      {visHuskelapp && (
+        <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
+      )}
       <AnimatePresence initial={false}>
         {!erLukket && (
           <motion.div
@@ -69,8 +75,10 @@ export function OppgaveOversikt() {
           >
             <aside className={"flex flex-col gap-4"}>
               <div className={"card flex flex-col gap-4 p-4"}>
-                <Heading size={"small"}>Oppgaveinformasjon</Heading>
-
+                <div className="flex items-center gap-2">
+                  <Heading size={"small"}>Oppgaveinformasjon</Heading>
+                  <NoteButton noteKey={oppgave.oppgaveId} onClick={() => setVisHuskelapp(true)} />
+                </div>
                 <VerdiMedTittel
                   visBorder={true}
                   label={"Opprettet"}
