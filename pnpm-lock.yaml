@@ -18,8 +18,8 @@ importers:
         specifier: 11.14.1
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.15)(react@19.2.6))(@types/react@19.2.15)(react@19.2.6)
       '@grafana/faro-web-sdk':
-        specifier: 2.5.0
-        version: 2.5.0
+        specifier: 2.7.1
+        version: 2.7.1
       '@grafana/faro-web-tracing':
         specifier: 2.5.0
         version: 2.5.0
@@ -813,11 +813,11 @@ packages:
     resolution: {integrity: sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@grafana/faro-core@2.7.0':
-    resolution: {integrity: sha512-fNOfWEouoHhZ4dw+oLO+UGoMBLgiLLQU56dp9+NgO3mGNwCYsFTQuKgKQfOe5DDmAbwpRISEyLbiMkEyY7mIJQ==}
+  '@grafana/faro-core@2.7.1':
+    resolution: {integrity: sha512-qJOp0sPBAEsmUxhs11nVdGx5Dk+VJ4CN/4s9ek99m33FfzybmjQ9nPXLHWhwEeNJNiEwQdDl4HsNUlXBGT5YEw==}
 
-  '@grafana/faro-web-sdk@2.5.0':
-    resolution: {integrity: sha512-K/BP+NAZjM3+i6f0zA81jvWdEUsqZCsPTHmbW0PCjZfbTzhEsANuy3HDrCqoMuz/BhoH32M7M2XddGoEwuidbQ==}
+  '@grafana/faro-web-sdk@2.7.1':
+    resolution: {integrity: sha512-ZK3MuE6FWBmiT5tTivcMovTVe8fG1tPm1ctc84blVoJkpQXlgODxOX7/fNmDBOjaHZ3EWdoGplZmjoXQ3g0mDw==}
 
   '@grafana/faro-web-tracing@2.5.0':
     resolution: {integrity: sha512-XvwIAcwyHOIjmB/gWRtvZf7T/q+Koltz+Cs/dxOhfgMVFFeKHeIdf26Hl3gtZCopPRwi3n3P/+p4iHDFWnDTbg==}
@@ -6757,20 +6757,20 @@ snapshots:
 
   '@gar/promise-retry@1.0.3': {}
 
-  '@grafana/faro-core@2.7.0':
+  '@grafana/faro-core@2.7.1':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/otlp-transformer': 0.218.0(@opentelemetry/api@1.9.1)
 
-  '@grafana/faro-web-sdk@2.5.0':
+  '@grafana/faro-web-sdk@2.7.1':
     dependencies:
-      '@grafana/faro-core': 2.7.0
+      '@grafana/faro-core': 2.7.1
       ua-parser-js: 1.0.41
       web-vitals: 5.3.0
 
   '@grafana/faro-web-tracing@2.5.0':
     dependencies:
-      '@grafana/faro-web-sdk': 2.5.0
+      '@grafana/faro-web-sdk': 2.7.1
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/core': 2.7.1(@opentelemetry/api@1.9.1)
       '@opentelemetry/exporter-trace-otlp-http': 0.216.0(@opentelemetry/api@1.9.1)
