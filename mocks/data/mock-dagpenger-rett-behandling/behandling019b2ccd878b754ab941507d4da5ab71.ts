@@ -24,7 +24,6 @@ export const behandling019b2ccd878b754ab941507d4da5ab71: components["schemas"]["
   sistEndret: "2025-12-17T15:54:51.407261",
   kreverTotrinnskontroll: false,
   tilstand: "Ferdig",
-  regelverk: "idk",
   avklaringer: [
     {
       id: "019b2ccd-878b-754a-b941-507d4da5ab6f",
@@ -6649,18 +6648,28 @@ export const behandling019b2ccd878b754ab941507d4da5ab71: components["schemas"]["
             søknadBarnId: "a67ced87-7305-4195-a694-e882b56632a9",
             verdi: [
               {
+                ident: "08031412345",
+                kilde: "Register",
                 fødselsdato: "2014-03-08",
                 fornavnOgMellomnavn: "OVERFØLSOM",
                 etternavn: "TIMEPLAN",
                 statsborgerskap: "NOR",
+                oppholdsland: "NOR",
+                forsørgeransvar: false,
                 kvalifiserer: false,
+                begrunnelse: "barnet er for følsomt",
               },
               {
+                ident: "25071912345",
+                kilde: "Saksbehandler",
                 fødselsdato: "2019-07-25",
                 fornavnOgMellomnavn: "FARLIG",
                 etternavn: "FOSS",
                 statsborgerskap: "NOR",
+                oppholdsland: "NOR",
+                forsørgeransvar: false,
                 kvalifiserer: false,
+                begrunnelse: "barnet er for farlig",
               },
             ],
             datatype: "barn",

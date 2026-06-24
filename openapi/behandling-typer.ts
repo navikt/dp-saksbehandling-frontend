@@ -1389,12 +1389,20 @@ export interface components {
             datatype: "barn";
         };
         BarnVerdi: {
+            /** @enum {string} */
+            kilde?: "Register" | "Søknad" | "Saksbehandler";
+            /** @description Fødselsnummer eller D-nummer for barn fra Folkeregisteret */
+            ident?: string;
             /** Format: date */
             "f\u00F8dselsdato": string;
             fornavnOgMellomnavn?: string;
             etternavn?: string;
+            /** @deprecated */
             statsborgerskap?: string;
+            oppholdsland?: string;
+            "fors\u00F8rgeransvar": boolean;
             kvalifiserer: boolean;
+            begrunnelse?: string;
         };
         /** @description Kilde for opplysningen */
         Opplysningskilde: {
