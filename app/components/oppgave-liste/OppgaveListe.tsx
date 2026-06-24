@@ -309,6 +309,7 @@ export function OppgaveListe(props: IProps) {
 
                 <Table.DataCell>
                   <NoteButton
+                    oppgaveTilstand={tilstand}
                     noteKey={oppgave.oppgaveId}
                     onClick={() => {
                       setSelectedNoteKey(oppgave.oppgaveId);

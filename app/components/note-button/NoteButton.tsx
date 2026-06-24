@@ -5,11 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import z from "zod";
 
-export const getStorage = (key: string): string | null => {
-  const item = localStorage.getItem(key);
-
-  return item;
-};
+import { components } from "@/openapi/saksbehandling-typer";
 
 export const setStorage = (key: string, value?: string) => {
   if (value === undefined) {
@@ -20,9 +16,10 @@ export const setStorage = (key: string, value?: string) => {
 
 export const makeDataQuery = (key: string) => ({
   queryKey: [key] as const,
-  queryFn: () => getStorage(key),
+  queryFn: () => localStorage.getItem(key),
 });
 
+/** localStorage finnes ikke på serveren, så vi må passe på at den kunn blir kalt fra klienten. */
 export const useUpdateData = (key: string) => {
   const queryClient = useQueryClient();
 
@@ -69,13 +66,27 @@ const COLOR_MAP: Record<string, string> = {
 interface NoteButtonProps {
   onClick: () => void;
   noteKey: string;
+  oppgaveTilstand: components["schemas"]["OppgaveTilstand"];
 }
 
-export function NoteButton({ onClick, noteKey }: NoteButtonProps) {
-  const { note, color } = useUpdateNoteData(noteKey);
+/**
+ * @param noteKey - Et notat vil bli laget på denne nøkkelen.
+ * Dersom notatet eksisterer viser vi et farget kort.
+ */
+export function NoteButton({ onClick, noteKey, oppgaveTilstand }: NoteButtonProps) {
+  const { note, color, updateNote } = useUpdateNoteData(noteKey);
   const hasNote = typeof note === "string";
 
+  // Du skal kunne ha et notat uten en melding.
   const title = note || COLOR_MAP[color!];
+
+  // Ferdig behandla oppgaver skal ikke ha notater.
+  if (["AVBRUTT", "AVBRUTT_MASKINELT", "FERDIG_BEHANDLET"].includes(oppgaveTilstand)) {
+    if (hasNote) {
+      updateNote(undefined, undefined);
+    }
+    return null;
+  }
 
   return (
     <button

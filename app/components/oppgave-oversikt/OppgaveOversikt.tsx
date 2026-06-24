@@ -77,7 +77,11 @@ export function OppgaveOversikt() {
               <div className={"card flex flex-col gap-4 p-4"}>
                 <div className="flex items-center gap-2">
                   <Heading size={"small"}>Oppgaveinformasjon</Heading>
-                  <NoteButton noteKey={oppgave.oppgaveId} onClick={() => setVisHuskelapp(true)} />
+                  <NoteButton
+                    noteKey={oppgave.oppgaveId}
+                    onClick={() => setVisHuskelapp(true)}
+                    oppgaveTilstand={oppgave.tilstand}
+                  />
                 </div>
                 <VerdiMedTittel
                   visBorder={true}
