@@ -38,7 +38,7 @@
     "@grafana/faro-web-sdk": "2.7.1",
     "@grafana/faro-web-tracing": "2.5.0",
     "@graphql-typed-document-node/core": "3.2.0",
-    "@mui/material": "9.1.0",
+    "@mui/material": "9.1.1",
     "@mui/x-charts": "9.5.0",
     "@navikt/aksel-icons": "8.13.0",
     "@navikt/ds-css": "8.13.0",
