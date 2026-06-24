@@ -1,8 +1,10 @@
 import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
 import { differenceInCalendarDays } from "date-fns";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
+import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveListeHeader } from "~/components/oppgave-liste/OppgaveListeHeader";
 import { OppgaveListePaginering } from "~/components/oppgave-liste/OppgaveListePaginering";
 import { useSaksbehandler } from "~/hooks/useSaksbehandler";
@@ -38,6 +40,7 @@ interface IProps {
 }
 
 export function OppgaveListe(props: IProps) {
+  const [selectedNoteKey, setSelectedNoteKey] = useState<string | undefined>();
   const { oppgaver, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
   const { skjulSensitiveOpplysninger } = useSaksbehandler();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -305,6 +308,15 @@ export function OppgaveListe(props: IProps) {
                 </Table.DataCell>
 
                 <Table.DataCell>
+                  <NoteButton
+                    oppgaveTilstand={tilstand}
+                    noteKey={oppgave.oppgaveId}
+                    onClick={() => {
+                      setSelectedNoteKey(oppgave.oppgaveId);
+                    }}
+                  />
+                </Table.DataCell>
+                <Table.DataCell>
                   <ListeOppgaveMeny listeOppgave={oppgave} />
                 </Table.DataCell>
               </Table.Row>
@@ -312,6 +324,10 @@ export function OppgaveListe(props: IProps) {
           })}
         </Table.Body>
       </Table>
+
+      {selectedNoteKey && (
+        <NoteModal onClose={() => setSelectedNoteKey(undefined)} noteKey={selectedNoteKey} />
+      )}
 
       {totaltAntallOppgaver > 0 && (
         <OppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
