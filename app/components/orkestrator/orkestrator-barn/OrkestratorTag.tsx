@@ -1,31 +1,31 @@
 import { Tag, TagProps } from "@navikt/ds-react";
 
-import { components } from "../../../../openapi/soknad-orkestrator-typer";
+import { components } from "@/openapi/behandling-typer";
 
-type Kilde = NonNullable<components["schemas"]["BarnOpplysning"]["kilde"]>;
+type Kilde = NonNullable<components["schemas"]["BarnVerdi"]["kilde"]>;
 
 interface IProps {
-  kilde?: components["schemas"]["BarnOpplysning"]["kilde"];
+  kilde?: components["schemas"]["BarnVerdi"]["kilde"];
 }
 
 function hentVariant(kilde: Kilde): TagProps["variant"] {
   switch (kilde) {
-    case "register":
+    case "Register":
       return "alt1";
-    case "saksbehandler":
+    case "Saksbehandler":
       return "neutral";
-    case "soknad":
+    case "Søknad":
       return "warning";
   }
 }
 
 function hentLabel(kilde: Kilde): string {
   switch (kilde) {
-    case "register":
+    case "Register":
       return "Register";
-    case "saksbehandler":
+    case "Saksbehandler":
       return "Saksbehandler";
-    case "soknad":
+    case "Søknad":
       return "Søknad";
   }
 }

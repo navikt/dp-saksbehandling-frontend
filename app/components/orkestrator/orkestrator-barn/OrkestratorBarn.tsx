@@ -4,6 +4,8 @@ import { components as behandlingComponents } from "@/openapi/behandling-typer";
 import { components } from "@/openapi/soknad-orkestrator-typer";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
+import { OrkestratorTag } from "./OrkestratorTag";
+
 interface IProps {
   barnNummer: number;
   barn: behandlingComponents["schemas"]["BarnVerdi"];
@@ -12,17 +14,19 @@ interface IProps {
 
 export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IProps) {
   const oppholdssted = orkestratorLandliste.find(
-    (land) => land.alpha3kode === barn.statsborgerskap,
+    (land) => land.alpha3kode === barn.oppholdsland,
   )?.navn;
 
   return (
     <div className="card card-raised min-w-2xl p-2">
-      <Heading level="4" size="xsmall" className="m-2" spacing>
-        Barn {barnNummer}
+      <Heading level="4" size="xsmall" className="m-2 flex gap-2" spacing>
+        Barn {barnNummer} {barn.kilde && <OrkestratorTag kilde={barn.kilde} />}
       </Heading>
 
       <div className="flex flex-col gap-4 p-2">
         <dl>
+          <Label as="dt">Ident</Label>
+          <BodyShort as="dd">{barn.ident || "--"}</BodyShort>
           <Label as="dt">Fornavn</Label>
           <BodyShort as="dd">{barn.fornavnOgMellomnavn}</BodyShort>
           <Label as="dt">Etternavn</Label>
@@ -31,8 +35,12 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
           <BodyShort as="dd">{formaterTilNorskDato(barn.fødselsdato)}</BodyShort>
           <Label as="dt">Oppholdssted</Label>
           <BodyShort as="dd">{oppholdssted}</BodyShort>
+          <Label as="dt">Har forsørgeransvar</Label>
+          <BodyShort as="dd">{barn.forsørgeransvar ? "Ja" : "Nei"}</BodyShort>
           <Label as="dt">Rett til barnetillegg</Label>
           <BodyShort as="dd">{barn.kvalifiserer ? "Ja" : "Nei"}</BodyShort>
+          <Label as="dt">Begrunnelse</Label>
+          <BodyShort as="dd">{barn.begrunnelse || "--"}</BodyShort>
         </dl>
       </div>
     </div>

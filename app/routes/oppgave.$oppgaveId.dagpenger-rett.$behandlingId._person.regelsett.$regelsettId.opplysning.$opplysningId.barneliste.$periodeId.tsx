@@ -29,7 +29,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return { orkestratorLandliste };
 }
 
-export default function RedigerBarn() {
+export default function VisBarn() {
   const { oppgaveId, behandlingId, periodeId, regelsettId } = useTypeSafeParams();
   const { behandling } = useBehandling();
   const barnOpplysning = behandling.opplysninger.find(

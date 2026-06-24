@@ -4,9 +4,9 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
   oppgaveId: "019b2cbf-a883-718c-8ad3-eecfc980ffd7",
   behandlingId: "019b2cbf-a124-77ab-8944-496c1856f599",
   saksbehandler: {
-    ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    ident: "Z993622",
+    fornavn: "F_Z993622",
+    etternavn: "E_Z993622",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",
@@ -14,9 +14,9 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
     },
   },
   beslutter: {
-    ident: "Z993298",
-    fornavn: "F_Z993298",
-    etternavn: "E_Z993298",
+    ident: "Z993622",
+    fornavn: "F_Z993622",
+    etternavn: "E_Z993622",
     enhet: {
       navn: "IT-avdelingen",
       enhetNr: "2970",

@@ -25,7 +25,6 @@ export const behandling019df2f6273877f3b629c54a0360c47b: components["schemas"]["
   kreverTotrinnskontroll: false,
   tilstand: "Ferdig",
   avklaringer: [],
-  regelverk: "idk",
   vilkår: [
     {
       id: "NzgxMjkyOTM2",
