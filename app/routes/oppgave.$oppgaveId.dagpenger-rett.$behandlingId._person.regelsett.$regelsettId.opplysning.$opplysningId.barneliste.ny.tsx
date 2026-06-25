@@ -1,6 +1,5 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
-import { Button, Heading } from "@navikt/ds-react";
-import { useForm } from "@rvf/react-router";
+import { Heading } from "@navikt/ds-react";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -17,7 +16,6 @@ import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentOrkestratorLandListe } from "~/models/orkestrator-opplysning.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isBarneliste } from "~/utils/type-guards";
-import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -29,9 +27,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function LeggTilBarn() {
+  const { orkestratorLandliste } = useLoaderData<typeof loader>();
   const { oppgaveId, behandlingId, regelsettId } = useTypeSafeParams();
   const { behandling } = useBehandling();
-  const { orkestratorLandliste } = useLoaderData<typeof loader>();
 
   const barnOpplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b",
@@ -42,27 +40,6 @@ export default function LeggTilBarn() {
     sisteBarneperiode && isBarneliste(sisteBarneperiode.verdi)
       ? sisteBarneperiode.verdi
       : undefined;
-
-  const nyttBarnForm = useForm({
-    method: "post",
-    schema: hentValideringForNyBarneperiode(),
-    submitSource: "state",
-    defaultValues: {
-      _action: "legg-til-barn",
-      soknadBarnId: sisteBarneperiodeVerdi?.søknadBarnId,
-      behandlingId: behandling.behandlingId,
-      begrunnelse: "",
-      gyldigFraOgMed: undefined,
-      barn:
-        sisteBarneperiodeVerdi?.verdi.map((barn) => ({
-          fornavnOgMellomnavn: barn.fornavnOgMellomnavn || "",
-          etternavn: barn.etternavn || "",
-          fødselsdato: barn.fødselsdato,
-          statsborgerskap: barn.statsborgerskap || "",
-          kvalifiserer: (barn.kvalifiserer ? "true" : "false") as "true" | "false",
-        })) || [],
-    },
-  });
 
   return (
     <main className="main">
@@ -94,15 +71,6 @@ export default function LeggTilBarn() {
           <LoadingLink to={opplysningUrl} asButtonVariant={"secondary"}>
             Avbryt
           </LoadingLink>
-
-          <Button
-            type="button"
-            size="small"
-            loading={nyttBarnForm.formState.isSubmitting}
-            onClick={() => nyttBarnForm.submit()}
-          >
-            Legg til barn
-          </Button>
         </div>
       </div>
     </main>
