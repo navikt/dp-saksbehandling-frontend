@@ -8,6 +8,7 @@ import {
   useRouteError,
 } from "react-router";
 
+import Barneskjema from "~/components/barn/Barneskjema";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
@@ -71,6 +72,10 @@ export default function LeggTilBarn() {
       </LoadingLink>
 
       <div className={"card p-4"}>
+        <Barneskjema
+          behandlingId={behandling.behandlingId}
+          sisteBarneperiode={sisteBarneperiodeVerdi}
+        />
         <Heading size={"small"} spacing>
           Legg til nytt barn
         </Heading>
