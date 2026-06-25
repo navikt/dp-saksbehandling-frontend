@@ -580,7 +580,6 @@ export function hentValideringForNyBarneperiode() {
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
     barn: z.array(
       z.object({
-        // TODO: mangler i schema
         kilde: z
           .enum(["REGISTER", "SØKNAD", "SAKSBEHANDLER"], { message: "Du må velge en kilde" })
           .optional(),
@@ -590,17 +589,10 @@ export function hentValideringForNyBarneperiode() {
           (val) => (val === "" || val === "undefined" ? undefined : val),
           hentValideringForNorskDato(),
         ),
-        // TODO: mangler i schema
         ident: z.string().optional(),
-        statsborgerskap: z.string().min(1, { message: "Du må velge et land" }),
-        // TODO: mangler i schema
-        forsorgerBarnet: z
-          .enum(["true", "false"], { message: "Du må velge et svar" })
-          .transform((value) => value === "true"),
-        kvalifiserer: z
-          .enum(["true", "false"], { message: "Du må velge et svar" })
-          .transform((value) => value === "true"),
-        // TODO: mangler i schema
+        oppholdsland: z.string().min(1, { message: "Du må velge et land" }),
+        forsørgeransvar: z.boolean({ message: "Du må velge et svar" }),
+        kvalifiserer: z.boolean({ message: "Du må velge et svar" }),
         begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
       }),
     ),

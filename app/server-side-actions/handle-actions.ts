@@ -10,7 +10,6 @@ import { lagreKlageOpplysningAction } from "~/server-side-actions/lagre-klage-op
 import { lagreNotatAction } from "~/server-side-actions/lagre-notat-action";
 import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-action";
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
-import { leggTilBarnAction } from "~/server-side-actions/legg-til-barn-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
 import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
@@ -107,9 +106,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "rediger-barn":
       return await redigerBarnAction(request, params, formData);
-
-    case "legg-til-barn":
-      return await leggTilBarnAction(request, params, formData);
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);
