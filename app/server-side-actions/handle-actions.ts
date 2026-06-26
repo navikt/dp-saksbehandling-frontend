@@ -28,6 +28,7 @@ import { ferdigstillInnsendingAction } from "./ferdigstill-innsending-action";
 import { ferdigstillOppfolgingAction } from "./ferdigstill-oppfolging-action";
 import { lagreGodkjentBrevIGosysAction } from "./lagre-godkjent-brev-i-gosys-action";
 import { lagreMeldingOmVedtakKildeAction } from "./lagre-melding-om-vedtak-kilde-action";
+import { opprettBarnelistePeriodeAction } from "./opprett-barneliste-periode-action";
 import { opprettOppfolgingAction } from "./opprett-oppfolging-action";
 
 export async function handleActions(request: Request, params: ActionFunctionArgs["params"]) {
@@ -100,6 +101,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "opprett-oppfolging":
       return await opprettOppfolgingAction(request, formData);
+
+    case "opprett-barneliste-periode":
+      return await opprettBarnelistePeriodeAction(request, formData);
 
     case "slett-barn":
       return await slettBarnAction(request, formData);

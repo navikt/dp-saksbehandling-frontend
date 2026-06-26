@@ -38,6 +38,7 @@ export function OpplysningPerioderTabell(props: IProps) {
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
     featureFlags.kanAlltidLeggeTilPeriode ||
+    props.opplysning.perioder.length === 0 ||
     props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
     props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 

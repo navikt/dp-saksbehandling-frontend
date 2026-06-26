@@ -569,31 +569,24 @@ export function hentValideringForSlettBarn() {
 
 export function hentValideringForNyBarneperiode() {
   return z.object({
-    _action: z.literal("legg-til-barn"),
+    _action: z.literal("opprett-barneliste-periode"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    soknadBarnId: z.string().min(1, { message: "Det mangler soknadBarnId i skjema" }),
-    gyldigFraOgMed: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
-    ),
+    soknadBarnId: z.string().optional(),
+    gyldigFraOgMed: z.string({ message: "Du må velge en gyldig fra og med dato" }),
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
     barn: z.array(
       z.object({
         kilde: z
-          .enum(["REGISTER", "SØKNAD", "SAKSBEHANDLER"], { message: "Du må velge en kilde" })
+          .enum(["Register", "Søknad", "Saksbehandler"], { message: "Du må velge en kilde" })
           .optional(),
         fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
         etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-        fødselsdato: z.preprocess(
-          (val) => (val === "" || val === "undefined" ? undefined : val),
-          hentValideringForNorskDato(),
-        ),
+        fødselsdato: z.string().min(1, { message: "Du må skrive fødselsdato" }),
         ident: z.string().optional(),
         oppholdsland: z.string().min(1, { message: "Du må velge et land" }),
-        forsørgeransvar: z.boolean({ message: "Du må velge et svar" }),
-        kvalifiserer: z.boolean({ message: "Du må velge et svar" }),
-        begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
+        forsørgeransvar: z.coerce.boolean({ message: "Du må velge et svar" }),
+        kvalifiserer: z.coerce.boolean({ message: "Du må velge et svar" }),
+        begrunnelse: z.string().optional(),
       }),
     ),
   });

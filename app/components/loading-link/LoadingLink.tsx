@@ -7,6 +7,8 @@ interface IProps extends LinkProps {
   buttonSize?: ButtonProps["size"];
   icon?: ReactNode;
   tittelPåHover?: string;
+  to: string;
+  className?: string;
 }
 
 export function LoadingLink(props: PropsWithChildren<IProps>) {
