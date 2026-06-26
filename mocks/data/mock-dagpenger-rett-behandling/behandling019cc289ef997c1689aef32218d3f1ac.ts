@@ -6746,6 +6746,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 oppholdsland: "NOR",
                 kvalifiserer: true,
                 forsørgeransvar: true,
+                begrunnelse: "Begrunnelse for at barnet kvalifiserer",
               },
               {
                 kilde: "Saksbehandler",
@@ -6757,6 +6758,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 oppholdsland: "NOR",
                 kvalifiserer: true,
                 forsørgeransvar: true,
+                begrunnelse: "noe annet",
               },
               {
                 kilde: "Register",
@@ -6768,6 +6770,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 oppholdsland: "NOR",
                 kvalifiserer: true,
                 forsørgeransvar: true,
+                begrunnelse: "noe heeeeelt annet",
               },
             ],
             datatype: "barn",

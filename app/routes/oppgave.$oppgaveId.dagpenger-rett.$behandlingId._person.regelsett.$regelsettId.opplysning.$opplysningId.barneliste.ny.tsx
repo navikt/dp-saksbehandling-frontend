@@ -1,16 +1,10 @@
 import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
-import {
-  ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  useLoaderData,
-  useRouteError,
-} from "react-router";
+import { ActionFunctionArgs, type LoaderFunctionArgs, useRouteError } from "react-router";
 
 import Barneskjema from "~/components/barn/Barneskjema";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { hentOrkestratorLandListe } from "~/models/orkestrator-opplysning.server";
@@ -27,7 +21,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function LeggTilBarn() {
-  const { orkestratorLandliste } = useLoaderData<typeof loader>();
   const { oppgaveId, behandlingId, regelsettId } = useTypeSafeParams();
   const { behandling } = useBehandling();
 
@@ -49,29 +42,14 @@ export default function LeggTilBarn() {
       </LoadingLink>
 
       <div className={"card p-4"}>
+        <Heading level="2" size="medium" spacing>
+          Ny barneliste
+        </Heading>
         <Barneskjema
           behandlingId={behandling.behandlingId}
           sisteBarneperiode={sisteBarneperiodeVerdi}
+          opplysningUrl={opplysningUrl}
         />
-        <Heading size={"small"} spacing>
-          Legg til nytt barn
-        </Heading>
-
-        <div className={"flex flex-wrap gap-4"}>
-          {sisteBarneperiodeVerdi?.verdi.map((barn, index: number) => (
-            <OrkestratorBarn
-              key={`barn-${barn.fødselsdato}-${barn.fornavnOgMellomnavn}`}
-              barnNummer={index + 1}
-              barn={barn}
-              orkestratorLandliste={orkestratorLandliste}
-            />
-          ))}
-        </div>
-        <div className="mt-8 flex gap-2">
-          <LoadingLink to={opplysningUrl} asButtonVariant={"secondary"}>
-            Avbryt
-          </LoadingLink>
-        </div>
       </div>
     </main>
   );
