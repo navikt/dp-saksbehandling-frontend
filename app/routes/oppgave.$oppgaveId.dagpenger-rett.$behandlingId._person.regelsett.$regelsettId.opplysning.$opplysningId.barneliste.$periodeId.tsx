@@ -8,9 +8,9 @@ import {
   useRouteError,
 } from "react-router";
 
+import { Barn } from "~/components/barn/Barn";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
-import { OrkestratorBarn } from "~/components/orkestrator/orkestrator-barn/OrkestratorBarn";
 import { useBehandling } from "~/hooks/useBehandling";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
@@ -69,7 +69,7 @@ export default function VisBarn() {
           <div className={"flex flex-wrap gap-4"}>
             {isBarneliste(barneperiode.verdi) &&
               barneperiode.verdi.verdi.map((barn, index: number) => (
-                <OrkestratorBarn
+                <Barn
                   key={`barn-${barn.fødselsdato}-${barn.fornavnOgMellomnavn}`}
                   barnNummer={index + 1}
                   barn={barn}

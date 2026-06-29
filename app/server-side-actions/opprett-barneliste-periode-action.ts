@@ -1,8 +1,7 @@
 import { parseFormData, validationError } from "@rvf/react-router";
+import { redirect } from "react-router";
 
-import { IAlert } from "~/context/alert-context";
 import { lagreOpplysning } from "~/models/behandling.server";
-import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
@@ -13,21 +12,24 @@ export async function opprettBarnelistePeriodeAction(request: Request, formData:
     return validationError(validertSkjema.error);
   }
 
-  const { behandlingId, barn, gyldigFraOgMed, begrunnelse } = validertSkjema.data;
-
-  let gyldigFraOgMedDato: string | undefined = undefined;
-
-  if (gyldigFraOgMed) {
-    gyldigFraOgMedDato = formaterTilBackendDato(gyldigFraOgMed);
-  }
+  const {
+    behandlingId,
+    oppgaveId,
+    regelsettId,
+    opplysningTypeId,
+    barn,
+    gyldigFraOgMed,
+    begrunnelse,
+    soknadBarnId,
+  } = validertSkjema.data;
 
   const { data, error } = await lagreOpplysning(
     request,
     behandlingId,
-    "0194881f-9428-74d5-b160-f63a4c61a23b",
-    JSON.stringify(barn),
+    opplysningTypeId,
+    JSON.stringify({ barn: barn, søknadbarnId: soknadBarnId }),
     begrunnelse ? begrunnelse : "",
-    gyldigFraOgMedDato,
+    gyldigFraOgMed,
     undefined,
   );
 
@@ -36,11 +38,9 @@ export async function opprettBarnelistePeriodeAction(request: Request, formData:
   }
 
   if (data) {
-    const successAlert: IAlert = {
-      variant: "success",
-      title: "Barnelisteperiode lagret",
-    };
-    return successAlert;
+    return redirect(
+      `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${opplysningTypeId}`,
+    );
   }
 
   throw new Error(`Uhåndtert feil i opprettBarnelistePeriodeAction()`);

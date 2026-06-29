@@ -90,35 +90,38 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                {!readonly && props.opplysning.redigerbar && periode.opprinnelse !== "Arvet" && (
-                  <>
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<TrashIcon />}
-                        loading={slettPeriodeForm.formState.isSubmitting}
-                        onClick={() => {
-                          slettPeriodeForm.field("periodeId").setValue(periode.id);
-                          slettPeriodeForm.submit();
-                        }}
-                        data-umami-event="Slett periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                      />
-                    </Table.DataCell>
+                {!readonly &&
+                  props.opplysning.redigerbar &&
+                  periode.opprinnelse !== "Arvet" &&
+                  !isBarneopplysning && (
+                    <>
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<TrashIcon />}
+                          loading={slettPeriodeForm.formState.isSubmitting}
+                          onClick={() => {
+                            slettPeriodeForm.field("periodeId").setValue(periode.id);
+                            slettPeriodeForm.submit();
+                          }}
+                          data-umami-event="Slett periode"
+                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                        />
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<PencilIcon />}
-                        data-umami-event="Rediger periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                        onClick={() => setPeriodeIdUnderRedigering(periode.id)}
-                      />
-                    </Table.DataCell>
-                  </>
-                )}
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<PencilIcon />}
+                          data-umami-event="Rediger periode"
+                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                          onClick={() => setPeriodeIdUnderRedigering(periode.id)}
+                        />
+                      </Table.DataCell>
+                    </>
+                  )}
 
                 {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
