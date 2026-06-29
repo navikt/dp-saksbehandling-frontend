@@ -4,7 +4,7 @@ import { components as behandlingComponents } from "@/openapi/behandling-typer";
 import { components } from "@/openapi/soknad-orkestrator-typer";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 
-import { OrkestratorTag } from "./OrkestratorTag";
+import { KildeTag } from "./KildeTag";
 
 interface IProps {
   barnNummer: number;
@@ -12,7 +12,7 @@ interface IProps {
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IProps) {
+export function Barn({ barnNummer, barn, orkestratorLandliste }: IProps) {
   const oppholdssted = orkestratorLandliste.find(
     (land) => land.alpha3kode === barn.oppholdsland,
   )?.navn;
@@ -20,7 +20,7 @@ export function OrkestratorBarn({ barnNummer, barn, orkestratorLandliste }: IPro
   return (
     <div className="card card-raised min-w-2xl p-2">
       <Heading level="4" size="xsmall" className="m-2 flex gap-2" spacing>
-        Barn {barnNummer} {barn.kilde && <OrkestratorTag kilde={barn.kilde} />}
+        Barn {barnNummer} {barn.kilde && <KildeTag kilde={barn.kilde} />}
       </Heading>
 
       <div className="flex flex-col gap-4 p-2">

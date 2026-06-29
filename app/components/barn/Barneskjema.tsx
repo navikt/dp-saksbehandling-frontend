@@ -12,15 +12,17 @@ import {
 import { FieldArray, FormProvider, useField, useForm, useFormContext } from "@rvf/react-router";
 import { parse } from "date-fns";
 import { useLoaderData } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 import { components } from "@/openapi/behandling-typer";
 import { components as orkestratorComponents } from "@/openapi/soknad-orkestrator-typer";
+import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { loader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person.regelsett.$regelsettId.opplysning.$opplysningId.barneliste.ny";
-import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 import { LoadingLink } from "../loading-link/LoadingLink";
-import { OrkestratorTag } from "../orkestrator/orkestrator-barn/OrkestratorTag";
+import { KildeTag } from "./KildeTag";
 
 const defaultBarn = {
   kilde: "Saksbehandler" as const,
@@ -64,7 +66,7 @@ const Barnefelt = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
     toDate: new Date(),
     onDateChange: (date: Date | undefined) => {
       if (date) {
-        const dato = formaterTilNorskDato(date);
+        const dato = formaterTilBackendDato(date);
         barnForm.field("fødselsdato").setValue(dato);
       } else {
         barnForm.field("fødselsdato").setValue("");
@@ -74,7 +76,7 @@ const Barnefelt = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
   return (
     <div className="card flex flex-col gap-4 p-4">
       <div>
-        <OrkestratorTag
+        <KildeTag
           kilde={barnForm.field("kilde").value() as "Register" | "Søknad" | "Saksbehandler"}
         />
       </div>
@@ -131,6 +133,7 @@ interface Props {
 
 const Barneskjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Props) => {
   const { orkestratorLandliste } = useLoaderData<typeof loader>();
+  const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
   const barneliste: SkjemaBarn[] =
     sisteBarneperiode?.verdi.map((barn) => ({
       ...defaultBarn,
@@ -143,7 +146,10 @@ const Barneskjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Props) 
     submitSource: "state",
     defaultValues: {
       _action: "opprett-barneliste-periode",
-      soknadBarnId: sisteBarneperiode?.søknadBarnId,
+      opplysningTypeId: opplysningId,
+      regelsettId: regelsettId,
+      oppgaveId: oppgaveId,
+      soknadBarnId: uuidv4(),
       behandlingId,
       begrunnelse: "",
       gyldigFraOgMed: undefined as string | undefined,
@@ -154,7 +160,7 @@ const Barneskjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Props) 
   const gyldigFraOgMedDatepicker = useDatepicker({
     onDateChange: (date: Date | undefined) => {
       if (date) {
-        const dato = formaterTilNorskDato(date);
+        const dato = formaterTilBackendDato(date);
         nyBarnelisteForm.field("gyldigFraOgMed").setValue(dato);
       } else {
         nyBarnelisteForm.field("gyldigFraOgMed").setValue("");

@@ -30,7 +30,7 @@ function hentLabel(kilde: Kilde): string {
   }
 }
 
-export function OrkestratorTag({ kilde }: IProps) {
+export function KildeTag({ kilde }: IProps) {
   if (kilde === undefined) {
     return null;
   }

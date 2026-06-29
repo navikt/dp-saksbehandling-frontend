@@ -215,37 +215,6 @@ export function hentValideringAvbrytOppgave() {
   });
 }
 
-export function hentValideringOrkestratorBarn() {
-  return z.object({
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.string().regex(
-      new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"), // Regex for å matche norsk dato format, eks. 01.02.2023
-      "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-    ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: z.enum(["true", "false"], {
-      message: "Du må velge et svar",
-    }),
-    kvalifisererTilBarnetillegg: z.enum(["true", "false"], {
-      message: "Du må velge et svar",
-    }),
-    barnetilleggFom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-      ),
-    barnetilleggTom: z
-      .string()
-      .regex(
-        new RegExp("^(0[1-9]|[12][0-9]|3[01])[.-](0[1-9]|1[012])[.-](19|20|)\\d\\d$"),
-        "Ugyldig dato. Gyldig datoformat er dd.mm.åååå",
-      ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-  });
-}
-
 export function hentValideringForNyKlageSkjema() {
   return z.object({
     _action: z.literal("opprett-klage"),
@@ -571,6 +540,9 @@ export function hentValideringForNyBarneperiode() {
   return z.object({
     _action: z.literal("opprett-barneliste-periode"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
+    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
+    regelsettId: z.string("Det mangler regelsettId i skjema"),
+    oppgaveId: z.string("Det mangler oppgaveId i skjema"),
     soknadBarnId: z.string().optional(),
     gyldigFraOgMed: z.string({ message: "Du må velge en gyldig fra og med dato" }),
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
