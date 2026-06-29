@@ -540,9 +540,6 @@ export function hentValideringForNyBarneperiode() {
   return z.object({
     _action: z.literal("opprett-barneliste-periode"),
     behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    opplysningTypeId: z.string("Det mangler opplysningTypeId i skjema"),
-    regelsettId: z.string("Det mangler regelsettId i skjema"),
-    oppgaveId: z.string("Det mangler oppgaveId i skjema"),
     soknadBarnId: z.string().optional(),
     gyldigFraOgMed: z.string({ message: "Du må velge en gyldig fra og med dato" }),
     begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),

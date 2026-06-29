@@ -1,32 +1,27 @@
 import { parseFormData, validationError } from "@rvf/react-router";
-import { redirect } from "react-router";
+import { ActionFunctionArgs, redirect } from "react-router";
 
 import { lagreOpplysning } from "~/models/behandling.server";
 import { getHttpProblemAlert } from "~/utils/error-response.utils";
 import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
-export async function opprettBarnelistePeriodeAction(request: Request, formData: FormData) {
+export async function opprettBarnelistePeriodeAction(
+  request: Request,
+  params: ActionFunctionArgs["params"],
+  formData: FormData,
+) {
   const validertSkjema = await parseFormData(formData, hentValideringForNyBarneperiode());
 
   if (validertSkjema.error) {
     return validationError(validertSkjema.error);
   }
 
-  const {
-    behandlingId,
-    oppgaveId,
-    regelsettId,
-    opplysningTypeId,
-    barn,
-    gyldigFraOgMed,
-    begrunnelse,
-    soknadBarnId,
-  } = validertSkjema.data;
+  const { behandlingId, barn, gyldigFraOgMed, begrunnelse, soknadBarnId } = validertSkjema.data;
 
   const { data, error } = await lagreOpplysning(
     request,
     behandlingId,
-    opplysningTypeId,
+    "0194881f-9428-74d5-b160-f63a4c61a23b",
     JSON.stringify({ barn: barn, søknadbarnId: soknadBarnId }),
     begrunnelse ? begrunnelse : "",
     gyldigFraOgMed,
@@ -39,7 +34,7 @@ export async function opprettBarnelistePeriodeAction(request: Request, formData:
 
   if (data) {
     return redirect(
-      `/oppgave/${oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${opplysningTypeId}`,
+      `/oppgave/${params.oppgaveId}/dagpenger-rett/${params.behandlingId}/regelsett/${params.regelsettId}/opplysning/${params.opplysningId}`,
     );
   }
 

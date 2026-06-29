@@ -103,7 +103,7 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
       return await opprettOppfolgingAction(request, formData);
 
     case "opprett-barneliste-periode":
-      return await opprettBarnelistePeriodeAction(request, formData);
+      return await opprettBarnelistePeriodeAction(request, params, formData);
 
     case "slett-barn":
       return await slettBarnAction(request, formData);
