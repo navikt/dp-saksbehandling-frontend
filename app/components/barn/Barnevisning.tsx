@@ -12,7 +12,7 @@ interface IProps {
   orkestratorLandliste: components["schemas"]["Land"][];
 }
 
-export function Barn({ barnNummer, barn, orkestratorLandliste }: IProps) {
+export function Barnevisning({ barnNummer, barn, orkestratorLandliste }: IProps) {
   const oppholdssted = orkestratorLandliste.find(
     (land) => land.alpha3kode === barn.oppholdsland,
   )?.navn;

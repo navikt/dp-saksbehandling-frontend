@@ -7,36 +7,16 @@ import {
   Textarea,
   TextField,
   useDatepicker,
-  VStack,
 } from "@navikt/ds-react";
-import { FieldArray, FormProvider, useField, useForm, useFormContext } from "@rvf/react-router";
+import { useField, useFormContext } from "@rvf/react-router";
 import { parse } from "date-fns";
-import { useLoaderData } from "react-router";
-import { v4 as uuidv4 } from "uuid";
 
-import { components } from "@/openapi/behandling-typer";
 import { components as orkestratorComponents } from "@/openapi/soknad-orkestrator-typer";
-import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
-import { loader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person.regelsett.$regelsettId.opplysning.$opplysningId.barneliste.ny";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
-import { LoadingLink } from "../loading-link/LoadingLink";
 import { KildeTag } from "./KildeTag";
 
-const defaultBarn = {
-  kilde: "Saksbehandler" as const,
-  fornavnOgMellomnavn: "",
-  etternavn: "",
-  fødselsdato: new Date().toISOString().split("T")[0],
-  ident: "",
-  oppholdsland: "NOR",
-  forsørgeransvar: undefined,
-  kvalifiserer: undefined,
-  begrunnelse: "",
-};
-
-interface SkjemaBarn {
+export interface SkjemaBarn {
   kilde: "Saksbehandler" | "Søknad" | "Register" | undefined;
   fornavnOgMellomnavn: string;
   etternavn: string;
@@ -57,7 +37,7 @@ interface BarnefeltProps {
   onDelete: () => void;
   orkestratorLandliste: orkestratorComponents["schemas"]["Land"][];
 }
-const Barnefelt = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
+const Barneskjema = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
   const barnForm = useFormContext<SkjemaBarn>();
 
   const datoValue = barnForm.field("fødselsdato").value();
@@ -123,103 +103,6 @@ const Barnefelt = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
         Slett barn
       </Button>
     </div>
-  );
-};
-interface Props {
-  behandlingId: string;
-  sisteBarneperiode?: components["schemas"]["Barneliste"];
-  opplysningUrl: string;
-}
-
-const Barneskjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Props) => {
-  const { orkestratorLandliste } = useLoaderData<typeof loader>();
-  const { oppgaveId, regelsettId, opplysningId } = useTypeSafeParams();
-  const barneliste: SkjemaBarn[] =
-    sisteBarneperiode?.verdi.map((barn) => ({
-      ...defaultBarn,
-      ...barn,
-    })) || [];
-
-  const nyBarnelisteForm = useForm({
-    method: "post",
-    schema: hentValideringForNyBarneperiode(),
-    submitSource: "state",
-    defaultValues: {
-      _action: "opprett-barneliste-periode",
-      opplysningTypeId: opplysningId,
-      regelsettId: regelsettId,
-      oppgaveId: oppgaveId,
-      soknadBarnId: uuidv4(),
-      behandlingId,
-      begrunnelse: "",
-      gyldigFraOgMed: undefined as string | undefined,
-      barn: barneliste,
-    },
-  });
-
-  const gyldigFraOgMedDatepicker = useDatepicker({
-    onDateChange: (date: Date | undefined) => {
-      if (date) {
-        const dato = formaterTilBackendDato(date);
-        nyBarnelisteForm.field("gyldigFraOgMed").setValue(dato);
-      } else {
-        nyBarnelisteForm.field("gyldigFraOgMed").setValue("");
-      }
-    },
-  });
-
-  return (
-    <FormProvider scope={nyBarnelisteForm.scope()}>
-      <form {...nyBarnelisteForm.getFormProps()}>
-        <VStack gap="space-8">
-          <DatePicker {...gyldigFraOgMedDatepicker.datepickerProps}>
-            <DatePicker.Input
-              {...gyldigFraOgMedDatepicker.inputProps}
-              error={nyBarnelisteForm.field("gyldigFraOgMed").error()}
-              label="Gyldig fra og med"
-            />
-          </DatePicker>
-          <FieldArray scope={nyBarnelisteForm.scope("barn")}>
-            {(barneliste) => {
-              return (
-                <div className="flex-gap flex flex-wrap gap-4">
-                  {barneliste.map((key, barn, index) => {
-                    return (
-                      <FormProvider key={key} scope={barn.scope()}>
-                        <Barnefelt
-                          onDelete={() => barneliste.remove(index)}
-                          orkestratorLandliste={orkestratorLandliste}
-                        />
-                      </FormProvider>
-                    );
-                  })}
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => barneliste.push({ ...defaultBarn })}
-                  >
-                    Legg til barn
-                  </Button>
-                </div>
-              );
-            }}
-          </FieldArray>
-          <Textarea
-            {...nyBarnelisteForm.getInputProps("begrunnelse")}
-            label="Begrunnelse"
-            required
-            error={nyBarnelisteForm.field("begrunnelse").error()}
-            minRows={3}
-          />
-          <div className="flex gap-2">
-            <Button type="submit">Lagre</Button>
-            <LoadingLink to={opplysningUrl} asButtonVariant={"secondary"}>
-              Avbryt
-            </LoadingLink>
-          </div>
-        </VStack>
-      </form>
-    </FormProvider>
   );
 };
 

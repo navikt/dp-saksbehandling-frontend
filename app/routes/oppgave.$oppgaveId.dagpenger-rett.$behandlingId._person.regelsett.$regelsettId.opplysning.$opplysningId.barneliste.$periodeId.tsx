@@ -8,7 +8,7 @@ import {
   useRouteError,
 } from "react-router";
 
-import { Barn } from "~/components/barn/Barn";
+import { Barnevisning } from "~/components/barn/Barnevisning";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
@@ -69,7 +69,7 @@ export default function VisBarn() {
           <div className={"flex flex-wrap gap-4"}>
             {isBarneliste(barneperiode.verdi) &&
               barneperiode.verdi.verdi.map((barn, index: number) => (
-                <Barn
+                <Barnevisning
                   key={`barn-${barn.fødselsdato}-${barn.fornavnOgMellomnavn}`}
                   barnNummer={index + 1}
                   barn={barn}

@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "@navikt/aksel-icons";
 import { Heading } from "@navikt/ds-react";
 import { ActionFunctionArgs, type LoaderFunctionArgs, useRouteError } from "react-router";
 
-import Barneskjema from "~/components/barn/Barneskjema";
+import BarnelisteSkjema from "~/components/barn/BarnelisteSkjema";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { useBehandling } from "~/hooks/useBehandling";
@@ -45,7 +45,7 @@ export default function LeggTilBarn() {
         <Heading level="2" size="medium" spacing>
           Ny barneliste
         </Heading>
-        <Barneskjema
+        <BarnelisteSkjema
           behandlingId={behandling.behandlingId}
           sisteBarneperiode={sisteBarneperiodeVerdi}
           opplysningUrl={opplysningUrl}
