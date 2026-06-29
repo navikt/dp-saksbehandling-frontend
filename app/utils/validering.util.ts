@@ -492,50 +492,6 @@ export function hentValideringForOpprettBehandling() {
   });
 }
 
-export function hentValideringForRedigeringBarn() {
-  const boolskSvar = z
-    .enum(["true", "false"], { message: "Du må velge et svar" })
-    .transform((value) => value === "true");
-
-  return z.object({
-    _action: z.literal("rediger-barn"),
-    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    opplysningTypeId: z.string().min(1, { message: "Det mangler opplysningTypeId i skjema" }),
-    barnId: z.string().min(1, { message: "BarnId mangler" }),
-    fornavnOgMellomnavn: z.string().min(1, { message: "Du må skrive fornavn" }),
-    etternavn: z.string().min(1, { message: "Du må skrive etternavn" }),
-    fodselsdato: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato(),
-    ),
-    oppholdssted: z.string().min(1, { message: "Du må velge et land" }),
-    forsorgerBarnet: boolskSvar,
-    kvalifisererTilBarnetillegg: boolskSvar,
-    barnetilleggFom: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    barnetilleggTom: z.preprocess(
-      // Datepicker setter undefined til "undefined" så vi må caste tilbake
-      (val) => (val === "" || val === "undefined" ? undefined : val),
-      hentValideringForNorskDato().optional(),
-    ),
-    begrunnelse: z.string().min(1, { message: "Du må skrive begrunnelse" }),
-  });
-}
-
-export function hentValideringForSlettBarn() {
-  return z.object({
-    _action: z.literal("slett-barn"),
-    soknadbarnId: z.string().min(1, { message: "Det mangler soknadbarnId i skjema" }),
-    barnId: z.string().min(1, { message: "Det mangler barnId i skjema" }),
-    behandlingId: z.string().min(1, { message: "Det mangler behandlingId i skjema" }),
-    begrunnelse: z.string().min(1, { message: "Du må skrive en begrunnelse" }),
-  });
-}
-
 export function hentValideringForNyBarneperiode() {
   return z.object({
     _action: z.literal("opprett-barneliste-periode"),

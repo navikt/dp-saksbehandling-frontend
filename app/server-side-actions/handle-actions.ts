@@ -12,12 +12,10 @@ import { lagreOpplysningAction } from "~/server-side-actions/lagre-opplysning-ac
 import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvidet-beskrivelse-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
-import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
 import { settOppgavePåVentAction } from "~/server-side-actions/sett-oppgave-på-vent-action";
-import { slettBarnAction } from "~/server-side-actions/slett-barn-action";
 import { slettPeriodeAction } from "~/server-side-actions/slett-periode-action";
 import { sokPersonAction } from "~/server-side-actions/sok-person-action";
 import { trekkKlageAction } from "~/server-side-actions/trekk-klage-action";
@@ -104,12 +102,6 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "opprett-barneliste-periode":
       return await opprettBarnelistePeriodeAction(request, params, formData);
-
-    case "slett-barn":
-      return await slettBarnAction(request, formData);
-
-    case "rediger-barn":
-      return await redigerBarnAction(request, params, formData);
 
     case "ferdigstill-innsending":
       return await ferdigstillInnsendingAction(request, params, formData);
