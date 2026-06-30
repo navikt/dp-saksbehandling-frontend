@@ -1,4 +1,4 @@
-import { Button, DatePicker, Table, TextField, useDatepicker } from "@navikt/ds-react";
+import { Button, DatePicker, Table, Textarea, useDatepicker } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { add, sub } from "date-fns";
 import { useParams } from "react-router";
@@ -142,7 +142,8 @@ export function OpplysningPeriodeTabellRedigerLinje(props: IProps) {
       </Table.DataCell>
 
       <Table.DataCell>
-        <TextField
+        <Textarea
+          className="pb-2"
           {...periodeForm.field("begrunnelse").getInputProps()}
           size={"small"}
           error={periodeForm.field("begrunnelse").error()}
