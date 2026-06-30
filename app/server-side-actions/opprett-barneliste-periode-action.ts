@@ -21,7 +21,7 @@ export async function opprettBarnelistePeriodeAction(
   const { data, error } = await lagreOpplysning(
     request,
     behandlingId,
-    "0194881f-9428-74d5-b160-f63a4c61a23b",
+    params.opplysningId!,
     JSON.stringify({ barn: barn, søknadbarnId: soknadBarnId }),
     begrunnelse ? begrunnelse : "",
     gyldigFraOgMed,
