@@ -2,10 +2,10 @@ import { components } from "@/openapi/saksbehandling-typer";
 import type { ISaksbehandler } from "~/models/microsoft.server";
 
 export const mockSaksbehandler: ISaksbehandler = {
-  onPremisesSamAccountName: "Z993298",
+  onPremisesSamAccountName: "Z993622",
   givenName: "Donald Dægg Duck",
   displayName: "Donald Duck",
-  mail: "donald@duck.no",
+  mail: "F_Z990731.E_Z990731@trygdeetaten.no",
 };
 
 export const mockAnnenSaksbehandler: ISaksbehandler = {
