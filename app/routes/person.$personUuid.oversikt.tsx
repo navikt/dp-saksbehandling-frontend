@@ -169,6 +169,11 @@ export default function PersonOversikt() {
 
 function finnSisteSak(saker: components["schemas"]["Sak"][]) {
   return saker
-    .filter((sak) => !sak.oppgaver.every((oppgave) => oppgave.tilstand === "AVBRUTT"))
+    .filter(
+      (sak) =>
+        !sak.oppgaver.every((oppgave) =>
+          ["AVBRUTT", "AVBRUTT_MASKINELT"].includes(oppgave.tilstand),
+        ),
+    )
     .at(0);
 }
