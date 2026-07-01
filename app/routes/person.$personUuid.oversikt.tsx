@@ -15,6 +15,7 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 
+import { components } from "@/openapi/saksbehandling-typer";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehandling";
 import { SakListe } from "~/components/sak-liste/SakListe";
@@ -37,7 +38,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const personOversikt = await hentPersonOversikt(request, params.personUuid);
 
-  const sisteDagpengerRettBehandlingId = personOversikt.saker[0]?.oppgaver.find(
+  const sisteDagpengerRettBehandlingId = finnSisteSak(personOversikt.saker)?.oppgaver.find(
     (oppgave) =>
       oppgave.behandlingType === "RETT_TIL_DAGPENGER" && oppgave.tilstand === "FERDIG_BEHANDLET",
   )?.behandlingId;
@@ -80,6 +81,8 @@ export default function PersonOversikt() {
     ].includes(oppgave.tilstand),
   );
 
+  const sisteSak = finnSisteSak(personOversikt.saker);
+
   const ferietilleggOppgaver = personOversikt.ferietilleggSaker.flatMap((sak) => sak.oppgaver);
 
   return (
@@ -121,13 +124,10 @@ export default function PersonOversikt() {
           </Tabs.List>
 
           <Tabs.Panel value="siste-sak">
-            {personOversikt.saker[0] && (
-              <SisteSak
-                sak={personOversikt.saker[0]}
-                dagpengerRettBehandling={sisteDagpengerRettBehandling}
-              />
+            {sisteSak && (
+              <SisteSak sak={sisteSak} dagpengerRettBehandling={sisteDagpengerRettBehandling} />
             )}
-            {!personOversikt.saker[0] && (
+            {!sisteSak && (
               <div className={"card my-4 p-4"}>
                 <BodyShort>Personen har ingen saker</BodyShort>
               </div>
@@ -165,4 +165,10 @@ export default function PersonOversikt() {
       </div>
     </div>
   );
+}
+
+function finnSisteSak(saker: components["schemas"]["Sak"][]) {
+  return saker
+    .filter((sak) => !sak.oppgaver.every((oppgave) => oppgave.tilstand === "AVBRUTT"))
+    .at(0);
 }
