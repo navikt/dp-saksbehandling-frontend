@@ -37,11 +37,14 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
         <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
       )}
       <div className="card flex flex-col gap-4 p-4">
-        <NoteButton
-          noteKey={oppgave.oppgaveId}
-          onClick={() => setVisHuskelapp(true)}
-          oppgaveTilstand={oppgave.tilstand}
-        />
+        <div className="flex items-center gap-2">
+          <Heading size={"small"}>Oppgaveinformasjon</Heading>
+          <NoteButton
+            noteKey={oppgave.oppgaveId}
+            onClick={() => setVisHuskelapp(true)}
+            oppgaveTilstand={oppgave.tilstand}
+          />
+        </div>
         <VerdiMedTittel
           visBorder={true}
           label="Opprettet"
@@ -98,56 +101,6 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
           />
         )}
 
-        {!readonly && (
-          <div className="mt-2 flex flex-col gap-2">
-            {!visSkjema && (
-              <>
-                <div>
-                  <Button
-                    variant="primary"
-                    size="small"
-                    onClick={() => {
-                      setMedBehandling(true);
-                      setVisSkjema(true);
-                    }}
-                  >
-                    Opprett ny behandling
-                  </Button>
-                </div>
-
-                <div>
-                  <Button
-                    variant="secondary"
-                    size="small"
-                    onClick={() => {
-                      setMedBehandling(false);
-                      setVisSkjema(true);
-                    }}
-                  >
-                    Ferdigstill uten behandling
-                  </Button>
-                </div>
-
-                <div>
-                  <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
-                </div>
-              </>
-            )}
-
-            {visSkjema && (
-              <FerdigstillOppgaveSkjema
-                medBehandling={medBehandling ?? false}
-                setVisSkjema={(visSkjema: boolean) => {
-                  setVisSkjema(visSkjema);
-                  setMedBehandling(undefined);
-                }}
-                lovligeSaker={oppfolging.lovligeSaker}
-                variant="ferdigstill-oppfolging"
-              />
-            )}
-          </div>
-        )}
-
         <div>
           <CopyButton
             size="xsmall"
@@ -157,6 +110,56 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
           />
         </div>
       </div>
+      {!readonly && (
+        <div className="card flex flex-col gap-2 p-4">
+          <Heading size={"small"}>Handlinger</Heading>
+          {!visSkjema && (
+            <>
+              <div>
+                <Button
+                  variant="primary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(true);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Opprett ny behandling
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(false);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Ferdigstill uten behandling
+                </Button>
+              </div>
+
+              <div>
+                <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+              </div>
+            </>
+          )}
+
+          {visSkjema && (
+            <FerdigstillOppgaveSkjema
+              medBehandling={medBehandling ?? false}
+              setVisSkjema={(visSkjema: boolean) => {
+                setVisSkjema(visSkjema);
+                setMedBehandling(undefined);
+              }}
+              lovligeSaker={oppfolging.lovligeSaker}
+              variant="ferdigstill-oppfolging"
+            />
+          )}
+        </div>
+      )}
       <div className="card flex flex-col gap-4 p-4">
         <Heading size={"small"}>Historikk</Heading>
         <OppgaveHistorikk />
