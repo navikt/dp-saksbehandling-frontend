@@ -1,5 +1,6 @@
-import { BodyShort, Button, Heading } from "@navikt/ds-react";
+import { BodyShort, Button, CopyButton, Heading } from "@navikt/ds-react";
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
@@ -17,9 +18,18 @@ interface IProps {
 
 export function OppfolgingInfo({ oppfolging }: IProps) {
   const { oppgave, readonly } = useOppgave();
+  const location = useLocation();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
 
+  const utviklerinformasjon = {
+    oppgaveId: oppgave?.oppgaveId,
+    behandlingId: oppgave?.behandlingId,
+    saksbehandlerIdent: oppgave?.saksbehandler?.ident,
+    urlPath: location.pathname,
+  };
+
+  console.log(utviklerinformasjon);
   return (
     <section className="flex flex-col gap-4">
       <div className="card flex flex-col gap-4 p-4">
@@ -128,6 +138,15 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
             )}
           </div>
         )}
+
+        <div>
+          <CopyButton
+            size="xsmall"
+            copyText={JSON.stringify(utviklerinformasjon, null, 2)}
+            text="Kopier utviklerinformasjon"
+            activeText="Kopiert"
+          />
+        </div>
       </div>
       <div className="card flex flex-col gap-4 p-4">
         <Heading size={"small"}>Historikk</Heading>
