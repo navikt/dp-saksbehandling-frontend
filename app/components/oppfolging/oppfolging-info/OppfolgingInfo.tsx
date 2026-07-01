@@ -1,8 +1,10 @@
-import { BodyShort, Button, Heading } from "@navikt/ds-react";
+import { BodyShort, Button, CopyButton, Heading } from "@navikt/ds-react";
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
+import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
@@ -17,12 +19,32 @@ interface IProps {
 
 export function OppfolgingInfo({ oppfolging }: IProps) {
   const { oppgave, readonly } = useOppgave();
+  const location = useLocation();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
+  const [visHuskelapp, setVisHuskelapp] = useState(false);
+
+  const utviklerinformasjon = {
+    oppgaveId: oppgave?.oppgaveId,
+    behandlingId: oppgave?.behandlingId,
+    saksbehandlerIdent: oppgave?.saksbehandler?.ident,
+    urlPath: location.pathname,
+  };
 
   return (
     <section className="flex flex-col gap-4">
+      {visHuskelapp && (
+        <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
+      )}
       <div className="card flex flex-col gap-4 p-4">
+        <div className="flex items-center gap-2">
+          <Heading size={"small"}>Oppgaveinformasjon</Heading>
+          <NoteButton
+            noteKey={oppgave.oppgaveId}
+            onClick={() => setVisHuskelapp(true)}
+            oppgaveTilstand={oppgave.tilstand}
+          />
+        </div>
         <VerdiMedTittel
           visBorder={true}
           label="Opprettet"
@@ -79,56 +101,65 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
           />
         )}
 
-        {!readonly && (
-          <div className="mt-2 flex flex-col gap-2">
-            {!visSkjema && (
-              <>
-                <div>
-                  <Button
-                    variant="primary"
-                    size="small"
-                    onClick={() => {
-                      setMedBehandling(true);
-                      setVisSkjema(true);
-                    }}
-                  >
-                    Opprett ny behandling
-                  </Button>
-                </div>
-
-                <div>
-                  <Button
-                    variant="secondary"
-                    size="small"
-                    onClick={() => {
-                      setMedBehandling(false);
-                      setVisSkjema(true);
-                    }}
-                  >
-                    Ferdigstill uten behandling
-                  </Button>
-                </div>
-
-                <div>
-                  <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
-                </div>
-              </>
-            )}
-
-            {visSkjema && (
-              <FerdigstillOppgaveSkjema
-                medBehandling={medBehandling ?? false}
-                setVisSkjema={(visSkjema: boolean) => {
-                  setVisSkjema(visSkjema);
-                  setMedBehandling(undefined);
-                }}
-                lovligeSaker={oppfolging.lovligeSaker}
-                variant="ferdigstill-oppfolging"
-              />
-            )}
-          </div>
-        )}
+        <div>
+          <CopyButton
+            size="xsmall"
+            copyText={JSON.stringify(utviklerinformasjon, null, 2)}
+            text="Kopier utviklerinformasjon"
+            activeText="Kopiert"
+          />
+        </div>
       </div>
+      {!readonly && (
+        <div className="card flex flex-col gap-2 p-4">
+          <Heading size={"small"}>Handlinger</Heading>
+          {!visSkjema && (
+            <>
+              <div>
+                <Button
+                  variant="primary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(true);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Opprett ny behandling
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={() => {
+                    setMedBehandling(false);
+                    setVisSkjema(true);
+                  }}
+                >
+                  Ferdigstill uten behandling
+                </Button>
+              </div>
+
+              <div>
+                <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+              </div>
+            </>
+          )}
+
+          {visSkjema && (
+            <FerdigstillOppgaveSkjema
+              medBehandling={medBehandling ?? false}
+              setVisSkjema={(visSkjema: boolean) => {
+                setVisSkjema(visSkjema);
+                setMedBehandling(undefined);
+              }}
+              lovligeSaker={oppfolging.lovligeSaker}
+              variant="ferdigstill-oppfolging"
+            />
+          )}
+        </div>
+      )}
       <div className="card flex flex-col gap-4 p-4">
         <Heading size={"small"}>Historikk</Heading>
         <OppgaveHistorikk />
