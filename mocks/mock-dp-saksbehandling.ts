@@ -11,6 +11,7 @@ import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-meldin
 import { mockOppfolging } from "./data/mock-oppfolging/mock-oppfolging";
 import { klage } from "./data/mock-oppgaver/klage";
 import {
+  avbrutteListeOppgaver,
   konverterOppgaveTilListeOppgave,
   mockListeOppgaver,
 } from "./data/mock-oppgaver/mock-liste-oppgaver";
@@ -401,7 +402,7 @@ export const mockDpSaksbehandling = [
       return response("default").json(defaultError, { status: 500 });
     }
 
-    return response(200).json(mockListeOppgaver);
+    return response(200).json([...mockListeOppgaver, ...avbrutteListeOppgaver]);
   }),
 
   http.get("/behandling/{behandlingId}/oppgaveId", async ({ response, params }) => {
