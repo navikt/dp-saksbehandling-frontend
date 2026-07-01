@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 
 import { components } from "@/openapi/saksbehandling-typer";
 import { FerdigstillOppgaveSkjema } from "~/components/ferdigstill-oppgave-skjema/FerdigstillOppgaveSkjema";
+import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
@@ -21,6 +22,7 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
   const location = useLocation();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
+  const [visHuskelapp, setVisHuskelapp] = useState(false);
 
   const utviklerinformasjon = {
     oppgaveId: oppgave?.oppgaveId,
@@ -29,10 +31,17 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
     urlPath: location.pathname,
   };
 
-  console.log(utviklerinformasjon);
   return (
     <section className="flex flex-col gap-4">
+      {visHuskelapp && (
+        <NoteModal noteKey={oppgave.oppgaveId} onClose={() => setVisHuskelapp(false)} />
+      )}
       <div className="card flex flex-col gap-4 p-4">
+        <NoteButton
+          noteKey={oppgave.oppgaveId}
+          onClick={() => setVisHuskelapp(true)}
+          oppgaveTilstand={oppgave.tilstand}
+        />
         <VerdiMedTittel
           visBorder={true}
           label="Opprettet"
