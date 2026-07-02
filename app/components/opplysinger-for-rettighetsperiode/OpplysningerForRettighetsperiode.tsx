@@ -1,5 +1,3 @@
-import { Heading } from "@navikt/ds-react";
-
 import { OpplysningsVerdierForPerioder } from "~/components/rett-på-dagpenger/OpplysningsVerdierForPerioder";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -8,7 +6,6 @@ import { formaterOpplysningVerdi, hentPerioderForOpplysning } from "~/utils/oppl
 import { components } from "../../../openapi/behandling-typer";
 
 interface IProps {
-  index: number;
   opplysninger: components["schemas"]["RedigerbareOpplysninger"][];
   rettighetsperiode: components["schemas"]["Rettighetsperiode"];
 }
@@ -22,15 +19,9 @@ const RETTIGHETSPERIODE_OPPLYSNINGER: { id: string; label: string }[] = [
   // { id: "0194881f-9428-74d5-b160-f63a4c61a24f", label: "Dagsats" },
 ];
 
-export function OpplysningerForRettighetsperiode({
-  rettighetsperiode,
-  opplysninger,
-  index,
-}: IProps) {
+export function OpplysningerForRettighetsperiode({ rettighetsperiode, opplysninger }: IProps) {
   return (
     <div className={"card card-raised flex flex-col gap-4 p-4"}>
-      <Heading size={"xsmall"}>Opplysninger i rettighetsperiode {index + 1}</Heading>
-
       <section className="grid grid-cols-4 gap-2">
         <VerdiMedTittel
           visBorder={true}
