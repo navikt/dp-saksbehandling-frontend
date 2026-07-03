@@ -61,7 +61,7 @@ export const oppfolging: components["schemas"]["Oppgave"] = {
       kategori: "OPPFOLGING_ARSAK",
     },
   ],
-  tilstand: "KLAR_TIL_KONTROLL",
+  tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [
       "AVVENT_SVAR",
