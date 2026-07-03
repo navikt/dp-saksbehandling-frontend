@@ -57,9 +57,11 @@ export function RettPåDagpenger() {
       <Table zebraStripes>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader scope="col">Rett på dagpenger</Table.ColumnHeader>
+            <Table.ColumnHeader scope="col" className="w-1/5">
+              Rett på dagpenger
+            </Table.ColumnHeader>
             <Table.ColumnHeader scope="col" align="center">
-              Fra og med.
+              Fra og med
             </Table.ColumnHeader>
             <Table.ColumnHeader scope="col" align="center">
               Til og med
