@@ -78,15 +78,17 @@ export function KlageBehandling({ klage, readonly, setAktivTab }: IProps) {
         </div>
       </div>
 
-      <Button
-        variant="primary"
-        size="small"
-        className="mt-4"
-        disabled={readonly}
-        onClick={() => setAktivTab("utfall")}
-      >
-        Sett utfall
-      </Button>
+      <div>
+        <Button
+          variant="primary"
+          size="small"
+          className="mt-4"
+          disabled={readonly}
+          onClick={() => setAktivTab("utfall")}
+        >
+          Sett utfall
+        </Button>
+      </div>
     </div>
   );
 }
