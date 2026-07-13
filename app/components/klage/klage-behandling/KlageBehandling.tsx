@@ -3,6 +3,9 @@ import { Button, Heading } from "@navikt/ds-react";
 import { KlageOpplysning } from "~/components/klage/klage-opplysning/KlageOpplysning";
 import { hentKlage } from "~/models/saksbehandling.server";
 
+// litt rart at vi henter stiler fra utfall her, men whatever :)
+import styles from "../klage-utfall/KlageUtfall.module.css";
+
 interface IProps {
   klage: Awaited<ReturnType<typeof hentKlage>>;
   readonly?: boolean;
@@ -22,7 +25,7 @@ export function KlageBehandling({ klage, readonly, setAktivTab }: IProps) {
   );
 
   return (
-    <div className={"flex flex-col gap-8 p-4"}>
+    <div className={styles.utfallContainer}>
       <div>
         <Heading size={"small"} spacing={true}>
           Klagesak
