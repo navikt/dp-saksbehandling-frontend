@@ -1,4 +1,5 @@
-import { BodyShort, Button, CopyButton, Heading } from "@navikt/ds-react";
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { BodyShort, Button, CopyButton, Heading, Link } from "@navikt/ds-react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 
@@ -11,6 +12,7 @@ import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeg
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { getEnv } from "~/utils/env.utils";
 import { hentOppgaveTilstandTekst } from "~/utils/tekst.utils";
 
 interface IProps {
@@ -161,7 +163,18 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
         </div>
       )}
       <div className="card flex flex-col gap-4 p-4">
-        <Heading size={"small"}>Historikk</Heading>
+        <div className="flex items-center justify-between">
+          <Heading className={"pb-2"} size={"small"}>
+            Historikk
+          </Heading>
+          <Link
+            href={`${getEnv("DP_AKTIVITETSLOGG_FRONTEND_URL")}/aktivitetslogg?behandlingId=${oppgave.behandlingId}`}
+            target="_blank"
+          >
+            Se i aktivitetslogg <ExternalLinkIcon className="inline-block" />
+          </Link>
+        </div>
+
         <OppgaveHistorikk />
       </div>
     </section>
