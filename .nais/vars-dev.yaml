@@ -7,7 +7,7 @@ dp-soknad-orkestrator_url: "http://dp-soknad-orkestrator"
 dp-rapportering-personregister_url: "http://dp-rapportering-personregister"
 dp-rapportering-saksbehandling-frontend_url: "https://rapportering-dagpenger.ansatt.dev.nav.no"
 dp-inntekt-redigering-frontend_url: "https://dagpenger-inntekt.ansatt.dev.nav.no"
-dp-aktivitetslogg-frontend_url: "https://dp-aktivitetslogg-frontend.intern.dev.nav.no/"
+dp-aktivitetslogg-frontend_url: "https://dp-aktivitetslogg-frontend.intern.dev.nav.no"
 saf_url: "https://saf-q2.dev-fss-pub.nais.io"
 
 saf_audience: "api://dev-fss.teamdokumenthandtering.saf/.default"
