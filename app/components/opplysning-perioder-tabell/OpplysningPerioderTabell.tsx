@@ -2,7 +2,7 @@ import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@nav
 import { Button, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -23,7 +23,8 @@ interface IProps {
 const NY_PERIODE_ID = "NY-PERIODE";
 
 export function OpplysningPerioderTabell(props: IProps) {
-  const { behandlingId } = useParams();
+  const navigate = useNavigate();
+  const { behandlingId, regelsettId } = useParams();
   const { readonly, oppgave } = useOppgave();
   const { featureFlags } = useFeatureFlags();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
@@ -37,8 +38,12 @@ export function OpplysningPerioderTabell(props: IProps) {
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
     featureFlags.kanAlltidLeggeTilPeriode ||
+    props.opplysning.perioder.length === 0 ||
     props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
     props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
+
+  const isBarneopplysning =
+    props.opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b";
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
@@ -85,35 +90,38 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                {!readonly && props.opplysning.redigerbar && periode.opprinnelse !== "Arvet" && (
-                  <>
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<TrashIcon />}
-                        loading={slettPeriodeForm.formState.isSubmitting}
-                        onClick={() => {
-                          slettPeriodeForm.field("periodeId").setValue(periode.id);
-                          slettPeriodeForm.submit();
-                        }}
-                        data-umami-event="Slett periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                      />
-                    </Table.DataCell>
+                {!readonly &&
+                  props.opplysning.redigerbar &&
+                  periode.opprinnelse !== "Arvet" &&
+                  !isBarneopplysning && (
+                    <>
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<TrashIcon />}
+                          loading={slettPeriodeForm.formState.isSubmitting}
+                          onClick={() => {
+                            slettPeriodeForm.field("periodeId").setValue(periode.id);
+                            slettPeriodeForm.submit();
+                          }}
+                          data-umami-event="Slett periode"
+                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                        />
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<PencilIcon />}
-                        data-umami-event="Rediger periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                        onClick={() => setPeriodeIdUnderRedigering(periode.id)}
-                      />
-                    </Table.DataCell>
-                  </>
-                )}
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<PencilIcon />}
+                          data-umami-event="Rediger periode"
+                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                          onClick={() => setPeriodeIdUnderRedigering(periode.id)}
+                        />
+                      </Table.DataCell>
+                    </>
+                  )}
 
                 {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
@@ -130,9 +138,9 @@ export function OpplysningPerioderTabell(props: IProps) {
                 {isBarneliste(periode.verdi) && periode.verdi.søknadBarnId && (
                   <Table.DataCell colSpan={2}>
                     <LoadingLink
-                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/rediger-barn/${periode.verdi.søknadBarnId}`}
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${props.opplysning.opplysningTypeId}/barneliste/${periode.id}`}
                     >
-                      Rediger barn
+                      Se barneliste
                     </LoadingLink>
                   </Table.DataCell>
                 )}
@@ -161,7 +169,11 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Button
             size={"small"}
             variant={"secondary"}
-            onClick={() => setPeriodeIdUnderRedigering(NY_PERIODE_ID)}
+            onClick={() =>
+              isBarneopplysning
+                ? navigate(`barneliste/ny`)
+                : setPeriodeIdUnderRedigering(NY_PERIODE_ID)
+            }
             data-umami-event="Legg til periode"
             data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
             disabled={!kanLeggeTilNyPeriode}
