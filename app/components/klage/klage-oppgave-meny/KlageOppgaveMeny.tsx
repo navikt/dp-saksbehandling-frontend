@@ -1,16 +1,22 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { ActionMenu, Button } from "@navikt/ds-react";
 
+import { OppgaveValgFerdigstillBehandlingKlage } from "~/components/oppgave-valg/OppgaveValgFerdigstillBehandlingKlage";
 import { OppgaveValgFerdigstillKlage } from "~/components/oppgave-valg/OppgaveValgFerdigstillKlage";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
 import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
 import { OppgaveValgTrekkKlage } from "~/components/oppgave-valg/OppgaveValgTrekkKlage";
 import { IGyldigeOppgaveHandlinger } from "~/context/oppgave-context";
 import { useOppgave } from "~/hooks/useOppgave";
+import { hentKlageFerdigstillModus } from "~/utils/klage.utils";
 
 import { components } from "../../../../openapi/saksbehandling-typer";
 
-function KlageOppgaveMeny() {
+interface IProps {
+  klage: components["schemas"]["Klage"];
+}
+
+function KlageOppgaveMeny({ klage }: IProps) {
   const { gyldigeOppgaveValg, oppgave } = useOppgave();
 
   const relevanteOppgaveValg = gyldigeOppgaveValg.filter((valg) =>
@@ -33,7 +39,7 @@ function KlageOppgaveMeny() {
           </ActionMenu.Trigger>
           <ActionMenu.Content>
             {relevanteOppgaveValg.map((valg) => {
-              return renderOppgaveValg(oppgave, valg);
+              return renderOppgaveValg(oppgave, valg, klage);
             })}
           </ActionMenu.Content>
         </ActionMenu>
@@ -47,6 +53,7 @@ export default KlageOppgaveMeny;
 function renderOppgaveValg(
   oppgave: components["schemas"]["Oppgave"],
   valg: IGyldigeOppgaveHandlinger,
+  klage: components["schemas"]["Klage"],
 ) {
   switch (valg) {
     case "legg-tilbake-oppgave":
@@ -64,13 +71,27 @@ function renderOppgaveValg(
         <OppgaveValgTrekkKlage oppgave={oppgave} buttonVariant={"tertiary"} buttonSize={"small"} />
       );
 
-    case "ferdigstill-klage":
+    case "ferdigstill-klage": {
+      const modus = hentKlageFerdigstillModus(klage.utfall.verdi, klage.tilstand);
+
+      if (modus === "ferdigstill-behandling") {
+        return (
+          <OppgaveValgFerdigstillBehandlingKlage
+            oppgave={oppgave}
+            buttonSize={"small"}
+            buttonVariant={"primary"}
+          />
+        );
+      }
+
       return (
         <OppgaveValgFerdigstillKlage
           oppgave={oppgave}
           buttonSize={"small"}
           buttonVariant={"primary"}
+          label={modus === "fullfor-klage" ? "Fullfør klage" : undefined}
         />
       );
+    }
   }
 }

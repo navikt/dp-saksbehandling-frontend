@@ -1656,6 +1656,63 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/klage/{behandlingId}/ferdigstill-behandling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Ferdigstill behandling av klage med (delvis) medhold (steg 1 av 2)
+         * @description Første steg i to-stegs flyten for medhold og delvis medhold. Setter klagebehandlingen til BEHANDLING_UTFORT slik at saksbehandler kan opprette revurdering manuelt. Oppgaven forblir aktiv. Kall deretter PUT /klage/{behandlingId}/ferdigstill for å fullføre (steg 2).
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Behandling ferdigstilt — klage klar for revurdering */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Klagen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/klage/{behandlingId}/trekk": {
         parameters: {
             query?: never;
@@ -2530,6 +2587,8 @@ export interface components {
             behandlingOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfallOpplysninger: components["schemas"]["KlageOpplysning"][];
             utfall: components["schemas"]["Utfall"];
+            /** @enum {string} */
+            tilstand: "BEHANDLES" | "BEHANDLING_UTFORT" | "OVERSEND_KLAGEINSTANS" | "BEHANDLES_AV_KLAGEINSTANS" | "FERDIGSTILT" | "AVBRUTT";
         };
         TekstVerdi: {
             verdi: string;

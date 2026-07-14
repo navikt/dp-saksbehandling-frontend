@@ -3,8 +3,7 @@ import { Button, ButtonProps } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useLocation } from "react-router";
 
-import { useSaksbehandler } from "~/hooks/useSaksbehandler";
-import { hentValideringForFerdigstillKlage } from "~/utils/validering.util";
+import { hentValideringForFerdigstillBehandlingKlage } from "~/utils/validering.util";
 
 import { components } from "../../../openapi/saksbehandling-typer";
 
@@ -14,30 +13,25 @@ interface IProps {
   buttonVariant?: ButtonProps["variant"];
   className?: string;
   readOnly?: boolean;
-  label?: string;
 }
 
-export function OppgaveValgFerdigstillKlage({
+export function OppgaveValgFerdigstillBehandlingKlage({
   oppgave,
   buttonVariant,
   buttonSize,
   className,
   readOnly,
-  label,
 }: IProps) {
   const { pathname } = useLocation();
-  const { aktivtOppgaveSok } = useSaksbehandler();
 
-  const ferdigstillKlageForm = useForm({
+  const ferdigstillBehandlingKlageForm = useForm({
     method: "post",
     action: pathname,
     submitSource: "state",
-    schema: hentValideringForFerdigstillKlage(),
+    schema: hentValideringForFerdigstillBehandlingKlage(),
     defaultValues: {
-      _action: "ferdigstill-klage",
-      ident: oppgave.person.ident,
+      _action: "ferdigstill-behandling-klage",
       behandlingId: oppgave.behandlingId,
-      aktivtOppgaveSok,
     },
   });
 
@@ -46,13 +40,13 @@ export function OppgaveValgFerdigstillKlage({
       <Button
         size={buttonSize ? buttonSize : "xsmall"}
         variant={buttonVariant ? buttonVariant : "tertiary-neutral"}
-        onClick={() => ferdigstillKlageForm.submit()}
+        onClick={() => ferdigstillBehandlingKlageForm.submit()}
         disabled={readOnly ? readOnly : false}
-        loading={ferdigstillKlageForm.formState.isSubmitting}
+        loading={ferdigstillBehandlingKlageForm.formState.isSubmitting}
         icon={<GavelSoundBlockIcon aria-hidden />}
         className={className ? className : "aksel--font-regular aksel--full-bredde"}
       >
-        {label ? label : "Ferdigstill klage"}
+        Ferdigstill behandling
       </Button>
     </div>
   );

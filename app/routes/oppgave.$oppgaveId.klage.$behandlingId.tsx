@@ -1,6 +1,6 @@
 import { DocPencilIcon, EnvelopeClosedIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 import { Alert, Heading, Tabs } from "@navikt/ds-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActionFunctionArgs,
   data,
@@ -28,6 +28,7 @@ import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries
 import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
+import { erMedholdEllerDelvisMedhold } from "~/utils/klage.utils";
 import { isAlert } from "~/utils/type-guards";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -77,6 +78,13 @@ export default function Oppgave() {
   useHandleAlertMessages(alert);
 
   const harUtfallOpplysninger = klage.utfallOpplysninger.length > 0;
+  const skjulMeldingOmVedtak = erMedholdEllerDelvisMedhold(klage.utfall.verdi);
+
+  useEffect(() => {
+    if (skjulMeldingOmVedtak && aktivTab === "melding-om-vedtak") {
+      setAktivTab("behandling");
+    }
+  }, [skjulMeldingOmVedtak, aktivTab]);
 
   const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
   const readOnly = oppgave.tilstand !== "UNDER_BEHANDLING" || !minOppgave;
@@ -86,7 +94,9 @@ export default function Oppgave() {
     ...(harUtfallOpplysninger
       ? [{ value: "utfall", label: "Utfall", icon: <TasklistSendIcon /> }]
       : []),
-    { value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> },
+    ...(skjulMeldingOmVedtak
+      ? []
+      : [{ value: "melding-om-vedtak", label: "Melding om vedtak", icon: <EnvelopeClosedIcon /> }]),
   ];
 
   return (
@@ -107,7 +117,7 @@ export default function Oppgave() {
                   />
                 ))}
               </Tabs.List>
-              <KlageOppgaveMeny />
+              <KlageOppgaveMeny klage={klage} />
             </div>
             <Tabs.Panel value="behandling">
               <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />

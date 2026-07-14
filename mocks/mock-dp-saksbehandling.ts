@@ -6,7 +6,7 @@ import { getEnv } from "~/utils/env.utils";
 import { components, paths } from "../openapi/saksbehandling-typer";
 import { mockEmneknagger } from "./data/mock-emneknagger";
 import { mockInnsendinger } from "./data/mock-innsendinger/mock-innsendinger";
-import { klager } from "./data/mock-klage-behandling/mock-klage";
+import { klager, synligeUtfallOpplysninger } from "./data/mock-klage-behandling/mock-klage";
 import { mockMeldingerOmVedtak } from "./data/mock-melding-om-vedtak/mock-melding-om-vedtak";
 import { mockOppfolging } from "./data/mock-oppfolging/mock-oppfolging";
 import { klage } from "./data/mock-oppgaver/klage";
@@ -329,6 +329,26 @@ export const mockDpSaksbehandling = [
     return response(200).json(konverterOppgaveTilListeOppgave(klage));
   }),
 
+  // Ferdigstill behandling (steg 1 av medhold/delvis medhold-flyten)
+  http.put(`/klage/{behandlingId}/ferdigstill-behandling`, async ({ response, params }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const { behandlingId } = params;
+    const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+    if (klage) {
+      // Simuler at behandlingen er utført slik at steg 2 ("Fullfør klage") vises ved neste besøk.
+      klage.tilstand = "BEHANDLING_UTFORT";
+      return response(204).empty();
+    }
+
+    return response(404).json(get404Error("/klage/{behandlingId}/ferdigstill-behandling"));
+  }),
+
   // Ferdigstill en klage med behandlingId
   http.put(`/klage/{behandlingId}/ferdigstill`, async ({ response, params }) => {
     await delay(delayMs);
@@ -366,11 +386,36 @@ export const mockDpSaksbehandling = [
   }),
 
   // Lagre opplysning på klage
-  http.put(`/klage/{behandlingId}/opplysning/{opplysningId}`, async ({ response }) => {
-    await delay(delayMs);
+  http.put(
+    `/klage/{behandlingId}/opplysning/{opplysningId}`,
+    async ({ request, response, params }) => {
+      await delay(delayMs);
 
-    return response(201).empty();
-  }),
+      const { behandlingId, opplysningId } = params;
+      const klage = klager.find((klage) => klage.behandlingId === behandlingId);
+
+      if (klage) {
+        const body = (await request.json()) as { verdi: unknown };
+        const opplysning = [...klage.behandlingOpplysninger, ...klage.utfallOpplysninger].find(
+          (o) => o.opplysningId === opplysningId,
+        );
+
+        if (opplysning) {
+          opplysning.verdi = body.verdi as never;
+
+          // Synk utfall når Utfall-opplysningen settes, slik at fane/knapp reagerer lokalt
+          // og synlige utfallsopplysninger speiler backend (klageinstans-felter kun ved OPPRETTHOLDELSE).
+          if (opplysning.navn === "Utfall" && typeof body.verdi === "string") {
+            const nyttUtfall = body.verdi as (typeof klage.utfall)["verdi"];
+            klage.utfall.verdi = nyttUtfall;
+            klage.utfallOpplysninger = synligeUtfallOpplysninger(nyttUtfall);
+          }
+        }
+      }
+
+      return response(201).empty();
+    },
+  ),
 
   // Hent person med fnr i body
   http.post(`/person/personId`, async ({ response }) => {
