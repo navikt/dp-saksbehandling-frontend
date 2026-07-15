@@ -21,9 +21,14 @@ export default function BehandlingFerdig() {
   return (
     <div className="card">
       <div className={"mx-auto flex max-w-[650px] flex-col items-center gap-8 py-16"}>
-        <Heading size="xlarge">Behandlingen er ferdigstilt</Heading>
+        <Heading size="xlarge">Klagen er ferdig vurdert</Heading>
         <BodyLong className="text-center">
-          Klagen er behandlet ferdig hos oss. Du kan nå gå videre og fullføre klagen når du er klar.
+          Du må nå utføre neste steg i behandlingen, som er å kopiere behandlings-id og opprette en
+          revurdering i personoversikten.
+          <br />
+          <br />
+          Når revurderingen er ferdig kontrollert, må klageoppgaven settes til fullført på nytt for
+          å ferdigstille klageoppgaven.
         </BodyLong>
 
         <div className="flex flex-col items-center gap-2">
