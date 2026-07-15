@@ -52,7 +52,7 @@ export const klage: components["schemas"]["Oppgave"] = {
     },
   ],
   emneknagger: [],
-  tilstand: "KLAR_TIL_BEHANDLING",
+  tilstand: "UNDER_BEHANDLING",
   lovligeEndringer: {
     paaVentAarsaker: [
       "AVVENT_SVAR",

@@ -382,6 +382,13 @@ export function hentValideringForFerdigstillKlage() {
   });
 }
 
+export function hentValideringForFerdigstillBehandlingKlage() {
+  return z.object({
+    _action: z.literal("ferdigstill-behandling-klage"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+  });
+}
+
 export function hentValideringForFerdigstillOppgave(
   action: "ferdigstill-innsending" | "ferdigstill-oppfolging",
 ) {

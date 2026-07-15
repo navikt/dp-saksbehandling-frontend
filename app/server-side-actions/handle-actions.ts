@@ -2,6 +2,7 @@ import { ActionFunctionArgs } from "react-router";
 
 import { avbrytOppgaveAction } from "~/server-side-actions/avbryt-oppgave-action";
 import { fattVedtakAction } from "~/server-side-actions/fatt-vedtak-action";
+import { ferdigstillBehandlingKlageAction } from "~/server-side-actions/ferdigstill-behandling-klage-action";
 import { ferdigstillKlageAction } from "~/server-side-actions/ferdigstill-klage-action";
 import { hentNesteOppgaveAction } from "~/server-side-actions/hent-neste-oppgave-action";
 import { kvitterAvklaringAction } from "~/server-side-actions/kvitter-avklaring-action";
@@ -89,6 +90,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "ferdigstill-klage":
       return await ferdigstillKlageAction(request, params, formData);
+
+    case "ferdigstill-behandling-klage":
+      return await ferdigstillBehandlingKlageAction(request, params, formData);
 
     case "trekk-klage":
       return await trekkKlageAction(request, params, formData);
