@@ -168,11 +168,15 @@ function hentValideringForKlageOpplysningVerdi(
 }
 
 export function hentValideringForPersonIdent() {
+  const uuidSchema = z.uuid();
+
   return z.object({
     personIdent: z
       .string()
-      .regex(/^\d+$/, { message: "Fødselsnummer kan kun inneholde tall" })
-      .length(11, { message: "Fødselsnummer må være 11 siffer" }),
+      .trim()
+      .refine((value) => /^\d{11}$/.test(value) || uuidSchema.safeParse(value).success, {
+        message: "Søk må være et fødselsnummer (11 siffer) eller en gyldig behandling-id",
+      }),
   });
 }
 
