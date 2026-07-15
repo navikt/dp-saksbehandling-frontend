@@ -106,7 +106,7 @@ const utfallOpplysning: components["schemas"]["KlageOpplysning"] = {
 
 const vurderingAvKlagen: components["schemas"]["KlageOpplysning"] = {
   opplysningId: "vak",
-  opplysningNavnId: "test",
+  opplysningNavnId: "VURDERING_AV_KLAGEN",
   navn: "Vurdering av klagen",
   type: "TEKST",
   valgmuligheter: [],
