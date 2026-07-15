@@ -17,6 +17,11 @@ export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps
   const [verdi, setVerdi] = useState<string>(opplysning.verdi || "");
   const debouncedSetVerdi = useDebounceCallback(setVerdi, 2000);
 
+  const hjelpetekst =
+    opplysning.opplysningNavnId === "VURDERING_AV_KLAGEN"
+      ? "Denne teksten kommer ikke med i vedtaksbrev, men vil være synlig i den ferdigstilte klageoppgaven"
+      : undefined;
+
   useEffect(() => {
     if (verdi !== opplysning.verdi) {
       field.setValue(verdi);
@@ -37,6 +42,7 @@ export function KlageOpplysningTekst({ opplysning, formScope, readonly }: IProps
             form={"ikke-rvf-form"}
             size={"small"}
             label={opplysning.navn}
+            description={hjelpetekst}
             readOnly={readonly}
             defaultValue={verdi}
             onChange={(event) => debouncedSetVerdi(event.currentTarget.value)}
