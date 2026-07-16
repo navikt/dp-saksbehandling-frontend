@@ -61,6 +61,7 @@ export const klage: components["schemas"]["Oppgave"] = {
       "AVVENT_PERMITTERINGSÅRSAK",
       "AVVENT_RAPPORTERINGSFRIST",
       "AVVENT_SVAR_PÅ_FORESPØRSEL",
+      "MANGLENDE_FUNKSJONALITET",
       "ANNET",
     ],
     avbrytAarsaker: ["BEHANDLES_I_ARENA", "FLERE_SØKNADER", "TRUKKET_SØKNAD", "ANNET"],

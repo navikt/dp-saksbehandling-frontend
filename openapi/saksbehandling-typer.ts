@@ -2479,7 +2479,7 @@ export interface components {
             aarsak: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
-        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "ANNET";
+        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "MANGLENDE_FUNKSJONALITET" | "ANNET";
         LagreNotatResponse: {
             /**
              * Format: date-time

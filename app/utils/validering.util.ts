@@ -188,6 +188,7 @@ export function hentValideringSettOppgavePåVent() {
     "AVVENT_PERMITTERINGSÅRSAK",
     "AVVENT_RAPPORTERINGSFRIST",
     "AVVENT_SVAR_PÅ_FORESPØRSEL",
+    "MANGLENDE_FUNKSJONALITET",
     "ANNET",
   ];
   return z.object({
