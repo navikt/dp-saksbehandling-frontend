@@ -9,6 +9,7 @@ import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
 import { OppgaveEmneknagger } from "~/components/oppgave-emneknagger/OppgaveEmneknagger";
 import { OppgaveHistorikk } from "~/components/oppgave-historikk/OppgaveHistorikk";
 import { OppgaveValgLeggTilbake } from "~/components/oppgave-valg/OppgaveValgLeggTilbake";
+import { OppgaveValgSettPåVent } from "~/components/oppgave-valg/OppgaveValgSettPåVent";
 import { VerdiMedTittel } from "~/components/verdi-med-tittel/VerdiMedTittel";
 import { useOppgave } from "~/hooks/useOppgave";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
@@ -20,7 +21,7 @@ interface IProps {
 }
 
 export function OppfolgingInfo({ oppfolging }: IProps) {
-  const { oppgave, readonly } = useOppgave();
+  const { oppgave, readonly, gyldigeOppgaveValg } = useOppgave();
   const location = useLocation();
   const [visSkjema, setVisSkjema] = useState(false);
   const [medBehandling, setMedBehandling] = useState<boolean | undefined>(undefined);
@@ -143,8 +144,16 @@ export function OppfolgingInfo({ oppfolging }: IProps) {
                 </Button>
               </div>
 
-              <div>
-                <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+              <div className="flex gap-2 border-t border-(--ax-border-neutral-subtle) pt-2">
+                {gyldigeOppgaveValg.includes("utsett-oppgave") && (
+                  <div className="flex-1">
+                    <OppgaveValgSettPåVent oppgave={oppgave} buttonSize={"small"} />
+                  </div>
+                )}
+
+                <div className="flex-1">
+                  <OppgaveValgLeggTilbake oppgave={oppgave} buttonSize={"small"} />
+                </div>
               </div>
             </>
           )}
