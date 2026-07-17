@@ -271,6 +271,8 @@ export type GyldigOppfølgingÅrsak =
   | "Kopi av vedtak til fullmektig"
   | "Vurdere feilutbetaling"
   | "Ompostering"
+  | "Midlertidig oppholdstillatelse"
+  | "Manglende funksjonalitet"
   | "Annen årsak";
 
 export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
@@ -280,6 +282,8 @@ export const gyldigeNyOppfølgingÅrsaker: GyldigOppfølgingÅrsak[] = [
   "Kopi av vedtak til fullmektig",
   "Vurdere feilutbetaling",
   "Ompostering",
+  "Midlertidig oppholdstillatelse",
+  "Manglende funksjonalitet",
   "Annen årsak",
 ];
 
