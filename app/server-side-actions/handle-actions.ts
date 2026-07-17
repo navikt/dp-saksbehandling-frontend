@@ -15,6 +15,7 @@ import { leggTilBarnAction } from "~/server-side-actions/legg-til-barn-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
 import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
+import { redigerOppfolgingAction } from "~/server-side-actions/rediger-oppfolging-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
 import { returnerOppgaveTilSaksbehandlerAction } from "~/server-side-actions/returner-oppgave-til-saksbehandler-action";
 import { sendTilKontrollAction } from "~/server-side-actions/send-til-kontroll-action";
@@ -111,6 +112,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "rediger-barn":
       return await redigerBarnAction(request, params, formData);
+
+    case "rediger-oppfolging":
+      return await redigerOppfolgingAction(request, formData);
 
     case "legg-til-barn":
       return await leggTilBarnAction(request, params, formData);

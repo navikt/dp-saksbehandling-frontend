@@ -73,7 +73,58 @@ export interface paths {
                 };
             };
         };
-        put?: never;
+        /** Rediger tittel, beskrivelse og frist for en oppfølging under behandling */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    behandlingId: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["RedigerOppfolgingRequest"];
+                };
+            };
+            responses: {
+                /** @description Oppfølgingen ble oppdatert */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Oppfølgingen ble ikke funnet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Oppfølgingen kan ikke redigeres i denne tilstanden */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+                /** @description Feil */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
         post?: never;
         delete?: never;
         options?: never;
@@ -2804,6 +2855,17 @@ export interface components {
             strukturertData?: {
                 [key: string]: unknown;
             };
+        };
+        RedigerOppfolgingRequest: {
+            /** @description Kort tittel for oppgaven */
+            tittel: string;
+            /** @description Utfyllende beskrivelse av oppgaven */
+            beskrivelse?: string;
+            /**
+             * Format: date
+             * @description Frist for oppgaven (YYYY-MM-DD). Oppgaven settes på vent til denne dato.
+             */
+            frist?: string;
         };
         OpprettOppfolgingResponse: {
             /**

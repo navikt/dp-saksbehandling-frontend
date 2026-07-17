@@ -309,6 +309,20 @@ export function nyOppfolgingSchemaFelter() {
   });
 }
 
+export function hentValideringForRedigerOppfolgingSkjema() {
+  return z.object({
+    _action: z.literal("rediger-oppfolging"),
+    behandlingId: z.string().min(1, "Det mangler behandlingId i skjema"),
+    tittel: z.string({ message: "Du må skrive en tittel" }).min(1, "Du må skrive en tittel"),
+    beskrivelse: z.string().optional(),
+    frist: z.preprocess(
+      // Datepicker setter undefined til "undefined" så vi må caste tilbake
+      (val) => (val === "" || val === "undefined" ? undefined : val),
+      hentValideringForNorskDato().optional(),
+    ),
+  });
+}
+
 export function hentValideringForMeldingOmVedtakKildeSkjema() {
   return z.object({
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),

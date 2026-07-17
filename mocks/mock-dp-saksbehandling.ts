@@ -533,6 +533,21 @@ export const mockDpSaksbehandling = [
     });
   }),
 
+  http.put("/oppfolging/{behandlingId}", async ({ request, response }) => {
+    await delay(delayMs);
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const body = await request.json();
+    mockOppfolging.tittel = body.tittel;
+    mockOppfolging.beskrivelse = body.beskrivelse;
+    mockOppfolging.frist = body.frist;
+
+    return response(204).empty();
+  }),
+
   http.put("/oppfolging/{behandlingId}/ferdigstill", async ({ response }) => {
     if (apiError) {
       return response("default").json(defaultError, { status: 500 });

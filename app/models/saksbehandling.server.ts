@@ -97,6 +97,21 @@ export async function hentOppfolging(request: Request, behandlingId: string) {
   throw new Error(`Uhåndtert feil i hentOppfolging(). ${response.status} - ${response.statusText}`);
 }
 
+export async function redigerOppfolging(
+  request: Request,
+  behandlingId: string,
+  body: components["schemas"]["RedigerOppfolgingRequest"],
+) {
+  const onBehalfOfToken = await getSaksbehandlingOboToken(request);
+  return await saksbehandlerClient.PUT("/oppfolging/{behandlingId}", {
+    headers: getHeaders(onBehalfOfToken),
+    body,
+    params: {
+      path: { behandlingId },
+    },
+  });
+}
+
 export async function ferdigstillOppfolging(
   request: Request,
   body: components["schemas"]["FerdigstillOppfolgingRequest"],
