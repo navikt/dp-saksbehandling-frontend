@@ -215,6 +215,17 @@ export function hentFargevariantForSøknadsresultat(visningsnavn: string): Aksel
   }
 }
 
+export function hentFargevariantForUdefinertEmneknagg(
+  visningsnavn: string,
+): AkselColor | undefined {
+  switch (visningsnavn) {
+    case "Eksport":
+      return "warning";
+    default:
+      return undefined;
+  }
+}
+
 export function hentTekstForLeggTilbakeÅrsak(
   leggTilbakeÅrsak: saksbehandlingComponents["schemas"]["LeggTilbakeAarsak"],
 ): string {

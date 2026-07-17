@@ -12,6 +12,7 @@ import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
 import {
   hentFargevariantForSøknadsresultat,
+  hentFargevariantForUdefinertEmneknagg,
   hentOppgaveTilstandTekst,
   hentUtløstAvTekstForVisning,
 } from "~/utils/tekst.utils";
@@ -293,6 +294,7 @@ export function OppgaveListe(props: IProps) {
                         key={emneknagg.visningsnavn}
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={hentFargevariantForUdefinertEmneknagg(emneknagg.visningsnavn)}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>
