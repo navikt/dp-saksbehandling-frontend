@@ -2,14 +2,7 @@ import { Checkbox, CheckboxGroup, Detail } from "@navikt/ds-react";
 
 import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
 
-const rettighetstype = [
-  "Ordinær",
-  "Verneplikt",
-  "Permittert",
-  "Permittert fisk",
-  "Konkurs",
-  "Eksport",
-];
+const rettighetstype = ["Ordinær", "Verneplikt", "Permittert", "Permittert fisk", "Konkurs"];
 
 export function OppgaveFilterRettighetstype() {
   const { searchParams, toggleSearchParam } = useToggleSearchParam();
