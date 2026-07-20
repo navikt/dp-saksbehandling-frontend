@@ -21,6 +21,24 @@ export async function opprettBehandling(
   });
 }
 
+export async function opprettRevurderingEtterKlage(
+  request: Request,
+  ident: string,
+  klageId: string,
+  kildesystem: components["schemas"]["KlageKildesystem"],
+) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  return await behandlingClient.POST("/person/behandling", {
+    headers: getHeaders(onBehalfOfToken),
+    body: {
+      ident,
+      behandlingstype: "OmgjøringEtterKlage",
+      id: klageId,
+      kildesystem,
+    },
+  });
+}
+
 export async function hentBehandling(request: Request, behandlingId: string) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
 

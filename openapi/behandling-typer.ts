@@ -108,7 +108,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["NyBehandling"];
+                    "application/json": components["schemas"]["NyBehandling"] | components["schemas"]["NyKlage"];
                 };
             };
             responses: {
@@ -1076,8 +1076,20 @@ export interface components {
              */
             skjedde?: string;
         };
+        /** @description Ny behandling for omgjøring etter klage, basert på siste fullførte behandling */
+        NyKlage: Omit<components["schemas"]["NyBehandling"], "behandlingstype" | "id"> & {
+            behandlingstype: "OmgjøringEtterKlage";
+            /** @description ID for klagen i kildesystemet */
+            id: string;
+            kildesystem: components["schemas"]["KlageKildesystem"];
+        };
+        /**
+         * @description Kildesystemet klagen kommer fra
+         * @enum {string}
+         */
+        KlageKildesystem: "Førsteinstans" | "Klageinstans" | "Trygderetten";
         /** @enum {string} */
-        Behandlingstype: "Revurdering" | "Manuell";
+        Behandlingstype: "Revurdering" | "Manuell" | "OmgjøringEtterKlage";
         /**
          * @description Hvilket regelverk behandlingen skal kjøre under. Dagpenger er default.
          * @enum {string}

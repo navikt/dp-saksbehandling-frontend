@@ -14,6 +14,7 @@ import { lagreUtvidetBeskrivelseAction } from "~/server-side-actions/lagre-utvid
 import { leggTilBarnAction } from "~/server-side-actions/legg-til-barn-action";
 import { opprettBehandlingAction } from "~/server-side-actions/opprett-behandling-action";
 import { opprettKlageAction } from "~/server-side-actions/opprett-klage-action";
+import { opprettRevurderingEtterKlageAction } from "~/server-side-actions/opprett-revurdering-etter-klage-action";
 import { redigerBarnAction } from "~/server-side-actions/rediger-barn-action";
 import { redigerOppfolgingAction } from "~/server-side-actions/rediger-oppfolging-action";
 import { rekjorBehandlingAction } from "~/server-side-actions/rekjor-behandling-action";
@@ -103,6 +104,9 @@ export async function handleActions(request: Request, params: ActionFunctionArgs
 
     case "opprett-behandling":
       return await opprettBehandlingAction(request, formData);
+
+    case "opprett-revurdering-etter-klage":
+      return await opprettRevurderingEtterKlageAction(request, formData);
 
     case "opprett-oppfolging":
       return await opprettOppfolgingAction(request, formData);

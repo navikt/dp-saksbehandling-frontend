@@ -555,6 +555,17 @@ export function hentValideringForOpprettBehandling() {
   });
 }
 
+export function hentValideringForOpprettRevurderingEtterKlage() {
+  return z.object({
+    _action: z.literal("opprett-revurdering-etter-klage"),
+    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
+    klageId: z.uuid({ message: "Du må skrive inn gyldig klage-ID" }),
+    kildesystem: z.enum(["Førsteinstans", "Klageinstans", "Trygderetten"], {
+      message: "Du må velge et kildesystem",
+    }),
+  });
+}
+
 export function hentValideringForRedigeringBarn() {
   const boolskSvar = z
     .enum(["true", "false"], { message: "Du må velge et svar" })
