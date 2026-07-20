@@ -132,6 +132,15 @@ export function hentUtløstAvTekstForVisning(
         "Revurdering"
       );
 
+    case "REVURDERING_ETTER_KLAGE":
+      return medIkon ? (
+        <span className={"flex items-center gap-0.5"}>
+          <ArrowsSquarepathIcon aria-hidden fontSize="1.5rem" /> Revurdering etter klage
+        </span>
+      ) : (
+        "Revurdering etter klage"
+      );
+
     case "TILBAKEKREVING":
       return medIkon ? (
         <span className={"flex items-center gap-0.5"}>

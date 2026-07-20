@@ -24,11 +24,11 @@ export default function BehandlingFerdig() {
         <Heading size="xlarge">Klagen er ferdig vurdert</Heading>
         <BodyLong className="text-center">
           Du må nå utføre neste steg i behandlingen, som er å kopiere behandlings-id og opprette en
-          revurdering i personoversikten.
+          revurdering etter klage i personoversikten.
           <br />
           <br />
-          Når revurderingen er ferdig kontrollert, må klageoppgaven settes til fullført på nytt for
-          å ferdigstille klageoppgaven.
+          Når revurderingen etter klage er ferdig kontrollert, må klageoppgaven settes til fullført
+          på nytt for å ferdigstille klageoppgaven.
         </BodyLong>
 
         <div className="flex flex-col items-center gap-2">

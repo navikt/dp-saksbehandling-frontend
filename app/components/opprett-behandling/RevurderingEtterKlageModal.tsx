@@ -1,5 +1,5 @@
 import { GavelSoundBlockIcon } from "@navikt/aksel-icons";
-import { BodyLong, Button, Modal, Select, TextField } from "@navikt/ds-react";
+import { BodyLong, Button, Modal, TextField } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { forwardRef } from "react";
 import { useLocation } from "react-router";
@@ -27,7 +27,6 @@ export const RevurderingEtterKlageModal = forwardRef<HTMLDialogElement>((props, 
       _action: "opprett-revurdering-etter-klage",
       personIdent: personOversikt.person.ident,
       klageId: "",
-      kildesystem: "Førsteinstans",
     },
   });
 
@@ -51,16 +50,6 @@ export const RevurderingEtterKlageModal = forwardRef<HTMLDialogElement>((props, 
           description="Kopiert fra den ferdigstilte klagebehandlingen"
           error={opprettRevurderingEtterKlageForm.field("klageId").error()}
         />
-
-        <Select
-          {...opprettRevurderingEtterKlageForm.field("kildesystem").getInputProps()}
-          label="Kildesystem"
-          error={opprettRevurderingEtterKlageForm.field("kildesystem").error()}
-        >
-          <option value="Førsteinstans">Førsteinstans</option>
-          <option value="Klageinstans">Klageinstans</option>
-          <option value="Trygderetten">Trygderetten</option>
-        </Select>
       </Modal.Body>
 
       <Modal.Footer>
