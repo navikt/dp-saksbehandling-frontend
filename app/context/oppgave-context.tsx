@@ -163,8 +163,12 @@ function hentGyldigeKlageOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave", "trekk-klage", "ferdigstill-klage");
+    handlinger.push("utsett-oppgave", "trekk-klage", "ferdigstill-klage");
   }
 
   return handlinger;
@@ -185,8 +189,12 @@ function hentGyldigeInnsendingOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+    handlinger.push("utsett-oppgave");
   }
 
   return handlinger;
@@ -206,8 +214,12 @@ function hentGyldigeTilbakekrevingOppgaveValg(
     handlinger.push("se-oppgave");
   }
 
+  if (oppgave.tilstand === "UNDER_BEHANDLING") {
+    handlinger.push("legg-tilbake-oppgave");
+  }
+
   if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
-    handlinger.push("legg-tilbake-oppgave", "utsett-oppgave");
+    handlinger.push("utsett-oppgave");
   }
 
   return handlinger;

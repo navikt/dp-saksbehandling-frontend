@@ -11,6 +11,7 @@ import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { useTypeSafeParams } from "~/hooks/useTypeSafeParams";
 import { handleActions } from "~/server-side-actions/handle-actions";
+import { alleRegelsett } from "~/utils/behandling.utils";
 import { isAlert } from "~/utils/type-guards";
 
 import { components } from "../../openapi/behandling-typer";
@@ -29,9 +30,7 @@ export default function Opplysning() {
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
-  const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.id === regelsettId,
-  );
+  const regelsett = alleRegelsett(behandling).find((sett) => sett.id === regelsettId);
 
   const opplysning = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === opplysningId,
