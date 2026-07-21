@@ -2,6 +2,7 @@ import { type LoaderFunctionArgs, Outlet, redirect } from "react-router";
 import invariant from "tiny-invariant";
 
 import { hentBehandling } from "~/models/behandling.server";
+import { alleRegelsett } from "~/utils/behandling.utils";
 
 // Denne er kun for å redirecte til første opplysning i regelsettet. Avklaringer har kun id til hvilket regelsett den gjelder, men vi viser aldri kun regelsett uten opplysning. Vi må derfor redirecte
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -15,9 +16,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const behandling = await hentBehandling(request, params.behandlingId);
-  const regelsett = [...behandling.vilkår, ...behandling.fastsettelser].find(
-    (sett) => sett.id === params.regelsettId,
-  );
+  const regelsett = alleRegelsett(behandling).find((sett) => sett.id === params.regelsettId);
 
   if (!regelsett) {
     throw new Response(`Finner ikke regelsett med navn ${params.regelsettNavn}`, { status: 404 });
