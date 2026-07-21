@@ -137,6 +137,10 @@ export function OppgaveListe(props: IProps) {
               (emneknagg) => emneknagg.kategori === "UDEFINERT",
             );
 
+            const ettersendingEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "ETTERSENDING",
+            );
+
             return (
               <Table.Row key={oppgave.oppgaveId}>
                 <Table.DataCell>
@@ -295,6 +299,20 @@ export function OppgaveListe(props: IProps) {
                         size={"xsmall"}
                         variant={lasterOppgaver ? "moderate" : "outline"}
                         data-color={hentFargevariantForUdefinertEmneknagg(emneknagg.visningsnavn)}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {ettersendingEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"info"}
                         className={"whitespace-nowrap"}
                       >
                         <Detail as={lasterOppgaver ? Skeleton : "p"}>
