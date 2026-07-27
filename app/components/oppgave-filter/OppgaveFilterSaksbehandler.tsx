@@ -1,4 +1,4 @@
-import { Switch, TextField } from "@navikt/ds-react";
+import { Detail, Switch, TextField } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 
 import { useToggleSearchParam } from "~/hooks/useToggleSearchParam";
@@ -54,8 +54,11 @@ export function OppgaveFilterSaksbehandler() {
 
   return (
     <div>
+      <Detail textColor="subtle">Saksbehandler</Detail>
       <TextField
         label="Saksbehandler"
+        hideLabel
+        className="mt-2"
         size="small"
         placeholder="Søk på ident"
         value={ident}
