@@ -12,6 +12,7 @@ import { useOppgaverQuery } from "~/api/oppgave-hooks";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterRettighetstype } from "~/components/oppgave-filter/OppgaveFilterRettighetstype";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
+import { OppgaveFilterTidligereUtsatt } from "~/components/oppgave-filter/OppgaveFilterTidligereUtsatt";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
@@ -79,6 +80,7 @@ export default function Saksbehandling() {
   return (
     <div className={styles.container}>
       <nav className={styles.venstreMeny}>
+        <OppgaveFilterTidligereUtsatt />
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
         <OppgaveFilterUtløstAv />
