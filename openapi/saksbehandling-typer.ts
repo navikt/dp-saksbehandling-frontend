@@ -89,14 +89,14 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description Oppfølgingen ble oppdatert */
+                /** @description Oppfølging oppdatert */
                 204: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content?: never;
                 };
-                /** @description Oppfølgingen ble ikke funnet */
+                /** @description Oppfølging ble ikke funnet */
                 404: {
                     headers: {
                         [name: string]: unknown;
@@ -431,10 +431,14 @@ export interface paths {
                     tom?: string;
                     harDpSak?: boolean;
                     mineOppgaver?: boolean;
+                    /** @description Filtrer på oppgaver tildelt en bestemt saksbehandler (NAV-ident) */
+                    saksbehandlerIdent?: string;
+                    /** @description Vis kun oppgaver som ikke er tildelt en saksbehandler */
+                    utenSaksbehandler?: boolean;
                     antallOppgaver?: number;
                     side?: number;
                     /** @description Feltet oppgaver sorteres på */
-                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler";
+                    sorteringsfelt?: "opprettet" | "utlostAv" | "status" | "saksbehandler" | "utsattTil";
                     /** @description Sorteringsrekkefølge for oppgaver */
                     sortering?: "ASC" | "DESC";
                 };
