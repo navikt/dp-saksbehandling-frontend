@@ -13,7 +13,6 @@ import EmneknaggFilter from "~/components/oppgave-filter/EmneknaggFilter";
 import { OppgaveFilterDato } from "~/components/oppgave-filter/OppgaveFilterDato";
 import { OppgaveFilterSaksbehandler } from "~/components/oppgave-filter/OppgaveFilterSaksbehandler";
 import { OppgaveFilterStatus } from "~/components/oppgave-filter/OppgaveFilterStatus";
-import { OppgaveFilterTidligereUtsatt } from "~/components/oppgave-filter/OppgaveFilterTidligereUtsatt";
 import { OppgaveFilterUtløstAv } from "~/components/oppgave-filter/OppgaveFilterUtløstAv";
 import SwitchFilter from "~/components/oppgave-filter/SwitchFilter";
 import { OppgaveListe } from "~/components/oppgave-liste/OppgaveListe";
@@ -80,13 +79,12 @@ export default function Saksbehandling() {
         <div>
           <SwitchFilter param="mineOppgaver">Vis kun mine oppgaver</SwitchFilter>
           <SwitchFilter param="harDpSak">Kun personer med sak i DP-sak</SwitchFilter>
-          <OppgaveFilterTidligereUtsatt />
         </div>
         <OppgaveFilterDato />
         <OppgaveFilterStatus />
-        <OppgaveFilterSaksbehandler />
         <OppgaveFilterUtløstAv />
         <EmneknaggFilter />
+        <OppgaveFilterSaksbehandler />
       </nav>
 
       <main>
