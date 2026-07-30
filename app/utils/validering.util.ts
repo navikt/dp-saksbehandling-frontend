@@ -195,7 +195,10 @@ export function hentValideringSettOppgavePåVent() {
     _action: z.literal("sett-oppgave-på-vent"),
     oppgaveId: z.string().min(1, "Det mangler oppgaveId i skjema"),
     aktivtOppgaveSok: z.string().optional(),
-    beholdOppgave: z.coerce.boolean(),
+    beholdOppgave: z.preprocess(
+      (val) => val === true || val === "true" || val === "on",
+      z.boolean(),
+    ),
     utsettTilDato: z.preprocess(
       // Datepicker setter undefined til "undefined" så vi må caste tilbake
       (val) => (val === "" || val === "undefined" ? undefined : val),
