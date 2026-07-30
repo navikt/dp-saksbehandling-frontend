@@ -2526,7 +2526,7 @@ export interface components {
             aarsak: components["schemas"]["LeggTilbakeAarsak"];
         };
         /** @enum {string} */
-        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "ANNET";
+        LeggTilbakeAarsak: "MANGLER_KOMPETANSE" | "INHABILITET" | "FRAVÆR" | "KONTROLL_AV_KLAGE" | "ANNET";
         UtsettOppgave: {
             /** Format: date */
             utsettTilDato: string;
@@ -2534,7 +2534,7 @@ export interface components {
             aarsak: components["schemas"]["UtsettOppgaveAarsak"];
         };
         /** @enum {string} */
-        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "MANGLENDE_FUNKSJONALITET" | "ANNET";
+        UtsettOppgaveAarsak: "AVVENT_SVAR" | "AVVENT_DOKUMENTASJON" | "AVVENT_MELDEKORT" | "AVVENT_PERMITTERINGSÅRSAK" | "AVVENT_RAPPORTERINGSFRIST" | "AVVENT_SVAR_PÅ_FORESPØRSEL" | "SØKT_FOR_TIDLIG" | "MANGLENDE_FUNKSJONALITET" | "ANNET";
         LagreNotatResponse: {
             /**
              * Format: date-time

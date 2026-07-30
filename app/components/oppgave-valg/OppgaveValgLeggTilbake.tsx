@@ -27,7 +27,7 @@ export function OppgaveValgLeggTilbake({ oppgave, buttonSize, buttonVariant }: I
 
   const leggTilbakeForm = useForm({
     schema: z.object({
-      årsak: z.enum(["MANGLER_KOMPETANSE", "FRAVÆR", "INHABILITET", "ANNET"], {
+      årsak: z.enum(["MANGLER_KOMPETANSE", "FRAVÆR", "INHABILITET", "KONTROLL_AV_KLAGE", "ANNET"], {
         message: "Du må velge en årsak",
       }),
     }),

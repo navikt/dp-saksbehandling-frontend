@@ -245,6 +245,8 @@ export function hentTekstForLeggTilbakeÅrsak(
       return "Fravær";
     case "INHABILITET":
       return "Inhabil";
+    case "KONTROLL_AV_KLAGE":
+      return "Kontroll av klage";
     case "ANNET":
       return "Annet";
     default:
