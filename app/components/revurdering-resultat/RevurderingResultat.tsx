@@ -43,6 +43,15 @@ export function RevurderingResultat() {
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
 
+  const harPengesammenligning =
+    pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling;
+
+  // Omgjøringsregelsettet er strukturelt til stede i alle behandlinger (med tom opplysningsliste
+  // når det ikke er relevant), så vi må også sjekke at det faktisk finnes noe å vise før vi rendrer boksen
+  if (omgjøringBegrunnelser.length === 0 && !harPengesammenligning) {
+    return null;
+  }
+
   return (
     <InfoCard data-color="info">
       <InfoCard.Header icon={<BulletListIcon aria-hidden />}>
@@ -61,7 +70,7 @@ export function RevurderingResultat() {
             </>
           )}
 
-          {pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling && (
+          {harPengesammenligning && (
             <>
               <Heading size={"xsmall"}>{pengerSomSkalUtbetalesDenneBehandling.navn}</Heading>
               <div className={"flex gap-4"}>
