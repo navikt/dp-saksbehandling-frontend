@@ -9,9 +9,9 @@ const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
-  const omgjøringRegelsett = behandling.fastsettelser.find(
-    (regelsett) => regelsett.id === omgjøringRegelsettId,
-  );
+  const omgjøringRegelsett =
+    behandling.fastsettelser.find((regelsett) => regelsett.id === omgjøringRegelsettId) ??
+    behandling.saksbehandlingsregler?.find((regelsett) => regelsett.id === omgjøringRegelsettId);
 
   if (!omgjøringRegelsett) {
     return null;
