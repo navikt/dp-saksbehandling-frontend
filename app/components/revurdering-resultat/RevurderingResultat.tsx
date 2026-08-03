@@ -5,10 +5,23 @@ import { useBehandling } from "~/hooks/useBehandling";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
 import { formaterOpplysningVerdi } from "~/utils/opplysning.utils";
 
+import { components } from "../../../openapi/behandling-typer";
+
 const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
+
+  // Revurderingsresultat er kun relevant for behandlinger som faktisk endrer et tidligere
+  // vedtak (manuell omgjøring eller korrigert meldekort) — aldri for førstegangsbehandlinger
+  const relevanteHendelsestyper: components["schemas"]["Hendelse"]["type"][] = [
+    "Omgjøring",
+    "Meldekort",
+  ];
+  if (!relevanteHendelsestyper.includes(behandling.behandletHendelse.type)) {
+    return null;
+  }
+
   const omgjøringRegelsett =
     behandling.fastsettelser.find((regelsett) => regelsett.id === omgjøringRegelsettId) ??
     behandling.saksbehandlingsregler?.find((regelsett) => regelsett.id === omgjøringRegelsettId);
