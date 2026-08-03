@@ -12,8 +12,6 @@ const omgjøringRegelsettId = "Nzc0ODQwNzYy";
 export function RevurderingResultat() {
   const { behandling, forrigeBehandling } = useBehandling();
 
-  // Revurderingsresultat er kun relevant for behandlinger som faktisk endrer et tidligere
-  // vedtak (manuell omgjøring eller korrigert meldekort) — aldri for førstegangsbehandlinger
   const relevanteHendelsestyper: components["schemas"]["Hendelse"]["type"][] = [
     "Omgjøring",
     "Meldekort",
@@ -59,8 +57,6 @@ export function RevurderingResultat() {
   const harPengesammenligning =
     pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling;
 
-  // Omgjøringsregelsettet er strukturelt til stede i alle behandlinger (med tom opplysningsliste
-  // når det ikke er relevant), så vi må også sjekke at det faktisk finnes noe å vise før vi rendrer boksen
   if (omgjøringBegrunnelser.length === 0 && !harPengesammenligning) {
     return null;
   }
