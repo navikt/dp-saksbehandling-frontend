@@ -21,6 +21,20 @@ export function RevurderingResultat() {
     omgjøringRegelsett.opplysninger.includes(opplysninger.opplysningTypeId),
   );
 
+  const omgjøringBegrunnelser = omgjøringOpplysninger
+    .map((opplysning) => ({
+      opplysningTypeId: opplysning.opplysningTypeId,
+      begrunnelse: opplysning.perioder[0]?.kilde?.begrunnelse,
+    }))
+    .filter(
+      (
+        entry,
+      ): entry is {
+        opplysningTypeId: string;
+        begrunnelse: NonNullable<typeof entry.begrunnelse>;
+      } => entry.begrunnelse !== undefined,
+    );
+
   const pengerSomSkalUtbetalesDenneBehandling = behandling.opplysninger.find(
     (opplysning) => opplysning.opplysningTypeId === "01994cfd-9a27-762e-81fa-61f550467c95",
   );
@@ -36,18 +50,16 @@ export function RevurderingResultat() {
       </InfoCard.Header>
       <InfoCard.Content>
         <div className={"flex flex-col gap-4"}>
-          <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
-          <List as="ul">
-            {omgjøringOpplysninger.map((opplysning) => {
-              if (opplysning.perioder[0]?.kilde?.begrunnelse) {
-                return (
-                  <List.Item key={opplysning.opplysningTypeId}>
-                    {opplysning.perioder[0].kilde.begrunnelse.verdi}
-                  </List.Item>
-                );
-              }
-            })}
-          </List>
+          {omgjøringBegrunnelser.length > 0 && (
+            <>
+              <Heading size={"xsmall"}>Vedtaket omgjøres fordi</Heading>
+              <List as="ul">
+                {omgjøringBegrunnelser.map(({ opplysningTypeId, begrunnelse }) => (
+                  <List.Item key={opplysningTypeId}>{begrunnelse.verdi}</List.Item>
+                ))}
+              </List>
+            </>
+          )}
 
           {pengerSomSkalUtbetalesDenneBehandling && pengerSomSkalUtbetalesForrigeBehandling && (
             <>
