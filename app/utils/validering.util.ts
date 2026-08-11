@@ -7,6 +7,7 @@ import { logger } from "~/utils/logger.utils";
 export type NyBehandlingType =
   | "RETT_TIL_DAGPENGER_MANUELL"
   | "RETT_TIL_DAGPENGER_REVURDERING"
+  | "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE"
   | "KLAGE"
   | "OPPFOLGING"
   | "INGEN";
@@ -452,6 +453,10 @@ export function hentValideringForFerdigstillOppgave(
         z.object({
           ...ferdigstillInnsendingFelter,
           behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING"),
+        }),
+        z.object({
+          ...ferdigstillInnsendingFelter,
+          behandlingsvariant: z.literal("RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE"),
         }),
         z.object({
           ...ferdigstillInnsendingFelter,

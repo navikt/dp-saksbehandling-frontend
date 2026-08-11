@@ -264,6 +264,8 @@ export function hentTekstForFerdigstilling(
       return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
     case "RETT_TIL_DAGPENGER_REVURDERING":
       return `${behandlingTypeTekst} ferdigstilt, ny behandling opprettet ✅`;
+    case "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE":
+      return `${behandlingTypeTekst} ferdigstilt, ny revurdering etter klage opprettet ✅`;
     case "KLAGE":
       return `${behandlingTypeTekst} ferdigstilt, ny klage opprettet ✅`;
     case "OPPFOLGING":

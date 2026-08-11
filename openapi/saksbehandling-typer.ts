@@ -2460,7 +2460,7 @@ export interface components {
         /** @enum {string} */
         BehandlingType: "RETT_TIL_DAGPENGER" | "KLAGE" | "INNSENDING" | "TILBAKEKREVING" | "OPPFØLGING";
         /** @enum {string} */
-        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "KLAGE" | "OPPFOLGING";
+        BehandlingVariant: "RETT_TIL_DAGPENGER_MANUELL" | "RETT_TIL_DAGPENGER_REVURDERING" | "RETT_TIL_DAGPENGER_REVURDERING_ETTER_KLAGE" | "KLAGE" | "OPPFOLGING";
         LovligeEndringer: {
             /** @description Årsaker til at oppgaven settes på vent */
             paaVentAarsaker: components["schemas"]["UtsettOppgaveAarsak"][];
