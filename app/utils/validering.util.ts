@@ -536,6 +536,14 @@ export function hentValideringForOpprettBehandling() {
   });
 }
 
+export function hentValideringForOpprettRevurderingEtterKlage() {
+  return z.object({
+    _action: z.literal("opprett-revurdering-etter-klage"),
+    personIdent: z.string().min(1, "Det mangler personIdent i skjema"),
+    klageId: z.uuid({ message: "Du må skrive inn gyldig klage-ID" }),
+  });
+}
+
 export function hentValideringForNyBarneperiode() {
   return z.object({
     _action: z.literal("opprett-barneliste-periode"),
