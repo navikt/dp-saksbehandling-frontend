@@ -165,13 +165,21 @@ export const klage: components["schemas"]["Klage"] = {
   behandlingId: "0199390e-35aa-7f47-9e95-2c384bcb2e93",
   // Starter nøytralt (IKKE_SATT) slik at du selv kan velge utfall under Utfall-fanen.
   // Velger du MEDHOLD/DELVIS_MEDHOLD oppdaterer mocken klagen og to-stegs-flyten aktiveres.
-  tilstand: "BEHANDLES",
+  tilstand: "FERDIGSTILT",
   utfall: {
-    verdi: "IKKE_SATT",
+    verdi: "OPPRETTHOLDELSE",
     tilgjengeligeUtfall: ["OPPRETTHOLDELSE", "DELVIS_MEDHOLD", "MEDHOLD"],
   },
   behandlingOpplysninger,
-  utfallOpplysninger: synligeUtfallOpplysninger("IKKE_SATT"),
+  utfallOpplysninger: synligeUtfallOpplysninger("OPPRETTHOLDELSE"),
+  klageinstansBehandling: {
+    behandlingId: "0199390e-35aa-7f47-9e95-2c384bcb2e93",
+    utfall: {
+      verdi: "HENLAGT",
+      tilgjengeligeKlageinstansUtfall: [],
+    },
+    journalpostIder: ["JOURNALPOSTID_1", "JOURNALPOSTID_2"],
+  },
 };
 
 export const klager: components["schemas"]["Klage"][] = [klage];

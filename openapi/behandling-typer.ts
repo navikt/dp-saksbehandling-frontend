@@ -108,7 +108,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["NyBehandling"] | components["schemas"]["NyKlage"];
+                    "application/json": components["schemas"]["NyBehandling"];
                 };
             };
             responses: {
@@ -132,6 +132,57 @@ export interface paths {
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sak/{sakId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Sakens id. Dette tilsvarer behandlingskjedeId, altså en sammenhengende rettighetsperiode. */
+                sakId: string;
+            };
+            cookie?: never;
+        };
+        /** Hent status og behandlingshistorikk for en sak */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Sakens id. Dette tilsvarer behandlingskjedeId, altså en sammenhengende rettighetsperiode. */
+                    sakId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Sak"];
+                    };
+                };
+                /** @description Feil ved henting av sak */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["HttpProblem"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1061,27 +1112,40 @@ export interface components {
          */
         OppdateringEventType: "behandling_opprettet" | "behandling_endret_tilstand" | "forslag_til_behandlingsresultat" | "behandlingsresultat" | "behandling_avbrutt" | "avklaring_lukket";
         NyBehandling: {
-            behandlingstype?: components["schemas"]["Behandlingstype"];
+            behandlingstype: components["schemas"]["Behandlingstype"];
             regelverk?: components["schemas"]["RegelverkType"];
             ident: components["schemas"]["Personident"];
             begrunnelse?: string;
-            /**
-             * Format: uuid
-             * @description Valgfritt id for hendelsen, hvis ikke genereres det en uuid
-             */
-            id?: string;
             /**
              * Format: date
              * @description Når hendelsen skjedde, hvis ikke settes det til nåværende tidspunkt
              */
             skjedde?: string;
         };
-        /** @description Ny behandling for omgjøring etter klage, basert på siste fullførte behandling */
-        NyKlage: Omit<components["schemas"]["NyBehandling"], "behandlingstype" | "id"> & {
-            behandlingstype: "OmgjøringEtterKlage";
+        NyRevurdering: Omit<components["schemas"]["NyBehandling"], "behandlingstype"> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "Revurdering";
+        };
+        NyManuellBehandling: Omit<components["schemas"]["NyBehandling"], "behandlingstype"> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "Manuell";
+        };
+        NyKlage: Omit<components["schemas"]["NyBehandling"], "behandlingstype"> & {
             /** @description ID for klagen i kildesystemet */
             id: string;
             kildesystem: components["schemas"]["KlageKildesystem"];
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "OmgjøringEtterKlage";
         };
         /**
          * @description Kildesystemet klagen kommer fra
@@ -1401,12 +1465,20 @@ export interface components {
             datatype: "barn";
         };
         BarnVerdi: {
+            /** @enum {string} */
+            kilde?: "Register" | "Søknad" | "Saksbehandler";
+            /** @description Fødselsnummer eller D-nummer for barn fra Folkeregisteret */
+            ident?: string;
             /** Format: date */
             "f\u00F8dselsdato": string;
             fornavnOgMellomnavn?: string;
             etternavn?: string;
+            /** @deprecated */
             statsborgerskap?: string;
+            oppholdsland?: string;
+            "fors\u00F8rgeransvar": boolean;
             kvalifiserer: boolean;
+            begrunnelse?: string;
         };
         /** @description Kilde for opplysningen */
         Opplysningskilde: {
@@ -1694,7 +1766,7 @@ export interface components {
             datatype: string;
             id: string;
             /** @enum {string} */
-            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning";
+            type: "Søknad" | "Meldekort" | "Manuell" | "Omgjøring" | "Arbeidssøkerperiode" | "Ferietillegg" | "Samordning" | "KlageFørsteinstans" | "KlageKlageinstans" | "KlageTrygderetten";
             /**
              * Format: date
              * @description Når hendelsen skjedde på utsiden av vårt system
@@ -1731,8 +1803,53 @@ export interface components {
             behandlingId: components["schemas"]["BehandlingId"];
             behandlingskjedeId: components["schemas"]["BehandlingId"];
         };
+        /** @description En sak, det vil si en sammenhengende behandlingskjede med tilhørende status og behandlingshistorikk */
+        Sak: {
+            sakId: components["schemas"]["BehandlingId"];
+            status: components["schemas"]["SakStatus"];
+            /** @description Alle behandlinger i saken, i kjedet rekkefølge (nyeste først) */
+            behandlinger: components["schemas"]["BehandlingSammendrag"][];
+        };
+        /** @description Gjeldende status for saken, basert på siste ferdigstilte behandling */
+        SakStatus: {
+            /** @description Om bruker har en løpende rett på dagpenger i dag */
+            "harL\u00F8pendeRett": boolean;
+            /**
+             * Format: date
+             * @description Fra og med dato for gjeldende rettighetsperiode
+             */
+            fraOgMed?: string;
+            /**
+             * Format: date
+             * @description Til og med dato for gjeldende rettighetsperiode, hvis den er avsluttet
+             */
+            tilOgMed?: string;
+            sisteMeldeperiode?: components["schemas"]["Periode"];
+            /** @description Antall gjenstående dager med rett på dagpenger */
+            "gjenst\u00E5endeDager"?: number;
+            /**
+             * Format: date-time
+             * @description Tidspunktet siste ferdigstilte behandling i saken ble ferdig
+             */
+            sistEndret?: string;
+        };
+        /** @description En tynn representasjon av en behandling i en behandlingskjede */
+        BehandlingSammendrag: {
+            behandlingId: components["schemas"]["BehandlingId"];
+            /** Format: date-time */
+            opprettet: string;
+            /**
+             * Format: date-time
+             * @description Tidspunktet behandlingen ble ferdigstilt, hvis den er ferdig
+             */
+            ferdigstilt?: string;
+            /** @description Hvilken hendelse som utløste behandlingen */
+            behandletHendelse: components["schemas"]["Hendelse"];
+            /** @description Hvilken avgjørelse behandlingen førte til, hvis den er ferdig */
+            "f\u00F8rteTil"?: components["schemas"]["Avgj\u00F8relse"];
+        };
         /** @enum {string} */
-        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode";
+        VilkaarNavn: "Er medlemmet ikke påvirket av streik eller lock-out?" | "Krav til arbeidssøker" | "Krav til tap av arbeidsinntekt" | "Krav til tap av arbeidsinntekt og arbeidstid" | "Krav til utdanning eller opplæring" | "Mottar ikke andre fulle ytelser" | "Oppfyller krav til ikke utestengt" | "Oppfyller kravet til alder" | "Oppfyller kravet til framsatt søknad" | "Oppfyller kravet til heltid- og deltidsarbeid" | "Oppfyller kravet til ikke gi mangelfull informasjon" | "Oppfyller kravet til medlemskap" | "Oppfyller kravet til minsteinntekt" | "Oppfyller kravet til mobilitet" | "Oppfyller kravet til opphold i Norge" | "Oppfyller kravet til opphold i Norge eller unntak" | "Oppfyller kravet til permittering" | "Oppfyller kravet til permittering i fiskeindustrien" | "Oppfyller kravet til verneplikt" | "Oppfyller kravet til å ta ethvert arbeid" | "Oppfyller kravet til å være arbeidsfør" | "Oppfyller meldeplikt" | "Registrert som arbeidssøker på søknadstidspunktet" | "Tap av arbeidstid er minst terskel" | "Utfall etter samordning" | "Oppfyller kravet for gjenopptak av stønadsperiode" | "Er ilagt tidsbegrenset bortfall av dagpenger" | "Er ilagt sanskjonsperiode ved selvforskyldt arbeidsløshet" | "Tre påfølgende meldeperioder uten tilstrekkelig tap av arbeidstid § 10-4 annet ledd" | "Oppfyller kravet til eksport";
     };
     responses: never;
     parameters: never;

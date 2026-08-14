@@ -283,3 +283,30 @@ export function hentTekstForFerdigstilling(
       return `${behandlingTypeTekst} ferdigstilt ✅`;
   }
 }
+
+export function hentTekstForKlageinstansUtfall(
+  utfall: saksbehandlingComponents["schemas"]["KlageinstansUtfall"]["verdi"],
+): string {
+  switch (utfall) {
+    case "TRUKKET":
+      return "Trukket";
+    case "RETUR":
+      return "Retur";
+    case "OPPHEVET":
+      return "Opphevet";
+    case "MEDHOLD":
+      return "Medhold";
+    case "DELVIS_MEDHOLD":
+      return "Delvis medhold";
+    case "STADFESTELSE":
+      return "Stadfestelse";
+    case "UGUNST":
+      return "Ugunst";
+    case "AVVIST":
+      return "Avvist";
+    case "HENLAGT":
+      return "Henlagt";
+    default:
+      return utfall;
+  }
+}

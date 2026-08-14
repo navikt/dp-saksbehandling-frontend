@@ -24,8 +24,8 @@ export async function opprettBehandling(
 export async function opprettRevurderingEtterKlage(
   request: Request,
   ident: string,
-  klageId: string,
-  kildesystem: components["schemas"]["KlageKildesystem"],
+  // klageId: string,
+  // kildesystem: components["schemas"]["KlageKildesystem"],
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {
@@ -33,8 +33,8 @@ export async function opprettRevurderingEtterKlage(
     body: {
       ident,
       behandlingstype: "OmgjøringEtterKlage",
-      id: klageId,
-      kildesystem,
+      // id: klageId,
+      // kildesystem,
     },
   });
 }

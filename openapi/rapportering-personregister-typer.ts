@@ -64,6 +64,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/person/s\u00F8knad/innsendt-tidspunkt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Henter tidspunkt for innsending av en gitt søknad som tilhører en gitt person */
+        post: operations["post-person-s\u00F8knad-innsendt-tidspunkt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/arbeidssokerperioder/{personId}": {
         parameters: {
             query?: never;
@@ -93,6 +110,15 @@ export interface components {
         };
         PersonIdBody: {
             personId: number;
+        };
+        PersonSoknadInnsendtTidspunktRequest: {
+            ident: string;
+            /** Format: uuid */
+            "s\u00F8knadId": string;
+        };
+        PersonSoknadInnsendtTidspunktResponse: {
+            /** Format: date-time */
+            innsendtTidspunkt: string;
         };
         PersonStatus: {
             ident: string;
@@ -236,6 +262,44 @@ export interface operations {
                 };
             };
             /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    "post-person-s\u00F8knad-innsendt-tidspunkt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PersonSoknadInnsendtTidspunktRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PersonSoknadInnsendtTidspunktResponse"];
+                };
+            };
+            /** @description Identen validerer ikke */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Hvis bruker med oppgitt ident ikke eksisterer eller hvis oppgitt søknad ikke eksisterer */
             404: {
                 headers: {
                     [name: string]: unknown;
