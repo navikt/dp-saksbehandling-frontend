@@ -10,23 +10,26 @@ interface IProps {
 
 export function RootErrorBoundaryView({ meta, links, error }: IProps) {
   return (
-    <Theme>
+    <html lang="nb">
       <head>
         {meta}
         {links}
         <title>Dagpenger</title>
       </head>
+      <body>
+        <Theme>
+          <InternalHeader>
+            <Link to={"/"} className={"flex items-center"}>
+              <InternalHeader.Title as="h1">Dagpenger</InternalHeader.Title>
+            </Link>
+          </InternalHeader>
 
-      <InternalHeader>
-        <Link to={"/"} className={"flex items-center"}>
-          <InternalHeader.Title as="h1">Dagpenger</InternalHeader.Title>
-        </Link>
-      </InternalHeader>
-
-      <div className={"p-4"}>
-        <ErrorMessageComponent error={error} />
-      </div>
-    </Theme>
+          <div className={"p-4"}>
+            <ErrorMessageComponent error={error} />
+          </div>
+        </Theme>
+      </body>
+    </html>
   );
 }
 

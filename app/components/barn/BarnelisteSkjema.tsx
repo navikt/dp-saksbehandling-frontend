@@ -99,7 +99,6 @@ const BarnelisteSkjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Pr
           <Textarea
             {...nyBarnelisteForm.getInputProps("begrunnelse")}
             label="Begrunnelse"
-            required
             error={nyBarnelisteForm.field("begrunnelse").error()}
             minRows={3}
           />
