@@ -23,8 +23,8 @@ export interface SkjemaBarn {
   fødselsdato: string;
   ident: string;
   oppholdsland: string;
-  forsørgeransvar: boolean | undefined;
-  kvalifiserer: boolean | undefined;
+  forsørgeransvar: "true" | "false" | undefined;
+  kvalifiserer: "true" | "false" | undefined;
   begrunnelse: string;
 }
 
@@ -83,8 +83,8 @@ const Barneskjema = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
         error={barnForm.error("forsørgeransvar")}
       >
         <div className="flex gap-4">
-          <Radio value={true}>Ja</Radio>
-          <Radio value={false}>Nei</Radio>
+          <Radio value="true">Ja</Radio>
+          <Radio value="false">Nei</Radio>
         </div>
       </RadioGroup>
       <RadioGroup
@@ -93,8 +93,8 @@ const Barneskjema = ({ onDelete, orkestratorLandliste }: BarnefeltProps) => {
         error={barnForm.error("kvalifiserer")}
       >
         <div className="flex gap-4">
-          <Radio value={true}>Ja</Radio>
-          <Radio value={false}>Nei</Radio>
+          <Radio value="true">Ja</Radio>
+          <Radio value="false">Nei</Radio>
         </div>
       </RadioGroup>
       <Textarea {...barnForm.getInputProps("begrunnelse")} label="Begrunnelse" />

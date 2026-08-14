@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router";
 import { components } from "@/openapi/behandling-typer";
 import { loader } from "~/routes/oppgave.$oppgaveId.dagpenger-rett.$behandlingId._person.regelsett.$regelsettId.opplysning.$opplysningId.barneliste.ny";
 import { formaterTilBackendDato } from "~/utils/dato.utils";
-import { hentValideringForNyBarneperiode } from "~/utils/validering.util";
+import { boolToStringbool, hentValideringForNyBarneperiode } from "~/utils/validering.util";
 
 import { LoadingLink } from "../loading-link/LoadingLink";
 import Barneskjema, { SkjemaBarn } from "./Barneskjema";
@@ -34,6 +34,8 @@ const BarnelisteSkjema = ({ behandlingId, sisteBarneperiode, opplysningUrl }: Pr
     sisteBarneperiode?.verdi.map((barn) => ({
       ...defaultBarn,
       ...barn,
+      forsørgeransvar: boolToStringbool(barn.forsørgeransvar),
+      kvalifiserer: boolToStringbool(barn.kvalifiserer),
     })) || [];
 
   const nyBarnelisteForm = useForm({

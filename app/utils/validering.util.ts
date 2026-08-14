@@ -12,6 +12,10 @@ export type NyBehandlingType =
   | "OPPFOLGING"
   | "INGEN";
 
+export function boolToStringbool(val: boolean | undefined) {
+  return val === undefined ? undefined : val ? "true" : "false";
+}
+
 export function hentValideringForOpplysningPeriodeSkjema(
   datatype: components["schemas"]["DataType"],
 ) {
@@ -561,8 +565,8 @@ export function hentValideringForNyBarneperiode() {
         fødselsdato: z.string().min(1, { message: "Du må skrive fødselsdato" }),
         ident: z.string().optional(),
         oppholdsland: z.string().min(1, { message: "Du må velge et land" }),
-        forsørgeransvar: z.coerce.boolean({ message: "Du må velge et svar" }),
-        kvalifiserer: z.coerce.boolean({ message: "Du må velge et svar" }),
+        forsørgeransvar: z.stringbool({ message: "Du må velge et svar" }),
+        kvalifiserer: z.stringbool({ message: "Du må velge et svar" }),
         begrunnelse: z.string().optional(),
       }),
     ),
