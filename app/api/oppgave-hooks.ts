@@ -7,6 +7,7 @@ import {
   leggTilbakeOppgaveFetch,
   Oppgave,
   OppgaveListeData,
+  returnerTilSaksbehandlerFetch,
   tildelOppgaveFetch,
 } from "./oppgave";
 
@@ -93,6 +94,23 @@ export function useLeggTilbakeOppgaveMutation() {
 
   const mutation = useMutation({
     mutationFn: leggTilbakeOppgaveFetch,
+    onSuccess: () => {
+      // Invalidate cache after mutation settles
+      queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
+    },
+  });
+
+  return {
+    mutate: mutation.mutate,
+    isPending: mutation.isPending,
+  };
+}
+
+export function useReturnerTilSaksbehandlerMutation() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: returnerTilSaksbehandlerFetch,
     onSuccess: () => {
       // Invalidate cache after mutation settles
       queryClient.invalidateQueries({ queryKey: ["oppgaver"] });
