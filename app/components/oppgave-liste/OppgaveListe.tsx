@@ -328,6 +328,9 @@ export function OppgaveListe(props: IProps) {
                 <Table.DataCell>
                   {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.behandlerIdent}</Detail>}
                 </Table.DataCell>
+                <Table.DataCell>
+                  {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.beslutterIdent}</Detail>}
+                </Table.DataCell>
 
                 <Table.DataCell>
                   <NoteButton
