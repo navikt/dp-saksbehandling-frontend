@@ -103,7 +103,7 @@ export default function Oppgave() {
     <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
       <PersonBoks person={oppgave.person} />
       <div className={`main flex gap-4`}>
-        <OppgaveOversikt />
+        <OppgaveOversikt klageinstansUtfall={klage.klageinstansBehandling?.utfall} />
         <main className={"card flex flex-1 flex-col gap-4 p-2"}>
           <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
             <div className="flex items-center justify-between gap-6">

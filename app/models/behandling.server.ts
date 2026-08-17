@@ -12,7 +12,7 @@ const behandlingClient = createClient<paths>({ baseUrl: getEnv("DP_BEHANDLING_UR
 export async function opprettBehandling(
   request: Request,
   ident: string,
-  behandlingstype: components["schemas"]["Behandlingstype"],
+  behandlingstype: Exclude<components["schemas"]["Behandlingstype"], "OmgjøringEtterKlage">,
 ) {
   const onBehalfOfToken = await getBehandlingOboToken(request);
   return await behandlingClient.POST("/person/behandling", {

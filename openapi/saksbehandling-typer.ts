@@ -2644,6 +2644,7 @@ export interface components {
             utfall: components["schemas"]["Utfall"];
             /** @enum {string} */
             tilstand: "BEHANDLES" | "BEHANDLING_UTFORT" | "OVERSEND_KLAGEINSTANS" | "BEHANDLES_AV_KLAGEINSTANS" | "FERDIGSTILT" | "AVBRUTT";
+            klageinstansBehandling?: components["schemas"]["KlageinstansBehandling"];
         };
         TekstVerdi: {
             verdi: string;
@@ -2778,6 +2779,18 @@ export interface components {
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";
             /** @description Tilgjengelige utfall for klagebehandling */
             tilgjengeligeUtfall: string[];
+        };
+        KlageinstansUtfall: {
+            /** @enum {string} */
+            verdi: "TRUKKET" | "RETUR" | "OPPHEVET" | "MEDHOLD" | "DELVIS_MEDHOLD" | "STADFESTELSE" | "UGUNST" | "AVVIST" | "HENLAGT";
+            /** @description Tilgjengelige utfall for klagebehandling i KA */
+            tilgjengeligeKlageinstansUtfall: string[];
+        };
+        KlageinstansBehandling: {
+            /** Format: uuid */
+            behandlingId: string;
+            utfall: components["schemas"]["KlageinstansUtfall"];
+            journalpostIder: string[];
         };
         FerdigstillInnsendingRequest: {
             /** Format: uuid */

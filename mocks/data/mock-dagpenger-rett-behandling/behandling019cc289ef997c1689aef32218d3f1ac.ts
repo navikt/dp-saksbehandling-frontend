@@ -6742,6 +6742,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 etternavn: "LØVEFLOKK",
                 statsborgerskap: "NOR",
                 kvalifiserer: true,
+                forsørgeransvar: false,
               },
               {
                 fødselsdato: "2016-04-27",
@@ -6749,6 +6750,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 etternavn: "FELL",
                 statsborgerskap: "NOR",
                 kvalifiserer: true,
+                forsørgeransvar: false,
               },
               {
                 fødselsdato: "2020-04-18",
@@ -6756,6 +6758,7 @@ export const behandling019cc289ef997c1689aef32218d3f1ac: components["schemas"]["
                 etternavn: "BLY",
                 statsborgerskap: "NOR",
                 kvalifiserer: true,
+                forsørgeransvar: false,
               },
             ],
             datatype: "barn",

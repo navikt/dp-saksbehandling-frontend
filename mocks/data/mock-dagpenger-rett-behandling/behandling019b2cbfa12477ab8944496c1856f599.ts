@@ -6838,6 +6838,7 @@ export const behandling019b2cbfa12477ab8944496c1856f599: components["schemas"]["
                 etternavn: "TIMEPLAN",
                 statsborgerskap: "NOR",
                 kvalifiserer: false,
+                forsørgeransvar: false,
               },
               {
                 fødselsdato: "2019-07-25",
@@ -6845,6 +6846,7 @@ export const behandling019b2cbfa12477ab8944496c1856f599: components["schemas"]["
                 etternavn: "FOSS",
                 statsborgerskap: "NOR",
                 kvalifiserer: false,
+                forsørgeransvar: false,
               },
             ],
             datatype: "barn",
