@@ -15,15 +15,12 @@ export async function opprettRevurderingEtterKlageAction(request: Request, formD
     return validationError(validertSkjema.error);
   }
 
-  const {
-    personIdent,
-    // klageId
-  } = validertSkjema.data;
+  const { personIdent, klageId } = validertSkjema.data;
   const { data, error } = await opprettRevurderingEtterKlage(
     request,
     personIdent,
-    // klageId,
-    // "Førsteinstans",
+    klageId,
+    "Førsteinstans",
   );
 
   if (data) {

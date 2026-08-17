@@ -108,7 +108,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["NyBehandling"];
+                    "application/json": components["schemas"]["NyRevurdering"] | components["schemas"]["NyManuellBehandling"] | components["schemas"]["NyKlage"];
                 };
             };
             responses: {
@@ -1128,8 +1128,20 @@ export interface components {
              * @enum {string}
              */
             behandlingstype: "Revurdering";
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "Revurdering";
         };
         NyManuellBehandling: Omit<components["schemas"]["NyBehandling"], "behandlingstype"> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "Manuell";
+        } & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
@@ -1140,6 +1152,12 @@ export interface components {
             /** @description ID for klagen i kildesystemet */
             id: string;
             kildesystem: components["schemas"]["KlageKildesystem"];
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            behandlingstype: "OmgjøringEtterKlage";
         } & {
             /**
              * @description discriminator enum property added by openapi-typescript
