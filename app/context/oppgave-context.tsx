@@ -41,16 +41,17 @@ export function OppgaveProvider({
   oppgave,
   saksbehandler,
 }: PropsWithChildren<IOppgaveProviderType>) {
-  const minOppgave =
-    oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName &&
-    oppgave.tilstand === "UNDER_BEHANDLING";
+  const minOppgave = oppgave.saksbehandler?.ident === saksbehandler.onPremisesSamAccountName;
 
   const minBeslutterOppgave =
     oppgave.beslutter?.ident === saksbehandler.onPremisesSamAccountName &&
     oppgave.tilstand === "UNDER_KONTROLL";
 
   const underKontroll = oppgave.tilstand === "UNDER_KONTROLL";
-  const readonly = !minOppgave || underKontroll || oppgave.tilstand !== "UNDER_BEHANDLING";
+  const readonly =
+    !(minOppgave && oppgave.tilstand === "UNDER_BEHANDLING") ||
+    underKontroll ||
+    oppgave.tilstand !== "UNDER_BEHANDLING";
   const gyldigeOppgaveValg = hentGyldigeOppgaveValg(oppgave, minOppgave);
 
   return (
@@ -114,10 +115,7 @@ function hentGyldigeDagpengerRettOppgaveValg(
     handlinger.push("kontroller-oppgave");
   }
 
-  if (
-    (oppgave.tilstand === "UNDER_BEHANDLING" || oppgave.tilstand === "UNDER_KONTROLL") &&
-    minOppgave
-  ) {
+  if (oppgave.tilstand === "UNDER_BEHANDLING" && minOppgave) {
     handlinger.push("utsett-oppgave");
   }
 
@@ -146,7 +144,7 @@ function hentGyldigeDagpengerRettOppgaveValg(
     handlinger.push("avbryt-behandling");
   }
 
-  if (oppgave.tilstand === "UNDER_KONTROLL" && minOppgave) {
+  if (oppgave.tilstand === "KLAR_TIL_KONTROLL" && minOppgave) {
     handlinger.push("returner-oppgave-til-meg");
   }
 
