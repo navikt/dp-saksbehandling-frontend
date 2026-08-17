@@ -1,0 +1,323 @@
+import { Detail, Heading, Skeleton, Table, Tag } from "@navikt/ds-react";
+import { differenceInCalendarDays } from "date-fns";
+import { useState } from "react";
+
+import { ListeOppgaveMeny } from "~/components/liste-oppgave-meny/ListeOppgaveMeny";
+import { NoteButton, NoteModal } from "~/components/note-button/NoteButton";
+import { SakOppgaveListeHeader } from "~/components/sak-oppgave-liste/SakOppgaveListeHeader";
+import { SakOppgaveListePaginering } from "~/components/sak-oppgave-liste/SakOppgaveListePaginering";
+import { useSaksbehandler } from "~/hooks/useSaksbehandler";
+import { formaterTilNorskDato } from "~/utils/dato.utils";
+import { maskerVerdi } from "~/utils/skjul-sensitiv-opplysning";
+import {
+  hentFargevariantForSøknadsresultat,
+  hentFargevariantForUdefinertEmneknagg,
+  hentOppgaveTilstandTekst,
+  hentUtløstAvTekstForVisning,
+} from "~/utils/tekst.utils";
+
+import { components } from "../../../openapi/saksbehandling-typer";
+import styles from "./SakOppgaveListe.module.css";
+
+interface IProps {
+  oppgaver: components["schemas"]["OppgaveOversikt"][];
+  totaltAntallOppgaver: number;
+  tittel?: string;
+  icon?: React.ReactNode;
+  lasterOppgaver?: boolean;
+  visPersonIdent?: boolean;
+}
+
+export function SakOppgaveListe(props: IProps) {
+  const [selectedNoteKey, setSelectedNoteKey] = useState<string | undefined>();
+  const { oppgaver, tittel, icon, totaltAntallOppgaver, lasterOppgaver, visPersonIdent } = props;
+  const { skjulSensitiveOpplysninger } = useSaksbehandler();
+
+  return (
+    <div className="flex flex-col p-4">
+      <div className={styles.oppgavelisteHeader}>
+        {tittel && (
+          <Heading size={"xsmall"} spacing className={styles.heading}>
+            {icon}
+            {tittel}
+          </Heading>
+        )}
+
+        {totaltAntallOppgaver > 0 && (
+          <Detail textColor="subtle" className={styles.antallOppgaver}>
+            {!lasterOppgaver && `Antall oppgaver ${totaltAntallOppgaver || oppgaver.length}`}
+            {lasterOppgaver && "Laster oppgaver..."}
+          </Detail>
+        )}
+      </div>
+
+      <Table size="small" className={"tabell--subtil"} zebraStripes={true}>
+        <SakOppgaveListeHeader visPersonIdent={visPersonIdent} />
+
+        <Table.Body>
+          {oppgaver.length === 0 && (
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell colSpan={visPersonIdent ? 10 : 9}>Fant ingen oppgaver</Table.DataCell>
+            </Table.Row>
+          )}
+
+          {oppgaver?.map((oppgave) => {
+            const { tidspunktOpprettet, tilstand, utsattTilDato } = oppgave;
+            const dagerIgjenTilUtsattDato = utsattTilDato
+              ? differenceInCalendarDays(utsattTilDato, new Date())
+              : undefined;
+
+            const avslagsgrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "AVSLAGSGRUNN",
+            );
+            const avbruttgrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "AVBRUTT_GRUNN",
+            );
+            const påVentGrunner = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "PAA_VENT",
+            );
+
+            const rettighetEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "RETTIGHET",
+            );
+
+            const søknadResultatEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "SOKNADSRESULTAT",
+            );
+
+            const gjenopptakEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "GJENOPPTAK",
+            );
+
+            const oppfølgingEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "OPPFOLGING_ARSAK",
+            );
+
+            const behandletHendelseEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "BEHANDLET_HENDELSE_TYPE",
+            );
+
+            const udefinerteEmnekagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "UDEFINERT",
+            );
+
+            const ettersendingEmneknagger = oppgave.emneknagger.filter(
+              (emneknagg) => emneknagg.kategori === "ETTERSENDING",
+            );
+
+            return (
+              <Table.Row key={oppgave.oppgaveId}>
+                <Table.DataCell>
+                  <Detail textColor="subtle" as={lasterOppgaver ? Skeleton : "p"}>
+                    {formaterTilNorskDato(tidspunktOpprettet)}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <Detail
+                    as={lasterOppgaver ? Skeleton : "p"}
+                    className={"flex items-center gap-2"}
+                  >
+                    {hentUtløstAvTekstForVisning(oppgave.utlostAv, true)}
+                    {gjenopptakEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={"outline"}
+                        data-color={"neutral"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail>{emneknagg.visningsnavn}</Detail>
+                      </Tag>
+                    ))}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                    {rettighetEmneknagger.map((emneknagg) => emneknagg.visningsnavn).join(", ")}
+                  </Detail>
+                </Table.DataCell>
+
+                {visPersonIdent && (
+                  <Table.DataCell>
+                    {
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                        {skjulSensitiveOpplysninger
+                          ? maskerVerdi(oppgave.personIdent)
+                          : oppgave.personIdent}
+                      </Detail>
+                    }
+                  </Table.DataCell>
+                )}
+
+                <Table.DataCell>
+                  <Detail
+                    as={lasterOppgaver ? Skeleton : "p"}
+                    className={"flex gap-2 whitespace-nowrap"}
+                  >
+                    {hentOppgaveTilstandTekst(tilstand)}
+                  </Detail>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {tilstand === "PAA_VENT" && oppgave.utsattTilDato && (
+                    <Tag
+                      size={"xsmall"}
+                      variant={"outline"}
+                      data-color={"brand-magenta"}
+                      className={"whitespace-nowrap"}
+                    >
+                      <Detail>{`${dagerIgjenTilUtsattDato} ${dagerIgjenTilUtsattDato === 1 ? "dag" : "dager"} igjen`}</Detail>
+                    </Tag>
+                  )}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {søknadResultatEmneknagger.map((emneknagg) => (
+                    <Tag
+                      key={emneknagg.visningsnavn}
+                      size={"xsmall"}
+                      variant={lasterOppgaver ? "moderate" : "outline"}
+                      data-color={hentFargevariantForSøknadsresultat(emneknagg.visningsnavn)}
+                      className={"whitespace-nowrap"}
+                    >
+                      <Detail as={lasterOppgaver ? Skeleton : "p"}>{emneknagg.visningsnavn}</Detail>
+                    </Tag>
+                  ))}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <div className={"flex flex-wrap gap-2"}>
+                    {avslagsgrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"danger"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {avbruttgrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"warning"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {påVentGrunner.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"brand-magenta"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {oppfølgingEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"meta-purple"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {behandletHendelseEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        className={"whitespace-nowrap"}
+                        data-color={"meta-lime"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {udefinerteEmnekagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={hentFargevariantForUdefinertEmneknagg(emneknagg.visningsnavn)}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+
+                    {ettersendingEmneknagger.map((emneknagg) => (
+                      <Tag
+                        key={emneknagg.visningsnavn}
+                        size={"xsmall"}
+                        variant={lasterOppgaver ? "moderate" : "outline"}
+                        data-color={"info"}
+                        className={"whitespace-nowrap"}
+                      >
+                        <Detail as={lasterOppgaver ? Skeleton : "p"}>
+                          {emneknagg.visningsnavn}
+                        </Detail>
+                      </Tag>
+                    ))}
+                  </div>
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  {<Detail as={lasterOppgaver ? Skeleton : "p"}>{oppgave.behandlerIdent}</Detail>}
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <NoteButton
+                    oppgaveTilstand={tilstand}
+                    noteKey={oppgave.oppgaveId}
+                    onClick={() => {
+                      setSelectedNoteKey(oppgave.oppgaveId);
+                    }}
+                  />
+                </Table.DataCell>
+                <Table.DataCell>
+                  <ListeOppgaveMeny listeOppgave={oppgave} />
+                </Table.DataCell>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table>
+
+      {selectedNoteKey && (
+        <NoteModal onClose={() => setSelectedNoteKey(undefined)} noteKey={selectedNoteKey} />
+      )}
+
+      {totaltAntallOppgaver > 0 && (
+        <SakOppgaveListePaginering totaltAntallOppgaver={totaltAntallOppgaver} />
+      )}
+    </div>
+  );
+}

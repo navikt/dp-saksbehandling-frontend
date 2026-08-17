@@ -5,17 +5,34 @@ import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
-import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
+import { SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
   dagpengerRettBehandling?: behandlingComponents["schemas"]["Behandling"];
+  sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
 }
 
-export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
+export function SisteSak({ sak, dagpengerRettBehandling, sakIDpBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
+
+  const oppgaverSomIkkeErIDpBehandling = sak.oppgaver.filter(
+    (oppgave) =>
+      !sakIDpBehandling?.behandlinger.find(
+        (behandling) => behandling.behandlingId === oppgave.behandlingId,
+      ),
+  );
+
+  const sorterteOppgaver = sakIDpBehandling
+    ? sakIDpBehandling.behandlinger
+        .map((behandling) =>
+          sak.oppgaver.find((oppgave) => oppgave.behandlingId === behandling.behandlingId),
+        )
+        .filter((oppgave) => oppgave !== undefined)
+        .concat(oppgaverSomIkkeErIDpBehandling)
+    : sak.oppgaver;
 
   return (
     <div className={"card my-4 p-4"}>
@@ -40,7 +57,7 @@ export function SisteSak({ sak, dagpengerRettBehandling }: IProps) {
         <GjeldendeVedtak dagpengerRettBehandling={dagpengerRettBehandling} />
       )}
 
-      <OppgaveListe oppgaver={sak.oppgaver} totaltAntallOppgaver={sak.oppgaver.length} />
+      <SakOppgaveListe oppgaver={sorterteOppgaver} totaltAntallOppgaver={sorterteOppgaver.length} />
     </div>
   );
 }
