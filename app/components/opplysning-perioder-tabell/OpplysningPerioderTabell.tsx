@@ -35,6 +35,8 @@ export function OpplysningPerioderTabell(props: IProps) {
     defaultValues: { _action: "slett-periode", behandlingId, periodeId: "" },
   });
 
+  console.log(readonly);
+
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
     featureFlags.kanAlltidLeggeTilPeriode ||
@@ -164,7 +166,7 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Body>
       </Table>
 
-      {props.opplysning.redigerbar && (
+      {props.opplysning.redigerbar && !readonly && (
         <div>
           <Button
             size={"small"}
