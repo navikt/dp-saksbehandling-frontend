@@ -163,6 +163,9 @@ function hentValideringForKlageOpplysningVerdi(
         ),
       );
 
+    case "UUID":
+      return z.uuid({ message: "Du må skrive inn en gyldig behandling-id (UUID)" });
+
     default:
       return z.string();
   }
