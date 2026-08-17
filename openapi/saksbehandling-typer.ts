@@ -2679,6 +2679,15 @@ export interface components {
              */
             type: "FLER_LISTEVALG";
         };
+        UUIDVerdi: {
+            /** Format: uuid */
+            verdi: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "UUID";
+        };
         OpprettKlage: {
             /** Format: date-time */
             opprettet: string;
@@ -2687,7 +2696,7 @@ export interface components {
             sakId: string;
             personIdent: components["schemas"]["PersonIdent"];
         };
-        OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"];
+        OppdaterKlageOpplysning: components["schemas"]["TekstVerdi"] | components["schemas"]["BoolskVerdi"] | components["schemas"]["DatoVerdi"] | components["schemas"]["ListeVerdi"] | components["schemas"]["UUIDVerdi"];
         /** @enum {string} */
         KlageGruppe: "FORMKRAV" | "KLAGESAK" | "FRIST" | "KLAGE_ANKE";
         KlageOpplysningTekst: {
@@ -2771,9 +2780,26 @@ export interface components {
              */
             type: "LISTEVALG";
         };
+        KlageOpplysningUUID: {
+            /** Format: uuid */
+            opplysningId: string;
+            opplysningNavnId: string;
+            navn: string;
+            paakrevd: boolean;
+            gruppe: components["schemas"]["KlageGruppe"];
+            valgmuligheter: string[];
+            redigerbar: boolean;
+            /** Format: uuid */
+            verdi?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "UUID";
+        };
         /** @enum {string} */
-        KlageOpplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER_LISTEVALG";
-        KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"];
+        KlageOpplysningType: "TEKST" | "BOOLSK" | "DATO" | "LISTEVALG" | "FLER_LISTEVALG" | "UUID";
+        KlageOpplysning: components["schemas"]["KlageOpplysningTekst"] | components["schemas"]["KlageOpplysningBoolsk"] | components["schemas"]["KlageOpplysningDato"] | components["schemas"]["KlageOpplysningListeValg"] | components["schemas"]["KlageOpplysningFlerListeValg"] | components["schemas"]["KlageOpplysningUUID"];
         Utfall: {
             /** @enum {string} */
             verdi: "AVVIST" | "OPPRETTHOLDELSE" | "DELVIS_MEDHOLD" | "MEDHOLD" | "IKKE_SATT";

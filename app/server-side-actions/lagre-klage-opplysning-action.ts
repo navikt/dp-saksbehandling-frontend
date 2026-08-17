@@ -65,5 +65,8 @@ function konverterOpplysningVerdiTilBackendVerdi(
 
     case "BOOLSK":
       return { type: "BOOLSK", verdi: verdi === "Ja" };
+
+    case "UUID":
+      return { type: "UUID", verdi: verdi };
   }
 }
