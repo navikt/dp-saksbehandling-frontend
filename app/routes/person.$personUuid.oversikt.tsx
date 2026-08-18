@@ -21,7 +21,7 @@ import { OpprettBehandling } from "~/components/opprett-behandling/OpprettBehand
 import { SakListe } from "~/components/sak-liste/SakListe";
 import { SisteSak } from "~/components/siste-sak/SisteSak";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentBehandling, hentSak } from "~/models/behandling.server";
+import { hentSak } from "~/models/behandling.server";
 import { hentPersonOversikt } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { commitSession, getSession } from "~/sessions";
@@ -40,15 +40,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const sisteSak = finnSisteSak(personOversikt.saker);
 
-  const sisteDagpengerRettBehandlingId = sisteSak?.oppgaver.find(
-    (oppgave) =>
-      oppgave.behandlingType === "RETT_TIL_DAGPENGER" && oppgave.tilstand === "FERDIG_BEHANDLET",
-  )?.behandlingId;
-
   const sisteSakIDpBehandling = sisteSak ? await hentSak(request, sisteSak.id) : undefined;
-  const sisteDagpengerRettBehandling = sisteDagpengerRettBehandlingId
-    ? await hentBehandling(request, sisteDagpengerRettBehandlingId)
-    : undefined;
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -58,7 +50,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       alert,
       personOversikt,
       sisteSak,
-      sisteDagpengerRettBehandling,
       sisteSakIDpBehandling,
     },
     {
@@ -70,8 +61,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function PersonOversikt() {
-  const { personOversikt, sisteDagpengerRettBehandling, sisteSakIDpBehandling, sisteSak, alert } =
-    useLoaderData<typeof loader>();
+  const { personOversikt, sisteSakIDpBehandling, sisteSak, alert } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
   useHandleAlertMessages(alert);
@@ -127,13 +117,7 @@ export default function PersonOversikt() {
           </Tabs.List>
 
           <Tabs.Panel value="siste-sak">
-            {sisteSak && (
-              <SisteSak
-                sak={sisteSak}
-                dagpengerRettBehandling={sisteDagpengerRettBehandling}
-                sakIDpBehandling={sisteSakIDpBehandling}
-              />
-            )}
+            {sisteSak && <SisteSak sak={sisteSak} sakIDpBehandling={sisteSakIDpBehandling} />}
             {!sisteSak && (
               <div className={"card my-4 p-4"}>
                 <BodyShort>Personen har ingen saker</BodyShort>

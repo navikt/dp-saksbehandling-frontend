@@ -5,15 +5,15 @@ import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
-import { SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
+import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
+import { BehandlingOppgavePair, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
-  dagpengerRettBehandling?: behandlingComponents["schemas"]["Behandling"];
   sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
 }
 
-export function SisteSak({ sak, dagpengerRettBehandling, sakIDpBehandling }: IProps) {
+export function SisteSak({ sak, sakIDpBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
@@ -25,14 +25,18 @@ export function SisteSak({ sak, dagpengerRettBehandling, sakIDpBehandling }: IPr
       ),
   );
 
-  const sorterteOppgaver = sakIDpBehandling
+  const sorterteGreier = sakIDpBehandling
     ? sakIDpBehandling.behandlinger
-        .map((behandling) =>
-          sak.oppgaver.find((oppgave) => oppgave.behandlingId === behandling.behandlingId),
-        )
-        .filter((oppgave) => oppgave !== undefined)
-        .concat(oppgaverSomIkkeErIDpBehandling)
-    : sak.oppgaver;
+        .map((behandling) => {
+          return {
+            behandling,
+            oppgave: sak.oppgaver.find(
+              (oppgave) => oppgave.behandlingId === behandling.behandlingId,
+            ),
+          };
+        })
+        .filter((greie): greie is BehandlingOppgavePair => greie.oppgave !== undefined)
+    : [];
 
   return (
     <div className={"card my-4 p-4"}>
@@ -53,11 +57,17 @@ export function SisteSak({ sak, dagpengerRettBehandling, sakIDpBehandling }: IPr
         <CopyButton copyText={sak.id} size={"small"} title={"kopier sakid"} />
       </div>
 
-      {dagpengerRettBehandling && (
-        <GjeldendeVedtak dagpengerRettBehandling={dagpengerRettBehandling} />
-      )}
+      {sakIDpBehandling && <GjeldendeVedtak status={sakIDpBehandling.status} />}
 
-      <SakOppgaveListe oppgaver={sorterteOppgaver} totaltAntallOppgaver={sorterteOppgaver.length} />
+      {sorterteGreier.length > 0 && (
+        <SakOppgaveListe greier={sorterteGreier} totaltAntallOppgaver={sorterteGreier.length} />
+      )}
+      {oppgaverSomIkkeErIDpBehandling.length > 0 && (
+        <OppgaveListe
+          oppgaver={oppgaverSomIkkeErIDpBehandling}
+          totaltAntallOppgaver={oppgaverSomIkkeErIDpBehandling.length}
+        />
+      )}
     </div>
   );
 }
