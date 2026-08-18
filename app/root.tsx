@@ -193,7 +193,7 @@ export default function App() {
                 {env.GCP_ENV === "dev" && (
                   <div className={styles.devEnvironmentBanner}>DEV-MILJØ</div>
                 )}
-                <InternalHeader className={styles.header + " " + "overflow-hidden"}>
+                <InternalHeader className={styles.header}>
                   <Link to={"/"} className={styles.headerLogo}>
                     <InternalHeader.Title as="h1" className={styles.pageHeader}>
                       {featureFlags.halloween && <PumpkinSvg />}

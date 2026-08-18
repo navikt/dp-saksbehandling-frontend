@@ -271,7 +271,7 @@ export async function leggTilIMockListe(params: {
   const importBlokk = importMatch[0];
   const oppdatertImportBlokk = importBlokk.includes(nyImport)
     ? importBlokk // import finnes allerede
-    : importBlokk.trimEnd() + "\n" + nyImport + "\n";
+    : `${importBlokk.trimEnd()}\n${nyImport}\n`;
 
   let oppdatertInnhold = filinnhold.replace(importRegex, oppdatertImportBlokk);
   const arrayRegex = new RegExp(
