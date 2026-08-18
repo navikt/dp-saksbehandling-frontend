@@ -26,3 +26,21 @@ export async function apiPost<T>(url: string, payload: unknown, errorMessage?: s
 
   return (await res.json()) as T;
 }
+
+export async function apiPut<T>(url: string, payload: unknown, errorMessage?: string): Promise<T> {
+  const res = await fetch(url, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || errorMessage || `Failed: ${res.status}`);
+  }
+
+  return (await res.json()) as T;
+}
