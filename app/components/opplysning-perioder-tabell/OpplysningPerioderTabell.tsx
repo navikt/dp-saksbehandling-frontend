@@ -2,7 +2,7 @@ import { ExternalLinkIcon, PadlockLockedIcon, PencilIcon, TrashIcon } from "@nav
 import { Button, Link, Table } from "@navikt/ds-react";
 import { useForm } from "@rvf/react-router";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { components } from "@/openapi/behandling-typer";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
@@ -22,8 +22,9 @@ interface IProps {
 
 const NY_PERIODE_ID = "NY-PERIODE";
 
-export function OpplysningPerioderTabell(props: IProps) {
-  const { behandlingId } = useParams();
+export function OpplysningPerioderTabell({ opplysning }: IProps) {
+  const navigate = useNavigate();
+  const { behandlingId, regelsettId } = useParams();
   const { readonly, oppgave } = useOppgave();
   const { featureFlags } = useFeatureFlags();
   const [periodeIdUnderRedigering, setPeriodeIdUnderRedigering] = useState<string>();
@@ -34,11 +35,15 @@ export function OpplysningPerioderTabell(props: IProps) {
     defaultValues: { _action: "slett-periode", behandlingId, periodeId: "" },
   });
 
+  const isBarneopplysning = opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b";
+
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
     featureFlags.kanAlltidLeggeTilPeriode ||
-    props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
-    props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
+    isBarneopplysning ||
+    opplysning.perioder.length === 0 ||
+    opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
+    opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
@@ -47,7 +52,7 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{props.opplysning.navn}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{opplysning.navn}</Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
             <Table.HeaderCell scope="col" colSpan={2}>
               Valg
@@ -56,12 +61,12 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Header>
 
         <Table.Body>
-          {props.opplysning.perioder.map((periode, index) => {
+          {opplysning.perioder.map((periode, index) => {
             if (periode.id === periodeIdUnderRedigering) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
                   key={periode.id}
-                  opplysning={props.opplysning}
+                  opplysning={opplysning}
                   setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
                   periode={periode}
                   periodeIndex={index}
@@ -85,41 +90,44 @@ export function OpplysningPerioderTabell(props: IProps) {
                   {periode.kilde?.begrunnelse ? periode.kilde?.begrunnelse.verdi : "--"}
                 </Table.DataCell>
 
-                {!readonly && props.opplysning.redigerbar && periode.opprinnelse !== "Arvet" && (
-                  <>
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<TrashIcon />}
-                        loading={slettPeriodeForm.formState.isSubmitting}
-                        onClick={() => {
-                          slettPeriodeForm.field("periodeId").setValue(periode.id);
-                          slettPeriodeForm.submit();
-                        }}
-                        data-umami-event="Slett periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                      />
-                    </Table.DataCell>
+                {!readonly &&
+                  opplysning.redigerbar &&
+                  periode.opprinnelse !== "Arvet" &&
+                  !isBarneopplysning && (
+                    <>
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<TrashIcon />}
+                          loading={slettPeriodeForm.formState.isSubmitting}
+                          onClick={() => {
+                            slettPeriodeForm.field("periodeId").setValue(periode.id);
+                            slettPeriodeForm.submit();
+                          }}
+                          data-umami-event="Slett periode"
+                          data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
+                        />
+                      </Table.DataCell>
 
-                    <Table.DataCell>
-                      <Button
-                        size={"xsmall"}
-                        variant={"tertiary"}
-                        icon={<PencilIcon />}
-                        data-umami-event="Rediger periode"
-                        data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
-                        onClick={() => setPeriodeIdUnderRedigering(periode.id)}
-                      />
-                    </Table.DataCell>
-                  </>
-                )}
+                      <Table.DataCell>
+                        <Button
+                          size={"xsmall"}
+                          variant={"tertiary"}
+                          icon={<PencilIcon />}
+                          data-umami-event="Rediger periode"
+                          data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
+                          onClick={() => setPeriodeIdUnderRedigering(periode.id)}
+                        />
+                      </Table.DataCell>
+                    </>
+                  )}
 
-                {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
+                {opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
                     {/* Query-paramet heter historisk opplysningId, men forventer opplysningTypeId-verdi. */}
                     <Link
-                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${props.opplysning.opplysningTypeId}&behandlingId=${behandlingId}`}
+                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${opplysning.opplysningTypeId}&behandlingId=${behandlingId}`}
                       target="_blank"
                     >
                       Inntektsredigering <ExternalLinkIcon aria-hidden />
@@ -127,43 +135,46 @@ export function OpplysningPerioderTabell(props: IProps) {
                   </Table.DataCell>
                 )}
 
-                {isBarneliste(periode.verdi) && periode.verdi.søknadBarnId && (
+                {isBarneliste(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
                     <LoadingLink
-                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/rediger-barn/${periode.verdi.søknadBarnId}`}
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${opplysning.opplysningTypeId}/barneliste/${periode.id}`}
                     >
-                      Rediger barn
+                      Se barneliste
                     </LoadingLink>
                   </Table.DataCell>
                 )}
 
-                {(readonly || !props.opplysning.redigerbar) &&
-                  props.opplysning.datatype !== "inntekt" && (
-                    <Table.DataCell colSpan={2}>
-                      <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
-                    </Table.DataCell>
-                  )}
+                {(readonly || !opplysning.redigerbar) && opplysning.datatype !== "inntekt" && (
+                  <Table.DataCell colSpan={2}>
+                    <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
+                  </Table.DataCell>
+                )}
               </Table.Row>
             );
           })}
 
           {periodeIdUnderRedigering === NY_PERIODE_ID && (
             <OpplysningPeriodeTabellNyPeriode
-              opplysning={props.opplysning}
+              opplysning={opplysning}
               setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
             />
           )}
         </Table.Body>
       </Table>
 
-      {props.opplysning.redigerbar && (
+      {opplysning.redigerbar && !readonly && (
         <div>
           <Button
             size={"small"}
             variant={"secondary"}
-            onClick={() => setPeriodeIdUnderRedigering(NY_PERIODE_ID)}
+            onClick={() =>
+              isBarneopplysning
+                ? navigate(`barneliste/ny`)
+                : setPeriodeIdUnderRedigering(NY_PERIODE_ID)
+            }
             data-umami-event="Legg til periode"
-            data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+            data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
             disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode

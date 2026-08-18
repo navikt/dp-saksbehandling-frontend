@@ -79,8 +79,8 @@ export function OpplysningerTidslinje(props: IProps) {
   if (opplysningerSomSkalVises.length === 0) {
     return (
       <InlineMessage status="warning">
-        Ingen opplysninger opplysninger i denne behandlingen. Trykk på &#34;Vis arvede
-        opplysninger&#34; for å opplysninger fra tidligere behandlinger
+        Ingen opplysninger i denne behandlingen. Trykk på &#34;Vis arvede opplysninger&#34; for å
+        opplysninger fra tidligere behandlinger
       </InlineMessage>
     );
   }
