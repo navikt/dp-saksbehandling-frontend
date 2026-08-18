@@ -1,10 +1,15 @@
+import { add } from "date-fns";
 import { delay } from "msw";
 import { createOpenApiHttp } from "openapi-msw";
 
+import { formaterTilBackendDato } from "~/utils/dato.utils";
 import { getEnv } from "~/utils/env.utils";
 
 import { components, paths } from "../openapi/behandling-typer";
-import { mockBehandlinger } from "./data/mock-dagpenger-rett-behandling/mock-behandlinger";
+import {
+  mockBehandlinger,
+  mockBehandlingerSammendrag,
+} from "./data/mock-dagpenger-rett-behandling/mock-behandlinger";
 import { mockVurderinger } from "./data/mock-vurderinger";
 
 const apiError = false;
@@ -131,5 +136,31 @@ export const mockDpBehandling = [
     }
 
     return response(204).empty();
+  }),
+
+  http.get(`/sak/{sakId}`, async ({ response, params }) => {
+    await delay();
+
+    if (apiError) {
+      return response("default").json(defaultError, { status: 500 });
+    }
+
+    const today = new Date();
+
+    return response(200).json({
+      sakId: params.sakId,
+      status: {
+        harLøpendeRett: true,
+        fraOgMed: formaterTilBackendDato(today),
+        tilOgMed: formaterTilBackendDato(add(today, { days: 14 })),
+        sisteMeldeperiode: {
+          fraOgMed: formaterTilBackendDato(today),
+          tilOgMed: formaterTilBackendDato(add(today, { days: 14 })),
+        },
+        gjenståendeDager: 0,
+        sistEndret: formaterTilBackendDato(today, true),
+      },
+      behandlinger: mockBehandlingerSammendrag,
+    });
   }),
 ];

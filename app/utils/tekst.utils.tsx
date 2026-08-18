@@ -228,6 +228,12 @@ export function hentFargevariantForSøknadsresultat(visningsnavn: string): Aksel
       return "success";
     case "Avslag":
       return "danger";
+    case "Stans":
+      return "warning";
+    case "Gjenopptak":
+      return "success";
+    case "Endring":
+      return "info";
     default:
       return "neutral";
   }

@@ -151,3 +151,23 @@ export async function hentVurderinger(request: Request, behandlingId: string) {
     `Uhåndtert feil i hentVurderinger(). ${response.status} - ${response.statusText}`,
   );
 }
+
+export async function hentSak(request: Request, sakId: string) {
+  const onBehalfOfToken = await getBehandlingOboToken(request);
+  const { data, error, response } = await behandlingClient.GET("/sak/{sakId}", {
+    headers: getHeaders(onBehalfOfToken),
+    params: {
+      path: { sakId },
+    },
+  });
+
+  if (data) {
+    return data;
+  }
+
+  if (error) {
+    handleHttpProblem(error);
+  }
+
+  throw new Error(`Uhåndtert feil i hentSak(). ${response.status} - ${response.statusText}`);
+}
