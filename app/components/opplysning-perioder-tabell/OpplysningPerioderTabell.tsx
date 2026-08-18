@@ -22,7 +22,7 @@ interface IProps {
 
 const NY_PERIODE_ID = "NY-PERIODE";
 
-export function OpplysningPerioderTabell(props: IProps) {
+export function OpplysningPerioderTabell({ opplysning }: IProps) {
   const navigate = useNavigate();
   const { behandlingId, regelsettId } = useParams();
   const { readonly, oppgave } = useOppgave();
@@ -35,17 +35,15 @@ export function OpplysningPerioderTabell(props: IProps) {
     defaultValues: { _action: "slett-periode", behandlingId, periodeId: "" },
   });
 
-  console.log(readonly);
+  const isBarneopplysning = opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b";
 
   // Hvis det finnes 1 ny periode vil den alltid bli overskrevet hvis man legger til en ny periode. Hvis den er arvet eller siste periode har en til og med dato kan vi legge til en ny periode
   const kanLeggeTilNyPeriode =
     featureFlags.kanAlltidLeggeTilPeriode ||
-    props.opplysning.perioder.length === 0 ||
-    props.opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
-    props.opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
-
-  const isBarneopplysning =
-    props.opplysning.opplysningTypeId === "0194881f-9428-74d5-b160-f63a4c61a23b";
+    isBarneopplysning ||
+    opplysning.perioder.length === 0 ||
+    opplysning.perioder.some((periode) => periode.opprinnelse !== "Ny") ||
+    opplysning.perioder.at(-1)?.gyldigTilOgMed !== undefined;
 
   return (
     <div className={"mt-4 flex flex-col gap-4"}>
@@ -54,7 +52,7 @@ export function OpplysningPerioderTabell(props: IProps) {
           <Table.Row>
             <Table.HeaderCell scope="col">Fra og med</Table.HeaderCell>
             <Table.HeaderCell scope="col">Til og med</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{props.opplysning.navn}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{opplysning.navn}</Table.HeaderCell>
             <Table.HeaderCell scope="col">Begrunnelse</Table.HeaderCell>
             <Table.HeaderCell scope="col" colSpan={2}>
               Valg
@@ -63,12 +61,12 @@ export function OpplysningPerioderTabell(props: IProps) {
         </Table.Header>
 
         <Table.Body>
-          {props.opplysning.perioder.map((periode, index) => {
+          {opplysning.perioder.map((periode, index) => {
             if (periode.id === periodeIdUnderRedigering) {
               return (
                 <OpplysningPeriodeTabellRedigerLinje
                   key={periode.id}
-                  opplysning={props.opplysning}
+                  opplysning={opplysning}
                   setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
                   periode={periode}
                   periodeIndex={index}
@@ -93,7 +91,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                 </Table.DataCell>
 
                 {!readonly &&
-                  props.opplysning.redigerbar &&
+                  opplysning.redigerbar &&
                   periode.opprinnelse !== "Arvet" &&
                   !isBarneopplysning && (
                     <>
@@ -108,7 +106,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                             slettPeriodeForm.submit();
                           }}
                           data-umami-event="Slett periode"
-                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                          data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
                         />
                       </Table.DataCell>
 
@@ -118,18 +116,18 @@ export function OpplysningPerioderTabell(props: IProps) {
                           variant={"tertiary"}
                           icon={<PencilIcon />}
                           data-umami-event="Rediger periode"
-                          data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+                          data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
                           onClick={() => setPeriodeIdUnderRedigering(periode.id)}
                         />
                       </Table.DataCell>
                     </>
                   )}
 
-                {props.opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
+                {opplysning.datatype === "inntekt" && isTekstVerdi(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
                     {/* Query-paramet heter historisk opplysningId, men forventer opplysningTypeId-verdi. */}
                     <Link
-                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${props.opplysning.opplysningTypeId}&behandlingId=${behandlingId}`}
+                      href={`${getEnv("DP_INNTEKT_REDIGERING_FRONTEND_URL")}/inntektId/${periode.verdi.verdi}?opplysningId=${opplysning.opplysningTypeId}&behandlingId=${behandlingId}`}
                       target="_blank"
                     >
                       Inntektsredigering <ExternalLinkIcon aria-hidden />
@@ -140,33 +138,32 @@ export function OpplysningPerioderTabell(props: IProps) {
                 {isBarneliste(periode.verdi) && (
                   <Table.DataCell colSpan={2}>
                     <LoadingLink
-                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${props.opplysning.opplysningTypeId}/barneliste/${periode.id}`}
+                      to={`/oppgave/${oppgave.oppgaveId}/dagpenger-rett/${behandlingId}/regelsett/${regelsettId}/opplysning/${opplysning.opplysningTypeId}/barneliste/${periode.id}`}
                     >
                       Se barneliste
                     </LoadingLink>
                   </Table.DataCell>
                 )}
 
-                {(readonly || !props.opplysning.redigerbar) &&
-                  props.opplysning.datatype !== "inntekt" && (
-                    <Table.DataCell colSpan={2}>
-                      <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
-                    </Table.DataCell>
-                  )}
+                {(readonly || !opplysning.redigerbar) && opplysning.datatype !== "inntekt" && (
+                  <Table.DataCell colSpan={2}>
+                    <PadlockLockedIcon aria-label={"Ikke redigerbar"} />
+                  </Table.DataCell>
+                )}
               </Table.Row>
             );
           })}
 
           {periodeIdUnderRedigering === NY_PERIODE_ID && (
             <OpplysningPeriodeTabellNyPeriode
-              opplysning={props.opplysning}
+              opplysning={opplysning}
               setPeriodeUnderRedigering={setPeriodeIdUnderRedigering}
             />
           )}
         </Table.Body>
       </Table>
 
-      {props.opplysning.redigerbar && !readonly && (
+      {opplysning.redigerbar && !readonly && (
         <div>
           <Button
             size={"small"}
@@ -177,7 +174,7 @@ export function OpplysningPerioderTabell(props: IProps) {
                 : setPeriodeIdUnderRedigering(NY_PERIODE_ID)
             }
             data-umami-event="Legg til periode"
-            data-umami-event-opplysning-type-id={props.opplysning.opplysningTypeId}
+            data-umami-event-opplysning-type-id={opplysning.opplysningTypeId}
             disabled={!kanLeggeTilNyPeriode}
           >
             Legg til ny periode
