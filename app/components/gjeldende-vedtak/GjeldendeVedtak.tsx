@@ -59,7 +59,17 @@ export function GjeldendeVedtak({ status }: IProps) {
         <VerdiMedTittel
           visBorder={false}
           label={"Sist beregnet meldeperiode"}
-          verdi={sisteMeldeperiode ? formaterTilNorskDato(sisteMeldeperiode.fraOgMed) : "--"}
+          verdi={
+            sisteMeldeperiode
+              ? formaterOpplysningVerdi({
+                  fom: sisteMeldeperiode.fraOgMed,
+                  tom: sisteMeldeperiode.tilOgMed
+                    ? sisteMeldeperiode.tilOgMed
+                    : sisteMeldeperiode.fraOgMed,
+                  datatype: "periode",
+                })
+              : "--"
+          }
         />
 
         <VerdiMedTittel
