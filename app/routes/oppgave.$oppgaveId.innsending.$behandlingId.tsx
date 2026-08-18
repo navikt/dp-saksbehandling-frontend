@@ -12,10 +12,7 @@ import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoun
 import { InnsendingDokumentOversikt } from "~/components/innsending/innsending-dokument-oversikt/InnsendingDokumentOversikt";
 import { InnsendingInfo } from "~/components/innsending/innsending-info/InnsendingInfo";
 import { PdfViewer } from "~/components/innsending/pdf-viewer/PdfViewer";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
 import { hentJournalpost } from "~/models/saf.server";
 import { hentInnsending, hentOppgave } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
@@ -50,8 +47,7 @@ export interface IValgtDokument {
 }
 
 export default function Innsending() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, innsending, journalposter } = useLoaderData<typeof loader>();
+  const { innsending, journalposter } = useLoaderData<typeof loader>();
   const [valgtDokument, setValgtDokument] = useState<IValgtDokument>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
@@ -91,23 +87,20 @@ export default function Innsending() {
   }
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-      <PersonBoks person={oppgave.person} />
-      <div className={`main grid grid-cols-[350px_1fr] gap-4`}>
-        <section className="flex flex-col gap-4">
-          <InnsendingInfo innsending={innsending} />
+    <div className={`grid grid-cols-[350px_1fr] gap-4`}>
+      <section className="flex flex-col gap-4">
+        <InnsendingInfo innsending={innsending} />
 
-          <div className="card p-4">
-            <InnsendingDokumentOversikt
-              valgtDokument={valgtDokument}
-              journalposter={journalposter}
-              åpneDokument={åpneDokument}
-            />
-          </div>
-        </section>
-        {valgtDokument && <PdfViewer valgtDokument={valgtDokument} />}
-      </div>
-    </OppgaveProvider>
+        <div className="card p-4">
+          <InnsendingDokumentOversikt
+            valgtDokument={valgtDokument}
+            journalposter={journalposter}
+            åpneDokument={åpneDokument}
+          />
+        </div>
+      </section>
+      {valgtDokument && <PdfViewer valgtDokument={valgtDokument} />}
+    </div>
   );
 }
 
