@@ -5,25 +5,29 @@ import { GjeldendeVedtak } from "~/components/gjeldende-vedtak/GjeldendeVedtak";
 
 import { components as behandlingComponents } from "../../../openapi/behandling-typer";
 import { components } from "../../../openapi/saksbehandling-typer";
+import { GjeldendeVedtakMedBehandling } from "../gjeldende-vedtak/GjeldendeVedtakMedBehandling";
 import { OppgaveListe } from "../oppgave-liste/OppgaveListe";
 import { BehandlingOppgavePair, SakOppgaveListe } from "../sak-oppgave-liste/SakOppgaveListe";
 
 interface IProps {
   sak: components["schemas"]["Sak"];
   sakIDpBehandling?: behandlingComponents["schemas"]["Sak"];
+  gjetterSisteBehandling?: behandlingComponents["schemas"]["Behandling"];
 }
 
-export function SisteSak({ sak, sakIDpBehandling }: IProps) {
+export function SisteSak({ sak, sakIDpBehandling, gjetterSisteBehandling }: IProps) {
   const idGrupper = sak.id.split("-");
   const sisteIdGruppe = idGrupper.pop();
   const forsteIdGruppe = idGrupper.join("-");
 
-  const oppgaverSomIkkeErIDpBehandling = sak.oppgaver.filter(
-    (oppgave) =>
-      !sakIDpBehandling?.behandlinger.find(
-        (behandling) => behandling.behandlingId === oppgave.behandlingId,
-      ),
-  );
+  const oppgaverSomIkkeErIDpBehandling = sakIDpBehandling
+    ? sak.oppgaver.filter(
+        (oppgave) =>
+          !sakIDpBehandling?.behandlinger.find(
+            (behandling) => behandling.behandlingId === oppgave.behandlingId,
+          ),
+      )
+    : sak.oppgaver;
 
   const sorterteGreier = sakIDpBehandling
     ? sakIDpBehandling.behandlinger
@@ -59,6 +63,9 @@ export function SisteSak({ sak, sakIDpBehandling }: IProps) {
       </div>
 
       {sakIDpBehandling && <GjeldendeVedtak status={sakIDpBehandling.status} />}
+      {!sakIDpBehandling && gjetterSisteBehandling && (
+        <GjeldendeVedtakMedBehandling dagpengerRettBehandling={gjetterSisteBehandling} />
+      )}
 
       {sorterteGreier.length > 0 && (
         <>
@@ -70,9 +77,11 @@ export function SisteSak({ sak, sakIDpBehandling }: IProps) {
       )}
       {oppgaverSomIkkeErIDpBehandling.length > 0 && (
         <>
-          <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
-            Frie oppgaver
-          </Heading>
+          {sorterteGreier.length !== 0 && (
+            <Heading level="3" size={"small"} className={"mt-6 -mb-4"}>
+              Frie oppgaver
+            </Heading>
+          )}
           <OppgaveListe
             oppgaver={oppgaverSomIkkeErIDpBehandling}
             totaltAntallOppgaver={oppgaverSomIkkeErIDpBehandling.length}
