@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon, LocationPinIcon } from "@navikt/aksel-icons";
 import { Button, HStack, Spacer, ToggleGroup } from "@navikt/ds-react";
-import { add, sub } from "date-fns";
+import { add, startOfWeek, sub } from "date-fns";
 
 import { useBehandling } from "~/hooks/useBehandling";
 import {
@@ -18,19 +18,28 @@ export function TidslinjeNavigering({
 
   function navigerTilbakeITidslinje(antallUker: number) {
     const nyStartDato = sub(tidslinjeStartSlutt.start, { weeks: antallUker });
-    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
+    const nySluttDato = add(nyStartDato, {
+      weeks: parseInt(antallUkerITidslinje),
+      days: 1,
+    });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
   function navigerFremITidslinje(antallUker: number) {
     const nyStartDato = add(tidslinjeStartSlutt.start, { weeks: antallUker });
-    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
+    const nySluttDato = add(nyStartDato, {
+      weeks: parseInt(antallUkerITidslinje),
+      days: 1,
+    });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
   function hoppTilPrøvingsdato(prøvingsdato: Date) {
-    const nyStartDato = sub(prøvingsdato, { days: 1 });
-    const nySluttDato = add(nyStartDato, { weeks: parseInt(antallUkerITidslinje) });
+    const nyStartDato = startOfWeek(prøvingsdato);
+    const nySluttDato = add(nyStartDato, {
+      weeks: parseInt(antallUkerITidslinje),
+      days: 1,
+    });
     setTidslinjeStartSlutt({ start: nyStartDato, end: nySluttDato });
   }
 
@@ -81,7 +90,7 @@ export function TidslinjeNavigering({
           setAntallUkerITidslinje(value as AntallUkerITidslinje);
           setTidslinjeStartSlutt({
             start: tidslinjeStartSlutt.start,
-            end: add(tidslinjeStartSlutt.start, { weeks: parseInt(value) }),
+            end: add(tidslinjeStartSlutt.start, { weeks: parseInt(value), days: 1 }),
           });
         }}
       >
