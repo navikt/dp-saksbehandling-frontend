@@ -147,6 +147,8 @@ export const mockDpBehandling = [
 
     const today = new Date();
 
+    // return response("default").json(getError404(`Sak ikke funnet`), { status: 404 });
+
     return response(200).json({
       sakId: params.sakId,
       status: {

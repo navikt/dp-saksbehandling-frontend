@@ -166,6 +166,10 @@ export async function hentSak(request: Request, sakId: string) {
   }
 
   if (error) {
+    if (error.status === 404) {
+      return undefined;
+    }
+
     handleHttpProblem(error);
   }
 
