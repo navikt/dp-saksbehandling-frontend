@@ -55,8 +55,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ? await hentBehandling(request, gjetterSisteDagpengerRettBehandlingId)
     : undefined;
 
-  console.log("gjetterSisteDagpengerRettBehandlingId", gjetterSisteDagpengerRettBehandlingId);
-
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
 
