@@ -98,7 +98,7 @@ export const oppgave019b2cbfa883718c8ad3eecfc980ffd7: components["schemas"]["Opp
       kategori: "SOKNADSRESULTAT",
     },
   ],
-  tilstand: "UNDER_KONTROLL",
+  tilstand: "FERDIG_BEHANDLET",
   lovligeEndringer: {
     paaVentAarsaker: [],
     avbrytAarsaker: [],
