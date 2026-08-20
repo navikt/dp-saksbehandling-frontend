@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -11,14 +11,11 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { InnsendingDokumentOversikt } from "~/components/innsending/innsending-dokument-oversikt/InnsendingDokumentOversikt";
 import { InnsendingInfo } from "~/components/innsending/innsending-info/InnsendingInfo";
-import { PdfViewer } from "~/components/innsending/pdf-viewer/PdfViewer";
+import { IValgtDokument, PdfViewer } from "~/components/innsending/pdf-viewer/PdfViewer";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { hentJournalpost } from "~/models/saf.server";
-import { hentInnsending, hentOppgave } from "~/models/saksbehandling.server";
+import { hentInnsending } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
-
-import { Variantformat } from "../../graphql/generated/saf/graphql";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   return await handleActions(request, params);
@@ -26,64 +23,17 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
   const innsending = await hentInnsending(request, params.behandlingId);
 
-  const journalposter = await Promise.all(
-    oppgave.journalpostIder.map((journalpostId) => hentJournalpost(request, journalpostId)),
-  );
-
-  return {
-    innsending,
-    journalposter,
-  };
-}
-
-export interface IValgtDokument {
-  blobUrl: string;
-  dokumentId: string;
+  return { innsending };
 }
 
 export default function Innsending() {
-  const { innsending, journalposter } = useLoaderData<typeof loader>();
+  const { innsending } = useLoaderData<typeof loader>();
   const [valgtDokument, setValgtDokument] = useState<IValgtDokument>();
+
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
-
-  useEffect(() => {
-    const førsteJournalpost = journalposter[0];
-    if (!isAlert(førsteJournalpost) && førsteJournalpost?.dokumenter) {
-      const førsteDokument = førsteJournalpost.dokumenter[0];
-      if (førsteDokument) {
-        åpneDokument(
-          førsteJournalpost.journalpostId,
-          førsteDokument.dokumentInfoId,
-          Variantformat.Arkiv,
-        );
-      }
-    }
-  }, []);
-
-  async function åpneDokument(
-    journalpostId: string,
-    dokumentInfoId: string,
-    variantFormat: Variantformat,
-  ) {
-    const url = `/api/hent-dokument/${journalpostId}/${dokumentInfoId}/${variantFormat}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Response(`Feil ved kall til ${url}`, {
-        status: response.status,
-        statusText: response.statusText,
-      });
-    }
-
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-    setValgtDokument({ dokumentId: dokumentInfoId, blobUrl });
-  }
 
   return (
     <div className={`grid grid-cols-[350px_1fr] gap-4`}>
@@ -93,8 +43,7 @@ export default function Innsending() {
         <div className="card p-4">
           <InnsendingDokumentOversikt
             valgtDokument={valgtDokument}
-            journalposter={journalposter}
-            åpneDokument={åpneDokument}
+            setValgtDokument={setValgtDokument}
           />
         </div>
       </section>
