@@ -1,6 +1,7 @@
-import { type LoaderFunctionArgs, Outlet, useLoaderData } from "react-router";
+import { type LoaderFunctionArgs, Outlet, useLoaderData, useRouteError } from "react-router";
 import invariant from "tiny-invariant";
 
+import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { OppgaveProvider } from "~/context/oppgave-context";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
@@ -30,5 +31,14 @@ export default function OppgaveLayout() {
         <Outlet />
       </div>
     </OppgaveProvider>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <div className="main overflow-scroll overflow-y-auto">
+      <ErrorMessageComponent error={error} />
+    </div>
   );
 }
