@@ -209,7 +209,6 @@ export default function App() {
 
                 <AlertProvider>
                   <GlobalAlerts />
-
                   <Outlet />
                 </AlertProvider>
 

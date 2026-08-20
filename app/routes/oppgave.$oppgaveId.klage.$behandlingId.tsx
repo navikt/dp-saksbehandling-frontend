@@ -17,12 +17,10 @@ import KlageOppgaveMeny from "~/components/klage/klage-oppgave-meny/KlageOppgave
 import { KlageUtfall } from "~/components/klage/klage-utfall/KlageUtfall";
 import { MeldingOmVedtakKlage } from "~/components/melding-om-vedtak-klage/MeldingOmVedtakKlage";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
 import { MeldingOmVedtakProvider } from "~/context/melding-om-vedtak-context";
-import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
 import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentKlage, hentMeldingOmVedtakHtml, hentOppgave } from "~/models/saksbehandling.server";
+import { hentKlage, hentMeldingOmVedtakHtml } from "~/models/saksbehandling.server";
 import { sanityClient } from "~/sanity/sanity.config";
 import { brevMalQuery, regelmotorOpplysningQuery } from "~/sanity/sanity-queries";
 import { ISanityBrevMal, ISanityRegelmotorOpplysning } from "~/sanity/sanity-types";
@@ -39,14 +37,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
   invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
 
-  const [oppgave, meldingOmVedtak, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] =
-    await Promise.all([
-      hentOppgave(request, params.oppgaveId),
+  const [meldingOmVedtak, klage, sanityBrevMaler, sanityRegelmotorOpplysninger] = await Promise.all(
+    [
       hentMeldingOmVedtakHtml(request, params.oppgaveId),
       hentKlage(request, params.behandlingId),
       sanityClient.fetch<ISanityBrevMal[]>(brevMalQuery),
       sanityClient.fetch<ISanityRegelmotorOpplysning[]>(regelmotorOpplysningQuery),
-    ]);
+    ],
+  );
 
   const session = await getSession(request.headers.get("Cookie"));
   const alert = session.get("alert");
@@ -54,7 +52,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   return data(
     {
       alert,
-      oppgave,
       klage,
       meldingOmVedtak,
       sanityBrevMaler,
@@ -70,7 +67,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export default function Oppgave() {
   const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, meldingOmVedtak, klage, alert, sanityBrevMaler, sanityRegelmotorOpplysninger } =
+  const { oppgave } = useTypedRouteLoaderData("routes/oppgave.$oppgaveId");
+  const { meldingOmVedtak, klage, alert, sanityBrevMaler, sanityRegelmotorOpplysninger } =
     useLoaderData<typeof loader>();
   const [aktivTab, setAktivTab] = useState("behandling");
   const actionData = useActionData<typeof action>();
@@ -100,52 +98,44 @@ export default function Oppgave() {
   ];
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-      <PersonBoks person={oppgave.person} />
-      <div className={`main flex gap-4`}>
-        <OppgaveOversikt klageinstansUtfall={klage.klageinstansBehandling?.utfall} />
-        <main className={"card flex flex-1 flex-col gap-4 p-2"}>
-          <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
-            <div className="flex items-center justify-between gap-6">
-              <Tabs.List>
-                {tabs.map(({ value, label, icon }, index) => (
-                  <Tabs.Tab
-                    key={value}
-                    value={value}
-                    label={`${index + 1}. ${label}`}
-                    icon={icon}
-                  />
-                ))}
-              </Tabs.List>
-              <KlageOppgaveMeny klage={klage} />
-            </div>
-            <Tabs.Panel value="behandling">
-              <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
-            </Tabs.Panel>
+    <div className={`flex gap-4`}>
+      <OppgaveOversikt klageinstansUtfall={klage.klageinstansBehandling?.utfall} />
+      <main className={"card flex flex-1 flex-col gap-4 p-2"}>
+        <Tabs size="medium" value={aktivTab} onChange={setAktivTab}>
+          <div className="flex items-center justify-between gap-6">
+            <Tabs.List>
+              {tabs.map(({ value, label, icon }, index) => (
+                <Tabs.Tab key={value} value={value} label={`${index + 1}. ${label}`} icon={icon} />
+              ))}
+            </Tabs.List>
+            <KlageOppgaveMeny klage={klage} />
+          </div>
+          <Tabs.Panel value="behandling">
+            <KlageBehandling klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
+          </Tabs.Panel>
 
-            <Tabs.Panel value="utfall">
-              <KlageUtfall klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
-            </Tabs.Panel>
+          <Tabs.Panel value="utfall">
+            <KlageUtfall klage={klage} readonly={readOnly} setAktivTab={setAktivTab} />
+          </Tabs.Panel>
 
-            <Tabs.Panel value="melding-om-vedtak">
-              {klage.utfall.verdi !== "IKKE_SATT" && meldingOmVedtak ? (
-                <MeldingOmVedtakProvider
-                  meldingOmVedtak={meldingOmVedtak}
-                  sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
-                  sanityBrevMaler={sanityBrevMaler}
-                >
-                  <MeldingOmVedtakKlage oppgave={oppgave} />
-                </MeldingOmVedtakProvider>
-              ) : (
-                <Alert size={"small"} variant={"info"} className={"m-2"}>
-                  <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
-                </Alert>
-              )}
-            </Tabs.Panel>
-          </Tabs>
-        </main>
-      </div>
-    </OppgaveProvider>
+          <Tabs.Panel value="melding-om-vedtak">
+            {klage.utfall.verdi !== "IKKE_SATT" && meldingOmVedtak ? (
+              <MeldingOmVedtakProvider
+                meldingOmVedtak={meldingOmVedtak}
+                sanityRegelmotorOpplysninger={sanityRegelmotorOpplysninger}
+                sanityBrevMaler={sanityBrevMaler}
+              >
+                <MeldingOmVedtakKlage oppgave={oppgave} />
+              </MeldingOmVedtakProvider>
+            ) : (
+              <Alert size={"small"} variant={"info"} className={"m-2"}>
+                <Heading size={"small"}>Du må sette utfall i behandlingen</Heading>
+              </Alert>
+            )}
+          </Tabs.Panel>
+        </Tabs>
+      </main>
+    </div>
   );
 }
 

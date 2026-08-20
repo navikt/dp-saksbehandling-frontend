@@ -12,11 +12,8 @@ import invariant from "tiny-invariant";
 import { ErrorMessageComponent } from "~/components/error-boundary/RootErrorBoundaryView";
 import { LoadingLink } from "~/components/loading-link/LoadingLink";
 import { OppgaveOversikt } from "~/components/oppgave-oversikt/OppgaveOversikt";
-import { PersonBoks } from "~/components/person-boks/PersonBoks";
-import { OppgaveProvider } from "~/context/oppgave-context";
 import { useHandleAlertMessages } from "~/hooks/useHandleAlertMessages";
-import { useTypedRouteLoaderData } from "~/hooks/useTypedRouteLoaderData";
-import { hentOppgave, hentTilbakekreving } from "~/models/saksbehandling.server";
+import { hentTilbakekreving } from "~/models/saksbehandling.server";
 import { handleActions } from "~/server-side-actions/handle-actions";
 import { isAlert } from "~/utils/type-guards";
 
@@ -26,42 +23,33 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.behandlingId, "params.behandlingId er påkrevd");
-  invariant(params.oppgaveId, "params.oppgaveId er påkrevd");
-  const oppgave = await hentOppgave(request, params.oppgaveId);
   const tilbakekreving = await hentTilbakekreving(request, params.behandlingId);
 
-  return {
-    oppgave,
-    tilbakekreving,
-  };
+  return { tilbakekreving };
 }
 
 export default function Tilbakekreving() {
-  const { saksbehandler } = useTypedRouteLoaderData("root");
-  const { oppgave, tilbakekreving } = useLoaderData<typeof loader>();
+  const { tilbakekreving } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   useHandleAlertMessages(isAlert(actionData) ? actionData : undefined);
 
   return (
-    <OppgaveProvider oppgave={oppgave} saksbehandler={saksbehandler}>
-      <PersonBoks person={oppgave.person} />
-      <div className={"main flex gap-4"}>
-        <OppgaveOversikt />
-        <div
-          className={"card flex flex-1 flex-col items-center justify-center gap-4 p-4 text-center"}
+    <div className={"flex gap-4"}>
+      <OppgaveOversikt />
+      <div
+        className={"card flex flex-1 flex-col items-center justify-center gap-4 p-4 text-center"}
+      >
+        <Heading size={"medium"}>Oppgaven behandles i tilbakekrevingsløsningen</Heading>
+        <LoadingLink
+          to={tilbakekreving.saksbehandlingURL}
+          asButtonVariant={"primary"}
+          icon={<ExternalLinkIcon aria-hidden={true} />}
+          buttonSize={"medium"}
         >
-          <Heading size={"medium"}>Oppgaven behandles i tilbakekrevingsløsningen</Heading>
-          <LoadingLink
-            to={tilbakekreving.saksbehandlingURL}
-            asButtonVariant={"primary"}
-            icon={<ExternalLinkIcon aria-hidden={true} />}
-            buttonSize={"medium"}
-          >
-            Åpne behandling
-          </LoadingLink>
-        </div>
+          Åpne behandling
+        </LoadingLink>
       </div>
-    </OppgaveProvider>
+    </div>
   );
 }
 
