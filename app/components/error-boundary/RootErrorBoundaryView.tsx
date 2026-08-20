@@ -49,7 +49,7 @@ export function ErrorMessageComponent({ error }: { error: unknown }) {
   // Treffer Uncaught-exceptions, eks. feil ved import, throw new Error()
   if (error instanceof Error) {
     return (
-      <Alert className={"m-4"} variant="error">
+      <Alert className={"m-4 overflow-scroll overflow-y-auto"} variant="error">
         <Heading spacing size="medium" level="1">
           {error.name}
         </Heading>

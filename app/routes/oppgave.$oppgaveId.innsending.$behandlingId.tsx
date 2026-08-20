@@ -35,7 +35,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   );
 
   return {
-    oppgave,
     innsending,
     journalposter,
   };
