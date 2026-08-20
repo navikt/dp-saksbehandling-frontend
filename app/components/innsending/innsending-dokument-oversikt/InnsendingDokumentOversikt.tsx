@@ -27,19 +27,6 @@ export function InnsendingDokumentOversikt({ valgtDokument, setValgtDokument }: 
     return !isAlert(journalpost) ? journalpost : undefined;
   }, [journalposter]);
 
-  console.log(
-    "valgtDokument",
-    valgtDokument,
-    "førsteJournalpost",
-    førsteJournalpost,
-    "journalposter",
-    journalposter,
-    "error",
-    error,
-    "pending",
-    pending,
-  );
-
   useEffect(() => {
     if (pending || error || valgtDokument || !førsteJournalpost?.dokumenter) {
       return;

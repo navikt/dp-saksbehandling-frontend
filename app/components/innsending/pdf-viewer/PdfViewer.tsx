@@ -22,16 +22,6 @@ export function PdfViewer({ valgtDokument }: IProps) {
     queryFn: () => fetchDokumentBlobUrl(valgtDokument),
   });
 
-  console.log(
-    "PdfViewer valgtDokument",
-    valgtDokument,
-    "data",
-    data,
-    "error",
-    error,
-    "isPending",
-    isPending,
-  );
   useEffect(() => {
     return () => {
       if (data) {
