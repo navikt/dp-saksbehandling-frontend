@@ -2,15 +2,16 @@ import { FilePdfIcon } from "@navikt/aksel-icons";
 import { BodyShort, Button, Detail, List } from "@navikt/ds-react";
 import { Fragment } from "react";
 
+import { JournalpostResponse } from "~/api/journalpost";
+import { hentDokumenterMedTilgang } from "~/components/dokument-oversikt/dokument-oversikt.utils";
 import { HttpProblemAlert } from "~/components/http-problem-alert/HttpProblemAlert";
-import { IAlert } from "~/context/alert-context";
 import { formaterTilNorskDato } from "~/utils/dato.utils";
-import { isAlert, isDefined } from "~/utils/type-guards";
+import { isAlert } from "~/utils/type-guards";
 
-import { JournalpostQuery, Variantformat } from "../../../graphql/generated/saf/graphql";
+import { Variantformat } from "../../../graphql/generated/saf/graphql";
 
 interface IProps {
-  journalposterResponse: (JournalpostQuery["journalpost"] | IAlert)[];
+  journalposterResponse: JournalpostResponse[];
 }
 
 export function JournalpostOversikt({ journalposterResponse }: IProps) {
@@ -42,20 +43,7 @@ export function JournalpostOversikt({ journalposterResponse }: IProps) {
           return <HttpProblemAlert key={index} error={journalpost} />;
         }
 
-        const dokumenterMedTilgang = journalpost?.dokumenter
-          ?.map((dokument) => {
-            if (!dokument) return null;
-
-            // Filtrer ut dokumentvarianter hvor saksbehandler ikke har tilgang eller hvor variantformat er "ORIGINAL". Vi er usikre på hva original er, men den kan ikke åpnes som et dokument. Ser heller ikke ut til å finnesi Gosys
-            const dokumentvarianterMedTilgang = dokument.dokumentvarianter.filter(
-              (variant) =>
-                variant?.saksbehandlerHarTilgang && variant?.variantformat !== "ORIGINAL",
-            );
-
-            if (dokumentvarianterMedTilgang.length === 0) return null;
-            return { ...dokument, dokumentvarianter: dokumentvarianterMedTilgang };
-          })
-          .filter(isDefined);
+        const dokumenterMedTilgang = hentDokumenterMedTilgang(journalpost);
 
         if (!dokumenterMedTilgang || dokumenterMedTilgang.length === 0) {
           return (
